@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Deploys and destroys scaffold resources by using a CloudFormation stack.
+Deploys and destroys scaffold resources by using an AWS CloudFormation stack.
 """
 
 import argparse
@@ -14,8 +14,8 @@ from botocore.exceptions import ClientError
 def deploy(cloud_formation_script, stack_name, cf_resource):
     """
     Deploys scaffold resources used by the example. The resources are
-    defined in the CloudFormation script and are deployed
-    as a CloudFormation stack so they can be easily managed and destroyed.
+    defined in the CloudFormation script. They're deployed as a CloudFormation stack
+    so you can manage and destroy them by using CloudFormation actions.
 
     :param cloud_formation_script: The path to a CloudFormation script.
     :param stack_name: The name of the CloudFormation stack.
@@ -50,7 +50,7 @@ def destroy(stack, cf_resource, s3_resource):
     Destroys the resources managed by the CloudFormation stack, and the CloudFormation
     stack itself.
 
-    :param stack: The CloudFormation stack that manages the demo resources.
+    :param stack: The CloudFormation stack that manages the example resources.
     :param cf_resource: A Boto3 CloudFormation resource.
     :param s3_resource: A Boto3 S3 resource.
     """
@@ -91,17 +91,17 @@ def main():
 
     try:
         if args.action == 'deploy':
-            print("Deploying scaffold resources for the demo.")
+            print("Deploying scaffold resources for the example.")
             outputs = deploy(args.script, stack.name, cf_resource)
             print('-'*88)
-            print("To run the scenario, pass it the role and bucket names: ")
+            print("To run the scenario, pass the role and bucket names to it: ")
             print(f"\tpython scenario_getting_started_crawlers_and_jobs.py "
-                  f"--role_name {outputs['RoleName']} --bucket_name {outputs['BucketName']}")
+                  f"{outputs['RoleName']} {outputs['BucketName']}")
             print('-'*88)
-            print("To clean up all AWS resources created for the demo, run this script "
+            print("To clean up all AWS resources created for the example, run this script "
                   "again with the 'destroy' flag.")
         elif args.action == 'destroy':
-            print("Destroying scaffold resources created for the demo.")
+            print("Destroying scaffold resources created for the example.")
             destroy(stack, cf_resource, boto3.resource('s3'))
     except ClientError as err:
         print(f"Something went wrong while trying to {args.action} the stack:")

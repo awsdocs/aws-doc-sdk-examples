@@ -3,8 +3,8 @@
 
 """
 This script is used by the AWS Glue _getting started with crawlers and jobs_ scenario to
-perform extract, transform, load (ETL) operations on sample flight data.
-As part of the demo, it is uploaded to an Amazon Simple Storage Service (Amazon S3)
+perform extract, transform, and load (ETL) operations on sample flight data.
+As part of the example, it is uploaded to an Amazon Simple Storage Service (Amazon S3)
 bucket so that AWS Glue can access it.
 """
 
@@ -25,7 +25,7 @@ These custom arguments must be passed as Arguments to the StartJobRun request.
                         the data to be processed.
     --input_table       The name of a table in the database that describes the data to
                         be processed.
-    --output_bucket_url An Amazon S3 bucket that receives the transformed output data.  
+    --output_bucket_url An S3 bucket that receives the transformed output data.  
 """
 args = getResolvedOptions(sys.argv, [
     "JOB_NAME", "input_database", "input_table", "output_bucket_url"])
@@ -35,7 +35,7 @@ spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args["JOB_NAME"], args)
 
-# Script generated for node S3 Flight Data
+# Script generated for node S3 Flight Data.
 S3FlightData_node1 = glueContext.create_dynamic_frame.from_catalog(
     database=args['input_database'],
     table_name=args['input_table'],
@@ -67,7 +67,7 @@ ApplyMapping_node2 = ApplyMapping.apply(
     transformation_ctx="ApplyMapping_node2",
 )
 
-# Script generated for node Revised Flight Data
+# Script generated for node Revised Flight Data.
 RevisedFlightData_node3 = glueContext.write_dynamic_frame.from_options(
     frame=ApplyMapping_node2,
     connection_type="s3",

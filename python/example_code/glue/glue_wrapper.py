@@ -62,7 +62,7 @@ class GlueWrapper:
         :param db_name: The name to give the database that is created by the crawler.
         :param db_prefix: The prefix to give any database tables that are created by
                           the crawler.
-        :param s3_target: The URL to an Amazon S3 bucket that contains data that is
+        :param s3_target: The URL to an S3 bucket that contains data that is
                           the target of the crawler.
         """
         try:
@@ -137,7 +137,7 @@ class GlueWrapper:
     # snippet-start:[python.example_code.glue.CreateJob]
     def create_job(self, name, description, role_arn, script_location):
         """
-        Creates a job definition for an extract, transform, load (ETL) job that can
+        Creates a job definition for an extract, transform, and load (ETL) job that can
         be run by AWS Glue.
 
         :param name: The name of the job definition.
@@ -172,7 +172,7 @@ class GlueWrapper:
                                by a crawler.
         :param input_table: The name of the table in the metadata database that
                             describes the source data.
-        :param output_bucket_name: The Amazon S3 bucket where the output is written.
+        :param output_bucket_name: The S3 bucket where the output is written.
         :return: The ID of the job run.
         """
         try:

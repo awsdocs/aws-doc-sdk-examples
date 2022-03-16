@@ -42,7 +42,7 @@ Shows how to use the AWS SDK for Python (Boto3) to manage AWS Glue resources.
 ### Get started running crawlers and jobs scenario
 
 This interactive scenario runs at a command prompt and shows you how to use 
-AWS Glue to:
+AWS Glue to do the following:
 
 1. Create and run a crawler that crawls a public Amazon Simple Storage
    Service (Amazon S3) bucket and generates a metadata database that describes the
@@ -50,7 +50,7 @@ AWS Glue to:
 2. List information about databases and tables in your AWS Glue Data Catalog.
 3. Create and run a job that extracts CSV data from the source Amazon S3 bucket,
    transforms it by removing and renaming fields, and loads JSON-formatted output into
-   another Amazon S3 bucket.
+   another S3 bucket.
 4. List information about job runs and view some of the transformed data.
 5. Delete all resources created by the demo.
 
@@ -77,7 +77,7 @@ Outputs:
         BucketName: doc-example-glue-scenario-docexampleglue6e2f12e5-3zjkuexample
 ```
 
-Start the scenario at a command prompt, passing it the role and bucket name.
+Start the scenario at a command prompt, passing the role and bucket name to it.
 
 ```
 python scenario_getting_started_crawler_and_jobs.py AWSGlueServiceRole-DocExample doc-example-glue-scenario-docexampleglue6e2f12e5-3zjkuexample

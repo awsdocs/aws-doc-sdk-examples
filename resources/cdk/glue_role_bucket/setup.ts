@@ -5,10 +5,10 @@
 
 // Purpose
 //
-// Defines an AWS CloudFormation stack that creates:
+// Defines an AWS CloudFormation stack that creates the following:
 //
 //  * An Amazon Simple Storage Service (Amazon S3) bucket.
-//  * An AWS Identity and Access Management (IAM) role that can be assume by AWS Glue,
+//  * An AWS Identity and Access Management (IAM) role that can be assumed by AWS Glue,
 //    grants permission to read from and write to the bucket, and attaches the
 //    AWSGlueServiceRole managed policy.
 //

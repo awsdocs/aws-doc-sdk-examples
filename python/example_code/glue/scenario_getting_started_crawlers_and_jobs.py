@@ -10,11 +10,11 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS Glue to:
    Service (Amazon S3) bucket and generates a metadata database that describes the
    CSV-formatted data it finds.
 2. List information about databases and tables in your AWS Glue Data Catalog.
-3. Create and run a job that extracts CSV data from the source Amazon S3 bucket,
+3. Create and run a job that extracts CSV data from the source S3 bucket,
    transforms it by removing and renaming fields, and loads JSON-formatted output into
    another Amazon S3 bucket.
 4. List information about job runs and view some of the transformed data.
-5. Delete all resources created by the demo.
+5. Delete all resources created by the example.
 """
 
 import argparse
@@ -43,11 +43,12 @@ class GlueCrawlerJobScenario:
     """
     def __init__(self, glue_client, glue_service_role, glue_bucket):
         """
-        :param glue_client: A Boto3 Glue client.
-        :param glue_service_role: An IAM role that Glue can assume to gain access to the
+        :param glue_client: A Boto3 AWS Glue client.
+        :param glue_service_role: An AWS Identity and Access Management (IAM) role
+                                  that AWS Glue can assume to gain access to the
                                   resources it requires.
         :param glue_bucket: An S3 bucket that can hold a job script and output data
-                            from Glue job runs.
+                            from AWS Glue job runs.
         """
         self.glue_client = glue_client
         self.glue_service_role = glue_service_role
@@ -56,8 +57,8 @@ class GlueCrawlerJobScenario:
     @staticmethod
     def wait(seconds, tick=12):
         """
-        Waits for a specified number of seconds, displaying an animated spinner all
-        the while.
+        Waits for a specified number of seconds, while also displaying an animated
+        spinner.
 
         :param seconds: The number of seconds to wait.
         :param tick: The number of frames per second used to animate the spinner.
@@ -80,7 +81,7 @@ class GlueCrawlerJobScenario:
         """
         try:
             self.glue_bucket.upload_file(Filename=job_script, Key=job_script)
-            print(f"Uploaded job script '{job_script}' to the demo bucket.")
+            print(f"Uploaded job script '{job_script}' to the example bucket.")
         except S3UploadFailedError as err:
             logger.error("Couldn't upload job script. Here's why: %s", err)
             raise
@@ -118,7 +119,7 @@ class GlueCrawlerJobScenario:
         print(f"When you run the crawler, it crawls data stored in {data_source} and "
               f"creates a metadata database in the AWS Glue Data Catalog that describes "
               f"the data in the data source.")
-        print("In this demo, the source data is in CSV format.")
+        print("In this example, the source data is in CSV format.")
         ready = False
         while not ready:
             ready = Question.ask_question(
@@ -148,13 +149,13 @@ class GlueCrawlerJobScenario:
 
         print(f"Creating job definition {job_name}.")
         wrapper.create_job(
-            job_name, "Getting started demo job.", self.glue_service_role.arn,
+            job_name, "Getting started example job.", self.glue_service_role.arn,
             f's3://{self.glue_bucket.name}/{job_script}')
         print("Created job definition.")
         print(f"When you run the job, it extracts data from {data_source}, transforms it "
               f"by using the {job_script} script, and loads the output into "
               f"S3 bucket {self.glue_bucket.name}.")
-        print("In this demo, the data is transformed from CSV to JSON, and only a few "
+        print("In this example, the data is transformed from CSV to JSON, and only a few "
               "fields are included in the output.")
         job_run_status = None
         if Question.ask_question(f"Ready to run? (y/n) ", Question.is_yesno):
@@ -216,7 +217,7 @@ class GlueCrawlerJobScenario:
             print("Your account doesn't have any jobs defined.")
         print('-'*88)
 
-        print(f"Let's clean up. During this demo we created job definition '{job_name}'.")
+        print(f"Let's clean up. During this example we created job definition '{job_name}'.")
         if Question.ask_question(
                 "Do you want to delete the definition and all runs? (y/n) ", Question.is_yesno):
             wrapper.delete_job(job_name)
@@ -253,12 +254,12 @@ def parse_args(args):
                     "'python scaffold.py deploy'.")
     parser.add_argument(
         'role_name',
-        help="The name of an IAM role that Glue can assume. This role must grant access "
+        help="The name of an IAM role that AWS Glue can assume. This role must grant access "
              "to Amazon S3 and to the permissions granted by the AWSGlueServiceRole "
              "managed policy.")
     parser.add_argument(
         'bucket_name',
-        help="The name of an S3 bucket that Glue can access to get the job script and "
+        help="The name of an S3 bucket that AWS Glue can access to get the job script and "
              "put job results.")
     parser.add_argument(
         '--job_script',
@@ -288,7 +289,7 @@ def main():
         print("\nThanks for watching!")
         print('-' * 88)
     except Exception:
-        logging.exception("Something went wrong with the demo.")
+        logging.exception("Something went wrong with the example.")
 # snippet-end:[python.example_code.glue.Scenario_GetStartedCrawlersJobs]
 
 
