@@ -30,7 +30,6 @@ class IamService
         $iamClient = new IamClient(['region' => 'us-west-2', 'version' => 'latest', 'profile' => 'default']);
         # snippet-end:[php.example_code.iam.basics.createClient]
         */
-
     }
 
     # snippet-start:[php.example_code.iam.service.createUser]
@@ -388,5 +387,4 @@ class IamService
         $this->iamClient->updateAccountPasswordPolicy($array);
     }
     # snippet-end:[php.example_code.iam.service.updateAccountPasswordPolicy]
-
 }

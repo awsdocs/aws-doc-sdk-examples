@@ -9,8 +9,6 @@
 
 namespace Iam\Basics;
 
-require "vendor/autoload.php";
-
 use Iam\IamService;
 use PHPUnit\Framework\TestCase;
 
@@ -87,7 +85,11 @@ class IAMBasicsTests extends TestCase
     public function testCreateUserPolicy()
     {
         $user = self::$service->createUser("iam_test_user_" . self::$uuid);
-        $userPolicy = self::$service->createUserPolicy("iam_test_inline_policy_" . self::$uuid, self::$policy, $user['UserName']);
+        $userPolicy = self::$service->createUserPolicy(
+            "iam_test_inline_policy_" . self::$uuid,
+            self::$policy,
+            $user['UserName']
+        );
 
         self::assertTrue(true); //$userPolicy will be null, but this line only runs when no exception is thrown
 
@@ -182,12 +184,4 @@ class IAMBasicsTests extends TestCase
 
         self::assertTrue(true); //no exceptions thrown
     }
-
-//    public function testListRoles()
-//    {
-//        $roles = self::$service->listRoles();
-//        var_dump($roles);
-//        self::assertTrue(true);
-//    }
-
 }
