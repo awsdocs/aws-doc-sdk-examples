@@ -61,6 +61,10 @@ import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
+ * To set up the resources, see this topic:
+ *
+ * https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html 
+ *
  * This example performs these tasks:
  *
  * 1. CreateDatabase
