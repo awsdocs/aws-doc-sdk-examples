@@ -40,7 +40,7 @@ go run .
 
 ## Running the tests
 
-From a directory containing `go.mod`, sue `go test` to run all unit tests:
+From a directory containing `go.mod`, use `go test` to run all unit tests:
 
 ```
 go test ./...
