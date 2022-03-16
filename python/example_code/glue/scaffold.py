@@ -76,7 +76,7 @@ def main():
                     "deploy resources or with the 'destroy' action to destroy resources.")
     parser.add_argument(
         'action', choices=['deploy', 'destroy'],
-        help="Indicates the action the script performs.")
+        help="Indicates the action that the script performs.")
     parser.add_argument(
         '--script', default='setup_scenario_getting_started.yaml',
         help="The name of the CloudFormation script to use to deploy resources.")
