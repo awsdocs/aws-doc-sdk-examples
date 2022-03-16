@@ -26,7 +26,7 @@ namespace IAM_Basics_Scenario
         private const string RoleName = "temporary-role";
         private const string AssumePolicyName = "sts-trust-user";
 
-        private const string RolePermissions = @"{
+        private const string PolicyDocument = @"{
                 'Version': '2012-10-17',
                 'Statement': [
                     {
@@ -36,17 +36,6 @@ namespace IAM_Basics_Scenario
                     }
                 ]
             }";
-
-        private const string ManagedPolicy = @"{
-          'Version': '2012-10-17',
-          'Statement': [
-            {
-              'Effect': 'Allow',
-              'Action': ['s3:ListAllMyBuckets', 'sts:AssumeRole'],
-              'Resource': '*',
-            },
-          ],
-        }";
 
         private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
 
@@ -72,20 +61,18 @@ namespace IAM_Basics_Scenario
             // Try listing the Amazon Simple Storage Service (Amazon S3)
             // buckets. This should fail at this point because the user doesn't
             // have permissions to perform this task.
-            var s3Client = new AmazonS3Client(accessKeyId, secretAccessKey);
+            await ListMyBucketsAsync(accessKeyId, secretAccessKey);
 
-            // Try to list the buckets using the client created with
-            // the new user's credentials.
-            await ListMyBucketsAsync(s3Client);
-
-            // Trust the user to assume the role.
-            string accessPermissions = @"{
+            // Define a role policy document that allows the new user
+            // to assume the role.
+            string assumeRolePolicyDocument = @"
+            {
                 'Version': '2012-10-17',
                 'Statement': [
                     {
                         'Effect': 'Allow',
                         'Principal': {
-                            AWS:" + userArn + @",
+                            AWS: " + userArn + @",
                         },
                         'Action': 'sts:AssumeRole',
                     },
@@ -95,14 +82,28 @@ namespace IAM_Basics_Scenario
             // Create the role to allow listing the Amazon Simple Storage Service
             // (Amazon S3) buckets. Role names are not case sensitive and must
             // be unique to the account for which it is created.
-            var role = await CreateRoleAsync(client, RoleName, RolePermissions);
+            var role = await CreateRoleAsync(client, RoleName, assumeRolePolicyDocument);
             var roleArn = role.Arn;
+
+            // Create a policy with permissions to list Amazon S3 buckets
+            var policy = await CreatePolicyAsync(client, S3PolicyName, PolicyDocument);
+
+            // Attach the policy to the role we created earlier.
+            await AttachRoleAsync(client, policy.Arn, RoleName);
 
             // Use the Security Token Service (AWS STS) to have the user assume
             // the role we created.
             var stsClient = new AmazonSecurityTokenServiceClient();
             var assumedRoleUser = await AssumeS3RoleAsync(stsClient, UserName, 1600, "temporary-session", roleArn);
 
+            // Try again to list the buckets using the client created with
+            // the new user's credentials. This time is should work.
+            await ListMyBucketsAsync(accessKeyId, secretAccessKey);
+
+            // Now clean up all the resources used in the example.
+            await DeleteResources(client, UserName, RoleName);
+
+            Console.WriteLine("IAM Demo completed.");
         }
 
         // snippet-start:[IAM.dotnetv3.CreateUserAsync]
@@ -161,17 +162,17 @@ namespace IAM_Basics_Scenario
         /// </summary>
         /// <param name="client">The initialized IAM client object.</param>
         /// <param name="policyName">The name of the poicy to create.</param>
-        /// <param name="rolePermissions">The permissions policy document.</param>
+        /// <param name="policyDocument">The permissions policy document.</param>
         /// <returns>The newly created ManagedPolicy object.</returns>
         public static async Task<ManagedPolicy> CreatePolicyAsync(
             AmazonIdentityManagementServiceClient client,
             string policyName,
-            string rolePermissions)
+            string policyDocument)
         {
             var request = new CreatePolicyRequest
             {
                 PolicyName = policyName,
-                PolicyDocument = rolePermissions,
+                PolicyDocument = policyDocument,
             };
 
             var response = await client.CreatePolicyAsync(request);
@@ -180,6 +181,32 @@ namespace IAM_Basics_Scenario
         }
 
         // snippet-end:[IAM.dotnetv3.CreatePolicyAsync]
+
+        // snippet-start:[IAM.dotnetv3.AttachPolicy]
+        public static async Task AttachRoleAsync(
+            AmazonIdentityManagementServiceClient client,
+            string policyArn,
+            string roleName)
+        {
+            var request = new AttachRolePolicyRequest
+            {
+                PolicyArn = policyArn,
+                RoleName = roleName,
+            };
+
+            var response = await client.AttachRolePolicyAsync(request);
+
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine("Successfully attached the policy to the role.");
+            }
+            else
+            {
+                Console.WriteLine("Could not attach the policy.");
+            }
+        }
+
+        // snippet-end:[IAM.dotnetv3.AttachPolicy]
 
         // snippet-start:[IAM.dotnetv3.CreateRoleAsync]
 
@@ -198,6 +225,7 @@ namespace IAM_Basics_Scenario
             var request = new CreateRoleRequest
             {
                 RoleName = roleName,
+                AssumeRolePolicyDocument = rolePermissions,
             };
 
             var response = await client.CreateRoleAsync(request);
@@ -212,14 +240,17 @@ namespace IAM_Basics_Scenario
         /// <summary>
         /// List the Amazon S3 buckets owned by the user.
         /// </summary>
-        /// <param name="client">Initialized Amazon S3 client.</param>
-        public static async Task ListMyBucketsAsync(AmazonS3Client client)
+        /// <param name="accessKeyId">The access key Id for the user.</param>
+        /// <param name="secretAccessKey">The Secret access key for the user.</param>
+        public static async Task ListMyBucketsAsync(string accessKeyId, string secretAccessKey)
         {
             Console.WriteLine("\nPress <Enter> to list the S3 buckets using the new user.\n");
             Console.ReadLine();
 
             try
             {
+                var client = new AmazonS3Client(accessKeyId, secretAccessKey);
+
                 // Get the list of buckets accessible by the new user.
                 var response = await client.ListBucketsAsync();
 
@@ -234,10 +265,11 @@ namespace IAM_Basics_Scenario
             {
                 // This is the expected error if the role has not been assigned
                 // to the user associated with the Amazon S3 client.
-                Console.WriteLine($"Error: {ex}");
                 Console.WriteLine("The user associated with this client does not have permission to call ListBucketsAsync.");
             }
         }
+
+        // snippet-end:[S3.dotnetv3.ListBucketsAsync]
 
         // snippet-start:[STS.dotnetv3.AssumeRole]
 
@@ -259,14 +291,14 @@ namespace IAM_Basics_Scenario
             AmazonSecurityTokenServiceClient client,
             string userName,
             int sessionDuration,
-            string roleSession
+            string roleSession,
             string roleToAssume)
         {
             // Create the request to use with the AssumeRoleAsync call.
             var request = new AssumeRoleRequest()
             {
-                DurationSeconds = 1600,
-                RoleSessionName = sessionDuration.ToString(),
+                DurationSeconds = sessionDuration,
+                RoleSessionName = roleSession,
                 RoleArn = roleToAssume,
             };
 
@@ -277,8 +309,6 @@ namespace IAM_Basics_Scenario
 
         // snippet-end:[STS.dotnetv3.AssumeRole]
 
-        // snippet-end:[S3.dotnetv3.ListBucketsAsync]
-
         /// <summary>
         /// Delete the user, and other resources created for this example.
         /// </summary>
@@ -288,7 +318,8 @@ namespace IAM_Basics_Scenario
         /// delete operations.</returns>
         public static async Task DeleteResources(
             AmazonIdentityManagementServiceClient client,
-            string userName)
+            string userName,
+            string roleName)
         {
             bool success = false;
 
