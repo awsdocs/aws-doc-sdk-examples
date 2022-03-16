@@ -9,7 +9,6 @@ use Aws\Result;
 
 class IamService
 {
-
     public static int $maxWaitAttempts = 10;
     public static int $waitTime = 2;
     protected IamClient $iamClient;

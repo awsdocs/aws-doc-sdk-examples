@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class IamServiceTest extends TestCase
 {
-
     protected static $service;
     protected static $uuid;
     protected static $policy = "{
