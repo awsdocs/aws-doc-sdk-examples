@@ -73,7 +73,7 @@ The examples in this section show how to use AWS Identity and Access Management 
 - [ListUsersExample](ListUsersExample/)
 
 
-## Running the Examples
+## Running the examples
 
 Once the example has been compiled, you can run it from the commandline by
 first navigating to the folder that contains the .csproj file, and then
