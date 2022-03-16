@@ -34,7 +34,7 @@ func TestOps(t *testing.T) {
 
 	t.Log("Creating bucket...")
 	MakeBucket(*client, bucketName)
-	t.Log("DOing things to the bucket...")
+	t.Log("Doing things to the bucket...")
 	BucketOps(*client, bucketName)
 	t.Log("list and such things being done to the bucket...")
 	AccountBucketOps(*client, bucketName)
