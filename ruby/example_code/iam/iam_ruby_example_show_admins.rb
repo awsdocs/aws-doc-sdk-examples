@@ -1,5 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
 # This code example determines the users available to you in
 # AWS Identity and Access Management (IAM), how many of them are associated
@@ -19,7 +19,7 @@
 # snippet-start:[elastictranscoder.ruby.showAdmins]
 
 
-require 'aws-sdk-iam'
+require "aws-sdk-iam"
 
 # Determines whether the specified user in
 # AWS Identity and Access Management (IAM) is associated with a policy that
@@ -224,35 +224,35 @@ def run_me
 
   num_users = 0
   num_admins = 0
-  access_admin = 'AdministratorAccess'
+  access_admin = "AdministratorAccess"
 
-  puts 'Getting the list of available users...'
-  details = client.get_account_authorization_details(filter: ['User'])
+  puts "Getting the list of available users..."
+  details = client.get_account_authorization_details(filter: ["User"])
   users = details.user_detail_list
 
   unless users.count.positive?
-    puts 'No available users found. Stopping program.'
+    puts "No available users found. Stopping program."
     exit 1
   end
 
   num_users += users.count
 
-  puts 'Getting the list of available users who are associated with the ' \
+  puts "Getting the list of available users who are associated with the " \
     "policy '#{access_admin}'..."
   more_admins = get_admin_count(client, users, access_admin)
   num_admins += more_admins
 
   unless num_admins.positive?
-    puts 'No available users found yet who are associated with the ' \
+    puts "No available users found yet who are associated with the " \
       "policy '#{access_admin}'. Looking for more available " \
-      'users...'
+      "users..."
   end
 
   more_users = details.is_truncated
 
   while more_users
     details = client.get_account_authorization_details(
-      filter: ['User'],
+      filter: ["User"],
       marker: details.marker
     )
 
@@ -264,7 +264,7 @@ def run_me
   end
 
   puts "Out of #{num_users} available user(s), found #{num_admins} " \
-    'available user(s) who is/are associated with the policy ' \
+    "available user(s) who is/are associated with the policy " \
     "'#{access_admin}'."
 end
 

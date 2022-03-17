@@ -1,0 +1,16 @@
+{
+  "author": "Brian Murray <brmur@amazon.com>",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.32.0",
+    "@aws-sdk/lib-dynamodb": "^3.32.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.14.4",
+    "jest": "^26.6.3",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
