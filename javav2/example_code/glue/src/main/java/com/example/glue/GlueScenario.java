@@ -55,17 +55,17 @@ import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
 
 /**
  *
- * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * To set up the resources, see this topic:
+ * To set up the resources, see this documentation topic:
  *
- * https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html 
+ * https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html
  *
- * This example performs these tasks:
+ * This example performs the following tasks:
  *
  * 1. CreateDatabase
  * 2. CreateCrawler
@@ -91,14 +91,14 @@ public class GlueScenario {
                 "Usage:\n" +
                 "    <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName> \n\n" +
                 "Where:\n" +
-                "    iam - the ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
-                "    s3Path - the Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +
-                "    cron - a cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).\n" +
-                "    dbName - the database name. \n" +
-                "    crawlerName - the name of the crawler. \n" +
-                "    jobName - the name you assign to this job definition."+
-                "    scriptLocation - specifies the Amazon S3 path to a script that runs a job." +
-                "    locationUri - specifies the location of the database" ;
+                "    iam - The ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
+                "    s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +
+                "    cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).\n" +
+                "    dbName - The database name. \n" +
+                "    crawlerName - The name of the crawler. \n" +
+                "    jobName - The name you assign to this job definition."+
+                "    scriptLocation - The Amazon S3 path to a script that runs a job." +
+                "    locationUri - The location of the database" ;
 
         if (args.length != 8) {
             System.out.println(usage);
@@ -131,7 +131,7 @@ public class GlueScenario {
         getAllJobs(glueClient);
         getJobRuns(glueClient, jobName);
         deleteJob(glueClient, jobName);
-        System.out.println("*** Wait for 5 MIN so the "+crawlerName +" has stopped");
+        System.out.println("*** Wait 5 MIN for the "+crawlerName +" to stop");
         TimeUnit.MINUTES.sleep(5);
         deleteDatabase(glueClient, dbName);
         deleteSpecificCrawler(glueClient, crawlerName);
