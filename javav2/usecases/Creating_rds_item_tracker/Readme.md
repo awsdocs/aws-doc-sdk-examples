@@ -4,10 +4,10 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a dynamic web application that tracks and reports on Amazon Relational Database data.     |
+| Description | Discusses how to develop a dynamic web application that tracks and reports on Amazon Relational Database Service (Amazon RDS) data.     |
 | Audience   |  Developer (beginner / intermediate)        |
 | Updated   | 3/15/2022        |
-| Required Skills   | Java, Maven  |
+| Required skills   | Java, Maven  |
 
 ## Purpose
 
@@ -54,9 +54,9 @@ After you create the database, in the **Connectivity & security** section, view 
 
 ![AWS Tracking Application](images/trackEndpoint2.png)
       
-**Note:** You must set up an inbound rules for the security group to connect to the database from your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up an inbound rule, you can connect to the database from a client such as MySQL Workbench. For more information, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+**Note:** You must set up an inbound rule for the security group to connect to the database from your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up an inbound rule, you can connect to the database from a client such as MySQL Workbench. For more information, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
 
-In addition, make sure that you setup your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+In addition, make sure that you set up your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 ## Understand the AWS Tracker application
 
@@ -1431,18 +1431,15 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
     // Create Headings in the Excel spreadsheet.
     private void createLabel(WritableSheet sheet)
             throws WriteException {
-        // Create a times font.
+       
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        // Define the cell format.
         times = new WritableCellFormat(times10pt);
-        // Lets automatically wrap the cells.
         times.setWrap(true);
 
         // Create a bold font with underlining.
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Automatically wrap the cells.
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1468,7 +1465,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
 
             WorkItem wi = list.get(i);
 
-            //Get tne work item values.
+            // Get the work item values.
             String name = wi.getName();
             String guide = wi.getGuide();
             String date = wi.getDate();
@@ -2361,7 +2358,7 @@ Using the IntelliJ IDE, you can run your application. The first time you run the
 
 ![AWS Tracking Application](images/runapp.png)
 
-**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. If you do deploy this application to AWS Elastic Beanstalk, you need to set up an additional inbound rule. For information about deploying a web application, see the following document [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
+**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. If you do deploy this application to AWS Elastic Beanstalk, you need to set up an additional inbound rule. For information about deploying a web application, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
 
 ### Next steps
 Congratulations, you have created and deployed a Spring Boot application that interacts with Amazon RDS (and other AWS services). As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
