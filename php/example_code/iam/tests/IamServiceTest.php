@@ -26,7 +26,6 @@ class IamServiceTest extends TestCase
 
     public function testConstructor()
     {
-//        self::$service = new IamService();
         self::assertInstanceOf(IamService::class, self::$service);
     }
 

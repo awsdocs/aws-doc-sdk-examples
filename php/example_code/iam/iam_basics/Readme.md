@@ -1,32 +1,53 @@
-# Amazon S3 bucket and object examples
+# IAM code examples for AWS SDK for PHP
 
-## Purpose
+## Overview
 
-Shows how to use the AWS SDK for PHP v3 to get started using bucket and object operations in Amazon Simple Storage
-Service (Amazon S3). Learn to create, get, remove, and configure buckets and objects.
+Shows how to use the AWS SDK for PHP to manage Amazon IAM resources.
 
-*Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from
-anywhere on the web.*
+*IAM is a web service for securely controlling access to AWS services. With IAM, you can centrally manage users,
+security credentials such as access keys, and permissions that control which AWS resources users and applications can
+access.*
+
+## ⚠️ Important
+
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform
+  the task. For more information,
+  see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  .
+* This code is not tested in every AWS Region. For more information,
+  see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
-### Scenario examples
+### Single action
 
-* [Getting started with buckets and objects](GettingStartedWithS3.php)
+* [Listing Roles](../IamService.php) (ListRoles)
+* [Listing Users](../IamService.php) (ListUsers)
+* [Listing Groups](../IamService.php) (ListGroups)
+* [Attaching Role Policies](../IamService.php) (AttachRolePolicy)
+* [Getting an Account Password Policy](../IamService.php) (GetAccountPasswordPolicy)
+* [Listing SAML Providers](../IamService.php) (ListSAMLProviders)
+* [Listing Role Policies](../IamService.php) (ListRolePolicies)
+* [Getting a Role](../IamService.php) (GetRole)
+* [Listing Policies](../IamService.php) (ListPolicies)
+* [Creating a Service Linked Role](../IamService.php) (CreateServiceLinkedRole)
+* [Creating a Role](../IamService.php) (CreateRole)
+* [Listing Attached Role Policies](../IamService.php) (ListAttachedRolePolicies)
+* [Getting a Policy](../IamService.php) (GetPolicy)
 
-## ⚠ Important
+### Scenario
 
-- As an AWS best practice, grant this code least privilege, or only the permissions required to perform a task. For more
-  information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the *AWS Identity and Access Management User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more
-  information, see the
-  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
+* [Getting started with IAM](GettingStartedWithIAM.php)
 
 ## Running the code
+
+Run the scenario with the following command:
+
+```
+php GettingStartedWithIAM.php
+```
 
 ### Prerequisites
 
@@ -36,34 +57,20 @@ anywhere on the web.*
 - PHP 7.1 or later
 - Composer installed
 
-### Command
+## Tests
 
-**Getting started with buckets and objects**
+⚠️ Running the tests might result in charges to your AWS account.
 
-Interactively shows how to create a bucket and upload and download objects. To start, ensure your composer dependencies
-are installed with the following command at a command prompt in the s3_basics directory:
-
-```
-composer install
-```
-
-Once your composer depencies are successfully installed, you can run the getting started file directly with:
+To run the tests with the following command:
 
 ```
-php GettingStartedWithS3.php
-```   
-
-Or you can run it as part of a PHPUnit test with:
-
-```
-vendor/bin/phpunit S3BasicsTests.php
+vendor/bin/phpunit tests/IAMBasicsTests.php
 ```
 
-## Additional information
+## Additional resources
 
-- [Amazon S3 documentation](https://docs.aws.amazon.com/s3)
+* [AWS Identity and Access Management Documentation](https://docs.aws.amazon.com/iam)
+* [AWS Identity and Access Management API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
+* [AWS SDK for PHP API Reference](https://docs.aws.amazon.com/aws-sdk-php/v3/api/index.html)
 
----
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
