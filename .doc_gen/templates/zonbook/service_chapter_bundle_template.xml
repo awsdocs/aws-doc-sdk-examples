@@ -10,7 +10,7 @@
 <!-- zexi 0.4.3 -->
 <chapter id="service_code_examples" role="topic">
     <info>
-        <title id="service_code_examples.title">Code examples for {{.BundleOwner.Short}}</title>
+        <title id="service_code_examples.title">Code examples for {{.BundleOwner.Short}} using &AWS; SDKs</title>
         <titleabbrev id="service_code_examples.titleabbrev">Code examples</titleabbrev>
         <abstract>
             <para>Code examples that show how to use {{.BundleOwner.Short}} with an &AWS; SDK.</para>

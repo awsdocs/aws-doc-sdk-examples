@@ -135,6 +135,11 @@ glacier:
   short: "&GLshort;"
   sort: "S3 Glacier"
   version: glacier-2012-06-01
+glue:
+  long: "&GLUlong;"
+  short: "&GLU;"
+  sort: "Glue"
+  version: glue-2017-03-31
 iam:
   long: "&IAMlong;"
   short: "&IAM;"
