@@ -15,7 +15,7 @@ AWS Glue is a serverless data integration service that makes it easy to discover
 
 ### Single action
 
-You will find these examples that use the **GlueClient** object: 
+The following examples use the **GlueClient** object:
 
 - [Creating an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/CreateCrawler.java) (CreateCrawler command)
 - [Deleting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/DeleteCrawler.java) (DeleteCrawler command)
@@ -119,7 +119,7 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[ERROR];
 
 ## Additional resources
-* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html).
 * [AWS Glue Studio User Guide](https://docs.aws.amazon.com/glue/latest/ug/notebooks-chapter.html).
 * [Interface GlueClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/glue/GlueClient.html).
