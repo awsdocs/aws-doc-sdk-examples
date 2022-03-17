@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Unit tests for scenario_getting_started_crawlers_and_jobs.py functions.
+Integration tests for scenario_getting_started_crawlers_and_jobs.py.
 """
 
 from unittest.mock import patch
