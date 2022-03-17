@@ -1340,7 +1340,6 @@ iam_GetRole:
             - description:
               snippet_tags:
                 - php.example_code.iam.iam_basics.startService
-                - php.example_code.iam.iam_basics.getRole
                 - php.example_code.iam.service.getRole
     Python:
       versions:

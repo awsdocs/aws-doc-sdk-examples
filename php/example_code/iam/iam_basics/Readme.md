@@ -61,7 +61,7 @@ php GettingStartedWithIAM.php
 
 ⚠️ Running the tests might result in charges to your AWS account.
 
-To run the tests with the following command:
+Run the tests with the following command:
 
 ```
 vendor/bin/phpunit tests/IAMBasicsTests.php
