@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier:  Apache-2.0
 
+# snippet-start:[rekognition.python.custom_labels_csv_manifest.complete]
 from datetime import datetime, timezone
 import argparse
 import logging
@@ -195,3 +196,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# snippet-end:[rekognition.python.custom_labels_csv_manifest.complete]
