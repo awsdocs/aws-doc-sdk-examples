@@ -1,0 +1,16 @@
+s3://docexamplebucket1/circuitboard/train/anomaly/camellia1.jpg,camellia,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/camellia1.jpg,camellia,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/camellia2.jpg,camellia,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/camellia3.jpg,camellia,without_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/helleborus1.jpg,helleborus,without_leaves,not_fully_grown
+s3://docexamplebucket1/circuitboard/train/anomaly/helleborus2.jpg,helleborus,with_leaves,fully_grown
+s3://docexamplebucket1/circuitboard/train/anomaly/helleborus3.jpg,helleborus,with_leaves,fully_grown
+s3://docexamplebucket1/circuitboard/train/anomaly/jonquil1.jpg,jonquil,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/jonquil2.jpg,jonquil,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/jonquil3.jpg,jonquil,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/jonquil4.jpg,jonquil,without_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/mauve_honey_myrtle1.jpg,mauve_honey_myrtle,without_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/mauve_honey_myrtle2.jpg,mauve_honey_myrtle,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/mauve_honey_myrtle3.jpg,mauve_honey_myrtle,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/mediterranean_spurge1.jpg,mediterranean_spurge,with_leaves
+s3://docexamplebucket1/circuitboard/train/anomaly/mediterranean_spurge2.jpg,mediterranean_spurge,without_leaves
