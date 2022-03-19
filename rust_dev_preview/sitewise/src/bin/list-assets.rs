@@ -27,7 +27,7 @@ struct Opt {
     verbose: bool,
 }
 
-// List the assets under IoT SiteWise.
+// List the assets under AWS IoT SiteWise.
 // snippet-start:[sitewise.rust.list-assets]
 async fn list_assets(
     client: &Client,
@@ -86,13 +86,13 @@ async fn list_assets(
 }
 // snippet-end:[sitewise.rust.list-assets]
 
-/// Lists the id, arn, name, asset_model_id, creation_date, last_update_data, status
-/// and hierarchies of your Sitewise Assets in the Region.
+/// Lists the ID, Amazon Resource Name (ARN), name, asset_model_id, creation_date, last_update_data,
+/// status, and hierarchies of your AWS IoT SiteWise assets in the Region.
 ///
 /// # Arguments
 ///
 /// * `-f FILTER` - The type of filter.
-///   Must be one of:
+///   Must be one of the following:
 ///   - ALL - The list includes all assets for a given asset model ID. The assetModelId parameter
 ///   is required if you filter by ALL.
 ///   - TOP_LEVEL - The list includes only top-level assets in the asset hierarchy tree.
