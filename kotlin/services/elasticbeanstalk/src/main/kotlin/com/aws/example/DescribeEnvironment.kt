@@ -17,7 +17,7 @@ package com.aws.example
 import aws.sdk.kotlin.services.elasticbeanstalk.ElasticBeanstalkClient
 import aws.sdk.kotlin.services.elasticbeanstalk.model.DescribeEnvironmentsRequest
 import kotlin.system.exitProcess
-//snippet-main:[eb.kotlin.describe_env.import]
+//snippet-end:[eb.kotlin.describe_env.import]
 
 /**
 To run this Kotlin code example, ensure that you have set up your development environment,
