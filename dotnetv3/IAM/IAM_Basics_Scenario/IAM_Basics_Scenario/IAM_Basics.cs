@@ -372,6 +372,8 @@ namespace IAM_Basics_Scenario
 
         }
 
+        // snippet-end:[IAM.dotnetv3.DeleteResourcesAsync]
+
         /// <summary>
         /// Display a countdown and wait for a number of seconds.
         /// </summary>
