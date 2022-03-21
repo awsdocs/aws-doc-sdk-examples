@@ -140,7 +140,7 @@ class IamServiceTest extends TestCase
         self::$service->deleteAccessKey($values['key']['AccessKeyId']);
         self::$service->deleteUser($values['user']['UserName']);
 
-        self::assertTrue(true); //no exceptions thrown
+        self::assertTrue(true); // No exceptions thrown.
     }
 
     /**

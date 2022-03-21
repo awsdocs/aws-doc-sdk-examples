@@ -33,7 +33,7 @@ class IAMBasicsTests extends TestCase
     public function testItRunsWithoutThrowingAnException()
     {
         include "GettingStartedWithIAM.php";
-        self::assertTrue(true); //this asserts that we made it to this line with no exceptions thrown
+        self::assertTrue(true); // Asserts that we made it to this line with no exceptions.
     }
 
     public function testCreateUser()
@@ -61,7 +61,7 @@ class IAMBasicsTests extends TestCase
     }
 
     /**
-     * @param $values //contains user and role
+     * @param $values // Contains user and role.
      * @depends testCreateRole
      * @return string
      */
@@ -91,7 +91,7 @@ class IAMBasicsTests extends TestCase
             $user['UserName']
         );
 
-        self::assertTrue(true); //$userPolicy will be null, but this line only runs when no exception is thrown
+        self::assertTrue(true); //$userPolicy will be null, but this line only runs when no exception is thrown.
 
         self::$service->deleteUser($user['UserName']);
     }
@@ -182,6 +182,6 @@ class IAMBasicsTests extends TestCase
         self::$service->deleteAccessKey($values['key']['AccessKeyId']);
         self::$service->deleteUser($values['user']['UserName']);
 
-        self::assertTrue(true); //no exceptions thrown
+        self::assertTrue(true); // No exceptions thrown.
     }
 }
