@@ -13,6 +13,7 @@
 
 package com.example.kendra
 
+// snippet-start:[kendra.kotlin.index.import]
 import aws.sdk.kotlin.services.kendra.KendraClient
 import aws.sdk.kotlin.services.kendra.model.DescribeIndexRequest
 import aws.sdk.kotlin.services.kendra.model.CreateDataSourceRequest
@@ -27,6 +28,7 @@ import aws.sdk.kotlin.services.kendra.model.IndexStatus
 import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
+// snippet-end:[kendra.kotlin.index.import]
 
 /**
 To run this Kotlin code example, ensure that you have set up your development environment,
@@ -70,7 +72,7 @@ suspend fun main(args: Array<String>) {
     val dsIdValue = createDataSource(s3BucketName, dataSourceName, dataSourceDescription, indexId, dataSourceRoleArn)
     startDataSource(indexId,dsIdValue)
 }
-
+// snippet-start:[kendra.kotlin.index.main]
 suspend fun createIndex( indexDescription: String, indexName: String, indexRoleArn: String): String {
 
         println("Creating an index named $indexName")
@@ -100,7 +102,10 @@ suspend fun createIndex( indexDescription: String, indexName: String, indexRoleA
             return indexId.toString()
         }
 }
+// snippet-end:[kendra.kotlin.index.main]
 
+
+// snippet-start:[kendra.kotlin.datasource.main]
 suspend fun createDataSource(s3BucketName: String?, dataSourceName: String?, dataSourceDescription: String?, indexIdVal: String?, dataSourceRoleArn: String?): String {
     println("Creating an S3 data source")
 
@@ -142,7 +147,9 @@ suspend fun createDataSource(s3BucketName: String?, dataSourceName: String?, dat
             return dataSourceId.toString()
          }
 }
+// snippet-end:[kendra.kotlin.datasource.main]
 
+// snippet-start:[kendra.kotlin.start.datasource.main]
 suspend fun startDataSource(indexIdVal: String?, dataSourceId: String?) {
 
     println("Synchronize the data source $dataSourceId")
@@ -157,3 +164,4 @@ suspend fun startDataSource(indexIdVal: String?, dataSourceId: String?) {
     }
     println("Index setup is complete")
 }
+// snippet-end:[kendra.kotlin.start.datasource.main]
