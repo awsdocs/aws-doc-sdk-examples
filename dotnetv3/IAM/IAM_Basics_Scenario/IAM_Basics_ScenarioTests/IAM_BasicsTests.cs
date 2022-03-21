@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Amazon.IdentityManagement;
 using Amazon;
+using Amazon.IdentityManagement.Model;
 
 namespace IAM_Basics_Scenario.Tests
 {
@@ -17,6 +18,9 @@ namespace IAM_Basics_Scenario.Tests
         private const string S3PolicyName = "test-s3-list-buckets-policy";
         private const string RoleName = "test-temporary-role";
         private const string AssumePolicyName = "test-sts-trust-user";
+        private string AccessKeyId = string.Empty;
+        private string SecretKey = string.Empty;
+        private ManagedPolicy TestPolicy = null;
 
         string policyDocument = "{" +
             "\"Version\": \"2012-10-17\"," +
@@ -41,12 +45,6 @@ namespace IAM_Basics_Scenario.Tests
         private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
 
         [Fact()]
-        public void MainTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
         public async Task CreateUserAsyncTest()
         {
             // Create client object
@@ -59,9 +57,18 @@ namespace IAM_Basics_Scenario.Tests
         }
 
         [Fact()]
-        public void CreateAccessKeyAsyncTest()
+        public async Task CreateAccessKeyAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            // Create client object
+            var client = new AmazonIdentityManagementServiceClient(Region);
+
+            var accessKey = await IAM_Basics.CreateAccessKeyAsync(client, UserName);
+
+            Assert.NotNull(accessKey);
+
+            // Save the key values for use with other tests.
+            AccessKeyId = accessKey.AccessKeyId;
+            SecretKey = accessKey.SecretAccessKey;
         }
 
         [Fact()]
@@ -87,7 +94,7 @@ namespace IAM_Basics_Scenario.Tests
         {
             // Delete client object created in CreateUserAsyncTest.
             var client = new AmazonIdentityManagementServiceClient(Region);
-            var success = IAM_Basics.DeleteResources(client, UserName);
+            var success = IAM_Basics.DeleteResourcesAsync(client, AccessKeyId, UserName, S3PolicyName, TestPolicy.Arn, RoleName);
         }
     }
 }
