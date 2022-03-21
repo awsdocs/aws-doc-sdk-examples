@@ -11,8 +11,8 @@ Unit tests for csv_to_manifest.py.
 
 def clean_up(*argv):
     """
-    Deletes supplied files, if they exists
-    Ensures that no previous test run files are present.
+    Deletes supplied files, if they exist.
+    Removes any previous test run files.
     """
     for arg in argv:
         if exists(arg):
@@ -27,7 +27,7 @@ def clean_up(*argv):
 )
 def test_check_no_errors(csv_file, result):
     """
-    Confirms that valid CSV checks OK
+    Checks that the CSV file is valid.
     """
 
     errors_file=f"{path.splitext(csv_file)[0]}_errors.csv"
@@ -76,7 +76,7 @@ def test_check_errors(csv_file, result):
 )
 def test_create_manifest_s3_supplied(csv_file, img_count, anom_count):
     """
-    Checks that a CSV file with images + S3 path creates
+    Checks that a CSV file with images and an Amazon S3 path creates
     a manifest file.
     """
 
@@ -106,7 +106,7 @@ def test_create_manifest_s3_supplied(csv_file, img_count, anom_count):
 )
 def test_create_manifest_no_s3_supplied(csv_file,img_count, anom_count):
     """
-    Checks that a CSV file with images without S3 path creates
+    Checks that a CSV file with images and no Amazon S3 path creates
     a manifest file.
     """
 
