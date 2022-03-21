@@ -1,4 +1,4 @@
-#AWS Elastic Beanstalk Kotlin code examples
+# AWS Elastic Beanstalk Kotlin code examples
 
 ## Overview
 This README discusses how to run and test the Kotlin code examples for AWS Elastic Beanstalk.
