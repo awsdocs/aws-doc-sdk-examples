@@ -22,7 +22,7 @@ namespace IAM_Basics_Scenario.Tests
         private string SecretKey = string.Empty;
         private ManagedPolicy TestPolicy = null;
 
-        string policyDocument = "{" +
+        string PolicyDocument = "{" +
             "\"Version\": \"2012-10-17\"," +
             "   \"Statement\" : [{" +
                 "	\"Effect\" : \"Allow\"," +
@@ -72,21 +72,41 @@ namespace IAM_Basics_Scenario.Tests
         }
 
         [Fact()]
-        public void CreateRoleAsyncTest()
+        public async Task CreateRoleAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            // Create client object
+            var client = new AmazonIdentityManagementServiceClient(Region);
+
+            // Create the role to allow listing the Amazon Simple Storage Service
+            // (Amazon S3) buckets. Role names are not case sensitive and must
+            // be unique to the account for which it is created.
+            var role = await IAM_Basics.CreateRoleAsync(client, RoleName, PolicyDocument);
+            var roleArn = role.Arn;
+
+            Assert.NotNull(role);
+            Assert.Equal(role.RoleName, RoleName);
         }
 
         [Fact()]
-        public void CreatePolicyAsyncTest()
+        public async Task CreatePolicyAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            // Create client object
+            var client = new AmazonIdentityManagementServiceClient(Region);
+
+            // Create a policy with permissions to list Amazon S3 buckets
+            var policy = await IAM_Basics.CreatePolicyAsync(client, S3PolicyName, PolicyDocument);
+
+            Assert.Equal(policy.PolicyName, S3PolicyName);
         }
 
         [Fact()]
-        public void AttachRoleAsyncTest()
+        public async Task AttachRoleAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            // Create client object
+            var client = new AmazonIdentityManagementServiceClient(Region);
+
+            // Attach the policy to the role we created earlier.
+            await IAM_Basics.AttachRoleAsync(client, TestPolicy.Arn, RoleName);
         }
 
         [Fact()]
