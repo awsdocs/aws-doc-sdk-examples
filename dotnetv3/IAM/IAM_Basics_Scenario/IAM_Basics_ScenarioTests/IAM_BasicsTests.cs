@@ -18,27 +18,25 @@ namespace IAM_Basics_Scenario.Tests
         private const string RoleName = "test-temporary-role";
         private const string AssumePolicyName = "test-sts-trust-user";
 
-        private const string RolePermissions = @"{
-                'Version': '2012-10-17',
-                'Statement': [
-                    {
-                        'Effect': 'Allow',
-                        'Action': 's3:ListAllMyBuckets',
-                        'Resource': 'arn:aws:s3:::*'
-                    }
-                ]
-            }";
+        string policyDocument = "{" +
+            "\"Version\": \"2012-10-17\"," +
+            "   \"Statement\" : [{" +
+                "	\"Effect\" : \"Allow\"," +
+                "	\"Action\" : [\"s3:ListAllMyBuckets\", \"sts:AssumeRole\"]," +
+                "   \"Resource\": \"*\"," +
+            "}]" +
+        "}";
 
-        private const string ManagedPolicy = @"{
-          'Version': '2012-10-17',
-          'Statement': [
-            {
-              'Effect': 'Allow',
-              'Action': ['s3:ListAllMyBuckets', 'sts:AssumeRole'],
-              'Resource': '*',
-            },
-          ],
-        }";
+        private const string ManagedPolicy = "{" +
+        "\"Version\": \"2012-10-17\"," +
+        "\"Statement\": [{" +
+        "\"Effect\": \"Allow\"," +
+        "\"Principal\": {" +
+        "	\"AWS\": \"arn:aws:iam::704825161248:user/example-user\"" +
+        "}," +
+            "\"Action\": \"sts:AssumeRole\"" +
+        "}]" +
+    "}";
 
         private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
 
@@ -58,6 +56,30 @@ namespace IAM_Basics_Scenario.Tests
 
             Assert.NotNull(user);
             Assert.Equal(user.UserName, UserName);
+        }
+
+        [Fact()]
+        public void CreateAccessKeyAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        public void CreateRoleAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        public void CreatePolicyAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        public void AttachRoleAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
         }
 
         [Fact()]
