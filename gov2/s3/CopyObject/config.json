@@ -1,5 +1,0 @@
-{
-  "SourceBucket": "doc-example-bucket1",
-  "DestinationBucket": "doc-example-bucket2",
-  "ObjectKey": "myobjectkey"
-}
