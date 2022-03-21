@@ -33,7 +33,7 @@ The following examples use the **GlueClient** object:
 
 - [Performing various AWS Glue operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/glue/src/main/kotlin/com/kotlin/glue/GlueScenario.kt) (Multiple commands)
 
-## Running the AWS Glue Java files
+## Running the AWS Glue Kotlin files
 
 **IMPORTANT**
 
