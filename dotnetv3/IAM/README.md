@@ -9,7 +9,7 @@ The examples in this section show how to use AWS Identity and Access Management 
 - Running this code might result in charges to your AWS account. 
 - We recommend that you grant your code least privilege, or at most the minimum
   permissions required to perform the task. For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 - This code is not tested in all AWS Regions. For more information, see 
   [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 
@@ -25,9 +25,16 @@ The examples in this section show how to use AWS Identity and Access Management 
   the following API commands:
 
   - CreateUsserAsync
-  - CreatePolicyAsync
   - CreateAccessKeyAsync
+  - CreateRoleAsync
   - CreatePolicyAsync
+  - AttachRolePolicyAsync
+  - AssumeRoleAsync
+  - DetatchRolePolicyAsync
+  - DeleteRolePolicyAsync
+  - DeletePolicyAsync
+  - DeleteRoleAsync
+  - DeleteAccessKeyAsync
   - DeleteUserAsync
 
 - [IAM Basics](IAM_Basics_Scenario/) - This example uses AWS Identity and Access
@@ -50,40 +57,39 @@ The examples in this section show how to use AWS Identity and Access Management 
 
 ### Single action
 
-- [AttachRolePolicyExample](AttachRolePolicyExample/AttachRolePolicyExample/)
-- [CreateAccessKeyExample](CreateAccessKeyExample/CreateAccessKeyExample/)
-- [CreatePolicyExample](CreatePolicyExample/)
-- [CreateRoleExample](CreateRoleExample/)
-- [CreateServiceLinkedRole](CreateServiceLinkedRole/)
-- [CreateUserExample](CreateUserExample/CreateUserExample/)
-- [DeleteAccessKeyExample](DeleteAccessKeyExample/DeleteAccessKeyExample/)
-- [DeleteRolePolicyExample](DeleteRolePolicyExample/DeleteRolePolicyExample/)
-- [DeleteUserExample](DeleteUserExample/DeleteUserExample/)
-- [DetachRolePolicyExample](DetachRolePolicyExample/DetachRolePolicyExample/)
-- [GetAccountPasswordPolicy](GetAccountPasswordPolicy/)
-- [GetAccountPasswordPolicyExample](GetAccountPasswordPolicyExample/)
-- [GetPolicyExample](GetPolicyExample/)
-- [GetRoleExample](GetRoleExample/)
-- [ListAttachedRolePoliciesExample](ListAttachedRolePoliciesExample/)
-- [ListGroupsExample](ListGroupsExample/)
-- [ListPoliciesExample](ListPoliciesExample/)
-- [ListRolePoliciesExample](ListRolePoliciesExample/)
-- [ListRolesExample](ListRolesExample/)
-- [ListSAMLProvidersExample](ListSAMLProvidersExample/)
-- [ListUsersExample](ListUsersExample/)
+- [AttachRolePolicyExample](AttachRolePolicyExample/AttachRolePolicyExample/) - Attaches a policy to an IAM role. (`AttachRolePolicyAsync`)
+- [CreateAccessKeyExample](CreateAccessKeyExample/CreateAccessKeyExample/) - Creates a new IAM access key. (`CreateAccessKeyAsync`)
+- [CreatePolicyExample](CreatePolicyExample/) - Creates a new IAM policy. (`CreatePolicyAsync`)
+- [CreateRoleExample](CreateRoleExample/) - Creates a new IAM role. (`CreateRoleAsync`)
+- [CreateServiceLinkedRole](CreateServiceLinkedRole/) - Creates a new IAM service linked role. (`CreateServiceLinkedRoleAsync`)
+- [CreateUserExample](CreateUserExample/) - Creates a new IAM user. (`CreateUserAsync`)
+- [DeleteAccessKeyExample](DeleteAccessKeyExample/) - Deletes an IAM access Key. (`DeleteAccessKeyAsync`)
+- [DeleteRolePolicyExample](DeleteRolePolicyExample/) - Deletes an IAM role policy. (`DeleteRolePolicyAsync`)
+- [DeleteUserExample](DeleteUserExample/) - Deletes an IAM user. (`DeleteUserAsync`)
+- [DetachRolePolicyExample](DetachRolePolicyExample/)Detaches a policy from an IAM role. (`DetatchRolePolicyAsync`)
+- [GetAccountPasswordPolicyExample](GetAccountPasswordPolicyExample/) - Gets the IAM account password policy.
+- [GetPolicyExample](GetPolicyExample/) - Gets the details of an IAM policy. (`GetPolicyAsync`)
+- [GetRoleExample](GetRoleExample/) - Gets the details of an IAM role. (`GetRoleAsync`)
+- [ListAttachedRolePoliciesExample](ListAttachedRolePoliciesExample/) - Lists the IAM policies attached to a role. (`ListAttachedRolePoliciesAsync`)
+- [ListGroupsExample](ListGroupsExample/) - Lists the IAM groups for an account. (`ListGroupsAsync`)
+- [ListPoliciesExample](ListPoliciesExample/) - Lists the IAM policies for an account. (`ListPoliciesAsync`)
+- [ListRolePoliciesExample](ListRolePoliciesExample/) - Lists the IAM role policies for an account. (`ListRolePoliciesAsync`)
+- [ListRolesExample](ListRolesExample/) - Lists the IAM roles for an account. (`ListRolesAsync`)
+- [ListSAMLProvidersExample](ListSAMLProvidersExample/) - Lists the SAML providers defined with an account. (`ListSAMLProvidersAsync`)
+- [ListUsersExample](ListUsersExample/) - Lists the users for an account. (`ListUsersAsync`)
 
 
 ## Running the examples
 
-Once the example has been compiled, you can run it from the commandline by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigating to the folder that contains the .csproj file, and run the following
+command:
 
 ```
 dotnet run
 ```
 
-Or you can execute the example from within your IDE.
+Alternatively, you can run the example from within your IDE.
 
 ## Resources and documentation
 

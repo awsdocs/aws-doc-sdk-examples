@@ -9,6 +9,9 @@ namespace IAM_Basics_Scenario
 {
     // snippet-start:[IAM.dotnetv3.IAM_BasicsScenario]
     using System;
+    using System.IO;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
     using System.Threading.Tasks;
     using Amazon;
     using Amazon.IdentityManagement;
@@ -25,17 +28,6 @@ namespace IAM_Basics_Scenario
         private const string S3PolicyName = "s3-list-buckets-policy";
         private const string RoleName = "temporary-role";
         private const string AssumePolicyName = "sts-trust-user";
-
-        private const string PolicyDocument = @"{
-                'Version': '2012-10-17',
-                'Statement': [
-                    {
-                        'Effect': 'Allow',
-                        'Action': 's3:ListAllMyBuckets',
-                        'Resource': 'arn:aws:s3:::*'
-                    }
-                ]
-            }";
 
         private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
 
@@ -65,43 +57,43 @@ namespace IAM_Basics_Scenario
 
             // Define a role policy document that allows the new user
             // to assume the role.
-            string assumeRolePolicyDocument = @"
-            {
-                'Version': '2012-10-17',
-                'Statement': [
-                    {
-                        'Effect': 'Allow',
-                        'Principal': {
-                            AWS: " + userArn + @",
-                        },
-                        'Action': 'sts:AssumeRole',
-                    },
-                ],
-            }";
+            string assumeRolePolicyDocument = File.ReadAllText("assumePolicy.json");
+
+            string policyDocument = "{" +
+                "\"Version\": \"2012-10-17\"," +
+                "   \"Statement\" : [{" +
+                    "	\"Effect\" : \"Allow\"," +
+                    "	\"Action\" : [\"s3:ListAllMyBuckets\", \"sts:AssumeRole\"]," +
+                    "   \"Resource\": \"*\"," +
+                "}]" +
+            "}";
 
             // Create the role to allow listing the Amazon Simple Storage Service
             // (Amazon S3) buckets. Role names are not case sensitive and must
             // be unique to the account for which it is created.
-            var role = await CreateRoleAsync(client, RoleName, assumeRolePolicyDocument);
+            var role = await CreateRoleAsync(client, RoleName, policyDocument);
             var roleArn = role.Arn;
 
             // Create a policy with permissions to list Amazon S3 buckets
-            var policy = await CreatePolicyAsync(client, S3PolicyName, PolicyDocument);
+            var policy = await CreatePolicyAsync(client, S3PolicyName, assumeRolePolicyDocument);
 
             // Attach the policy to the role we created earlier.
             await AttachRoleAsync(client, policy.Arn, RoleName);
 
+            // Wait 15 seconds for the fole to be updated.
+            WaitABit(15);
+
             // Use the Security Token Service (AWS STS) to have the user assume
             // the role we created.
-            var stsClient = new AmazonSecurityTokenServiceClient();
-            var assumedRoleUser = await AssumeS3RoleAsync(stsClient, UserName, 1600, "temporary-session", roleArn);
+            var stsClient = new AmazonSecurityTokenServiceClient(accessKeyId, secretAccessKey);
+            var assumedRoleCredentials = await AssumeS3RoleAsync(stsClient, UserName, 1600, "temporary-session", roleArn);
 
             // Try again to list the buckets using the client created with
             // the new user's credentials. This time is should work.
-            await ListMyBucketsAsync(accessKeyId, secretAccessKey);
+            await ListMyBucketsAsync(assumedRoleCredentials.AccessKeyId, assumedRoleCredentials.SecretAccessKey);
 
             // Now clean up all the resources used in the example.
-            await DeleteResources(client, UserName, RoleName);
+            await DeleteResourcesAsync(client, accessKeyId, UserName, S3PolicyName, policy.Arn, RoleName);
 
             Console.WriteLine("IAM Demo completed.");
         }
@@ -150,6 +142,13 @@ namespace IAM_Basics_Scenario
 
             var response = await client.CreateAccessKeyAsync(request);
 
+            if (response.AccessKey is not null)
+            {
+                Console.WriteLine($"Successfully created Access Key for {userName}.");
+                Console.WriteLine("Press <Enter> to continue.");
+                _ = Console.ReadLine();
+            }
+
             return response.AccessKey;
         }
 
@@ -183,6 +182,13 @@ namespace IAM_Basics_Scenario
         // snippet-end:[IAM.dotnetv3.CreatePolicyAsync]
 
         // snippet-start:[IAM.dotnetv3.AttachPolicy]
+
+        /// <summary>
+        /// Attach the policy to the role so that the user can assume it.
+        /// </summary>
+        /// <param name="client">The initialized IAM client object.</param>
+        /// <param name="policyArn">The ARN of the policy to attach.</param>
+        /// <param name="roleName">The name of the role to attach the policy to.</param>
         public static async Task AttachRoleAsync(
             AmazonIdentityManagementServiceClient client,
             string policyArn,
@@ -267,11 +273,14 @@ namespace IAM_Basics_Scenario
                 // to the user associated with the Amazon S3 client.
                 Console.WriteLine("The user associated with this client does not have permission to call ListBucketsAsync.");
             }
+
+            Console.WriteLine("Press <Enter> to continue.");
+            Console.ReadLine();
         }
 
         // snippet-end:[S3.dotnetv3.ListBucketsAsync]
 
-        // snippet-start:[STS.dotnetv3.AssumeRole]
+        // snippet-start:[STS.dotnetv3.AssumeRoleAsync]
 
         /// <summary>
         /// Have the user assume the role that allows the role to be used to
@@ -287,7 +296,7 @@ namespace IAM_Basics_Scenario
         /// role to assume.</param>
         /// <returns>The AssumedRoleUser object needed to perform the list
         /// buckets procedure.</returns>
-        public static async Task<AssumedRoleUser> AssumeS3RoleAsync(
+        public static async Task<Credentials> AssumeS3RoleAsync(
             AmazonSecurityTokenServiceClient client,
             string userName,
             int sessionDuration,
@@ -304,32 +313,80 @@ namespace IAM_Basics_Scenario
 
             var response = await client.AssumeRoleAsync(request);
 
-            return response.AssumedRoleUser;
+            return response.Credentials;
         }
 
-        // snippet-end:[STS.dotnetv3.AssumeRole]
+        // snippet-end:[STS.dotnetv3.AssumeRoleAsync]
+
+        // snippet-start:[IAM.dotnetv3.DeleteResourcesAsync]
 
         /// <summary>
         /// Delete the user, and other resources created for this example.
         /// </summary>
         /// <param name="client">The initialized client object.</param>
+        /// <param name=accessKeyId">The Id of the user's access key.</param>"
         /// <param name="userName">The user name of the user to delete.</param>
-        /// <returns>A Boolean value indicating the success or failure of the
-        /// delete operations.</returns>
-        public static async Task DeleteResources(
+        /// <param name="policyName">The name of the policy to delete.</param>
+        /// <param name="policyArn">The Amazon Resource Name ARN of the Policy to delete.</param>
+        /// <param name="roleName">The name of the role that will be deleted.</param>
+        public static async Task DeleteResourcesAsync(
             AmazonIdentityManagementServiceClient client,
+            string accessKeyId,
             string userName,
+            string policyName,
+            string policyArn,
             string roleName)
         {
-            bool success = false;
+            var detachPolicyResponse = await client.DetachRolePolicyAsync(new DetachRolePolicyRequest
+            {
+                PolicyArn = policyArn,
+                RoleName = roleName,
+            });
 
-            var request = new DeleteUserRequest
+            var delRolePolicyResponse = await client.DeleteRolePolicyAsync(new DeleteRolePolicyRequest
+            {
+                PolicyName = policyName,
+                RoleName = roleName,
+            });
+
+            var delPolicyResponse = await client.DeletePolicyAsync(new DeletePolicyRequest
+            {
+                PolicyArn = policyArn,
+            });
+
+            var delRoleResponse = await client.DeleteRoleAsync(new DeleteRoleRequest
+            {
+                RoleName = roleName,
+            });
+
+            var delAccessKey = await client.DeleteAccessKeyAsync(new DeleteAccessKeyRequest
+            {
+                AccessKeyId = accessKeyId,
+                UserName = userName,
+            });
+
+            var delUserResponse = await client.DeleteUserAsync(new DeleteUserRequest
             {
                 UserName = userName,
-            };
+            });
 
-            var response = await client.DeleteUserAsync(request);
-            success = response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        /// <summary>
+        /// Display a countdown and wait for a number of seconds.
+        /// </summary>
+        /// <param name="numSeconds">The number of seconds to wait.</param>
+        public static void WaitABit(int numSeconds)
+        {
+            // Watil for the trust to be in effect.
+            for (int i = numSeconds; i > 0; i--)
+            {
+                System.Threading.Thread.Sleep(1000);
+                Console.Write($"{i}...");
+            }
+
+            Console.WriteLine("\n\nPress <Enter> to continue.");
+            Console.ReadLine();
         }
 
         /// <summary>
