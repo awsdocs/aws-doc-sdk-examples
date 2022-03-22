@@ -51,9 +51,9 @@ Define these values to successfully run the JUnit tests:
 - **indexName** - The name for the new index.
 - **dataSourceName** - The name for the new data source.
 - **indexDescription** - The description for the index. 
-- **indexRoleArn** – The name of a key to use. For example, **Artist**.
+- **indexRoleArn** – An Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.
 - **s3BucketName** - An Amazon S3 bucket name used as your data source.
-- **dataSourceDescription** – The ARN of am IAM role with permission to access the data source.
+- **dataSourceDescription** – A description for the data source.
 - **text** – The text used to perform a query operation.
 - **dataSourceRoleArn** – The ARN of am IAM role with permission to access the data source.
 
