@@ -36,7 +36,7 @@ namespace IAM_Basics_Scenario.Tests
         "\"Statement\": [{" +
         "\"Effect\": \"Allow\"," +
         "\"Principal\": {" +
-        "	\"AWS\": \"arn:aws:iam::704825161248:user/example-user\"" +
+        "	\"AWS\": \"arn:aws:iam::704825161248:user/test-example-user\"" +
         "}," +
             "\"Action\": \"sts:AssumeRole\"" +
         "}]" +
