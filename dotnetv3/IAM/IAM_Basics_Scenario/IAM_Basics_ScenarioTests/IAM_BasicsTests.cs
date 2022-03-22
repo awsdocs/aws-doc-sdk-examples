@@ -22,16 +22,16 @@ namespace IAM_Basics_Scenario.Tests
         private string SecretKey = string.Empty;
         private ManagedPolicy TestPolicy = null;
 
-        string PolicyDocument = "{" +
+        string testPolicyDocument = "{" +
             "\"Version\": \"2012-10-17\"," +
-            "   \"Statement\" : [{" +
+            "	\"Statement\" : [{" +
+                "	\"Action\" : [\"s3:ListAllMyBuckets\"]," +
                 "	\"Effect\" : \"Allow\"," +
-                "	\"Action\" : [\"s3:ListAllMyBuckets\", \"sts:AssumeRole\"]," +
-                "   \"Resource\": \"*\"," +
+                "	\"Resource\" : \"*\"" +
             "}]" +
         "}";
 
-        private const string ManagedPolicy = "{" +
+        private const string testAssumeRolePolicy = "{" +
         "\"Version\": \"2012-10-17\"," +
         "\"Statement\": [{" +
         "\"Effect\": \"Allow\"," +
@@ -80,7 +80,7 @@ namespace IAM_Basics_Scenario.Tests
             // Create the role to allow listing the Amazon Simple Storage Service
             // (Amazon S3) buckets. Role names are not case sensitive and must
             // be unique to the account for which it is created.
-            var role = await IAM_Basics.CreateRoleAsync(client, RoleName, PolicyDocument);
+            var role = await IAM_Basics.CreateRoleAsync(client, RoleName, testAssumeRolePolicy);
             var roleArn = role.Arn;
 
             Assert.NotNull(role);
@@ -94,7 +94,7 @@ namespace IAM_Basics_Scenario.Tests
             var client = new AmazonIdentityManagementServiceClient(Region);
 
             // Create a policy with permissions to list Amazon S3 buckets
-            var policy = await IAM_Basics.CreatePolicyAsync(client, S3PolicyName, PolicyDocument);
+            var policy = await IAM_Basics.CreatePolicyAsync(client, S3PolicyName, testPolicyDocument);
 
             Assert.Equal(policy.PolicyName, S3PolicyName);
         }

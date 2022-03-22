@@ -47,6 +47,7 @@ namespace IAM_Basics_Scenario
 
             // Create an AccessKey for the user.
             var accessKey = await CreateAccessKeyAsync(client, UserName);
+
             var accessKeyId = accessKey.AccessKeyId;
             var secretAccessKey = accessKey.SecretAccessKey;
 
@@ -59,37 +60,46 @@ namespace IAM_Basics_Scenario
             // to assume the role.
             string assumeRolePolicyDocument = File.ReadAllText("assumePolicy.json");
 
+            // Permissions to list all buckets.
             string policyDocument = "{" +
                 "\"Version\": \"2012-10-17\"," +
-                "   \"Statement\" : [{" +
+                "	\"Statement\" : [{" +
+                    "	\"Action\" : [\"s3:ListAllMyBuckets\"]," +
                     "	\"Effect\" : \"Allow\"," +
-                    "	\"Action\" : [\"s3:ListAllMyBuckets\", \"sts:AssumeRole\"]," +
-                    "   \"Resource\": \"*\"," +
+                    "	\"Resource\" : \"*\"" +
                 "}]" +
             "}";
 
             // Create the role to allow listing the Amazon Simple Storage Service
             // (Amazon S3) buckets. Role names are not case sensitive and must
             // be unique to the account for which it is created.
-            var role = await CreateRoleAsync(client, RoleName, policyDocument);
+            var role = await CreateRoleAsync(client, RoleName, assumeRolePolicyDocument);
             var roleArn = role.Arn;
 
             // Create a policy with permissions to list Amazon S3 buckets
-            var policy = await CreatePolicyAsync(client, S3PolicyName, assumeRolePolicyDocument);
+            var policy = await CreatePolicyAsync(client, S3PolicyName, policyDocument);
+
+            // Wait 15 seconds for the policy to be created.
+            WaitABit(15, "Waiting for the policy to be created.");
 
             // Attach the policy to the role we created earlier.
             await AttachRoleAsync(client, policy.Arn, RoleName);
 
-            // Wait 15 seconds for the fole to be updated.
-            WaitABit(15);
+            // Wait 15 seconds for the role to be updated.
+            Console.WriteLine();
+            WaitABit(15, "Waiting to make sure that the policy has been attached.");
 
             // Use the Security Token Service (AWS STS) to have the user assume
             // the role we created.
             var stsClient = new AmazonSecurityTokenServiceClient(accessKeyId, secretAccessKey);
+
+            // Wait for the new credentials to be valid.
+            WaitABit(10, "Waiting for the credentials to be valid.");
+
             var assumedRoleCredentials = await AssumeS3RoleAsync(stsClient, UserName, 1600, "temporary-session", roleArn);
 
             // Try again to list the buckets using the client created with
-            // the new user's credentials. This time is should work.
+            // the new user's credentials. This time it should work.
             await ListMyBucketsAsync(assumedRoleCredentials.AccessKeyId, assumedRoleCredentials.SecretAccessKey);
 
             // Now clean up all the resources used in the example.
@@ -269,9 +279,8 @@ namespace IAM_Basics_Scenario
             }
             catch (AmazonS3Exception ex)
             {
-                // This is the expected error if the role has not been assigned
-                // to the user associated with the Amazon S3 client.
-                Console.WriteLine("The user associated with this client does not have permission to call ListBucketsAsync.");
+                // Something else went wrong. Display the error message.
+                Console.WriteLine($"Error: {ex.Message}");
             }
 
             Console.WriteLine("Press <Enter> to continue.");
@@ -343,12 +352,6 @@ namespace IAM_Basics_Scenario
                 RoleName = roleName,
             });
 
-            var delRolePolicyResponse = await client.DeleteRolePolicyAsync(new DeleteRolePolicyRequest
-            {
-                PolicyName = policyName,
-                RoleName = roleName,
-            });
-
             var delPolicyResponse = await client.DeletePolicyAsync(new DeletePolicyRequest
             {
                 PolicyArn = policyArn,
@@ -378,9 +381,11 @@ namespace IAM_Basics_Scenario
         /// Display a countdown and wait for a number of seconds.
         /// </summary>
         /// <param name="numSeconds">The number of seconds to wait.</param>
-        public static void WaitABit(int numSeconds)
+        public static void WaitABit(int numSeconds, string msg)
         {
-            // Watil for the trust to be in effect.
+            Console.WriteLine(msg);
+
+            // Wait for the requested number of seconds.
             for (int i = numSeconds; i > 0; i--)
             {
                 System.Threading.Thread.Sleep(1000);
