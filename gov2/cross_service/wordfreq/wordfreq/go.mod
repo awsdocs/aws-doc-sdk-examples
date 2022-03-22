@@ -1,4 +1,4 @@
-module example.aws/wordfreq
+module example.aws/go-v2/examples/cross_service/wordfreq/service
 
 go 1.16
 
@@ -17,4 +17,4 @@ require (
 	go.uber.org/zap v1.18.1
 )
 
-replace example.aws/wordfreq/shared => ./shared
+replace example.aws/go-v2/examples/cross_service/wordfreq/service/shared => ./shared

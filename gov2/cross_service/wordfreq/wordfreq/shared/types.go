@@ -7,7 +7,7 @@ import (
 	"math/rand"
 	"time"
 
-	s3events "example.aws/wordfreq/shared/s3"
+	s3events "example.aws/go-v2/examples/cross_service/wordfreq/service/shared/s3"
 	"github.com/bwmarrin/snowflake"
 )
 
@@ -31,7 +31,7 @@ type JobBatch struct {
 	// The minimal information for tracing the job back to an SQS message
 	Message JobMessage
 	// Jobs that were extracted from that message.
-	Jobs    []Job
+	Jobs []Job
 }
 
 // A job created from an SQS message and S3 record.

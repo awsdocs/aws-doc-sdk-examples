@@ -7,7 +7,7 @@ import (
 	"context"
 	"fmt"
 
-	"example.aws/go/secretsmanager/common"
+	"example.aws/go-v2/examples/secretsmanager/common"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/google/uuid"
 )

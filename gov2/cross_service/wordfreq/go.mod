@@ -1,4 +1,4 @@
-module exampe/wordfreq/cdk
+module example.aws/go-v2/examples/cross_service/wordfreq/cdk
 
 go 1.16
 
