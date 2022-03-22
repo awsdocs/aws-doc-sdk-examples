@@ -10,20 +10,19 @@
 
 
 Introduction
-===
+============
 
 Welcome to the AWS Docs SDK Examples. Here, you'll find examples of how to use the various SDKs that
 AWS provides for interacting with its services.
 
 These examples appear in the `AWS documentation <https://docs.aws.amazon.com>`_. *For more
-information on getting started with the SDKs for AWS, see `Tools to Build on AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.*
+information on getting started with the SDKs for AWS, see* `Tools to Build on AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.
 
 
 Prerequisites for all AWS SDKs
-------------------------
+------------------------------
 
-To use the examples in this documentation, you must have an AWS account.
-For more information about creating an account, see ` AWS Free Tier<https://aws.amazon.com/free/>`_. 
+To use the examples in this documentation, you must have an AWS account. For more information about creating an account, see `AWS Free Tier <https://aws.amazon.com/free/>`_. 
 
 Configuring the AWS SDKs
 ------------------------
@@ -32,13 +31,12 @@ AWS SDKs must be configured with the *AWS Access Key ID*, *AWS Secret Key*. In s
 
 We recommend using the AWS Command Line Interface (AWS CLI) to complete the configuration.
 Most AWS SDKs use the configuration created by the AWS CLI.
-To configure the AWS CLI, use the following command:::
+To configure the AWS CLI, use the following command: ::
 
    aws configure
 
-The preceding command will create or update the file ``$HOME/.aws/credentials``, which is used
-by the SDKs where applicable.
-For more information, see `Configuration and credential file settings<https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>`_ in the AWS Command Line Interface User Guide.
+The preceding command will create or update the file ``$HOME/.aws/credentials``, which is used by the SDKs where applicable.
+For more information, see `Configuration and credential file settings <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>`_ in the AWS Command Line Interface User Guide.
 
 Generally, the AWS SDKs look for configuration information in the following places, in this order:
 
@@ -57,7 +55,7 @@ If you are unsure, see the documentation for the specific SDK that you're using.
 Running these code examples might result in charges to your AWS account.
 Many examples involve services that are charged on a per-use basis, such as Amazon Simple Email Service (Amazon SES).
 Other examples might create resources that have long-term costs with services such as Amazon Simple Storage Service Glacier (Amazon S3 Glacier).
-For more information, see `AWS Pricing<https://aws.amazon.com/pricing/>`_.
+For more information, see `AWS Pricing <https://aws.amazon.com/pricing/>`_.
 
 Some examples modify or delete resources, such as AWS Identity and Access Management (IAM) users and Amazon S3 bucket contents or previous versions.
 It is your responsibility to do the following:
@@ -89,10 +87,10 @@ The README file in each SDK language folder explains how to build and run the ex
 
 Within each SDK language folder, the example_code folder contains examples organized by AWS service.
 Each AWS service folder is named for its corresponding AWS CLI command. 
-or example, the s3 folder contains Amazon S3 examples. For a list of AWS service commands, see `Available services<https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html#available-services>`_ in the *AWS CLI Command Reference*.
+or example, the s3 folder contains Amazon S3 examples. For a list of AWS service commands, see `Available services <https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html#available-services>`_ in the *AWS CLI Command Reference*.
 
 Examples for currently maintained SDKs
-----------------------------------------
+--------------------------------------
 
 The code examples are organized by AWS SDK or AWS programming tool. The following list shows some of the top-level folders:
 
@@ -107,13 +105,13 @@ The code examples are organized by AWS SDK or AWS programming tool. The followin
 
 
 Examples for SDKs currently in preview 
-----------------------------------------
+--------------------------------------
 
 * **.kotlin_alpha** for the alpha version of the AWS SDK for Kotlin
 * **rust_dev_preview** for the developer preview version of the AWS SDK for Rust
 
 Examples for SDKs that have been deprecated
----------------------------------------------
+-------------------------------------------
 
 Code examples for previous AWS SDK versions are archived in this repository but are no longer maintained. These include the following:
 
@@ -149,14 +147,13 @@ If you plan to contribute examples for use in the documentation, see the `Guidel
 Note that the AWS documentation team prefers to produce code examples that cover broader scenarios and use 
 cases, versus simple code snippets that cover only individual API calls.
 
-* To propose a new code example for our consideration, `create a 
-request <https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=&labels=code+sample+request&template=request-new-code-example.md&title=%5BNEW+EXAMPLE+REQUEST%5D+%3C%3CProvide+a+title+for+this+proposal%3E%3E>`_.
-* To submit a code example you have written, `create a Pull Request<https://github.com/awsdocs/aws-doc-sdk-examples/compare>`_ and follow the steps in the PR template.
+* To propose a new code example for our consideration, `create a request <https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=&labels=code+sample+request&template=request-new-code-example.md&title=%5BNEW+EXAMPLE+REQUEST%5D+%3C%3CProvide+a+title+for+this+proposal%3E%3E>`_.
+* To submit a code example you have written, `create a Pull Request <https://github.com/awsdocs/aws-doc-sdk-examples/compare>`_ and follow the steps in the PR template.
 
 
 
 Additional Information
-===================
+======================
 
 The ``scripts/`` folder
 -----------------------
@@ -180,7 +177,7 @@ where **BRANCH** is the name of your branch:
 3. Run **git branch --contains**.
 
 Changing a branch parent branch from master to main
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To change the parent branch for your branch to **main**,
 navigate to the root of your branch and enter the following commands,
@@ -195,7 +192,7 @@ where *BRANCH* is the name of your branch:
    git remote update --prune
 
 Changing a fork's default branch from master to main
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 GitHub will notify you when a parent branch has changed.
 To change your fork's default branch to **main**:
@@ -208,7 +205,7 @@ To change your fork's default branch to **main**:
 
 
 Questions or issues?
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 If you have any questions, or if you experience an issue when retargeting your branch or fork,
 create a new GitHub issue and include as much detail as possible.

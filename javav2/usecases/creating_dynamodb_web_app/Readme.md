@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for Java V2.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/14/2022        |
+| Updated   | 3/14/2022        |
 | Required Skills   | Java, Maven  |
 
 
@@ -16,17 +16,12 @@ You can develop a web application that tracks and reports on work items by using
 
 + Amazon DynamoDB to store the data
 + Amazon Simple Email Service (Amazon SES) to send email messages
-+ AWS Elastic Beanstalk to host the application
 
 **Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and Amazon DynamoDB.
 
-The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
 
-This tutorial guides you through creating the **DynamoDB Item Tracker** application. After the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
-The following figure shows you the structure of the Java project.
-
-![AWS Tracking Application](images/awsprojectitem.png)
 
 #### Topics
 
@@ -38,8 +33,7 @@ The following figure shows you the structure of the Java project.
 + Create the Java classes
 + Create the HTML files
 + Create script files
-+ Create a JAR file for the application
-+ Deploy the application to Elastic Beanstalk
++ Run the application
 
 ## Prerequisites
 
@@ -61,7 +55,7 @@ To complete the tutorial, you need the following:
 
 Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
-In addition, make sure that you setup your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). .
+In addition, make sure that you set up your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 
 ## Understand the DynamoDB Item Tracker application
@@ -663,8 +657,6 @@ The service classes contain Java application logic that invokes AWS services. In
 
 The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code represents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query active or closed items. For example, in the **getClosedItems** method, only closed items are retrieved.
 
-Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
-
 ```java
      package com.example.services;
 
@@ -708,8 +700,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
       // Create a DynamoDbClient object
       Region region = Region.US_EAST_1;
       DynamoDbClient ddb = DynamoDbClient.builder()
-         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-	 .region(region)
+         .region(region)
          .build();
 
        return ddb;
@@ -1294,7 +1285,7 @@ The **Work** class is used with the DynamoDB enhanced client and maps the **Work
 
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
+The following Java code represents the **SendMessage** class. 
 
 ```java
     package com.example.services;
@@ -2443,55 +2434,11 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
 
-## Create a JAR file for the DynamoDB Tracker application
+## Run the application
 
-Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
 
-	mvn package
-
-The JAR file is located in the target folder.
-
-![AWS Tracking Application](images/pic11.png)
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file that includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy the application to Elastic Beanstalk
-
-Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev, or prod-web, prod-worker, qa-web, qa-worker).
-
-If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll see the Elastic Beanstalk Dashboard, which lists all of your applications.
-
-#### To deploy the DynamoDB Tracker application to Elastic Beanstalk
-
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
-2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - DynamoDB Tracker
-   + **Description** - A description for the application
-4. Choose **Create**.
-5. Choose **Create a new environment**.
-6. Choose **Web server environment**.
-7. Choose **Select**.
-8. In the **Environment information** section, leave the default values.
-9. In the **Platform** section, choose **Managed platform**.
-10. For **Platform**, choose **Java** (accept the default values for the other fields).
-11. In the **Application code** section, choose **Upload your code**.
-12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created.
-
-![AWS Tracking Application](images/pic13.png)
-
-When you’re done, you will see the application state the **Health** is **Ok** .
-
-14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
-
-![AWS Tracking Application](images/pic14.png)
-
-**Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
-
-To access the application, open your browser and enter the URL for your application. You will see the login page for your application.
+![AWS Tracking Application](images/runapp.png)
 
 
 ### Next steps

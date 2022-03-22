@@ -251,15 +251,6 @@ iam_GetAccountPasswordPolicy:
   synopsis: get the &IAM; account password policy.
   category:
   languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iam.GetAccountPasswordPolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -279,6 +270,25 @@ iam_GetAccountPasswordPolicy:
           excerpts:
             - snippet_tags: ['iam.go-v2.GetAccountPasswordPolicy']
               description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getAccountPasswordPolicy
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccountPasswordPolicy
+
     Ruby:
       versions:
         - sdk_version: 3
@@ -295,15 +305,6 @@ iam_ListSAMLProviders:
   synopsis: list SAML providers for &IAM;.
   category:
   languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iam.ListSAMLProviders
     JavaScript:
       versions:
         - sdk_version: 3
@@ -323,6 +324,24 @@ iam_ListSAMLProviders:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListSAMLProviders']
               description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listSAMLProviders
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListSAMLProviders
     Ruby:
       versions:
         - sdk_version: 3
@@ -726,6 +745,16 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreatePolicy
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createPolicy
+                - php.example_code.iam.service.createPolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -840,15 +869,6 @@ iam_ListPolicies:
   synopsis: list &IAM; policies.
   category:
   languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iam.ListPolicies
     JavaScript:
       versions:
         - sdk_version: 3
@@ -868,6 +888,24 @@ iam_ListPolicies:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListPolicies']
               description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listPolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListPolicies
     Ruby:
       versions:
         - sdk_version: 3
@@ -912,6 +950,15 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.getPolicy
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getPolicy
     Python:
       versions:
         - sdk_version: 3
@@ -995,6 +1042,18 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - iam.java2.attach_role_policy.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createRole
+                - php.example_code.iam.iam_basics.createPolicy
+                - php.example_code.iam.iam_basics.attachRolePolicy
+                - php.example_code.iam.service.attachRolePolicy
     Python:
       versions:
         - sdk_version: 3
@@ -1049,15 +1108,6 @@ iam_ListAttachedRolePolicies:
   synopsis: list policies attached to an &IAM; role.
   category:
   languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iam.ListAttachedRolePolicies
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1077,6 +1127,24 @@ iam_ListAttachedRolePolicies:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListAttachedRolePolicies']
               description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listAttachRolePolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListAttachedRolePolicies
     Ruby:
       versions:
         - sdk_version: 3
@@ -1194,6 +1262,16 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - iam.java2.create_role.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createRole
+                - php.example_code.iam.service.createRole
     Python:
       versions:
         - sdk_version: 3
@@ -1273,6 +1351,24 @@ iam_ListRoles:
             - description: List the roles.
               snippet_tags:
                 - iam.JavaScript.listrolesV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listRoles
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListRoles
     Ruby:
       versions:
         - sdk_version: 3
@@ -1289,15 +1385,6 @@ iam_GetRole:
   synopsis: get an &IAM; role.
   category:
   languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iam.GetRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1317,6 +1404,24 @@ iam_GetRole:
           excerpts:
             - snippet_tags: ['iam.go-v2.GetRole']
               description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getRole
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetRole
     Ruby:
       versions:
         - sdk_version: 3
@@ -1370,15 +1475,6 @@ iam_ListRolePolicies:
   synopsis: list inline policies for an &IAM; role.
   category:
   languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iam.ListRolePolicies
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1398,6 +1494,24 @@ iam_ListRolePolicies:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListRolePolicies']
               description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listRolePolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListRolePolicies
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
@@ -1449,6 +1563,16 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - iam.java2.create_user.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createUser
+                - php.example_code.iam.service.createUser
     Python:
       versions:
         - sdk_version: 3
@@ -1589,6 +1713,15 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - iam.java2.list_users.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listUsers
     Python:
       versions:
         - sdk_version: 3
@@ -1934,15 +2067,6 @@ iam_ListGroups:
   synopsis: list &IAM; groups.
   category:
   languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iam.ListGroups
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1962,6 +2086,24 @@ iam_ListGroups:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListGroups']
               description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listGroups
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListGroups
     Ruby:
       versions:
         - sdk_version: 3
@@ -1978,15 +2120,6 @@ iam_CreateServiceLinkedRole:
   synopsis: create an &IAM; service-linked role.
   category:
   languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iam.CreateServiceLinkedRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2006,6 +2139,24 @@ iam_CreateServiceLinkedRole:
           excerpts:
             - snippet_tags: ['iam.go-v2.CreateServiceLinkedRole']
               description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.createServiceLinkedRole
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateServiceLinkedRole
     Ruby:
       versions:
         - sdk_version: 3
@@ -2062,18 +2213,6 @@ iam_Scenario_CreateUserAssumeRole:
             - description: Create functions that wrap &IAM; user actions.
               snippet_tags:
                 - iam.java2.scenario.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description: Create an &IAM; user and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
-              snippet_tags:
-                - python.example_code.iam.Scenario_CreateUserAssumeRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2089,6 +2228,27 @@ iam_Scenario_CreateUserAssumeRole:
                 the account.
               snippet_tags:
                 - javascript.iam_scenarios.iam_basics
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.scenario
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create an &IAM; user and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - python.example_code.iam.Scenario_CreateUserAssumeRole
     Go:
       versions:
         - sdk_version: 2

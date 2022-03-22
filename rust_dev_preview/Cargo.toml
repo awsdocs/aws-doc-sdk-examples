@@ -48,11 +48,13 @@ members = [
     "sending-presigned-requests",
     "ses",
     "setting-timeouts",
+    "sitewise",
     "snowball",
     "sns",
     "sqs",
     "ssm",
     "testing",
+    "tls",
     "transcribestreaming",
     "using-native-tls-instead-of-rustls"
 ]
