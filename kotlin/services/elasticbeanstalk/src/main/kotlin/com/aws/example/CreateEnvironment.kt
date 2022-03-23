@@ -20,6 +20,13 @@ import aws.sdk.kotlin.services.elasticbeanstalk.model.CreateEnvironmentRequest
 import kotlin.system.exitProcess
 //snippet-end:[eb.kotlin.create_env.import]
 
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
 suspend fun main(args: Array<String>) {
 
     val usage = """
