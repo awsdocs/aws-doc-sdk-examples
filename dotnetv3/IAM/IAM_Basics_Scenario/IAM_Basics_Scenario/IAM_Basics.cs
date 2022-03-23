@@ -56,7 +56,17 @@ namespace IAM_Basics_Scenario
 
             // Define a role policy document that allows the new user
             // to assume the role.
-            string assumeRolePolicyDocument = File.ReadAllText("assumePolicy.json");
+            // string assumeRolePolicyDocument = File.ReadAllText("assumePolicy.json");
+            string assumeRolePolicyDocument = "{" +
+                "\"Version\": \"2012-10-17\"," +
+                "\"Statement\": [{" +
+                "\"Effect\": \"Allow\"," +
+                "\"Principal\": {" +
+                $"	\"AWS\": \"{userArn}\"" +
+                "}," +
+                    "\"Action\": \"sts:AssumeRole\"" +
+                "}]" +
+            "}";
 
             // Permissions to list all buckets.
             string policyDocument = "{" +

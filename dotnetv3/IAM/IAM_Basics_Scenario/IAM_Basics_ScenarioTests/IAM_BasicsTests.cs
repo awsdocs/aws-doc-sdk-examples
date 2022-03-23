@@ -22,6 +22,7 @@ namespace IAM_Basics_Scenario.Tests
         private string AccessKeyId = string.Empty;
         private string SecretKey = string.Empty;
         private ManagedPolicy TestPolicy = null;
+        private string UserArn;
 
         string testPolicyDocument = "{" +
             "\"Version\": \"2012-10-17\"," +
@@ -31,17 +32,6 @@ namespace IAM_Basics_Scenario.Tests
                 "	\"Resource\" : \"*\"" +
             "}]" +
         "}";
-
-        private const string testAssumeRolePolicy = "{" +
-        "\"Version\": \"2012-10-17\"," +
-        "\"Statement\": [{" +
-        "\"Effect\": \"Allow\"," +
-        "\"Principal\": {" +
-        "	\"AWS\": \"arn:aws:iam::704825161248:user/test-example-user\"" +
-        "}," +
-            "\"Action\": \"sts:AssumeRole\"" +
-        "}]" +
-    "}";
 
         private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
 
@@ -55,6 +45,7 @@ namespace IAM_Basics_Scenario.Tests
 
             Assert.NotNull(user);
             Assert.Equal(user.UserName, UserName);
+            UserArn = user.Arn;
         }
 
         [Fact, TestPriority(2)]
@@ -75,6 +66,17 @@ namespace IAM_Basics_Scenario.Tests
         [Fact, TestPriority(3)]
         public async Task CreateRoleAsyncTest()
         {
+            string testAssumeRolePolicy = "{" +
+                "\"Version\": \"2012-10-17\"," +
+                "\"Statement\": [{" +
+                "\"Effect\": \"Allow\"," +
+                "\"Principal\": {" +
+                $"	\"AWS\": \"{UserArn}\"" +
+                "}," +
+                    "\"Action\": \"sts:AssumeRole\"" +
+                "}]" +
+            "}";
+
             // Create client object
             var client = new AmazonIdentityManagementServiceClient(Region);
 
