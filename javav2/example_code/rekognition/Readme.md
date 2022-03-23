@@ -1,7 +1,7 @@
-# Amazon Rekognition Java code examples
+# Amazon Rekognition code examples for the SDK for Java
 
 ## Overview
-This README discusses how to run and test the Java V2 code examples for Amazon Rekognition.
+This README discusses how to run and test the AWS SDK for Java (V2) code examples for Amazon Rekognition.
 
 Amazon Rekognition enables your applications to confirm user identities by comparing their live image with a reference image. Amazon Rekognition also detects content in images and videos, such as face covers, head covers, and hand covers on persons in images.
 
@@ -130,6 +130,6 @@ If you do not define the correct values in the properties file, your JUnit tests
 	
 	
 ## Additional resources
-* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html).
 * [Interface RekognitionClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rekognition/RekognitionClient.html).	
