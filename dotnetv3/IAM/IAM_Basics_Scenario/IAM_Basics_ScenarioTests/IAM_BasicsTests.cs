@@ -21,7 +21,7 @@ namespace IAM_Basics_Scenario.Tests
         private const string AssumePolicyName = "test-sts-trust-user";
         private string AccessKeyId = string.Empty;
         private string SecretKey = string.Empty;
-        private ManagedPolicy TestPolicy = null;
+        private ManagedPolicy TestPolicy;
         private string UserArn;
 
         string testPolicyDocument = "{" +
@@ -100,6 +100,7 @@ namespace IAM_Basics_Scenario.Tests
             var policy = await IAM_Basics.CreatePolicyAsync(client, S3PolicyName, testPolicyDocument);
 
             Assert.Equal(policy.PolicyName, S3PolicyName);
+            TestPolicy = policy;
         }
 
         [Fact, TestPriority(5)]
