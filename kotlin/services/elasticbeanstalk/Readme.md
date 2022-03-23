@@ -6,7 +6,7 @@ This README discusses how to run and test the AWS SDK for Kotlin examples for AW
 AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web applications.
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* The SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing page](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
 *  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
@@ -26,10 +26,6 @@ The following examples use the **ElasticBeanstalkClient** object:
 
 
 ## Running the AWS Elastic Beanstalk Kotlin files
-
-**IMPORTANT**
-
-The SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing page](https://aws.amazon.com/pricing/).
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS Elastic Beanstalk application. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
