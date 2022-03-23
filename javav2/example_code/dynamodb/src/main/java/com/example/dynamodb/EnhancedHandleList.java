@@ -27,12 +27,11 @@ import java.util.List;
 
 /*
  * Prior to running this code example, create an Amazon DynamoDB table named Contact with this column:
- *   1. id - The id of the record that is the key
+ *   id - The id of the record that is the key
  *
  *
- * Also, ensure that you have set up your development environment, including your credentials.
- *
- * For information, see this documentation topic:
+ * You should also set up your development environment, including your credentials. For more information,
+ * see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -59,19 +58,15 @@ public class EnhancedHandleList {
 
         try {
             DynamoDbTable<Contact> contactTable = (DynamoDbTable<Contact>) enhancedClient.table("Contact", TableSchema.fromBean(Contact.class));
-
-            // Create a list
             List<String> names = new ArrayList<>();
             names.add("Scott");
             names.add("LAM");
             names.add("Madison");
 
-            // Populate the Table
+            // Populate the table.
             Contact record = new Contact();
             record.setId("103");
             record.setPid(names);
-
-            // Put the customer data into a DynamoDB table
             contactTable.putItem(record);
 
         } catch (DynamoDbException e) {
