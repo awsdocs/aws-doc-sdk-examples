@@ -1,12 +1,27 @@
 # Amazon Rekognition Java code examples
 
+## Overview
+This README discusses how to run and test the Java V2 code examples for Amazon Rekognition.
+
+Amazon Rekognition enables your applications to confirm user identities by comparing their live image with a reference image. Amazon Rekognition detects Personal Protective Equipment (PPE) such as face covers, head covers, and hand covers on persons in images.
+
+## ⚠️ Important
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Code examples
+
+### Single action
+
+The following examples use the **RekognitionClient** object:
+
+- [Creating an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/CreateCrawler.java) (CreateCrawler command)
+
 This README discusses how to run and test the Java code examples for Amazon Rekognition.
 
 ## Running the Amazon Rekognition Java files
-
-**IMPORTANT**
-
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
 Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
