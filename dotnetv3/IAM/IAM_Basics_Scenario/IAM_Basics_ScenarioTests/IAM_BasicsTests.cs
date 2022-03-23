@@ -1,16 +1,17 @@
-﻿using Xunit;
-using IAM_Basics_Scenario;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amazon.IdentityManagement;
-using Amazon;
-using Amazon.IdentityManagement.Model;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
 
 namespace IAM_Basics_Scenario.Tests
 {
+    using Xunit;
+    using System.Threading.Tasks;
+    using Amazon.IdentityManagement;
+    using Amazon;
+    using Amazon.IdentityManagement.Model;
+    using IAM_Basics_Scenario;
+    using IAM_Basics_ScenarioTests;
+
+   [TestCaseOrderer("OrechstrationService.Project.Orderers.PriorityOrderer", "OrechstrationService.Project")]
     public class IAM_BasicsTests
     {
         // Values needed for user, role, and policies.
@@ -44,7 +45,7 @@ namespace IAM_Basics_Scenario.Tests
 
         private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
 
-        [Fact()]
+        [Fact, TestPriority(1)]
         public async Task CreateUserAsyncTest()
         {
             // Create client object
@@ -56,7 +57,7 @@ namespace IAM_Basics_Scenario.Tests
             Assert.Equal(user.UserName, UserName);
         }
 
-        [Fact()]
+        [Fact, TestPriority(2)]
         public async Task CreateAccessKeyAsyncTest()
         {
             // Create client object
@@ -71,7 +72,7 @@ namespace IAM_Basics_Scenario.Tests
             SecretKey = accessKey.SecretAccessKey;
         }
 
-        [Fact()]
+        [Fact, TestPriority(3)]
         public async Task CreateRoleAsyncTest()
         {
             // Create client object
@@ -87,7 +88,7 @@ namespace IAM_Basics_Scenario.Tests
             Assert.Equal(role.RoleName, RoleName);
         }
 
-        [Fact()]
+        [Fact, TestPriority(4)]
         public async Task CreatePolicyAsyncTest()
         {
             // Create client object
@@ -99,7 +100,7 @@ namespace IAM_Basics_Scenario.Tests
             Assert.Equal(policy.PolicyName, S3PolicyName);
         }
 
-        [Fact()]
+        [Fact, TestPriority(5)]
         public async Task AttachRoleAsyncTest()
         {
             // Create client object
@@ -109,12 +110,12 @@ namespace IAM_Basics_Scenario.Tests
             await IAM_Basics.AttachRoleAsync(client, TestPolicy.Arn, RoleName);
         }
 
-        [Fact()]
+        [Fact, TestPriority(6)]
         public void DeleteResourcesTest()
         {
             // Delete client object created in CreateUserAsyncTest.
             var client = new AmazonIdentityManagementServiceClient(Region);
-            var success = IAM_Basics.DeleteResourcesAsync(client, AccessKeyId, UserName, S3PolicyName, TestPolicy.Arn, RoleName);
+            var success = IAM_Basics.DeleteResourcesAsync(client, AccessKeyId, UserName, TestPolicy.Arn, RoleName);
         }
     }
 }

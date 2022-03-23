@@ -10,14 +10,11 @@ namespace IAM_Basics_Scenario
     // snippet-start:[IAM.dotnetv3.IAM_BasicsScenario]
     using System;
     using System.IO;
-    using System.Text.Json;
-    using System.Text.Json.Serialization;
     using System.Threading.Tasks;
     using Amazon;
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
     using Amazon.S3;
-    using Amazon.S3.Model;
     using Amazon.SecurityToken;
     using Amazon.SecurityToken.Model;
 
@@ -106,7 +103,7 @@ namespace IAM_Basics_Scenario
             await ListMyBucketsAsync(s3Client2);
 
             // Now clean up all the resources used in the example.
-            await DeleteResourcesAsync(client, accessKeyId, UserName, S3PolicyName, policy.Arn, RoleName);
+            await DeleteResourcesAsync(client, accessKeyId, UserName, policy.Arn, RoleName);
 
             Console.WriteLine("IAM Demo completed.");
         }
@@ -158,8 +155,6 @@ namespace IAM_Basics_Scenario
             if (response.AccessKey is not null)
             {
                 Console.WriteLine($"Successfully created Access Key for {userName}.");
-                Console.WriteLine("Press <Enter> to continue.");
-                _ = Console.ReadLine();
             }
 
             return response.AccessKey;
@@ -337,7 +332,6 @@ namespace IAM_Basics_Scenario
             AmazonIdentityManagementServiceClient client,
             string accessKeyId,
             string userName,
-            string policyName,
             string policyArn,
             string roleName)
         {
