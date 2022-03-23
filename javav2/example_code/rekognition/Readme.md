@@ -37,11 +37,20 @@ The following examples use the **RekognitionClient** object:
 - [Displaying a green bounding box around a mask in an image.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/PPEBoundingBoxFrame.java) (PPEBoundingBoxFrame command)
 - [Recognizing celebrities in a given image.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/RecognizeCelebrities.java) (RecognizeCelebrities command)
 - [Getting the estimated orientation of an image.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/RotateImage.java) (BoundingBox commands)
-- [Displaying information about a face that matches a face identified by its Id value.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/SearchFaceMatchingIdCollection.java) (SearchFaces commands)
+- [Displaying information about a face that matches a face identified by its Id value.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/SearchFaceMatchingIdCollection.java) (SearchFaces command)
+- [Getting celebrity results from a video located in an Amazon S3 bucket.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoCelebrityDetection.java) (StartCelebrityRecognition command)
+- [Detecting labels in a video.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetect.java) (StartLabelDetection command)
+- [Detecting faces in a video.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectFaces.java) (StartFaceDetection command)
+- [Detecting offensive content in a video.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectInappropriate.java) (StartContentModeration command)
+- [Detect technical cue segments in a video.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectSegment.java) (StartSegmentDetection command)
+- [Detect text in a video.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectText.java) (StartTextDetection command)
+- [Detect people in a video.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoPersonDetection.java) (startPersonTracking command)
 
+### Cross-service
 
-
-This README discusses how to run and test the Java code examples for Amazon Rekognition.
+- [Detecting PPE in images with Amazon Rekognition using an AWS SDK](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe) 
+- [Detecting objects in images with Amazon Rekognition using an AWS SDK](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app) 
+- [Detecting people and objects in a video with Amazon Rekognition using an AWS SDK](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/video_analyzer_application) 
 
 ## Running the Amazon Rekognition Java files
 
@@ -124,3 +133,9 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
 	[ERROR];
+	
+	
+## Additional resources
+* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html).
+* [Interface RekognitionClient]https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rekognition/RekognitionClient.html).	
