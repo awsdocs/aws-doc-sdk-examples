@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 createDataset.js demonstrates how to create a dataset with Amazon Personalize. 
 A dataset is a container for data that you upload to Amazon Personalize.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html.
 
 Inputs (replace in code):
 - DATASET_GROUP_ARN
@@ -24,10 +24,10 @@ import { CreateDatasetCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the dataset parameters
+// Set the dataset's parameters.
 export const createDatasetParam = {
   datasetGroupArn: 'DATASET_GROUP_ARN', /* required */
   datasetType: 'DATASET_TYPE', /* required */

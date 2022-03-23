@@ -7,7 +7,7 @@ Purpose:
 createCampaign.js demonstrates how to create a campaign with Amazon Personalize. A campaign
 is a deployed solution version (trained model) with provisioned dedicated 
 transaction capacity for creating real-time recommendations for your application users.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html.
 
 Inputs (replace in code):
 - SOLUTION_VERSION_ARN
@@ -24,10 +24,10 @@ import { CreateCampaignCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the campaign parameters
+// Set the campaign's parameters.
 export const createCampaignParam = {
   solutionVersionArn: 'SOLUTION_VERSION_ARN', /* required */
   name: 'NAME',  /* required */

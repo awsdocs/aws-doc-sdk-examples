@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 createDomainatasetGroup.js demonstrates how to create a domain dataset group with Amazon Personalize.
 A domain dataset group is a dataset group containing preconfigured resources for different business domains and use cases.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html.
 
 Inputs (replace in code):
 - NAME
@@ -22,10 +22,10 @@ import {  CreateDatasetGroupCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set domain dataset group params
+// Set the domain dataset group parameters.
 export const domainDatasetGroupParams = {
   name: 'NAME',  /* required */
   domain: 'DOMAIN'   /* required for a domain dsg, specify ECOMMERCE or VIDEO_ON_DEMAND */

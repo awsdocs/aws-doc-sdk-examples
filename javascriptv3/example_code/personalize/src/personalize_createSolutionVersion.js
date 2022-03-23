@@ -5,7 +5,8 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 createSolutionVersion.js demonstrates how to create a solution version (trained model) for 
-a custom dataset group with Amazon Personalize. See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolutionVersion.html
+a custom dataset group with Amazon Personalize. 
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolutionVersion.html
 
 Inputs (replace in code):
 - SOLUTION_ARN
@@ -19,10 +20,10 @@ node createSolutionVersion.js
 import { CreateSolutionVersionCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the solution version parameters
+// Set the solution version parameters.
 export const solutionVersionParam = {
   solutionArn: 'SOLUTION_ARN' /* required */
 }

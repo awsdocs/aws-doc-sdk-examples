@@ -8,7 +8,7 @@ Purpose:
 createBatchInferenceJob.js demonstrates how to create a batch inference job with Amazon Personalize.
 A batch inference job is a tool that imports your batch input data from an Amazon S3 bucket, uses your 
 solution version to generate recommendations, and exports the recommendations to an Amazon S3 bucket.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateBatchInferenceJob.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateBatchInferenceJob.html.
 
 Inputs (replace in code):
 
@@ -30,10 +30,10 @@ import { CreateBatchInferenceJobCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the batchInferenceJob parameters
+// Set the batch inference job's parameters.
 
 export const createBatchInferenceJobParam = {
   jobName: 'JOB_NAME',

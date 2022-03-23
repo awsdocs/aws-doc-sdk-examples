@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 createDatasetImportJob.js demonstrates how to create a dataset import job to import data into an
 Amazon Personalize dataset.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetImportJob.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetImportJob.html.
 
 Inputs (replace in code):
 - S3_PATH
@@ -24,10 +24,10 @@ import {CreateDatasetImportJobCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the import job parameters
+// Set the dataset import job parameters.
 export const datasetImportJobParam = {
   datasetArn: 'DATASET_ARN', /* required */
   dataSource: {  /* required */

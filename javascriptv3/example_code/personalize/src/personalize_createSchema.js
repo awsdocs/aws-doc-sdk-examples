@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 createSchema.js demonstrates how to create a schema for a dataset in a custom dataset
 group with Amazon Personalize.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html.
 
 Inputs (replace in code):
 - NAME
@@ -22,7 +22,7 @@ import { CreateSchemaCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
 import fs from 'fs';
@@ -33,9 +33,9 @@ let mySchema = "";
 try {
   mySchema = fs.readFileSync(schemaFilePath).toString();
 } catch (err) {
-  mySchema = 'TEST' // for unit tests.
+  mySchema = 'TEST' // For unit tests.
 }
-// set the schema param
+// Set the schema parameters.
 export const createSchemaParam = {
   name: 'NAME', /* required */
   schema: mySchema /* required */

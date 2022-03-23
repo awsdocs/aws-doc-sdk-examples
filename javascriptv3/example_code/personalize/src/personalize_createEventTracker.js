@@ -5,8 +5,8 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 createEventTracker.js demonstrates how to create an event tracker with Amazon Personalize. You 
-use an event tracker when you record events with the PutEvents operation.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html.
+use an event tracker when you record events with the PutEvents API operation.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html.
 
 Inputs (replace in code):
 - NAME
@@ -22,10 +22,10 @@ import { CreateEventTrackerCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the event tracker parameters
+// Set the event tracker's parameters.
 export const createEventTrackerParam = {
   datasetGroupArn: 'DATASET_GROUP_ARN', /* required */
   name: 'NAME', /* required */

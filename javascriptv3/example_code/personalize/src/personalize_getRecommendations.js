@@ -5,7 +5,8 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 getRecommendations.js demonstrates how to get recommendations from a campaign created in a 
-custom dataset group with Amazon Personalize. See https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html.
+custom dataset group with Amazon Personalize.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html.
 
 Inputs (replace in code):
 - CAMPAIGN_ARN
@@ -21,10 +22,10 @@ import { GetRecommendationsCommand } from
   "@aws-sdk/client-personalize-runtime";
 
 import { personalizeRuntimeClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here.
 // const personalizeRuntimeClient = new PersonalizeRuntimeClient({ region: "REGION"});
 
-// set the recommendation request parameters
+// Set the recommendation request parameters.
 export const getRecommendationsParam = {
   campaignArn: 'CAMPAIGN_ARN', /* required */
   userId: 'USER_ID',      /* required */

@@ -5,7 +5,8 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 createSolution.js demonstrates how to create a solution for a custom dataset group
-with Amazon Personalize. See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html.
+with Amazon Personalize. 
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html.
 
 Inputs (replace in code):
 - DATASET_GROUP_ARN
@@ -21,10 +22,10 @@ node createSolution.js
 import { CreateSolutionCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the solution parameters
+// Set the solution parameters.
 export const createSolutionParam = {
   datasetGroupArn: 'DATASET_GROUP_ARN', /* required */
   recipeArn: 'RECIPE_ARN', /* required */

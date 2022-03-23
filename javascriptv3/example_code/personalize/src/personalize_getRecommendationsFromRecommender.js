@@ -6,6 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 getRecommendationsFromRecommender.js demonstrates how to get recommendations from a recommender created in a 
 domain dataset group with Amazon Personalize.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html.
 
 Inputs (replace in code):
 - RECOMMENDER_ARN
@@ -20,9 +21,10 @@ node getRecommendationsFromRecommender.js
 import { GetRecommendationsCommand } from
   "@aws-sdk/client-personalize-runtime";
 import { personalizeRuntimeClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here.
 // const personalizeRuntimeClient = new PersonalizeRuntimeClient({ region: "REGION"});
 
+// Set the recommendation request parameters.
 export const getRecommendationsParam = {
   recommenderArn: 'RECOMMENDER_ARN', /* required */
   userId: 'USER_ID',       /* required */

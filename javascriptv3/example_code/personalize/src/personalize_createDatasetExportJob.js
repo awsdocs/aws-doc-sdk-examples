@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 createDatasetExportJob.js demonstrates how to create a dataset export job to export data from
 Amazon Personalize to an Amazon S3 bucket.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetExportJob.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetExportJob.html.
 
 Inputs (replace in code):
 - DATASET_ARN
@@ -25,16 +25,16 @@ import { CreateDatasetExportJobCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the export job parameters
+// Set the export job parameters.
 export const datasetExportJobParam = {
   datasetArn: 'DATASET_ARN', /* required */
   jobOutput: {
     s3DataDestination: {
         path: 'S3_DESTINATION_PATH' /* required */
-        //kmsKeyArn: 'ARN'  /* include if your bucket uses KMS for encryption
+        //kmsKeyArn: 'ARN'  /* include if your bucket uses AWS KMS for encryption
     } 
   },
   jobName: 'NAME',/* required */

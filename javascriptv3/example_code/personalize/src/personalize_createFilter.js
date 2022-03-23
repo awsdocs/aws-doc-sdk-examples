@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 createFilter.js demonstrates how to create a recommendation filter with Amazon Personalize.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateFilter.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateFilter.html.
 
 Inputs (replace in code):
 - NAME
@@ -21,10 +21,10 @@ node createFilter.js
 import { CreateFilterCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the filter param
+// Set the filter's parameters.
 export const createFilterParam = {
   datasetGroupArn: 'DATASET_GROUP_ARN', /* required */
   name: 'NAME', /* required */

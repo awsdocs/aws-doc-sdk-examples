@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 putEvents.js demonstrates how to import real-time interaction event data into Amazon Personalize.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html.
 
 Inputs (replace in code):
 - USER_ID
@@ -24,13 +24,13 @@ node putEvents.js
 import { PutEventsCommand } from
   "@aws-sdk/client-personalize-events";
 import { personalizeEventsClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here.
 // const personalizeEventsClient = new PersonalizeEventsClient({ region: "REGION"});
 
-// convert your unix timestamp to a Date.
-const sentAtDate = new Date(1613443801 * 1000)  // testing value. replace 1613443801 with your sentAt timestamp in UNIX format
+// Convert your UNIX timestamp to a Date.
+const sentAtDate = new Date(1613443801 * 1000)  // 1613443801 is a testing value. Replace it with your sentAt timestamp in UNIX format.
 
-// set put events parameters
+// Set put events parameters.
 var putEventsParam = {
   eventList: [          /* required */
     {

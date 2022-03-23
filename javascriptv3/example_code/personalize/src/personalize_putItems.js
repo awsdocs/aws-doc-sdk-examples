@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 putItems.js demonstrates how to incrementally import an item into an Amazon Personalize dataset.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutItems.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutItems.html.
 
 Inputs (replace in code):
 - DATASET_ARN
@@ -26,10 +26,10 @@ node putItems.js
 import { PutItemsCommand } from
   "@aws-sdk/client-personalize-events";
 import { personalizeEventsClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here.
 // const personalizeEventsClient = new PersonalizeEventsClient({ region: "REGION"});
 
-// set the put items parameters. For string properties and values, use the \ character to escape quotes.
+// Set the put items parameters. For string properties and values, use the \ character to escape quotes.
 var putItemsParam = {
     datasetArn: 'DATASET_ARN', /* required */
     items: [    /* required */

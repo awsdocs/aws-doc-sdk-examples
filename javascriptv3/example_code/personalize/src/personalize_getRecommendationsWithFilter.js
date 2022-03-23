@@ -6,6 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 getRecommendationsWithFilter.js demonstrates how to get filtered recommendations from a campaign
 from a custom dataset group.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html.
 
 Inputs (replace in code):
 - CAMPAIGN_ARN (replace with a recommender ARN to filter recommendations from a recommender)
@@ -22,17 +23,17 @@ node getRecommendationsWithFilter.js
 import { GetRecommendationsCommand } from
   "@aws-sdk/client-personalize-runtime";
 import { personalizeRuntimeClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here:
 // const personalizeRuntimeClient = new PersonalizeRuntimeClient({ region: "REGION"});
 
-// set recommendation request param
+// Set recommendation request parameters.
 export const getRecommendationsParam = {
   campaignArn: 'CAMPAIGN_ARN', /* required */
   userId: 'USER_ID',      /* required */
   numResults: 15,    /* optional */
   filterArn: 'FILTER_ARN',   /* required to filter recommendations */
   filterValues: {
-    "PROPERTY": "\"VALUE\""  /* provide if your filter has a placeholder parameter */
+    "PROPERTY": "\"VALUE\""  /* Only required if your filter has a placeholder parameter */
   }
 }
 

@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 putUsers.js demonstrates how to incrementally import a user into an Amazon Personalize dataset.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutUsers.html
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutUsers.html.
 
 Inputs (replace in code):
 - DATASET_ARN
@@ -22,10 +22,10 @@ node putUsers.js
 import { PutUsersCommand } from
   "@aws-sdk/client-personalize-events";
 import { personalizeEventsClient } from "./libs/personalizeClients.js";
-// or create the client here
+// Or, create the client here.
 // const personalizeEventsClient = new PersonalizeEventsClient({ region: "REGION"});
 
-// set the put users parameters. For string properties and values, use the \ character to escape quotes.
+// Set the put users parameters. For string properties and values, use the \ character to escape quotes.
 var putUsersParam = {
     datasetArn: "DATASET_ARN",
     users: [ 

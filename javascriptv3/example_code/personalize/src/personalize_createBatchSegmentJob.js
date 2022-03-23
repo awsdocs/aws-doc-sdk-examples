@@ -7,7 +7,7 @@ Purpose:
 createBatchSegmentJob.js demonstrates how to create a batch segment job with Amazon Personalize.
 A batch segment job is a tool that imports your batch input data from an Amazon S3 bucket, uses your solution version 
 to create user segments, and exports the user segments to an Amazon S3 bucket.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateBatchSegmentJob.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateBatchSegmentJob.html.
 
 Inputs (replace in code):
 - NAME
@@ -28,10 +28,10 @@ import { CreateBatchSegmentJobCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the batchSegmentJob parameters
+// Set the batch segment job's parameters.
 
 export const createBatchSegmentJobParam = {
   jobName: 'NAME',

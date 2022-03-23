@@ -4,9 +4,9 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-createDomainSchema.js demonstrates how to create a schema for a dataset in domain dataset
+createDomainSchema.js demonstrates how to create a schema for a dataset in a domain dataset
 group with Amazon Personalize.
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html.
 
 Inputs (replace in code):
 - NAME
@@ -23,7 +23,7 @@ import { CreateSchemaCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
 import fs from 'fs';
@@ -37,11 +37,11 @@ try {
   mySchema = 'TEST' // for unit tests.
 }
 
-// set the domain schema params
+// Set the domain schema parameters.
 export const createDomainSchemaParam = {
   name: 'NAME', /* required */
   schema: mySchema, /* required */
-  domain: 'DOMAIN'   /* required for a domain dsg, specify ECOMMERCE or VIDEO_ON_DEMAND */
+  domain: 'DOMAIN'   /* required for a domain dataset group, specify ECOMMERCE or VIDEO_ON_DEMAND */
 };
 
 export const run = async () => {

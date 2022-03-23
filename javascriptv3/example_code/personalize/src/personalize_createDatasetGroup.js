@@ -5,9 +5,9 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 createDatasetGroup.js demonstrates how to create a custom dataset group with Amazon Personalize.
-A custom dataset group is a dataset group containing custom resources, including solutions, 
-solution versions, filters, campaigns, and batch inference jobs. 
-See https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html.
+A custom dataset group contains custom resources such as solutions,
+solution versions, filters, campaigns, and batch inference jobs.
+For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html.
 
 Inputs (replace in code):
 - NAME
@@ -23,10 +23,10 @@ import { CreateDatasetGroupCommand } from
   "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
-// or create the client here
+// Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-// set the dataset group parameters
+// Set the dataset group parameters.
 export const createDatasetGroupParam = { 
   name: 'NAME' /* required */
 }
