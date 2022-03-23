@@ -35,9 +35,9 @@ The following examples use the **GlueClient** object:
 
 ## Running the AWS Glue Kotlin files
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a crawler by running the **DeleteCrawler** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a crawler by running the **DeleteCrawler** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Gradle. For more information, 
+To run these examples, set up your development environment to use Gradle. For more information, 
 see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
 
@@ -49,7 +49,7 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
 
  ### Properties file
 Before running the AWS Glue JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a crawler name used in the tests. If you do not define all values, the JUnit tests fail.
