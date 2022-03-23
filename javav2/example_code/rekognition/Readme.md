@@ -3,7 +3,7 @@
 ## Overview
 This README discusses how to run and test the Java V2 code examples for Amazon Rekognition.
 
-Amazon Rekognition enables your applications to confirm user identities by comparing their live image with a reference image. Amazon Rekognition detects Personal Protective Equipment (PPE) such as face covers, head covers, and hand covers on persons in images.
+Amazon Rekognition enables your applications to confirm user identities by comparing their live image with a reference image. Amazon Rekognition also detects content in images and videos, such as face covers, head covers, and hand covers on persons in images.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
