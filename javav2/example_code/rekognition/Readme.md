@@ -138,4 +138,4 @@ If you do not define the correct values in the properties file, your JUnit tests
 ## Additional resources
 * [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html).
-* [Interface RekognitionClient]https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rekognition/RekognitionClient.html).	
+* [Interface RekognitionClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rekognition/RekognitionClient.html).	
