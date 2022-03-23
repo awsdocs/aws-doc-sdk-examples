@@ -17,39 +17,7 @@ Amazon Rekognition enables your applications to confirm user identities by compa
 
 The following examples use the **RekognitionClient** object:
 
-- [Adding faces to a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/AddFacesToCollection.java) (IndexFaces command)
-- [Getting information about a celebrity](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/CelebrityInfo.java) (GetCelebrityInfo command)
-- [Comparing two faces](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/CompareFaces.java) (CompareFaces command)
-- [Creating a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/CreateCollection.java) (CreateCollection command)
-- [Deleting a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DeleteCollection.java) (DeleteCollection command)
-- [Deleting faces from a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DeleteFacesFromCollection.java) (DeleteFaces command)
-- [Describing a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DescribeCollection.java) (DescribeCollection command)
-- [Detecting faces in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectFaces.java) (DetectFaces command)
-- [Detecting labels in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectLabels.java) (DetectLabels command)
-- [Detecting labels in an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectLabelsS3.java) (DetectLabels command)
-- [Detecting unsafe content in a given image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectModerationLabels.java) (DetectModerationLabels command)
-- [Detecting Personal Protective Equipment in a given image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectPPE.java) (DetectProtectiveEquipment command)
-- [Detecting Text in a given image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectText.java) (DetectText command)
-- [Displaingy a bounding box around faces.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DisplayFacesFrame.java) (DetectFaces command)
-- [Listing the available collections](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/ListCollections.java) (ListCollections command)
-- [Listing faces in a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/ListFacesInCollection.java) (ListFaces command)
-- [Displaying a green bounding box around a mask](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/PPEBoundingBoxFrame.java) (PPEBoundingBoxFrame command)
-- [Recognizing celebrities in a given image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/RecognizeCelebrities.java) (RecognizeCelebrities command)
-- [Getting the estimated orientation of an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/RotateImage.java) (BoundingBox commands)
-- [Displaying information about a face](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/SearchFaceMatchingIdCollection.java) (SearchFaces command)
-- [Getting celebrity results from a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoCelebrityDetection.java) (StartCelebrityRecognition command)
-- [Detecting labels in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetect.java) (StartLabelDetection command)
-- [Detecting faces in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectFaces.java) (StartFaceDetection command)
-- [Detecting offensive content in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectInappropriate.java) (StartContentModeration command)
-- [Detect technical cue segments in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectSegment.java) (StartSegmentDetection command)
-- [Detect text in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectText.java) (StartTextDetection command)
-- [Detect people in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoPersonDetection.java) (startPersonTracking command)
 
-### Cross-service
-
-- [Detecting PPE in images](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe) 
-- [Detecting objects in images](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app) 
-- [Detecting people and objects in a video](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/video_analyzer_application) 
 
 ## Running the Amazon Rekognition Java files
 
