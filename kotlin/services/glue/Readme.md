@@ -1,12 +1,12 @@
-# AWS Glue Kotlin code examples
+# AWS Glue code examples for the SDK for Kotlin
 
 ## Overview
-This README discusses how to run and test the Kotlin code examples for AWS Glue.
+This README discusses how to run and test the AWS SDK for Kotlin code examples for AWS Glue.
 
 AWS Glue is a serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development.
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* The SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see the [AWS Pricing page](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
 *  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
@@ -34,10 +34,6 @@ The following examples use the **GlueClient** object:
 - [Performing various AWS Glue operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/glue/src/main/kotlin/com/kotlin/glue/GlueScenario.kt) (Multiple commands)
 
 ## Running the AWS Glue Kotlin files
-
-**IMPORTANT**
-
-The Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a crawler by running the **DeleteCrawler** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
