@@ -63,7 +63,7 @@ suspend fun main(args:Array<String>) {
             crawlerName - The name of the crawler. 
             jobName - The name you assign to this job definition.
             scriptLocation - Specifies the Amazon S3 path to a script that runs a job.
-            locationUri - Specifies the location of the database 
+            locationUri - Specifies the location of the database. 
         """
 
     if (args.size != 8) {
