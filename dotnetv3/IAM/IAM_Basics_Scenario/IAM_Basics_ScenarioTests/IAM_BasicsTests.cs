@@ -11,7 +11,7 @@ namespace IAM_Basics_Scenario.Tests
     using IAM_Basics_Scenario;
     using IAM_Basics_ScenarioTests;
 
-   [TestCaseOrderer("OrechstrationService.Project.Orderers.PriorityOrderer", "OrechstrationService.Project")]
+    [TestCaseOrderer("OrechstrationService.Project.Orderers.PriorityOrderer", "OrechstrationService.Project")]
     public class IAM_BasicsTests
     {
         // Values needed for user, role, and policies.
