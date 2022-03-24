@@ -31,12 +31,12 @@ import kotlin.system.exitProcess
 // snippet-end:[kendra.kotlin.index.import]
 
 /**
-To run this Kotlin code example, ensure that you have set up your development environment,
-including your credentials.
+ Before running this Kotlin code example, set up your development environment,
+ including your credentials.
 
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+ For more information, see the following documentation topic:
+ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+*/
 
 suspend fun main(args: Array<String>) {
 
@@ -47,8 +47,8 @@ suspend fun main(args: Array<String>) {
         Where:
             indexDescription - A description for the index.
             indexName - The name for the new index.
-            indexRoleArn - An Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.
-            dataSourceRoleArn - The ARN of am IAM role with permission to access the data source.
+            indexRoleArn - An AWS Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.
+            dataSourceRoleArn - The Amazon Resource Name (ARN) of an IAM role with permissions to access the data source.
             dataSourceName - The name for the new data source.
             dataSourceDescription - A description for the data source.
             s3BucketName - An Amazon S3 bucket used as your data source.

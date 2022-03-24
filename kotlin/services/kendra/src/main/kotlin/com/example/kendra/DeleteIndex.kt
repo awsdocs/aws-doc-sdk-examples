@@ -18,13 +18,15 @@ import aws.sdk.kotlin.services.kendra.KendraClient
 import aws.sdk.kotlin.services.kendra.model.DeleteIndexRequest
 import kotlin.system.exitProcess
 // snippet-end:[kendra.kotlin.delete.index.import]
+
 /**
-To run this Kotlin code example, ensure that you have set up your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
+
 suspend fun main(args: Array<String>) {
 
     val usage = """
