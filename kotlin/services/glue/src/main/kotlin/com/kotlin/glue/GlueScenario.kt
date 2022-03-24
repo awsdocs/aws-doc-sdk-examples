@@ -37,12 +37,16 @@ import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.scenario.import]
 
 /**
-To run this Kotlin code example, ensure that you have set up your development environment,
-including your credentials.
+ Before running this Kotlin code example, set up your development environment,
+ including your credentials.
 
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+ For more information, see the following documentation topic:
+ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+
+ To set up the resources, see this documentation topic:
+
+  https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html
+*/
 
 //snippet-start:[glue.kotlin.scenario.main]
 suspend fun main(args:Array<String>) {
@@ -52,14 +56,14 @@ suspend fun main(args:Array<String>) {
             <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName> <scriptLocation> <locationUri>
 
         Where:
-            iam - the ARN of the IAM role that has AWS Glue and S3 permissions.
-            s3Path - the Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).
-            cron - a cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).
-            dbName - the database name. 
-            crawlerName - the name of the crawler. 
-            jobName - the name you assign to this job definition.
-            scriptLocation - specifies the Amazon S3 path to a script that runs a job.
-            locationUri - specifies the location of the database 
+            iam - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has AWS Glue and Amazon Simple Storage Service (Amazon S3) permissions.
+            s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).
+            cron - A cron expression used to specify the schedule (for example, cron(15 12 * * ? *).
+            dbName - The database name. 
+            crawlerName - The name of the crawler. 
+            jobName - The name you assign to this job definition.
+            scriptLocation - Specifies the Amazon S3 path to a script that runs a job.
+            locationUri - Specifies the location of the database 
         """
 
     if (args.size != 8) {
