@@ -1,12 +1,12 @@
-# Amazon Kendra code examples for the AWS SDK for Kotlin
+# Amazon Kendra code examples for the SDK for Kotlin
 
 ## Overview
-This README discusses how to run and test the Kotlin code examples for Amazon Kendra.
+This README discusses how to run and test the AWS SDK for Kotlin code examples.
 
 Amazon Kendra is an intelligent search service powered by machine learning (ML).
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* The AWS SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing page](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
 *  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
@@ -51,14 +51,14 @@ Define these values to successfully run the JUnit tests:
 - **indexName** - The name for the new index.
 - **dataSourceName** - The name for the new data source.
 - **indexDescription** - The description for the index. 
-- **indexRoleArn** – An Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.
+- **indexRoleArn** – An AWS Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.
 - **s3BucketName** - An Amazon S3 bucket name used as your data source.
 - **dataSourceDescription** – A description for the data source.
 - **text** – The text used to perform a query operation.
-- **dataSourceRoleArn** – The ARN of am IAM role with permission to access the data source.
+- **dataSourceRoleArn** – The Amazon Resource Name (ARN) of an IAM role with permission to access the data source.
 
 ## Additional resources
-* [Developer guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
+* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 * [Amazon Kendra Developer Guide](https://docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
