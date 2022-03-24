@@ -7,7 +7,7 @@
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
-<!-- zexi 0.4.1 -->
+<!-- zexi 0.4.1  -->
 {{- $doc_id := "service_code_examples"}}
 {{- $title_abbrev := "Code examples"}}
 {{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
@@ -21,7 +21,7 @@
 <chapter id="{{$doc_id}}" role="topic">
 {{end}}
     <info>
-        <title id="{{$doc_id}}.title">Code examples for {{.ServiceEntity.Short}}</title>
+        <title id="{{$doc_id}}.title">Code examples for {{.ServiceEntity.Short}} using &AWS; SDKs</title>
         <titleabbrev id="{{$doc_id}}.titleabbrev">{{$title_abbrev}}</titleabbrev>
         <abstract>
             <para>Code examples that show how to use {{.ServiceEntity.Short}} with an &AWS; SDK.</para>
@@ -59,7 +59,7 @@
     {{- with $cat_examples := index $.CategorizedExampleSets $category}}
     <section id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}" role="topic">
         <info>
-            <title id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} for {{$.ServiceEntity.Short}}</title>
+            <title id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} for {{$.ServiceEntity.Short}} using &AWS; SDKs</title>
             <titleabbrev id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.titleabbrev">{{$cat_examples.CategoryName}}</titleabbrev>
             <abstract>
                 <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>

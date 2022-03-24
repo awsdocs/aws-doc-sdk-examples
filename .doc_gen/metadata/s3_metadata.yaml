@@ -1772,6 +1772,14 @@ s3_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.Scenario_GettingStarted
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3/common
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.go-v2.s3_basics
     Rust:
       versions:
         - sdk_version: 1

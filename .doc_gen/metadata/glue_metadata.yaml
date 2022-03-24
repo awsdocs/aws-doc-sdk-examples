@@ -1,0 +1,290 @@
+glue_GetCrawler:
+  title: Get an &GLU; crawler using an &AWS; SDK
+  title_abbrev: Get a crawler
+  synopsis: get an &GLU; crawler.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.GetCrawler
+  services:
+    glue: {GetCrawler}
+glue_CreateCrawler:
+  title: Create an &GLU; crawler using an &AWS; SDK
+  title_abbrev: Create a crawler
+  synopsis: create an &GLU; crawler.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.CreateCrawler
+  services:
+    glue: {CreateCrawler}
+glue_StartCrawler:
+  title: Start an &GLU; crawler using an &AWS; SDK
+  title_abbrev: Start a crawler
+  synopsis: start an &GLU; crawler.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.StartCrawler
+  services:
+    glue: {StartCrawler}
+glue_GetDatabase:
+  title: Get a database from the &GLUDCLong; using an &AWS; SDK
+  title_abbrev: Get a database from the &GLUDC;
+  synopsis: get a database from the &GLUDCLong;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.GetDatabase
+  services:
+    glue: {GetDatabase}
+glue_GetTables:
+  title: Get tables from a database in the &GLUDCLong; using an &AWS; SDK
+  title_abbrev: Get tables from a database
+  synopsis: get tables from a database in the &GLUDCLong;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.GetTables
+  services:
+    glue: {GetTables}
+glue_CreateJob:
+  title: Create an &GLU; job definition using an &AWS; SDK
+  title_abbrev: Create a job definition
+  synopsis: create an &GLU; job definition.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.CreateJob
+  services:
+    glue: {CreateJob}
+glue_StartJobRun:
+  title: Start an &GLU; job run using an &AWS; SDK
+  title_abbrev: Start a job run
+  synopsis: start an &GLU; job run.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.StartJobRun
+  services:
+    glue: {StartJobRun}
+glue_ListJobs:
+  title: List &GLU; job definitions using an &AWS; SDK
+  title_abbrev: List job definitions
+  synopsis: list &GLU; job definitions.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.ListJobs
+  services:
+    glue: {ListJobs}
+glue_GetJobRuns:
+  title: Get runs of an &GLU; job using an &AWS; SDK
+  title_abbrev: Get runs of a job
+  synopsis: get runs of an &GLU; job.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.GetJobRuns
+  services:
+    glue: {GetJobRuns}
+glue_GetJobRun:
+  title: Get an &GLU; job run using an &AWS; SDK
+  title_abbrev: Get a job run
+  synopsis: get an &GLU; job run.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.GetJobRun
+  services:
+    glue: {GetJobRun}
+glue_DeleteJob:
+  title: Delete an &GLU; job definition using an &AWS; SDK
+  title_abbrev: Delete a job definition
+  synopsis: delete an &GLU; job definition and all associated runs.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.DeleteJob
+  services:
+    glue: {DeleteJob}
+glue_DeleteTable:
+  title: Delete a table from an &GLUDCLong; database using an &AWS; SDK
+  title_abbrev: Delete a table from a database
+  synopsis: delete a table from an &GLUDCLong; database.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.DeleteTable
+  services:
+    glue: {DeleteTable}
+glue_DeleteDatabase:
+  title: Delete a database from the &GLUDCLong; using an &AWS; SDK
+  title_abbrev: Delete a database from the &GLUDC;
+  synopsis: delete a database from the &GLUDCLong;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.DeleteDatabase
+  services:
+    glue: {DeleteDatabase}
+glue_DeleteCrawler:
+  title: Delete an &GLU; crawler using an &AWS; SDK
+  title_abbrev: Delete a crawler
+  synopsis: delete an &GLU; crawler.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.decl
+                - python.example_code.glue.DeleteCrawler
+  services:
+    glue: {DeleteCrawler}
+glue_Scenario_GetStartedCrawlersJobs:
+  title: Get started running &GLU; crawlers and jobs using an &AWS; SDK
+  title_abbrev: Get started running crawlers and jobs
+  synopsis_list:
+    - Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates
+      a metadata database that describes the CSV-formatted data it finds.
+    - List information about databases and tables in your &GLUDCLong;.
+    - Create and run a job that extracts CSV data from the source &S3; bucket,
+      transforms it by removing and renaming fields, and loads JSON-formatted
+      output into another &S3; bucket.
+    - List information about job runs and view some of the transformed data.
+    - Delete all resources created by the demo.
+  category: Scenarios
+  guide_topic:
+    title: "Tutorial: Getting started with &GLU; Studio"
+    url: glue/latest/ug/tutorial-create-job.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &GLU; functions used in
+                the scenario.
+              snippet_tags:
+                - python.example_code.glue.GlueWrapper.full
+            - description: Create a class that runs the scenario.
+              snippet_tags:
+                - python.example_code.glue.Scenario_GetStartedCrawlersJobs
+            - description: Create an ETL script that is used by &GLU; to extract,
+                transform, and load data during job runs.
+              snippet_tags:
+                - python.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script
+  services:
+    glue: {GetCrawler, CreateCrawler, StartCrawler, GetDatabase, GetTables, CreateJob,
+           StartJobRun, ListJobs, GetJobRuns, GetJobRun, DeleteJob, DeleteTable,
+           DeleteDatabase, DeleteCrawler}

@@ -34,7 +34,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example creates a CloudFormation stack in the region.
 
-`cargo run --bin create-stacks -- -s STACK-NAME -t TEMPLATE-FILE [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-stack -- -s STACK-NAME -t TEMPLATE-FILE [-d DEFAULT-REGION] [-v]`
 
 - _STACK-NAME_ is name of the stack.
 - _TEMPLATE-FILE_ is name of the template file, in either JSON or YAML format.
@@ -47,7 +47,7 @@ This example creates a CloudFormation stack in the region.
 
 This example deletes a CloudFormation stack in the region.
 
-`cargo run --bin delete-stacks -- -s STACK-NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin delete-stack -- -s STACK-NAME [-d DEFAULT-REGION] [-v]`
 
 - _STACK-NAME_ is name of the stack.
 - _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the stacks are located.
@@ -59,7 +59,7 @@ This example deletes a CloudFormation stack in the region.
 
 This example retrieves the status of a CloudFormation stack in the region.
 
-`cargo run --bin describe-stacks -- -s STACK-NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin describe-stack -- -s STACK-NAME [-d DEFAULT-REGION] [-v]`
 
 - _STACK-NAME_ is name of the stack.
   If the stack does not exist, the code panics.
