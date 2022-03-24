@@ -36,3 +36,4 @@ jobs:
           VALIDATE_GO: true
           VALIDATE_RUBY: true
           VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_CSHARP: true
