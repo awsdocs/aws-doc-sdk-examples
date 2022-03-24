@@ -25,10 +25,10 @@ func TestExamples(t *testing.T) {
 	func() {
 		defer func() {
 			if err := recover(); err != nil {
-				// Whoops. Clean up whatever we can.
+				// Clean up after a failed test run.
 				t.Logf("Failed to run tests: %v", err)
 
-				// Try and clean up what we can.
+				// Clean up whatever possible.
 
 				_, xerr := iamClient.DeleteUser(context.Background(), &iam.DeleteUserInput{UserName: aws.String(ExampleUserName)})
 				if xerr != nil {
@@ -51,12 +51,12 @@ func TestExamples(t *testing.T) {
 					t.Log("Failed to clean up role")
 				}
 
-				// get the caller identity
+				// Get the caller identity.
 				stsClient := sts.NewFromConfig(cfg)
 				identity, xerr := stsClient.GetCallerIdentity(context.Background(), &sts.GetCallerIdentityInput{})
 
 				if xerr != nil {
-					panic("Something terrible has happened.")
+					panic("Couldn't get my own identity: "+xerr.Error())
 				}
 
 				ourPolicyArn := fmt.Sprintf("arn:aws:iam::%s:policy/%v", *identity.Account, ExamplePolicyName)
@@ -64,7 +64,7 @@ func TestExamples(t *testing.T) {
 				_, xerr = iamClient.DeletePolicy(context.Background(), &iam.DeletePolicyInput{PolicyArn: &ourPolicyArn})
 
 				if xerr != nil {
-					t.Log("Failed to clean up policy arn " + ourPolicyArn)
+					t.Log("Failed to clean up policy ARN " + ourPolicyArn+ " -> "+ xerr.Error())
 				}
 				t.FailNow()
 			}
@@ -80,7 +80,7 @@ func TestExamples(t *testing.T) {
 
 		}()
 	}()
-	// Clean up the resources
+	// Clean up the resources.
 
 	t.Log(" --- Clean up ")
 

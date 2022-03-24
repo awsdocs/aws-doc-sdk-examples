@@ -19,9 +19,10 @@ import (
 )
 
 /*
-This is a basic scenario for using IAM and STS.
+This is a basic scenario for using AWS Identity and Access Management (IAM) and AWS Security Token Service (STS).
 
-This example will
+This example will do the following:
+
  *   Create a user that has no permissions.
  *   Create a role and policy that grant s3:ListAllMyBuckets permission.
  *   Grant the user permission to assume the role.
@@ -29,7 +30,8 @@ This example will
  *   Get temporary credentials by assuming the role.
  *   Create an S3 client object with the temporary credentials and list the buckets (this should succeed).
  *   Delete all the resources.
-*/
+
+ */
 
 const (
 	scenario_UserName               = "ExampleUser123"
@@ -60,12 +62,12 @@ func scenario() {
 		var existsAlready *types.EntityAlreadyExistsException
 		if errors.As(err, &existsAlready) {
 			// The user possibly exists.
-			// Check if we can get the user from iam.
+			// Check if the user actually exists within IAM.
 			uuser, err := iamSvc.GetUser(context.Background(), &iam.GetUserInput{UserName: aws.String(scenario_UserName)})
 			if err != nil {
 				panic("Can't get user: " + err.Error())
 			} else {
-				// make sure that the user info is set
+				// Make sure the user info is set for later.
 				userInfo = *uuser.User
 				fmt.Println("User already existed...")
 			}
@@ -93,7 +95,7 @@ func scenario() {
 
 	fmt.Printf("🗝️ CREDS: accessKeyId(%s) Secretkey(%s)\n", akId, sakId)
 
-	// Grant the user the ability to assume the role
+	// Grant the user the ability to assume the role.
 
 	fmt.Println("💤 waiting for a few moments for keys to become available")
 
@@ -118,7 +120,7 @@ func scenario() {
 	})
 	var bucketListerRoleArn string
 	if err != nil {
-		// Check to see if the role exists
+		// Check to see if the role exists.
 		var existsException *types.EntityAlreadyExistsException
 		if errors.As(err, &existsException) {
 			// Check if we can look up the role as it stands already
@@ -126,7 +128,7 @@ func scenario() {
 				RoleName: aws.String(scenario_BucketListerRoleName),
 			})
 			if err != nil {
-				// Told it already exists but now whoops it's gone?
+				// Told it already exists, but now it's gone.
 				panic("Couldn't find seemingly extant role: " + err.Error())
 			} else {
 				bucketListerRoleArn = *tRole.Role.Arn
@@ -200,9 +202,9 @@ func scenario() {
 
 	time.Sleep(10 * time.Second)
 
-	// Create an S3 client that acts as the user
+	// Create an S3 client that acts as the user.
 	userConfig, err := config.LoadDefaultConfig(context.TODO(),
-		// Hard coded credentials.
+		// Use credentials created earlier.
 		config.WithCredentialsProvider(credentials.StaticCredentialsProvider{
 			Value: aws.Credentials{
 				AccessKeyID: akId, SecretAccessKey: sakId,
@@ -220,11 +222,11 @@ func scenario() {
 	}
 
 	s3Client := s3.NewFromConfig(userConfig)
-	// Attempt to list buckets
+	// Attempt to list buckets.
 	_, err = s3Client.ListBuckets(context.Background(), &s3.ListBucketsInput{})
 
 	if err == nil {
-		fmt.Println("Somehow, we listed our buckets without permission to do so")
+		fmt.Println("Call to s3:ListBuckets was not denied (unexpected!)")
 	} else {
 		var oe smithy.APIError
 		if errors.As(err, &oe) && (oe.ErrorCode() == "AccessDenied") {
@@ -264,9 +266,9 @@ func scenario() {
 		}
 	}
 
-	// ---- clean up ----
+	// ---- Clean up ----
 
-	// Delete the user's access keys
+	// Delete the user's access keys.
 
 	fmt.Println("cleanup: Delete created access key")
 	_, _ = iamSvc.DeleteAccessKey(context.Background(), &iam.DeleteAccessKeyInput{
@@ -274,14 +276,14 @@ func scenario() {
 		UserName:    aws.String(scenario_UserName),
 	})
 
-	// Delete the user
+	// Delete the user.
 	fmt.Println("cleanup: delete the user we created")
 	_, err = iamSvc.DeleteUser(context.Background(), &iam.DeleteUserInput{UserName: aws.String(scenario_UserName)})
 	if err != nil {
 		fmt.Println("Couldn't delete user! " + err.Error())
 	}
 
-	// Detach the role policy
+	// Detach the role policy.
 
 	fmt.Println("cleanup: Detach the policy from the role")
 	_, err = iamSvc.DetachRolePolicy(context.Background(), &iam.DetachRolePolicyInput{
@@ -293,7 +295,7 @@ func scenario() {
 		fmt.Println("Couldn't detach role policy from role " + err.Error())
 	}
 
-	// Delete the role
+	// Delete the role.
 	fmt.Println("cleanup: Remove the role")
 	_, err = iamSvc.DeleteRole(context.Background(), &iam.DeleteRoleInput{
 		RoleName: aws.String(scenario_BucketListerRoleName),
@@ -302,7 +304,7 @@ func scenario() {
 		fmt.Println("Couldn't delete role! " + err.Error())
 	}
 
-	// delete the policy
+	// Delete the policy.
 	fmt.Println("cleanup: delete the policy")
 	_, err = iamSvc.DeletePolicy(context.Background(), &iam.DeletePolicyInput{
 		PolicyArn: &bucketListerPolicyArn,

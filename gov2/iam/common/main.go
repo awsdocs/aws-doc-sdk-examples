@@ -12,13 +12,11 @@ import (
 )
 
 func main() {
-	// main
-
-	// Get the general configuration
+	// Get the default AWS SDK configuration.
 	cfg, err := config.LoadDefaultConfig(context.Background())
 
 	if err != nil {
-		panic("Couldn't load a configuration")
+		panic("Couldn't load configuration: "+err.Error())
 	}
 
 	scenario()

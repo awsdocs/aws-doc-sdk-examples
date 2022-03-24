@@ -152,7 +152,7 @@ func examples(cfg aws.Config) ExampleCreatedResources {
 	}
 	//snippet-end:[iam.go-v2.ListAttachedRolePolicies]
 
-	// clean up what we've done for later.
+	// Clean up: Detach the role policy.
 	_, err = service.DetachRolePolicy(context.Background(), &iam.DetachRolePolicyInput{
 		RoleName:  aws.String(ExampleRoleName),
 		PolicyArn: aws.String(ExamplePolicyARN),
@@ -174,10 +174,10 @@ func examples(cfg aws.Config) ExampleCreatedResources {
 
 	// NOTE: We don't consider this an error as running this example multiple times will cause an error.
 	if err != nil {
-		fmt.Printf("Couldn't create Service Linked Role: %v\n", err.Error())
+		fmt.Printf("Couldn't create service-linked role: %v\n", err.Error())
 	} else {
 
-		fmt.Printf("Created Service Linked Role with ARN: %s\n", *createSlrResult.Role.Arn)
+		fmt.Printf("Created service-linked role with ARN: %s\n", *createSlrResult.Role.Arn)
 	}
 
 	//snippet-end:[iam.go-v2.CreateServiceLinkedRole]
