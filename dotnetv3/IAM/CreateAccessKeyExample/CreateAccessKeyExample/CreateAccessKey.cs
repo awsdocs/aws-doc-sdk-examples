@@ -14,7 +14,7 @@ namespace CreateAccessKeyExample
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
 
-    public class CreateAccssKey
+    public class CreateAccessKey
     {
         /// <summary>
         /// Initialize the IAM Client object and then create the IAM Access Key
