@@ -7,11 +7,11 @@ These examples demonstrates how to perform several AWS Identity and Access Manag
 ## Code examples
 
 ### Scenario examples
-* [`common/`](common/) -- This scenario and examples demonstrate the creation of users, access keys, roles, policies, service-linked roles, and assuming a role in order to take on specific permissions from a policy.
+* [`common/`](common/) -- This scenario and its examples demonstrate how to create users, access keys, roles, policies, and service-linked roles. This scenario also demonstrates how to assume a role and take on specific permissions from a policy.
 
 ### API Examples
 
-The API examples included in this directory cover the following IAM actions:
+The API examples included in this directory cover the following IAM operations:
 
 - CreateAccessKey
 - CreateAccountAlias
@@ -43,13 +43,11 @@ in the AWS SDK for Go Developer Guide.
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
   in the *AWS Identity and Access Management 
   User Guide*.
 - This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
+  available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) on the AWS website.
 - Running this code might result in charges to your AWS account.
 
 
