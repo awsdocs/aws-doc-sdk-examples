@@ -35,7 +35,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
  ## Testing the AWS Elastic Beanstalk Java files
 
-You can test the Kotlin code examples for AWS Elastic Beanstalk by running a test file named **ElasticBeanstalkTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for AWS Elastic Beanstalk by running a test file named **ElasticBeanstalkTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
