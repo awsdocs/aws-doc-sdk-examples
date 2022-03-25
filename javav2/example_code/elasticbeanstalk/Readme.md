@@ -1,14 +1,14 @@
-# Elastic Beanstalk code examples for the SDK for Kotlin
+# Elastic Beanstalk code examples for the SDK for Java
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Kotlin examples for AWS Elastic Beanstalk.
+This README discusses how to run and test the AWS SDK for Java (V2) examples for AWS Elastic Beanstalk.
 
 AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web applications.
 
 ## ⚠️ Important
-* The SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing page](https://aws.amazon.com/pricing/).
+* The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing page](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -17,12 +17,12 @@ AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web ap
 
 The following examples use the **ElasticBeanstalkClient** object:
 
-- [Creating an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/elasticbeanstalk/src/main/kotlin/com/aws/example/CreateApplication.kt) (CreateApplication command)
-- [Creating an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/elasticbeanstalk/src/main/kotlin/com/aws/example/CreateEnvironment.kt) (CreateEnvironment command)
-- [Deleting an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/glue/src/main/kotlin/com/aws/example/DeleteApplication.kt) (DeleteApplication command)
-- [Describing an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/glue/src/main/kotlin/com/aws/example/DescribeApplication.kt) (DescribeApplication command)
-- [Describing AWS Elastic Beanstalk configuration options](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/glue/src/main/kotlin/com/aws/example/DescribeConfigurationOptions.kt) (DescribeConfigurationOptions command)
-- [Describing an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/glue/src/main/kotlin/com/aws/example/DescribeEnvironment.kt) (DescribeEnvironment command)
+- [Creating an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/CreateApplication.java) (CreateApplication command)
+- [Creating an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/CreateEnvironment.java) (CreateEnvironment command)
+- [Deleting an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DeleteApplication.java) (DeleteApplication command)
+- [Describing an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DescribeApplications.java) (DescribeApplication command)
+- [Describing AWS Elastic Beanstalk configuration options](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DescribeConfigurationOptions.java) (DescribeConfigurationOptions command)
+- [Describing an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DescribeEnvironment.java) (DescribeEnvironment command)
 
 
 ## Running the AWS Elastic Beanstalk Kotlin files
