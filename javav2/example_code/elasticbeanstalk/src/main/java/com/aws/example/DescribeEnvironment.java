@@ -41,19 +41,18 @@ public class DescribeEnvironment {
                 "Where:\n" +
                 "    appName - the name of the AWS Elastic Beanstalk application. \n";
 
-       // if (args.length != 1) {
-       //     System.out.println(usage);
-       //     System.exit(1);
-       // }
+       if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+       }
 
-        String appName = "Joblisting-env" ; //args[0];
+        String appName = args[0];
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
                 .region(region)
                 .build();
 
         describeEnv(beanstalkClient, appName);
-
     }
 
     //snippet-start:[eb.java2.describe_env.main]
