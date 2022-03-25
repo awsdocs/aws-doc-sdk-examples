@@ -38,13 +38,13 @@ public class CreateEnvironment {
                 "Usage:\n" +
                 "    <envName> \n\n" +
                 "Where:\n" +
-                "    envName - the name of the AWS Elastic Beanstalk environment. \n" +
-                "    appName - the name of the AWS Elastic Beanstalk application." ;
+                "    envName - The name of the AWS Elastic Beanstalk environment. \n" +
+                "    appName - The name of the AWS Elastic Beanstalk application." ;
 
        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-        }
+       }
 
         String envName = args[0];
         String appName = args[1];

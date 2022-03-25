@@ -36,7 +36,7 @@ public class DeleteApplication {
                 "Usage:\n" +
                 "    <appName> \n\n" +
                 "Where:\n" +
-                "    appName - the name of the AWS Elastic Beanstalk application. \n";
+                "    appName - The name of the AWS Elastic Beanstalk application. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
