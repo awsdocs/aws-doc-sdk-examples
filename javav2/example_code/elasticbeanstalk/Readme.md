@@ -25,7 +25,7 @@ The following examples use the **ElasticBeanstalkClient** object:
 - [Describing an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DescribeEnvironment.java) (DescribeEnvironment command)
 
 
-## Running the AWS Elastic Beanstalk Kotlin files
+## Running the AWS Elastic Beanstalk Java files
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS Elastic Beanstalk application. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
@@ -33,9 +33,9 @@ To run these examples, set up your development environment to use Gradle. For mo
 see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
 
- ## Testing the AWS Elastic Beanstalk Kotlin files
+ ## Testing the AWS Elastic Beanstalk Java files
 
-You can test the Kotlin code examples for AWS Elastic Beanstalk by running a test file named **ElasticBeanstalkTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/kotlin** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Kotlin code examples for AWS Elastic Beanstalk by running a test file named **ElasticBeanstalkTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -52,7 +52,7 @@ Define these values to successfully run the JUnit tests:
 - **envName** - The name of the environment. 
 
 ## Additional resources
-* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
+* [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
 * [Developer Guide - AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
