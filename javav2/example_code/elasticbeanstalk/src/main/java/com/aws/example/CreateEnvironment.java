@@ -41,13 +41,13 @@ public class CreateEnvironment {
                 "    envName - the name of the AWS Elastic Beanstalk environment. \n" +
                 "    appName - the name of the AWS Elastic Beanstalk application." ;
 
-       // if (args.length != 1) {
-       //     System.out.println(usage);
-       //     System.exit(1);
-       // }
+       if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String envName = "scottEnv" ;  //args[0];
-        String appName = "TestApp";  //args[1];
+        String envName = args[0];
+        String appName = args[1];
         Region region = Region.US_WEST_2;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
                 .region(region)
@@ -73,7 +73,6 @@ public class CreateEnvironment {
                     .environmentName(envName)
                     .solutionStackName("64bit Amazon Linux 2 v3.2.12 running Corretto 11")
                     .applicationName(appName)
-                    .cnamePrefix("MyPrefix")
                     .optionSettings(setting1)
                     .build();
 
