@@ -53,7 +53,7 @@ To complete the tutorial, you need the following:
 
 Create an Amazon Serverless Amazon Aurora database named **jobs**. For more information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
 
-To successfully connect to the database using the **RdsDataClient** object, you must setup an AWS Secrets Manager secret that is used for authentication. For more information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
+To successfully connect to the database using the **RdsDataClient** object, set up an AWS Secrets Manager secret that is used for authentication. For more information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
 
 To use the **RdsDataClient** object, you require these two ARN values: 
 
@@ -94,7 +94,7 @@ The AWS Tracker application uses a model that is based on a work item and contai
 
 **Note**: The username is the user who logs into this application. In this example, the username is named **user**. 
 
-When a user logs into the system, they see the **Home** page.
+When a user logs into the application, they see the **Home** page.
 
 ![AWS Tracking Application](images/home.png)
 
@@ -102,11 +102,11 @@ When a user logs into the system, they see the **Home** page.
 
 A user can perform these tasks in the AWS Tracker application:
 
-+ Enter an item into the system
-+ View all active items
-+ View archived items that are complete
-+ Modify active items
-+ Send a report to an email recipient
++ Enter an item into the system.
++ View all active items.
++ View archived items that are complete.
++ Modify active items.
++ Send a report to an email recipient.
 
 The following figure shows the new item section.
 
@@ -123,7 +123,6 @@ Likewise, a user can choose **Get Archive Items** to get a dataset where all ite
 The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report.
 
 ![AWS Tracking Application](images/report.png)
-
 
 ## Create an IntelliJ project named ItemTrackerRDS
 
@@ -168,7 +167,7 @@ Ensure that the **pom.xml** file looks like the following.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.17.46</version>
+                <version>2.17.146</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -178,46 +177,34 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.2</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.4.2</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-commons</artifactId>
-            <version>1.4.0</version>
+            <version>1.8.2</version>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.4.0</version>
+            <version>1.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.8.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.13.0</version>
+            <version>3.22.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -234,12 +221,6 @@ Ensure that the **pom.xml** file looks like the following.
             <artifactId>protocol-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.5.5</version>
@@ -252,9 +233,8 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!-- bootstrap and jquery -->
-        <dependency>
+       </dependency>
+       <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>3.3.7</version>
@@ -264,7 +244,6 @@ Ensure that the **pom.xml** file looks like the following.
             <artifactId>jquery</artifactId>
             <version>3.2.1</version>
         </dependency>
-        <!-- mysql connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -304,16 +283,16 @@ Ensure that the **pom.xml** file looks like the following.
                 </exclusion>
             </exclusions>
         </dependency>
-       </dependencies>
-      <build>
+     </dependencies>
+     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-      </build>
-     </project>
+     </build>
+    </project>
 ```
 
 ## Create the Java classes
