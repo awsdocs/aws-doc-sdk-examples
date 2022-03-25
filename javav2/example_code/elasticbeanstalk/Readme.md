@@ -29,8 +29,8 @@ The following examples use the **ElasticBeanstalkClient** object:
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS Elastic Beanstalk application. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-To run these examples, set up your development environment to use Gradle. For more information, 
-see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
+To run these examples, set up your development environment. For more information, 
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
 
  ## Testing the AWS Elastic Beanstalk Java files
