@@ -2,8 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Delete an existing AWS Identity and Access (IAM) User. This example was
-/// created using the AWS SDK for .NET and .NET Core 5.0.
+/// Delete an existing AWS Identity and Access Management (IAM) User. This
+/// example was created using the AWS SDK for .NET and .NET Core 5.0.
 /// </summary>
 namespace DeleteUserExample
 {

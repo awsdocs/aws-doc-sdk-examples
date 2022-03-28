@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Shows how to create an AWS Identity and Access Management (IAM) Policy.
+/// Shows how to create an AWS Identity and Access Management (IAM) policy.
 /// The example was created using the AWS SDK for .NET version 3.7 and
 /// .NET Core 5.0.
 /// </summary>
@@ -22,8 +22,8 @@ namespace CreatePolicyExample
         /// </summary>
         public static async Task Main()
         {
-            // Represents json code for AWS full access policy for Amazon Simple
-            // Storage Service (Amazon S3).
+            // Represents JSON code for AWS managed full access policy for
+            // Amazon Simple Storage Service (Amazon S3).
             string s3FullAccessPolicy = "{" +
                 "	\"Statement\" : [{" +
                     "	\"Action\" : [\"s3:*\"]," +

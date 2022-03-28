@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// This example shows some of the basic Amazon Identity and Access Management
+/// This example shows some of the basic AWS Identity and Access Management
 /// (IAM) procedures for working with IAM users, roles, and policies.
 /// </summary>
 namespace IAM_Basics_Scenario
@@ -35,7 +35,7 @@ namespace IAM_Basics_Scenario
             // Create the IAM client object.
             var client = new AmazonIdentityManagementServiceClient(Region);
 
-            // First create a user. When created, the new user has
+            // First create a user. By default, the new user has
             // no permissions.
             Console.WriteLine($"Creating a new user with user name: {UserName}.");
             var user = await CreateUserAsync(client, UserName);
@@ -78,36 +78,36 @@ namespace IAM_Basics_Scenario
                 "}]" +
             "}";
 
-            // Create the role to allow listing the Amazon Simple Storage Service
-            // (Amazon S3) buckets. Role names are not case sensitive and must
-            // be unique to the account for which it is created.
+            // Create the role to allow listing the S3 buckets. Role names are
+            // not case sensitive and must be unique to the account for which it
+            // is created.
             var role = await CreateRoleAsync(client, RoleName, assumeRolePolicyDocument);
             var roleArn = role.Arn;
 
-            // Create a policy with permissions to list Amazon S3 buckets
+            // Create a policy with permissions to list S3 buckets
             var policy = await CreatePolicyAsync(client, S3PolicyName, policyDocument);
 
             // Wait 15 seconds for the policy to be created.
             WaitABit(15, "Waiting for the policy to be available.");
 
-            // Attach the policy to the role we created earlier.
+            // Attach the policy to the role you created earlier.
             await AttachRoleAsync(client, policy.Arn, RoleName);
 
             // Wait 15 seconds for the role to be updated.
             Console.WriteLine();
             WaitABit(15, "Waiting to time for the policy to be attached.");
 
-            // Use the Security Token Service (AWS STS) to have the user assume
-            // the role we created.
+            // Use the AWS Security Token Service (AWS STS) to have the user
+            // assume the role we created.
             var stsClient = new AmazonSecurityTokenServiceClient(accessKeyId, secretAccessKey);
 
-            // Wait for the new credentials to be valid.
+            // Wait for the new credentials to become valid.
             WaitABit(10, "Waiting for the credentials to be valid.");
 
             var assumedRoleCredentials = await AssumeS3RoleAsync(stsClient, "temporary-session", roleArn);
 
             // Try again to list the buckets using the client created with
-            // the new user's credentials. This time it should work.
+            // the new user's credentials. This time, it should work.
             var s3Client2 = new AmazonS3Client(assumedRoleCredentials);
 
             await ListMyBucketsAsync(s3Client2);
@@ -175,7 +175,7 @@ namespace IAM_Basics_Scenario
         // snippet-start:[IAM.dotnetv3.CreatePolicyAsync]
 
         /// <summary>
-        /// Create a policy to allow a user to list the b uckets in an account.
+        /// Create a policy to allow a user to list the buckets in an account.
         /// </summary>
         /// <param name="client">The initialized IAM client object.</param>
         /// <param name="policyName">The name of the poicy to create.</param>

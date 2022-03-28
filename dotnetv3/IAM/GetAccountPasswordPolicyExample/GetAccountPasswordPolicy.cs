@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // Retrieves the password policy for the account and then displays the
-// in formation on the console. The code was written using the AWS SDK
+// information on the console. The code was written using the AWS SDK
 // for .NET version 3.7 and .NET Core 5.
 
 // snippet-start:[IAM.dotnetv3.GetAccountPasswordPolicyExample]

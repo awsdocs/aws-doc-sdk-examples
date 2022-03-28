@@ -241,10 +241,10 @@ namespace IAMUserExample
         {
             try
             {
-                // Create an access key for the IAM user that can be used by the SDK
+                // Create an access key for the IAM user that can be used by the SDK.
                 var response = await client.CreateAccessKeyAsync(new CreateAccessKeyRequest
                 {
-                    // Use the user we created in the CreateUser example
+                    // Use the user you created in the CreateUser example
                     UserName = userName,
                 });
                 return response;

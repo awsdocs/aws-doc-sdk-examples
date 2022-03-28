@@ -2,8 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Shows how to create an AWS Identity and Access Management (IAM) Access
-/// Key for an IAM User. The example was created using the AWS SDK for .NET
+/// Shows how to create an AWS Identity and Access Management (IAM) access
+/// key for an IAM user. The example was created using the AWS SDK for .NET
 /// version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace CreateAccessKeyExample

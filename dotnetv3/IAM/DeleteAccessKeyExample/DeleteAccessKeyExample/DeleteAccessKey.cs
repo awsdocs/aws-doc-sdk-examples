@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Shows how to delete an AWS Identity and Access Management Access Key.
+/// Shows how to delete an AWS Identity and Access Management (IAM) access key.
 /// The example was created using the AWS SDK for .NET version 3.7 and .NET
 /// Core 5.0.
 /// </summary>

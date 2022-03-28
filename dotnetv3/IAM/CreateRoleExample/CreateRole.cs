@@ -1,8 +1,9 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-// This example shows how to create an Amazon Identity Management Service role.
-// The example was created using the AWS SDK for .NET version 3.7 and .NET 5.
+// This example shows how to create an Amazon Identity and Access Management
+// (IAM) service role. The example was created using the AWS SDK for .NET
+// version 3.7 and .NET 5.
 
 // snippet-start:[IAM.dotnetv3.CreateRoleExample]
 

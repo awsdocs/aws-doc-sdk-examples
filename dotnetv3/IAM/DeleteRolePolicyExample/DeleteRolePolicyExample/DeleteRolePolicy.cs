@@ -3,7 +3,7 @@
 
 /// <summary>
 /// Shows how to delete a policy that has been attached to an AWS Identity
-/// and Access Management (IAM) Role. The example was created using the AWS
+/// and Access Management (IAM) role. The example was created using the AWS
 /// SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace DeleteRolePolicyExample
