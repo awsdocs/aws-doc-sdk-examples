@@ -6,7 +6,7 @@
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
   "license": "Apache 2.0",
   "scripts": {
-    "run":"webpack polly.js --mode development --libraryTarget commonjs2 --target web --devtool false -o main.js"
+    "run":"webpack src/polly.js --mode development --libraryTarget commonjs2 --target web --devtool false -o src/dist/main.js"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "^3.32.0",

@@ -35,4 +35,4 @@ jobs:
           VALIDATE_RUST_2021: true
           VALIDATE_RUBY: true
           VALIDATE_JAVASCRIPT_ES: true
-
+          VALIDATE_CSHARP: true
