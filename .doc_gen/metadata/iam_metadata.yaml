@@ -266,7 +266,7 @@ iam_GetAccountPasswordPolicy:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.GetAccountPasswordPolicy']
               description: ''
@@ -320,7 +320,7 @@ iam_ListSAMLProviders:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.ListSAMLProviders']
               description: ''
@@ -777,7 +777,7 @@ iam_CreatePolicy:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.CreatePolicy']
               description: ''
@@ -884,7 +884,7 @@ iam_ListPolicies:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.ListPolicies']
               description: ''
@@ -970,7 +970,7 @@ iam_GetPolicy:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.GetPolicy']
               description: ''
@@ -1096,7 +1096,7 @@ iam_AttachRolePolicy:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.AttachRolePolicy']
               description: ''
@@ -1123,7 +1123,7 @@ iam_ListAttachedRolePolicies:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.ListAttachedRolePolicies']
               description: ''
@@ -1311,7 +1311,7 @@ iam_CreateRole:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.CreateRole']
               description: ''
@@ -1335,7 +1335,7 @@ iam_ListRoles:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.ListRoles']
               description: ''
@@ -1391,7 +1391,7 @@ iam_GetRole:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.GetRole']
               description: ''
@@ -1481,7 +1481,7 @@ iam_ListRolePolicies:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.ListRolePolicies']
               description: ''
@@ -1584,7 +1584,7 @@ iam_CreateUser:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - description: ''
               snippet_tags:
@@ -1733,7 +1733,7 @@ iam_ListUsers:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - description: ''
               snippet_tags:
@@ -2073,7 +2073,7 @@ iam_ListGroups:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.ListGroups']
               description: ''
@@ -2126,7 +2126,7 @@ iam_CreateServiceLinkedRole:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - snippet_tags: ['iam.go-v2.CreateServiceLinkedRole']
               description: ''
@@ -2243,7 +2243,7 @@ iam_Scenario_CreateUserAssumeRole:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam/common
+          github: gov2/iam
           excerpts:
             - description:
               snippet_tags:
