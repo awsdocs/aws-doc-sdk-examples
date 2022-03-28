@@ -91,13 +91,13 @@
 
 - name: status/has-code-review
   color: "7FFF00"
-  description: "Code review completed"
+  description: "Code review complete"
 - name: status/has-text-review
   color: "7FFF00"
-  description: "This work needs editorial (text) review"
+  description: "Text review complete"
 - name: status/has-testing-review
   color: "7FFF00"
-  description: "This work needs its test reviewed"
+  description: "Testing review complete"
 
 - name: status/in-progress
   color: "008080"
