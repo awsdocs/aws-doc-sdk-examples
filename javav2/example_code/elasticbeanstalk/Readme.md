@@ -17,12 +17,12 @@ AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web ap
 
 The following examples use the **ElasticBeanstalkClient** object:
 
-- [Creating an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/CreateApplication.java) (CreateApplication command)
-- [Creating an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/CreateEnvironment.java) (CreateEnvironment command)
-- [Deleting an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DeleteApplication.java) (DeleteApplication command)
-- [Describing an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DescribeApplications.java) (DescribeApplication command)
-- [Describing AWS Elastic Beanstalk configuration options](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DescribeConfigurationOptions.java) (DescribeConfigurationOptions command)
-- [Describing an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalkamodb/src/main/java/com/aws/example/DescribeEnvironment.java) (DescribeEnvironment command)
+- [Creating an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalk/src/main/java/com/aws/example/CreateApplication.java) (CreateApplication command)
+- [Creating an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalk/src/main/java/com/aws/example/CreateEnvironment.java) (CreateEnvironment command)
+- [Deleting an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalk/src/main/java/com/aws/example/DeleteApplication.java) (DeleteApplication command)
+- [Describing an AWS Elastic Beanstalk application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalk/src/main/java/com/aws/example/DescribeApplications.java) (DescribeApplication command)
+- [Describing AWS Elastic Beanstalk configuration options](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalk/src/main/java/com/aws/example/DescribeConfigurationOptions.java) (DescribeConfigurationOptions command)
+- [Describing an AWS Elastic Beanstalk environment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynelasticbeanstalk/src/main/java/com/aws/example/DescribeEnvironment.java) (DescribeEnvironment command)
 
 
 ## Running the AWS Elastic Beanstalk Java files
