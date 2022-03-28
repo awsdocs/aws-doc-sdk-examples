@@ -1,10 +1,10 @@
-#  Creating the Serverless Amazon Aurora application using the Java RdsDataClient API
+#  Creating the Amazon Aurora Serverless application using the AWS SDK for Java
 
 ## Overview
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a dynamic web application that tracks and reports on Serverless Amazon Aurora data.     |
+| Description | Discusses how to develop a dynamic web application that tracks and reports on Amazon Aurora Serverless data.     |
 | Audience   |  Developer (beginner / intermediate)        |
 | Updated   | 3/28/2022        |
 | Required skills   | Java, Maven  |
@@ -14,11 +14,11 @@
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
 + Amazon Serverless Amazon Aurora database
-+ Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
++ Amazon Simple Email Service (Amazon SES). (The AWS SDK for Java (v2) is used to access Amazon SES.)
 
 The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. For more information, see [Spring Boot](https://spring.io/projects/spring-boot).
 
-This AWS tutorial uses a [RdsDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rdsdata/RdsDataClient.html) object to perform CRUD operations on the Serverless Amazon Aurora database. 
+This AWS tutorial uses a [RdsDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rdsdata/RdsDataClient.html) object to perform CRUD operations on the Aurora Serverless database. 
 
 **Note:** You can only use the **RdsDataClient** object for an Aurora Serverless DB cluster or an Aurora PostgreSQL. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).  
 
@@ -51,16 +51,16 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon Serverless Amazon Aurora database named **jobs**. For more information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
+Create an Aurora Serverless database named **jobs**. For more information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
 
 To successfully connect to the database using the **RdsDataClient** object, set up an AWS Secrets Manager secret that is used for authentication. For more information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
 
-To use the **RdsDataClient** object, you require these two ARN values: 
+To use the **RdsDataClient** object, you require the following two Amazon Resource Name (ARN) values: 
 
-+ An ARN of the Amazon Serverless Amazon Aurora database.
++ An ARN of the Aurora Serverless database.
 + An ARN of the AWS Secrets Manager secret that is used to access the database.
 
-**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up the inbound rules, you can connect to the database from a client. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
 
 Set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
@@ -92,15 +92,15 @@ The AWS Tracker application uses a model that is based on a work item and contai
 + **status** - The status of the item.
 + **archive** - Whether this item is completed or is still being worked on.
 
-**Note**: The username is the user who logs into this application. In this example, the username is named **user**. 
+**Note**: The username is the user who signs in to this application. In this example, the username is named **user**. 
 
-When a user logs into the application, they see the **Home** page.
+When a user signs in to the application, they see the **Home** page.
 
 ![AWS Tracking Application](images/home.png)
 
 #### Application functionality
 
-A user can perform these tasks in the AWS Tracker application:
+A user can perform the following tasks in the AWS Tracker application:
 
 + Enter an item into the system.
 + View all active items.
