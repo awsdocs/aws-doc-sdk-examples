@@ -9,7 +9,7 @@
 - name: lang/dotnet-v3
   color: "663399"
   description: "This issue relates to the AWS SDK for .NET V3"
-  from_mane: ".NET"
+  from_name: ".NET"
 - name: lang/go-v1
   color: "663399"
   description: "This issue relates to the AWS SDK for Go V1"
@@ -75,18 +75,30 @@
   description: "Relates to CloudFormation templates"
   color: "663399"
   from_name: "CloudFormation"
-- name: status/code-review
+
+- name: status/needs-code-review
   color: "008080"
   description: "This work needs code review"
   from_name: "Ready for review"
-- name: status/text-review
+- name: status/needs-text-review
   color: "008080"
   description: "This work needs editorial (text) review"
   from_name: "Editorial"
-- name: status/testing-review
+- name: status/needs-testing-review
   color: "008080"
   description: "This work needs its test reviewed"
   from_name: "Ready for test review"
+
+- name: status/has-code-review
+  color: "7FFF00"
+  description: "Code review completed"
+- name: status/has-text-review
+  color: "7FFF00"
+  description: "This work needs editorial (text) review"
+- name: status/has-testing-review
+  color: "7FFF00"
+  description: "This work needs its test reviewed"
+
 - name: status/in-progress
   color: "008080"
   description: "This work is currently in progress"
@@ -94,7 +106,7 @@
 - name: status/ready-to-merge
   color: "7FFF00"
   description: "This work is READY TO MERGE"
-  from_name: "Ready to merge"
+  from_name: "Ready for merge"
 - name: status/back-to-author
   color: "00FFFF"
   from_name: "Back to author"
@@ -106,7 +118,12 @@
 - name: status/needs-research
   color: "00FFFF"
   description: "This work needs research by the resolver"
-  from_name: "needs input"
+  from_name: "needs research"
+- name: status/future-release
+  color: "00FFFF"
+  description: "Hold for merge until after release"
+  from_name: "Future release"
+
 - name: status/duplicate
   color: "00FFFF"
   description: "This is a duplicate"
@@ -114,17 +131,14 @@
 - name: status/stale
   color: "00FFFF"
   description: "This is stale"
-- name: status/crouton
+- name: status/icebox
   color: "008080"
-  description: "This is stale, but should not be closed"
+  description: "This is old, but should not be closed"
 - name: status/ready
   color: "008080"
   description: "Ready for work to be done"
   from_name: "Sprint ready"
-- name: status/future-release
-  color: "00FFFF"
-  description: "Hold for merge until after release"
-  from_name: "Future release"
+
 - name: type/code-example-request
   color: "d8bfd8"
   description: "Request for a code sample"
@@ -167,6 +181,7 @@
   color: "d8bfd8"
   description: "Internal: Relates to Scouring of the Services"
   from_name: "SoS"
+
 - name: priority/high
   color: "FF0000"
   description: "High Priority"
