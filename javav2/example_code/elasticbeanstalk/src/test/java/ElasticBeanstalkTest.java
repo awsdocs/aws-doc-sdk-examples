@@ -34,10 +34,9 @@ public class ElasticBeanstalkTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
             prop.load(input);
 
-            // Populate the data members required for all tests
+            // Populate the data members required for all tests.
             appName = prop.getProperty("appName");
             envName = prop.getProperty("envName");
 
