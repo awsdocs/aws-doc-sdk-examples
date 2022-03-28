@@ -14,11 +14,24 @@
 
 package com.aws.example;
 
+//snippet-start:[eb.java2.config.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
-import software.amazon.awssdk.services.elasticbeanstalk.model.*;
-
+import software.amazon.awssdk.services.elasticbeanstalk.model.OptionSpecification;
+import software.amazon.awssdk.services.elasticbeanstalk.model.DescribeConfigurationOptionsRequest;
+import software.amazon.awssdk.services.elasticbeanstalk.model.DescribeConfigurationOptionsResponse;
+import software.amazon.awssdk.services.elasticbeanstalk.model.ConfigurationOptionDescription;
+import software.amazon.awssdk.services.elasticbeanstalk.model.ElasticBeanstalkException;
 import java.util.List;
+//snippet-end:[eb.java2.config.import]
+
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 
 public class DescribeConfigurationOptions {
 
@@ -32,6 +45,7 @@ public class DescribeConfigurationOptions {
         getOptions(beanstalkClient);
     }
 
+    //snippet-start:[eb.java2.config.main]
     public static void getOptions(ElasticBeanstalkClient beanstalkClient) {
 
         try {
@@ -40,15 +54,14 @@ public class DescribeConfigurationOptions {
                     .namespace("aws:ec2:instances")
                     .build();
 
-        DescribeConfigurationOptionsRequest request = DescribeConfigurationOptionsRequest.builder()
+            DescribeConfigurationOptionsRequest request = DescribeConfigurationOptionsRequest.builder()
                 .environmentName("Joblisting-env")
                   .options(spec)
                 .build();
 
-        DescribeConfigurationOptionsResponse response =  beanstalkClient.describeConfigurationOptions(request);
-
-        List<ConfigurationOptionDescription> options =  response.options();
-         for (ConfigurationOptionDescription option: options) {
+            DescribeConfigurationOptionsResponse response =  beanstalkClient.describeConfigurationOptions(request);
+            List<ConfigurationOptionDescription> options =  response.options();
+            for (ConfigurationOptionDescription option: options) {
 
              System.out.println("The namespace is "+option.namespace());
              String optionName = option.name();
@@ -65,7 +78,6 @@ public class DescribeConfigurationOptions {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
-
     }
+    //snippet-end:[eb.java2.config.main]
 }

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteApplication.java demonstrates how to delete an AWS Elastic Beanstalk application .]
+//snippet-sourcedescription:[DeleteApplication.java demonstrates how to delete an AWS Elastic Beanstalk application.]
 //snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elastic Beanstalk ]
@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.elasticbeanstalk.model.DeleteApplicationR
 
 
 /**
- * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
