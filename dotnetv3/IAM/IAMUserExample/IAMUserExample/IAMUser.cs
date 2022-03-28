@@ -1,8 +1,14 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// This example shows a typical use case for the AWS Identity and Access
+/// Management (IAM) service. It was created using the AWS SDK for .NET
+/// version 3.x and .NET Core 5.x.
+/// </summary>
 namespace IAMUserExample
 {
+    // snippet-start:[IAM.dotnetv3.IAMUserExample]
     using System;
     using System.Threading.Tasks;
     using Amazon;
@@ -11,11 +17,6 @@ namespace IAMUserExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
-    /// <summary>
-    /// This example shows a typical use case for the AWS Identity and Access
-    /// Management (IAM) service. It was created using the AWS SDK for .NET
-    /// version 3.x and .NET Core 5.x.
-    /// </summary>
     public class IAMUser
     {
         // Represents json code for AWS full access policy for Amazon Simple
@@ -29,10 +30,6 @@ namespace IAMUserExample
         "}";
 
         private const string PolicyName = "S3FullAccess";
-
-        // Indicates the AWS Region where the S3 bucket is located. Remember to
-        // replace the value with the endpoint for your own Region.
-        private static readonly RegionEndpoint AWSRegion = RegionEndpoint.USWest2;
 
         private static readonly string UserName = "S3FullAccessUser";
         private static readonly string GroupName = "S3FullAccessGroup";
@@ -89,11 +86,19 @@ namespace IAMUserExample
             }
 
             // Delete the user, the group, and the new bucket.
-            await CleanUpResources(iamClient, s3Client, UserName, GroupName, BucketName, createKeyResponse.AccessKey.AccessKeyId);
+            await CleanUpResources(
+                iamClient,
+                s3Client,
+                UserName,
+                GroupName,
+                BucketName,
+                createKeyResponse.AccessKey.AccessKeyId);
 
             Console.WriteLine("Press <Enter> to close the program.");
             Console.ReadLine();
         }
+
+        // snippet-start:[IAM.dotnetv3.CreateGroup]
 
         /// <summary>
         /// Creates a new IAM group.
@@ -120,6 +125,10 @@ namespace IAMUserExample
             return response;
         }
 
+        // snippet-end:[IAM.dotnetv3.CreateGroup]
+
+        // snippet-start:[IAM.dotnetv3.PutGroupPolicy]
+
         /// <summary>
         /// This method adds Amazon S3 readonly permissions to the group
         /// created earlier.
@@ -145,6 +154,10 @@ namespace IAMUserExample
 
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
+
+        // snippet-end:[IAM.dotnetv3.PutGroupPolicy]
+
+        // snippet-start:[IAM.dotnetv3.CreateUser]
 
         /// <summary>
         /// This method creates a new IAM user.
@@ -179,6 +192,10 @@ namespace IAMUserExample
             }
         }
 
+        // snippet-end:[IAM.dotnetv3.CreateUser]
+
+        // snippet-start:[IAM.dotnetv3.AddUserToGroup]
+
         /// <summary>
         /// Adds the user represented by the userName parameter to the group
         /// represented by the groupName parameter.
@@ -204,6 +221,10 @@ namespace IAMUserExample
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
+        // snippet-end:[IAM.dotnetv3.AddUserToGroup]
+
+        // snippet-start:[IAM.dotnetv3.CreateNewAccessKey]
+
         /// <summary>
         /// Creates a new access key for the user represented by the userName
         /// parameter.
@@ -214,15 +235,17 @@ namespace IAMUserExample
         /// is created by the call to CreateAccessKeyAsync.</param>
         /// <returns>Returns the response from the call to
         /// CreateAccessKeyAsync.</returns>
-        public static async Task<CreateAccessKeyResponse> CreateNewAccessKeyAsync(AmazonIdentityManagementServiceClient client, string userName)
+        public static async Task<CreateAccessKeyResponse> CreateNewAccessKeyAsync(
+            AmazonIdentityManagementServiceClient client,
+            string userName)
         {
             try
             {
-                // Create an access key for the IAM user that can be used by the SDK
+                // Create an access key for the IAM user that can be used by the SDK.
                 var response = await client.CreateAccessKeyAsync(new CreateAccessKeyRequest
                 {
-                    // Use the user we created in the CreateUser example
-                    UserName = UserName,
+                    // Use the user you created in the CreateUser example
+                    UserName = userName,
                 });
                 return response;
             }
@@ -232,6 +255,8 @@ namespace IAMUserExample
                 return null;
             }
         }
+
+        // snippet-end:[IAM.dotnetv3.CreateNewAccessKey]
 
         /// <summary>
         /// Proves that the user has the proper permissions to view the
@@ -370,4 +395,6 @@ namespace IAMUserExample
             Console.WriteLine("Deleted the user, the group, and the bucket created for this example.");
         }
     }
+
+    // snippet-end:[IAM.dotnetv3.IAMUserExample]
 }
