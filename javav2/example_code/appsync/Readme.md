@@ -25,17 +25,17 @@ The following examples use the **AppSyncClient** object:
 - [Listing AWS AppSync keys](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListApiKeys.java) (ListApiKeys command)
 - [Listing AWS AppSync APIs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListGraphqlApis.java) (ListGraphqlApis command)
 
-## Running the AWS Elastic Beanstalk Java files
+## Running the AWS AppSync Java files
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS Elastic Beanstalk application. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS AppSync data source. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
 
- ## Testing the AWS Elastic Beanstalk Java files
+ ## Testing the AWS AppSync Java  Java files
 
-You can test the Java code examples for AWS Elastic Beanstalk by running a test file named **ElasticBeanstalkTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for AWS AppSync Java by running a test file named **AppSyncTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -48,12 +48,14 @@ Before running the AWS Elastic Beanstalk JUnit tests, you must define values in 
 
 Define these values to successfully run the JUnit tests:
 
-- **appName** - The name of the application.   
-- **envName** - The name of the environment. 
+- **apiId** - The id of the API (You can obtain the value from the AWS Management console).  
+- **dsName** - The name of the data source. 
+- **dsRole** - The Identity and Access Management (IAM) service role for the data source. 
+- **tableName** - The name of the Amazon DynamoDB table used as the data source.
 
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
-* [Developer Guide - AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html).
+* [Developer Guide - AWS AppSync](https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
