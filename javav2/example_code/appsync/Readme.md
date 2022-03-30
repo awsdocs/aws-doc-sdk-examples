@@ -1,4 +1,4 @@
-# AWS AppSync code examples for the AWS SDK for Java
+# AWS AppSync code examples for the SDK for Java
 
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (V2) examples for AWS AppSync.
