@@ -33,7 +33,7 @@ To run these examples, set up your development environment. For more information
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
 
- ## Testing the AWS AppSync Java  Java files
+ ## Testing the AWS AppSync Java files
 
 You can test the Java code examples for AWS AppSync Java by running a test file named **AppSyncTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
