@@ -53,8 +53,8 @@ using the AWS SDK for Python.
 * [Amazon DynamoDB work item tracker web application](dynamodb_item_tracker/README.md)
 
     Shows how to create a web application that tracks work items in DynamoDB and emails 
-    reports by using Amazon SES. This example uses the Flask web framework to host a 
-    local website and render templated web pages.
+    reports by using Amazon Simple Email Service (Amazon SES). This example uses the 
+    Flask web framework to host a local website and render templated webpages.
 
     * Amazon DynamoDB
     * Amazon SES

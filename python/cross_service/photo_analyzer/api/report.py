@@ -67,8 +67,8 @@ class Report(Resource):
         * A text version that includes the report in its original CSV format. Email
           clients that cannot render HTML receive this version.
 
-        When your SES account is in the sandbox, both the sender and recipient email
-        addresses must be registered with SES.
+        When your Amazon SES account is in the sandbox, both the sender and recipient
+        email addresses must be registered with SES.
 
         JSON request parameters:
             sender: The sender's email address.

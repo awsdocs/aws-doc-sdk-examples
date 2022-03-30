@@ -6,34 +6,37 @@
 <block>
     <para>
     Shows you how to use the &Python3long; to create a web application that
-    lets you upload photos to an &S3long; (&S3;) bucket, use &REKlong;
-    to analyze and label the photos, and use &SESlong; (&SES;) to send email
-    reports of image analysis.
+    lets you do the following:
     </para>
+    <itemizedlist>
+        <listitem><para>Upload photos to an &S3long; (&S3;) bucket.</para></listitem>
+        <listitem><para>Use &REKlong; to analyze and label the photos.</para></listitem>
+        <listitem><para>Use &SESlong; (&SES;) to send email reports of image analysis.</para></listitem>
+    </itemizedlist>
 
     <para>
-    This example contains two main components: a web page written in JavaScript that is
+    This example contains two main components: a webpage written in JavaScript that is
     built with React, and a REST service written in Python that is built with
     Flask-RESTful.
     </para>
 
-    <para>You can use the React web page to:</para>
+    <para>You can use the React webpage to:</para>
     <itemizedlist>
-        <listitem><para>Display a list of images that are stored in your &S3; bucket.</para></listitem>
-        <listitem><para>Upload images from your computer to your &S3; bucket.</para></listitem>
-        <listitem><para>Display images and labels that identify items that were detected in the image.</para></listitem>
-        <listitem><para>Get a report of all images in your &S3; bucket and send an email of the report.</para></listitem>
+        <listitem><para>Display a list of images that are stored in your S3 bucket.</para></listitem>
+        <listitem><para>Upload images from your computer to your S3 bucket.</para></listitem>
+        <listitem><para>Display images and labels that identify items that are detected in the image.</para></listitem>
+        <listitem><para>Get a report of all images in your S3 bucket and send an email of the report.</para></listitem>
     </itemizedlist>
 
-    <para>The web page calls the REST service. The service sends requests to
+    <para>The webpage calls the REST service. The service sends requests to
         &AWS; to perform the following actions:
     </para>
     <itemizedlist>
-        <listitem><para>Get and filter the list of images in your &S3; bucket.</para></listitem>
-        <listitem><para>Upload photos to your &S3; bucket.</para></listitem>
+        <listitem><para>Get and filter the list of images in your S3 bucket.</para></listitem>
+        <listitem><para>Upload photos to your S3 bucket.</para></listitem>
         <listitem><para>Use &REK; to analyze individual photos and get a list of labels that
              identify items that are detected in the photo.</para></listitem>
-        <listitem><para>Analyze all photos in your &S3; bucket and use &SES; to email a report.</para></listitem>
+        <listitem><para>Analyze all photos in your S3 bucket and use &SES; to email a report.</para></listitem>
     </itemizedlist>
 
     <para>

@@ -2,22 +2,24 @@
 
 ## Overview
 
-Shows you how to use the AWS SDK for Python (Boto3) to create a web application that 
-lets you upload photos to an Amazon Simple Storage Service (Amazon S3) bucket, use 
-Amazon Rekognition to analyze and label the photos, and use Amazon Simple Email 
-Service (Amazon SES) to send email reports of image analysis.  
+Shows you how to use the AWS SDK for Python (Boto3) to create a web application that
+lets you do the following:
 
-This example contains two main components: a web page written in JavaScript that is built
+* Upload photos to an Amazon Simple Storage Service (Amazon S3) bucket.
+* Use Amazon Rekognition to analyze and label the photos.
+* Use Amazon Simple Email Service (Amazon SES) to send email reports of image analysis.
+
+This example contains two main components: a webpage written in JavaScript that is built
 with React, and a REST service written in Python that is built with Flask-RESTful.
 
-You can use the React web page to:
+You can use the React webpage to:
 
 * Display a list of images that are stored in your S3 bucket.
 * Upload images from your computer to your S3 bucket.
-* Display images and labels that identify items that were detected in the image.
+* Display images and labels that identify items that are detected in the image.
 * Get a report of all images in your S3 bucket and send an email of the report.
 
-The web page calls the REST service. The service sends requests to AWS to
+The webpage calls the REST service. The service sends requests to AWS to
 perform the following actions:
 
 * Get and filter the list of images in your S3 bucket.
@@ -34,15 +36,15 @@ perform the following actions:
 
 ### Prerequisites
 
-#### Web page
+#### Webpage
 
-The requirements for the web page are listed in the accompanying `package.json` file.
+The requirements for the webpage are listed in the accompanying `package.json` file.
 You will need recent versions of Node.js and npm to install the requirements. 
 
 * Node.js 16.14.2
 * npm 8.5.0
 
-Install the web page requirements by running the following in the `frontend` folder
+Install the webpage requirements by running the following in the `frontend` folder
 at a command prompt:
 
 ```
@@ -84,7 +86,7 @@ The example sends an email report by using Amazon SES. When your account is in t
 sandbox, you must register both the sender and recipient email addresses. You can
 do this by using [the console](https://console.aws.amazon.com/ses).
 
-*Tip:* for this example, you can register the same email account as both the sender and 
+*Tip:* For this example, you can register the same email account as both the sender and 
 the recipient.
 
 ## Running the code
@@ -99,9 +101,9 @@ python app.py
 
 This starts the Flask web server in debug mode on http://localhost:5000.
 
-### Web page
+### Webpage
 
-Start the web page in development mode by running the following at a command prompt
+Start the webpage in development mode by running the following at a command prompt
 in the `frontend` folder:
 
 ```
@@ -143,7 +145,7 @@ To avoid charges, use the console to delete all the resources that you created f
 this tutorial.
 
 * Empty and delete your S3 bucket.
-* Delete your email from SES.
+* Delete your email from Amazon SES.
 
 ## Next steps
 
@@ -156,12 +158,12 @@ email to a registered user.
 * [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html)
 * [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
 * [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)'
-* [Amazon Rekognition API reference guide](https://docs.aws.amazon.com/rekognition/latest/APIReference/Welcome.html)
-* [Amazon S3 API reference guide](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-* [Amazon SES API reference guide](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
-* [Amazon Rekognition Boto3 API reference guide](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition.html)
-* [Amazon S3 Boto3 API reference guide](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
-* [Amazon SES Boto3 API reference guide](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ses.html)
+* [Amazon Rekognition API Reference](https://docs.aws.amazon.com/rekognition/latest/APIReference/Welcome.html)
+* [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+* [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
+* [Amazon Rekognition Boto3 API Reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition.html)
+* [Amazon S3 Boto3 API Reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
+* [Amazon SES Boto3 API Reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ses.html)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
