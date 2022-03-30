@@ -21,10 +21,9 @@ public class AppSyncTest {
     private static String dsName="";
     private static String dsRole="";
     private static String tableName="";
-    private static String keyId = "";  // gets dynamically set in a test.
-    private static String dsARN = ""; // gets dynamically set in a test.
+    private static String keyId = "";  // Gets dynamically set in a test.
+    private static String dsARN = ""; // Gets dynamically set in a test.
     private static String reg = "";
-
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -59,6 +58,10 @@ public class AppSyncTest {
     @Order(1)
     public void whenInitializingAWSService_thenNotNull() {
         assertNotNull(appSyncClient);
+        assertTrue(!apiId.isEmpty());
+        assertTrue(!dsName.isEmpty());
+        assertTrue(!dsRole.isEmpty());
+        assertTrue(!tableName.isEmpty());
         System.out.println("Test 1 passed");
     }
 
