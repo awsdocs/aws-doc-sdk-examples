@@ -50,7 +50,7 @@ Define these values to successfully run the JUnit tests:
 
 - **apiId** - The id of the API (You can obtain the value from the AWS Management console).  
 - **dsName** - The name of the data source. 
-- **dsRole** - The Identity and Access Management (IAM) service role for the data source. 
+- **dsRole** - The AWS Identity and Access Management (IAM) service role for the data source. 
 - **tableName** - The name of the Amazon DynamoDB table used as the data source.
 
 ## Additional resources
