@@ -14,9 +14,9 @@ You can create a dynamic web application that analyzes nature images located in 
 
 ![AWS Photo Analyzer](images/lakesun.png)
 
-After the application analyzes all images in the Amazon S3 bucket, it uses the Amazon Simple Email Service (Amazon SES) to send a dynamically created report to a given email recipient. The report is a Microsoft Excel document that contains label data for each image. 
+After the application analyzes all images in the Amazon S3 bucket, it uses the Amazon Simple Email Service (Amazon SES) to send a dynamically created report to a given email recipient. The report is XML data that contains labels for each image in the Amazon S3 bucket, as shown in this illustration.
 
-![AWS Photo Analyzer](images/excel3.png)
+![AWS Photo Analyzer](images/XmlReport.png)
 
 In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_introduction.htm).
 
