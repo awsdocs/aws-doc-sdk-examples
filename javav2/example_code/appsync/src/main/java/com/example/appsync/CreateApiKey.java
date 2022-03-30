@@ -35,7 +35,7 @@ public class CreateApiKey {
                 "Usage: " +
                 "   <apiId> \n\n" +
                 "Where:\n" +
-                "   apiId - the id of the API (You can obtain the value from the AWS Management console). \n\n" ;
+                "   apiId - the id of the API (You can get this value from the AWS Management Console). \n\n" ;
 
         if (args.length != 1) {
              System.out.println(usage);
@@ -68,7 +68,6 @@ public class CreateApiKey {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-
         return "";
     }
     //snippet-end:[appsync.java2.create_key.main]

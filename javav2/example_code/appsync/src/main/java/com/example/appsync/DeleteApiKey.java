@@ -34,7 +34,7 @@ public class DeleteApiKey {
                 "Usage: " +
                 "   <apiId> <keyId> \n\n" +
                 "Where:\n" +
-                "   apiId - the id of the API (You can obtain the value from the AWS Management console). \n\n" +
+                "   apiId - the id of the API (You can get this value from the AWS Management Console). \n\n" +
                 "   keyId - The Id of the key to delete." ;
 
         if (args.length != 2) {
@@ -61,7 +61,7 @@ public class DeleteApiKey {
                     .build();
 
             appSyncClient.deleteApiKey(apiKeyRequest);
-            System.out.println("The api key was deleted.");
+            System.out.println("The API key was deleted.");
 
         } catch (AppSyncException e) {
             System.out.println(e.getMessage());

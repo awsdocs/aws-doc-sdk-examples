@@ -33,7 +33,7 @@ public class DeleteDataSource {
                 "Usage: " +
                 "   <apiId> <dsName> \n\n" +
                 "Where:\n" +
-                "   apiId - the id of the API (You can obtain the value from the AWS Management console). \n\n" +
+                "   apiId - the id of the API (You can get this value from the AWS Management Console). \n\n" +
                 "   dsName - The name of the data source to delete." ;
 
         if (args.length != 2) {

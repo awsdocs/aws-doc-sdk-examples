@@ -37,10 +37,10 @@ public class CreateDataSource {
                 "Usage: " +
                 "   <apiId> <name> <dsRole> <tableName>\n\n" +
                 "Where:\n" +
-                "   apiId - The id of the API (you can obtain the value from the AWS Management console). \n\n" +
+                "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" +
                 "   name - The name of the data source. \n\n"+
-                "   dsRole - The Identity and Access Management (IAM) service role for the data source. \n\n"+
-                "   tableName - the name of the Amazon DynamoDB table used as the data source. \n\n";
+                "   dsRole - The AWS Identity and Access Management (IAM) service role for the data source. \n\n"+
+                "   tableName - The name of the Amazon DynamoDB table used as the data source. \n\n";
 
 
         if (args.length != 4) {

@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[ListGraphqlApis.java demonstrates how to list your AWS AppSync APIs.]
+// snippet-sourcedescription:[ListGraphqlApis.java demonstrates how to list your AWS AppSync API operations.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS AppSync]
 // snippet-keyword:[Code Sample]

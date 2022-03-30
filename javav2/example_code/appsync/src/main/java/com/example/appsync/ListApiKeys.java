@@ -30,7 +30,7 @@ public class ListApiKeys {
                 "Usage: " +
                 "   <apiId> \n\n" +
                 "Where:\n" +
-                "   apiId - The id of the API (You can obtain the value from the AWS Management console). \n\n" ;
+                "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);

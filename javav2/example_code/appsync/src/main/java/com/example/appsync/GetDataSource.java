@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[GetDataSource.java demonstrates how to retrieve an Amazon AppSync data source.]
+// snippet-sourcedescription:[GetDataSource.java demonstrates how to retrieve an AWS AppSync data source.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS AppSync]
 // snippet-keyword:[Code Sample]
@@ -35,7 +35,7 @@ public class GetDataSource {
                 "Usage: " +
                 "   <apiId> <name>\n\n" +
                 "Where:\n" +
-                "   apiId - The id of the API (You can obtain the value from the AWS Management console). \n\n" +
+                "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" +
                 "   name - The name of the data source. \n\n";
 
         if (args.length != 2) {
