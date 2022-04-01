@@ -6,11 +6,11 @@ This README discusses how to run and test the Java code examples for Amazon Look
 
 **IMPORTANT**
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+The following Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur AWS service charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
 
-Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when you experiment with these examples.
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, you can set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
@@ -22,10 +22,10 @@ You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the c
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
 
  ### Properties file
-Before running the Amazon Lookout for Vision JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Lookout for Vision JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 

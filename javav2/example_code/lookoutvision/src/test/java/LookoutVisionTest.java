@@ -33,13 +33,13 @@ public class LookoutVisionTest {
                 return;
             }
 
-            //load a properties file
+            //Load a properties file.
             prop.load(input);
             projectName = prop.getProperty("projectName");
             modelVersion = prop.getProperty("modelVersion");
             photo = prop.getProperty("photo");
 
-            // Get the lookoutvision client
+            // Get the lookoutvision client.
             lfvClient = LookoutVisionClient.builder()
             .build();
 
