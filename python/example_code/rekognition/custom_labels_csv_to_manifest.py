@@ -11,7 +11,7 @@ import json
 
 """
 Purpose
-Amazon Rekognition Custom Labels model example used in the service documentation:
+Amazon Rekognition Custom Labels model example used in the service documentation.
 Shows how to create an image-level (classification) manifest file from a CSV file.
 You can specify multiple image level labels per image.
 CSV file format is
@@ -22,12 +22,13 @@ https://docs.aws.amazon.com/rekognition/latest/customlabels-dg/md-gt-cl-transfor
 
 logger = logging.getLogger(__name__)
 
+
 def check_duplicates(csv_file, deduplicated_file, duplicates_file):
     """
     Checks for duplicate images in a CSV file. If duplicate images
     are found, deduplicated_file is the deduplicated CSV file - only the first
     occurence of a duplicate is recorded. Other duplicates are recorded in duplicates_file.
-    :param csv_file: The source CSV file
+    :param csv_file: The source CSV file.
     :param deduplicated_file: The deduplicated CSV file to create. If no duplicates are found
     this file is removed.
     :param duplicates_file: The duplicate images CSV file to create. If no duplicates are found
@@ -39,10 +40,10 @@ def check_duplicates(csv_file, deduplicated_file, duplicates_file):
 
     duplicates_found = False
 
-    #Find duplicates
+    # Find duplicates.
     with open(csv_file, 'r', newline='', encoding="UTF-8") as f,\
-        open(deduplicated_file, 'w', encoding="UTF-8") as dedup,\
-        open(duplicates_file, 'w', encoding="UTF-8") as duplicates:
+            open(deduplicated_file, 'w', encoding="UTF-8") as dedup,\
+            open(duplicates_file, 'w', encoding="UTF-8") as duplicates:
 
         reader = csv.reader(f, delimiter=',')
         dedup_writer = csv.writer(dedup)
@@ -50,7 +51,7 @@ def check_duplicates(csv_file, deduplicated_file, duplicates_file):
 
         entries = set()
         for row in reader:
-            #Skip empty lines
+            # Skip empty lines.
             if not ''.join(row).strip():
                 continue
 
@@ -85,27 +86,26 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
     label_count = 0
 
     with open(csv_file, newline='', encoding="UTF-8") as csvfile,\
-        open(manifest_file, "w", encoding="UTF-8") as output_file:
+            open(manifest_file, "w", encoding="UTF-8") as output_file:
 
         image_classifications = csv.reader(
             csvfile, delimiter=',', quotechar='|')
 
-        # process each row (image) in CSV file
+        # process each row (image) in CSV file.
         for row in image_classifications:
             source_ref = str(s3_path)+row[0]
 
             image_count += 1
 
-            # Create JSON for image source ref
+            # Create JSON for image source ref.
             json_line = {}
             json_line['source-ref'] = source_ref
 
-
-            # process each image level label
+            # Process each image level label.
             for index in range(1, len(row)):
                 image_level_label = row[index]
 
-                #Skip empty columns
+                # Skip empty columns.
                 if image_level_label == '':
                     continue
                 label_count += 1
@@ -123,13 +123,13 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
 
                 json_line[f'{image_level_label}-metadata'] = metadata
 
-                # write the image JSON Line
+                # Write the image JSON Line.
             output_file.write(json.dumps(json_line))
             output_file.write('\n')
 
     output_file.close()
-    logger.info("Finished creating manifest file %s\nImages: %s\nLabels: %s",\
-        manifest_file, image_count, label_count)
+    logger.info("Finished creating manifest file %s\nImages: %s\nLabels: %s",
+                manifest_file, image_count, label_count)
 
     return image_count, label_count
 
@@ -157,7 +157,7 @@ def main():
 
     try:
 
-        # get command line arguments
+        # Get command line arguments
         parser = argparse.ArgumentParser(usage=argparse.SUPPRESS)
         add_arguments(parser)
         args = parser.parse_args()
@@ -168,17 +168,17 @@ def main():
 
         # Create file names.
         csv_file = args.csv_file
-        file_name=os.path.splitext(csv_file)[0]
+        file_name = os.path.splitext(csv_file)[0]
         manifest_file = f'{file_name}.manifest'
         duplicates_file = f'{file_name}-duplicates.csv'
         deduplicated_file = f'{file_name}-deduplicated.csv'
 
-        #Create mainfest file, if there are no duplicate images.
+        # Create manifest file, if there are no duplicate images.
         if check_duplicates(csv_file, deduplicated_file, duplicates_file):
-            print(f"Duplicates found. Use {duplicates_file} to view duplicates "\
-                + f"and then update {deduplicated_file}. ")
-            print(f"{deduplicated_file} contains the first occurence of a duplicate. "\
-                 + "Update as necessary with the correct label information.")
+            print(f"Duplicates found. Use {duplicates_file} to view duplicates "
+                  f"and then update {deduplicated_file}. ")
+            print(f"{deduplicated_file} contains the first occurence of a duplicate. "
+                  "Update as necessary with the correct label information.")
             print(f"Re-run the script with {deduplicated_file}")
         else:
             print("No duplicates found. Creating manifest file.")
@@ -193,6 +193,7 @@ def main():
     except FileNotFoundError as err:
         logger.exception("File not found: %s", err)
         print(f"File not found: {err}. Check your input CSV file.")
+
 
 if __name__ == "__main__":
     main()
