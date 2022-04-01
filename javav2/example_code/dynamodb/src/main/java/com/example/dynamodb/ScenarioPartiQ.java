@@ -35,12 +35,13 @@ import java.util.*;
 // snippet-end:[dynamodb.java2.scenario.partiql.import]
 
 
-/**
- * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
+/*
+ *  
+ *  Before running this Java code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ *  For more information, see the following documentation topic:
  *
- * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
  *  This Java example performs these tasks:
  *
@@ -49,9 +50,8 @@ import java.util.*;
  * 3. Add a new item.
  * 4. Get an item by the composite key (the Partition key and Sort key).
  * 5. Update an item.
- * 6. Use a Scan to query items using the Enhanced client.
- * 7. Query all items where the year is 2013 using the Enhanced Client.
- * 8. Delete the table.
+ * 6. Query all items where the year is 2013 using the Enhanced Client.
+ * 7. Delete the table.
  */
 
 // snippet-start:[dynamodb.java2.scenario.partiql.main]
