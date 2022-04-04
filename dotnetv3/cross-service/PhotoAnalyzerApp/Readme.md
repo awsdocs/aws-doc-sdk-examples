@@ -2,11 +2,11 @@
 
 ## Purpose
 
-You can create a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service and the AWS SDK for .NET. After analyzing the images in the S3 bucket, the application generates a report that breaks down each image into a series of labels. For example, the following image shows a lake at sunrise.
+You can create a dynamic web application that analyzes nature images located in an Amazon Simple Storage service (Amazon S3) bucket by using the Amazon Rekognition service and the AWS SDK for .NET. After analyzing the images in the S3 bucket, the application generates a report that breaks down each image into a series of labels. For example, the following image shows a lake at sunrise.
 
 ![AWS Tracking Application](images/lakesun.png)
 
-After the application analyzes the images, it uses the Amazon Simple Email Service (Amazon SES) to send an email message that contains the label data, as shown in the following illustration. For example, some labels for the preceding photo are **Outdoors**, **Sky**, and **Sun**.  
+After the application analyzes the images, it uses the Amazon Simple Email service (Amazon SES) to send an email message that contains the label data, as shown in the following illustration. For example, some labels for the preceding photo are **Outdoors**, **Sky**, and **Sun**.  
 
 ![AWS Tracking Application](images/XmlReport.png)
 
