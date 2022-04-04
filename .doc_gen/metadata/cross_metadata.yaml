@@ -316,7 +316,10 @@ cross_RekognitionPhotoAnalyzer:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionPhotoAnalyzer_JavaScript_block.xml
-    
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzer_Python_block.xml
   services:
     rekognition:
     s3:
