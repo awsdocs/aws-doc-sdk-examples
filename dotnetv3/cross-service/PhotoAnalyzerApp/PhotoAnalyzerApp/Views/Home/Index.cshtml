@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+
+<h1 class="display-4">AWS Photo Analyzer Application</h1>
+<p>
+    The AWS Photo Analyzer application is a sample application that uses the Amazon Rekognition Service as well as other AWS Services and the AWS SDK for .NET.
+    Analyzing nature photographs has never been easier! Simply perform these steps:
+<p>
+
+    <ol>
+        <li>You can choose <i>Get Images</i> to view the images located in the S3 bucket. All images in the S3 bucket are displayed in the table. </li>
+        <li>You can analyze the photographs and produce a report by choosing the <i>Analyze Photos</i> menu item. </li>
+        <li>Enter an email address in the email field and choose <i>Analyze Photos</i>.  </li>
+        <li>The Amazon Simple Email Service is used to send an email that contains label data to the specified email recipient.</li>
+    </ol>
+
