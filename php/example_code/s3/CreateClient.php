@@ -23,6 +23,7 @@ require 'vendor/autoload.php';
 use Aws\S3\S3Client;
 
 use Aws\Exception\AwsException;
+
 // snippet-end:[s3.php.create_client.import]
 /**
  * Creating an Amazon S3 client.
@@ -56,7 +57,7 @@ $client = $sdk->createS3();
 // snippet-end:[s3.php.create_client.main]
 // snippet-end:[s3.php.create_client.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateBucket.php demonstrates how to create an Amazon S3 Bucket.]
+// snippet-sourcedescription:[CreateClient.php demonstrates how to create an Amazon S3 client object for making calls to the PHP SDK.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
