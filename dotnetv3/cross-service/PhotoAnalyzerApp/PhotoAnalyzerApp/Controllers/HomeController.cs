@@ -1,3 +1,8 @@
+﻿/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +17,7 @@ namespace PhotoAnalyzerApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private string bucketName = "<Enter your bucket name>";
+        private string bucketName = "<Enter bucket name>";
 
         [HttpGet]
         public async Task<ActionResult> GetObjects()
