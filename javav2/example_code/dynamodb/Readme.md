@@ -45,7 +45,7 @@ You will find these examples that use the **DynamoDbEnhancedClient** object:
 
 - [Performing various Amazon DynamoDB operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Scenario.java) (Multiple commands)
 
-
+- [Performing various Amazon DynamoDB operations using PartiQL](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ScenarioPartiQ.java) (Multiple commands)
 ### Cross-service
 
 - [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project) 
