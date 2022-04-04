@@ -91,7 +91,7 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
         image_classifications = csv.reader(
             csvfile, delimiter=',', quotechar='|')
 
-        # process each row (image) in CSV file.
+        # Process each row (image) in CSV file.
         for row in image_classifications:
             source_ref = str(s3_path)+row[0]
 
