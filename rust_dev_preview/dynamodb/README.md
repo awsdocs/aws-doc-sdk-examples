@@ -12,7 +12,7 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 - [Add item to table](src/bin/add-item.rs) (PutItem)
 - [Are there more tables](src/bin/are-more-tables.rs) (ListTables)
 - [Create a table](src/bin/create-table.rs) (CreateTable)
-- [Create, read, update, delete table](src/bin/CRUD.rs) (CreateTable, DeleteItem, DeleteTable, PutItem, Query)
+- [Create, read, update, delete table](src/bin/crud.rs) (CreateTable, DeleteItem, DeleteTable, PutItem, Query)
 - [Delete table item](src/bin/delete-item.rs) (DeleteItem)
 - [Delete a table](src/bin/delete-table.rs) (DeleteTable)
 - [List tables and create a table](src/bin/dynamodb-helloworld.rs) (CreateTable, ListTables)
@@ -87,7 +87,7 @@ Use __delete-table__ to delete the table you've created.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### CRUD
+### crud
 
 This example creates a table, adds an item to the table, updates the item, deletes the item, and deletes the table.
 

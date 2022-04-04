@@ -1,0 +1,77 @@
+# Amazon Lookout for Vision Java code examples
+
+This README discusses how to run and test the Java code examples for Amazon Lookout for Vision.
+
+## Running the Amazon Lookout for Vision Java files
+
+**IMPORTANT**
+
+The following Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur AWS service charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
+
+Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when you experiment with these examples.
+
+To run these examples, you can set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+
+
+ ## Testing the Amazon Lookout for Vision files
+
+You can test the Java code examples for Amazon Lookout for Vision by running a test file named **LookoutVisionTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+
+You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+
+	Test 3 passed
+
+**WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account._
+
+ ### Properties file
+Before running the Amazon Lookout for Vision JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
+
+Define these values to successfully run the JUnit tests:
+
+- **projectName** - The name of the Lookout for Vision project that you want to use.   
+- **modelVersion** – The version of the model within the project that you want to use.  
+- **photo** - The path to an image that you want to analyze.
+
+
+**Note**: You must have a running Lookout for Vision model. For information, see [Starting your Amazon Lookout for Vision model](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/run-start-model.html).
+
+### Command line
+To run the JUnit tests from the command line, you can use the following command.
+
+		mvn test
+
+You will see output from the JUnit tests, as shown here.
+
+	[INFO] -------------------------------------------------------
+	[INFO]  T E S T S
+	[INFO] -------------------------------------------------------
+	[INFO] Running LookoutVisionTest
+	Test 1 passed
+	Test 2 passed
+	...
+	Done!
+	[INFO] Results:
+	[INFO]
+	[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+	[INFO]
+	INFO] --------------------------------------------
+	[INFO] BUILD SUCCESS
+	[INFO]--------------------------------------------
+	[INFO] Total time:  12.003 s
+	[INFO] Finished at: 2020-02-10T14:25:08-05:00
+	[INFO] --------------------------------------------
+
+### Unsuccessful tests
+
+If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
+
+	[INFO]
+	[INFO] --------------------------------------
+	[INFO] BUILD FAILURE
+	[INFO] --------------------------------------
+	[INFO] Total time:  19.038 s
+	[INFO] Finished at: 2020-02-10T14:41:51-05:00
+	[INFO] ---------------------------------------
+	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
+	[ERROR];
