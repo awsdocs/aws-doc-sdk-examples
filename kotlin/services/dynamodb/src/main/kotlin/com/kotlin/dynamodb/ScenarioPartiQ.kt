@@ -63,25 +63,23 @@ suspend fun main(args: Array<String>) {
 
     // Get the moviedata.json from the Amazon DynamoDB Developer Guide.
     val fileName = args[0]
-    val partitionAlias = "#a"
-
     println("Creating an Amazon DynamoDB table named MoviesPartiQ with a key named id and a sort key named title.")
     createTablePartiQL(ddb, tableName,"year")
     loadDataPartiQL(ddb, fileName)
 
-    println("******* Getting data from the Movie table.")
+    println("******* Getting data from the MoviesPartiQ table.")
     getMoviePartiQL(ddb)
 
-   println("******* Putting a record into the Amazon DynamoDB table.")
+   println("******* Putting a record into the MoviesPartiQ table.")
    putRecordPartiQL(ddb)
 
    println("******* Updating a record.")
    updateTableItemPartiQL(ddb)
 
-   println("******* Querying the Movies released in 2013.")
+   println("******* Querying the movies released in 2013.")
    queryTablePartiQL(ddb)
 
-   println("******* Deleting the Amazon DynamoDB table.")
+   println("******* Deleting the MoviesPartiQ table.")
    deleteTablePartiQL(tableName)
 }
 
@@ -150,7 +148,6 @@ suspend fun loadDataPartiQL(ddb: DynamoDbClient, fileName: String) {
         parameters.add(AttributeValue.S(title))
         parameters.add(AttributeValue.S(info))
 
-        //Insert the movie into the Amazon DynamoDB table
         executeStatementPartiQL(ddb,sqlStatement, parameters )
         println("Added Movie $title")
         parameters.clear()
