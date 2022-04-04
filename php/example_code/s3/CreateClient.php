@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,12 +17,12 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
+
 // snippet-start:[s3.php.create_client.complete]
 // snippet-start:[s3.php.create_client.import]
 require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
-
 use Aws\Exception\AwsException;
 
 // snippet-end:[s3.php.create_client.import]
@@ -47,17 +48,15 @@ $sharedConfig = [
     'region' => 'us-west-2',
     'version' => 'latest'
 ];
-
 // Create an SDK class used to share configuration across clients.
 $sdk = new Aws\Sdk($sharedConfig);
-
 // Create an Amazon S3 client using the shared configuration data.
 $client = $sdk->createS3();
-// snippet-end:[s3.php.create_client.sdk] 
+// snippet-end:[s3.php.create_client.sdk]
 // snippet-end:[s3.php.create_client.main]
 // snippet-end:[s3.php.create_client.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateClient.php demonstrates how to create an Amazon S3 client object for making calls to the PHP SDK.]
+// snippet-sourcedescription:[CreateClient.php demonstrates how to create an Amazon S3 client object for the PHP SDK.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
@@ -67,4 +66,3 @@ $client = $sdk->createS3();
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2018-09-20]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]
-
