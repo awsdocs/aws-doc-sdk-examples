@@ -22,9 +22,9 @@ namespace PhotoAnalyzerApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetObjects()
         {
-           var awsService = new AWSService();
-           var xml = await awsService.ListBucketObjects(bucketName);
-           return Content(xml);
+            var awsService = new AWSService();
+            var xml = await awsService.ListBucketObjects(bucketName);
+            return Content(xml);
         }
 
         [HttpPost]
