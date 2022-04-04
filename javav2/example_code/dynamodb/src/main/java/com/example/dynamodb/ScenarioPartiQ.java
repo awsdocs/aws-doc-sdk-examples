@@ -35,23 +35,23 @@ import java.util.*;
 // snippet-end:[dynamodb.java2.scenario.partiql.import]
 
 
-/*
- *  
- *  Before running this Java code example, set up your development environment, including your credentials.
+/**
+ * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
  *
- *  For more information, see the following documentation topic:
+ * For information, see this documentation topic:
  *
- *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  This Java example performs these tasks:
+ *  This Java example performs the following tasks:
  *
- * 1. Create the Amazon DynamoDB Movie table with partition and sort key.
- * 2. Put data into the Amazon DynamoDB table from a JSON document.
- * 3. Add a new item.
- * 4. Get an item by the composite key (the Partition key and Sort key).
- * 5. Update an item.
- * 6. Query all items where the year is 2013 using the Enhanced Client.
- * 7. Delete the table.
+ * 1. Creates the Amazon DynamoDB movie table with a partition and sort key.
+ * 2. Puts data into the Amazon DynamoDB table from a JSON document.
+ * 3. Adds a new item.
+ * 4. Gets an item by the composite key (the Partition key and Sort key).
+ * 5. Updates an item.
+ * 6. Uses a Scan to query items using the Enhanced client.
+ * 7. Queries all items where the year is 2013 using the Enhanced Client.
+ * 8. Deletes the table.
  */
 
 // snippet-start:[dynamodb.java2.scenario.partiql.main]
@@ -63,7 +63,7 @@ public class ScenarioPartiQ {
                 "Usage:\n" +
                 "    <fileName>\n\n" +
                 "Where:\n" +
-                "    fileName - the path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
+                "    fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
 
           if (args.length != 1) {
                 System.out.println(USAGE);
@@ -77,22 +77,22 @@ public class ScenarioPartiQ {
                 .region(region)
                 .build();
 
-        System.out.println("******* Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
+        System.out.println("******* Creating an Amazon DynamoDB table named MoviesPartiQ with a key named year and a sort key named title.");
          createTable(ddb, tableName);
 
-        System.out.println("******* Loading data into the Amazon DynamoDB table.");
+        System.out.println("******* Loading data into the MoviesPartiQ table.");
         loadData(ddb, fileName);
 
-        System.out.println("******* Getting data from the Movie table.");
+        System.out.println("******* Getting data from the MoviesPartiQ table.");
         getItem(ddb);
 
-        System.out.println("******* Putting a record into the Amazon DynamoDB table.");
+        System.out.println("******* Putting a record into the MoviesPartiQ table.");
         putRecord(ddb);
 
         System.out.println("******* Updating a record.");
         updateTableItem(ddb);
 
-        System.out.println("******* Querying the Movies released in 2013.");
+        System.out.println("******* Querying the movies released in 2013.");
         queryTable(ddb);
 
         System.out.println("******* Deleting the Amazon DynamoDB table.");
@@ -170,7 +170,7 @@ public class ScenarioPartiQ {
         List<AttributeValue> parameters = new ArrayList<AttributeValue>();
         while (iter.hasNext()) {
 
-            // Only add 200 Movies to the table.
+            // Add 200 movies to the table.
             if (t == 200)
                 break ;
             currentNode = (ObjectNode) iter.next();
@@ -195,11 +195,10 @@ public class ScenarioPartiQ {
             parameters.add(att2);
             parameters.add(att3);
 
-            //Insert the movie into the Amazon DynamoDB table
+            // Insert the movie into the Amazon DynamoDB table.
             executeStatementRequest(ddb, sqlStatement, parameters);
             System.out.println("Added Movie " +title);
 
-            // remove element
             parameters.remove(att1);
             parameters.remove(att2);
             parameters.remove(att3);
@@ -301,7 +300,7 @@ public class ScenarioPartiQ {
                     .build();
             parameters.add(att1);
 
-            // Get items in the table and write out the ID value
+            // Get items in the table and write out the ID value.
             ExecuteStatementResponse response =  executeStatementRequest(ddb, sqlStatement, parameters);
             System.out.println("ExecuteStatement successful: "+ response.toString());
 
