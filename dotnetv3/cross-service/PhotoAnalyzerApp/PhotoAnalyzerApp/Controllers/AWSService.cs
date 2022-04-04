@@ -1,30 +1,24 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
 using Amazon.Rekognition;
 using Amazon.Rekognition.Model;
+using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 
 namespace PhotoAnalyzerApp.Controllers
 {
-
     public class AWSService
     {
-
-        public async void SendMessage(String text, String toAddress)
+        public async void SendMessage(string text, string toAddress)
         {
             var sesClient = new AmazonSimpleEmailServiceClient(RegionEndpoint.USWest2);
             var sender = "<Enter a valid email address>";
-            var emailList = new List<String>();
+            var emailList = new List<string>();
             emailList.Add(toAddress);
 
             var destination = new Destination
@@ -42,19 +36,16 @@ namespace PhotoAnalyzerApp.Controllers
                 Data = "Amazon Rekognition Report"
             };
 
-
             var body = new Body
             {
                 Text = content
             };
-
 
             var message = new Message
             {
                 Subject = sub,
                 Body = body
             };
-
 
             var request = new SendEmailRequest
             {
@@ -66,7 +57,6 @@ namespace PhotoAnalyzerApp.Controllers
             try
             {
                 await sesClient.SendEmailAsync(request);
-
             }
             catch (Exception ex)
             {
@@ -74,9 +64,8 @@ namespace PhotoAnalyzerApp.Controllers
             }
         }
 
-
         // Uses the Amazon Rekognition service to detect labels within an image.
-        public async Task<List<WorkItem>> DetectLabels(String bucketName, String photo)
+        public async Task<List<WorkItem>> DetectLabels(string bucketName, string photo)
         {
             var rekognitionClient = new AmazonRekognitionClient(RegionEndpoint.USWest2);
             var labelList = new List<WorkItem>();
@@ -102,9 +91,9 @@ namespace PhotoAnalyzerApp.Controllers
                 foreach (Label label in detectLabelsResponse.Labels)
                 {
                     workItem = new WorkItem();
-                    workItem.setKey(photo);
-                    workItem.setConfidence(label.Confidence.ToString());
-                    workItem.setName(label.Name);
+                    workItem.Key = photo;
+                    workItem.Confidence = label.Confidence.ToString();
+                    workItem.Name = label.Name;
                     labelList.Add(workItem);
                 }
 
@@ -114,17 +103,16 @@ namespace PhotoAnalyzerApp.Controllers
             {
                 Console.WriteLine(ex.Message);
             }
+
             return null;
         }
 
-
         // Returns object names in the S3 bucket.
-        public async Task<List<String>> ListBucketNames(String bucketName)
+        public async Task<List<string>> ListBucketNames(string bucketName)
         {
-
             var s3Client = new AmazonS3Client(RegionEndpoint.USWest2);
             var obList = new List<Amazon.S3.Model.S3Object>();
-            var obName = new List<String>();
+            var obName = new List<string>();
 
             var listRequest = new ListObjectsRequest
             {
@@ -138,11 +126,9 @@ namespace PhotoAnalyzerApp.Controllers
             return obName;
         }
 
-
         // Returns information about all images in the given S3 bucket.
-        public async Task<string> ListBucketObjects(String bucketName)
+        public async Task<string> ListBucketObjects(string bucketName)
         {
-
             var s3Client = new AmazonS3Client(RegionEndpoint.USWest2);
             var obList = new List<Amazon.S3.Model.S3Object>();
             var obName = new List<BucketItem>();
@@ -159,10 +145,10 @@ namespace PhotoAnalyzerApp.Controllers
             foreach (var myobj in obList)
             {
                 myItem = new BucketItem();
-                myItem.setKey(myobj.Key);
-                myItem.setOwner(myobj.Owner.DisplayName);
+                myItem.Key = myobj.Key;
+                myItem.Owner = myobj.Owner.DisplayName;
                 long sizeLg = myobj.Size / 1024;
-                myItem.setSize(sizeLg.ToString());
+                myItem.Size = sizeLg.ToString();
                 obName.Add(myItem);
             }
 
@@ -187,20 +173,20 @@ namespace PhotoAnalyzerApp.Controllers
                 subsNode.AppendChild(subNode);
 
                 XmlNode name = doc.CreateElement("Key");
-                name.AppendChild(doc.CreateTextNode(item.getKey()));
+                name.AppendChild(doc.CreateTextNode(item.Key));
                 subNode.AppendChild(name);
 
                 XmlNode owner = doc.CreateElement("Owner");
-                owner.AppendChild(doc.CreateTextNode(item.getOwner()));
+                owner.AppendChild(doc.CreateTextNode(item.Owner));
                 subNode.AppendChild(owner);
 
                 XmlNode size = doc.CreateElement("Size");
-                size.AppendChild(doc.CreateTextNode(item.getSize()));
+                size.AppendChild(doc.CreateTextNode(item.Size));
                 subNode.AppendChild(size);
             }
+
             return doc.OuterXml;
         }
-
 
         // Convert the list to XML to pass back to the view.
         public string GenerateXMLFromList(List<List<WorkItem>> obList)
@@ -212,11 +198,9 @@ namespace PhotoAnalyzerApp.Controllers
             XmlNode subsNode = doc.CreateElement("Items");
             doc.AppendChild(subsNode);
 
-            //Iterate through the outer list. 
+            // Iterate through the outer list.
             foreach (var listItem in obList)
             {
-
-
                 // Iterate through the collection of WorkItem objects.
                 foreach (WorkItem item in listItem)
                 {
@@ -224,15 +208,15 @@ namespace PhotoAnalyzerApp.Controllers
                     subsNode.AppendChild(subNode);
 
                     XmlNode name = doc.CreateElement("Photo");
-                    name.AppendChild(doc.CreateTextNode(item.getKey()));
+                    name.AppendChild(doc.CreateTextNode(item.Key));
                     subNode.AppendChild(name);
 
                     XmlNode owner = doc.CreateElement("Confidence");
-                    owner.AppendChild(doc.CreateTextNode(item.getConfidence()));
+                    owner.AppendChild(doc.CreateTextNode(item.Confidence));
                     subNode.AppendChild(owner);
 
                     XmlNode size = doc.CreateElement("Label");
-                    size.AppendChild(doc.CreateTextNode(item.getName()));
+                    size.AppendChild(doc.CreateTextNode(item.Name));
                     subNode.AppendChild(size);
                 }
             }

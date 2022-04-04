@@ -3,22 +3,21 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using PhotoAnalyzerApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using PhotoAnalyzerApp.Models;
 
 namespace PhotoAnalyzerApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private String bucketName = "<Enter Bucket Name";
+        private string bucketName = "<Enter your bucket name>";
 
         [HttpGet]
         public async Task<ActionResult> GetObjects()
@@ -40,12 +39,12 @@ namespace PhotoAnalyzerApp.Controllers
                 List<WorkItem> labelList = await awsService.DetectLabels(bucketName, obName);
                 myList.Add(labelList);
             }
+
             // Now we have a list of WorkItems describing the photos in the S3 bucket.
             var xmlReport = awsService.GenerateXMLFromList(myList);
             awsService.SendMessage(xmlReport, myemail);
-            return Content("Report was sent with "+ myList.Count() +" items ");
+            return Content("Report was sent with " + myList.Count() + " items.");
         }
-
 
         public HomeController(ILogger<HomeController> logger)
         {
