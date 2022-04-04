@@ -127,21 +127,21 @@ After you add the packages, you can use the AWS SDK for .NET in your project.
 The following C# code represents the **HomeController** class. Because the Async version of the AWS SDK for .NET is used, notice that the controller methods have to use **async** keywords and the return values are defined using **Task**. 
 
 ```csharp
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using PhotoAnalyzerApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using PhotoAnalyzerApp.Models;
 
 namespace PhotoAnalyzerApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private String bucketName = "<Enter bucket name>";
+        private string bucketName = "<Enter your bucket name>";
 
         [HttpGet]
         public async Task<ActionResult> GetObjects()
@@ -163,12 +163,12 @@ namespace PhotoAnalyzerApp.Controllers
                 List<WorkItem> labelList = await awsService.DetectLabels(bucketName, obName);
                 myList.Add(labelList);
             }
+
             // Now we have a list of WorkItems describing the photos in the S3 bucket.
             var xmlReport = awsService.GenerateXMLFromList(myList);
             awsService.SendMessage(xmlReport, myemail);
-            return Content("Report was sent with "+ myList.Count() +" items ");
+            return Content("Report was sent with " + myList.Count() + " items.");
         }
-
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -213,24 +213,22 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
 using Amazon.Rekognition;
 using Amazon.Rekognition.Model;
+using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 
 namespace PhotoAnalyzerApp.Controllers
 {
-
     public class AWSService
     {
-
-        public async void SendMessage(String text, String toAddress)
+        public async void SendMessage(string text, string toAddress)
         {
             var sesClient = new AmazonSimpleEmailServiceClient(RegionEndpoint.USWest2);
             var sender = "<Enter a valid email address>";
-            var emailList  = new List<String>();
+            var emailList = new List<string>();
             emailList.Add(toAddress);
 
             var destination = new Destination
@@ -246,21 +244,18 @@ namespace PhotoAnalyzerApp.Controllers
             var sub = new Content
             {
                 Data = "Amazon Rekognition Report"
-            };    
-            
+            };
 
             var body = new Body
             {
                 Text = content
-             };
-
+            };
 
             var message = new Message
             {
                 Subject = sub,
                 Body = body
             };
-
 
             var request = new SendEmailRequest
             {
@@ -272,16 +267,15 @@ namespace PhotoAnalyzerApp.Controllers
             try
             {
                 await sesClient.SendEmailAsync(request);
-
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
-        
-        
+
         // Uses the Amazon Rekognition service to detect labels within an image.
-        public async Task<List<WorkItem>> DetectLabels(String bucketName, String photo)
+        public async Task<List<WorkItem>> DetectLabels(string bucketName, string photo)
         {
             var rekognitionClient = new AmazonRekognitionClient(RegionEndpoint.USWest2);
             var labelList = new List<WorkItem>();
@@ -307,9 +301,9 @@ namespace PhotoAnalyzerApp.Controllers
                 foreach (Label label in detectLabelsResponse.Labels)
                 {
                     workItem = new WorkItem();
-                    workItem.setKey(photo);
-                    workItem.setConfidence(label.Confidence.ToString());
-                    workItem.setName(label.Name);
+                    workItem.Key = photo;
+                    workItem.Confidence = label.Confidence.ToString();
+                    workItem.Name = label.Name;
                     labelList.Add(workItem);
                 }
 
@@ -319,17 +313,16 @@ namespace PhotoAnalyzerApp.Controllers
             {
                 Console.WriteLine(ex.Message);
             }
-           return null;
+
+            return null;
         }
 
-
         // Returns object names in the S3 bucket.
-        public async Task<List<String>> ListBucketNames(String bucketName)
+        public async Task<List<string>> ListBucketNames(string bucketName)
         {
-
             var s3Client = new AmazonS3Client(RegionEndpoint.USWest2);
             var obList = new List<Amazon.S3.Model.S3Object>();
-            var obName = new List<String>();
+            var obName = new List<string>();
 
             var listRequest = new ListObjectsRequest
             {
@@ -339,15 +332,13 @@ namespace PhotoAnalyzerApp.Controllers
             ListObjectsResponse response = await s3Client.ListObjectsAsync(listRequest);
             obList = response.S3Objects;
             foreach (var myobj in obList)
-               obName.Add(myobj.Key);
-           return obName;
+                obName.Add(myobj.Key);
+            return obName;
         }
 
-
         // Returns information about all images in the given S3 bucket.
-        public async Task<string> ListBucketObjects(String bucketName)
+        public async Task<string> ListBucketObjects(string bucketName)
         {
-
             var s3Client = new AmazonS3Client(RegionEndpoint.USWest2);
             var obList = new List<Amazon.S3.Model.S3Object>();
             var obName = new List<BucketItem>();
@@ -359,15 +350,15 @@ namespace PhotoAnalyzerApp.Controllers
 
             ListObjectsResponse response = await s3Client.ListObjectsAsync(listRequest);
             obList = response.S3Objects;
-            BucketItem myItem; 
-           
+            BucketItem myItem;
+
             foreach (var myobj in obList)
             {
                 myItem = new BucketItem();
-                myItem.setKey(myobj.Key)  ;
-                myItem.setOwner(myobj.Owner.DisplayName);
+                myItem.Key = myobj.Key;
+                myItem.Owner = myobj.Owner.DisplayName;
                 long sizeLg = myobj.Size / 1024;
-                myItem.setSize(sizeLg.ToString());
+                myItem.Size = sizeLg.ToString();
                 obName.Add(myItem);
             }
 
@@ -392,20 +383,20 @@ namespace PhotoAnalyzerApp.Controllers
                 subsNode.AppendChild(subNode);
 
                 XmlNode name = doc.CreateElement("Key");
-                name.AppendChild(doc.CreateTextNode(item.getKey()));
+                name.AppendChild(doc.CreateTextNode(item.Key));
                 subNode.AppendChild(name);
 
                 XmlNode owner = doc.CreateElement("Owner");
-                owner.AppendChild(doc.CreateTextNode(item.getOwner()));
+                owner.AppendChild(doc.CreateTextNode(item.Owner));
                 subNode.AppendChild(owner);
 
                 XmlNode size = doc.CreateElement("Size");
-                size.AppendChild(doc.CreateTextNode(item.getSize()));
+                size.AppendChild(doc.CreateTextNode(item.Size));
                 subNode.AppendChild(size);
             }
+
             return doc.OuterXml;
         }
-
 
         // Convert the list to XML to pass back to the view.
         public string GenerateXMLFromList(List<List<WorkItem>> obList)
@@ -417,11 +408,9 @@ namespace PhotoAnalyzerApp.Controllers
             XmlNode subsNode = doc.CreateElement("Items");
             doc.AppendChild(subsNode);
 
-            //Iterate through the outer list. 
+            // Iterate through the outer list.
             foreach (var listItem in obList)
-            { 
-
-                
+            {
                 // Iterate through the collection of WorkItem objects.
                 foreach (WorkItem item in listItem)
                 {
@@ -429,23 +418,24 @@ namespace PhotoAnalyzerApp.Controllers
                     subsNode.AppendChild(subNode);
 
                     XmlNode name = doc.CreateElement("Photo");
-                    name.AppendChild(doc.CreateTextNode(item.getKey()));
+                    name.AppendChild(doc.CreateTextNode(item.Key));
                     subNode.AppendChild(name);
 
                     XmlNode owner = doc.CreateElement("Confidence");
-                    owner.AppendChild(doc.CreateTextNode(item.getConfidence()));
+                    owner.AppendChild(doc.CreateTextNode(item.Confidence));
                     subNode.AppendChild(owner);
 
                     XmlNode size = doc.CreateElement("Label");
-                    size.AppendChild(doc.CreateTextNode(item.getName()));
+                    size.AppendChild(doc.CreateTextNode(item.Name));
                     subNode.AppendChild(size);
                 }
             }
-        
+
             return doc.OuterXml;
         }
     }
 }
+
 ```
 
 **Note**: Update the email sender address with a verified email address. For more information, see [Verifying an identity for Amazon SES sending authorization](https://docs.aws.amazon.com/ses/latest/dg/sending-authorization-identity-owner-tasks-verification.html).
@@ -464,41 +454,12 @@ namespace PhotoAnalyzerApp.Controllers
 {
     public class WorkItem
     {
-        private String key;
-        private String name;
-        private String confidence;
-
-        public void setKey(String key)
-        {
-            this.key = key;
-        }
-
-        public String getKey()
-        {
-            return this.key;
-        }
-
-        public void setName(String name)
-        {
-            this.name = name;
-        }
-
-        public String getName()
-        {
-            return this.name;
-        }
-
-        public void setConfidence(String confidence)
-        {
-            this.confidence = confidence;
-        }
-
-        public String getConfidence()
-        {
-            return this.confidence;
-        }
+        public string Key { get; set; }
+        public string Name { get; set; }
+        public string Confidence { get; set; }
     }
 }
+
 ```
 
 ### BucketItem class
@@ -515,41 +476,9 @@ namespace PhotoAnalyzerApp.Controllers
 {
     public class BucketItem
     {
-        private String key;
-        private String owner;
-        private String size;
-
-        public void setSize(String size)
-        {
-            this.size = size;
-        }
-
-        public String getSize()
-        {
-            return this.size;
-        }
-          
-
-        public void setOwner(String owner)
-        {
-            this.owner = owner;
-        }
-
-        public String getOwner()
-        {
-            return this.owner;
-        }
-
-
-        public void setKey(String key)
-        {
-            this.key = key;
-        }
-
-        public String getKey()
-        {
-            return this.key;
-        }
+        public string Key { get; set; }
+        public string Owner { get; set; }
+        public string Size { get; set; }
     }
 }
 
