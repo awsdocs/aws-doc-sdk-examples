@@ -18,7 +18,7 @@ namespace PhotoAnalyzerApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private String bucketName = "scottphoto";
+        private String bucketName = "<Enter Bucket Name";
 
         [HttpGet]
         public async Task<ActionResult> GetObjects()
