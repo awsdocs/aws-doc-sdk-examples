@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace PhotoAnalyzerApp.Controllers
-
 {
     public class BucketItem
     {
@@ -25,7 +24,7 @@ namespace PhotoAnalyzerApp.Controllers
         {
             return this.size;
         }
-    
+     
         public void setOwner(String owner)
         {
             this.owner = owner;
