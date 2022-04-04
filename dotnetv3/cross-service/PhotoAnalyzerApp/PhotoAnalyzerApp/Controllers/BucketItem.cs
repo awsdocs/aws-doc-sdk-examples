@@ -25,8 +25,7 @@ namespace PhotoAnalyzerApp.Controllers
         {
             return this.size;
         }
-          
-
+    
         public void setOwner(String owner)
         {
             this.owner = owner;
@@ -37,7 +36,6 @@ namespace PhotoAnalyzerApp.Controllers
             return this.owner;
         }
 
-
         public void setKey(String key)
         {
             this.key = key;
@@ -47,9 +45,5 @@ namespace PhotoAnalyzerApp.Controllers
         {
             return this.key;
         }
-
-
-
-
     }
 }
