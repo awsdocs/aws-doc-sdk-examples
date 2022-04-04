@@ -1,0 +1,10 @@
+--- 
+files:
+ - path: src/main/java/com/example/lookoutvision/DetectAnomalies.java
+   services:
+     - lookoutvision
+
+ - path: src/test/java/LookoutVisionTest.java
+   services:
+     - lookoutvision
+
