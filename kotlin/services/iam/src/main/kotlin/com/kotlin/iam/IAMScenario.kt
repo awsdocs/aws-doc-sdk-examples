@@ -29,7 +29,7 @@ import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.scenario.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+To run this Kotlin code example, ensure that you have set up your development environment,
 including your credentials.
 
 For information, see this documentation topic:
@@ -42,8 +42,7 @@ This example performs these operations:
 3. Grants the user permissions.
 4. Gets temporary credentials by assuming the role.
 5. Creates an Amazon S3 Service client object with the temporary credentials and list objects in an Amazon S3 bucket.
-6. Gets various IAM resources.
-7. Deletes the resources.
+6. Deletes the resources.
  */
 
 
@@ -89,19 +88,10 @@ This example performs these operations:
       delay(60000)
       assumeGivenRole(roleArn, roleSessionName, bucketName)
 
-     println("*** Get the AWS resources")
-     getPolicy(polArn)
-     getRole(roleName)
-     getSAMLProviders()
-     getGroups()
-     getPolicies()
-     getAttachedRolePolicies(roleName)
-     getRoles()
-
-    println("*** Getting ready to delete the AWS resources.")
-    deleteRole(roleName, polArn)
-    deleteUser(userName)
-    println("This IAM Scenario has successfully completed.")
+      println("*** Getting ready to delete the AWS resources.")
+      deleteRole(roleName, polArn)
+      deleteUser(userName)
+      println("This IAM Scenario has successfully completed.")
 }
 
 suspend fun createUser(usernameVal: String?): String? {
@@ -286,84 +276,5 @@ fun readJsonSimpleDemo(filename: String): Any? {
     val reader = FileReader(filename)
     val jsonParser = JSONParser()
     return jsonParser.parse(reader)
-}
-
-suspend fun getPolicy( policyArnVal: String?) {
-
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val request = GetPolicyRequest {
-            policyArn = policyArnVal
-    }
-
-    val response = iam.getPolicy(request)
-    println("Successfully retrieved policy ${response.policy?.policyName}")
-  }
-
-
-suspend fun getRole(roleNameVal: String?) {
-
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val roleRequest = GetRoleRequest {
-        roleName = roleNameVal
-    }
-
-    val response = iam.getRole(roleRequest)
-    println("The ARN of the role is ${response.role?.arn}")
-   }
-
-suspend fun getSAMLProviders() {
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val response: ListSamlProvidersResponse = iam.listSamlProviders(ListSamlProvidersRequest{})
-
-    val providers  = response.samlProviderList
-    providers?.forEach { md ->
-        println("The ARN value is ${md.arn}")
-    }
-}
-
-suspend fun getGroups() {
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val request = ListGroupsRequest {
-        maxItems = 10
-    }
-
-    val response = iam.listGroups(request)
-    val groups= response.groups
-    groups?.forEach { group ->
-            println("The ARN value is ${group.arn}")
-     }
-   }
-
-suspend fun getPolicies() {
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val response = iam.listPolicies(ListPoliciesRequest{})
-
-   val policies = response.policies
-    policies?.forEach { policy ->
-        println("The ARN value is ${policy.arn}")
-    }
-}
-
-suspend fun getAttachedRolePolicies(roleNameVal: String?) {
-    val iam = IamClient { region = "AWS_GLOBAL" }
-    val request = ListAttachedRolePoliciesRequest {
-        roleName = roleNameVal
-        maxItems = 10
-    }
-
-    val response = iam.listAttachedRolePolicies(request)
-    val policies = response.attachedPolicies
-    policies?.forEach { policy ->
-        println("The name of the attached policy is  ${policy.policyName}")
-    }
-}
-
-suspend fun getRoles() {
-    val iam = IamClient { region = "AWS_GLOBAL" }
-    val response = iam.listRoles { ListRolesRequest {} }
-    val roles = response.roles
-    roles?.forEach { role ->
-        println("The name of the attached policy is  ${role.roleName}")
-    }
 }
 // snippet-end:[iam.kotlin.scenario.main]
