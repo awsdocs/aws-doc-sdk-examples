@@ -36,3 +36,4 @@ jobs:
           VALIDATE_RUBY: true
           VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_CSHARP: true
+          VALIDATE_KOTLIN: true
