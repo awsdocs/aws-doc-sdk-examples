@@ -1,9 +1,9 @@
-# Amazon Rekognition image and video detection example
+# Amazon Rekognition Image, Video, and Custom labels examples
 
 ## Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Rekognition to
-recognize people, objects, and text in images and videos.
+recognize people, objects, and text in images and videos. 
 
 * Detect faces, celebrities, objects, and text in an image.
 * Create a collection of indexed faces and search for faces in your collection 
@@ -11,6 +11,8 @@ that match a reference image.
 * Detect faces, celebrities, and objects in a video.
 * Create a notification channel so your code can determine when a video
 detection job has completed.
+
+Also included are utilities that you can use with Amazon Rekognition Custom Labels.
 
 *Amazon Rekognition makes it easy to add image and video analysis to your applications. 
 You provide an image or video to the Amazon Rekognition API, and the service 
@@ -59,6 +61,10 @@ identifies objects, people, text, scenes, and activities.*
 (`search_faces`)
 * [Search for faces in a collection compared to a reference image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
 (`search_faces_by_image`)
+
+**Utilities**
+
+* [Create a Custom Labels image-level manifest file from a CSV file](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/custom_labels_csv_to_manifest.py)
 
 ## ⚠ Important
 
