@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+    Shows you how to use the &Python3long; to create a web application that
+    lets you do the following:
+    </para>
+    <itemizedlist>
+        <listitem><para>Upload photos to an &S3long; (&S3;) bucket.</para></listitem>
+        <listitem><para>Use &REKlong; to analyze and label the photos.</para></listitem>
+        <listitem><para>Use &SESlong; (&SES;) to send email reports of image analysis.</para></listitem>
+    </itemizedlist>
+
+    <para>
+    This example contains two main components: a webpage written in JavaScript that is
+    built with React, and a REST service written in Python that is built with
+    Flask-RESTful.
+    </para>
+
+    <para>You can use the React webpage to:</para>
+    <itemizedlist>
+        <listitem><para>Display a list of images that are stored in your S3 bucket.</para></listitem>
+        <listitem><para>Upload images from your computer to your S3 bucket.</para></listitem>
+        <listitem><para>Display images and labels that identify items that are detected in the image.</para></listitem>
+        <listitem><para>Get a report of all images in your S3 bucket and send an email of the report.</para></listitem>
+    </itemizedlist>
+
+    <para>The webpage calls the REST service. The service sends requests to
+        &AWS; to perform the following actions:
+    </para>
+    <itemizedlist>
+        <listitem><para>Get and filter the list of images in your S3 bucket.</para></listitem>
+        <listitem><para>Upload photos to your S3 bucket.</para></listitem>
+        <listitem><para>Use &REK; to analyze individual photos and get a list of labels that
+             identify items that are detected in the photo.</para></listitem>
+        <listitem><para>Analyze all photos in your S3 bucket and use &SES; to email a report.</para></listitem>
+    </itemizedlist>
+
+    <para>
+    For complete source code and instructions on how to set up and run, see the full example on
+    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/photo_analyzer">GitHub</ulink>.
+    </para>
+</block>
