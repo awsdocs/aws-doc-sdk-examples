@@ -50,8 +50,7 @@ import java.util.concurrent.TimeUnit;
   3. Grants the user permissions.
   4. Gets temporary credentials by assuming the role.
   5. Creates an Amazon S3 Service client object with the temporary credentials and list objects in an Amazon S3 bucket.
-  6. Gets various IAM resources.
-  7. Deletes the resources.
+  6. Deletes the resources.
  */
 
 // snippet-start:[iam.java2.scenario.main]
@@ -114,25 +113,14 @@ public class IAMScenario {
            String roleArn = createIAMRole(iam, roleName, fileLocation);
            System.out.println(roleArn + " was successfully created.");
            attachIAMRolePolicy(iam, roleName, polArn);
-           String name = createServiceLinkedRole(iam);
-           System.out.println("The Service Linked Role name is "+ name );
 
            System.out.println("*** Wait for 1 MIN so the resource is available");
            TimeUnit.MINUTES.sleep(1);
            assumeGivenRole(roleArn, roleSessionName, bucketName);
 
-           System.out.println("*** Get the AWS resources");
-           getPolicy(iam, polArn);
-           getRole(iam, roleName);
-           getSAMLProviders(iam);
-           getGroups(iam);
-           getPolicies(iam);
-           getAttachedRolePolicies(iam, roleName);
-           getRoles(iam);
 
 
            System.out.println("*** Getting ready to delete the AWS resources");
-           deleteServiceLinkedRole(iam,name);
            deleteRole(iam, roleName, polArn);
            deleteIAMUser(iam, userName);
            System.out.println("This IAM Scenario has successfully completed");
@@ -141,45 +129,6 @@ public class IAMScenario {
        }
 
     }
-
-
-    public static String createServiceLinkedRole(IamClient iam) {
-
-        try {
-
-            CreateServiceLinkedRoleRequest request = CreateServiceLinkedRoleRequest.builder()
-                    .awsServiceName("email.cognito-idp.amazonaws.com")
-                    .description("An email.cognito role")
-                    .build();
-
-            CreateServiceLinkedRoleResponse response = iam.createServiceLinkedRole(request);
-            return response.role().roleName();
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-        return "" ;
-    }
-
-    public static void  deleteServiceLinkedRole(IamClient iam, String roleName) {
-
-        try {
-
-            DeleteServiceLinkedRoleRequest request = DeleteServiceLinkedRoleRequest.builder()
-                    .roleName(roleName)
-                    .build();
-
-            iam.deleteServiceLinkedRole(request);
-            System.out.println("Deleted the service linked role");
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
 
     public static Boolean createIAMUser(IamClient iam, String username ) {
 
@@ -388,131 +337,6 @@ public class IAMScenario {
             System.exit(1);
         }
     }
-
-    public static void getPolicies(IamClient iam) {
-
-        try {
-
-            ListPoliciesResponse response = iam.listPolicies();
-            List<Policy> policies = response.policies();
-            for (Policy policy: policies) {
-                System.out.println("The policy name is "+policy.policyName());
-            }
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
-    public static void getSAMLProviders(IamClient iam){
-
-        try {
-
-            ListSamlProvidersResponse response = iam.listSAMLProviders();
-            List<SAMLProviderListEntry> providers = response.samlProviderList();
-            for (SAMLProviderListEntry provider: providers) {
-                System.out.println("The ARN of the provider is : "+provider.arn());
-            }
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
-
-    public static void getPolicy(IamClient iam, String policyArn) {
-
-        try {
-
-            GetPolicyRequest request = GetPolicyRequest.builder()
-                    .policyArn(policyArn).build();
-
-            GetPolicyResponse response = iam.getPolicy(request);
-            System.out.format("Successfully retrieved policy %s",
-                    response.policy().policyName());
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
-    public static void getRole(IamClient iam, String roleName) {
-
-        try {
-
-            GetRoleRequest roleRequest = GetRoleRequest.builder()
-                    .roleName(roleName)
-                    .build();
-
-            GetRoleResponse response = iam.getRole(roleRequest) ;
-            System.out.println("The ARN of the role is " +response.role().arn());
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
-    public static void getAttachedRolePolicies(IamClient iam, String roleName) {
-
-        try {
-
-            ListAttachedRolePoliciesRequest request = ListAttachedRolePoliciesRequest .builder()
-                    .roleName(roleName)
-                    .maxItems(10)
-                    .build();
-
-            ListAttachedRolePoliciesResponse response = iam.listAttachedRolePolicies(request) ;
-            List<AttachedPolicy> policies = response.attachedPolicies();
-            for (AttachedPolicy policy: policies) {
-                System.out.println("The name of the attached policy is  "+policy.policyName());
-            }
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
-    public static void getGroups(IamClient iam) {
-
-        try {
-
-            ListGroupsRequest request = ListGroupsRequest.builder()
-                    .maxItems(10)
-                    .build();
-
-            ListGroupsResponse response = iam.listGroups(request) ;
-            List<Group> groups = response.	groups();
-            for (Group group: groups) {
-                System.out.println("The group name is "+group.groupName());
-            }
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-
-    }
-
-    public static void getRoles(IamClient iam) {
-
-        try {
-
-            ListRolesResponse response = iam.listRoles() ;
-            List<Role> roles = response.roles();
-            for (Role role: roles) {
-                System.out.println("The role name is "+role.roleName());
-            }
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
 
     public static Object readJsonSimpleDemo(String filename) throws Exception {
         FileReader reader = new FileReader(filename);
