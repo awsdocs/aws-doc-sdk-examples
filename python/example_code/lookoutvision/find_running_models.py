@@ -7,7 +7,7 @@ AWS partition. For accurate results, install the latest Boto3
 client.
 """
 
-# snippet-start:[python.example_code.lookoutvision.Scenario_FindRunningModels]
+# snippet-start:[python.example_code.lookoutvision.FindRunningModels]
 
 import logging
 import boto3
@@ -150,4 +150,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-# snippet-end:[python.example_code.lookoutvision.Scenario_FindTagRunningModels]
+# snippet-end:[python.example_code.lookoutvision.FindTagRunningModels]
