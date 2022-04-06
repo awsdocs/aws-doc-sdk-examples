@@ -13,7 +13,7 @@ dynamodb_ExecuteStatement:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.kotlin.partiql.main
+                - dynamodb.kotlin.scenario.partiql.main
     Java:
       versions:
         - sdk_version: 2
@@ -22,7 +22,7 @@ dynamodb_ExecuteStatement:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.java2.partiql.main
+                - dynamodb.java2.scenario.partiql.main
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_CreateTable:

@@ -1,10 +1,10 @@
-//snippet-sourcedescription:[IAMScenario.kt demonstrates how to perform various AWS Identity and Access Management (IAM) operations.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/20/2022]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[IAMScenario.kt demonstrates how to perform various AWS Identity and Access Management (IAM) operations.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[IAM]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[01/20/2022]
+// snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,7 +16,16 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.scenario.import]
 import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 import aws.sdk.kotlin.services.iam.IamClient
-import aws.sdk.kotlin.services.iam.model.*
+import aws.sdk.kotlin.services.iam.model.AttachRolePolicyRequest
+import aws.sdk.kotlin.services.iam.model.AttachedPolicy
+import aws.sdk.kotlin.services.iam.model.CreatePolicyRequest
+import aws.sdk.kotlin.services.iam.model.CreateRoleRequest
+import aws.sdk.kotlin.services.iam.model.CreateUserRequest
+import aws.sdk.kotlin.services.iam.model.DeletePolicyRequest
+import aws.sdk.kotlin.services.iam.model.DeleteRoleRequest
+import aws.sdk.kotlin.services.iam.model.DeleteUserRequest
+import aws.sdk.kotlin.services.iam.model.DetachRolePolicyRequest
+import aws.sdk.kotlin.services.iam.model.ListAttachedRolePoliciesRequest
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.ListObjectsRequest
 import aws.sdk.kotlin.services.sts.StsClient
@@ -29,7 +38,7 @@ import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.scenario.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+To run this Kotlin code example, ensure that you have set up your development environment,
 including your credentials.
 
 For information, see this documentation topic:
@@ -42,13 +51,11 @@ This example performs these operations:
 3. Grants the user permissions.
 4. Gets temporary credentials by assuming the role.
 5. Creates an Amazon S3 Service client object with the temporary credentials and list objects in an Amazon S3 bucket.
-6. Gets various IAM resources.
-7. Deletes the resources.
+6. Deletes the resources.
  */
 
-
 // snippet-start:[iam.kotlin.scenario.main]
-    suspend fun main(args: Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
@@ -63,40 +70,31 @@ This example performs these operations:
         bucketName - the name of the Amazon S3 bucket from which objects are read. 
     """
 
-       if (args.size != 6) {
-            println(usage)
-            exitProcess(1)
-        }
+    if (args.size != 6) {
+        println(usage)
+        exitProcess(1)
+    }
 
-       val userName = args[0]
-       val policyName = args[1]
-       val roleName = args[2]
-       val roleSessionName = args[3]
-       val fileLocation = args[4]
-       val bucketName = args[5]
+    val userName = args[0]
+    val policyName = args[1]
+    val roleName = args[2]
+    val roleSessionName = args[3]
+    val fileLocation = args[4]
+    val bucketName = args[5]
 
-       createUser(userName)
-       println("$userName was successfully created.")
+    createUser(userName)
+    println("$userName was successfully created.")
 
-       val polArn =createPolicy(policyName)
-       println("The policy $polArn was successfully created.")
+    val polArn = createPolicy(policyName)
+    println("The policy $polArn was successfully created.")
 
-      val roleArn = createRole( roleName, fileLocation)
-      println("$roleArn was successfully created.")
-      attachRolePolicy(roleName, polArn)
+    val roleArn = createRole(roleName, fileLocation)
+    println("$roleArn was successfully created.")
+    attachRolePolicy(roleName, polArn)
 
-      println("*** Wait for 1 MIN so the resource is available.")
-      delay(60000)
-      assumeGivenRole(roleArn, roleSessionName, bucketName)
-
-     println("*** Get the AWS resources")
-     getPolicy(polArn)
-     getRole(roleName)
-     getSAMLProviders()
-     getGroups()
-     getPolicies()
-     getAttachedRolePolicies(roleName)
-     getRoles()
+    println("*** Wait for 1 MIN so the resource is available.")
+    delay(60000)
+    assumeGivenRole(roleArn, roleSessionName, bucketName)
 
     println("*** Getting ready to delete the AWS resources.")
     deleteRole(roleName, polArn)
@@ -119,17 +117,17 @@ suspend fun createUser(usernameVal: String?): String? {
 suspend fun createPolicy(policyNameVal: String?): String {
 
     val policyDocumentValue: String = "{" +
-            "  \"Version\": \"2012-10-17\"," +
-            "  \"Statement\": [" +
-            "    {" +
-            "        \"Effect\": \"Allow\"," +
-            "        \"Action\": [" +
-            "            \"s3:*\"" +
-            "       ]," +
-            "       \"Resource\": \"*\"" +
-            "    }" +
-            "   ]" +
-            "}"
+        "  \"Version\": \"2012-10-17\"," +
+        "  \"Statement\": [" +
+        "    {" +
+        "        \"Effect\": \"Allow\"," +
+        "        \"Action\": [" +
+        "            \"s3:*\"" +
+        "       ]," +
+        "       \"Resource\": \"*\"" +
+        "    }" +
+        "   ]" +
+        "}"
 
     val request = CreatePolicyRequest {
         policyName = policyNameVal
@@ -185,7 +183,7 @@ suspend fun attachRolePolicy(roleNameVal: String, policyArnVal: String) {
     }
 }
 
-fun checkMyList(attachedPolicies:List<AttachedPolicy>, policyArnVal:String) :Int {
+fun checkMyList(attachedPolicies: List<AttachedPolicy>, policyArnVal: String): Int {
 
     for (policy in attachedPolicies) {
         val polArn = policy.policyArn.toString()
@@ -205,80 +203,79 @@ suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?, bu
     }
 
     val roleRequest = AssumeRoleRequest {
-            roleArn = roleArnVal
-            roleSessionName = roleSessionNameVal
+        roleArn = roleArnVal
+        roleSessionName = roleSessionNameVal
     }
 
-    val roleResponse= stsClient.assumeRole(roleRequest)
+    val roleResponse = stsClient.assumeRole(roleRequest)
     val myCreds = roleResponse.credentials
     val key = myCreds?.accessKeyId
     val secKey = myCreds?.secretAccessKey
     val secToken = myCreds?.sessionToken
 
     val staticCredentials = StaticCredentialsProvider {
-         accessKeyId = key
-         secretAccessKey = secKey
-         sessionToken = secToken
+        accessKeyId = key
+        secretAccessKey = secKey
+        sessionToken = secToken
     }
-
 
     // List all objects in an Amazon S3 bucket using the temp creds.
     val s3 = S3Client {
-         credentialsProvider = staticCredentials
-         region = "us-east-1"
-     }
+        credentialsProvider = staticCredentials
+        region = "us-east-1"
+    }
 
-   println("Created a S3Client using temp credentials.")
-   println("Listing objects in $bucketName")
+    println("Created a S3Client using temp credentials.")
+    println("Listing objects in $bucketName")
 
-   val listObjects = ListObjectsRequest {
+    val listObjects = ListObjectsRequest {
         bucket = bucketName
-   }
+    }
 
-   val response = s3.listObjects(listObjects)
-   response.contents?.forEach { myObject ->
-         println("The name of the key is ${myObject.key}")
-         println("The owner is ${myObject.owner}")
-   }
+    val response = s3.listObjects(listObjects)
+    response.contents?.forEach { myObject ->
+        println("The name of the key is ${myObject.key}")
+        println("The owner is ${myObject.owner}")
+    }
 }
 
 suspend fun deleteRole(roleNameVal: String, polArn: String) {
 
-    val iam = IamClient { region = "AWS_GLOBAL"}
+    val iam = IamClient { region = "AWS_GLOBAL" }
 
-        // First the policy needs to be detached.
-        val rolePolicyRequest = DetachRolePolicyRequest {
-            policyArn = polArn
-            roleName = roleNameVal
-        }
-
-        iam.detachRolePolicy(rolePolicyRequest)
-
-        // Delete the policy.
-        val request = DeletePolicyRequest {
-            policyArn = polArn
-        }
-
-        iam.deletePolicy(request)
-        println("*** Successfully deleted $polArn")
-
-        // Delete the role.
-        val roleRequest = DeleteRoleRequest {
-            roleName = roleNameVal
-        }
-
-        iam.deleteRole(roleRequest)
-        println("*** Successfully deleted $roleNameVal")
-   }
-
-suspend fun deleteUser(userNameVal: String) {
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val request = DeleteUserRequest {
-            userName = userNameVal
+    // First the policy needs to be detached.
+    val rolePolicyRequest = DetachRolePolicyRequest {
+        policyArn = polArn
+        roleName = roleNameVal
     }
 
-   iam.deleteUser(request)
-   println("*** Successfully deleted $userNameVal")
+    iam.detachRolePolicy(rolePolicyRequest)
+
+    // Delete the policy.
+    val request = DeletePolicyRequest {
+        policyArn = polArn
+    }
+
+    iam.deletePolicy(request)
+    println("*** Successfully deleted $polArn")
+
+    // Delete the role.
+    val roleRequest = DeleteRoleRequest {
+        roleName = roleNameVal
+    }
+
+    iam.deleteRole(roleRequest)
+    println("*** Successfully deleted $roleNameVal")
+}
+
+suspend fun deleteUser(userNameVal: String) {
+    val iam = IamClient { region = "AWS_GLOBAL" }
+    val request = DeleteUserRequest {
+        userName = userNameVal
+    }
+
+    iam.deleteUser(request)
+    println("*** Successfully deleted $userNameVal")
 }
 
 @Throws(java.lang.Exception::class)
@@ -286,84 +283,5 @@ fun readJsonSimpleDemo(filename: String): Any? {
     val reader = FileReader(filename)
     val jsonParser = JSONParser()
     return jsonParser.parse(reader)
-}
-
-suspend fun getPolicy( policyArnVal: String?) {
-
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val request = GetPolicyRequest {
-            policyArn = policyArnVal
-    }
-
-    val response = iam.getPolicy(request)
-    println("Successfully retrieved policy ${response.policy?.policyName}")
-  }
-
-
-suspend fun getRole(roleNameVal: String?) {
-
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val roleRequest = GetRoleRequest {
-        roleName = roleNameVal
-    }
-
-    val response = iam.getRole(roleRequest)
-    println("The ARN of the role is ${response.role?.arn}")
-   }
-
-suspend fun getSAMLProviders() {
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val response: ListSamlProvidersResponse = iam.listSamlProviders(ListSamlProvidersRequest{})
-
-    val providers  = response.samlProviderList
-    providers?.forEach { md ->
-        println("The ARN value is ${md.arn}")
-    }
-}
-
-suspend fun getGroups() {
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val request = ListGroupsRequest {
-        maxItems = 10
-    }
-
-    val response = iam.listGroups(request)
-    val groups= response.groups
-    groups?.forEach { group ->
-            println("The ARN value is ${group.arn}")
-     }
-   }
-
-suspend fun getPolicies() {
-    val iam = IamClient { region = "AWS_GLOBAL"}
-    val response = iam.listPolicies(ListPoliciesRequest{})
-
-   val policies = response.policies
-    policies?.forEach { policy ->
-        println("The ARN value is ${policy.arn}")
-    }
-}
-
-suspend fun getAttachedRolePolicies(roleNameVal: String?) {
-    val iam = IamClient { region = "AWS_GLOBAL" }
-    val request = ListAttachedRolePoliciesRequest {
-        roleName = roleNameVal
-        maxItems = 10
-    }
-
-    val response = iam.listAttachedRolePolicies(request)
-    val policies = response.attachedPolicies
-    policies?.forEach { policy ->
-        println("The name of the attached policy is  ${policy.policyName}")
-    }
-}
-
-suspend fun getRoles() {
-    val iam = IamClient { region = "AWS_GLOBAL" }
-    val response = iam.listRoles { ListRolesRequest {} }
-    val roles = response.roles
-    roles?.forEach { role ->
-        println("The name of the attached policy is  ${role.roleName}")
-    }
 }
 // snippet-end:[iam.kotlin.scenario.main]
