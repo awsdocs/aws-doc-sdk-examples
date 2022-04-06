@@ -250,8 +250,8 @@ func examples(cfg aws.Config) ExampleCreatedResources {
 					"dynamodb:UpdateItem"
 				],
 				"Resource": [
-					"arn:aws:dynamodb:us-west-2:111222333444:table/mytable",
-					"arn:aws:dynamodb:us-west-2:111222333444:table/mytable/*"
+					"arn:aws:dynamodb:us-west-2:123456789012:table/mytable",
+					"arn:aws:dynamodb:us-west-2:123456789012:table/mytable/*"
 				]
 			}
 		]
@@ -288,7 +288,7 @@ func examples(cfg aws.Config) ExampleCreatedResources {
 
 	//snippet-end:[iam.go-v2.ListPolicies]
 	fmt.Println("✅ GetPolicy " + *policyArn)
-	//snippet-start:[iam.go-v2.Getpolicy]
+	//snippet-start:[iam.go-v2.GetPolicy]
 	// GetPolicy
 
 	getPolicyResponse, err := service.GetPolicy(context.Background(), &iam.GetPolicyInput{
@@ -303,7 +303,7 @@ func examples(cfg aws.Config) ExampleCreatedResources {
 		*getPolicyResponse.Policy.Arn,
 		*getPolicyResponse.Policy.PolicyName)
 
-	//snippet-end:[iam.go-v2.Getpolicy]
+	//snippet-end:[iam.go-v2.GetPolicy]
 
 	fmt.Println("🏘 ListGroups")
 	//snippet-start:[iam.go-v2.ListGroups]
