@@ -12,9 +12,7 @@ import boto3
 import models
 from boto3.session import Session
 
-from find_running_models import find_running_models,find_running_models_in_project
-
-
+from find_running_models import find_running_models, find_running_models_in_project
 
 
 @pytest.mark.parametrize('error_code,stop_on_method', [
@@ -60,17 +58,14 @@ def test_find_models_in_project(make_stubber, stub_runner, error_code, stop_on_m
         assert exc_info.value.response['Error']['Code'] == error_code
 
 
-
-
-
-
 @pytest.mark.parametrize('error_code,stop_on_method', [
     (None, None),
     ('TestException', 'stub_list_projects'),
     ('TestException', 'stub_list_models'),
     ('TestException', 'stub_describe_model'),
 ])
-def test_find_running_models(make_stubber, stub_runner, monkeypatch, error_code, stop_on_method):
+def test_find_running_models(make_stubber, stub_runner, monkeypatch,
+                             error_code, stop_on_method):
     lookoutvision_client = boto3.client('lookoutvision')
     lookoutvision_stubber = make_stubber(lookoutvision_client)
     project_name = 'test-project_name'
@@ -90,18 +85,16 @@ def test_find_running_models(make_stubber, stub_runner, monkeypatch, error_code,
     project_arn = 'test-arn'
     region = 'us-east-1'
 
-
-
     def region_list(*args, **kwargs):
-    # Patches call to Session.get_available_regions. 
-    # Returns a single AWS Region list.
+        # Patches call to Session.get_available_regions.
+        # Returns a single AWS Region list.
         return [region]
 
     def get_boto_entity(
             client, region_name=None, aws_session_token=None):
-    # Patches lookoutvision cient. 
-    # Needed as clients are created for multiple AWS Regions.
-    # Returns the previously created, and stubbed, lookoutvision client.
+        # Patches lookoutvision cient.
+        # Needed as clients are created for multiple AWS Regions.
+        # Returns the previously created, and stubbed, lookoutvision client.
         return lookoutvision_client
 
     # Patch region list

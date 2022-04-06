@@ -2,8 +2,13 @@
 # SPDX-License-Identifier:  Apache-2.0
 """
 Purpose: Displays a list of running Amazon Lookout for Vision
-models across all accessible AWS Regions.
+models across all accessible AWS Regions in the commercial
+AWS partition. For accurate results, install the latest Boto3
+client.
 """
+
+# snippet-start:[python.example_code.lookoutvision.Scenario_FindRunningModels]
+
 import logging
 import boto3
 from boto3.session import Session
@@ -14,7 +19,7 @@ from botocore.exceptions import ClientError, EndpointConnectionError
 logger = logging.getLogger(__name__)
 
 
-def find_running_models_in_project(client, project_name):
+def find_running_models_in_project(lfv_client, project_name):
     """
     Gets a list of running models in a project.
     :param lookoutvision_client: A Boto3 Amazon Lookout for Vision client.
@@ -22,37 +27,40 @@ def find_running_models_in_project(client, project_name):
     return: A list of running models. Empty if no models are
     running in the project.
     """
-    
+
     logger.info("Finding running models in project: %s", project_name)
     running_models = []
+
     # Get a list of models in the current project.
-    response = client.list_models(ProjectName=project_name)
 
-    for model in response["Models"]:
+    paginator = lfv_client.get_paginator('list_models')
+    page_iterator = paginator.paginate(ProjectName=project_name)
 
-        # Get model description and store hosted state, if model is running.
-        model_description = client.describe_model(
-            ProjectName=project_name, ModelVersion=model["ModelVersion"]
-        )
+    for page in page_iterator:
 
-        logger.info("Checking: %s",
-                    model_description["ModelDescription"]["ModelArn"])
+        for model in page['Models']:
+            # Get model description and store hosted state, if model is running.
+            model_description = lfv_client.describe_model(
+                ProjectName=project_name, ModelVersion=model["ModelVersion"]
+            )
 
-        if model_description["ModelDescription"]["Status"] == 'HOSTED':
-            running_model = {
-                "Project": project_name,
-                "ARN": model_description["ModelDescription"]["ModelArn"],
-                "Version": model_description["ModelDescription"]["ModelVersion"]
-            }
-            running_models.append(running_model)
-            logger.info("Running model ARN: %s Version %s",
-                        model_description["ModelDescription"]["ModelArn"],
-                        model_description["ModelDescription"]["ModelVersion"])
+            logger.info("Checking: %s",
+                        model_description["ModelDescription"]["ModelArn"])
+
+            if model_description["ModelDescription"]["Status"] == 'HOSTED':
+                running_model = {
+                    "Project": project_name,
+                    "ARN": model_description["ModelDescription"]["ModelArn"],
+                    "Version": model_description["ModelDescription"]["ModelVersion"]
+                }
+                running_models.append(running_model)
+                logger.info("Running model ARN: %s Version %s",
+                            model_description["ModelDescription"]["ModelArn"],
+                            model_description["ModelDescription"]["ModelVersion"])
 
     logger.info("Done finding running models in project: %s", project_name)
 
     return running_models
-
 
 
 def display_running_models(running_model_regions):
@@ -63,7 +71,7 @@ def display_running_models(running_model_regions):
     """
     count = 0
 
-    if len(running_model_regions) > 0:
+    if running_model_regions:
         print("Running models.\n")
         for region in running_model_regions:
             print(region['Region'])
@@ -73,9 +81,7 @@ def display_running_models(running_model_regions):
                 print(f"  ARN: {model['ARN']}\n")
                 count += 1
 
-    print(f"There are {count} running models")
-
-
+    print(f"There is {count} running model(s).")
 
 
 def find_running_models():
@@ -84,10 +90,12 @@ def find_running_models():
     AWS Regions.
     :return: A list of running running models.
     """
-       
+
     running_models = []
 
-    # Get a list of accessible regions.
+    # Get a list of Lookout for Vision accessible AWS regions in
+    # the AWS comercial partition.
+    # Make sure your Boto3 client is up to date as it stores this list.
     regions = Session().get_available_regions(service_name='lookoutvision')
 
     # Loop through each region and collect running models.
@@ -102,21 +110,24 @@ def find_running_models():
             "lookoutvision", region_name=region)
 
         # Get the projects in the current AWS region.
-        projects = lfv_client.list_projects()['Projects']
 
-        for project in projects:
-            running_models_in_project = find_running_models_in_project(
-                lfv_client, project["ProjectName"])
-            for running_model in running_models_in_project:
-                running_models_in_region.append(running_model)
+        paginator = lfv_client.get_paginator('list_projects')
+        page_iterator = paginator.paginate()
 
-            region_info['Models'] = running_models_in_region
+        for page in page_iterator:
+            for project in page['Projects']:
+                running_models_in_project = find_running_models_in_project(
+                    lfv_client, project["ProjectName"])
+                for running_model in running_models_in_project:
+                    running_models_in_region.append(running_model)
 
-        if len(region_info['Models']) > 0:
+                region_info['Models'] = running_models_in_region
+
+        if region_info['Models']:
             running_models.append(region_info)
-        
+
     return running_models
-    
+
 
 def main():
 
@@ -125,9 +136,8 @@ def main():
 
     try:
 
-        running_models=find_running_models()
+        running_models = find_running_models()
         display_running_models(running_models)
-
 
     except TypeError as err:
         print("Couldn't get available regions: " + format(err))
@@ -137,7 +147,7 @@ def main():
         logger.info("Problem calling endpoint: %s", format(err))
         raise
 
-        
 
 if __name__ == "__main__":
     main()
+# snippet-end:[python.example_code.lookoutvision.Scenario_FindTagRunningModels]
