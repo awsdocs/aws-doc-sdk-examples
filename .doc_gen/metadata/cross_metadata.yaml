@@ -53,6 +53,10 @@ cross_DynamoDBDataTracker:
       versions:
         - sdk_version: 2
           block_content: cross_DynamoDBDataTracker_Java_block.xml
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_DynamoDBDataTracker_Net_block.xml
     Kotlin:
       versions:
         - sdk_version: 1
@@ -312,11 +316,18 @@ cross_RekognitionPhotoAnalyzer:
       versions:
         - sdk_version: 2
           block_content: cross_RekognitionPhotoAnalyzer_Java_block.xml
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzer_Net_block.xml
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionPhotoAnalyzer_JavaScript_block.xml
-    
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzer_Python_block.xml
   services:
     rekognition:
     s3:
