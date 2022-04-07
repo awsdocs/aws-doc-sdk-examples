@@ -54,7 +54,9 @@ After you create the database, in the **Connectivity & security** section, view 
 
 ![AWS Tracking Application](images/trackEndpoint2.png)
       
-**Note:** You must set up an inbound rule for the security group to connect to the database from your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up an inbound rule, you can connect to the database from a client such as MySQL Workbench. For more information, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+You must set up an inbound rule for the security group to connect to the database from your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up an inbound rule, you can connect to the database from a client such as MySQL Workbench. For more information, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html). 
+
+If you deploy your Spring Boot application to Elastic Beanstalk, you need to create an additional Inbound rule so the application can make a successful connection to RDS MySQL. To do so, get the IP of your Elastic Beanstalk application by using an online Domain name to IP tool. Then you can use this IP in your inbound rules. However, make sure that the Security Group your RDS instance uses is also the same Security Group your Elastic Beanstalk application uses. Both the RDS instance and the Elastic Beanstalk application have to be in the same region. 
 
 In addition, make sure that you set up your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
