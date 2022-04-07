@@ -63,9 +63,9 @@ namespace WebApplicationDynamoDB.Controllers
         [HttpGet]
         public async Task<ActionResult> GetActiveItems()
         {
-           var dbService = new DynamoDBService();
-           var xml = await dbService.GetItems("Open");
-           return Content(xml);
+            var dbService = new DynamoDBService();
+            var xml = await dbService.GetItems("Open");
+            return Content(xml);
         }
 
         [HttpGet]
