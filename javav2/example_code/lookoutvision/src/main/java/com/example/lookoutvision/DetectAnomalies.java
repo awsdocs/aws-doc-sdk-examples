@@ -81,12 +81,12 @@ public class DetectAnomalies extends JPanel {
             prediction = "Prediction: Abnormal";
         }
 
-        // Convert prediction to percentage.
+        // Convert prediction to percentage
         NumberFormat defaultFormat = NumberFormat.getPercentInstance();
         defaultFormat.setMinimumFractionDigits(1);
         String confidence = String.format("Confidence: %s", defaultFormat.format(result.confidence()));
 
-        // Draw file name, prediction, and confidence on image.
+        // Draw file name, prediction, and confidence on image
         String photoPath = "File: " + photo;
         String[] imageLines = { photoPath, prediction, confidence };
         drawImageInfo(imageLines);
@@ -174,12 +174,12 @@ public class DetectAnomalies extends JPanel {
         if (mimeType.equals("image/jpeg") || mimeType.equals("image/png")) {
             return mimeType;
         }
-        // Not a supported file type.
+        // not a supported file type.
         logger.log(Level.SEVERE, "Unsupported image type: {0}", mimeType);
         throw new IOException(String.format("Wrong image type. %s format isn't supported.", mimeType));
     }
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         String photo = null;
         String projectName = null;
@@ -189,9 +189,9 @@ public class DetectAnomalies extends JPanel {
                 "Usage:\n" +
                 "    DetectAnomalies <project> <version> <image> \n\n" +
                 "Where:\n" +
-                "    project - The Lookout for Vision project.\n\n" +
-                "    version - The version of the model within the project.\n\n" +
-                "    image - The path and filename of a local image. \n\n";
+                "    project - the Lookout for Vision project.\n\n" +
+                "    version - the version of the model within the project.\n\n" +
+                "    image - the path and filename of a local image. \n\n";
 
         try {
 
@@ -222,13 +222,17 @@ public class DetectAnomalies extends JPanel {
             System.exit(0);
 
         } catch (LookoutVisionException lfvError) {
-            logger.log(Level.SEVERE, "lookout for vision client error: {0}", lfvError.getMessage());
+            logger.log(Level.SEVERE, "Lookout for Vision client error: {0}: {1}",
+                    new Object[] { lfvError.awsErrorDetails().errorCode(),
+                    lfvError.awsErrorDetails().errorMessage() });
             System.out.println(String.format("lookout for vision client error: %s", lfvError.getMessage()));
             System.exit(1);
+
         } catch (FileNotFoundException fileError) {
             logger.log(Level.SEVERE, "Could not find file: {0}", fileError.getMessage());
             System.out.println(String.format("Could not find file: %s", fileError.getMessage()));
             System.exit(1);
+
         } catch (IOException ioError) {
             logger.log(Level.SEVERE, "IO error {0}", ioError.getMessage());
             System.out.println(String.format("IO error: %s", ioError.getMessage()));
