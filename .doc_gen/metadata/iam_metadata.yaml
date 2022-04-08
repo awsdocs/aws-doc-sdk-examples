@@ -1522,9 +1522,9 @@ iam_GetRole:
           github: dotnetv3/IAM
           sdkguide:
           excerpts:
-            description:
-            snippet_tags:
-              - IAM.dotnetv3.GetRoleExample
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetRoleExample
     JavaScript:
       versions:
         - sdk_version: 3
