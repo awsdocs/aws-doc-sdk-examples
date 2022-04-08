@@ -9,8 +9,8 @@ import (
 	"os"
 	"time"
 
-	"example.aws/wordfreq/shared"
-	parser "example.aws/wordfreq/shared/s3"
+	"example.aws/go-v2/examples/cross_service/wordfreq/service/shared"
+	parser "example.aws/go-v2/examples/cross_service/wordfreq/service/shared/s3"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
