@@ -570,12 +570,12 @@ iam_DeleteRolePolicy:
     .NET:
       versions:
         - sdk_version: 3
-        github: dotnetv3/IAM
-        sdkguide:
-        excerpts:
-          - description:
-            snippet_tags:
-              - IAM.dotnetv3.DeleteRolePolicyExample
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteRolePolicyExample
   services:
     iam: {DeleteRolePolicy}
 iam_GetAccessKeyLastUsed:
