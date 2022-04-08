@@ -1113,7 +1113,7 @@ iam_AttachRolePolicy:
   languages:
     .NET:
       versions:
-        - sdk_versions: 3
+        - sdk_version: 3
           github: dotnetv3/IAM
           sdkguide:
           excerpts:
@@ -2391,7 +2391,7 @@ iam_Scenario_CreateUserAssumeRole:
   languages:
     .NET:
       versions:
-        - sdk_versions: 3
+        - sdk_version: 3
           github: dotnetv3/IAM/IAM_Basics_Scenario
           sdkguide:
           excerpts:
