@@ -1378,6 +1378,7 @@ iam_CreateRole:
         - sdk_version: 3
           github: dotnetv3/IAM
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - IAM.dotnetv3.CreateRoleExample
