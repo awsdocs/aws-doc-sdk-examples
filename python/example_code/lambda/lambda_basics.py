@@ -4,238 +4,268 @@
 """
 Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to create an AWS Lambda function,
-invoke it, and delete it.
+Shows how to use the AWS SDK for Python (Boto3) to manage and invoke AWS Lambda
+functions.
 """
 
-# snippet-start:[python.example_code.lambda.Scenario_DeployInvokeFunction_Functions]
 import io
 import json
 import logging
-import random
-import time
 import zipfile
-import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
 
-def exponential_retry(func, error_code, *func_args, **func_kwargs):
-    """
-    Retries the specified function with a simple exponential backoff algorithm.
-    This is necessary when AWS is not yet ready to perform an action because all
-    resources have not been fully deployed.
+# snippet-start:[python.example_code.python.LambdaWrapper.full]
+# snippet-start:[python.example_code.python.LambdaWrapper.decl]
+class LambdaWrapper:
+    def __init__(self, lambda_client, iam_resource):
+        self.lambda_client = lambda_client
+        self.iam_resource = iam_resource
+# snippet-end:[python.example_code.python.LambdaWrapper.decl]
 
-    :param func: The function to retry.
-    :param error_code: The error code to retry. Other errors are raised again.
-    :param func_args: The positional arguments to pass to the function.
-    :param func_kwargs: The keyword arguments to pass to the function.
-    :return: The return value of the retried function.
-    """
-    sleepy_time = 1
-    func_return = None
-    while sleepy_time < 33 and func_return is None:
+    @staticmethod
+    def create_deployment_package(source_file, destination_file):
+        """
+        Creates a Lambda deployment package in ZIP format in an in-memory buffer. This
+        buffer can be passed directly to Lambda when creating the function.
+
+        :param source_file: The name of the file that contains the Lambda handler
+                            function.
+        :param destination_file: The name to give the file when it's deployed to Lambda.
+        :return: The deployment package.
+        """
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as zipped:
+            zipped.write(source_file, destination_file)
+        buffer.seek(0)
+        return buffer.read()
+
+    def get_iam_role(self, iam_role_name):
+        """
+        Get an AWS Identity and Access Management (IAM) role.
+
+        :param iam_role_name: The name of the role to retrieve.
+        :return: The IAM role.
+        """
+        role = None
         try:
-            func_return = func(*func_args, **func_kwargs)
-            logger.info("Ran %s, got %s.", func.__name__, func_return)
-        except ClientError as error:
-            if error.response['Error']['Code'] == error_code:
-                print(f"Sleeping for {sleepy_time} to give AWS time to "
-                      f"connect resources.")
-                time.sleep(sleepy_time)
-                sleepy_time = sleepy_time*2
+            temp_role = self.iam_resource.Role(iam_role_name)
+            temp_role.load()
+            role = temp_role
+            logger.info("Got IAM role %s", role.name)
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'NoSuchEntity':
+                logger.info("IAM role %s does not exist.", iam_role_name)
             else:
+                logger.error(
+                    "Couldn't get IAM role %s. Here's why: %s: %s", iam_role_name,
+                    err.response['Error']['Code'], err.response['Error']['Message'])
                 raise
-    return func_return
+        return role
 
+    def create_iam_role_for_lambda(self, iam_role_name):
+        """
+        Creates an IAM role that grants the Lambda function basic permissions. If a
+        role with the specified name already exists, it is used for the demo.
 
-# snippet-start:[python.example_code.lambda.helper.create_deployment_package]
-def create_lambda_deployment_package(function_file_name):
-    """
-    Creates a Lambda deployment package in ZIP format in an in-memory buffer. This
-    buffer can be passed directly to AWS Lambda when creating the function.
+        :param iam_role_name: The name of the role to create.
+        :return: The role and a value that indicates whether the role is newly created.
+        """
+        role = self.get_iam_role(iam_role_name)
+        if role is not None:
+            return role, False
 
-    :param function_file_name: The name of the file that contains the Lambda handler
-                               function.
-    :return: The deployment package.
-    """
-    buffer = io.BytesIO()
-    with zipfile.ZipFile(buffer, 'w') as zipped:
-        zipped.write(function_file_name)
-    buffer.seek(0)
-    return buffer.read()
-# snippet-end:[python.example_code.lambda.helper.create_deployment_package]
-
-
-def create_iam_role_for_lambda(iam_resource, iam_role_name):
-    """
-    Creates an AWS Identity and Access Management (IAM) role that grants the
-    AWS Lambda function basic permission to run. If a role with the specified
-    name already exists, it is used for the demo.
-
-    :param iam_resource: The Boto3 IAM resource object.
-    :param iam_role_name: The name of the role to create.
-    :return: The newly created role.
-    """
-    lambda_assume_role_policy = {
-        'Version': '2012-10-17',
-        'Statement': [
-            {
-                'Effect': 'Allow',
-                'Principal': {
-                    'Service': 'lambda.amazonaws.com'
-                },
-                'Action': 'sts:AssumeRole'
-            }
-        ]
-    }
-    policy_arn = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
-
-    try:
-        role = iam_resource.create_role(
-            RoleName=iam_role_name,
-            AssumeRolePolicyDocument=json.dumps(lambda_assume_role_policy))
-        iam_resource.meta.client.get_waiter('role_exists').wait(RoleName=iam_role_name)
-        logger.info("Created role %s.", role.name)
-
-        role.attach_policy(PolicyArn=policy_arn)
-        logger.info("Attached basic execution policy to role %s.", role.name)
-    except ClientError as error:
-        if error.response['Error']['Code'] == 'EntityAlreadyExists':
-            role = iam_resource.Role(iam_role_name)
-            logger.warning("The role %s already exists. Using it.", iam_role_name)
-        else:
-            logger.exception(
-                "Couldn't create role %s or attach policy %s.",
-                iam_role_name, policy_arn)
-            raise
-
-    return role
-
-
-# snippet-start:[python.example_code.lambda.CreateFunction]
-def deploy_lambda_function(
-        lambda_client, function_name, handler_name, iam_role, deployment_package):
-    """
-    Deploys the AWS Lambda function.
-
-    :param lambda_client: The Boto3 AWS Lambda client object.
-    :param function_name: The name of the AWS Lambda function.
-    :param handler_name: The fully qualified name of the handler function. This
-                         must include the file name and the function name.
-    :param iam_role: The IAM role to use for the function.
-    :param deployment_package: The deployment package that contains the function
-                               code in ZIP format.
-    :return: The Amazon Resource Name (ARN) of the newly created function.
-    """
-    try:
-        response = lambda_client.create_function(
-            FunctionName=function_name,
-            Description="AWS Lambda demo",
-            Runtime='python3.8',
-            Role=iam_role.arn,
-            Handler=handler_name,
-            Code={'ZipFile': deployment_package},
-            Publish=True)
-        function_arn = response['FunctionArn']
-        logger.info("Created function '%s' with ARN: '%s'.",
-                    function_name, response['FunctionArn'])
-    except ClientError:
-        logger.exception("Couldn't create function %s.", function_name)
-        raise
-    else:
-        return function_arn
-# snippet-end:[python.example_code.lambda.CreateFunction]
-
-
-# snippet-start:[python.example_code.lambda.DeleteFunction]
-def delete_lambda_function(lambda_client, function_name):
-    """
-    Deletes an AWS Lambda function.
-
-    :param lambda_client: The Boto3 AWS Lambda client object.
-    :param function_name: The name of the function to delete.
-    """
-    try:
-        lambda_client.delete_function(FunctionName=function_name)
-    except ClientError:
-        logger.exception("Couldn't delete function %s.", function_name)
-        raise
-# snippet-end:[python.example_code.lambda.DeleteFunction]
-
-
-# snippet-start:[python.example_code.lambda.Invoke]
-def invoke_lambda_function(lambda_client, function_name, function_params):
-    """
-    Invokes an AWS Lambda function.
-
-    :param lambda_client: The Boto3 AWS Lambda client object.
-    :param function_name: The name of the function to invoke.
-    :param function_params: The parameters of the function as a dict. This dict
-                            is serialized to JSON before it is sent to AWS Lambda.
-    :return: The response from the function invocation.
-    """
-    try:
-        response = lambda_client.invoke(
-            FunctionName=function_name,
-            Payload=json.dumps(function_params).encode())
-        logger.info("Invoked function %s.", function_name)
-    except ClientError:
-        logger.exception("Couldn't invoke function %s.", function_name)
-        raise
-    return response
-# snippet-end:[python.example_code.lambda.Invoke]
-# snippet-end:[python.example_code.lambda.Scenario_DeployInvokeFunction_Functions]
-
-
-# snippet-start:[python.example_code.lambda.Scenario_DeployInvokeFunction_Demo]
-def usage_demo():
-    """
-    Shows how to create, invoke, and delete an AWS Lambda function.
-    """
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    print('-'*88)
-    print("Welcome to the AWS Lambda basics demo.")
-    print('-'*88)
-
-    lambda_function_filename = 'lambda_handler_basic.py'
-    lambda_handler_name = 'lambda_handler_basic.lambda_handler'
-    lambda_role_name = 'demo-lambda-role'
-    lambda_function_name = 'demo-lambda-function'
-
-    iam_resource = boto3.resource('iam')
-    lambda_client = boto3.client('lambda')
-
-    print(f"Creating AWS Lambda function {lambda_function_name} from the "
-          f"{lambda_handler_name} function in {lambda_function_filename}...")
-    deployment_package = create_lambda_deployment_package(lambda_function_filename)
-    iam_role = create_iam_role_for_lambda(iam_resource, lambda_role_name)
-    exponential_retry(
-        deploy_lambda_function, 'InvalidParameterValueException',
-        lambda_client, lambda_function_name, lambda_handler_name, iam_role,
-        deployment_package)
-
-    print(f"Directly invoking function {lambda_function_name} a few times...")
-    actions = ['square', 'square root', 'increment', 'decrement']
-    for _ in range(5):
-        lambda_parms = {
-            'number': random.randint(1, 100), 'action': random.choice(actions)
+        lambda_assume_role_policy = {
+            'Version': '2012-10-17',
+            'Statement': [
+                {
+                    'Effect': 'Allow',
+                    'Principal': {
+                        'Service': 'lambda.amazonaws.com'
+                    },
+                    'Action': 'sts:AssumeRole'
+                }
+            ]
         }
-        response = invoke_lambda_function(
-            lambda_client, lambda_function_name, lambda_parms)
-        print(f"The {lambda_parms['action']} of {lambda_parms['number']} resulted in "
-              f"{json.load(response['Payload'])}")
+        policy_arn = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
 
-    for policy in iam_role.attached_policies.all():
-        policy.detach_role(RoleName=iam_role.name)
-    iam_role.delete()
-    print(f"Deleted role {lambda_role_name}.")
-    delete_lambda_function(lambda_client, lambda_function_name)
-    print(f"Deleted function {lambda_function_name}.")
-    print("Thanks for watching!")
-# snippet-end:[python.example_code.lambda.Scenario_DeployInvokeFunction_Demo]
+        try:
+            role = self.iam_resource.create_role(
+                RoleName=iam_role_name,
+                AssumeRolePolicyDocument=json.dumps(lambda_assume_role_policy))
+            logger.info("Created role %s.", role.name)
+            role.attach_policy(PolicyArn=policy_arn)
+            logger.info("Attached basic execution policy to role %s.", role.name)
+        except ClientError as error:
+            if error.response['Error']['Code'] == 'EntityAlreadyExists':
+                role = self.iam_resource.Role(iam_role_name)
+                logger.warning("The role %s already exists. Using it.", iam_role_name)
+            else:
+                logger.exception(
+                    "Couldn't create role %s or attach policy %s.",
+                    iam_role_name, policy_arn)
+                raise
 
+        return role, True
 
-if __name__ == '__main__':
-    usage_demo()
+    # snippet-start:[python.example_code.lambda.GetFunction]
+    def get_function(self, function_name):
+        """
+        Gets data about a Lambda function.
+
+        :param function_name: The name of the function.
+        :return: The function data.
+        """
+        response = None
+        try:
+            response = self.lambda_client.get_function(FunctionName=function_name)
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'ResourceNotFoundException':
+                logger.info("Function %s does not exist.", function_name)
+            else:
+                logger.error(
+                    "Couldn't get function %s. Here's why: %s: %s", function_name,
+                    err.response['Error']['Code'], err.response['Error']['Message'])
+                raise
+        return response
+    # snippet-end:[python.example_code.lambda.GetFunction]
+
+    # snippet-start:[python.example_code.lambda.CreateFunction]
+    def create_function(self, function_name, handler_name, iam_role, deployment_package):
+        """
+        Deploys a Lambda function.
+
+        :param function_name: The name of the Lambda function.
+        :param handler_name: The fully qualified name of the handler function. This
+                             must include the file name and the function name.
+        :param iam_role: The IAM role to use for the function.
+        :param deployment_package: The deployment package that contains the function
+                                   code in ZIP format.
+        :return: The Amazon Resource Name (ARN) of the newly created function.
+        """
+        try:
+            response = self.lambda_client.create_function(
+                FunctionName=function_name,
+                Description="AWS Lambda doc example",
+                Runtime='python3.8',
+                Role=iam_role.arn,
+                Handler=handler_name,
+                Code={'ZipFile': deployment_package},
+                Publish=True)
+            function_arn = response['FunctionArn']
+            waiter = self.lambda_client.get_waiter('function_active_v2')
+            waiter.wait(FunctionName=function_name)
+            logger.info("Created function '%s' with ARN: '%s'.",
+                        function_name, response['FunctionArn'])
+        except ClientError:
+            logger.error("Couldn't create function %s.", function_name)
+            raise
+        else:
+            return function_arn
+    # snippet-end:[python.example_code.lambda.CreateFunction]
+
+    # snippet-start:[python.example_code.lambda.DeleteFunction]
+    def delete_function(self, function_name):
+        """
+        Deletes a Lambda function.
+
+        :param function_name: The name of the function to delete.
+        """
+        try:
+            self.lambda_client.delete_function(FunctionName=function_name)
+        except ClientError:
+            logger.exception("Couldn't delete function %s.", function_name)
+            raise
+    # snippet-end:[python.example_code.lambda.DeleteFunction]
+
+    # snippet-start:[python.example_code.lambda.Invoke]
+    def invoke_function(self, function_name, function_params, get_log=False):
+        """
+        Invokes a Lambda function.
+
+        :param function_name: The name of the function to invoke.
+        :param function_params: The parameters of the function as a dict. This dict
+                                is serialized to JSON before it is sent to Lambda.
+        :param get_log: When true, the last 4KB of the execution log are included in
+                        the response.
+        :return: The response from the function invocation.
+        """
+        try:
+            response = self.lambda_client.invoke(
+                FunctionName=function_name,
+                Payload=json.dumps(function_params),
+                LogType='Tail' if get_log else 'None')
+            logger.info("Invoked function %s.", function_name)
+        except ClientError:
+            logger.exception("Couldn't invoke function %s.", function_name)
+            raise
+        return response
+    # snippet-end:[python.example_code.lambda.Invoke]
+
+    # snippet-start:[python.example_code.lambda.UpdateFunctionCode]
+    def update_function_code(self, function_name, deployment_package):
+        """
+        Updates the code for a Lambda function by submitting a ZIP archive that contains
+        the code for the function.
+
+        :param function_name: The name of the function to update.
+        :param deployment_package: The function code to update, packaged as bytes in
+                                   ZIP format.
+        :return: Data about the update, including the status.
+        """
+        try:
+            response = self.lambda_client.update_function_code(
+                FunctionName=function_name, ZipFile=deployment_package)
+        except ClientError as err:
+            logger.error(
+                "Couldn't update function %s. Here's why: %s: %s", function_name,
+                err.response['Error']['Code'], err.response['Error']['Message'])
+            raise
+        else:
+            return response
+    # snippet-end:[python.example_code.lambda.UpdateFunctionCode]
+
+    # snippet-start:[python.example_code.lambda.UpdateFunctionConfiguration]
+    def update_function_configuration(self, function_name, env_vars):
+        """
+        Updates the environment variables for a Lambda function.
+
+        :param function_name: The name of the function to update.
+        :param env_vars: A dict of environment variables to update.
+        :return: Data about the update, including the status.
+        """
+        try:
+            response = self.lambda_client.update_function_configuration(
+                FunctionName=function_name, Environment={'Variables': env_vars})
+        except ClientError as err:
+            logger.error(
+                "Couldn't update function configuration %s. Here's why: %s: %s", function_name,
+                err.response['Error']['Code'], err.response['Error']['Message'])
+            raise
+        else:
+            return response
+    # snippet-end:[python.example_code.lambda.UpdateFunctionConfiguration]
+
+    # snippet-start:[python.example_code.lambda.ListFunctions]
+    def list_functions(self):
+        """
+        Lists the Lambda functions for the current account.
+        """
+        try:
+            func_paginator = self.lambda_client.get_paginator('list_functions')
+            for func_page in func_paginator.paginate():
+                for func in func_page['Functions']:
+                    print(func['FunctionName'])
+                    desc = func.get('Description')
+                    if desc:
+                        print(f"\t{desc}")
+                    print(f"\t{func['Runtime']}: {func['Handler']}")
+        except ClientError as err:
+            logger.error(
+                "Couldn't list functions. Here's why: %s: %s",
+                err.response['Error']['Code'], err.response['Error']['Message'])
+            raise
+    # snippet-end:[python.example_code.lambda.ListFunctions]
+# snippet-end:[python.example_code.python.LambdaWrapper.full]
