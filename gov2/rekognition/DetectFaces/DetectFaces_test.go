@@ -20,12 +20,12 @@ type RekognitionDetectFacesImpl struct{}
 func (dt RekognitionDetectFacesImpl) DetectFaces(ctx context.Context,
 	params *rekognition.DetectFacesInput,
 	optFns ...func(*rekognition.Options)) (*rekognition.DetectFacesOutput, error) {
-	faces := make([]*types.FaceDetail, 2)
+	faces := make([]types.FaceDetail, 2)
 	age1 := types.AgeRange{Low: aws.Int32(int32(11)), High: aws.Int32((30))}
 	age2 := types.AgeRange{Low: aws.Int32(int32(41)), High: aws.Int32((60))}
 
-	faces[0] = &types.FaceDetail{AgeRange: &age1}
-	faces[1] = &types.FaceDetail{AgeRange: &age2}
+	faces[0] = types.FaceDetail{AgeRange: &age1}
+	faces[1] = types.FaceDetail{AgeRange: &age2}
 
 	output := &rekognition.DetectFacesOutput{
 		FaceDetails: faces,
