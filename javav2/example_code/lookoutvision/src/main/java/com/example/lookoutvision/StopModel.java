@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-// snippet-start:[lookoutvision.java2.start_model.complete]
+// snippet-start:[lookoutvision.java2.stop_model.complete]
 
 package com.example.lookoutvision;
 
