@@ -11,11 +11,11 @@
 */
 package com.example.appsync
 
-//snippet-start:[appsync.kotlin.get_keys.import]
+// snippet-start:[appsync.kotlin.get_keys.import]
 import aws.sdk.kotlin.services.appsync.AppSyncClient
 import aws.sdk.kotlin.services.appsync.model.ListApiKeysRequest
 import kotlin.system.exitProcess
-//snippet-end:[appsync.kotlin.get_keys.import]
+// snippet-end:[appsync.kotlin.get_keys.import]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -25,7 +25,7 @@ import kotlin.system.exitProcess
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
@@ -36,19 +36,19 @@ suspend fun main(args:Array<String>){
     """
 
     if (args.size != 1) {
-         System.out.println(usage)
-         exitProcess(1)
+        System.out.println(usage)
+        exitProcess(1)
     }
 
     val apiId = args[0]
     getKeys(apiId)
 }
 
-//snippet-start:[appsync.kotlin.get_keys.main]
+// snippet-start:[appsync.kotlin.get_keys.main]
 suspend fun getKeys(apiIdVal: String?) {
 
-    val request = ListApiKeysRequest{
-      apiId = apiIdVal
+    val request = ListApiKeysRequest {
+        apiId = apiIdVal
     }
 
     AppSyncClient { region = "us-east-1" }.use { appClient ->
@@ -58,4 +58,4 @@ suspend fun getKeys(apiIdVal: String?) {
         }
     }
 }
-//snippet-end:[appsync.kotlin.get_keys.main]
+// snippet-end:[appsync.kotlin.get_keys.main]

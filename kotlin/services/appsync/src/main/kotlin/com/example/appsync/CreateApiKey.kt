@@ -12,11 +12,11 @@
 
 package com.example.appsync
 
-//snippet-start:[appsync.kotlin.create_key.import]
+// snippet-start:[appsync.kotlin.create_key.import]
 import aws.sdk.kotlin.services.appsync.AppSyncClient
 import aws.sdk.kotlin.services.appsync.model.CreateApiKeyRequest
 import kotlin.system.exitProcess
-//snippet-end:[appsync.kotlin.create_key.import]
+// snippet-end:[appsync.kotlin.create_key.import]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -25,7 +25,7 @@ import kotlin.system.exitProcess
  *
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-suspend fun main(args:Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
@@ -44,7 +44,7 @@ suspend fun main(args:Array<String>){
     println("The Id of the new Key is $key")
 }
 
-//snippet-start:[appsync.kotlin.create_key.main]
+// snippet-start:[appsync.kotlin.create_key.main]
 suspend fun createKey(apiIdVal: String): String? {
 
     val apiKeyRequest = CreateApiKeyRequest {
@@ -57,4 +57,4 @@ suspend fun createKey(apiIdVal: String): String? {
         return response.apiKey?.id
     }
 }
-//snippet-end:[appsync.kotlin.create_key.main]
+// snippet-end:[appsync.kotlin.create_key.main]

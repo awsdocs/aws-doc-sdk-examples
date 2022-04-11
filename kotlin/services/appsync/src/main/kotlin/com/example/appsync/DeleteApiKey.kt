@@ -12,11 +12,11 @@
 
 package com.example.appsync
 
-//snippet-start:[appsync.kotlin.del_key.import]
+// snippet-start:[appsync.kotlin.del_key.import]
 import aws.sdk.kotlin.services.appsync.AppSyncClient
 import aws.sdk.kotlin.services.appsync.model.DeleteApiKeyRequest
 import kotlin.system.exitProcess
-//snippet-end:[appsync.kotlin.del_key.import]
+// snippet-end:[appsync.kotlin.del_key.import]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -26,7 +26,7 @@ import kotlin.system.exitProcess
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
@@ -36,17 +36,17 @@ suspend fun main(args:Array<String>) {
             keyId - The Id of the key to delete.
     """
 
-   if (args.size != 2) {
+    if (args.size != 2) {
         println(usage)
         exitProcess(1)
-   }
+    }
 
     val apiId = args[0]
     val keyId = args[1]
     deleteKey(keyId, apiId)
 }
 
-//snippet-start:[appsync.kotlin.del_key.main]
+// snippet-start:[appsync.kotlin.del_key.main]
 suspend fun deleteKey(keyIdVal: String?, apiIdVal: String?) {
 
     val apiKeyRequest = DeleteApiKeyRequest {
@@ -59,4 +59,4 @@ suspend fun deleteKey(keyIdVal: String?, apiIdVal: String?) {
         println("$keyIdVal key was deleted.")
     }
 }
-//snippet-end:[appsync.kotlin.del_key.main]
+// snippet-end:[appsync.kotlin.del_key.main]
