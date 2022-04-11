@@ -12,14 +12,14 @@
 
 package com.example.appsync
 
-// snippet-start:[appsync.kotlin.create_ds.import]
+//snippet-start:[appsync.kotlin.create_ds.import]
 import aws.sdk.kotlin.services.appsync.AppSyncClient
 import aws.sdk.kotlin.services.appsync.model.CreateDataSourceRequest
 import aws.sdk.kotlin.services.appsync.model.DataSourceType
 import aws.sdk.kotlin.services.appsync.model.DynamodbDataSourceConfig
 import kotlin.system.exitProcess
 
-// snippet-end:[appsync.kotlin.create_ds.import]
+//snippet-end:[appsync.kotlin.create_ds.import]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -29,7 +29,7 @@ import kotlin.system.exitProcess
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args: Array<String>) {
+suspend fun main(args:Array<String>){
 
     val usage = """
         Usage:
@@ -55,7 +55,7 @@ suspend fun main(args: Array<String>) {
     println("The ARN of the data source is $dsARN")
 }
 
-// snippet-start:[appsync.kotlin.create_ds.main]
+//snippet-start:[appsync.kotlin.create_ds.main]
 suspend fun createDS(dsName: String, dsRole: String, apiVal: String, tableNameVal: String): String? {
 
     val config = DynamodbDataSourceConfig {
@@ -64,18 +64,18 @@ suspend fun createDS(dsName: String, dsRole: String, apiVal: String, tableNameVa
         versioned = true
     }
 
-    val request = CreateDataSourceRequest {
+    val request = CreateDataSourceRequest{
         description = "Created using the AWS SDK for Kotlin"
         apiId = apiVal
         name = dsName
         serviceRoleArn = dsRole
         dynamodbConfig = config
         type = DataSourceType.AmazonDynamodb
-    }
+      }
 
     AppSyncClient { region = "us-east-1" }.use { appClient ->
         val response = appClient.createDataSource(request)
         return response.dataSource?.dataSourceArn
     }
 }
-// snippet-end:[appsync.kotlin.create_ds.main]
+//snippet-end:[appsync.kotlin.create_ds.main]

@@ -12,11 +12,11 @@
 
 package com.example.appsync
 
-// snippet-start:[appsync.kotlin.del_ds.import]
+//snippet-start:[appsync.kotlin.del_ds.import]
 import aws.sdk.kotlin.services.appsync.AppSyncClient
 import aws.sdk.kotlin.services.appsync.model.DeleteDataSourceRequest
 import kotlin.system.exitProcess
-// snippet-end:[appsync.kotlin.del_ds.import]
+//snippet-end:[appsync.kotlin.del_ds.import]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -26,7 +26,7 @@ import kotlin.system.exitProcess
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args: Array<String>) {
+suspend fun main(args:Array<String>) {
 
     val usage = """
         Usage:
@@ -46,7 +46,7 @@ suspend fun main(args: Array<String>) {
     deleteDS(apiId, dsName)
 }
 
-// snippet-start:[appsync.kotlin.del_ds.main]
+//snippet-start:[appsync.kotlin.del_ds.main]
 suspend fun deleteDS(apiIdVal: String?, dsName: String?) {
 
     val request = DeleteDataSourceRequest {
@@ -58,5 +58,5 @@ suspend fun deleteDS(apiIdVal: String?, dsName: String?) {
         appClient.deleteDataSource(request)
         println("The data source was deleted.")
     }
-}
-// snippet-end:[appsync.kotlin.del_ds.main]
+  }
+//snippet-end:[appsync.kotlin.del_ds.main]

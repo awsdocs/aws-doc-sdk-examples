@@ -12,11 +12,11 @@
 
 package com.example.appsync
 
-// snippet-start:[appsync.kotlin.get_ds.import]
+//snippet-start:[appsync.kotlin.get_ds.import]
 import aws.sdk.kotlin.services.appsync.AppSyncClient
 import aws.sdk.kotlin.services.appsync.model.GetDataSourceRequest
 import kotlin.system.exitProcess
-// snippet-end:[appsync.kotlin.get_ds.import]
+//snippet-end:[appsync.kotlin.get_ds.import]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -26,7 +26,7 @@ import kotlin.system.exitProcess
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args: Array<String>) {
+suspend fun main(args:Array<String>) {
 
     val usage = """
         Usage:
@@ -46,10 +46,10 @@ suspend fun main(args: Array<String>) {
     getDS(apiId, dsName)
 }
 
-// snippet-start:[appsync.kotlin.get_ds.main]
+//snippet-start:[appsync.kotlin.get_ds.main]
 suspend fun getDS(apiIdVal: String?, dsName: String?) {
 
-    val request = GetDataSourceRequest {
+    val request = GetDataSourceRequest{
         apiId = apiIdVal
         name = dsName
     }
@@ -59,4 +59,4 @@ suspend fun getDS(apiIdVal: String?, dsName: String?) {
         println("The DataSource ARN is ${response.dataSource?.dataSourceArn}")
     }
 }
-// snippet-end:[appsync.kotlin.get_ds.main]
+//snippet-end:[appsync.kotlin.get_ds.main]

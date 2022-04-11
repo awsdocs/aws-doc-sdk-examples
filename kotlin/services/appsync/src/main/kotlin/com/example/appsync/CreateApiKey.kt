@@ -1,5 +1,5 @@
 // snippet-sourcedescription:[CreateApiKey.kt demonstrates how to create a unique key.]
-//snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[AWS AppSync]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
