@@ -15,7 +15,7 @@ package com.example.appsync
 // snippet-start:[appsync.kotlin.get_apis.import]
 import aws.sdk.kotlin.services.appsync.AppSyncClient
 import aws.sdk.kotlin.services.appsync.model.ListGraphqlApisRequest
-// snippet-kotlin:[appsync.kotlin.get_apis.import]
+// snippet-end:[appsync.kotlin.get_apis.import]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
