@@ -257,7 +257,7 @@ iam_GetAccountPasswordPolicy:
           github: dotnetv3/IAM
           sdkguide:
           excerpts:
-            - description: Get the account password policy.
+            - description:
               snippet_tags:
                 - IAM.dotnetv3.GetAccountPasswordPolicyExample
     JavaScript:
@@ -411,9 +411,6 @@ iam_CreateAccessKey:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.CreateAccessKeyExample
-            - description:
-              snippet_tags:
                 - IAM.dotnetv3.CreateAccessKey
     Kotlin:
       versions:
@@ -491,9 +488,6 @@ iam_DeleteAccessKey:
           github: dotnetv3/IAM
           sdkguide:
           excerpts:
-            - description:
-              snippet_tags:
-                - IAM.dotnetv3.DeleteAccessKeyExample
             - description:
               snippet_tags:
                 - IAM.dotnetv3.DeleteResourcesAsync
@@ -782,9 +776,6 @@ iam_CreatePolicy:
           github: dotnetv3/IAM
           sdkguide:
           excerpts:
-            - description:
-              snippet_tags:
-                - IAM.dotnetv3.CreatePolicyExample
             - description:
               snippet_tags:
                 - IAM.dotnetv3.CreatePolicyAsync
@@ -1277,9 +1268,6 @@ iam_DetachRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.DetachRolePolicyExample
-            - description:
-              snippet_tags:
                 - IAM.dotnetv3.DeleteResourcesAsync
     Kotlin:
       versions:
@@ -1379,9 +1367,6 @@ iam_CreateRole:
           github: dotnetv3/IAM
           sdkguide:
           excerpts:
-            - description:
-              snippet_tags:
-                - IAM.dotnetv3.CreateRoleExample
             - description:
               snippet_tags:
                 - IAM.dotnetv3.CreateRoleAsync
@@ -1702,13 +1687,7 @@ iam_CreateUser:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.CreateUserExample
-            - description:
-              snippet_tags:
                 - IAM.dotnetv3.CreateUserAsync
-            - description:
-              snippet_tags:
-                - IAM.dotnetv3.CreateUser
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1795,9 +1774,6 @@ iam_DeleteUser:
           github: dotnetv3/IAM
           sdkguide:
           excerpts:
-            - description:
-              snippet_tags:
-                - IAM.dotnetv3.DeleteUserExample
             - description:
               snippet_tags:
                 - IAM.dotnetv3.DeleteResourcesAsync
@@ -2398,12 +2374,6 @@ iam_Scenario_CreateUserAssumeRole:
             - description:
               snippet_tags:
                 - IAM.dotnetv3.IAM_BasicsScenario
-                - IAM.dotnetv3.CreateUserAsync
-                - IAM.dotnetv3.CreateAccessKey
-                - IAM.dotnetv3.CreatePolicyAsync
-                - IAM.dotnetv3.AttachPolicy
-                - IAM.dotnetv3.CreateRoleAsync
-                - IAM.dotnetv3.DeleteResourcesAsync
     Kotlin:
       versions:
         - sdk_version: 1
