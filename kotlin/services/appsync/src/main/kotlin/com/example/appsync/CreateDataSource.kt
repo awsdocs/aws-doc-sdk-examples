@@ -35,10 +35,10 @@ suspend fun main(args: Array<String>) {
             <apiId> <dsName> <dsRole> <tableName>
 
         Where:
-            apiId - The id of the API (you can obtain the value from the AWS Management console). 
+            apiId - The Id of the API. (You can get this value from the AWS Management Console.)
             dsName - The name of the data source. 
-            dsRole - The Identity and Access Management (IAM) service role for the data source. 
-            tableName - the name of the Amazon DynamoDB table used as the data source. 
+            dsRole - The AWS Identity and Access Management (IAM) service role for the data source. 
+            tableName - The name of the Amazon DynamoDB table used as the data source.
     """
 
     if (args.size != 4) {

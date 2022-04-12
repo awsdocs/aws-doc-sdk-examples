@@ -32,7 +32,7 @@ suspend fun main(args: Array<String>) {
             <apiId> 
 
         Where:
-            apiId - The id of the API (You can obtain the value from the AWS Management console). 
+             apiId - The id of the API (You can obtain the value from the AWS Management console). 
     """
 
     if (args.size != 1) {

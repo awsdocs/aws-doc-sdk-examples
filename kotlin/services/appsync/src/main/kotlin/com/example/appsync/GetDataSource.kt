@@ -32,7 +32,7 @@ suspend fun main(args: Array<String>) {
         Usage:
             <apiId> <keyId>
         Where:
-            apiId - the id of the API (You can obtain the value from the AWS Management console). 
+            apiId - The Id of the API. (You can get this value from the AWS Management Console.)
             dsName - The name of the data source.
     """
 
