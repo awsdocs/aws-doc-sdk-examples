@@ -25,7 +25,6 @@ export const params = {
   ExpressionAttributeNames: { "#r": "rank", "#y": "year" },
   ProjectionExpression: "#r, #y, title",
   TableName: "TABLE_NAME",
-  UpdateExpression: "set #r = :r, title = :t, #y = :y",
   ExpressionAttributeValues: {
     ":t": "MOVIE_NAME",
     ":y": "MOVIE_YEAR",
