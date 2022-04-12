@@ -48,13 +48,15 @@ If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **completeFunctionName** - A fully qualified function name (for example, arn:aws:lambda:us-east-1:000008047983:function:myLambda).   
+- **functionNameSc** - The name of a new function name used for the LambdaScenario test (for example, myLambdaSc). 
 - **functionName** – The name of a new function name (for example, myLambda).
+- **bucketName** -  The Amazon Simple Storage Service (Amazon S3) bucket name that contains the ZIP or JAR used to update the Lambda function's code.
+- **key** -  The Amazon S3 key name that represents the ZIP or JAR file (for example, LambdaHello-1.0-SNAPSHOT.jar).
 - **filePath** - the path to the ZIP or JAR where the code is located.
 - **role** - The role ARN that has Lambda permissions.
 - **handler** - The fully qualifed method name (for example, example.Handler::handleRequest).
 
-**Note**: The **CreateFunction** test requires a ZIP or JAR that represents the code of the Lambda function. If you do not have a ZIP or JAR, please refer to the following document:
+**Note**: The **CreateFunction** and **LambdaScenario** tests requires a ZIP or JAR that represents the code of the Lambda function. If you do not have a ZIP or JAR, please refer to the following document:
  
  https://github.com/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
 
