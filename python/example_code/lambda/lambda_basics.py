@@ -28,7 +28,7 @@ class LambdaWrapper:
     @staticmethod
     def create_deployment_package(source_file, destination_file):
         """
-        Creates a Lambda deployment package in ZIP format in an in-memory buffer. This
+        Creates a Lambda deployment package in .zip format in an in-memory buffer. This
         buffer can be passed directly to Lambda when creating the function.
 
         :param source_file: The name of the file that contains the Lambda handler
@@ -142,7 +142,7 @@ class LambdaWrapper:
                              must include the file name and the function name.
         :param iam_role: The IAM role to use for the function.
         :param deployment_package: The deployment package that contains the function
-                                   code in ZIP format.
+                                   code in .zip format.
         :return: The Amazon Resource Name (ARN) of the newly created function.
         """
         try:
@@ -188,7 +188,7 @@ class LambdaWrapper:
         :param function_name: The name of the function to invoke.
         :param function_params: The parameters of the function as a dict. This dict
                                 is serialized to JSON before it is sent to Lambda.
-        :param get_log: When true, the last 4KB of the execution log are included in
+        :param get_log: When true, the last 4 KB of the execution log are included in
                         the response.
         :return: The response from the function invocation.
         """
@@ -207,12 +207,12 @@ class LambdaWrapper:
     # snippet-start:[python.example_code.lambda.UpdateFunctionCode]
     def update_function_code(self, function_name, deployment_package):
         """
-        Updates the code for a Lambda function by submitting a ZIP archive that contains
+        Updates the code for a Lambda function by submitting a .zip archive that contains
         the code for the function.
 
         :param function_name: The name of the function to update.
         :param deployment_package: The function code to update, packaged as bytes in
-                                   ZIP format.
+                                   .zip format.
         :return: Data about the update, including the status.
         """
         try:

@@ -1,4 +1,4 @@
-# AWS Lambda code examples for the AWS SDK for Python
+# Lambda code examples for the AWS SDK for Python
 
 ## Overview
 
@@ -60,7 +60,8 @@ availability.*
 This interactive scenario runs at a command prompt and shows you how to use 
 Lambda to do the following:
 
-1. Create an IAM role that grants Lambda permission to write to logs.
+1. Create an AWS Identity and Access Management (IAM) role role that grants Lambda 
+permission to write to logs.
 1. Create a Lambda function and upload handler code.
 1. Invoke the function with a single parameter and get results.
 1. Update the function code and configure its Lambda environment with an environment

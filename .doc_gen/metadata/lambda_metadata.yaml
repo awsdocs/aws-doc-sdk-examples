@@ -183,7 +183,7 @@ lambda_Scenario_GettingStartedFunctions:
   title: Get started creating and invoking &LAM; functions using an &AWS; SDK
   title_abbrev: Get started with functions
   synopsis_list:
-    - Create an &IAM; role that grants Lambda permission to write to logs.
+    - Create an &IAMlong; (&IAM;) role that grants Lambda permission to write to logs.
     - Create a &LAM; function and upload handler code.
     - Invoke the function with a single parameter and get results.
     - Update the function code and configure its &LAM; environment with an

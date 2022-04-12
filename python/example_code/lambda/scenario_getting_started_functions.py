@@ -6,7 +6,8 @@ Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with AWS Lambda to do the following:
 
-1. Create an IAM role that grants Lambda permission to write to logs.
+1. Create an AWS Identity and Access Management (IAM) role that grants Lambda
+permission to write to logs.
 2. Create a Lambda function and upload handler code.
 3. Invoke the function with a single parameter and get results.
 4. Update the function code and configure its Lambda environment with an environment
@@ -52,7 +53,7 @@ def run_scenario(lambda_client, iam_resource, basic_file, calculator_file, lambd
     Runs the scenario.
 
     :param lambda_client: A Boto3 Lambda client.
-    :param iam_resource: A Boto3 Identity and Access Management (IAM) resource.
+    :param iam_resource: A Boto3 IAM resource.
     :param basic_file: The name of the file that contains the basic Lambda handler.
     :param calculator_file: The name of the file that contains the calculator Lambda handler.
     :param lambda_name: The name to give resources created for the scenario, such as the
