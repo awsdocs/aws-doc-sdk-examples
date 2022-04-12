@@ -53,6 +53,10 @@ cross_DynamoDBDataTracker:
       versions:
         - sdk_version: 2
           block_content: cross_DynamoDBDataTracker_Java_block.xml
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_DynamoDBDataTracker_Net_block.xml
     Kotlin:
       versions:
         - sdk_version: 1

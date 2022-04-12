@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strings"
 
-	wordfreq "example.aws/wordfreq/shared"
+	wordfreq "example.aws/go-v2/examples/cross_service/wordfreq/service/shared"
 )
 
 // countTopWords counts the top words returning those words or error.
