@@ -31,7 +31,7 @@ lambda_CreateFunction:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.lambda.helper.create_deployment_package
+                - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.CreateFunction
   services:
     lambda: {CreateFunction}
@@ -67,6 +67,7 @@ lambda_DeleteFunction:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.DeleteFunction
   services:
     lambda: {DeleteFunction}
@@ -102,14 +103,15 @@ lambda_Invoke:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.Invoke
   services:
     lambda: {Invoke}
-lambda_Scenario_DeployInvokeFunction:
-  title: Deploy and invoke a &LAM; function using an &AWS; SDK
-  title_abbrev: Deploy and invoke a function
-  synopsis: deploy and invoke a &LAM; function.
-  category: Scenarios
+lambda_GetFunction:
+  title: Get a &LAM; function using an &AWS; SDK
+  title_abbrev: Get a function
+  synopsis: get a &LAM; function.
+  category:
   languages:
     Python:
       versions:
@@ -117,30 +119,103 @@ lambda_Scenario_DeployInvokeFunction:
           github: python/example_code/lambda
           sdkguide:
           excerpts:
-            - description: Define a &LAM; handler that performs a math operation on
-                a number.
+            - description:
               snippet_tags:
-                - python.example_code.lambda.handler.calculate
+                - python.example_code.python.LambdaWrapper.decl
+                - python.example_code.lambda.GetFunction
+  services:
+    lambda: {GetFunction}
+lambda_UpdateFunctionCode:
+  title: Update &LAM; function code using an &AWS; SDK
+  title_abbrev: Update function code
+  synopsis: update &LAM; function code.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.python.LambdaWrapper.decl
+                - python.example_code.lambda.UpdateFunctionCode
+  services:
+    lambda: {UpdateFunctionCode}
+lambda_UpdateFunctionConfiguration:
+  title: Update &LAM; function configuration using an &AWS; SDK
+  title_abbrev: Update function configuration
+  synopsis: update &LAM; function configuration.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.python.LambdaWrapper.decl
+                - python.example_code.lambda.UpdateFunctionConfiguration
+  services:
+    lambda: {UpdateFunctionConfiguration}
+lambda_ListFunctions:
+  title: List &LAM; functions using an &AWS; SDK
+  title_abbrev: List functions
+  synopsis: list &LAM; functions.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.python.LambdaWrapper.decl
+                - python.example_code.lambda.ListFunctions
+  services:
+    lambda: {ListFunctions}
+lambda_Scenario_GettingStartedFunctions:
+  title: Get started creating and invoking &LAM; functions using an &AWS; SDK
+  title_abbrev: Get started with functions
+  synopsis_list:
+    - Create an &IAMlong; (&IAM;) role that grants Lambda permission to write to logs.
+    - Create a &LAM; function and upload handler code.
+    - Invoke the function with a single parameter and get results.
+    - Update the function code and configure its &LAM; environment with an
+      environment variable.
+    - Invoke the function with new parameters and get results. Display the execution
+      log that's returned from the invocation.
+    - List the functions for your account.
+    - Delete the &IAM; role and the &LAM; function.
+  category: Scenarios
+  guide_topic:
+    title: "Create a &LAM; function with the console"
+    url: lambda/latest/dg/getting-started-create-function.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description: Define a &LAM; handler that increments a number.
+              snippet_tags:
+                - python.example_code.lambda.handler.increment
+            - description: Define a second &LAM; handler that performs arithmetic
+                operations.
+              snippet_tags:
+                - python.example_code.lambda.handler.arithmetic
             - description: Create functions that wrap &LAM; actions.
               snippet_tags:
-                - python.example_code.lambda.Scenario_DeployInvokeFunction_Functions
-            - description: Deploy the &LAM; handler as a ZIP file, set up permissions,
-                and invoke the handler.
+                - python.example_code.python.LambdaWrapper.full
+            - description: Create a function that runs the scenario.
               snippet_tags:
-                - python.example_code.lambda.Scenario_DeployInvokeFunction_Demo
+                - python.example_code.lambda.Scenario_GettingStartedFunctions
   services:
-    lambda: {CreateFunction, DeleteFunction, Invoke}
-cross_LambdaForBrowser:
-  title: Invoke a &LAM; function from a browser
-  title_abbrev: Invoke a &LAM; function from a browser
-  synopsis: invoke an &LAMlong; function from a browser.
-  languages:
-    JavaScript:
-      versions:
-        - sdk_version: 2
-          block_content: cross_LambdaForBrowser_JavaScript_block.xml
-        - sdk_version: 3
-          block_content: cross_LambdaForBrowser_JavaScriptV3_block.xml
-  services:
-    lambda:
-    dynamodb:
+    lambda: {CreateFunction, DeleteFunction, Invoke, GetFunction, ListFunctions,
+             UpdateFunctionCode, UpdateFunctionConfiguration}
