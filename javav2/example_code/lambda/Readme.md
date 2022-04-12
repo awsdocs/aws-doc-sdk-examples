@@ -1,20 +1,38 @@
-# AWS Lambda Java code examples
+# AWS Lambda code examples for the SDK for Java
 
-This README discusses how to run and test the Java code examples for AWS Lambda.
+## Overview
+This README discusses how to run and test the AWS SDK for Java (V2) examples for AWS Lambda.
+
+AWS Lambda is a serverless compute service that runs your code in response to events and automatically manages the underlying compute resources for you. These events may include changes in state or an update, such as a user placing an item in a shopping cart on an ecommerce website.
+
+## ⚠️ Important
+* The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Code examples
+
+### Single action
+
+The following examples use the **LambdaClient** object:
+
+- [Creating an AWS Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/lambda/src/main/java/com/example/lambda/CreateFunction.java) (CreateFunction command)
+- [Deleting an AWS Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/lambda/src/main/java/com/example/lambda/DeleteFunction.java) (DeleteFunction command)
+- [Getting information about your account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/lambda/src/main/java/com/example/lambda/GetAccountSettings.java) (GetAccountSettings command)
+- [Invoking an AWS Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/lambda/src/main/java/com/example/lambda/LambdaInvoke.java) (Invoke command)
+- [Performing various operations by using the LambdaClient object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/lambda/src/main/java/com/example/lambda/LambdaScenario.java) (Multiple commands)
+- [Listing AWS Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/lambda/src/main/java/com/example/lambda/ListLambdaFunctions.java) (ListFunctions command)
+
 
 ## Running the AWS Lambda Java files
 
-**IMPORTANT**
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS Lambda function. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+To run these examples, set up your development environment. For more information, 
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
-Some of these examples perform *destructive* operations on AWS resources. For example, you can delete a Lambda function. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
-
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
-
-
- ## Testing the AWS Lambda files
+## Testing the AWS Lambda files
 
 You can test the Java code examples for  AWS Lambda by running a test file named **LambdaTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
@@ -79,3 +97,10 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
 	[ERROR];
+
+
+## Additional resources
+* [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
+* [Developer Guide - AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
