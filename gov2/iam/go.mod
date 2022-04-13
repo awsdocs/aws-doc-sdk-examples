@@ -1,4 +1,4 @@
-module example.aws/gov2/iam
+module example.aws/go-v2/examples/iam
 
 go 1.17
 

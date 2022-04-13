@@ -79,7 +79,7 @@ func TestEnableAlarm(t *testing.T) {
 
 	putInput := &cloudwatch.PutMetricAlarmInput{
 		AlarmName:          &globalConfig.AlarmName,
-		ComparisonOperator: types.ComparisonOperatorGreaterthanorequaltothreshold,
+		ComparisonOperator: types.ComparisonOperatorGreaterThanOrEqualToThreshold,
 		EvaluationPeriods:  aws.Int32(1),
 		MetricName:         aws.String("CPUUtilization"),
 		Namespace:          aws.String("AWS/EC2"),
