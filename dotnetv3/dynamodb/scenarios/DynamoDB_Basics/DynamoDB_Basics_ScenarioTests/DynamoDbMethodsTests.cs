@@ -11,7 +11,7 @@ namespace DynamoDB_Basics_Scenario.Tests
     [TestCaseOrderer("OrchestrationService.Project.Orderers.PriorityOrderer", "OrchestrationService.Project")]
     public class DynamoDbMethodsTests
     {
-        readonly AmazonDynamoDBClient client = new ();
+        readonly AmazonDynamoDBClient client = new();
         readonly string tableName = "movie_table";
         readonly string movieFileName = "moviedata.json";
         readonly string testMovieFileName = "testmoviedata.json";
@@ -38,9 +38,22 @@ namespace DynamoDB_Basics_Scenario.Tests
         }
 
         [Fact, TestPriority(3)]
-        public void UpdateItemAsyncTest()
+        public async Task UpdateItemAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var updateMovie = new Movie
+            {
+                Title = "Now You See Me",
+                Year = 2013,
+            };
+
+            var updateMovieInfo = new MovieInfo
+            {
+                Plot = "An FBI agent and an Interpol detective track a team of illusionists who pull off bank heists during their performances and share the wealth with the audience.",
+                Rank = 5,
+            };
+
+            var success = await DynamoDbMethods.UpdateItemAsync(client, updateMovie, updateMovieInfo, tableName);
+            Assert.True(success, $"Couldn't update {updateMovie.Title}.");
         }
 
         [Fact, TestPriority(4)]
@@ -53,6 +66,8 @@ namespace DynamoDB_Basics_Scenario.Tests
             };
 
             var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, tableName);
+
+            Assert.True(item["title"].S == lookupMovie.Title, $"Couldn't find {lookupMovie.Title}.");
         }
 
         [Fact, TestPriority(5)]

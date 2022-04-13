@@ -1,5 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[lambda.dotnet35.LowLevelTableExample]
 using System;
 using System.Collections.Generic;
@@ -155,18 +156,18 @@ namespace LowLevelTableExample
             {
                 System.Threading.Thread.Sleep(5000); // Wait 5 seconds.
                 var res = await client.DescribeTableAsync(new DescribeTableRequest
-                    {
-                        TableName = _tableName
-                    });
+                {
+                    TableName = _tableName
+                });
 
-                    Console.WriteLine("Table name: {0}, status: {1}",
-                              res.Table.TableName,
-                              res.Table.TableStatus);
-                    status = res.Table.TableStatus;
-                
+                Console.WriteLine("Table name: {0}, status: {1}",
+                          res.Table.TableName,
+                          res.Table.TableStatus);
+                status = res.Table.TableStatus;
+
             } while (status != "ACTIVE");
         }
-        
+
         static void Main()
         {
             var client = new AmazonDynamoDBClient();

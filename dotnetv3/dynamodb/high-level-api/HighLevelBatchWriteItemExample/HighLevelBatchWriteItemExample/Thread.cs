@@ -3,46 +3,46 @@
 
 namespace HighLevelBatchWriteItemExample
 {
-  using System;
-  using System.Collections.Generic;
-  using Amazon.DynamoDBv2.DataModel;
+    using System;
+    using System.Collections.Generic;
+    using Amazon.DynamoDBv2.DataModel;
 
-  // snippet-start:[dynamodb.dotnet35.HighLevelBatchWriteItem.Thread]
+    // snippet-start:[dynamodb.dotnet35.HighLevelBatchWriteItem.Thread]
 
-  /// <summary>
-  /// Mapts data about forum threads to an Amazon DynamoDB tabled called Thread.
-  /// </summary>
-  [DynamoDBTable("Thread")]
-  public class Thread
-  {
-    // PK mapping.
-    [DynamoDBHashKey] // Partition key
-    public string ForumName { get; set; }
+    /// <summary>
+    /// Maps data about forum threads to an Amazon DynamoDB table called Thread.
+    /// </summary>
+    [DynamoDBTable("Thread")]
+    public class Thread
+    {
+        // PK mapping.
+        [DynamoDBHashKey] // Partition key
+        public string ForumName { get; set; }
 
-    [DynamoDBRangeKey] // Sort key
-    public string Subject { get; set; }
+        [DynamoDBRangeKey] // Sort key
+        public string Subject { get; set; }
 
-    // Implicit mapping.
-    public string Message { get; set; }
+        // Implicit mapping.
+        public string Message { get; set; }
 
-    public string LastPostedBy { get; set; }
+        public string LastPostedBy { get; set; }
 
-    public int Views { get; set; }
+        public int Views { get; set; }
 
-    public int Replies { get; set; }
+        public int Replies { get; set; }
 
-    public bool Answered { get; set; }
+        public bool Answered { get; set; }
 
-    public DateTime LastPostedDateTime { get; set; }
+        public DateTime LastPostedDateTime { get; set; }
 
-    // Explicit mapping (property and table attribute names are different.
-    [DynamoDBProperty("Tags")]
-    public List<string> KeywordTags { get; set; }
+        // Explicit mapping (property and table attribute names are different).
+        [DynamoDBProperty("Tags")]
+        public List<string> KeywordTags { get; set; }
 
-    // Property to store version number for optimistic locking.
-    [DynamoDBVersion]
-    public int? Version { get; set; }
-  }
+        // Property to store version number for optimistic locking.
+        [DynamoDBVersion]
+        public int? Version { get; set; }
+    }
 
-  // snippet-end:[dynamodb.dotnet35.HighLevelBatchWriteItem.Thread]
+    // snippet-end:[dynamodb.dotnet35.HighLevelBatchWriteItem.Thread]
 }

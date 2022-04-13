@@ -1,5 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[dynamodb.dotnet35.LowLevelItemBinaryExample]
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace LowLevelItemBinaryExample
                   }}
             }
             };
-            
+
             await client.PutItemAsync(request);
             return true;
         }
@@ -129,7 +130,7 @@ namespace LowLevelItemBinaryExample
                 return reader.ReadToEnd();
             }
         }
-        
+
         static void Main()
         {
             var client = new AmazonDynamoDBClient();
@@ -139,7 +140,7 @@ namespace LowLevelItemBinaryExample
             string replyDateTimeSortKey = Convert.ToString(DateTime.UtcNow, CultureInfo.InvariantCulture);
 
             var result = CreateItem(client, replyIdPartitionKey, replyDateTimeSortKey);
-            
+
             if (!result.Result)
             {
                 Console.WriteLine("Could not create the table");

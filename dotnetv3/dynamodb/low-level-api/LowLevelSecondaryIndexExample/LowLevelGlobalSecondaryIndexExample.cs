@@ -1,5 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[dynamodb.dotnet35.LowLevelGlobalSecondaryIndexExample]
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace LowLevelGlobalSecondaryIndexExample
 {
     public class LowLevelGlobalSecondaryIndexExample
     {
-       public static String TableName = "Issues";
+        public static String TableName = "Issues";
 
         public static async Task<bool> CreateTable(AmazonDynamoDBClient client)
         {
@@ -402,7 +403,7 @@ namespace LowLevelGlobalSecondaryIndexExample
 
         static void Main()
         {
-             var client = new AmazonDynamoDBClient();
+            var client = new AmazonDynamoDBClient();
 
             var result = CreateTable(client);
 

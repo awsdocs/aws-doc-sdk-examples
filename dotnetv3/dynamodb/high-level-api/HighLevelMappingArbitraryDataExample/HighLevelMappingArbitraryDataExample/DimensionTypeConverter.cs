@@ -3,58 +3,59 @@
 
 namespace HighLevelMappingArbitraryDataExample
 {
-  using System;
-  using Amazon.DynamoDBv2.DataModel;
-  using Amazon.DynamoDBv2.DocumentModel;
+    using System;
+    using Amazon.DynamoDBv2.DataModel;
+    using Amazon.DynamoDBv2.DocumentModel;
 
-  // snippet-start:[dynamodb.dotnet35.HighLevelMappingArbitraryData.DimensionTypeConverter]
+    // snippet-start:[dynamodb.dotnet35.HighLevelMappingArbitraryData.DimensionTypeConverter]
 
-  /// <summary>
-  /// Converts the complex type DimensionType to string and vice-versa.
-  /// </summary>
-  public class DimensionTypeConverter : IPropertyConverter
-  {
-    public DynamoDBEntry ToEntry(object value)
+    /// <summary>
+    /// Includes methods to convert the complex type, DimensionType, to string
+    /// and to convert a string to DimensionType.
+    /// </summary>
+    public class DimensionTypeConverter : IPropertyConverter
     {
-      DimensionType bookDimensions = value as DimensionType;
-      if (bookDimensions == null)
-      {
-        throw new ArgumentOutOfRangeException();
-      }
+        public DynamoDBEntry ToEntry(object value)
+        {
+            DimensionType bookDimensions = value as DimensionType;
+            if (bookDimensions == null)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
 
-      string data = string.Format($"{bookDimensions.Length} x {bookDimensions.Height} x {bookDimensions.Thickness}");
+            string data = string.Format($"{bookDimensions.Length} x {bookDimensions.Height} x {bookDimensions.Thickness}");
 
-      DynamoDBEntry entry = new Primitive
-      {
-        Value = data,
-      };
-      return entry;
+            DynamoDBEntry entry = new Primitive
+            {
+                Value = data,
+            };
+            return entry;
+        }
+
+        public object FromEntry(DynamoDBEntry entry)
+        {
+            Primitive primitive = entry as Primitive;
+            if (primitive == null || !(primitive.Value is string) || string.IsNullOrEmpty((string)primitive.Value))
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            string[] data = ((string)primitive.Value).Split(new[] { " x " }, StringSplitOptions.None);
+            if (data.Length != 3)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            DimensionType complexData = new DimensionType
+            {
+                Length = Convert.ToDecimal(data[0]),
+                Height = Convert.ToDecimal(data[1]),
+                Thickness = Convert.ToDecimal(data[2]),
+            };
+
+            return complexData;
+        }
     }
 
-    public object FromEntry(DynamoDBEntry entry)
-    {
-      Primitive primitive = entry as Primitive;
-      if (primitive == null || !(primitive.Value is string) || string.IsNullOrEmpty((string)primitive.Value))
-      {
-        throw new ArgumentOutOfRangeException();
-      }
-
-      string[] data = ((string)primitive.Value).Split(new[] { " x " }, StringSplitOptions.None);
-      if (data.Length != 3)
-      {
-        throw new ArgumentOutOfRangeException();
-      }
-
-      DimensionType complexData = new DimensionType
-      {
-        Length = Convert.ToDecimal(data[0]),
-        Height = Convert.ToDecimal(data[1]),
-        Thickness = Convert.ToDecimal(data[2]),
-      };
-
-      return complexData;
-    }
-  }
-
-  // snippet-end:[dynamodb.dotnet35.HighLevelMappingArbitraryData.DimensionTypeConverter]
+    // snippet-end:[dynamodb.dotnet35.HighLevelMappingArbitraryData.DimensionTypeConverter]
 }

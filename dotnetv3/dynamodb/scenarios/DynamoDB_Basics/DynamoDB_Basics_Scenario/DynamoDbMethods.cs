@@ -19,7 +19,7 @@ namespace DynamoDB_Basics_Scenario
 
         /// <summary>
         /// Creates a new Amazon DynamoDB table and then waits for the new
-        /// table becomes active.
+        /// table to become active.
         /// </summary>
         /// <param name="client">An initialized Amazon DynamoDB client object.</param>
         /// <param name="tableName">The name of the table to create.</param>
@@ -131,7 +131,7 @@ namespace DynamoDB_Basics_Scenario
         /// <param name="newInfo">A MovieInfo object that contains the
         /// information that will be changed.</param>
         /// <param name="tableName">The name of the table that contains the movie.</param>
-        /// <returns>A Boolean value thatt indicates the success of the operation.</returns>
+        /// <returns>A Boolean value that indicates the success of the operation.</returns>
         public static async Task<bool> UpdateItemAsync(
             AmazonDynamoDBClient client,
             Movie newMovie,
@@ -175,7 +175,7 @@ namespace DynamoDB_Basics_Scenario
         // snippet-start:[DynamoDB.dotnetv3.GetItem]
 
         /// <summary>
-        /// Gets information about an existing move from the table.
+        /// Gets information about an existing movie from the table.
         /// </summary>
         /// <param name="client">An initialized Amazon DynamoDB client object.</param>
         /// <param name="newMovie">A Movie object containing information about
@@ -232,9 +232,6 @@ namespace DynamoDB_Basics_Scenario
         /// <param name="client">The initialized DynamoDB client object.</param>
         /// <param name="movieFileName">A string containing the full path to
         /// the JSON file containing movie data.</param>
-        /// <param name="tableName">The name of the table. Used for retrieving
-        /// information about the table to get the count of items in the table
-        /// after adding a movies imported from a JSON file.</param>
         /// <returns>A long integer value representing the number of movies
         /// imported from the JSON file.</returns>
         public static async Task<long> BatchWriteItemsAsync(
@@ -270,7 +267,7 @@ namespace DynamoDB_Basics_Scenario
         /// <param name="tableName">The name of the table from which the item
         /// will be deleted.</param>
         /// <param name="movieToDelete">A movie object containing the title and
-        /// year of the move to delete.</param>
+        /// year of the movie to delete.</param>
         /// <returns>A Boolean value indicating the success or failure of the
         /// delete operation.</returns>
         public static async Task<bool> DeleteItemAsync(
@@ -294,7 +291,7 @@ namespace DynamoDB_Basics_Scenario
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-start:[DynamoDB.dotnetv3.DeleteItem]
+        // snippet-end:[DynamoDB.dotnetv3.DeleteItem]
 
         // snippet-start:[DynamoDB.dotnetv3.QueryItems]
 
@@ -328,7 +325,7 @@ namespace DynamoDB_Basics_Scenario
             };
 
             // Value used to track how many movies match the
-            // suppllied criteria.
+            // supplied criteria.
             var moviesFound = 0;
 
             Search search = movieTable.Query(config);

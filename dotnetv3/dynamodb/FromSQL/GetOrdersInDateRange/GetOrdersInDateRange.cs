@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
-// snippet-start:[dynamodb.dotnet35.GetOrdersInDateRange]
+
+// snippet-start:[dynamodb.dotnet35.GetOrdersInDateRangeExample]
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -119,4 +120,4 @@ namespace GetOrdersInDateRange
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.GetOrdersInDateRange]
+// snippet-end:[dynamodb.dotnet35.GetOrdersInDateRangeExample]

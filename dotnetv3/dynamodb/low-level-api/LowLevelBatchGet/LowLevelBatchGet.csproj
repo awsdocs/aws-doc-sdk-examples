@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="3.5.1.24" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.5.1.2" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.10.9" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.24" />
   </ItemGroup>
 
 </Project>

@@ -25,10 +25,4 @@
     <ProjectReference Include="..\DynamoDB_Basics_Scenario\DynamoDB_Basics_Scenario.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="moviedata.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

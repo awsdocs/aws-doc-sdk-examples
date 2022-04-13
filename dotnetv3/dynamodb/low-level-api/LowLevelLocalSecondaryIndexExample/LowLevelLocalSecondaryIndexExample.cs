@@ -1,5 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[dynamodb.dotnet35.LowLevelLocalSecondaryIndexExample]
 using System;
 using System.Collections.Generic;
@@ -283,7 +284,7 @@ namespace LowLevelLocalSecondaryIndexExample
                 Item = item,
                 ReturnItemCollectionMetrics = "SIZE"
             };
-            
+
             await client.PutItemAsync(putItemRequest);
 
             item = new Dictionary<string, AttributeValue>();
@@ -330,7 +331,7 @@ namespace LowLevelLocalSecondaryIndexExample
                 Item = item,
                 ReturnItemCollectionMetrics = "SIZE"
             };
-            
+
             await client.PutItemAsync(putItemRequest);
 
             item = new Dictionary<string, AttributeValue>();
@@ -374,7 +375,7 @@ namespace LowLevelLocalSecondaryIndexExample
                 Item = item,
                 ReturnItemCollectionMetrics = "SIZE"
             };
-            
+
             await client.PutItemAsync(putItemRequest);
 
             item = new Dictionary<string, AttributeValue>();
@@ -606,7 +607,7 @@ namespace LowLevelLocalSecondaryIndexExample
                 Item = item,
                 ReturnItemCollectionMetrics = "SIZE"
             };
-            
+
             await client.PutItemAsync(putItemRequest);
 
             item = new Dictionary<string, AttributeValue>();
@@ -698,7 +699,7 @@ namespace LowLevelLocalSecondaryIndexExample
                 Item = item,
                 ReturnItemCollectionMetrics = "SIZE"
             };
-            
+
             await client.PutItemAsync(putItemRequest);
 
             return true;
@@ -768,8 +769,8 @@ namespace LowLevelLocalSecondaryIndexExample
                 return;
             }
 
-            result = LoadData(client); 
-            
+            result = LoadData(client);
+
             if (!result.Result)
             {
                 Console.WriteLine("Could not load data into table");

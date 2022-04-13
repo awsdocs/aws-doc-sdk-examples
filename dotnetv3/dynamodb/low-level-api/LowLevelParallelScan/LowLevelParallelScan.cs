@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-// snippet-start:[dynamodb.dotnet35.LowLevelParallelScan]
+
+// snippet-start:[dynamodb.dotnet35.LowLevelParallelScanExample]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using Amazon.DynamoDBv2.Model;
 namespace LowLevelParallelScan
 {
     public class LowLevelParallelScan
-    {        
+    {
         private static string _tableName = "ProductCatalog";
         private static int _exampleItemCount = 100;
         private static int _scanItemLimit = 10;
@@ -116,7 +117,7 @@ namespace LowLevelParallelScan
                   } }
             }
             };
-            
+
             await client.PutItemAsync(request);
 
             return true;
@@ -172,14 +173,14 @@ namespace LowLevelParallelScan
         public static async Task<bool> DeleteExampleTable(AmazonDynamoDBClient client)
         {
             Console.WriteLine("\n*** Deleting {0} Table ***", _tableName);
-            
+
             var request = new DeleteTableRequest
             {
                 TableName = _tableName
             };
-            
+
             await client.DeleteTableAsync(request);
-            
+
             Console.WriteLine("{0} is being deleted...", _tableName);
             WaitUntilTableDeleted(client, _tableName);
 
@@ -273,4 +274,4 @@ namespace LowLevelParallelScan
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.LowLevelParallelScan]
+// snippet-end:[dynamodb.dotnet35.LowLevelParallelScanExample]

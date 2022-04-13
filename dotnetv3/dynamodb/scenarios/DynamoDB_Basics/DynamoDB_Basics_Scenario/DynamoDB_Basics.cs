@@ -30,7 +30,7 @@ namespace DynamoDB_Basics_Scenario
     public class DynamoDB_Basics
     {
         // Separator for the console display.
-        private static readonly string SepBar = new ('-', 80);
+        private static readonly string SepBar = new('-', 80);
 
         public static async Task Main()
         {
@@ -173,7 +173,7 @@ namespace DynamoDB_Basics_Scenario
                 Console.WriteLine($"Could not delete {tableName}");
             }
 
-            Console.WriteLine("The DynamoDB Basics example applicaiton is done.");
+            Console.WriteLine("The DynamoDB Basics example application is done.");
 
             WaitForEnter();
         }
@@ -192,14 +192,14 @@ namespace DynamoDB_Basics_Scenario
             Console.WriteLine(".NET version 3.7 and .NET Core 5.");
             Console.WriteLine(SepBar);
             Console.WriteLine("The application does the following:");
-            Console.WriteLine("\t1. Creates a table with partition: year and sort:title");
-            Console.WriteLine("\t2. Adds a single movie to the table");
-            Console.WriteLine("\t3. Adds movies to the table from moviedata.json");
+            Console.WriteLine("\t1. Creates a table with partition: year and sort:title.");
+            Console.WriteLine("\t2. Adds a single movie to the table.");
+            Console.WriteLine("\t3. Adds movies to the table from moviedata.json.");
             Console.WriteLine("\t4. Updates the rating and plot of the movie that was just added.");
-            Console.WriteLine("\t5. Gets a movie using its key (partition + sort)");
-            Console.WriteLine("\t6. Deletes a movie");
-            Console.WriteLine("\t7. Uses QueryAsync to return all movies released in a given year");
-            Console.WriteLine("\t8. Uses ScanAsync to return all movies released within a range of years");
+            Console.WriteLine("\t5. Gets a movie using its key (partition + sort).");
+            Console.WriteLine("\t6. Deletes a movie.");
+            Console.WriteLine("\t7. Uses QueryAsync to return all movies released in a given year.");
+            Console.WriteLine("\t8. Uses ScanAsync to return all movies released within a range of years.");
             Console.WriteLine("\t9. Finally, it deletes the table that was just created.");
             WaitForEnter();
         }
