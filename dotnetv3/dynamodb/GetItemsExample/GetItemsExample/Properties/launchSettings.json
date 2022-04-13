@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "GetItemsExample": {
-      "commandName": "Project",
-      "commandLineArgs": "-i 4"
-    }
-  }
-}
