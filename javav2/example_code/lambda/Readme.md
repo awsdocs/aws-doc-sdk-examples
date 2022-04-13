@@ -1,9 +1,9 @@
 # AWS Lambda code examples for the SDK for Java
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Java (V2) examples for AWS Lambda.
+This README discusses how to run and test the AWS SDK for Java (v2) examples for AWS Lambda.
 
-AWS Lambda is a serverless compute service that runs your code in response to events and automatically manages the underlying compute resources for you. These events may include changes in state or an update, such as a user placing an item in a shopping cart on an ecommerce website.
+AWS Lambda is a serverless compute service that runs your code in response to events and automatically manages the underlying compute resources for you. These events may include changes in state or an update, such as a user placing an item in a shopping cart on an  e-commerce website.
 
 ## ⚠️ Important
 * The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
