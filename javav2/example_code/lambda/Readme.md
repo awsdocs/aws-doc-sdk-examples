@@ -34,7 +34,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ## Testing the AWS Lambda files
 
-You can test the Java code examples for  AWS Lambda by running a test file named **LambdaTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for AWS Lambda by running a test file named **LambdaTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -46,17 +46,17 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 Before running the  AWS Lambda JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an function name used for various tests. 
 If you do not define all values, the JUnit tests fail.
 
-Define these values to successfully run the JUnit tests:
+Define the following values to successfully run the JUnit tests:
 
 - **functionNameSc** - The name of a new function name used for the LambdaScenario test (for example, myLambdaSc). 
 - **functionName** – The name of a new function name (for example, myLambda).
-- **bucketName** -  The Amazon Simple Storage Service (Amazon S3) bucket name that contains the ZIP or JAR used to update the Lambda function's code.
-- **key** -  The Amazon S3 key name that represents the ZIP or JAR file (for example, LambdaHello-1.0-SNAPSHOT.jar).
-- **filePath** - the path to the ZIP or JAR where the code is located.
+- **bucketName** - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the .zip or .jar file used to update the Lambda function's code.
+- **key** - The Amazon S3 key name that represents the .zip or .jar file (for example, LambdaHello-1.0-SNAPSHOT.jar).
+- **filePath** - The path to the .zip or .jar file where the code is located.
 - **role** - The role ARN that has Lambda permissions.
 - **handler** - The fully qualifed method name (for example, example.Handler::handleRequest).
 
-**Note**: The **CreateFunction** and **LambdaScenario** tests requires a ZIP or JAR that represents the code of the Lambda function. If you do not have a ZIP or JAR, please refer to the following document:
+**Note**: The **CreateFunction** and **LambdaScenario** tests requires a .zip or .jar file that represents the code of the Lambda function. If you do not have a .zip or .jar file, please refer to the following document:
  
  https://github.com/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
 
