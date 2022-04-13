@@ -13,6 +13,8 @@
 
 package com.example.lambda;
 
+// snippet-start:[lambda.javav2.scenario.import]
+import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.LambdaClient;
@@ -24,10 +26,14 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+// snippet-end:[lambda.javav2.scenario.import]
 
 /*
- *  Function names appear as arn:aws:lambda:us-west-2:335556666777:function:HelloFunction
- *  you can retrieve the value by looking at the function in the AWS Console
+ *  Lambda function names appear as:
+ *
+ *  arn:aws:lambda:us-west-2:335556666777:function:HelloFunction
+ *
+ *  To find this value, look at the function in the AWS Management Console.
  *
  *  Before running this Java code example, set up your development environment, including your credentials.
  *
@@ -35,17 +41,18 @@ import java.util.concurrent.TimeUnit;
  *
  *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  This example performs these tasks.
+ *  This example performs the following tasks:
  *
- * 1. Create an AWS Lambda function.
+ * 1. Creates an AWS Lambda function.
  * 2. Gets a specific AWS Lambda function.
- * 3. List all AWS Lambda functions.
- * 4. Invokes an AWS Lambda function.
- * 5. Updates an AWS Lambda function's code.
- * 6. Updates an AWS Lambda function's configuration value.
- * 7. Deletes an AWS Lambda function.
+ * 3. Lists all Lambda functions.
+ * 4. Invokes a Lambda function.
+ * 5. Updates a Lambda function's code.
+ * 6. Updates a Lambda function's configuration value.
+ * 7. Deletes a Lambda function.
  *
  */
+// snippet-start:[lambda.javav2.scenario.main]
 public class LambdaScenario {
 
     public static void main(String[] args) throws InterruptedException {
@@ -54,12 +61,12 @@ public class LambdaScenario {
                 "Usage:\n" +
                 "    <functionName> <filePath> <role> <handler> <bucketName> <key> \n\n" +
                 "Where:\n" +
-                "    functionName - The name of the AWS Lambda function. \n"+
-                "    filePath - The path to the ZIP or JAR where the code is located. \n"+
-                "    role - The AWS Identity and Access Management (IAM) service role that has AWS Lambda permissions. \n"+
+                "    functionName - The name of the Lambda function. \n"+
+                "    filePath - The path to the .zip or .jar where the code is located. \n"+
+                "    role - The AWS Identity and Access Management (IAM) service role that has Lambda permissions. \n"+
                 "    handler - The fully qualified method name (for example, example.Handler::handleRequest). \n"+
-                "    bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the ZIP or JAR used to update the Lambda function's code. \n"+
-                "    key - The Amazon S3 key name that represents the ZIP or JAR file (for example, LambdaHello-1.0-SNAPSHOT.jar)." ;
+                "    bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the .zip or .jar used to update the Lambda function's code. \n"+
+                "    key - The Amazon S3 key name that represents the .zip or .jar (for example, LambdaHello-1.0-SNAPSHOT.jar)." ;
 
         if (args.length != 6) {
             System.out.println(usage);
@@ -89,21 +96,20 @@ public class LambdaScenario {
         listFunctions(awsLambda);
 
         // Invoke the Lambda function.
-        System.out.println("*** Wait for 2 MIN so the resource is available.");
-        TimeUnit.MINUTES.sleep(2);
+        System.out.println("*** Wait for 1 MIN so the resource is available.");
+        TimeUnit.MINUTES.sleep(1);
         invokeFunction(awsLambda, functionName);
 
         // Update the AWS Lambda function code.
         System.out.println("*** Update the AWS Lambda function code. ");
         updateFunctionCode(awsLambda, functionName, bucketName, key);
-        TimeUnit.MINUTES.sleep(2);
 
         // Update the AWS Lambda function configuration.
         System.out.println("Update the run time of the function.");
         UpdateFunctionConfiguration(awsLambda, functionName, handler);
 
         // Invoke again with updated function code.
-        TimeUnit.MINUTES.sleep(2);
+        TimeUnit.MINUTES.sleep(1);
         invokeFunction(awsLambda, functionName);
 
         // Delete the AWS Lambda function.
@@ -146,7 +152,6 @@ public class LambdaScenario {
     }
 
     public static void getFunction(LambdaClient awsLambda,  String functionName) {
-
         try {
 
             GetFunctionRequest functionRequest = GetFunctionRequest.builder()
@@ -163,7 +168,6 @@ public class LambdaScenario {
     }
 
     public static void listFunctions(LambdaClient awsLambda) {
-
         try {
             ListFunctionsResponse functionResult = awsLambda.listFunctions();
             List<FunctionConfiguration> list = functionResult.functions();
@@ -180,13 +184,14 @@ public class LambdaScenario {
 
     public static void invokeFunction(LambdaClient awsLambda, String functionName) {
 
-        InvokeResponse res = null ;
+        InvokeResponse res;
         try {
             // Need a SdkBytes instance for the payload.
-            String json = "{\"Hello \":\"Paris\"}";
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("inputValue", "2000");
+            String json = jsonObj.toString();
             SdkBytes payload = SdkBytes.fromUtf8String(json) ;
 
-            //Setup an InvokeRequest
             InvokeRequest request = InvokeRequest.builder()
                     .functionName(functionName)
                     .payload(payload)
@@ -203,9 +208,7 @@ public class LambdaScenario {
     }
 
     public static void updateFunctionCode(LambdaClient awsLambda, String functionName, String bucketName, String key) {
-
         try {
-
             UpdateFunctionCodeRequest functionCodeRequest = UpdateFunctionCodeRequest.builder()
                     .functionName(functionName)
                     .publish(true)
@@ -223,7 +226,6 @@ public class LambdaScenario {
     }
 
     public static void UpdateFunctionConfiguration(LambdaClient awsLambda, String functionName, String handler ){
-
         try {
             UpdateFunctionConfigurationRequest configurationRequest = UpdateFunctionConfigurationRequest.builder()
                     .functionName(functionName)
@@ -237,12 +239,10 @@ public class LambdaScenario {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
     }
 
     public static void deleteLambdaFunction(LambdaClient awsLambda, String functionName ) {
         try {
-            //Setup an DeleteFunctionRequest
             DeleteFunctionRequest request = DeleteFunctionRequest.builder()
                     .functionName(functionName)
                     .build();
@@ -255,5 +255,5 @@ public class LambdaScenario {
             System.exit(1);
         }
     }
-
 }
+// snippet-end:[lambda.javav2.scenario.main]
