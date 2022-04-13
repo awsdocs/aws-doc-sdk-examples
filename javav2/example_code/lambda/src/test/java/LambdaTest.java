@@ -44,10 +44,7 @@ public class LambdaTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
             prop.load(input);
-
-            // Populate the data members required for all tests
             functionName = prop.getProperty("functionName");
             filePath = prop.getProperty("filePath");
             role = prop.getProperty("role");
@@ -112,22 +109,26 @@ public class LambdaTest {
         String funArn = LambdaScenario.createLambdaFunction(awsLambda, functionNameSc, filePath, role, handler);
         System.out.println("The function ARN is "+funArn);
 
-        // Get the Lambda function
+        // Get the Lambda function.
         System.out.println("Getting the " +functionNameSc +" Lambda function.");
         LambdaScenario.getFunction(awsLambda, functionNameSc);
 
-        // List the Lambda functions
-        System.out.println("Listing all functions");
+        // List the Lambda functions.
+        System.out.println("Listing all functions.");
         LambdaScenario.listFunctions(awsLambda);
 
-        System.out.println("*** Wait for 2 MIN so the resource is available");
-        TimeUnit.MINUTES.sleep(2);
+        System.out.println("*** Wait for 1 MIN so the resource is available.");
+        TimeUnit.MINUTES.sleep(1);
         LambdaScenario.invokeFunction(awsLambda, functionNameSc);
-        LambdaScenario.updateFunctionCode(awsLambda, functionNameSc, bucketName, key);
-        TimeUnit.MINUTES.sleep(2);
 
-        // Invoke again with updated function.
+        System.out.println("*** Update the Lambda function code.");
+        LambdaScenario.updateFunctionCode(awsLambda, functionNameSc, bucketName, key);
+
+        System.out.println("*** Wait another 1 MIN so the resource is updated and then invoke the function again.");
+        TimeUnit.MINUTES.sleep(1);
         LambdaScenario.invokeFunction(awsLambda, functionNameSc);
+
+        System.out.println("Delete the AWS Lambda function.");
         LambdaScenario.deleteLambdaFunction(awsLambda, functionNameSc );
     }
 }
