@@ -1,6 +1,0 @@
----
-# Tools for usage demonstrations.
-files:
-  - path: custom_waiter.py
-  - path: retries.py
-...
