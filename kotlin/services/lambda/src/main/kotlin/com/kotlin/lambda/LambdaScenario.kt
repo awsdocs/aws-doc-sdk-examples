@@ -94,7 +94,6 @@ suspend fun main(args: Array<String>) {
     println("*** Update the code and invoke the Lambda function again.")
     updateFunctionCode(functionName, updatedBucketName, key)
 
-
     println("*** Wait another 1 MIN so the resource is updated and then invoke the function again.")
     delay(60000)
     invokeFunctionSc(functionName)
@@ -130,7 +129,7 @@ suspend fun createScFunction(
         runtime = Runtime.Java8
     }
 
-    LambdaClient {region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val functionResponse = awsLambda.createFunction(request)
         return functionResponse.functionArn.toString()
     }
