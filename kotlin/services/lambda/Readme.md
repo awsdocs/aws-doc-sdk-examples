@@ -20,7 +20,7 @@ The following examples use the **LambdaClient** object:
 - [Creating an AWS Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/lambda/src/main/kotlin/com/kotlin/lambda/CreateFunction.kt) (CreateFunction command)
 - [Deleting an AWS Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/lambda/src/main/kotlin/com/kotlin/lambda/DeleteFunction.kt) (DeleteFunction command)
 - [Getting information about your account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/lambda/src/main/kotlin/com/kotlin/lambda/GetAccountSettings.kt) (GetAccountSettings command)
-- [Invoking an AWS Lambda function]https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/lambda/src/main/kotlin/com/kotlin/lambda/LambdaInvoke.kt) (Invoke command)
+- [Invoking an AWS Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/lambda/src/main/kotlin/com/kotlin/lambda/LambdaInvoke.kt) (Invoke command)
 - [Performing various operations by using the LambdaClient object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/lambda/src/main/kotlin/com/kotlin/lambda/LambdaScenario.kt) (Multiple commands)
 - [Listing AWS Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/lambda/src/main/kotlin/com/kotlin/lambda/ListLambda.kt) (ListFunctions command)
 
