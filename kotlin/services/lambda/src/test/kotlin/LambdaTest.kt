@@ -30,7 +30,7 @@ import java.util.Properties
 class LambdaTest {
 
     var functionName: String = ""
-    var functionARN: String = "" // gets set in a test
+    var functionARN: String = "" // Gets set in a test.
     var s3BucketName: String = ""
     var updatedBucketName: String = ""
     var functionNameSc: String = ""
@@ -44,7 +44,6 @@ class LambdaTest {
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
 
-        // load the properties file.
         prop.load(input)
         functionName = prop.getProperty("functionName")
         functionNameSc = prop.getProperty("functionNameSc")
