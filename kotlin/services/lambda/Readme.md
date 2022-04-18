@@ -53,7 +53,7 @@ Define the following values to successfully run the JUnit tests:
 - **bucketName** - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the .zip or .jar file used to update the Lambda function's code.
 - **key** - The Amazon S3 key name that represents the .zip or .jar file (for example, LambdaHello-1.0-SNAPSHOT.jar).
 - **filePath** - The path to the .zip or .jar file where the code is located.
-- **role** - The role ARN that has Lambda permissions.
+- **role** - The role Amazon Resource Name (ARN) that has Lambda permissions.
 - **handler** - The fully qualifed method name (for example, example.Handler::handleRequest).
 
 **Note**: The **CreateFunction** and **LambdaScenario** tests requires a .zip or .jar file that represents the code of the Lambda function. If you do not have a .zip or .jar file, please refer to the following document:
