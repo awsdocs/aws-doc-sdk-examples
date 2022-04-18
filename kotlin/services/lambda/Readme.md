@@ -1,4 +1,4 @@
-# AWS Lambda code examples for the SDK for Kotlin
+# Lambda code examples for the SDK for Kotlin
 
 ## Overview
 This README discusses how to run and test the AWS SDK for Kotlin examples for AWS Lambda.
