@@ -34,9 +34,9 @@ import kotlin.system.exitProcess
 
  https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
- This example performs these tasks.
+ This example performs the following tasks:
 
- 1. Create a Lambda function.
+ 1. Creates a Lambda function.
  2. Gets a specific Lambda function.
  3. Lists all Lambda functions.
  4. Invokes a Lambda function.
@@ -57,8 +57,8 @@ suspend fun main(args: Array<String>) {
             role - The AWS Identity and Access Management (IAM) service role that has AWS Lambda permissions. 
             handler - The fully qualified method name (for example, example.Handler::handleRequest). 
             bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the ZIP or JAR used for the Lambda function's code.
-            updatedBucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the ZIP or JAR used to update the Lambda function's code. 
-            key - The Amazon S3 key name that represents the ZIP or JAR file (for example, LambdaHello-1.0-SNAPSHOT.jar).
+            updatedBucketName - The Amazon S3 bucket name that contains the .zip or .jar used to update the Lambda function's code. 
+            key - The Amazon S3 key name that represents the .zip or .jar file (for example, LambdaHello-1.0-SNAPSHOT.jar).
             """
 
     if (args.size != 6) {
