@@ -1,113 +1,94 @@
-# AWS SDK for Go V2 code examples for Amazon DynamoDB
+# DynamoDB code examples for the AWS SDK for Go
 
-## Purpose
+## Overview
 
-These examples demonstrates how to perform several DynamoDB operations
-using version 2 of the AWS SDK for Go.
+Shows how to use the AWS SDK for Go (V2) to create Amazon DynamoDB
+tables and move data in and out of them.
 
-## Prerequisites
+*Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
+predictable performance with seamless scalability.*
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+## ⚠️ Important
 
-## Running the code
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-### DescribeTable/DescribeTablev2.go
+## Code examples
 
-This example lists the following properties of a DynamoDB table.
+### Single action
 
-- Number of items
-- Size, in bytes
-- Status, such as Active
+* [Create a table](actions/table_basics.go)
+  (`CreateTable`)
+* [Delete a table](actions/table_basics.go)
+  (`DeleteTable`)
+* [Delete an item from a table](actions/table_basics.go)
+  (`DeleteItem`)
+* [Get an item from a table](actions/table_basics.go)
+  (`GetItem`)
+* [Get information about a table](actions/table_basics.go)
+  (`DescribeTable`)
+* [List tables](actions/table_basics.go)
+  (`ListTables`)
+* [Put an item in a table](actions/table_basics.go)
+  (`PutItem`)
+* [Query a table](actions/table_basics.go)
+  (`Query`)
+* [Scan a table](actions/table_basics.go)
+  (`Scan`)
+* [Update an item in a table](actions/table_basics.go)
+  (`UpdateItem`)
+* [Write a batch of items](actions/table_basics.go)
+  (`BatchWriteItem`)
 
-`go run DescribeTablev2.go -t TABLE`
+### Scenario
 
-- _TABLE_ is the name of the table.
+* [Get started using tables, items, and queries](scenarios/scenario_movie_table.go)
+  (`DescribeTable`)
 
-The unit test accepts a similar value in _config.json_.
+## Running the examples
 
-### ScanItems/ScanItemsv2.go
+### Get started using tables, items, and queries
 
-This example retrieves the Amazon DynamoDB items with a rating above a specified value
-in a specified year.
+This interactive scenario runs at a command prompt and shows you how to use DynamoDB
+to do the following:
 
-`go run ScanItemsv2.go -t TABLE -r RATING -y YEAR`
+- Create a table that can hold movie data.
+- Put, get, and update a single movie in the table.
+- Write movie data to the table from a sample JSON file.
+- Query for movies that were released in a given year.
+- Scan for movies that were released in a range of years.
+- List tables in your account.
+- Delete a movie from the table.
+- Delete the table.
 
-- _TABLE_ is the name of the table.
-- _RATING_ is the rating of the item, from 0.0 to 10.0.
-- _YEAR_ is the year of the item, which must be greater than 1900.
+Install all required resources and start the example by running the following in the 
+`dynamodb` folder at a command prompt.
 
-The unit test accepts similar values in _config.json_.
-
-### Using Amazon DynamoDB local
-
-You can test your Go code against a local version of Amazon DynamoDB.
-Doing so elimiates the possibility of incurring charges against your Amazon account.
-
-For information on installing the local version of Amazon DynamoDB, see
-[Setting Up DynamoDB Local (Downloadable Version)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
-in the Amazon DynamoDB Developer Guide.
-
-To run the local version of Amazon DynamoDB, perform the following steps:
-
-1. Navigate to where you've installed the local version of Amazon DynamoDB.
-1. Run the following command:
-   ```
-   java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
-   ```
-If you don't care whether any information is saved between session, add the **-inMemory** flag.  
-
-In your Go code, change the **config** object you create from:
 ```
-cfg, err := config.LoadDefaultConfig(context.TODO())
-```
-to:
-```
-cfg, err := config.LoadDefaultConfig(context.TODO(),
-    config.WithEndpointResolver(aws.EndpointResolverFunc(
-        func(service, region string) (aws.Endpoint, error) {
-            return aws.Endpoint{URL: "https://localhost:8000"}, nil
-    })),
-)
+go mod tidy
+go run ./cmd
 ```
 
-### Notes
+### Prerequisites
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+Prerequisites for running the examples for this service can be found in the
+[README](../README.md#Prerequisites) in the GoV2 folder.
 
-## Running the unit tests
+## Tests
 
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
+Instructions for running the tests for this service can be found in the
+[README](../README.md#Tests) in the GoV2 folder.
 
-To run a unit test, enter:
+## Additional resources
 
-`go test`
+* [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+* [Amazon DyamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
+* [AWS SDK for Go DynamoDB Client](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb)
 
-You should see something like the following,
-where PATH is the path to the folder containing the Go files:
+---
 
-```sh
-PASS
-ok      PATH 6.593s
-```
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-If you want to see any log messages, enter:
-
-`go test -v`
-
-You should see some additional log messages.
-The last two lines should be similar to the previous output shown.
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0
