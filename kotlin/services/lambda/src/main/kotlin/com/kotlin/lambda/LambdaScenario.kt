@@ -14,15 +14,9 @@ package com.kotlin.lambda
 
 // snippet-start:[lambda.kotlin.scenario.import]
 import aws.sdk.kotlin.services.lambda.LambdaClient
-import aws.sdk.kotlin.services.lambda.model.CreateFunctionRequest
-import aws.sdk.kotlin.services.lambda.model.DeleteFunctionRequest
-import aws.sdk.kotlin.services.lambda.model.FunctionCode
-import aws.sdk.kotlin.services.lambda.model.GetFunctionRequest
-import aws.sdk.kotlin.services.lambda.model.InvokeRequest
-import aws.sdk.kotlin.services.lambda.model.ListFunctionsRequest
-import aws.sdk.kotlin.services.lambda.model.Runtime
-import aws.sdk.kotlin.services.lambda.model.UpdateFunctionCodeRequest
-import aws.sdk.kotlin.services.lambda.model.UpdateFunctionConfigurationRequest
+import aws.sdk.kotlin.services.lambda.model.*
+import aws.sdk.kotlin.services.lambda.waiters.waitUntilFunctionActive
+import aws.sdk.kotlin.services.lambda.waiters.waitUntilFunctionUpdated
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[lambda.kotlin.scenario.import]
@@ -73,37 +67,35 @@ suspend fun main(args: Array<String>) {
     val updatedBucketName = args[4]
     val key = args[5]
 
-    println("*** Creating a Lambda function named $functionName.")
+    println("Creating a Lambda function named $functionName.")
     val funArn = createScFunction(functionName, bucketName, key, handler, role)
-    println("*** The AWS Lambda ARN is $funArn")
+    println("The AWS Lambda ARN is $funArn")
 
     // Get a specific Lambda function.
-    println("*** Getting the $functionName AWS Lambda function.")
+    println("Getting the $functionName AWS Lambda function.")
     getFunction(functionName)
 
     // List the Lambda functions.
-    println("*** Listing all AWS Lambda functions.")
+    println("Listing all AWS Lambda functions.")
     listFunctionsSc()
 
     // Invoke the Lambda function.
-    println("*** Wait for 1 MIN so the resource is available.")
-    delay(60000)
+    println("*** Invoke the Lambda function.")
     invokeFunctionSc(functionName)
 
-    // Update the Lambda function code.
-    println("*** Update the code and invoke the Lambda function again.")
+    // Update the AWS Lambda function code.
+    println("*** Update the Lambda function code.")
     updateFunctionCode(functionName, updatedBucketName, key)
 
-    println("*** Wait another 1 MIN so the resource is updated and then invoke the function again.")
-    delay(60000)
+    // println("*** Invoke the function again after updating the code.")
     invokeFunctionSc(functionName)
 
-    // Update the Lambda function configuration.
-    println("*** Update the run time of the function.")
+    // Update the AWS Lambda function configuration.
+    println("Update the run time of the function.")
     UpdateFunctionConfiguration(functionName, handler)
 
-    // Delete the Lambda function.
-    println("*** Delete the AWS Lambda function.")
+    // Delete the AWS Lambda function.
+    println("Delete the AWS Lambda function.")
     delFunction(functionName)
 }
 
@@ -129,8 +121,12 @@ suspend fun createScFunction(
         runtime = Runtime.Java8
     }
 
+    // Create a Lambda function using a waiter
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val functionResponse = awsLambda.createFunction(request)
+        awsLambda.waitUntilFunctionActive{
+            functionName = myFunctionName
+        }
         return functionResponse.functionArn.toString()
     }
 }
@@ -168,11 +164,12 @@ suspend fun invokeFunctionSc(functionNameVal: String) {
     val request = InvokeRequest {
         functionName = functionNameVal
         payload = byteArray
+        logType = LogType.Tail
     }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val res = awsLambda.invoke(request)
-        println("Function payload is ${res.payload?.toString(Charsets.UTF_8)}")
+        println("The function payload is ${res.payload?.toString(Charsets.UTF_8)}")
     }
 }
 
@@ -187,6 +184,9 @@ suspend fun updateFunctionCode(functionNameVal: String?, bucketName: String?, ke
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.updateFunctionCode(functionCodeRequest)
+        awsLambda.waitUntilFunctionUpdated{
+            functionName = functionNameVal
+        }
         println("The last modified value is " + response.lastModified)
     }
 }
