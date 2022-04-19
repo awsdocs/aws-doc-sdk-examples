@@ -289,6 +289,14 @@ iam_GetAccountPasswordPolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.GetAccountPasswordPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.get_account_password_policy
   services:
     iam: {GetAccountPasswordPolicy}
 iam_ListSAMLProviders:
@@ -335,6 +343,14 @@ iam_ListSAMLProviders:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListSamlProviders
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_saml_providers
   services:
     iam: {ListSAMLProviders}
 iam_Scenario_AccountManagement:
@@ -433,6 +449,14 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.CreateAccessKey
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_access_key
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -503,6 +527,14 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_access_key
   services:
     iam: {DeleteAccessKey}
 iam_GetAccessKeyLastUsed:
@@ -767,6 +799,14 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.CreatePolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_policy
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -822,6 +862,14 @@ iam_DeletePolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_policy
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -885,6 +933,14 @@ iam_ListPolicies:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListPolicies
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_policies
   services:
     iam: {ListPolicies}
 iam_GetPolicy:
@@ -1046,6 +1102,14 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.AttachRolePolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.attach_role_policy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1111,6 +1175,14 @@ iam_ListAttachedRolePolicies:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_attached_role_policies
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -1157,6 +1229,14 @@ iam_DetachRolePolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.detach_role_policy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1254,7 +1334,7 @@ iam_CreateRole:
           excerpts:
             - description:
               snippet_tags:
-                - iam.rust.create-role
+                - rust.example_code.iam.service.create_role
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1312,6 +1392,14 @@ iam_ListRoles:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListRoles
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_roles
   services:
     iam: {ListRoles}
 iam_GetRole:
@@ -1358,6 +1446,14 @@ iam_GetRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.GetRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.get_role
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1395,6 +1491,14 @@ iam_DeleteRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_role
   services:
     iam: {DeleteRole}
 iam_ListRolePolicies:
@@ -1433,6 +1537,14 @@ iam_ListRolePolicies:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListRolePolicies
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_role_policies
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
@@ -1511,6 +1623,14 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.CreateUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_user
     Go:
       versions:
         - sdk_version: 2
@@ -1581,6 +1701,14 @@ iam_DeleteUser:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_user
     Go:
       versions:
         - sdk_version: 2
@@ -1660,6 +1788,14 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListUsers
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_users
     Go:
       versions:
         - sdk_version: 2
@@ -1765,6 +1901,14 @@ iam_AttachUserPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.AttachUserPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.attach_user_policy
     Go:
       versions:
         - sdk_version: 2
@@ -1790,6 +1934,14 @@ iam_DetachUserPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.DetachUserPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.detach_user_policy
     Go:
       versions:
         - sdk_version: 2
@@ -1832,6 +1984,14 @@ iam_DeleteUserPolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.serivce.delete_user_policy
   services:
     iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:
@@ -2026,6 +2186,14 @@ iam_ListGroups:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListGroups
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_groups
   services:
     iam: {ListGroups}
 iam_CreateServiceLinkedRole:
@@ -2072,6 +2240,14 @@ iam_CreateServiceLinkedRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.CreateServiceLinkedRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_service_linked_role
   services:
     iam: {CreateServiceLinkedRole}
 iam_DeleteServiceLinkedRole:
@@ -2089,6 +2265,14 @@ iam_DeleteServiceLinkedRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteServiceLinkedRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_service_linked_role
   services:
     iam: {DeleteServiceLinkedRole}
 iam_Scenario_CreateUserAssumeRole:
@@ -2164,6 +2348,14 @@ iam_Scenario_CreateUserAssumeRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.Scenario_CreateUserAssumeRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.iam_basics.scenario
   services:
     iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
           PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,
