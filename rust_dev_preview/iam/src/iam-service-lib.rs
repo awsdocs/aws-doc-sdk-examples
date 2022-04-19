@@ -462,3 +462,5 @@ pub async fn list_saml_providers(
     Ok(response)
 }
 // snippet-end:[rust.example_code.iam.service.list_saml_providers]
+
+// snippet-end:[rust.example_code.iam.scenario_getting_started.lib]
