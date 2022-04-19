@@ -1991,7 +1991,7 @@ iam_DeleteUserPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.iam.serivce.delete_user_policy
+                - rust.example_code.iam.service.delete_user_policy
   services:
     iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:
