@@ -14,10 +14,18 @@ package com.kotlin.lambda
 
 // snippet-start:[lambda.kotlin.scenario.import]
 import aws.sdk.kotlin.services.lambda.LambdaClient
-import aws.sdk.kotlin.services.lambda.model.*
+import aws.sdk.kotlin.services.lambda.model.CreateFunctionRequest
+import aws.sdk.kotlin.services.lambda.model.FunctionCode
+import aws.sdk.kotlin.services.lambda.model.GetFunctionRequest
+import aws.sdk.kotlin.services.lambda.model.InvokeRequest
+import aws.sdk.kotlin.services.lambda.model.ListFunctionsRequest
+import aws.sdk.kotlin.services.lambda.model.Runtime
+import aws.sdk.kotlin.services.lambda.model.LogType
+import aws.sdk.kotlin.services.lambda.model.UpdateFunctionCodeRequest
+import aws.sdk.kotlin.services.lambda.model.UpdateFunctionConfigurationRequest
+import aws.sdk.kotlin.services.lambda.model.DeleteFunctionRequest
 import aws.sdk.kotlin.services.lambda.waiters.waitUntilFunctionActive
 import aws.sdk.kotlin.services.lambda.waiters.waitUntilFunctionUpdated
-import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[lambda.kotlin.scenario.import]
 
@@ -124,7 +132,7 @@ suspend fun createScFunction(
     // Create a Lambda function using a waiter
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val functionResponse = awsLambda.createFunction(request)
-        awsLambda.waitUntilFunctionActive{
+        awsLambda.waitUntilFunctionActive {
             functionName = myFunctionName
         }
         return functionResponse.functionArn.toString()
@@ -184,7 +192,7 @@ suspend fun updateFunctionCode(functionNameVal: String?, bucketName: String?, ke
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.updateFunctionCode(functionCodeRequest)
-        awsLambda.waitUntilFunctionUpdated{
+        awsLambda.waitUntilFunctionUpdated {
             functionName = functionNameVal
         }
         println("The last modified value is " + response.lastModified)
