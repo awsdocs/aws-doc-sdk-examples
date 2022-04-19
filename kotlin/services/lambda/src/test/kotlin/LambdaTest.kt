@@ -111,17 +111,15 @@ class LambdaTest {
         listFunctionsSc()
 
         // Invoke the Lambda function.
-        println("*** Wait for 1 MIN so the resource is available.")
-        delay(60000)
+        println("*** Invoke the Lambda function.")
         invokeFunctionSc(functionNameSc)
 
         // Update the AWS Lambda function code.
         println("*** Update the Lambda function code.")
         updateFunctionCode(functionNameSc, updatedBucketName, s3Key)
 
-        println("*** Wait another 1 MIN so the resource is updated and then invoke the function again.")
-        delay(60000)
-        invokeFunctionSc(functionNameSc)
+       // println("*** Invoke the function again after updating the code.")
+       invokeFunctionSc(functionNameSc)
 
         // Update the AWS Lambda function configuration.
         println("Update the run time of the function.")
