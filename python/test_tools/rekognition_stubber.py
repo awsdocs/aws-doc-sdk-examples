@@ -118,8 +118,13 @@ class RekognitionStubber(ExampleStubber):
         self._stub_bifurcator(
             'compare_faces', expected_params, response, error_code=error_code)
 
-    def stub_detect_labels(self, image, max_labels, labels, error_code=None):
-        expected_params = {'Image': image, 'MaxLabels': max_labels}
+    def stub_detect_labels(
+            self, image, max_labels, labels, error_code=None):
+        expected_params = {}
+        if image is not None:
+            expected_params['Image'] = image
+        if max_labels is not None:
+            expected_params['MaxLabels'] = max_labels
         response = {'Labels': [self._label_to_dict(label) for label in labels]}
         self._stub_bifurcator(
             'detect_labels', expected_params, response, error_code=error_code)

@@ -1,17 +1,26 @@
-#  Creating the Serverless Amazon Aurora item tracker application using the Java RdsDataClient API
+#  Creating the Amazon Aurora Serverless application using the AWS SDK for Java
+
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a dynamic web application that tracks and reports on Amazon Aurora Serverless data.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 3/28/2022        |
+| Required skills   | Java, Maven  |
 
 ## Purpose
 
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
 + Amazon Serverless Amazon Aurora database
-+ Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
++ Amazon Simple Email Service (Amazon SES). (The AWS SDK for Java (v2) is used to access Amazon SES.)
 
-The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. 
+The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. For more information, see [Spring Boot](https://spring.io/projects/spring-boot).
 
-This AWS tutorial uses a [RdsDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rdsdata/RdsDataClient.html) object to perform CRUD operations on the Serverless Amazon Aurora database. 
+This AWS tutorial uses a [RdsDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rdsdata/RdsDataClient.html) object to perform CRUD operations on the Aurora Serverless database. 
 
-**Note:** You can use the **RdsDataClient** object for an Aurora Serverless DB cluster or an Aurora PostgreSQL. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).  
+**Note:** You can only use the **RdsDataClient** object for an Aurora Serverless DB cluster or an Aurora PostgreSQL. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).  
 
 #### Topics
 
@@ -22,7 +31,7 @@ This AWS tutorial uses a [RdsDataClient](https://sdk.amazonaws.com/java/api/late
 + Create the Java classes
 + Create the HTML files
 + Create script files
-+ RUn the application
++ Run the application
 
 ## Prerequisites
 
@@ -42,16 +51,19 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon Serverless Amazon Aurora database named **jobs**. For information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
+Create an Aurora Serverless database named **jobs**. For more information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
 
-To successfully connect to the database using the **RdsDataClient** object, you must setup an AWS Secrets Manager secret that is used for authentication. For information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
+To successfully connect to the database using the **RdsDataClient** object, set up an AWS Secrets Manager secret that is used for authentication. For more information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
 
-To use the **RdsDataClient** object, you require these two ARN values: 
+To use the **RdsDataClient** object, you require the following two Amazon Resource Name (ARN) values: 
 
-+ An ARN of the Amazon Serverless Amazon Aurora database.
++ An ARN of the Aurora Serverless database.
 + An ARN of the AWS Secrets Manager secret that is used to access the database.
 
-**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up the inbound rules, you can connect to the database from a client. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+
+Set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 #### Work table
 In the **jobs** database, create a table named **Work** that contains the following fields:
@@ -80,21 +92,21 @@ The AWS Tracker application uses a model that is based on a work item and contai
 + **status** - The status of the item.
 + **archive** - Whether this item is completed or is still being worked on.
 
-**Note**: The username is the user who logs into this application. In this example, the username is named **user**. 
+**Note**: The username is the user who signs in to this application. In this example, the username is named **user**. 
 
-When a user logs into the system, they see the **Home** page.
+When a user signs in to the application, they see the **Home** page.
 
 ![AWS Tracking Application](images/home.png)
 
 #### Application functionality
 
-A user can perform these tasks in the AWS Tracker application:
+A user can perform the following tasks in the AWS Tracker application:
 
-+ Enter an item into the system
-+ View all active items
-+ View archived items that are complete
-+ Modify active items
-+ Send a report to an email recipient
++ Enter an item into the system.
++ View all active items.
++ View archived items that are complete.
++ Modify active items.
++ Send a report to an email recipient.
 
 The following figure shows the new item section.
 
@@ -111,7 +123,6 @@ Likewise, a user can choose **Get Archive Items** to get a dataset where all ite
 The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report.
 
 ![AWS Tracking Application](images/report.png)
-
 
 ## Create an IntelliJ project named ItemTrackerRDS
 
@@ -156,7 +167,7 @@ Ensure that the **pom.xml** file looks like the following.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.17.46</version>
+                <version>2.17.146</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -166,46 +177,34 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.2</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.4.2</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-commons</artifactId>
-            <version>1.4.0</version>
+            <version>1.8.2</version>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.4.0</version>
+            <version>1.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.8.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.13.0</version>
+            <version>3.22.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -222,12 +221,6 @@ Ensure that the **pom.xml** file looks like the following.
             <artifactId>protocol-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.5.5</version>
@@ -240,9 +233,8 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!-- bootstrap and jquery -->
-        <dependency>
+       </dependency>
+       <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>3.3.7</version>
@@ -252,7 +244,6 @@ Ensure that the **pom.xml** file looks like the following.
             <artifactId>jquery</artifactId>
             <version>3.2.1</version>
         </dependency>
-        <!-- mysql connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -292,16 +283,16 @@ Ensure that the **pom.xml** file looks like the following.
                 </exclusion>
             </exclusions>
         </dependency>
-       </dependencies>
-      <build>
+     </dependencies>
+     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-      </build>
-     </project>
+     </build>
+    </project>
 ```
 
 ## Create the Java classes
