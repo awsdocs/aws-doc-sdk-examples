@@ -48,24 +48,16 @@ public class ServiceHandler {
     }
     // snippet-end:[s3.swift.basics.handler.createbucket]
 
-    public func createFile(bucket: String, key: String, withData data: Data) async throws {
-        let dataStream = ByteStream.from(data: data)
-
-        let input = PutObjectInput(
-            body: dataStream,
-            bucket: bucket,
-            key: key
-        )
-        _ = try await client.putObject(input: input)
-    }
-
+    // snippet-start:[s3.swift.basics.handler.deletebucket]
     public func deleteBucket(name: String) async throws {
         let input = DeleteBucketInput(
             bucket: name
         )
         _ = try await client.deleteBucket(input: input)
     }
+    // snippet-end:[s3.swift.basics.handler.deletebucket]
 
+    // snippet-start:[s3.swift.basics.handler.uploadfile]
     public func uploadFile(bucket: String, key: String, file: String) async throws {
         let fileUrl = URL(fileURLWithPath: file)
         let fileData = try Data(contentsOf: fileUrl)
@@ -78,7 +70,22 @@ public class ServiceHandler {
         )
         _ = try await client.putObject(input: input)
     }
+    // snippet-end:[s3.swift.basics.handler.uploadfile]
 
+    // snippet-start:[s3.swift.basics.handler.createfile]
+    public func createFile(bucket: String, key: String, withData data: Data) async throws {
+        let dataStream = ByteStream.from(data: data)
+
+        let input = PutObjectInput(
+            body: dataStream,
+            bucket: bucket,
+            key: key
+        )
+        _ = try await client.putObject(input: input)
+    }
+    // snippet-end:[s3.swift.basics.handler.createfile]
+
+    // snippet-start:[s3.swift.basics.handler.downloadfile]
     public func downloadFile(bucket: String, key: String, to: String) async throws {
         let fileUrl = URL(fileURLWithPath: to).appendingPathComponent(key)
 
@@ -96,7 +103,9 @@ public class ServiceHandler {
         let data = body.toBytes().toData()
         try data.write(to: fileUrl)
     }
+    // snippet-end:[s3.swift.basics.handler.downloadfile]
 
+    // snippet-start:[s3.swift.basics.handler.readfile]
     public func readFile(bucket: String, key: String) async throws -> Data {
         let input = GetObjectInput(
             bucket: bucket,
@@ -112,7 +121,9 @@ public class ServiceHandler {
         let data = body.toBytes().toData()
         return data
     }
+    // snippet-end:[s3.swift.basics.handler.readfile]
 
+    // snippet-start:[s3.swift.basics.handler.copyfile]
     public func copyFile(from sourceBucket: String, name: String, to destBucket: String) async throws {
         let srcUrl = ("\(sourceBucket)/\(name)").addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
 
@@ -123,7 +134,9 @@ public class ServiceHandler {
         )
         _ = try await client.copyObject(input: input)
     }
+    // snippet-end:[s3.swift.basics.handler.copyfile]
 
+    // snippet-start:[s3.swift.basics.handler.deletefile]
     public func deleteFile(bucket: String, key: String) async throws {
         let input = DeleteObjectInput(
             bucket: bucket,
@@ -131,7 +144,9 @@ public class ServiceHandler {
         )
         _ = try await client.deleteObject(input: input)
     }
+    // snippet-end:[s3.swift.basics.handler.deletefile]
 
+    // snippet-start:[s3.swift.basics.handler.listbucketfiles]
     public func listBucketFiles(bucket: String) async throws -> [String] {
         let input = ListObjectsV2Input(
             bucket: bucket
@@ -151,4 +166,5 @@ public class ServiceHandler {
 
         return names
     }
+    // snippet-end:[s3.swift.basics.handler.listbucketfiles]
 }
