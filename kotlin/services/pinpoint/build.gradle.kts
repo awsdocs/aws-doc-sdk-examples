@@ -5,6 +5,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt").version("1.16.0-RC1")
      application
 }
+
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
