@@ -15,8 +15,8 @@ dependencies {
     implementation("aws.sdk.kotlin:redshift:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-
 }
+
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
