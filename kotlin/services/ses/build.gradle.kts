@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:ses:0.9.4-beta")
+    implementation("aws.sdk.kotlin:ses:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation ("javax.mail:javax.mail-api:1.5.5")
     implementation ("com.sun.mail:javax.mail:1.5.5")
