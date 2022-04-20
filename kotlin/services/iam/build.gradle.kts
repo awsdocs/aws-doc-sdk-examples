@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm") version "1.5.31"
     application
 }
+
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
