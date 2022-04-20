@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:polly:0.9.4-beta")
+    implementation("aws.sdk.kotlin:polly:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     testImplementation("org.junit.vintage:junit-vintage-engine:5'5.7.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
