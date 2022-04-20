@@ -1,0 +1,411 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
+</head>
+
+<script>
+    $(function () {
+        $.noConflict();
+
+        $("#dialogtemplate2").dialog({
+            autoOpen: true,
+            closeOnEscape: false,
+            draggable: true,
+            dialogClass: 'custom-ui-widget-header-warning',
+        });
+
+        $('#myTable').DataTable({
+            scrollY: "500px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: true,
+            columnDefs: [
+                { width: 200, targets: 0 }
+            ],
+            fixedColumns: true
+        });
+
+        var table = $('#myTable').DataTable();
+        $('#myTable tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+    });
+
+    function GetItems() {
+
+        $.ajax('GetActiveItems', {
+            type: 'GET',
+            success: function (data, status, xhr) {
+
+                var xml = data;
+                var oTable = $('#myTable').dataTable();
+                oTable.fnClearTable(true);
+                $(xml).find('Item').each(function () {
+
+                    var $field = $(this);
+                    var id = $field.find('Id').text();
+                    var name = $field.find('Name').text();
+                    var guide = $field.find('Guide').text();
+                    var date = $field.find('Date').text();
+                    var description = $field.find('Description').text();
+                    var status = $field.find('Status').text();
+
+                    //Set the new data
+                    oTable.fnAddData([
+                        id,
+                        name,
+                        guide,
+                        date,
+                        description,
+                        status, ,]
+                    );
+                });
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+
+        });
+
+        document.getElementById("info3").innerHTML = "Active Items";
+    }
+
+
+    function GetClosedItems() {
+
+
+        $.ajax('GetClosedItems', {
+            type: 'GET',
+            success: function (data, status, xhr) {
+
+                var xml = data;
+                var oTable = $('#myTable').dataTable();
+                oTable.fnClearTable(true);
+                $(xml).find('Item').each(function () {
+
+                    var $field = $(this);
+                    var id = $field.find('Id').text();
+                    var name = $field.find('Name').text();
+                    var guide = $field.find('Guide').text();
+                    var date = $field.find('Date').text();
+                    var description = $field.find('Description').text();
+                    var status = $field.find('Status').text();
+
+                    //Set the new data.
+                    oTable.fnAddData([
+                        id,
+                        name,
+                        guide,
+                        date,
+                        description,
+                        status, ,]
+                    );
+                });
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
+        document.getElementById("info3").innerHTML = "Archive Items";
+    }
+
+
+    function ModifyItem() {
+        var table = $('#myTable').DataTable();
+        var myId = "";
+        var arr = [];
+        $.each(table.rows('.selected').data(), function () {
+
+            var value = this[0];
+            myId = value;
+        });
+
+        if (myId == "") {
+            alert("You need to select a row");
+            return;
+        }
+
+        //Need to check its not an Archive item.
+        var h3Val = document.getElementById("info3").innerHTML;
+        if (h3Val == "Archive Items") {
+            alert("You cannot modify an Archived item");
+            return;
+        }
+
+        $.ajax('GetRecord', {
+            type: 'POST',
+            data: 'id=' + myId,
+            success: function (data, status, xhr) {
+
+                var xml = data;
+               
+               
+                $(xml).find('Item').each(function () {
+
+                    var $field = $(this);
+                    var id = $field.find('Id').text();
+                    var description = $field.find('Description').text();
+                    var status = $field.find('Status').text();
+
+                    //Set the fields
+                    $('#id').val(id);
+                    $('#description').val(description);
+                    $('#status').val(status);
+
+                });
+                
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
+    }
+
+
+    function archiveItem() {
+        var table = $('#myTable').DataTable();
+        var myId = "";
+        var arr = [];
+        $.each(table.rows('.selected').data(), function () {
+
+            var value = this[0];
+            myId = value;
+        });
+
+        if (myId == "") {
+            alert("You need to select a row");
+            return;
+        }
+
+        //Need to check its not an Archive item.
+        var h3Val = document.getElementById("info3").innerHTML;
+        if (h3Val == "Archive Items") {
+            alert("You cannot modify an Archived item");
+            return;
+        }
+
+        $.ajax('Archive', {
+            type: 'POST',
+            data: 'id=' + myId,
+            success: function (data, status, xhr) {
+                alert("Item " + data + " is achived now");
+                //Refresh the grid
+                GetItems();
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
+    }
+
+    function Report() {
+
+        $.ajax('PutReport', {
+            type: 'GET',
+            success: function (data, status, xhr) {
+
+                alert(data);
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+
+        });
+    }
+
+
+    function modItem() {
+        var id = $('#id').val();
+        var description = $('#description').val();
+        var status = $('#status').val();
+
+      if (status.length > 350) {
+            alert("Status has too many characters");
+            return;
+        }
+
+        $.ajax('ModRecord', {
+            type: 'POST',
+            data: 'id=' + id + '&status=' + status,
+            success: function (data, status, xhr) {
+
+                alert(data)
+                $('#id').val("");
+                $('#description').val("");
+                $('#status').val("");
+
+                //Refresh the grid.
+                GetItems();
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
+    }
+
+
+
+</script>
+
+<style>
+
+    .ui-dialog-titlebar-close {
+        display: none;
+    }
+    .custom-ui-widget-header-warning {
+        background: #F9F9F9;
+        border: 1px solid #90d93f;
+        color: #222222;
+        border: 3 none;
+        overflow: auto;
+        position: relative;
+        padding: 0 !important;
+
+    }
+</style>
+
+<div class="container">
+
+    <h4 id="info3">Get Items</h4>
+    <p>You can manage items in this view.</p>
+
+    <table id="myTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Item Id</th>
+                <th>Name</th>
+                <th>Guide</th>
+                <th>Date Created</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>item11/td>
+                <td>Scott</td>
+                <td>Java DEV Guide </td>
+                <td>Dec 7. 2021</td>
+                <td>Added SOS to guide</td>
+                <td>Stated the JOB</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Item Id</th>
+                <th>Name</th>
+                <th>Guide</th>
+                <th>Date Created</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+        <div id="success3"></div>
+    </table>
+
+</div>
+<br>
+<div id="modform" class="container">
+
+    <h3>Modify an item</h3>
+    <p>You can modify items.</p>
+
+    <form>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>ID</label>
+                <input class="form-control" id="id" type="id" placeholder="Id" readonly data-validation-required-message="Item Id.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Description</label>
+                <textarea class="form-control" id="description" rows="5" placeholder="Description" required="required" data-validation-required-message="Description."></textarea>
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Status</label>
+                <textarea class="form-control" id="status" rows="5" placeholder="Status" required="required" data-validation-required-message="Status"></textarea>
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <br>
+    </form>
+
+</div>
+
+<div id="dialogtemplate2" border="4" title="AWS Item Tracker">
+
+    <table align="center">
+               
+        <tr>
+            <td>
+                <button class="btn btn-primary btn-xl" type="button" onclick="GetItems()">Get Active Items</button>
+            </td>
+
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary btn-xl" type="button" onclick="GetClosedItems()">Get Archived Items</button>
+            </td>
+
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary btn-xl" type="button" onclick="ModifyItem()">Get Single Item</button>
+            </td>
+
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary btn-xl" type="button" onclick="modItem()">Update Item</button>
+            </td>
+
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary btn-xl" type="button" onclick="archiveItem()">Archive Item</button>
+            </td>
+
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary btn-xl" type="button" id="reportbutton" onclick="Report()">S3 Report </button>
+            </td>
+
+            <td>
+            </td>
+        </tr>
+    </table>
+</div>

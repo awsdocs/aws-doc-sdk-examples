@@ -1,18 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to delete an AWS Identity and Access Management (IAM) access key.
+/// The example was created using the AWS SDK for .NET version 3.7 and .NET
+/// Core 5.0.
+/// </summary>
 namespace DeleteAccessKeyExample
 {
+    // snippet-start:[IAM.dotnetv3.DeleteAccessKeyExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
 
-    /// <summary>
-    /// Shows how to delete an AWS Identity and Access Management Access Key.
-    /// The example was created using the AWS SDK for .NET version 3.7 and .NET
-    /// Core 5.0.
-    /// </summary>
     public class DeleteAccessKey
     {
         /// <summary>
@@ -20,7 +21,7 @@ namespace DeleteAccessKeyExample
         /// </summary>
         public static async Task Main()
         {
-            string accessKeyId = "--AccessKeyID--";
+            string accessKeyId = "ACCESS_KEY_ID";
             string userName = "DocExampleUser";
             var client = new AmazonIdentityManagementServiceClient();
 
@@ -40,4 +41,6 @@ namespace DeleteAccessKeyExample
             }
         }
     }
+
+    // snippet-end:[IAM.dotnetv3.DeleteAccessKeyExample]
 }

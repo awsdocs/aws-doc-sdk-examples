@@ -1,9 +1,28 @@
+# zexi 0.4.0
 glue_GetCrawler:
   title: Get an &GLU; crawler using an &AWS; SDK
   title_abbrev: Get a crawler
   synopsis: get an &GLU; crawler.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.kotlin.get_crawler.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.get_crawler.main
     Python:
       versions:
         - sdk_version: 3
@@ -22,6 +41,24 @@ glue_CreateCrawler:
   synopsis: create an &GLU; crawler.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.kotlin.create_crawler.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.create_crawler.main
     Python:
       versions:
         - sdk_version: 3
@@ -40,6 +77,24 @@ glue_StartCrawler:
   synopsis: start an &GLU; crawler.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.kotlin.start_crawler.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.start_crawler.main
     Python:
       versions:
         - sdk_version: 3
@@ -58,6 +113,24 @@ glue_GetDatabase:
   synopsis: get a database from the &GLUDCLong;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.kotlin.get_database.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.get_database.main
     Python:
       versions:
         - sdk_version: 3
@@ -76,6 +149,15 @@ glue_GetTables:
   synopsis: get tables from a database in the &GLUDCLong;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.get_table.main
     Python:
       versions:
         - sdk_version: 3
@@ -267,6 +349,24 @@ glue_Scenario_GetStartedCrawlersJobs:
     title: "Tutorial: Getting started with &GLU; Studio"
     url: glue/latest/ug/tutorial-create-job.html
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
