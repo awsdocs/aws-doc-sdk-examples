@@ -27,8 +27,8 @@ dependencies {
     implementation ("com.sun.mail:javax.mail:1.5.5")
     implementation ("javax.activation:activation:1.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-
 }
+
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
