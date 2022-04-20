@@ -4,7 +4,7 @@
 
 Purpose
 
-Shows how to use AWS SDK for PHP v3 to get started using AWS Identity and Access Management (IAM).
+Shows how to use the AWS SDK for PHP (v3) to get started using AWS Identity and Access Management (IAM).
 Create an IAM user, assume a role, and perform AWS actions.
 1. Create a user that has no permissions.
 2. Create a role and policy that grant s3:ListAllMyBuckets permission.
@@ -13,11 +13,10 @@ Create an IAM user, assume a role, and perform AWS actions.
 5. Get temporary credentials by assuming the role.
 6. Create an S3 client object with the temporary credentials and list the buckets (this should succeed).
 7. Delete all the resources.
-To run the bin file directly:
+To run the bin file directly, use the following command:
 cargo --bin iam-getting-started
 To run the service class tests run:
 cargo test
-    - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
 */
 
 // snippet-start:[rust.example_code.iam.iam_basics.scenario]
@@ -127,7 +126,7 @@ async fn run_iam_operations(
     )
     .await?;
     println!(
-        "Created the role with the arn: {}",
+        "Created the role with the ARN: {}",
         assume_role_role.arn.as_ref().unwrap()
     );
     // snippet-end:[rust.example_code.iam.iam_basics.create_role]
@@ -162,8 +161,7 @@ async fn run_iam_operations(
         .await?;
     println!("Created inline policy.");
 
-    //First, fail to list the buckets with the user
-    // let create_credentials: Credentials = Arc<Inner>;
+    //First, fail to list the buckets with the user.
     let creds = iamCredentials::from_keys(
         key.access_key_id.as_ref().unwrap(),
         key.secret_access_key.as_ref().unwrap(),
@@ -246,7 +244,7 @@ async fn run_iam_operations(
         }
     }
 
-    //cleanup
+    //Clean up.
     iam_service::detach_role_policy(
         &client,
         assume_role_role.role_name.as_ref().unwrap(),
