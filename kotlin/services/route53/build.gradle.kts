@@ -18,7 +18,7 @@ buildscript {
 repositories {
     mavenCentral()
     jcenter()
- }
+}
 
 dependencies {
     implementation("aws.sdk.kotlin:route53:0.14.3-beta")
