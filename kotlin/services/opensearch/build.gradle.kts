@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm") version "1.5.31"
     application
 }
+
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
@@ -22,3 +23,4 @@ dependencies {
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
+
