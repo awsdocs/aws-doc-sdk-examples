@@ -9,7 +9,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
- }
+}
 
 dependencies {
     implementation("aws.sdk.kotlin:redshift:0.14.3-beta")
