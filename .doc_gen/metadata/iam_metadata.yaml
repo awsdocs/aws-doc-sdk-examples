@@ -251,6 +251,15 @@ iam_GetAccountPasswordPolicy:
   synopsis: get the &IAM; account password policy.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetAccountPasswordPolicyExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -305,6 +314,15 @@ iam_ListSAMLProviders:
   synopsis: list SAML providers for &IAM;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListSAMLProvidersExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -386,6 +404,14 @@ iam_CreateAccessKey:
   synopsis: create an &IAM; access key.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateAccessKey
     Kotlin:
       versions:
         - sdk_version: 1
@@ -456,6 +482,15 @@ iam_DeleteAccessKey:
   synopsis: delete an &IAM; access key.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -520,6 +555,23 @@ iam_DeleteAccessKey:
                 - ruby.example_code.iam.DeleteUser
   services:
     iam: {DeleteAccessKey}
+iam_DeleteRolePolicy:
+  title: Delete an &IAM; role policy using an &AWS; SDK
+  title_abbrev: Delete a role policy
+  synopsis: delete an &IAM; role policy.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteRolePolicyExample
+  services:
+    iam: {DeleteRolePolicy}
 iam_GetAccessKeyLastUsed:
   title: Get data about the last use of an &IAM; access key using an &AWS; SDK
   title_abbrev: Get data about the last use of an access key
@@ -718,6 +770,15 @@ iam_CreatePolicy:
   synopsis: create an &IAM; policy.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreatePolicyAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -869,6 +930,15 @@ iam_ListPolicies:
   synopsis: list &IAM; policies.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListPoliciesExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -922,6 +992,14 @@ iam_GetPolicy:
   synopsis: get an &IAM; policy.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetPolicyExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1024,6 +1102,15 @@ iam_AttachRolePolicy:
   synopsis: attach an &IAM; policy to a role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.AttachPolicy
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1108,6 +1195,15 @@ iam_ListAttachedRolePolicies:
   synopsis: list policies attached to an &IAM; role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListAttachedRolePoliciesExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1161,6 +1257,15 @@ iam_DetachRolePolicy:
   synopsis: detach an &IAM; policy from a role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1253,6 +1358,15 @@ iam_CreateRole:
   synopsis: create an &IAM; role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateRoleAsync
     Java:
       versions:
         - sdk_version: 2
@@ -1323,6 +1437,14 @@ iam_ListRoles:
   synopsis: list &IAM; roles.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListRolesExample
     Python:
       versions:
         - sdk_version: 3
@@ -1376,6 +1498,15 @@ iam_GetRole:
   synopsis: get an &IAM; role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetRoleExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1466,6 +1597,15 @@ iam_ListRolePolicies:
   synopsis: list inline policies for an &IAM; role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListRolePoliciesExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1536,6 +1676,15 @@ iam_CreateUser:
   synopsis: create an &IAM; user.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateUserAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1616,6 +1765,15 @@ iam_DeleteUser:
   synopsis: delete an &IAM; user.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1686,6 +1844,15 @@ iam_ListUsers:
   synopsis: list &IAM; users.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListUsersExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2058,6 +2225,15 @@ iam_ListGroups:
   synopsis: list &IAM; groups.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListGroupsExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2186,6 +2362,15 @@ iam_Scenario_CreateUserAssumeRole:
     - Delete the policy, role, and user.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM/IAM_Basics_Scenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.IAM_BasicsScenario
     Kotlin:
       versions:
         - sdk_version: 1

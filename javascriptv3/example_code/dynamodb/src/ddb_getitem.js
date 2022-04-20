@@ -32,8 +32,9 @@ export const params = {
 
 export const run = async () => {
   const data = await ddbClient.send(new GetItemCommand(params));
-  return data;
   console.log("Success", data.Item);
+  return data;
+  
 };
 run();
 // snippet-end:[dynamodb.JavaScript.item.getItemV3]
