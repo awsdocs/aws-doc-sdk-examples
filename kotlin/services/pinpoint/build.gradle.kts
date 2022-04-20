@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.31"
     id("io.gitlab.arturbosch.detekt").version("1.16.0-RC1")
-     application
+    application
 }
 
 group = "me.scmacdon"
