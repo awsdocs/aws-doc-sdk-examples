@@ -8,7 +8,6 @@ plugins {
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
-
 repositories {
     mavenCentral()
 }
@@ -23,4 +22,3 @@ dependencies {
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
-
