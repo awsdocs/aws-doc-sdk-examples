@@ -11,7 +11,7 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     mavenLocal()
- }
+}
 
 dependencies {
     implementation("aws.sdk.kotlin:iam:0.14.3-beta")
