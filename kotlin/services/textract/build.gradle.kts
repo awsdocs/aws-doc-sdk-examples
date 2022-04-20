@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    api("aws.sdk.kotlin:textract:0.9.4-beta")
+    api("aws.sdk.kotlin:textract:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
 
