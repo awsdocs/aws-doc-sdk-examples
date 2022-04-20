@@ -10,10 +10,11 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:ec2:0.9.4-beta")
+    implementation("aws.sdk.kotlin:ec2:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
 
