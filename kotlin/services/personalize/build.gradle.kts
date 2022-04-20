@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:personalize:0.9.4-beta")
-    implementation("aws.sdk.kotlin:personalizeruntime:0.9.4-beta")
+    implementation("aws.sdk.kotlin:personalize:0.14.3-beta")
+    implementation("aws.sdk.kotlin:personalizeruntime:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
 
