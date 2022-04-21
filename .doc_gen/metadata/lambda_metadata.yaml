@@ -197,6 +197,24 @@ lambda_Scenario_GettingStartedFunctions:
     title: "Create a &LAM; function with the console"
     url: lambda/latest/dg/getting-started-create-function.html
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.javav2.scenario.main
     Python:
       versions:
         - sdk_version: 3
