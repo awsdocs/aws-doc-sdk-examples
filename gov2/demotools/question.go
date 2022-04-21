@@ -21,12 +21,12 @@ import (
 
 // IAnswerValidator defines an interface that validates string input.
 type IAnswerValidator interface {
-	Validate(string) bool
+	IsValid(string) bool
 }
 
 // NotEmpty is a validator that requires that the input be non-empty.
 type NotEmpty struct {}
-func (notEmpty NotEmpty) Validate(answer string) bool {
+func (notEmpty NotEmpty) IsValid(answer string) bool {
 	valid := len(answer) > 0
 	if !valid {
 		fmt.Println("I need an answer. Please?")
@@ -40,7 +40,7 @@ type InIntRange struct {
 	Lower int
 	Upper int
 }
-func (inRange InIntRange) Validate(answer string) bool {
+func (inRange InIntRange) IsValid(answer string) bool {
 	var valid bool
 	intAnswer, err := strconv.Atoi(answer)
 	if err != nil {
@@ -60,7 +60,7 @@ type InFloatRange struct {
 	Lower float64
 	Upper float64
 }
-func (inRange InFloatRange) Validate(answer string) bool {
+func (inRange InFloatRange) IsValid(answer string) bool {
 	var valid bool
 	floatAnswer, err := strconv.ParseFloat(answer, 32)
 	if err != nil {
@@ -109,7 +109,7 @@ func (questioner Questioner) Ask(question string, validators []IAnswerValidator)
 		} else {
 			answer = strings.TrimSpace(answer)
 			for _, validator := range validators {
-				isValid = validator.Validate(answer)
+				isValid = validator.IsValid(answer)
 				if !isValid {
 					break
 				}

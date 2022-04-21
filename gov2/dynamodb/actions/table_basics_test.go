@@ -29,7 +29,7 @@ func enterTest() (*testtools.AwsmStubber, *TableBasics) {
 func TestTableBasics_TableExists(t *testing.T) {
 	t.Run("NoErrors", func(t *testing.T) { TableExists(nil, t) })
 	t.Run("ResourceNotFoundException", func(t *testing.T) {
-		TableExists(&testtools.StubError{Err: &types.ResourceNotFoundException{Message: aws.String("TestEsrror")}}, t)
+		TableExists(&testtools.StubError{Err: &types.ResourceNotFoundException{Message: aws.String("TestError")}}, t)
 	})
 	t.Run("TestError", func(t *testing.T) {
 		TableExists(&testtools.StubError{Err: &testtools.StubError{Err: errors.New("TestError")}}, t)
