@@ -21,12 +21,12 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:elasticbeanstalk:0.12.0-beta")
+    implementation("aws.sdk.kotlin:elasticbeanstalk:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     implementation(kotlin("reflect"))
-
 }
+
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
