@@ -88,7 +88,7 @@ def find_running_models():
     """
     Finds the running Lookout for Vision models across all accessible 
     AWS Regions.
-    :return: A list of running running models.
+    :return: A list of running models.
     """
 
     running_models = []

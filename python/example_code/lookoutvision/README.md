@@ -22,7 +22,7 @@ accurately and at scale.*
 * [Create a manifest file](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/datasets.py)
 * [Create, train, and start a model](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/train_host.py)
 * [Find a project with a specific tag](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/find_tag.py)
-* [List models that are currently hosted](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/find_runnning_models.py)
+* [List models that are currently hosted](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/find_running_models.py)
 
 ### API examples
 
