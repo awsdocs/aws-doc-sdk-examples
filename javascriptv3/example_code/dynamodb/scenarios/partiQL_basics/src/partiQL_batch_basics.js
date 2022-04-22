@@ -5,12 +5,11 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-Scenario demonstrating how to:
-    - Create a table that can hold movie data.
-    - Write movie data to the table from a sample JSON file.
-    - Put, get, and update a single multiple movies by batch using PartiQL in the table.
-    - Delete a movie from the table.
-    - Delete the table.
+Scenario demonstrating how to do the following in an Amazon DymamoDB table using PartiQL:
+- Get items (Select)
+- Update items (Update)
+- Delete items (Delete)
+- Put items (Insert)
 
 Running the code:
 node partiQL_batch_basics.js <tableName> <movieYear1> <movieTitle1> <movieYear2> <movieTitle2> <producer1> <producer2> \n" +
