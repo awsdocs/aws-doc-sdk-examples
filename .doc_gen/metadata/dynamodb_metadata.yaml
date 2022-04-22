@@ -476,7 +476,7 @@ dynamodb_PutItem:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.put
   services:
-    dynamodb: {PutItem}
+    dynamodb: {PutItem, ExecuteStatement, BatchExecuteStatement}
 dynamodb_GetItem:
   title: Get an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Get an item from a table
@@ -559,7 +559,7 @@ dynamodb_GetItem:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.get
   services:
-    dynamodb: {GetItem}
+    dynamodb: {GetItem, ExecuteStatement, BatchExecuteStatement}
 dynamodb_UpdateItem:
   title: Update an item in a &DDB; table using an &AWS; SDK
   title_abbrev: Update an item in a table
@@ -641,7 +641,7 @@ dynamodb_UpdateItem:
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.updateItemsV3
   services:
-    dynamodb: {UpdateItem}
+    dynamodb: {UpdateItem, ExecuteStatement, BatchExecuteStatement}
 dynamodb_DeleteItem:
   title: Delete an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Delete an item from a table
@@ -729,7 +729,7 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.delete
   services:
-    dynamodb: {DeleteItem}
+    dynamodb: {DeleteItem, ExecuteStatement, BatchExecuteStatement}
 dynamodb_ListTables:
   title: List &DDB; tables using an &AWS; SDK
   title_abbrev: List tables
