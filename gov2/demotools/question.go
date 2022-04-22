@@ -6,7 +6,7 @@
 // **Questioner**
 //
 // The questioner is used in interactive examples to ask for input from the user
-// at a command prompt, validate the answer, and re-ask the question if needed.
+// at a command prompt, validate the answer, and ask the question again, if needed.
 // It is exposed through an interface so that it can be mocked for unit testing.
 // A pre-written mock is provided in the testtools package.
 package demotools

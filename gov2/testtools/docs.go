@@ -8,7 +8,7 @@
 //
 // The AWS Middleware Stubber is a unit testing tool that hooks into the AWS SDK for Go
 // middleware (https://aws.github.io/aws-sdk-go-v2/docs/middleware/) to short-circuit
-// calls to AWS services, verify inputs, and return pre-defined outputs. This
+// calls to AWS services, verify inputs, and return predefined outputs. This
 // improves unit testing because you don't have to define mocks or change the
 // way your code calls AWS. Tests run without calling AWS, which means tests
 // run faster and don't incur charges or risk impacting your resources.

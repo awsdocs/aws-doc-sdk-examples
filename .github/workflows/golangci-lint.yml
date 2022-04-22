@@ -10,7 +10,7 @@ on:
       - 'gov2/**'
 permissions:
   contents: read
-  # Optional: allow read access to pull request. Use with `only-new-issues` option.
+  # Optional: Allow read access to pull request. Use with `only-new-issues` option.
   # pull-requests: read
 jobs:
   golangci:
@@ -24,30 +24,27 @@ jobs:
       - name: install golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
-          # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
+          # Optional: Version of golangci-lint to use. For example, v1.2 or v1.2.3, or latest to use the latest version.
           version: latest
 
-          # the following causes golangci-init to do nothing, so all it does is
-          # install golang and golangci
+          # The following causes golangci-init to do nothing, so all it does is
+          # install golang and golangci.
           args: --version
-
-          # Optional: working directory, useful for monorepos
-          # working-directory: somedir
 
           # Optional: golangci-lint command line arguments.
           # args: --issues-exit-code=0
 
-          # Optional: show only new issues if it's a pull request. The default value is `false`.
+          # Optional: Show only new issues if it's a pull request. The default value is `false`.
           # only-new-issues: true
 
-          # Optional: if set to true then the all caching functionality will be complete disabled,
-          #           takes precedence over all other caching options.
+          # Optional: If set to true, all caching functionality is completely disabled.
+          #           Takes precedence over all other caching options.
           # skip-cache: true
 
-          # Optional: if set to true then the action don't cache or restore ~/go/pkg.
+          # Optional: If set to true, the action doesn't cache or restore ~/go/pkg.
           # skip-pkg-cache: true
 
-          # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
+          # Optional: If set to true, the action doesn't cache or restore ~/.cache/go-build.
           # skip-build-cache: true
       - name: run golangci-lint
         run: |

@@ -1,10 +1,10 @@
-# AWS SDK for Go (V2) code examples
+# AWS SDK for Go (v2) code examples
 
 ## Overview
 
-The code examples in this topic show you how to use the AWS SDK for Go (V2) with AWS. 
+The code examples in this topic show you how to use the AWS SDK for Go (v2) with AWS. 
 
-The AWS SDK for Go (V2) provides a Go API for AWS infrastructure services. Using the 
+The AWS SDK for Go (v2) provides a Go API for AWS infrastructure services. Using the 
 SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, 
 and more.
 
@@ -81,8 +81,8 @@ go test -tags=integration ./...
 
 ## Additional resources
 
-* [AWS SDK for Go (V2) Developer Guide](https://aws.github.io/aws-sdk-go-v2/docs/)
-* [AWS SDK for Go (V2) package](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2)
+* [AWS SDK for Go (v2) Developer Guide](https://aws.github.io/aws-sdk-go-v2/docs/)
+* [AWS SDK for Go (v2) package](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2)
 
 ---
 

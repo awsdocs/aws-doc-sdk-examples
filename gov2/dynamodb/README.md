@@ -1,8 +1,8 @@
-# DynamoDB code examples for the AWS SDK for Go
+# DynamoDB code examples for the SDK for Go
 
 ## Overview
 
-Shows how to use the AWS SDK for Go (V2) to create Amazon DynamoDB
+Shows how to use the AWS SDK for Go (v2) to create Amazon DynamoDB
 tables and move data in and out of them.
 
 *Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
