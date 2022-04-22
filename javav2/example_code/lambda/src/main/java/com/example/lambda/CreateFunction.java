@@ -15,13 +15,18 @@ package com.example.lambda;
 
 // snippet-start:[lambda.java2.create.import]
 import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.FunctionCode;
-import software.amazon.awssdk.services.lambda.model.LambdaException;
 import software.amazon.awssdk.services.lambda.model.CreateFunctionResponse;
+import software.amazon.awssdk.services.lambda.model.GetFunctionRequest;
+import software.amazon.awssdk.services.lambda.model.GetFunctionResponse;
+import software.amazon.awssdk.services.lambda.model.LambdaException;
 import software.amazon.awssdk.services.lambda.model.Runtime;
+import software.amazon.awssdk.services.lambda.waiters.LambdaWaiter;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -80,6 +85,7 @@ public class CreateFunction {
                                             String handler) {
 
         try {
+            LambdaWaiter waiter = awsLambda.waiter();
             InputStream is = new FileInputStream(filePath);
             SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
@@ -96,8 +102,14 @@ public class CreateFunction {
                     .role(role)
                     .build();
 
+            // Create a Lambda function using a waiter
             CreateFunctionResponse functionResponse = awsLambda.createFunction(functionRequest);
-            System.out.println("The function ARN is "+functionResponse.functionArn());
+            GetFunctionRequest getFunctionRequest = GetFunctionRequest.builder()
+                    .functionName(functionName)
+                    .build();
+            WaiterResponse<GetFunctionResponse> waiterResponse = waiter.waitUntilFunctionExists(getFunctionRequest);
+            waiterResponse.matched().response().ifPresent(System.out::println);
+            System.out.println("The function ARN is " + functionResponse.functionArn());
 
         } catch(LambdaException | FileNotFoundException e) {
             System.err.println(e.getMessage());
