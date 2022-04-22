@@ -17,14 +17,32 @@ dynamodb_ExecuteStatement:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/dynamodb
+          github: javascriptv3/example_code/dynamodb
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
                 - dynamodb.java2.scenario.partiql.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.basics.createclientv3
+            - description: Create the document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.createdocclientv3
+            - description: Query single items.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.partiQL_basics
+            - description: Query items by batch.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.partiQL_batch_basics
   services:
-    dynamodb: {ExecuteStatement}
+    dynamodb: {ExecuteStatement, BatchExecuteStatement}
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
@@ -441,6 +459,12 @@ dynamodb_PutItem:
             - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.movies.putItemV3
+            - description: Put an item in a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.putItemV3
+            - description: Put items by batch in a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.putItemsV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
@@ -518,6 +542,12 @@ dynamodb_GetItem:
             - description: Get an item from a table.
               snippet_tags:
                 - dynamodb.JavaScript.movies.getItemV3
+            - description: Get an item from a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.getItemV3
+            - description: Get items by batch from a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.getItemsV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
@@ -604,6 +634,12 @@ dynamodb_UpdateItem:
             - description: Update an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.movies.updateItemV3
+            - description: Update an item in a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.updateItemV3
+            - description: Update items by batch in a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.updateItemsV3
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -676,6 +712,12 @@ dynamodb_DeleteItem:
             - description: Delete an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.movies.deleteV3
+            - description: Delete an item from a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.deleteItemV3
+            - description: Delete an item from a table by batch using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.deleteItemsV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
