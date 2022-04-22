@@ -16,16 +16,31 @@ package com.example.lambda;
 // snippet-start:[lambda.javav2.scenario.import]
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.LambdaClient;
-import software.amazon.awssdk.services.lambda.model.*;
+import software.amazon.awssdk.services.lambda.model.FunctionCode;
+import software.amazon.awssdk.services.lambda.model.CreateFunctionResponse;
+import software.amazon.awssdk.services.lambda.model.GetFunctionRequest;
+import software.amazon.awssdk.services.lambda.model.GetFunctionResponse;
+import software.amazon.awssdk.services.lambda.model.LambdaException;
+import software.amazon.awssdk.services.lambda.model.ListFunctionsResponse;
+import software.amazon.awssdk.services.lambda.model.FunctionConfiguration;
+import software.amazon.awssdk.services.lambda.model.InvokeResponse;
+import software.amazon.awssdk.services.lambda.model.InvokeRequest;
+import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
+import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeRequest;
+import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeResponse;
+import software.amazon.awssdk.services.lambda.model.GetFunctionConfigurationRequest;
+import software.amazon.awssdk.services.lambda.model.GetFunctionConfigurationResponse;
+import software.amazon.awssdk.services.lambda.model.DeleteFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.UpdateFunctionConfigurationRequest;
 import software.amazon.awssdk.services.lambda.model.Runtime;
+import software.amazon.awssdk.services.lambda.waiters.LambdaWaiter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 // snippet-end:[lambda.javav2.scenario.import]
 
 /*
@@ -96,8 +111,7 @@ public class LambdaScenario {
         listFunctions(awsLambda);
 
         // Invoke the Lambda function.
-        System.out.println("*** Wait for 1 MIN so the resource is available.");
-        TimeUnit.MINUTES.sleep(1);
+        System.out.println("*** Invoke the Lambda function.");
         invokeFunction(awsLambda, functionName);
 
         // Update the AWS Lambda function code.
@@ -106,10 +120,9 @@ public class LambdaScenario {
 
         // Update the AWS Lambda function configuration.
         System.out.println("Update the run time of the function.");
-        UpdateFunctionConfiguration(awsLambda, functionName, handler);
+        updateFunctionConfiguration(awsLambda, functionName, handler);
 
         // Invoke again with updated function code.
-        TimeUnit.MINUTES.sleep(1);
         invokeFunction(awsLambda, functionName);
 
         // Delete the AWS Lambda function.
@@ -125,6 +138,7 @@ public class LambdaScenario {
                                             String handler) {
 
         try {
+            LambdaWaiter waiter = awsLambda.waiter();
             InputStream is = new FileInputStream(filePath);
             SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
@@ -141,7 +155,13 @@ public class LambdaScenario {
                     .role(role)
                     .build();
 
+            // Create a Lambda function using a waiter
             CreateFunctionResponse functionResponse = awsLambda.createFunction(functionRequest);
+            GetFunctionRequest getFunctionRequest = GetFunctionRequest.builder()
+                    .functionName(functionName)
+                    .build();
+            WaiterResponse<GetFunctionResponse> waiterResponse = waiter.waitUntilFunctionExists(getFunctionRequest);
+            waiterResponse.matched().response().ifPresent(System.out::println);
             return functionResponse.functionArn();
 
         } catch(LambdaException | FileNotFoundException e) {
@@ -151,7 +171,7 @@ public class LambdaScenario {
         return "";
     }
 
-    public static void getFunction(LambdaClient awsLambda,  String functionName) {
+    public static void getFunction(LambdaClient awsLambda, String functionName) {
         try {
 
             GetFunctionRequest functionRequest = GetFunctionRequest.builder()
@@ -209,6 +229,7 @@ public class LambdaScenario {
 
     public static void updateFunctionCode(LambdaClient awsLambda, String functionName, String bucketName, String key) {
         try {
+            LambdaWaiter waiter = awsLambda.waiter();
             UpdateFunctionCodeRequest functionCodeRequest = UpdateFunctionCodeRequest.builder()
                     .functionName(functionName)
                     .publish(true)
@@ -217,6 +238,11 @@ public class LambdaScenario {
                     .build();
 
             UpdateFunctionCodeResponse response = awsLambda.updateFunctionCode(functionCodeRequest) ;
+            GetFunctionConfigurationRequest getFunctionConfigRequest = GetFunctionConfigurationRequest.builder()
+                    .functionName(functionName)
+                    .build();
+            WaiterResponse<GetFunctionConfigurationResponse> waiterResponse = waiter.waitUntilFunctionUpdated(getFunctionConfigRequest);
+            waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println("The last modified value is " +response.lastModified());
 
         } catch(LambdaException e) {
@@ -225,7 +251,7 @@ public class LambdaScenario {
         }
     }
 
-    public static void UpdateFunctionConfiguration(LambdaClient awsLambda, String functionName, String handler ){
+    public static void updateFunctionConfiguration(LambdaClient awsLambda, String functionName, String handler ){
         try {
             UpdateFunctionConfigurationRequest configurationRequest = UpdateFunctionConfigurationRequest.builder()
                     .functionName(functionName)
