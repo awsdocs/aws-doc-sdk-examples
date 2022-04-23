@@ -44,7 +44,7 @@ def find_api_url(stack_name):
         logger.warning(
             "Couldn't find the REST URL for your API. Try running the following "
             "at the command prompt:\n"
-            "\taws cloudformation describe-stacks --stack-name {stack_name} "
+            f"\taws cloudformation describe-stacks --stack-name {stack_name} "
             "--query \"Stacks[0].Outputs[?OutputKey=='EndpointURL'].OutputValue\" "
             "--output text")
     else:
