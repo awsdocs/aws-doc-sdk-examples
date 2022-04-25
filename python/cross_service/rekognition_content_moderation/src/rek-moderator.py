@@ -9,7 +9,7 @@ Shows how to create a fully serverless REST API for Rekognition Content Moderati
 
 import json
 import boto3
-import botocore.vendored.requests.packages.urllib3 as urllib3
+import urllib3
 import io
 
 

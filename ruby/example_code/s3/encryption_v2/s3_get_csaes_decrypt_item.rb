@@ -7,7 +7,7 @@
 
 # snippet-start:[s3.s3_get_csaes_decrypt_item.rb]
 
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 # Prerequisites:
 #
@@ -46,23 +46,23 @@ def get_decrypted_object_content(
   if defined?(response.body)
     return response.body.read
   else
-    return 'Error: Object content empty or unavailable.'
+    return "Error: Object content empty or unavailable."
   end
-rescue StandardError => e
+rescue Aws::Errors::ServiceError => e
   return "Error getting object content: #{e.message}"
 end
 
 # Full example call:
 # Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-file.txt'
-  region = 'us-west-2'
+  bucket_name = "doc-example-bucket"
+  object_key = "my-file.txt"
+  region = "us-west-2"
 
   # Provide a base64-encoded string representation of the key that
   # was originally used to encrypt the object. For example:
-  encryption_key_string = 'XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE='
-  encryption_key = encryption_key_string.unpack('m')[0]
+  encryption_key_string = "XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE="
+  encryption_key = encryption_key_string.unpack("m")[0]
 
   # Note that in the following call:
   # - key_wrap_schema must be aes_gcm for symmetric keys.

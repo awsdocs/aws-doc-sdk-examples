@@ -35,16 +35,16 @@ async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(),
         if strict {
             let r = client
                 .get_bucket_location()
-                .bucket(bucket.name().as_deref().unwrap_or_default())
+                .bucket(bucket.name().unwrap_or_default())
                 .send()
                 .await?;
 
             if r.location_constraint().unwrap().as_ref() == region {
-                println!("{}", bucket.name().as_deref().unwrap_or_default());
+                println!("{}", bucket.name().unwrap_or_default());
                 in_region += 1;
             }
         } else {
-            println!("{}", bucket.name().as_deref().unwrap_or_default());
+            println!("{}", bucket.name().unwrap_or_default());
         }
     }
 

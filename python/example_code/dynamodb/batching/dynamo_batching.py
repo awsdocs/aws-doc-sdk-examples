@@ -30,7 +30,6 @@ MAX_GET_SIZE = 100  # Amazon DynamoDB rejects a get batch larger than 100 items.
 # snippet-end:[python.example_code.dynamodb.Batching_imports]
 
 
-# snippet-start:[python.example_code.dynamodb.CreateTable]
 def create_table(table_name, schema):
     """
     Creates an Amazon DynamoDB table with the specified schema.
@@ -58,7 +57,6 @@ def create_table(table_name, schema):
         raise
     else:
         return table
-# snippet-end:[python.example_code.dynamodb.CreateTable]
 
 
 # snippet-start:[python.example_code.dynamodb.BatchGetItem]

@@ -7,9 +7,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.4.1"
-aws-sdk-cognitoidentity = "0.4.1"
-aws-smithy-types-convert = { version = "0.34.1", features = ["convert-chrono"] }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-cognitoidentity = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-types-convert = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["convert-chrono"] }
 tokio = { version = "1", features = ["full"] }
 chrono = "0.4"
 structopt = { version = "0.3", default-features = false }

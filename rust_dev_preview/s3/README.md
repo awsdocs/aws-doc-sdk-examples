@@ -2,17 +2,26 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Simple Storage Service (Amazon S3) operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Simple Storage Service 
+(Amazon S3) operations using the developer preview version of the AWS SDK for Rust.
 
-Use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
+*Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any
+amount of data at any time, from anywhere on the web.*
 
 ## Code examples
+
+### Scenario examples
+
+* [Getting started with buckets and objects](src/bin/s3-getting-started.rs) 
+
+### API examples
 
 - [Create basic client](src/bin/client.rs) (ListBuckets)
 - [Copies an object from one bucket to another](src/bin/copy-object.rs) (CopyObject)
 - [Create a bucket](src/bin/create-bucket.rs) (CreateBucket)
 - [Delete an object from a bucket](src/bin/delete-object.rs) (DeleteObject)
 - [Deletes one or more objects from a bucket](src/bin/delete-objects.rs) (DeleteObjects)
+- [Delete an empty bucket](src/s3-service-lib.rs) (DeleteBucket)
 - [Gets a presigned URI for an object](src/bin/get-object-presigned.rs) (GetObject)
 - [Lists your buckets](src/bin/list-buckets.rs) (ListBuckets)
 - [Lists the objects in a bucket](src/bin/list-objects.rs) (ListObjectsV2)
@@ -34,39 +43,28 @@ Use Amazon S3 to store and retrieve any amount of data at any time, from anywher
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 
-## Running the code examples
-
 ### Prerequisites
 
-- We recommend that you grant this code least privilege, 
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+You must have an AWS account, and have configured your default credentials and AWS Region as described in the [Getting Started](https://github.com/awslabs/aws-sdk-rust#getting-started-with-the-sdk) section of the SDK README.
+The minimum version of Rust needed to run the SDK is listed [here](https://github.com/awslabs/aws-sdk-rust#supported-rust-versions-msrv).
+Instructions for installing Rust and Cargo can be found in the [Official Rust Documentation](https://doc.rust-lang.org/book/ch01-01-installation.html).
 
 ## Running the code examples
 
-## ⚠ Important
+### Getting started with buckets and objects
 
-- We recommend that you grant this code least privilege, 
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+Automatically demonstrates how to create a bucket, upload and download objects, and cleans everything up.
+To start, run the following at a command prompt from the Rust root of the project:
 
-## Running the code examples
+```
+cargo run --bin s3-getting-started
+```   
 
-### Prerequisites
+Or, to run the test suite for the associated S3 library, run this command from the Rust root of the project:
 
-You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+```
+cargo test -p s3_code_examples --test test-s3-getting-started
+```
 
 ### client
 

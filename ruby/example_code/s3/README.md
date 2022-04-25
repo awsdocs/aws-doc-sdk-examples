@@ -10,11 +10,12 @@ amount of data at any time, from anywhere on the web.*
 
 ## Code examples
 
-### Scenario examples
+### Scenarios
 
 * [Create a presigned URL](object_presigned_url_upload.rb)
+* [Getting started with buckets and objects](scenario_getting_started.rb)
 
-### API examples
+### Actions
 
 * [Add CORS rules to a bucket](bucket_cors.rb)
   (`PutBucketCors`)
@@ -26,10 +27,14 @@ amount of data at any time, from anywhere on the web.*
   (`CopyObject`)
 * [Create a bucket](bucket_create.rb)
   (`CreateBucket`)
+* [Delete an empty bucket](scenario_getting_started.rb)
+  (`DeleteBucket`)
 * [Delete CORS rules from a bucket](bucket_cors.rb)
   (`DeleteBucketCors`)
 * [Delete a policy from a bucket](bucket_policy.rb)
   (`DeleteBucketPolicy`)
+* [Delete multiple objects](scenario_getting_started.rb)
+  (`DeleteObjects`)
 * [Determine the existence and content type of an object](object_exists.rb)
   (`HeadObject`)
 * [Get an object from a bucket](object_get.rb)
@@ -81,7 +86,19 @@ amount of data at any time, from anywhere on the web.*
 
 ### Command
 
-Most of the examples require that you replace specific values with your own values
+#### Scenarios
+
+The getting started scenario can be run from the command prompt and interactively
+asks for input as it runs. Start the scenario by running the following at a command 
+prompt.
+
+```
+ruby scenario_getting_started.rb
+```
+
+#### Actions
+
+Most of the action examples require that you replace specific values with your own values
 before you run them. For example, to run the `object_upload_file.rb` example, you must 
 modify the code to specify the name of a bucket that you own, the key for the 
 uploaded object, and the path to a local file.
@@ -94,15 +111,30 @@ ruby object_upload_file.rb
 
 ## Running the tests
 
-The unit tests in this module use stubbed responses from AWS SDK for Ruby. When the
-tests are run, requests are not sent to AWS, mocked responses are returned, and no 
-charges are incurred on your account. The tests use RSpec and can be found in the 
-`spec` folder.
+All tests use RSpec and can be found in the `spec` folder.
 
-Each test can be run at a command prompt.
+### Unit tests
+
+The unit tests in this module use stubbed responses from AWS SDK for Ruby. When the
+tests are run, requests are not sent to AWS, mocked responses are returned, and no
+charges are incurred on your account.
+
+Run unit tests at a command prompt by including the `~integ` tag.
 
 ```
-rspec spec/test_bucket_cors.rb
+rspec --tag ~integ
+```
+
+### Integration tests
+
+The integration tests in this module do make requests to AWS, creating and destroying
+resources in your account. Integration tests must be approached with caution and
+may incur charges.
+
+Run integration tests at a command prompt by including the `integ` tag.
+
+```
+rspec --tag integ
 ```
 
 ## Additional information

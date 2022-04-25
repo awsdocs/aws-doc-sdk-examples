@@ -92,7 +92,7 @@ async fn save_mp3_file(
         println!("Saving file {} to bucket {}", filename, bucket);
         println!();
     }
-    let body = aws_sdk_s3::ByteStream::from_path(Path::new(filename))
+    let body = aws_sdk_s3::types::ByteStream::from_path(Path::new(filename))
         .await
         .unwrap();
 

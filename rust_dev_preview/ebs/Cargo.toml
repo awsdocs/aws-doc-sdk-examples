@@ -7,9 +7,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.4.1"
-aws-sdk-ebs = "0.4.1"
-aws-sdk-ec2 = "0.4.1"
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-ebs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-ec2 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1", features = ["full"]}
 base64 = "0.13.0"
 sha2 = "0.9.5"

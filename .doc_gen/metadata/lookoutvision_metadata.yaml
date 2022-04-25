@@ -24,7 +24,7 @@ lookoutvision_Scenario_CreateManifestFile:
   title: Create a &LYRA; manifest file using an &AWS; SDK
   title_abbrev: Create a manifest file
   synopsis: create a &LYRA; manifest file and upload it to &S3;.
-  category: Scenario
+  category: Scenarios
   guide_topic:
     title: Creating a manifest file
     url: lookout-for-vision/latest/developer-guide/manifest-files.html
@@ -87,7 +87,7 @@ lookoutvision_Scenario_FindTagInProjects:
   title: Find a &LYRA; project with a specific tag using an &AWS; SDK
   title_abbrev: Find a project with a specific tag
   synopsis: find a &LYRA; project with a specific tag.
-  category: Scenario
+  category: Scenarios
   guide_topic:
     title: Tagging models
     url: lookout-for-vision/latest/developer-guide/tagging-model.html
@@ -149,7 +149,7 @@ lookoutvision_Scenario_ListHostedModels:
   title: List &LYRA; models that are currently hosted using an &AWS; SDK
   title_abbrev: List models that are currently hosted
   synopsis: list &LYRA; models that are currently hosted.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -334,7 +334,7 @@ lookoutvision_Scenario_CreateTrainStartModel:
   title: Create, train, and start a &LYRA; model using an &AWS; SDK
   title_abbrev: Create, train, and start a model
   synopsis: create, train, and start a &LYRA; model.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

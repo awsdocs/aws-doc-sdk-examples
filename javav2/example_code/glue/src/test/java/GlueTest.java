@@ -5,6 +5,8 @@ import software.amazon.awssdk.regions.Region;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -21,6 +23,12 @@ public class GlueTest {
     private static String text="";
     private static String existingDatabaseName="";
     private static String existingCrawlerName="";
+    private static String jobNameSc="";
+    private static String s3PathSc="";
+    private static String dbNameSc="";
+    private static String crawlerNameSc="";
+    private static String scriptLocationSc="";
+    private static String locationUri="";
 
     @BeforeAll
     public static void setUp() throws IOException, URISyntaxException {
@@ -52,6 +60,12 @@ public class GlueTest {
             text = prop.getProperty("text");
             existingDatabaseName = prop.getProperty("existingDatabaseName");
             existingCrawlerName = prop.getProperty("existingCrawlerName");
+            jobNameSc = prop.getProperty("jobNameSc");
+            s3PathSc = prop.getProperty("s3PathSc");
+            dbNameSc = prop.getProperty("dbNameSc");
+            crawlerNameSc = prop.getProperty("crawlerNameSc");
+            scriptLocationSc = prop.getProperty("scriptLocationSc");
+            locationUri = prop.getProperty("locationUri");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -133,5 +147,26 @@ public class GlueTest {
     public void DeleteCrawler() {
         DeleteCrawler.deleteSpecificCrawler(glueClient, existingCrawlerName);
         System.out.println("Test 11 passed");
+    }
+
+    @Test
+    @Order(12)
+    public void ScenarioTest() throws InterruptedException {
+
+        GlueScenario.createDatabase(glueClient, dbNameSc, locationUri);
+        GlueScenario.createGlueCrawler(glueClient, IAM, s3Path, cron, dbNameSc, crawlerNameSc);
+        GlueScenario.getSpecificCrawler(glueClient, crawlerNameSc);
+        GlueScenario.startSpecificCrawler(glueClient, crawlerNameSc);
+        GlueScenario.getSpecificDatabase(glueClient, dbNameSc);
+        GlueScenario.getGlueTables(glueClient, dbNameSc);
+        GlueScenario.createJob(glueClient, jobNameSc, IAM, scriptLocationSc);
+        GlueScenario.startJob(glueClient, jobNameSc);
+        GlueScenario.getAllJobs(glueClient);
+        GlueScenario.getJobRuns(glueClient, jobNameSc);
+        GlueScenario.deleteJob(glueClient, jobNameSc);
+        System.out.println("*** Wait for 5 MIN so the "+crawlerNameSc +" has stopped");
+        TimeUnit.MINUTES.sleep(5);
+        GlueScenario.deleteDatabase(glueClient, dbNameSc);
+        GlueScenario.deleteSpecificCrawler(glueClient, crawlerNameSc);
     }
 }

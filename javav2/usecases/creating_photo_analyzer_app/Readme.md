@@ -6,15 +6,15 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/17/2022        |
+| Updated   | 3/10/2022        |
 | Required Skills   | Java, Maven  |
 
 ## Purpose
 You can create a dynamic web application that analyzes nature images located in an Amazon S3 bucket by using the Amazon Rekognition service. The application analyzes many images and generates a report that breaks down each image into a series of labels. For example, the following image shows a lake.
 
-![AWS Photo Analyzer](images/Lake1.png)
+![AWS Photo Analyzer](images/lakesun.png)
 
-After the application analyzes all images in the Amazon S3 bucket, it uses the Amazon Simple Email Service (Amazon SES) to send a dynamically created report to a given email recipient. The report is a Microsoft Excel document that contains label data for each image. 
+After the application analyzes all images in the Amazon S3 bucket, it uses the Amazon Simple Email Service (Amazon SES) to send a dynamically created report to a given email recipient. The report is Microsoft Excel data that contains labels for each image located in the Amazon S3 bucket, as shown in this illustration.
 
 ![AWS Photo Analyzer](images/excelreport.png)
 
@@ -24,7 +24,6 @@ This application uses the following AWS services:
 *	Amazon Rekognition
 *	Amazon S3
 *	Amazon SES
-*	AWS Elastic Beanstalk
 
 #### Topics
 
@@ -35,8 +34,7 @@ This application uses the following AWS services:
 + Create the Java classes
 + Create the HTML files
 + Create the script files
-+ Package the project into a JAR file
-+ Deploy the application to AWS Elastic Beanstalk
++ Run the application
 
 ## Prerequisites
 
@@ -284,7 +282,7 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
     }
 ```
 
-**Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
+**Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is to support this application being deployed to Elastic Beanstalk where environment variables are set (see the link at the end of this tutorial).
 
 ### BucketItem class
 
@@ -1423,65 +1421,13 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 
-## Package the project
+## Run the application
 
-Package up the project into a .jar (JAR) file that you can deploy to AWS Elastic Beanstalk by using the following Maven command.
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
 
-    mvn package
+![AWS Tracking Application](images/runapp.png)
 
-The JAR file is located in the target folder.    
-
-![AWS Photo Analyzer](images/photo6.png)
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy to Elastic Beanstalk
-
-Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments.
-
-If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll open the Elastic Beanstalk dashboard, which lists all of your applications.
-
-#### To deploy the AWS Photo Analyzer application to Elastic Beanstalk
-
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
-2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - AWS Photo Analyzer.
-   + **Description** - A description for the application.
-
-![AWS Photo Analyzer](images/photo7.png)
-
-4. Choose **Create**.
-5. Choose **Create a new environment**.
-6. Choose **Web server environment**.
-7. Choose **Select**.
-8. In the **Environment information** section, leave the default values.
-9. In the **Platform** section, choose **Managed platform**.
-10. For **Platform**, choose **Java** (accept the default values for the other fields).
-
-![AWS Photo Analyzer](images/photo8.png)
-
-11. In the **Application code** section, choose **Upload your code**.
-12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created.
-
-![AWS Photo Analyzer](images/photo9.png)
-
-When you’re done, you will see the application state the **Health** is **OK** .
-
-![AWS Photo Analyzer](images/photo10.png)
-
-14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. When the variables are configured, you'll see the URL for accessing the application.
-
-![AWS Photo Analyzer](images/photo11.png)
-
-**Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
-
-To access the application, open your browser and enter the URL for your application. You will see the home page for your application.
-
-![AWS Photo Analyzer](images/photo12.png)
+**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. For information, see the following document [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
 
 ### Next steps
 Congratulations! You have created and deployed the AWS Photo Analyzer application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.

@@ -9,9 +9,9 @@
 # Prerequisites:
 #  - An existing Amazon S3 bucket.
 
-require 'aws-sdk-s3'
-require 'aws-sdk-iam'
-require 'json'
+require "aws-sdk-s3"
+require "aws-sdk-iam"
+require "json"
 
 # Checks to see whether a user exists in IAM; otherwise,
 # creates the user.
@@ -90,7 +90,7 @@ def list_objects_in_bucket?(s3_client, bucket_name)
 
   if response.count.positive?
     puts "Contents of the bucket named '#{bucket_name}' (first 50 objects):"
-    puts 'Name => ETag'
+    puts "Name => ETag"
     response.contents.each do |obj|
       puts "#{obj.key} => #{obj.etag}"
     end
@@ -105,9 +105,9 @@ end
 # Full example call:
 # Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
-  region = 'us-west-2'
-  user_name = 'my-user'
-  bucket_name = 'doc-example-bucket'
+  region = "us-west-2"
+  user_name = "my-user"
+  bucket_name = "doc-example-bucket"
 
   iam = Aws::IAM::Client.new(region: region)
   user = get_user(iam, user_name)
@@ -118,12 +118,12 @@ def run_me
   sts = Aws::STS::Client.new(region: region)
   credentials = get_temporary_credentials(sts, 3600, user_name,
     {
-      'Version' => '2012-10-17',
-      'Statement' => [
-        'Sid' => 'Stmt1',
-        'Effect' => 'Allow',
-        'Action' => 's3:ListBucket',
-        'Resource' => "arn:aws:s3:::#{bucket_name}"
+      "Version" => "2012-10-17",
+      "Statement" => [
+        "Sid" => "Stmt1",
+        "Effect" => "Allow",
+        "Action" => "s3:ListBucket",
+        "Resource" => "arn:aws:s3:::#{bucket_name}"
       ]
     }
   )

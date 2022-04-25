@@ -329,7 +329,7 @@ glacier_DeleteVaultNotifications:
   services:
     glacier: {DeleteVaultNotifications}
 glacier_Usage_UploadNotifyInitiate:
-  category: Usage
+  category: Scenarios
   title: Archive a file to &GLlong;, get notifications, and initiate a job using an &AWS; SDK
   title_abbrev: Archive a file, get notifications, and initiate a job
   synopsis_list:
@@ -362,7 +362,7 @@ glacier_Usage_UploadNotifyInitiate:
   services:
     glacier: {}
 glacier_Usage_RetrieveDelete:
-  category: Usage
+  category: Scenarios
   title: |-
     Get &GLlong; archive content and delete the archive using an &AWS; SDK
   title_abbrev: Get archive content and delete the archive

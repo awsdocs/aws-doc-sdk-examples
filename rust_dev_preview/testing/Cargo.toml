@@ -8,9 +8,9 @@ edition = "2018"
 [dependencies]
 async-trait = "0.1.51"
 # snippet-end:[testing.rust.Cargo.toml]
-aws-config = "0.4.1"
-aws-sdk-s3 = "0.4.1"
-aws-smithy-client = { version = "0.34.1", features = ["test-util"] }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
 tokio = { version = "1", features = ["full"] }
 serde_json = "1"
 structopt = { version = "0.3", default-features = false }

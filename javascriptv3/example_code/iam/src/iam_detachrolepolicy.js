@@ -1,7 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
@@ -16,14 +16,14 @@ Running the code:
 node iam_detachrolepolicy.js
  */
 // snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import {
   ListAttachedRolePoliciesCommand,
   DetachRolePolicyCommand,
 } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = { RoleName: "ROLE_NAME" }; //ROLE_NAME
 
 export const run = async () => {

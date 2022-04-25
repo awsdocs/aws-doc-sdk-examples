@@ -9,8 +9,25 @@ retrieve any amount of data at any time, from anywhere on the web.
 
 ## Code examples
 
+### Scenario Examples
+
+ - [S3 Basics](S3_Basics) - Shows the basic procedures used to work with Amazon
+   S3 buckets. The example creates a bucket, uploads and downloads objects
+   to that bucket and then deletes the objects and the bucket. This example uses
+   the following API methods:
+   
+   - CreateBucketAsync
+   - PutObjectAsync
+   - GetObjectAsync
+   - CopyObjectAsync
+   - ListObjectsAsync
+   - DeleteObjectsAsync
+   - DeleteBucketAsync
+
+### API examples
+
 - [AbortMPUExample](AbortMPUExample/) (`AbortMultipartUploadsAsync`)
-- [BucketACLExample](BucketACLExample/) (`PutBucketACLAsync`, `GetBucketAclAsync`, )
+- [BucketACLExample](BucketACLExample/) (`PutBucketACLAsync`, `GetBucketAclAsync` )
 - [CopyObjectExample](CopyObjectExample/) (`CopyObjectAsync`)
 - [CreateBucketExample](CreateBucketExample/) (`CreateBucketAsync`)
 - [CrossRegionReplicationExample](CrossRegionReplicationExample/)
@@ -54,7 +71,6 @@ retrieve any amount of data at any time, from anywhere on the web.
 (`DeleteObjectVersionAsync`)
 - [ListObjectVersionsExample](versioned-examples/ListObjectVersionsExample/) (`ListObjectVersionsAsync`)
 - [WebsiteConfigExample](WebsiteConfigExample/) (`PutBucketWebsiteAsync`)
-
 
 ## ⚠️ Important
 

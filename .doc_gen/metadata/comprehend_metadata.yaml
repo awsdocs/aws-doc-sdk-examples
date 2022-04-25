@@ -138,7 +138,7 @@ comprehend_Usage_ComprehendClassifier:
   title: Train a custom &CMP; classifier and classify documents using an &AWS; SDK
   title_abbrev: Train a custom classifier and classify documents
   synopsis: train a custom &CMP; classifier and classify documents.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -357,7 +357,7 @@ comprehend_Usage_DetectApis:
   title: Use &CMP; detection APIs with an &AWS; SDK
   title_abbrev: Use detection APIs with a document
   synopsis: use &CMP; detection APIs with a document.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -448,7 +448,7 @@ comprehend_Usage_TopicModeler:
   title: Run an &CMP; topic modeling job on sample data using an &AWS; SDK
   title_abbrev: Run a topic modeling job on sample data
   synopsis: run an &CMP; topic modeling job on sample data.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:

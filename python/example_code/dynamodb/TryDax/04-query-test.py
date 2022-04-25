@@ -55,6 +55,7 @@ def query_test(partition_key, sort_keys, iterations, dyn_resource=None):
 
 
 if __name__ == '__main__':
+    # pylint: disable=not-context-manager
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'endpoint_url', nargs='?',

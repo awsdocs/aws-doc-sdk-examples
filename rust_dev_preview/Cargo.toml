@@ -26,6 +26,7 @@ members = [
     "ecr",
     "ecs",
     "eks",
+    "globalaccelerator",
     "iam",
     "iot",
     "kinesis",
@@ -44,13 +45,16 @@ members = [
     "s3",
     "sagemaker",
     "secretsmanager",
+    "sending-presigned-requests",
     "ses",
-    "setting_timeouts",
+    "setting-timeouts",
+    "sitewise",
     "snowball",
     "sns",
     "sqs",
     "ssm",
     "testing",
+    "tls",
     "transcribestreaming",
-    "using_native_tls_instead_of_rustls"
+    "using-native-tls-instead-of-rustls"
 ]

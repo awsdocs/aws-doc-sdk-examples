@@ -3,7 +3,7 @@ auditmanager_Scenario_CreateAssessmentReport:
   title: Create an &AM; assessment report that contains one day of evidence using an &AWS; SDK
   title_abbrev: Create an assessment report that contains one day of evidence
   synopsis: create an &AM; assessment report that contains one day of evidence.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -30,7 +30,7 @@ auditmanager_Scenario_CustomFrameworkFromConformancePack:
   title_abbrev: Create a custom framework from an &CC; conformance pack
   synopsis: create an &AM; custom framework that contains custom controls that are
     created from managed rules in an &CC; conformance pack.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -48,7 +48,7 @@ auditmanager_Scenario_CustomFrameworkFromSecurityHub:
   title_abbrev: Create a custom framework that contains &ASH; controls
   synopsis: create an &AM; custom framework that contains all standard controls that
     have &ASH; as their data source.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

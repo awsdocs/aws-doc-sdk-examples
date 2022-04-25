@@ -1,4 +1,30 @@
 # zexi 0.4.0
+dynamodb_ExecuteStatement:
+  title: Query a &DDB; table using PartiQL and an &AWS; SDK 
+  title_abbrev: Query a &DDB; table using PartiQL
+  synopsis: query a &DDB; table using PartiQL.
+  category: Scenarios
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.scenario.partiql.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.scenario.partiql.main
+  services:
+    dynamodb: {ExecuteStatement}
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
@@ -14,6 +40,15 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.create_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.CreateTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -38,12 +73,18 @@ dynamodb_CreateTable:
           github: python/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Create a table from a schema.
-              snippet_tags:
-                - python.example_code.dynamodb.CreateTable
             - description: Create a table for storing movie data.
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesCreateTable
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.CreateTable
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.CreateTable
     Rust:
       versions:
         - sdk_version: 1
@@ -116,6 +157,15 @@ dynamodb_DescribeTable:
   synopsis: get information about a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.describe_table.main
     C++:
       versions:
         - sdk_version: 1
@@ -125,6 +175,15 @@ dynamodb_DescribeTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.describe_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DescribeTable
     JavaScript:
       versions:
         - sdk_version: 3
@@ -144,6 +203,23 @@ dynamodb_DescribeTable:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.describeTable
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.DescribeTable
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.DescribeTable
   services:
     dynamodb: {DescribeTable}
 dynamodb_BatchWriteItem:
@@ -152,13 +228,22 @@ dynamodb_BatchWriteItem:
   synopsis: write a batch of &DDB; items.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.BatchWriteItem
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/dynamodb/
           sdkguide:
           excerpts:
-            - description:
+            - description: Inserts many items into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.batchitems.main
     Python:
@@ -169,19 +254,22 @@ dynamodb_BatchWriteItem:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.dynamodb.PutItem_BatchWriter
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.BatchWriteItem
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-writing
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
+                - dynamodb.JavaScript.scenario.basics.createclientv3
+            - description: Create the document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Add the items to the table.
               snippet_tags:
-                - dynamodb.JavaScript.batch.WriteItemV3
+                - dynamodb.JavaScript.movies.batchwriteV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-writing
@@ -189,13 +277,21 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.batch.WriteItem
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.BatchWriteItem
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_Usage_BatchGetWriteDelete:
   title: Get, write, and delete batches of &DDB; items using an &AWS; SDK
   title_abbrev: Get, write, and delete batches of items
   synopsis: get, write, and delete batches of &DDB; items.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -235,6 +331,15 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.delete_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DeleteTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -261,7 +366,16 @@ dynamodb_DeleteTable:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesDeleteTable
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.DeleteTable
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.DeleteTable
     Rust:
       versions:
         - sdk_version: 1
@@ -274,11 +388,10 @@ dynamodb_DeleteTable:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-deleting-a-table
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
+                - dynamodb.JavaScript.scenario.basics.createclientv3
             - description: Delete the table.
               snippet_tags:
                 - dynamodb.JavaScript.item.deleteTableV3
@@ -288,13 +401,13 @@ dynamodb_DeleteTable:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.JavaScript.item.deleteItem
+                - dynamodb.JavaScript.table.deleteTable
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
   title: Put an item in a &DDB; table using an &AWS; SDK
   title_abbrev: Put an item in a table
-  synopsis: put an item in a &DDB; table, with the option of using the &DDB; document client.
+  synopsis: put an item in a &DDB; table.
   category:
   languages:
     C++:
@@ -306,6 +419,15 @@ dynamodb_PutItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.put_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.PutItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -321,7 +443,7 @@ dynamodb_PutItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Puts an item into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.putitem.main
     Python:
@@ -330,12 +452,18 @@ dynamodb_PutItem:
           github: python/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Put a single item in a movie table.
+            - description:
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesItemOps01
-            - description: Put items loaded from a JSON file into a table.
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.PutItem
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesLoadData
+                - ruby.example_code.dynamodb.PutItem
     Rust:
       versions:
         - sdk_version: 1
@@ -348,20 +476,16 @@ dynamodb_PutItem:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Put an item in a table.
-              snippet_tags:
-                - dynamodb.JavaScript.item.putItemV3
+                - dynamodb.JavaScript.scenario.basics.createclientv3
             - description: Create the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.docClient.putV3
+                - dynamodb.JavaScript.movies.putItemV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
@@ -377,7 +501,7 @@ dynamodb_PutItem:
 dynamodb_GetItem:
   title: Get an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Get an item from a table
-  synopsis: get an item from a &DDB; table, with the option of using the &DDB; document client.
+  synopsis: get an item from a &DDB; table.
   category:
   languages:
     C++:
@@ -389,6 +513,15 @@ dynamodb_GetItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.get_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.GetItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -404,7 +537,7 @@ dynamodb_GetItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Gets an item from a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.getitem.main
     Python:
@@ -415,25 +548,30 @@ dynamodb_GetItem:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesItemOps02
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.GetItem
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.GetItem
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Get an item from a table.
-              snippet_tags:
-                - dynamodb.JavaScript.item.getItemV3
+                - dynamodb.JavaScript.scenario.basics.createclientv3
             - description: Create the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Get an item from a table using the &DDB; document client.
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
+            - description: Get an item from a table.
               snippet_tags:
-                - dynamodb.JavaScript.docClient.getV3
+                - dynamodb.JavaScript.movies.getItemV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
@@ -461,6 +599,15 @@ dynamodb_UpdateItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.update_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.UpdateItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -476,7 +623,7 @@ dynamodb_UpdateItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Updates an item located in a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.moditem.main
     Python:
@@ -485,44 +632,58 @@ dynamodb_UpdateItem:
           github: python/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Update an item using the update_item operation.
-              snippet_tags:
-                - dynamodb.python.codeexample.MoviesItemOps03
-            - description: Update an item in two steps using get_item and put_item.
-              snippet_tags:
-                - dynamodb.python.codeexample.MoviesItemOps03a
             - description: Update an item by using an update expression.
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesItemOps04
-            - description: Conditionally update an item.
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.UpdateItem.UpdateExpression
+            - description: Update an item by using an update expression that includes an
+                arithmetic operation.
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesItemOps05
+                - python.example_code.dynamodb.helper.UpdateQueryWrapper.decl
+                - python.example_code.dynamodb.UpdateItem.UpdateExpression.Arithmetic
+            - description: Update an item only when it meets certain conditions.
+              snippet_tags:
+                - python.example_code.dynamodb.helper.UpdateQueryWrapper.decl
+                - python.example_code.dynamodb.UpdateItem.ConditionalExpression
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.UpdateItem.UpdateExpression
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-update-an-item
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Update the item.
+                - dynamodb.JavaScript.scenario.basics.createclientv3
+            - description: Create the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.item.updateItemV3
-            - description: Create the client for the &DDB; document client.
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
+            - description: Update an item in a table using the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Update the item using the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.docClient.updateV3
+                - dynamodb.JavaScript.movies.updateItemV3
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
   title: Delete an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Delete an item from a table
-  synopsis: delete an item from a &DDB; table, with the option of using the &DDB; document client.
+  synopsis: delete an item from a &DDB; table.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DeleteItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -549,7 +710,13 @@ dynamodb_DeleteItem:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesItemOps06
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.DeleteItem
+            - description: You can specify a condition so that an item is deleted only
+                  when it meets certain criteria.
+              snippet_tags:
+                - python.example_code.dynamodb.helper.UpdateQueryWrapper.decl
+                - python.example_code.dynamodb.DeleteItem.ConditionExpression
     Rust:
       versions:
         - sdk_version: 1
@@ -558,6 +725,14 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - dynamodb.rust.delete-item
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.DeleteItem
     JavaScript:
       versions:
         - sdk_version: 3
@@ -566,16 +741,13 @@ dynamodb_DeleteItem:
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Delete an item from a table.
+                - dynamodb.JavaScript.scenario.basics.createclientv3
+            - description: Create the document client.
               snippet_tags:
-                - dynamodb.JavaScript.item.deleteItemV3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Delete an item from a table using the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.docClient.deleteV3
+                - dynamodb.JavaScript.movies.deleteV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
@@ -603,6 +775,15 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.cpp.list_tables.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.ListTables
     Kotlin:
       versions:
         - sdk_version: 1
@@ -677,6 +858,15 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - dynamodb.cpp.query_items.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.Query
     Kotlin:
       versions:
         - sdk_version: 1
@@ -692,7 +882,7 @@ dynamodb_Query:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Queries a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.query.main
     Python:
@@ -703,10 +893,20 @@ dynamodb_Query:
           excerpts:
             - description: Query items by using a key condition expression.
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesQuery01
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.Query
             - description: Query items and project them to return a subset of data.
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesQuery02
+                - python.example_code.dynamodb.helper.UpdateQueryWrapper.decl
+                - python.example_code.dynamodb.Query.ProjectionExpression
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.Query
     Rust:
       versions:
         - sdk_version: 1
@@ -732,7 +932,7 @@ dynamodb_Query:
                 - dynamodb.JavaScript.tables.createdocclientv3
             - description: Query the table using the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.docClient.queryV3
+                - dynamodb.JavaScript.movies.queryV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
@@ -757,6 +957,15 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.cpp.scan_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.Scan
     Kotlin:
       versions:
         - sdk_version: 1
@@ -772,7 +981,7 @@ dynamodb_Scan:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Scans an Amazon DynamoDB table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.scan.main
     Python:
@@ -783,7 +992,16 @@ dynamodb_Scan:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesScan
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.Scan
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.dynamodb.Scan
     Rust:
       versions:
         - sdk_version: 1
@@ -796,14 +1014,16 @@ dynamodb_Scan:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-scanning
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Scan the table.
+                - dynamodb.JavaScript.scenario.basics.createclientv3
+            - description: Create the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.table.scanV3
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
+            - description: Scan a table using the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.movies.scanV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-scanning
@@ -821,7 +1041,7 @@ dynamodb_Usage_DaxDemo:
     setup. For instructions, see
     <ulink type='documentation' url='amazondynamodb/latest/developerguide/DAX.client.html'>Developing with the &DAXlong; Client</ulink>
     in the <emphasis>&guide-ddb-dev;</emphasis>.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -849,3 +1069,127 @@ dynamodb_Usage_DaxDemo:
                 - dynamodb.Python.TryDax.06-delete-table
   services:
     dynamodb: {}
+dynamodb_Scenario_GettingStartedMovies:
+  title: Get started using &DDB; tables, items, and queries using an &AWS; SDK
+  title_abbrev: Get started using tables, items, and queries
+  synopsis_list:
+    - Create a table that can hold movie data.
+    - Put, get, and update a single movie in the table.
+    - Write movie data to the table from a sample JSON file.
+    - Query for movies that were released in a given year.
+    - Scan for movies that were released in a range of years.
+    - Delete a movie from the table.
+    - Delete the table.
+  category: Scenarios
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description: Create a struct and methods that call &DDB; actions.
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.complete
+            - description: Run an interactive scenario to create the table and perform
+                actions on it.
+              snippet_tags:
+                - gov2.dynamodb.Scenario_GettingStartedMovies
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create a &DDB; table.
+              snippet_tags:
+                - dynamodb.kotlin.scenario.create_table.main
+            - description: Create a helper function to download and extract the
+                  sample JSON file.
+              snippet_tags:
+                - dynamodb.kotlin.scenario.populate_table.main
+            - description: Get an item from a table.
+              snippet_tags:
+                - dynamodb.kotlin.scenario.get_item.main
+            - description: Full example.
+              snippet_tags:
+                - dynamodb.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create a &DDB; table.
+              snippet_tags:
+                - dynamodb.java2.scenario.create_table.main
+            - description: Create a helper function to download and extract the
+                  sample JSON file.
+              snippet_tags:
+                - dynamodb.java2.scenario.populate_table.main
+            - description: Get an item from a table.
+              snippet_tags:
+                - dynamodb.java2.scenario.get_item.main
+            - description: Full example.
+              snippet_tags:
+                - dynamodb.java2.scenario.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create a class that encapsulates a &DDB; table.
+              snippet_tags:
+                - python.example_code.dynamodb.helper.Movies.imports
+                - python.example_code.dynamodb.helper.Movies.class_full
+            - description: Create a helper function to download and extract the
+                  sample JSON file.
+              snippet_tags:
+                - python.example_code.dynamodb.helper.get_sample_movie_data
+            - description: Run an interactive scenario to create the table and perform
+                  actions on it.
+              snippet_tags:
+                - python.example_code.dynamodb.Scenario_GettingStartedMovies
+            - description: This scenario uses the following helper class to ask
+                  questions at a command prompt.
+              snippet_tags:
+                - python.example_code.dynamodb.helper.Question
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description: Create a class that encapsulates a &DDB; table.
+              snippet_tags:
+                - ruby.example_code.dynamodb.helper.Movies
+            - description: Create a helper function to download and extract the
+                  sample JSON file.
+              snippet_tags:
+                - ruby.example_code.dynamodb.helper.get_sample_movie_data
+            - description: Run an interactive scenario to create the table and perform
+                  actions on it.
+              snippet_tags:
+                - ruby.example_code.dynamodb.Scenario_GettingStartedMovies
+            - description: This scenario uses the following helper class to ask
+                  questions at a command prompt.
+              snippet_tags:
+                - ruby.example_code.dynamodb.helper.Question
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create a &DDB; client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.basics.createclientv3
+            - description: Create a &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
+            - description: Run the scenario.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.dynamodb_basics
+  services:
+    dynamodb: {DescribeTable, CreateTable, BatchWriteItem, PutItem, GetItem, UpdateItem,
+               DeleteItem, Query, Scan, DeleteTable}
+    

@@ -33,7 +33,10 @@ public class DescribeRegionsAndZones {
     public static void main(String[] args) {
 
         // snippet-start:[ec2.java2.describe_region_and_zones.client]
-        Ec2Client ec2 = Ec2Client.create();
+         software.amazon.awssdk.regions.Region region = software.amazon.awssdk.regions.Region.US_EAST_1;
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(region)
+                .build();
         // snippet-end:[ec2.java2.describe_region_and_zones.client]
 
         describeEC2RegionsAndZones(ec2);

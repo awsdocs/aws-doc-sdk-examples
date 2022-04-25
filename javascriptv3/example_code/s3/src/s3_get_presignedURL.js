@@ -1,6 +1,6 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
@@ -27,12 +27,12 @@ import {
   DeleteObjectCommand,
   DeleteBucketCommand }
 from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 const fetch = require("node-fetch");
 
 // Set parameters
-// Create random names for the Amazon Simple Storage Service (Amazon S3) bucket and key.
+// Create a random names for the S3 bucket and key.
 export const bucketParams = {
   Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
   Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
@@ -40,7 +40,7 @@ export const bucketParams = {
 };
 
 export const run = async () => {
-  // Create an Amazon S3 bucket.
+  // Create an S3 bucket.
   try {
     console.log(`Creating bucket ${bucketParams.Bucket}`);
     const data = await s3Client.send(
@@ -51,7 +51,7 @@ export const run = async () => {
   } catch (err) {
     console.log("Error creating bucket", err);
   }
-  // Put the object in the Amazon S3 bucket.
+  // Put the object in the S3 bucket.
   try {
     console.log(`Putting object "${bucketParams.Key}" in bucket`);
     const data = await s3Client.send(
@@ -95,7 +95,7 @@ export const run = async () => {
   } catch (err) {
     console.log("Error deleting object", err);
   }
-  // Delete the bucket.
+  // Delete the S3 bucket.
   try {
     console.log(`\nDeleting bucket ${bucketParams.Bucket}`);
     const data = await s3Client.send(

@@ -1526,6 +1526,8 @@ Using the IntelliJ IDE, you can run your application. The first time you run the
 
 ![AWS Tracking Application](images/run.png)
 
+**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. For information, see the following document [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
+
 ### Next steps
 Congratulations! You have created and deployed the AWS Photo Analyzer application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
 

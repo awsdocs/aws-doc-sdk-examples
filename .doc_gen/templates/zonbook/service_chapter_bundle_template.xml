@@ -10,7 +10,7 @@
 <!-- zexi 0.4.3 -->
 <chapter id="service_code_examples" role="topic">
     <info>
-        <title id="service_code_examples.title">Code examples for {{.BundleOwner.Short}}</title>
+        <title id="service_code_examples.title">Code examples for {{.BundleOwner.Short}} using &AWS; SDKs</title>
         <titleabbrev id="service_code_examples.titleabbrev">Code examples</titleabbrev>
         <abstract>
             <para>Code examples that show how to use {{.BundleOwner.Short}} with an &AWS; SDK.</para>
@@ -18,9 +18,9 @@
     </info>
     <para>The following code examples show how to use {{.BundleOwner.Short}} with an &AWS; software development kit (SDK).
         {{.BundleOwner.Caveat}}</para>
-    <para>For a complete list of &AWS; SDK developer guides and code examples, including help getting started
-        and information about previous versions, see
-        <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.</para>
+    <para>For a complete list of &AWS; SDK developer guides and code examples, see
+        <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
+        This topic also includes information about getting started and details about previous SDK versions.</para>
     <para role="contents-abbrev">Code examples</para>
     {{- range $model := .BundledModels}}
     <xi:include href="file://AWSShared/code-samples/docs/{{$model}}_code_examples_section.xml"></xi:include>

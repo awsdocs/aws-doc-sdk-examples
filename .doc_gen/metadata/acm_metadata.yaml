@@ -177,7 +177,7 @@ acm_Usage_ImportListRemove:
     - Import a self-signed certificate.
     - List and describe certificates.
     - Remove certificates.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:

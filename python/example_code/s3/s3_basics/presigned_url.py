@@ -53,7 +53,9 @@ def usage_demo():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('bucket', help="The name of the bucket.")
-    parser.add_argument('key', help="The key of the object.")
+    parser.add_argument(
+        'key', help="For a GET operation, the key of the object in Amazon S3. For a "
+                    "PUT operation, the name of a file to upload.")
     parser.add_argument(
         'action', choices=('get', 'put'), help="The action to perform.")
     args = parser.parse_args()
@@ -69,13 +71,18 @@ def usage_demo():
         response = requests.get(url)
     elif args.action == 'put':
         print("Putting data to the URL.")
-        with open(args.key, 'r') as object_file:
-            object_text = object_file.read()
-        response = requests.put(url, data=object_text)
+        try:
+            with open(args.key, 'r') as object_file:
+                object_text = object_file.read()
+            response = requests.put(url, data=object_text)
+        except FileNotFoundError:
+            print(f"Couldn't find {args.key}. For a PUT operation, the key must be the "
+                  f"name of a file that exists on your computer.")
 
-    print("Got response:")
-    print(f"Status: {response.status_code}")
-    print(response.text)
+    if response is not None:
+        print("Got response:")
+        print(f"Status: {response.status_code}")
+        print(response.text)
 
     print('-'*88)
 

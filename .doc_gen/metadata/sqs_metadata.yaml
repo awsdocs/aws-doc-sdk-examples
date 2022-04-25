@@ -567,7 +567,7 @@ sqs_Scenario_ManageQueues:
   title: Manage &SQS; queues using an &AWS; SDK
   title_abbrev: Manage queues
   synopsis: manage &SQS; queues.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -591,7 +591,7 @@ sqs_Scenario_SendReceiveBatch:
   title: Send and receive batches of messages with &SQS; using an &AWS; SDK
   title_abbrev: Send and receive batches of messages
   synopsis: send and receive batches of messages with &SQS;.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

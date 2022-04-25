@@ -1,7 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html.
 
@@ -10,6 +10,8 @@ ddb_putitem.js demonstrates how to do a partial update of an item in an Amazon D
 
 INPUTS:
 - TABLE_NAME
+- ATTRIBUTE_TYPE
+
 
 Running the code:
 node ddb_updateitem.js
@@ -34,8 +36,8 @@ export const params = {
     NullAttribute: null
      */
     Key: {
-        primaryKey: "VALUE_1", // For example, 'Season': 2.
-        sortKey: "VALUE_2", // For example,  'Episode': 1; (only required if table has sort key).
+        primaryKey: {"ATTRIBUTE_TYPE":"KEY_VALUE"}, // For example, 'Season': {N:2}.
+        sortKey: {"ATTRIBUTE_TYPE":"KEY_VALUE"} // For example,  'Episode': {S: "The return"}; (only required if table has sort key).
     },
     // Define expressions for the new or updated attributes
     UpdateExpression: "set NEW_ATTRIBUTE_NAME_1 = :t, NEW_ATTRIBUTE_NAME_2 = :s", // For example, "'set Title = :t, Subtitle = :s'"

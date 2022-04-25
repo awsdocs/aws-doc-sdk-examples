@@ -1,4 +1,18 @@
-/* Sample code to admin delete user from Cognito SDK.*/
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 2 (v2).
+
+Purpose:
+admin-delete-user.js demonstrates how an administrator can delete a user from Amazon Cognito.
+
+Inputs:
+ - USERPOOLID
+ - EMAIL
+
+*/
+
+// snippet-start:[cognito.JavaScript.admin-delete-user-v2]
 
 const aws = require('aws-sdk');
 /*Initializing CognitoIdentityServiceProvider from AWS SDK JS*/
@@ -18,3 +32,4 @@ exports.handler = async (event, context) => {
     let response = await cognito.adminDeleteUser(cognitoParams).promise();
     console.log(JSON.stringify(response, null, 2));
 }
+// snippet-end:[cognito.JavaScript.admin-delete-user-v2]

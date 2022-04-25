@@ -204,6 +204,21 @@ namespace SNSExample.Controllers
 
 The following C# code represents the **SnsService** class. This class uses the AWS .NET SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. The **TranslateBody** method uses the Amazon Translate Service to translate the message if requested by the user.  
 
+In the code for the SnsService controller, be sure to change the AWS Region in the constructor call for the client object to the region where your rescources are defined. For example, in the first l ine of the UnSubEmail method, change:
+
+```csharp
+var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
+```
+
+to:
+
+```csharp
+var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USWest2);
+```
+or whatever AWS region is appropriate for you.
+
+Here is the code for the SnsService:
+
 ```csharp
 namespace SNSExample.Controllers
 {
@@ -222,7 +237,7 @@ namespace SNSExample.Controllers
 
         public async Task<string> UnSubEmail(string email)
         {
-            var client = new AmazonSimpleNotificationServiceClient();
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var arnValue = await GetSubArn(client, email);
             await RemoveSub(client, arnValue);
             return $"{email} was successfully deleted!";
@@ -230,7 +245,7 @@ namespace SNSExample.Controllers
 
         public async Task<string> PubTopic(string body, string lang)
         {
-            var client = new AmazonSimpleNotificationServiceClient();
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var message = string.Empty;
 
             switch (lang.ToLower())
@@ -252,14 +267,14 @@ namespace SNSExample.Controllers
 
         public async Task<string> SubEmail(string email)
         {
-            var client = new AmazonSimpleNotificationServiceClient();
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var subArn = await SubscribeEmail(client, email);
             return subArn;
         }
 
         public async Task<string> GetSubs()
         {
-            var client = new AmazonSimpleNotificationServiceClient();
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var subscriptions = await GetSubscriptionsListAsync(client);
             var val = DisplaySubscriptionList(subscriptions);
             return val;

@@ -1,17 +1,18 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Delete an existing AWS Identity and Access Management (IAM) User. This
+/// example was created using the AWS SDK for .NET and .NET Core 5.0.
+/// </summary>
 namespace DeleteUserExample
 {
+    // snippet-start:[IAM.dotnetv3.DeleteUserExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
 
-    /// <summary>
-    /// Delete an existing AWS Identity and Access (IAM) User. This example was
-    /// created using the AWS SDK for .NET and .NET Core 5.0.
-    /// </summary>
     public class DeleteUser
     {
         /// <summary>
@@ -41,4 +42,6 @@ namespace DeleteUserExample
             }
         }
     }
+
+    // snippet-end:[IAM.dotnetv3.DeleteUserExample]
 }

@@ -11,14 +11,18 @@ sts_AssumeRole:
           github: python/example_code/sts/sts_temporary_credentials
           sdkguide:
           excerpts:
-            - description: Assume an &IAM; role and use temporary credentials to
-                list &S3; buckets for the account.
-              snippet_tags:
-                - iam.python.assume_role.complete
             - description: Assume an &IAM; role that requires an MFA token and use
                 temporary credentials to list &S3; buckets for the account.
               snippet_tags:
                 - python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sts
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sts.AssumeRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -59,46 +63,13 @@ sts_GetSessionToken:
                 - python.example_code.sts.Scenario_SessionTokenMfa_list_buckets
   services:
     sts: {GetSessionToken}
-sts_Scenario_AssumeRole:
-  title: Assume an &IAM; role with &STS; using an &AWS; SDK
-  title_abbrev: Assume an &IAM; role
-  synopsis: assume an &IAM; role with &STS; and use temporary security credentials to
-    access an &AWS; resource.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/sts/sts_temporary_credentials
-          sdkguide:
-          excerpts:
-            - description: Create an &IAM; user and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-              snippet_tags:
-                - python.example_code.sts.Scenario_AssumeRole_setup
-            - description: Show that listing &S3; buckets with the user's plain
-                credentials is not allowed.
-              snippet_tags:
-                - python.example_code.sts.Scenario_AssumeRole_access_denied
-            - description: Assume the role that grants permission to list &S3; buckets
-                and show that buckets can now be listed.
-              snippet_tags:
-                - iam.python.assume_role.complete
-            - description: Destroy the resources created for the demo.
-              snippet_tags:
-                - python.example_code.sts.Scenario_AssumeRole_teardown
-            - description: Run this scenario by using the previously defined functions.
-              snippet_tags:
-                - python.example_code.sts.Scenario_AssumeRole_demo
-  services:
-    sts: {AssumeRole}
 sts_Scenario_AssumeRoleMfa:
   title: Assume an &IAM; role that requires an MFA token with &STS; using an &AWS; SDK
   title_abbrev: Assume an &IAM; role that requires an MFA token
   synopsis: assume an &IAM; role that requires a multi-factor authentication
     (MFA) token with &STS; and use temporary security credentials to access an &AWS;
     resource.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -132,7 +103,7 @@ sts_Scenario_ConstructFederatedUrl:
   title_abbrev: Construct a URL for federated users
   synopsis: construct a URL with &STS; to give federated users limited access to the
     &AWS; Management Console.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -162,7 +133,7 @@ sts_Scenario_SessionTokenMfa:
   title_abbrev: Get a session token that requires an MFA token
   synopsis: get a session token that requires a mulfi-factor authentication
     (MFA) token with &STS; and use  temporary credentials to access an &AWS; resource.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

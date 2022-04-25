@@ -7,7 +7,7 @@
 
 # snippet-start:[s3.s3_get_cskms_decrypt_item.rb]
 
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 
 # Prerequisites:
@@ -46,19 +46,19 @@ def get_decrypted_object_content(
   if defined?(response.body)
     return response.body.read
   else
-    return 'Error: Object content empty or unavailable.'
+    return "Error: Object content empty or unavailable."
   end
-rescue StandardError => e
+rescue Aws::Errors::ServiceError => e
   return "Error getting object content: #{e.message}"
 end
 
 # Full example call:
 # Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-file.txt'
-  region = 'us-west-2'
-  kms_key_id = '9041e78c-7a20-4db3-929e-828abEXAMPLE'
+  bucket_name = "doc-example-bucket"
+  object_key = "my-file.txt"
+  region = "us-west-2"
+  kms_key_id = "9041e78c-7a20-4db3-929e-828abEXAMPLE"
 
   # Note that in the following call:
   # - key_wrap_schema must be kms_context for AWS KMS.
