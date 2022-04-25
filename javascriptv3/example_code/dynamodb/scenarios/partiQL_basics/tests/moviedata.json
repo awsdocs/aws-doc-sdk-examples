@@ -1,0 +1,51 @@
+[
+     {
+        "year": 2006,
+        "title": "The Departed",
+        "info": {
+            "directors": ["Martin Scorsese"],
+            "release_date": "2006-09-26T00:00:00Z",
+            "rating": 8.5,
+            "genres": [
+                "Crime",
+                "Drama",
+                "Thriller"
+            ],
+            "image_url": "http://ia.media-imdb.com/images/M/MV5BMTI1MTY2OTIxNV5BMl5BanBnXkFtZTYwNjQ4NjY3._V1_SX400_.jpg",
+            "plot": "An undercover state cop who has infiltrated an Irish gang and a mole in the police force working for the same mob race to track down and identify each other before being exposed to the enemy, after both sides realize their outfit has a rat.",
+            "rank": 150,
+            "running_time_secs": 9060,
+            "actors": [
+                "Leonardo DiCaprio",
+                "Matt Damon",
+                "Jack Nicholson"
+            ]
+        }
+    },
+        {
+        "year": 2013,
+        "title": "2 Guns",
+        "info": {
+            "directors": ["Baltasar Kormakur"],
+            "release_date": "2013-07-30T00:00:00Z",
+            "rating": 7,
+            "genres": [
+                "Action",
+                "Comedy",
+                "Crime",
+                "Drama",
+                "Thriller"
+            ],
+            "image_url": "http://ia.media-imdb.com/images/M/MV5BNTQ5MTgzNDg4OF5BMl5BanBnXkFtZTcwMjAyODEzOQ@@._V1_SX400_.jpg",
+            "plot": "A DEA agent and a naval intelligence officer find themselves on the run after a botched attempt to infiltrate a drug cartel. While fleeing, they learn the secret of their shaky alliance: Neither knew that the other was an undercover agent.",
+            "rank": 62,
+            "running_time_secs": 6540,
+            "actors": [
+                "Denzel Washington",
+                "Mark Wahlberg",
+                "Paula Patton"
+            ]
+        }
+    }
+ ]
+
