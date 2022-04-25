@@ -97,12 +97,12 @@ def test_find_running_models(make_stubber, stub_runner, monkeypatch,
         # Returns the previously created, and stubbed, lookoutvision client.
         return lookoutvision_client
 
-    # Patch region list
+    # Patch AWS Region list
     monkeypatch.setattr(Session, 'get_available_regions', region_list)
-    # Patch lookoutvision client to manages multiple AWS Region clients.
+    # Patch lookoutvision client to manage multiple AWS Region clients.
     monkeypatch.setattr(boto3, 'client', get_boto_entity)
 
-    # Setup stubbed calls needed to mock getting running models.
+    # Set up stubbed calls needed to mock getting running models.
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
             lookoutvision_stubber.stub_list_projects, [project_name],

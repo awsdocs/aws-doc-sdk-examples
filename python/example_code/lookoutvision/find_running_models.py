@@ -66,7 +66,7 @@ def find_running_models_in_project(lfv_client, project_name):
 def display_running_models(running_model_regions):
     """
     Displays running model information.
-    :param running_model_region: A list of AWS regions
+    :param running_model_region: A list of AWS Regions
     and models that are running within each AWS Region.
     """
     count = 0
@@ -93,12 +93,12 @@ def find_running_models():
 
     running_models = []
 
-    # Get a list of Lookout for Vision accessible AWS regions in
-    # the AWS comercial partition.
+    # Get a list of Lookout for Vision accessible AWS Regions in
+    # the AWS commercial partition.
     # Make sure your Boto3 client is up to date as it stores this list.
     regions = Session().get_available_regions(service_name='lookoutvision')
 
-    # Loop through each region and collect running models.
+    # Loop through each AWS Region and collect running models.
     for region in regions:
         logger.info("Checking %s", region)
         region_info = {}
@@ -109,7 +109,7 @@ def find_running_models():
         lfv_client = boto3.client(
             "lookoutvision", region_name=region)
 
-        # Get the projects in the current AWS region.
+        # Get the projects in the current AWS Region.
 
         paginator = lfv_client.get_paginator('list_projects')
         page_iterator = paginator.paginate()
@@ -140,7 +140,7 @@ def main():
         display_running_models(running_models)
 
     except TypeError as err:
-        print("Couldn't get available regions: " + format(err))
+        print("Couldn't get available AWS Regions: " + format(err))
     except ClientError as err:
         print("Service error occurred: " + format(err))
     except EndpointConnectionError:
