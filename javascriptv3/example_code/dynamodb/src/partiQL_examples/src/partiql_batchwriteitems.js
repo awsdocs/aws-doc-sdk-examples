@@ -1,7 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
@@ -12,7 +12,7 @@ node partiql_batchwriteitems.js <table_name>
 */
 // snippet-start:[dynamodb.JavaScript.partiQL.writeBatchTableV3]
 
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { ddbDocClient } from "../libs/ddbDocClient.js";
 import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 import * as R from "ramda";
