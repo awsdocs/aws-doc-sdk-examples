@@ -1,0 +1,41 @@
+---
+#########################
+#########################
+## Golang Linter rules ##
+#########################
+#########################
+
+# configure golangci-lint
+# https://github.com/golangci/golangci-lint/blob/master/.golangci.example.yml
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - gosec
+        - goconst
+linters:
+  enable:
+    - gosec
+    - unconvert
+    - gocyclo
+    - goconst
+    - goimports
+    - gocritic
+    - govet
+    - revive
+linters-settings:
+  errcheck:
+    # Report about assignment of errors to blank identifier
+    # Default is false: such cases aren't reported by default.
+    check-blank: true
+  govet:
+    # Report about shadowed variables.
+    check-shadowing: true
+  gocyclo:
+    # Minimal code complexity to report.
+    min-complexity: 30
+  maligned:
+    # Print struct with more effective memory layout or not, false by default.
+    suggest-new: true
