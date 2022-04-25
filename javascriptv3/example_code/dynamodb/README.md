@@ -9,7 +9,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 ### Scenario examples
 
 - [DynamoDB_basics](scenarios/dynamodb_basics/src/dynamodb_basics.js)
-- 
+
 #### Scenario examples using PartiQL
 
 - [PartiQL_basics](scenarios/partiQL_basics/src/partiQL_basics.js)

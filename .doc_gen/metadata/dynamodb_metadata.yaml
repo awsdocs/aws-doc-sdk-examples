@@ -42,7 +42,30 @@ dynamodb_ExecuteStatement:
               snippet_tags:
                 - javascript.dynamodb_scenarios.partiQL_batch_basics
   services:
-    dynamodb: {ExecuteStatement, BatchExecuteStatement}
+    dynamodb: {ExecuteStatement}
+dynamodb_BatchExecuteStatement:
+  title: Query a &DDB; table by batch using PartiQL and an &AWS; SDK
+  title_abbrev: Query a &DDB; table by batch using PartiQL
+  synopsis: query a &DDB; table by batch using PartiQL.
+  category: Scenarios
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.basics.createclientv3
+            - description: Create the document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.createdocclientv3
+            - description: Query items by batch.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.partiQL_batch_basics
+  services:
+    dynamodb: {BatchExecuteStatement}
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
@@ -476,7 +499,7 @@ dynamodb_PutItem:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.put
   services:
-    dynamodb: {PutItem, ExecuteStatement, BatchExecuteStatement}
+    dynamodb: {PutItem}
 dynamodb_GetItem:
   title: Get an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Get an item from a table
@@ -559,7 +582,7 @@ dynamodb_GetItem:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.get
   services:
-    dynamodb: {GetItem, ExecuteStatement, BatchExecuteStatement}
+    dynamodb: {GetItem}
 dynamodb_UpdateItem:
   title: Update an item in a &DDB; table using an &AWS; SDK
   title_abbrev: Update an item in a table
@@ -641,7 +664,7 @@ dynamodb_UpdateItem:
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.updateItemsV3
   services:
-    dynamodb: {UpdateItem, ExecuteStatement, BatchExecuteStatement}
+    dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
   title: Delete an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Delete an item from a table
@@ -729,7 +752,7 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.delete
   services:
-    dynamodb: {DeleteItem, ExecuteStatement, BatchExecuteStatement}
+    dynamodb: {DeleteItem}
 dynamodb_ListTables:
   title: List &DDB; tables using an &AWS; SDK
   title_abbrev: List tables
