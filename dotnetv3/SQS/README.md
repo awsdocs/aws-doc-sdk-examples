@@ -30,6 +30,8 @@ and delete messages from it.
   an Amazon SQS queue.
 - [SendMessageToQueueExample](SendMessageToQueueExample/) | Sends a message to
   an Amazon SQS queue.
+- [Send messages to an existing SQS queue.](from-developer-guide/SQSSendMessages.cs) (`SQSSendMessages.cs`, additional guidance in [developer guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sqs-apis-intro.html))
+- [Receive messages from an existing SQS queue.](from-developer-guide/SQSReceiveMessages.cs) (`SQSReceiveMessages.cs`, additional guidance in [developer guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sqs-apis-intro.html))
 
 ## ⚠ Important
 - We recommend that you grant your code least privilege, or at most the minimum
