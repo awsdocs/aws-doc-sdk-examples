@@ -27,8 +27,8 @@ public class DeleteDataset {
                 "Usage:\n" +
                 "    DeleteDataset <project_name> <dataset_type>  \n\n" +
                 "Where:\n" +
-                "    project_name - the name of the project that contains the dataset that you want to delete.\n\n" +
-                "    dataset_type - the type of the dataset that you want to delete.\n\n";
+                "    project_name - The name of the project that contains the dataset that you want to delete.\n\n" +
+                "    dataset_type - The type of the dataset that you want to delete.\n\n";
 
         try {
 

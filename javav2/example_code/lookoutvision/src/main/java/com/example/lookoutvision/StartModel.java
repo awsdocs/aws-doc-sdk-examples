@@ -15,7 +15,7 @@ import software.amazon.awssdk.services.lookoutvision.model.ModelStatus;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Starts an Amazon Lookout for Vision model.
+// Start an Amazon Lookout for Vision model.
 public class StartModel {
 
     public static final Logger logger = Logger.getLogger(StartModel.class.getName());
@@ -28,8 +28,8 @@ public class StartModel {
 
         final String USAGE = "\n" + "Usage: " + "<project_name> <model_version>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project in which you want to start a model.\n\n"
-                + "   model_version - the version of the model that you want to start.\n\n";
+                + "   project_arn - The project in which you want to start a model.\n\n"
+                + "   model_version - The version of the model that you want to start.\n\n";
 
         if (args.length != 3) {
             System.out.println(USAGE);

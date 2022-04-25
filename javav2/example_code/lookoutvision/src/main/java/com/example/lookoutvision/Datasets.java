@@ -45,7 +45,7 @@ public class Datasets {
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project in which you want to create a
          *                     dataset.
-         * @param datasetType  The type of the dataset that you want to create (train or
+         * @param datasetType  The type of dataset that you want to create (train or
          *                     test).
          * @param bucket       The S3 bucket that contains the manifest file.
          * @param manifestFile The name and location of the manifest file within the S3
@@ -98,7 +98,7 @@ public class Datasets {
 
                 boolean finished = false;
 
-                // Wait until datase is created, or failure occurs.
+                // Wait until dataset is created, or failure occurs.
                 while (!finished) {
 
                         datasetDescription = describeDataset(lfvClient, projectName, datasetType);
@@ -302,7 +302,7 @@ public class Datasets {
                 boolean finished = false;
                 DatasetStatus status = null;
 
-                // Wait until update completes
+                // Wait until update completes.
 
                 do {
 

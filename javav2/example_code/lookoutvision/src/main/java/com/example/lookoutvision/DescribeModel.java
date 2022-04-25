@@ -26,8 +26,8 @@ public class DescribeModel {
 
         final String USAGE = "\n" + "Usage: " + "<project_name> <model_version>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project that contains the model that you want to describe.\n\n"
-                + "   model_version - the version of the model that you want to describe\n\n";
+                + "   project_arn - The project that contains the model that you want to describe.\n\n"
+                + "   model_version - The version of the model that you want to describe\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -45,7 +45,7 @@ public class DescribeModel {
             // Get the model description.
             ModelDescription modelDescription = Models.describeModel(lfvClient, projectName, modelVersion);
 
-            // Show the model details
+            // Show the model details.
             System.out.println(String.format("Model Project: %s", projectName));
             System.out.println(String.format("Version: %s", modelDescription.modelVersion()));
             System.out.println(String.format("ARN: %s", modelDescription.modelArn()));

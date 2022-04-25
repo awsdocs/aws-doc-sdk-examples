@@ -82,7 +82,7 @@ public class EdgePackages {
          * Describes a Amazon Lookout for Vision model packaging job.
          * 
          * @param lfvClient   An Amazon Lookout for Vision client.
-         * @param projectName The name of the project for which contains the model
+         * @param projectName The name of the project that contains the model
          *                    packaging job that you want to describe.
          * @param jobName     The name of the model packaging job that you want to
          *                    describe.
@@ -122,9 +122,9 @@ public class EdgePackages {
          * Create a StartModelPackagingRequest object from a JSON file that
          * matches the request syntax for StartModelPackagingJob.
          * 
-         * @param projectName The name of the project for which contains the model
-         *                    packaging job that you want to describe.
-         * @param fileName    The name and path of JSON file that matches the request
+         * @param projectName The name of the project that contains the model
+         *                    packaging job that you want to start.
+         * @param fileName    The name and path of the JSON file that matches the request
          *                    syntax for StartModelPackagingJob.
          * 
          * @return StartModelPackagingJobRequest A StartModelPackagingJobRequest object
@@ -236,8 +236,8 @@ public class EdgePackages {
          * returns after the model is packaged.
          * 
          * @param lfvClient   An Amazon Lookout for Vision client.
-         * @param projectName The name of the project for which contains the model
-         *                    packaging job that you want to describe.
+         * @param projectName The name of the project that contains the model
+         *                    packaging job that you want to start.
          * @param fileName    The name and path of a JSON file that matches the request
          *                    syntax for StartModelPackagingJob.
          * @return ModelPackagingDescription A description for the model

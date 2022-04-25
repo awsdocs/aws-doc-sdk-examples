@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.lookoutvision.model.LookoutVisionExceptio
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Untags an Amazon Lookout for Vision model.
+// Untag an Amazon Lookout for Vision model.
 public class UntagModel {
 
     public static final Logger logger = Logger.getLogger(UntagModel.class.getName());
@@ -26,9 +26,9 @@ public class UntagModel {
 
         final String USAGE = "\n" + "Usage: " + "<project_name> <model_version>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project that contains the model that you to untage.\n\n"
-                + "   model_version - the version of the model that you want to untag.\n\n"
-                + "   key - the key for the tag that you want to remove.\n\n";
+                + "   project_arn - The project that contains the model that you to untage.\n\n"
+                + "   model_version - The version of the model that you want to untag.\n\n"
+                + "   key - The key for the tag that you want to remove.\n\n";
         ;
         if (args.length != 3) {
             System.out.println(USAGE);

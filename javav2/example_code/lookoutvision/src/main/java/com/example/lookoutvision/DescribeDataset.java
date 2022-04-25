@@ -28,8 +28,8 @@ public class DescribeDataset {
                 "Usage:\n" +
                 "    DescribeProject <project_name> <dataset_type> \n\n" +
                 "Where:\n" +
-                "    project_name - the name of the project that you want to describe.\n" +
-                "    dataset_type - the type (train or test) of the dataset that you want to describe.\n\n";
+                "    project_name - The name of the project that you want to describe.\n" +
+                "    dataset_type - The type of the dataset that you want to describe (train or test).\n\n";
 
         try {
 

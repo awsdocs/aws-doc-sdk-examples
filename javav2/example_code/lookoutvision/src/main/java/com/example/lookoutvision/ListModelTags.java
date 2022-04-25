@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Lists the tags attached to an Amazon Lookout for Vision model.
+// List the tags attached to an Amazon Lookout for Vision model.
 public class ListModelTags {
 
     public static final Logger logger = Logger.getLogger(ListModelTags.class.getName());
@@ -27,8 +27,8 @@ public class ListModelTags {
 
         final String USAGE = "\n" + "Usage: " + "<project_name> <model_version>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project that contains the model that you to list tags for.\n\n"
-                + "   model_version - the version of the model that you want to list tags for.\n\n";
+                + "   project_arn - The project that contains the model that you to list tags for.\n\n"
+                + "   model_version - The version of the model that you want to list tags for.\n\n";
         if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
@@ -42,7 +42,7 @@ public class ListModelTags {
             // Get the lookoutvision client.
             LookoutVisionClient lfvClient = LookoutVisionClient.builder().build();
 
-            // Get a list of models in the supplied project
+            // Get a list of models in the supplied project.
             List<Tag> tags = Models.listTagsForModel(lfvClient, projectName, modelVersion);
 
             System.out.println(String.format("Tags for model version %s of project %s.", modelVersion, projectName));

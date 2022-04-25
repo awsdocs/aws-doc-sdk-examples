@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.lookoutvision.model.Tag;
 import software.amazon.awssdk.services.lookoutvision.model.TagResourceRequest;
 import software.amazon.awssdk.services.lookoutvision.model.UntagResourceRequest;
 
-// Operations on Lookout for Vision models
+// Operations on Lookout for Vision models.
 public class Models {
 
         public static final Logger logger = Logger.getLogger(Models.class.getName());
@@ -60,7 +60,7 @@ public class Models {
 
                 logger.log(Level.INFO, "Creating model for project: {0}.", new Object[] { projectName });
 
-                // Setup input parameters
+                // Setup input parameters.
                 S3Location s3Location = S3Location.builder()
                                 .bucket(bucket)
                                 .prefix(folder)
@@ -136,8 +136,7 @@ public class Models {
          * 
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project that contains the model that you
-         *                     want
-         *                     to describe.
+         *                     want to describe.
          * 
          * @param modelVersion The version of the model that you want to describe.
          * 
@@ -261,7 +260,7 @@ public class Models {
                 Collection<String> tagKeys = new ArrayList<>();
                 tagKeys.add(key);
 
-                // Get the model ARN.
+                // Get the model Amazon Resource Name (ARN).
                 DescribeModelRequest describeModelRequest = DescribeModelRequest.builder()
                                 .projectName(projectName)
                                 .modelVersion(modelVersion)
@@ -269,7 +268,7 @@ public class Models {
 
                 ModelDescription modelDescription = lfvClient.describeModel(describeModelRequest).modelDescription();
 
-                // Untag the resource
+                // Untag the resource.
                 UntagResourceRequest unTagResourceRequest = UntagResourceRequest.builder()
                                 .resourceArn(modelDescription.modelArn())
                                 .tagKeys(tagKeys)
@@ -316,7 +315,7 @@ public class Models {
 
                 ModelDescription modelDescription = lfvClient.describeModel(describeModelRequest).modelDescription();
 
-                // Tag the resource
+                // Tag the resource.
                 TagResourceRequest tagResourceRequest = TagResourceRequest.builder()
                                 .resourceArn(modelDescription.modelArn())
                                 .tags(tags)

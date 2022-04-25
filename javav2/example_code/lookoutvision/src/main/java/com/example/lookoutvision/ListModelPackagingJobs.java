@@ -26,7 +26,7 @@ public class ListModelPackagingJobs {
 
         final String USAGE = "\n" + "Usage: " + "<project_name>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project that contains the models packaging jobs that you want to list.\n\n";
+                + "   project_arn - The project that contains the model packaging jobs that you want to list.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -40,7 +40,7 @@ public class ListModelPackagingJobs {
             // Get the lookoutvision client.
             LookoutVisionClient lfvClient = LookoutVisionClient.builder().build();
 
-            // Get a list of model packaging jobs in the supplied project
+            // Get a list of model packaging jobs in the supplied project.
             List<ModelPackagingJobMetadata> modelPackagingJobs = EdgePackages.listModelPackagingJobs(lfvClient, projectName);
 
             System.out.println(String.format("Project: %s", projectName));
@@ -48,7 +48,7 @@ public class ListModelPackagingJobs {
             if (!modelPackagingJobs.isEmpty()) {
 
                 for (ModelPackagingJobMetadata modelPackagingJob : modelPackagingJobs) {
-                    // Show the model packaging job details
+                    // Show the model packaging job details.
                     System.out.println(String.format("Job: %s", modelPackagingJob.jobName()));
                     System.out.println(String.format("Project: %s", modelPackagingJob.projectName()));
                     System.out.println(String.format("Model version: %s", modelPackagingJob.modelVersion()));

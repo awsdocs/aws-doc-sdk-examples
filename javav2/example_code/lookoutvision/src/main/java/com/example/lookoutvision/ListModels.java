@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Lists the models in an Amazon Lookout for Vision project.
+// List the models in an Amazon Lookout for Vision project.
 public class ListModels {
 
     public static final Logger logger = Logger.getLogger(ListModels.class.getName());
@@ -26,7 +26,7 @@ public class ListModels {
 
         final String USAGE = "\n" + "Usage: " + "<project_name>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project that contains the models that you want to list.\n\n";
+                + "   project_arn - The project that contains the models that you want to list.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -40,13 +40,13 @@ public class ListModels {
             // Get the lookoutvision client.
             LookoutVisionClient lfvClient = LookoutVisionClient.builder().build();
 
-            // Get a list of models in the supplied project
+            // Get a list of models in the supplied project.
             List<ModelMetadata> models = Models.listModels(lfvClient, projectName);
 
             System.out.println(String.format("Project: %s", projectName));
 
             for (ModelMetadata model : models) {
-                // Show the model details
+                // Show the model details.
 
                 System.out.println(String.format("Version: %s", model.modelVersion()));
                 System.out.println(String.format("ARN: %s", model.modelArn()));

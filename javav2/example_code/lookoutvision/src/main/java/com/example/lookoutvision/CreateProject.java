@@ -27,7 +27,7 @@ public class CreateProject {
                 "Usage:\n" +
                 "    CreateProject <project_name>  \n\n" +
                 "Where:\n" +
-                "    project_name - the name of the project that you want to create.\n\n";
+                "    project_name - The name of the project that you want to create.\n\n";
 
         try {
 

@@ -3,7 +3,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-/* Unit tests for Amazon lookout for Vision API examples */
+/* Unit tests for Amazon Lookout for Vision API examples */
 
 import com.example.lookoutvision.*;
 import org.junit.jupiter.api.*;
@@ -122,7 +122,7 @@ public class LookoutVisionTest {
 
         try {
 
-            // Create empty dataset
+            // Create empty dataset.
             DatasetDescription dataset = Datasets.createDataset(lfvClient, projectName,
                     datasetType, null, null);
 
@@ -140,7 +140,7 @@ public class LookoutVisionTest {
     @Order(5)
     public void updateEmptyDataset_thenEquals() throws IOException, LookoutVisionException, InterruptedException {
 
-        // Update dataeset with local manifest file
+        // Update dataset with local manifest file.
         DatasetStatus dataset = Datasets.updateDatasetEntries(lfvClient, projectName,
                 datasetType, manifestFile);
 
@@ -159,7 +159,7 @@ public class LookoutVisionTest {
         Instant beforeCreationDate = null;
         Boolean labeled = true;
 
-        // Get JSON lines from dataset
+        // Get JSON lines from dataset.
         List<String> jsonLines = Datasets.listDatasetEntries(lfvClient, projectName, datasetType, sourceRef,
                 classification, labeled, beforeCreationDate, afterCreationDate);
 
@@ -228,7 +228,7 @@ public class LookoutVisionTest {
     @Order(10)
     public void listModelTags_thenNotFalse() throws LookoutVisionException {
 
-        // Get JSON lines from dataset
+        // Get JSON lines from dataset.
         List<Tag> tags = Models.listTagsForModel(lfvClient, projectName, modelVersion);
 
         assertEquals(false, tags.isEmpty());
@@ -349,7 +349,7 @@ public class LookoutVisionTest {
         List<ModelPackagingJobMetadata> packagingJobs = EdgePackages.listModelPackagingJobs(lfvClient, projectName);
 
         // When run in sequence, jobName is picked up from
-        // startModelPackagingJob_thenEqual(). Otherwise specify a value for jobName.
+        // startModelPackagingJob_thenEqual(). Otherwise, specify a value for jobName.
 
         assertEquals(jobName, packagingJobs.get(0).jobName());
 
@@ -364,7 +364,7 @@ public class LookoutVisionTest {
         // Describe a model.
 
         // When run in sequence, jobName is picked up from
-        // startModelPackagingJob_thenEqual(). Otherwise specify a value for jobName.
+        // startModelPackagingJob_thenEqual(). Otherwise, specify a value for jobName.
         ModelPackagingDescription description = EdgePackages.describeModelPackagingJob(lfvClient, projectName, jobName);
 
         // Check that a description is returned.

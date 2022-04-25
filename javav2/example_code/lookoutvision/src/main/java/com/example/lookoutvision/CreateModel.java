@@ -28,10 +28,10 @@ public class CreateModel {
 
         final String USAGE = "\n" + "Usage: " + "<project_name> <model_version> <bucket> <output_folder>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project in which you want to create a model.\n\n"
-                + "   description - a description for the model.\n\n"
-                + "   bucket - the S3 bucket in which the service should store the training results.\n\n"
-                + "   output_folder - the folder, in the S3 bucket, in which the service should store the training results.\n\n";
+                + "   project_arn - The project in which you want to create a model.\n\n"
+                + "   description - A description for the model.\n\n"
+                + "   bucket - The S3 bucket in which the service should store the training results.\n\n"
+                + "   output_folder - The S3 bucket folder in which the service should store the training results.\n\n";
 
         if (args.length != 4) {
             System.out.println(USAGE);
@@ -52,7 +52,7 @@ public class CreateModel {
             ModelDescription modelDescription = Models.createModel(lfvClient, projectName, description,
                     bucket, outputFolder);
 
-            // Show the model details
+            // Show the model details.
             System.out.println(String.format("Model Project: %s", projectName));
             System.out.println(String.format("Version: %s", modelDescription.modelVersion()));
             System.out.println(String.format("ARN: %s", modelDescription.modelArn()));

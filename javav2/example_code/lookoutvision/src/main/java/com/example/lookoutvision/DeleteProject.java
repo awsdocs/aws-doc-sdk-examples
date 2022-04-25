@@ -26,7 +26,7 @@ public class DeleteProject {
                 "Usage:\n" +
                 "    DeleteProject <project_name>  \n\n" +
                 "Where:\n" +
-                "    project_name - the name of the project that you want to delete.\n\n";
+                "    project_name - The name of the project that you want to delete.\n\n";
 
         try {
 

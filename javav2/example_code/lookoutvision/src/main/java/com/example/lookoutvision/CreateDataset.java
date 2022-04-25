@@ -15,7 +15,7 @@ import software.amazon.awssdk.services.lookoutvision.model.LookoutVisionExceptio
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Creates an Amazon Lookout for Vision  dataset.
+// Creates an Amazon Lookout for Vision dataset.
 public class CreateDataset {
 
     public static final Logger logger = Logger.getLogger(CreateDataset.class.getName());
@@ -29,10 +29,10 @@ public class CreateDataset {
 
         final String USAGE = "\n" + "Usage: " + "<project_name> <dataset_type> <bucket> <manifest_file>\n\n"
                 + "Where:\n"
-                + "   project_arn - the ARN of the project that you want to add the dataset to.\n\n"
-                + "   dataset_type - the type of the dataset that you want to create (train or test).\n\n"
-                + "   bucket - the S3 bucket that contains the manifest file.\n\n"
-                + "   manifest_file - the location and name of the manifest file within the bucket.\n\n";
+                + "   project_arn - The ARN of the project that you want to add the dataset to.\n\n"
+                + "   dataset_type - The type of the dataset that you want to create (train or test).\n\n"
+                + "   bucket - The S3 bucket that contains the manifest file.\n\n"
+                + "   manifest_file - The location and name of the manifest file within the bucket.\n\n";
 
         switch (args.length) {
             case 2:
@@ -48,7 +48,7 @@ public class CreateDataset {
                 break;
 
             default:
-                // invalid number of arguments
+                // invalid number of arguments.
                 System.out.println(USAGE);
 
         }

@@ -15,7 +15,7 @@ import software.amazon.awssdk.services.lookoutvision.LookoutVisionClient;
 import software.amazon.awssdk.services.lookoutvision.model.LookoutVisionException;
 import software.amazon.awssdk.services.lookoutvision.model.ModelPackagingDescription;
 
-// Starts an Amazon Lookout for Vision model packaging job.
+// Start an Amazon Lookout for Vision model packaging job.
 public class StartModelPackagingJob {
 
     public static final Logger logger = Logger.getLogger(StartModelPackagingJob.class.getName());
@@ -28,10 +28,10 @@ public class StartModelPackagingJob {
         final String USAGE = "\n" + "Usage: " + "<project_name> <model_version> <job_name> "
                 + "<component_name> <component_description> <component_version> <output_bucket> <output_folder>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project in which you want to create a model.\n\n"
-                + "   description - a description for the model.\n\n"
-                + "   bucket - the S3 bucket in which the service should store the training results.\n\n"
-                + "   output_folder - the folder, in the S3 bucket, in which the service should store the training results.\n\n";
+                + "   project_arn - The project in which you want to create a model.\n\n"
+                + "   description - A description for the model.\n\n"
+                + "   bucket - The S3 bucket in which the service should store the training results.\n\n"
+                + "   output_folder - The folder, in the S3 bucket, in which the service should store the training results.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

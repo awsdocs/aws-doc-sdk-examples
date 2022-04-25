@@ -53,7 +53,7 @@ public class Projects {
         }
 
         /**
-         * Lists the Amazon Lookout Vision projects in the current AWS account and AWS
+         * Lists the Amazon Lookoutfor  Vision projects in the current AWS account and AWS
          * Region.
          * 
          * @param lfvClient   An Amazon Lookout for Vision client.
@@ -85,7 +85,7 @@ public class Projects {
         }
 
         /**
-         * Deletes an Amazon Lookout for Vision project
+         * Deletes an Amazon Lookout for Vision project.
          * 
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that you want to create.

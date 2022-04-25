@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.lookoutvision.model.LookoutVisionExceptio
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Tags an Amazon Lookout for Vision model.
+// Tag an Amazon Lookout for Vision model.
 public class TagModel {
 
     public static final Logger logger = Logger.getLogger(TagModel.class.getName());
@@ -27,10 +27,10 @@ public class TagModel {
 
         final String USAGE = "\n" + "Usage: " + "<project_name> <model_version>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project that contains the model that you to add a tag to.\n\n"
-                + "   model_version - the version of the model that you want to add a tag to.\n\n"
-                + "   key - the key for the tag.\n\n"
-                + "   value - the value of the tag.\n\n";
+                + "   project_arn - The project that contains the model that you to add a tag to.\n\n"
+                + "   model_version - The version of the model that you want to add a tag to.\n\n"
+                + "   key - The key for the tag.\n\n"
+                + "   value - The value of the tag.\n\n";
         if (args.length != 4) {
             System.out.println(USAGE);
             System.exit(1);

@@ -30,9 +30,9 @@ public class UpdateDatasetEntries {
                 "Usage:\n" +
                 "    UpdateDatasetEntries <project_name> <dataset_type> <manifest_file> \n\n" +
                 "Where:\n" +
-                "    project_name - the name of the project that you want to use.\n" +
-                "    dataset_type - the type (train or test) of the dataset that you want to update.\n" +
-                "    manifest_file - the manifest file that you want to use.\n\n";
+                "    project_name - The name of the project that you want to use.\n" +
+                "    dataset_type - The type of the dataset that you want to update (train or test).\n" +
+                "    manifest_file - The manifest file that you want to use.\n\n";
 
         try {
 
@@ -63,7 +63,7 @@ public class UpdateDatasetEntries {
             }
 
         } catch (LookoutVisionException lfvError) {
-            logger.log(Level.SEVERE, "Could not update dataset entriesl: {0}: {1}",
+            logger.log(Level.SEVERE, "Could not update dataset entries: {0}: {1}",
                     new Object[] { lfvError.awsErrorDetails().errorCode(),
                             lfvError.awsErrorDetails().errorMessage() });
             System.out.println(String.format("Could not update dataset entries: %s", lfvError.getMessage()));

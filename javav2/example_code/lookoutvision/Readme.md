@@ -10,7 +10,7 @@ The Java examples perform AWS operations for the account and AWS Region for whic
 
 Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, you can set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 Before running the examples and unit tests, we recommend that you read the [Amazon Lookout for Vision documentation](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/what-is.html). To help you understand the Amazon Lookout for Vision API, read [Getting started with the AWS SDK](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/getting-started-sdk.html). We provide example images that you can use. For more information, see [Step 8: (Optional) Prepare example images](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/su-prepare-example-images.html). 
@@ -26,7 +26,7 @@ The following files provide utility classes for managing Amazon Lookout for Visi
 
 The following examples use the utility classes to show how to use the Amazon Lookout for Vision API.
 
-- **CreateDataset.java** - Shows how to create an Amazon Lookout for Vision dataset with [CreateDataset](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_CreateDataset.html). You need a manifest file to train the model. We provide a [script](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/ex-csv-manifest.html) that creates a manifest file from a CSV file. For more information, see [Creating a manifest file](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/manifest-files.html). 
+- **CreateDataset.java** - Shows how to create an Amazon Lookout for Vision dataset with [CreateDataset](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_CreateDataset.html). You must have a manifest file to train the model. We provide a [script](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/ex-csv-manifest.html) that creates a manifest file from a .csv file. For more information, see [Creating a manifest file](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/manifest-files.html). 
 - **CreateModel.java** - Shows how to create an Amazon Lookout for Vision model with [CreateModel](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_CreateModel.html). You are charged for the amount of time it takes to successfully train a model.
 - **CreateProject.java** - Shows how to create an Amazon Lookout for Vision project with [CreateProject](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_CreateProject.html).
 - **DeleteDataset.java** - Shows how to delete an Amazon Lookout for Vision dataset with [DeleteDataset](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_DeleteDataset.html).
@@ -47,21 +47,21 @@ The following examples use the utility classes to show how to use the Amazon Loo
 - **StopModel.java** - Shows how to stop a hosted Amazon Lookout for Vision model with [StopModel](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_StopModel.html).
 - **TagModel.java** - Shows how to attach a tag to an Amazon Lookout for Vision model with [TagResource](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_TagResource.html).
 - **UntagModel.java** - Shows how to remove a tag from an Amazon Lookout for Vision model with [UntagResource](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_UntagResource.html).
-- **UpdateDatasetEntries.java** - Shows how update Amazon Lookout for Vision dataset with a manifest file  with [UpdateDatasetEntries](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_UpdateDatasetEntries.html).
+- **UpdateDatasetEntries.java** - Shows how to update Amazon Lookout for Vision dataset with a manifest file with [UpdateDatasetEntries](https://docs.aws.amazon.com/lookout-for-vision/latest/APIReference/API_UpdateDatasetEntries.html).
 
 
  ## Testing the Amazon Lookout for Vision files
 
 You can test the Java code examples for Amazon Lookout for Vision by running a test file named **LookoutVisionTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
 **WARNING**: _Running these JUnit tests manipulates real Amazon Lookout for Vision models. You are charged for the amount of time it takes to successfully train the test model and for the amount of time the test model is hosted._
 
  ### Properties file
-Before running the Amazon Lookout for Vision JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Lookout for Vision JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
@@ -72,9 +72,9 @@ Define these values to successfully run the JUnit tests:
 - **modelTrainingOutputFolder** - The folder in modelTrainingOutputBucket in which to place the training results.
 - **photo** - The location of an image to analyze with the trained model. 
 - **manifestFile** - The location of a local manifest file that is used to populate the training dataset. For more information, see [Creating a manifest file](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/manifest-files.html). 
-- **modelPackageJobJsonFile** -  The location of the edge packaging Job request JSON file. We provide a template JSON file for a [target device](./src/main/resources/packaging-job-request-device-template.json) (Jetson Xavier) and a template JSON file for a [target platform](./src/main/resources/packaging-job-request-hardware-template.json). To successfully run the model packaging job test, make sure the value of **ModelVersion** is "1". Each time you run the test, you must change the value of **ComponentVersion** and **JobName**. For information about the package settings that you can make, see [Packaging your model (SDK)](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/package-job-sdk.html).
+- **modelPackageJobJsonFile** - The location of the edge packaging Job request JSON file. We provide a template JSON file for a [target device](./src/main/resources/packaging-job-request-device-template.json) (Jetson Xavier) and a template JSON file for a [target platform](./src/main/resources/packaging-job-request-hardware-template.json). To successfully run the model packaging job test, make sure that the value of **ModelVersion** is "1". Each time you run the test, you must change the value of **ComponentVersion** and **JobName**. For information about the package settings that you can make, see [Packaging your model (SDK)](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/package-job-sdk.html).
 
-If you want to use the project, dataset, and model and that testing creates, disable the following tests:
+If you want to use the project, dataset, and model that the testing creates, disable the following tests:
 - **deleteDataset_thenNotFound()**
 - **deleteModel_thenNotFound()**
 - **deleteProject_thenNotFound()**

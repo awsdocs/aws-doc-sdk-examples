@@ -23,7 +23,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
 
-// Lists the JSON lines in a n Amazon Lookout for Vision dataset.
+// Lists the JSON lines in an Amazon Lookout for Vision dataset.
 public class ListDatasetEntries {
 
     public static final Logger logger = Logger.getLogger(ListDatasetEntries.class.getName());
@@ -39,7 +39,7 @@ public class ListDatasetEntries {
     public static final String HELP = "help";
 
     /*
-     * Sets up command line options for the dataset and filter options.
+     * Set up command line options for the dataset and filter options.
      */
     public static Options setupCommandLine() {
 

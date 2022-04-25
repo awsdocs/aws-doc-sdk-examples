@@ -26,8 +26,8 @@ public class DescribeModelPackagingJob {
 
         final String USAGE = "\n" + "Usage: " + "<project_name> <job_name>\n\n"
                 + "Where:\n"
-                + "   project_arn - the project that contains the model packaging job that you want to describe.\n\n"
-                + "   job_name - the name of the model packaging job that you want to describe.e\n\n";
+                + "   project_arn - The project that contains the model packaging job that you want to describe.\n\n"
+                + "   job_name - The name of the model packaging job that you want to describe.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
