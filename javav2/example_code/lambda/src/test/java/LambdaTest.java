@@ -3,13 +3,24 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-import com.example.lambda.*;
+import com.example.lambda.CreateFunction;
+import com.example.lambda.DeleteFunction;
+import com.example.lambda.GetAccountSettings;
+import com.example.lambda.LambdaScenario;
+import com.example.lambda.LambdaInvoke;
+import com.example.lambda.ListLambdaFunctions;
 import software.amazon.awssdk.services.lambda.LambdaClient;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.BeforeAll;
 import software.amazon.awssdk.regions.Region;
-import java.io.*;
+import java.io.InputStream;
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +39,7 @@ public class LambdaTest {
     private static String key="";
 
     @BeforeAll
-    public static void setUp() throws IOException, URISyntaxException {
+    public static void setUp()  {
 
         Region region = Region.US_WEST_2;
         awsLambda = LambdaClient.builder()
@@ -104,7 +115,7 @@ public class LambdaTest {
 
     @Test
     @Order(7)
-    public void LambdaScenario() throws InterruptedException {
+    public void LambdaScenario() {
 
         String funArn = LambdaScenario.createLambdaFunction(awsLambda, functionNameSc, filePath, role, handler);
         System.out.println("The function ARN is "+funArn);
@@ -117,15 +128,13 @@ public class LambdaTest {
         System.out.println("Listing all functions.");
         LambdaScenario.listFunctions(awsLambda);
 
-        System.out.println("*** Wait for 1 MIN so the resource is available.");
-        TimeUnit.MINUTES.sleep(1);
+        System.out.println("*** Invoke the Lambda function.");
         LambdaScenario.invokeFunction(awsLambda, functionNameSc);
 
         System.out.println("*** Update the Lambda function code.");
         LambdaScenario.updateFunctionCode(awsLambda, functionNameSc, bucketName, key);
 
-        System.out.println("*** Wait another 1 MIN so the resource is updated and then invoke the function again.");
-        TimeUnit.MINUTES.sleep(1);
+        System.out.println("*** Invoke the Lambda function again with the updated code.");
         LambdaScenario.invokeFunction(awsLambda, functionNameSc);
 
         System.out.println("Delete the AWS Lambda function.");

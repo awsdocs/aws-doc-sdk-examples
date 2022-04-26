@@ -81,6 +81,15 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.create_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.CreateTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -207,6 +216,15 @@ dynamodb_DescribeTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.describe_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DescribeTable
     JavaScript:
       versions:
         - sdk_version: 3
@@ -251,6 +269,15 @@ dynamodb_BatchWriteItem:
   synopsis: write a batch of &DDB; items.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.BatchWriteItem
     Java:
       versions:
         - sdk_version: 2
@@ -345,6 +372,15 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.delete_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DeleteTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -424,6 +460,15 @@ dynamodb_PutItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.put_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.PutItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -515,6 +560,15 @@ dynamodb_GetItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.get_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.GetItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -598,6 +652,15 @@ dynamodb_UpdateItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.update_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.UpdateItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -671,6 +734,15 @@ dynamodb_DeleteItem:
   synopsis: delete an item from a &DDB; table.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DeleteItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -768,6 +840,15 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.cpp.list_tables.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.ListTables
     Kotlin:
       versions:
         - sdk_version: 1
@@ -842,6 +923,15 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - dynamodb.cpp.query_items.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.Query
     Kotlin:
       versions:
         - sdk_version: 1
@@ -932,6 +1022,15 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.cpp.scan_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.Scan
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1040,15 +1139,26 @@ dynamodb_Scenario_GettingStartedMovies:
   title_abbrev: Get started using tables, items, and queries
   synopsis_list:
     - Create a table that can hold movie data.
-    - Write movie data to the table from a sample JSON file.
     - Put, get, and update a single movie in the table.
-    - Update a movie only when it meets certain conditions.
+    - Write movie data to the table from a sample JSON file.
     - Query for movies that were released in a given year.
     - Scan for movies that were released in a range of years.
     - Delete a movie from the table.
     - Delete the table.
   category: Scenarios
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description: Create a struct and methods that call &DDB; actions.
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.complete
+            - description: Run an interactive scenario to create the table and perform
+                actions on it.
+              snippet_tags:
+                - gov2.dynamodb.Scenario_GettingStartedMovies
     Kotlin:
       versions:
         - sdk_version: 1
