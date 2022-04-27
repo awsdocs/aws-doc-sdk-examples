@@ -52,7 +52,7 @@ type Printer struct{}
 func (p Printer) Walk(name exif.FieldName, tag *tiff.Tag) error {
 	e := ExifEntry{
 		entryName: string(name),
-		entryTag:  fmt.Sprintf("%s", tag),
+		entryTag:  tag.String(),
 	}
 
 	ExifEntries = append(ExifEntries, e)
@@ -320,17 +320,12 @@ func createThumbnail(file io.Reader, bucketName string, fileName string) (string
 			fmt.Println("Got an error calling jpeg.Encode")
 			return "", err
 		}
-
-		break
 	case "png":
 		err = png.Encode(&buf, m)
 		if err != nil {
 			fmt.Println("Got an error calling png.Encode")
 			return "", err
 		}
-
-		break
-
 	default:
 		msg := "Unsupported format: " + parts[1]
 		return "", errors.New(msg)

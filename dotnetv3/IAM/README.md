@@ -61,7 +61,6 @@ The examples in this section show how to use AWS Identity and Access Management 
 - [CreateAccessKeyExample](CreateAccessKeyExample/CreateAccessKeyExample/) - Creates a new IAM access key. (`CreateAccessKeyAsync`)
 - [CreatePolicyExample](CreatePolicyExample/) - Creates a new IAM policy. (`CreatePolicyAsync`)
 - [CreateRoleExample](CreateRoleExample/) - Creates a new IAM role. (`CreateRoleAsync`)
-- [CreateServiceLinkedRole](CreateServiceLinkedRole/) - Creates a new IAM service-linked role. (`CreateServiceLinkedRoleAsync`)
 - [CreateUserExample](CreateUserExample/) - Creates a new IAM user. (`CreateUserAsync`)
 - [DeleteAccessKeyExample](DeleteAccessKeyExample/) - Deletes an IAM access key. (`DeleteAccessKeyAsync`)
 - [DeleteRolePolicyExample](DeleteRolePolicyExample/) - Deletes an IAM role policy. (`DeleteRolePolicyAsync`)
