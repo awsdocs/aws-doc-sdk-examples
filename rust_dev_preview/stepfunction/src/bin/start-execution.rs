@@ -34,10 +34,10 @@ async fn main() -> Result<(), Error> {
 
     if verbose {
         println!("SF arn: {}", &arn);
-        println!("Input:  {}", &input);
+        println!("Input: {}", &input);
         println!();
     }
-    
+
     let rsp = client
         .start_execution()
         .state_machine_arn(&arn)
@@ -45,10 +45,7 @@ async fn main() -> Result<(), Error> {
         .send()
         .await?;
 
-    println!(
-        "Step function response: `{:?}`",
-        rsp
-    );
+    println!("Step function response: `{:?}`", rsp);
 
     Ok(())
 }

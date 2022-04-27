@@ -17,10 +17,7 @@ struct Opt {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt {
-        arn,
-        verbose,
-    } = Opt::from_args();
+    let Opt { arn, verbose } = Opt::from_args();
 
     let shared_config = aws_config::load_from_env().await;
     let client = Client::new(&shared_config);
@@ -31,17 +28,10 @@ async fn main() -> Result<(), Error> {
         println!("SF arn: {}", &arn);
         println!();
     }
-    
-    let rsp = client
-        .stop_execution()
-        .execution_arn(&arn)
-        .send()
-        .await?;
 
-    println!(
-        "Step function response: `{:?}`",
-        rsp
-    );
+    let rsp = client.stop_execution().execution_arn(&arn).send().await?;
+
+    println!("Step function response: `{:?}`", rsp);
 
     Ok(())
 }
