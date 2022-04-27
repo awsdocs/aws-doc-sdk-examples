@@ -6,7 +6,7 @@ This README discusses how to run and test the Java code examples for Amazon Look
 
 **IMPORTANT**
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Some examples incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Some examples run AWS services and might incur charge. For details about the charges you can expect for a given service and operation, see the [AWS Pricing page](https://aws.amazon.com/pricing/).
 
 Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
