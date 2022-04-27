@@ -13,12 +13,12 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:lexruntimeservice:0.9.4-beta")
-    implementation("aws.sdk.kotlin:lexmodelbuildingservice:0.9.4-beta")
+    implementation("aws.sdk.kotlin:lexruntimeservice:0.14.3-beta")
+    implementation("aws.sdk.kotlin:lexmodelbuildingservice:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-
 }
+
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }

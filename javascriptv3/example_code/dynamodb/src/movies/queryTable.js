@@ -1,7 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
@@ -25,7 +25,6 @@ export const params = {
   ExpressionAttributeNames: { "#r": "rank", "#y": "year" },
   ProjectionExpression: "#r, #y, title",
   TableName: "TABLE_NAME",
-  UpdateExpression: "set #r = :r, title = :t, #y = :y",
   ExpressionAttributeValues: {
     ":t": "MOVIE_NAME",
     ":y": "MOVIE_YEAR",
