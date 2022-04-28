@@ -13,7 +13,7 @@ dynamodb_ExecuteStatement:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.kotlin.partiql.main
+                - dynamodb.kotlin.scenario.partiql.main
     Java:
       versions:
         - sdk_version: 2
@@ -22,9 +22,50 @@ dynamodb_ExecuteStatement:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.java2.partiql.main
+                - dynamodb.java2.scenario.partiql.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.basics.createclientv3
+            - description: Create the document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.createdocclientv3
+            - description: Query single items.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.partiQL_basics
+            - description: Query items by batch.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.partiQL_batch_basics
   services:
     dynamodb: {ExecuteStatement}
+dynamodb_BatchExecuteStatement:
+  title: Query a &DDB; table by batch using PartiQL and an &AWS; SDK
+  title_abbrev: Query a &DDB; table by batch using PartiQL
+  synopsis: query a &DDB; table by batch using PartiQL.
+  category: Scenarios
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.basics.createclientv3
+            - description: Create the document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.createdocclientv3
+            - description: Query items by batch.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.partiQL_batch_basics
+  services:
+    dynamodb: {BatchExecuteStatement}
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
@@ -40,6 +81,15 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.create_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.CreateTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -166,6 +216,15 @@ dynamodb_DescribeTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.describe_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DescribeTable
     JavaScript:
       versions:
         - sdk_version: 3
@@ -210,6 +269,15 @@ dynamodb_BatchWriteItem:
   synopsis: write a batch of &DDB; items.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.BatchWriteItem
     Java:
       versions:
         - sdk_version: 2
@@ -304,6 +372,15 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.delete_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DeleteTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -383,6 +460,15 @@ dynamodb_PutItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.put_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.PutItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -441,6 +527,12 @@ dynamodb_PutItem:
             - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.movies.putItemV3
+            - description: Put an item in a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.putItemV3
+            - description: Put items by batch in a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.putItemsV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
@@ -468,6 +560,15 @@ dynamodb_GetItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.get_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.GetItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -518,6 +619,12 @@ dynamodb_GetItem:
             - description: Get an item from a table.
               snippet_tags:
                 - dynamodb.JavaScript.movies.getItemV3
+            - description: Get an item from a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.getItemV3
+            - description: Get items by batch from a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.getItemsV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
@@ -545,6 +652,15 @@ dynamodb_UpdateItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.update_item.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.UpdateItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -604,6 +720,12 @@ dynamodb_UpdateItem:
             - description: Update an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.movies.updateItemV3
+            - description: Update an item in a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.updateItemV3
+            - description: Update items by batch in a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.updateItemsV3
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -612,6 +734,15 @@ dynamodb_DeleteItem:
   synopsis: delete an item from a &DDB; table.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.DeleteItem
     Kotlin:
       versions:
         - sdk_version: 1
@@ -676,6 +807,12 @@ dynamodb_DeleteItem:
             - description: Delete an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.movies.deleteV3
+            - description: Delete an item from a table using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.deleteItemV3
+            - description: Delete an item from a table by batch using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.deleteItemsV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
@@ -703,6 +840,15 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.cpp.list_tables.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.ListTables
     Kotlin:
       versions:
         - sdk_version: 1
@@ -777,6 +923,15 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - dynamodb.cpp.query_items.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.Query
     Kotlin:
       versions:
         - sdk_version: 1
@@ -867,6 +1022,15 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.cpp.scan_table.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.struct
+                - gov2.dynamodb.Scan
     Kotlin:
       versions:
         - sdk_version: 1
@@ -975,15 +1139,26 @@ dynamodb_Scenario_GettingStartedMovies:
   title_abbrev: Get started using tables, items, and queries
   synopsis_list:
     - Create a table that can hold movie data.
-    - Write movie data to the table from a sample JSON file.
     - Put, get, and update a single movie in the table.
-    - Update a movie only when it meets certain conditions.
+    - Write movie data to the table from a sample JSON file.
     - Query for movies that were released in a given year.
     - Scan for movies that were released in a range of years.
     - Delete a movie from the table.
     - Delete the table.
   category: Scenarios
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description: Create a struct and methods that call &DDB; actions.
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.complete
+            - description: Run an interactive scenario to create the table and perform
+                actions on it.
+              snippet_tags:
+                - gov2.dynamodb.Scenario_GettingStartedMovies
     Kotlin:
       versions:
         - sdk_version: 1

@@ -53,6 +53,10 @@ cross_DynamoDBDataTracker:
       versions:
         - sdk_version: 2
           block_content: cross_DynamoDBDataTracker_Java_block.xml
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_DynamoDBDataTracker_Net_block.xml
     Kotlin:
       versions:
         - sdk_version: 1
@@ -312,6 +316,10 @@ cross_RekognitionPhotoAnalyzer:
       versions:
         - sdk_version: 2
           block_content: cross_RekognitionPhotoAnalyzer_Java_block.xml
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzer_Net_block.xml
     JavaScript:
       versions:
         - sdk_version: 3
@@ -402,3 +410,17 @@ cross_Telephone:
     polly: {}
     s3: {}
     transcribe: {}
+cross_LambdaForBrowser:
+  title: Invoke a &LAM; function from a browser
+  title_abbrev: Invoke a &LAM; function from a browser
+  synopsis: invoke an &LAMlong; function from a browser.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          block_content: cross_LambdaForBrowser_JavaScript_block.xml
+        - sdk_version: 3
+          block_content: cross_LambdaForBrowser_JavaScriptV3_block.xml
+  services:
+    lambda:
+    dynamodb:

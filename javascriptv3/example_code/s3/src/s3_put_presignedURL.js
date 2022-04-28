@@ -74,7 +74,9 @@ export const run = async () => {
   try {
     // Delete the S3 bucket.
     console.log(`\nDeleting bucket ${bucketParams.Bucket}`);
-    await s3.send(new DeleteBucketCommand({ Bucket: bucketParams.Bucket }));
+    await s3Client.send(
+      new DeleteBucketCommand({ Bucket: bucketParams.Bucket })
+    );
   } catch (err) {
     console.log("Error deleting bucket", err);
   }
