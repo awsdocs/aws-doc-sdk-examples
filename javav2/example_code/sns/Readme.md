@@ -1,4 +1,4 @@
-# Amazon SNS Java code examples
+# Amazon SNS code examples for the SDK for Java
 
 ## Overview
 This README discusses how to run and test the Java V2 code examples for Amazon Simple Notification Service (Amazon SNS).
