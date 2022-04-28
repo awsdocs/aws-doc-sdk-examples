@@ -41,18 +41,12 @@ You will find these examples that use the **SnsClient** object:
 - [Removing an Amazon SNS subscription.](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/Unsubscribe.java) (Unsubscribe command)  
 - [Initializing and using the example SNSMessageFilterPolicy class.](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/UseMessageFilterPolicy.java) (Apply command)  
 
-### Scenario
+### Cross-service examples
 
-- [Performing various Amazon DynamoDB operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Scenario.java) (Multiple commands)
-
-- [Performing various Amazon DynamoDB operations using PartiQL](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ScenarioPartiQ.java) (Multiple commands)
-### Cross-service
-
-- [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project) 
-- [Creating the Amazon DynamoDB web application item tracker](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app) 
-- [Creating scheduled events to invoke Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events) 
-- [Create AWS serverless workflows by using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_workflows_stepfunctions) 
-
+- [Build an application to submit data to a DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project) (Multiple commands)
+- [Build a publish and subscription application that translates messages](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app) (Multiple commands)
+- [Build a publish and subscription application that translates messages using Java Async API](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async) (Multiple commands)
+- [Use scheduled events to invoke a Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events) (Multiple commands)
 
 ## Running the Amazon SNS Java files
 
@@ -133,3 +127,8 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
 	[ERROR];
+	
+## Additional resources
+* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
+* [Interface SnsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sns/SnsClient.html).	
