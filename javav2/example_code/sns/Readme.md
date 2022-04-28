@@ -15,7 +15,7 @@ Amazon SNS is a managed service that provides message delivery from publishers t
 
 ### Single action
 
-You will find these examples that use the **SnsClient** object: 
+The following examples use the **SnsClient** object:
 
 - [Adding tags to an Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/AddTags.java) (TagResource command)
 - [Determining whether the user of the phone number has selected to no longer receive future Amazon SNS text messages.](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/CheckOptOut.java) (CheckIfPhoneNumberIsOptedOut command)
