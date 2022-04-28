@@ -3,7 +3,7 @@
 ## Overview
 This README discusses how to run and test the Java V2 code examples for Amazon Simple Notification Service (Amazon SNS).
 
-Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). 
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
