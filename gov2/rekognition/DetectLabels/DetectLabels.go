@@ -192,13 +192,13 @@ type RekognitionDetectLabelsAPI interface {
 		optFns ...func(*rekognition.Options)) (*rekognition.DetectLabelsOutput, error)
 }
 
-// GetLabels retrieves the lables in a jpg or png image.
+// GetLabels retrieves the labels in a jpg or png image.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If successful, a DetectLablesOutput object containing the result of the service call and nil.
+//     If successful, a DetectLabelsOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DetectLabels.
 func GetLabels(c context.Context, api RekognitionDetectLabelsAPI, input *rekognition.DetectLabelsInput) (*rekognition.DetectLabelsOutput, error) {
 	resp, err := api.DetectLabels(c, input)
