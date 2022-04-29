@@ -17,8 +17,7 @@ Amazon Timestream is a fast, scalable, and serverless time series database servi
 
 The following examples use the **TimestreamWriteClient** object:
 
-- [Creating a database](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
-/src/main/java/com/timestream/write/CreateDatabase.java) (CreateDatabase command)
+- [Creating a database](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/CheckOptOut.java) (CreateDatabase command)
 - [Creating a database table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
 /src/main/java/com/timestream/write/CreateTable.java) (CreateTable command)
 - [Deleting a database](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
