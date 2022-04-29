@@ -1,0 +1,30 @@
+{
+    "Configuration": { 
+        "Greengrass": { 
+            "CompilerOptions": "{\"gpu-code\": \"sm_75\", \"trt-ver\": \"7.1.3\", \"cuda-ver\": \"10.2\"}",
+            "ComponentDescription": "<Greengrass component description>",
+            "ComponentName": "<Greengrass component name>",
+            "ComponentVersion": "<Greengrass component in n.n.n format>",
+            "S3OutputLocation": { 
+                "Bucket": "<output bucket>",
+                "Prefix": "<output folder>"
+            },
+            "Tags": [ 
+               { 
+                  "Key": "<Your key>",
+                  "Value": "<Your key value>"
+               }
+            ],
+            "TargetPlatform": { 
+                "Accelerator": "NVIDIA",
+                "Arch": "X86_64",
+                "Os": "LINUX"
+             } 
+
+        }
+    },
+    "Description": "<Packaging job description>",
+    "JobName": "<Packaging job name>",
+    "ModelVersion": "<Version of the model to package. For the unit tests, this value must be 1>"
+}
+
