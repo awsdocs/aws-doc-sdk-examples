@@ -9,10 +9,11 @@ https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/edit-datas
 Shows how to update a Lookout for Vision dataset with a manifest file.
 """
 import logging
-import boto3
 import argparse
-from datasets import update_dataset_entries
+import boto3
 from botocore.exceptions import ClientError
+from datasets import Datasets
+
 
 logger = logging.getLogger(__name__)
 
@@ -54,7 +55,7 @@ def main():
         # Update the dataset.
         lookoutvision_client = boto3.client('lookoutvision')
 
-        status, status_message = update_dataset_entries(lookoutvision_client,
+        status, status_message = Datasets.update_dataset_entries(lookoutvision_client,
                                                         args.project_name,
                                                         args.dataset_type,
                                                         args.updates_file)
@@ -62,10 +63,10 @@ def main():
         print(f"Finished updates dataset: {status} : {status_message}")
 
     except ClientError as err:
-        logger.exception(f"Problem updating dataset: {err}")
+        logger.exception("Problem updating dataset: %s",err)
         print(f"Problem updating dataset: {err}")
     except Exception as err:
-        logger.exception(f"Problem updating dataset: {err}")
+        logger.exception("Problem updating dataset: %s", err)
         print(f"Problem updating dataset: {err}")
 
 
