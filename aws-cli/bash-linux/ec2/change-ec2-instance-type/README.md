@@ -39,8 +39,8 @@ The main script file contains the `change_ec2_instance_type()` function that per
 This example is written as a function in a shell script file (*`change_ec2_instance_type.sh`*) that you can `source` from another script or from the command line. Once the function is in memory, you can invoke it from the command line. For example, the following commands change the type of the specified instance to `t2.nano`:
 
 ```
-source ./change_ec2_instance_type.sh
-./change_ec2_instance_type -i *instance-id* -t new-type
+source change_ec2_instance_type.sh
+change_ec2_instance_type -i *instance-id* -t t2.nano
 ```
 
 ## Parameters

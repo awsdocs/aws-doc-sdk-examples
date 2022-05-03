@@ -8,18 +8,17 @@ plugins {
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:sfn:0.9.4-beta")
+    implementation("aws.sdk.kotlin:sfn:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
-    implementation ("com.googlecode.json-simple:json-simple:1.1")
+    implementation("com.googlecode.json-simple:json-simple:1.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-
 }
+
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
