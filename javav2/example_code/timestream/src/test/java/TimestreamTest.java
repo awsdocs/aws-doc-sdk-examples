@@ -21,7 +21,7 @@ public class TimestreamTest {
     private static String dbName = "";
     private static String newTable = "";
 
-    // TODO" Change database name
+    // TODO Change database name in this string.
     private static String queryString = "SELECT\n" +
             "    truck_id,\n" +
             "    fleet,\n" +
