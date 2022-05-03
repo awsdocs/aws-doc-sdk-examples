@@ -3,7 +3,7 @@
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (v2) code examples for Amazon Timestream.
 
-Amazon Timestream is a fast, scalable, and serverless time series database service for IoT and operational applications that makes it easy to store and analyze trillions of events per day up to 1,000 times faster and at as little as 1/10th the cost of relational databases.
+Amazon Timestream is a fast, scalable, fully managed, purpose-built time series database for IoT and operational applications that makes it easy to store and analyze trillions of time series data points per day.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -31,9 +31,9 @@ The following examples use the **TimestreamWriteClient** object:
 /src/main/java/com/timestream/write/ListDatabases.java) (ListDatabases command)
 - [Listing all tables](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
 /src/main/java/com/timestream/write/ListTables.java) (ListTables command)
-- [Update a database table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
+- [Updating a database table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
 /src/main/java/com/timestream/write/UpdateTable.java) (UpdateTable command)
-- [Write data into a table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
+- [Writing data into a table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
 /src/main/java/com/timestream/write/WriteData.java) (writeRecords command)
 
 
@@ -41,11 +41,11 @@ The following examples use the **TimestreamWriteClient** object:
 
 **IMPORTANT**
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.   
+The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you might incur AWS service charges by running them. For details about the charges you can expect for a given service and operation, see the [AWS Pricing page](https://aws.amazon.com/pricing/).   
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an table. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a table. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
@@ -57,7 +57,7 @@ You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the c
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real AWS resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account._
 
  ### Properties file
 Before running the Amazon Timestream JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define a database name used for various tests. If you do not define all values, the JUnit tests fail.
