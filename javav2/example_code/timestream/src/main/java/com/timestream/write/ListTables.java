@@ -25,9 +25,9 @@ import software.amazon.awssdk.services.timestreamwrite.paginators.ListTablesIter
 //snippet-end:[timestream.java2.list_tables.import]
 
 /**
- * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
+ * Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -39,7 +39,7 @@ public class ListTables {
                 "Usage: " +
                 "   <dbName>\n\n" +
                 "Where:\n" +
-                "   dbName - the name of the database.\n\n";
+                "   dbName - The name of the database.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);

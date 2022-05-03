@@ -13,6 +13,7 @@
 
 package com.timestream.write;
 
+//snippet-start:[timestream.java2.write_table.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import software.amazon.awssdk.services.timestreamwrite.model.Dimension;
@@ -22,15 +23,34 @@ import software.amazon.awssdk.services.timestreamwrite.model.RejectedRecord;
 import software.amazon.awssdk.services.timestreamwrite.model.RejectedRecordsException;
 import software.amazon.awssdk.services.timestreamwrite.model.WriteRecordsRequest;
 import software.amazon.awssdk.services.timestreamwrite.model.WriteRecordsResponse;
-
 import java.util.ArrayList;
 import java.util.List;
+//snippet-end:[timestream.java2.write_table.import]
 
+/**
+ * Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class WriteData {
 
     public static void main(String[] args){
 
-         String dbName = "ScottTimeDB";
+        final String usage = "\n" +
+                "Usage: " +
+                "   <dbName> <newTable>\n\n" +
+                "Where:\n" +
+                "   dbName - The name of the database.\n\n"+
+                "   newTable - The name of the table.\n\n";
+
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+
+        String dbName = "ScottTimeDB";
         String tableName = "IoTMulti";
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
                 .region(Region.US_EAST_1)
@@ -38,11 +58,13 @@ public class WriteData {
 
         writeRecords(timestreamWriteClient, dbName, tableName);
     }
+
+    //snippet-start:[timestream.java2.write_table.main]
     public static void writeRecords(TimestreamWriteClient timestreamWriteClient,  String dbName,  String tableName) {
 
         System.out.println("Writing records");
 
-        // Specify repeated values for all records
+        // Specify repeated values for all records.
         List<Record> records = new ArrayList<>();
         final long time = System.currentTimeMillis();
 
@@ -98,9 +120,10 @@ public class WriteData {
                 System.out.println("Rejected Index " + rejectedRecord.recordIndex() + ": "
                         + rejectedRecord.reason());
             }
-            System.out.println("Other records were written successfully. ");
+            System.out.println("Other records were written successfully.");
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
     }
+    //snippet-end:[timestream.java2.write_table.main]
 }

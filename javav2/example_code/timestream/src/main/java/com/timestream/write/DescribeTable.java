@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.timestreamwrite.model.TimestreamWriteExce
 //snippet-end:[timestream.java2.desc_table.import]
 
 /**
- * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
+ * Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,8 +37,8 @@ public class DescribeTable {
                 "Usage: " +
                 "   <dbName> <tableName>\n\n" +
                 "Where:\n" +
-                "   dbName - the name of the database.\n\n" +
-                "   tableName - the name of the table.\n\n";
+                "   dbName - The name of the database.\n\n" +
+                "   tableName - The name of the table.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);

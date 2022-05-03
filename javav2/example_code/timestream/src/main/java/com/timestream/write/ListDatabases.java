@@ -25,6 +25,13 @@ import software.amazon.awssdk.services.timestreamwrite.paginators.ListDatabasesI
 
 import java.util.List;
 
+/**
+ * Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListDatabases {
 
     public static void main(String[] args){
