@@ -1,4 +1,4 @@
-# AWS Identity and Access Management Java code examples for the AWS SDK for Java V2
+# IAM code examples for the SDK for Java (v2)
 
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (v2) code examples for AWS Identity and Access Management (IAM).
