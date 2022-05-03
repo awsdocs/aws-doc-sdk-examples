@@ -3,7 +3,7 @@
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (v2) code examples for AWS Identity and Access Management (IAM).
 
-AWS IAM ensures that the right people and job roles in your organization (identities) can access the tools they need to do their jobs. 
+With IAM, the right people and job roles in your organization (identities) can access the tools they need to do their jobs.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -40,7 +40,7 @@ The following code examples use the **IamClient** object.
                
 **JSON File**
 
-To successfully run the **IAMScenario**, you need a JSON file that contains the information to create a role. Included in this file is the ARN of the IAM user for the trust relationship. The following JSON shows an example. 
+To successfully run the **IAMScenario**, you need a JSON file that contains the information to create a role. Included in this file is the Amazon Resource Name (ARN) of the IAM user for the trust relationship. The following JSON shows an example. 
 
     {
      "Version": "2012-10-17",
@@ -58,7 +58,7 @@ To successfully run the **IAMScenario**, you need a JSON file that contains the 
     
 ## Running the IAM code examples for the SDK for Java (v2)   
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a user. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
