@@ -2,7 +2,7 @@
 // AWS S3 Basics
 //
 // A demonstration program that follows the actions listed in the article
-// S3 Getting started:
+// "S3 Getting started":
 //
 // https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
 //
