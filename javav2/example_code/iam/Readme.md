@@ -1,7 +1,7 @@
 # AWS Identity and Access Management Java code examples for the AWS SDK for Java V2
 
 ## Overview
-This README discusses how to run and test the Java V2 code examples for  AWS Identity and Access Management (AWS IAM).
+This README discusses how to run and test the AWS SDK for Java (v2) code examples for AWS Identity and Access Management (IAM).
 
 AWS IAM ensures that the right people and job roles in your organization (identities) can access the tools they need to do their jobs. 
 
@@ -15,28 +15,28 @@ AWS IAM ensures that the right people and job roles in your organization (identi
 The following code examples use the **IamClient** object. 
 
 - [Displaying the time that an access key was last used](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/AccessKeyLastUsed.java) (GetAccessKeyLastUsed command)
-- [Attaching a policy to an existing AWS IAM role](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/AttachRolePolicy.java) (ListAttachedRolePolicies command)
-- [Creating an access key for an AWS IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreateAccessKey.java) (CreateAccessKey command)
+- [Attaching a policy to an existing IAM role](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/AttachRolePolicy.java) (ListAttachedRolePolicies command)
+- [Creating an access key for an IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreateAccessKey.java) (CreateAccessKey command)
 - [Creating an alias for an AWS account](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreateAccountAlias.java) (CreateAccountAlias command)
-- [Creating an AWS IAM policy](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreatePolicy.java) (CreatePolicy command)
-- [Creating an AWS IAM role](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreateRole.java) (CreateRole command)
-- [Creating an AWS IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreateUser.java) (CreateUser command)
-- [Deleting an access key from an AWS IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DeleteAccessKey.java) (DeleteAccessKey command)
+- [Creating an IAM policy](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreatePolicy.java) (CreatePolicy command)
+- [Creating an IAM role](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreateRole.java) (CreateRole command)
+- [Creating an IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/CreateUser.java) (CreateUser command)
+- [Deleting an access key from an IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DeleteAccessKey.java) (DeleteAccessKey command)
 - [Deleting an alias from an AWS account](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DeleteAccountAlias.java) (DeleteAccountAlias command)
 - [Deleting a fixed policy with a provided policy name](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DeletePolicy.java) (DeletePolicy command)
-- [Deleting an AWS IAM server certificate](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DeleteServerCertificate.java) (DeleteServerCertificate command)
-- [Deleting an AWS IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DeleteUser.java) (DeleteUser command)
-- [Detaching a policy from an AWS IAM role](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DetachRolePolicy.java) (DetachRolePolicy command)
-- [Getting the details for an AWS IAM policy](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/GetPolicy.java) (GetPolicy command)
-- [Getting information about the specified AWS IAM role](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/GetRole.java) (GetRole command)
-- [Getting information about an AWS IAM server certificate](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/GetServerCertificate.java) (GetServerCertificate command)
-- [Performing various AWS IAM operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/IAMScenario.java) (Mulitple commands)
-- [Listing access keys associated with an AWS IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/ListAccessKeys.java) (ListAccessKeys commands)
+- [Deleting an IAM server certificate](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DeleteServerCertificate.java) (DeleteServerCertificate command)
+- [Deleting an IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DeleteUser.java) (DeleteUser command)
+- [Detaching a policy from an IAM role](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/DetachRolePolicy.java) (DetachRolePolicy command)
+- [Getting the details for an IAM policy](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/GetPolicy.java) (GetPolicy command)
+- [Getting information about the specified IAM role](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/GetRole.java) (GetRole command)
+- [Getting information about an IAM server certificate](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/GetServerCertificate.java) (GetServerCertificate command)
+- [Performing various IAM operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/IAMScenario.java) (Mulitple commands)
+- [Listing access keys associated with an IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/ListAccessKeys.java) (ListAccessKeys commands)
 - [Listing all aliases associated with an AWS account](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/ListAccountAliases.java) (ListAccountAliases commands)
 - [Listing all server certificates associated with an AWS account](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/ListServerCertificates.java) (ListServerCertificates commands)
-- [Listing all AWS IAM users](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/ListUsers.java) (ListUsers commands)
-- [Updating an AWS IAM server certificate](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/UpdateServerCertificate.java) (UpdateServerCertificate commands)
-- [Update an AWS IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/UpdateUser.java) (UpdateUser commands)
+- [Listing all IAM users](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/ListUsers.java) (ListUsers commands)
+- [Updating an IAM server certificate](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/UpdateServerCertificate.java) (UpdateServerCertificate commands)
+- [Updating an IAM user](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/UpdateUser.java) (UpdateUser commands)
                
 **JSON File**
 
@@ -56,7 +56,7 @@ To successfully run the **IAMScenario**, you need a JSON file that contains the 
      ]
     }
     
-## Running the AWS Identity and Access Management examples    
+## Running the IAM code examples for the SDK for Java (v2)   
 
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
