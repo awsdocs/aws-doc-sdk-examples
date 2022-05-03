@@ -58,7 +58,7 @@ To successfully run the **IAMScenario**, you need a JSON file that contains the 
     
 ## Running the IAM code examples for the SDK for Java (v2)   
 
-To run these examples, setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a user. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
