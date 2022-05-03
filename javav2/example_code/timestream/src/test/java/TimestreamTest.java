@@ -30,7 +30,7 @@ public class TimestreamTest {
             "    load_capacity,\n" +
             "    make,\n" +
             "    measure_name\n" +
-            "FROM \"ScottTimeDB\".IoTMulti" ;
+            "FROM \"<Specify Database name>\".IoTMulti" ;
 
     @BeforeAll
     public static void setUp() throws IOException {
