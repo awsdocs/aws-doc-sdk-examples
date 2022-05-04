@@ -1,15 +1,14 @@
-# AWS SDK for Rust code examples for AWS IoT
+# AWS SDK for Rust code examples for AWS IoT Greengrass V2
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS IoT operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Greengrass V2 operations using the developer preview version of the AWS SDK for Rust.
 
-AWS IoT provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators, embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN.
+AWS IoT Greengrass seamlessly extends AWS onto physical devices so they can act locally on the data they generate, while still using the cloud for management, analytics, and durable storage. 
 
 ## Code examples
 
-- [Display the address of an endpoint](src/bin/describe-endpoints.rs) (DescribeEndpoints)
-- [List your things](src/bin/list-core-devices.rs) (ListThings)
+- [List your core devices](src/bin/list-core-devices.rs) (ListCoreDevices)
 
 ## ⚠ Important
 
@@ -31,7 +30,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### list-core-devices
 
-This example lists the name, type, and ARN of your IoT things in the Region. 
+This example lists the name, status, and last update timestamp of your IoT Greengrass V2 devices in the Region. 
 
 `cargo run --bin list-core-devices -- [-r REGION] [-v]`
 
@@ -43,7 +42,7 @@ This example lists the name, type, and ARN of your IoT things in the Region.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- - [AWS SDK for Rust API Reference for IoT](https://docs.rs/aws-sdk-iot)
+- - [AWS SDK for Rust API Reference for Greengrass V2](https://docs.rs/aws-sdk-greengrassv2)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing
