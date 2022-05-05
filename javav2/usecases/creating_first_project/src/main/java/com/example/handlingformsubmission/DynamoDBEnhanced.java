@@ -23,7 +23,7 @@ public class DynamoDBEnhanced {
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
-              //  .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         try {
