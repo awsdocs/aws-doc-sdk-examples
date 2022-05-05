@@ -19,7 +19,7 @@ public class PublishTextSMS {
         Region region = Region.US_EAST_1;
         SnsClient snsClient = SnsClient.builder()
                 .region(region)
-             //   .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
         String phoneNumber="18195765654"; //Replace with a mobile phone number
