@@ -3,8 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
-
 package com.example.handlingformsubmission;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +30,12 @@ public class GreetingController {
     @PostMapping("/greeting")
     public String greetingSubmit(@ModelAttribute Greeting greeting) {
 
-        //Persist submitted data into a DynamoDB table using the Enhanced Client
+        // Persist submitted data into a DynamoDB table using the Enhanced client.
         dde.injectDynamoItem(greeting);
 
-        // Send a mobile notification
+        // Send a mobile notification.
         msg.sendMessage(greeting.getId());
 
         return "result";
     }
-
 }
