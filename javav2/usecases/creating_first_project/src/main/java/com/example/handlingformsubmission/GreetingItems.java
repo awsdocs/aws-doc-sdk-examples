@@ -20,7 +20,6 @@ public class GreetingItems {
     {
     }
 
-
     public String getId() {
         return this.id;
     }
