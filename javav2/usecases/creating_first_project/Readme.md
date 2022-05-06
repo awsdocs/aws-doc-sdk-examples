@@ -60,6 +60,8 @@ To complete the tutorial, you need the following:
 
 Create a DynamoDB table named **Greeting** that contains a partition key named **id**. For information about creating a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
+In addition, make sure that you have properly set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
+
 ## Understand the web application
 
 The following shows the application that you will create.
