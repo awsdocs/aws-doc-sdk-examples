@@ -52,7 +52,7 @@ func TestMonitorInstances(t *testing.T) {
 
 		result, err := DisableMonitoring(context.Background(), api, input)
 		if err != nil {
-			fmt.Println("Got an error disablying monitoring for instance:")
+			fmt.Println("Got an error disabling monitoring for instance:")
 			fmt.Println(err)
 			return
 		}

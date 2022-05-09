@@ -67,7 +67,7 @@ func TestParseFullMessage(t *testing.T) {
 		t.Fatal("Event identiy principal was not parsed")
 	}
 
-	// make sure the source address is appropariately parsed out.
+	// make sure the source address is appropriately parsed out.
 	if record.SourceAddress == nil {
 		t.Fatal("source address was not parsed")
 	}
