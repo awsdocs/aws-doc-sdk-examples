@@ -263,7 +263,7 @@ func examples(cfg aws.Config) ExampleCreatedResources {
 	})
 
 	if err != nil {
-		panic("Could't create policy!" + err.Error())
+		panic("Couldn't create policy!" + err.Error())
 	}
 
 	fmt.Print("Created a new policy: " + *createPolicyResult.Policy.Arn)
