@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
+    %phrases-code-examples;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<!-- zexi 0.5.0 -->
+{{- $omitted_sdks := makeSlice "java_1"}}
+{{- $chapter_id := "code_example_library_by_sdk"}}
+<chapter id="{{$chapter_id}}" role="topic">
+    <info>
+        <title id="{{$chapter_id}}.title">Code examples by SDK using &AWS; SDKs</title>
+        <titleabbrev id="{{$chapter_id}}.titleabbrev">Code examples by SDK</titleabbrev>
+        <abstract>
+            <para>Code examples that show how to use &AWS; services with &AWS; SDKs.</para>
+        </abstract>
+    </info>
+    <para>The following code examples show how to use &AWS; services with an &AWS; software development kit (SDK).</para>
+    <para role="topiclist-abbrev">Code examples</para>
+    {{- range $sdk_examples := .}}
+    {{- $sdk_ver := printf "%s_%s" $sdk_examples.LanguageSlug $sdk_examples.Version}}
+    {{- $skip_sdk := false}}
+    {{- range $omit := $omitted_sdks}}
+        {{- if eq $omit $sdk_ver}}
+            {{- $skip_sdk = true}}
+        {{- end}}
+    {{- end}}
+    {{- if not $skip_sdk}}
+    <section id="{{$sdk_ver}}_code_examples" role="topic">
+        <info>
+            <title id="{{$sdk_ver}}_code_examples.title">Code examples for {{$sdk_examples.SdkEntity.Short}}</title>
+            <titleabbrev id="{{$sdk_ver}}_code_examples.titleabbrev">{{$sdk_examples.SdkEntity.Short}}</titleabbrev>
+            <abstract>
+                <para>Code examples that show how to use {{$sdk_examples.SdkEntity.Long}} with &AWS;.</para>
+            </abstract>
+        </info>
+        <para>The code examples in this topic show you how to use the {{$sdk_examples.SdkEntity.Long}} with &AWS;.</para>
+        <para role="topiclist-abbrev">Examples</para>
+        {{- if $sdk_examples.ApiExamples}}
+        <section id="{{$sdk_ver}}_code_examples_categorized" role="topic">
+            <info>
+                <title id="{{$sdk_ver}}_code_examples_categorized.title">Single-service actions and scenarios using {{$sdk_examples.SdkEntity.Short}}</title>
+                <titleabbrev id="{{$sdk_ver}}_code_examples_categorized.titleabbrev">Single-service actions and scenarios</titleabbrev>
+                <abstract>
+                    <para>The following code examples show how to implement common scenarios and perform individual service actions by using
+                        {{$sdk_examples.SdkEntity.Short}} with &AWS; services.</para>
+                </abstract>
+            </info>
+            <para>The following code examples show how to perform actions and implement common scenarios by using
+                the {{$sdk_examples.SdkEntity.Long}} with &AWS; services.</para>
+            <para role="topiclist-abbrev">Services</para>
+            {{- end}}
+            {{- range $service, $svc_examples := $sdk_examples.ApiExamples}}
+            <section id="{{$sdk_ver}}_{{$svc_examples.ServiceSlug}}_code_examples" role="topic">
+                <info>
+                    <title id="{{$sdk_ver}}_{{$svc_examples.ServiceSlug}}_code_examples.title">{{$svc_examples.ServiceEntity.Short}} examples using {{$sdk_examples.SdkEntity.Short}}</title>
+                    <titleabbrev id="{{$sdk_ver}}_{{$svc_examples.ServiceSlug}}_code_examples.titleabbrev">{{$svc_examples.ServiceEntity.Short}}</titleabbrev>
+                    <abstract>
+                        <para>Code examples that show how to use {{$sdk_examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+                    </abstract>
+                </info>
+                <para>The following code examples show you how to perform actions and implement common scenarios by using
+                    the {{$sdk_examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+                <para role="topiclist-abbrev"/>
+                {{- range $category := $svc_examples.CategoryNamesSorted}}
+                {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
+                <section>
+                    <info>
+                        <title>{{$cat_examples.CategoryName}}</title>
+                        <titleabbrev>{{$cat_examples.CategoryName}}</titleabbrev>
+                    </info>
+                    <collapsible expand-section="_collapse_all_">
+                        {{- range $cat_examples.Examples}}
+                        <section id="{{.ExampleId}}_{{$sdk_ver}}_topic">
+                            <info>
+                                <title id="{{.ExampleId}}_{{$sdk_ver}}_topic.title">{{.TitleAbbrev}}</title>
+                                <titleabbrev id="{{.ExampleId}}_{{$sdk_ver}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                            </info>
+                            {{- if or .Synopsis .SynopsisList}}
+                                {{- $synopsis_prefix := "The following code example shows how to"}}
+                                {{- $synopsis_sep := " "}}
+                                {{- if not .Synopsis}}
+                                    {{- $synopsis_sep = ":"}}
+                                {{- end}}
+                            <para>{{print $synopsis_prefix $synopsis_sep .Synopsis}}</para>
+                                {{- if .SynopsisList}}
+                            <itemizedlist>
+                                {{- range $synitem := .SynopsisList}}
+                                <listitem><para>{{$synitem}}</para></listitem>
+                                {{- end}}
+                            </itemizedlist>
+                                {{- end}}
+                            {{- end}}
+                            {{- if .GuideTopic.Url}}
+                            <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+                            {{- end}}
+                            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$sdk_examples.Language}}.xml"></xi:include>
+                        </section>
+                        {{- end}}
+                    </collapsible>
+                </section>
+                {{- end}}
+                {{- end}}
+            </section>
+            {{- end}}
+            {{- if $sdk_examples.ApiExamples}}
+        </section>
+        {{- end}}
+        {{- if $sdk_examples.CrossServiceExamples}}
+        <section id="{{$sdk_ver}}_code_examples_cross_service" role="topic">
+            <info>
+                <title id="{{$sdk_ver}}_code_examples_cross_service.title">Cross-service examples using {{$sdk_examples.SdkEntity.Short}}</title>
+                <titleabbrev id="{{$sdk_ver}}_code_examples_cross_service.titleabbrev">Cross-service examples</titleabbrev>
+                <abstract>
+                    <para>The following sample applications use the {{$sdk_examples.SdkEntity.Long}}
+                        to work across multiple &AWS; services.</para>
+                </abstract>
+            </info>
+            <para>The following sample applications use the {{$sdk_examples.SdkEntity.Long}}
+                to work across multiple &AWS; services.</para>
+            <para role="topiclist-abbrev">Examples</para>
+            {{- end}}
+            {{- range $sdk_examples.CrossServiceExamples}}
+            <section id="{{.ExampleId}}_{{$sdk_ver}}_topic" role="topic">
+                <info>
+                    <title id="{{.ExampleId}}_{{$sdk_ver}}_topic.title">{{.Title}}</title>
+                    <titleabbrev id="{{.ExampleId}}_{{$sdk_ver}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                </info>
+                <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$sdk_examples.Language}}.xml"></xi:include>
+                {{- if .GuideTopic.Url}}
+                <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+                {{- end}}
+            </section>
+            {{- end}}
+        {{- if $sdk_examples.CrossServiceExamples}}
+        </section>
+        {{- end}}
+    </section>
+    {{- end}}
+    {{- end}}
+</chapter>
