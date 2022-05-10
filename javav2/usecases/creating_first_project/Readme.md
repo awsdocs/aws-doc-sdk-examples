@@ -110,7 +110,7 @@ Make sure that the **pom.xml** file resembles the following XML code.
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.1</version>
-        <relativePath/> 
+        <relativePath/>
     </parent>
     <properties>
         <java.version>1.8</java.version>
