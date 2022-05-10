@@ -52,7 +52,6 @@ You need to create this resources prior to starting this tutorial:
 + An Amazon DynamoDB table named **Greeting** that contains a partition key named **idblog**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
 
-
 ## Understand the web application
 
 The following shows the application you'll create.
@@ -94,14 +93,16 @@ Ensure that the **pom.xml** file resembles the following XML code.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>SpringChatbot</groupId>
-    <artifactId>SpringChatbot</artifactId>
+    <groupId>spring-aws</groupId>
+    <artifactId>greetings</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <description>Demo project for Spring Boot</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.6.1</version>
+        <relativePath/>
     </parent>
     <properties>
         <java.version>1.8</java.version>
@@ -120,23 +121,11 @@ Ensure that the **pom.xml** file resembles the following XML code.
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>lexruntime</artifactId>
-         </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>translate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>comprehend</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -149,12 +138,25 @@ Ensure that the **pom.xml** file resembles the following XML code.
                 </exclusion>
             </exclusions>
         </dependency>
-       </dependencies>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sns</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
             </plugin>
         </plugins>
     </build>
