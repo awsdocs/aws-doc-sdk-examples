@@ -45,7 +45,7 @@ func TestCreateImage(t *testing.T) {
 
 	resp, err := MakeImage(context.Background(), api, input)
 	if err != nil {
-		fmt.Println("Got an error createing image:")
+		fmt.Println("Got an error creating image:")
 		fmt.Println(err)
 		return
 	}
