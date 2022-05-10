@@ -19,20 +19,13 @@ The following examples use the **TimestreamWriteClient** object:
 
 - [Creating a database](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/CreateDatabase.java) (CreateDatabase command)
 - [Creating a database table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/CreateTable.java) (CreateTable command)
-- [Deleting a database](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
-/src/main/java/com/timestream/write/DeleteDatabase.java) (DeleteDatabase command)
-- [Describing a database](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
-/src/main/java/com/timestream/write/DescribeDatabase.java) (DescribeDatabase command)
-- [Describing a database table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
-/src/main/java/com/timestream/write/DescribeTable.java) (DescribeTable command)
-- [Listing all databases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
-/src/main/java/com/timestream/write/ListDatabases.java) (ListDatabases command)
-- [Listing all tables](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
-/src/main/java/com/timestream/write/ListTables.java) (ListTables command)
-- [Updating a database table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
-/src/main/java/com/timestream/write/UpdateTable.java) (UpdateTable command)
-- [Writing data into a table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream
-/src/main/java/com/timestream/write/WriteData.java) (writeRecords command)
+- [Deleting a database](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/DeleteDatabase.java) (DeleteDatabase command)
+- [Describing a database](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/DescribeDatabase.java) (DescribeDatabase command)
+- [Describing a database table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/DescribeTable.java) (DescribeTable command)
+- [Listing all databases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/write/ListDatabases.java) (ListDatabases command)
+- [Listing all tables](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/ListTables.java) (ListTables command)
+- [Updating a database table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/write/UpdateTable.java) (UpdateTable command)
+- [Writing data into a table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/timestream/src/main/java/com/timestream/write/WriteData.java) (writeRecords command)
 
 
 ## Running the Amazon Timestream Java files
