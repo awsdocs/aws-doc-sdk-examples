@@ -1,11 +1,19 @@
 # Creating a publish/subscription web application that translates messages
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a dynamic web MVC application that has subscription and publish functionality by using the AWS SDK for Java (v2).    |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 5/10/2022        |
+| Required skills   | Java, Maven  |
+
 ## Purpose
 
-You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message. 
+You can create a web application that has subscription and publish functionality by using Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter multiple email address values to subscribe them to the given SNS topic (after the email recipients confirm the subscription). The user can publish a message that results in all subscribed email addresses receiving the message. 
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
-
 
 #### Topics
 
@@ -15,9 +23,8 @@ You can create a web application that has subscription and publish functionality
 + Add the POM dependencies to your project
 + Create the Java classes
 + Create the HTML files
-+ Package the application into a JAR file
-+ Deploy the application to Elastic Beanstalk
-
++ Run the application
+ 
 ## Prerequisites
 
 To complete the tutorial, you need the following:
@@ -30,13 +37,15 @@ To complete the tutorial, you need the following:
 ## Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
-+ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
++ Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
 ### Creating the resources
 
 Create an Amazon SNS queue that is used in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
+
+In addition, set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 ## Understand the Publish/Subscription application
 
@@ -48,17 +57,17 @@ The specified email address recieves an email message that lets the recipient co
 
 ![AWS Tracking Application](images/pic2.png)
 
-Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web applicaiton and then chooses the **Publish** button. 
+After the email recipient accepts the confirmation, their email address is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web application and then chooses the **Publish** button. 
 
 ![AWS Tracking Application](images/pic3.png)
 
-This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown field and then the message appears in that language to all subscribed users. 
+This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown and then the message appears in that language to all subscribed users. 
 
 ![AWS Tracking Application](images/french.png)
 
-**Note**: The Amazon Translate Service is used to translate the body of the message. The code is shown later in this document. 
+**Note**: Amazon Translate is used to translate the body of the message. The code is shown later in this document. 
 
-This example application lets you view all of the subscribed email recipients by choosing the **List Subscriptions** button, as shown in the following illustration.
+This example application lets you view all of the subscribed email recipients by choosing the **List Subscriptions** button, as shown in the following image.
 
 ![AWS Tracking Application](images/pic4.png)
 
@@ -69,13 +78,13 @@ Create an IntelliJ project that is used to create the web application.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 
-2. In the New Project dialog box, choose **Maven**.
+2. In the **New Project** dialog box, choose **Maven**.
 
 3. Choose **Next**.
 
-4. In **GroupId**, enter **spring-aws**.
+4. For **GroupId**, enter **spring-aws**.
 
-5. In **ArtifactId**, enter **SpringSubscribeApp**.
+5. For **ArtifactId**, enter **SpringSubscribeApp**.
 
 6. Choose **Next**.
 
@@ -83,39 +92,39 @@ Create an IntelliJ project that is used to create the web application.
 
 ## Add the POM dependencies to your project
 
-At this point, you have a new project named **SpringSubscribeApp**. Ensure that the pom.xml file resembles the following code.
+At this point, you have a new project named **SpringSubscribeApp**. Make sure that the pom.xml file resembles the following code.
 
 ```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.example</groupId>
-    <artifactId>SpringSubscribeApp</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
-    <parent>
+     <modelVersion>4.0.0</modelVersion>
+     <groupId>org.example</groupId>
+     <artifactId>SpringSubscribeApp</artifactId>
+     <version>1.0-SNAPSHOT</version>
+     <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
+     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <properties>
+        <version>2.6.1</version>
+        <relativePath/>
+     </parent>
+     <properties>
         <java.version>1.8</java.version>
-    </properties>
-    <dependencyManagement>
+     </properties>
+     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.16.29</version>
+                <version>2.17.136</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
-    <dependencies>
+     </dependencyManagement>
+     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -143,7 +152,7 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>translate</artifactId>
         </dependency>
-     </dependencies>
+      </dependencies>
      <build>
         <plugins>
             <plugin>
@@ -153,7 +162,7 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
             </plugin>
         </plugins>
       </build>
-    </project>
+   </project>
 ```  
 
  ## Create the Java classes
@@ -162,7 +171,7 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
  
  ![AWS Lex](images/project.png)
  
- Create these Java classes:
+ Create the following Java classes:
 
 + **SubApplication** - Used as the base class for the Spring Boot application.
 + **SubController** - Used as the Spring Boot controller that handles HTTP requests. 
@@ -255,48 +264,49 @@ The following Java code represents the **SubController** class.
 
 ### SnsService class
 
-The following Java code represents the **SnsService** class. This class uses the Java V2 SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
+The following Java code represents the **SnsService** class. This class uses the [SnsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sns/SnsClient.html) to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
 
 ```java
-     package com.spring.sns;
+package com.spring.sns;
 
-     import org.springframework.stereotype.Component;
-     import org.w3c.dom.Document;
-     import org.w3c.dom.Element;
-     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-     import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest;
-     import software.amazon.awssdk.regions.Region;
-     import software.amazon.awssdk.services.sns.SnsClient;
-     import software.amazon.awssdk.services.sns.model.*;
-     import javax.xml.parsers.DocumentBuilder;
-     import javax.xml.parsers.DocumentBuilderFactory;
-     import javax.xml.parsers.ParserConfigurationException;
-     import javax.xml.transform.Transformer;
-     import javax.xml.transform.TransformerException;
-     import javax.xml.transform.TransformerFactory;
-     import javax.xml.transform.dom.DOMSource;
-     import javax.xml.transform.stream.StreamResult;
-     import java.io.StringWriter;
-     import java.util.ArrayList;
-     import java.util.List;
+import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.*;
+import software.amazon.awssdk.services.translate.TranslateClient;
+import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
+import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-     @Component
-     public class SnsService {
+@Component
+public class SnsService {
 
-     String topicArn = "<Enter your TOPIC ARN>";
+    String topicArn = "<Enter Value>";
 
-     private SnsClient getSnsClient() {
+    private SnsClient getSnsClient() {
 
         Region region = Region.US_WEST_2;
-        SnsClient snsClient = SnsClient.builder()
+        return SnsClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
                 .build();
+    }
 
-        return snsClient;
-     }
-
-     public String pubTopic(String message, String lang) {
+    public String pubTopic(String message, String lang) {
 
         try {
             String body;
@@ -333,7 +343,7 @@ The following Java code represents the **SnsService** class. This class uses the
                 body = textResponse.translatedText();
             }
 
-            SnsClient snsClient =  getSnsClient();
+            SnsClient snsClient = getSnsClient();
             PublishRequest request = PublishRequest.builder()
                     .message(body)
                     .topicArn(topicArn)
@@ -347,11 +357,11 @@ The following Java code represents the **SnsService** class. This class uses the
             System.exit(1);
         }
         return "Error - msg not sent";
-      }
+    }
 
-      public void unSubEmail(String emailEndpoint) {
+    public void unSubEmail(String emailEndpoint) {
 
-      try {
+     try {
 
          String subscriptionArn = getTopicArnValue(emailEndpoint);
          SnsClient snsClient =  getSnsClient();
@@ -366,42 +376,40 @@ The following Java code represents the **SnsService** class. This class uses the
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
       }
-     }
+    }
 
-     // Returns the Topic ARN based on the given endpoint
-     private String getTopicArnValue(String endpoint){
+  // Return the subscription Amazon Resource Name (ARN) based on the given endpoint.
+  private String getTopicArnValue(String endpoint){
 
         SnsClient snsClient =  getSnsClient();
         try {
-            String subArn = "";
+            String subArn;
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
                     .topicArn(topicArn)
                     .build();
-
 
             ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
             List<Subscription> allSubs  = result.subscriptions();
 
             for (Subscription sub: allSubs) {
-
-            if (sub.endpoint().compareTo(endpoint)==0) {
-
+             if (sub.endpoint().compareTo(endpoint)==0) {
                 subArn = sub.subscriptionArn();
                 return subArn;
-             }
-           }
-          } catch (SnsException e) {
+            }
+         }
+       
+        } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
-          }
-         return "";
         }
+      return "";
+  }
 
-       // Create a Subsciption of the given email address.
-       public String subEmail(String email) {
+    // Create a subscription.
+    public String subEmail(String email) {
 
        try {
-            SnsClient snsClient =  getSnsClient();
+            SnsClient snsClient = getSnsClient();
             SubscribeRequest request = SubscribeRequest.builder()
                     .protocol("email")
                     .endpoint(email)
@@ -417,10 +425,11 @@ The following Java code represents the **SnsService** class. This class uses the
             System.exit(1);
         }
         return "";
-      }
+    }
 
-     public String getAllSubscriptions() {
-        List subList = new ArrayList<String>() ;
+    public String getAllSubscriptions() {
+
+        List<String> subList = new ArrayList<>() ;
 
         try {
             SnsClient snsClient =  getSnsClient();
@@ -429,7 +438,7 @@ The following Java code represents the **SnsService** class. This class uses the
                     .build();
 
             ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
-            List<Subscription> allSubs  = result.subscriptions();
+            List<Subscription> allSubs = result.subscriptions();
 
             for (Subscription sub: allSubs) {
                 subList.add(sub.endpoint());
@@ -439,11 +448,12 @@ The following Java code represents the **SnsService** class. This class uses the
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        
         return convertToString(toXml(subList));
-      }
+    }
 
-      // Convert the list to XML to pass back to the view.
-      private Document toXml(List<String> subsList) {
+   // Convert the list to XML to pass back to the view.
+    private Document toXml(List<String> subsList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -460,22 +470,24 @@ The following Java code represents the **SnsService** class. This class uses the
                 Element item = doc.createElement("Sub");
                 root.appendChild(item);
 
-                // Set email
+                // Set email.
                 Element email = doc.createElement("email");
                 email.appendChild(doc.createTextNode(sub));
                 item.appendChild(email);
             }
 
-             return doc;
- 
-          }catch(ParserConfigurationException e){
-            e.printStackTrace();
-          }
-         return null;
-        }
+            return doc;
 
-       private String convertToString(Document xml) {
-         try {
+        }catch(ParserConfigurationException e){
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+
+
+    private String convertToString(Document xml) {
+        try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
@@ -485,16 +497,18 @@ The following Java code represents the **SnsService** class. This class uses the
         } catch(TransformerException ex) {
             ex.printStackTrace();
         }
+        
         return null;
-       }
-     }
+    }
+}
+
 ```
 
 **Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
 
 ## Create the HTML file
 
-At this point, you have created all of the Java files required for this example application. Now create HTML files that are required for the application's view. Under the resource folder, create a **templates** folder, and then create the following HTML files:
+At this point, you have created all of the Java files required for this example application. Now, create HTML files that are required for the application's view. Under the resource folder, create a **templates** folder, and then create the following HTML files:
 
 + index.html
 + layout.html
@@ -515,7 +529,7 @@ The **index.html** file is the application's home view.
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
-    <title>AWS Job Posting Example</title>
+    <title>AWS job posting example</title>
     </head> 
 
      <body>
@@ -524,9 +538,9 @@ The **index.html** file is the application's home view.
 
      <h3>Welcome to the Amazon Simple Notification Service example app</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-     <p>The Amazon Simple Notification Service example uses multiple AWS Services and the Java V2 API. Perform these steps:<p>
+     <p>The Amazon Simple Notification Service example uses multiple AWS services and the Java V2 API. Perform the following steps:<p>
      <ol>
-        <li>You can subscribe to a SNS topic by choosing the <i>Manage Subscriptions</i> menu item.</li>
+        <li>You can subscribe to an SNS topic by choosing the <i>Manage Subscriptions</i> menu item.</li>
         <li>Enter a valid email address and then choose <i>Subscribe</i>.</li>
         <li>The sample application subscribes to the endpoint by using the SNS Java API V2.</li>
         <li>You can view all the email addresses that have subscribed by choosing the <i>List Subscriptions</i> menu item.</li>
@@ -560,7 +574,7 @@ The following code represents the **layout.html** file that represents the appli
 ```
 
 ### add.html
-The **sub.html** file is the application's view that manages Amazon SNS Subscriptions. 
+The **sub.html** file is the application's view that manages Amazon SNS subscriptions. 
 
 ```html
      <!DOCTYPE html>
@@ -601,7 +615,7 @@ The **sub.html** file is the application's view that manages Amazon SNS Subscrip
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">SNS Email Subscriptions</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">SNS email subscriptions</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -629,7 +643,7 @@ The **sub.html** file is the application's view that manages Amazon SNS Subscrip
         </div>
         <br>
         <div>
-            <label for="lang">Select a Language:</label>
+            <label for="lang">Select a language:</label>
             <select name="lang" id="lang">
                 <option>English</option>
                 <option>French</option>
@@ -753,51 +767,16 @@ This application has a **contact_me.js** file that is used to send requests to t
     }
  ```
 
-## Create a JAR file for the application
+## Run the application
 
-Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, choose the run icon in the Spring Boot main class, as shown in the following image. 
 
-	mvn package
+![AWS Tracking Application](images/run.png)
 
-The JAR file is located in the target folder.
-
-![AWS Tracking Application](images/pic6.png)
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file that includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy the application to Elastic Beanstalk
-
-Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev, or prod-web, prod-worker, qa-web, qa-worker).
-
-If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll see the Elastic Beanstalk Dashboard, which lists all of your applications.
-
-#### To deploy the application to Elastic Beanstalk
-
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
-2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - Subscribe App
-   + **Description** - A description for the application
-4. Choose **Create**.
-5. Choose **Create a new environment**.
-6. Choose **Web server environment**.
-7. Choose **Select**.
-8. In the **Environment information** section, leave the default values.
-9. In the **Platform** section, choose **Managed platform**.
-10. For **Platform**, choose **Java** (accept the default values for the other fields).
-11. In the **Application code** section, choose **Upload your code**.
-12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created. When you’re done, you will see the application state the **Health** is **Ok** .
-14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
-
-**Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
-
-To access the application, open your browser and enter the URL for your application. You will see the Home page for your application.
+**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. For more information, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
 
 ### Next steps
-Congratulations! You have created a Spring Boot application that contains subscription and publish functionality. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+Congratulations! You have created a Spring Boot application that contains subscription and publish functionality. As stated at the beginning of this tutorial, be sure to delete all of the resources that you created during this tutorial so that you won't be charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
