@@ -37,7 +37,7 @@ func NewWordfreqStack(scope constructs.Construct, id string, props *WordfreqStac
 		- a service to process the data
 			- read/delete items in the bucket
 			- consume items from the input queue
-			- add items to the ouput queue
+			- add items to the output queue
 		- a role to submit data and collect results.
 
 		The bucket needs to self-expire contents.

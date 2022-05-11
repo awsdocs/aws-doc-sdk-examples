@@ -11,7 +11,7 @@ namespace CreateTable
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.Model;
 
-    // snippet-start:[dynamodb.dotnet35.CreateTable]
+    // snippet-start:[dynamodb.dotnet35.CreateTableExample]
 
     /// <summary>
     /// Shows how to create an Amazon DynamoDB table. The example was created
@@ -113,5 +113,5 @@ namespace CreateTable
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.CreateTable]
+    // snippet-end:[dynamodb.dotnet35.CreateTableExample]
 }

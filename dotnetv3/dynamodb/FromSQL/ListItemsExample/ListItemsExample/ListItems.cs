@@ -11,7 +11,7 @@ namespace ListItems
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.Model;
 
-    // snippet-start:[dynamodb.dotnet35.ListItems]
+    // snippet-start:[dynamodb.dotnet35.ListItemsExample]
 
     /// <summary>
     /// Lists the items in an Amazon DynamoDB table. The name of the table and
@@ -120,5 +120,5 @@ namespace ListItems
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.ListItems]
+    // snippet-end:[dynamodb.dotnet35.ListItemsExample]
 }
