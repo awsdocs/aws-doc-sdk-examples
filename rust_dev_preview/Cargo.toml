@@ -53,6 +53,7 @@ members = [
     "sns",
     "sqs",
     "ssm",
+    "stepfunction",
     "testing",
     "tls",
     "transcribestreaming",

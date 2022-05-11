@@ -1,6 +1,52 @@
-# Amazon SNS Java code examples
+# Amazon SNS code examples for the SDK for Java
 
-This README discusses how to run and test the Java code examples for Amazon Simple Notification Service (Amazon SNS).
+## Overview
+This README discusses how to run and test the AWS SDK for Java (v2) code examples for Amazon Simple Notification Service (Amazon SNS).
+
+Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). 
+
+## ⚠️ Important
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Code examples
+
+### Single action
+
+The following examples use the **SnsClient** object:
+
+- [Adding tags to an Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/AddTags.java) (TagResource command)
+- [Determining whether the user of the phone number has selected to no longer receive future Amazon SNS text messages](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/CheckOptOut.java) (CheckIfPhoneNumberIsOptedOut command)
+- [Determining whether the user of the phone number has selected to no longer receive future Amazon SNS text messages](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/CheckOptOut.java) (CheckIfPhoneNumberIsOptedOut command)
+- [Confirming a subscription for Amazon SNS](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/ConfirmSubscription.java) (ConfirmSubscription command)
+- [Creating an Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/CreateTopic.java) (CreateTopic command)
+- [Deleting tags from an Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/DeleteTag.java) (UntagResource command)
+- [Deleting an Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/DeleteTopic.java) (DeleteTopic command)
+- [Retrieving the default SMS type for Amazon SNS](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/GetSMSAtrributes.java) (GetSubscriptionAttributes command)
+- [Retrieve the defaults for an Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/GetTopicAttributes.java) (GetTopicAttributes command)
+- [Listing the phone numbers for which the users have selected to no longer receive future text messages](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/ListOptOut.java) (ListPhoneNumbersOptedOut command)
+- [Listing existing Amazon SNS subscriptions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/ListSubscriptions.java) (ListSubscriptions command)
+- [Retrieving tags from an Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/ListTags.java) (ListTagsForResource command)
+- [Retrieving a list of existing Amazon SNS topics](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/ListTopics.java) (ListTopics command)
+- [Sending an Amazon SNS text message](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/PublishTextSMS.java) (Publish command)
+- [Publishing an Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/PublishTopic.java) (Publish command)
+- [Setting attributes for Amazon SNS](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/SetSMSAttributes.java) (SetSMSAttributes command)
+- [Setting attributes for Amazon SNS topic](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/SetTopicAttributes.java) (SetTopicAttributes command)
+- [Subscribing to an Amazon SNS email endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/SubscribeEmail.java) (Subscribe command) 
+- [Subscribing to an Amazon SNS HTTPs endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/SubscribeHTTPS.java) (Subscribe command) 
+- [Subscribing to an Amazon SNS lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/SubscribeLambda.java) (Subscribe command) 
+- [Subscribing to an Amazon SNS text endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/SubscribeTextSMS.java) (SubscribeTextSMS command)  
+- [Removing an Amazon SNS subscription](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/Unsubscribe.java) (Unsubscribe command)  
+- [Initializing and using the example SNSMessageFilterPolicy class](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/UseMessageFilterPolicy.java) (Apply command)  
+
+### Cross-service examples
+
+- [Building an application to submit data to a DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project) (Multiple commands)
+- [Building a publish and subscription application that translates messages](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app) (Multiple commands)
+- [Building a publish and subscription application that translates messages using Java Async API](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async) (Multiple commands)
+- [Using scheduled events to invoke a Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events) (Multiple commands)
 
 ## Running the Amazon SNS Java files
 
@@ -81,3 +127,8 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
 	[ERROR];
+	
+## Additional resources
+* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
+* [Interface SnsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sns/SnsClient.html).	

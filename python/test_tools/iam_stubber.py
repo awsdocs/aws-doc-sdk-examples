@@ -99,12 +99,15 @@ class IamStubber(ExampleStubber):
         self._stub_bifurcator(
             'get_credential_report', response=response, error_code=error_code)
 
-    def stub_create_role(self, role_name, assume_role_policy=ANY, error_code=None):
+    def stub_create_role(
+            self, role_name, assume_role_policy=ANY, role_arn=None, error_code=None):
         expected_params = {
             'RoleName': role_name,
             'AssumeRolePolicyDocument': assume_role_policy
         }
         response = self._add_role({}, role_name)
+        if role_arn is not None:
+            response['Role']['Arn'] = role_arn
         self._stub_bifurcator(
             'create_role', expected_params, response, error_code=error_code)
 
