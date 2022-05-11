@@ -15,19 +15,16 @@ AWS Auto Scaling lets you build scaling plans that automate how groups of differ
 
 ### Single action
 
-The following examples use the **AppSyncClient** object:
+The following examples use the **AutoScalingClient** object:
 
-- [Creating an AWS AppSync key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateApiKey.java) (CreateApiKey command)
-- [Creating an AWS AppSync data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateDataSource.java) (CreateDataSource command)
-- [Deleting an AWS AppSync key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DeleteApiKey.java) (DeleteApiKey command)
-- [Deleting an AWS AppSync data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DeleteDataSource.java) (DeleteDataSource command)
-- [Getting an AWS AppSync data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/GetDataSource.java) (GetDataSource command)
-- [Listing AWS AppSync keys](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListApiKeys.java) (ListApiKeys command)
-- [Listing AWS AppSync APIs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListGraphqlApis.java) (ListGraphqlApis command)
+- [Creating an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateAutoScalingGroup.java) (CreateAutoScalingGroup command)
+- [Deleting an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DeleteAutoScalingGroup.java) (DeleteAutoScalingGroup command)
+- [Getting information about the Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DescribeAutoScalingInstances.java) (DescribeAutoScalingGroups command)
+- [Removing an instance from an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DetachInstances.java) (DetachInstances command)
 
-## Running the AWS AppSync Java files
+## Running the AWS Auto Scaling Java files
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS AppSync data source. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS Auto Scaling group. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
