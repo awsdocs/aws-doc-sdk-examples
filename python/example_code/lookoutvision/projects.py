@@ -72,7 +72,8 @@ class Projects:
     @staticmethod
     def list_projects(lookoutvision_client):
         """
-        Lists information about the projects in your account.
+        Lists information about the projects that are in in your AWS account
+        and in the current AWS Region.
 
         :param lookoutvision_client: A Boto3 Lookout for Vision client.
         """

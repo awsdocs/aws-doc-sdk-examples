@@ -179,7 +179,7 @@ public class DetectAnomalies extends JPanel {
         throw new IOException(String.format("Wrong image type. %s format isn't supported.", mimeType));
     }
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         String photo = null;
         String projectName = null;
@@ -222,13 +222,17 @@ public class DetectAnomalies extends JPanel {
             System.exit(0);
 
         } catch (LookoutVisionException lfvError) {
-            logger.log(Level.SEVERE, "lookout for vision client error: {0}", lfvError.getMessage());
+            logger.log(Level.SEVERE, "Lookout for Vision client error: {0}: {1}",
+                    new Object[] { lfvError.awsErrorDetails().errorCode(),
+                    lfvError.awsErrorDetails().errorMessage() });
             System.out.println(String.format("lookout for vision client error: %s", lfvError.getMessage()));
             System.exit(1);
+
         } catch (FileNotFoundException fileError) {
             logger.log(Level.SEVERE, "Could not find file: {0}", fileError.getMessage());
             System.out.println(String.format("Could not find file: %s", fileError.getMessage()));
             System.exit(1);
+
         } catch (IOException ioError) {
             logger.log(Level.SEVERE, "IO error {0}", ioError.getMessage());
             System.out.println(String.format("IO error: %s", ioError.getMessage()));
