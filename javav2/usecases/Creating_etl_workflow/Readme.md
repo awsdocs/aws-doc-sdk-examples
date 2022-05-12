@@ -130,7 +130,7 @@ This tutorial uses the Amazon S3 and Amazon DynamoDB. The **lambda-support** rol
 **Note**: Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. You don't need to perform steps 11-13.  
 ## Create a serverless workflow by using AWS Step functions
 
-To define a workflow that performs an ETL operation by using AWS Step Functions, you create an Amazon States Language (JSON-based) document to define your state machine. An Amazon States Language document describes each step. After you define the document, AWS Step Functions provides a visual representation of the workflow. The following figure shows a visual representation of the workflow.
+To define a workflow that performs an ETL operation by using AWS Step Functions, create an Amazon States Language (JSON-based) document to define your state machine. An Amazon States Language document describes each step. After you define the document, AWS Step Functions provides a visual representation of the workflow. The following figure shows a visual representation of the workflow.
 
 ![AWS Tracking Application](images/workflow.png)
 
