@@ -1138,7 +1138,7 @@ You can invoke the workflow on the Step Functions console.  An execution receive
 
      {
       "bucketname": "<Enter your Amazon S3 bucket name>",
-      "objectname": "<Enter the MS Excel document>"
+      "objectname": "<Enter the MS Excel document name>"
      }
 
 **Note**: Ensure that you specify the correct Amazon S3 bucket name and the Excel document that contains population data. These values are used by the **DocumentHandler** class and are input into the workflow. 
