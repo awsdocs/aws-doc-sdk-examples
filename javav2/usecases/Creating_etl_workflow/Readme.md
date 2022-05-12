@@ -62,6 +62,7 @@ The AWS Services used in this AWS tutorial are:
  - Amazon S3 Service
  - Amazon DynamoDB
  - AWS Step Functions
+ - AWS Lambda
  
 Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run code without provisioning or managing servers.
 
