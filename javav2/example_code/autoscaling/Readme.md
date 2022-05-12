@@ -30,9 +30,9 @@ To run these examples, set up your development environment. For more information
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
 
- ## Testing the AWS AppSync Java files
+ ## Testing the AWS Auto Scaling Java files
 
-You can test the Java code examples for AWS AppSync Java by running a test file named **AppSyncTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for AWS Auto Scaling by running a test file named **AutoScaleTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -45,14 +45,15 @@ Before running the AWS Elastic Beanstalk JUnit tests, you must define values in 
 
 Define these values to successfully run the JUnit tests:
 
-- **apiId** - The id of the API (You can get this value from the AWS Management Console).  
-- **dsName** - The name of the data source. 
-- **dsRole** - The AWS Identity and Access Management (IAM) service role for the data source. 
-- **tableName** - The name of the Amazon DynamoDB table used as the data source.
+- **groupName** - The name of the Auto Scaling group.  
+- **groupNameSc** - The name of the Auto Scaling group used in the scenario.  
+- **launchTemplateName** - The name of the launch template. 
+- **vpcZoneId** - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created. 
+- **serviceLinkedRoleARN** - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses.
 
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
-* [Developer Guide - AWS AppSync](https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html).
+* [Developer Guide - Amazon EC2 Auto Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
