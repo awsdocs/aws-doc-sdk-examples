@@ -1,5 +1,14 @@
 # Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop an extract, transform, and load (ETL) workflow that extracts data from a given source, transforms the data, and loads the data into a target source by using the AWS SDK for Java (v2).   |
+| Audience   |  Developer (beginner)        |
+| Updated   | 5/5/2022        |
+| Required skills   | Java, Maven  |
+
 ## Purpose
 An Extract, Transform, and Load (ETL) workflow extracts data from a given source, transforms the data, and loads the data into a target source. You can create an ETL workflow by using AWS Step Functions and the AWS SDK for Java V2. In this AWS tutorial, population data located in a Microsoft Excel spreadsheet and stored in an Amazon Simple Storage Service (Amazon S3) bucket is retrieved, transformed to another format, and stored in an Amazon DyanmoDB table named **Country**. 
 
@@ -11,7 +20,7 @@ The following illustration shows the population data located in a Microsoft Exce
 
 After the workflow successfully runs the ETL job, population data is stored in an Amazon DynamoDB table, as shown in this illustation. 
 
-![AWS Tracking Application](images/DynTable.png)
+![AWS Tracking Application](images/DynTable2.png)
 
 **Note**: You can also create ETL logic by using AWS Glue. 
 
@@ -195,8 +204,8 @@ Create an IntelliJ project that is used to create the web application.
 At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.xml file resembles the following code.
 
 ```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-     <project xmlns="http://maven.apache.org/POM/4.0.0"
+    <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -212,7 +221,7 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.11.11</version>
+                <version>2.17.136</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -245,12 +254,10 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>2.5.10</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb-enhanced</artifactId>
-            <version>2.11.4-PREVIEW</version>
         </dependency>
         <dependency>
             <groupId>org.jdom</groupId>
@@ -282,18 +289,18 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
             <version>4.5</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+       <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-        </dependencies>
-     <build>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -325,15 +332,15 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
                 </configuration>
             </plugin>
         </plugins>
-       </build>
-     </project>
+    </build>
+</project>
 ```
 
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.etl.example**. The Java classes go into this package. 
  
- ![AWS Lex](images/Java.png)
+ ![AWS Lex](images/Project2.png)
  
  Create these Java classes:
 
@@ -350,31 +357,32 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
 The following Java code represents the **DocumentHandler** class.
 
 ```java
-     package com.etl.example;
+    package com.etl.example;
 
-    import com.amazonaws.services.lambda.runtime.Context;
-    import com.amazonaws.services.lambda.runtime.LambdaLogger;
-    import jxl.read.biff.BiffException;
-    import java.io.IOException;
-    import java.util.Map;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import jxl.read.biff.BiffException;
+import java.io.IOException;
+import java.util.Map;
 
-    public class DocumentHandler {
+public class DocumentHandler {
 
-     public String handleRequest(Map<String,String> event, Context context) throws IOException, BiffException {
+    public String handleRequest(Map<String,String> event, Context context) throws IOException, BiffException {
 
         LambdaLogger logger = context.getLogger();
         logger.log("Getting excel doc from the Amazon S3 bucket");
 
-        // Get the Amazon S3 bucket name and MS Excel file name
+        // Get the Amazon S3 bucket name and MS Excel file name.
         String bucketName = event.get("bucketname");
         String object = event.get("objectname");
 
-        // Get the XML that contains the Pop data
+        // Get the XML that contains the Pop data.
         ExcelService excel = new ExcelService();
         String xml = excel.getData(bucketName, object);
         return xml;
-     }
     }
+}
+
 ```
 
 ### DynamoDBService class
@@ -471,7 +479,7 @@ The following Java code represents the **DynamoDBService** class. This class use
             record.set2018(pop.get2018());
             record.set2019(pop.get2019());
 
-            // Put the customer data into a DynamoDB table.
+            // Put the data into the Amazon DynamoDB table.
             workTable.putItem(record);
             System.out.println("Added record "+recNum);
             recNum ++;
@@ -827,7 +835,6 @@ The following Java code represents the **PopData** class.
     public String get2015() {
         return this.pop2015;
     }
-
 
     public void set2014(String num) {
         this.pop2014 = num;
