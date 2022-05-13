@@ -1,17 +1,18 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows hw to create a new AWS Identity and Access Management (IAM) User. The
+/// example was created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// </summary>
 namespace CreateUserExample
 {
+    // snippet-start:[IAM.dotnetv3.CreateUserExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
 
-    /// <summary>
-    /// Shows hw to create a new AWS Identity and Access (IAM) User. The example
-    /// was created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-    /// </summary>
     public class CreateUser
     {
         /// <summary>
@@ -41,4 +42,6 @@ namespace CreateUserExample
             }
         }
     }
+
+    // snippet-end:[IAM.dotnetv3.CreateUserExample]
 }

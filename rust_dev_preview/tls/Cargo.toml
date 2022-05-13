@@ -1,0 +1,21 @@
+[package]
+name = "tls"
+version = "0.1.0"
+edition = "2018"
+
+[[bin]]
+name = "tls"
+path = "src/main.rs"
+
+[lib]
+name = "tls"
+path = "src/lib.rs"
+
+[dependencies]
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-kms = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
+webpki-roots = "0.22.2"
+tokio = { version = "1", features = ["full"] }
+rustls = "0.20.2"
+hyper-rustls = { version = "0.23.0", features = ["http2"] }

@@ -24,11 +24,29 @@ You will find these examples:
 - **DeleteUser** - Demonstrates how to delete an AWS IAM user.
 - **DetachRolePolicy** - Demonstrates how to detach a policy from an AWS IAM role.
 - **GetPolicy** - Demonstrates how to get the details for an AWS IAM policy.
+- **IAMScenario** - Demonstrates how to perform various AWS IAM operations.
 - **ListAccessKeys** - Demonstrates how to list access keys associated with an AWS IAM user.
 - **ListAccountAliases** - Demonstrates how to list all aliases associated with an AWS account.
 - **ListUsers** - Demonstrates how to list all AWS IAM users.
 - **UpdateUser** - Demonstrates how to update the name of an AWS IAM user.
 
+**JSON File**
+
+To successfully run the **IAMScenario**, you need a JSON file that contains the information to create a role. Included in this file is the ARN of the IAM user for the trust relationship. The following JSON shows an example. 
+
+    {
+     "Version": "2012-10-17",
+      "Statement": [
+       {
+       "Effect": "Allow",
+       "Principal": {
+         "AWS": "<Enter the IAM User ARN value>"
+       },
+       "Action": "sts:AssumeRole",
+       "Condition": {}
+      }
+     ]
+    }
 
 To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
 see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 

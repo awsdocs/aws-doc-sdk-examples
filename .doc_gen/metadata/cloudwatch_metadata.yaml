@@ -530,7 +530,7 @@ cloudwatch_Usage_MetricsAlarms:
     - Put data into a &CW; metric and trigger the alarm.
     - Get data from the alarm.
     - Delete the alarm.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:

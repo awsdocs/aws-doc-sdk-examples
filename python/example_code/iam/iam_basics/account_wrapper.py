@@ -156,6 +156,56 @@ def get_credential_report():
 # snippet-end:[python.example_code.iam.GetCredentialReport]
 
 
+# snippet-start:[python.example_code.iam.GetAccountPasswordPolicy]
+def print_password_policy():
+    """
+    Prints the password policy for the account.
+    """
+    try:
+        pw_policy = iam.AccountPasswordPolicy()
+        print("Current account password policy:")
+        print(f"\tallow_users_to_change_password: {pw_policy.allow_users_to_change_password}")
+        print(f"\texpire_passwords: {pw_policy.expire_passwords}")
+        print(f"\thard_expiry: {pw_policy.hard_expiry}")
+        print(f"\tmax_password_age: {pw_policy.max_password_age}")
+        print(f"\tminimum_password_length: {pw_policy.minimum_password_length}")
+        print(f"\tpassword_reuse_prevention: {pw_policy.password_reuse_prevention}")
+        print(f"\trequire_lowercase_characters: {pw_policy.require_lowercase_characters}")
+        print(f"\trequire_numbers: {pw_policy.require_numbers}")
+        print(f"\trequire_symbols: {pw_policy.require_symbols}")
+        print(f"\trequire_uppercase_characters: {pw_policy.require_uppercase_characters}")
+        printed = True
+    except ClientError as error:
+        if error.response['Error']['Code'] == 'NoSuchEntity':
+            print("The account does not have a password policy set.")
+        else:
+            logger.exception("Couldn't get account password policy.")
+            raise
+    else:
+        return printed
+# snippet-end:[python.example_code.iam.GetAccountPasswordPolicy]
+
+
+# snippet-start:[python.example_code.iam.ListSAMLProviders]
+def list_saml_providers(count):
+    """
+    Lists the SAML providers for the account.
+
+    :param count: The maximum number of providers to list.
+    """
+    try:
+        found = 0
+        for provider in iam.saml_providers.limit(count):
+            logger.info('Got SAML provider %s.', provider.arn)
+            found += 1
+        if found == 0:
+            logger.info("Your account has no SAML providers.")
+    except ClientError:
+        logger.exception("Couldn't list SAML providers.")
+        raise
+# snippet-end:[python.example_code.iam.ListSAMLProviders]
+
+
 # snippet-start:[python.example_code.iam.Scenario_AccountManagement]
 def usage_demo():
     """Shows how to use the account functions."""
@@ -219,6 +269,28 @@ def usage_demo():
     see_details = input("These are pretty long, do you want to see them (y/n)? ")
     if see_details.lower() == 'y':
         pprint.pprint(details)
+
+    print('-'*88)
+    pw_policy_created = None
+    see_pw_policy = input("Want to see the password policy for the account (y/n)? ")
+    if see_pw_policy.lower() == 'y':
+        while True:
+            if print_password_policy():
+                break
+            else:
+                answer = input("Do you want to create a default password policy (y/n)? ")
+                if answer.lower() == 'y':
+                    pw_policy_created = iam.create_account_password_policy()
+                else:
+                    break
+    if pw_policy_created is not None:
+        answer = input("Do you want to delete the password policy (y/n)? ")
+        if answer.lower() == 'y':
+            pw_policy_created.delete()
+            print("Password policy deleted.")
+
+    print("The SAML providers for your account are:")
+    list_saml_providers(10)
 
     print('-'*88)
     print("Thanks for watching.")

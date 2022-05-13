@@ -158,7 +158,7 @@ polly_LipSync:
   title: Create a lip-sync application with &POL; using an &AWS; SDK
   title_abbrev: Create a lip-sync application
   synopsis: create a lip-sync application with &POL;.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

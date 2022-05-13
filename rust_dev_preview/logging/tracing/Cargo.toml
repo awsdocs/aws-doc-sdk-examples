@@ -8,8 +8,8 @@ version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.3.0"
-aws-sdk-dynamodb = "0.3.0"
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 structopt = { version = "0.3", default-features = false }
 tokio = { version = "1", features = ["full"] }
 # snippet-start:[logging.rust.tracing-cargo.toml-tracing_subscriber]

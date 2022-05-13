@@ -5,243 +5,200 @@
 Unit tests for bucket_wrapper.py functions.
 """
 
-import io
 from urllib.parse import urlparse
-import uuid
 import pytest
 
+import boto3
 from botocore.exceptions import ClientError
 
-import bucket_wrapper
+from bucket_wrapper import BucketWrapper
 
 
-@pytest.mark.parametrize("region_name", ['us-west-2', 'eu-west-1', 'ap-southeast-1'])
-def test_create_bucket(stub_and_patch, make_unique_name, region_name):
-    """Test creating a bucket in various AWS Regions."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3', region_name)
-    bucket_name = make_unique_name('bucket')
+@pytest.mark.parametrize('region, error_code', [
+    (None, None),
+    ('eu-west-1', None),
+    (None, 'TestException')])
+def test_create(make_stubber, region, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
 
-    stubber.stub_create_bucket(bucket_name, region_name)
-    stubber.stub_head_bucket(bucket_name)
+    stub_region = region if region is not None else s3_resource.meta.client.meta.region_name
+    s3_stubber.stub_create_bucket(bucket_name, stub_region, error_code=error_code)
+    if error_code is None:
+        s3_stubber.stub_head_bucket(bucket_name)
 
-    bucket = bucket_wrapper.create_bucket(bucket_name, region_name)
-    assert bucket_name == bucket.name
-
-    if not stubber.use_stubs:
-        bucket_wrapper.delete_bucket(bucket)
-
-
-def test_create_bucket_no_region(stub_and_patch, make_unique_name):
-    """Test that creating a bucket with no Region raises an error."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket_name = make_unique_name('bucket')
-
-    stubber.stub_create_bucket(bucket_name,
-                               error_code='IllegalLocationConstraintException')
-
-    with pytest.raises(ClientError):
-        bucket_wrapper.create_bucket(bucket_name)
+    if error_code is None:
+        wrapper.create(region)
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.create(region)
+        assert exc_info.value.response['Error']['Code'] == error_code
 
 
-def test_create_existing_bucket(stub_and_patch, make_unique_name, make_bucket):
-    """Test that creating an existing bucket raises an error."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_exists(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
 
-    stubber.stub_create_bucket(bucket.name, stubber.region_name,
-                               error_code='BucketAlreadyOwnedByYou')
+    s3_stubber.stub_head_bucket(bucket_name, error_code=error_code)
 
-    with pytest.raises(stubber.client.exceptions.BucketAlreadyOwnedByYou):
-        bucket_wrapper.create_bucket(bucket.name, stubber.region_name)
-
-
-def test_bucket_exists(stub_and_patch, make_unique_name, make_bucket):
-    """Test that bucket existence is correctly determined."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
-
-    stubber.stub_head_bucket(bucket.name)
-
-    assert bucket_wrapper.bucket_exists(bucket.name)
+    got_exists = wrapper.exists()
+    if error_code is None:
+        assert got_exists
+    else:
+        assert not got_exists
 
 
-def test_bucket_not_exists(stub_and_patch, make_unique_name, make_bucket):
-    """Test that bucket nonexistence is correctly determined."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket_name = make_unique_name('bucket')
-
-    stubber.stub_head_bucket(bucket_name, error_code='NoSuchBucket')
-
-    assert not bucket_wrapper.bucket_exists(bucket_name)
-
-
-def test_delete_empty_bucket(stub_and_patch, make_unique_name, make_bucket):
-    """Test that deleting an empty bucket works as expected."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket_name = make_unique_name('bucket')
-
-    stubber.stub_create_bucket(bucket_name, stubber.region_name)
-    stubber.stub_head_bucket(bucket_name)
-    bucket = bucket_wrapper.create_bucket(bucket_name, stubber.region_name)
-
-    stubber.stub_delete_bucket(bucket.name)
-    stubber.stub_head_bucket(bucket.name, 404)
-    bucket_wrapper.delete_bucket(bucket)
-
-
-def test_delete_full_bucket(stub_and_patch, make_unique_name, make_bucket):
-    """Test that deleting a bucket that contains objects raises an error."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
-
-    object_key = 'test_bucket_wrapper.py'
-    stubber.stub_put_object(bucket.name, object_key)
-    stubber.stub_delete_bucket(bucket.name, error_code='BucketNotEmpty')
-
-    obj = bucket.Object(object_key)
-    obj.upload_fileobj(io.BytesIO(b"Test data."))
-    with pytest.raises(ClientError):
-        bucket_wrapper.delete_bucket(bucket)
-
-    if not stubber.use_stubs:
-        obj.delete()
-
-
-def test_get_buckets(stub_and_patch, make_unique_name, make_bucket):
-    """Test getting a list of buckets."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_list(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
     created_buckets = [
-        make_bucket(stubber, bucket_wrapper.get_s3())
-        for ind in range(0, 5)
-    ]
+        s3_resource.Bucket(f'{bucket_name}-{ind}') for ind in range(0, 5)]
 
-    stubber.stub_list_buckets(created_buckets)
+    s3_stubber.stub_list_buckets(created_buckets, error_code=error_code)
 
-    gotten_buckets = bucket_wrapper.get_buckets()
-    intersection = [b for b in gotten_buckets if b in created_buckets]
-    assert created_buckets == intersection
-
-
-def test_grant_log_delivery_access(stub_and_patch, make_unique_name, make_bucket):
-    """Test that using an ACL to grant access to the log delivery group succeeds."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
-
-    stubber.stub_get_bucket_acl(bucket.name)
-    stubber.stub_put_bucket_acl(bucket.name)
-    stubber.stub_get_bucket_acl(bucket.name, ['owner', 'log_delivery'])
-
-    bucket_wrapper.grant_log_delivery_access(bucket.name)
-
-    acl = bucket_wrapper.get_acl(bucket.name)
-    log_delivery_grantee = {
-        'Grantee': {
-            'Type': 'Group',
-            'URI': 'http://acs.amazonaws.com/groups/s3/LogDelivery'
-        },
-        'Permission': 'WRITE'
-    }
-    assert log_delivery_grantee in acl.grants
-    owner_grantee = {
-        'Grantee': {
-            'Type': 'CanonicalUser',
-            'ID': acl.owner['ID'],
-            'DisplayName': acl.owner['DisplayName']
-        },
-        'Permission': 'FULL_CONTROL'
-    }
-    assert owner_grantee in acl.grants
+    if error_code is None:
+        got_buckets = wrapper.list(s3_resource)
+        assert got_buckets == created_buckets
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.list(s3_resource)
+        assert exc_info.value.response['Error']['Code'] == error_code
 
 
-def test_get_acl(stub_and_patch, make_unique_name, make_bucket):
-    """Test that getting a bucket ACL returns the expected values."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_delete(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
 
-    stubber.stub_get_bucket_acl(bucket.name, ['owner'])
+    s3_stubber.stub_delete_bucket(bucket_name, error_code=error_code)
+    if error_code is None:
+        s3_stubber.stub_head_bucket(bucket_name, 404)
 
-    acl = bucket_wrapper.get_acl(bucket.name)
-    assert len(acl.grants) == 1
-    assert acl.owner['ID'] == acl.grants[0]['Grantee']['ID']
-    assert acl.grants[0]['Permission'] == 'FULL_CONTROL'
-
-
-def test_get_cors_expect_none(stub_and_patch, make_unique_name, make_bucket):
-    """Test that getting CORS for a new bucket raises an error."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
-
-    stubber.stub_get_bucket_cors(bucket.name, error_code='NoSuchCORSConfiguration')
-
-    with pytest.raises(ClientError) as exc_info:
-        _ = bucket_wrapper.get_cors(bucket.name)
-    assert exc_info.value.response['Error']['Code'] == 'NoSuchCORSConfiguration'
+    if error_code is None:
+        wrapper.delete()
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.delete()
+        assert exc_info.value.response['Error']['Code'] == error_code
 
 
-def test_put_get_delete_cors(stub_and_patch, make_unique_name, make_bucket):
-    """Test that put, get, and delete of CORS on a bucket works as expected."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_grant_log_delivery_access(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
 
+    s3_stubber.stub_get_bucket_acl(bucket_name)
+    s3_stubber.stub_put_bucket_acl(bucket_name, error_code=error_code)
+
+    if error_code is None:
+        wrapper.grant_log_delivery_access()
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.grant_log_delivery_access()
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_get_acl(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+
+    s3_stubber.stub_get_bucket_acl(bucket_name, ['owner'], error_code=error_code)
+
+    if error_code is None:
+        got_acl = wrapper.get_acl()
+        assert len(got_acl.grants) == 1
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.get_acl()
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_put_cors(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
     cors_rules = [{
         'AllowedOrigins': ['http://www.example.com'],
         'AllowedMethods': ['PUT', 'POST', 'DELETE'],
         'AllowedHeaders': ['*']
     }]
 
-    stubber.stub_put_bucket_cors(bucket.name, cors_rules)
-    stubber.stub_get_bucket_cors(bucket.name, cors_rules)
-    stubber.stub_delete_bucket_cors(bucket.name)
-    stubber.stub_get_bucket_cors(bucket.name, error_code='NoSuchCORSConfiguration')
+    s3_stubber.stub_put_bucket_cors(bucket_name, cors_rules, error_code=error_code)
 
-    bucket_wrapper.put_cors(bucket.name, cors_rules)
-
-    cors = bucket_wrapper.get_cors(bucket.name)
-    assert cors.cors_rules == cors_rules
-
-    bucket_wrapper.delete_cors(bucket.name)
-    with pytest.raises(ClientError) as exc_info:
-        _ = bucket_wrapper.get_cors(bucket.name)
-    assert exc_info.value.response['Error']['Code'] == 'NoSuchCORSConfiguration'
+    if error_code is None:
+        wrapper.put_cors(cors_rules)
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.put_cors(cors_rules)
+        assert exc_info.value.response['Error']['Code'] == error_code
 
 
-def test_put_bucket_policy_bad_version(stub_and_patch, make_unique_name, make_bucket):
-    """
-    Test that a policy version other than 2012-10-17 or 2008-10-17 fails.
-    This is because the version is the version of the policy format and so must be
-    a recognized version string.
-    """
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_get_cors(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+    cors_rules = [{
+        'AllowedOrigins': ['http://www.example.com'],
+        'AllowedMethods': ['PUT', 'POST', 'DELETE'],
+        'AllowedHeaders': ['*']
+    }]
 
-    put_policy = {
-        'Version': '2020-03-17'
-    }
+    s3_stubber.stub_get_bucket_cors(bucket_name, cors_rules, error_code=error_code)
 
-    stubber.stub_put_bucket_policy(bucket.name, put_policy,
-                                   error_code='MalformedPolicy')
+    if error_code is None:
+        got_rules = wrapper.get_cors()
+        assert got_rules.cors_rules == cors_rules
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.get_cors()
+        assert exc_info.value.response['Error']['Code'] == error_code
 
-    with pytest.raises(ClientError) as exc_info:
-        bucket_wrapper.put_policy(bucket.name, put_policy)
-    assert exc_info.value.response['Error']['Code'] == 'MalformedPolicy'
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_delete_cors(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+
+    s3_stubber.stub_delete_bucket_cors(bucket_name, error_code=error_code)
+
+    if error_code is None:
+        wrapper.delete_cors()
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.delete_cors()
+        assert exc_info.value.response['Error']['Code'] == error_code
 
 
-@pytest.mark.skip_if_real_aws
-def test_put_get_delete_bucket_policy(stub_and_patch, make_unique_name, make_bucket):
-    """
-    Test that put, get, delete on a bucket policy works as expected.
-    To run this test with the non-stubbed AWS service, you must update the principal
-    ARN to an existing AWS user, or the test will fail.
-    """
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
-
-    policy_id = uuid.uuid1()
-
-    put_policy = {
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_put_policy(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+    policy = {
         'Version': '2012-10-17',
-        'Id': str(policy_id),
+        'Id': 'test-policy',
         'Statement': [{
             'Effect': 'Allow',
             'Principal': {'AWS': 'arn:aws:iam::111122223333:user/Martha'},
@@ -250,62 +207,81 @@ def test_put_get_delete_bucket_policy(stub_and_patch, make_unique_name, make_buc
                 's3:ListBucket'
             ],
             'Resource': [
-                f'arn:aws:s3:::{bucket.name}/*',
-                f'arn:aws:s3:::{bucket.name}'
+                f'arn:aws:s3:::{bucket_name}/*',
+                f'arn:aws:s3:::{bucket_name}'
             ]
         }]
     }
 
-    stubber.stub_put_bucket_policy(bucket.name, put_policy)
-    stubber.stub_get_bucket_policy(bucket.name, put_policy)
-    stubber.stub_delete_bucket_policy(bucket.name)
-    stubber.stub_get_bucket_policy(bucket.name, error_code='NoSuchBucketPolicy')
+    s3_stubber.stub_put_bucket_policy(bucket_name, error_code=error_code)
 
-    bucket_wrapper.put_policy(bucket.name, put_policy)
-    policy = bucket_wrapper.get_policy(bucket.name)
-    assert put_policy == policy
-    bucket_wrapper.delete_policy(bucket.name)
-    with pytest.raises(ClientError) as exc_info:
-        _ = bucket_wrapper.get_policy(bucket.name)
-    assert exc_info.value.response['Error']['Code'] == 'NoSuchBucketPolicy'
+    if error_code is None:
+        wrapper.put_policy(policy)
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.put_policy(policy)
+        assert exc_info.value.response['Error']['Code'] == error_code
 
 
-def test_get_bucket_lifecycle_configuration(stub_and_patch, make_unique_name,
-                                            make_bucket):
-    """Test that getting the lifecycle configuration of a new bucket raises an error."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_get_policy(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+    policy = {
+        'Version': '2012-10-17',
+        'Id': 'test-policy',
+        'Statement': [{
+            'Effect': 'Allow',
+            'Principal': {'AWS': 'arn:aws:iam::111122223333:user/Martha'},
+            'Action': [
+                's3:GetObject',
+                's3:ListBucket'
+            ],
+            'Resource': [
+                f'arn:aws:s3:::{bucket_name}/*',
+                f'arn:aws:s3:::{bucket_name}'
+            ]
+        }]
+    }
 
-    stubber.stub_get_bucket_lifecycle_configuration(
-        bucket.name, error_code='NoSuchLifecycleConfiguration'
-    )
+    s3_stubber.stub_get_bucket_policy(bucket_name, policy, error_code=error_code)
 
-    with pytest.raises(ClientError) as exc_info:
-        _ = bucket_wrapper.get_lifecycle_configuration(bucket.name)
-    assert exc_info.value.response['Error']['Code'] == 'NoSuchLifecycleConfiguration'
+    if error_code is None:
+        got_policy = wrapper.get_policy()
+        assert got_policy == policy
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.get_policy()
+        assert exc_info.value.response['Error']['Code'] == error_code
 
 
-def test_put_get_delete_bucket_lifecycle_configuration(
-        stub_and_patch, make_unique_name, make_bucket):
-    """
-    Test that put, get, delete of lifecycle configuration on a bucket works
-    as expected.
-    """
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_delete_policy(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
 
-    put_rules = [{
-        'ID': str(uuid.uuid1()),
-        'Filter': {
-            'And': {
-                'Prefix': 'monsters/',
-                'Tags': [{'Key': 'type', 'Value': 'zombie'}]
-            }
-        },
-        'Status': 'Enabled',
-        'Expiration': {'Days': 28}
-    }, {
-        'ID': str(uuid.uuid1()),
+    s3_stubber.stub_delete_bucket_policy(bucket_name, error_code=error_code)
+
+    if error_code is None:
+        wrapper.delete_policy()
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.delete_policy()
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_put_lifecycle_configuration(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+    rules = [{
+        'ID': 'test-id',
         'Filter': {
             'And': {
                 'Prefix': 'monsters/',
@@ -316,30 +292,72 @@ def test_put_get_delete_bucket_lifecycle_configuration(
         'Transitions': [{'Days': 365, 'StorageClass': 'GLACIER'}]
     }]
 
-    stubber.stub_put_bucket_lifecycle_configuration(bucket.name, put_rules)
-    stubber.stub_get_bucket_lifecycle_configuration(bucket.name, put_rules)
-    stubber.stub_delete_bucket_lifecycle_configuration(bucket.name)
-    stubber.stub_get_bucket_lifecycle_configuration(
-        bucket.name, error_code='NoSuchLifecycleConfiguration'
-    )
+    s3_stubber.stub_put_bucket_lifecycle_configuration(
+        bucket_name, rules, error_code=error_code)
 
-    bucket_wrapper.put_lifecycle_configuration(bucket.name, put_rules)
-    rules = bucket_wrapper.get_lifecycle_configuration(bucket.name)
-    assert rules == put_rules
-    bucket_wrapper.delete_lifecycle_configuration(bucket.name)
-    with pytest.raises(ClientError) as exc_info:
-        _ = bucket_wrapper.get_lifecycle_configuration(bucket.name)
-    assert exc_info.value.response['Error']['Code'] == 'NoSuchLifecycleConfiguration'
+    if error_code is None:
+        wrapper.put_lifecycle_configuration(rules)
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.put_lifecycle_configuration(rules)
+        assert exc_info.value.response['Error']['Code'] == error_code
 
 
-def test_generate_presigned_post(make_unique_name):
-    """Test that generating a presigned POST URL works as expected."""
-    bucket_name = make_unique_name('bucket')
-    object_key = make_unique_name('object')
-    expires_in = 60
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_get_lifecycle_configuration(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+    rules = [{
+        'ID': 'test-id',
+        'Filter': {
+            'And': {
+                'Prefix': 'monsters/',
+                'Tags': [{'Key': 'type', 'Value': 'frankenstein'}]
+            }
+        },
+        'Status': 'Enabled',
+        'Transitions': [{'Days': 365, 'StorageClass': 'GLACIER'}]
+    }]
 
-    response = bucket_wrapper.generate_presigned_post(bucket_name, object_key,
-                                                      expires_in)
+    s3_stubber.stub_get_bucket_lifecycle_configuration(
+        bucket_name, rules, error_code=error_code)
+
+    if error_code is None:
+        got_rules = wrapper.get_lifecycle_configuration()
+        assert got_rules == rules
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.get_lifecycle_configuration()
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_delete_lifecycle_configuration(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+
+    s3_stubber.stub_delete_bucket_lifecycle(bucket_name, error_code=error_code)
+
+    if error_code is None:
+        wrapper.delete_lifecycle_configuration()
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.delete_lifecycle_configuration()
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_generate_presigned_post(make_stubber, error_code):
+    s3_resource = boto3.resource('s3')
+    bucket_name = 'test-bucket_name'
+    wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
+    key = 'test-key'
+
+    response = wrapper.generate_presigned_post(key, 60)
     segments = urlparse(response['url'])
     assert all([segments.scheme, segments.netloc, segments.path])
-    assert response['fields']['key'] == object_key
+    assert response['fields']['key'] == key

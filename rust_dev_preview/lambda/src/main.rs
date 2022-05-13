@@ -3,6 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use lambda_runtime::handler_fn;
+use log::{error, info};
+use serde::{Deserialize, Serialize};
+
 // snippet-start:[lambda.rust.main]
 #[derive(Deserialize)]
 struct Request {
@@ -34,7 +38,6 @@ type Response = Result<SuccessResponse, FailureResponse>;
 
 #[tokio::main]
 async fn main() -> Result<(), lambda_runtime::Error> {
-
     let func = handler_fn(handler);
     lambda_runtime::run(func).await?;
 

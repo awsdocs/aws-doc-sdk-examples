@@ -1,72 +1,75 @@
-# AWS SDK for Ruby code examples for Amazon S3
+# Amazon S3 examples using AWS SDK for Ruby
 
 ## Purpose
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate 
-Amazon Simple Storage Service (Amazon S3).
+Shows how to use AWS SDK for Ruby to get started using bucket and
+object operations in Amazon Simple Storage Service (Amazon S3).
 
-Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance. 
+*Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any
+amount of data at any time, from anywhere on the web.*
 
 ## Code examples
 
-### Usage examples
-- [Managing access permissions](./s3-ruby-example-access-permissions.rb)
-- [Working with buckets](./s3_ruby_create_bucket.rb)
+### Scenarios
 
-### API examples
-- [Add a CORS configuration to an Amazon S3 bucket](./s3_ruby_bucket_cors.rb)
-- [Add an event notification to a bucket](./s3-ruby-example-add-notification.rb)
-- [Allow federated users to list objects](./auth_federation_token_request_test.rb)
-- [Print list of objects](./auth_request_object_keys.rb)
-- [Check to see which buckets are accessible to you, with the target AWS Region specified](./s3-ruby-example-show-buckets-in-region.rb)
-- [Check whether a bucket exists in an AWS Region](./s3-ruby-example-bucket-accessible.rb)
-- [Check whether a bucket exists](./s3-ruby-example-bucket-exists.rb)
-- [Configure a bucket as a static website](./s3_ruby_bucket_website.rb)
-- [Create a bucket](./s3-ruby-example-create-bucket.rb)
-- [Create RSA keys](./s3-ruby-example-create-rsa-keys.rb)
-- [Check which buckets have public read access](./s3-ruby-example-find-open-buckets.rb)
-- [Copy an object between buckets, changing its server-side encryption state](./copy_object_encrypt_copy.rb)
-- [Copy objects between buckets](./copy_object_between_buckets.rb)
-- [Copy an object from one bucket to another, optionally setting the object's (ACL) and storage class](./s3-ruby-example-set-item-props.rb)
-- [Create a bucket](./create_bucket_snippet.rb)
-- [Create RSA keys](./create_rsa_keys.rb)
-- [Create user access keys](./auth_session_token_request_test.rb)
-- [Deny uploads of unencrypted objects to a bucket](./s3_add_bucket_ssekms_encryption_policy.rb)
-- [Deny uploads of objects without server-side AWS KMS encryption to a bucket.](./s3_add_bucket_sses3_encryption_policy.rb)
-- [Determine an object's encryption state](./determine_object_encryption_state.rb)
-- [Determine whether a bucket exists and you have permission to access it](./s3-ruby-example-head-bucket.rb)
-- [Download an object from a bucket, where the object's contents were encrypted with an RSA public key](./s3-ruby-example-get-cspk-item.rb)
-- [Download an object from a bucket](./s3-ruby-example-get-item.rb)
-- [List objects in a bucket](./s3-ruby-example-list-bucket-items.rb)
-- [List the buckets owned by the authenticated sender of the request](./s3-ruby-example-show-50-buckets.rb)
-- [List your buckets](./s3.rb)
-- [Set the ACL on a bucket for the given owner](./s3_set_bucket_acls.rb)
-- [Set the ACL on an object in a bucket for the given owner](./s3_set_bucket_object_acls.rb)
-- [Set the default encryption state for a bucket SSE with an AWS KMS customer master key (CMK).](./s3_add_default_sse_encryption.rb)
-- [Upload an object to a bucket, encrypting the contents with an RSA public key](./s3-ruby-example-add-cspk-item.rb)
-- [Upload an object to a bucket](./s3-ruby-example-upload-item.rb)
-- [Upload an item (file) to a folder within a bucket](./s3-ruby-example-upload-item-to-folder.rb)
-- [Upload an object to a bucket, and associate specified metadata with the object](./s3-ruby-example-upload-item-with-metadata.rb)
-- [Upload an object to a bucket (file uploader)](./upload_files_using_managed_file_uploader.rb)
-- [Upload an object to a bucket (put object method) ](./upload_files_using_put_object_method.rb)
-- [Upload an object to a bucket using a presigned URL](./upload_object_presigned_url.rb)
-- [Upload an encrypted object to a bucket (AES256-GCM key)](./s3_add_csaes_encrypt_item.rb)
-- [Upload an encrypted object to a bucket (AWS KMS key)](./s3_add_cskms_encrypt_item.rb)
-- [Upload an encrypted object to a bucket (public/private key-pair strings)](./s3_add_cspk_encrypt_item.rb)
-- [Upload multiple items to a bucket ](./s3-ruby-example-upload-multiple-items.rb)
+* [Create a presigned URL](object_presigned_url_upload.rb)
+* [Getting started with buckets and objects](scenario_getting_started.rb)
 
+### Actions
 
+* [Add CORS rules to a bucket](bucket_cors.rb)
+  (`PutBucketCors`)
+* [Add a policy to a bucket](bucket_policy.rb)
+  (`PutBucketPolicy`)
+* [Copy an object from one bucket to another](object_copy.rb)
+  (`CopyObject`)
+* [Copy an object from one bucket to another and add encryption](object_copy_encrypt.rb)
+  (`CopyObject`)
+* [Create a bucket](bucket_create.rb)
+  (`CreateBucket`)
+* [Delete an empty bucket](scenario_getting_started.rb)
+  (`DeleteBucket`)
+* [Delete CORS rules from a bucket](bucket_cors.rb)
+  (`DeleteBucketCors`)
+* [Delete a policy from a bucket](bucket_policy.rb)
+  (`DeleteBucketPolicy`)
+* [Delete multiple objects](scenario_getting_started.rb)
+  (`DeleteObjects`)
+* [Determine the existence and content type of an object](object_exists.rb)
+  (`HeadObject`)
+* [Get an object from a bucket](object_get.rb)
+  (`GetObject`)
+* [Get an object from a bucket and report its server-side encryption state](object_get_encryption.rb)
+  (`GetObject`)
+* [Get CORS rules for a bucket](bucket_cors.rb)
+  (`GetBucketCors`)
+* [Get the policy for a bucket](bucket_policy.rb)
+  (`GetBucketPolicy`)
+* [List buckets](bucket_list.rb)
+  (`ListBuckets`)
+* [List objects in a bucket](bucket_list_objects.rb)
+  (`ListObjects`)
+* [Set the website configuration for a bucket](bucket_put_website.rb)
+  (`PutBucketWebsite`)
+* [Set server-side encryption for a bucket](bucket_put_encryption.rb)
+  (`PutBucketEncryption`)
+* [Upload an object to a bucket using Object.put](object_put.rb)
+  (`PutObject`)
+* [Upload an object to a bucket using Object.put and add server-side encryption](object_put_sse.rb)
+  (`PutObject`)
+* [Upload an object to a bucket using Object.upload_file](object_put.rb)
+  (`PutObject`)
 
+## ⚠ Important
 
-## Important
-
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific AWS Regions. For more information, see the 
-  [AWS Regional Services List](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+- As an AWS best practice, grant this code least privilege, or only the
+  permissions required to perform a task. For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the *AWS Identity and Access Management
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are
+  available only in specific Regions. For more information, see the
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
   on the AWS website.
 - Running this code might result in charges to your AWS account.
 
@@ -74,46 +77,70 @@ Amazon S3 is an object storage service that offers industry-leading scalability,
 
 ### Prerequisites
 
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
-  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
-- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
-  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
-- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
-  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Ruby 3.0.3 or later
+- AWS SDK for Ruby 3.1.0 or later
+- RSpec 3.10 or later (to run unit tests)
 
-Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `create_bucket_snippet.rb` file, replace the hard-coded `bucket_name` and `region` variable values in the file with your own values, save the file, and then run the file. For example:
+### Command
+
+#### Scenarios
+
+The getting started scenario can be run from the command prompt and interactively
+asks for input as it runs. Start the scenario by running the following at a command 
+prompt.
 
 ```
-ruby create_bucket_snippet.rb
+ruby scenario_getting_started.rb
 ```
 
-Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `bucket_created?` function code from the `create_bucket_snippet.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `bucket_created?` function.
+#### Actions
+
+Most of the action examples require that you replace specific values with your own values
+before you run them. For example, to run the `object_upload_file.rb` example, you must 
+modify the code to specify the name of a bucket that you own, the key for the 
+uploaded object, and the path to a local file.
+
+After you've specified the values, run the example at a command prompt. 
+
+```
+ruby object_upload_file.rb
+```
 
 ## Running the tests
 
-Most of these code example files have accompanying tests that are written to work with RSpec. These tests are in the `tests` folder and contain the same file name as the corresponding code example file, for example `tests/test_create_bucket_snippet.rb` contains tests for `create_bucket_snippet.rb`.
+All tests use RSpec and can be found in the `spec` folder.
 
-To use RSpec to run all tests within a file, specify the path to that file, for example:
+### Unit tests
+
+The unit tests in this module use stubbed responses from AWS SDK for Ruby. When the
+tests are run, requests are not sent to AWS, mocked responses are returned, and no
+charges are incurred on your account.
+
+Run unit tests at a command prompt by including the `~integ` tag.
 
 ```
-rspec tests/test_create_bucket_snippet.rb
+rspec --tag ~integ
 ```
 
-To explore additional options for using RSpec to run tests, run the `rspec --help` command. 
+### Integration tests
 
-Most of these tests are designed to use stubs, to avoid generating unnecessary costs in an AWS account. For more information, see [Stubbing Client Responses and Errors](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/stubbing.html) in the *AWS SDK for Ruby Developer Guide*.
+The integration tests in this module do make requests to AWS, creating and destroying
+resources in your account. Integration tests must be approached with caution and
+may incur charges.
 
+Run integration tests at a command prompt by including the `integ` tag.
+
+```
+rspec --tag integ
+```
 
 ## Additional information
 
-- [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
-- [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
-- [RSpec Documentation](https://rspec.info/documentation)
+- [Amazon S3 Documentation](https://docs.aws.amazon.com/s3)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

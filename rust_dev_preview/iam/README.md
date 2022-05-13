@@ -1,58 +1,72 @@
-# AWS SDK for Rust code examples for IAM
+# IAM code examples for the SDK for Rust
 
-## Purpose
+## Overview
 
-These examples demonstrate how to perform several AWS Identity and Access Management (IAM) operations using the developer preview version of the AWS SDK for Rust.
+Shows how to use the AWS SDK for Rust to manage AWS Identity and Access Management (IAM) resources.
 
-IAM is a web service for securely controlling access to AWS services.
+*IAM is a web service for securely controlling access to AWS services. With IAM, you can centrally manage users,
+security credentials such as access keys, and permissions that control which AWS resources users and applications can
+access.*
+
+## ⚠️ Important
+
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform
+  the task. For more information, see
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information,
+  see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
-- [Create a role](src/bin/create-role.rs) (CreateRole)
+### Single action
 
-## ⚠ Important
+* [Listing roles](src/iam-service-lib.rs) (ListRoles)
+* [Listing users](src/iam-service-lib.rs) (ListUsers)
+* [Listing groups](src/iam-service-lib.rs) (ListGroups)
+* [Attaching role policies](src/iam-service-lib.rs) (AttachRolePolicy)
+* [Getting an account password policy](src/iam-service-lib.rs) (GetAccountPasswordPolicy)
+* [Listing SAML providers](src/iam-service-lib.rs) (ListSAMLProviders)
+* [Listing role policies](src/iam-service-lib.rs) (ListRolePolicies)
+* [Getting a role](src/iam-service-lib.rs) (GetRole)
+* [Listing policies](src/iam-service-lib.rs) (ListPolicies)
+* [Creating a service-linked role](src/iam-service-lib.rs) (CreateServiceLinkedRole)
+* [Creating a role](src/iam-service-lib.rs) (CreateRole)
+* [Listing attached role policies](src/iam-service-lib.rs) (ListAttachedRolePolicies)
+* [Getting a policy](src/iam-service-lib.rs) (GetPolicy)
 
-- We recommend that you grant this code least privilege, 
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+### Scenario
 
-## Running the code examples
+* [Getting started with IAM](src/bin/iam-getting-started.rs)
+
+## Running the code
+
+Run the scenario with the following command:
+
+```
+cargo run --bin iam_getting_started
+```
 
 ### Prerequisites
 
-You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+- You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+- Install Rust and Cargo as described [in the Rust documentation](https://doc.rust-lang.org/book/ch01-01-installation.html)
 
-### create-role.rs
+## Tests
 
-This example creates an IAM role in the Region.
+⚠️ Running the tests might result in charges to your AWS account.
 
-`cargo run --bin create-role -- -a ACCOUNT-ID -b BUCKET -n NAME -p POLICY-FILE [-r REGION] [-v]`
+Run the tests with the following command:
 
-- _NAME_ is the name of the role.
-- _POLICY-FILE_ is the name of the JSON file containing the policy document.
-- _REGION_ the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+```
+cargo test --test test-iam-service-lib -- --include-ignore
+```
 
-If the example succeeds, it displays the ARN of the new role.
+## Additional resources
 
-## Resources
-
-- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- - [AWS SDK for Rust API Reference for IAM](https://docs.rs/aws-sdk-iam)
-- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
-
-## Contributing
-
-To propose a new code example to the AWS documentation team, 
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
-The team prefers to create code examples that show broad scenarios rather than individual API calls.
+* [AWS Identity and Access Management documentation](https://docs.aws.amazon.com/iam)
+* [AWS Identity and Access Management API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
+* [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

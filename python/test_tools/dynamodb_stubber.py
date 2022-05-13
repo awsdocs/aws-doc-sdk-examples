@@ -59,17 +59,18 @@ class DynamoStubber(ExampleStubber):
     def _build_out_item(self, in_item):
         out_item = {}
         for key, value in in_item.items():
-            value_type = self.type_encoding[type(value)]
-            if value_type == 'M':
-                out_val = self._build_out_item(value)
-            elif value_type == 'L':
-                out_val = [
-                    {self.type_encoding[type(list_val)]: list_val}
-                    for list_val in value
-                ]
-            else:
-                out_val = str(value)
-            out_item[key] = {value_type: out_val}
+            if value is not None:
+                value_type = self.type_encoding[type(value)]
+                if value_type == 'M':
+                    out_val = self._build_out_item(value)
+                elif value_type == 'L':
+                    out_val = [
+                        {self.type_encoding[type(list_val)]: list_val}
+                        for list_val in value
+                    ]
+                else:
+                    out_val = str(value)
+                out_item[key] = {value_type: out_val}
         return out_item
 
     def stub_create_table(self, table_name, schema, throughput, error_code=None):
@@ -86,7 +87,7 @@ class DynamoStubber(ExampleStubber):
         }
         self._add_table_schema(table_output, table_name, schema)
         self._stub_bifurcator(
-            'create_table', table_input,{'TableDescription': table_output},
+            'create_table', table_input, {'TableDescription': table_output},
             error_code=error_code)
 
     def stub_describe_table(
@@ -164,6 +165,19 @@ class DynamoStubber(ExampleStubber):
             expected_params['ConditionExpression'] = condition
         response = {
             'Attributes': self._build_out_item(update)
+        }
+        self._stub_bifurcator('update_item', expected_params, response, error_code)
+
+    def stub_update_item_attr_update(
+            self, table_name, update_key, attribs, error_code=None):
+        expected_params = {
+            'TableName': table_name,
+            'Key': update_key,
+            'AttributeUpdates': {
+                key: {'Value': value, 'Action': 'PUT'}
+                for key, value in attribs.items()}}
+        response = {
+            'Attributes': self._build_out_item(attribs)
         }
         self._stub_bifurcator('update_item', expected_params, response, error_code)
 

@@ -10,7 +10,7 @@
 # Prerequisites:
 #  - An existing Amazon S3 bucket.
 
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 # @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
 # @param bucket_name [String] The bucket's name.
@@ -26,12 +26,12 @@ def list_bucket_objects?(s3_client, bucket_name)
   )
 
   if objects.count.positive?
-    puts 'The object keys in this bucket are (first 50 objects):'
+    puts "The object keys in this bucket are (first 50 objects):"
     objects.contents.each do |object|
       puts object.key
     end
   else
-    puts 'No objects found in this bucket.'
+    puts "No objects found in this bucket."
   end
 
   return true
@@ -43,8 +43,8 @@ end
 # Full example call:
 # Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
-  region = 'us-west-2'
-  bucket_name = 'BUCKET_NAME'
+  region = "us-west-2"
+  bucket_name = "BUCKET_NAME"
   s3_client = Aws::S3::Client.new(region: region)
 
   exit 1 unless list_bucket_objects?(s3_client, bucket_name)

@@ -1,0 +1,38 @@
+{
+    "Records": [
+        {
+            "eventVersion": "2.1",
+            "eventSource": "aws:s3",
+            "awsRegion": "us-west-2",
+            "eventTime": "2021-08-19T00:28:07.457Z",
+            "eventName": "ObjectCreated:Put",
+            "userIdentity": {
+                "principalId": "AWS:AROAZADPFO2WB2EOU2W5R:aws-go-sdk-1629332888237277000"
+            },
+            "requestParameters": {
+                "sourceIPAddress": "1.2.3.4"
+            },
+            "responseElements": {
+                "x-amz-request-id": "EXAMPLETYEBY3CSD",
+                "x-amz-id-2": "ab521eed-90e0-4c07-8845-0eb2c882b78c/mA97riNRS9wLg6EWe"
+            },
+            "s3": {
+                "s3SchemaVersion": "1.0",
+                "configurationId": "628244b9730d41e0ad1e279553eccafb",
+                "bucket": {
+                    "name": "stack-contenetf097c3f7-6e6d-4ac6-8c27-731dc7fb4841",
+                    "ownerIdentity": {
+                        "principalId": "AX2T3RC7VBM4V"
+                    },
+                    "arn": "arn:aws:s3:::wordfreqstack-contentbucket356cf7a5-1qn93ds6kezmk"
+                },
+                "object": {
+                    "key": "a367e3f7-1171-5934-92df-a664180a7175",
+                    "size": 557,
+                    "eTag": "7bba457d8131d9b93d90f91a79c9ef36",
+                    "sequencer": "00611DA59881DF8D3D"
+                }
+            }
+        }
+    ]
+}

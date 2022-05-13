@@ -21,7 +21,7 @@ Returns the object} from the Amazon S3 bucket.
 // snippet-start:[s3.JavaScript.buckets.getobjectV3]
 // Import required AWS SDK clients and commands for Node.js.
 import { GetObjectCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 
 export const bucketParams = {
   Bucket: "BUCKET_NAME",

@@ -6,6 +6,7 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_dynamodb::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
+use tokio_stream::StreamExt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
@@ -25,11 +26,17 @@ struct Opt {
 // Lists the items in a table.
 // snippet-start:[dynamodb.rust.list-items]
 async fn list_items(client: &Client, table: &str) -> Result<(), Error> {
-    let resp = client.scan().table_name(table).send().await?;
+    let items: Result<Vec<_>, _> = client
+        .scan()
+        .table_name(table)
+        .into_paginator()
+        .items()
+        .send()
+        .collect()
+        .await;
 
     println!("Items in table:");
-
-    if let Some(item) = resp.items {
+    for item in items? {
         println!("   {:?}", item);
     }
 

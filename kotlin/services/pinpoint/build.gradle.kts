@@ -3,8 +3,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.31"
     id("io.gitlab.arturbosch.detekt").version("1.16.0-RC1")
-     application
+    application
 }
+
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
@@ -20,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:pinpoint:0.9.4-beta")
+    implementation("aws.sdk.kotlin:pinpoint:0.14.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     implementation("com.google.code.gson:gson:2.8.6")

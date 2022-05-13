@@ -1,18 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to delete a policy that has been attached to an AWS Identity
+/// and Access Management (IAM) role. The example was created using the AWS
+/// SDK for .NET version 3.7 and .NET Core 5.0.
+/// </summary>
 namespace DeleteRolePolicyExample
 {
+    // snippet-start:[IAM.dotnetv3.DeleteRolePolicyExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
 
-    /// <summary>
-    /// Shows how to delete a policy that has been attached to an AWS Identity
-    /// and Access Management (IAM) Role. The example was created using the AWS
-    /// SDK for .NET version 3.7 and .NET Core 5.0.
-    /// </summary>
     public class DeleteRolePolicy
     {
         /// <summary>
@@ -38,4 +39,6 @@ namespace DeleteRolePolicyExample
             }
         }
     }
+
+    // snippet-end:[IAM.dotnetv3.DeleteRolePolicyExample]
 }

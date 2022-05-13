@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Item tracker</title>
+  </head>
+  <body>
+    <h1>Work item report</h1>
+    <p>{{message}}</p>
+    <hr/>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Created</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{item.item_id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.formatted_date}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.status}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

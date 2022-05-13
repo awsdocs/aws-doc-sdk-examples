@@ -7,10 +7,15 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.3.0"
-aws-sdk-ec2 = "0.3.0"
-aws-sdk-lambda = "0.3.0"
-tokio = { version = "1", features = ["full"] }
-structopt = { version = "0.3", default-features = false }
-tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-ec2 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-lambda = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 env_logger = "0.9.0"
+lambda_runtime = "0.4"
+log = "0.4"
+serde = { version = "1", features = ["derive"] }
+structopt = { version = "0.3", default-features = false }
+tokio = { version = "1", features = ["full"] }
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
+time = "0.3"

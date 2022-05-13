@@ -417,7 +417,7 @@ rekognition_Usage_FindFacesInCollection:
   title: Build an &REK; collection and find faces in it using an &AWS; SDK
   title_abbrev: Build a collection and find faces in it
   synopsis: build an &REK; collection and find faces in it.
-  category: Usage
+  category: Scenarios
   guide_topic:
     title: Searching faces in a collection
     url: rekognition/latest/dg/collections.html
@@ -750,7 +750,7 @@ rekognition_Usage_DetectAndDisplayImage:
   title: Detect and display elements in images with &REK; using an &AWS; SDK
   title_abbrev: Detect and display elements in images
   synopsis: detect and display elements in images with &REK;.
-  category: Usage
+  category: Scenarios
   guide_topic:
     title: Displaying bounding boxes
     url: rekognition/latest/dg/images-displaying-bounding-boxes.html
@@ -814,7 +814,7 @@ rekognition_VideoDetection:
   title: Detect information in videos using &REK; and the &AWS; SDK
   title_abbrev: Detect information in videos
   synopsis: detect information in videos.
-  category: Usage
+  category: Scenarios
   languages:
     Kotlin:
       versions:

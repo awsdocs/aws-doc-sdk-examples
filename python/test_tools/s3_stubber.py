@@ -48,42 +48,19 @@ class S3Stubber(ExampleStubber):
         return version
 
     def stub_create_bucket(self, bucket_name, region_name=None, error_code=None):
-        expected_params = {
-            'Bucket': bucket_name
-        }
-        if region_name:
+        expected_params = {'Bucket': bucket_name}
+        if region_name is not None:
             expected_params['CreateBucketConfiguration'] = {
-                'LocationConstraint': region_name
-            }
-
-        if not error_code:
-            self.add_response(
-                'create_bucket',
-                expected_params=expected_params,
-                service_response={}
-            )
-        else:
-            self.add_client_error(
-                'create_bucket',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+                'LocationConstraint': region_name}
+        response = {}
+        self._stub_bifurcator(
+            'create_bucket', expected_params, response, error_code=error_code)
 
     def stub_head_bucket(self, bucket_name, status_code=200, error_code=None):
-        """The head bucket function is used by the bucket waiter to determine
-        bucket existence."""
-        if not error_code:
-            self.add_response(
-                'head_bucket',
-                expected_params={'Bucket': bucket_name},
-                service_response={'ResponseMetadata': {'HTTPStatusCode': status_code}}
-            )
-        else:
-            self.add_client_error(
-                'head_bucket',
-                expected_params={'Bucket': bucket_name},
-                service_error_code=str(error_code)
-            )
+        expected_params = {'Bucket': bucket_name}
+        response = {'ResponseMetadata': {'HTTPStatusCode': status_code}}
+        self._stub_bifurcator(
+            'head_bucket', expected_params, response, error_code=error_code)
 
     def stub_delete_bucket(self, bucket_name, error_code=None):
         expected_params = {'Bucket': bucket_name}
@@ -99,8 +76,9 @@ class S3Stubber(ExampleStubber):
         self._stub_bifurcator(
             'list_buckets', response=response, error_code=error_code)
 
-    def stub_get_bucket_acl(self, bucket_name, grant_names=None):
-        service_response = {
+    def stub_get_bucket_acl(self, bucket_name, grant_names=None, error_code=None):
+        expected_params = {'Bucket': bucket_name}
+        response = {
             'Owner': {
                 'DisplayName': 'test-owner',
                 'ID': '123456789EXAMPLE'
@@ -127,152 +105,97 @@ class S3Stubber(ExampleStubber):
                         'Permission': 'WRITE'
                     })
             if grants:
-                service_response['Grants'] = grants
+                response['Grants'] = grants
+        self._stub_bifurcator(
+            'get_bucket_acl', expected_params, response, error_code=error_code)
 
-        self.add_response(
-            'get_bucket_acl',
-            expected_params={'Bucket': bucket_name},
-            service_response=service_response
-        )
-
-    def stub_put_bucket_acl(self, bucket_name):
-        self.add_response(
-            'put_bucket_acl',
-            expected_params={
-                'AccessControlPolicy': {
-                    'Grants': [{
-                        'Grantee': {
-                            'Type': 'Group',
-                            'URI': 'http://acs.amazonaws.com/groups/s3/LogDelivery'
-                        },
-                        'Permission': 'WRITE'
-                    }],
-                    'Owner': {
-                        'DisplayName': 'test-owner',
-                        'ID': '123456789EXAMPLE'
-                    }
-                },
-                'Bucket': bucket_name
+    def stub_put_bucket_acl(self, bucket_name, error_code=None):
+        expected_params = {
+            'AccessControlPolicy': {
+                'Grants': [{
+                    'Grantee': {
+                        'Type': 'Group',
+                        'URI': 'http://acs.amazonaws.com/groups/s3/LogDelivery'
+                    },
+                    'Permission': 'WRITE'
+                }],
+                'Owner': {
+                    'DisplayName': 'test-owner',
+                    'ID': '123456789EXAMPLE'
+                }
             },
-            service_response={}
-        )
+            'Bucket': bucket_name
+        }
+        response = {}
+        self._stub_bifurcator(
+            'put_bucket_acl', expected_params, response, error_code=error_code)
 
     def stub_get_bucket_cors(self, bucket_name, cors_rules=None, error_code=None):
-        if not error_code:
-            self.add_response(
-                'get_bucket_cors',
-                expected_params={'Bucket': bucket_name},
-                service_response={
-                    'CORSRules': cors_rules
-                }
-            )
-        else:
-            self.add_client_error(
-                'get_bucket_cors',
-                expected_params={'Bucket': bucket_name},
-                service_error_code=error_code
-            )
+        expected_params = {'Bucket': bucket_name}
+        response = {'CORSRules': cors_rules}
+        self._stub_bifurcator(
+            'get_bucket_cors', expected_params, response, error_code=error_code)
 
-    def stub_put_bucket_cors(self, bucket_name, cors_rules):
-        self.add_response(
-            'put_bucket_cors',
-            expected_params={
-                'Bucket': bucket_name,
-                'CORSConfiguration': {
-                    'CORSRules': cors_rules
-                }
-            },
-            service_response={}
-        )
+    def stub_put_bucket_cors(self, bucket_name, cors_rules, error_code=None):
+        expected_params = {
+            'Bucket': bucket_name,
+            'CORSConfiguration': {
+                'CORSRules': cors_rules
+            }
+        }
+        response = {}
+        self._stub_bifurcator(
+            'put_bucket_cors', expected_params, response, error_code=error_code)
 
-    def stub_delete_bucket_cors(self, bucket_name):
-        self.add_response(
-            'delete_bucket_cors',
-            expected_params={'Bucket': bucket_name},
-            service_response={}
-        )
+    def stub_delete_bucket_cors(self, bucket_name, error_code=None):
+        expected_params = {'Bucket': bucket_name}
+        response = {}
+        self._stub_bifurcator(
+            'delete_bucket_cors', expected_params, response, error_code=error_code)
 
     def stub_get_bucket_policy(self, bucket_name, policy=None, error_code=None):
-        if not error_code:
-            self.add_response(
-                'get_bucket_policy',
-                expected_params={'Bucket': bucket_name},
-                service_response={'Policy': json.dumps(policy)}
-            )
-        else:
-            self.add_client_error(
-                'get_bucket_policy',
-                expected_params={'Bucket': bucket_name},
-                service_error_code=error_code
-            )
+        expected_params = {'Bucket': bucket_name}
+        response = {'Policy': json.dumps(policy)}
+        self._stub_bifurcator(
+            'get_bucket_policy', expected_params, response, error_code=error_code)
 
     def stub_put_bucket_policy(self, bucket_name, policy=ANY, error_code=None):
         expected_params = {
             'Bucket': bucket_name,
             'Policy': policy if isinstance(policy, type(ANY)) else json.dumps(policy)
         }
+        response = {}
+        self._stub_bifurcator(
+            'put_bucket_policy', expected_params, response, error_code=error_code)
 
-        if not error_code:
-            self.add_response(
-                'put_bucket_policy',
-                expected_params=expected_params,
-                service_response={}
-            )
-        else:
-            self.add_client_error(
-                'put_bucket_policy',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+    def stub_delete_bucket_policy(self, bucket_name, error_code=None):
+        expected_params = {'Bucket': bucket_name}
+        response = {}
+        self._stub_bifurcator(
+            'delete_bucket_policy', expected_params, response, error_code=error_code)
 
-    def stub_delete_bucket_policy(self, bucket_name):
-        self.add_response(
-            'delete_bucket_policy',
-            expected_params={'Bucket': bucket_name},
-            service_response={}
-        )
+    def stub_get_bucket_lifecycle_configuration(
+            self, bucket_name, lifecycle_rules=None, error_code=None):
+        expected_params = {'Bucket': bucket_name}
+        response = {'Rules': lifecycle_rules}
+        self._stub_bifurcator(
+            'get_bucket_lifecycle_configuration', expected_params, response, error_code=error_code)
 
-    def stub_get_bucket_lifecycle_configuration(self, bucket_name, lifecycle_rules=None,
-                                                error_code=None):
-        if not error_code:
-            self.add_response(
-                'get_bucket_lifecycle_configuration',
-                expected_params={'Bucket': bucket_name},
-                service_response={'Rules': lifecycle_rules}
-            )
-        else:
-            self.add_client_error(
-                'get_bucket_lifecycle_configuration',
-                expected_params={'Bucket': bucket_name},
-                service_error_code=error_code
-            )
-
-    def stub_put_bucket_lifecycle_configuration(self, bucket_name, lifecycle_rules,
-                                                error_code=None):
+    def stub_put_bucket_lifecycle_configuration(
+            self, bucket_name, lifecycle_rules, error_code=None):
         expected_params = {
             'Bucket': bucket_name,
             'LifecycleConfiguration': {'Rules': lifecycle_rules}
         }
+        response = {}
+        self._stub_bifurcator(
+            'put_bucket_lifecycle_configuration', expected_params, response, error_code=error_code)
 
-        if not error_code:
-            self.add_response(
-                'put_bucket_lifecycle_configuration',
-                expected_params=expected_params,
-                service_response={}
-            )
-        else:
-            self.add_client_error(
-                'put_bucket_lifecycle_configuration',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
-
-    def stub_delete_bucket_lifecycle_configuration(self, bucket_name):
-        self.add_response(
-            'delete_bucket_lifecycle',
-            expected_params={'Bucket': bucket_name},
-            service_response={}
-        )
+    def stub_delete_bucket_lifecycle(self, bucket_name, error_code=None):
+        expected_params = {'Bucket': bucket_name}
+        response = {}
+        self._stub_bifurcator(
+            'delete_bucket_lifecycle', expected_params, response, error_code=error_code)
 
     def stub_put_bucket_versioning(self, bucket_name, status, error_code=None):
         self._stub_bifurcator(
@@ -283,8 +206,8 @@ class S3Stubber(ExampleStubber):
             },
             error_code=error_code)
 
-    def stub_put_object(self, bucket_name, object_key, body=ANY, e_tag=None,
-                        error_code=None):
+    def stub_put_object(
+            self, bucket_name, object_key, body=ANY, e_tag=None, error_code=None):
         expected_params = {
             'Body': body,
             'Bucket': bucket_name,
@@ -293,22 +216,12 @@ class S3Stubber(ExampleStubber):
         response = {}
         if e_tag:
             response['ETag'] = e_tag
+        self._stub_bifurcator(
+            'put_object', expected_params, response, error_code=error_code)
 
-        if not error_code:
-            self.add_response(
-                'put_object',
-                expected_params=expected_params,
-                service_response=response
-            )
-        else:
-            self.add_client_error(
-                'put_object',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
-
-    def stub_get_object(self, bucket_name, object_key, object_data=None,
-                        version_id=None, error_code=None):
+    def stub_get_object(
+            self, bucket_name, object_key, object_data=None, version_id=None,
+            error_code=None):
         """Stub the get_object function. When the object data is a string,
         treat it as a file name, open the file, and read it as bytes."""
         expected_params = {
@@ -333,38 +246,34 @@ class S3Stubber(ExampleStubber):
             response=response,
             error_code=error_code)
 
-    def stub_delete_object(self, bucket_name, object_key, obj_version_id=None,
-                           error_code=None):
+    def stub_delete_object(
+            self, bucket_name, object_key, obj_version_id=None, error_code=None):
         expected_params = {
             'Bucket': bucket_name,
             'Key': object_key
         }
         if obj_version_id:
             expected_params['VersionId'] = obj_version_id
-        if not error_code:
-            self.add_response(
-                'delete_object',
-                expected_params=expected_params,
-                service_response={}
-            )
-        else:
-            self.add_client_error(
-                'delete_object',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        response = {}
+        self._stub_bifurcator(
+            'delete_object', expected_params, response, error_code=error_code)
 
-    def stub_head_object(self, bucket_name, object_key, obj_version_id=None,
-                         status_code=200, error_code=None, response_meta=None):
+    def stub_head_object(
+            self, bucket_name, object_key, obj_version_id=None,
+            status_code=200, error_code=None, response_meta=None,
+            content_length=None):
         expected_params = {'Bucket': bucket_name, 'Key': object_key}
         if obj_version_id:
             expected_params['VersionId'] = obj_version_id
+        response = {'ResponseMetadata': {'HTTPStatusCode': status_code}}
+        if content_length is not None:
+            response['ContentLength'] = content_length
 
         if not error_code:
             self.add_response(
                 'head_object',
                 expected_params=expected_params,
-                service_response={'ResponseMetadata': {'HTTPStatusCode': status_code}}
+                service_response=response
             )
         else:
             self.add_client_error(
@@ -397,49 +306,49 @@ class S3Stubber(ExampleStubber):
         self._stub_bifurcator(
             'delete_objects', expected_params, response, error_code=error_code)
 
-    def stub_copy_object(self, src_bucket, src_object_key,
-                         dest_bucket, dest_object_key):
-        self.add_response(
-            'copy_object',
-            expected_params={
-                'Bucket': dest_bucket,
-                'Key': dest_object_key,
-                'CopySource': {'Bucket': src_bucket, 'Key': src_object_key}
-            },
-            service_response={}
-        )
+    def stub_copy_object(
+            self, src_bucket, src_object_key,
+            dest_bucket, dest_object_key, error_code=None):
+        expected_params = {
+            'Bucket': dest_bucket,
+            'Key': dest_object_key,
+            'CopySource': {'Bucket': src_bucket, 'Key': src_object_key}
+        }
+        response = {}
+        self._stub_bifurcator(
+            'copy_object', expected_params, response, error_code=error_code)
 
-    def stub_put_object_acl(self, bucket_name, object_key, email):
-        self.add_response(
-            'put_object_acl',
-            expected_params={
-                'Bucket': bucket_name,
-                'Key': object_key,
-                'AccessControlPolicy': {
-                    'Grants': [{
-                        'Grantee': {
-                            'Type': 'CanonicalUser',
-                            'ID': '123456789EXAMPLE',
-                            'DisplayName': 'test-owner'
-                        },
-                        'Permission': 'FULL_CONTROL',
-                    }, {
-                        'Grantee': {
-                            'EmailAddress': email,
-                            'Type': 'AmazonCustomerByEmail'
-                        },
-                        'Permission': 'READ'
-                    }],
-                    'Owner': {
-                        'DisplayName': 'test-owner',
-                        'ID': '123456789EXAMPLE'
-                    }
+    def stub_put_object_acl(self, bucket_name, object_key, email, error_code=None):
+        expected_params = {
+            'Bucket': bucket_name,
+            'Key': object_key,
+            'AccessControlPolicy': {
+                'Grants': [{
+                    'Grantee': {
+                        'Type': 'CanonicalUser',
+                        'ID': '123456789EXAMPLE',
+                        'DisplayName': 'test-owner'
+                    },
+                    'Permission': 'FULL_CONTROL',
+                }, {
+                    'Grantee': {
+                        'EmailAddress': email,
+                        'Type': 'AmazonCustomerByEmail'
+                    },
+                    'Permission': 'READ'
+                }],
+                'Owner': {
+                    'DisplayName': 'test-owner',
+                    'ID': '123456789EXAMPLE'
                 }
-            },
-            service_response={}
-        )
+            }
+        }
+        response = {}
+        self._stub_bifurcator(
+            'put_object_acl', expected_params, response, error_code=error_code)
 
-    def stub_get_object_acl(self, bucket_name, object_key, email=None):
+    def stub_get_object_acl(self, bucket_name, object_key, email=None, error_code=None):
+        expected_params = {'Bucket': bucket_name, 'Key': object_key}
         grants = [{
             'Grantee': {
                 'Type': 'CanonicalUser',
@@ -451,49 +360,37 @@ class S3Stubber(ExampleStubber):
         if email:
             grants.append({
                 'Grantee': {
-                    'Type': 'CanonicalUser',
-                    'ID': '123456789EXAMPLE',
-                    'DisplayName': 'arnav'
+                    'Type': 'AmazonCustomerByEmail',
+                    'EmailAddress': email
                 },
                 'Permission': 'READ'
             })
-
-        self.add_response(
-            'get_object_acl',
-            expected_params={'Bucket': bucket_name, 'Key': object_key},
-            service_response={
-                'Grants': grants,
-                'Owner': {
-                    'DisplayName': 'test-owner',
-                    'ID': '123456789EXAMPLE'
-                }
+        response = {
+            'Grants': grants,
+            'Owner': {
+                'DisplayName': 'test-owner',
+                'ID': '123456789EXAMPLE'
             }
-        )
+        }
+        self._stub_bifurcator(
+            'get_object_acl', expected_params, response, error_code=error_code)
 
-    def stub_list_object_versions(self, bucket_name, prefix=None, versions=None,
-                                  delete_markers=None, max_keys=None, error_code=None):
+    def stub_list_object_versions(
+            self, bucket_name, prefix=None, versions=None,
+            delete_markers=None, max_keys=None, error_code=None):
         expected_params = {'Bucket': bucket_name}
+        response = {}
         if prefix:
             expected_params['Prefix'] = prefix
         if max_keys:
             expected_params['MaxKeys'] = max_keys
         if not error_code:
-            response = {}
             if versions:
                 response['Versions'] = versions
             if delete_markers:
                 response['DeleteMarkers'] = delete_markers
-            self.add_response(
-                'list_object_versions',
-                expected_params=expected_params,
-                service_response=response
-            )
-        else:
-            self.add_client_error(
-                'list_object_versions',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        self._stub_bifurcator(
+            'list_object_versions', expected_params, response, error_code=error_code)
 
     def stub_delete_object_versions(self, bucket_name, obj_key_versions,
                                     error_code=None):

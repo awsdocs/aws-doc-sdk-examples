@@ -13,58 +13,56 @@ amount of data at any time, from anywhere on the web.*
 
 ### Scenario examples
 
-* [Create a presigned URL](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/presigned_url.py)
-* [Create and manage buckets](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
-* [Create, list, and delete buckets](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/demo_bucket_basics.py)
-* [Upload and manage objects](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [Getting started with buckets and objects](scenario_getting_started.py)
+* [Create a presigned URL](presigned_url.py)
 
 ### API examples
 
-* [Add CORS rules to a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Add CORS rules to a bucket](bucket_wrapper.py)
 (`PutBucketCors`)
-* [Add a lifecycle configuration to a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Add a lifecycle configuration to a bucket](bucket_wrapper.py)
 (`PutBucketLifecycleConfiguration`)
-* [Add a policy to a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Add a policy to a bucket](bucket_wrapper.py)
 (`PutBucketPolicy`)
-* [Copy an object from one bucket to another](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [Copy an object from one bucket to another](object_wrapper.py)
 (`CopyObject`)
-* [Create a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Create a bucket](bucket_wrapper.py)
 (`CreateBucket`)
-* [Delete CORS rules from a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Delete CORS rules from a bucket](bucket_wrapper.py)
 (`DeleteBucketCors`)
-* [Delete a policy from a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Delete a policy from a bucket](bucket_wrapper.py)
 (`DeleteBucketPolicy`)
-* [Delete an empty bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Delete an empty bucket](bucket_wrapper.py)
 (`DeleteBucket`)
-* [Delete an object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [Delete an object](object_wrapper.py)
 (`DeleteObject`)
-* [Delete multiple objects](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [Delete multiple objects](object_wrapper.py)
 (`DeleteObjects`)
-* [Delete the lifecycle configuration of a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Delete the lifecycle configuration of a bucket](bucket_wrapper.py)
 (`DeleteBucketLifecycle`)
-* [Determine the existence of a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Determine the existence of a bucket](bucket_wrapper.py)
 (`HeadBucket`)
-* [Get CORS rules for a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Get CORS rules for a bucket](bucket_wrapper.py)
 (`GetBucketCors`)
-* [Get the ACL of a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Get the ACL of a bucket](bucket_wrapper.py)
 (`GetBucketAcl`)
-* [Get the ACL of an object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [Get the ACL of an object](object_wrapper.py)
 (`GetObjectAcl`)
-* [Get the lifecycle configuration of a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Get the lifecycle configuration of a bucket](bucket_wrapper.py)
 (`GetBucketLifecycleConfiguration`)
-* [Get the policy for a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Get the policy for a bucket](bucket_wrapper.py)
 (`GetBucketPolicy`)
-* [List buckets](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [List buckets](bucket_wrapper.py)
 (`ListBuckets`)
-* [List objects in a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [List objects in a bucket](object_wrapper.py)
 (`ListObjects`)
-* [Read data from a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [Read data from a bucket](object_wrapper.py)
 (`GetObject`)
-* [Set a new ACL for a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/bucket_wrapper.py)
+* [Set a new ACL for a bucket](bucket_wrapper.py)
 (`PutBucketAcl`)
-* [Set the ACL of an object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [Set the ACL of an object](object_wrapper.py)
 (`PutObjectAcl`)
-* [Upload an object to a bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_basics/object_wrapper.py)
+* [Upload an object to a bucket](object_wrapper.py)
 (`PutObject`)
 
 ## ⚠ Important
@@ -94,6 +92,27 @@ amount of data at any time, from anywhere on the web.*
 
 ### Command
 
+**Getting started with buckets and objects**
+
+Interactively shows how to create a bucket and upload and download objects. To start, 
+run the following at a command prompt.
+
+```
+python scenario_getting_started.py
+```   
+
+**Create a presigned URL**
+
+Generates a presigned URL and uses the Requests package to get or 
+put a file in an Amazon S3 bucket. For example, run the following command to get
+a file from Amazon S3 at a command prompt.
+
+```
+python presigned_url.py your-bucket-name your-object-key get
+``` 
+
+Run the script with the `-h` flag to get more help.
+
 **bucket_wrapper.py** and **object_wrapper.py**
 
 These scripts contain `usage_demo` functions that demonstrate ways to use the 
@@ -101,20 +120,8 @@ functions in their respective modules. For example, to see the bucket demonstrat
 run the module in a command window.
 
 ```
-python -m bucket_wrapper
+python bucket_wrapper.py
 ``` 
-
-**presigned_url.py**
-
-This script generates a presigned URL and uses the Requests package to get or 
-put a file in an Amazon S3 bucket. For example, run the following command to get
-a file from Amazon S3 at a command prompt.
-
-```
-python -m presigned_url.py your-bucket-name your-object-key get
-``` 
-
-Run the script with the `-h` flag to get more help.
 
 ## Running the tests
 

@@ -2,19 +2,25 @@
 Amazon IAM enables you to manage access to AWS services and resources securely.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon IAM examples. 
+In this workspace, you can find the following AWS SDK for JavaScript version 3 (v3) examples for IAM:
+### Scenario examples
+- [Create an IAM user and assume a role with Amazon Security Token Service (STS)](scenarios/src/iam_basics.js)
 
+### Single action examples
 - [Access last key used](src/iam_accesskeylastused.js) (GetAccessKeyLastUsedCommand)
 - [Attach a policy to a role](src/iam_attachrolepolicy.js) (ListAttachedRolePoliciesCommand)
 - [Create access keys](src/iam_createaccesskeys.js) (CreateAccessKeyCommand)
 - [Create an account alias](src/iam_createaccountalias.js) (CreateAccountAliasCommand)
 - [Create an IAM policy](src/iam_createpolicy.js) (CreatePolicyCommand)
 - [Create an IAM user](src/iam_createuser.js) (GetUserCommand)
+- [Create and IAM role](src/iam_createrole.js)
 - [Delete access keys](src/iam_deleteaccesskey.js) (DeleteAccessKeyCommand)
 - [Delete an account alias](src/iam_deleteaccountalias.js) (DeleteAccountAliasCommand)
 - [Delete a server certificate](src/iam_deleteservercert.js) (DeleteServerCertificateCommand)
 - [Delete an IAM user](src/iam_deleteuser.js) (GetUserCommand, DeleteUserCommand)
-- [Detact a policy from an IAM role](src/iam_detachrolepolicy.js) (ListAttachedRolePoliciesCommand)
+- [Delete a role](src/iam_deleterole.js)
+- [Detach a policy from an IAM role](src/iam_detachrolepolicy.js) (ListAttachedRolePoliciesCommand)
+- [Delete a policy](src/iam_deletepolicy.js)
 - [Get an IAM policy](src/iam_getpolicy.js) (GetPolicyCommand)
 - [Get a server certificate](src/iam_getservercert.js) (GetServerCertificateCommand)
 - [List access keys](src/iam_listaccesskeys.js) (ListAccessKeysCommand)

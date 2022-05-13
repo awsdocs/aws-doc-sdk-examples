@@ -7,10 +7,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.3.0"
-aws-sdk-cloudwatchlogs = "0.3.0"
-aws-types = "0.3.0"
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-cloudwatchlogs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
-
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }

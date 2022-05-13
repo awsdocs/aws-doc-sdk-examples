@@ -42,6 +42,15 @@ To generate an AWS CloudFormation template file that represents your AWS CDK app
 
 This command produces the CloudFormation template **SetupStack.template.json** in **cdk.out**.
 
+**Note**: You can pipe your CloudFormation template to a file, such as 'setup.yaml' using the following command:
+
+`cdk synth` >> setup.yaml
+
+If required, convert a text file to utf-8 format via PowerShell with the following command:
+
+`Get-Content .\test.txt | Set-Content -Encoding utf8 test-utf8.txt`
+
+
 To run the CloudFormation stack to create the resources, 
 run the following command:
 

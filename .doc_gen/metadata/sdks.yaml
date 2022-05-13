@@ -8,6 +8,9 @@ C++:
       api_ref:
         uid: "SdkForCpp"
         name: "&guide-cpp-api;"
+      title_override:
+        title: "Additional code examples for the &CPPlong;"
+        title_abbrev: "Additional code examples"
   guide: "&guide-cpp-dev;"
 Go:
   property: go
@@ -78,6 +81,9 @@ Kotlin:
       api_ref:
         uid: "DotNetSDKV3"
         name: "&guide-net-api;"
+      title_override:
+        title: "Additional code examples for the &NET;"
+        title_abbrev: "Additional code examples"
   guide: "&guide-net-dev;"
 PHP:
   property: php
@@ -88,6 +94,9 @@ PHP:
       api_ref:
         uid: "SdkForPHPV3"
         name: "&guide-php-api;"
+      title_override:
+        title: "Additional code examples for the &PHPlong;"
+        title_abbrev: "Additional code examples"
   guide: "&guide-php-dev;"
 Python:
   property: python
@@ -99,17 +108,6 @@ Python:
         uid: "boto3"
         name: "&guide-python3-api;"
   guide: "&guide-python3-gsg;"
-Swift:
-  property: swift
-  sdk:
-    1:
-      long: "&Swiftlong;"
-      short: "&Swift;"
-      api_ref:
-        uid: "SdkForSwift"
-        name: "&guide-swift-api;"
-        link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
-  guide: "&guide-swift-dev;"
 Ruby:
   property: ruby
   sdk:
@@ -132,3 +130,15 @@ Rust:
         name: "&guide-rust-api;"
         link_template: "https://docs.rs/releases/search?query=aws-sdk"
   guide: "&guide-rust-dev;"
+Swift:
+  property: swift
+  sdk:
+    1:
+      long: "&Swiftlong;"
+      short: "&Swift;"
+      caveat: "This is prerelease documentation for an SDK in preview release. It is subject to change."
+      api_ref:
+        uid: "SdkForSwift"
+        name: "&guide-swift-api;"
+        link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
+  guide: "&guide-swift-dev;"

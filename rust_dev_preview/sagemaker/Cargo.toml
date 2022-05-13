@@ -7,9 +7,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.3.0"
-aws-sdk-sagemaker = "0.3.0"
-aws-smithy-types-convert = { version = "0.33.1", features = ["convert-chrono"] }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-sagemaker = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-types-convert = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["convert-chrono"] }
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = "0.2.18"
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }

@@ -7,10 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.3.0"
-aws-sdk-polly = "0.3.0"
-aws-sdk-s3 = "0.3.0"
-aws-sdk-transcribe = "0.3.0"
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-polly = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-transcribe = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1", features = ["full"] }
 async-stream = "0.3"
 bytes = "1"
@@ -18,4 +18,4 @@ http = "0.1.1"
 reqwest = "0.11.4"
 serde_json = "1.0"
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }

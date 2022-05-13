@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_http::AwsErrorRetryPolicy;
+use aws_http::retry::AwsErrorRetryPolicy;
 use aws_sdk_dynamodb::error::DescribeTableError;
 use aws_sdk_dynamodb::input::DescribeTableInput;
 use aws_sdk_dynamodb::middleware::DefaultMiddleware;
@@ -211,7 +211,7 @@ where
         response: Result<&SdkSuccess<DescribeTableOutput>, &SdkError<DescribeTableError>>,
     ) -> RetryKind {
         match self.inner.classify(response) {
-            RetryKind::NotRetryable => (),
+            RetryKind::UnretryableFailure | RetryKind::Unnecessary => (),
             other => return other,
         };
         match response {
@@ -227,10 +227,10 @@ where
                 {
                     RetryKind::Explicit(Duration::from_secs(1))
                 } else {
-                    RetryKind::NotRetryable
+                    RetryKind::Unnecessary
                 }
             }
-            _ => RetryKind::NotRetryable,
+            _ => RetryKind::UnretryableFailure,
         }
     }
 }

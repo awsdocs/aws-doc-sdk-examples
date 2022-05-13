@@ -1,5 +1,13 @@
 #  Using Amazon API Gateway to invoke  Lambda functions
 
+## Overview
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Dicusses how to develop an AWS Lambda function using the Java run-time API and then how to invoke it by using Amazon API Gateway.  |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 1/14/2022        |
+| Required Skills   | Java, Maven  |
+
 ## Purpose
 You can invoke an AWS Lambda function by using Amazon API Gateway, which is an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at scale. API developers can create APIs that access AWS or other web services, as well as data stored in the AWS Cloud. As an API Gateway developer, you can create APIs for use in your own client applications. For more information, see [What is Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html).
 
@@ -21,7 +29,7 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 -	**phone** – the employee’s phone number.
 -	**startDate** – the employee’s start date.
 
-![AWS Tracking Application](images/pic00.png)
+![AWS Tracking Application](images/employeetable2.png)
 
 **Note**: To learn how to invoke an AWS Lambda function using scheduled events, see [Creating scheduled events to invoke Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_scheduled_events).
 
@@ -113,126 +121,96 @@ This tutorial uses the DynamoDB and Amazon SNS services. The **lambda-support** 
 
 At this point, you have a new project named **LambdaCronFunctions**.
 
-![AWS Tracking Application](images/pic4.png)
-
-Add the following dependency for the Amazon SNS API (AWS SDK for Java version 2).
-
-     <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>sns</artifactId>
-      <version>2.10.41</version>
-    </dependency>
-
-
-Add the following dependencies for the Amazon DynamoDB API (AWS SDK for Java version 2).
-
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>dynamodb-enhanced</artifactId>
-       <version>2.11.4-PREVIEW</version>
-     </dependency>
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>dynamodb</artifactId>
-       <version>2.5.10</version>
-     </dependency>
+![AWS Tracking Application](images/pomlam.png)
 
 The pom.xml file looks like the following.
 
 ```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-      <project xmlns="http://maven.apache.org/POM/4.0.0"
+   <?xml version="1.0" encoding="UTF-8"?>
+   <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-       <modelVersion>4.0.0</modelVersion>
-       <groupId>LambdaCronFunctions</groupId>
-       <artifactId>LambdaCronFunctions</artifactId>
-       <version>1.0-SNAPSHOT</version>
-       <packaging>jar</packaging>
-        <name>java-basic-function</name>
-        <properties>
-          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-          <maven.compiler.source>1.8</maven.compiler.source>
-          <maven.compiler.target>1.8</maven.compiler.target>
-        </properties>
-        <dependencies>
-        <dependency>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>LambdaCronFunctions</groupId>
+   <artifactId>LambdaCronFunctions</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <packaging>jar</packaging>
+   <name>java-basic-function</name>
+   <properties>
+     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     <maven.compiler.source>1.8</maven.compiler.source>
+     <maven.compiler.target>1.8</maven.compiler.target>
+   </properties>
+   <dependencies>
+    <dependency>
         <groupId>com.amazonaws</groupId>
         <artifactId>aws-lambda-java-core</artifactId>
         <version>1.2.1</version>
-      </dependency>
-      <dependency>
+    </dependency>
+    <dependency>
         <groupId>com.google.code.gson</groupId>
         <artifactId>gson</artifactId>
-        <version>2.8.6</version>
-      </dependency>
-      <dependency>
+        <version>2.8.9</version>
+    </dependency>
+    <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-api</artifactId>
-        <version>2.10.0</version>
-       </dependency>
-      <dependency>
+        <version>2.17.0</version>
+    </dependency>
+    <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-core</artifactId>
-        <version>2.13.0</version>
+        <version>2.17.0</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
+    </dependency>
+    <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-slf4j18-impl</artifactId>
-        <version>2.13.3</version>
+        <version>2.17.0</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
+    </dependency>
+    <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.6.0</version>
+        <version>5.8.2</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
+    </dependency>
+    <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.6.0</version>
+        <version>5.8.2</version>
         <scope>test</scope>
-      </dependency>
-      <dependency>
+    </dependency>
+    <dependency>
         <groupId>com.googlecode.json-simple</groupId>
         <artifactId>json-simple</artifactId>
         <version>1.1.1</version>
-      </dependency>
-      <dependency>
+    </dependency>
+    <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dynamodb-enhanced</artifactId>
-        <version>2.11.4-PREVIEW</version>
-      </dependency>
-      <dependency>
+        <version>2.17.110</version>
+    </dependency>
+    <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dynamodb</artifactId>
-        <version>2.10.41</version>
-      </dependency>
-      <dependency>
+        <version>2.17.110</version>
+    </dependency>
+    <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>sns</artifactId>
-        <version>2.10.41</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.mail</groupId>
-        <artifactId>javax.mail-api</artifactId>
-        <version>1.5.5</version>
-      </dependency>
-      <dependency>
-        <groupId>com.sun.mail</groupId>
-        <artifactId>javax.mail</artifactId>
-        <version>1.5.5</version>
-      </dependency>
-    </dependencies>
-    <build>
+        <version>2.17.110</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M5</version>
+        <type>maven-plugin</type>
+    </dependency>
+  </dependencies>
+  <build>
     <plugins>
-        <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.2</version>
-        </plugin>
-        <plugin>
+         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
             <version>3.2.2</version>
@@ -259,14 +237,14 @@ The pom.xml file looks like the following.
         </plugin>
     </plugins>
     </build>
-    </project>
+   </project>
 ```    
 
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
 Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function and two extra classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.aws.example**. 
 
-![AWS Tracking Application](images/pic5.png)
+![AWS Tracking Application](images/lampro1.png)
 
 Create these Java classes:
 
@@ -494,7 +472,7 @@ Package up the project into a .jar (JAR) file that you can deploy as a Lambda fu
 
 The JAR file is located in the **target** folder (which is a child folder of the project folder).
 
-![AWS Tracking Application](images/pic6.png)
+![AWS Tracking Application](images/lamdeploy.png)
 
 **Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the JAR file and you will encounter a **ClassNotFoundException**. 
 
@@ -521,8 +499,6 @@ The JAR file is located in the **target** folder (which is a child folder of the
 9. Choose **Upload**, and then browse to the JAR file that you created.  
 
 10. For **Handler**, enter the fully qualified name of the function, for example, **com.aws.example.Handler::handleRequest** (**com.aws.example.Handler** specifies the package and class followed by :: and method name).
-
-![AWS Tracking Application](images/pic10.png)
 
 11. Choose **Save.**
 

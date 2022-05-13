@@ -39,7 +39,7 @@ struct Opt {
 // snippet-start:[detect_faces-save_bucket.rust.main]
 async fn save_bucket(
     client: &aws_sdk_s3::Client,
-    body: aws_sdk_s3::ByteStream,
+    body: aws_sdk_s3::types::ByteStream,
     bucket: &str,
     content_type: &str,
     key: &str,
@@ -215,7 +215,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .await;
     let rek_client = aws_sdk_rekognition::Client::new(&rek_shared_config);
 
-    let body = aws_sdk_s3::ByteStream::from_path(path).await;
+    let body = aws_sdk_s3::types::ByteStream::from_path(path).await;
 
     let key: String = String::from("uploads/") + &filename;
 

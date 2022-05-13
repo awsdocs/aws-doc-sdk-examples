@@ -5,8 +5,7 @@
 ]>
 <block>
     <para>
-        Shows how to use the &DDBlong; API to 
-        create a dynamic web application that tracks work data. 
+        Shows how to use the &DDBlong; API to create a dynamic web application that tracks &DDB; work data.
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
