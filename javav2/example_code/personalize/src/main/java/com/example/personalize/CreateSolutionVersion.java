@@ -64,7 +64,7 @@ public class CreateSolutionVersion {
                 .solutionArn(solutionArn)
                 .build();
             
-            maxTime = Instant.now().getEpochSecond() + 3 * 60 * 60;;
+            maxTime = Instant.now().getEpochSecond() + 3 * 60 * 60;
 
             // Wait until solution is active. 
             while (Instant.now().getEpochSecond() < maxTime) {
@@ -87,21 +87,21 @@ public class CreateSolutionVersion {
                 CreateSolutionVersionRequest createSolutionVersionRequest = CreateSolutionVersionRequest.builder()
                     .solutionArn(solutionArn)
                     .build();
-                
+
                 CreateSolutionVersionResponse createSolutionVersionResponse = personalizeClient.createSolutionVersion(createSolutionVersionRequest);
                 solutionVersionArn = createSolutionVersionResponse.solutionVersionArn();
 
                 System.out.println("Solution version ARN: " + solutionVersionArn);
 
-                DescribeSolutionVersionRequest describeSolutionVersionRequest = DescribeSolutionVersionRequest.builder() 
+                DescribeSolutionVersionRequest describeSolutionVersionRequest = DescribeSolutionVersionRequest.builder()
                     .solutionVersionArn(solutionVersionArn)
                     .build();
-               
+
                 while (Instant.now().getEpochSecond() < maxTime) {
 
                     solutionVersionStatus = personalizeClient.describeSolutionVersion(describeSolutionVersionRequest).solutionVersion().status();
                     System.out.println("Solution version status: " + solutionVersionStatus);
-    
+
                     if (solutionVersionStatus.equals("ACTIVE") || solutionVersionStatus.equals("CREATE FAILED")) {
                         break;
                     }
