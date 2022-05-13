@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a workflow with AWS Step Functions to send notifications over multiple channels. Also discusses how to use the Amazon Relational Database Service (Amazon RDS) within an AWS Lambda function.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 5/15/2022        |
+| Updated   | 5/13/2022        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
