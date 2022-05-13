@@ -49,8 +49,8 @@ def main():
         add_arguments(parser)
         args = parser.parse_args()
 
-        print(f"""Updating {args.dataset_type} dataset for project {args.project_name}
- with entries from {args.updates_file}.""")
+        print(f"Updating {args.dataset_type} dataset for project {args.project_name} "
+            "with entries from {args.updates_file}.")
 
         # Update the dataset.
         lookoutvision_client = boto3.client('lookoutvision')

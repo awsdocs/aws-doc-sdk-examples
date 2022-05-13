@@ -15,7 +15,7 @@ import time
 from datetime import datetime
 import os
 import json
-import base64
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -271,8 +271,8 @@ class Datasets:
             manifest_file = ""
 
             # Update dataset entries
-            logger.info(f"""Updating {dataset_type} dataset for project {project_name}
-with entries from {updates_file}.""")
+            logger.info(f"Updating {dataset_type} dataset for project {project_name}"
+                "with entries from {updates_file}.")
 
             with open(updates_file) as f:
                 manifest_file = f.read()
@@ -284,7 +284,8 @@ with entries from {updates_file}.""")
             )
 
             finished = False
-            while finished == False:
+            
+            while not finished:
 
                 dataset = lookoutvision_client.describe_dataset(ProjectName=project_name,
                                                                 DatasetType=dataset_type)
@@ -312,14 +313,16 @@ with entries from {updates_file}.""")
 
                 if status == "UPDATE_FAILED_ROLLBACK_COMPLETE":
                     logger.info(
-                        f"Rollback complated after update failure: {status} : {status_message} : {dataset_type} dataset for project {project_name}.")
+                        f"Rollback completed after update failure: {status} : {status_message} : {dataset_type} dataset for project {project_name}.")
                     finished = True
                     continue
 
                 logger.exception(
-                    f"Failed. Unexpected state for dataset update: {status} : {status_message} : {dataset_type} dataset for project {project_name}.")
+                    f"Failed. Unexpected state for dataset update: {status} : {status_message} : "
+                     "{dataset_type} dataset for project {project_name}.")
                 raise Exception(
-                    f"Failed. Unexpected state for dataset update: {status} : {status_message} :{dataset_type} dataset for project {project_name}.")
+                    f"Failed. Unexpected state for dataset update: {status} : "
+                    "{status_message} :{dataset_type} dataset for project {project_name}.")
 
             logger.info(f"Added entries to dataset.")
 
