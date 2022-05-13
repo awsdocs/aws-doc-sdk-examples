@@ -49,17 +49,19 @@ public class S3BucketDeletion {
         }
 
         String bucket = args[0];
+        // snippet-start:[s3.java2.bucket_deletion.region]
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();
+        // snippet-start:[s3.java2.bucket_deletion.region]
 
-        listAllObjects(s3,bucket) ;
+        deleteAllObjects(s3,bucket) ;
         s3.close();
     }
 
-    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
-    public static void listAllObjects(S3Client s3, String bucket) {
+    // snippet-start:[s3.java2.bucket_deletion.delete_all_objects_bucket]
+    public static void deleteAllObjects(S3Client s3, String bucket) {
 
         try {
             // To delete a bucket, all the objects in the bucket must be deleted first
@@ -80,10 +82,12 @@ public class S3BucketDeletion {
                         .build();
 
             } while(listObjectsV2Response.isTruncated());
-            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
+            // snippet-end:[s3.java2.bucket_deletion.delete_all_objects_bucket]
 
+            // snippet-start:[s3.java2.bucket_deletion.delete_bucket]
             DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
             s3.deleteBucket(deleteBucketRequest);
+            // snippet-end:[s3.java2.bucket_deletion.delete_bucket]
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
