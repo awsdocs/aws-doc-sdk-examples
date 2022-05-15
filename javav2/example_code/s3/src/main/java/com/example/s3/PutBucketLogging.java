@@ -22,9 +22,9 @@ import java.util.List;
 // snippet-end:[s3.java2.s3_put_log.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -63,11 +63,7 @@ public class PutBucketLogging {
                     .bucket(targetBucket)
                     .build();
 
-            GetBucketAclResponse response = s3.getBucketAcl(aclRequest);
-
-            String id = response.owner().id(); // Get the Id
-
-            // Create a Grantee object
+            s3.getBucketAcl(aclRequest);
             Grantee grantee = Grantee.builder()
                     .type(Type.GROUP)
                     .uri("http://acs.amazonaws.com/groups/s3/LogDelivery")
@@ -78,8 +74,7 @@ public class PutBucketLogging {
                     .permission(BucketLogsPermission.FULL_CONTROL)
                     .build();
 
-
-            List granteeList = new ArrayList<Grantee>();
+            List<TargetGrant> granteeList = new ArrayList<>();
             granteeList.add(targetGrant);
 
             LoggingEnabled loggingEnabled = LoggingEnabled.builder()
@@ -97,10 +92,8 @@ public class PutBucketLogging {
                     .bucketLoggingStatus(loggingStatus)
                     .build();
 
-
             s3.putBucketLogging(loggingRequest);
             System.out.println("Enabling logging for the target bucket " + targetBucket);
-
 
         } catch (S3Exception e) {
             System.err.println(e.getMessage());

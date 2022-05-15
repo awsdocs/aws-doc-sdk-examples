@@ -27,9 +27,9 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 // snippet-start:[s3.java2.bucket_deletion.main]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */

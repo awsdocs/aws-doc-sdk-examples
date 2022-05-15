@@ -29,13 +29,12 @@ import software.amazon.awssdk.utils.IoUtils;
 // snippet-end:[presigned.java2.getobjectpresigned.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class GetObjectPresignedUrl {
 
     public static void main(String[] args) {
@@ -54,14 +53,13 @@ public class GetObjectPresignedUrl {
 
         String bucketName = args[0];
         String keyName = args[1];
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
                 .region(region)
                 .build();
 
         getPresignedUrl(presigner, bucketName, keyName);
         presigner.close();
-
     }
       // snippet-start:[presigned.java2.getobjectpresigned.main]
        public static void getPresignedUrl(S3Presigner presigner, String bucketName, String keyName ) {
@@ -74,17 +72,14 @@ public class GetObjectPresignedUrl {
                             .build();
 
             GetObjectPresignRequest getObjectPresignRequest =  GetObjectPresignRequest.builder()
-                            .signatureDuration(Duration.ofMinutes(10))
+                            .signatureDuration(Duration.ofMinutes(60))
                             .getObjectRequest(getObjectRequest)
                              .build();
 
-            // Generate the presigned request
             PresignedGetObjectRequest presignedGetObjectRequest =
                     presigner.presignGetObject(getObjectPresignRequest);
-
-            // Log the presigned URL
-            System.out.println("Presigned URL: " + presignedGetObjectRequest.url());
-
+            String theUrl = presignedGetObjectRequest.url().toString();
+            System.out.println("Presigned URL: " + theUrl);
             HttpURLConnection connection = (HttpURLConnection) presignedGetObjectRequest.url().openConnection();
             presignedGetObjectRequest.httpRequest().headers().forEach((header, values) -> {
                 values.forEach(value -> {
@@ -107,11 +102,9 @@ public class GetObjectPresignedUrl {
                 IoUtils.copy(content, System.out);
             }
 
-        } catch (S3Exception e) {
-            e.getStackTrace();
-        } catch (IOException e) {
+        } catch (S3Exception | IOException e) {
             e.getStackTrace();
         }
-    }
+       }
     // snippet-end:[presigned.java2.getobjectpresigned.main]
 }

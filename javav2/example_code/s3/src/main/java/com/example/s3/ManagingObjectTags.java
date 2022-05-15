@@ -31,9 +31,9 @@ import java.util.List;
 // snippet-end:[s3.java2.s3_object_manage_tags.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -41,7 +41,8 @@ import java.util.List;
 public class ManagingObjectTags {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
                 "  <bucketName> <objectKey> <objectPath> \n\n" +
                 "Where:\n" +
@@ -50,7 +51,7 @@ public class ManagingObjectTags {
                 "  objectPath - the path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -86,7 +87,7 @@ public class ManagingObjectTags {
                 .value("This is tag 2")
                 .build();
 
-            List<Tag> tags = new ArrayList<Tag>();
+            List<Tag> tags = new ArrayList<>();
             tags.add(tag1);
             tags.add(tag2);
 
@@ -138,7 +139,7 @@ public class ManagingObjectTags {
                     .value("This is tag 4")
                     .build();
 
-            List<Tag> tags = new ArrayList<Tag>();
+            List<Tag> tags = new ArrayList<>();
             tags.add(tag3);
             tags.add(tag4);
 

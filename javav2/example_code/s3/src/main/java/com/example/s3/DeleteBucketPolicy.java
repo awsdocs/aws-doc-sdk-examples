@@ -20,9 +20,9 @@ import software.amazon.awssdk.services.s3.model.DeleteBucketPolicyRequest;
 // snippet-end:[s3.java2.delete_bucket_policy.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -30,14 +30,14 @@ import software.amazon.awssdk.services.s3.model.DeleteBucketPolicyRequest;
 public class DeleteBucketPolicy {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket to delete the policy from (for example, bucket1)." ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -53,7 +53,7 @@ public class DeleteBucketPolicy {
     }
 
     // snippet-start:[s3.java2.delete_bucket_policy.main]
-    // Delete the bucket policy
+    // Delete the bucket policy.
     public static void deleteS3BucketPolicy(S3Client s3, String bucketName) {
 
        DeleteBucketPolicyRequest delReq = DeleteBucketPolicyRequest.builder()

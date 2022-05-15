@@ -32,9 +32,9 @@ import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 // snippet-start:[s3.java2.s3_scenario.main]
 
 /**
- * To run this AWS code example, ensure that you have set up your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -53,7 +53,7 @@ public class S3Scenario {
                 "    savePath - the path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf). " +
                 "    toBucket - an Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). ";
 
-        if (args.length != 5) {
+        if (args.length != 4) {
              System.out.println(usage);
              System.exit(1);
         }

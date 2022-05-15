@@ -20,13 +20,12 @@ import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.S3Object;
 import java.util.List;
-import java.util.ListIterator;
 // snippet-end:[s3.java2.list_objects.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,19 +34,19 @@ public class ListObjects {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> \n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket from which objects are read. \n\n" ;
 
        if (args.length != 1) {
-           System.out.println(USAGE);
+           System.out.println(usage);
            System.exit(1);
         }
 
         String bucketName = args[0];
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();
@@ -68,13 +67,11 @@ public class ListObjects {
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
 
-            for (ListIterator iterVals = objects.listIterator(); iterVals.hasNext(); ) {
-                S3Object myValue = (S3Object) iterVals.next();
-                System.out.print("\n The name of the key is " + myValue.key());
-                System.out.print("\n The object is " + calKb(myValue.size()) + " KBs");
-                System.out.print("\n The owner is " + myValue.owner());
-
-             }
+           for (S3Object myValue : objects) {
+               System.out.print("\n The name of the key is " + myValue.key());
+               System.out.print("\n The object is " + calKb(myValue.size()) + " KBs");
+               System.out.print("\n The owner is " + myValue.owner());
+           }
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

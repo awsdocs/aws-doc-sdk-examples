@@ -30,9 +30,9 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 // snippet-end:[presigned.java2.generatepresignedurl.metadata.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -41,7 +41,7 @@ public class GeneratePresignedUrlMetadata {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    GeneratePresignedUrlAndUploadObject <bucketName> <keyName> \n\n" +
                 "Where:\n" +
@@ -49,7 +49,7 @@ public class GeneratePresignedUrlMetadata {
                 "    keyName - a key name that represents a text file. \n" ;
 
          if (args.length != 2) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
          }
 
@@ -68,7 +68,6 @@ public class GeneratePresignedUrlMetadata {
     public static void signBucket(S3Presigner presigner, String bucketName, String keyName) {
 
         try {
-            // set metadata
             Map<String, String> metadata = new HashMap<>();
             metadata.put("author", "Mary Doe");
             metadata.put("version", "1.0.0.0");
@@ -92,11 +91,10 @@ public class GeneratePresignedUrlMetadata {
             System.out.println("Which HTTP method needs to be used when uploading a file: " +
                     presignedRequest.httpRequest().method());
 
-            // Upload content to the Amazon S3 bucket by using this URL
+            // Upload content to the Amazon S3 bucket by using this URL.
             URL url = presignedRequest.url();
 
-            // Create the connection and use it to upload the new object
-            // Notice we specify metadata as well
+            // Create the connection and use it to upload the new object.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type","text/plain");
@@ -110,9 +108,7 @@ public class GeneratePresignedUrlMetadata {
             connection.getResponseCode();
             System.out.println("HTTP response code is " + connection.getResponseCode());
 
-        } catch (S3Exception e) {
-            e.getStackTrace();
-        } catch (IOException e) {
+        } catch (S3Exception | IOException e) {
             e.getStackTrace();
         }
     }

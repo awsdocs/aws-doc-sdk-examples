@@ -25,15 +25,21 @@ import software.amazon.awssdk.services.s3.model.Tier;
 // snippet-end:[s3.java2.restore_object.import]
 
 /*
-    For more information about restoring an object, see "Restoring an archived object" at
-    https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects.html
-*/
+ *    For more information about restoring an object, see "Restoring an archived object" at
+ *    https://docs.aws.amazon.com/AmazonS3/latest/userguide/restoring-objects.html
+ *
+ *  Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ *  For more information, see the following documentation topic:
+ *
+ *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 
 public class RestoreObject {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <keyName> <expectedBucketOwner>\n\n" +
                 "Where:\n" +
@@ -42,7 +48,7 @@ public class RestoreObject {
                 "    expectedBucketOwner - the account that owns the bucket (you can obtain this value from the AWS Management Console). \n\n";
 
         if (args.length != 3) {
-                 System.out.println(USAGE);
+                 System.out.println(usage);
                  System.exit(1);
          }
 

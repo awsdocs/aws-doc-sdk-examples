@@ -23,9 +23,9 @@ import java.util.ArrayList;
 // snippet-end:[s3.java2.delete_objects.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,14 +33,14 @@ import java.util.ArrayList;
 public class DeleteObjects {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "To run this example, supply the name of an S3 bucket and at least\n" +
                 "one object name (key) to delete.\n" +
                 "\n" +
                 "Ex: <bucketName> <objectName>\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -60,7 +60,7 @@ public class DeleteObjects {
     // snippet-start:[s3.java2.delete_objects.main]
     public static void deleteBucketObjects(S3Client s3, String bucketName, String objectName) {
 
-        ArrayList<ObjectIdentifier> toDelete = new ArrayList<ObjectIdentifier>();
+        ArrayList<ObjectIdentifier> toDelete = new ArrayList<>();
         toDelete.add(ObjectIdentifier.builder().key(objectName).build());
 
         try {
@@ -69,11 +69,12 @@ public class DeleteObjects {
                     .delete(Delete.builder().objects(toDelete).build())
                     .build();
             s3.deleteObjects(dor);
+
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         System.out.println("Done!");
     }
-   // snippet-end:[s3.java2.delete_objects.main]
+    // snippet-end:[s3.java2.delete_objects.main]
 }

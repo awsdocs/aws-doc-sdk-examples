@@ -24,16 +24,18 @@ import java.util.ArrayList;
 
 
 /**
- * To run this code example, ensure that you have followed the documentation provided here:
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-create-job.html
+ * For more information, see the following documentation topic:
  *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class VPCCreateJob {
 
     public static void main(String[] args) throws URISyntaxException {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <accountId> <iamRoleArn> <manifestLocation> <reportBucketName> <tagKey> <tagValue> <eTag> <vpcBucketURL>\n\n" +
                 "Where:\n" +
@@ -47,7 +49,7 @@ public class VPCCreateJob {
                 "    vpcBucketURL - the URL of the bucket located in your virtual private cloud (VPC) (for example,  https://bucket.vpce-xxxxxc4d-5e6f.s3.us-east-1.vpce.amazonaws.com)";
 
         if (args.length != 8) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -83,7 +85,7 @@ public class VPCCreateJob {
                                     String uuid  ) {
 
         try {
-            ArrayList tagSet = new ArrayList<S3Tag>();
+            ArrayList<S3Tag> tagSet = new ArrayList<>();
 
             S3Tag s3Tag = S3Tag.builder()
                     .key(tagKey)

@@ -26,9 +26,9 @@ import java.util.ArrayList;
 // snippet-end:[s3.java2.delete_many_objects.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,13 +36,13 @@ import java.util.ArrayList;
 public class DeleteMultiObjects {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "To run this example, supply the name of an Amazon S3 bucket.\n" +
                 "\n" +
                 "Ex: DeleteMultiObjects <bucketName>\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -62,8 +62,8 @@ public class DeleteMultiObjects {
         // Upload three sample objects to the specfied Amazon S3 bucket.
         ArrayList<ObjectIdentifier> keys = new ArrayList<>();
 
-        PutObjectRequest putOb = null ;
-        ObjectIdentifier objectId = null;
+        PutObjectRequest putOb;
+        ObjectIdentifier objectId;
 
         for (int i = 0; i < 3; i++) {
             String keyName = "delete object example " + i;

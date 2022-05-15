@@ -20,14 +20,13 @@ import software.amazon.awssdk.services.s3.model.GetObjectTaggingRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectTaggingResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.Tag;
-import java.util.Iterator;
 import java.util.List;
 // snippet-end:[s3.java2.getobjecttags.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,7 +35,7 @@ public class GetObjectTags {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <keyName> \n\n" +
                 "Where:\n" +
@@ -44,7 +43,7 @@ public class GetObjectTags {
                 "    keyName - a key name that represents the object. \n\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -71,16 +70,12 @@ public class GetObjectTags {
 
             GetObjectTaggingResponse tags = s3.getObjectTagging(getTaggingRequest);
             List<Tag> tagSet= tags.tagSet();
+            for (Tag tag : tagSet) {
+                 System.out.println(tag.key());
+                 System.out.println(tag.value());
+             }
 
-            // Write out the tags
-            Iterator<Tag> tagIterator = tagSet.iterator();
-            while(tagIterator.hasNext()) {
-
-                Tag tag = (Tag)tagIterator.next();
-                System.out.println(tag.key());
-                System.out.println(tag.value());
-            }
-        } catch (S3Exception e) {
+         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

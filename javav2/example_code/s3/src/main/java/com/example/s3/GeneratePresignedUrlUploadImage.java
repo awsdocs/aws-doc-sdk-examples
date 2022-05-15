@@ -30,9 +30,9 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 // snippet-end:[presigned.java2.generatepresignedurlimage.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -41,7 +41,7 @@ public class GeneratePresignedUrlUploadImage {
 
     public static void main(String[] args) throws IOException {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <keyName> <imageLocation> \n\n" +
                 "Where:\n" +
@@ -49,9 +49,8 @@ public class GeneratePresignedUrlUploadImage {
                 "    keyName - a key name that represents a text file. \n" +
                 "    imageLocation - the location of a PNG file (C:/AWS/Bo.png). \n" ;
 
-
          if (args.length != 3) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
          }
 
@@ -90,10 +89,10 @@ public class GeneratePresignedUrlUploadImage {
             System.out.println("Which HTTP method needs to be used when uploading a file: " +
                     presignedRequest.httpRequest().method());
 
-            // Upload content to the Amazon S3 bucket by using this URL
+            // Upload content to the Amazon S3 bucket by using this URL.
             URL url = presignedRequest.url();
 
-            // Create the connection and use it to upload the new object by using the presigned URL
+            // Create the connection and use it to upload the new object by using the presigned URL.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type","image/png");
@@ -102,9 +101,7 @@ public class GeneratePresignedUrlUploadImage {
             connection.getResponseCode();
             System.out.println("HTTP response code is " + connection.getResponseCode());
 
-        } catch (S3Exception e) {
-            e.getStackTrace();
-        } catch (IOException e) {
+        } catch (S3Exception | IOException e) {
             e.getStackTrace();
         }
     }

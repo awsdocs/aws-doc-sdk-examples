@@ -25,6 +25,14 @@ import java.net.URISyntaxException;
 import java.util.List;
 // snippet-end:[s3.java2.vpc.example.import]
 
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class VPCS3Example {
 
     public static void main(String[] args) throws URISyntaxException {

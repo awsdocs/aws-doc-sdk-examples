@@ -21,9 +21,9 @@ import software.amazon.awssdk.services.s3.model.*;
 // snippet-end:[s3.java2.getobjectcontenttype.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,7 +32,7 @@ public class GetObjectContentType {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <keyName>>\n\n" +
                 "Where:\n" +
@@ -40,7 +40,7 @@ public class GetObjectContentType {
                 "    keyName - the key name. \n\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 

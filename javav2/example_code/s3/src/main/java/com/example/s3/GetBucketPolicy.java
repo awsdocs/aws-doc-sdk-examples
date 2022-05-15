@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.s3.model.GetBucketPolicyResponse;
 // snippet-end:[s3.java2.get_bucket_policy.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,14 +33,14 @@ public class GetBucketPolicy {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket to get the policy from.\n\n" ;
 
           if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
          }
 
@@ -59,7 +59,7 @@ public class GetBucketPolicy {
     // snippet-start:[s3.java2.get_bucket_policy.main]
     public static String getPolicy(S3Client s3, String bucketName) {
 
-        String policyText = "";
+        String policyText;
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
 
         GetBucketPolicyRequest policyReq = GetBucketPolicyRequest.builder()

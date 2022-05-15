@@ -28,9 +28,9 @@ import java.io.OutputStream;
 // snippet-end:[s3.java2.getobjectdata.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -39,7 +39,7 @@ public class GetObjectData {
 
     public static void main(String[] args) {
 
-     final String USAGE = "\n" +
+     final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <keyName> <path>\n\n" +
                 "Where:\n" +
@@ -48,7 +48,7 @@ public class GetObjectData {
                 "    path - the path where the file is written to. \n\n";
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
