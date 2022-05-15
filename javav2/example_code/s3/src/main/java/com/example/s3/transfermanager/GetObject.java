@@ -12,19 +12,19 @@
 */
 package com.example.transfermanager;
 
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.transfer.s3.FileDownload;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import java.nio.file.Paths;
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class GetObject {
 
     public static void main(String[] args) {
@@ -37,20 +37,19 @@ public class GetObject {
                 "  objectKey - the object to download (for example, book.pdf).\n" +
                 "  objectPath - the path where the file is written (for example, C:/AWS/book2.pdf). \n\n" ;
 
-        if (args.length != 3) {
+       if (args.length != 3) {
               System.out.println(usage);
               System.exit(1);
         }
 
         long MB = 1024;
         String bucketName = args[0];
-        String objectKey =  args[1];
-        String objectPath =  args[2];
+        String objectKey = args[1];
+        String objectPath = args[2];
 
         Region region = Region.US_EAST_1;
         S3TransferManager transferManager =  S3TransferManager.builder()
                 .s3ClientConfiguration(cfg ->cfg.region(region)
-                        .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                         .targetThroughputInGbps(20.0)
                         .minimumPartSizeInBytes(10 * MB))
                 .build();
@@ -65,6 +64,5 @@ public class GetObject {
                 transferManager.downloadFile(d -> d.getObjectRequest(g -> g.bucket(bucketName).key(objectKey))
                         .destination(Paths.get(objectPath)));
         download.completionFuture().join();
-
     }
 }
