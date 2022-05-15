@@ -23,6 +23,14 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetObjectDataAsync {
 
     public static void main(String[] args) {
