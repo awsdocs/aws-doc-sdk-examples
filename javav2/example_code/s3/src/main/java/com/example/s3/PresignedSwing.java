@@ -47,7 +47,9 @@ class Swing implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Get a presigned PDF from an Amazon S3 bucket.
         try {
-            URL url  =  new URL("https://bucketmay995.s3.amazonaws.com/people.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220303T125432Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIA33JWY3BXUOZ37473%2F20220303%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=58c20bbe2b8fc3bffb7a73caf5c214cf32a6b9f7a10cac678fe381af1c77715f") ;
+            
+            // Replace with a valid presigned URL.
+            URL url  =  new URL("<Enter URL>") ;
             InputStream in = null;
             in = url.openStream();
             FileOutputStream fos = new FileOutputStream(new File("C:\\AWS\\allpeople.png"));
