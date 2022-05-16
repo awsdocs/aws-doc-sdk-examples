@@ -12,10 +12,8 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.tableschema.import]
-import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
-import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primarySortKey;
-import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
-import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondarySortKey;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -23,6 +21,11 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+
+import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
+import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primarySortKey;
+import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondaryPartitionKey;
+import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.secondarySortKey;
 // snippet-end:[dynamodb.java2.mapping.tableschema.import]
 
 
@@ -61,8 +64,10 @@ public class EnhancedTableSchema {
 
     public static void main(String[] args) {
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 

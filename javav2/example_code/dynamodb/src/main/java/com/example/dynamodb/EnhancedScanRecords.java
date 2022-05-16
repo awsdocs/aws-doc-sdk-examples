@@ -12,13 +12,16 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.scan.import]
-import java.util.Iterator;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+
+import java.util.Iterator;
 // snippet-end:[dynamodb.java2.mapping.scan.import]
 
 /*
@@ -38,10 +41,12 @@ public class EnhancedScanRecords {
 
    public static void main(String[] args) {
 
-        Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
+       ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+       Region region = Region.US_EAST_1;
+       DynamoDbClient ddb = DynamoDbClient.builder()
+               .credentialsProvider(credentialsProvider)
+               .region(region)
+               .build();
 
        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)

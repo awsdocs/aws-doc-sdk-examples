@@ -13,6 +13,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.sync_pagination.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -45,8 +46,10 @@ public class SyncPagination {
         }
 
         String type = args[0];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 

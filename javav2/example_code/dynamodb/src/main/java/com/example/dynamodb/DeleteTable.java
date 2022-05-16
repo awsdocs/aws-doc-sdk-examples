@@ -12,6 +12,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.delete_table.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -44,8 +45,10 @@ public class DeleteTable {
 
         String tableName = args[0];
         System.out.format("Deleting the Amazon DynamoDB table %s...\n", tableName);
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 

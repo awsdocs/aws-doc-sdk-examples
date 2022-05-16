@@ -14,6 +14,7 @@ package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.scenario.import]
 import com.fasterxml.jackson.databind.JsonNode;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -83,16 +84,18 @@ public class Scenario {
                 "    fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
 
         if (args.length != 1) {
-              System.out.println(usage);
-              System.exit(1);
+             System.out.println(usage);
+             System.exit(1);
         }
 
         String tableName = "Movies";
         String fileName = args[0];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                    .region(region)
-                    .build();
+                .region(region)
+                .credentialsProvider(credentialsProvider)
+                .build();
 
         System.out.println("******* Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
         createTable(ddb, tableName);

@@ -13,6 +13,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.partiql.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -39,8 +40,10 @@ public class DynamoDBPartiQ {
 
     public static void main(String[] args) {
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 

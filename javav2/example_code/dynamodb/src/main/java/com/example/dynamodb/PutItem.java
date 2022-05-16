@@ -13,6 +13,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.put_item.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -68,11 +69,13 @@ public class PutItem {
         String songTitle = args[7];
         String songTitleVal = args[8];
 
-
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
+
         putItemInTable(ddb, tableName, key, keyVal, albumTitle, albumTitleValue, awards, awardVal, songTitle, songTitleVal);
         System.out.println("Done!");
         ddb.close();
