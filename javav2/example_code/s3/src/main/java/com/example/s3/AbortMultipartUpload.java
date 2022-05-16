@@ -25,17 +25,18 @@ import java.util.List;
 // snippet-end:[s3.java2.abort_upload.import]
 
 /**
-* To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
-*
-* For information, see this documentation topic:
-*
-* https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class AbortMultipartUpload {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
                 "  <bucketName> <accountId> \n\n" +
                 "Where:\n" +
@@ -43,7 +44,7 @@ public class AbortMultipartUpload {
                 "  accountId - the id of the account that owns the Amazon S3 bucket.\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -69,8 +70,7 @@ public class AbortMultipartUpload {
             ListMultipartUploadsResponse response = s3.listMultipartUploads(listMultipartUploadsRequest);
             List<MultipartUpload> uploads = response.uploads();
 
-            AbortMultipartUploadRequest abortMultipartUploadRequest = null;
-
+            AbortMultipartUploadRequest abortMultipartUploadRequest;
             for (MultipartUpload upload: uploads) {
                 abortMultipartUploadRequest = AbortMultipartUploadRequest.builder()
                         .bucket(bucketName)

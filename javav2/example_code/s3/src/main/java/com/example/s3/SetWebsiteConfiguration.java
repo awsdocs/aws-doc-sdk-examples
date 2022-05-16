@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -22,9 +21,9 @@ import software.amazon.awssdk.regions.Region;
 // snippet-end:[s3.java2.set_website_configuration.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,16 +32,16 @@ public class SetWebsiteConfiguration {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <bucketName> [indexdoc] \n\n" +
                 "Where:\n" +
-                "   bucketName   - the Amazon S3 bucket to set the website configuration on. \n" +
+                "   bucketName   - The Amazon S3 bucket to set the website configuration on. \n" +
                 "   indexdoc - The index document, ex. 'index.html'\n" +
                 "              If not specified, 'index.html' will be set.\n" ;
 
-        if (args.length < 2) {
-            System.out.println(USAGE);
+        if (args.length != 1) {
+            System.out.println(usage);
             System.exit(1);
         }
 

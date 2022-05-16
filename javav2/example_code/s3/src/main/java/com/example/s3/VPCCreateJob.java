@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,7 +15,17 @@ package com.example.s3;
 // snippet-start:[s3.java2.create_job.vpc.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
-import software.amazon.awssdk.services.s3control.model.*;
+import software.amazon.awssdk.services.s3control.model.S3SetObjectTaggingOperation;
+import software.amazon.awssdk.services.s3control.model.JobOperation;
+import software.amazon.awssdk.services.s3control.model.S3Tag;
+import software.amazon.awssdk.services.s3control.model.JobManifestLocation;
+import software.amazon.awssdk.services.s3control.model.JobManifestSpec;
+import software.amazon.awssdk.services.s3control.model.JobManifest;
+import software.amazon.awssdk.services.s3control.model.JobManifestFormat;
+import software.amazon.awssdk.services.s3control.model.JobReport;
+import software.amazon.awssdk.services.s3control.model.JobReportFormat;
+import software.amazon.awssdk.services.s3control.model.CreateJobRequest;
+import software.amazon.awssdk.services.s3control.model.S3ControlException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -24,30 +33,32 @@ import java.util.ArrayList;
 
 
 /**
- * To run this code example, ensure that you have followed the documentation provided here:
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-create-job.html
+ * For more information, see the following documentation topic:
  *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class VPCCreateJob {
 
     public static void main(String[] args) throws URISyntaxException {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <accountId> <iamRoleArn> <manifestLocation> <reportBucketName> <tagKey> <tagValue> <eTag> <vpcBucketURL>\n\n" +
                 "Where:\n" +
-                "    accountId - the account id value that owns the Amazon S3 bucket.\n\n" +
-                "    iamRoleArn - the ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +
-                "    manifestLocation - the location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
-                "    reportBucketName - the Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n"+
-                "    tagKey - the key used for a tag (for example,  keyOne).\n" +
-                "    tagValue - the value for the key (for example,  ValueOne).\n" +
-                "    eTag - the ETag for the specified manifest object (for example, 000000c9d1046e73f7dde5043ac3ae85).\n" +
-                "    vpcBucketURL - the URL of the bucket located in your virtual private cloud (VPC) (for example,  https://bucket.vpce-xxxxxc4d-5e6f.s3.us-east-1.vpce.amazonaws.com)";
+                "    accountId - The account id value that owns the Amazon S3 bucket.\n\n" +
+                "    iamRoleArn - The ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +
+                "    manifestLocation - The location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
+                "    reportBucketName - The Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n"+
+                "    tagKey - The key used for a tag (for example,  keyOne).\n" +
+                "    tagValue - The value for the key (for example,  ValueOne).\n" +
+                "    eTag - The ETag for the specified manifest object (for example, 000000c9d1046e73f7dde5043ac3ae85).\n" +
+                "    vpcBucketURL - The URL of the bucket located in your virtual private cloud (VPC) (for example,  https://bucket.vpce-xxxxxc4d-5e6f.s3.us-east-1.vpce.amazonaws.com)";
 
         if (args.length != 8) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -80,10 +91,10 @@ public class VPCCreateJob {
                                     String tagKey,
                                     String tagValue,
                                     String eTag,
-                                    String uuid  ) {
+                                    String uuid) {
 
         try {
-            ArrayList tagSet = new ArrayList<S3Tag>();
+            ArrayList<S3Tag> tagSet = new ArrayList<>();
 
             S3Tag s3Tag = S3Tag.builder()
                     .key(tagKey)
@@ -91,7 +102,6 @@ public class VPCCreateJob {
                     .build();
 
             tagSet.add(s3Tag);
-
             S3SetObjectTaggingOperation objectTaggingOperation = S3SetObjectTaggingOperation.builder()
                     .tagSet(s3Tag)
                     .build();

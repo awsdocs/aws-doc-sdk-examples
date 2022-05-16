@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,9 +22,9 @@ import java.util.List;
 // snippet-end:[s3.java2.get_acl.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,15 +32,15 @@ import java.util.List;
 public class GetAcl {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "  <bucketName> <objectKey>\n\n" +
                 "Where:\n" +
-                "  bucketName - the Amazon S3 bucket to get the access control list (ACL) for.\n" +
-                "  objectKey - the object to get the ACL for. \n" ;
+                "  bucketName - The Amazon S3 bucket to get the access control list (ACL) for.\n" +
+                "  objectKey - The object to get the ACL for. \n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -58,7 +57,6 @@ public class GetAcl {
         getBucketACL(s3,objectKey,bucketName);
         s3.close();
         System.out.println("Done!");
-
     }
 
     // snippet-start:[s3.java2.get_acl.main]

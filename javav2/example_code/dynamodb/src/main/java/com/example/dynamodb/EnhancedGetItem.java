@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,23 +16,19 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import java.time.Instant;
 // snippet-end:[dynamodb.java2.mapping.getitem.import]
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
+ * Before running this code example, create an Amazon DynamoDB table named Customer with these columns:
  *   - id - the id of the record that is the key
  *   - custName - the customer name
  *   - email - the email value
  *   - registrationDate - an instant value when the item was added to the table
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, ensure that you have set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -53,32 +48,27 @@ public class EnhancedGetItem {
                 .dynamoDbClient(ddb)
                 .build();
 
-        String result = getItem(enhancedClient);
-        System.out.println(result);
+        getItem(enhancedClient);
         ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.mapping.getitem.main]
-    public static String getItem(DynamoDbEnhancedClient enhancedClient) {
-        try {
-            //Create a DynamoDbTable object
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+    public static void getItem(DynamoDbEnhancedClient enhancedClient) {
 
-            //Create a KEY object
+        try {
+            DynamoDbTable<Customer> table = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
-                    .partitionValue("id146")
+                    .partitionValue("id120")
                     .build();
 
-            // Get the item by using the key
-            Customer result = mappedTable.getItem(r->r.key(key));
-            return "The email value is "+result.getEmail();
+            // Get the item by using the key.
+            Customer result = table.getItem(r->r.key(key));
+            System.out.println("******* The description value is "+result.getCustName());
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
-        return "";
     }
     // snippet-end:[dynamodb.java2.mapping.getitem.main]
 }

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -24,10 +23,11 @@ import java.util.concurrent.CompletableFuture;
 // snippet-end:[s3.java2.async_stream_ops.import]
 
 // snippet-start:[s3.java2.async_stream_ops.main]
+
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,23 +36,22 @@ public class S3AsyncStreamOps {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    S3AsyncStreamOps <bucketName> <objectKey> <path>\n\n" +
+                "    <bucketName> <objectKey> <path>\n\n" +
                 "Where:\n" +
-                "    bucketName - the name of the Amazon S3 bucket (for example, bucket1). \n\n" +
-                "    objectKey - the name of the object (for example, book.pdf). \n" +
-                "    path - the local path to the file (for example, C:/AWS/book.pdf). \n" ;
+                "    bucketName - The name of the Amazon S3 bucket (for example, bucket1). \n\n" +
+                "    objectKey - The name of the object (for example, book.pdf). \n" +
+                "    path - The local path to the file (for example, C:/AWS/book.pdf). \n" ;
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
          }
 
         String bucketName = args[0];
         String objectKey = args[1];
         String path = args[2];
-
         Region region = Region.US_WEST_2;
         S3AsyncClient client = S3AsyncClient.builder()
                 .region(region)
@@ -74,7 +73,7 @@ public class S3AsyncStreamOps {
                     err.printStackTrace();
                 }
             } finally {
-               // Only close the client when you are completely done with it
+               // Only close the client when you are completely done with it.
                 client.close();
             }
         });

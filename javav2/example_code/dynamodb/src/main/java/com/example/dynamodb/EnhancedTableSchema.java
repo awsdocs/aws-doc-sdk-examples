@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -28,8 +27,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Before running this code example, set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *

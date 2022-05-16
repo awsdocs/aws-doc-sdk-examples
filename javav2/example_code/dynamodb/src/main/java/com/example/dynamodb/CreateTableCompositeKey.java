@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -27,9 +26,9 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 // snippet-end:[dynamodb.java2.create_table_composite_key.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,14 +36,15 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 public class CreateTableCompositeKey {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <tableName>\n\n" +
                 "Where:\n" +
-                "    tableName - the Amazon DynamoDB table to create (for example, Music3).\n\n";
+                "    tableName - The Amazon DynamoDB table to create (for example, Music3).\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 

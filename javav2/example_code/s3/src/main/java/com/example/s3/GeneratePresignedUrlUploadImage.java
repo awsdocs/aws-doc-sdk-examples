@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,7 +13,6 @@
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurlimage.import]
-import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,9 +28,9 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 // snippet-end:[presigned.java2.generatepresignedurlimage.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -41,17 +39,16 @@ public class GeneratePresignedUrlUploadImage {
 
     public static void main(String[] args) throws IOException {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <keyName> <imageLocation> \n\n" +
                 "Where:\n" +
-                "    bucketName - the name of the Amazon S3 bucket. \n\n" +
-                "    keyName - a key name that represents a text file. \n" +
-                "    imageLocation - the location of a PNG file (C:/AWS/Bo.png). \n" ;
-
+                "    bucketName - The name of the Amazon S3 bucket. \n\n" +
+                "    keyName - A key name that represents a text file. \n" +
+                "    imageLocation - The location of a PNG file (C:/AWS/Bo.png). \n" ;
 
          if (args.length != 3) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
          }
 
@@ -90,10 +87,10 @@ public class GeneratePresignedUrlUploadImage {
             System.out.println("Which HTTP method needs to be used when uploading a file: " +
                     presignedRequest.httpRequest().method());
 
-            // Upload content to the Amazon S3 bucket by using this URL
+            // Upload content to the Amazon S3 bucket by using this URL.
             URL url = presignedRequest.url();
 
-            // Create the connection and use it to upload the new object by using the presigned URL
+            // Create the connection and use it to upload the new object by using the presigned URL.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type","image/png");
@@ -102,9 +99,7 @@ public class GeneratePresignedUrlUploadImage {
             connection.getResponseCode();
             System.out.println("HTTP response code is " + connection.getResponseCode());
 
-        } catch (S3Exception e) {
-            e.getStackTrace();
-        } catch (IOException e) {
+        } catch (S3Exception | IOException e) {
             e.getStackTrace();
         }
     }

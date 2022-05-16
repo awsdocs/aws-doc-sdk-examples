@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[02/11/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,14 +15,22 @@ package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.scenario.partiql.import]
 import com.fasterxml.jackson.databind.JsonNode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.Key;
-import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.*;
+import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
+
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
+import software.amazon.awssdk.services.dynamodb.model.KeyType;
+import software.amazon.awssdk.services.dynamodb.model.ExecuteStatementResponse;
+import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
+import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.ExecuteStatementRequest;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -31,14 +38,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
 // snippet-end:[dynamodb.java2.scenario.partiql.import]
 
-
 /**
- * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
@@ -52,6 +60,8 @@ import java.util.*;
  * 6. Uses a Scan to query items using the Enhanced client.
  * 7. Queries all items where the year is 2013 using the Enhanced Client.
  * 8. Deletes the table.
+ *
+ * To see another code example with more options using PartiQL and Batch commands, see the ScenarioPartiQBatch code example.
  */
 
 // snippet-start:[dynamodb.java2.scenario.partiql.main]
@@ -59,14 +69,14 @@ public class ScenarioPartiQ {
 
     public static void main(String [] args) throws IOException {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <fileName>\n\n" +
                 "Where:\n" +
                 "    fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
 
           if (args.length != 1) {
-                System.out.println(USAGE);
+                System.out.println(usage);
                 System.exit(1);
           }
 
@@ -102,7 +112,7 @@ public class ScenarioPartiQ {
     public static void createTable(DynamoDbClient ddb, String tableName) {
 
         DynamoDbWaiter dbWaiter = ddb.waiter();
-        ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
+        ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<>();
 
         // Define attributes.
         attributeDefinitions.add(AttributeDefinition.builder()
@@ -115,7 +125,7 @@ public class ScenarioPartiQ {
                 .attributeType("S")
                 .build());
 
-        ArrayList<KeySchemaElement> tableKey = new ArrayList<KeySchemaElement>();
+        ArrayList<KeySchemaElement> tableKey = new ArrayList<>();
         KeySchemaElement key = KeySchemaElement.builder()
                 .attributeName("year")
                 .keyType(KeyType.HASH)
@@ -167,7 +177,7 @@ public class ScenarioPartiQ {
         Iterator<JsonNode> iter = rootNode.iterator();
         ObjectNode currentNode;
         int t = 0 ;
-        List<AttributeValue> parameters = new ArrayList<AttributeValue>();
+        List<AttributeValue> parameters = new ArrayList<>();
         while (iter.hasNext()) {
 
             // Add 200 movies to the table.
@@ -209,7 +219,7 @@ public class ScenarioPartiQ {
     public static void getItem(DynamoDbClient ddb) {
 
         String sqlStatement = "SELECT * FROM MoviesPartiQ where year=? and title=?";
-        List<AttributeValue> parameters = new ArrayList<AttributeValue>();
+        List<AttributeValue> parameters = new ArrayList<>();
         AttributeValue att1 = AttributeValue.builder()
                 .n("2012")
                 .build();
@@ -235,7 +245,7 @@ public class ScenarioPartiQ {
 
         String sqlStatement = "INSERT INTO MoviesPartiQ VALUE {'year':?, 'title' : ?, 'info' : ?}";
         try {
-            List<AttributeValue> parameters = new ArrayList<AttributeValue>();
+            List<AttributeValue> parameters = new ArrayList<>();
 
             AttributeValue att1 = AttributeValue.builder()
                     .n(String.valueOf("2020"))
@@ -264,9 +274,8 @@ public class ScenarioPartiQ {
 
     public static void updateTableItem(DynamoDbClient ddb){
 
-        String sqlStatement = "UPDATE MoviesPartiQ SET info = 'directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack\' where year=? and title=?";
-        List<AttributeValue> parameters = new ArrayList<AttributeValue>();
-
+        String sqlStatement = "UPDATE MoviesPartiQ SET info = 'directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack' where year=? and title=?";
+        List<AttributeValue> parameters = new ArrayList<>();
         AttributeValue att1 = AttributeValue.builder()
                 .n(String.valueOf("2013"))
                 .build();
@@ -293,15 +302,14 @@ public class ScenarioPartiQ {
         String sqlStatement = "SELECT * FROM MoviesPartiQ where year = ?";
         try {
 
-            List<AttributeValue> parameters = new ArrayList<AttributeValue>();
-
+            List<AttributeValue> parameters = new ArrayList<>();
             AttributeValue att1 = AttributeValue.builder()
                     .n(String.valueOf("2013"))
                     .build();
             parameters.add(att1);
 
             // Get items in the table and write out the ID value.
-            ExecuteStatementResponse response =  executeStatementRequest(ddb, sqlStatement, parameters);
+            ExecuteStatementResponse response = executeStatementRequest(ddb, sqlStatement, parameters);
             System.out.println("ExecuteStatement successful: "+ response.toString());
 
         } catch (DynamoDbException e) {

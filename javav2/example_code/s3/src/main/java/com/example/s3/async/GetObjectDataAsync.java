@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,29 +22,37 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetObjectDataAsync {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <keyName> <path>\n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket name. \n\n"+
-                "    keyName - the key name. \n\n"+
-                "    path - the path where the file is written to. \n\n";
+                "    bucketName - The Amazon S3 bucket name. \n\n"+
+                "    keyName - The key name. \n\n"+
+                "    path - The path where the file is written to. \n\n";
 
         if (args.length != 3) {
-           System.out.println(USAGE);
+           System.out.println(usage);
             System.exit(1);
        }
 
         String bucketName = args[0];
-        String keyName =  args[1];
-        String path =  args[2];
+        String keyName = args[1];
+        String path = args[2];
 
         Region region = Region.US_EAST_1;
-        S3AsyncClient s3AsyncClient  = S3AsyncClient.builder()
+        S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .region(region)
                 .build();
 
@@ -73,7 +80,7 @@ public class GetObjectDataAsync {
                         err.printStackTrace();
                     }
                 } finally {
-                    // Only close the client when you are completely done with it
+                    // Only close the client when you are completely done with it.
                     s3AsyncClient.close();
                 }
             });

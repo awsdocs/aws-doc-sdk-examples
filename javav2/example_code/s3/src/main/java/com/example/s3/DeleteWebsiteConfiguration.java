@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,9 +20,9 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 // snippet-end:[s3.java2.delete_website_configuration.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,14 +30,14 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 public class DeleteWebsiteConfiguration {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <bucketName>\n\n" +
                 "Where:\n" +
-                "   bucketName - the Amazon S3 bucket to delete the website configuration from.\n";
+                "   bucketName - The Amazon S3 bucket to delete the website configuration from.\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -71,5 +70,6 @@ public class DeleteWebsiteConfiguration {
             System.exit(1);
         }
    }
+    // snippet-end:[s3.java2.delete_website_configuration.main]
 }
-// snippet-end:[s3.java2.delete_website_configuration.main]
+

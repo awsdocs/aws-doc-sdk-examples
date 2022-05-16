@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,26 +20,34 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.net.URL;
 // snippet-end:[s3.java2.getobjecturl.import]
 
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetObjectUrl {
 
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <keyName> \n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket name.\n\n"+
-                "    keyName - a key name that represents the object. \n\n";
+                "    bucketName - The Amazon S3 bucket name.\n\n"+
+                "    keyName - A key name that represents the object. \n\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String bucketName = args[0];
         String keyName = args[1];
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1 ;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();
@@ -54,14 +61,13 @@ public class GetObjectUrl {
     public static void getURL(S3Client s3, String bucketName, String keyName ) {
 
         try {
-
             GetUrlRequest request = GetUrlRequest.builder()
                     .bucket(bucketName)
                     .key(keyName)
                     .build();
 
             URL url = s3.utilities().getUrl(request);
-            System.out.println("The URL for  "+keyName +" is "+url.toString());
+            System.out.println("The URL for  "+keyName +" is "+ url);
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

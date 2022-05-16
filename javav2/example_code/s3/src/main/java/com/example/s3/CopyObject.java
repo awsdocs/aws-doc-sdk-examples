@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -25,34 +24,33 @@ import java.nio.charset.StandardCharsets;
 // snippet-end:[s3.java2.copy_object.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
-
 public class CopyObject {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <objectKey> <fromBucket> <toBucket>\n\n" +
                 "Where:\n" +
-                "    objectKey - the name of the object (for example, book.pdf).\n\n" +
-                "    fromBucket - the S3 bucket name that contains the object (for example, bucket1).\n" +
-                "    toBucket - the S3 bucket to copy the object to (for example, bucket2).\n";
+                "    objectKey - The name of the object (for example, book.pdf).\n\n" +
+                "    fromBucket - The S3 bucket name that contains the object (for example, bucket1).\n" +
+                "    toBucket - The S3 bucket to copy the object to (for example, bucket2).\n";
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
        }
 
         String objectKey = args[0];
         String fromBucket = args[1];
-        String toBucket =  args[2];
-
+        String toBucket = args[2];
         System.out.format("Copying object %s from bucket %s to %s\n",
                 objectKey, fromBucket, toBucket);
 
@@ -68,7 +66,7 @@ public class CopyObject {
     // snippet-start:[s3.java2.copy_object.main]
     public static String copyBucketObject (S3Client s3, String fromBucket, String objectKey, String toBucket) {
 
-        String encodedUrl = null;
+        String encodedUrl = "";
         try {
             encodedUrl = URLEncoder.encode(fromBucket + "/" + objectKey, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
