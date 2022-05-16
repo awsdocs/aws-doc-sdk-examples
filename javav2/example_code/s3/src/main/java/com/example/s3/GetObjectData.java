@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,9 +42,9 @@ public class GetObjectData {
                 "Usage:\n" +
                 "    <bucketName> <keyName> <path>\n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket name. \n\n"+
-                "    keyName - the key name. \n\n"+
-                "    path - the path where the file is written to. \n\n";
+                "    bucketName - The Amazon S3 bucket name. \n\n"+
+                "    keyName - The key name. \n\n"+
+                "    path - The path where the file is written to. \n\n";
 
         if (args.length != 3) {
             System.out.println(usage);

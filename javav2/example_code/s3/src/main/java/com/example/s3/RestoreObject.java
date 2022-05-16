@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,9 +42,9 @@ public class RestoreObject {
                 "Usage:\n" +
                 "    <bucketName> <keyName> <expectedBucketOwner>\n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket name. \n\n" +
-                "    keyName - the key name of an object with a Storage class value of Glacier. \n\n" +
-                "    expectedBucketOwner - the account that owns the bucket (you can obtain this value from the AWS Management Console). \n\n";
+                "    bucketName - The Amazon S3 bucket name. \n\n" +
+                "    keyName - The key name of an object with a Storage class value of Glacier. \n\n" +
+                "    expectedBucketOwner - The account that owns the bucket (you can obtain this value from the AWS Management Console). \n\n";
 
         if (args.length != 3) {
                  System.out.println(usage);

@@ -41,9 +41,9 @@ public class PutObjectMetadata {
                 "Usage:\n" +
                 "  <bucketName> <objectKey> <objectPath> \n\n" +
                 "Where:\n" +
-                "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
-                "  objectKey - the object to upload (for example, book.pdf).\n" +
-                "  objectPath - the path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
+                "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
+                "  objectKey - The object to upload (for example, book.pdf).\n" +
+                "  objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
 
          if (args.length != 3) {
              System.out.println(USAGE);
@@ -53,7 +53,6 @@ public class PutObjectMetadata {
         String bucketName = args[0];
         String objectKey = args[1];
         String objectPath = args[2];
-
         System.out.println("Putting object " + objectKey +" into bucket "+bucketName);
         System.out.println("  in bucket: " + bucketName);
 

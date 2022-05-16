@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -39,8 +38,8 @@ public class GetObjectTags {
                 "Usage:\n" +
                 "    <bucketName> <keyName> \n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket name. \n\n"+
-                "    keyName - a key name that represents the object. \n\n";
+                "    bucketName - The Amazon S3 bucket name. \n\n"+
+                "    keyName - A key name that represents the object. \n\n";
 
         if (args.length != 2) {
             System.out.println(usage);

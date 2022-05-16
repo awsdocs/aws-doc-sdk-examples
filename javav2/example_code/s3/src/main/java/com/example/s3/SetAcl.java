@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,7 +14,6 @@ package com.example.s3;
 // snippet-start:[s3.java2.set_acl.import]
 import java.util.ArrayList;
 import java.util.List;
-import software.amazon.awssdk.services.s3.model.Grantee;
 import software.amazon.awssdk.services.s3.model.Permission;
 import software.amazon.awssdk.services.s3.model.Grant;
 import software.amazon.awssdk.services.s3.model.AccessControlPolicy;
@@ -40,8 +38,8 @@ public class SetAcl {
                 "Usage:\n" +
                 "  <bucketName> <id> \n\n" +
                 "Where:\n" +
-                 "  bucketName - the Amazon S3 bucket to grant permissions on. \n" +
-                 "  id - the ID of the owner of this bucket (you can get this value from the AWS Management Console).\n"  ;
+                 "  bucketName - The Amazon S3 bucket to grant permissions on. \n" +
+                 "  id - The ID of the owner of this bucket (you can get this value from the AWS Management Console).\n" ;
 
         if (args.length != 2) {
              System.out.println(usage);

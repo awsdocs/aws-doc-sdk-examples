@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,21 +36,20 @@ public class PutObjectRetention {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <key> <bucketName> \n\n" +
                 "Where:\n" +
-                "    key - the name of the object (for example, book.pdf). \n\n" +
-                "    bucketName - the Amazon S3 bucket name that contains the object (for example, bucket1). \n" ;
+                "    key - The name of the object (for example, book.pdf). \n\n" +
+                "    bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1). \n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String key = args[0];
         String bucketName = args[1];
-
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)

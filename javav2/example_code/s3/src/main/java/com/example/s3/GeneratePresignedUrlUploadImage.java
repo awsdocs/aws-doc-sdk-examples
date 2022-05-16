@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,7 +13,6 @@
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurlimage.import]
-import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -45,9 +43,9 @@ public class GeneratePresignedUrlUploadImage {
                 "Usage:\n" +
                 "    <bucketName> <keyName> <imageLocation> \n\n" +
                 "Where:\n" +
-                "    bucketName - the name of the Amazon S3 bucket. \n\n" +
-                "    keyName - a key name that represents a text file. \n" +
-                "    imageLocation - the location of a PNG file (C:/AWS/Bo.png). \n" ;
+                "    bucketName - The name of the Amazon S3 bucket. \n\n" +
+                "    keyName - A key name that represents a text file. \n" +
+                "    imageLocation - The location of a PNG file (C:/AWS/Bo.png). \n" ;
 
          if (args.length != 3) {
              System.out.println(usage);

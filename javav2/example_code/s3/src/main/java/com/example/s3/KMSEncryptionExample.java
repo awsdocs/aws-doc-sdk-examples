@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -56,11 +55,11 @@ public class KMSEncryptionExample {
                 "Usage:\n" +
                 "    <objectName> <bucketName> <objectPath> <outPath> <keyId>\n\n" +
                 "Where:\n" +
-                "    objectName - the name of the object. \n\n" +
-                "    bucketName - the Amazon S3 bucket name that contains the object (for example, bucket1). \n" +
-                "    objectPath - the path to a TXT file to encrypt and place into a Amazon S3 bucket (for example, C:/AWS/test.txt).\n" +
-                "    outPath - the path where a text file is written to after it's decrypted (for example, C:/AWS/testPlain.txt).\n" +
-                "    keyId - the id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS Management Console.\n";
+                "    objectName - The name of the object. \n\n" +
+                "    bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1). \n" +
+                "    objectPath - The path to a TXT file to encrypt and place into a Amazon S3 bucket (for example, C:/AWS/test.txt).\n" +
+                "    outPath - The path where a text file is written to after it's decrypted (for example, C:/AWS/testPlain.txt).\n" +
+                "    keyId - The id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS Management Console.\n";
 
          if (args.length != 5) {
              System.out.println(usage);

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,11 +29,12 @@ import software.amazon.awssdk.services.s3.model.DeleteBucketPolicyRequest;
 public class DeleteBucketPolicy {
 
     public static void main(String[] args) {
+
         final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName>\n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket to delete the policy from (for example, bucket1)." ;
+                "    bucketName - The Amazon S3 bucket to delete the policy from (for example, bucket1)." ;
 
         if (args.length != 1) {
             System.out.println(usage);

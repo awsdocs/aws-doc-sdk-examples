@@ -3,9 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
+//snippet-sourcedate:[05/16/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,7 +35,7 @@ public class GetBucketPolicy {
                 "Usage:\n" +
                 "    <bucketName>\n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket to get the policy from.\n\n" ;
+                "    bucketName - The Amazon S3 bucket to get the policy from.\n\n" ;
 
           if (args.length != 1) {
             System.out.println(usage);

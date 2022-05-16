@@ -4,9 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
+//snippet-sourcedate:[05/16/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -17,7 +15,9 @@ package com.example.s3;
 // snippet-start:[s3.java2.getobjectcontenttype.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
+import software.amazon.awssdk.services.s3.model.HeadObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 // snippet-end:[s3.java2.getobjectcontenttype.import]
 
 /**
@@ -36,8 +36,8 @@ public class GetObjectContentType {
                 "Usage:\n" +
                 "    <bucketName> <keyName>>\n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket name. \n\n"+
-                "    keyName - the key name. \n\n";
+                "    bucketName - The Amazon S3 bucket name. \n\n"+
+                "    keyName - The key name. \n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,7 +46,6 @@ public class GetObjectContentType {
 
         String bucketName = args[0];
         String keyName = args[1];
-
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)

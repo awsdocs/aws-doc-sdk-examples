@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,11 +36,11 @@ public class SetWebsiteConfiguration {
                 "Usage: " +
                 "   <bucketName> [indexdoc] \n\n" +
                 "Where:\n" +
-                "   bucketName   - the Amazon S3 bucket to set the website configuration on. \n" +
+                "   bucketName   - The Amazon S3 bucket to set the website configuration on. \n" +
                 "   indexdoc - The index document, ex. 'index.html'\n" +
                 "              If not specified, 'index.html' will be set.\n" ;
 
-        if (args.length < 2) {
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }

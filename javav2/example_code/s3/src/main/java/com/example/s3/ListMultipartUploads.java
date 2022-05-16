@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,7 +37,7 @@ public class ListMultipartUploads {
                 "Usage:\n" +
                 "    <bucketName> \n\n" +
                 "Where:\n" +
-                "    bucketName - the name of the Amazon S3 bucket where an in-progress multipart upload is occurring.\n\n" ;
+                "    bucketName - The name of the Amazon S3 bucket where an in-progress multipart upload is occurring.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);

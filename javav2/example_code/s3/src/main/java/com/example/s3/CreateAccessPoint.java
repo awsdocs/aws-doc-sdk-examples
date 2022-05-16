@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,9 +36,9 @@ public class CreateAccessPoint {
                 "Usage:\n" +
                 "    <accountId> <bucketName> <accessPointName>\n\n" +
                 "Where:\n" +
-                "    accountId - the account id that owns the Amazon S3 bucket. \n\n" +
-                "    bucketName - the Amazon S3 bucket name. \n" +
-                "    accessPointName - the access point name (for example, myaccesspoint). \n";
+                "    accountId - The account id that owns the Amazon S3 bucket. \n\n" +
+                "    bucketName - The Amazon S3 bucket name. \n" +
+                "    accessPointName - The access point name (for example, myaccesspoint). \n";
 
         if (args.length != 3) {
             System.out.println(usage);

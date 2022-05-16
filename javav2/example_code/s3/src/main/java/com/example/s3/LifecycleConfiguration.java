@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -46,8 +45,8 @@ public class LifecycleConfiguration {
                 "Usage:\n" +
                 "  <bucketName> <accountId> \n\n" +
                 "Where:\n" +
-                "  bucketName - the Amazon Simple Storage Service (Amazon S3) bucket to upload an object into.\n" +
-                "  accountId - the id of the account that owns the Amazon S3 bucket.\n" ;
+                "  bucketName - The Amazon Simple Storage Service (Amazon S3) bucket to upload an object into.\n" +
+                "  accountId - The id of the account that owns the Amazon S3 bucket.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);

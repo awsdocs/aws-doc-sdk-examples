@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +32,13 @@ import java.util.ArrayList;
 public class DeleteObjects {
 
     public static void main(String[] args) {
+
         final String usage = "\n" +
-                "To run this example, supply the name of an S3 bucket and at least\n" +
-                "one object name (key) to delete.\n" +
-                "\n" +
-                "Ex: <bucketName> <objectName>\n";
+                "Usage: " +
+                "   <bucketName> <objectName>\n\n" +
+                "Where:\n" +
+                "   bucketName - The Amazon S3 bucket to delete the website configuration from.\n"+
+                "   objectName - The object name.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,7 +47,7 @@ public class DeleteObjects {
 
         String bucketName = args[0];
         String objectName = args[1];
-        System.out.println("Deleting an object from the Amazon S3 bucket: " + bucketName);
+        System.out.println("Deleting "+objectName +" from the Amazon S3 bucket: " + bucketName);
 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()

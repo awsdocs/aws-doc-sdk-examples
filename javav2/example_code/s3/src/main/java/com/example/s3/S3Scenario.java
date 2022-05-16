@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/10/2022]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,7 +13,12 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.s3_scenario.import]
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -23,14 +27,32 @@ import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
+import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.waiters.S3Waiter;
+import software.amazon.awssdk.services.s3.model.UploadPartRequest;
+import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadRequest;
+import software.amazon.awssdk.services.s3.model.HeadBucketResponse;
+import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
+import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
+import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
+import software.amazon.awssdk.services.s3.model.CompletedPart;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.CompletedMultipartUpload;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
+import software.amazon.awssdk.services.s3.model.S3Object;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
+import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 // snippet-end:[s3.java2.s3_scenario.import]
 
 // snippet-start:[s3.java2.s3_scenario.main]
-
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -47,13 +69,13 @@ public class S3Scenario {
                 "Usage:\n" +
                 "    <bucketName> <key> <objectPath> <savePath> <toBucket>\n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket to create.\n\n" +
-                "    key - the key to use.\n\n" +
-                "    objectPath - the path where the file is located (for example, C:/AWS/book2.pdf). "+
-                "    savePath - the path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf). " +
-                "    toBucket - an Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). ";
+                "    bucketName - The Amazon S3 bucket to create.\n\n" +
+                "    key - The key to use.\n\n" +
+                "    objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). "+
+                "    savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf). " +
+                "    toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). ";
 
-        if (args.length != 4) {
+        if (args.length != 5) {
              System.out.println(usage);
              System.exit(1);
         }

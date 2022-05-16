@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -45,17 +44,17 @@ public class CreateJob {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <accountId> <iamRoleArn> <manifestLocation> <reportBucketName>>\n\n" +
                 "Where:\n" +
-                "    accountId - the account id value that owns the Amazon S3 bucket.\n\n" +
-                "    iamRoleArn - the ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +
-                "    manifestLocation - the location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
-                "    reportBucketName - the Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n";
+                "    accountId - The account id value that owns the Amazon S3 bucket.\n\n" +
+                "    iamRoleArn - The ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +
+                "    manifestLocation - The location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
+                "    reportBucketName - The Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -79,7 +78,7 @@ public class CreateJob {
                                     String iamRoleArn,
                                     String manifestLocation,
                                     String reportBucketName,
-                                    String uuid  ) {
+                                    String uuid) {
 
        try {
            ArrayList<S3Tag> tagSet = new ArrayList<>();

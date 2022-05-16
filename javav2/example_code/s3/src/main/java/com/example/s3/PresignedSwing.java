@@ -13,9 +13,10 @@
 
 package com.example.s3;
 
-import javax.swing.*;
-import java.awt.event.*;
-import java.io.File;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,14 +48,12 @@ class Swing implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Get a presigned PDF from an Amazon S3 bucket.
         try {
-            
-            // Replace with a valid presigned URL.
-            URL url  =  new URL("<Enter URL>") ;
-            InputStream in = null;
+            URL url = new URL("<Enter URL>") ;
+            InputStream in;
             in = url.openStream();
-            FileOutputStream fos = new FileOutputStream(new File("C:\\AWS\\allpeople.png"));
+            FileOutputStream fos = new FileOutputStream("C:\\AWS\\allpeople.png");
             System.out.println("reading from resource and writing to file...");
-            int length = -1;
+            int length;
             byte[] buffer = new byte[1024];// buffer for portion of data from connection
             while ((length = in.read(buffer)) > -1) {
                 fos.write(buffer, 0, length);
@@ -69,8 +68,7 @@ class Swing implements ActionListener {
 }
 
 public class PresignedSwing {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new Swing();
     }
 }

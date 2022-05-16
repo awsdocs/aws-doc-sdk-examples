@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -41,10 +40,10 @@ public class GetObjectPresignedUrl {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetObjectPresignedUrl <bucketName> <keyName> \n\n" +
+                "    <bucketName> <keyName> \n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket name. \n\n"+
-                "    keyName - a key name that represents a text file. \n\n";
+                "    bucketName - The Amazon S3 bucket name. \n\n"+
+                "    keyName - A key name that represents a text file. \n\n";
 
         if (args.length != 2) {
            System.out.println(USAGE);
@@ -71,7 +70,7 @@ public class GetObjectPresignedUrl {
                             .key(keyName)
                             .build();
 
-            GetObjectPresignRequest getObjectPresignRequest =  GetObjectPresignRequest.builder()
+            GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
                             .signatureDuration(Duration.ofMinutes(60))
                             .getObjectRequest(getObjectRequest)
                              .build();

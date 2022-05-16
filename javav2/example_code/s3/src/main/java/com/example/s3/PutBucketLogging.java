@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,7 +14,14 @@ package com.example.s3;
 // snippet-start:[s3.java2.s3_put_log.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.GetBucketAclRequest;
+import software.amazon.awssdk.services.s3.model.BucketLogsPermission;
+import software.amazon.awssdk.services.s3.model.Grantee;
+import software.amazon.awssdk.services.s3.model.LoggingEnabled;
+import software.amazon.awssdk.services.s3.model.Type;
+import software.amazon.awssdk.services.s3.model.BucketLoggingStatus;
+import software.amazon.awssdk.services.s3.model.PutBucketLoggingRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.TargetGrant;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,15 +37,16 @@ import java.util.List;
 public class PutBucketLogging {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
                 "  <bucketName> <targetBucket>  \n\n" +
                 "Where:\n" +
-                "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
-                "  targetBucket - the target bucket .\n" ;
+                "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
+                "  targetBucket - The target bucket .\n" ;
 
         if (args.length != 3) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
         }
 
