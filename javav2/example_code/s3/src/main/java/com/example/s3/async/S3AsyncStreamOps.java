@@ -13,6 +13,7 @@ package com.example.s3.async;
 // snippet-start:[s3.java2.async_stream_ops.complete]
 
 // snippet-start:[s3.java2.async_stream_ops.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -52,9 +53,11 @@ public class S3AsyncStreamOps {
         String bucketName = args[0];
         String objectKey = args[1];
         String path = args[2];
-        Region region = Region.US_WEST_2;
-        S3AsyncClient client = S3AsyncClient.builder()
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
+        S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         GetObjectRequest objectRequest = GetObjectRequest.builder()
@@ -62,7 +65,7 @@ public class S3AsyncStreamOps {
                 .key(objectKey)
                 .build();
 
-        CompletableFuture<GetObjectResponse> futureGet = client.getObject(objectRequest,
+        CompletableFuture<GetObjectResponse> futureGet = s3AsyncClient.getObject(objectRequest,
                 AsyncResponseTransformer.toFile(Paths.get(path)));
 
         futureGet.whenComplete((resp, err) -> {
@@ -74,7 +77,7 @@ public class S3AsyncStreamOps {
                 }
             } finally {
                // Only close the client when you are completely done with it.
-                client.close();
+                s3AsyncClient.close();
             }
         });
         futureGet.join();

@@ -13,6 +13,7 @@
 
 package com.example.s3.async;
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -51,9 +52,11 @@ public class GetObjectDataAsync {
         String keyName = args[1];
         String path = args[2];
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         getObject (s3AsyncClient, bucketName, keyName, path);
