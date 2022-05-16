@@ -12,6 +12,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.set_website_configuration.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.IndexDocument;
 import software.amazon.awssdk.services.s3.model.PutBucketWebsiteRequest;
@@ -47,9 +48,11 @@ public class SetWebsiteConfiguration {
 
         String bucketName = args[0];
         String indexDoc = "index.html";
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         setWebsiteConfig(s3, bucketName,indexDoc);

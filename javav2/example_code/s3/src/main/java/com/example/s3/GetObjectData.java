@@ -14,6 +14,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.getobjectdata.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -55,9 +56,11 @@ public class GetObjectData {
         String keyName = args[1];
         String path = args[2];
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         getObjectBytes(s3,bucketName,keyName, path);
@@ -77,7 +80,7 @@ public class GetObjectData {
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             byte[] data = objectBytes.asByteArray();
 
-            // Write the data to a local file
+            // Write the data to a local file.
             File myFile = new File(path );
             OutputStream os = new FileOutputStream(myFile);
             os.write(data);

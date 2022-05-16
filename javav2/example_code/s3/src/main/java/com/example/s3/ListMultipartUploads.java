@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.list_multi_uploads.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListMultipartUploadsRequest;
@@ -45,11 +46,12 @@ public class ListMultipartUploads {
         }
 
         String bucketName = args[0];
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
-
         listUploads(s3, bucketName);
         s3.close();
     }

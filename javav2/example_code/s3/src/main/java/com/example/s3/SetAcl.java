@@ -14,6 +14,8 @@ package com.example.s3;
 // snippet-start:[s3.java2.set_acl.import]
 import java.util.ArrayList;
 import java.util.List;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.model.Permission;
 import software.amazon.awssdk.services.s3.model.Grant;
 import software.amazon.awssdk.services.s3.model.AccessControlPolicy;
@@ -51,9 +53,11 @@ public class SetAcl {
         System.out.format("Setting access \n");
         System.out.println(" in bucket: " + bucketName);
 
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         setBucketAcl(s3, bucketName, id);

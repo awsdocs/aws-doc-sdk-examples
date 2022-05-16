@@ -12,6 +12,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.get_bucket_policy.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -44,9 +45,11 @@ public class GetBucketPolicy {
 
         String bucketName = args[0];
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         String polText = getPolicy(s3, bucketName );

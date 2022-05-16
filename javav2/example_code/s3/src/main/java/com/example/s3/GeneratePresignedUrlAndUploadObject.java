@@ -18,6 +18,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Duration;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -52,9 +54,11 @@ public class GeneratePresignedUrlAndUploadObject {
 
         String bucketName = args[0];
         String keyName = args[1];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         signBucket(presigner, bucketName, keyName);
@@ -77,8 +81,6 @@ public class GeneratePresignedUrlAndUploadObject {
                     .build();
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
-
-
             String myURL = presignedRequest.url().toString();
             System.out.println("Presigned URL to upload a file to: " +myURL);
             System.out.println("Which HTTP method needs to be used when uploading a file: " +

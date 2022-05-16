@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.kms.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -72,9 +73,11 @@ public class KMSEncryptionExample {
         String outPath = args[3];
         String keyId = args[4];
 
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
          putEncryptData(s3, objectName, bucketName, objectPath, keyId);

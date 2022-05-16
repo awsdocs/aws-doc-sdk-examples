@@ -12,6 +12,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.s3_put_log.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetBucketAclRequest;
@@ -52,9 +53,11 @@ public class PutBucketLogging {
 
         String bucketName = args[0];
         String targetBucket = args[1];
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         setlogRequest(s3, bucketName, targetBucket);

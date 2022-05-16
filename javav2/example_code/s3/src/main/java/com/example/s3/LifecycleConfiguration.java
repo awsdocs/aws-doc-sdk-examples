@@ -12,6 +12,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.manage_lifecycle.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.LifecycleRuleFilter;
@@ -55,9 +56,11 @@ public class LifecycleConfiguration {
 
         String bucketName = args[0];
         String accountId = args[1];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         setLifecycleConfig(s3, bucketName, accountId);

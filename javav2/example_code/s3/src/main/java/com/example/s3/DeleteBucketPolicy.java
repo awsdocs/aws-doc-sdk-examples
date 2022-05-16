@@ -12,6 +12,7 @@
 
 package com.example.s3;
 // snippet-start:[s3.java2.delete_bucket_policy.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -43,9 +44,11 @@ public class DeleteBucketPolicy {
 
         String bucketName = args[0];
         System.out.format("Deleting policy from bucket: \"%s\"\n\n", bucketName);
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         deleteS3BucketPolicy(s3, bucketName);
