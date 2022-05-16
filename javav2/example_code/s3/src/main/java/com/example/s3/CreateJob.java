@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.create_job.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 import software.amazon.awssdk.services.s3control.model.S3Tag;
@@ -64,10 +65,12 @@ public class CreateJob {
         String reportBucketName = args[3];
         String uuid = java.util.UUID.randomUUID().toString();
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3ControlClient s3ControlClient = S3ControlClient.builder()
-                .region(Region.US_EAST_1)
+                .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
-
         createS3Job(s3ControlClient, accountId, iamRoleArn, manifestLocation, reportBucketName, uuid);
         s3ControlClient.close();
     }

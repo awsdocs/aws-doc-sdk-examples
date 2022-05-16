@@ -11,6 +11,7 @@
 */
 package com.example.transfermanager;
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.transfer.s3.FileDownload;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
@@ -46,9 +47,11 @@ public class GetObject {
         String objectKey = args[1];
         String objectPath = args[2];
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3TransferManager transferManager = S3TransferManager.builder()
                 .s3ClientConfiguration(cfg ->cfg.region(region)
+                        .credentialsProvider(credentialsProvider)
                         .targetThroughputInGbps(20.0)
                         .minimumPartSizeInBytes(10 * mb))
                 .build();

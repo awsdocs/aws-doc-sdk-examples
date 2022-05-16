@@ -18,6 +18,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.time.Duration;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -52,9 +54,11 @@ public class GetObjectPresignedUrl {
 
         String bucketName = args[0];
         String keyName = args[1];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         getPresignedUrl(presigner, bucketName, keyName);

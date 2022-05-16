@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.create_job.vpc.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 import software.amazon.awssdk.services.s3control.model.S3SetObjectTaggingOperation;
@@ -72,10 +73,13 @@ public class VPCCreateJob {
         String vpcBucketURL = args[7];
         String uuid = java.util.UUID.randomUUID().toString();
 
+
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         URI myURI = new URI(vpcBucketURL);
         S3ControlClient s3ControlClient = S3ControlClient.builder()
                 .region(Region.US_EAST_1)
                 .endpointOverride(myURI)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         createS3Job(s3ControlClient, accountId, iamRoleArn, manifestLocation, reportBucketName, tagKey, tagValue,eTag, uuid);

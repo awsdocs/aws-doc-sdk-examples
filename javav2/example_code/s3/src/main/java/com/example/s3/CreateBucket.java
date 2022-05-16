@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.create_bucket_waiters.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -51,9 +52,11 @@ public class CreateBucket {
         System.out.format("Creating a bucket named %s\n",
                 bucketName);
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         createBucket (s3, bucketName);

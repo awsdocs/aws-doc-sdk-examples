@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.create_access_point.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 import software.amazon.awssdk.services.s3control.model.CreateAccessPointRequest;
@@ -49,9 +50,11 @@ public class CreateAccessPoint {
         String bucketName = args[1];
         String accessPointName = args[2];
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3ControlClient s3ControlClient = S3ControlClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName );

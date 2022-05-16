@@ -13,6 +13,7 @@
 
 package com.example.s3.async;
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
@@ -47,9 +48,11 @@ public class CreateBucketAsync {
         System.out.format("Creating a bucket named %s\n",
                 bucketName);
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         createBucket (s3AsyncClient, bucketName);

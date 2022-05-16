@@ -13,6 +13,7 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.bucket_deletion.import]
 // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
@@ -48,9 +49,11 @@ public class S3BucketDeletion {
         }
 
         String bucket = args[0];
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         listAllObjects(s3,bucket) ;

@@ -14,6 +14,7 @@ package com.example.s3.async;
 // snippet-start:[s3.java2.async_ops.complete]
 // snippet-start:[s3.java2.async_ops.import]
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -53,12 +54,14 @@ public class S3AsyncOps {
          String key = args[1];
          String path = args[2];
 
-         Region region = Region.US_WEST_2;
-         S3AsyncClient client = S3AsyncClient.builder()
+         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+         Region region = Region.US_EAST_1;
+         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                  .region(region)
+                 .credentialsProvider(credentialsProvider)
                  .build();
 
-         putObjectAsync(client, bucketName, key, path);
+         putObjectAsync(s3AsyncClient, bucketName, key, path);
      }
 
      public static void putObjectAsync(S3AsyncClient client,String bucketName, String key, String path) {

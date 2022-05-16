@@ -20,6 +20,8 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -54,9 +56,11 @@ public class GeneratePresignedUrlMetadata {
 
         String bucketName = args[0];
         String keyName = args[1];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         signBucket(presigner, bucketName, keyName);

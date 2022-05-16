@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.retention_object.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRetentionRequest;
@@ -50,9 +51,11 @@ public class PutObjectRetention {
 
         String key = args[0];
         String bucketName = args[1];
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         setRentionPeriod(s3, key, bucketName) ;

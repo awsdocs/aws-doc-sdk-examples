@@ -13,6 +13,8 @@ Amazon S3 is cloud object storage with industry-leading scalability, data availa
 
 ## Code examples
 
+**Note** - The Credential Provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+
 ### Single action
 
 You will find these examples that use the **S3Client** object: 

@@ -14,6 +14,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.restore_object.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.RestoreRequest;
@@ -55,9 +56,11 @@ public class RestoreObject {
         String keyName = args[1];
         String expectedBucketOwner = args[2];
 
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         restoreS3Object(s3, bucketName, keyName, expectedBucketOwner);
@@ -68,7 +71,6 @@ public class RestoreObject {
     public static void restoreS3Object(S3Client s3, String bucketName, String keyName, String expectedBucketOwner) {
 
         try {
-
             RestoreRequest restoreRequest = RestoreRequest.builder()
                     .days(10)
                     .glacierJobParameters(GlacierJobParameters.builder().tier(Tier.STANDARD).build())

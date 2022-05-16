@@ -19,6 +19,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -56,9 +58,11 @@ public class GeneratePresignedUrlUploadImage {
         String keyName = args[1];
         String imageLocation = args[2] ;
         byte[] pic = Files.readAllBytes(Paths.get(imageLocation));
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         signBucket(presigner, bucketName, keyName, pic);

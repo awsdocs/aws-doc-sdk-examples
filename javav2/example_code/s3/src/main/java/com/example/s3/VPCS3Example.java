@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.vpc.example.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
@@ -51,9 +52,11 @@ public class VPCS3Example {
         String bucketName = args[0];
         String vpcBucketURL = args[1];
         URI myURI = new URI(vpcBucketURL);
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .endpointOverride(myURI)
+            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 

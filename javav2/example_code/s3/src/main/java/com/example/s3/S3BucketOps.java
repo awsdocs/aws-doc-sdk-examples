@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.s3_bucket_ops.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -41,9 +42,11 @@ public class S3BucketOps {
 
 
         // snippet-start:[s3.java2.s3_bucket_ops.region]
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         // snippet-end:[s3.java2.s3_bucket_ops.region]

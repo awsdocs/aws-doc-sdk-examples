@@ -10,6 +10,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.s3_object_manage_tags.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -58,9 +59,11 @@ public class ManagingObjectTags {
         System.out.println("Putting object " + objectKey +" into bucket "+bucketName);
         System.out.println("  in bucket: " + bucketName);
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         putS3ObjectTags(s3, bucketName, objectKey, objectPath);

@@ -12,6 +12,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.delete_objects.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.model.Delete;
 import software.amazon.awssdk.services.s3.model.ObjectIdentifier;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -49,11 +50,12 @@ public class DeleteObjects {
         String objectName = args[1];
         System.out.println("Deleting "+objectName +" from the Amazon S3 bucket: " + bucketName);
 
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
-
         deleteBucketObjects(s3, bucketName, objectName);
         s3.close();
     }
