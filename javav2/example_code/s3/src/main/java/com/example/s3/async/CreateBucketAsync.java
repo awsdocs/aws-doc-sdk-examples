@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,7 +15,9 @@ package com.example.s3.async;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
+import software.amazon.awssdk.services.s3.model.CreateBucketResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.net.URISyntaxException;
 import java.util.concurrent.CompletableFuture;
 
@@ -30,14 +31,15 @@ import java.util.concurrent.CompletableFuture;
 public class CreateBucketAsync {
 
     public static void main(String[] args) throws URISyntaxException {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> \n\n" +
                 "Where:\n" +
-                "    bucketName - the name of the bucket to create. The bucket name must be unique, or an error occurs.\n\n" ;
+                "    bucketName - The name of the bucket to create. The bucket name must be unique, or an error occurs.\n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -46,7 +48,7 @@ public class CreateBucketAsync {
                 bucketName);
 
         Region region = Region.US_EAST_1;
-        S3AsyncClient s3AsyncClient  = S3AsyncClient.builder()
+        S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .region(region)
                 .build();
 
@@ -54,13 +56,13 @@ public class CreateBucketAsync {
     }
 
     public static void createBucket( S3AsyncClient s3AsyncClient, String bucketName) {
-        try {
 
+        try {
             CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
                     .bucket(bucketName)
                     .build();
 
-            CompletableFuture<CreateBucketResponse> futureGet  = s3AsyncClient.createBucket(bucketRequest);
+            CompletableFuture<CreateBucketResponse> futureGet = s3AsyncClient.createBucket(bucketRequest);
             futureGet.whenComplete((resp, err) -> {
                 try {
                     if (resp != null) {
