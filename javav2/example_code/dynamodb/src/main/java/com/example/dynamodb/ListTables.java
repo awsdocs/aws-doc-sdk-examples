@@ -13,13 +13,13 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.list_tables.import]
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
-import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
+import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
+
 import java.util.List;
 // snippet-end:[dynamodb.java2.list_tables.import]
 
@@ -38,8 +38,7 @@ public class ListTables {
         System.out.println("Listing your Amazon DynamoDB tables:\n");
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("AKIA33JWY3BXUOZ37473", "y4lJG6cJDKGbypaa+B24TZrjT43etv06IOQIauEF")))
-                .region(region)
+                 .region(region)
                 .build();
         listAllTables(ddb);
         ddb.close();
