@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[02/02/2022]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -45,20 +44,24 @@ public class DynamoDBPartiQ {
                 .region(region)
                 .build();
 
-         AttributeValue att1 =  AttributeValue.builder()
+        AttributeValue att1 = AttributeValue.builder()
                 .s("Acme Band")
                 .build();
 
-        AttributeValue att2 =  AttributeValue.builder()
+        AttributeValue att2 = AttributeValue.builder()
                 .s("PartiQL Rocks")
                 .build();
 
-        List<AttributeValue> parameters = new ArrayList<AttributeValue>();
+        List<AttributeValue> parameters = new ArrayList<>();
         parameters.add(att1);
         parameters.add(att2);
+        queryTable(ddb, parameters);
+    }
+
+    public static void queryTable(DynamoDbClient ddb, List<AttributeValue> parameters ) {
 
         // Retrieve an item from the Music table using the SELECT PartiQL statement.
-        ExecuteStatementResponse response = executeStatementRequest(ddb, "SELECT * FROM Music  where Artist=? and SongTitle=?", parameters);
+        ExecuteStatementResponse response = executeStatementRequest(ddb, "SELECT COUNT(SongTitle) FROM Music", parameters);
         processResults(response);
 
         //Update an item in the Music table using the UPDATE PartiQL statement.
@@ -85,10 +88,7 @@ public class DynamoDBPartiQ {
 
         // Update a string set attribute for an item in the Music table.
         processResults(executeStatementRequest(ddb, "UPDATE Music SET BandMembers =set_add(BandMembers, <<'newmember'>>) where Artist=? and SongTitle=?", parameters));
-
         System.out.println("This code example has completed");
-
-        ddb.close();
     }
 
         private static ExecuteStatementResponse executeStatementRequest(DynamoDbClient ddb, String statement, List<AttributeValue> parameters ) {

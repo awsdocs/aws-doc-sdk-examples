@@ -3,9 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,9 +15,6 @@ package com.example.dynamodb;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 import software.amazon.awssdk.enhanced.dynamodb.model.BatchWriteItemEnhancedRequest;
 import software.amazon.awssdk.enhanced.dynamodb.model.WriteBatch;
 import software.amazon.awssdk.regions.Region;
@@ -32,13 +27,13 @@ import java.time.ZoneOffset;
 // snippet-end:[dynamodb.java2.mapping.batchitems.import]
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
+ * Before running this code example, create an Amazon DynamoDB table named Customer with these columns:
  *   - id - the id of the record that is the key
  *   - custName - the customer name
  *   - email - the email value
  *   - registrationDate - an instant value when the item was added to the table
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, ensure that you have set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -63,10 +58,9 @@ public class EnhancedBatchWriteItems {
 
     // snippet-start:[dynamodb.java2.mapping.batchitems.main]
     public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
+
         try {
-
-           DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-
+            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
@@ -83,7 +77,6 @@ public class EnhancedBatchWriteItems {
             record3.setEmail("spink@noserver.com");
             record3.setRegistrationDate(instant) ;
 
-            // Create a BatchWriteItemEnhancedRequest object
             BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest =
                     BatchWriteItemEnhancedRequest.builder()
                             .writeBatches(
@@ -94,7 +87,7 @@ public class EnhancedBatchWriteItems {
                                             .build())
                             .build();
 
-            // Add these two items to the table
+            // Add these two items to the table.
             enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
             System.out.println("done");
 

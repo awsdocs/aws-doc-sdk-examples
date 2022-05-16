@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,8 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.list_tables.import]
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
@@ -24,9 +25,9 @@ import java.util.List;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,10 +35,12 @@ public class ListTables {
 
     public static void main(String[] args) {
 
-        System.out.println("Your Amazon DynamoDB tables:\n");
-
+        System.out.println("Listing your Amazon DynamoDB tables:\n");
         Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("AKIA33JWY3BXUOZ37473", "y4lJG6cJDKGbypaa+B24TZrjT43etv06IOQIauEF")))
+                .region(region)
+                .build();
         listAllTables(ddb);
         ddb.close();
     }
@@ -61,7 +64,6 @@ public class ListTables {
                 }
 
                 List<String> tableNames = response.tableNames();
-
                 if (tableNames.size() > 0) {
                     for (String curName : tableNames) {
                         System.out.format("* %s\n", curName);
