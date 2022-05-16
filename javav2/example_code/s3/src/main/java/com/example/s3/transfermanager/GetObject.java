@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/05/2022]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,33 +32,33 @@ public class GetObject {
                 "Usage:\n" +
                 "  <bucketName> <objectKey> <objectPath> \n\n" +
                 "Where:\n" +
-                "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
-                "  objectKey - the object to download (for example, book.pdf).\n" +
-                "  objectPath - the path where the file is written (for example, C:/AWS/book2.pdf). \n\n" ;
+                "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
+                "  objectKey - The object to download (for example, book.pdf).\n" +
+                "  objectPath - The path where the file is written (for example, C:/AWS/book2.pdf). \n\n" ;
 
        if (args.length != 3) {
               System.out.println(usage);
               System.exit(1);
         }
 
-        long MB = 1024;
+        long mb = 1024;
         String bucketName = args[0];
         String objectKey = args[1];
         String objectPath = args[2];
 
         Region region = Region.US_EAST_1;
-        S3TransferManager transferManager =  S3TransferManager.builder()
+        S3TransferManager transferManager = S3TransferManager.builder()
                 .s3ClientConfiguration(cfg ->cfg.region(region)
                         .targetThroughputInGbps(20.0)
-                        .minimumPartSizeInBytes(10 * MB))
+                        .minimumPartSizeInBytes(10 * mb))
                 .build();
 
-        downloadObjectTM(transferManager, bucketName,  objectKey, objectPath);
+        downloadObjectTM(transferManager, bucketName, objectKey, objectPath);
         System.out.println("Object was successfully downloaded using the Transfer Manager.");
         transferManager.close();
     }
 
-    public static void downloadObjectTM(S3TransferManager transferManager, String  bucketName, String objectKey, String objectPath ) {
+    public static void downloadObjectTM(S3TransferManager transferManager, String bucketName, String objectKey, String objectPath) {
         FileDownload download =
                 transferManager.downloadFile(d -> d.getObjectRequest(g -> g.bucket(bucketName).key(objectKey))
                         .destination(Paths.get(objectPath)));
