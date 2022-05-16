@@ -12,6 +12,7 @@
 package com.example.transfermanager;
 
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.transfer.s3.FileUpload;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
@@ -48,10 +49,11 @@ public class UploadObject {
 
 
         System.out.println("Putting an object into bucket "+bucketName +" using the S3TransferManager");
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3TransferManager transferManager = S3TransferManager.builder()
                 .s3ClientConfiguration(cfg ->cfg.region(region)
-                        .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                        .credentialsProvider(credentialsProvider)
                         .targetThroughputInGbps(20.0)
                         .minimumPartSizeInBytes(10 * mb))
                 .build();
