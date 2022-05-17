@@ -3,8 +3,7 @@
 // snippet-service:[AWS AppSync]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04-01-2022]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05-17-2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
