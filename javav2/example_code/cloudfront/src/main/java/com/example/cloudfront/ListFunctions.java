@@ -15,7 +15,12 @@ package com.example.cloudfront;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
-import software.amazon.awssdk.services.cloudfront.model.*;
+import software.amazon.awssdk.services.cloudfront.model.ListFunctionsRequest;
+import software.amazon.awssdk.services.cloudfront.model.ListFunctionsResponse;
+import software.amazon.awssdk.services.cloudfront.model.FunctionList;
+import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
+import software.amazon.awssdk.services.cloudfront.model.FunctionSummary;
+import software.amazon.awssdk.services.cloudfront.model.FunctionStage;
 import java.util.List;
 // snippet-end:[cloudfront.java2.list.import]
 
@@ -37,7 +42,6 @@ public class ListFunctions {
 
         listAllFunctions(cloudFrontClient);
         cloudFrontClient.close();
-
     }
 
     // snippet-start:[cloudfront.java2.list.main]
