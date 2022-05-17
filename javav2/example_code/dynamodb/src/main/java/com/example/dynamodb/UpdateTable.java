@@ -13,6 +13,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.update_table.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -48,8 +49,12 @@ public class UpdateTable {
         Long readCapacity = Long.parseLong(args[1]);
         Long writeCapacity = Long.parseLong(args[2]);
 
-        Region region = Region.US_WEST_2;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
+                .region(region)
+                .build();
         updateDynamoDBTable(ddb, tableName, readCapacity, writeCapacity);
         ddb.close();
     }

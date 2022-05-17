@@ -13,6 +13,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.delete_item.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -49,8 +50,10 @@ public class DeleteItem {
         String keyVal = args[2];
 
         System.out.format("Deleting item \"%s\" from %s\n", keyVal, tableName);
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 

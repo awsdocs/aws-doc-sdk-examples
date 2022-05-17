@@ -14,6 +14,7 @@ package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.scenario.partiql.batch.import]
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -63,8 +64,10 @@ public class ScenarioPartiQLBatch {
     public static void main(String [] args) throws IOException {
 
         String tableName = "MoviesPartiQBatch";
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 

@@ -12,6 +12,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.update_item.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
@@ -60,8 +61,10 @@ public class UpdateItem {
         String name = args[3];
         String updateVal = args[4];
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 
