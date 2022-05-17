@@ -58,7 +58,7 @@ public class StopQueryExecutionExample {
 
             athenaClient.stopQueryExecution(stopQueryExecutionRequest);
 
-            // Ensure that the query was stopped
+            // Ensure that the query was stopped.
             GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
                     .queryExecutionId(sampleQueryExecutionId)
                     .build();

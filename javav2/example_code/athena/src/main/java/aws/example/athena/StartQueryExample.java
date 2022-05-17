@@ -41,8 +41,9 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+//snippet-start:[athena.java2.StartQueryExample.main]
 public class StartQueryExample {
-    //snippet-start:[athena.java2.StartQueryExample.main]
+
     public static void main(String[] args) throws InterruptedException {
 
         AthenaClient athenaClient = AthenaClient.builder()
@@ -56,16 +57,16 @@ public class StartQueryExample {
         athenaClient.close();
     }
 
-    // Submits a sample query to Amazon Athena and returns the execution ID of the query
+    // Submits a sample query to Amazon Athena and returns the execution ID of the query.
     public static String submitAthenaQuery(AthenaClient athenaClient) {
 
         try {
 
-            // The QueryExecutionContext allows us to set the database
+            // The QueryExecutionContext allows us to set the database.
             QueryExecutionContext queryExecutionContext = QueryExecutionContext.builder()
                 .database(ExampleConstants.ATHENA_DEFAULT_DATABASE).build();
 
-            // The result configuration specifies where the results of the query should go
+            // The result configuration specifies where the results of the query should go.
             ResultConfiguration resultConfiguration = ResultConfiguration.builder()
                     .outputLocation(ExampleConstants.ATHENA_OUTPUT_BUCKET)
                     .build();
@@ -86,7 +87,7 @@ public class StartQueryExample {
         return "";
     }
 
-    // Wait for an Amazon Athena query to complete, fail or to be cancelled
+    // Wait for an Amazon Athena query to complete, fail or to be cancelled.
     public static void waitForQueryToComplete(AthenaClient athenaClient, String queryExecutionId) throws InterruptedException {
         GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
                 .queryExecutionId(queryExecutionId).build();
@@ -104,7 +105,7 @@ public class StartQueryExample {
             } else if (queryState.equals(QueryExecutionState.SUCCEEDED.toString())) {
                 isQueryStillRunning = false;
             } else {
-                // Sleep an amount of time before retrying again
+                // Sleep an amount of time before retrying again.
                 Thread.sleep(ExampleConstants.SLEEP_AMOUNT_IN_MS);
             }
             System.out.println("The current status is: " + queryState);
@@ -117,7 +118,7 @@ public class StartQueryExample {
        try {
 
            // Max Results can be set but if its not set,
-           // it will choose the maximum page size
+           // it will choose the maximum page size.
             GetQueryResultsRequest getQueryResultsRequest = GetQueryResultsRequest.builder()
                     .queryExecutionId(queryExecutionId)
                     .build();
