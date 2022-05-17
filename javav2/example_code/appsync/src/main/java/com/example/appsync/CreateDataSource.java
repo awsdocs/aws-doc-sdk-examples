@@ -13,6 +13,7 @@
 package com.example.appsync;
 
 //snippet-start:[appsync.java2.create_ds.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.DynamodbDataSourceConfig;
@@ -52,10 +53,13 @@ public class CreateDataSource {
         String name = args[1];
         String dsRole = args[2];
         String tableName = args[3];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         AppSyncClient appSyncClient = AppSyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
+
         String reg = region.toString();
         String dsARN = createDS(appSyncClient, name, reg, dsRole, apiId, tableName);
         System.out.println("The ARN of the data source is "+dsARN);

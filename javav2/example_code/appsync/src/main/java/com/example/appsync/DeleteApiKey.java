@@ -13,6 +13,7 @@
 package com.example.appsync;
 
 //snippet-start:[appsync.java2.del_key.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.AppSyncException;
@@ -44,9 +45,11 @@ public class DeleteApiKey {
 
         String apiId = args[0];
         String keyId = args[1];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         AppSyncClient appSyncClient = AppSyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
         deleteKey(appSyncClient, keyId, apiId) ;
     }

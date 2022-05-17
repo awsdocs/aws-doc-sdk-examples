@@ -13,6 +13,7 @@
 package com.example.appsync;
 
 //snippet-start:[appsync.java2.get_ds.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.GetDataSourceRequest;
@@ -45,9 +46,11 @@ public class GetDataSource {
 
         String apiId = args[0];
         String name = args[1];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         AppSyncClient appSyncClient = AppSyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         getDS(appSyncClient, apiId, name);
