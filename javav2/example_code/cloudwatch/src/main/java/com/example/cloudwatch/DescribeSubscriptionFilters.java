@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.describe_subscription_filters.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeSubscriptionFiltersRequest;
@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,19 +32,20 @@ public class DescribeSubscriptionFilters {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "  DescribeSubscriptionFilters <logGroup>\n\n" +
+                "  <logGroup>\n\n" +
                 "Where:\n" +
-                "  logGroup - a log group name (for example, myloggroup).\n" ;
+                "  logGroup - A log group name (for example, myloggroup).\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String logGroup = args[0];
         CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         describeFilters(logs, logGroup);
@@ -86,8 +87,7 @@ public class DescribeSubscriptionFilters {
                         filter.filterName(),
                         filter.filterPattern(),
                         filter.destinationArn());
-                System.out.println("");
-            }
+               }
 
             if(response.nextToken() == null) {
                 done = true;
