@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,20 +13,20 @@
 package com.example.forecast;
 
 // snippet-start:[forecast.java2.list_forecast_datasetgroups.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.DatasetGroupSummary;
 import software.amazon.awssdk.services.forecast.model.ListDatasetGroupsRequest;
 import software.amazon.awssdk.services.forecast.model.ListDatasetGroupsResponse;
 import software.amazon.awssdk.services.forecast.model.ForecastException;
-import java.util.Iterator;
 import java.util.List;
 // snippet-end:[forecast.java2.list_forecast_datasetgroups.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,8 +36,9 @@ public class ListDataSetGroups {
 
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         listDataGroups(forecast);
         forecast.close();
@@ -53,15 +53,11 @@ public static void listDataGroups(ForecastClient forecast) {
             .build();
 
         ListDatasetGroupsResponse response = forecast.listDatasetGroups(group);
-
         List<DatasetGroupSummary> groups = response.datasetGroups();
-        Iterator<DatasetGroupSummary> groupsIterator = groups.iterator();
-
-        while(groupsIterator.hasNext()) {
-
-            DatasetGroupSummary myGroup = groupsIterator.next();
-            System.out.println("The Data Set name is " +myGroup.datasetGroupName()) ;
+        for (DatasetGroupSummary myGroup : groups) {
+            System.out.println("The Data Set name is " + myGroup.datasetGroupName());
         }
+
     } catch (ForecastException e) {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
