@@ -40,14 +40,17 @@ public class AmazonCognitoTest {
         Region region = Region.US_EAST_1;
         cognitoclient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         cognitoIdclient  = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         cognitoIdentityProviderClient  = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
 
