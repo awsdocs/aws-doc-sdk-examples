@@ -3,8 +3,7 @@
 // snippet-service:[AWS Migration Hub]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09-27-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.migrationhub;
 
 // snippet-start:[migration.java2.describe_migration.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.DescribeMigrationTaskRequest;
@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.migrationhub.model.MigrationHubException;
 // snippet-end:[migration.java2.describe_migration.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,7 +32,7 @@ public class DescribeMigrationTask {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    DescribeMigrationTask <migrationTask> <progressStream> \n\n" +
                 "Where:\n" +
@@ -40,16 +40,16 @@ public class DescribeMigrationTask {
                 "    progressStream - the name of a progress stream. \n";
 
         if (args.length < 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String migrationTask = args[0];
         String progressStream = args[1];
-
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
        describeMigTask(migrationClient, migrationTask, progressStream);
@@ -65,9 +65,7 @@ public class DescribeMigrationTask {
                     .migrationTaskName(migrationTask)
                     .build();
 
-            DescribeMigrationTaskResponse migrationTaskResponse=  migrationClient.describeMigrationTask(migrationTaskRequestRequest);
-
-            // Display the result
+            DescribeMigrationTaskResponse migrationTaskResponse = migrationClient.describeMigrationTask(migrationTaskRequestRequest);
             System.out.println("The name is "+ migrationTaskResponse.migrationTask().migrationTaskName());
 
         } catch (MigrationHubException e) {
