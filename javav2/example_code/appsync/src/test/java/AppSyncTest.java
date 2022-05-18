@@ -7,6 +7,8 @@ import com.example.appsync.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import java.io.*;
 import java.util.*;
@@ -28,10 +30,12 @@ public class AppSyncTest {
     @BeforeAll
     public static void setUp() throws IOException {
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         reg = region.toString();
         appSyncClient = AppSyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         try (InputStream input = AppSyncTest.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -95,13 +99,11 @@ public class AppSyncTest {
         System.out.println("Test 5 passed");
      }
 
-
     @Test
     @Order(6)
     public void ListApiKeys() {
         ListApiKeys.getKeys(appSyncClient,apiId);
         System.out.println("Test 6 passed");
-
     }
 
     @Test

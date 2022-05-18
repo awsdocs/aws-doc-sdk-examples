@@ -1,4 +1,5 @@
 import com.example.cloudtrail.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
@@ -21,6 +22,7 @@ private static String trailName = "";
         Region region = Region.US_EAST_1;
         cloudTrailClient = CloudTrailClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = CloudTrailTest.class.getClassLoader().getResourceAsStream("config.properties")) {
