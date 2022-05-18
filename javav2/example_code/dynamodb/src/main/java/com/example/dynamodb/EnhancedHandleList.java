@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/22/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,7 +13,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.putitemlist.import]
-import com.example.dynamodb.Contact;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -26,7 +25,7 @@ import java.util.List;
 // snippet-end:[dynamodb.java2.mapping.putitemlist.import]
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Contact with this column:
+ * Before running this code example, create an Amazon DynamoDB table named Contact with this column:
  *   id - The id of the record that is the key
  *
  *
@@ -40,8 +39,10 @@ public class EnhancedHandleList {
 
     public static void main(String[] args) {
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 

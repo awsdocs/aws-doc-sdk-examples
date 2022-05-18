@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.disable_alarm_actions.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
@@ -21,9 +21,9 @@ import software.amazon.awssdk.services.cloudwatch.model.DisableAlarmActionsReque
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,14 +31,14 @@ public class DisableAlarmActions {
 
     public static void main(String[] args) {
 
-       final String USAGE = "\n" +
+       final String usage = "\n" +
                 "Usage:\n" +
-                "  DisableAlarmActions <alarmName>\n\n" +
+                "  <alarmName>\n\n" +
                 "Where:\n" +
-                "  alarmName - an alarm name to disable (for example, MyAlarm).\n" ;
+                "  alarmName - An alarm name to disable (for example, MyAlarm).\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -46,6 +46,7 @@ public class DisableAlarmActions {
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         disableActions(cw, alarmName) ;

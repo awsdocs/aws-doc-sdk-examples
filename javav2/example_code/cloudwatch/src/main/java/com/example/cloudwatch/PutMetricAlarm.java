@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_metric_alarm.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
@@ -24,24 +24,24 @@ import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 // snippet-end:[cloudwatch.java2.put_metric_alarm.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutMetricAlarm {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "  <alarmName> <instanceId> \n\n" +
                 "Where:\n" +
-                "  alarmName - an alarm name to use.\n" +
-                "  instanceId - an instance Id value .\n" ;
+                "  alarmName - An alarm name to use.\n" +
+                "  instanceId - An instance Id value .\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -50,6 +50,7 @@ public class PutMetricAlarm {
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         putMetricAlarm(cw, alarmName, instanceId) ;

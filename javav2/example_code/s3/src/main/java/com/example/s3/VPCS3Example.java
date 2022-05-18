@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.vpc.example.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
@@ -25,32 +25,42 @@ import java.net.URISyntaxException;
 import java.util.List;
 // snippet-end:[s3.java2.vpc.example.import]
 
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class VPCS3Example {
 
     public static void main(String[] args) throws URISyntaxException {
-    final String USAGE = "\n" +
+
+        final String usage = "\n" +
             "Usage:\n" +
             "    <bucketName> <vpcBucketURL> \n\n" +
             "Where:\n" +
-            "    bucketName - the Amazon S3 bucket from which objects are read. \n\n" +
-            "    vpcBucketURL - the URL of the bucket located in your virtual private cloud (VPC) (for example,  https://bucket.vpce-xxxxxc4d-5e6f.s3.us-east-1.vpce.amazonaws.com"; ;
+            "    bucketName - The Amazon S3 bucket from which objects are read. \n\n" +
+            "    vpcBucketURL - The URL of the bucket located in your virtual private cloud (VPC) (for example,  https://bucket.vpxx-xxxxxc4d-5e6f.s3.us-east-1.vpce.amazonaws.com";
 
         if (args.length != 2) {
-        System.out.println(USAGE);
-        System.exit(1);
-    }
+          System.out.println(usage);
+          System.exit(1);
+        }
 
-    String bucketName = args[0];
-    String vpcBucketURL = args[1];
-    URI myURI = new URI(vpcBucketURL);
-
-    Region region = Region.US_EAST_1;
-    S3Client s3 = S3Client.builder()
+        String bucketName = args[0];
+        String vpcBucketURL = args[1];
+        URI myURI = new URI(vpcBucketURL);
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
+        S3Client s3 = S3Client.builder()
             .endpointOverride(myURI)
+            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
-    listBucketObjects(s3, bucketName);
+        listBucketObjects(s3, bucketName);
         s3.close();
 }
 
