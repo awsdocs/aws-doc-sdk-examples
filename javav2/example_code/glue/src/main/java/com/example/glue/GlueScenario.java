@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/17/2022]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.glue;
 
 //snippet-start:[glue.java2.scenario.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import java.time.Instant;
@@ -117,6 +117,7 @@ public class GlueScenario {
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         System.out.println("About to start the AWS Glue Scenario");
