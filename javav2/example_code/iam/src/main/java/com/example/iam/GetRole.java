@@ -1,23 +1,23 @@
-//snippet-sourcedescription:[DeleteAccessKey.java demonstrates how to delete an access key from an AWS Identity and Access Management (IAM) user.]
+//snippet-sourcedescription:[GetRole.java demonstrates how to get information about the specified AWS Identity and Access Management (IAM) role.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 package com.example.iam;
 
-// snippet-start:[iam.java2.delete_access_key.import]
+// snippet-start:[iam.java2.get_policy.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.services.iam.model.GetRoleRequest;
+import software.amazon.awssdk.services.iam.model.GetRoleResponse;
+import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-import software.amazon.awssdk.services.iam.model.DeleteAccessKeyRequest;
-import software.amazon.awssdk.services.iam.model.IamException;
-// snippet-end:[iam.java2.delete_access_key.import]
+// snippet-end:[iam.java2.get_policy.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -26,49 +26,46 @@ import software.amazon.awssdk.services.iam.model.IamException;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-public class DeleteAccessKey {
+public class GetRole {
+
     public static void main(String[] args) {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "    <username> <accessKey> \n\n" +
+                "    <policyArn> \n\n" +
                 "Where:\n" +
-                "    username - The name of the user. \n\n" +
-                "    accessKey - The access key ID for the secret access key you want to delete. \n\n" ;
+                "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
 
-        if (args.length != 2) {
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String username = args[0];
-        String accessKey = args[1];
+        String roleName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
-        deleteKey(iam, username, accessKey);
+
+        getRoleInformation(iam, roleName);
+        System.out.println("Done");
         iam.close();
     }
 
-    // snippet-start:[iam.java2.delete_access_key.main]
-    public static void deleteKey(IamClient iam ,String username, String accessKey ) {
+    public static void getRoleInformation(IamClient iam, String roleName) {
 
         try {
-            DeleteAccessKeyRequest request = DeleteAccessKeyRequest.builder()
-                    .accessKeyId(accessKey)
-                    .userName(username)
+            GetRoleRequest roleRequest = GetRoleRequest.builder()
+                    .roleName(roleName)
                     .build();
 
-            iam.deleteAccessKey(request);
-            System.out.println("Successfully deleted access key " + accessKey +
-                " from user " + username);
+            GetRoleResponse response = iam.getRole(roleRequest) ;
+            System.out.println("The ARN of the role is " +response.role().arn());
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.delete_access_key.main]
 }
