@@ -38,21 +38,15 @@ import java.util.Map;
  */
 public class SendEmailMessage {
 
-    // The email body for recipients with non-HTML email clients.
-    static final String textBody = "Amazon Pinpoint Test (SDK for Java 2.x)\r\n"
-            + "---------------------------------\r\n"
-            + "This email was sent using the Amazon Pinpoint "
-            + "API using the AWS SDK for Java version 2.";
+    // The character encoding the you want to use for the subject line and
+    // message body of the email.
+    public static String charset = "UTF-8";
 
     // The body of the email for recipients whose email clients support HTML content.
     static final String htmlBody = "<h1>Amazon Pinpoint test (AWS SDK for Java 2.x)</h1>"
             + "<p>This email was sent through the <a href='https://aws.amazon.com/pinpoint/'>"
             + "Amazon Pinpoint</a> Email API using the "
             + "<a href='https://aws.amazon.com/sdk-for-java/'>AWS SDK for Java 2.x</a>";
-
-    // The character encoding the you want to use for the subject line and
-    // message body of the email.
-    public static String charset = "UTF-8";
 
     public static void main(String[] args) {
 
@@ -81,7 +75,7 @@ public class SendEmailMessage {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        sendEmail(pinpoint, subject, appId,  senderAddress, toAddress);
+        sendEmail(pinpoint, subject, appId, senderAddress, toAddress);
         System.out.println("Email was sent");
         pinpoint.close();
     }
@@ -94,9 +88,8 @@ public class SendEmailMessage {
                                  String toAddress) {
 
         try {
-
-            Map<String,AddressConfiguration> addressMap = new HashMap<String,AddressConfiguration>();
-            AddressConfiguration configuration =  AddressConfiguration.builder()
+            Map<String,AddressConfiguration> addressMap = new HashMap<>();
+            AddressConfiguration configuration = AddressConfiguration.builder()
                     .channelType(ChannelType.EMAIL)
                     .build();
 
@@ -116,7 +109,7 @@ public class SendEmailMessage {
                     .subject(subjectPart)
                     .build();
 
-            EmailMessage emailMessage =  EmailMessage.builder()
+            EmailMessage emailMessage = EmailMessage.builder()
                     .body(htmlBody)
                     .fromAddress(senderAddress)
                     .simpleEmail(simpleEmail)
@@ -137,7 +130,6 @@ public class SendEmailMessage {
                     .build();
 
             pinpoint.sendMessages(messagesRequest);
-
 
         } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -16,7 +16,9 @@ package com.example.pinpoint;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
-import software.amazon.awssdk.services.pinpoint.model.*;
+import software.amazon.awssdk.services.pinpoint.model.GetSegmentRequest;
+import software.amazon.awssdk.services.pinpoint.model.GetSegmentResponse;
+import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.segment_id.import]
 
 /**
@@ -57,7 +59,7 @@ public class GetSegmentById {
     private static String getSegmentById(PinpointClient client, String applicationId, String segmentId) {
 
         try {
-            GetSegmentRequest request =  GetSegmentRequest.builder()
+            GetSegmentRequest request = GetSegmentRequest.builder()
                     .applicationId(applicationId)
                     .segmentId(segmentId)
                     .build();
