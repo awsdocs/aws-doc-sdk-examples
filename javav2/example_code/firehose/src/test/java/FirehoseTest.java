@@ -25,6 +25,7 @@ public class FirehoseTest {
         region = Region.US_WEST_2;
         firehoseClient = FirehoseClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = FirehoseTest.class.getClassLoader().getResourceAsStream("config.properties")) {
