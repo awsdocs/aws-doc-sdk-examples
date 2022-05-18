@@ -48,13 +48,11 @@ public class ListEventBuses {
     public static void listBuses( EventBridgeClient eventBrClient) {
 
         try {
-
             ListEventBusesRequest busesRequest = ListEventBusesRequest.builder()
                 .limit(10)
                 .build();
 
             ListEventBusesResponse response = eventBrClient.listEventBuses(busesRequest);
-
             List<EventBus> buses = response.eventBuses();
             for (EventBus bus: buses) {
                 System.out.println("The name of the event bus is: "+bus.name());

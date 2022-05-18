@@ -58,7 +58,6 @@ public class DeleteRule {
     public static void deleteEBRule(EventBridgeClient eventBrClient, String ruleName) {
 
         try {
-            // Disable the rule - an Enabled Rule cannot be deleted
             DisableRuleRequest disableRuleRequest = DisableRuleRequest.builder()
                     .name(ruleName)
                     .eventBusName("default")

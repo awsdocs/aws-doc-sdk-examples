@@ -48,7 +48,6 @@ public class ListRules {
     public static void listAllRules(EventBridgeClient eventBrClient) {
 
         try {
-
             ListRulesRequest rulesRequest = ListRulesRequest.builder()
                 .eventBusName("default")
                 .limit(10)
@@ -56,7 +55,6 @@ public class ListRules {
 
             ListRulesResponse response = eventBrClient.listRules(rulesRequest);
             List<Rule> rules = response.rules();
-
             for (Rule rule : rules) {
                 System.out.println("The rule name is : "+rule.name());
                 System.out.println("The rule ARN is : "+rule.arn());

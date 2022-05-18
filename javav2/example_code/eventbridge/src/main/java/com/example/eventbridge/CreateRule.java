@@ -58,7 +58,6 @@ public class CreateRule {
     public static void createEBRule(EventBridgeClient eventBrClient, String ruleName) {
 
     try {
-
         PutRuleRequest ruleRequest = PutRuleRequest.builder()
                  .name(ruleName)
                 .eventBusName("default")
