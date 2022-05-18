@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.eventbridge;
 
 // snippet-start:[eventbridge.java2._delete_rule.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.EventBridgeException;
@@ -22,25 +22,24 @@ import software.amazon.awssdk.services.eventbridge.model.DisableRuleRequest;
 // snippet-end:[eventbridge.java2._delete_rule.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class DeleteRule {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <ruleName> \n\n" +
                 "Where:\n" +
-                "    ruleName - the name of the rule to delete. \n";
+                "    ruleName - The name of the rule to delete. \n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -48,6 +47,7 @@ public class DeleteRule {
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         deleteEBRule(eventBrClient, ruleName);
@@ -58,15 +58,13 @@ public class DeleteRule {
     public static void deleteEBRule(EventBridgeClient eventBrClient, String ruleName) {
 
         try {
-
-           // Disable the rule - an Enabled Rule cannot be deleted
+            // Disable the rule - an Enabled Rule cannot be deleted
             DisableRuleRequest disableRuleRequest = DisableRuleRequest.builder()
                     .name(ruleName)
                     .eventBusName("default")
                     .build();
 
             eventBrClient.disableRule(disableRuleRequest);
-
             DeleteRuleRequest ruleRequest = DeleteRuleRequest.builder()
                     .name(ruleName)
                     .eventBusName("default")
