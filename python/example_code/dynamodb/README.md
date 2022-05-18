@@ -9,6 +9,7 @@ tables and move data in and out of them.
 * Load movies into the table from a JSON-formatted file.
 * Update and query movies in the table.
 * Get, write, and delete items in batches.
+* Run PartiQL queries on a DynamoDB table. 
 * Accelerate reads with DynamoDB Accelerator (DAX).
 
 *Amazon DynamoDB is a fully managed NoSQL database service that provides fast and 
@@ -20,6 +21,8 @@ predictable performance with seamless scalability.*
 
 * [Getting started with tables, items, and queries](GettingStarted/scenario_getting_started_movies.py)
 * [Get, write, and delete batches of items](batching/dynamo_batching.py)
+* [Query a table using PartiQL](partiql/scenario_partiql_single.py)
+* [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.py)
 * [Accelerate reads with DAX](TryDax)
 
 
@@ -43,6 +46,10 @@ predictable performance with seamless scalability.*
 (`query`)
 * [Querying items by using a key condition expression](GettingStarted/scenario_getting_started_movies.py)
 (`query`)
+* [Running a PartiQL statement](partiql/scenario_partiql_single.py)
+(`execute_statement`)
+* [Running batches of PartiQL statements](partiql/scenario_partiql_batch.py)
+(`batch_execute_statement`)
 * [Scanning a table for items](GettingStarted/scenario_getting_started_movies.py)
 (`scan`)
 * [Updating an item by using a conditional expression](GettingStarted/update_and_query.py)
@@ -124,6 +131,20 @@ command prompt:
 ```
 python dynamo_batching.py
 ```  
+
+### Query a table using PartiQL
+
+These two scenarios show you how to run PartiQL statements, either one at a time or in 
+batches, to query a DynamoDB table of movie data. Both scenarios add, get, update, 
+and delete movies in the table.
+
+To start a scenario, navigate to the `partiql` folder and run one of the 
+following at a command prompt:
+
+```
+python scenario_partiql_single.py
+python scenario_partiql_batch.py
+```
 
 ### Accelerate reads with DAX
 
