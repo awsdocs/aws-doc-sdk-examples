@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.send_email.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.AddressConfiguration;
@@ -30,9 +30,9 @@ import java.util.Map;
 //snippet-end:[pinpoint.java2.send_email.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -55,19 +55,20 @@ public class SendEmailMessage {
     public static String charset = "UTF-8";
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage: " +
                 "   <subject> <appId> <senderAddress> <toAddress>\n\n" +
                 "Where:\n" +
-                "   subject - the email subject to use.\n\n"+
-                "   appId - the Amazon Pinpoint project/application ID to use when you send this message\n\n" +
-                "   senderAddress - the from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" +
-                "   toAddress - the to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" ;
+                "   subject - The email subject to use.\n\n"+
+                "   appId - The Amazon Pinpoint project/application ID to use when you send this message\n\n" +
+                "   senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" +
+                "   toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" ;
 
         if (args.length != 4) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+           System.out.println(usage);
+           System.exit(1);
+       }
 
         String subject = args[0];
         String appId = args[1] ;
@@ -77,6 +78,7 @@ public class SendEmailMessage {
         System.out.println("Sending a message" );
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         sendEmail(pinpoint, subject, appId,  senderAddress, toAddress);

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.export_endpoint.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
  *  To run this code example, you need to create an AWS Identity and Access Management (IAM) role with the correct policy as described in this documentation:
  *  https://docs.aws.amazon.com/pinpoint/latest/developerguide/audience-data-export.html
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -56,7 +56,8 @@ import java.util.stream.Collectors;
 public class ExportEndpoints {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "This program performs the following steps:\n\n" +
 
                 "1) Exports the endpoints to an Amazon S3 bucket.\n" +
@@ -71,7 +72,7 @@ public class ExportEndpoints {
                 "  path - The path where the files downloaded from the Amazon S3 bucket are written (for example, C:/AWS/).\n" ;
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -84,6 +85,7 @@ public class ExportEndpoints {
         Region region = Region.US_EAST_1;
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         S3Client s3Client = S3Client.builder()
