@@ -1,52 +1,26 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[dotNET]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[dynamodb.dotNET.trydax.05-Scan-Test] 
 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+using System;
+using System.Threading.Tasks;
 using Amazon.Runtime;
 using Amazon.DAX;
 using Amazon.DynamoDBv2.Model;
-using System.Collections.Generic;
-using System;
-using Amazon.DynamoDBv2;
-using Amazon;
 
 namespace ClientTest
 {
     class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
+            string endpointUri = args[0];
+            Console.WriteLine($"Using DAX client - endpointUri={endpointUri}");
 
-
-            String hostName = args[0].Split(':')[0];
-            int port = Int32.Parse(args[0].Split(':')[1]);
-            Console.WriteLine("Using DAX client - hostname=" + hostName + ", port=" + port);
-
-
-            var clientConfig = new DaxClientConfig(hostName, port)
+            var clientConfig = new DaxClientConfig(endpointUri)
             {
-                AwsCredentials = FallbackCredentialsFactory.GetCredentials(
-
+                AwsCredentials = FallbackCredentialsFactory.GetCredentials()
             };
             var client = new ClusterDaxClient(clientConfig);
 
@@ -62,13 +36,13 @@ namespace ClientTest
                 {
                     TableName = tableName
                 };
-                var response = client.ScanAsync(request).Result;
-                Console.WriteLine(i + ": Scan succeeded");
+                var response = await client.ScanAsync(request);
+                Console.WriteLine($"{i}: Scan succeeded");
             }
 
             var endTime = DateTime.Now;
             TimeSpan timeSpan = endTime - startTime;
-            Console.WriteLine("Total time: " + (int)timeSpan.TotalMilliseconds + " milliseconds");
+            Console.WriteLine($"Total time: {timeSpan.TotalMilliseconds} milliseconds");
 
             Console.WriteLine("Hit <enter> to continue...");
             Console.ReadLine();

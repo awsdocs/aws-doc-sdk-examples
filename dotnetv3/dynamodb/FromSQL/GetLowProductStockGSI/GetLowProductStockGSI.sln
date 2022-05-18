@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32407.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetLowProductStockGSI", "GetLowProductStockGSI.csproj", "{5680DBA5-954D-485F-8471-CF1E1BE3311D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5680DBA5-954D-485F-8471-CF1E1BE3311D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5680DBA5-954D-485F-8471-CF1E1BE3311D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5680DBA5-954D-485F-8471-CF1E1BE3311D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5680DBA5-954D-485F-8471-CF1E1BE3311D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDABD9E8-07E8-479F-8747-6E8390566F8B}
+	EndGlobalSection
+EndGlobal

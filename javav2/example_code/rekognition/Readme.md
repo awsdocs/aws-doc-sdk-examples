@@ -1,12 +1,52 @@
-# Amazon Rekognition Java code examples
+# Amazon Rekognition code examples for the SDK for Java
 
-This README discusses how to run and test the Java code examples for Amazon Rekognition.
+## Overview
+This README discusses how to run and test the AWS SDK for Java (V2) code examples for Amazon Rekognition.
+
+Amazon Rekognition enables your applications to confirm user identities by comparing their live image with a reference image. Amazon Rekognition also detects content in images and videos, such as face covers, head covers, and hand covers on persons in images.
+
+## ⚠️ Important
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Code examples
+
+### Single action
+
+The following examples use the **RekognitionClient** object:
+
+- [Adding faces to a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/AddFacesToCollection.java) (IndexFaces command)
+- [Getting information about a celebrity](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/CelebrityInfo.java) (GetCelebrityInfo command)
+- [Comparing two faces](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/CompareFaces.java) (CompareFaces command)
+- [Creating a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/CreateCollection.java) (CreateCollection command)
+- [Deleting a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DeleteCollection.java) (DeleteCollection command)
+- [Deleting faces from a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DeleteFacesFromCollection.java) (DeleteFaces command)
+- [Describing a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DescribeCollection.java) (DescribeCollection command)
+- [Detecting faces in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectFaces.java) (DetectFaces command)
+- [Detecting labels in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectLabels.java) (DetectLabels command)
+- [Detecting labels in an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectLabelsS3.java) (DetectLabels command)
+- [Detecting unsafe content in a given image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectModerationLabels.java) (DetectModerationLabels command)
+- [Detecting Personal Protective Equipment in a given image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectPPE.java) (DetectProtectiveEquipment command)
+- [Detecting Text in a given image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DetectText.java) (DetectText command)
+- [Displaingy a bounding box around faces.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/DisplayFacesFrame.java) (DetectFaces command)
+- [Listing the available collections](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/ListCollections.java) (ListCollections command)
+- [Listing faces in a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/ListFacesInCollection.java) (ListFaces command)
+- [Displaying a green bounding box around a mask](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/PPEBoundingBoxFrame.java) (PPEBoundingBoxFrame command)
+- [Recognizing celebrities in a given image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/RecognizeCelebrities.java) (RecognizeCelebrities command)
+- [Getting the estimated orientation of an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/RotateImage.java) (BoundingBox commands)
+- [Displaying information about a face](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/SearchFaceMatchingIdCollection.java) (SearchFaces command)
+- [Getting celebrity results from a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoCelebrityDetection.java) (StartCelebrityRecognition command)
+- [Detecting labels in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetect.java) (StartLabelDetection command)
+- [Detecting faces in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectFaces.java) (StartFaceDetection command)
+- [Detecting offensive content in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectInappropriate.java) (StartContentModeration command)
+- [Detect technical cue segments in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectSegment.java) (StartSegmentDetection command)
+- [Detect text in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoDetectText.java) (StartTextDetection command)
+- [Detect people in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rekognition/src/main/java/com/example/rekognition/VideoPersonDetection.java) (startPersonTracking command)
+
 
 ## Running the Amazon Rekognition Java files
-
-**IMPORTANT**
-
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
 Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
@@ -87,3 +127,9 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
 	[ERROR];
+	
+	
+## Additional resources
+* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html).
+* [Interface RekognitionClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rekognition/RekognitionClient.html).	

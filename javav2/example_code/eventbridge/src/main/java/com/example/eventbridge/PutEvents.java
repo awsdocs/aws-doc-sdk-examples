@@ -73,10 +73,6 @@ public class PutEvents {
                     .detail("{ \"key1\": \"value1\", \"key2\": \"value2\" }")
                     .build();
 
-            // Add the PutEventsRequestEntry to a list
-            List<PutEventsRequestEntry> list = new ArrayList<PutEventsRequestEntry>();
-            list.add(reqEntry);
-
             PutEventsRequest eventsRequest = PutEventsRequest.builder()
                     .entries(reqEntry)
                     .build();

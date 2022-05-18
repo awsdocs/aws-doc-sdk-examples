@@ -90,7 +90,7 @@ function test_failed {
 # This function outputs everything sent to it to STDERR (standard error output).
 ###############################################################################
 function errecho {
-    printf "%s\n" "$*" 2>&1
+    printf "%b\n" "$*" 2>&1
 }
 
 ###############################################################################
@@ -101,7 +101,7 @@ function errecho {
 ###############################################################################
 function iecho {
     if [[ $VERBOSE == true ]]; then
-        echo "$@"
+        echo -e "$@"
     fi
 }
 

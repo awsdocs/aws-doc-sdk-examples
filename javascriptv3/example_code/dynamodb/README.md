@@ -6,7 +6,16 @@ Amazon DynamoDB is a key-value and document database that delivers single-digit 
 ## Code examples
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon DynamoDB examples: 
 
-### API Examples
+### Scenario examples
+
+- [DynamoDB_basics](scenarios/dynamodb_basics/src/dynamodb_basics.js)
+
+#### Scenario examples using PartiQL
+
+- [PartiQL_basics](scenarios/partiQL_basics/src/partiQL_basics.js)
+- [PartiQL_batch_basics](scenarios/partiQL_basics/src/partiQL_batch_basics.js)
+
+### API Examples - DynamoDB
 
 - [Create a DyanamoDB table](src/ddb_createtable.js) (CreateTableCommand)
 - [Create a DyanamoDB table - TV example](src/QueryExample/ddb_createtable_tv.js)
@@ -16,16 +25,24 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Delete items using Document Client](src/ddbdoc_delete_item.js) (DeleteCommand)
 - [Get items](src/ddb_getitem.js) (GetItemCommand)
 - [Get batch items](src/ddb_batchgetitem.js) (BatchGetItemCommand)
-- [Get items using Document Client](src/ddbdoc_get_item.js) (GetCommand)
+- [Get items using Document Client](src/movies/getItem.js) (GetCommand)
 - [List DyanamoDB tables](src/ddb_listtables.js) (ListTablesCommand)
-- [Put items](src/ddb_putitem.js) (PutItemCommand)
-- [Put items using Document Client](src/ddbdoc_put_item.js) {(PutCommand)
-- [Query a DyanamoDB table](src/ddb_query.js) (QueryCommand)
-- [Query a DyanamoDB table using Document Client](src/ddbdoc_query_item.js) (QueryCommand)
-- [Scan a DyanamoDB table](src/ddb_scan.js) (ScanCommand)
-- [Update a DyanamoDB table using Document Client](src/ddbdoc_update_item.js) (UpdateCommand)
-- [Write batch items](src/ddb_batchwriteitem.js) (BatchGetWriteCommand)
+- [Put items using Document Client](src/movies/putItem.js) {(PutCommand)
+- [Query a DyanamoDB table using Document Client](src/movies/queryTable.js) (QueryCommand)
+- [Scan a DyanamoDB table using Document Client](src/movies/scanTable.js) (ScanCommand)
+- [Update a DyanamoDB table using Document Client](src/movies/updateItem.js) (UpdateCommand)
+- [Write batch items using Document Client](src/movies/writeData.js) (BatchGetWriteCommand)
 - [Write batch items - TV example](src/QueryExample/ddb_batchwriteitem_tv.js)
+
+#### API Examples - DynamoDB using PartiQL
+- [Add an item to a table using PartiQL](src/partiQL_examples/src/partiql_putItem.js) (ExecuteStatementCommand)
+- [Add items to a table by batch using PartiQL](src/partiQL_examples/src/partiql_batch_putItems.js) (BatchExecuteStatementCommand)
+- [Delete an item from a table using PartiQL](src/partiQL_examples/src/partiql_deleteItem.js) (ExecuteStatementCommand)
+- [Delete items from a table by batch using PartiQL](src/partiQL_examples/src/partiql_batch_deleteItems.js) (BatchExecuteStatementCommand)
+- [Get an item from a table using PartiQL](src/partiQL_examples/src/partiql_getItem.js) (ExecuteStatementCommand)
+- [Get items from a table by batch using PartiQL](src/partiQL_examples/src/partiql_batch_getItems.js) (BatchExecuteStatementCommand)
+- [Update an item in a table using PartiQL](src/partiQL_examples/src/partiql_updateItem.js) (ExecuteStatementCommand)
+- [Update items in a table by batch using PartiQL](src/partiQL_examples/src/partiql_batch_updateItems.js) (BatchExecuteStatementCommand)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).

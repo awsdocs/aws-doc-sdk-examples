@@ -3,9 +3,11 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+// snippet-start:[cognitoidentity.swift.handler-imports]
 import Foundation
 import AWSCognitoIdentity
 import ClientRuntime
+// snippet-end:[cognitoidentity.swift.handler-imports]
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class CognitoIdentityHandler {
@@ -13,7 +15,9 @@ public class CognitoIdentityHandler {
     
     /// Initialize and return a new ``CognitoIdentityHandler`` object, which is used to drive the AWS calls
     /// used for the example.
-    /// - Returns: A new ``CognitoIdentityHandler`` object, ready to run the demo code.
+    /// - Returns: A new ``CognitoIdentityHandler`` object, ready to run the
+    ///   demo code.
+    // snippet-start:[cognitoidentity.swift.init]
     public init() async {
         do {
             cognitoIdentityClient = try await CognitoIdentityClient()
@@ -22,6 +26,7 @@ public class CognitoIdentityHandler {
             exit(1)
         }
     }
+    // snippet-end:[cognitoidentity.swift.init]
     
     /// Returns the ID of the identity pool with the specified name.
     /// - Parameters:

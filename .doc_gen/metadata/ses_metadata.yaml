@@ -5,6 +5,16 @@ ses_SendEmail:
   synopsis: send email with &SES;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.sendmessage.request.main
+                - ses.java2.sendmessageattachment.main
     Python:
       versions:
         - sdk_version: 3
@@ -113,6 +123,15 @@ ses_ListIdentities:
   synopsis: list &SES; identities.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.identities.main
     Python:
       versions:
         - sdk_version: 3

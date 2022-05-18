@@ -3,11 +3,14 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+// snippet-start:[cognitoidentity.swift.main-imports]
 import Foundation
 import CognitoIdentityHandler
+// snippet-end:[cognitoidentity.swift.main-imports]
 
 // Instantiate the main identity functions object
 
+// snippet-start:[cognitoidentity.swift.main-struct]
 @main
 struct FindOrCreateIdentityPool {
     static func main() async {
@@ -28,3 +31,4 @@ struct FindOrCreateIdentityPool {
         }
     }
 }
+// snippet-end:[cognitoidentity.swift.main-struct]

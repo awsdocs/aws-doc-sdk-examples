@@ -52,7 +52,7 @@ type Printer struct{}
 func (p Printer) Walk(name exif.FieldName, tag *tiff.Tag) error {
 	e := ExifEntry{
 		entryName: string(name),
-		entryTag:  fmt.Sprintf("%s", tag),
+		entryTag:  tag.String(),
 	}
 
 	ExifEntries = append(ExifEntries, e)
@@ -192,13 +192,13 @@ type RekognitionDetectLabelsAPI interface {
 		optFns ...func(*rekognition.Options)) (*rekognition.DetectLabelsOutput, error)
 }
 
-// GetLabels retrieves the lables in a jpg or png image.
+// GetLabels retrieves the labels in a jpg or png image.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If successful, a DetectLablesOutput object containing the result of the service call and nil.
+//     If successful, a DetectLabelsOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DetectLabels.
 func GetLabels(c context.Context, api RekognitionDetectLabelsAPI, input *rekognition.DetectLabelsInput) (*rekognition.DetectLabelsOutput, error) {
 	resp, err := api.DetectLabels(c, input)
@@ -320,17 +320,12 @@ func createThumbnail(file io.Reader, bucketName string, fileName string) (string
 			fmt.Println("Got an error calling jpeg.Encode")
 			return "", err
 		}
-
-		break
 	case "png":
 		err = png.Encode(&buf, m)
 		if err != nil {
 			fmt.Println("Got an error calling png.Encode")
 			return "", err
 		}
-
-		break
-
 	default:
 		msg := "Unsupported format: " + parts[1]
 		return "", errors.New(msg)
