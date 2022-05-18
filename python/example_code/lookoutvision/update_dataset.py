@@ -25,7 +25,7 @@ def add_arguments(parser):
     """
 
     parser.add_argument(
-        "project_name", help="The ARN of the dataset that you want to update."
+        "project_name", help="The Amazon Resource Name (ARN) of the dataset that you want to update."
     )
 
     parser.add_argument(
@@ -33,7 +33,7 @@ def add_arguments(parser):
     )
 
     parser.add_argument(
-        "updates_file", help="The manifest file of JSON Lines that contains the updates."
+        "updates_file", help="The manifest file of JSON lines that contains the updates."
     )
 
 
@@ -44,7 +44,7 @@ def main():
 
     try:
 
-        # get command line arguments.
+        # Get command line arguments.
         parser = argparse.ArgumentParser(usage=argparse.SUPPRESS)
         add_arguments(parser)
         args = parser.parse_args()

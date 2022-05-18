@@ -262,7 +262,7 @@ class Datasets:
         :param lookoutvision_client: The Amazon Rekognition Custom Labels Boto3 client.
         :param project_name: The project that contains the dataset that you want to update.
         :param dataset_type: The type of the dataset that you want to update (train or test).
-        :param updates_file: The manifest file of JSON Lines that contains the updates. 
+        :param updates_file: The manifest file of JSON lines that contains the updates. 
         """
 
         try:
@@ -270,7 +270,7 @@ class Datasets:
             status_message = ""
             manifest_file = ""
 
-            # Update dataset entries
+            # Update dataset entries.
             logger.info(f"Updating {dataset_type} dataset for project {project_name}"
                 "with entries from {updates_file}.")
 
