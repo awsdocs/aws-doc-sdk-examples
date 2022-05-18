@@ -4,8 +4,8 @@
 """
 Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with Amazon DynamoDB to
-use PartiQL to query a table that stores data about movies.
+Shows how to use the AWS SDK for Python (Boto3) with Amazon DynamoDB and PartiQL
+to query a table that stores data about movies.
 
 * Use PartiQL statements to add, get, update, and delete data for individual movies.
 """

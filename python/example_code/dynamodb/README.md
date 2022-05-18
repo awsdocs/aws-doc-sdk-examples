@@ -134,9 +134,9 @@ python dynamo_batching.py
 
 ### Query a table using PartiQL
 
-These two scenarios show you how to run PartiQL statements, either one at a time or in 
-batches, to query a DynamoDB table of movie data. Both scenarios add, get, update, 
-and delete movies in the table.
+These two scenarios show you how to run PartiQL statements to query a DynamoDB table of 
+movie data. You can do this one at a time or in batches. Both scenarios add, get, 
+update, and delete movies in the table.
 
 To start a scenario, navigate to the `partiql` folder and run one of the 
 following at a command prompt:
