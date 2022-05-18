@@ -1,8 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 import com.aws.example.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
@@ -27,6 +24,7 @@ public class ElasticBeanstalkTest {
         Region region = Region.US_EAST_1;
         beanstalkClient = ElasticBeanstalkClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = ElasticBeanstalkTest.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -43,7 +41,6 @@ public class ElasticBeanstalkTest {
             // Populate the data members required for all tests.
             appName = prop.getProperty("appName");
             envName = prop.getProperty("envName");
-
 
         } catch (IOException ex) {
             ex.printStackTrace();
