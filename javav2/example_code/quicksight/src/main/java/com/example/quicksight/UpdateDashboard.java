@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.quicksight;
 
 // snippet-start:[quicksight.java2.update_dashboard.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import software.amazon.awssdk.services.quicksight.model.DataSetReference;
@@ -37,7 +37,7 @@ import java.util.UUID;
 *    This code example uses resources that you created by following that topic such as the DataSet Arn value.
 *
 *
-*  Also, ensure that you have setup your development environment, including your credentials.
+*  Also, set up your development environment, including your credentials.
 *
 *  For information, see this documentation topic:
 *
@@ -48,17 +48,17 @@ public class UpdateDashboard {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <account> <dashboardId> <dataSetArn> <analysisArn>\n\n" +
                 "Where:\n" +
-                "   account - the account to use.\n\n" +
-                "   dashboardId - the dashboard id value to use.\n\n" +
-                "   dataSetArn - the ARN of the dataset.\n\n" +
-                "   analysisArn - the ARN of an existing analysis";
+                "   account - The account to use.\n\n" +
+                "   dashboardId - The dashboard id value to use.\n\n" +
+                "   dataSetArn - The ARN of the dataset.\n\n" +
+                "   analysisArn - The ARN of an existing analysis";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -68,6 +68,7 @@ public class UpdateDashboard {
         String analysisArn = args[3];
         QuickSightClient qsClient = QuickSightClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn);
@@ -75,10 +76,9 @@ public class UpdateDashboard {
     }
 
     // snippet-start:[quicksight.java2.update_dashboard.main]
-    public static void updateSpecificDashboard( QuickSightClient qsClient, String account,  String dashboardId, String dataSetArn, String analysisArn) {
+    public static void updateSpecificDashboard( QuickSightClient qsClient, String account, String dashboardId, String dataSetArn, String analysisArn) {
 
         try {
-
             DataSetReference dataSetReference = DataSetReference.builder()
                     .dataSetArn(dataSetArn)
                     .dataSetPlaceholder("Dataset placeholder2")
@@ -114,7 +114,7 @@ public class UpdateDashboard {
 
     private static String getTemplateARN(QuickSightClient qsClient, String account, String dataset, String analysisArn) {
 
-        String arn = "";
+        String arn = null;
         try {
             DataSetReference setReference = DataSetReference.builder()
                     .dataSetArn(dataset)
@@ -131,8 +131,7 @@ public class UpdateDashboard {
                     .build();
 
             UUID uuid = UUID.randomUUID();
-            String templateGUID =uuid.toString();
-
+            String templateGUID = uuid.toString();
             CreateTemplateRequest createTemplateRequest = CreateTemplateRequest.builder()
                .awsAccountId(account)
                .name("NewTemplate")
