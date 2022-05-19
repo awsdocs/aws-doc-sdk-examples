@@ -7,6 +7,8 @@ import com.example.stepfunctions.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import java.io.*;
@@ -30,6 +32,7 @@ public class StepFunctionsTest {
         Region region = Region.US_EAST_1;
         sfnClient = SfnClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = StepFunctionsTest.class.getClassLoader().getResourceAsStream("config.properties")) {
