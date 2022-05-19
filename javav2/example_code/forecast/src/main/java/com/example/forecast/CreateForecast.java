@@ -40,7 +40,7 @@ public class CreateForecast {
                 "    name - The name of the forecast. \n\n" +
                 "    predictorArn - The arn of the predictor to use. \n\n" ;
 
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
         }
