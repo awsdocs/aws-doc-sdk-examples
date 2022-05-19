@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.forecast;
 
 // snippet-start:[forecast.java2.create_forecast.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.CreateForecastRequest;
@@ -23,9 +23,9 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,15 +33,15 @@ public class CreateForecast {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <name> <predictorArn> \n\n" +
                 "Where:\n" +
-                "    name - the name of the forecast. \n\n" +
-                "    predictorArn - the arn of the predictor to use. \n\n" ;
+                "    name - The name of the forecast. \n\n" +
+                "    predictorArn - The arn of the predictor to use. \n\n" ;
 
-        if (args.length != 1) {
-            System.out.println(USAGE);
+        if (args.length != 2) {
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -50,6 +50,7 @@ public class CreateForecast {
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String forecastArn = createNewForecast(forecast, name, predictorArn) ;

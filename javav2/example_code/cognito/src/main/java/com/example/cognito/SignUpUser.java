@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.signup.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
@@ -21,6 +21,8 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeTy
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 //snippet-end:[cognito.java2.signup.import]
@@ -29,29 +31,30 @@ import java.util.List;
  * To run this Java code example, you need to create a client app in a user pool with a secret key. For details, see:
  * https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html
  *
- * In addition,  ensure that you have setup your development environment, including your AWS credentials.
+ * In addition, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ *  For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
  */
 
 public class SignUpUser {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <clientId> <secretkey> <userName> <password> <email>\n\n" +
                 "Where:\n" +
-                "    clientId - the app client id value that you can obtain from the AWS Management Console.\n\n" +
-                "    secretkey - the app client secret value that you can obtain from the AWS Management Console.\n\n" +
-                "    userName - the user name of the user you wish to register.\n\n" +
-                "    password - the password for the user.\n\n" +
-                "    email - the email address for the user.\n\n";
+                "    clientId - The app client id value that you can obtain from the AWS Management Console.\n\n" +
+                "    secretkey - The app client secret value that you can obtain from the AWS Management Console.\n\n" +
+                "    userName - The user name of the user you wish to register.\n\n" +
+                "    password - The password for the user.\n\n" +
+                "    email - The email address for the user.\n\n";
 
         if (args.length != 5) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -63,6 +66,7 @@ public class SignUpUser {
 
         CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         signUp(identityProviderClient, clientId, secretKey, userName, password, email);
@@ -101,24 +105,25 @@ public class SignUpUser {
        } catch(CognitoIdentityProviderException e) {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
+       } catch (NoSuchAlgorithmException e) {
+           e.printStackTrace();
+       } catch (InvalidKeyException e) {
+           e.printStackTrace();
        }
     }
 
-    public static String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) {
+    public static String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) throws NoSuchAlgorithmException, InvalidKeyException {
         final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
 
         SecretKeySpec signingKey = new SecretKeySpec(
                 userPoolClientSecret.getBytes(StandardCharsets.UTF_8),
                 HMAC_SHA256_ALGORITHM);
-        try {
-            Mac mac = Mac.getInstance(HMAC_SHA256_ALGORITHM);
-            mac.init(signingKey);
-            mac.update(userName.getBytes(StandardCharsets.UTF_8));
-            byte[] rawHmac = mac.doFinal(userPoolClientId.getBytes(StandardCharsets.UTF_8));
-            return java.util.Base64.getEncoder().encodeToString(rawHmac);
-        } catch (Exception e) {
-            throw new RuntimeException("Error while calculating ");
-        }
+
+        Mac mac = Mac.getInstance(HMAC_SHA256_ALGORITHM);
+        mac.init(signingKey);
+        mac.update(userName.getBytes(StandardCharsets.UTF_8));
+        byte[] rawHmac = mac.doFinal(userPoolClientId.getBytes(StandardCharsets.UTF_8));
+        return java.util.Base64.getEncoder().encodeToString(rawHmac);
     }
     //snippet-end:[cognito.java2.signup.main]
 }

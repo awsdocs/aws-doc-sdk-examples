@@ -9,6 +9,7 @@ import com.example.lambda.GetAccountSettings;
 import com.example.lambda.LambdaScenario;
 import com.example.lambda.LambdaInvoke;
 import com.example.lambda.ListLambdaFunctions;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -44,6 +45,7 @@ public class LambdaTest {
         Region region = Region.US_WEST_2;
         awsLambda = LambdaClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = LambdaTest.class.getClassLoader().getResourceAsStream("config.properties")) {

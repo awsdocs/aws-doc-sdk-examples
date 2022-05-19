@@ -3,8 +3,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04/14/2022]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@ package com.example.lambda;
 
 // snippet-start:[lambda.javav2.scenario.import]
 import org.json.JSONObject;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -97,6 +97,7 @@ public class LambdaScenario {
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String funArn = createLambdaFunction(awsLambda, functionName, filePath, role, handler);

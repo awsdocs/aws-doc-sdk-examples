@@ -36,8 +36,9 @@ public class GlueTest {
         Region region = Region.US_EAST_1;
         glueClient = GlueClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
-
+        
         try (InputStream input = GlueTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
             Properties prop = new Properties();

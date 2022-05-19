@@ -32,7 +32,10 @@ public class IAMServiceTest {
     public static void setUp() throws IOException {
 
         Region region = Region.AWS_GLOBAL;
-        iam =  IamClient.builder().region(region).build();
+        iam = IamClient.builder()
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         try (InputStream input = IAMServiceTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 

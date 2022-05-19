@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elastic Beanstalk ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.aws.example;
 
 //snippet-start:[eb.java2.create_app.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import software.amazon.awssdk.services.elasticbeanstalk.model.CreateApplicationResponse;
@@ -47,6 +47,7 @@ public class CreateApplication {
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String appArn = createApp(beanstalkClient, appName);
@@ -62,7 +63,7 @@ public class CreateApplication {
                 .applicationName(appName)
                 .build();
 
-            CreateApplicationResponse applicationResponse =  beanstalkClient.createApplication(applicationRequest);
+            CreateApplicationResponse applicationResponse = beanstalkClient.createApplication(applicationRequest);
             return applicationResponse.application().applicationArn();
 
         } catch (ElasticBeanstalkException e) {

@@ -15,13 +15,13 @@
 package com.example.migrationhub;
 
 // snippet-start:[migration.java2.list_artifacts.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.CreatedArtifact;
 import software.amazon.awssdk.services.migrationhub.model.ListCreatedArtifactsRequest;
 import software.amazon.awssdk.services.migrationhub.model.ListCreatedArtifactsResponse;
 import software.amazon.awssdk.services.migrationhub.model.MigrationHubException;
-import java.util.Iterator;
 import java.util.List;
 // snippet-end:[migration.java2.list_artifacts.import]
 
@@ -39,6 +39,7 @@ public class ListCreatedArtifacts {
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listArtifacts(migrationClient);
@@ -49,7 +50,6 @@ public class ListCreatedArtifacts {
     public static void listArtifacts(MigrationHubClient migrationClient) {
 
         try {
-
             ListCreatedArtifactsRequest listCreatedArtifactsRequest = ListCreatedArtifactsRequest.builder()
                     .maxResults(10)
                     .migrationTaskName("SampleApp5")
@@ -58,13 +58,9 @@ public class ListCreatedArtifacts {
 
             ListCreatedArtifactsResponse response = migrationClient.listCreatedArtifacts(listCreatedArtifactsRequest);
             List<CreatedArtifact> apps = response.createdArtifactList();
-
-            Iterator<CreatedArtifact> appIterator = apps.iterator();
-
-            while(appIterator.hasNext()) {
-                CreatedArtifact artifact = appIterator.next();
-                System.out.println("APp Id is " +artifact.description());
-                System.out.println("The name is " +artifact.name());
+            for (CreatedArtifact artifact : apps) {
+                System.out.println("APp Id is " + artifact.description());
+                System.out.println("The name is " + artifact.name());
             }
 
     } catch(MigrationHubException e) {
