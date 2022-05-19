@@ -15,6 +15,7 @@ import time
 from datetime import datetime
 import os
 import json
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.lookoutvision.Datasets]
 class Datasets:
-# snippet-end:[python.example_code.lookoutvision.Datasets]
+    # snippet-end:[python.example_code.lookoutvision.Datasets]
     """
     Provides example functions for creating, listing, and deleting Lookout for Vision
     datasets. Also shows how to create a manifest file in an Amazon S3 bucket.
@@ -53,12 +54,14 @@ class Datasets:
                 DatasetType=dataset_type,
                 DatasetSource=dataset,
             )
-            logger.info("Dataset Status: %s", response["DatasetMetadata"]["Status"])
+            logger.info("Dataset Status: %s",
+                        response["DatasetMetadata"]["Status"])
             logger.info(
                 "Dataset Status Message: %s",
                 response["DatasetMetadata"]["StatusMessage"],
             )
-            logger.info("Dataset Type: %s", response["DatasetMetadata"]["DatasetType"])
+            logger.info("Dataset Type: %s",
+                        response["DatasetMetadata"]["DatasetType"])
 
             # Wait until either created or failed.
             finished = False
@@ -131,14 +134,16 @@ class Datasets:
                 for obj in src_bucket.objects.filter(
                         Prefix=prefix + "anomaly/", Delimiter="/"):
                     image_path = f"s3://{src_bucket.name}/{obj.key}"
-                    manifest = Datasets.create_json_line(image_path, "anomaly", dttm)
+                    manifest = Datasets.create_json_line(
+                        image_path, "anomaly", dttm)
                     mfile.write(json.dumps(manifest) + "\n")
 
                 # Create json lines for normal images.
                 for obj in src_bucket.objects.filter(
                         Prefix=prefix + "normal/", Delimiter="/"):
                     image_path = f"s3://{src_bucket.name}/{obj.key}"
-                    manifest = Datasets.create_json_line(image_path, "normal", dttm)
+                    manifest = Datasets.create_json_line(
+                        image_path, "normal", dttm)
                     mfile.write(json.dumps(manifest) + "\n")
 
             logger.info("Uploading manifest file to %s", manifest_s3_path)
@@ -233,7 +238,8 @@ class Datasets:
             print(f"Name: {response['DatasetDescription']['ProjectName']}")
             print(f"Type: {response['DatasetDescription']['DatasetType']}")
             print(f"Status: {response['DatasetDescription']['Status']}")
-            print(f"Message: {response['DatasetDescription']['StatusMessage']}")
+            print(
+                f"Message: {response['DatasetDescription']['StatusMessage']}")
             print(
                 f"Images: {response['DatasetDescription']['ImageStats']['Total']}")
             print(
@@ -247,3 +253,83 @@ class Datasets:
             raise
         print("Done.")
 # snippet-end:[python.example_code.lookoutvision.DescribeDataset]
+
+# snippet-start:[python.example_code.lookoutvision.UpdateDatasetEntries]
+    @staticmethod
+    def update_dataset_entries(lookoutvision_client, project_name, dataset_type, updates_file):
+        """
+        Adds dataset entries to an Amazon Lookout for Vision dataset.    
+        :param lookoutvision_client: The Amazon Rekognition Custom Labels Boto3 client.
+        :param project_name: The project that contains the dataset that you want to update.
+        :param dataset_type: The type of the dataset that you want to update (train or test).
+        :param updates_file: The manifest file of JSON lines that contains the updates. 
+        """
+
+        try:
+            status = ""
+            status_message = ""
+            manifest_file = ""
+
+            # Update dataset entries.
+            logger.info(f"Updating {dataset_type} dataset for project {project_name}"
+                "with entries from {updates_file}.")
+
+            with open(updates_file) as f:
+                manifest_file = f.read()
+
+            lookoutvision_client.update_dataset_entries(
+                ProjectName=project_name,
+                DatasetType=dataset_type,
+                Changes=manifest_file,
+            )
+
+            finished = False
+            
+            while not finished:
+
+                dataset = lookoutvision_client.describe_dataset(ProjectName=project_name,
+                                                                DatasetType=dataset_type)
+
+                status = dataset['DatasetDescription']['Status']
+                status_message = dataset['DatasetDescription']['StatusMessage']
+
+                if status == "UPDATE_IN_PROGRESS":
+                    logger.info(
+                        (f"Updating {dataset_type} dataset for project {project_name}."))
+                    time.sleep(5)
+                    continue
+
+                if status == "UPDATE_FAILED_ROLLBACK_IN_PROGRESS":
+                    logger.info(
+                        (f"Update failed, rolling back {dataset_type} dataset for project {project_name}."))
+                    time.sleep(5)
+                    continue
+
+                if status == "UPDATE_COMPLETE":
+                    logger.info(
+                        f"Dataset updated: {status} : {status_message} : {dataset_type} dataset for project {project_name}.")
+                    finished = True
+                    continue
+
+                if status == "UPDATE_FAILED_ROLLBACK_COMPLETE":
+                    logger.info(
+                        f"Rollback completed after update failure: {status} : {status_message} : {dataset_type} dataset for project {project_name}.")
+                    finished = True
+                    continue
+
+                logger.exception(
+                    f"Failed. Unexpected state for dataset update: {status} : {status_message} : "
+                     "{dataset_type} dataset for project {project_name}.")
+                raise Exception(
+                    f"Failed. Unexpected state for dataset update: {status} : "
+                    "{status_message} :{dataset_type} dataset for project {project_name}.")
+
+            logger.info(f"Added entries to dataset.")
+
+            return status, status_message
+
+        except ClientError as err:
+            logger.exception(
+                f"Couldn't update dataset: {err.response['Error']['Message']}")
+            raise
+    # snippet-end:[python.example_code.lookoutvision.UpdateDatasetEntries]
