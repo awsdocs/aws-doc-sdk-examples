@@ -20,7 +20,7 @@ func (dt IAMAttachRolePolicyImpl) AttachRolePolicy(ctx context.Context,
 	// PolicyArn
 	// RoleName
 	if nil == params.PolicyArn || *params.PolicyArn == "" || nil == params.RoleName || *params.RoleName == "" {
-		args := "POlicyArn or RoleName is nil or an empty string"
+		args := "PolicyArn or RoleName is nil or an empty string"
 		return nil, errors.New(args)
 	}
 

@@ -14,7 +14,7 @@ namespace DeleteTable
     /// </summary>
     public class DeleteTable
     {
-        // snippet-start:[dynamodb.dotnet35.DeleteTable]
+        // snippet-start:[dynamodb.dotnet35.DeleteTableExample]
 
         /// <summary>
         /// Initializes the DynamoDB client and then calls RemoveTableAsync.
@@ -52,6 +52,6 @@ namespace DeleteTable
             return response;
         }
 
-        // snippet-end:[dynamodb.dotnet35.DeleteTable]
+        // snippet-end:[dynamodb.dotnet35.DeleteTableExample]
     }
 }

@@ -6,6 +6,8 @@
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import java.io.*;
@@ -19,7 +21,6 @@ import software.amazon.awssdk.services.s3control.S3ControlClient;
 public class AmazonS3Test {
 
     private static S3Client s3;
-    private static Region region;
     private static S3Presigner presigner;
     private static S3ControlClient s3ControlClient;
 
@@ -47,17 +48,20 @@ public class AmazonS3Test {
     public static void setUp() throws IOException {
 
         // Run tests on Real AWS Resources
-        region = Region.US_EAST_1;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         s3 = S3Client.builder()
-                .region(region)
+                .region(Region.US_EAST_1)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         presigner = S3Presigner.builder()
-                .region(region)
+                .region(Region.US_EAST_1)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         s3ControlClient = S3ControlClient.builder()
-                .region(region)
+                .region(Region.US_EAST_1)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         try (InputStream input = AmazonS3Test.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -215,14 +219,6 @@ public class AmazonS3Test {
 
     @Test
     @Order(15)
-    public void KMSEncryptionExample() {
-        KMSEncryptionExample.putEncryptData(s3, encryptObjectName, bucketName, encryptObjectPath, keyId );
-        KMSEncryptionExample.getEncryptedData(s3, bucketName, encryptObjectName, encryptOutPath, keyId);
-        System.out.println("Test 15 passed");
-    }
-
-    @Test
-    @Order(16)
     public void  LifecycleConfiguration() {
 
         LifecycleConfiguration.setLifecycleConfig(s3, bucketName, accountId);
@@ -232,7 +228,7 @@ public class AmazonS3Test {
     }
 
     @Test
-    @Order(17)
+    @Order(16)
     public void S3Cors() {
         S3Cors.setCorsInformation(s3, bucketName, accountId);
         S3Cors.getBucketCorsInformation(s3, bucketName, accountId);
@@ -241,24 +237,18 @@ public class AmazonS3Test {
     }
 
     @Test
-    @Order(18)
+    @Order(17)
     public void DeleteMultiObjects() {
         DeleteMultiObjects.deleteBucketObjects(s3, bucketName);
         System.out.println("Test 18 passed");
     }
 
     @Test
-    @Order(19)
+    @Order(18)
     public void deleteObjects() {
         DeleteObjects.deleteBucketObjects(s3,bucketName,objectKey);
         DeleteObjects.deleteBucketObjects(s3,bucketName,encryptObjectName);
         System.out.println("Test 19 passed");
     }
 
-    @Test
-    @Order(20)
-    public void deleteBucket() {
-    S3ObjectOperations.deleteBucket(s3,bucketName);
-    System.out.println("Test 20 passed");
-    }
 }

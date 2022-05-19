@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/19/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.pipeline;
 
 // snippet-start:[pipeline.java2.get_pipeline.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codepipeline.CodePipelineClient;
 import software.amazon.awssdk.services.codepipeline.model.GetPipelineResponse;
@@ -24,29 +24,26 @@ import software.amazon.awssdk.services.codepipeline.model.CodePipelineException;
 import java.util.List;
 // snippet-end:[pipeline.java2.get_pipeline.import]
 
-
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
-
 public class GetPipeline {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <name> \n\n" +
                 "Where:\n" +
-                "   name - the name of the pipeline to retrieve \n\n" ;
+                "   name - The name of the pipeline to retrieve \n\n" ;
 
 
         if (args.length != 1) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
         }
 
@@ -54,6 +51,7 @@ public class GetPipeline {
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getSpecificPipeline(pipelineClient, name);
@@ -63,7 +61,6 @@ public class GetPipeline {
     // snippet-start:[pipeline.java2.get_pipeline.main]
     public static void getSpecificPipeline(CodePipelineClient pipelineClient, String name) {
 
-
         try {
             GetPipelineRequest pipelineRequest = GetPipelineRequest.builder()
                 .name(name)
@@ -72,11 +69,10 @@ public class GetPipeline {
 
             GetPipelineResponse response = pipelineClient.getPipeline(pipelineRequest);
             List<StageDeclaration> stages = response.pipeline().stages();
-
             for (StageDeclaration stage: stages) {
                 System.out.println("Stage name is " + stage.name() + " and actions are:");
 
-                //Get the stage actions
+                //Get the stage actions.
                 List<ActionDeclaration> actions = stage.actions();
                 for (ActionDeclaration action : actions) {
                     System.out.println("Action name is " + action.name());

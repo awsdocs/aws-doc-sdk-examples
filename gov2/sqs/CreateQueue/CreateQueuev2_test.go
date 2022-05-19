@@ -22,7 +22,7 @@ func (dt SQSCreateQueueImpl) CreateQueue(ctx context.Context,
 	optFns ...func(*sqs.Options)) (*sqs.CreateQueueOutput, error) {
 
 	output := &sqs.CreateQueueOutput{
-		QueueUrl: aws.String("aws-docs-example-qaueue-url"),
+		QueueUrl: aws.String("aws-docs-example-queue-url"),
 	}
 
 	return output, nil

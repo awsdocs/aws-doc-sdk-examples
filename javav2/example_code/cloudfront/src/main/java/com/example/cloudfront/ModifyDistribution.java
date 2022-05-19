@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/17/2021]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.mod.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.GetDistributionRequest;
@@ -24,9 +24,9 @@ import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
 // snippet-end:[cloudfront.java2.mod.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,20 +34,21 @@ public class ModifyDistribution {
 
  public static void main(String[] args) {
 
-     final String USAGE = "\n" +
+     final String usage = "\n" +
              "Usage:\n" +
              "    <id> \n\n" +
              "Where:\n" +
              "    id - the id value of the distribution. \n";
 
      if (args.length != 1) {
-         System.out.println(USAGE);
+         System.out.println(usage);
          System.exit(1);
      }
 
      String id = args[0];
      CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
              .region(Region.AWS_GLOBAL)
+             .credentialsProvider(ProfileCredentialsProvider.create())
              .build();
 
      modDistribution(cloudFrontClient, id);

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12,40 +11,34 @@
 */
 package com.example.dynamodb;
 
-
 // snippet-start:[dynamodb.java2.mapping.moditem.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import java.time.Instant;
 // snippet-end:[dynamodb.java2.mapping.moditem.import]
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
+ * Before running this code example, create an Amazon DynamoDB table named Customer with these columns:
  *   - id - the id of the record that is the key
  *   - custName - the customer name
  *   - email - the email value
  *   - registrationDate - an instant value when the item was added to the table
 
- *  Also, ensure that you have setup your development environment, including your credentials.
+ *  Also, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ *  For information, see this documentation topic:
  *
- * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class EnhancedModifyItem {
 
     public static void main(String[] args) {
-
-
         String usage = "Usage:\n" +
                 "    <key> <email> \n\n" +
                 "Where:\n" +
@@ -59,8 +52,10 @@ public class EnhancedModifyItem {
 
         String key = args[0];
         String email = args[1];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 
@@ -75,11 +70,10 @@ public class EnhancedModifyItem {
 
     // snippet-start:[dynamodb.java2.mapping.moditem.main]
     public static String modifyItem(DynamoDbEnhancedClient enhancedClient, String keyVal, String email) {
-        try {
-            //Create a DynamoDbTable object
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            //Create a KEY object
+        try {
+
+            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
                     .partitionValue(keyVal)
                     .build();
