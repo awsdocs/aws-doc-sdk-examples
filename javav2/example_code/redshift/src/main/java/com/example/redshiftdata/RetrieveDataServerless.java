@@ -32,37 +32,36 @@ import java.util.List;
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * In addition,  set up a serverless version by following this documentation topic:
+ *
+ *  https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-getting-started.html
  */
-public class RetrieveData {
+public class RetrieveDataServerless {
 
     public static void main(String[] args) {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "    RetrieveData <database> <dbUser> <sqlStatement> <clusterId> \n\n" +
+                "    RetrieveData <database> <sqlStatement>  \n\n" +
                 "Where:\n" +
-                "    database - The name of the database (for example, dev) \n" +
-                "    dbUser - The master user name \n" +
-                "    sqlStatement - The sql statement to use (for example, select * from information_schema.tables;) \n" +
-                "    clusterId - The id of the Redshift cluster (for example, redshift-cluster) \n" ;
+                "    database - The name of the database (for example, sample_data_dev). \n" +
+                "    sqlStatement - The sql statement to use. \n";
 
-          if (args.length != 4) {
-             System.out.println(usage);
-              System.exit(1);
-          }
+        if (args.length != 2) {
+            System.out.println(usage);
+             System.exit(1);
+        }
 
-        String database = args[0];
-        String dbUser = args[1];
-        String sqlStatement = args[2];
-        String clusterId = args[3];
-
+        String database = "sample_data_dev" ;
+        String sqlStatement = "Select * from tickit.sales" ;
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
                 .region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        String id = performSQLStatement(redshiftDataClient, database, dbUser, sqlStatement, clusterId);
+        String id = performSQLStatement(redshiftDataClient, database, sqlStatement);
         System.out.println("The identifier of the statement is "+id);
         checkStatement(redshiftDataClient,id );
         getResults(redshiftDataClient, id);
@@ -73,8 +72,8 @@ public class RetrieveData {
 
         try {
             DescribeStatementRequest statementRequest = DescribeStatementRequest.builder()
-                .id(sqlId)
-                .build() ;
+                    .id(sqlId)
+                    .build() ;
 
             // Wait until the sql statement processing is finished.
             String status;
@@ -87,7 +86,7 @@ public class RetrieveData {
                 if (status.compareTo("FINISHED") == 0) {
                     break;
                 }
-               Thread.sleep(1000);
+                Thread.sleep(1000);
             }
 
             System.out.println("The statement is finished!");
@@ -100,17 +99,13 @@ public class RetrieveData {
 
     public static String performSQLStatement(RedshiftDataClient redshiftDataClient,
                                              String database,
-                                             String dbUser,
-                                             String sqlStatement,
-                                             String clusterId) {
+                                             String sqlStatement) {
 
         try {
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
-                .clusterIdentifier(clusterId)
-                .database(database)
-                .dbUser(dbUser)
-                .sql(sqlStatement)
-                .build();
+                    .database(database)
+                    .sql(sqlStatement)
+                    .build();
 
             ExecuteStatementResponse response = redshiftDataClient.executeStatement(statementRequest);
             return response.id();
@@ -126,24 +121,22 @@ public class RetrieveData {
     public static void getResults(RedshiftDataClient redshiftDataClient, String statementId) {
 
         try {
+
             GetStatementResultRequest resultRequest = GetStatementResultRequest.builder()
                     .id(statementId)
                     .build();
 
             GetStatementResultResponse response = redshiftDataClient.getStatementResult(resultRequest);
-
-            // Iterate through the List element where each element is a List object.
             List<List<Field>> dataList = response.records();
-
-            // Print out the records.
             for (List list: dataList) {
+
                 for (Object myField:list) {
                     Field field = (Field) myField;
                     String value = field.stringValue();
                     if (value != null)
-                          System.out.println("The value of the field is " + value);
-                    }
+                        System.out.println("The value of the field is " + value);
                 }
+            }
 
         } catch (RedshiftDataException e) {
             System.err.println(e.getMessage());

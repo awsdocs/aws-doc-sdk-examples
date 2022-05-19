@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/05/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12,9 +11,13 @@
 */
 
 package com.example.redshiftdata;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.redshiftdata.model.*;
+import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementRequest;
 import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
+import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementResponse;
+import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -24,9 +27,9 @@ import java.util.UUID;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,18 +38,12 @@ public class InsertData {
     public static void main(String [] args){
 
         try {
-
             String clusterId = "redshift-cluster-1";
             String database = "dev";
             String dbUser = "awsuser";
 
             RedshiftDataClient redshiftDataClient = getClient();
             UUID uuid = UUID.randomUUID();
-            String id  = uuid.toString();
-
-            // Date conversion
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             String sDate1 = dtf.format(now);
@@ -57,7 +54,7 @@ public class InsertData {
             String body ="Aug is suppose to be mild";
             String author = "user";
 
-            // Inject an item into the system
+            // Inject an item into the system.
             String sqlStatement = "INSERT INTO blog (idblog, date, title, body, author) VALUES( '"+uuid+"' ,'"+sqlDate +"','"+title +"' , '"+body +"', '"+author +"');";
 
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
@@ -77,11 +74,12 @@ public class InsertData {
 
     }
 
-    private static  RedshiftDataClient getClient() {
+    private static RedshiftDataClient getClient() {
 
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         return redshiftDataClient;
