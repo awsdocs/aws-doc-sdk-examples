@@ -11,7 +11,7 @@
 
 package com.example.rekognition;
 
-// snippet-start:[rekognition.java2.match_faces_collection_id.import]
+// snippet-start:[rekognition.java2.match_faces_collection.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -20,7 +20,7 @@ import software.amazon.awssdk.services.rekognition.model.SearchFacesResponse;
 import software.amazon.awssdk.services.rekognition.model.FaceMatch;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 import java.util.List;
-// snippet-end:[rekognition.java2.match_faces_collection_id.import]
+// snippet-end:[rekognition.java2.match_faces_collection.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -58,7 +58,7 @@ public class SearchFaceMatchingIdCollection {
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.match_faces_collection_id.main]
+    // snippet-start:[rekognition.java2.match_faces_collection.main]
     public static void searchFacebyId(RekognitionClient rekClient,String collectionId, String faceId) {
 
         try {
@@ -70,8 +70,6 @@ public class SearchFaceMatchingIdCollection {
                     .build();
 
             SearchFacesResponse imageResponse = rekClient.searchFaces(searchFacesRequest) ;
-
-            // Display the results.
             System.out.println("Faces matching in the collection");
             List<FaceMatch> faceImageMatches = imageResponse.faceMatches();
             for (FaceMatch face: faceImageMatches) {
@@ -83,5 +81,5 @@ public class SearchFaceMatchingIdCollection {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.match_faces_collection_id.main]
+    // snippet-end:[rekognition.java2.match_faces_collection.main]
 }
