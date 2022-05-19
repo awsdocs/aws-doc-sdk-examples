@@ -2,6 +2,7 @@ import com.example.ses.ListIdentities;
 import com.example.ses.SendMessage;
 import com.example.ses.SendMessageAttachment;
 import org.junit.jupiter.api.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -31,9 +32,9 @@ public class SESTest {
     @BeforeAll
     public static void setUp() throws IOException, URISyntaxException {
 
-        Region region = Region.US_WEST_2;
         client = SesClient.builder()
-                .region(region)
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = SESTest.class.getClassLoader().getResourceAsStream("config.properties")) {
