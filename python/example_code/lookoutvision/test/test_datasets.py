@@ -112,3 +112,35 @@ def test_describe_dataset(make_stubber, error_code):
         with pytest.raises(ClientError) as exc_info:
             Datasets.describe_dataset(lookoutvision_client, project_name, dataset_type)
         assert exc_info.value.response['Error']['Code'] == error_code
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_update_dataset_entries(make_stubber, error_code):
+    lookoutvision_client = boto3.client('lookoutvision')
+    lookoutvision_stubber = make_stubber(lookoutvision_client)
+    project_name = 'test-project_name'
+    updates_file = 'test/test_manifests/updates.manifest'
+    dataset_type = 'train'
+    status_complete = 'UPDATE_COMPLETE'
+    status_running = 'UPDATE_IN_PROGRESS'
+    message = 'Test message'
+    changes = ""
+
+
+    with open(updates_file) as f:
+            changes = f.read()
+
+    lookoutvision_stubber.stub_update_dataset_entries(
+        project_name, dataset_type, changes, status_running,
+        error_code=error_code)
+    if error_code is None:
+        lookoutvision_stubber.stub_describe_dataset(
+            project_name, dataset_type, status_complete, message)
+
+    if error_code is None:
+        Datasets.update_dataset_entries(
+            lookoutvision_client, project_name,dataset_type, updates_file )
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            Datasets.update_dataset_entries(
+                lookoutvision_client, project_name, dataset_type,updates_file )
+        assert exc_info.value.response['Error']['Code'] == error_code
