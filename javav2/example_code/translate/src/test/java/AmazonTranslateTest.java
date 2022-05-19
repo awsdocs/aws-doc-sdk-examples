@@ -5,6 +5,8 @@ import com.example.translate.TranslateText;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import java.io.*;
@@ -28,6 +30,7 @@ public class AmazonTranslateTest {
        region = Region.US_WEST_2;
        translateClient = TranslateClient.builder()
                 .region(region)
+               .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = AmazonTranslateTest.class.getClassLoader().getResourceAsStream("config.properties")) {
