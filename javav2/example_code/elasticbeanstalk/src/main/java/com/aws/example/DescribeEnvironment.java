@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elastic Beanstalk ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.aws.example;
 
 //snippet-start:[eb.java2.describe_env.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import software.amazon.awssdk.services.elasticbeanstalk.model.DescribeEnvironmentsRequest;
@@ -50,16 +50,16 @@ public class DescribeEnvironment {
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         describeEnv(beanstalkClient, appName);
-
     }
 
     //snippet-start:[eb.java2.describe_env.main]
     public static void describeEnv(ElasticBeanstalkClient beanstalkClient, String appName) {
-        try {
 
+        try {
             DescribeEnvironmentsRequest request = DescribeEnvironmentsRequest.builder()
                 .environmentNames("Joblisting-env")
                 .build();

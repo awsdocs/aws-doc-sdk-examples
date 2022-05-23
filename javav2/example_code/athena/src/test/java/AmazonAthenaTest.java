@@ -1,5 +1,6 @@
 import aws.example.athena.*;
 import org.junit.jupiter.api.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 
@@ -19,6 +20,7 @@ public class AmazonAthenaTest {
     public static void setUp() throws IOException {
         athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = AmazonAthenaTest.class.getClassLoader().getResourceAsStream("config.properties")) {

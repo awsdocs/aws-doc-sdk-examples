@@ -4,8 +4,7 @@
 // snippet-keyword:[AWS Security Token Service (AWS STS)]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/29/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.sts;
 
 // snippet-start:[sts.java2.assume_role.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.AssumeRoleRequest;
@@ -47,26 +47,26 @@ import java.util.Locale;
  *
  *  For more information, see "Editing the Trust Relationship for an Existing Role" in the AWS Directory Service guide.
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ *  Also, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ *  For information, see this documentation topic:
  *
- * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class AssumeRole {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <roleArn> <roleSessionName> \n\n" +
                 "Where:\n" +
-                "    roleArn - the Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role). \n"+
-                "    roleSessionName - an identifier for the assumed role session (for example, mysession). \n";
+                "    roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role). \n"+
+                "    roleSessionName - An identifier for the assumed role session (for example, mysession). \n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -76,6 +76,7 @@ public class AssumeRole {
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         assumeGivenRole(stsClient, roleArn, roleSessionName);
@@ -86,7 +87,7 @@ public class AssumeRole {
     public static void assumeGivenRole(StsClient stsClient, String roleArn, String roleSessionName) {
 
        try {
-        AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
+           AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
                 .roleArn(roleArn)
                 .roleSessionName(roleSessionName)
                 .build();
@@ -94,11 +95,11 @@ public class AssumeRole {
            AssumeRoleResponse roleResponse = stsClient.assumeRole(roleRequest);
            Credentials myCreds = roleResponse.credentials();
 
-           // Display the time when the temp creds expire
+           // Display the time when the temp creds expire.
            Instant exTime = myCreds.expiration();
            String tokenInfo = myCreds.sessionToken();
 
-           // Convert the Instant to readable date
+           // Convert the Instant to readable date.
            DateTimeFormatter formatter =
                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
                            .withLocale( Locale.US)

@@ -1,4 +1,5 @@
 import com.example.rds.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.rds.RdsClient;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,6 +27,7 @@ public class AmazonRDSTest {
         region = Region.US_WEST_2;
         rdsClient = RdsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = AmazonRDSTest.class.getClassLoader().getResourceAsStream("config.properties")) {

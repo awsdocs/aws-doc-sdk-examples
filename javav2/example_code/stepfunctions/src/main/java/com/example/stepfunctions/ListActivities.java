@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.stepfunctions;
 
 // snippet-start:[stepfunctions.java2.list_activities.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.ListActivitiesRequest;
@@ -24,9 +24,9 @@ import java.util.List;
 // snippet-end:[stepfunctions.java2.list_activities.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,6 +37,7 @@ public class ListActivities {
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllActivites(sfnClient);

@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.s3_object_upload.metadata.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -27,9 +28,9 @@ import java.util.Map;
 // snippet-end:[s3.java2.s3_object_upload.metadata.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -41,9 +42,9 @@ public class PutObjectMetadata {
                 "Usage:\n" +
                 "  <bucketName> <objectKey> <objectPath> \n\n" +
                 "Where:\n" +
-                "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
-                "  objectKey - the object to upload (for example, book.pdf).\n" +
-                "  objectPath - the path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
+                "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
+                "  objectKey - The object to upload (for example, book.pdf).\n" +
+                "  objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
 
          if (args.length != 3) {
              System.out.println(USAGE);
@@ -53,13 +54,14 @@ public class PutObjectMetadata {
         String bucketName = args[0];
         String objectKey = args[1];
         String objectPath = args[2];
-
         System.out.println("Putting object " + objectKey +" into bucket "+bucketName);
         System.out.println("  in bucket: " + bucketName);
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         String result = putS3Object(s3, bucketName, objectKey, objectPath);

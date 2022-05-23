@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.mediastore;
 
 //snippet-start:[mediastore.java2.delete_object.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastore.model.DescribeContainerRequest;
@@ -26,9 +26,9 @@ import java.net.URISyntaxException;
 //snippet-end:[mediastore.java2.delete_object.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,15 +36,15 @@ public class DeleteObject {
 
     public static void main(String[] args) throws URISyntaxException {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <completePath> <containerName>\n\n" +
                 "Where:\n" +
-                "   completePath - the path (including the container) of the item to delete.\n"+
-                "   containerName - the name of the container.\n";
+                "   completePath - The path (including the container) of the item to delete.\n"+
+                "   containerName - The name of the container.\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -57,6 +57,7 @@ public class DeleteObject {
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
                 .endpointOverride(uri)
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         deleteMediaObject(mediaStoreData, completePath);

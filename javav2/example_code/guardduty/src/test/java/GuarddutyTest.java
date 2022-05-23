@@ -24,6 +24,7 @@ public class GuarddutyTest {
         Region region = Region.US_EAST_1;
         guardDutyClient = GuardDutyClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = GuarddutyTest.class.getClassLoader().getResourceAsStream("config.properties")) {

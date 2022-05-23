@@ -4,8 +4,7 @@
 // snippet-keyword:[Amazon Simple Email Service]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,6 +16,7 @@ package com.example.ses;
 
 // snippet-start:[ses.java2.sendmessageattachment.import]
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import javax.activation.DataHandler;
@@ -42,9 +42,9 @@ import software.amazon.awssdk.services.ses.model.SesException;
 // snippet-end:[ses.java2.sendmessageattachment.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -53,25 +53,24 @@ public class SendMessageAttachment {
 
     public static void main(String[] args) throws IOException {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    SendMessage <sender> <recipient> <subject> <fileLocation> \n\n" +
+                "    <sender> <recipient> <subject> <fileLocation> \n\n" +
                 "Where:\n" +
-                "    sender - an email address that represents the sender. \n"+
-                "    recipient -  an email address that represents the recipient. \n"+
-                "    subject - the  subject line. \n" +
-                "    fileLocation - the location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). \n" ;
+                "    sender - An email address that represents the sender. \n"+
+                "    recipient -  An email address that represents the recipient. \n"+
+                "    subject - The  subject line. \n" +
+                "    fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). \n" ;
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
-        /* Read the name from command args*/
         String sender = args[0];
         String recipient = args[1];
         String subject = args[2];
-        String fileLocation = args[3]; // select an .XLS file
+        String fileLocation = args[3];
 
         // The email body for recipients with non-HTML email clients.
         String bodyText = "Hello,\r\n" + "Please see the attached file for a list "
@@ -83,8 +82,8 @@ public class SendMessageAttachment {
 
         Region region = Region.US_WEST_2;
         SesClient client = SesClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try {
@@ -111,45 +110,45 @@ public class SendMessageAttachment {
 
        Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object
+        // Create a new MimeMessage object.
         MimeMessage message = new MimeMessage(session);
 
-        // Add subject, from and to lines
+        // Add subject, from and to lines.
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
 
-        // Create a multipart/alternative child container
+        // Create a multipart/alternative child container.
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts
+        // Create a wrapper for the HTML and text parts.
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part
+        // Define the text part.
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part
+        // Define the HTML part.
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container
+        // Add the text and HTML parts to the child container.
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object
+        // Add the child container to the wrapper object.
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container
+        // Create a multipart/mixed parent container.
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message
+        // Add the parent container to the message.
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message
+        // Add the multipart/alternative part to the message.
         msg.addBodyPart(wrap);
 
-        // Define the attachment
+        // Define the attachment.
         MimeBodyPart att = new MimeBodyPart();
         DataSource fds = new ByteArrayDataSource(fileContent, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
@@ -188,7 +187,7 @@ public class SendMessageAttachment {
             System.exit(1);
         }
         System.out.println("Email sent with attachment");
-        // snippet-end:[ses.java2.sendmessageattachment.main]
-    }
+     }
+    // snippet-end:[ses.java2.sendmessageattachment.main]
 }
 // snippet-end:[ses.java2.sendmessageattachment.complete]

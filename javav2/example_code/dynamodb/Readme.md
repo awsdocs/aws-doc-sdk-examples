@@ -13,6 +13,8 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 
 ## Code examples
 
+The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+
 ### Single action
 
 You will find these examples that use the **DynamoDbClient** object: 
@@ -35,17 +37,14 @@ You will find these examples that use the **DynamoDbEnhancedClient** object:
 - [Modifying an item from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedModifyItem.java) (UpdateItem command)
 - [Putting an item into an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedPutItem.java) (PutItem command)
 - [Quering items from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedQueryRecords.java) (Query command)
-- [Querying an Amazon DynamoDB table with a filter by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedQueryRecordsWithFilter.java) (Query command)
-- [Querying an Amazon DynamoDB table with a sort key by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedQueryRecordsWithSortKey.java) (Query command)
 - [Retrieving an item from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/GetItem.java) (GetItem command)
 - [Scanning items from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedScanRecords.java) (Scan command)
-
 
 ### Scenario
 
 - [Performing various Amazon DynamoDB operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Scenario.java) (Multiple commands)
-
 - [Performing various Amazon DynamoDB operations using PartiQL](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ScenarioPartiQ.java) (Multiple commands)
+
 ### Cross-service
 
 - [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project) 
