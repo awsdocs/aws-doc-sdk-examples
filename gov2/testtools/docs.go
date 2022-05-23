@@ -75,6 +75,14 @@
 // returned from the code under test match up with the expected errors, and running
 // exit checks to verify all stubs were called.
 //
+// **Scenarios**
+//
+// The scenarios section of the package provides a set of helper functions that you
+// can use to run scenario tests. Scenarios typically string together several
+// actions in a narrative format. The scenario test functions let you define
+// the expected actions of your scenario as a list of stubs. Your test function is then
+// called first with no errors and subsequently with each stub set to return an error.
+//
 // **Mocks**
 //
 // The mocks section of the package provides mocks of components that are used in
