@@ -51,6 +51,9 @@
             </info>
             <para>The following code examples show how to perform actions and implement common scenarios by using
                 the {{$sdk_examples.SdkEntity.Long}} with &AWS; services.</para>
+            <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
+            <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
+                calling multiple functions within the same service.</para>
             <para role="topiclist-abbrev">Services</para>
             {{- end}}
             {{- range $service, $svc_examples := $sdk_examples.ApiExamples}}
@@ -63,7 +66,10 @@
                     </abstract>
                 </info>
                 <para>The following code examples show you how to perform actions and implement common scenarios by using
-                    the {{$sdk_examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+                    the {{$sdk_examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Long}}.</para>
+                <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
+                <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task
+                    by calling multiple functions within the same service.</para>
                 <para role="topiclist-abbrev"/>
                 {{- range $category := $svc_examples.CategoryNamesSorted}}
                 {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}

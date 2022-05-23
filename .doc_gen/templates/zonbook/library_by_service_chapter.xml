@@ -14,7 +14,7 @@
         <title id="{{$chapter_id}}.title">Code examples by service using &AWS; SDKs</title>
         <titleabbrev id="{{$chapter_id}}.titleabbrev">Code examples by service</titleabbrev>
         <abstract>
-            <para>Code examples that show how to use &AWS; services with &AWS; SDKs.</para>
+            <para>Code examples that show how to use &AWS-services; with &AWS; SDKs.</para>
         </abstract>
     </info>
     <para>The following code examples show how to use &AWS; services with an &AWS; software development kit (SDK).</para>
@@ -32,7 +32,7 @@
                     <para>Code examples that show how to use {{$service.ServiceEntity.Short}} with an &AWS; SDK.</para>
                 </abstract>
             </info>
-            <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with an &AWS; software development kit (SDK).</para>
+            <para>The following code examples show how to use {{$service.ServiceEntity.Long}} with an &AWS; software development kit (SDK).</para>
             <para role="contents-abbrev">Code examples</para>
             {{- range $category := $service.CategoryNamesSorted}}
             {{- with $cat_examples := index $service.CategorizedExampleSets $category}}
@@ -44,7 +44,15 @@
                         <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with &AWS; SDKs.</para>
                     </abstract>
                 </info>
-                <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with &AWS; SDKs.</para>
+                {{- $category_desc := ""}}
+                {{- if eq $cat_examples.CategoryName "Cross-service examples"}}
+                    {{- $category_desc = " Each example contains a sample application that works across multiple &AWS-services;."}}
+                {{- else if eq $cat_examples.CategoryName "Scenarios"}}
+                    {{- $category_desc = " Each example shows you how to accomplish a specific task by calling multiple functions within the same service."}}
+                {{- else if eq $cat_examples.CategoryName "Actions"}}
+                    {{- $category_desc = " Each example calls an individual service function."}}
+                {{- end}}
+                <para>The following code examples show how to use {{$service.ServiceEntity.Long}} with &AWS; SDKs.{{$category_desc}}</para>
                 <para role="topiclist-abbrev">Examples</para>
                 {{- range $cat_examples.Examples}}
                 {{- $addSvc := ""}}
