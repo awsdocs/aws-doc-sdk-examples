@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.sqs;
 
 // snippet-start:[sqs.java2.sqs_sse_example.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
@@ -25,9 +25,9 @@ import java.util.HashMap;
 // snippet-end:[sqs.java2.sqs_sse_example.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,15 +35,15 @@ public class SSEncryptionExample {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <queueName> <kmsMasterKeyAlias> \n\n" +
                 "Where:\n" +
-                "   queueName - the name of the queue.\n\n" +
-                "   kmsMasterKeyAlias - the alias of the AWS managed CMK for Amazon SQS. ";
+                "   queueName - The name of the queue.\n\n" +
+                "   kmsMasterKeyAlias - The alias of the AWS managed CMK for Amazon SQS. ";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -51,6 +51,7 @@ public class SSEncryptionExample {
         String kmsMasterKeyAlias = args[1];
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         setEncryption(sqsClient, queueName, kmsMasterKeyAlias);

@@ -178,3 +178,17 @@ class LookoutVisionStubber(ExampleStubber):
             'ProjectDescription': {'Datasets': datasets}}
         self._stub_bifurcator(
             'describe_project', expected_params, response, error_code=error_code)
+    
+
+    def stub_update_dataset_entries(
+            self, project_name, dataset_type, changes, status,  
+            error_code=None):
+        expected_params = {
+            'ProjectName': project_name, 
+            'DatasetType': dataset_type,
+            'Changes': changes
+            }
+        response = {'Status' : status }
+
+        self._stub_bifurcator(
+            'update_dataset_entries', expected_params, response, error_code=error_code)

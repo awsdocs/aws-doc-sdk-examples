@@ -1267,6 +1267,88 @@ dynamodb_Scan:
                 - dynamodb.JavaScript.table.scan
   services:
     dynamodb: {Scan}
+dynamodb_ExecuteStatement:
+  title: Run a PartiQL statement on a &DDB; table using an &AWS; SDK
+  title_abbrev: Run a PartiQL statement
+  synopsis: run a PartiQL statement on a &DDB; table.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.createclientv3
+            - description: Create the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.createdocclientv3
+            - description: Create an item using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.putItemV3
+            - description: Get an item using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.getItemV3
+            - description: Update an item using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.updateItemV3
+            - description: Delete an item using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.deleteItemV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.dynamodb.helper.PartiQLWrapper.class_decl
+                - python.example_code.dynamodb.ExecuteStatement
+  services:
+    dynamodb: {ExecuteStatement}
+dynamodb_BatchExecuteStatement:
+  title: Run batches of PartiQL statements on a &DDB; table using an &AWS; SDK
+  title_abbrev: Run batches of PartiQL statements
+  synopsis: run batches of PartiQL statements on a &DDB; table.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.createclientv3
+            - description: Create the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.createdocclientv3
+            - description: Create a batch of items using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.putItemsV3
+            - description: Get a batch of items using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.getItemsV3
+            - description: Update a batch of items using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.updateItemsV3
+            - description: Delete a batch of items using PartiQL.
+              snippet_tags:
+                - dynamodb.JavaScript.partiQL.deleteItemsV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.dynamodb.helper.PartiQLBatchWrapper.class_decl
+                - python.example_code.dynamodb.BatchExecuteStatement
+  services:
+    dynamodb: {BatchExecuteStatement}
 dynamodb_Usage_DaxDemo:
   title: Accelerate &DDB; reads with &DAX; using an &AWS; SDK
   title_abbrev: Accelerate reads with &DAX;
@@ -1426,4 +1508,92 @@ dynamodb_Scenario_GettingStartedMovies:
   services:
     dynamodb: {DescribeTable, CreateTable, BatchWriteItem, PutItem, GetItem, UpdateItem,
                DeleteItem, Query, Scan, DeleteTable}
-    
+dynamodb_Scenario_PartiQLSingle:
+  title: Query a &DDB; table using PartiQL and an &AWS; SDK
+  title_abbrev: Query a table using PartiQL
+  synopsis: query a &DDB; table using PartiQL.
+  category: Scenarios
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.scenario.partiql.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.scenario.partiql.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.basics.createclientv3
+            - description: Create the document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.createdocclientv3
+            - description: Query single items.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.partiQL_basics
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/dynamodb
+          excerpts:
+            - description: Create a class that can run PartiQL statements.
+              snippet_tags:
+                - python.example_code.dynamodb.helper.PartiQLWrapper.imports
+                - python.example_code.dynamodb.helper.PartiQLWrapper.class_full
+            - description: Run a scenario that creates a table and runs PartiQL queries.
+              snippet_tags:
+                - python.example_code.dynamodb.Scenario_PartiQLSingle
+  services:
+    dynamodb: {ExecuteStatement}
+dynamodb_Scenario_PartiQLBatch:
+  title: Query a &DDB; table by using batches of PartiQL statements and an &AWS; SDK
+  title_abbrev: Query a table by using batches of PartiQL statements
+  synopsis: query a &DDB; table by using batches of PartiQL statements.
+  category: Scenarios
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.basics.createclientv3
+            - description: Create the document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.partiQL.createdocclientv3
+            - description: Query items by batch.
+              snippet_tags:
+                - javascript.dynamodb_scenarios.partiQL_batch_basics
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/dynamodb
+          excerpts:
+            - description: Create a class that can run batches of PartiQL statements.
+              snippet_tags:
+                - python.example_code.dynamodb.helper.PartiQLBatchWrapper.imports
+                - python.example_code.dynamodb.helper.PartiQLBatchWrapper.class_full
+            - description: Run a scenario that creates a table and runs PartiQL queries
+                  in batches.
+              snippet_tags:
+                - python.example_code.dynamodb.Scenario_PartiQLBatch
+  services:
+    dynamodb: {BatchExecuteStatement}

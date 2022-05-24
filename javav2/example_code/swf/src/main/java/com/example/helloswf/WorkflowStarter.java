@@ -3,8 +3,7 @@
 //snippet-service:[Amazon Simple Workflow Service]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 
 package com.example.helloswf;
 // snippet-start:[swf.java2.start_workflow.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.WorkflowType;
@@ -23,12 +23,13 @@ import software.amazon.awssdk.services.swf.model.StartWorkflowExecutionRequest;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class WorkflowStarter {
 
     public static final String WORKFLOW_EXECUTION = "HelloWorldWorkflowExecution";
@@ -55,9 +56,9 @@ public class WorkflowStarter {
         String workflowVersion = args[3];
 
         Region region = Region.US_EAST_1;
-        SwfClient swf = SwfClient
-                .builder()
+        SwfClient swf = SwfClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         System.out.println("Starting the workflow execution '" + WORKFLOW_EXECUTION +

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.lex;
 
 // snippet-start:[lex.java2.get_slot_types.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lexmodelbuilding.LexModelBuildingClient;
 import software.amazon.awssdk.services.lexmodelbuilding.model.LexModelBuildingException;
@@ -23,9 +23,9 @@ import java.util.List;
 // snippet-end:[lex.java2.get_slot_types.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,6 +36,7 @@ public class GetSlotTypes {
         Region region = Region.US_EAST_1;
         LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getSlotsInfo(lexClient);
@@ -46,7 +47,6 @@ public class GetSlotTypes {
     public static void getSlotsInfo(LexModelBuildingClient lexClient) {
 
         try {
-
             GetSlotTypesResponse slotTypesResponse = lexClient.getSlotTypes();
             List<SlotTypeMetadata> slots = slotTypesResponse.slotTypes();
             for (SlotTypeMetadata slot: slots) {

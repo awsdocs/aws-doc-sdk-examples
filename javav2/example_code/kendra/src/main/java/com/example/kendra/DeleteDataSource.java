@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kendra]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,20 +13,19 @@
 package com.example.kendra;
 
 // snippet-start:[kendra.java2.delete.datasource.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kendra.KendraClient;
 import software.amazon.awssdk.services.kendra.model.DeleteDataSourceRequest;
 import software.amazon.awssdk.services.kendra.model.KendraException;
 // snippet-end:[kendra.java2.delete.datasource.import]
 
-
 /**
- * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
- *
  */
 public class DeleteDataSource {
 
@@ -50,6 +48,7 @@ public class DeleteDataSource {
 
         KendraClient kendra = KendraClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
         deleteSpecificDataSource(kendra, indexId, dataSourceId);
     }

@@ -3,8 +3,8 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -14,7 +14,7 @@
 package aws.example.athena;
 
 //snippet-start:[athena.java2.AthenaClientFactory.client.import]
-import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.AthenaClientBuilder;
@@ -25,7 +25,7 @@ public class AthenaClientFactory {
 
     private final AthenaClientBuilder builder = AthenaClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(InstanceProfileCredentialsProvider.create());
+            .credentialsProvider(ProfileCredentialsProvider.create());
 
     public AthenaClient createClient() {
         return builder.build();

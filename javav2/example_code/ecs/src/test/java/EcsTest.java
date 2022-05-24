@@ -32,11 +32,11 @@ public class EcsTest {
     public static void setUp() throws IOException {
 
         // Run tests on Real AWS Resources
-        region = Region.US_EAST_1;
+       region = Region.US_EAST_1;
         ecsClient = EcsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
-
 
         try (InputStream input = EcsTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 

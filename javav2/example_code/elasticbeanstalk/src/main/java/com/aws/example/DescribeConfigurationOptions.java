@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elastic Beanstalk ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.aws.example;
 
 //snippet-start:[eb.java2.config.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import software.amazon.awssdk.services.elasticbeanstalk.model.OptionSpecification;
@@ -40,6 +40,7 @@ public class DescribeConfigurationOptions {
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getOptions(beanstalkClient);
@@ -59,15 +60,15 @@ public class DescribeConfigurationOptions {
                   .options(spec)
                 .build();
 
-            DescribeConfigurationOptionsResponse response =  beanstalkClient.describeConfigurationOptions(request);
-            List<ConfigurationOptionDescription> options =  response.options();
+            DescribeConfigurationOptionsResponse response = beanstalkClient.describeConfigurationOptions(request);
+            List<ConfigurationOptionDescription> options = response.options();
             for (ConfigurationOptionDescription option: options) {
 
              System.out.println("The namespace is "+option.namespace());
              String optionName = option.name();
              System.out.println("The option name is "+optionName);
              if (optionName.compareTo("InstanceTypes") == 0) {
-                 List<String> valueOptions =  option.valueOptions();
+                 List<String> valueOptions = option.valueOptions();
                  for (String value : valueOptions) {
                      System.out.println("The value is "+value);
                  }
