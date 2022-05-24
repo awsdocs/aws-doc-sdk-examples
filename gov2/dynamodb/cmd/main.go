@@ -19,13 +19,13 @@ import (
 // main loads default AWS credentials and configuration from the ~/.aws folder and runs
 // a scenario specified by the `-scenario` flag.
 //
-// `-scenario` can be one of:
+// `-scenario` can be one of the following:
 //
-// * `movieTable`    - 	runs the interactive movie table scenario that shows you how to use
+// * `movieTable`    -  Runs the interactive movie table scenario that shows you how to use
 //						Amazon DynamoDB API commands to work with DynamoDB tables and items.
-// * `partiQLSingle` - 	runs a scenario that shows you how to use PartiQL statements
+// * `partiQLSingle` - 	Runs a scenario that shows you how to use PartiQL statements
 //						to work with DynamoDB tables and items.
-// * `partiQLBatch`  - 	runs a scenario that shows you how to use batches of PartiQL
+// * `partiQLBatch`  - 	Runs a scenario that shows you how to use batches of PartiQL
 //						statements to work with DynamoDB tables and items.
 func main() {
 	scenarioMap := map[string]func(sdkConfig aws.Config){

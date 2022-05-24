@@ -18,7 +18,7 @@ import (
 
 // TestRunPartiQLSingleScenario runs the scenario multiple times. The first time, it
 // runs with no errors. In subsequent runs, it specifies that each stub in the sequence
-// should raise an error and verifies the results.
+// should raise an error, and it verifies the results.
 func TestRunPartiQLSingleScenario(t *testing.T) {
 	scenTest := PartiQLSingleScenarioTest{}
 	testtools.RunScenarioTests(&scenTest, t)
@@ -69,7 +69,7 @@ func (scenTest *PartiQLSingleScenarioTest) SetupDataAndStubs() []testtools.Stub 
 	return stubList
 }
 
-// RunSubTest performs a single test run with a set of stubs set up to run with
+// RunSubTest performs a single test run with a set of stubs that are set up to run with
 // or without errors.
 func (scenTest *PartiQLSingleScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	RunPartiQLSingleScenario(*stubber.SdkConfig, scenTest.TableName)

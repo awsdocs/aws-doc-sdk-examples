@@ -27,7 +27,7 @@ type IScenarioTest interface {
 
 // RunScenarioTests runs the scenario multiple times. The first time, it
 // runs with no errors. In subsequent runs, it specifies that each stub in the sequence
-// should raise an error and verifies the results.
+// should raise an error, and it verifies the results.
 func RunScenarioTests(scenarioTest IScenarioTest, t *testing.T) {
 	done := false
 	stubIndex := -1
@@ -48,8 +48,8 @@ func RunScenarioTests(scenarioTest IScenarioTest, t *testing.T) {
 	}
 }
 
-// SubTestRunScenario performs a single test run with a set of stubs set up to run with
-// or without errors.
+// SubTestRunScenario performs a single test run with a set of stubs that are set up to
+// run with or without errors.
 func SubTestRunScenario(scenarioTest IScenarioTest, stubs []Stub, stubErr *StubError, t *testing.T) {
 	stubber := NewStubber()
 	for _, stub := range stubs {

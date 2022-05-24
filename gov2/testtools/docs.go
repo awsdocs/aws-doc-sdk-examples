@@ -80,8 +80,8 @@
 // The scenarios section of the package provides a set of helper functions that you
 // can use to run scenario tests. Scenarios typically string together several
 // actions in a narrative format. The scenario test functions let you define
-// the expected actions of your scenario as a list of stubs. Your test function is then
-// called first with no errors and subsequently with each stub set to return an error.
+// the expected actions of your scenario as a list of stubs. Then, your test function
+// is called first with no errors, and subsequently with each stub set to return an error.
 //
 // **Mocks**
 //

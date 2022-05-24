@@ -23,7 +23,7 @@ type PartiQLBatchScenarioTest struct {
 
 // TestRunPartiQLBatchScenario runs the scenario multiple times. The first time, it
 // runs with no errors. In subsequent runs, it specifies that each stub in the sequence
-// should raise an error and verifies the results.
+// should raise an error, and it verifies the results.
 func TestRunPartiQLBatchScenario(t *testing.T) {
 	scenTest := PartiQLBatchScenarioTest{}
 	testtools.RunScenarioTests(&scenTest, t)
@@ -96,7 +96,7 @@ func (scenTest *PartiQLBatchScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	return stubList
 }
 
-// RunSubTest performs a batch test run with a set of stubs set up to run with
+// RunSubTest performs a batch test run with a set of stubs that are set up to run with
 // or without errors.
 func (scenTest *PartiQLBatchScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	RunPartiQLBatchScenario(*stubber.SdkConfig, scenTest.TableName)
