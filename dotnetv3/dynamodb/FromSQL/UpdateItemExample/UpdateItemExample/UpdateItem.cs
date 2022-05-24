@@ -10,7 +10,7 @@ namespace UpdateItem
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.Model;
 
-    // snippet-start:[dynamodb.dotnet35.UpdateItemExample]
+    // snippet-start:[dynamodb.dotnetv3.UpdateItemExample]
 
     /// <summary>
     /// Shows how to update an item in an Amazon DynamoDB table. This example
@@ -143,5 +143,5 @@ namespace UpdateItem
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.UpdateItemExample]
+    // snippet-end:[dynamodb.dotnetv3.UpdateItemExample]
 }

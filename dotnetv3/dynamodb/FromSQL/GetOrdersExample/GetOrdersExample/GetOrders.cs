@@ -11,7 +11,7 @@ namespace GetOrdersExample
   using Amazon.DynamoDBv2;
   using Amazon.DynamoDBv2.Model;
 
-  // snippet-start:[dynamodb.dotnet35.GetOrdersForProduct]
+  // snippet-start:[dynamodb.dotnetv3.GetOrdersForProduct]
 
   /// <summary>
   /// Shows how to scan an Amazon DynamoDB table looking for information.
@@ -136,5 +136,5 @@ namespace GetOrdersExample
     }
   }
 
-  // snippet-end:[dynamodb.dotnet35.GetOrdersForProduct]
+  // snippet-end:[dynamodb.dotnetv3.GetOrdersForProduct]
 }

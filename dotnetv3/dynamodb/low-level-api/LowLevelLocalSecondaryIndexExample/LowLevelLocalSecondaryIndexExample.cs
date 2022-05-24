@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[dynamodb.dotnet35.LowLevelLocalSecondaryIndexExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelLocalSecondaryIndexExample]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace LowLevelLocalSecondaryIndexExample
 {
     public class LowLevelLocalSecondaryIndexExample
     {
-        private static string _tableName = "CustomerOrders";
+        private static readonly string _tableName = "CustomerOrders";
 
         public static async Task<bool> CreateTable(AmazonDynamoDBClient client)
         {
@@ -63,7 +63,7 @@ namespace LowLevelLocalSecondaryIndexExample
             var localSecondaryIndexes = new List<LocalSecondaryIndex>();
 
             // OrderCreationDateIndex
-            LocalSecondaryIndex orderCreationDateIndex = new LocalSecondaryIndex()
+            var orderCreationDateIndex = new LocalSecondaryIndex()
             {
                 IndexName = "OrderCreationDateIndex"
             };
@@ -100,7 +100,7 @@ namespace LowLevelLocalSecondaryIndexExample
             localSecondaryIndexes.Add(orderCreationDateIndex);
 
             // IsOpenIndex
-            LocalSecondaryIndex isOpenIndex
+            var isOpenIndex
                 = new LocalSecondaryIndex()
                 {
                     IndexName = "IsOpenIndex"
@@ -143,7 +143,7 @@ namespace LowLevelLocalSecondaryIndexExample
             Console.WriteLine("\n***********************************************************\n");
             Console.WriteLine("Querying table " + _tableName + "...");
 
-            QueryRequest queryRequest = new QueryRequest()
+            var queryRequest = new QueryRequest()
             {
                 TableName = _tableName,
                 ConsistentRead = true,
@@ -152,7 +152,7 @@ namespace LowLevelLocalSecondaryIndexExample
             };
 
             String keyConditionExpression = "CustomerId = :v_customerId";
-            Dictionary<string, AttributeValue> expressionAttributeValues = new Dictionary<string, AttributeValue> {
+            var expressionAttributeValues = new Dictionary<string, AttributeValue> {
                 {":v_customerId", new AttributeValue {
                     S = "bob@example.com"
                 }}
@@ -240,92 +240,46 @@ namespace LowLevelLocalSecondaryIndexExample
         {
             Console.WriteLine("Loading data into table " + _tableName + "...");
 
-            Dictionary<string, AttributeValue> item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
+            var item = new Dictionary<string, AttributeValue>
             {
-                S = "alice@example.com"
-            };
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "alice@example.com"
+                },
 
-            item["OrderId"] = new AttributeValue
-            {
-                N = "1"
-            };
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "1"
+                },
 
-            item["IsOpen"] = new AttributeValue
-            {
-                N = "1"
-            };
+                ["IsOpen"] = new AttributeValue
+                {
+                    N = "1"
+                },
 
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130101"
-            };
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130101"
+                },
 
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Book"
-            };
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Book"
+                },
 
-            item["ProductName"] = new AttributeValue
-            {
-                S = "The Great Outdoors"
-            };
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "The Great Outdoors"
+                },
 
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "PACKING ITEMS"
-            };
-
-            /* no ShipmentTrackingId attribute */
-            PutItemRequest putItemRequest = new PutItemRequest
-            {
-                TableName = _tableName,
-                Item = item,
-                ReturnItemCollectionMetrics = "SIZE"
-            };
-
-            await client.PutItemAsync(putItemRequest);
-
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
-            {
-                S = "alice@example.com"
-            };
-
-            item["OrderId"] = new AttributeValue
-            {
-                N = "2"
-            };
-
-            item["IsOpen"] = new AttributeValue
-            {
-                N = "1"
-            };
-
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130221"
-            };
-
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Bike"
-            };
-
-            item["ProductName"] = new AttributeValue
-            {
-                S = "Super Mountain"
-            };
-
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "ORDER RECEIVED"
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "PACKING ITEMS"
+                }
             };
 
             /* no ShipmentTrackingId attribute */
-            putItemRequest = new PutItemRequest
+            var putItemRequest = new PutItemRequest
             {
                 TableName = _tableName,
                 Item = item,
@@ -334,223 +288,42 @@ namespace LowLevelLocalSecondaryIndexExample
 
             await client.PutItemAsync(putItemRequest);
 
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
+            item = new Dictionary<string, AttributeValue>
             {
-                S = "alice@example.com"
-            };
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "alice@example.com"
+                },
 
-            item["OrderId"] = new AttributeValue
-            {
-                N = "3"
-            };
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "2"
+                },
 
-            /* no IsOpen attribute */
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130304"
-            };
+                ["IsOpen"] = new AttributeValue
+                {
+                    N = "1"
+                },
 
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Music"
-            };
-            item["ProductName"] = new AttributeValue
-            {
-                S = "A Quiet Interlude"
-            };
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "IN TRANSIT"
-            };
-            item["ShipmentTrackingId"] = new AttributeValue
-            {
-                S = "176493"
-            };
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130221"
+                },
 
-            putItemRequest = new PutItemRequest
-            {
-                TableName = _tableName,
-                Item = item,
-                ReturnItemCollectionMetrics = "SIZE"
-            };
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Bike"
+                },
 
-            await client.PutItemAsync(putItemRequest);
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "Super Mountain"
+                },
 
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
-            {
-                S = "bob@example.com"
-            };
-
-            item["OrderId"] = new AttributeValue
-            {
-                N = "1"
-            };
-
-            /* no IsOpen attribute */
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130111"
-            };
-
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Movie"
-            };
-
-            item["ProductName"] = new AttributeValue
-            {
-                S = "Calm Before The Storm"
-            };
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "SHIPPING DELAY"
-            };
-
-            item["ShipmentTrackingId"] = new AttributeValue
-            {
-                S = "859323"
-            };
-
-            putItemRequest = new PutItemRequest
-            {
-                TableName = _tableName,
-                Item = item,
-                ReturnItemCollectionMetrics = "SIZE"
-            };
-
-            await client.PutItemAsync(putItemRequest);
-
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
-            {
-                S = "bob@example.com"
-            };
-
-            item["OrderId"] = new AttributeValue
-            {
-                N = "2"
-            };
-
-            /* no IsOpen attribute */
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130124"
-            };
-
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Music"
-            };
-
-            item["ProductName"] = new AttributeValue
-            {
-                S = "E-Z Listening"
-            };
-
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "DELIVERED"
-            };
-
-            item["ShipmentTrackingId"] = new AttributeValue
-            {
-                S = "756943"
-            };
-
-            putItemRequest = new PutItemRequest
-            {
-                TableName = _tableName,
-                Item = item,
-                ReturnItemCollectionMetrics = "SIZE"
-            };
-
-            await client.PutItemAsync(putItemRequest);
-
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
-            {
-                S = "bob@example.com"
-            };
-
-            item["OrderId"] = new AttributeValue
-            {
-                N = "3"
-            };
-
-            /* no IsOpen attribute */
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130221"
-            };
-
-
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Music"
-            };
-            item["ProductName"] = new AttributeValue
-            {
-                S = "Symphony 9"
-            };
-
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "DELIVERED"
-            };
-
-            item["ShipmentTrackingId"] = new AttributeValue
-            {
-                S = "645193"
-            };
-            putItemRequest = new PutItemRequest
-            {
-                TableName = _tableName,
-                Item = item,
-                ReturnItemCollectionMetrics = "SIZE"
-            };
-
-            await client.PutItemAsync(putItemRequest);
-
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
-            {
-                S = "bob@example.com"
-            };
-
-            item["OrderId"] = new AttributeValue
-            {
-                N = "4"
-            };
-
-            item["IsOpen"] = new AttributeValue
-            {
-                N = "1"
-            };
-
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130222"
-            };
-
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Hardware"
-            };
-            item["ProductName"] = new AttributeValue
-            {
-                S = "Extra Heavy Hammer"
-            };
-
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "PACKING ITEMS"
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "ORDER RECEIVED"
+                }
             };
 
             /* no ShipmentTrackingId attribute */
@@ -563,87 +336,40 @@ namespace LowLevelLocalSecondaryIndexExample
 
             await client.PutItemAsync(putItemRequest);
 
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
+            item = new Dictionary<string, AttributeValue>
             {
-                S = "bob@example.com"
-            };
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "alice@example.com"
+                },
 
-            item["OrderId"] = new AttributeValue
-            {
-                N = "5"
-            };
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "3"
+                },
 
-            /* no IsOpen attribute */
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130309"
-            };
+                /* no IsOpen attribute */
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130304"
+                },
 
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Book"
-            };
-
-            item["ProductName"] = new AttributeValue
-            {
-                S = "How To Cook"
-            };
-
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "IN TRANSIT"
-            };
-
-            item["ShipmentTrackingId"] = new AttributeValue
-            {
-                S = "440185"
-            };
-
-            putItemRequest = new PutItemRequest
-            {
-                TableName = _tableName,
-                Item = item,
-                ReturnItemCollectionMetrics = "SIZE"
-            };
-
-            await client.PutItemAsync(putItemRequest);
-
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
-            {
-                S = "bob@example.com"
-            };
-
-            item["OrderId"] = new AttributeValue
-            {
-                N = "6"
-            };
-
-            /* no IsOpen attribute */
-            item["OrderCreationDate"] = new AttributeValue
-            {
-                N = "20130318"
-            };
-
-            item["ProductCategory"] = new AttributeValue
-            {
-                S = "Luggage"
-            };
-            item["ProductName"] = new AttributeValue
-            {
-                S = "Really Big Suitcase"
-            };
-            item["OrderStatus"] = new AttributeValue
-            {
-                S = "DELIVERED"
-            };
-
-            item["ShipmentTrackingId"] = new AttributeValue
-            {
-                S = "893927"
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Music"
+                },
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "A Quiet Interlude"
+                },
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "IN TRANSIT"
+                },
+                ["ShipmentTrackingId"] = new AttributeValue
+                {
+                    S = "176493"
+                }
             };
 
             putItemRequest = new PutItemRequest
@@ -655,42 +381,326 @@ namespace LowLevelLocalSecondaryIndexExample
 
             await client.PutItemAsync(putItemRequest);
 
-            item = new Dictionary<string, AttributeValue>();
-
-            item["CustomerId"] = new AttributeValue
+            item = new Dictionary<string, AttributeValue>
             {
-                S = "bob@example.com"
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "bob@example.com"
+                },
+
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "1"
+                },
+
+                /* no IsOpen attribute */
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130111"
+                },
+
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Movie"
+                },
+
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "Calm Before The Storm"
+                },
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "SHIPPING DELAY"
+                },
+
+                ["ShipmentTrackingId"] = new AttributeValue
+                {
+                    S = "859323"
+                }
             };
 
-            item["OrderId"] = new AttributeValue
+            putItemRequest = new PutItemRequest
             {
-                N = "7"
+                TableName = _tableName,
+                Item = item,
+                ReturnItemCollectionMetrics = "SIZE"
             };
 
-            /* no IsOpen attribute */
-            item["OrderCreationDate"] = new AttributeValue
+            await client.PutItemAsync(putItemRequest);
+
+            item = new Dictionary<string, AttributeValue>
             {
-                N = "20130324"
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "bob@example.com"
+                },
+
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "2"
+                },
+
+                /* no IsOpen attribute */
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130124"
+                },
+
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Music"
+                },
+
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "E-Z Listening"
+                },
+
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "DELIVERED"
+                },
+
+                ["ShipmentTrackingId"] = new AttributeValue
+                {
+                    S = "756943"
+                }
             };
 
-            item["ProductCategory"] = new AttributeValue
+            putItemRequest = new PutItemRequest
             {
-                S = "Golf"
+                TableName = _tableName,
+                Item = item,
+                ReturnItemCollectionMetrics = "SIZE"
             };
 
-            item["ProductName"] = new AttributeValue
+            await client.PutItemAsync(putItemRequest);
+
+            item = new Dictionary<string, AttributeValue>
             {
-                S = "PGA Pro II"
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "bob@example.com"
+                },
+
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "3"
+                },
+
+                /* no IsOpen attribute */
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130221"
+                },
+
+
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Music"
+                },
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "Symphony 9"
+                },
+
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "DELIVERED"
+                },
+
+                ["ShipmentTrackingId"] = new AttributeValue
+                {
+                    S = "645193"
+                }
+            };
+            putItemRequest = new PutItemRequest
+            {
+                TableName = _tableName,
+                Item = item,
+                ReturnItemCollectionMetrics = "SIZE"
             };
 
-            item["OrderStatus"] = new AttributeValue
+            await client.PutItemAsync(putItemRequest);
+
+            item = new Dictionary<string, AttributeValue>
             {
-                S = "OUT FOR DELIVERY"
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "bob@example.com"
+                },
+
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "4"
+                },
+
+                ["IsOpen"] = new AttributeValue
+                {
+                    N = "1"
+                },
+
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130222"
+                },
+
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Hardware"
+                },
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "Extra Heavy Hammer"
+                },
+
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "PACKING ITEMS"
+                }
             };
 
-            item["ShipmentTrackingId"] = new AttributeValue
+            /* no ShipmentTrackingId attribute */
+            putItemRequest = new PutItemRequest
             {
-                S = "383283"
+                TableName = _tableName,
+                Item = item,
+                ReturnItemCollectionMetrics = "SIZE"
+            };
+
+            await client.PutItemAsync(putItemRequest);
+
+            item = new Dictionary<string, AttributeValue>
+            {
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "bob@example.com"
+                },
+
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "5"
+                },
+
+                /* no IsOpen attribute */
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130309"
+                },
+
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Book"
+                },
+
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "How To Cook"
+                },
+
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "IN TRANSIT"
+                },
+
+                ["ShipmentTrackingId"] = new AttributeValue
+                {
+                    S = "440185"
+                }
+            };
+
+            putItemRequest = new PutItemRequest
+            {
+                TableName = _tableName,
+                Item = item,
+                ReturnItemCollectionMetrics = "SIZE"
+            };
+
+            await client.PutItemAsync(putItemRequest);
+
+            item = new Dictionary<string, AttributeValue>
+            {
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "bob@example.com"
+                },
+
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "6"
+                },
+
+                /* no IsOpen attribute */
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130318"
+                },
+
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Luggage"
+                },
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "Really Big Suitcase"
+                },
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "DELIVERED"
+                },
+
+                ["ShipmentTrackingId"] = new AttributeValue
+                {
+                    S = "893927"
+                }
+            };
+
+            putItemRequest = new PutItemRequest
+            {
+                TableName = _tableName,
+                Item = item,
+                ReturnItemCollectionMetrics = "SIZE"
+            };
+
+            await client.PutItemAsync(putItemRequest);
+
+            item = new Dictionary<string, AttributeValue>
+            {
+                ["CustomerId"] = new AttributeValue
+                {
+                    S = "bob@example.com"
+                },
+
+                ["OrderId"] = new AttributeValue
+                {
+                    N = "7"
+                },
+
+                /* no IsOpen attribute */
+                ["OrderCreationDate"] = new AttributeValue
+                {
+                    N = "20130324"
+                },
+
+                ["ProductCategory"] = new AttributeValue
+                {
+                    S = "Golf"
+                },
+
+                ["ProductName"] = new AttributeValue
+                {
+                    S = "PGA Pro II"
+                },
+
+                ["OrderStatus"] = new AttributeValue
+                {
+                    S = "OUT FOR DELIVERY"
+                },
+
+                ["ShipmentTrackingId"] = new AttributeValue
+                {
+                    S = "383283"
+                }
             };
 
             putItemRequest = new PutItemRequest
@@ -809,4 +819,4 @@ namespace LowLevelLocalSecondaryIndexExample
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.LowLevelLocalSecondaryIndexExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelLocalSecondaryIndexExample]

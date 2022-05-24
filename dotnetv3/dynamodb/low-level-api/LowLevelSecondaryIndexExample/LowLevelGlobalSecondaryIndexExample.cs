@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[dynamodb.dotnet35.LowLevelGlobalSecondaryIndexExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelGlobalSecondaryIndexExample]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace LowLevelGlobalSecondaryIndexExample
 {
     public class LowLevelGlobalSecondaryIndexExample
     {
-        public static String TableName = "Issues";
+        private static readonly string TableName = "Issues";
 
         public static async Task<bool> CreateTable(AmazonDynamoDBClient client)
         {
@@ -191,47 +191,72 @@ namespace LowLevelGlobalSecondaryIndexExample
             String createDate, String lastUpdateDate, String dueDate,
             Int32 priority, String status)
         {
-            Dictionary<String, AttributeValue> item = new Dictionary<string, AttributeValue>();
-
-            item.Add("IssueId", new AttributeValue
+            var item = new Dictionary<string, AttributeValue>
             {
-                S = issueId
-            });
+                {
+                    "IssueId",
+                    new AttributeValue
+                    {
+                        S = issueId
+                    }
+                },
 
-            item.Add("Title", new AttributeValue
-            {
-                S = title
-            });
+                {
+                    "Title",
+                    new AttributeValue
+                    {
+                        S = title
+                    }
+                },
 
-            item.Add("Description", new AttributeValue
-            {
-                S = description
-            });
+                {
+                    "Description",
+                    new AttributeValue
+                    {
+                        S = description
+                    }
+                },
 
-            item.Add("CreateDate", new AttributeValue
-            {
-                S = createDate
-            });
+                {
+                    "CreateDate",
+                    new AttributeValue
+                    {
+                        S = createDate
+                    }
+                },
 
-            item.Add("LastUpdateDate", new AttributeValue
-            {
-                S = lastUpdateDate
-            });
+                {
+                    "LastUpdateDate",
+                    new AttributeValue
+                    {
+                        S = lastUpdateDate
+                    }
+                },
 
-            item.Add("DueDate", new AttributeValue
-            {
-                S = dueDate
-            });
+                {
+                    "DueDate",
+                    new AttributeValue
+                    {
+                        S = dueDate
+                    }
+                },
 
-            item.Add("Priority", new AttributeValue
-            {
-                N = priority.ToString()
-            });
+                {
+                    "Priority",
+                    new AttributeValue
+                    {
+                        N = priority.ToString()
+                    }
+                },
 
-            item.Add("Status", new AttributeValue
-            {
-                S = status
-            });
+                {
+                    "Status",
+                    new AttributeValue
+                    {
+                        S = status
+                    }
+                }
+            };
 
             await client.PutItemAsync(new PutItemRequest
             {
@@ -248,7 +273,7 @@ namespace LowLevelGlobalSecondaryIndexExample
                 ("\n***********************************************************\n");
             Console.WriteLine("Querying index " + indexName + "...");
 
-            QueryRequest queryRequest = new QueryRequest
+            var queryRequest = new QueryRequest
             {
                 TableName = TableName,
                 IndexName = indexName,
@@ -257,7 +282,7 @@ namespace LowLevelGlobalSecondaryIndexExample
 
 
             String keyConditionExpression;
-            Dictionary<string, AttributeValue> expressionAttributeValues = new Dictionary<string, AttributeValue>();
+            var expressionAttributeValues = new Dictionary<string, AttributeValue>();
 
             if (indexName == "CreateDateIndex")
             {
@@ -456,4 +481,4 @@ namespace LowLevelGlobalSecondaryIndexExample
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.LowLevelGlobalSecondaryIndexExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelGlobalSecondaryIndexExample]

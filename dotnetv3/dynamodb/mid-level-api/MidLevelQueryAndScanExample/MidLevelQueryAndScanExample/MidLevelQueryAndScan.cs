@@ -10,7 +10,7 @@ namespace MidLevelQueryAndScanExample
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.DocumentModel;
 
-    // snippet-start:[dynamodb.dotnet35.MidLevelQueryAndScanExample]
+    // snippet-start:[dynamodb.dotnetv3.MidLevelQueryAndScanExample]
 
     /// <summary>
     /// Shows how to perform mid-level query procedures on an Amazon DynamoDB
@@ -28,7 +28,7 @@ namespace MidLevelQueryAndScanExample
             string forumName = "Amazon DynamoDB";
             string threadSubject = "DynamoDB Thread 2";
 
-            await FindRepliesInLast15Days(replyTable, forumName, threadSubject);
+            await FindRepliesInLast15Days(replyTable);
             await FindRepliesInLast15DaysWithConfig(replyTable, forumName, threadSubject);
             await FindRepliesPostedWithinTimePeriod(replyTable, forumName, threadSubject);
 
@@ -65,16 +65,11 @@ namespace MidLevelQueryAndScanExample
         /// Retrieves replies from the passed DynamoDB table object.
         /// </summary>
         /// <param name="table">The table we want to query.</param>
-        /// <param name="forumName">The name of the forum that we're interested in.</param>
-        /// <param name="threadSubject">The subject of the thread for which we are
-        /// looking for replies.</param>
         public static async Task FindRepliesInLast15Days(
-          Table table,
-          string forumName,
-          string threadSubject)
+          Table table)
         {
             DateTime twoWeeksAgoDate = DateTime.UtcNow - TimeSpan.FromDays(15);
-            QueryFilter filter = new QueryFilter("Id", QueryOperator.Equal, "Id");
+            var filter = new QueryFilter("Id", QueryOperator.Equal, "Id");
             filter.AddCondition("ReplyDateTime", QueryOperator.GreaterThan, twoWeeksAgoDate);
 
             // Use Query overloads that take the minimum required query parameters.
@@ -108,10 +103,10 @@ namespace MidLevelQueryAndScanExample
             DateTime startDate = DateTime.UtcNow.Subtract(new TimeSpan(21, 0, 0, 0));
             DateTime endDate = DateTime.UtcNow.Subtract(new TimeSpan(1, 0, 0, 0));
 
-            QueryFilter filter = new QueryFilter("Id", QueryOperator.Equal, forumName + "#" + threadSubject);
+            var filter = new QueryFilter("Id", QueryOperator.Equal, forumName + "#" + threadSubject);
             filter.AddCondition("ReplyDateTime", QueryOperator.Between, startDate, endDate);
 
-            QueryOperationConfig config = new QueryOperationConfig()
+            var config = new QueryOperationConfig()
             {
                 Limit = 2, // 2 items/page.
                 Select = SelectValues.SpecificAttributes,
@@ -154,10 +149,10 @@ namespace MidLevelQueryAndScanExample
           string threadName)
         {
             DateTime twoWeeksAgoDate = DateTime.UtcNow - TimeSpan.FromDays(15);
-            QueryFilter filter = new QueryFilter("Id", QueryOperator.Equal, forumName + "#" + threadName);
+            var filter = new QueryFilter("Id", QueryOperator.Equal, forumName + "#" + threadName);
             filter.AddCondition("ReplyDateTime", QueryOperator.GreaterThan, twoWeeksAgoDate);
 
-            QueryOperationConfig config = new QueryOperationConfig()
+            var config = new QueryOperationConfig()
             {
                 Filter = filter,
 
@@ -215,5 +210,5 @@ namespace MidLevelQueryAndScanExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.MidLevelQueryAndScanExample]
+    // snippet-end:[dynamodb.dotnetv3.MidLevelQueryAndScanExample]
 }

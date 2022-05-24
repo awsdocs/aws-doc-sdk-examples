@@ -9,7 +9,7 @@ namespace HighLevelItemCRUDExample
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelItemCRUDExample]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelItemCRUDExample]
 
     /// <summary>
     /// Shows how to perform high-level CRUD operations on an Amazon DynamoDB
@@ -72,5 +72,5 @@ namespace HighLevelItemCRUDExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelItemCRUDExample]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelItemCRUDExample]
 }

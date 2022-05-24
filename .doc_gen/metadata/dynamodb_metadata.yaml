@@ -49,6 +49,15 @@ dynamodb_BatchExecuteStatement:
   synopsis: query a &DDB; table by batch using PartiQL.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/high-level-api
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelBatchWriteItemExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -72,6 +81,21 @@ dynamodb_CreateTable:
   synopsis: create a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.CreateTablesLoadDataExample
+          github: dotnetv3/dynamodb/FromSQL
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.CreateTableExample
     C++:
       versions:
         - sdk_version: 1
@@ -161,6 +185,15 @@ dynamodb_BatchGetItem:
   synopsis: get a batch of &DDB; items.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/low-level-api
+          sdkguide:
+          excerpts:
+            -description:
+              snippet_tags:
+                -dynamodb.dotnetv3.LowLevelBatchGetExample
     Python:
       versions:
         - sdk_version: 3
@@ -269,6 +302,17 @@ dynamodb_BatchWriteItem:
   synopsis: write a batch of &DDB; items.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/FromSQL
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.AddItemsExample
+                - dynamodb.dotnetv3.DeleteItemsExample
+                - dynamodb.dotnetv3.HighLevelBatchWriteItem
+                - dynamodb.dotnetv3.LowLevelBatchWriteExample
     Go:
       versions:
         - sdk_version: 2
@@ -334,6 +378,23 @@ dynamodb_Usage_BatchGetWriteDelete:
   synopsis: get, write, and delete batches of &DDB; items.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/scenarios
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - DynamoDB.dotnetv3.dynamodb-basics.CreateTable
+                - DynamoDB.dotnetv3.dynamodb-basics.PutItem
+                - DynamoDB.dotnetv3.dynamodb-basics.UpdateItem
+                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
+                - DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem
+                - DynamoDB.dotnetv3.dynamodb-basics.DeleteItem
+                - DynamoDB.dotnetv3.dynamodb-basics.QueryItems
+                - DynamoDB.dotnetv3.dynamodb-basics.ScanTable
+                - DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample
     Python:
       versions:
         - sdk_version: 3
@@ -363,6 +424,15 @@ dynamodb_DeleteTable:
   synopsis: delete a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/FromSQL
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.DeleteTableExample
     C++:
       versions:
         - sdk_version: 1
@@ -451,6 +521,15 @@ dynamodb_PutItem:
   synopsis: put an item in a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/FromSQL
+          sdkguide:
+          excerpts:
+            - description:
+              nippet_tags:
+                - dynamodb.dotnetv3.AddItemExample
     C++:
       versions:
         - sdk_version: 1
@@ -551,6 +630,16 @@ dynamodb_GetItem:
   synopsis: get an item from a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/low-level-api
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.LowLevelItemBinaryExample
+                - dynamodb.dotnetv3.LowLevelItemCRUDExample.GetItem
     C++:
       versions:
         - sdk_version: 1
@@ -643,6 +732,22 @@ dynamodb_UpdateItem:
   synopsis: update an item in a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/FromSQL
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.UpdateItemExample
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/low-level-api
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.LowLevelItemCRUDExample.UpdateItem
     C++:
       versions:
         - sdk_version: 1
@@ -734,6 +839,20 @@ dynamodb_DeleteItem:
   synopsis: delete an item from a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/FromSQL
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.DeleteItemExample
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/low-level-api
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.LowLevelItemCRUDExample.DeleteItem
     Go:
       versions:
         - sdk_version: 2
@@ -831,6 +950,15 @@ dynamodb_ListTables:
   synopsis: list &DDB; tables.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/FromSQL
+          sdk_guide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.ListTablesExample
     C++:
       versions:
         - sdk_version: 1
@@ -908,12 +1036,40 @@ dynamodb_ListTables:
                 - dynamodb.JavaScript.table.listTables
   services:
     dynamodb: {ListTables}
+dynamodb_UpdateTable:
+  title: Create an index for a &DDB; table using and &AWS; SDK
+  title_abbrev: Add index to table
+  synopsis: create an index for a &DDB; table.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_versions: 3
+          github: dotnetv3/dynamodb/FromSQL
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.CreateIndexExample
+  services:
+    dynamodb: {UpdateTable}
 dynamodb_Query:
   title: Query a &DDB; table using an &AWS; SDK
   title_abbrev: Query a table
   synopsis: query a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/FromSQL
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.GetLowProductStockGSIExample
+                - dynamodb.dotnetv3.GetOrdersForProductGSIExample
+                - dynamodb.dotnetv3.GetOrdersInDateRangeGSIExample
     C++:
       versions:
         - sdk_version: 1
@@ -1013,6 +1169,18 @@ dynamodb_Scan:
   synopsis: scan a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/FromSQL
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.GetLowProductStockExample
+                - dynamodb.dotnetv3.GetOrdersForProduct
+                - dynamodb.dotnetv3.GetOrdersInDateRangeExample
+                - dynamodb.dotnetv3.ListItemsExample
     C++:
       versions:
         - sdk_version: 1

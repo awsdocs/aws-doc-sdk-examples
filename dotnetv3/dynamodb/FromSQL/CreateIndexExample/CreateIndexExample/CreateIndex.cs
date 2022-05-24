@@ -12,7 +12,7 @@ namespace CreateIndex
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.Model;
 
-    // snippet-start:[dynamodb.dotnet35.CreateIndexExample]
+    // snippet-start:[dynamodb.dotnetv3.CreateIndexExample]
 
     /// <summary>
     /// Shows how to create an index for an Amazon DynamoDB table. The example
@@ -286,5 +286,5 @@ namespace CreateIndex
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.CreateIndexExample]
+    // snippet-end:[dynamodb.dotnetv3.CreateIndexExample]
 }
