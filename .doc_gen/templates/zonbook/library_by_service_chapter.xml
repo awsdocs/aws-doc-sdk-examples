@@ -17,7 +17,7 @@
             <para>Code examples that show how to use &AWS-services; with &AWS; SDKs.</para>
         </abstract>
     </info>
-    <para>The following code examples show how to use &AWS; services with an &AWS; software development kit (SDK).</para>
+    <para>The following code examples show how to use &AWS-services; with an &AWS; software development kit (SDK).</para>
     <para role="topiclist-abbrev">Code examples</para>
     {{- range $svc_slug, $service := .}}
         {{- $section_id := printf "%s_code_examples" $svc_slug}}
@@ -66,6 +66,12 @@
                         <abstract>
                             <para>{{.Title}}</para>
                         </abstract>
+                        <keywordset>
+                            <keyword>code example</keyword>
+                            <keyword>&AWS; SDK</keyword>
+                            <keyword>{{$service.ServiceEntity.Long}}</keyword>
+                            <keyword>{{.Title}}</keyword>
+                        </keywordset>
                     </info>
                     <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_desc.xml"></xi:include>
                     {{- if .GuideTopic.Url}}

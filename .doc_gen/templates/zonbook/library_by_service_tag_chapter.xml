@@ -21,7 +21,8 @@
                 &AWS; software development kits (SDKs).</para>
         </abstract>
     </info>
-    <para>The following code examples show you how to use &AWS; services with &AWS; SDKs.</para>
+    <para>Code examples{{$grouping}} that show how to use &AWS; services with
+        &AWS; software development kits (SDKs).</para>
     {{- range $category, $chapters := .TagValues}}
     <section>
         <info>
