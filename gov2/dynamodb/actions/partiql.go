@@ -148,7 +148,7 @@ func (runner PartiQLRunner) DeleteMovie(movie Movie) error {
 
 // snippet-start:[gov2.dynamodb.BatchExecuteStatement.Insert]
 
-// AddMovieBatch runs a batch of  PartiQL INSERT statements to add multiple movies to the
+// AddMovieBatch runs a batch of PartiQL INSERT statements to add multiple movies to the
 // DynamoDB table.
 func (runner PartiQLRunner) AddMovieBatch(movies []Movie) error {
 	statementRequests := make([]types.BatchStatementRequest, len(movies))
