@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[DynamoDBScanItems.kt demonstrates how to return items from an Amazon DynamoDB table.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DynamoDBScanItems.kt demonstrates how to return items from an Amazon DynamoDB table.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,12 +20,13 @@ import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scan_items.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+*/
+
 suspend fun main(args: Array<String>) {
 
     val usage = """
@@ -34,7 +34,7 @@ suspend fun main(args: Array<String>) {
         <tableName>
 
     Where:
-        tableName - the Amazon DynamoDB table to scan (for example, Music3).
+        tableName - The Amazon DynamoDB table to scan (for example, Music3).
     """
 
      if (args.size != 1) {

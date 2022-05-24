@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[DynamoDBPartiQ.kt demonstrates how to work with PartiQL for Amazon DynamoDB.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[02/22/2022]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DynamoDBPartiQ.kt demonstrates how to work with PartiQL for Amazon DynamoDB.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,10 +20,11 @@ import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementResponse
 // snippet-end:[dynamodb.kotlin.partiql.import]
 
 /**
-Before running this Kotlin code example, set up your development environment,
-including your credentials. For more information, see the following topic:
+ Before running this Kotlin code example, set up your development environment,
+ including your credentials.
 
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ For more information, see the following documentation topic:
+ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
  You must also create the Music table as discussed in the following topic:
  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-gettingstarted.html
@@ -46,7 +46,7 @@ suspend fun main(args: Array<String>) {
         processResults(response)
     }
 
-    //Update an item in the Music table using the UPDATE PartiQL statement.
+    // Update an item in the Music table using the UPDATE PartiQL statement.
     response = executeStatementRequest( ddb,"UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist=? and SongTitle=?", parameters)
     if (response != null) {
         processResults(response)

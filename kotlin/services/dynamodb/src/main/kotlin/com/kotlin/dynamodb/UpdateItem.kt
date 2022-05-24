@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[UpdateItem.kt demonstrates how to update a value located in an Amazon DynamoDB table.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[UpdateItem.kt demonstrates how to update a value located in an Amazon DynamoDB table.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,35 +22,36 @@ import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.update_item.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+*/
+
 suspend fun main(args: Array<String>) {
 
     val usage = """
       Usage:
         <tableName> <key> <keyVal> <name> <updateVal>
 
-    Where:
-        tableName - the Amazon DynamoDB table (for example, Music3).
-        key - the name of the key in the table (for example, Artist).
-        keyVal - the value of the key (for example, Famous Band).
-        name - the name of the column where the value is updated (for example, Awards).
-        updateVal - the value used to update an item (for example, 14).
+      Where:
+        tableName - The Amazon DynamoDB table (for example, Music3).
+        key - The name of the key in the table (for example, Artist).
+        keyVal - The value of the key (for example, Famous Band).
+        name - The name of the column where the value is updated (for example, Awards).
+        updateVal - The value used to update an item (for example, 14).
         
         """
 
-     if (args.size != 5) {
+    if (args.size != 5) {
           println(usage)
          exitProcess(0)
     }
 
     val tableName = args[0]
     val key = args[1]
-    val keyVal =  args[2]
+    val keyVal = args[2]
     val name = args[3]
     val  updateVal = args[4]
     updateTableItem(tableName, key, keyVal, name, updateVal)

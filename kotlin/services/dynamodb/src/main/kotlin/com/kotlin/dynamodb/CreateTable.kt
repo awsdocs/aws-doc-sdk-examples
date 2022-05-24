@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[CreateTable.kt demonstrates how to create an Amazon DynamoDB table.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[CreateTable.kt demonstrates how to create an Amazon DynamoDB table using a waiter.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,16 +20,15 @@ import aws.sdk.kotlin.services.dynamodb.model.KeySchemaElement
 import aws.sdk.kotlin.services.dynamodb.model.ProvisionedThroughput
 import aws.sdk.kotlin.services.dynamodb.model.KeyType
 import aws.sdk.kotlin.services.dynamodb.model.CreateTableRequest
-import aws.sdk.kotlin.services.dynamodb.model.DescribeTableRequest
-import kotlinx.coroutines.delay
+import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.create_table.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
@@ -41,20 +39,20 @@ suspend fun main(args: Array<String>) {
          <tableName> <key> 
 
     Where:
-        tableName - the Amazon DynamoDB table to create (for example, Music3).
-        key - the key for the Amazon DynamoDB table (for example, Artist).
+        tableName - The Amazon DynamoDB table to create (for example, Music3).
+        key - The key for the Amazon DynamoDB table (for example, Artist).
     """
 
-    if (args.size != 2) {
+   if (args.size != 2) {
          println(usage)
          exitProcess(0)
-    }
+   }
 
-    val tableName = args[0]
-    val key = args[1]
-    println("Creating an Amazon DynamoDB table named $tableName with a key named $key" )
-    val tableArn = createNewTable(tableName, key)
-    println("The new table ARN is $tableArn")
+   val tableName = args[0]
+   val key = args[1]
+   println("Creating an Amazon DynamoDB table named $tableName with a key named $key")
+   val tableArn = createNewTable(tableName, key)
+   println("The new table ARN is $tableArn")
 }
 
 // snippet-start:[dynamodb.kotlin.create_table.main]
@@ -82,28 +80,16 @@ suspend fun createNewTable(tableNameVal: String, key: String): String? {
             tableName = tableNameVal
         }
 
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
+       DynamoDbClient { region = "us-east-1" }.use { ddb ->
 
-            val response = ddb.createTable(request)
-            val tableActive = false
-
-            // Wait until the table is in Active state.
-            while (!tableActive)
-            {
-                val tableStatus = checkTableStatus(ddb, tableNameVal)
-                if (tableStatus.equals("ACTIVE"))
-                    break
-                delay(500)
-            }
-            return response.tableDescription?.tableArn
-        }
+           var tableArn: String
+           val response = ddb.createTable(request)
+           ddb.waitUntilTableExists { // suspend call
+               tableName = tableNameVal
+           }
+           tableArn = response.tableDescription!!.tableArn.toString()
+           println("Table $tableArn is ready")
+           return tableArn
+       }
     }
-
-    suspend fun checkTableStatus(ddb: DynamoDbClient, tableNameVal: String) : String {
-
-             val tableInfo = ddb.describeTable(DescribeTableRequest {
-                 tableName = tableNameVal
-             })
-             return tableInfo.table?.tableStatus.toString()
-         }
 // snippet-end:[dynamodb.kotlin.create_table.main]

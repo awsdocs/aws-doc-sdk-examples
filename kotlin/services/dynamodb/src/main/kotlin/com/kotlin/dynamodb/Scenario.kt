@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[Scenario.kt demonstrates how to perform various operations.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[02/10/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[Scenario.kt demonstrates how to perform various operations.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,6 +35,15 @@ import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scenario.import]
 
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+*/
+
+
 // snippet-start:[dynamodb.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
 
@@ -44,7 +52,7 @@ suspend fun main(args: Array<String>) {
           <fileName>
 
         Where:
-           fileName - the path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
+           fileName - The path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
     """
 
    if (args.size != 1) {
@@ -52,9 +60,8 @@ suspend fun main(args: Array<String>) {
          exitProcess(1)
    }
 
-    val tableName = "Movies"
-
     // Get the moviedata.json from the Amazon DynamoDB Developer Guide.
+    val tableName = "Movies"
     val fileName = args[0]
     val partitionAlias = "#a"
 
@@ -124,10 +131,9 @@ suspend fun loadData(tableName: String, fileName:String) {
     var currentNode: ObjectNode
 
     var t = 0
-
     while (iter.hasNext()) {
 
-        if (t == 200)
+        if (t == 50)
             break
 
         currentNode = iter.next() as ObjectNode
@@ -138,6 +144,7 @@ suspend fun loadData(tableName: String, fileName:String) {
         t++
     }
 }
+
 suspend fun putMovie(
     tableNameVal: String,
     year: Int,
@@ -150,7 +157,6 @@ suspend fun putMovie(
     itemValues["year"] = AttributeValue.N(strVal)
     itemValues["title"] = AttributeValue.S(title)
     itemValues["info"] =  AttributeValue.S(info)
-
 
     val request = PutItemRequest {
         tableName=tableNameVal

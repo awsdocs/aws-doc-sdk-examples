@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[ScenarioPartiQ.kt demonstrates how to work with PartiQL for Amazon DynamoDB.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/01/2022]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[ScenarioPartiQ.kt demonstrates how to work with PartiQL for Amazon DynamoDB.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -50,7 +49,7 @@ suspend fun main(args: Array<String>) {
           <fileName>
 
         Where:
-           fileName - the path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
+           fileName - The path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
     """
 
     if (args.size != 1) {

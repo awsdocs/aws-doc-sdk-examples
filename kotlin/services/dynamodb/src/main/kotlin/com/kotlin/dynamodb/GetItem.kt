@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[GetItem.kt demonstrates how to retrieve an item from an Amazon DynamoDB table.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[GetItem.kt demonstrates how to retrieve an item from an Amazon DynamoDB table.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,12 +20,13 @@ import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.get_item.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+*/
+
 suspend fun main(args: Array<String>) {
 
     val usage = """
@@ -34,9 +34,9 @@ suspend fun main(args: Array<String>) {
         <tableName> <key> <keyVal>
 
     Where:
-        tableName - the Amazon DynamoDB table from which an item is retrieved (for example, Music3). 
-        key - the key used in the Amazon DynamoDB table (for example, Artist). 
-        keyval - the key value that represents the item to get (for example, Famous Band).
+        tableName - The Amazon DynamoDB table from which an item is retrieved (for example, Music3). 
+        key - The key used in the Amazon DynamoDB table (for example, Artist). 
+        keyval - The key value that represents the item to get (for example, Famous Band).
     """
 
    if (args.size != 3) {
