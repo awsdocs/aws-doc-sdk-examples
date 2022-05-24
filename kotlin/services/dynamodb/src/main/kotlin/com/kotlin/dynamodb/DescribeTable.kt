@@ -49,16 +49,16 @@ suspend fun main(args: Array<String>) {
 suspend fun describeDymamoDBTable(tableNameVal: String?) {
 
     val request = DescribeTableRequest {
-        tableName= tableNameVal
+        tableName = tableNameVal
     }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            val tableInfo = ddb.describeTable(request)
-            println("Table name ${tableInfo.table?.tableName}")
-            println("Table Arn:  ${tableInfo.table?.tableArn}")
-            println("Table Status: ${tableInfo.table?.tableStatus}")
-            println("Item count:  ${tableInfo.table?.itemCount}")
-            println("Size (bytes): ${tableInfo.table?.tableSizeBytes}")
-        }
- }
+        val tableInfo = ddb.describeTable(request)
+        println("Table name ${tableInfo.table?.tableName}")
+        println("Table Arn:  ${tableInfo.table?.tableArn}")
+        println("Table Status: ${tableInfo.table?.tableStatus}")
+        println("Item count:  ${tableInfo.table?.itemCount}")
+        println("Size (bytes): ${tableInfo.table?.tableSizeBytes}")
+    }
+}
 // snippet-end:[dynamodb.kotlin.describe_table.main]

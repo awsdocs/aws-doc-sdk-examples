@@ -51,8 +51,8 @@ suspend fun deleteDynamoDBTable(tableNameVal: String) {
     }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.deleteTable(request)
-            println("$tableNameVal was deleted")
-        }
-  }
+        ddb.deleteTable(request)
+        println("$tableNameVal was deleted")
+    }
+}
 // snippet-end:[dynamodb.kotlin.delete_table.main]

@@ -14,9 +14,9 @@ package com.kotlin.dynamodb
 
 // snippet-start:[dynamodb.kotlin.update_item.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
+import aws.sdk.kotlin.services.dynamodb.model.AttributeAction
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValueUpdate
-import aws.sdk.kotlin.services.dynamodb.model.AttributeAction
 import aws.sdk.kotlin.services.dynamodb.model.UpdateItemRequest
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.update_item.import]
@@ -45,45 +45,45 @@ suspend fun main(args: Array<String>) {
         """
 
     if (args.size != 5) {
-          println(usage)
-         exitProcess(0)
+        println(usage)
+        exitProcess(0)
     }
 
     val tableName = args[0]
     val key = args[1]
     val keyVal = args[2]
     val name = args[3]
-    val  updateVal = args[4]
+    val updateVal = args[4]
     updateTableItem(tableName, key, keyVal, name, updateVal)
- }
+}
 
 // snippet-start:[dynamodb.kotlin.update_item.main]
 suspend fun updateTableItem(
-        tableNameVal: String,
-        keyName: String,
-        keyVal: String,
-        name: String,
-        updateVal: String
-    ) {
+    tableNameVal: String,
+    keyName: String,
+    keyVal: String,
+    name: String,
+    updateVal: String
+) {
 
-        val itemKey = mutableMapOf<String, AttributeValue>()
-        itemKey[keyName] = AttributeValue.S(keyVal)
+    val itemKey = mutableMapOf<String, AttributeValue>()
+    itemKey[keyName] = AttributeValue.S(keyVal)
 
-        val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
-        updatedValues[name] = AttributeValueUpdate {
-            value = AttributeValue.S(updateVal)
-            action = AttributeAction.Put
-        }
+    val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
+    updatedValues[name] = AttributeValueUpdate {
+        value = AttributeValue.S(updateVal)
+        action = AttributeAction.Put
+    }
 
-        val request = UpdateItemRequest {
-            tableName = tableNameVal
-            key = itemKey
-            attributeUpdates= updatedValues
-        }
+    val request = UpdateItemRequest {
+        tableName = tableNameVal
+        key = itemKey
+        attributeUpdates = updatedValues
+    }
 
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.updateItem(request)
-            println("Item in $tableNameVal was updated")
-        }
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        ddb.updateItem(request)
+        println("Item in $tableNameVal was updated")
+    }
 }
 // snippet-end:[dynamodb.kotlin.update_item.main]

@@ -53,17 +53,17 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[dynamodb.kotlin.delete_item.main]
 suspend fun deleteDymamoDBItem(tableNameVal: String, keyName: String, keyVal: String) {
 
-        val keyToGet = mutableMapOf<String, AttributeValue>()
-        keyToGet[keyName] = AttributeValue.S(keyVal)
+    val keyToGet = mutableMapOf<String, AttributeValue>()
+    keyToGet[keyName] = AttributeValue.S(keyVal)
 
-        val request = DeleteItemRequest {
-            tableName = tableNameVal
-            key = keyToGet
-        }
-
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.deleteItem(request)
-            println("Item with key matching $keyVal was deleted")
-        }
+    val request = DeleteItemRequest {
+        tableName = tableNameVal
+        key = keyToGet
     }
+
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        ddb.deleteItem(request)
+        println("Item with key matching $keyVal was deleted")
+    }
+}
 // snippet-end:[dynamodb.kotlin.delete_item.main]

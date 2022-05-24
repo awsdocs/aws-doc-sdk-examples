@@ -14,10 +14,10 @@ package com.kotlin.dynamodb
 
 // snippet-start:[dynamodb.kotlin.scan_items_filter.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
-import kotlin.system.exitProcess
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
 import java.util.HashMap
+import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scan_items_filter.import]
 
 /**
@@ -38,35 +38,35 @@ suspend fun main(args: Array<String>) {
         tableName - The Amazon DynamoDB table to scan (for example, Music3).
     """
 
-   if (args.size != 1) {
+    if (args.size != 1) {
         println(usage)
         exitProcess(0)
-   }
+    }
 
     val tableName = args[0]
     scanItemsUsingFilter(tableName)
-    }
+}
 
 // snippet-start:[dynamodb.kotlin.scan_items_filter.main]
 suspend fun scanItemsUsingFilter(tableNameVal: String) {
 
-        val myMap = HashMap<String, String>()
-        myMap.put("#archive2", "archive")
+    val myMap = HashMap<String, String>()
+    myMap.put("#archive2", "archive")
 
-        val myExMap = HashMap<String, AttributeValue>()
-        myExMap.put(":val", AttributeValue.S("Open"))
+    val myExMap = HashMap<String, AttributeValue>()
+    myExMap.put(":val", AttributeValue.S("Open"))
 
-       val request = ScanRequest {
-           this.expressionAttributeNames = myMap
-           this.expressionAttributeValues = myExMap
-           tableName = tableNameVal
-           filterExpression = "#archive2 = :val"
-       }
+    val request = ScanRequest {
+        this.expressionAttributeNames = myMap
+        this.expressionAttributeValues = myExMap
+        tableName = tableNameVal
+        filterExpression = "#archive2 = :val"
+    }
 
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-          val response = ddb.scan(request)
-          println("#######################################")
-          response.items?.forEach { item ->
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        val response = ddb.scan(request)
+        println("#######################################")
+        response.items?.forEach { item ->
             item.keys.forEach { key ->
 
                 when (key) {
@@ -91,15 +91,15 @@ suspend fun scanItemsUsingFilter(tableNameVal: String) {
                     "description" -> {
                         val myVal = splitMyString(item[key].toString())
                         println(myVal)
-                }
+                    }
                     "id" -> {
                         val myVal = splitMyString(item[key].toString())
                         println(myVal)
                     }
-                   else -> {
-                       val myVal = splitMyString(item[key].toString())
-                       println(myVal)
-                       println("#######################################")
+                    else -> {
+                        val myVal = splitMyString(item[key].toString())
+                        println(myVal)
+                        println("#######################################")
                     }
                 }
             }
@@ -107,7 +107,7 @@ suspend fun scanItemsUsingFilter(tableNameVal: String) {
     }
 }
 
-fun splitMyString(str:String):String{
+fun splitMyString(str: String): String {
 
     val del1 = "="
     val del2 = ")"

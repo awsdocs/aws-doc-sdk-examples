@@ -50,7 +50,7 @@ suspend fun main(args: Array<String>) {
     // For more information about an alias, see:
     // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html
     val partitionAlias = "#a"
-    val count =  queryDynTable(tableName, partitionKeyName, partitionKeyVal, partitionAlias)
+    val count = queryDynTable(tableName, partitionKeyName, partitionKeyVal, partitionAlias)
     print("There is $count item in $tableName")
 }
 

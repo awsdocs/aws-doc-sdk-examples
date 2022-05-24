@@ -34,10 +34,10 @@ suspend fun main() {
 suspend fun listAllTables() {
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            val response = ddb.listTables(ListTablesRequest {})
-            response.tableNames?.forEach { tableName ->
-                 println("Table name is $tableName")
-            }
+        val response = ddb.listTables(ListTablesRequest {})
+        response.tableNames?.forEach { tableName ->
+            println("Table name is $tableName")
         }
-  }
+    }
+}
 // snippet-end:[dynamodb.kotlin.list_tables.main]

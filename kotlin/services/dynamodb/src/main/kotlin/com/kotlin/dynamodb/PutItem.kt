@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
             SongTitle - The song title (for example, SongTitle).
             SongTitleVal - The value of the song title (for example, Happy Day).
             """"
-            
+
     if (args.size != 9) {
         println(usage)
         exitProcess(0)
@@ -65,32 +65,32 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.put_item.main]
 suspend fun putItemInTable(
-        tableNameVal: String,
-        key: String,
-        keyVal: String,
-        albumTitle: String,
-        albumTitleValue: String,
-        awards: String,
-        awardVal: String,
-        songTitle: String,
-        songTitleVal: String
-    ) {
-        val itemValues = mutableMapOf<String, AttributeValue>()
+    tableNameVal: String,
+    key: String,
+    keyVal: String,
+    albumTitle: String,
+    albumTitleValue: String,
+    awards: String,
+    awardVal: String,
+    songTitle: String,
+    songTitleVal: String
+) {
+    val itemValues = mutableMapOf<String, AttributeValue>()
 
-        // Add all content to the table.
-        itemValues[key] = AttributeValue.S(keyVal)
-        itemValues[songTitle] = AttributeValue.S(songTitleVal)
-        itemValues[albumTitle] = AttributeValue.S(albumTitleValue)
-        itemValues[awards] = AttributeValue.S(awardVal)
+    // Add all content to the table.
+    itemValues[key] = AttributeValue.S(keyVal)
+    itemValues[songTitle] = AttributeValue.S(songTitleVal)
+    itemValues[albumTitle] = AttributeValue.S(albumTitleValue)
+    itemValues[awards] = AttributeValue.S(awardVal)
 
-        val request = PutItemRequest {
-            tableName=tableNameVal
-            item = itemValues
-        }
+    val request = PutItemRequest {
+        tableName = tableNameVal
+        item = itemValues
+    }
 
-       DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.putItem(request)
-            println(" A new item was placed into $tableNameVal.")
-        }
- }
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        ddb.putItem(request)
+        println(" A new item was placed into $tableNameVal.")
+    }
+}
 // snippet-end:[dynamodb.kotlin.put_item.main]

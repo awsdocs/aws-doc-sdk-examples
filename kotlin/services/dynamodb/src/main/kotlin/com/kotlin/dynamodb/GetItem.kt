@@ -39,35 +39,35 @@ suspend fun main(args: Array<String>) {
         keyval - The key value that represents the item to get (for example, Famous Band).
     """
 
-   if (args.size != 3) {
+    if (args.size != 3) {
         println(usage)
         exitProcess(0)
-   }
+    }
 
     val tableName = args[0]
     val key = args[1]
     val keyVal = args[2]
     getSpecificItem(tableName, key, keyVal)
-    }
+}
 
 // snippet-start:[dynamodb.kotlin.get_item.main]
 suspend fun getSpecificItem(tableNameVal: String, keyName: String, keyVal: String) {
 
-        val keyToGet = mutableMapOf<String, AttributeValue>()
-        keyToGet[keyName] = AttributeValue.S(keyVal)
+    val keyToGet = mutableMapOf<String, AttributeValue>()
+    keyToGet[keyName] = AttributeValue.S(keyVal)
 
-        val request = GetItemRequest {
-           key = keyToGet
-           tableName = tableNameVal
+    val request = GetItemRequest {
+        key = keyToGet
+        tableName = tableNameVal
+    }
+
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        val returnedItem = ddb.getItem(request)
+        val numbersMap = returnedItem.item
+        numbersMap?.forEach { key1 ->
+            println(key1.key)
+            println(key1.value)
         }
-
-         DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            val returnedItem = ddb.getItem(request)
-            val numbersMap = returnedItem.item
-            numbersMap?.forEach { key1 ->
-                    println(key1.key)
-                    println(key1.value)
-            }
-         }
- }
+    }
+}
 // snippet-end:[dynamodb.kotlin.get_item.main]

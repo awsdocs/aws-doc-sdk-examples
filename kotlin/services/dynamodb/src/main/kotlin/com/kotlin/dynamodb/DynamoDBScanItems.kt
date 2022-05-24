@@ -10,7 +10,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.kotlin.dynamodb
 
 // snippet-start:[dynamodb.kotlin.scan_items.import]
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
         tableName - The Amazon DynamoDB table to scan (for example, Music3).
     """
 
-     if (args.size != 1) {
-           println(usage)
-           exitProcess(0)
-       }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val tableName = args[0]
     scanItems(tableName)
@@ -54,13 +53,13 @@ suspend fun scanItems(tableNameVal: String) {
     }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            val response = ddb.scan(request)
-            response.items?.forEach { item ->
-                 item.keys.forEach { key ->
-                     println("The key name is $key\n")
-                     println("The value is ${item[key]}")
-                }
+        val response = ddb.scan(request)
+        response.items?.forEach { item ->
+            item.keys.forEach { key ->
+                println("The key name is $key\n")
+                println("The value is ${item[key]}")
             }
         }
- }
+    }
+}
 // snippet-end:[dynamodb.kotlin.scan_items.main]
