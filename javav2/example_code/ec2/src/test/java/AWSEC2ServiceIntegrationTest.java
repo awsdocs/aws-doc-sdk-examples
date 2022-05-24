@@ -34,6 +34,7 @@ public class AWSEC2ServiceIntegrationTest {
         Region region = Region.US_WEST_2;
         ec2 = Ec2Client.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = AWSEC2ServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {

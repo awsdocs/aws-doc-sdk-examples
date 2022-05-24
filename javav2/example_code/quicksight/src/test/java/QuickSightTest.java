@@ -3,6 +3,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import org.junit.jupiter.api.*;
 import com.example.quicksight.*;
@@ -30,6 +31,7 @@ public class QuickSightTest {
 
         qsClient = QuickSightClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = QuickSightTest.class.getClassLoader().getResourceAsStream("config.properties")) {

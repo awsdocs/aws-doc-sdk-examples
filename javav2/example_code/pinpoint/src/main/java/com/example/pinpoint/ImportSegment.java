@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.importsegment.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.CreateImportJobRequest;
@@ -24,25 +24,27 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.importsegment.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class ImportSegment {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage: " +
-                "ImportSegment <appId> <bucket> <key> <roleArn> \n\n" +
+                "  <appId> <bucket> <key> <roleArn> \n\n" +
                 "Where:\n" +
-                "  appId - the application ID to create a segment for.\n\n" +
-                "  bucket - the name of the Amazon S3 bucket that contains the segment definitons.\n\n" +
-                "  key - the key of the S3 object. " +
+                "  appId - The application ID to create a segment for.\n\n" +
+                "  bucket - The name of the Amazon S3 bucket that contains the segment definitons.\n\n" +
+                "  key - The key of the S3 object. " +
                 "  roleArn - ARN of the role that allows Amazon Pinpoint to access S3. You need to set trust management for this to work. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -53,6 +55,7 @@ public class ImportSegment {
 
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         ImportJobResponse response = createImportSegment(pinpoint, appId, bucket, key, roleArn);

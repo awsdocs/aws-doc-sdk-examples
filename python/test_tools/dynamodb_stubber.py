@@ -249,3 +249,17 @@ class DynamoStubber(ExampleStubber):
             response['Responses'] = response_items
         self._stub_bifurcator(
             'batch_get_item', expected_params, response, error_code=error_code)
+
+    def stub_execute_statement(self, statement, params, items, error_code=None):
+        expected_params = {'Statement': statement}
+        if params is not None:
+            expected_params['Parameters'] = params
+        response = {'Items': items}
+        self._stub_bifurcator(
+            'execute_statement', expected_params, response, error_code=error_code)
+
+    def stub_batch_execute_statement(self, statements, responses, error_code=None):
+        expected_params = {'Statements': statements}
+        response = {'Responses': responses}
+        self._stub_bifurcator(
+            'batch_execute_statement', expected_params, response, error_code=error_code)

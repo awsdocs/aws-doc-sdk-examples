@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,6 +15,7 @@
 package aws.example.athena;
 
 //snippet-start:[athena.java2.ListNamedQueryExample.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.AthenaException;
@@ -26,19 +26,19 @@ import java.util.List;
 //snippet-end:[athena.java2.ListNamedQueryExample.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class ListNamedQueryExample {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listNamedQueries(athenaClient) ;

@@ -5,6 +5,8 @@
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import java.io.*;
@@ -25,6 +27,7 @@ public class OpenSearchTest {
         // Run tests on Real AWS Resources
         searchClient = OpenSearchClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
 

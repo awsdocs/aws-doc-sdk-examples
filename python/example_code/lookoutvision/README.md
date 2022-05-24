@@ -40,6 +40,8 @@ accurately and at scale.*
 (`DeleteProject`)
 * [Describe a dataset](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/datasets.py)
 (`DescribeDataset`)
+* [Update a dataset](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/datasets.py)
+(`UpdateDatasetEntries`)
 * [Describe a model](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/models.py)
 (`DescribeModel`)
 * [Detect anomalies in an image with a trained model](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/inference.py)
@@ -207,6 +209,10 @@ desired, the example shows how to host the model. Used by `train_host.py`.
 You are charged for the amount of time that an Amazon Lookout for Vision model is 
 running (hosted). Use this script to find the running models in the commercial AWS 
 partition. You can stop a model by calling the [StopModel](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/run-stop-model.html) operation. 
+
+### update_dataset.py
+Shows how to add or update images in an Amazon Lookout for Vision dataset.
+
 
 ## Additional information
 

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/05/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,18 +12,22 @@
 
 package com.example.redshiftdata;
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.redshiftdata.model.*;
-import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
 import software.amazon.awssdk.services.redshiftdata.model.ListDatabasesRequest;
+import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
+import software.amazon.awssdk.services.redshiftdata.model.ListDatabasesResponse;
 import software.amazon.awssdk.services.redshiftdata.model.ListTablesRequest;
+import software.amazon.awssdk.services.redshiftdata.model.ListTablesResponse;
+import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
+import software.amazon.awssdk.services.redshiftdata.model.TableMember;
 import java.util.List;
 
 
  /**
-  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+  * Before running this Java V2 code example, set up your development environment, including your credentials.
   *
-  * For information, see this documentation topic:
+  * For more information, see the following documentation topic:
   *
   * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
   */
@@ -32,16 +35,16 @@ import java.util.List;
 
         public static void main(String[] args) {
 
-            final String USAGE = "\n" +
+            final String usage = "\n" +
                     "Usage:\n" +
                     "    ListDatabases <database> <dbUser> <sqlStatement> <clusterId> \n\n" +
                     "Where:\n" +
-                    "    database - the name of the database (for example, dev) \n" +
-                    "    dbUser - the master user name \n" +
-                    "    clusterId - the id of the Redshift cluster (for example, redshift-cluster) \n";
+                    "    database - The name of the database (for example, dev) \n" +
+                    "    dbUser - The master user name \n" +
+                    "    clusterId - The id of the Redshift cluster (for example, redshift-cluster) \n";
 
               if (args.length != 3) {
-                  System.out.println(USAGE);
+                  System.out.println(usage);
                   System.exit(1);
               }
 
@@ -52,6 +55,7 @@ import java.util.List;
             Region region = Region.US_WEST_2;
             RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
                     .region(region)
+                    .credentialsProvider(ProfileCredentialsProvider.create())
                     .build();
 
             listAllDatabases(redshiftDataClient,clusterId, dbUser, database) ;
@@ -70,7 +74,6 @@ import java.util.List;
 
                 ListDatabasesResponse databasesResponse = redshiftDataClient.listDatabases(databasesRequest);
                 List<String> databases = databasesResponse.databases();
-
                 for (String dbName: databases) {
                     System.out.println("The database name is : "+dbName);
                 }
@@ -92,7 +95,6 @@ import java.util.List;
 
                ListTablesResponse tablesResponse = redshiftDataClient.listTables(tablesRequest);
                List<TableMember> tables = tablesResponse.tables();
-
                for (TableMember table: tables) {
                    System.out.println("The table name is : "+table.name());
                }

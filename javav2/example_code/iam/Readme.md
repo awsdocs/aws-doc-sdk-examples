@@ -12,6 +12,9 @@ With IAM, the right people and job roles in your organization (identities) can a
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
+
+The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+
 The following code examples use the **IamClient** object. 
 
 - [Displaying the time that an access key was last used](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/iam/src/main/java/com/example/iam/AccessKeyLastUsed.java) (GetAccessKeyLastUsed command)

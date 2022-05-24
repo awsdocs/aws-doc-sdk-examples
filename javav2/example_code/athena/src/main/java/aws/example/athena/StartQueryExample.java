@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -15,6 +14,7 @@
 package aws.example.athena;
 
 //snippet-start:[athena.java2.StartQueryExample.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.QueryExecutionContext;
@@ -35,18 +35,20 @@ import java.util.List;
 //snippet-end:[athena.java2.StartQueryExample.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+//snippet-start:[athena.java2.StartQueryExample.main]
 public class StartQueryExample {
-    //snippet-start:[athena.java2.StartQueryExample.main]
+
     public static void main(String[] args) throws InterruptedException {
 
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String queryExecutionId = submitAthenaQuery(athenaClient);
@@ -55,16 +57,16 @@ public class StartQueryExample {
         athenaClient.close();
     }
 
-    // Submits a sample query to Amazon Athena and returns the execution ID of the query
+    // Submits a sample query to Amazon Athena and returns the execution ID of the query.
     public static String submitAthenaQuery(AthenaClient athenaClient) {
 
         try {
 
-            // The QueryExecutionContext allows us to set the database
+            // The QueryExecutionContext allows us to set the database.
             QueryExecutionContext queryExecutionContext = QueryExecutionContext.builder()
                 .database(ExampleConstants.ATHENA_DEFAULT_DATABASE).build();
 
-            // The result configuration specifies where the results of the query should go
+            // The result configuration specifies where the results of the query should go.
             ResultConfiguration resultConfiguration = ResultConfiguration.builder()
                     .outputLocation(ExampleConstants.ATHENA_OUTPUT_BUCKET)
                     .build();
@@ -72,7 +74,7 @@ public class StartQueryExample {
             StartQueryExecutionRequest startQueryExecutionRequest = StartQueryExecutionRequest.builder()
                     .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
                     .queryExecutionContext(queryExecutionContext)
-                .   resultConfiguration(resultConfiguration)
+                    .resultConfiguration(resultConfiguration)
                     .build();
 
             StartQueryExecutionResponse startQueryExecutionResponse = athenaClient.startQueryExecution(startQueryExecutionRequest);
@@ -85,7 +87,7 @@ public class StartQueryExample {
         return "";
     }
 
-    // Wait for an Amazon Athena query to complete, fail or to be cancelled
+    // Wait for an Amazon Athena query to complete, fail or to be cancelled.
     public static void waitForQueryToComplete(AthenaClient athenaClient, String queryExecutionId) throws InterruptedException {
         GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
                 .queryExecutionId(queryExecutionId).build();
@@ -103,7 +105,7 @@ public class StartQueryExample {
             } else if (queryState.equals(QueryExecutionState.SUCCEEDED.toString())) {
                 isQueryStillRunning = false;
             } else {
-                // Sleep an amount of time before retrying again
+                // Sleep an amount of time before retrying again.
                 Thread.sleep(ExampleConstants.SLEEP_AMOUNT_IN_MS);
             }
             System.out.println("The current status is: " + queryState);
@@ -116,7 +118,7 @@ public class StartQueryExample {
        try {
 
            // Max Results can be set but if its not set,
-           // it will choose the maximum page size
+           // it will choose the maximum page size.
             GetQueryResultsRequest getQueryResultsRequest = GetQueryResultsRequest.builder()
                     .queryExecutionId(queryExecutionId)
                     .build();

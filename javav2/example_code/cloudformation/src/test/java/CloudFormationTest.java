@@ -1,4 +1,5 @@
 import com.example.cloudformation.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
 import software.amazon.awssdk.regions.Region;
 import org.junit.jupiter.api.*;
@@ -25,6 +26,7 @@ public class CloudFormationTest {
         Region region = Region.US_EAST_1;
         cfClient = CloudFormationClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = CloudFormationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
