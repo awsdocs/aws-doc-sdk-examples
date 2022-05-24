@@ -90,6 +90,7 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.dotnetv3.CreateTablesLoadDataExample
+        - sdk_version: 3
           github: dotnetv3/dynamodb/FromSQL
           sdkguide:
           excerpts:
