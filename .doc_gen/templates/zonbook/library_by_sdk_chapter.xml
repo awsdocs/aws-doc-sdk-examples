@@ -68,7 +68,7 @@
                     <keywordset>
                         <keyword>code example</keyword>
                         <keyword>&AWS; SDK</keyword>
-                        <keyword>{{$service.ServiceEntity.Long}}</keyword>
+                        <keyword>{{svc_examples.ServiceEntity.Long}}</keyword>
                         <keyword>{{$sdk_examples.SdkEntity.Long}}</keyword>
                         <keyword>{{.Title}}</keyword>
                     </keywordset>
