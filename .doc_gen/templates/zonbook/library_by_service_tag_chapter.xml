@@ -17,11 +17,11 @@
         <title id="{{$chapter_id}}.title">Code examples{{$grouping}} using &AWS; SDKs</title>
         <titleabbrev id="{{$chapter_id}}.titleabbrev">Code examples{{$grouping}}</titleabbrev>
         <abstract>
-            <para>Code examples{{$grouping}} that show how to use &AWS; services with
+            <para>Code examples{{$grouping}} that show how to use &AWS-services; with
                 &AWS; software development kits (SDKs).</para>
         </abstract>
     </info>
-    <para>Code examples{{$grouping}} that show how to use &AWS; services with
+    <para>Code examples{{$grouping}} that show how to use &AWS-services; with
         &AWS; software development kits (SDKs).</para>
     {{- range $category, $chapters := .TagValues}}
     <section>

@@ -15,10 +15,10 @@
         <title id="{{$chapter_id}}.title">Code examples by SDK using &AWS; SDKs</title>
         <titleabbrev id="{{$chapter_id}}.titleabbrev">Code examples by SDK</titleabbrev>
         <abstract>
-            <para>Code examples that show how to use &AWS; services with &AWS; SDKs.</para>
+            <para>Code examples that show how to use &AWS-services; with &AWS; SDKs.</para>
         </abstract>
     </info>
-    <para>The following code examples show how to use &AWS; services with an &AWS; software development kit (SDK).</para>
+    <para>The following code examples show how to use &AWS-services; with an &AWS; software development kit (SDK).</para>
     <para role="topiclist-abbrev">Code examples</para>
     {{- range $sdk_examples := .}}
     {{- $sdk_ver := printf "%s_%s" $sdk_examples.LanguageSlug $sdk_examples.Version}}
@@ -46,11 +46,11 @@
                 <titleabbrev id="{{$sdk_ver}}_code_examples_categorized.titleabbrev">Single-service actions and scenarios</titleabbrev>
                 <abstract>
                     <para>The following code examples show how to implement common scenarios and perform individual service actions by using
-                        {{$sdk_examples.SdkEntity.Short}} with &AWS; services.</para>
+                        {{$sdk_examples.SdkEntity.Short}} with &AWS-services;.</para>
                 </abstract>
             </info>
             <para>The following code examples show how to perform actions and implement common scenarios by using
-                the {{$sdk_examples.SdkEntity.Long}} with &AWS; services.</para>
+                the {{$sdk_examples.SdkEntity.Long}} with &AWS-services;.</para>
             <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
             <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
                 calling multiple functions within the same service.</para>
@@ -130,11 +130,11 @@
                 <titleabbrev id="{{$sdk_ver}}_code_examples_cross_service.titleabbrev">Cross-service examples</titleabbrev>
                 <abstract>
                     <para>The following sample applications use the {{$sdk_examples.SdkEntity.Long}}
-                        to work across multiple &AWS; services.</para>
+                        to work across multiple &AWS-services;.</para>
                 </abstract>
             </info>
             <para>The following sample applications use the {{$sdk_examples.SdkEntity.Long}}
-                to work across multiple &AWS; services.</para>
+                to work across multiple &AWS-services;.</para>
             <para role="topiclist-abbrev">Examples</para>
             {{- end}}
             {{- range $sdk_examples.CrossServiceExamples}}
