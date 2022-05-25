@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[DeleteNamedQueryExample.kt demonstrates how to delete a named query by using the named query Id value.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/25/2022]
+// snippet-sourcedescription:[DeleteNamedQueryExample.kt demonstrates how to delete a named query by using the named query Id value.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Athena]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/25/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12,11 +12,11 @@
 
 package com.kotlin.athena
 
-//snippet-start:[athena.kotlin.DeleteNamedQueryExample.import]
+// snippet-start:[athena.kotlin.DeleteNamedQueryExample.import]
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.DeleteNamedQueryRequest
 import kotlin.system.exitProcess
-//snippet-end:[athena.kotlin.DeleteNamedQueryExample.import]
+// snippet-end:[athena.kotlin.DeleteNamedQueryExample.import]
 
 suspend fun main(args:Array<String>) {
 
@@ -36,7 +36,7 @@ suspend fun main(args:Array<String>) {
     deleteQueryName(queryId)
 }
 
-//snippet-start:[athena.kotlin.DeleteNamedQueryExample.main]
+// snippet-start:[athena.kotlin.DeleteNamedQueryExample.main]
 suspend fun deleteQueryName(sampleNamedQueryId: String?) {
 
     val request = DeleteNamedQueryRequest {
@@ -48,4 +48,4 @@ suspend fun deleteQueryName(sampleNamedQueryId: String?) {
         println("$sampleNamedQueryId was deleted!")
     }
 }
-//snippet-end:[athena.kotlin.DeleteNamedQueryExample.main]
+// snippet-end:[athena.kotlin.DeleteNamedQueryExample.main]

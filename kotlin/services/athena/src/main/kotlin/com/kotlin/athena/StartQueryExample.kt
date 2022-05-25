@@ -14,19 +14,18 @@ package com.kotlin.athena
 
 // snippet-start:[athena.kotlin.StartQueryExample.import]
 import aws.sdk.kotlin.services.athena.AthenaClient
-import aws.sdk.kotlin.services.athena.model.QueryExecutionContext
-import aws.sdk.kotlin.services.athena.model.ResultConfiguration
-import aws.sdk.kotlin.services.athena.model.StartQueryExecutionRequest
 import aws.sdk.kotlin.services.athena.model.GetQueryExecutionRequest
-import aws.sdk.kotlin.services.athena.model.QueryExecutionState
 import aws.sdk.kotlin.services.athena.model.GetQueryResultsRequest
+import aws.sdk.kotlin.services.athena.model.QueryExecutionContext
+import aws.sdk.kotlin.services.athena.model.QueryExecutionState
+import aws.sdk.kotlin.services.athena.model.ResultConfiguration
 import aws.sdk.kotlin.services.athena.model.Row
+import aws.sdk.kotlin.services.athena.model.StartQueryExecutionRequest
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[athena.kotlin.StartQueryExample.import]
 
-
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
@@ -39,10 +38,10 @@ suspend fun main(args:Array<String>) {
         
     """
 
-   if (args.size != 3) {
+    if (args.size != 3) {
         println(usage)
         exitProcess(0)
-   }
+    }
 
     val queryString = args[0]
     val database = args[1]
@@ -52,37 +51,36 @@ suspend fun main(args:Array<String>) {
     processResultRows(queryExecutionId)
 }
 
-//snippet-start:[athena.kotlin.StartQueryExample.main]
-suspend fun submitAthenaQuery( queryStringVal:String, databaseVal:String, outputLocationVal:String  ): String? {
+// snippet-start:[athena.kotlin.StartQueryExample.main]
+suspend fun submitAthenaQuery(queryStringVal: String, databaseVal: String, outputLocationVal: String): String? {
 
-        // The QueryExecutionContext allows us to set the database.
-        val queryExecutionContextOb = QueryExecutionContext {
-            database = databaseVal
-        }
-
-        // The result configuration specifies where the results of the query should go.
-        val resultConfigurationOb = ResultConfiguration {
-            outputLocation =outputLocationVal
-        }
-
-        val request = StartQueryExecutionRequest {
-            queryString = queryStringVal
-            queryExecutionContext = queryExecutionContextOb
-            resultConfiguration = resultConfigurationOb
-        }
-
-        AthenaClient { region = "us-west-2" }.use { athenaClient ->
-            val response = athenaClient.startQueryExecution(request)
-            return response.queryExecutionId
-        }
+    // The QueryExecutionContext allows us to set the database.
+    val queryExecutionContextOb = QueryExecutionContext {
+        database = databaseVal
     }
+
+    // The result configuration specifies where the results of the query should go.
+    val resultConfigurationOb = ResultConfiguration {
+        outputLocation = outputLocationVal
+    }
+
+    val request = StartQueryExecutionRequest {
+        queryString = queryStringVal
+        queryExecutionContext = queryExecutionContextOb
+        resultConfiguration = resultConfigurationOb
+    }
+
+    AthenaClient { region = "us-west-2" }.use { athenaClient ->
+        val response = athenaClient.startQueryExecution(request)
+        return response.queryExecutionId
+    }
+}
 
 // Wait for an Amazon Athena query to complete, fail or to be cancelled.
 suspend fun waitForQueryToComplete(queryExecutionIdVal: String?) {
 
     var isQueryStillRunning = true
     while (isQueryStillRunning) {
-
 
         val request = GetQueryExecutionRequest {
             queryExecutionId = queryExecutionIdVal
@@ -134,4 +132,4 @@ private fun processRow(row: List<Row>) {
         }
     }
 }
-//snippet-end:[athena.kotlin.StartQueryExample.main]
+// snippet-end:[athena.kotlin.StartQueryExample.main]

@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[ListNamedQueryExample.Kt demonstrates how to obtain a list of named query Id values.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/25/2022]
+// snippet-sourcedescription:[ListNamedQueryExample.Kt demonstrates how to obtain a list of named query Id values.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Athena]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/25/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,7 @@ suspend fun main() {
     listNamedQueries()
 }
 
-//snippet-start:[athena.kotlin.ListNamedQueryExample.main]
+// snippet-start:[athena.kotlin.ListNamedQueryExample.main]
 suspend fun listNamedQueries() {
 
         val request = ListNamedQueriesRequest{
@@ -35,4 +35,4 @@ suspend fun listNamedQueries() {
             }
         }
 }
-//snippet-end:[athena.kotlin.ListNamedQueryExample.main]
+// snippet-end:[athena.kotlin.ListNamedQueryExample.main]

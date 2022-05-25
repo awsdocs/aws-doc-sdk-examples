@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[ListQueryExecutionsExample.kt demonstrates how to obtain a list of query execution Id values.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/25/2022]
+// snippet-sourcedescription:[ListQueryExecutionsExample.kt demonstrates how to obtain a list of query execution Id values.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Athena]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/25/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12,16 +12,16 @@
 
 package com.kotlin.athena
 
-//snippet-start:[athena.kotlin.ListNamedQueryExecutionsExample.import]
+// snippet-start:[athena.kotlin.ListNamedQueryExecutionsExample.import]
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.ListQueryExecutionsRequest
-//snippet-end:[athena.kotlin.ListNamedQueryExecutionsExample.import]
+// snippet-end:[athena.kotlin.ListNamedQueryExecutionsExample.import]
 
 suspend fun main() {
    listQueryIds()
 }
 
-//snippet-start:[athena.kotlin.ListNamedQueryExecutionsExample.main]
+// snippet-start:[athena.kotlin.ListNamedQueryExecutionsExample.main]
  suspend fun listQueryIds() {
 
         val request = ListQueryExecutionsRequest{
@@ -35,4 +35,4 @@ suspend fun main() {
                 }
            }
        }
-//snippet-end:[athena.kotlin.ListNamedQueryExecutionsExample.main]
+// snippet-end:[athena.kotlin.ListNamedQueryExecutionsExample.main]
