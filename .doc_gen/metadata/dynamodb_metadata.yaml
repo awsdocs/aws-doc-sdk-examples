@@ -1331,6 +1331,15 @@ dynamodb_Scenario_PartiQLBatch:
   synopsis: query a &DDB; table by using batches of PartiQL statements.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.scenario.partiql.batch.main
     JavaScript:
       versions:
         - sdk_version: 3
