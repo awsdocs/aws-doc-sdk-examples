@@ -236,7 +236,7 @@ dynamodb_BatchWriteItem:
               snippet_tags:
                 - dynamodb.dotnetv3.AddItemsExample
                 - dynamodb.dotnetv3.DeleteItemsExample
-                - dynamodb.dotnetv3.HighLevelBatchWriteItem
+                - dynamodb.dotnetv3.HighLevelBatchWriteItemExample
                 - dynamodb.dotnetv3.LowLevelBatchWriteExample
     Go:
       versions:
