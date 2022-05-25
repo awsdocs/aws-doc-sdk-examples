@@ -12,10 +12,10 @@
 
 package com.kotlin.athena
 
-//snippet-start:[athena.kotlin.ListNamedQueryExample.import]
+// snippet-start:[athena.kotlin.ListNamedQueryExample.import]
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.ListNamedQueriesRequest
-//snippet-end:[athena.kotlin.ListNamedQueryExample.import]
+// snippet-end:[athena.kotlin.ListNamedQueryExample.import]
 
 suspend fun main() {
     listNamedQueries()
@@ -24,15 +24,15 @@ suspend fun main() {
 // snippet-start:[athena.kotlin.ListNamedQueryExample.main]
 suspend fun listNamedQueries() {
 
-        val request = ListNamedQueriesRequest{
-            this.maxResults = 10
-        }
+    val request = ListNamedQueriesRequest {
+        this.maxResults = 10
+    }
 
-        AthenaClient { region = "us-west-2" }.use { athenaClient ->
-            val responses = athenaClient.listNamedQueries(request)
-            responses.namedQueryIds?.forEach { queries ->
-                println("Retrieved account alias $queries")
-            }
+    AthenaClient { region = "us-west-2" }.use { athenaClient ->
+        val responses = athenaClient.listNamedQueries(request)
+        responses.namedQueryIds?.forEach { queries ->
+            println("Retrieved account alias $queries")
         }
+    }
 }
 // snippet-end:[athena.kotlin.ListNamedQueryExample.main]
