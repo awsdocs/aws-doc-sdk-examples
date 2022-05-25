@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:athena:0.14.3-beta")
+    implementation("aws.sdk.kotlin:athena:0.15.2-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
 }
