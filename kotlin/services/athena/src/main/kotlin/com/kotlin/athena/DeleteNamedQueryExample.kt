@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/25/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -26,7 +25,7 @@ suspend fun main(args:Array<String>) {
         <queryId> 
 
     Where:
-        queryId - the id of the Amazon Athena query (for example, b34e7780-903b-4842-9d2c-6c99bebc82aa).
+        queryId - The id of the Amazon Athena query (for example, b34e7780-903b-4842-9d2c-6c99bebc82aa).
     """
 
      if (args.size != 1) {

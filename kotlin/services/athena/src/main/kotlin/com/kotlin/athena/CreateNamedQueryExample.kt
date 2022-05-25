@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[CreateNamedQueryExample.kt demonstrates how to create a named query.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[CreateNamedQueryExample.kt demonstrates how to create a named query.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Athena]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/25/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,22 +12,22 @@
 
 package com.kotlin.athena
 
-//snippet-start:[athena.kotlin.CreateNamedQueryExample.import]
+// snippet-start:[athena.kotlin.CreateNamedQueryExample.import]
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.CreateNamedQueryRequest
 import kotlin.system.exitProcess
-//snippet-end:[athena.kotlin.CreateNamedQueryExample.import]
+// snippet-end:[athena.kotlin.CreateNamedQueryExample.import]
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
         <queryString> <namedQuery> <database>
 
     Where:
-        queryString - the query string to use (for example, "SELECT * FROM mydatabase"; ).
-        namedQuery - the name of the query to create. 
-        database - the name of the database to use (for example, mydatabase ).
+        queryString - The query string to use (for example, "SELECT * FROM mydatabase"; ).
+        namedQuery - The name of the query to create. 
+        database - The name of the database to use (for example, mydatabase).
         
     """
 
@@ -44,17 +43,19 @@ suspend fun main(args:Array<String>) {
     println("The query ID is $id")
 }
 
-    //snippet-start:[athena.kotlin.CreateNamedQueryExample.main]
-    suspend  fun createNamedQuery(queryStringVal:String, namedQuery:String, databaseVal:String ):String? {
+// snippet-start:[athena.kotlin.CreateNamedQueryExample.main]
+suspend fun createNamedQuery(queryStringVal: String, namedQuery: String, databaseVal: String): String? {
 
-            AthenaClient { region = "us-west-2" }.use { athenaClient->
-            val resp =  athenaClient.createNamedQuery(CreateNamedQueryRequest {
+    AthenaClient { region = "us-west-2" }.use { athenaClient ->
+        val resp = athenaClient.createNamedQuery(
+            CreateNamedQueryRequest {
                 database = databaseVal
                 queryString = queryStringVal
                 description = "Created via the AWS SDK for Kotlin"
                 this.name = namedQuery
-            })
-            return resp.namedQueryId
-        }
+            }
+        )
+        return resp.namedQueryId
     }
-//snippet-end:[athena.kotlin.CreateNamedQueryExample.main]
+}
+// snippet-end:[athena.kotlin.CreateNamedQueryExample.main]

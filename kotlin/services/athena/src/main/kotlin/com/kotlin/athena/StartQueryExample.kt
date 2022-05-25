@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[StartQueryExample.kt demonstrates how to submit a query to Amazon Athena for execution, wait until the results are available, and then process the results.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[StartQueryExample.kt demonstrates how to submit a query to Amazon Athena for execution, wait until the results are available, and then process the results.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-keyword:[Amazon Athena]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/25/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,7 +12,7 @@
 
 package com.kotlin.athena
 
-//snippet-start:[athena.kotlin.StartQueryExample.import]
+// snippet-start:[athena.kotlin.StartQueryExample.import]
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.QueryExecutionContext
 import aws.sdk.kotlin.services.athena.model.ResultConfiguration
@@ -24,7 +23,7 @@ import aws.sdk.kotlin.services.athena.model.GetQueryResultsRequest
 import aws.sdk.kotlin.services.athena.model.Row
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
-//snippet-end:[athena.kotlin.StartQueryExample.import]
+// snippet-end:[athena.kotlin.StartQueryExample.import]
 
 
 suspend fun main(args:Array<String>) {
@@ -34,9 +33,9 @@ suspend fun main(args:Array<String>) {
         <queryString> <database> <outputLocation>
 
     Where:
-        queryString - the query string to use (for example, "SELECT * FROM mydatabase"; ).
-        database - the name of the database to use (for example, mydatabase ).
-        outputLocation - the output location (for example, the name of an Amazon S3 bucket - s3://mybucket). 
+        queryString - The query string to use (for example, "SELECT * FROM mydatabase"; ).
+        database - The name of the database to use (for example, mydatabase ).
+        outputLocation - The output location (for example, the name of an Amazon S3 bucket - s3://mybucket). 
         
     """
 
@@ -96,7 +95,7 @@ suspend fun waitForQueryToComplete(queryExecutionIdVal: String?) {
             if (queryState == QueryExecutionState.Succeeded.toString()) {
                 isQueryStillRunning = false
             } else {
-                // Sleep an amount of time before retrying again
+                // Sleep an amount of time before retrying again.
                 delay(1000)
             }
             println("The current status is: $queryState")
@@ -124,7 +123,6 @@ suspend fun processResultRows(queryExecutionIdVal: String?) {
         }
     }
 }
-
 
 private fun processRow(row: List<Row>) {
     for (myRow in row) {
