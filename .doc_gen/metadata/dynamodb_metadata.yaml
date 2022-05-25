@@ -1215,6 +1215,27 @@ dynamodb_ExecuteStatement:
             - description:
               snippet_tags:
                 - dynamodb.java2.scenario.partiql.main
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description: Use an INSERT statement to add an item.
+              snippet_tags:
+                - gov2.dynamodb.ExecuteStatement.Insert
+            - description: Use a SELECT statement to get an item.
+              snippet_tags:
+                - gov2.dynamodb.ExecuteStatement.Select
+            - description: Use a SELECT statement to get a list of items and project
+                the results.
+              snippet_tags:
+                - gov2.dynamodb.ExecuteStatement.Select.Projected
+            - description: Use an UPDATE statement to update an item.
+              snippet_tags:
+                - gov2.dynamodb.ExecuteStatement.Update
+            - description: Use a DELETE statement to delete an item.
+              snippet_tags:
+                - gov2.dynamodb.ExecuteStatement.Delete
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1256,6 +1277,23 @@ dynamodb_BatchExecuteStatement:
   synopsis: run batches of PartiQL statements on a &DDB; table.
   category: Scenarios
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description: Use batches of INSERT statements to add items.
+              snippet_tags:
+                - gov2.dynamodb.BatchExecuteStatement.Insert
+            - description: Use batches of SELECT statements to get items.
+              snippet_tags:
+                - gov2.dynamodb.BatchExecuteStatement.Select
+            - description: Use batches of UPDATE statements to update items.
+              snippet_tags:
+                - gov2.dynamodb.BatchExecuteStatement.Update
+            - description: Use batches of DELETE statements to delete items.
+              snippet_tags:
+                - gov2.dynamodb.BatchExecuteStatement.Delete
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1456,6 +1494,22 @@ dynamodb_Scenario_PartiQLSingle:
   synopsis: query a &DDB; table using PartiQL.
   category: Scenarios
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description: Create a struct that is a receiver for methods that can run
+                PartiQL statements.
+              snippet_tags:
+                - gov2.dynamodb.PartiQLRunner.struct
+                - gov2.dynamodb.ExecuteStatement.Insert
+                - gov2.dynamodb.ExecuteStatement.Select
+                - gov2.dynamodb.ExecuteStatement.Update
+                - gov2.dynamodb.ExecuteStatement.Delete
+            - description: Run a scenario that creates a table and runs PartiQL queries.
+              snippet_tags:
+                - gov2.dynamodb.Scenario_PartiQLSingle
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1509,6 +1563,24 @@ dynamodb_Scenario_PartiQLBatch:
   synopsis: query a &DDB; table by using batches of PartiQL statements.
   category: Scenarios
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/dynamodb
+          excerpts:
+            - description: Create a struct that is a receiver for methods that can run
+                PartiQL statements.
+              snippet_tags:
+                - gov2.dynamodb.PartiQLRunner.struct
+                - gov2.dynamodb.BatchExecuteStatement.Insert
+                - gov2.dynamodb.BatchExecuteStatement.Select
+                - gov2.dynamodb.ExecuteStatement.Select.Projected
+                - gov2.dynamodb.BatchExecuteStatement.Update
+                - gov2.dynamodb.BatchExecuteStatement.Delete
+            - description: Run a scenario that creates a table and runs batches of
+                PartiQL queries.
+              snippet_tags:
+                - gov2.dynamodb.Scenario_PartiQLBatch
     JavaScript:
       versions:
         - sdk_version: 3
