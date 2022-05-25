@@ -116,7 +116,7 @@ dynamodb_BatchGetItem:
           github: dotnetv3/dynamodb/low-level-api
           sdkguide:
           excerpts:
-            -description:
+            - description:
               snippet_tags:
                 - dynamodb.dotnetv3.LowLevelBatchGetExample
     Python:
