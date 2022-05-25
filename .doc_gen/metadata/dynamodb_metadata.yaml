@@ -453,7 +453,7 @@ dynamodb_PutItem:
           sdkguide:
           excerpts:
             - description:
-              nippet_tags:
+              snippet_tags:
                 - dynamodb.dotnetv3.AddItemExample
     C++:
       versions:
@@ -879,7 +879,7 @@ dynamodb_ListTables:
       versions:
         - sdk_version: 3
           github: dotnetv3/dynamodb/FromSQL
-          sdk_guide:
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:
@@ -969,7 +969,7 @@ dynamodb_UpdateTable:
   languages:
     .NET:
       versions:
-        - sdk_versions: 3
+        - sdk_version: 3
           github: dotnetv3/dynamodb/FromSQL
           sdkguide:
           excerpts:
