@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[ScenarioPartiQ.kt demonstrates how to work with PartiQL for Amazon DynamoDB.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/01/2022]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[ScenarioPartiQ.kt demonstrates how to work with PartiQL for Amazon DynamoDB.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -50,7 +49,7 @@ suspend fun main(args: Array<String>) {
           <fileName>
 
         Where:
-           fileName - the path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
+           fileName - The path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
     """
 
     if (args.size != 1) {
@@ -64,48 +63,48 @@ suspend fun main(args: Array<String>) {
     // Get the moviedata.json from the Amazon DynamoDB Developer Guide.
     val fileName = args[0]
     println("Creating an Amazon DynamoDB table named MoviesPartiQ with a key named id and a sort key named title.")
-    createTablePartiQL(ddb, tableName,"year")
+    createTablePartiQL(ddb, tableName, "year")
     loadDataPartiQL(ddb, fileName)
 
     println("******* Getting data from the MoviesPartiQ table.")
     getMoviePartiQL(ddb)
 
-   println("******* Putting a record into the MoviesPartiQ table.")
-   putRecordPartiQL(ddb)
+    println("******* Putting a record into the MoviesPartiQ table.")
+    putRecordPartiQL(ddb)
 
-   println("******* Updating a record.")
-   updateTableItemPartiQL(ddb)
+    println("******* Updating a record.")
+    updateTableItemPartiQL(ddb)
 
-   println("******* Querying the movies released in 2013.")
-   queryTablePartiQL(ddb)
+    println("******* Querying the movies released in 2013.")
+    queryTablePartiQL(ddb)
 
-   println("******* Deleting the MoviesPartiQ table.")
-   deleteTablePartiQL(tableName)
+    println("******* Deleting the MoviesPartiQ table.")
+    deleteTablePartiQL(tableName)
 }
 
-suspend fun createTablePartiQL(ddb:DynamoDbClient, tableNameVal: String, key: String) {
+suspend fun createTablePartiQL(ddb: DynamoDbClient, tableNameVal: String, key: String) {
 
-    val  attDef = AttributeDefinition {
+    val attDef = AttributeDefinition {
         attributeName = key
         attributeType = ScalarAttributeType.N
     }
 
-    val  attDef1 = AttributeDefinition {
+    val attDef1 = AttributeDefinition {
         attributeName = "title"
         attributeType = ScalarAttributeType.S
     }
 
-    val keySchemaVal =  KeySchemaElement{
+    val keySchemaVal = KeySchemaElement {
         attributeName = key
         keyType = KeyType.Hash
     }
 
-    val keySchemaVal1 =  KeySchemaElement{
+    val keySchemaVal1 = KeySchemaElement {
         attributeName = "title"
         keyType = KeyType.Range
     }
 
-    val provisionedVal =  ProvisionedThroughput {
+    val provisionedVal = ProvisionedThroughput {
         readCapacityUnits = 10
         writeCapacityUnits = 10
     }
@@ -119,10 +118,9 @@ suspend fun createTablePartiQL(ddb:DynamoDbClient, tableNameVal: String, key: St
 
     val response = ddb.createTable(request)
     ddb.waitUntilTableExists { // suspend call
-         tableName = tableNameVal
+        tableName = tableNameVal
     }
-     println("The table was successfully created ${response.tableDescription?.tableArn}")
-
+    println("The table was successfully created ${response.tableDescription?.tableArn}")
 }
 
 suspend fun loadDataPartiQL(ddb: DynamoDbClient, fileName: String) {
@@ -144,42 +142,41 @@ suspend fun loadDataPartiQL(ddb: DynamoDbClient, fileName: String) {
         val info = currentNode.path("info").toString()
 
         val parameters: MutableList<AttributeValue> = ArrayList<AttributeValue>()
-        parameters.add( AttributeValue.N(year.toString()))
+        parameters.add(AttributeValue.N(year.toString()))
         parameters.add(AttributeValue.S(title))
         parameters.add(AttributeValue.S(info))
 
-        executeStatementPartiQL(ddb,sqlStatement, parameters )
+        executeStatementPartiQL(ddb, sqlStatement, parameters)
         println("Added Movie $title")
         parameters.clear()
         t++
     }
 }
 
-suspend  fun getMoviePartiQL(ddb: DynamoDbClient) {
+suspend fun getMoviePartiQL(ddb: DynamoDbClient) {
     val sqlStatement = "SELECT * FROM MoviesPartiQ where year=? and title=?"
     val parameters: MutableList<AttributeValue> = ArrayList<AttributeValue>()
-    parameters.add( AttributeValue.N("2012"))
+    parameters.add(AttributeValue.N("2012"))
     parameters.add(AttributeValue.S("The Perks of Being a Wallflower"))
-    val response = executeStatementPartiQL( ddb, sqlStatement, parameters )
+    val response = executeStatementPartiQL(ddb, sqlStatement, parameters)
     println("ExecuteStatement successful: $response")
-
 }
 
-suspend  fun putRecordPartiQL(ddb: DynamoDbClient) {
+suspend fun putRecordPartiQL(ddb: DynamoDbClient) {
 
-     val sqlStatement = "INSERT INTO MoviesPartiQ VALUE {'year':?, 'title' : ?, 'info' : ?}"
-     val parameters: MutableList<AttributeValue> = java.util.ArrayList()
-     parameters.add( AttributeValue.N("2020"))
-     parameters.add(AttributeValue.S("My Movie"))
-     parameters.add(AttributeValue.S("No Info"))
-     executeStatementPartiQL(ddb, sqlStatement, parameters )
-     println("Added new movie.")
+    val sqlStatement = "INSERT INTO MoviesPartiQ VALUE {'year':?, 'title' : ?, 'info' : ?}"
+    val parameters: MutableList<AttributeValue> = java.util.ArrayList()
+    parameters.add(AttributeValue.N("2020"))
+    parameters.add(AttributeValue.S("My Movie"))
+    parameters.add(AttributeValue.S("No Info"))
+    executeStatementPartiQL(ddb, sqlStatement, parameters)
+    println("Added new movie.")
 }
 
 suspend fun updateTableItemPartiQL(ddb: DynamoDbClient) {
     val sqlStatement = "UPDATE MoviesPartiQ SET info = 'directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack\' where year=? and title=?"
     val parameters: MutableList<AttributeValue> = java.util.ArrayList()
-    parameters.add( AttributeValue.N("2013"))
+    parameters.add(AttributeValue.N("2013"))
     parameters.add(AttributeValue.S("The East"))
     executeStatementPartiQL(ddb, sqlStatement, parameters)
     println("Item was updated!")
@@ -190,7 +187,7 @@ suspend fun queryTablePartiQL(ddb: DynamoDbClient) {
     val sqlStatement = "SELECT * FROM MoviesPartiQ where year = ?"
 
     val parameters: MutableList<AttributeValue> = java.util.ArrayList()
-    parameters.add( AttributeValue.N("2013"))
+    parameters.add(AttributeValue.N("2013"))
     val response = executeStatementPartiQL(ddb, sqlStatement, parameters)
     println("ExecuteStatement successful: $response")
 }
@@ -207,7 +204,10 @@ suspend fun deleteTablePartiQL(tableNameVal: String) {
     }
 }
 
-suspend fun executeStatementPartiQL(ddb: DynamoDbClient, statementVal: String, parametersVal: List<AttributeValue>
+suspend fun executeStatementPartiQL(
+    ddb: DynamoDbClient,
+    statementVal: String,
+    parametersVal: List<AttributeValue>
 ): ExecuteStatementResponse {
 
     val request = ExecuteStatementRequest {
