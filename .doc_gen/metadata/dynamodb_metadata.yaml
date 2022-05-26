@@ -1375,6 +1375,7 @@ dynamodb_Scenario_GettingStartedMovies:
     .NET:
       versions:
         - sdk_version: 3
+          github: dotnetv3/dynamodb/scenarios/DynamoDB_Basics
           excerpts:
             - description:
               snippet_tags:
