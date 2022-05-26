@@ -311,15 +311,9 @@ dynamodb_Usage_BatchGetWriteDelete:
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.CreateTable
-                - DynamoDB.dotnetv3.dynamodb-basics.PutItem
-                - DynamoDB.dotnetv3.dynamodb-basics.UpdateItem
-                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
                 - DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem
-                - DynamoDB.dotnetv3.dynamodb-basics.DeleteItem
                 - DynamoDB.dotnetv3.dynamodb-basics.QueryItems
                 - DynamoDB.dotnetv3.dynamodb-basics.ScanTable
-                - DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample
     Python:
       versions:
         - sdk_version: 3
@@ -1378,6 +1372,18 @@ dynamodb_Scenario_GettingStartedMovies:
     - Delete the table.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          excerpts:
+            - description:
+              snippet_tags:
+                - DynamoDB.dotnetv3.dynamodb-basics.CreateTable
+                - DynamoDB.dotnetv3.dynamodb-basics.PutItem
+                - DynamoDB.dotnetv3.dynamodb-basics.UpdateItem
+                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
+                - DynamoDB.dotnetv3.dynamodb-basics.DeleteItem
+                - DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample
     Go:
       versions:
         - sdk_version: 2
