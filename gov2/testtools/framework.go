@@ -5,9 +5,10 @@ package testtools
 
 import (
 	"errors"
-	"github.com/aws/smithy-go"
 	"reflect"
 	"testing"
+
+	"github.com/aws/smithy-go"
 )
 
 // ExitTest is a helper function that verifies that all calls specified in the stubber
@@ -63,5 +64,3 @@ func VerifyError(actual error, raised *StubError, t *testing.T, handled ...inter
 		t.Fatalf("Raised unhandled error %v but got no actual error.", raised)
 	}
 }
-
-
