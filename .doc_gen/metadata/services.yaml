@@ -1,330 +1,456 @@
-# zexi 0.4.0
-# The sort key of a service is the short display name (the expanded version of the short entity) without the AWS/Amazon prefix.
 acm:
-  long: "&ACMlong;"
-  short: "&ACM;"
-  sort: "ACM"
+  long: '&ACMlong;'
+  short: '&ACM;'
+  sort: ACM
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
   version: acm-2015-12-08
 api-gateway:
-  long: "&ABPlong;"
-  short: "&ABP;"
-  sort: "API Gateway"
+  long: '&ABPlong;'
+  short: '&ABP;'
+  sort: API Gateway
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
   version: apigateway-2015-07-09
 apigatewaymanagementapi:
-  long: "&ABPMAlong;"
-  short: "&ABPMA;"
-  sort: "API Gateway Management"
+  long: '&ABPMAlong;'
+  short: '&ABPMA;'
+  sort: API Gateway Management
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
   version: apigatewaymanagementapi-2018-11-29
 application-autoscaling:
-  long: "&APP-ASlong;"
-  short: "&APP-AS;"
-  sort: "Application Auto Scaling"
+  long: '&APP-ASlong;'
+  short: '&APP-AS;'
+  sort: Application Auto Scaling
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: application-autoscaling-2016-02-06
 auditmanager:
-  long: "&AMlong;"
-  short: "&AM;"
+  long: '&AMlong;'
+  short: '&AM;'
   sort: Audit Manager
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
   version: auditmanager-2017-07-25
 auto-scaling:
-  long: "&ASlong;"
-  short: "&AS;"
-  sort: "EC2 Auto Scaling"
+  long: '&ASlong;'
+  short: '&AS;'
+  sort: EC2 Auto Scaling
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: autoscaling-2011-01-01
 batch:
-  long: "&BATCHlong;"
-  short: "&BATCH;"
-  sort: "Batch"
+  long: '&BATCHlong;'
+  short: '&BATCH;'
+  sort: Batch
+  tags:
+    product_categories: {'Compute'}
   version: batch-2016-08-10
 cloudformation:
-  long: "&CFNlong;"
-  short: "&CFN;"
-  sort: "CloudFormation"
+  long: '&CFNlong;'
+  short: '&CFN;'
+  sort: CloudFormation
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: cloudformation-2010-05-15
 cloudfront:
-  long: "&CFlong;"
-  short: "&CF;"
-  sort: "CloudFront"
+  long: '&CFlong;'
+  short: '&CF;'
+  sort: CloudFront
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
   version: cloudfront-2020-05-31
 cloudwatch:
-  long: "&CWlong;"
-  short: "&CW;"
-  sort: "CloudWatch"
+  long: '&CWlong;'
+  short: '&CW;'
+  sort: CloudWatch
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: monitoring-2010-08-01
 cloudwatch-events:
-  long: "&CWElong;"
-  short: "&CWE;"
-  sort: "CloudWatch Events"
+  long: '&CWElong;'
+  short: '&CWE;'
+  sort: CloudWatch Events
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: eventbridge-2015-10-07
 cloudwatch-logs:
-  long: "&CWLlong;"
-  short: "&CWL;"
-  sort: "CloudWatch Logs"
+  long: '&CWLlong;'
+  short: '&CWL;'
+  sort: CloudWatch Logs
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: logs-2014-03-28
 cognito-identity:
-  long: "&COGID;"
-  short: "&COGID;"
-  sort: "Cognito Identity"
+  long: '&COGID;'
+  short: '&COGID;'
+  sort: Cognito Identity
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-identity-2014-06-30
 cognito-identity-provider:
-  long: "&COGIDP;"
-  short: "&COGIDP;"
-  sort: "Cognito Identity Provider"
+  long: '&COGIDP;'
+  short: '&COGIDP;'
+  sort: Cognito Identity Provider
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-idp-2016-04-18
 cognito-sync:
-  long: "&COGSYNClong;"
-  short: "&COGSYNC;"
-  sort: "Cognito Sync"
+  long: '&COGSYNClong;'
+  short: '&COGSYNC;'
+  sort: Cognito Sync
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-sync-2014-06-30
 comprehend:
-  long: "&CMPlong;"
-  short: "&CMP;"
-  sort: "Comprehend"
+  long: '&CMPlong;'
+  short: '&CMP;'
+  sort: Comprehend
+  tags:
+    product_categories: {'Machine Learning'}
   version: comprehend-2017-11-27
 config-service:
-  long: "&CClong;"
-  short: "&CC;"
-  sort: "Config"
+  long: '&CClong;'
+  short: '&CC;'
+  sort: Config
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: config-2014-11-12
 device-farm:
-  long: "&ATPlong;"
-  short: "&ATP;"
-  sort: "Device Farm"
+  long: '&ATPlong;'
+  short: '&ATP;'
+  sort: Device Farm
+  tags:
+    product_categories: {'Front-End Web &amp; Mobile'}
   version: devicefarm-2015-06-23
 dynamodb:
-  long: "&DDBlong;"
-  short: "&DDB;"
-  sort: "DynamoDB"
+  long: '&DDBlong;'
+  short: '&DDB;'
+  sort: DynamoDB
+  tags:
+    product_categories: {'Database'}
   version: dynamodb-2012-08-10
 ebs:
-  long: "&EBSlong;"
-  short: "&EBS;"
-  sort: "EBS"
+  long: '&EBSlong;'
+  short: '&EBS;'
+  sort: EBS
+  tags:
+    product_categories: {'Storage'}
   version: ebs-2019-11-02
 ec2:
-  long: "&EC2long;"
-  short: "&EC2;"
-  sort: "EC2"
+  long: '&EC2long;'
+  short: '&EC2;'
+  sort: EC2
+  tags:
+    product_categories: {'Compute'}
   version: ec2-2016-11-15
 ecr:
-  long: "&ECRlong;"
-  short: "&ECR;"
-  sort: "ECR"
+  long: '&ECRlong;'
+  short: '&ECR;'
+  sort: ECR
+  tags:
+    product_categories: {'Containers'}
   version: ecr-2015-09-21
 ecs:
-  long: "&ECSlong;"
-  short: "&ECS;"
-  sort: "ECS"
+  long: '&ECSlong;'
+  short: '&ECS;'
+  sort: ECS
+  tags:
+    product_categories: {'Containers'}
   version: ecs-2014-11-13
 eks:
-  long: "&EKSlong;"
-  short: "&EKS;"
-  sort: "EKS"
+  long: '&EKSlong;'
+  short: '&EKS;'
+  sort: EKS
+  tags:
+    product_categories: {'Containers'}
   version: eks-2017-11-01
 emr:
-  long: "&EMRlong;"
-  short: "&EMR;"
-  sort: "EMR"
+  long: '&EMRlong;'
+  short: '&EMR;'
+  sort: EMR
+  tags:
+    product_categories: {'Analytics'}
   version: elasticmapreduce-2009-03-31
 eventbridge:
-  long: "&EVlong;"
-  short: "&EV;"
-  sort: "EventBridge"
+  long: '&EVlong;'
+  short: '&EV;'
+  sort: EventBridge
+  tags:
+    product_categories: {'Application Integration'}
   version: eventbridge-2015-10-07
 glacier:
-  long: "&GLlong;"
-  short: "&GLshort;"
-  sort: "S3 Glacier"
+  long: '&GLlong;'
+  short: '&GLshort;'
+  sort: S3 Glacier
+  tags:
+    product_categories: {'Storage'}
   version: glacier-2012-06-01
 glue:
-  long: "&GLUlong;"
-  short: "&GLU;"
-  sort: "Glue"
+  long: '&GLUlong;'
+  short: '&GLU;'
+  sort: Glue
+  tags:
+    product_categories: {'Analytics'}
   version: glue-2017-03-31
 iam:
-  long: "&IAMlong;"
-  short: "&IAM;"
-  sort: "IAM"
-  version: iam-2010-05-08
   bundle: iam
+  long: '&IAMlong;'
+  short: '&IAM;'
+  sort: IAM
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: iam-2010-05-08
 iot:
-  long: "&IoTlong;"
-  short: "&IoT;"
-  sort: "IOT"
+  long: '&IoTlong;'
+  short: '&IoT;'
+  sort: IOT
+  tags:
+    product_categories: {'Internet of Things (IoT)'}
   version: iot-2015-05-28
 kinesis:
-  long: "&AKlong;"
-  short: "&AK;"
-  sort: "Kinesis"
+  long: '&AKlong;'
+  short: '&AK;'
+  sort: Kinesis
+  tags:
+    product_categories: {'Analytics'}
   version: kinesis-2013-12-02
 kinesis-analytics-v2:
-  long: "&AKAlong;"
-  short: "&AKA;"
-  sort: "Kinesis DataAnalytics"
+  long: '&AKAlong;'
+  short: '&AKA;'
+  sort: Kinesis DataAnalytics
+  tags:
+    product_categories: {'Analytics'}
   version: kinesisanalyticsv2-2018-05-23
 kms:
-  long: "&KMSlong;"
-  short: "&KMS;"
-  sort: "KMS"
+  long: '&KMSlong;'
+  short: '&KMS;'
+  sort: KMS
+  tags:
+    product_categories: {'Cryptography &amp; PKI'}
   version: kms-2014-11-01
 lambda:
-  long: "&LAMlong;"
-  short: "&LAM;"
-  sort: "Lambda"
+  long: '&LAMlong;'
+  short: '&LAM;'
+  sort: Lambda
+  tags:
+    product_categories: {'Compute'}
   version: lambda-2015-03-31
 lex:
-  long: "&LEX2long;"
-  short: "&LEX2;"
-  sort: "Lex"
+  long: '&LEX2long;'
+  short: '&LEX2;'
+  sort: Lex
+  tags:
+    product_categories: {'Machine Learning'}
   version: runtime.lex.v2-2020-08-07
 lookoutvision:
-  long: "&LYRAlong;"
-  short: "&LYRA;"
-  sort: "Lookout for Vision"
+  long: '&LYRAlong;'
+  short: '&LYRA;'
+  sort: Lookout for Vision
+  tags:
+    product_categories: {'Machine Learning'}
   version: lookoutvision-2020-11-20
 medialive:
-  long: "&EMLlong;"
-  short: "&EML;"
-  sort: "MediaLive"
+  long: '&EMLlong;'
+  short: '&EML;'
+  sort: MediaLive
+  tags:
+    product_categories: {'Media Services'}
   version: medialive-2017-10-14
 mediapackage:
-  long: "&EMPlong;"
-  short: "&EMP;"
-  sort: "MediaPackage"
+  long: '&EMPlong;'
+  short: '&EMP;'
+  sort: MediaPackage
+  tags:
+    product_categories: {'Media Services'}
   version: mediapackage-2017-10-12
 organizations:
-  long: "&AOlong;"
-  short: "&AO;"
-  sort: "Organizations"
+  long: '&AOlong;'
+  short: '&AO;'
+  sort: Organizations
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: organizations-2016-11-28
 pinpoint:
-  long: "&PINlong;"
-  short: "&PIN;"
-  sort: "Pinpoint"
-  version: pinpoint-2016-12-01
   bundle: pinpoint
+  long: '&PINlong;'
+  short: '&PIN;'
+  sort: Pinpoint
+  tags:
+    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
+  version: pinpoint-2016-12-01
 pinpoint-email:
-  long: "&PIN-Email-API;"
-  short: "&PIN-Email-API;"
-  sort: "Pinpoint Email"
+  long: '&PIN-Email-API;'
+  short: '&PIN-Email-API;'
+  sort: Pinpoint Email
+  tags:
+    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
   version: pinpoint-email-2018-07-26
 pinpoint-sms-voice:
-  long: "&PIN-SMS-Voice-API;"
-  short: "&PIN-SMS-Voice-API;"
-  sort: "Pinpoint SMS and Voice"
-  version: pinpoint-sms-voice-2018-09-05
   bundle: pinpoint
+  long: '&PIN-SMS-Voice-API;'
+  short: '&PIN-SMS-Voice-API;'
+  sort: Pinpoint SMS and Voice
+  tags:
+    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
+  version: pinpoint-sms-voice-2018-09-05
 polly:
-  long: "&POLlong;"
-  short: "&POL;"
-  sort: "Polly"
+  long: '&POLlong;'
+  short: '&POL;'
+  sort: Polly
+  tags:
+    product_categories: {'Machine Learning'}
   version: polly-2016-06-10
 qldb:
-  long: "&QLDBlong;"
-  short: "&QLDB;"
-  sort: "QLDB"
+  long: '&QLDBlong;'
+  short: '&QLDB;'
+  sort: QLDB
+  tags:
+    product_categories: {'Database'}
   version: qldb-2019-01-02
 rds:
-  long: "&RDSlong;"
-  short: "&RDS;"
-  sort: "RDS"
+  long: '&RDSlong;'
+  short: '&RDS;'
+  sort: RDS
+  tags:
+    product_categories: {'Database'}
   version: rds-2014-10-31
 rds-data:
-  long: "&RDSDataServicelong;"
-  short: "&RDSDataService;"
-  sort: "RDS Data Service"
+  long: '&RDSDataServicelong;'
+  short: '&RDSDataService;'
+  sort: RDS Data Service
+  tags:
+    product_categories: {'Database'}
   version: rds-data-2018-08-01
 rekognition:
-  long: "&REKlong;"
-  short: "&REK;"
-  sort: "Rekognition"
+  caveat: The code examples in this chapter are intended to supplement the code examples
+    found throughout the rest of this guide.
+  long: '&REKlong;'
+  short: '&REK;'
+  sort: Rekognition
+  tags:
+    product_categories: {'Machine Learning'}
   version: rekognition-2016-06-27
-  caveat: The code examples in this chapter are intended to supplement the
-    code examples found throughout the rest of this guide.
 route-53:
-  long: "&R53long;"
-  short: "&R53;"
-  sort: "Route 53"
+  long: '&R53long;'
+  short: '&R53;'
+  sort: Route 53
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
   version: route53-2013-04-01
 route53-recovery-cluster:
-  long: "&R53ARClong;"
-  short: "&R53ARC;"
-  sort: "Application Recovery Controller"
+  long: '&R53ARClong;'
+  short: '&R53ARC;'
+  sort: Application Recovery Controller
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
   version: route53-recovery-cluster-2019-12-02
 s3:
-  long: "&S3long;"
-  short: "&S3;"
-  sort: "S3"
+  long: '&S3long;'
+  short: '&S3;'
+  sort: S3
+  tags:
+    product_categories: {'Storage'}
   version: s3-2006-03-01
 sagemaker:
-  long: "&SMlong;"
-  short: "&SM;"
-  sort: "SageMaker"
+  long: '&SMlong;'
+  short: '&SM;'
+  sort: SageMaker
+  tags:
+    product_categories: {'Machine Learning'}
   version: sagemaker-2017-07-24
 secrets-manager:
-  long: "&ASMlong;"
-  short: "&ASM;"
-  sort: "Secrets Manager"
+  long: '&ASMlong;'
+  short: '&ASM;'
+  sort: Secrets Manager
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
   version: secretsmanager-2017-10-17
 ses:
-  long: "&SESlong;"
-  short: "&SES;"
-  sort: "SES"
+  bundle: ses
+  long: '&SESlong;'
+  short: '&SES;'
+  sort: SES
+  tags:
+    product_categories: {'Business Applications'}
   version: email-2010-12-01
-  bundle: ses
 sesv2:
-  long: "&SESv2long;"
-  short: "&SESv2;"
-  sort: "SES v2 API"
-  version: sesv2-2019-09-27
   bundle: ses
+  long: '&SESv2long;'
+  short: '&SESv2;'
+  sort: SES v2 API
+  tags:
+    product_categories: {'Business Applications'}
+  version: sesv2-2019-09-27
 sfn:
-  long: "&SFNlong;"
-  short: "&SFN;"
-  sort: "Step Functions"
+  long: '&SFNlong;'
+  short: '&SFN;'
+  sort: Step Functions
+  tags:
+    product_categories: {'Application Integration'}
   version: states-2016-11-23
 snowball:
-  long: "&Frozenlong;"
-  short: "&Frozen;"
-  sort: "Snowball"
+  long: '&Frozenlong;'
+  short: '&Frozen;'
+  sort: Snowball
+  tags:
+    product_categories: {'Storage'}
   version: snowball-2016-06-30
 sns:
-  long: "&SNSlong;"
-  short: "&SNS;"
-  sort: "SNS"
+  long: '&SNSlong;'
+  short: '&SNS;'
+  sort: SNS
+  tags:
+    product_categories: {'Application Integration', 'Front-End Web &amp; Mobile'}
   version: sns-2010-03-31
 sqs:
-  long: "&SQSlong;"
-  short: "&SQS;"
-  sort: "SQS"
+  long: '&SQSlong;'
+  short: '&SQS;'
+  sort: SQS
+  tags:
+    product_categories: {'Application Integration'}
   version: sqs-2012-11-05
-sts:
-  long: "&STSlong;"
-  short: "&STS;"
-  sort: "STS"
-  version: sts-2011-06-15
-  bundle: iam
 ssm:
-  long: "&SYSlong;"
-  short: "&SYS;"
-  sort: "Systems Manager"
+  long: '&SYSlong;'
+  short: '&SYS;'
+  sort: Systems Manager
+  tags:
+    product_categories: {'Management &amp; Governance'}
   version: ssm-2014-11-06
+sts:
+  bundle: iam
+  long: '&STSlong;'
+  short: '&STS;'
+  sort: STS
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: sts-2011-06-15
 textract:
-  long: "&TEXTRACTlong;"
-  short: "&TEXTRACT;"
-  sort: "Textract"
+  long: '&TEXTRACTlong;'
+  short: '&TEXTRACT;'
+  sort: Textract
+  tags:
+    product_categories: {'Machine Learning'}
   version: textract-2018-06-27
 transcribe:
-  long: "&TSClong;"
-  short: "&TSC;"
-  sort: "Transcribe"
+  long: '&TSClong;'
+  short: '&TSC;'
+  sort: Transcribe
+  tags:
+    product_categories: {'Machine Learning'}
   version: transcribe-2017-10-26
 transcribe-medical:
-  long: "&TSClong;"
-  short: "&TSC;"
-  sort: "Transcribe medical"
+  long: '&TSClong;'
+  short: '&TSC;'
+  sort: Transcribe medical
+  tags:
+    product_categories: {'Machine Learning'}
   version: transcribe-2017-10-26
 translate:
-  long: "&TSLlong;"
-  short: "&TSL;"
-  sort: "Translate"
+  long: '&TSLlong;'
+  short: '&TSL;'
+  sort: Translate
+  tags:
+    product_categories: {'Machine Learning'}
   version: translate-2017-07-01
