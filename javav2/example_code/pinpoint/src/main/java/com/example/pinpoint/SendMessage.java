@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.sendmsg.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.DirectMessageConfiguration;
@@ -30,9 +30,9 @@ import java.util.Map;
 //snippet-end:[pinpoint.java2.sendmsg.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -52,19 +52,20 @@ public class SendMessage {
     public static String senderId = "MySenderID";
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage: " +
-                "SendMessage <message> <appId> <originationNumber> <destinationNumber> \n\n" +
+                "  <message> <appId> <originationNumber> <destinationNumber> \n\n" +
                 "Where:\n" +
-                "  message - the body of the message to send.\n\n"+
-                "  appId - the Amazon Pinpoint project/application ID to use when you send this message.\n\n" +
-                "  originationNumber - the phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654). "+
-                "  destinationNumber - the recipient's phone number.  For best results, you should specify the phone number in E.164 format (for example, +1-555-555-5654). ";
+                "  message - The body of the message to send.\n\n"+
+                "  appId - The Amazon Pinpoint project/application ID to use when you send this message.\n\n" +
+                "  originationNumber - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654). "+
+                "  destinationNumber - The recipient's phone number.  For best results, you should specify the phone number in E.164 format (for example, +1-555-555-5654). ";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String message = args[0];
         String appId = args[1];
@@ -74,6 +75,7 @@ public class SendMessage {
 
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         sendSMSMessage(pinpoint, message, appId, originationNumber, destinationNumber);

@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/27/2021]
-// snippet-sourceauthor:[scmacdon AWS]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@ package com.example.polly;
 
 // snippet-start:[polly.java2.demo.import]
 import javazoom.jl.decoder.JavaLayerException;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
@@ -33,9 +33,9 @@ import javazoom.jl.player.advanced.PlaybackListener;
 // snippet-end:[polly.java2.demo.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -50,6 +50,7 @@ public class PollyDemo {
 
         PollyClient polly = PollyClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         talkPolly(polly);
@@ -66,8 +67,6 @@ public class PollyDemo {
 
             DescribeVoicesResponse describeVoicesResult = polly.describeVoices(describeVoiceRequest);
             Voice voice = describeVoicesResult.voices().get(26);
-
-
             InputStream stream = synthesize(polly, SAMPLE, voice, OutputFormat.MP3);
             AdvancedPlayer player = new AdvancedPlayer(stream, javazoom.jl.player.FactoryRegistry.systemRegistry().createAudioDevice());
             player.setPlayBackListener(new PlaybackListener() {
@@ -84,10 +83,10 @@ public class PollyDemo {
 
             // play it!
             player.play();
-        } catch (PollyException | JavaLayerException | IOException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+     } catch (PollyException | JavaLayerException | IOException e) {
+          System.err.println(e.getMessage());
+          System.exit(1);
+     }
     }
 
     public static InputStream synthesize(PollyClient polly, String text, Voice voice, OutputFormat format) throws IOException {

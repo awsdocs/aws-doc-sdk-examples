@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Timestream]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05-04-2022]
-//snippet-sourceauthor:[scmacdon- AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.timestream.write;
 
 //snippet-start:[timestream.java2.list_tables.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import java.util.List;
@@ -49,6 +49,7 @@ public class ListTables {
         String dbName = args[0];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllTables(timestreamWriteClient, dbName);

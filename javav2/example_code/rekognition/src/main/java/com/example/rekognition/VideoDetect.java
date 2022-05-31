@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09-27-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -16,6 +15,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.StartLabelDetectionResponse;
@@ -40,9 +40,9 @@ import java.util.List;
 // snippet-end:[rekognition.java2.recognize_video_detect.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -52,18 +52,18 @@ public class VideoDetect {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <bucket> <video> <queueUrl> <topicArn> <roleArn>\n\n" +
                 "Where:\n" +
-                "   bucket - the name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
-                "   video - the name of the video (for example, people.mp4). \n\n" +
-                "   queueUrl- the URL of a SQS queue. \n\n" +
-                "   topicArn - the ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
-                "   roleArn - the ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
+                "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
+                "   video - The name of the video (for example, people.mp4). \n\n" +
+                "   queueUrl- The URL of a SQS queue. \n\n" +
+                "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
+                "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
         if (args.length != 5) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -76,10 +76,12 @@ public class VideoDetect {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         SqsClient sqs = SqsClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         NotificationChannel channel = NotificationChannel.builder()
@@ -253,7 +255,7 @@ public class VideoDetect {
 
                     if (instances.isEmpty()) {
                         System.out.println("        " + "None");
-                    }  else {
+                    } else {
                         for (Instance instance : instances) {
                             System.out.println("        Confidence: " + instance.confidence().toString());
                             System.out.println("        Bounding box: " + instance.boundingBox().toString());

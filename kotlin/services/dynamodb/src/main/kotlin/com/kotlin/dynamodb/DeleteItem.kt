@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[DeleteItem.kt demonstrates how to delete an item from an Amazon DynamoDB table.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DeleteItem.kt demonstrates how to delete an item from an Amazon DynamoDB table.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12,7 +11,6 @@
 */
 
 package com.kotlin.dynamodb
-
 
 // snippet-start:[dynamodb.kotlin.delete_item.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
@@ -22,12 +20,13 @@ import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.delete_item.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+*/
+
 suspend fun main(args: Array<String>) {
 
     val usage = """
@@ -35,9 +34,9 @@ suspend fun main(args: Array<String>) {
         <tableName> <key> <keyval>
 
     Where:
-        tableName - the Amazon DynamoDB table to delete the item from (for example, Music3).
-        key - the key used in the Amazon DynamoDB table (for example, Artist). 
-        keyval - the key value that represents the item to delete (for example, Famous Band).
+        tableName - The Amazon DynamoDB table to delete the item from (for example, Music3).
+        key - The key used in the Amazon DynamoDB table (for example, Artist). 
+        keyval - The key value that represents the item to delete (for example, Famous Band).
     """
 
     if (args.size != 3) {
@@ -54,17 +53,17 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[dynamodb.kotlin.delete_item.main]
 suspend fun deleteDymamoDBItem(tableNameVal: String, keyName: String, keyVal: String) {
 
-        val keyToGet = mutableMapOf<String, AttributeValue>()
-        keyToGet[keyName] = AttributeValue.S(keyVal)
+    val keyToGet = mutableMapOf<String, AttributeValue>()
+    keyToGet[keyName] = AttributeValue.S(keyVal)
 
-        val request = DeleteItemRequest {
-            tableName = tableNameVal
-            key = keyToGet
-        }
-
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.deleteItem(request)
-            println("Item with key matching $keyVal was deleted")
-        }
+    val request = DeleteItemRequest {
+        tableName = tableNameVal
+        key = keyToGet
     }
+
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        ddb.deleteItem(request)
+        println("Item with key matching $keyVal was deleted")
+    }
+}
 // snippet-end:[dynamodb.kotlin.delete_item.main]

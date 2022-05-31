@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[CreateApp.java demonstrates how to create an application in the Amazon Pinpoint dashboard.]
+//snippet-sourcedescription:[CreateApp.java demonstrates hc in the Amazon Pinpoint dashboard.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.createapp.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.CreateAppRequest;
@@ -22,22 +22,22 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.createapp.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateApp {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "CreateApp - create an application in the Amazon Pinpoint dashboard\n\n" +
-                "Usage: CreateApp <appName>\n\n" +
-                "Where:\n" +
-                "  appName - the name of the application to create.\n\n";
+        final String usage = "\n" +
+                 " Usage: " +
+                 " <appName>\n\n" +
+                 " Where:\n" +
+                 "  appName - The name of the application to create.\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
         String appName = args[0];
@@ -45,6 +45,7 @@ public class CreateApp {
 
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String appID = createApplication(pinpoint, appName);

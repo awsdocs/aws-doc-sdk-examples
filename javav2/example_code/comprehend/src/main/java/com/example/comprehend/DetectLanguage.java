@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/28/2021]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.comprehend;
 
 //snippet-start:[comprehend.java2.detect_language.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
 import software.amazon.awssdk.services.comprehend.model.ComprehendException;
@@ -25,9 +25,9 @@ import java.util.List;
 //snippet-end:[comprehend.java2.detect_language.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,12 +35,13 @@ public class DetectLanguage {
 
     public static void main(String[] args) {
 
-        //Specify French text - "It is raining today in Seattle"
+        // Specify French text - "It is raining today in Seattle".
         String text = "Il pleut aujourd'hui à Seattle";
         Region region = Region.US_EAST_1;
 
         ComprehendClient comClient = ComprehendClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         System.out.println("Calling DetectDominantLanguage");

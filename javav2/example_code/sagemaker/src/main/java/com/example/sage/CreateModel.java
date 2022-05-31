@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.sage;
 
 //snippet-start:[sagemaker.java2.create_model.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.ContainerDefinition;
@@ -24,9 +24,9 @@ import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
 //snippet-end:[sagemaker.java2.create_model.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,17 +34,17 @@ public class CreateModel {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <dataUrl> <image> <modelName> <executionRoleArn>\n\n" +
                 "Where:\n" +
-                "    dataUrl - the Amazon S3 path where the model artifacts, which result from model training, are stored.\n\n" +
-                "    image - the Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored (for example, xxxxx5047983.dkr.ecr.us-west-2.amazonaws.com/train).\n\n" +
-                "    modelName - the name of the model.\n\n" +
-                "    executionRoleArn - the Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can assume to access model artifacts (for example, arn:aws:iam::xxxxx5047983:role/service-role/AmazonSageMaker-ExecutionRole-20200627T12xxxx).\n\n";
+                "    dataUrl - The Amazon S3 path where the model artifacts, which result from model training, are stored.\n\n" +
+                "    image - The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored (for example, xxxxx5047983.dkr.ecr.us-west-2.amazonaws.com/train).\n\n" +
+                "    modelName - The name of the model.\n\n" +
+                "    executionRoleArn - The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can assume to access model artifacts (for example, arn:aws:iam::xxxxx5047983:role/service-role/AmazonSageMaker-ExecutionRole-20200627T12xxxx).\n\n";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -56,6 +56,7 @@ public class CreateModel {
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createSagemakerModel(sageMakerClient, dataUrl, image, modelName, executionRoleArn);

@@ -13,6 +13,8 @@ Amazon S3 is cloud object storage with industry-leading scalability, data availa
 
 ## Code examples
 
+**Note** - The Credential Provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+
 ### Single action
 
 You will find these examples that use the **S3Client** object: 
@@ -24,7 +26,7 @@ You will find these examples that use the **S3Client** object:
 - [Creating an Amazon Amazon S3 batch job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateJob.java) (CreateJob command)
 - [Deleting a policy from an Amazon Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteBucketPolicy.java) (DeleteBucketPolicy command)
 - [Deleting multiple objects from an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteMultiObjects.java) (DeleteObjects command)
-- [Deleting the website configuration for an Amazon S3 bucket]](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteWebsiteConfiguration.java) (DeleteBucketWebsite command)
+- [Deleting the website configuration for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteWebsiteConfiguration.java) (DeleteBucketWebsite command)
 - [Using the S3Presigner client to create a presigned URL and upload an object to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java) (PresignPutObject command)
 - [Using the S3Presigner client to create a presigned URL and upload an object that contains metadata to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlMetadata.java) (PresignPutObject command)
 - [Using the S3Presigner client to create a presigned URL and upload a PNG image file to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlUploadImage.java) (PresignPutObject command)

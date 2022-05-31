@@ -16,7 +16,7 @@ import (
 
 // snippet-start:[gov2.dynamodb.Scenario_GettingStartedMovies]
 
-// RunScenario is an interactive example that shows you how to use the AWS SDK for Go
+// RunMovieScenario is an interactive example that shows you how to use the AWS SDK for Go
 // to create and use an Amazon DynamoDB table that stores data about movies.
 //
 //   1. Create a table that can hold movie data.
@@ -35,7 +35,7 @@ import (
 //
 // The specified movie sampler is used to get sample data from a URL that is loaded
 // into the named table.
-func RunScenario(
+func RunMovieScenario(
 	sdkConfig aws.Config, questioner demotools.IQuestioner, tableName string,
 	movieSampler actions.IMovieSampler) {
 	defer func() {

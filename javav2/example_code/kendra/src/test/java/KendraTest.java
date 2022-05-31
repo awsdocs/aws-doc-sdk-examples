@@ -5,6 +5,7 @@
 
 import com.example.kendra.*;
 import org.junit.jupiter.api.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kendra.KendraClient;
 
@@ -34,7 +35,10 @@ public class KendraTest {
 
         // Run tests on real AWS resources.
         Region region = Region.US_EAST_1;
-        kendra = KendraClient.builder().region(region).build();
+        kendra = KendraClient.builder()
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         try (InputStream input = KendraTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 

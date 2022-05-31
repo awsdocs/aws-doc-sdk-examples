@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -12,6 +11,7 @@
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.ListUserPoolClients.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
@@ -20,9 +20,9 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoo
 //snippet-end:[cognito.java2.ListUserPoolClients.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -30,11 +30,12 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoo
 public class ListUserPoolClients {
 
     public static void main(String[] args) {
+
         final String usage = "\n" +
                 "Usage:\n" +
                 "    ListUserPoolClients <userPoolId> \n\n" +
                 "Where:\n" +
-                "    userPoolId - the ID given to your user pool.\n\n" ;
+                "    userPoolId - The ID given to your user pool.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,6 +45,7 @@ public class ListUserPoolClients {
         String userPoolId = args[0];
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllUserPoolClients(cognitoClient, userPoolId ) ;

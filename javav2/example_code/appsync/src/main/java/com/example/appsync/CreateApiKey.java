@@ -3,8 +3,8 @@
 // snippet-service:[AWS AppSync]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04-01-2022]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05-17-2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +13,7 @@
 package com.example.appsync;
 
 //snippet-start:[appsync.java2.create_key.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.AppSyncException;
@@ -43,9 +44,11 @@ public class CreateApiKey {
         }
 
         String apiId = args[0];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         AppSyncClient appSyncClient = AppSyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         String id = createKey(appSyncClient, apiId) ;

@@ -3,6 +3,8 @@ import com.example.sqs.LongPolling;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
@@ -27,6 +29,7 @@ public class SQSServiceIntegrationTest {
 
         sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = SQSServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
