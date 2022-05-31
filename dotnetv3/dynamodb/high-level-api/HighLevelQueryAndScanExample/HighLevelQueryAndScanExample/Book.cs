@@ -5,7 +5,7 @@ namespace HighLevelQueryAndScanExample
 {
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelQueryAndScan.Book]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelQueryAndScan.Book]
 
     /// <summary>
     /// Maps information for a book to the Amazon DynamoDB table ProductCatalog.
@@ -29,5 +29,5 @@ namespace HighLevelQueryAndScanExample
         public bool InPublication { get; set; }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelQueryAndScan.Book]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelQueryAndScan.Book]
 }

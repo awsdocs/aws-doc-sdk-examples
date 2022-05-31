@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.redshift;
 
 // snippet-start:[redshift.java2.create_cluster.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.CreateClusterRequest;
@@ -28,9 +28,9 @@ import java.util.List;
 // snippet-end:[redshift.java2.create_cluster.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -41,16 +41,16 @@ public class CreateAndModifyCluster {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <clusterId> <masterUsername> <masterUserPassword> \n\n" +
                 "Where:\n" +
-                "    clusterId - the id of the cluster to create. \n" +
-                "    masterUsername - the master user name. \n" +
-                "    masterUserPassword - the password that corresponds to the master user name. \n" ;
+                "    clusterId - The id of the cluster to create. \n" +
+                "    masterUsername - The master user name. \n" +
+                "    masterUserPassword - The password that corresponds to the master user name. \n" ;
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -61,6 +61,7 @@ public class CreateAndModifyCluster {
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createCluster(redshiftClient,clusterId, masterUsername, masterUserPassword );
@@ -73,7 +74,6 @@ public class CreateAndModifyCluster {
     public static void createCluster(RedshiftClient redshiftClient, String clusterId, String masterUsername, String masterUserPassword ) {
 
        try {
-
            CreateClusterRequest clusterRequest = CreateClusterRequest.builder()
                 .clusterIdentifier(clusterId)
                 .masterUsername(masterUsername) // set the user name here
@@ -97,35 +97,32 @@ public class CreateAndModifyCluster {
     public static void waitForClusterReady(RedshiftClient redshiftClient, String clusterId) {
 
         Boolean clusterReady = false;
-        String clusterReadyStr = "";
+        String clusterReadyStr;
         System.out.println("Waiting for cluster to become available.");
 
        try {
-        DescribeClustersRequest clustersRequest = DescribeClustersRequest.builder()
+            DescribeClustersRequest clustersRequest = DescribeClustersRequest.builder()
                 .clusterIdentifier(clusterId)
                 .build();
 
-       // Loop until the cluster is ready
-         while (!clusterReady) {
+            // Loop until the cluster is ready.
+            while (!clusterReady) {
+                DescribeClustersResponse clusterResponse = redshiftClient.describeClusters(clustersRequest);
+                List<Cluster> clusterList = clusterResponse.clusters();
+                for (Cluster cluster : clusterList) {
+                    clusterReadyStr = cluster.clusterStatus();
+                    if (clusterReadyStr.contains("available"))
+                         clusterReady = true;
+                    else {
+                         System.out.print(".");
+                        Thread.sleep(sleepTime * 1000);
+                    }
+                }
+            }
 
-             DescribeClustersResponse clusterResponse = redshiftClient.describeClusters(clustersRequest);
-             List<Cluster> clusterList = clusterResponse.clusters();
-
-             for (Cluster cluster : clusterList) {
-
-                 clusterReadyStr = cluster.clusterStatus();
-                 if (clusterReadyStr.contains("available"))
-                     clusterReady = true;
-                 else {
-                     System.out.print(".");
-                     Thread.sleep(sleepTime * 1000);
-                 }
-             }
-         }
-           System.out.println("Cluster is available!");
+        System.out.println("Cluster is available!");
 
     } catch (RedshiftException | InterruptedException e) {
-
         System.err.println(e.getMessage());
         System.exit(1);
     }

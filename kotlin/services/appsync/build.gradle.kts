@@ -22,7 +22,7 @@ repositories {
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:appsync:0.14.3-beta")
+    implementation("aws.sdk.kotlin:appsync:0.15.2-beta")
     implementation("com.pinterest:ktlint:0.34.2")
     implementation("aws.sdk.kotlin:sts:0.12.0-beta")
     implementation("aws.sdk.kotlin:s3:0.12.0-beta")

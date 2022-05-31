@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS X-Ray Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/29/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/29/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.xray;
 
 // snippet-start:[xray.java2_create_rule.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.xray.XRayClient;
 import software.amazon.awssdk.services.xray.model.CreateSamplingRuleRequest;
@@ -22,10 +22,11 @@ import software.amazon.awssdk.services.xray.model.XRayException;
 import software.amazon.awssdk.services.xray.model.CreateSamplingRuleResponse;
 // snippet-end:[xray.java2_create_rule.import]
 
+
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,14 +34,14 @@ public class CreateSamplingRule {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <ruleName>\n\n" +
                 "Where:\n" +
-                "   ruleName - the name of the rule \n\n";
+                "   ruleName - The name of the rule \n\n";
 
          if (args.length != 1) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
          }
 
@@ -48,6 +49,7 @@ public class CreateSamplingRule {
         Region region = Region.US_EAST_1;
         XRayClient xRayClient = XRayClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createRule(xRayClient, ruleName) ;

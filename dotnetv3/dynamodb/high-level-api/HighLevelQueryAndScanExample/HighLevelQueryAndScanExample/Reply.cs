@@ -6,7 +6,7 @@ namespace HighLevelQueryAndScanExample
     using System;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelQueryAndScan.Reply]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelQueryAndScan.Reply]
 
     /// <summary>
     /// Maps information to the Amazon DynamoDB table Reply.
@@ -32,5 +32,5 @@ namespace HighLevelQueryAndScanExample
         public int? Version { get; set; }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelQueryAndScan.Reply]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelQueryAndScan.Reply]
 }

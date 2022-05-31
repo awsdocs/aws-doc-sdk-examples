@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.sage;
 
 //snippet-start:[sagemaker.java2.transform_job.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.TransformS3DataSource;
@@ -28,10 +28,10 @@ import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
 
 
 /**
- *  To setup the model data and other requirements to make this Java V2 example work, follow this AWS tutorial prior to running this Java code example.
+ *  To set up the model data and other requirements to make this Java V2 example work, follow this AWS tutorial prior to running this Java code example.
  *  https://aws.amazon.com/blogs/machine-learning/predicting-customer-churn-with-amazon-machine-learning/
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -46,10 +46,10 @@ public class CreateTransformJob {
                 "Usage:\n" +
                 "    <s3Uri> <s3OutputPath> <modelName> <transformJobName>\n\n" +
                 "Where:\n" +
-                "    s3Uri - identifies the key name of an Amazon S3 object that contains the data (ie, s3://mybucket/churn.txt).\n\n" +
-                "    s3OutputPath - the Amazon S3 location where the results are stored.\n\n" +
-                "    modelName - the name of the model.\n\n" +
-                "    transformJobName - the name of the transform job.\n\n";
+                "    s3Uri - Identifies the key name of an Amazon S3 object that contains the data (ie, s3://mybucket/churn.txt).\n\n" +
+                "    s3OutputPath - The Amazon S3 location where the results are stored.\n\n" +
+                "    modelName - The name of the model.\n\n" +
+                "    transformJobName - The name of the transform job.\n\n";
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -64,6 +64,7 @@ public class CreateTransformJob {
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         transformJob(sageMakerClient, s3Uri, s3OutputPath, modelName, transformJobName);
@@ -71,34 +72,34 @@ public class CreateTransformJob {
     }
 
     //snippet-start:[sagemaker.java2.transform_job.main]
-    public static void transformJob(SageMakerClient sageMakerClient, String s3Uri, String s3OutputPath,  String modelName, String transformJobName) {
+    public static void transformJob(SageMakerClient sageMakerClient, String s3Uri, String s3OutputPath, String modelName, String transformJobName) {
 
         try{
-        TransformS3DataSource s3DataSource = TransformS3DataSource.builder()
+            TransformS3DataSource s3DataSource = TransformS3DataSource.builder()
                 .s3DataType("S3Prefix")
                 .s3Uri(s3Uri)
                 .build();
 
-        TransformDataSource dataSource = TransformDataSource.builder()
+            TransformDataSource dataSource = TransformDataSource.builder()
                 .s3DataSource(s3DataSource)
                 .build();
 
-        TransformInput input = TransformInput.builder()
+            TransformInput input = TransformInput.builder()
                 .dataSource(dataSource)
                 .contentType("text/csv")
                 .splitType("Line")
                 .build();
 
-        TransformOutput output = TransformOutput.builder()
+            TransformOutput output = TransformOutput.builder()
                 .s3OutputPath(s3OutputPath)
                 .build();
 
-        TransformResources resources = TransformResources.builder()
+            TransformResources resources = TransformResources.builder()
                 .instanceCount(1)
                 .instanceType("ml.m4.xlarge")
                 .build();
 
-        CreateTransformJobRequest jobRequest = CreateTransformJobRequest.builder()
+            CreateTransformJobRequest jobRequest = CreateTransformJobRequest.builder()
                 .transformJobName(transformJobName)
                 .modelName(modelName)
                 .transformInput(input)
@@ -106,14 +107,13 @@ public class CreateTransformJob {
                 .transformResources(resources)
                 .build();
 
-        CreateTransformJobResponse jobResponse = sageMakerClient.createTransformJob(jobRequest) ;
-        System.out.println("Response "+jobResponse.transformJobArn());
+            CreateTransformJobResponse jobResponse = sageMakerClient.createTransformJob(jobRequest) ;
+            System.out.println("Response "+jobResponse.transformJobArn());
 
         } catch (SageMakerException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-
     //snippet-end:[sagemaker.java2.transform_job.main]
 }

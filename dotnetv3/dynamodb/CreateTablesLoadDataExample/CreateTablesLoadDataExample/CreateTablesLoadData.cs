@@ -11,7 +11,7 @@ namespace CreateTablesLoadDataExample
     using Amazon.DynamoDBv2.DocumentModel;
     using Amazon.DynamoDBv2.Model;
 
-    // snippet-start:[dynamodb.dotnet35.CreateTablesLoadDataExample]
+    // snippet-start:[dynamodb.dotnetv3.CreateTablesLoadDataExample]
 
     /// <summary>
     /// This example creates several Amazon DynamoDB tables and then adds
@@ -666,5 +666,5 @@ namespace CreateTablesLoadDataExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.CreateTablesLoadDataExample]
+    // snippet-end:[dynamodb.dotnetv3.CreateTablesLoadDataExample]
 }

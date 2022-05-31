@@ -2,6 +2,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
@@ -45,13 +46,18 @@ public class AmazonPinpointTest {
 
         // Run tests on Real AWS Resources
         region = Region.US_EAST_1;
-        pinpoint = PinpointClient.builder().region(region).build();
-        s3Client = S3Client.builder()
+        pinpoint = PinpointClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        // Set the VoiceClient
-        // Set the content type to application/json
+        s3Client = S3Client.builder()
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
+        // Set the VoiceClient.
+        // Set the content type to application/json.
         List<String> listVal = new ArrayList<>();
         listVal.add("application/json");
 
@@ -65,14 +71,13 @@ public class AmazonPinpointTest {
         voiceClient = PinpointSmsVoiceClient.builder()
                 .overrideConfiguration(config2)
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
-
 
         try (InputStream input = AmazonPinpointTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
             Properties prop = new Properties();
-
-            if (input == null) {
+             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
             }
@@ -124,9 +129,9 @@ public class AmazonPinpointTest {
 
     @Test
     @Order(3)
-    public void CreateEndpoint()
+    public void UpdateEndpoint()
     {
-       EndpointResponse response = CreateEndpoint.createEndpoint(pinpoint, appId);
+       EndpointResponse response = UpdateEndpoint.createEndpoint(pinpoint, appId);
        endpointId2 = response.id() ;
        assertTrue(!endpointId2.isEmpty());
        System.out.println("Test 3 passed");
@@ -168,17 +173,19 @@ public class AmazonPinpointTest {
     @Order(8)
     public void SendMessage() {
 
-       SendMessage.sendSMSMessage(pinpoint, message, existingApplicationId, originationNumber, destinationNumber);
+      SendMessage.sendSMSMessage(pinpoint, message, existingApplicationId, originationNumber, destinationNumber);
+     //   SendMessage.sendSMSMessage(pinpoint, message, "2fdc4442c6a2483f85eaf7a943054815", originationNumber, destinationNumber);
+
        System.out.println("Test 8 passed");
     }
 
-    @Test
-    @Order(9)
-    public void ImportSegments() {
+  //  @Test
+  //  @Order(9)
+  //  public void ImportSegments() {
 
-       ImportSegment.createImportSegment(pinpoint, existingApplicationId, bucket, path, roleArn);
-       System.out.println("Test 9 passed");
-    }
+    //   ImportSegment.createImportSegment(pinpoint, existingApplicationId, bucket, path, roleArn);
+    //   System.out.println("Test 9 passed");
+   // }
 
     @Test
     @Order(10)
@@ -192,7 +199,7 @@ public class AmazonPinpointTest {
     @Order(11)
     public void CreateSegment() {
 
-        SegmentResponse createSegmentResult =  CreateSegment.createSegment(pinpoint, appId);
+        SegmentResponse createSegmentResult =  CreateSegment.createSegment(pinpoint, existingApplicationId);
         segmentId =  createSegmentResult.id();
         assertTrue(!segmentId.isEmpty());
         System.out.println("Test 11 passed");
@@ -202,7 +209,7 @@ public class AmazonPinpointTest {
     @Order(12)
     public void CreateCampaign() {
 
-       CreateCampaign.createPinCampaign(pinpoint, appId, segmentId );
+       CreateCampaign.createPinCampaign(pinpoint, existingApplicationId, segmentId );
        System.out.println("Test 12 passed");
     }
 

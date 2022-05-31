@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.rds;
 
 // snippet-start:[rds.java2.create_instance.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.CreateDbSnapshotRequest;
@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.rds.model.RdsException;
 // snippet-end:[rds.java2.create_instance.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,15 +32,15 @@ public class CreateDBSnapshot {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
                 "Where:\n" +
-                "    dbInstanceIdentifier - the database instance identifier \n" +
-                "    dbSnapshotIdentifier - the snapshot identifier \n";
+                "    dbInstanceIdentifier - The database instance identifier. \n" +
+                "    dbSnapshotIdentifier - The snapshot identifier. \n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -50,6 +50,7 @@ public class CreateDBSnapshot {
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier) ;

@@ -1,11 +1,9 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 import com.example.kinesis.CreateDataStream;
 import com.example.kinesis.DescribeLimits;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
 import java.io.*;
@@ -18,16 +16,15 @@ import java.util.concurrent.TimeUnit;
 public class KinesisServiceTest {
 
     private static KinesisClient kinesisClient;
-
     private static String streamName = "";
-    private static String existingDataStream = "";
 
     @BeforeAll
-    public static void setUp() throws IOException {
+    public static void setUp() {
 
         Region region = Region.US_EAST_1;
         kinesisClient = KinesisClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
         try (InputStream input = KinesisServiceTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -43,7 +40,7 @@ public class KinesisServiceTest {
 
             // Populate the data members required for all tests
             streamName = prop.getProperty("streamName");
-            existingDataStream = prop.getProperty("existingDataStream");
+            //existingDataStream = prop.getProperty("existingDataStream");
 
 
         } catch (IOException ex) {
@@ -109,7 +106,7 @@ public class KinesisServiceTest {
     @Order(7)
     public void DeleteDataStreem() {
 
-        DeleteDataStream.deleteStream(kinesisClient, streamName);
+        //    DeleteDataStream.deleteStream(kinesisClient, streamName);
         System.out.println("Test 7 passed");
     }
 }

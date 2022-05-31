@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.quicksight;
 
 // snippet-start:[quicksight.java2.list_themes.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import software.amazon.awssdk.services.quicksight.model.ListThemesRequest;
@@ -23,9 +23,9 @@ import java.util.List;
 // snippet-end:[quicksight.java2.list_themes.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,20 +33,21 @@ public class ListThemes {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <account>\n\n" +
                 "Where:\n" +
-                "   account - the ID of the AWS account.\n\n";
+                "   account - The ID of the AWS account.\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String account = args[0];
         QuickSightClient qsClient = QuickSightClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllThemes(qsClient, account);
@@ -54,17 +55,15 @@ public class ListThemes {
     }
 
     // snippet-start:[quicksight.java2.list_themes.main]
-    public static void listAllThemes(QuickSightClient qsClient,  String account ) {
+    public static void listAllThemes(QuickSightClient qsClient, String account ) {
 
         try {
-
             ListThemesRequest themeRequest = ListThemesRequest.builder()
                     .awsAccountId(account)
                     .build();
 
             ListThemesResponse analysisResponse = qsClient.listThemes(themeRequest);
             List<ThemeSummary> themes = analysisResponse.themeSummaryList();
-
             for (ThemeSummary theme: themes) {
                 System.out.println("Theme id is "+theme.themeId());
                 System.out.println("Theme name is "+theme.name());

@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[lambda.dotnet35.LowLevelTableExample]
+// snippet-start:[lambda.dotnetv3.LowLevelTableExample]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace LowLevelTableExample
 {
     public class LowLevelTableExample
     {
-        private static string _tableName = "ExampleTable";
+        private static readonly string _tableName = "ExampleTable";
 
         public static async Task<bool> CreateExampleTable(AmazonDynamoDBClient client)
         {
@@ -217,4 +217,4 @@ namespace LowLevelTableExample
         }
     }
 }
-// snippet-end:[lambda.dotnet35.LowLevelTableExample]
+// snippet-end:[lambda.dotnetv3.LowLevelTableExample]

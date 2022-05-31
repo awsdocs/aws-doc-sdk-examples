@@ -35,6 +35,10 @@ predictable performance with seamless scalability.*
   (`PutItem`)
 * [Query a table](actions/table_basics.go)
   (`Query`)
+* [Run a PartiQL statement](actions/partiql.go)
+  (`ExecuteStatement`)
+* [Run batches of PartiQL statements](actions/partiql.go)
+  (`BatchExecuteStatement`)
 * [Scan a table](actions/table_basics.go)
   (`Scan`)
 * [Update an item in a table](actions/table_basics.go)
@@ -45,8 +49,9 @@ predictable performance with seamless scalability.*
 ### Scenario
 
 * [Get started using tables, items, and queries](scenarios/scenario_movie_table.go)
-  (`DescribeTable`)
-
+* [Query a table using PartiQL](scenarios/scenario_partiql_single.go)
+* [Query a table by using batches of PartiQL statements](scenarios/scenario_partiql_batch.go)
+  
 ## Running the examples
 
 ### Get started using tables, items, and queries
@@ -68,7 +73,22 @@ Install all required resources and start the example by running the following in
 
 ```
 go mod tidy
-go run ./cmd
+go run ./cmd -scenario movieTable
+```
+
+### Query a table using PartiQL
+
+These two scenarios show you how to run PartiQL statements to query a DynamoDB table of
+movie data. You can do this one at a time or in batches. Both scenarios add, get,
+update, and delete movies in the table.
+
+Install all required resources and start the example by running one of the following in 
+the `dynamodb` folder at a command prompt.
+
+```
+go mod tidy
+go run ./cmd -scenario partiQLSingle
+go run ./cmd -scenario partiQLBatch
 ```
 
 ### Prerequisites
