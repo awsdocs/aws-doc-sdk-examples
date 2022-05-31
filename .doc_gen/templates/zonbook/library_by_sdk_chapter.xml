@@ -68,9 +68,8 @@
                     <keywordset>
                         <keyword>code example</keyword>
                         <keyword>&AWS; SDK</keyword>
-                        <keyword>{{svc_examples.ServiceEntity.Long}}</keyword>
+                        <keyword>{{$svc_examples.ServiceEntity.Long}}</keyword>
                         <keyword>{{$sdk_examples.SdkEntity.Long}}</keyword>
-                        <keyword>{{.Title}}</keyword>
                     </keywordset>
                 </info>
                 <para>The following code examples show you how to perform actions and implement common scenarios by using
