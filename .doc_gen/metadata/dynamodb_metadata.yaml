@@ -267,17 +267,6 @@ dynamodb_Usage_BatchGetWriteDelete:
   synopsis: get, write, and delete batches of &DDB; items.
   category: Scenarios
   languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb/scenarios
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem
-                - DynamoDB.dotnetv3.dynamodb-basics.QueryItems
-                - DynamoDB.dotnetv3.dynamodb-basics.ScanTable
     Python:
       versions:
         - sdk_version: 3
@@ -1046,26 +1035,8 @@ dynamodb_ExecuteStatement:
   title: Run a PartiQL statement on a &DDB; table using an &AWS; SDK
   title_abbrev: Run a PartiQL statement
   synopsis: run a PartiQL statement on a &DDB; table.
-  category: Scenarios
+  category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/dynamodb
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - dynamodb.kotlin.scenario.partiql.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/dynamodb
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - dynamodb.java2.scenario.partiql.main
     Go:
       versions:
         - sdk_version: 2
@@ -1126,7 +1097,7 @@ dynamodb_BatchExecuteStatement:
   title: Run batches of PartiQL statements on a &DDB; table using an &AWS; SDK
   title_abbrev: Run batches of PartiQL statements
   synopsis: run batches of PartiQL statements on a &DDB; table.
-  category: Scenarios
+  category:
   languages:
     Go:
       versions:
@@ -1232,15 +1203,26 @@ dynamodb_Scenario_GettingStartedMovies:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb/scenarios/DynamoDB_Basics
+          github: dotnetv3/dynamodb
           excerpts:
-            - description:
+            - description: Creates a table to contain movie data.
               snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.CreateTable
+            - description: Adds a single movie to the table.
                 - DynamoDB.dotnetv3.dynamodb-basics.PutItem
+            - description: Updates a single item in a table.
                 - DynamoDB.dotnetv3.dynamodb-basics.UpdateItem
+            - description: Retrieves a single item from the movie table.
                 - DynamoDB.dotnetv3.dynamodb-basics.GetItem
+            - description: Writes a batch of items to the movie table.
+                - DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem
+            - description: Deletes a single item from the table.
                 - DynamoDB.dotnetv3.dynamodb-basics.DeleteItem
+            - description: Queries the table for movies released in a particular year.
+                - DynamoDB.dotnetv3.dynamodb-basics.QueryItems
+            - description: Scans the table for movies released in a range of years.
+                - DynamoDB.dotnetv3.dynamodb-basics.ScanTable
+            - description: Deletes the movie table.
                 - DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample
     Go:
       versions:
