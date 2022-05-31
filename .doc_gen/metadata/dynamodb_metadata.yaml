@@ -1209,20 +1209,28 @@ dynamodb_Scenario_GettingStartedMovies:
               snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.CreateTable
             - description: Adds a single movie to the table.
+              snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.PutItem
             - description: Updates a single item in a table.
+              snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.UpdateItem
             - description: Retrieves a single item from the movie table.
+              snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.GetItem
             - description: Writes a batch of items to the movie table.
+              snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem
             - description: Deletes a single item from the table.
+              snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.DeleteItem
             - description: Queries the table for movies released in a particular year.
+              snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.QueryItems
             - description: Scans the table for movies released in a range of years.
+              snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.ScanTable
             - description: Deletes the movie table.
+              snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample
     Go:
       versions:
