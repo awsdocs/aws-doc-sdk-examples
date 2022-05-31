@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[dynamodb.dotnet35.LowLevelQueryExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelQueryExample]
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;
@@ -199,4 +199,4 @@ namespace LowLevelQuery
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.LowLevelQueryExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelQueryExample]

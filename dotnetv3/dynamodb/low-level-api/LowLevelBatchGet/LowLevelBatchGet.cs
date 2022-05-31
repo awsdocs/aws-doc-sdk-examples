@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[dynamodb.dotnet35.LowLevelBatchGetExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelBatchGetExample]
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;
@@ -11,8 +11,8 @@ namespace LowLevelBatchGet
 {
     public class LowLevelBatchGet
     {
-        private static string _table1Name = "Forum";
-        private static string _table2Name = "Thread";
+        private static readonly string _table1Name = "Forum";
+        private static readonly string _table2Name = "Thread";
 
         public static async void RetrieveMultipleItemsBatchGet(AmazonDynamoDBClient client)
         {
@@ -140,4 +140,4 @@ namespace LowLevelBatchGet
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.LowLevelBatchGetExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelBatchGetExample]

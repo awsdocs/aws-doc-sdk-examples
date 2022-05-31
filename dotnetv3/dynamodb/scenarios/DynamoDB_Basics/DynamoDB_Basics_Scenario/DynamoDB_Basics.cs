@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+// snippet-start:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]
 /// <summary>
 /// This example application performs the following basic Amazon DynamoDB
 /// functions:
@@ -215,3 +216,5 @@ namespace DynamoDB_Basics_Scenario
         }
     }
 }
+
+// snippet-end:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]

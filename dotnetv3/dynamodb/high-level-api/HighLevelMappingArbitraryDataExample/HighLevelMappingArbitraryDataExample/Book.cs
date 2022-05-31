@@ -6,7 +6,7 @@ namespace HighLevelMappingArbitraryDataExample
     using System.Collections.Generic;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelMappingArbitraryData.Book]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelMappingArbitraryData.Book]
 
     /// <summary>
     /// Maps data for a book to the Amazon DynamoDB table ProductCatalog.
@@ -32,5 +32,5 @@ namespace HighLevelMappingArbitraryDataExample
         public DimensionType Dimensions { get; set; }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelMappingArbitraryData.Book]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelMappingArbitraryData.Book]
 }
