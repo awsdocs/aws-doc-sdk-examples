@@ -9,7 +9,7 @@ namespace MidLevelBatchWriteItemExample
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.DocumentModel;
 
-    // snippet-start:[dynamodb.dotnet35.MidLevelBatchWriteItemExample]
+    // snippet-start:[dynamodb.dotnetv3.MidLevelBatchWriteItemExample]
 
     /// <summary>
     /// Shows how to use mid-level Amazon DynamoDB API calls to perform batch
@@ -35,16 +35,18 @@ namespace MidLevelBatchWriteItemExample
             Table productCatalog = Table.LoadTable(client, "ProductCatalog");
             var batchWrite = productCatalog.CreateBatchWrite();
 
-            var book1 = new Document();
-            book1["Id"] = 902;
-            book1["Title"] = "My book1 in batch write using .NET helper classes";
-            book1["ISBN"] = "902-11-11-1111";
-            book1["Price"] = 10;
-            book1["ProductCategory"] = "Book";
-            book1["Authors"] = new List<string> { "Author 1", "Author 2", "Author 3" };
-            book1["Dimensions"] = "8.5x11x.5";
-            book1["InStock"] = new DynamoDBBool(true);
-            book1["QuantityOnHand"] = new DynamoDBNull(); // Quantity is unknown at this time.
+            var book1 = new Document
+            {
+                ["Id"] = 902,
+                ["Title"] = "My book1 in batch write using .NET helper classes",
+                ["ISBN"] = "902-11-11-1111",
+                ["Price"] = 10,
+                ["ProductCategory"] = "Book",
+                ["Authors"] = new List<string> { "Author 1", "Author 2", "Author 3" },
+                ["Dimensions"] = "8.5x11x.5",
+                ["InStock"] = new DynamoDBBool(true),
+                ["QuantityOnHand"] = new DynamoDBNull(), // Quantity is unknown at this time.
+            };
 
             batchWrite.AddDocumentToPut(book1);
 
@@ -64,20 +66,24 @@ namespace MidLevelBatchWriteItemExample
             Table forum = Table.LoadTable(client, "Forum");
             var forumBatchWrite = forum.CreateBatchWrite();
 
-            var forum1 = new Document();
-            forum1["Name"] = "Test BatchWrite Forum";
-            forum1["Threads"] = 0;
+            var forum1 = new Document
+            {
+                ["Name"] = "Test BatchWrite Forum",
+                ["Threads"] = 0,
+            };
             forumBatchWrite.AddDocumentToPut(forum1);
 
             // Specify item to add in the Thread table.
             Table thread = Table.LoadTable(client, "Thread");
             var threadBatchWrite = thread.CreateBatchWrite();
 
-            var thread1 = new Document();
-            thread1["ForumName"] = "S3 forum";
-            thread1["Subject"] = "My sample question";
-            thread1["Message"] = "Message text";
-            thread1["KeywordTags"] = new List<string> { "S3", "Bucket" };
+            var thread1 = new Document
+            {
+                ["ForumName"] = "S3 forum",
+                ["Subject"] = "My sample question",
+                ["Message"] = "Message text",
+                ["KeywordTags"] = new List<string> { "S3", "Bucket" },
+            };
             threadBatchWrite.AddDocumentToPut(thread1);
 
             // Specify item to delete from the Thread table.
@@ -94,5 +100,5 @@ namespace MidLevelBatchWriteItemExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.MidLevelBatchWriteItemExample]
+    // snippet-end:[dynamodb.dotnetv3.MidLevelBatchWriteItemExample]
 }

@@ -3,7 +3,7 @@
 
 namespace HighLevelMappingArbitraryDataExample
 {
-    // snippet-start:[dynamodb.dotnet35.HighLevelMappingArbitraryData.DimensionType]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelMappingArbitraryData.DimensionType]
 
     /// <summary>
     /// Defines the dimensions of a book.
@@ -17,5 +17,5 @@ namespace HighLevelMappingArbitraryDataExample
         public decimal Thickness { get; set; }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelMappingArbitraryData.DimensionType]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelMappingArbitraryData.DimensionType]
 }

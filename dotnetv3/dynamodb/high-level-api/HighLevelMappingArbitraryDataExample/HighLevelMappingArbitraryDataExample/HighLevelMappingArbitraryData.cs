@@ -8,7 +8,7 @@ namespace HighLevelMappingArbitraryDataExample
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelMappingArbitraryDataExample]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelMappingArbitraryDataExample]
 
     /// <summary>
     /// Shows how to map arbitrary data to an Amazon DynamoDB table. The example
@@ -66,5 +66,5 @@ namespace HighLevelMappingArbitraryDataExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelMappingArbitraryDataExample]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelMappingArbitraryDataExample]
 }
