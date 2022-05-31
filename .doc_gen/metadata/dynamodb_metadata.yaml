@@ -1277,6 +1277,9 @@ dynamodb_Scenario_GettingStartedMovies:
         - sdk_version: 3
           github: dotnetv3/dynamodb
           excerpts:
+            - description:
+              snippet_tags:
+                - DynamoDB.dotnetv3.DynamoDB_Basics_Scenario
             - description: Creates a table to contain movie data.
               snippet_tags:
                 - DynamoDB.dotnetv3.dynamodb-basics.CreateTable
