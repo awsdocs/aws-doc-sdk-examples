@@ -1,5 +1,6 @@
 import aws.example.emr.*;
 import org.junit.jupiter.api.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.emr.EmrClient;
 import java.io.*;
@@ -25,7 +26,11 @@ public class EMRTest {
 
         // Run tests on Real AWS Resources
         Region region = Region.US_WEST_2;
-        emrClient = EmrClient.builder().region(region).build();
+        emrClient = EmrClient.builder()
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
         try (InputStream input = EMRTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
             Properties prop = new Properties();

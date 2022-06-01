@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.eventbridge;
 
 // snippet-start:[eventbridge.java2._put_event.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.EventBridgeException;
@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 // snippet-end:[eventbridge.java2._put_event.import]
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,22 +35,22 @@ public class PutEvents {
 
     public static void main(String[] args) {
 
-        final String USAGE =
+        final String usage =
                 "To run this example, supply two resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. " +
                         "Any number, including zero, may be present. \n" +
                         "For example: PutEvents <resourceArn> <resourceArn2>\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String resourceArn = args[0];
         String resourceArn2 = args[1];
-
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         putEBEvents(eventBrClient, resourceArn, resourceArn2);
@@ -61,8 +61,8 @@ public class PutEvents {
     public static void putEBEvents(EventBridgeClient eventBrClient, String resourceArn, String resourceArn2 ) {
 
         try {
-            // Populate a List with the resource ARN values
-            List<String> resources = new ArrayList<String>();
+            // Populate a List with the resource ARN values.
+            List<String> resources = new ArrayList<>();
             resources.add(resourceArn);
             resources.add(resourceArn2);
 
@@ -73,16 +73,11 @@ public class PutEvents {
                     .detail("{ \"key1\": \"value1\", \"key2\": \"value2\" }")
                     .build();
 
-            // Add the PutEventsRequestEntry to a list
-            List<PutEventsRequestEntry> list = new ArrayList<PutEventsRequestEntry>();
-            list.add(reqEntry);
-
             PutEventsRequest eventsRequest = PutEventsRequest.builder()
                     .entries(reqEntry)
                     .build();
 
             PutEventsResponse result = eventBrClient.putEvents(eventsRequest);
-
             for (PutEventsResultEntry resultEntry : result.entries()) {
                 if (resultEntry.eventId() != null) {
                     System.out.println("Event Id: " + resultEntry.eventId());

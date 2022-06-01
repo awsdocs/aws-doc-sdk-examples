@@ -1,0 +1,11 @@
+{
+  "require": {
+    "aws/aws-sdk-php": "^3.209",
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "files": [
+      "../IamService.php"
+    ]
+  }
+}

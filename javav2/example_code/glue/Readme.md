@@ -1,6 +1,39 @@
 # AWS Glue Java code examples
 
-This README discusses how to run and test the Java code examples for AWS Glue.
+## Overview
+This README discusses how to run and test the Java V2 code examples for AWS Glue.
+
+AWS Glue is a serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development.
+
+## ⚠️ Important
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Code examples
+
+The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+
+### Single action
+
+The following examples use the **GlueClient** object:
+
+- [Creating an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/CreateCrawler.java) (CreateCrawler command)
+- [Deleting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/DeleteCrawler.java) (DeleteCrawler command)
+- [Getting a specific AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetCrawler.java) (GetCrawler command)
+- [Getting AWS Glue crawlers](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetCrawlers.java) (GetCrawlers command)
+- [Getting a database](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetDatabase.java) (GetDatabase command)
+- [Getting a job run request](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetJobRun.java) (GetJobRun command)
+- [Getting all AWS Glue jobs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetJobs.java) (GetJobs command)
+- [Getting an AWS Glue table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetTable.java) (GetTable command)
+- [Getting all AWS Glue workflows](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/ListWorkflows.java) (ListWorkflows command)
+- [Searching AWS Glue tables based on properties](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/SearchTables.java) (SearchTables command)
+- [Starting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/StartCrawler.java) (StartCrawler command)
+
+### Scenario
+
+- [Performing various AWS Glue operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GlueScenario.java) (Multiple commands)
 
 ## Running the AWS Glue Java files
 
@@ -38,9 +71,14 @@ Define these values to successfully run the JUnit tests:
 - **existingDatabaseName** - The name of an existing database.
 - **tableName** - The name of a database table used in the **GetTable** test.
 - **text** - A string used for a text search and used in the **SearchTables** test.
+- **jobNameSc** - A Job name used for the Scenario test.
+- **s3PathSc** - The Amazon S3 target that contains data used for the Scenario test.
+- **dbNameSc** - The name of the database used for the Scenario test.
+- **crawlerNameSc** - The crawler name used for the Scenario test.
+- **scriptLocationSc** - The Amazon S3 path to a script that runs a job used for the Scenario test. 
+- **locationUri** - The location of the database used for the Scenario test. 
 
-
-**Note:** To set up the CSV data and other requirements needed for the unit tests, follow [Getting started using AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/getting-started.html).
+**Note:** To set up the CSV data and other requirements needed for the unit tests, follow [Tutorial: Adding an AWS Glue crawler](https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -81,3 +119,11 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project GlueServiceTest:  There are test failures.
 	[ERROR];
+
+## Additional resources
+* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html).
+* [AWS Glue Studio User Guide](https://docs.aws.amazon.com/glue/latest/ug/notebooks-chapter.html).
+* [Interface GlueClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/glue/GlueClient.html).
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

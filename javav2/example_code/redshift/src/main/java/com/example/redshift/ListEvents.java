@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.redshift;
 
 // snippet-start:[redshift.java2._events.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.DescribeEventsRequest;
@@ -25,9 +25,9 @@ import java.util.List;
 // snippet-end:[redshift.java2._events.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,15 +35,15 @@ public class ListEvents {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "     <clusterId> <eventSourceType> \n\n" +
                 "Where:\n" +
-                "    clusterId - the id of the cluster. \n" +
-                "    eventSourceType - the event type (ie, cluster). \n" ;
+                "    clusterId - The id of the cluster. \n" +
+                "    eventSourceType - The event type (ie, cluster). \n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -52,6 +52,7 @@ public class ListEvents {
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listRedShiftEvents(redshiftClient, clusterId, eventSourceType) ;
@@ -74,7 +75,6 @@ public class ListEvents {
                     .build() ;
 
             DescribeEventsResponse eventsResponse = redshiftClient.describeEvents(describeEventsRequest);
-
             List<Event> events = eventsResponse.events();
             for (Event event: events) {
                 System.out.println("Source type: "+event.sourceTypeAsString());

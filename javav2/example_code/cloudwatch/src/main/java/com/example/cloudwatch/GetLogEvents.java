@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.get_logs.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
@@ -20,9 +20,9 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsRequest;
 // snippet-end:[cloudwatch.java2.get_logs.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -30,15 +30,15 @@ public class GetLogEvents {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "  <logStreamName> <logGroupName>\n\n" +
                 "Where:\n" +
-                "  logStreamName - the name of the log stream (for example, mystream).\n" +
-                "  logGroupName - the name of the log group (for example, myloggroup).\n" ;
+                "  logStreamName - The name of the log stream (for example, mystream).\n" +
+                "  logGroupName - The name of the log group (for example, myloggroup).\n" ;
 
        if (args.length != 2) {
-            System.out.print(USAGE);
+            System.out.print(usage);
             System.exit(1);
        }
 
@@ -47,6 +47,7 @@ public class GetLogEvents {
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getCWLogEvents(cloudWatchLogsClient, logGroupName, logStreamName) ;

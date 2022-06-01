@@ -2,9 +2,6 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
-
-
 package com.example.handlingformsubmission;
 
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -25,7 +22,7 @@ public class PublishTextSMS {
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
-        String phoneNumber="18195765654"; //Replace with a mobile phone number
+        String phoneNumber="<Enter mobile number> //Replace with a mobile phone number
 
         try {
             PublishRequest request = PublishRequest.builder()

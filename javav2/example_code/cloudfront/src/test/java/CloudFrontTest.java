@@ -1,12 +1,7 @@
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-
 import software.amazon.awssdk.regions.Region;
 import java.io.*;
 import java.util.*;
@@ -33,6 +28,7 @@ public class CloudFrontTest {
         region = Region.AWS_GLOBAL;
         cloudFrontClient = CloudFrontClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
         try (InputStream input = CloudFrontTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 

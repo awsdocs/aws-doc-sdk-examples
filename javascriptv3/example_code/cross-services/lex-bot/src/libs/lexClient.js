@@ -20,7 +20,7 @@ const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
 // Create an Amazon Lex service client object.
-const lexClient = new LexClient({
+const lexClient = new LexRuntimeServiceClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({
     client: new CognitoIdentityClient({ region: REGION }),

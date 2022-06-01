@@ -1,4 +1,5 @@
 import com.example.sage.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
@@ -31,6 +32,7 @@ public class SageMakerTest {
         Region region = Region.US_WEST_2;
         sageMakerClient = SageMakerClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = SageMakerTest.class.getClassLoader().getResourceAsStream("config.properties")) {

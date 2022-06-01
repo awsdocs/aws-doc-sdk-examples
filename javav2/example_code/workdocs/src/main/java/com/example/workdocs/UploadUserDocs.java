@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/29/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.InitiateDocumentVersionUploadRequest;
@@ -44,9 +44,9 @@ import software.amazon.awssdk.services.workdocs.model.DocumentVersionStatus;
 // snippet-end:[workdocs.java2.upload_user_doc.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -55,17 +55,17 @@ public class UploadUserDocs {
     public static void main(String[] args) {
         // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <organizationId> <userEmail> <docName> <docPath> \n\n" +
                 "Where:\n" +
-                "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n"+
-                "    userEmail - a user email. \n"+
-                "    docName - the name of the document (for example, book.pdf). \n"+
-                "    docPath - the path where the document is located (for example, C:/AWS/book.pdf). \n";
+                "    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console. \n"+
+                "    userEmail - A user email. \n"+
+                "    docName - The name of the document (for example, book.pdf). \n"+
+                "    docPath - The path where the document is located (for example, C:/AWS/book.pdf). \n";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -77,6 +77,7 @@ public class UploadUserDocs {
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         uploadDoc(workDocs, organizationId, userEmail, docName, docPath) ;
@@ -89,7 +90,7 @@ public class UploadUserDocs {
         String docId ;
         String versionId ;
         String uploadUrl ;
-        int statusValue = 0;
+        int statusValue;
         Map<String, String> map = getDocInfo(workDocs, orgId, userEmail, docName);
         docId = map.get("doc_id");
         versionId = map.get("version_id");
@@ -104,13 +105,11 @@ public class UploadUserDocs {
         }
 
         completeUpload(workDocs, docId, versionId);
-
     }
 
     private static Map<String, String> getDocInfo(WorkDocsClient workDocs, String orgId, String user, String doc) {
 
         String folderId = getUserFolder(workDocs, orgId, user);
-
         InitiateDocumentVersionUploadRequest request = InitiateDocumentVersionUploadRequest.builder()
                 .parentFolderId(folderId)
                 .name(doc)
@@ -118,11 +117,8 @@ public class UploadUserDocs {
                 .build();
 
         InitiateDocumentVersionUploadResponse result = workDocs.initiateDocumentVersionUpload(request);
-
         UploadMetadata uploadMetadata = result.uploadMetadata();
-
-        Map<String, String> map = new HashMap<String, String>();
-
+        Map<String, String> map = new HashMap<>();
         map.put("doc_id", result.metadata().id());
         map.put("version_id", result.metadata().latestVersionMetadata().id());
         map.put("upload_url", uploadMetadata.uploadUrl());
@@ -167,7 +163,6 @@ public class UploadUserDocs {
     private static int startDocUpload(String uploadUrl, String doc) {
 
         try {
-
             URL url = new URL(uploadUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
@@ -188,10 +183,6 @@ public class UploadUserDocs {
         } catch(WorkDocsException | ProtocolException e) {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

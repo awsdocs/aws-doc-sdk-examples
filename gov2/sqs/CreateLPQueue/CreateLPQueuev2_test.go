@@ -4,10 +4,10 @@ package main
 
 import (
 	"context"
+	_ "embed"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"testing"
 	"time"
 
@@ -33,25 +33,20 @@ type Config struct {
 	WaitTimeString string `json:"WaitTime"`
 }
 
-var configFileName = "config.json"
+//go:embed config.json
+var configjson []byte
 
 var globalConfig Config
 
 func populateConfiguration(t *testing.T) error {
-	content, err := ioutil.ReadFile(configFileName)
-	if err != nil {
-		return err
-	}
 
-	text := string(content)
-
-	err = json.Unmarshal([]byte(text), &globalConfig)
+	err := json.Unmarshal(configjson, &globalConfig)
 	if err != nil {
 		return err
 	}
 
 	if globalConfig.QueueName == "" || globalConfig.WaitTimeString == "" {
-		msg := "You must supply a value for QueueName and WaitTime in " + configFileName
+		msg := "You must supply a value for QueueName and WaitTime in config.json"
 		return errors.New(msg)
 	}
 

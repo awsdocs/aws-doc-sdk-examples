@@ -1,7 +1,16 @@
 # Creating a Job Posting application using Amazon Redshift and Amazon Translate Services
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a dynamic web application that stores and queries data by using the Amazon Redshift service.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 3/15/2022        |
+| Required skills   | Java, Maven  |
+
 ## Purpose
-You can create a dynamic web application that stores and queries data by using the Amazon Redshift service and the Amazon Redshift Java API V2. To interact with an Amazon Redshift table, you can use a [software.amazon.awssdk.services.redshiftdata.RedshiftDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/RedshiftDataClient.html). The application created in this AWS tutorial is a job posting web application that lets an employer, an administrator, or human resources staff alert employees or the public about a job opening within a company.
+You can create a dynamic web application that stores and queries data by using the Amazon Redshift service and the Amazon Redshift Java API V2. To interact with an Amazon Redshift table, use [software.amazon.awssdk.services.redshiftdata.RedshiftDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/RedshiftDataClient.html). The application created in this AWS tutorial is a job posting web application that lets an employer, an administrator, or human resources staff alert employees or the public about a job opening within a company.
 
 **Note**: Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. You can start with just a few hundred gigabytes of data and scale to a petabyte or more. This enables you to use your data to acquire new insights for your business and customers. For more information, see [What is Amazon Redshift?](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html).
 
@@ -14,8 +23,7 @@ You can create a dynamic web application that stores and queries data by using t
 5. Set up the Java packages in your project
 6. Create the Java classes
 7. Create the HTML files
-8. Package the application into a JAR file
-9. Deploy the application to AWS Elastic Beanstalk
+8. Run the application
 
 
 ## Prerequisites
@@ -37,6 +45,8 @@ To complete the tutorial, you need the following:
 ### Creating the resources
 
 Create an Amazon Redshift table named **blog** that contains the fields described in this tutorial. For information about creating an Amazon Redshift table, see [Getting started using databases](https://docs.aws.amazon.com/redshift/latest/dg/c_intro_to_admin.html).
+
+In addition, make sure that you set up your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 ## Understand the Job Posting application
 
@@ -215,11 +225,11 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
  
  Create these Java classes:
 
-+ **BlogApp** - Used as the base class for the Spring Boot application.
-+ **BlogController** - Used as the Spring Boot controller that handles HTTP requests. 
-+ **Post** - Used as the applications model that stores application data.
-+ **RedshiftService** - Used as the Spring Service that uses the Amazon Redshift Java API V2 and Amazon Translate Java API V2. 
-+ **WebSecurityConfig** - The role of this class is to set up an in-memory user store that contains a single user (the user name is **user** and the password is **password**).
++ **BlogApp** - The base class for the Spring Boot application.
++ **BlogController** - The Spring Boot controller that handles HTTP requests. 
++ **Post** - The application's model that stores data.
++ **RedshiftService** - The Spring Service that uses the Amazon Redshift Java API V2 and Amazon Translate Java API V2. 
++ **WebSecurityConfig** - Sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**).
 
 ### BlogApp class
 
@@ -1158,53 +1168,16 @@ This application has a **contact_me.js** file that is used to send requests to t
       }
 ```
 	
-## Create a JAR file for the application
+## Run the application
 
-Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
 
-	mvn package
+![AWS Tracking Application](images/runapp.png)
 
-The JAR file is located in the target folder.
-
-![AWS Tracking Application](images/Target.png)
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file that includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy the application to Elastic Beanstalk
-
-Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev, or prod-web, prod-worker, qa-web, qa-worker).
-
-If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll see the Elastic Beanstalk Dashboard, which lists all of your applications.
-
-#### To deploy the application to Elastic Beanstalk
-
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
-2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - Redshift App
-   + **Description** - A description for the application
-4. Choose **Create**.
-5. Choose **Create a new environment**.
-6. Choose **Web server environment**.
-7. Choose **Select**.
-8. In the **Environment information** section, leave the default values.
-9. In the **Platform** section, choose **Managed platform**.
-10. For **Platform**, choose **Java** (accept the default values for the other fields).
-11. In the **Application code** section, choose **Upload your code**.
-12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created. When you’re done, you will see the application state **Health** is **Ok**.
-14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
-
-![AWS Tracking Application](images/Beanstalk.png)
-
-**Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
-
-To access the application, open your browser and enter the URL for your application. You will see the Home page for your application.
+**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. For information about deploying a web application, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
 
 ### Next steps
-Congratulations! You have created a Spring Boot application that uses the Amazon Redshift data client to create an example job posting application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+Congratulations! You have created a Spring Boot application that uses the Amazon Redshift data client to create an example job posting application. As stated earlier, be sure to delete all of the resources that you created during this tutorial so that you won't continue to be charged.
 
 For more AWS cross service examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).

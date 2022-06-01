@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -18,12 +19,14 @@
  *
  *
  */
+
 // snippet-start:[ec2.php.describe_instances.complete]
 // snippet-start:[ec2.php.describe_instances.import]
 
 require 'vendor/autoload.php';
 
 use Aws\Ec2\Ec2Client;
+
 // snippet-end:[ec2.php.describe_instances.import]
 /**
  * Describe Instances
@@ -31,23 +34,25 @@ use Aws\Ec2\Ec2Client;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[ec2.php.describe_instances.main]
 $ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
     'version' => '2016-11-15',
     'profile' => 'default'
 ]);
-
 $result = $ec2Client->describeInstances();
+echo "Instances: \n";
+foreach ($result['Reservations'] as $reservation) {
+    foreach ($reservation['Instances'] as $instance) {
+        echo "InstanceId: {$instance['InstanceId']} - {$instance['State']['Name']} \n";
+    }
+}
 
-var_dump($result);
- 
- 
 // snippet-end:[ec2.php.describe_instances.main]
 // snippet-end:[ec2.php.describe_instances.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DescribeInstances.php demonstrates how to retrieve details about your Amazon EC2 instances.]
+// snippet-sourcedescription:[DescribeInstances.php demonstrates how to retrieve details about your Aws EC2 instances.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]
@@ -57,4 +62,3 @@ var_dump($result);
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2018-12-27]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]
-

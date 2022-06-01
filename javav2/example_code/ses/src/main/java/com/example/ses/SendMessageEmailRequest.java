@@ -4,8 +4,7 @@
 // snippet-keyword:[Amazon Simple Email Service]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,6 +15,7 @@
 package com.example.ses;
 
 // snippet-start:[ses.java2.sendmessage.request.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.*;
@@ -25,9 +25,9 @@ import javax.mail.MessagingException;
 // snippet-end:[ses.java2.sendmessage.request.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,16 +35,16 @@ public class SendMessageEmailRequest {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    SendMessage <sender> <recipient> <subject> \n\n" +
+                "    <sender> <recipient> <subject> \n\n" +
                 "Where:\n" +
-                "    sender - an email address that represents the sender. \n"+
-                "    recipient -  an email address that represents the recipient. \n"+
-                "    subject - the  subject line. \n" ;
+                "    sender - An email address that represents the sender. \n"+
+                "    recipient -  An email address that represents the recipient. \n"+
+                "    subject - The  subject line. \n" ;
 
           if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
              System.exit(1);
            }
 
@@ -55,17 +55,15 @@ public class SendMessageEmailRequest {
         Region region = Region.US_EAST_1;
         SesClient client = SesClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        // The email body for non-HTML email clients
-        String bodyText = "Hello,\r\n" + "See the list of customers. ";
-
-        // The HTML body of the email
+        // The HTML body of the email.
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
                 + "<p> See the list of customers.</p>" + "</body>" + "</html>";
 
         try {
-            send(client, sender, recipient, subject, bodyText, bodyHTML);
+            send(client, sender, recipient, subject, bodyHTML);
             client.close();
             System.out.println("Done");
 
@@ -79,7 +77,6 @@ public class SendMessageEmailRequest {
                             String sender,
                             String recipient,
                             String subject,
-                            String bodyText,
                             String bodyHTML
     ) throws MessagingException {
 
@@ -118,7 +115,7 @@ public class SendMessageEmailRequest {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[ses.java2.sendmessage.request.main]
     }
+    // snippet-end:[ses.java2.sendmessage.request.main]
 }
 

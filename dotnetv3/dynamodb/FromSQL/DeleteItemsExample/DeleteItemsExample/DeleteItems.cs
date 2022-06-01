@@ -10,7 +10,7 @@ namespace DeleteItems
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.Model;
 
-    // snippet-start:[dynamodb.dotnet35.DeleteItems]
+    // snippet-start:[dynamodb.dotnetv3.DeleteItemsExample]
 
     /// <summary>
     /// Deletes items from an Amazon DynamoDB table. The example was created
@@ -125,5 +125,5 @@ namespace DeleteItems
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.DeleteItems]
+    // snippet-end:[dynamodb.dotnetv3.DeleteItemsExample]
 }

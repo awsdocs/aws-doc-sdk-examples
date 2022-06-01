@@ -24,6 +24,7 @@ public class Route53Test {
         Region region = Region.AWS_GLOBAL;
         route53Client = Route53Client.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = Route53Test.class.getClassLoader().getResourceAsStream("config.properties")) {

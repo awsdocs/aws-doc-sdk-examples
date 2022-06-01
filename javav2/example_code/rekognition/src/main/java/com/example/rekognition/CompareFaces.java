@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09-27-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.compare_faces.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
@@ -30,9 +30,9 @@ import java.util.List;
 // snippet-end:[rekognition.java2.compare_faces.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -40,15 +40,15 @@ public class CompareFaces {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <pathSource> <pathTarget>\n\n" +
                 "Where:\n" +
-                "   pathSource - the path to the source image (for example, C:\\AWS\\pic1.png). \n " +
-                "   pathTarget - the path to the target image (for example, C:\\AWS\\pic2.png). \n\n";
+                "   pathSource - The path to the source image (for example, C:\\AWS\\pic1.png). \n " +
+                "   pathTarget - The path to the target image (for example, C:\\AWS\\pic2.png). \n\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -59,6 +59,7 @@ public class CompareFaces {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         compareTwoFaces(rekClient, similarityThreshold, sourceImage, targetImage);

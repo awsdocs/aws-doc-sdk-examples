@@ -33,6 +33,7 @@ jobs:
           VALIDATE_PYTHON_PYLINT: true
           VALIDATE_RUST_CLIPPY: true
           VALIDATE_RUST_2021: true
-          VALIDATE_GO: true
           VALIDATE_RUBY: true
           VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_CSHARP: true
+          VALIDATE_KOTLIN: true

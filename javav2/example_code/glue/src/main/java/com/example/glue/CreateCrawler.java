@@ -3,8 +3,8 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +13,7 @@
 package com.example.glue;
 
 //snippet-start:[glue.java2.create_crawler.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.CreateCrawlerRequest;
@@ -24,9 +25,9 @@ import java.util.List;
 //snippet-end:[glue.java2.create_crawler.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,18 +35,18 @@ public class CreateCrawler {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <IAM> <s3Path> <cron> <dbName> <crawlerName>\n\n" +
                 "Where:\n" +
-                "    IAM - the ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
-                "    s3Path - the Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +
-                "    cron - a cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).\n" +
-                "    dbName - the database name. \n" +
-                "    crawlerName - the name of the crawler. \n" ;
+                "    IAM - The ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
+                "    s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +
+                "    cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).\n" +
+                "    dbName - The database name. \n" +
+                "    crawlerName - The name of the crawler. \n" ;
 
         if (args.length != 5) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -58,6 +59,7 @@ public class CreateCrawler {
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createGlueCrawler(glueClient, iam, s3Path, cron,dbName, crawlerName);
@@ -77,8 +79,8 @@ public class CreateCrawler {
                 .path(s3Path)
                 .build();
 
-            // Add the S3Target to a list
-            List<S3Target> targetList = new ArrayList<S3Target>();
+            // Add the S3Target to a list.
+            List<S3Target> targetList = new ArrayList<>();
             targetList.add(s3Target);
 
             CrawlerTargets targets = CrawlerTargets.builder()

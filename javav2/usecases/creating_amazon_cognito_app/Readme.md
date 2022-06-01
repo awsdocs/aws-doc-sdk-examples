@@ -130,71 +130,67 @@ The first step in this tutorial is to update the POM file in your project to ens
      </project>
 ```
 
-## Create an Amazon Cognito User Pool
+## Create an Amazon Cognito user pool and app client
 
 Create a User Pool in the AWS Management Console named **spring-example**. Once the User Pool is successfully created, you see a confirmation message.
 
-![AWS Tracking Application](images/pic5.png)
+![AWS Tracking Application](images/pic5-updated.png)
 
 1. Open the Amazon Cognito console at https://console.aws.amazon.com/cognito/home.
 
-2. Choose the **Manage User Pools** button. 
+2. Choose **User Pools** from the left navigation pane. 
 
-3. Choose the **Create a user pool** button.
+3. Choose the **Create user pool** button and provide your preferred settings through the wizard.
 
-4. In the **Pool name** field, enter **spring-example**. 
+4. In the **User pool name** field, enter **spring-example**. 
 
-5. Choose **Review Defaults**.
+5. In the **App client name** field, enter **spring-boot**.
 
-6. Choose **Create Pool**. 
+![AWS Tracking Application](images/pic7-updated.png)
 
-## Define a client application within the User Pool
+6. Choose **Next**, review your choices, then choose **Create user pool**. 
 
-Define the client application that can use the User Pool. 
+## Configure the app client
 
-1. Choose **App clients** from the menu on the left side. 
+You must configure the app client. For example, you need to define the allowed OAuth scope values, as shown in this illustration.
 
-![AWS Tracking Application](images/pic6.png)
+![AWS Tracking Application](images/pic8-updated.png)
 
-2. Choose **Add an app client**.
+1. Choose your **spring-example** user pool from the **User pools** page. 
 
-3. Specify a name for the client application. For example, **spring-boot**.
+2. Choose the **App integration** tab.
 
-![AWS Tracking Application](images/pic7.png)
+3. Choose your **spring-boot** app client under **App clients and analytics**.
 
-4. Choose **Create client app**.
+4. Under **Hosted UI**, choose **Edit**.
 
-5. Write down the generated App client id and App client secret values (you need these values for a later step in this tutorial).
+![AWS Tracking Application](images/pic6a-updated.png)
 
-## Configure the client application
+5. Add an **Allowed callback URL**. For example, with Spring Security, you can define the path as *http://localhost:8080/login/oauth2/code/cognito*. For local development, the localhost URL is all that is required. 
 
-You must configure the client application. For example, you need to define the allowed OAuth scope values, as shown in this illustration.
+**Note**: For production applications, you can choose **Add another URL** to enter additional production callback URLs.
 
-![AWS Tracking Application](images/pic8.png)
+6. For the **Allowed sign-out URLs**, add *http://localhost:8080/logout*. 
 
-1. Choose **App client settings** from the menu on the left side. 
+7. Add **Authorization code grant** to **OAuth 2.0 grant types**.
 
-![AWS Tracking Application](images/pic6a.png)
+8. Add **email** and **openid** to **OpenID Connect scopes**.
 
-2. Specify the correct callback URL. For example, with Spring Security, you can define the path as http://localhost:8080/login/oauth2/code/cognito. For local development, the localhost URL is all that is required. 
-
-**Note**: For production applications, you can enter multiple production URLs as a comma-separated list.
-
-3. For the **Sign out URL**, specify http://localhost:8080/logout. 
-
-4. Select **Authorization code grant** and allow **email** and **openid** scope (shown in the previous illustration).
-
-5. Choose **Save Changes**. 
+9. Choose **Save Changes**. 
 
 ## Configure a domain name
 
 In order for a Spring Boot application to use the log in form that is provided by Amazon Cognito, define a domain name in the AWS Management Console. 
 
-1. Choose **Domain name** from the menu on the left side. 
+1. Choose your **spring-example** user pool from the **User pools** page. 
 
-![AWS Tracking Application](images/pic9.png)
+2. Choose the **App integration** tab. 
 
-2. Enter a domain name. Be sure to choose the **Check availability** button to see if your value is valid.
+3. Next to **Domain**, choose **Actions**, then **Create Cognito domain**.
+
+![AWS Tracking Application](images/pic9-updated.png)
+
+2. Enter a domain name.
 
 3. Choose **Save Changes**. 
 
@@ -202,23 +198,24 @@ In order for a Spring Boot application to use the log in form that is provided b
 
 Create a user that you can use to log into the application. In this example, the user has a user name and a password. 
 
-1. Choose **Users and groups** from the menu on the left side. 
-
-![AWS Tracking Application](images/pic10.png)
+1. Choose the **Users** tab. 
 
 2. Choose **Create User**.
 
-3. In the Create user dialog, enter the user name and other information. 
+![AWS Tracking Application](images/pic10-updated.png)
 
-![AWS Tracking Application](images/pic11.png)
+3. In the **Create user** dialog, enter the user name and any additional information you want to provide. Choose **Mark email address as verified**. 
 
-**Note**: The user has a temporary password that should be changed to a regular password before logging into an application.
+![AWS Tracking Application](images/pic11-updated.png)
 
 4. Choose **Create user**.
 
-After the user is confirmed, you see the valid users, as shown in this illustration.
+5. Set the user's password permanently with the following CLI command:
+aws cognito-idp admin-set-user-password --user-pool-id us-east-1_EXAMPLE --username UserFoo --password abc123EXAMPLEpassword! --permanent
 
-![AWS Tracking Application](images/pic12.png)
+6. Review the **Users** tab. Ensure that your new user is verified and confirmed.
+
+![AWS Tracking Application](images/pic12-updated.png)
 
 At this point, you need the following values to proceed: client id, client secret, pool id value, and the AWS region you are using. Without all of these values, you cannot use Amazon Cognito to require a user to log into your web application. 
 

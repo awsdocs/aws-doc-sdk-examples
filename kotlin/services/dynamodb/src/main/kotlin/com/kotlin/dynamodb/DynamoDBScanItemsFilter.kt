@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[DynamoDBScanItems.kt demonstrates how to return items from an Amazon DynamoDB table using a filter expression.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DynamoDBScanItems.kt demonstrates how to return items from an Amazon DynamoDB table using a filter expression.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,19 +14,20 @@ package com.kotlin.dynamodb
 
 // snippet-start:[dynamodb.kotlin.scan_items_filter.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
-import kotlin.system.exitProcess
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
 import java.util.HashMap
+import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scan_items_filter.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+*/
+
 suspend fun main(args: Array<String>) {
 
     val usage = """
@@ -35,38 +35,38 @@ suspend fun main(args: Array<String>) {
         <tableName>
 
     Where:
-        tableName - the Amazon DynamoDB table to scan (for example, Music3).
+        tableName - The Amazon DynamoDB table to scan (for example, Music3).
     """
 
-   if (args.size != 1) {
+    if (args.size != 1) {
         println(usage)
         exitProcess(0)
-   }
+    }
 
     val tableName = args[0]
     scanItemsUsingFilter(tableName)
-    }
+}
 
 // snippet-start:[dynamodb.kotlin.scan_items_filter.main]
 suspend fun scanItemsUsingFilter(tableNameVal: String) {
 
-        val myMap = HashMap<String, String>()
-        myMap.put("#archive2", "archive")
+    val myMap = HashMap<String, String>()
+    myMap.put("#archive2", "archive")
 
-        val myExMap = HashMap<String, AttributeValue>()
-        myExMap.put(":val", AttributeValue.S("Open"))
+    val myExMap = HashMap<String, AttributeValue>()
+    myExMap.put(":val", AttributeValue.S("Open"))
 
-       val request = ScanRequest {
-           this.expressionAttributeNames = myMap
-           this.expressionAttributeValues = myExMap
-           tableName = tableNameVal
-           filterExpression = "#archive2 = :val"
-       }
+    val request = ScanRequest {
+        this.expressionAttributeNames = myMap
+        this.expressionAttributeValues = myExMap
+        tableName = tableNameVal
+        filterExpression = "#archive2 = :val"
+    }
 
-        DynamoDbClient { region = "us-east-1" }.use { ddb ->
-          val response = ddb.scan(request)
-          println("#######################################")
-          response.items?.forEach { item ->
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        val response = ddb.scan(request)
+        println("#######################################")
+        response.items?.forEach { item ->
             item.keys.forEach { key ->
 
                 when (key) {
@@ -91,15 +91,15 @@ suspend fun scanItemsUsingFilter(tableNameVal: String) {
                     "description" -> {
                         val myVal = splitMyString(item[key].toString())
                         println(myVal)
-                }
+                    }
                     "id" -> {
                         val myVal = splitMyString(item[key].toString())
                         println(myVal)
                     }
-                   else -> {
-                       val myVal = splitMyString(item[key].toString())
-                       println(myVal)
-                       println("#######################################")
+                    else -> {
+                        val myVal = splitMyString(item[key].toString())
+                        println(myVal)
+                        println("#######################################")
                     }
                 }
             }
@@ -107,7 +107,7 @@ suspend fun scanItemsUsingFilter(tableNameVal: String) {
     }
 }
 
-fun splitMyString(str:String):String{
+fun splitMyString(str: String): String {
 
     val del1 = "="
     val del2 = ")"
