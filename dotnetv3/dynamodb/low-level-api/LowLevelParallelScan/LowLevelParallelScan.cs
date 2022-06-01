@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[dynamodb.dotnet35.LowLevelParallelScanExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelParallelScanExample]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,10 +12,10 @@ namespace LowLevelParallelScan
 {
     public class LowLevelParallelScan
     {
-        private static string _tableName = "ProductCatalog";
-        private static int _exampleItemCount = 100;
-        private static int _scanItemLimit = 10;
-        private static int _totalSegments = 5;
+        private static readonly string _tableName = "ProductCatalog";
+        private static readonly int _exampleItemCount = 100;
+        private static readonly int _scanItemLimit = 10;
+        private static readonly int _totalSegments = 5;
 
         public static void ParallelScanExampleTable(AmazonDynamoDBClient client)
         {
@@ -274,4 +274,4 @@ namespace LowLevelParallelScan
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.LowLevelParallelScanExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelParallelScanExample]

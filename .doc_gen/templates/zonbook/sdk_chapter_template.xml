@@ -42,7 +42,7 @@
         </varlistentry>
         <varlistentry>
             <term>Cross-service examples</term>
-            <listitem><para>Sample applications that work across multiple &AWS; services.</para></listitem>
+            <listitem><para>Sample applications that work across multiple &AWS-services;.</para></listitem>
         </varlistentry>
     </variablelist>
     <para role="topiclist-abbrev">Examples</para>
@@ -53,11 +53,11 @@
             <titleabbrev id="{{$.LanguageSlug}}_code_examples_categorized.titleabbrev">Single-service actions and scenarios</titleabbrev>
             <abstract>
                 <para>The following code examples show how to implement common scenarios and perform individual service actions by using
-                    {{$.SdkEntity.Short}} with &AWS; services.</para>
+                    {{$.SdkEntity.Short}} with &AWS-services;.</para>
             </abstract>
         </info>
         <para>The following code examples show how to perform actions and implement common scenarios by using
-            the {{$.SdkEntity.Long}} with &AWS; services.</para>
+            the {{$.SdkEntity.Long}} with &AWS-services;.</para>
         <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
         <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
             calling multiple functions within the same service.</para>
@@ -132,11 +132,11 @@
             <titleabbrev id="{{.LanguageSlug}}_code_examples_cross_service.titleabbrev">Cross-service examples</titleabbrev>
             <abstract>
                 <para>The following sample applications use the {{.SdkEntity.Long}}
-                    to work across multiple &AWS; services.</para>
+                    to work across multiple &AWS-services;.</para>
             </abstract>
         </info>
         <para>The following sample applications use the {{.SdkEntity.Long}}
-            to work across multiple &AWS; services.</para>
+            to work across multiple &AWS-services;.</para>
         <para role="topiclist-abbrev">Examples</para>
         {{- end}}
         {{- range .CrossServiceExamples}}

@@ -7,7 +7,7 @@ namespace HighLevelQueryAndScanExample
     using System.Collections.Generic;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelQueryAndScan.Thread]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelQueryAndScan.Thread]
 
     /// <summary>
     /// Maps information about forum threads to the Amazon DynamoDB table Thread.
@@ -44,5 +44,5 @@ namespace HighLevelQueryAndScanExample
         public int? Version { get; set; }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelQueryAndScan.Thread]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelQueryAndScan.Thread]
 }

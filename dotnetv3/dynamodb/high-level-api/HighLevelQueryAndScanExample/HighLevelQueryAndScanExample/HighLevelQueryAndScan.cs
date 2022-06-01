@@ -10,7 +10,7 @@ namespace HighLevelQueryAndScanExample
     using Amazon.DynamoDBv2.DataModel;
     using Amazon.DynamoDBv2.DocumentModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelQueryAndScanExample]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelQueryAndScanExample]
 
     /// <summary>
     /// Shows how to perform high-level query and scan operations to Amazon
@@ -19,7 +19,7 @@ namespace HighLevelQueryAndScanExample
     /// </summary>
     public class HighLevelQueryAndScan
     {
-        public static async Task Main(string[] args)
+        public static async Task Main()
         {
             var client = new AmazonDynamoDBClient();
 
@@ -154,5 +154,5 @@ namespace HighLevelQueryAndScanExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelQueryAndScanExample]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelQueryAndScanExample]
 }
