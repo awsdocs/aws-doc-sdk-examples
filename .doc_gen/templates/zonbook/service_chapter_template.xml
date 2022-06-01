@@ -47,7 +47,7 @@
         {{- if $cross_service.Examples}}
         <varlistentry>
             <term>Cross-service examples</term>
-            <listitem><para>Sample applications that work across multiple &AWS; services.</para></listitem>
+            <listitem><para>Sample applications that work across multiple &AWS-services;.</para></listitem>
         </varlistentry>
         {{- end }}
     </variablelist>
@@ -67,7 +67,7 @@
         </info>
         {{- if eq $cat_examples.CategoryName "Cross-service examples"}}
         <para>The following sample applications use &AWS; SDKs to combine {{$.ServiceEntity.Short}}
-            with other &AWS; services. Each example includes a link to GitHub, where you can find
+            with other &AWS-services;. Each example includes a link to GitHub, where you can find
             instructions on how to set up and run the application.</para>
         {{- else if eq $cat_examples.CategoryName "Scenarios"}}
         <para>The following code examples show you how to implement common scenarios in {{$.ServiceEntity.Short}}

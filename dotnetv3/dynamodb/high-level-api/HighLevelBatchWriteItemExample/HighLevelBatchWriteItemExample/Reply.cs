@@ -6,7 +6,7 @@ namespace HighLevelBatchWriteItemExample
     using System;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelBatchWriteItem.Reply]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelBatchWriteItem.Reply]
 
     /// <summary>
     /// Maps information about forum replies to an Amazon DynamoDB table.
@@ -32,5 +32,5 @@ namespace HighLevelBatchWriteItemExample
         public int? Version { get; set; }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelBatchWriteItem.Reply]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelBatchWriteItem.Reply]
 }

@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[dynamodb.dotnet35.LowLevelItemCRUDExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelItemCRUDExample]
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;
@@ -47,6 +47,7 @@ namespace LowLevelItemCRUDExample
             client.PutItemAsync(request);
         }
 
+        // snippet-start:[dynamodb.dotnetv3.LowLevelItemCRUDExample.GetItem]
         public static async void RetrieveItem(AmazonDynamoDBClient client)
         {
             var request = new GetItemRequest
@@ -68,7 +69,9 @@ namespace LowLevelItemCRUDExample
             Console.WriteLine("\nPrinting item after retrieving it ............");
             PrintItem(attributeList);
         }
+        // snippet-end:[dynamodb.dotnetv3.LowLevelItemCRUDExample.GetItem]
 
+        // snippet-start:[dynamodb.dotnetv3.LowLevelItemCRUDExample.UpdateItem]
         public static async void UpdateMultipleAttributes(AmazonDynamoDBClient client)
         {
             var request = new UpdateItemRequest
@@ -113,6 +116,7 @@ namespace LowLevelItemCRUDExample
             Console.WriteLine("\nPrinting item after multiple attribute update ............");
             PrintItem(attributeList);
         }
+        // snippet-end:[dynamodb.dotnetv3.LowLevelItemCRUDExample.UpdateItem]
 
         public static async void UpdateExistingAttributeConditionally(AmazonDynamoDBClient client)
         {
@@ -153,6 +157,8 @@ namespace LowLevelItemCRUDExample
             PrintItem(attributeList);
         }
 
+
+        // snippet-start:[dynamodb.dotnetv3.LowLevelItemCRUDExample.DeleteItem]
         public static async void DeleteItem(AmazonDynamoDBClient client)
         {
             var request = new DeleteItemRequest
@@ -188,6 +194,7 @@ namespace LowLevelItemCRUDExample
             Console.WriteLine("\nPrinting item that was just deleted ............");
             PrintItem(attributeList);
         }
+        // snippet-end:[dynamodb.dotnetv3.LowLevelItemCRUDExample.DeleteItem]
 
         private static void PrintItem(Dictionary<string, AttributeValue> attributeList)
         {
@@ -223,4 +230,4 @@ namespace LowLevelItemCRUDExample
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.LowLevelItemCRUDExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelItemCRUDExample]

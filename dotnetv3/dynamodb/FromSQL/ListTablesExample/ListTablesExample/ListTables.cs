@@ -10,7 +10,7 @@ namespace ListTables
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.Model;
 
-    // snippet-start:[dynamodb.dotnet35.ListTablesExample]
+    // snippet-start:[dynamodb.dotnetv3.ListTablesExample]
 
     /// <summary>
     /// Lists the Amazon DynamoDB tables in a specific AWS Region. This
@@ -83,5 +83,5 @@ namespace ListTables
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.ListTablesExample]
+    // snippet-end:[dynamodb.dotnetv3.ListTablesExample]
 }

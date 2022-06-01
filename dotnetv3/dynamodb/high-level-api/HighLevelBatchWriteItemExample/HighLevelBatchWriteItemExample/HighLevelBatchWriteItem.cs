@@ -9,7 +9,7 @@ namespace HighLevelBatchWriteItemExample
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelBatchWriteItemExample]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelBatchWriteItemExample]
 
     /// <summary>
     /// Performs high-level batch write operations to an Amazon DynamoDB table.
@@ -91,5 +91,5 @@ namespace HighLevelBatchWriteItemExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelBatchWriteItemExample]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelBatchWriteItemExample]
 }
