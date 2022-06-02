@@ -36,7 +36,7 @@ To run these examples, set up your development environment. For more information
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
 
- ## Testing the AWS AppSync Java files
+ ## Testing the Amazon EC2 Auto Scaling Java files
 
 You can test the Java code examples for Amazon EC2 Auto Scaling by running a test file named **AutoScaleTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
