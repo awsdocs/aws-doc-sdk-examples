@@ -22,7 +22,7 @@ The following examples use the **AutoScalingClient** object:
 - [Creating an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateApiKey.java) (CreateAutoScalingGroup command)
 - [Deleting an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DeleteApiKey.java) (DeleteAutoScalingGroup command)
 - [Getting information about an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/GetDataSource.java) (DescribeAutoScalingGroups command)
-- [Temoving an instance from an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListApiKeys.java) (DetachInstances command)
+- [Removing an instance from an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListApiKeys.java) (DetachInstances command)
 
 ### Scenario
 
