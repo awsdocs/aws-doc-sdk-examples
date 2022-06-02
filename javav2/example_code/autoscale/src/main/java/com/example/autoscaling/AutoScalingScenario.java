@@ -47,14 +47,19 @@ import java.util.List;
  *
  *  https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template
  *
- * This code example performs these operations:
- * 1. Creates an Auto Scaling group using an AutoScalingWaiter.
- * 2. Gets all Auto Scaling groups.
- * 3. Gets a specific Auto Scaling group.
- * 4. Describes account limits.
- * 5. Updates an Auto Scaling group.
- * 6. Terminates an instance located in an Auto Scaling group.
- * 7. Deletes an Auto Scaling group.
+ *  This code example performs these operations:
+ *  1. Creates an Auto Scaling group using an AutoScalingWaiter.
+ *  2. Gets all Auto Scaling groups.
+ *  3. Gets a specific Auto Scaling group and returns an instance id value.
+ *  4. Describe Auto Scaling with the Id value.
+ *  5. Enable metrics collection.
+ *  6. Describe Auto Scaling groups.
+ *  7. Describe Account details.
+ *  8. Update an Auto Scaling group to use an additional instance.
+ *  9. Get the Specific Auto Scaling group and gets the number of instances.
+ *  10. Terminate an instance in the Auto Scaling group.
+ *  11. Disable the metrics collection.
+ *  12. Delete the Auto Scaling group.
  */
 
 // snippet-start:[autoscale.java2.create_scaling_scenario.main]
