@@ -1,9 +1,9 @@
 # Amazon EC2 Auto Scaling code examples for the SDK for Java
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Java (V2) examples for Amazon EC2 Auto Scaling.
+This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon EC2 Auto Scaling.
 
-Amazon EC2 Auto Scaling helps you maintain application availability and allows you to automatically add or remove EC2 instances according to conditions.
+With Amazon EC2 Auto Scaling, you can maintain application availability and automatically add or remove EC2 instances according to conditions.
 
 ## ⚠️ Important
 * The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
@@ -19,14 +19,14 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 The following examples use the **AutoScalingClient** object:
 
-- [Creating an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateApiKey.java) (CreateAutoScalingGroup command)
-- [Deleting an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DeleteApiKey.java) (DeleteAutoScalingGroup command)
-- [Getting information about an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/GetDataSource.java) (DescribeAutoScalingGroups command)
-- [Removing an instance from an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListApiKeys.java) (DetachInstances command)
+- [Creating an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/autoscale/src/main/java/com/example/autoscaling/CreateAutoScalingGroup.java) (CreateAutoScalingGroup command)
+- [Deleting an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/autoscale/src/main/java/com/example/autoscaling/DeleteAutoScalingGroup.java) (DeleteAutoScalingGroup command)
+- [Getting information about an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/autoscale/src/main/java/com/example/autoscaling/DescribeAutoScalingInstances.java) (DescribeAutoScalingGroups command)
+- [Removing an instance from an Auto Scaling group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/autoscale/src/main/java/com/example/autoscaling/DetachInstances.java) (DetachInstances command)
 
 ### Scenario
 
-- [Performing various Amazon EC2 Auto Scaling operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Scenario.java) (Multiple commands)
+- [Performing various Amazon EC2 Auto Scaling operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/autoscale/src/main/java/com/example/autoscaling/AutoScalingScenario.java) (Multiple commands)
 
 ## Running the Amazon EC2 Auto Scaling operations Java files
 
@@ -49,7 +49,7 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
  ### Properties file
 Before running the AWS Elastic Beanstalk JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a crawler name used in the tests. If you do not define all values, the JUnit tests fail.
 
-Define these values to successfully run the JUnit tests:
+To successfully run the JUnit tests, define the following values:
 
 - **groupName** - The name of the Auto Scaling group.  
 - **groupNameSc** - The name of the Auto Scaling group used in the scenario. 
