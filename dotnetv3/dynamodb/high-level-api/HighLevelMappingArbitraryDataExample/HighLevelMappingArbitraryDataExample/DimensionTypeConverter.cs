@@ -7,7 +7,7 @@ namespace HighLevelMappingArbitraryDataExample
     using Amazon.DynamoDBv2.DataModel;
     using Amazon.DynamoDBv2.DocumentModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelMappingArbitraryData.DimensionTypeConverter]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelMappingArbitraryData.DimensionTypeConverter]
 
     /// <summary>
     /// Includes methods to convert the complex type, DimensionType, to string
@@ -57,5 +57,5 @@ namespace HighLevelMappingArbitraryDataExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelMappingArbitraryData.DimensionTypeConverter]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelMappingArbitraryData.DimensionTypeConverter]
 }

@@ -7,7 +7,7 @@ namespace HighLevelBatchWriteItemExample
     using System;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelBatchWriteItem.Forum]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelBatchWriteItem.Forum]
 
     /// <summary>
     /// Maps data about a forum to an Amazon DynamoDB table called Forum.
@@ -36,5 +36,5 @@ namespace HighLevelBatchWriteItemExample
         public int Messages { get; set; }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelBatchWriteItem.Forum]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelBatchWriteItem.Forum]
 }

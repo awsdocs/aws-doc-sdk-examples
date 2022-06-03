@@ -7,7 +7,7 @@ namespace HighLevelBatchWriteItemExample
     using System.Collections.Generic;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.HighLevelBatchWriteItem.Thread]
+    // snippet-start:[dynamodb.dotnetv3.HighLevelBatchWriteItem.Thread]
 
     /// <summary>
     /// Maps data about forum threads to an Amazon DynamoDB table called Thread.
@@ -44,5 +44,5 @@ namespace HighLevelBatchWriteItemExample
         public int? Version { get; set; }
     }
 
-    // snippet-end:[dynamodb.dotnet35.HighLevelBatchWriteItem.Thread]
+    // snippet-end:[dynamodb.dotnetv3.HighLevelBatchWriteItem.Thread]
 }

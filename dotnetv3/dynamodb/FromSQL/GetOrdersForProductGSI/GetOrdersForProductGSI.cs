@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[dynamodb.dotnet35.GetOrdersForProductGSIExample]
+// snippet-start:[dynamodb.dotnetv3.GetOrdersForProductGSIExample]
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -125,4 +125,4 @@ namespace GetOrdersForProductGSI
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.GetOrdersForProductGSIExample]
+// snippet-end:[dynamodb.dotnetv3.GetOrdersForProductGSIExample]

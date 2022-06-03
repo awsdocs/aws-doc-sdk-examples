@@ -10,7 +10,7 @@ namespace MidLevelScanOnlyExample
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.DocumentModel;
 
-    // snippet-start:[dynamodb.dotnet35.MidLevelScanOnlyExample]
+    // snippet-start:[dynamodb.dotnetv3.MidLevelScanOnlyExample]
 
     /// <summary>
     /// Shows how to use mid-level Amazon DynamoDB API calls to scan a DynamoDB
@@ -19,27 +19,25 @@ namespace MidLevelScanOnlyExample
     /// </summary>
     public class MidLevelScanOnly
     {
-        static async Task Main()
+        public static async Task Main()
         {
             IAmazonDynamoDB client = new AmazonDynamoDBClient();
 
             Table productCatalogTable = Table.LoadTable(client, "ProductCatalog");
 
-            await FindProductsWithNegativePrice(client, productCatalogTable);
-            await FindProductsWithNegativePriceWithConfig(client, productCatalogTable);
+            await FindProductsWithNegativePrice(productCatalogTable);
+            await FindProductsWithNegativePriceWithConfig(productCatalogTable);
         }
 
         /// <summary>
         /// Retrieves any products that have a negative price in a DynamoDB table.
         /// </summary>
-        /// <param name="client">An initialized DynamoDB client object.</param>
         /// <param name="productCatalogTable">A DynamoDB table object.</param>
         public static async Task FindProductsWithNegativePrice(
-          IAmazonDynamoDB client,
           Table productCatalogTable)
         {
             // Assume there is a price error. So we scan to find items priced < 0.
-            ScanFilter scanFilter = new ScanFilter();
+            var scanFilter = new ScanFilter();
             scanFilter.AddCondition("Price", ScanOperator.LessThan, 0);
 
             Search search = productCatalogTable.Scan(scanFilter);
@@ -53,24 +51,23 @@ namespace MidLevelScanOnlyExample
                 {
                     PrintDocument(document);
                 }
-            } while (!search.IsDone);
+            }
+            while (!search.IsDone);
         }
 
         /// <summary>
         /// Finds any items in the ProductCatalog table using a DynamoDB
         /// configuration object.
         /// </summary>
-        /// <param name="client">An initialized DynamoDB client object.</param>
         /// <param name="productCatalogTable">A DynamoDB table object.</param>
         public static async Task FindProductsWithNegativePriceWithConfig(
-          IAmazonDynamoDB client,
           Table productCatalogTable)
         {
             // Assume there is a price error. So we scan to find items priced < 0.
-            ScanFilter scanFilter = new ScanFilter();
+            var scanFilter = new ScanFilter();
             scanFilter.AddCondition("Price", ScanOperator.LessThan, 0);
 
-            ScanOperationConfig config = new ScanOperationConfig()
+            var config = new ScanOperationConfig()
             {
                 Filter = scanFilter,
                 Select = SelectValues.SpecificAttributes,
@@ -88,7 +85,8 @@ namespace MidLevelScanOnlyExample
                 {
                     PrintDocument(document);
                 }
-            } while (!search.IsDone);
+            }
+            while (!search.IsDone);
         }
 
         /// <summary>
@@ -119,5 +117,5 @@ namespace MidLevelScanOnlyExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.MidLevelScanOnlyExample]
+    // snippet-end:[dynamodb.dotnetv3.MidLevelScanOnlyExample]
 }

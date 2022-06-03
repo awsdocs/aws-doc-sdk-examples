@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[SetBucketPolicy.kt demonstrates how to add a bucket policy to an existing Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[SetBucketPolicy.kt demonstrates how to add a bucket policy to an existing Amazon Simple Storage Service (Amazon S3) bucket.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon S3]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/30/2021]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,10 +19,10 @@ import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.get_bucket_policy.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
@@ -34,7 +33,7 @@ suspend fun main(args: Array<String>) {
           <bucketName> 
 
     Where:
-        bucketName - the Amazon S3 bucket to get the policy from.
+        bucketName - The Amazon S3 bucket to get the policy from.
     """
 
     if (args.size != 1) {
@@ -42,10 +41,10 @@ suspend fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-    val bucketName =  args[0]
+    val bucketName = args[0]
     val polText = getPolicy(bucketName)
     println("Policy Text: $polText")
- }
+}
 
 // snippet-start:[s3.kotlin.get_bucket_policy.main]
 suspend fun getPolicy(bucketName: String): String? {

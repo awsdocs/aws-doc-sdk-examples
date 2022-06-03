@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[dynamodb.dotnet35.LowLevelBatchWriteExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelBatchWriteExample]
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2;
@@ -11,8 +11,8 @@ namespace LowLevelBatchWrite
 {
     public class LowLevelBatchWrite
     {
-        private static string _table1Name = "Forum";
-        private static string _table2Name = "Thread";
+        private static readonly string _table1Name = "Forum";
+        private static readonly string _table2Name = "Thread";
 
         public static void TestBatchWrite(AmazonDynamoDBClient client)
         {
@@ -134,4 +134,4 @@ namespace LowLevelBatchWrite
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.LowLevelBatchWriteExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelBatchWriteExample]
