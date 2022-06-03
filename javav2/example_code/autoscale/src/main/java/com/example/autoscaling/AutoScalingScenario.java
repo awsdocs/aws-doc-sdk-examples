@@ -373,5 +373,6 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
-    // snippet-end:[autoscale.java2.create_scaling_scenario.main]
-}
+ }
+ // snippet-end:[autoscale.java2.create_scaling_scenario.main]
+
