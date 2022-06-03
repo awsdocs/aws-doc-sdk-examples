@@ -43,23 +43,23 @@ import java.util.List;
  *
  *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  In addition, create a  launch template. For more information, see the following topic:
+ *  In addition, create a launch template. For more information, see the following topic:
  *
  *  https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template
  *
- *  This code example performs these operations:
- *  1. Creates an Auto Scaling group using an AutoScalingWaiter.
- *  2. Gets all Auto Scaling groups.
- *  3. Gets a specific Auto Scaling group and returns an instance id value.
- *  4. Describe Auto Scaling with the Id value.
- *  5. Enable metrics collection.
- *  6. Describe Auto Scaling groups.
- *  7. Describe Account details.
- *  8. Update an Auto Scaling group to use an additional instance.
- *  9. Get the Specific Auto Scaling group and gets the number of instances.
- *  10. Terminate an instance in the Auto Scaling group.
- *  11. Disable the metrics collection.
- *  12. Delete the Auto Scaling group.
+ * This code example performs the following operations:
+ * 1. Creates an Auto Scaling group using an AutoScalingWaiter.
+ * 2. Gets all Auto Scaling groups.
+ * 3. Gets a specific Auto Scaling group and returns an instance Id value.
+ * 4. Describes Auto Scaling with the Id value.
+ * 5. Enables metrics collection.
+ * 6. Describes Auto Scaling groups.
+ * 7. Describes Account details.
+ * 8. Updates an Auto Scaling group to use an additional instance.
+ * 9. Gets the specific Auto Scaling group and gets the number of instances.
+ * 10. Terminates an instance in the Auto Scaling group.
+ * 11. Stops the metrics collection.
+ * 12. Deletes the Auto Scaling group.
  */
 
 // snippet-start:[autoscale.java2.create_scaling_scenario.main]
@@ -116,7 +116,7 @@ public class AutoScalingScenario {
         System.out.println("**** Describe Auto Scaling groups");
         describeAutoScalingGroups(autoScalingClient, groupName);
 
-        System.out.println("**** Describe Account details");
+        System.out.println("**** Describe account details");
         describeAccountLimits(autoScalingClient);
 
         System.out.println("**** Update an Auto Scaling group");
@@ -130,7 +130,7 @@ public class AutoScalingScenario {
         System.out.println("**** Terminate an instance in the Auto Scaling group");
         terminateInstanceInAutoScalingGroup(autoScalingClient, instanceId);
 
-        System.out.println("**** Disable the metrics collection");
+        System.out.println("**** Stop the metrics collection");
         disableMetricsCollection(autoScalingClient, groupName);
 
         System.out.println("**** Delete the Auto Scaling group");
