@@ -66,7 +66,7 @@ import java.util.List;
 public class AutoScalingScenario {
 
     public static void main(String[] args) throws InterruptedException {
-    final String usage = "\n" +
+        final String usage = "\n" +
             "Usage:\n" +
             "    <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>\n\n" +
             "Where:\n" +
@@ -76,8 +76,8 @@ public class AutoScalingScenario {
             "    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.\n" ;
 
         if (args.length != 4) {
-         System.out.println(usage);
-         System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String groupName = args[0];
@@ -174,7 +174,7 @@ public class AutoScalingScenario {
         }
     }
 
-   public static void describeAutoScalingInstance( AutoScalingClient autoScalingClient, String id) {
+    public static void describeAutoScalingInstance( AutoScalingClient autoScalingClient, String id) {
 
         try {
             DescribeAutoScalingInstancesRequest describeAutoScalingInstancesRequest = DescribeAutoScalingInstancesRequest.builder()
@@ -191,9 +191,9 @@ public class AutoScalingScenario {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-   }
+    }
 
-   public static void describeAutoScalingGroups(AutoScalingClient autoScalingClient, String groupName) {
+    public static void describeAutoScalingGroups(AutoScalingClient autoScalingClient, String groupName) {
 
         try {
             DescribeAutoScalingGroupsRequest groupsRequest = DescribeAutoScalingGroupsRequest.builder()
@@ -204,14 +204,14 @@ public class AutoScalingScenario {
             DescribeAutoScalingGroupsResponse response = autoScalingClient.describeAutoScalingGroups(groupsRequest);
             List<AutoScalingGroup> groups = response.autoScalingGroups();
             for (AutoScalingGroup group: groups) {
-                 System.out.println("*** The service to use for the health checks: "+ group.healthCheckType() );
+                System.out.println("*** The service to use for the health checks: "+ group.healthCheckType() );
             }
 
         } catch (AutoScalingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-   }
+    }
 
     public static void getAutoScalingGroups( AutoScalingClient autoScalingClient) {
 
@@ -373,6 +373,5 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
- }
- // snippet-end:[autoscale.java2.create_scaling_scenario.main]
-
+}
+// snippet-end:[autoscale.java2.create_scaling_scenario.main]

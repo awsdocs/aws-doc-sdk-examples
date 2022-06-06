@@ -52,8 +52,8 @@ public class DescribeAutoScalingInstances {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-       String instanceId = getAutoScaling(autoScalingClient, groupName);
-       System.out.println(instanceId);
+        String instanceId = getAutoScaling(autoScalingClient, groupName);
+        System.out.println(instanceId);
         autoScalingClient.close();
     }
 
