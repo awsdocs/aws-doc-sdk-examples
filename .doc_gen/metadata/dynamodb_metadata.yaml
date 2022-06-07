@@ -1510,6 +1510,24 @@ dynamodb_Scenario_PartiQLBatch:
                 PartiQL queries.
               snippet_tags:
                 - gov2.dynamodb.Scenario_PartiQLBatch
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.scenario.partiql.batch.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.scenario.partiql.batch.main
     JavaScript:
       versions:
         - sdk_version: 3
