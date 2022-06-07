@@ -11,8 +11,8 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/stubs"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/dynamodb/stubs"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/testtools"
 )
 
 func enterPartiQLTest() (*testtools.AwsmStubber, *PartiQLRunner) {

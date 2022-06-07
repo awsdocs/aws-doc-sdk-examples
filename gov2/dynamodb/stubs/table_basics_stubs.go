@@ -12,7 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/testtools"
 )
 
 func StubDescribeTable(tableName string, raiseErr *testtools.StubError) testtools.Stub {

@@ -11,9 +11,9 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/scenarios"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/demotools"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/dynamodb/actions"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/dynamodb/scenarios"
 )
 
 // main loads default AWS credentials and configuration from the ~/.aws folder and runs

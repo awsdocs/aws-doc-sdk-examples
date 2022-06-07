@@ -12,9 +12,9 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/stubs"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/dynamodb/actions"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/dynamodb/stubs"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/testtools"
 )
 
 // MockSampler mocks the movie sampler and returns a small set of predefined data.

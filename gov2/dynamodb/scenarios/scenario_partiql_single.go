@@ -11,7 +11,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
+	"github.com/picante-io/aws-doc-sdk-examples/gov2/dynamodb/actions"
 )
 
 // snippet-start:[gov2.dynamodb.Scenario_PartiQLSingle]

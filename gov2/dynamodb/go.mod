@@ -1,4 +1,4 @@
-module github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb
+module github.com/picante-io/aws-doc-sdk-examples/gov2/dynamodb
 
 go 1.18
 
@@ -8,8 +8,8 @@ require (
 	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.8.4
 	github.com/aws/aws-sdk-go-v2/feature/dynamodb/expression v1.4.5
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.15.3
-	github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools v0.0.0-00010101000000-000000000000
-	github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools v0.0.0-00010101000000-000000000000
+	github.com/picante-io/aws-doc-sdk-examples/gov2/demotools v0.0.0-20220606215307-d683a71ed695
+	github.com/picante-io/aws-doc-sdk-examples/gov2/testtools v0.0.0-20220606215307-d683a71ed695
 )
 
 require (
@@ -29,6 +29,6 @@ require (
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 )
 
-replace github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools => ../demotools
+replace github.com/picante-io/aws-doc-sdk-examples/gov2/demotools => ../demotools
 
-replace github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools => ../testtools
+replace github.com/picante-io/aws-doc-sdk-examples/gov2/testtools => ../testtools
