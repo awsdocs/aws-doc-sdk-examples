@@ -52,7 +52,7 @@ namespace DynamoDB_PartiQL_Basics_Scenario.Tests
             var title = "MASH";
             var movies = await PartiQLMethods.GetSingleMovie(tableName, title);
             var foundIt = movies.Count > 0;
-            Assert.False(foundIt, $"Couldn't find {title}.");
+            Assert.False(foundIt, $"Found {title}.");
         }
 
         [Fact(), TestPriority(4)]
