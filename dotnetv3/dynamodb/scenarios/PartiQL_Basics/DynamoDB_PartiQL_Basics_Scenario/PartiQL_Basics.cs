@@ -155,7 +155,7 @@ namespace DynamoDB_PartiQL_Basics_Scenario
             Console.WriteLine(".NET version 3.7 and .NET Core 5.");
             Console.WriteLine(SepBar);
             Console.WriteLine("Creates a table using the CreateTable method.");
-            Console.WriteLine( "Inserts movies using the BatchExecuteStatement method.");
+            Console.WriteLine("Inserts movies using the BatchExecuteStatement method.");
             Console.WriteLine();
             Console.WriteLine("Gets a single movie from the database using a PartiQL SELECT statement.");
             Console.WriteLine("Inserts a movie using the PartiQL INSERT statement.");
