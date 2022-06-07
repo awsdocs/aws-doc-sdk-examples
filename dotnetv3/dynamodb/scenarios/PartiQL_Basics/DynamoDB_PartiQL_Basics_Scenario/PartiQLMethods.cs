@@ -256,7 +256,7 @@ namespace DynamoDB_PartiQL_Basics_Scenario
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch]
+        // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch]
 
         // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch]
 
@@ -299,6 +299,6 @@ namespace DynamoDB_PartiQL_Basics_Scenario
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch]
+        // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch]
     }
 }
