@@ -12,6 +12,7 @@ namespace CreateVPCExample
     /// Shows how to create an Amazon Elastic Compute Cloud (Amazon EC2) VPC
     /// using the AWS SDK for .NET and .NET Core 5.0.
     /// </summary>
+    // snippet-start:[EC2.dotnetv3.CreateVPCExample]
     public class CreateVPC
     {
         /// <summary>
@@ -38,4 +39,6 @@ namespace CreateVPCExample
             }
         }
     }
+
+    // snippet-end:[EC2.dotnetv3.CreateVPCExample]
 }

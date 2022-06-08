@@ -13,6 +13,8 @@ namespace CreateSecurityGroupExample
     /// Cloud (Amazon EC2) VPC using the AWS SDK for .NET version 3.7 and
     /// .NET Core 5.0.
     /// </summary>
+
+    // snippet-start:[EC2.dotnetv3.CreateSecurityGroupExample]
     public class CreateSecurityGroup
     {
         /// <summary>
@@ -38,4 +40,6 @@ namespace CreateSecurityGroupExample
             Console.WriteLine($"Successfully created security group: {groupName} with ID: {groupId}");
         }
     }
+
+    // snippet-end:[EC2.dotnetv3.CreateSecurityGroupExample]
 }

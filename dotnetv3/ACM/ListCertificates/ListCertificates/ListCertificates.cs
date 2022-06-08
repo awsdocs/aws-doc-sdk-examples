@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ListCertificates
 {
+    // snippet-start:[ACM.dotnetv3.ListCertificates]
     // The following example retrieves and displays a list of the
     // certificates defined for the default account using the AWS
     // Certificate Manager (ACM) service. It was created using
@@ -16,6 +17,7 @@ namespace ListCertificates
     class ListCertificates
     {
         // Specify your AWS Region (an example Region is shown).
+
         private static readonly RegionEndpoint ACMRegion = RegionEndpoint.USEast1;
         private static AmazonCertificateManagerClient _client;
 
@@ -49,4 +51,6 @@ namespace ListCertificates
             return response;
         }
     }
+
+    // snippet-end:[ACM.dotnetv3.ListCertificates]
 }

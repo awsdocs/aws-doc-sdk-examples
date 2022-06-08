@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[acm.dotNET.ListCertificates]
-
 using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
@@ -55,4 +53,3 @@ namespace ListCertificatesTest
         }
     }
 }
-// snippet-end:[acm.dotNET.ListCertificates]
