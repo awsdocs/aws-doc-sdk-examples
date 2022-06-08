@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 import Modal from "react-bootstrap/Modal";
 
-import * as service from './AwsService';
+import * as service from './RestService';
 
 /**
  * An element that displays an 'Add item' button that lets you add an item to the work

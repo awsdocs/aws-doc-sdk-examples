@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, {useEffect, useState} from 'react';
-import * as service from './AwsService';
+import * as service from './RestService';
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -19,7 +19,7 @@ import {WorkItem} from "./WorkItem";
  * An element that displays a list of work items that are retrieved from a REST service.
  *
  * * Select Active or Archived to display work items with the specified state.
- * * Select the wastebasket icon to archive and active item.
+ * * Select the wastebasket icon to archive an active item.
  * * Select 'Add item' to add a new item.
  * * Enter a recipient email and select 'Send report' to send a report of work items.
  *
