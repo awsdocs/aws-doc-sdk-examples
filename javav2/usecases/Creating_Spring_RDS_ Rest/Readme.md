@@ -88,7 +88,7 @@ To use the **RdsDataClient** object, you must have the following two Amazon Reso
 
 #### Using the AWS Cloud Development Kit
 
-Using the AWS AWS Cloud Development Kit (AWS CDK), you can setyp the resources required for this tutorial. (The CDK instructions will go here).
+Using the AWS AWS Cloud Development Kit (AWS CDK), you can set up the resources required for this tutorial. (The CDK instructions will go here).
 
 ## Understand the AWS Tracker React application 
 
