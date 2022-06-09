@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a Spring REST API that queries Amazon Aurora Serverless data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 4/18/2022        |
+| Updated   | 6/09/2022        |
 | Required skills   | Java, Maven, JavaScript  |
 
 ## Purpose
