@@ -19,8 +19,8 @@ import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
 @Component
 public class RetrieveItems {
 
-    private final String secretArn = "Enter value>" ;
-    private final String resourceArn = "Enter value>" ;
+    private final String secretArn = "<Enter value>" ;
+    private final String resourceArn = "<Enter value>" ;
 
     private RdsDataClient getClient() {
 
