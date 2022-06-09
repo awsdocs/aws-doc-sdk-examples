@@ -19,8 +19,8 @@ import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
 @Component
 public class InjectWorkService {
 
-    private String secretArn = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b" ;
-    private String resourceArn = "arn:aws:rds:us-east-1:814548047983:cluster:database-4" ;
+    private String secretArn = "<Enter value>" ;
+    private String resourceArn = "Enter value> ;
 
     // Returns a RdsDataClient object.
     private RdsDataClient getClient() {
