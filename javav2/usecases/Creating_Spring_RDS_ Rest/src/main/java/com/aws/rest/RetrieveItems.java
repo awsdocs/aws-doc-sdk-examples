@@ -26,7 +26,6 @@ public class RetrieveItems {
 
         Region region = Region.US_EAST_1;
         RdsDataClient dataClient = RdsDataClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
                 .build();
 
