@@ -20,7 +20,7 @@ import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
 public class InjectWorkService {
 
     private String secretArn = "<Enter value>" ;
-    private String resourceArn = "Enter value> ;
+    private String resourceArn = "<Enter value> ;
 
     // Returns a RdsDataClient object.
     private RdsDataClient getClient() {
