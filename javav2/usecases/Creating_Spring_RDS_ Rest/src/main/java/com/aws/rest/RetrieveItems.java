@@ -19,8 +19,8 @@ import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
 @Component
 public class RetrieveItems {
 
-    private final String secretArn = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b" ;
-    private final String resourceArn = "arn:aws:rds:us-east-1:814548047983:cluster:database-4" ;
+    private final String secretArn = "Enter value>" ;
+    private final String resourceArn = "Enter value>" ;
 
     private RdsDataClient getClient() {
 
