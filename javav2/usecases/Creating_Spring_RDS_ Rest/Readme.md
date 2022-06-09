@@ -1038,6 +1038,71 @@ The following illustration shows the JSON data returned from the Spring REST API
 ## Create the React front end
 
 You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following Github repository. Included in this repository are instructions on how to set up the project. For more information, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
+
+You must modify the **AWSServices.js** file so that your React requests work with your .NET backend. Update this file to include this code.
+
+```javascript
+
+/**
+ * Sends REST requests to get work items, add new work items, modify work items,
+ * and send an email report.
+ *
+ * The base URL of the REST service is stored in config.json. If necessary, update this
+ * value to your endpoint.
+ */
+
+import axios from 'axios'
+import configData from './config.json'
+
+/**
+ * Sends a POST request to add a new work item.
+ *
+ * @param item: The work item to add.
+ * @returns {Promise<void>}
+ */
+export const addWorkItem = async (item) => {
+       let status = item.status;
+        let description = item.description;
+        let guide = item.guide;
+        let payload = { status: item.status, description: item.description , guide: item.guide};
+        await axios.post(`${configData.BASE_URL}/api/add`, payload);
+};
+
+/**
+ * Sends a GET request to retrieve work items that are in the specified state.
+ *
+ * @param state: The state of work items to retrieve. Can be either 'active' or 'archive'.
+ * @returns {Promise<AxiosResponse<any>>}: The list of work items that have the
+ *                                         specified state.
+ */
+export const getWorkItems = async (state) => {
+  return await axios.get(`${configData.BASE_URL}/api/items/${state}`);
+};
+
+/**
+ * Sends a PUT request to archive an active item.
+ *
+ * @param itemId: The ID of the item to archive.
+ * @returns {Promise<void>}
+ */
+export const archiveItem = async (itemId) => {
+ ;
+  await axios.post(`${configData.BASE_URL}/api/mod`, payload);
+}
+
+/**
+ * Sends a POST request to email a report of work items.
+ *
+ * @param email: The report recipient's email address.
+ * @returns {Promise<void>}
+ */
+export const mailItem = async (email) => {
+  let payload = { email: email};
+  await axios.post(`${configData.BASE_URL}/api/report`, payload);
+}
+
+
+```
   
 ### Next steps
 Congratulations, you have created a decoupled React application that consumes data from a Spring REST API. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.
