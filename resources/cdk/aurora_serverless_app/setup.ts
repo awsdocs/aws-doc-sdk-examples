@@ -40,7 +40,8 @@ export class SetupStack extends Stack {
       credentials: Credentials.fromSecret(secret, username)
     })
 
-
+    // Create outputs from the stack. These values are required by Amazon Relational
+    // Database Service (Amazon RDS) Data Service to run SQL statements on the cluster.
     new CfnOutput(this, 'SecretArn', {value: secret.secretArn})
     new CfnOutput(this, 'ClusterArn', {value: cluster.clusterArn})
     new CfnOutput(this, 'DbName', {value: dbname})
