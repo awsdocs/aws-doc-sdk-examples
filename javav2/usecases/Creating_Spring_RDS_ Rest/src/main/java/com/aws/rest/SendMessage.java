@@ -117,7 +117,6 @@ public class SendMessage {
 
             Region region = Region.US_WEST_2;
             SesClient client = SesClient.builder()
-                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                     .region(region)
                     .build();
 
