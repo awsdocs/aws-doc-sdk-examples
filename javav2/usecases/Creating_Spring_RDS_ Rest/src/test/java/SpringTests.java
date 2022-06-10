@@ -90,12 +90,7 @@ public class SpringTests {
         List<WorkItem> theList = ri.getItemsDataSQLReport(0);
         assertNotNull(theList);
         java.io.InputStream is = writeExcel.exportExcel(theList);
-
-        try {
-            assertDoesNotThrow(() -> sm.sendReport(is, email));
-            System.out.println("Test 5 passed");
-        }catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
+        assertDoesNotThrow(() -> sm.sendReport(is, email));
+        System.out.println("Test 5 passed");
+       }
 }
