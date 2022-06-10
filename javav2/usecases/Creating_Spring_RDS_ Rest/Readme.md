@@ -51,7 +51,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ### Creating the resources
 
-To create the required resources, you can perform this task using one of the following ways.
+You can use one of the following ways to create the required AWS resources:
 
 - Using the AWS Management console
 - Using the AWS Cloud Development Kit
