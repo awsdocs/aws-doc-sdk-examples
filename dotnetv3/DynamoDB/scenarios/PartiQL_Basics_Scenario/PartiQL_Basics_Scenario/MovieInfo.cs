@@ -3,7 +3,7 @@
 
 namespace PartiQL_Basics_Scenario
 {
-     public class MovieInfo
+    public class MovieInfo
     {
         public string[] Directors { get; set; }
         public DateTime ReleaseDate { get; set; }
