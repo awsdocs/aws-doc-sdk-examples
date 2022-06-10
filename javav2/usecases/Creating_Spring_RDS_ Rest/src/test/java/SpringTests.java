@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -60,7 +61,7 @@ public class SpringTests {
         RetrieveItems ri = new RetrieveItems();
         List<WorkItem> myList = ri.getItemsDataSQLReport(1);
         assertNotNull(myList);
-        System.out.println("Test 1 passed");
+        System.out.println("Test 2 passed");
     }
 
     @Test
@@ -69,14 +70,16 @@ public class SpringTests {
         RetrieveItems ri = new RetrieveItems();
         List<WorkItem> myList = ri.getItemsDataSQLReport(1);
         assertNotNull(myList);
-        System.out.println("Test 1 passed");
+        System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void flipItem(){
         RetrieveItems ri = new RetrieveItems();
-        ri.flipItemArchive(id);
+        assertDoesNotThrow(() -> ri.flipItemArchive(id));
+        System.out.println("Test 4 passed");
+        
     }
 
     @Test
@@ -86,11 +89,12 @@ public class SpringTests {
         RetrieveItems ri = new RetrieveItems();
         WriteExcel writeExcel = new WriteExcel();
         List<WorkItem> theList = ri.getItemsDataSQLReport(0);
+        assertNotNull(theList);
         java.io.InputStream is = writeExcel.exportExcel(theList);
 
         try {
             sm.sendReport(is, email);
-
+            System.out.println("Test 5 passed");
         }catch (IOException e) {
             e.getStackTrace();
         }
