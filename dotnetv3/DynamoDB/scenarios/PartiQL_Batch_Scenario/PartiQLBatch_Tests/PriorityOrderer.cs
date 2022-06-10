@@ -1,12 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Collections.Generic;
-using System.Linq;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace DynamoDB_PartiQL_Basics_Scenario.Tests
+namespace PartiQL_Batch_Scenario.Tests
 {
     public class PriorityOrderer : ITestCaseOrderer
     {

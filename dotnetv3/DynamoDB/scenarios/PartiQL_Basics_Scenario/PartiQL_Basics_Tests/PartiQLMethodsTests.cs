@@ -1,16 +1,9 @@
-﻿using Xunit;
-using DynamoDB_PartiQL_Basics_Scenario;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.Model;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
 
-namespace DynamoDB_PartiQL_Basics_Scenario.Tests
+namespace PartiQL_Basics_Tests
 {
-    [TestCaseOrderer("DynamoDB_PartiQL_Basics_Scenario.PriorityOrderer", " DynamoDB_PartiQL_Basics_Scenario.Tests")]
+    [TestCaseOrderer("PartiQL_Basics_Tests.PriorityOrderer", "PartiQL_Basics_Tests")]
     public class PartiQLMethodsTests
     {
         private static readonly AmazonDynamoDBClient Client = new AmazonDynamoDBClient();
@@ -18,19 +11,19 @@ namespace DynamoDB_PartiQL_Basics_Scenario.Tests
 
         public PartiQLMethodsTests()
         {
-            var success = DynamoDBMethods.CreateMovieTableAsync(tableName);
+            _ = DynamoDBMethods.CreateMovieTableAsync(tableName);
         }
 
         [Fact]
         public void Dispose()
         {
-            var success = DynamoDBMethods.DeleteTableAsync(tableName);
+            _ = DynamoDBMethods.DeleteTableAsync(tableName);
         }
 
         [Fact(), TestPriority(1)]
         public async Task InsertMoviesTest()
         {
-            // Because InsertMovies calls ImportMovies, there is not
+            // Because InsertMovies calls ImportMovies, there is no
             // need to test ImportMovies separately.
             const string movieFileName = "moviedata.json";
             var success = await PartiQLMethods.InsertMovies(tableName, movieFileName);
@@ -56,6 +49,15 @@ namespace DynamoDB_PartiQL_Basics_Scenario.Tests
         }
 
         [Fact(), TestPriority(4)]
+        public async Task GetMoviesTest()
+        {
+            int year = 2010;
+            var movies = await PartiQLMethods.GetMovies(tableName, year);
+            var foundIt = movies.Count > 0;
+            Assert.True(foundIt, $"Couldn't find any movies released in {year}.");
+        }
+
+        [Fact(), TestPriority(5)]
         public async Task InsertSingleMovieTest()
         {
             var movieTitle = "Butch Cassidy and the Sundance Kid";
@@ -64,7 +66,7 @@ namespace DynamoDB_PartiQL_Basics_Scenario.Tests
             Assert.True(success, $"Could not insert {movieTitle}.");
         }
 
-        [Fact(), TestPriority(5)]
+        [Fact(), TestPriority(6)]
         public async Task UpdateSingleMovieTest()
         {
             var producer = "MGM";
@@ -75,19 +77,13 @@ namespace DynamoDB_PartiQL_Basics_Scenario.Tests
             Assert.True(success, $"Could not update {movieTitle}.");
         }
 
-        [Fact(), TestPriority(6)]
+        [Fact(), TestPriority(7)]
         public async Task DeleteSingleMovieTest()
         {
             var movieTitle = "Butch Cassidy and the Sundance Kid";
             var year = 1969;
             var success = await PartiQLMethods.DeleteSingleMovie(tableName, movieTitle, year);
             Assert.True(success, $"Could not delete {movieTitle}.");
-        }
-
-        [Fact()]
-        public void UpdateBatchTest()
-        {
-            throw new NotImplementedException();
         }
     }
 }

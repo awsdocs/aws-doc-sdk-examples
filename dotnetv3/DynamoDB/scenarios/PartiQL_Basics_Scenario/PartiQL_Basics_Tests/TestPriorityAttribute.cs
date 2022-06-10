@@ -3,7 +3,7 @@
 
 using System;
 
-namespace DynamoDB_PartiQL_Basics_Scenario.Tests
+namespace PartiQL_Basics_Scenario_Tests
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestPriorityAttribute : Attribute
