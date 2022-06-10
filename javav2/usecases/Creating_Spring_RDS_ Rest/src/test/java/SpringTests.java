@@ -92,9 +92,9 @@ public class SpringTests {
         java.io.InputStream is = writeExcel.exportExcel(theList);
 
         try {
-            sm.sendReport(is, email);
+            assertDoesNotThrow(() -> sm.sendReport(is, email));
             System.out.println("Test 5 passed");
-        }catch (IOException e) {
+        }catch (Exception e) {
             e.getStackTrace();
         }
     }
