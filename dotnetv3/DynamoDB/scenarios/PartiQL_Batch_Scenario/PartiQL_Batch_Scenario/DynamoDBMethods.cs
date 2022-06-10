@@ -1,16 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace DynamoDB_PartiQL_Basics_Scenario
+namespace PartiQL_Batch_Scenario
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Amazon.DynamoDBv2;
-    using Amazon.DynamoDBv2.Model;
-
     /// <summary>
-    /// This class is used to create the DynamoDB table usedby the PartiQL
+    /// This class is used to create the Amazon DynamoDB table usedby the PartiQL
     /// scenario. The methods of this class create an populate the movies
     /// table and, cleans up resources when the scenario is complete.
     /// </summary>

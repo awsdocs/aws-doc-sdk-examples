@@ -1,20 +1,9 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-// Before you run this example, download 'movies.json' from
-// https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-// and put it in the same folder as the example.
-namespace DynamoDB_PartiQL_Basics_Scenario
+namespace PartiQL_Basics_Scenario
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Amazon.DynamoDBv2;
-    using Amazon.DynamoDBv2.Model;
-    using Newtonsoft.Json;
-
-    public class PartiQLMethods
+    internal class PartiQLMethods
     {
         private static readonly AmazonDynamoDBClient Client = new AmazonDynamoDBClient();
 
@@ -35,35 +24,50 @@ namespace DynamoDB_PartiQL_Basics_Scenario
             // Get the list of movies from the JSON file.
             var movies = ImportMovies(movieFileName);
 
-            // Insert the movies in a batch using PartiQL.
             var success = false;
-            string insertBatch = $"INSERT INTO {tableName} VALUE {{'title': ?, 'year': ?}}";
-            var statements = new List<BatchStatementRequest>();
 
-            for (var indexOffset = 0; indexOffset < 250; indexOffset += 25)
+            if (movies is not null)
             {
-                for (var i = indexOffset; i < indexOffset + 25; i++)
+                // Insert the movies in a batch using PartiQL. The batch can only contain
+                // a maxium of 25 items, so insert 25 movies at a time.
+                string insertBatch = $"INSERT INTO {tableName} VALUE {{'title': ?, 'year': ?}}";
+                var statements = new List<BatchStatementRequest>();
+
+                try
                 {
-                    statements.Add(new BatchStatementRequest
+                    for (var indexOffset = 0; indexOffset < 250; indexOffset += 25)
                     {
-                        Statement = insertBatch,
-                        Parameters = new List<AttributeValue>
+                        for (var i = indexOffset; i < indexOffset + 25; i++)
                         {
-                            new AttributeValue { S = movies[i].Title },
-                            new AttributeValue { N = movies[i].Year.ToString() },
-                        },
-                    });
+                            statements.Add(new BatchStatementRequest
+                            {
+                                Statement = insertBatch,
+                                Parameters = new List<AttributeValue>
+                                {
+                                    new AttributeValue { S = movies[i].Title },
+                                    new AttributeValue { N = movies[i].Year.ToString() },
+                                },
+                            });
+                        }
+
+                        var response = await Client.BatchExecuteStatementAsync(new BatchExecuteStatementRequest
+                        {
+                            Statements = statements,
+                        });
+
+                        // Wait between batches for movies to be successfully added.
+                        System.Threading.Thread.Sleep(3000);
+
+                        success = response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+
+                        // Clear the list of statements for the next batch.
+                        statements.Clear();
+                    }
                 }
-
-                var response = await Client.BatchExecuteStatementAsync(new BatchExecuteStatementRequest
+                catch (AmazonDynamoDBException ex)
                 {
-                    Statements = statements,
-                });
-
-                success = response.HttpStatusCode == System.Net.HttpStatusCode.OK;
-
-                // Clear the list of statements for the next batch.
-                statements.Clear();
+                    Console.WriteLine(ex.Message);
+                }
             }
 
             return success;
@@ -86,8 +90,15 @@ namespace DynamoDB_PartiQL_Basics_Scenario
             string json = sr.ReadToEnd();
             var allMovies = JsonConvert.DeserializeObject<List<Movie>>(json);
 
-            // Now return the first 250 entries.
-            return allMovies.GetRange(0, 250);
+            if (allMovies is not null)
+            {
+                // Return the first 250 entries.
+                return allMovies.GetRange(0, 250);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-InsertMovies]
@@ -211,94 +222,23 @@ namespace DynamoDB_PartiQL_Basics_Scenario
 
         // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie]
 
-        // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch]
-
-        public static async Task<bool> UpdateBatch(
-            string tableName,
-            string producer1,
-            string title1,
-            int year1,
-            string producer2,
-            string title2,
-            int year2)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        private static void DisplayMovies(List<Dictionary<string, AttributeValue>> items)
         {
-
-            string updateBatch = $"UPDATE {tableName} SET Producer=? WHERE title = ? AND year = ?";
-            var statements = new List<BatchStatementRequest>();
-
-            statements.Add(new BatchStatementRequest
+            if (items.Count > 0)
             {
-                Statement = updateBatch,
-                Parameters = new List<AttributeValue>
-                {
-                    new AttributeValue { S = producer1 },
-                    new AttributeValue { S = title1 },
-                    new AttributeValue { N = year1.ToString() },
-                },
-            });
-
-            statements.Add(new BatchStatementRequest
+                Console.WriteLine($"Found {items.Count} movies.");
+                items.ForEach(item => Console.WriteLine($"{item["year"].N}\t{item["title"].S}"));
+            }
+            else
             {
-                Statement = updateBatch,
-                Parameters = new List<AttributeValue>
-                {
-                    new AttributeValue { S = producer2 },
-                    new AttributeValue { S = title2 },
-                    new AttributeValue { N = year2.ToString() },
-                },
-            });
-
-            var response = await Client.BatchExecuteStatementAsync(new BatchExecuteStatementRequest
-            {
-                Statements = statements,
-            });
-
-            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+                Console.WriteLine($"Didn't find a movie matching the supplied criteria.");
+            }
         }
 
-        // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch]
 
-        // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch]
-
-        public static async Task<bool> DeleteBatch(
-            string tableName,
-            string title1,
-            int year1,
-            string title2,
-            int year2)
-        {
-
-            string updateBatch = $"DELETE FROM {tableName} WHERE title = ? AND year = ?";
-            var statements = new List<BatchStatementRequest>();
-
-            statements.Add(new BatchStatementRequest
-            {
-                Statement = updateBatch,
-                Parameters = new List<AttributeValue>
-                {
-                    new AttributeValue { S = title1 },
-                    new AttributeValue { N = year1.ToString() },
-                },
-            });
-
-            statements.Add(new BatchStatementRequest
-            {
-                Statement = updateBatch,
-                Parameters = new List<AttributeValue>
-                {
-                    new AttributeValue { S = title2 },
-                    new AttributeValue { N = year2.ToString() },
-                },
-            });
-
-            var response = await Client.BatchExecuteStatementAsync(new BatchExecuteStatementRequest
-            {
-                Statements = statements,
-            });
-
-            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
-        }
-
-        // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch]
     }
 }

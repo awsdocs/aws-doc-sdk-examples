@@ -1,9 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System;
-
-namespace DynamoDB_PartiQL_Basics_Scenario.Tests
+namespace PartiQL_Batch_Scenario.Tests
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestPriorityAttribute : Attribute
