@@ -39,11 +39,8 @@ To complete the tutorial, you need the following:
 + A Java IDE to build the Spring REST API. This tutorial uses the IntelliJ IDE.
 + Java JDK 1.8.
 + Maven 3.6 or later.
-+ Node JS. To install, see [nodejs.org](https://nodejs.org/).
-+ Node Package Manager.
-+ A good code editor to work with your React project files. We recommend Visual Studio Code.
-+ Set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
++ Set up your development environment. For more information, 
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
 ### Important
 
