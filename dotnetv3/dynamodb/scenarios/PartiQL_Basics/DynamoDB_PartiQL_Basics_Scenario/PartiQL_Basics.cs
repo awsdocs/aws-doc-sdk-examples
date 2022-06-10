@@ -116,7 +116,7 @@ namespace DynamoDB_PartiQL_Basics_Scenario
             }
 
             // PartiQL Basics Scenario is complete so delete the movie table.
-            // success = await DynamoDBMethods.DeleteTableAsync(tableName);
+            success = await DynamoDBMethods.DeleteTableAsync(tableName);
 
             if (success)
             {
