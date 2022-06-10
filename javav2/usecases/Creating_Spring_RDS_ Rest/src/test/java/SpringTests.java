@@ -79,7 +79,6 @@ public class SpringTests {
         RetrieveItems ri = new RetrieveItems();
         assertDoesNotThrow(() -> ri.flipItemArchive(id));
         System.out.println("Test 4 passed");
-        
     }
 
     @Test
