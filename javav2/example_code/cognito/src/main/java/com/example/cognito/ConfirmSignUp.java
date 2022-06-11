@@ -1,12 +1,9 @@
 package com.example.cognito;
 
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
-import software.amazon.awssdk.services.cognitoidentity.model.GetIdRequest;
-import software.amazon.awssdk.services.cognitoidentity.model.GetIdResponse;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
+import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ConfirmSignUpRequest;
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
