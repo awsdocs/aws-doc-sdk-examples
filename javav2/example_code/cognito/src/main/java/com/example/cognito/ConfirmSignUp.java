@@ -53,7 +53,7 @@ public class ConfirmSignUp {
 
         identityProviderClient.confirmSignUp(req);
 
-        System.out.println(username + "'s sign up is confirmed");
+        System.out.println("User " + username + " sign up confirmed");
     }
 
 }
