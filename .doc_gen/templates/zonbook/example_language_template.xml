@@ -24,7 +24,16 @@
                 <listitem><para>{{$svc_ent.Short}}</para></listitem>
                 {{- end}}
             </itemizedlist>
-            {{- else}}{{range $version.Excerpts}}
+            {{- else}}
+            {{- if $version.GitHubUrl}}
+            <tip>
+                <para>
+                    Find more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>,
+                    along with instructions to help you set up and run this example.
+                </para>
+            </tip>
+            {{- end}}
+            {{- range $version.Excerpts}}
             <block>
                 <para>{{.Description}}</para>
                 <!-- The following line break must be preserved and left-justified exactly as-is, to keep snippets looking good. -->
@@ -32,14 +41,8 @@
 {{end}}</programlisting>
             </block>
             {{- end}}
+            {{- if or $version.SdkGuideLink.Url (gt (len $version.ApiRefLinks) 0)}}
             <itemizedlist>
-                {{- if $version.GitHubUrl}}
-                <listitem>
-                    <para>
-                        Find instructions and more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>.
-                    </para>
-                </listitem>
-                {{- end}}
                 {{- if $version.SdkGuideLink.Url}}
                 <listitem>
                     <para>
@@ -68,6 +71,7 @@
                 </listitem>
                 {{- end}}
             </itemizedlist>
+            {{- end}}
             {{- end}}
         </listitem>
     </varlistentry>

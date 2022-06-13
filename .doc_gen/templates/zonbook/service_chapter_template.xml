@@ -81,7 +81,13 @@
             instructions on how to set up and run the code in context.</para>
         <para>
             The following examples include only the most commonly used actions.
-            For a complete list, see the <emphasis>{{$.ServiceEntity.Short}} API Reference</emphasis>.</para>
+            For a complete list, see the
+            {{- if $.ApiRef}}
+            <ulink type="documentation" url="{{$.ApiRef}}">{{$.ServiceEntity.Short}} API Reference</ulink>.
+            {{- else }}
+            <emphasis>{{$.ServiceEntity.Short}} API Reference</emphasis>.
+            {{- end}}
+            </para>
         {{- else}}
         <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
         {{- end}}
