@@ -668,7 +668,7 @@ export const archiveItem = async (itemId) => {
  * @returns {Promise<void>}
  */
 export const mailItem = async (email) => {
- await axios.post(`${configData.BASE_URL}/api/report?email=`+ email);
+ await axios.post(`${configData.BASE_URL}/report?email=`+ email);
 }
 
 
