@@ -98,11 +98,15 @@ Archives an active work item.
 
 * `itemId` is the ID of the item to archive.
 
-#### POST /report/&lt;email>
+#### POST /report
 
 Sends an email report of work items.
 
-* `email` is the recipient's email address.
+* The body of the request is a single item in JSON format.
+
+    ```
+    {"email": "<recipient's email address>"}
+    ```
 
 ### Run the tests
 
