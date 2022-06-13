@@ -40,7 +40,7 @@ public class ConfirmSignUp {
                 .build();
 
         confirmSignUp(identityProviderClient, confirmationCode, username);
-        cognitoClient.close();
+        identityProviderClient.close();
     }
 
     public static void confirmSignUp(CognitoIdentityProviderClient identityProviderClient, String confirmationCode, String username){
