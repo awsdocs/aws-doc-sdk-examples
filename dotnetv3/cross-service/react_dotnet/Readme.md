@@ -180,7 +180,7 @@ The following .cs files go into this package:
 
 ### Program class 
 
-The following C# code represents the **Program.cs** file. Notice that **/api/items/active** handles a GET request that returns all active items from the **Work** table. Likewise, **/api/items/acrchive** handles a GET request that returns all archive items from the **Work** table. Notice the use of the **AddCors**. This code lets the Rest API  accept requests from different domains (for example, it accepts a request from a React application running on port 3000).
+The following C# code represents the **Program.cs** file. Notice that **/api/items/active** handles a GET request that returns all active items from the **Work** table. Likewise, **/api/items/archive** handles a GET request that returns all archive items from the **Work** table. Notice the use of the **AddCors**. This code lets the Rest API  accept requests from different domains (for example, it accepts a request from a React application running on port 3000).
 
 ```csharp
 using ItemTrackerRDSRest;
