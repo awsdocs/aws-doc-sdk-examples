@@ -200,21 +200,23 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 app.UseCors(myAllowSpecificOrigins);
 
-app.MapGet("/api/items/active", async () =>
+app.MapGet("/api/items/{state}", async (string state) =>
 {
     var database = new RDSService();
-    var data = await database.GetItemsData(0);
+    List<WorkItem> data = new List<WorkItem>();
+    if (state == "active")
+    {
+        data = await database.GetItemsData(0);
+    }
+    else
+    {
+        data = await database.GetItemsData(1);
+    }
+
     return data;
 });
 
-app.MapGet("/api/items/archive", async () =>
-{
-    var database = new RDSService();
-    var data = await database.GetItemsData(1);
-    return data;
-});
-
-app.MapPost("/report", async (string email) =>
+app.MapPut("/api/report/{email}", async (string email) =>
 {
     var database = new RDSService();
     var myreport = await database.GetItemsReport(0);
@@ -222,17 +224,17 @@ app.MapPost("/report", async (string email) =>
     return "Report sent to " + email;
 });
 
-app.MapPost("/api/mod", async (string id) =>
+app.MapPut("/api/mod/{id}", async (string id) =>
 {
     var database = new RDSService();
     var msg = await database.FlipItemArchive(id);
     return msg;
 });
 
-app.MapPost("/add", async (string guide, string description, string status) =>
+app.MapPost("/api/add", async (string guide, string description, string status) =>
 {
     var database = new RDSService();
-    WorkItem myWork = new WorkItem();
+    var myWork = new WorkItem();
     myWork.Guide = guide;
     myWork.Description = description;
     myWork.Status = status;
@@ -586,11 +588,10 @@ namespace ItemTrackerRDSRest
 
 You can run your REST API that supports the following URLs. 
 
-- /api/items/active - Returns all active data items from the **Work** table. 
-- /api/items/archive - Returns all archive data items from the **Work** table.
-- /api/mod - Converts the specified data item to an archived item. 
-- /report - Creates a report of active items and emails the report. 
-- /add - Adds a new item to the database.
+- /api/items/{state} - A GET request that returns all active or archive data items from the **Work** table. 
+- /api/mod/{id} - A PUT request that converts the specified data item to an archived item. 
+- /api/add - A POST request that adds a new item to the database. 
+- /api/report/{email} - A PUT request that creates a report of active items and emails the report. 
 
 **Note**: The React SPA created in the next section consumes all of these URLs. 
 
