@@ -33,6 +33,7 @@
  */
  
 // snippet-start:[s3.cpp.create_bucket.code]
+
 bool AwsDoc::S3::CreateBucket(const Aws::String &bucketName, const Aws::String &region) {
     // Create the bucket.
     Aws::Client::ClientConfiguration clientConfig;
@@ -42,6 +43,12 @@ bool AwsDoc::S3::CreateBucket(const Aws::String &bucketName, const Aws::String &
     Aws::S3::S3Client client(clientConfig);
     Aws::S3::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
+
+
+    //TODO(user): change the bucket location constraint enum to your target region
+    Aws::S3::Model::CreateBucketConfiguration createBucketConfig;
+    createBucketConfig.SetLocationConstraint(Aws::S3::Model::BucketLocationConstraint::us_east_1);
+    request.SetCreateBucketConfiguration(createBucketConfig);
 
     Aws::S3::Model::CreateBucketOutcome outcome = client.CreateBucket(request);
     if (!outcome.IsSuccess())
@@ -63,19 +70,19 @@ int main()
 {
     Aws::SDKOptions options;
     InitAPI(options);
-        //TODO: Set to the AWS Region of your account.  If you don't, you will get a runtime
-        //IllegalLocationConstraintException Message: "The unspecified location constraint is incompatible
-        //for the Region specific endpoint this request was sent to."
-    Aws::String region = "us-east-1";
-        // Create a unique bucket name to increase the chance of success
-        // when trying to create the bucket.
-        // Format: "doc-example-bucket-" + lowercase UUID.
+    //TODO(user): Set to the AWS Region of your account.  If you don't, you will get a runtime
+    //IllegalLocationConstraintException Message: "The unspecified location constraint is incompatible
+    //for the Region specific endpoint this request was sent to."
+    Aws::String region = "us-east-1"; //region for your S3 client
+
+    // Create a unique bucket name to increase the chance of success 
+    // when trying to create the bucket.
+    // Format: "doc-example-bucket-" + lowercase UUID.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
     Aws::String bucketName = "doc-example-bucket-" +
                              Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
     AwsDoc::S3::CreateBucket(bucketName, region);
-
     ShutdownAPI(options);
 }
 // snippet-end:[s3.cpp.create_bucket.code]
