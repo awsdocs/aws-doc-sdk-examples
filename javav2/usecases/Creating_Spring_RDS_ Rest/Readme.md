@@ -18,7 +18,7 @@ You can develop a dynamic web application that tracks and reports on work items 
 
 The application you create is a decoupled React application that uses a Spring REST API to return Amazon Aurora Serverless data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses an [RdsDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rdsdata/RdsDataClient.html) object to perform CRUD operations on the Aurora Serverless database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
-![AWS Tracking Application](images/jsondataBS.png)
+![AWS Tracking Application](images/overview.png)
 
 **Note:** You can only use the **RdsDataClient** object for an Aurora Serverless DB cluster or Aurora PostgreSQL. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).  
 
