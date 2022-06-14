@@ -280,15 +280,15 @@ personalize:
     product_categories: {'Machine Learning'}
   version: personalize-2018-05-22
 personalize-runtime:
-  long:
-  short: 
+  long: "&PERSlong; Runtime"
+  short: "&PERS; Runtime"
   sort: Personalize Runtime
   tags:
     product_categories: {'Machine Learning'}
   version: personalize-runtime-2018-05-22
 personalize-events:
-  long:
-  short:
+  long: "&PERSlong; Event"
+  short: "&PERS; Event"
   sort: Personalize Events
   tags:
     product_categories: {'Machine Learning'}
