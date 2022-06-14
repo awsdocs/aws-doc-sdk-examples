@@ -287,8 +287,8 @@ personalize-runtime:
     product_categories: {'Machine Learning'}
   version: personalize-runtime-2018-05-22
 personalize-events:
-  long: "&PERSlong; Event"
-  short: "&PERS; Event"
+  long: "&PERSlong; Events"
+  short: "&PERS; Events"
   sort: Personalize Events
   tags:
     product_categories: {'Machine Learning'}
