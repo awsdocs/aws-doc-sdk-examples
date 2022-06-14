@@ -533,7 +533,7 @@ personalize_listSolutions:
 personalize_updateCampaign:
   title: Update a campaign in &PERS; using an &AWS; SDK
   title_abbrev: Update a campaign
-  synopsis: Update a campaign &PERS;.
+  synopsis: update a campaign &PERS;.
   category:
   languages:
     Java:

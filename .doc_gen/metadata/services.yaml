@@ -275,17 +275,17 @@ organizations:
 personalize:
   long: "&PERSlong;"
   short: "&PERS;"
-  sort: "Personalize"
+  sort: Personalize
   version: personalize-2018-05-22
 personalize-runtime:
-  long: "&PERSlong; Runtime"
-  short: "&PERS; Runtime"
-  sort: "Personalize Runtime"
+  long: "&PERSRlong;"
+  short: "&PERSR;"
+  sort: Personalize Runtime
   version: personalize-runtime-2018-05-22
 personalize-events:
-  long: "&PERSlong; Events"
-  short: "&PERS; Runtime"
-  sort: "Personalize Events"
+  long: "&PERSElong;"
+  short: "&PERSE;"
+  sort: Personalize Events
   version: personalize-events-2018-03-22
 pinpoint:
   bundle: pinpoint
