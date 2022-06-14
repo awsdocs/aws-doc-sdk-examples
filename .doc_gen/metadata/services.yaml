@@ -277,17 +277,17 @@ personalize:
   short: "&PERS;"
   sort: Personalize
   tags:
-    product_categories: { 'Machine Learning' }
+    product_categories: {'Machine Learning'}
   version: personalize-2018-05-22
 personalize-runtime:
   sort: Personalize Runtime
   tags:
-    product_categories: { 'Machine Learning' }
+    product_categories: {'Machine Learning'}
   version: personalize-runtime-2018-05-22
 personalize-events:
   sort: Personalize Events
   tags:
-    product_categories: { 'Machine Learning' }
+    product_categories: {'Machine Learning'}
   version: personalize-events-2018-03-22
 pinpoint:
   bundle: pinpoint
