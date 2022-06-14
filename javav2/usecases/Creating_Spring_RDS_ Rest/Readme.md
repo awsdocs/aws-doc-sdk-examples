@@ -1048,55 +1048,55 @@ You must modify the **AWSServices.js** file so that your React requests work wit
  * value to your endpoint.
  */
 
-import axios from 'axios'
-import configData from './config.json'
-
-/**
- * Sends a POST request to add a new work item.
- *
- * @param item: The work item to add.
- * @returns {Promise<void>}
- */
-export const addWorkItem = async (item) => {
-       let status = item.status;
-        let description = item.description;
-        let guide = item.guide;
-        let payload = { status: item.status, description: item.description , guide: item.guide};
-        await axios.post(`${configData.BASE_URL}/api/add`, payload);
-};
-
-/**
- * Sends a GET request to retrieve work items that are in the specified state.
- *
- * @param state: The state of work items to retrieve. Can be either 'active' or 'archive'.
- * @returns {Promise<AxiosResponse<any>>}: The list of work items that have the
- *                                         specified state.
- */
-export const getWorkItems = async (state) => {
-  return await axios.get(`${configData.BASE_URL}/api/items/${state}`);
-};
-
-/**
- * Sends a PUT request to archive an active item.
- *
- * @param itemId: The ID of the item to archive.
- * @returns {Promise<void>}
- */
-export const archiveItem = async (itemId) => {
- ;
-  await axios.post(`${configData.BASE_URL}/api/mod`, payload);
-}
-
-/**
- * Sends a POST request to email a report of work items.
- *
- * @param email: The report recipient's email address.
- * @returns {Promise<void>}
- */
-export const mailItem = async (email) => {
-  let payload = { email: email};
-  await axios.post(`${configData.BASE_URL}/api/report`, payload);
-}
+ import axios from 'axios'
+ import configData from './config.json'
+ 
+ /**
+  * Sends a POST request to add a new work item.
+  *
+  * @param item: The work item to add.
+  * @returns {Promise<void>}
+  */
+ export const addWorkItem = async (item) => {
+        let status = item.status;
+         let description = item.description;
+         let guide = item.guide;
+         let payload = { status: item.status, description: item.description , guide: item.guide};
+         await axios.post(`${configData.BASE_URL}/api/add`, payload);
+ };
+ 
+ /**
+  * Sends a GET request to retrieve work items that are in the specified state.
+  *
+  * @param state: The state of work items to retrieve. Can be either 'active' or 'archive'.
+  * @returns {Promise<AxiosResponse<any>>}: The list of work items that have the
+  *                                         specified state.
+  */
+ export const getWorkItems = async (state) => {
+   return await axios.get(`${configData.BASE_URL}/api/items/${state}`);
+ };
+ 
+ /**
+  * Sends a PUT request to archive an active item.
+  *
+  * @param itemId: The ID of the item to archive.
+  * @returns {Promise<void>}
+  */
+ export const archiveItem = async (itemId) => {
+   let payload = { id: itemId};
+   await axios.post(`${configData.BASE_URL}/api/mod`, payload);
+ }
+ 
+ /**
+  * Sends a POST request to email a report of work items.
+  *
+  * @param email: The report recipient's email address.
+  * @returns {Promise<void>}
+  */
+ export const mailItem = async (email) => {
+   let payload = { email: email};
+   await axios.post(`${configData.BASE_URL}/api/report`, payload);
+ }
 
 
 ```
