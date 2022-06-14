@@ -83,9 +83,9 @@
             The following examples include only the most commonly used actions.
             For a complete list, see the
             {{- if $.ApiRef}}
-            <ulink type="documentation" url="{{$.ApiRef}}">{{$.ServiceEntity.Short}} API Reference</ulink>.
+            <ulink type="documentation" url="{{$.ApiRef}}">{{$.ServiceEntity.Long}} API Reference</ulink>.
             {{- else }}
-            <emphasis>{{$.ServiceEntity.Short}} API Reference</emphasis>.
+            <emphasis>{{$.ServiceEntity.Long}} API Reference</emphasis>.
             {{- end}}
             </para>
         {{- else}}

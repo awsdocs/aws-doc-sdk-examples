@@ -28,8 +28,8 @@
             {{- if $version.GitHubUrl}}
             <tip>
                 <para>
-                    Find more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>,
-                    along with instructions to help you set up and run this example.
+                    To learn how to set up and run this example, see
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>.
                 </para>
             </tip>
             {{- end}}
