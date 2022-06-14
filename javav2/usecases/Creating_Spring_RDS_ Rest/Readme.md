@@ -330,20 +330,17 @@ public class MainController {
     @Autowired
     InjectWorkService iw;
 
-    @GetMapping("items/active")
-    public List< WorkItem > getActive() {
-        return ri.getItemsDataSQLReport(0);
+    @GetMapping("items/{state}")
+    public List< WorkItem > getItems(@PathVariable String state) {
+        if (state.compareTo("active") == 0)
+            return ri.getItemsDataSQLReport(0);
+        else
+            return ri.getItemsDataSQLReport(1);
     }
-
-    @GetMapping("items/archive")
-    public List< WorkItem > getArchive() {
-        return ri.getItemsDataSQLReport(1);
-    }
-
+    
     // Flip an item from Active to Archive.
-    @PostMapping("mod")
-    public String modUser(@RequestBody Map<String, Object> payLoad) {
-        String id = (String)payLoad.get("id");
+    @PutMapping("mod/{id}")
+    public String modUser(@PathVariable String id) {
         ri.flipItemArchive(id);
         return id +" was archived";
     }
@@ -367,9 +364,8 @@ public class MainController {
         return "Item added";
     }
 
-    @PostMapping("report")
-    public String sendReport(@RequestBody Map<String, Object> payLoad){
-        String email = (String)payLoad.get("email");
+    @PutMapping("report/{email}")
+    public String sendReport(@PathVariable String email){
         List<WorkItem> theList = ri.getItemsDataSQLReport(0);
         java.io.InputStream is = writeExcel.exportExcel(theList);
 
@@ -1016,11 +1012,10 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
 Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs. 
 
-- /api/items/active - Returns all active data items from the **Work** table. 
-- /api/items/archive - Returns all archive data items from the **Work** table.
-- /api/mod - Converts the specified data item to an archived item. 
-- /api/add - Adds a new item to the database. 
-- /api/report - Creates a report of active items and emails the report. 
+- /api/items/{state} - A GET request that returns all active or archive data items from the **Work** table. 
+- /api/mod/{id} - A PUT request that converts the specified data item to an archived item. 
+- /api/add - A POST request that adds a new item to the database. 
+- /api/report/{email} - A PUT request that creates a report of active items and emails the report. 
 
 **Note**: The React SPA created in the next section consumes all of these URLs. 
 
