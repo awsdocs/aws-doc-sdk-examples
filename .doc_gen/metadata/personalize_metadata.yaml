@@ -1,6 +1,6 @@
 # zexi 0.4.2
 personalize_createBatchInferenceJob:
-  title:  Create an a batch inference job with &PERS; using an &AWS; SDK
+  title: Create an a batch inference job with &PERS; using an &AWS; SDK
   title_abbrev: Create a batch interface job
   synopsis: create a &PERS; batch interface job.
   category:
@@ -26,7 +26,7 @@ personalize_createBatchInferenceJob:
   services:
     personalize: {CreateBatchInferenceJob}
 personalize_createBatchSegmentJob:
-  title:  Create an a batch segment job with &PERS; using an &AWS; SDK
+  title: Create an a batch segment job with &PERS; using an &AWS; SDK
   title_abbrev: Create a batch segment job
   synopsis: create a &PERS; batch segment job.
   category:
@@ -43,7 +43,7 @@ personalize_createBatchSegmentJob:
   services:
     personalize: {CreateBatchSegmentJob}
 personalize_createCampaign:
-  title:  Create a campaign with &PERS; using an &AWS; SDK
+  title: Create a campaign with &PERS; using an &AWS; SDK
   title_abbrev: Create a campaign
   synopsis: create a &PERS; campaign.
   category:
@@ -69,7 +69,7 @@ personalize_createCampaign:
   services:
     personalize: {CreateCampaign}
 personalize_createDataset:
-  title:  Create a dataset with &PERS; using an &AWS; SDK
+  title: Create a dataset with &PERS; using an &AWS; SDK
   title_abbrev: Create a dataset
   synopsis: create a &PERS; dataset.
   category:
@@ -95,7 +95,7 @@ personalize_createDataset:
   services:
     personalize: {CreateDataset}
 personalize_createDatasetExportJob:
-  title:  Create a dataset export job with &PERS; using an &AWS; SDK
+  title: Create a dataset export job with &PERS; using an &AWS; SDK
   title_abbrev: Create a dataset export job
   synopsis: create a &PERS; dataset export job.
   category:
@@ -121,7 +121,7 @@ personalize_createDatasetExportJob:
   services:
     personalize: {CreateDatasetExportJob}
 personalize_createDatasetGroup:
-  title:  Create a dataset group with &PERS; using an &AWS; SDK
+  title: Create a dataset group with &PERS; using an &AWS; SDK
   title_abbrev: Create a dataset group
   synopsis: create a &PERS; dataset group.
   category:
@@ -153,7 +153,7 @@ personalize_createDatasetGroup:
   services:
     personalize: {CreateDatasetGroup}
 personalize_createDatasetImportJob:
-  title:  Create a dataset import job with &PERS; using an &AWS; SDK
+  title: Create a dataset import job with &PERS; using an &AWS; SDK
   title_abbrev: Create a dataset import job
   synopsis: create a &PERS; dataset import job.
   category:
@@ -179,7 +179,7 @@ personalize_createDatasetImportJob:
   services:
     personalize: {CreateDatasetImportJob}
 personalize_createDomainSchema:
-  title:  Create a domain schema with &PERS; using an &AWS; SDK
+  title: Create a domain schema with &PERS; using an &AWS; SDK
   title_abbrev: Create a domain schema
   synopsis: create a &PERS; domain schema.
   category:
@@ -205,7 +205,7 @@ personalize_createDomainSchema:
   services:
     personalize: {CreateSchema}
 personalize_createEventTracker:
-  title:  Create an event tracker with &PERS; using an &AWS; SDK
+  title: Create an event tracker with &PERS; using an &AWS; SDK
   title_abbrev: Create an event tracker
   synopsis: create a &PERS; event tracker.
   category:
@@ -231,7 +231,7 @@ personalize_createEventTracker:
   services:
     personalize: {CreateEventTracker}
 personalize_createFilter:
-  title:  Create a filter with &PERS; using an &AWS; SDK
+  title: Create a filter with &PERS; using an &AWS; SDK
   title_abbrev: Create a filter
   synopsis: create a &PERS; filter.
   category:
@@ -257,7 +257,7 @@ personalize_createFilter:
   services:
     personalize: {CreateFilter}
 personalize_createRecommender:
-  title:  Create a recommender with &PERS; using an &AWS; SDK
+  title: Create a recommender with &PERS; using an &AWS; SDK
   title_abbrev: Create a recommender
   synopsis: create a &PERS; recommender.
   category:
@@ -283,7 +283,7 @@ personalize_createRecommender:
   services:
     personalize: {CreateRecommender}
 personalize_createSchema:
-  title:  Create a schema with &PERS; using an &AWS; SDK
+  title: Create a schema with &PERS; using an &AWS; SDK
   title_abbrev: Create a schema
   synopsis: create a &PERS; schema.
   category:
@@ -309,7 +309,7 @@ personalize_createSchema:
   services:
     personalize: {CreateSchema}
 personalize_createSolution:
-  title:  Create a solution with &PERS; using an &AWS; SDK
+  title: Create a solution with &PERS; using an &AWS; SDK
   title_abbrev: Create a solution
   synopsis: create a &PERS; solution.
   category:
@@ -335,7 +335,7 @@ personalize_createSolution:
   services:
     personalize: {CreateSolution}
 personalize_createSolutionVersion:
-  title:  Create a solution version with &PERS; using an &AWS; SDK
+  title: Create a solution version with &PERS; using an &AWS; SDK
   title_abbrev: Create a solution version
   synopsis: create a &PERS; solution.
   category:
@@ -361,7 +361,7 @@ personalize_createSolutionVersion:
   services:
     personalize: {CreateSolutionVersion}
 personalize_deleteCampaign:
-  title:  Delete a campaign in &PERS; using an &AWS; SDK
+  title: Delete a campaign in &PERS; using an &AWS; SDK
   title_abbrev: Delete a campaign
   synopsis: delete a campaign in &PERS;.
   category:
@@ -378,7 +378,7 @@ personalize_deleteCampaign:
   services:
     personalize: {DeleteCampaign}
 personalize_deleteEventTracker:
-  title:  Delete an event tracker in &PERS; using an &AWS; SDK
+  title: Delete an event tracker in &PERS; using an &AWS; SDK
   title_abbrev: Delete an event tracker
   synopsis: delete an event tracker in &PERS;.
   category:
@@ -395,7 +395,7 @@ personalize_deleteEventTracker:
   services:
     personalize: {DeleteEventTracker}
 personalize_deleteSolution:
-  title:  Delete a solution in &PERS; using an &AWS; SDK
+  title: Delete a solution in &PERS; using an &AWS; SDK
   title_abbrev: Delete a solution
   synopsis: delete a solution in &PERS;.
   category:
@@ -412,7 +412,7 @@ personalize_deleteSolution:
   services:
     personalize: {DeleteSolution}
 personalize_describeCampaign:
-  title:  Describe a campaign in &PERS; using an &AWS; SDK
+  title: Describe a campaign in &PERS; using an &AWS; SDK
   title_abbrev: Describe a campaign
   synopsis: describe a campaign in &PERS;.
   category:
@@ -429,7 +429,7 @@ personalize_describeCampaign:
   services:
     personalize: {DescribeCampaign}
 personalize_describeRecipe:
-  title:  Describe a recipe in &PERS; using an &AWS; SDK
+  title: Describe a recipe in &PERS; using an &AWS; SDK
   title_abbrev: Describe a recipe
   synopsis: describe a recipe in &PERS;.
   category:
@@ -446,7 +446,7 @@ personalize_describeRecipe:
   services:
     personalize: {DescribeRecipe}
 personalize_describeSolution:
-  title:  Describe a solution in &PERS; using an &AWS; SDK
+  title: Describe a solution in &PERS; using an &AWS; SDK
   title_abbrev: Describe a solution
   synopsis: describe a solution in &PERS;.
   category:
@@ -463,7 +463,7 @@ personalize_describeSolution:
   services:
     personalize: {DescribeSolution}
 personalize_listCampaigns:
-  title:  List campaigns in &PERS; using an &AWS; SDK
+  title: List campaigns in &PERS; using an &AWS; SDK
   title_abbrev: List campaigns
   synopsis: list campaigns in &PERS;.
   category:
@@ -480,7 +480,7 @@ personalize_listCampaigns:
   services:
     personalize: {ListCampaigns}
 personalize_listDatasetGroups:
-  title:  List dataset groups in &PERS; using an &AWS; SDK
+  title: List dataset groups in &PERS; using an &AWS; SDK
   title_abbrev: List dataset groups
   synopsis: list dataset groups in &PERS;.
   category:
@@ -497,7 +497,7 @@ personalize_listDatasetGroups:
   services:
     personalize: {ListDatasetGroups}
 personalize_listRecipes:
-  title:  List recipes in &PERS; using an &AWS; SDK
+  title: List recipes in &PERS; using an &AWS; SDK
   title_abbrev: List recipes
   synopsis: list recipes in &PERS;.
   category:
@@ -514,7 +514,7 @@ personalize_listRecipes:
   services:
     personalize: {ListRecipes}
 personalize_listSolutions:
-  title:  List solutions in &PERS; using an &AWS; SDK
+  title: List solutions in &PERS; using an &AWS; SDK
   title_abbrev: List solutions
   synopsis: list solutions in &PERS;.
   category:
@@ -531,7 +531,7 @@ personalize_listSolutions:
   services:
     personalize: {ListSolutions}
 personalize_updateCampaign:
-  title:  Update a campaign in &PERS; using an &AWS; SDK
+  title: Update a campaign in &PERS; using an &AWS; SDK
   title_abbrev: Update a campaign
   synopsis: Update a campaign &PERS;.
   category:

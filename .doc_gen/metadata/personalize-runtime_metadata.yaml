@@ -1,5 +1,5 @@
 personalize-runtime_getRecommendations:
-  title:  Get recommendations from a campaign created in a custom dataset group with &PERS; Runtime using an &AWS; SDK
+  title: Get recommendations from a campaign created in a custom dataset group with &PERS; Runtime using an &AWS; SDK
   title_abbrev: Get recommendations from a recommender (domain dataset group)
   synopsis: get &PERS; Runtime recommendations.
   category:
@@ -37,7 +37,7 @@ personalize-runtime_getRecommendations:
   services:
     personalize-runtime: {GetRecommendations}
 personalize-runtime_getPersonalizedRanking:
-  title:  Get ranked recommendations from a campaign created in a custom dataset group with &PERS; Runtime using an &AWS; SDK
+  title: Get ranked recommendations from a campaign created in a custom dataset group with &PERS; Runtime using an &AWS; SDK
   title_abbrev: Get recommendations (custom dataset group)
   synopsis: get &PERS; Runtime ranked recommendations.
   category:
