@@ -8,6 +8,8 @@ package com.aws.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,20 +35,17 @@ public class MainController {
     @Autowired
     InjectWorkService iw;
 
-    @GetMapping("items/active")
-    public List< WorkItem > getActive() {
-        return ri.getItemsDataSQLReport(0);
-    }
-
-    @GetMapping("items/archive")
-    public List< WorkItem > getArchive() {
-        return ri.getItemsDataSQLReport(1);
+    @GetMapping("items/{state}")
+    public List< WorkItem > getItems(@PathVariable String state) {
+        if (state.compareTo("active") == 0)
+            return ri.getItemsDataSQLReport(0);
+        else
+            return ri.getItemsDataSQLReport(1);
     }
 
     // Flip an item from Active to Archive.
-    @PostMapping("mod")
-    public String modUser(@RequestBody Map<String, Object> payLoad) {
-        String id = (String)payLoad.get("id");
+    @PutMapping("mod/{id}")
+    public String modUser(@PathVariable String id) {
         ri.flipItemArchive(id);
         return id +" was archived";
     }
@@ -70,9 +69,8 @@ public class MainController {
         return "Item added";
     }
 
-    @PostMapping("report")
-    public String sendReport(@RequestBody Map<String, Object> payLoad){
-        String email = (String)payLoad.get("email");
+    @PutMapping("report/{email}")
+    public String sendReport(@PathVariable String email){
         List<WorkItem> theList = ri.getItemsDataSQLReport(0);
         java.io.InputStream is = writeExcel.exportExcel(theList);
 
