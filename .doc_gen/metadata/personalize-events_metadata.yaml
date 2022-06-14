@@ -1,0 +1,69 @@
+personalize-events_putEvents:
+  title:  Import real-time interaction event data into &PERS; Events using an &AWS; SDK
+  title_abbrev: Import real-time interaction event data
+  synopsis: import real-time interaction event data into &PERS; Events.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.put_items.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.putEventsV3
+  services:
+    personalize-events: {PutEvents}
+personalize-events_putItems:
+  title:  incrementally import an item into &PERS; Events using an &AWS; SDK
+  title_abbrev: Import real-time interaction event data
+  synopsis: Import real-time interaction event data into &PERS; Events.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.putItemsV3
+  services:
+    personalize: {PutItems}
+personalize-events_putUsers:
+  title:  incrementally import users into &PERS; Events using an &AWS; SDK
+  title_abbrev: Incrementally import a user
+  synopsis: Incrementally import a user into &PERS; Events.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.put_users.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.putUsersV3
+  services:
+    personalize-events: {PutUsers}

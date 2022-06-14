@@ -1,0 +1,64 @@
+personalize-runtime_getRecommendations:
+  title:  Get recommendations from a campaign created in a custom dataset group with &PERS; Runtime using an &AWS; SDK
+  title_abbrev: Get recommendations from a recommender (domain dataset group)
+  synopsis: get &PERS; Runtime recommendations.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.getRecommendationsV3
+            - description: Get recommendation with a filter (custom dataset group).
+              snippet_tags:
+                - personalize.JavaScript.getRecommendationsFromRecommenderV3
+            - description: Get filtered recommendations from a recommender created in a domain dataset group.
+              snippet_tags:
+                - personalize.JavaScript.getRecommendationsWithFilterV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description: Get a list of recommended items.
+              snippet_tags:
+                - personalize.java2.get_recommendations.main
+            - description: Get a list of recommended items from a recommender created in a domain dataset group.
+              snippet_tags:
+                - personalize.java2.get_recommendations_from_recommender.main
+            - description: Use a filter when requesting recommendations.
+              snippet_tags:
+                - personalize.java2.filter_recommendations.main
+  services:
+    personalize-runtime: {GetRecommendations}
+personalize-runtime_getPersonalizedRanking:
+  title:  Get ranked recommendations from a campaign created in a custom dataset group with &PERS; Runtime using an &AWS; SDK
+  title_abbrev: Get recommendations (custom dataset group)
+  synopsis: get &PERS; Runtime ranked recommendations.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.getPersonalizedRankingV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.get_personalized_ranking.main
+  services:
+    personalize-runtime: {GetPersonalizedRanking}
