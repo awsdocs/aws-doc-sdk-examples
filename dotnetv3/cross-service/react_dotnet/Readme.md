@@ -16,9 +16,9 @@ You can develop a dynamic web application that tracks and reports on work items 
 + Amazon Aurora Serverless database
 + Amazon Simple Email Service (Amazon SES) 
 
-The application you create is a decoupled React application that uses a minimal web API built with ASP.NET Core to return Amazon Aurora Serverless data. That is, the React application is a single-page application (SPA) that interacts with the web API by making RESTful GET and POST requests. The ASP.NET Core Web API uses an [AmazonRDSDataServiceClient](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/RDSDataService/TRDSDataServiceClient.html) object to perform CRUD operations on the Aurora Serverless database. Then, the web API returns JSON data, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a minimal web API built with ASP.NET Core to return Amazon Aurora Serverless data. That is, the React application is a single-page application (SPA) that interacts with the web API by making RESTful GET and POST requests. The ASP.NET Core Web API uses an [AmazonRDSDataServiceClient](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/RDSDataService/TRDSDataServiceClient.html) object to perform CRUD operations on the Aurora Serverless database. Then, the web API returns JSON data in an HTTP response, as shown in the following illustration. 
 
-![AWS Tracking Application](images/activeItems.png)
+![AWS Tracking Application](images/overview.png)
 
 **Note:** You can only use the **AmazonRDSDataServiceClient** object for an Aurora Serverless DB cluster or Aurora PostgreSQL. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).  
 
