@@ -1054,10 +1054,10 @@ You must modify the **AWSServices.js** file so that your React requests work wit
   */
  export const addWorkItem = async (item) => {
         let status = item.status;
-         let description = item.description;
-         let guide = item.guide;
-         let payload = { status: item.status, description: item.description , guide: item.guide};
-         await axios.post(`${configData.BASE_URL}/api/add`, payload);
+        let description = item.description;
+        let guide = item.guide;
+        let payload = { status: item.status, description: item.description , guide: item.guide};
+        await axios.post(`${configData.BASE_URL}/api/add`, payload);
  };
  
  /**
@@ -1078,8 +1078,7 @@ You must modify the **AWSServices.js** file so that your React requests work wit
   * @returns {Promise<void>}
   */
  export const archiveItem = async (itemId) => {
-   let payload = { id: itemId};
-   await axios.post(`${configData.BASE_URL}/api/mod`, payload);
+   await axios.put(`${configData.BASE_URL}/api/mod/${itemId}`);
  }
  
  /**
@@ -1089,10 +1088,8 @@ You must modify the **AWSServices.js** file so that your React requests work wit
   * @returns {Promise<void>}
   */
  export const mailItem = async (email) => {
-   let payload = { email: email};
-   await axios.post(`${configData.BASE_URL}/api/report`, payload);
+   await axios.put(`${configData.BASE_URL}/api/report/${email}`);
  }
-
 
 ```
   
