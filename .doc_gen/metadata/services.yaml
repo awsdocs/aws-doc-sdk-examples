@@ -40,6 +40,7 @@ auto-scaling:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: autoscaling-2011-01-01
+  api_ref: autoscaling/ec2/APIReference/Welcome.html
 batch:
   long: '&BATCHlong;'
   short: '&BATCH;'
@@ -54,6 +55,7 @@ cloudformation:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: cloudformation-2010-05-15
+  api_ref: AWSCloudFormation/latest/APIReference/Welcome.html
 cloudfront:
   long: '&CFlong;'
   short: '&CF;'
@@ -68,6 +70,7 @@ cloudwatch:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: monitoring-2010-08-01
+  api_ref: AmazonCloudWatch/latest/APIReference/Welcome.html
 cloudwatch-events:
   long: '&CWElong;'
   short: '&CWE;'
@@ -75,6 +78,7 @@ cloudwatch-events:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: eventbridge-2015-10-07
+  api_ref: eventbridge/latest/APIReference/Welcome.html
 cloudwatch-logs:
   long: '&CWLlong;'
   short: '&CWL;'
@@ -82,6 +86,7 @@ cloudwatch-logs:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: logs-2014-03-28
+  api_ref: AmazonCloudWatchLogs/latest/APIReference/Welcome.html
 cognito-identity:
   long: '&COGID;'
   short: '&COGID;'
@@ -89,6 +94,7 @@ cognito-identity:
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-identity-2014-06-30
+  api_ref: cognitoidentity/latest/APIReference/Welcome.html
 cognito-identity-provider:
   long: '&COGIDP;'
   short: '&COGIDP;'
@@ -96,6 +102,7 @@ cognito-identity-provider:
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-idp-2016-04-18
+  api_ref: cognito-user-identity-pools/latest/APIReference/Welcome.html
 cognito-sync:
   long: '&COGSYNClong;'
   short: '&COGSYNC;'
@@ -103,6 +110,7 @@ cognito-sync:
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-sync-2014-06-30
+  api_ref: cognitosync/latest/APIReference/Welcome.html
 comprehend:
   long: '&CMPlong;'
   short: '&CMP;'
@@ -117,6 +125,7 @@ config-service:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: config-2014-11-12
+  api_ref: config/latest/APIReference/Welcome.html
 device-farm:
   long: '&ATPlong;'
   short: '&ATP;'
@@ -131,6 +140,7 @@ dynamodb:
   tags:
     product_categories: {'Database'}
   version: dynamodb-2012-08-10
+  api_ref: amazondynamodb/latest/APIReference/Welcome.html
 ebs:
   long: '&EBSlong;'
   short: '&EBS;'
@@ -180,6 +190,7 @@ eventbridge:
   tags:
     product_categories: {'Application Integration'}
   version: eventbridge-2015-10-07
+  api_ref: eventbridge/latest/APIReference/Welcome.html
 glacier:
   long: '&GLlong;'
   short: '&GLshort;'
@@ -187,6 +198,7 @@ glacier:
   tags:
     product_categories: {'Storage'}
   version: glacier-2012-06-01
+  api_ref: amazonglacier/latest/dev/amazon-glacier-api.html
 glue:
   long: '&GLUlong;'
   short: '&GLU;'
@@ -194,6 +206,7 @@ glue:
   tags:
     product_categories: {'Analytics'}
   version: glue-2017-03-31
+  api_ref: glue/latest/dg/aws-glue-api.html
 iam:
   bundle: iam
   long: '&IAMlong;'
@@ -202,6 +215,7 @@ iam:
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: iam-2010-05-08
+  api_ref: IAM/latest/APIReference/welcome.html
 iot:
   long: '&IoTlong;'
   short: '&IoT;'
@@ -237,6 +251,7 @@ lambda:
   tags:
     product_categories: {'Compute'}
   version: lambda-2015-03-31
+  api_ref: lambda/latest/dg/API_Reference.html
 lex:
   long: '&LEX2long;'
   short: '&LEX2;'
@@ -251,6 +266,7 @@ lookoutvision:
   tags:
     product_categories: {'Machine Learning'}
   version: lookoutvision-2020-11-20
+  api_ref: lookout-for-vision/latest/APIReference/Welcome.html
 medialive:
   long: '&EMLlong;'
   short: '&EML;'
@@ -280,6 +296,7 @@ pinpoint:
   tags:
     product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
   version: pinpoint-2016-12-01
+  api_ref: pinpoint/latest/apireference/welcome.html
 pinpoint-email:
   long: '&PIN-Email-API;'
   short: '&PIN-Email-API;'
@@ -295,6 +312,7 @@ pinpoint-sms-voice:
   tags:
     product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
   version: pinpoint-sms-voice-2018-09-05
+  api_ref: pinpoint-sms-voice/latest/APIReference/welcome.html
 polly:
   long: '&POLlong;'
   short: '&POL;'
@@ -316,6 +334,7 @@ rds:
   tags:
     product_categories: {'Database'}
   version: rds-2014-10-31
+  api_ref: AmazonRDS/latest/APIReference/Welcome.html
 rds-data:
   long: '&RDSDataServicelong;'
   short: '&RDSDataService;'
@@ -323,6 +342,7 @@ rds-data:
   tags:
     product_categories: {'Database'}
   version: rds-data-2018-08-01
+  api_ref: rdsdataservice/latest/APIReference/Welcome.html
 rekognition:
   caveat: The code examples in this chapter are intended to supplement the code examples
     found throughout the rest of this guide.
@@ -332,6 +352,7 @@ rekognition:
   tags:
     product_categories: {'Machine Learning'}
   version: rekognition-2016-06-27
+  api_ref: rekognition/latest/APIReference/Welcome.html
 route-53:
   long: '&R53long;'
   short: '&R53;'
@@ -346,6 +367,7 @@ route53-recovery-cluster:
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53-recovery-cluster-2019-12-02
+  api_ref: routing-control/latest/APIReference/Welcome.html
 s3:
   long: '&S3long;'
   short: '&S3;'
@@ -353,6 +375,7 @@ s3:
   tags:
     product_categories: {'Storage'}
   version: s3-2006-03-01
+  api_ref: AmazonS3/latest/API/Welcome.html
 sagemaker:
   long: '&SMlong;'
   short: '&SM;'
@@ -375,6 +398,7 @@ ses:
   tags:
     product_categories: {'Business Applications'}
   version: email-2010-12-01
+  api_ref: ses/latest/APIReference/Welcome.html
 sesv2:
   bundle: ses
   long: '&SESv2long;'
@@ -404,6 +428,7 @@ sns:
   tags:
     product_categories: {'Application Integration', 'Front-End Web &amp; Mobile'}
   version: sns-2010-03-31
+  api_ref: sns/latest/api/welcome.html
 sqs:
   long: '&SQSlong;'
   short: '&SQS;'
@@ -426,6 +451,7 @@ sts:
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: sts-2011-06-15
+  api_ref: STS/latest/APIReference/welcome.html
 textract:
   long: '&TEXTRACTlong;'
   short: '&TEXTRACT;'
@@ -433,6 +459,7 @@ textract:
   tags:
     product_categories: {'Machine Learning'}
   version: textract-2018-06-27
+  api_ref: textract/latest/dg/API_Reference.html
 transcribe:
   long: '&TSClong;'
   short: '&TSC;'
@@ -440,6 +467,7 @@ transcribe:
   tags:
     product_categories: {'Machine Learning'}
   version: transcribe-2017-10-26
+  api_ref: transcribe/latest/APIReference/Welcome.html
 transcribe-medical:
   long: '&TSClong;'
   short: '&TSC;'
