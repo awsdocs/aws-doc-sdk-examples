@@ -27,6 +27,7 @@ You will find these examples that use the **DynamoDbClient** object:
 - [Listing Amazon DynamoDB tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ListTables.java) (ListTables command)
 - [Putting items into an Amazon DynamoDB tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/PutItem.java) (PutItem command)
 - [Querying items from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Query.java) (Query command)
+- [Querying items from an Amazon DynamoDB table using a secondary index](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/QueryItemsUsingIndex.java) (Query command)
 - [Updating a value located in an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/UpdateItem.java) (UpdateItem command)
 - [Updating an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/UpdateTable.java) (UpdateTable command)
 
