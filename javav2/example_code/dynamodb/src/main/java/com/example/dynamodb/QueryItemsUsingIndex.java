@@ -83,6 +83,5 @@ public class QueryItemsUsingIndex {
                         System.exit(1);
                 }
         }
-
         // snippet-end:[dynamodb.java2.query_items_sec_index.main]
 }
