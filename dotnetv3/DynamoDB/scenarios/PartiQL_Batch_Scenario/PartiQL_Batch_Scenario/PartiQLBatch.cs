@@ -34,7 +34,7 @@ success = await PartiQLBatchMethods.InsertMovies(tableName, movieFileName);
 
 WaitForEnter();
 
-// Update multiple movies using the BatchExecute statement.
+// Update multiple movies by using the BatchExecute statement.
 var producer1 = "LucasFilm";
 var title1 = "Star Wars";
 var year1 = 1977;
@@ -55,7 +55,7 @@ else
 
 WaitForEnter();
 
-// Delete multiple movies using the BatchExecute statement.
+// Delete multiple movies by using the BatchExecute statement.
 Console.WriteLine($"Now we will delete {title1} and {title2} from the table.");
 success = await PartiQLBatchMethods.DeleteBatch(tableName, title1, year1, title2, year2);
 
@@ -70,7 +70,7 @@ else
 
 WaitForEnter();
 
-// PartiQL Basics Scenario is complete so delete the movie table.
+// DNow that the PartiQL Batch scenario is complete, delete the movie table.
 success = await DynamoDBMethods.DeleteTableAsync(tableName);
 
 if (success)
@@ -90,15 +90,15 @@ void DisplayInstructions()
     Console.Clear();
     Console.WriteLine();
     Console.Write(new string(' ', 24));
-    Console.WriteLine("DynamoDB PartQL Basics Example");
+    Console.WriteLine("DynamoDB PartiQL Basics Example");
     Console.WriteLine(SepBar);
-    Console.WriteLine("This demo application shows the basics of using DynamoDB with the AWS SDK for");
+    Console.WriteLine("This demo application shows the basics of using Amazon DynamoDB with the AWS SDK for");
     Console.WriteLine(".NET version 3.7 and .NET 6.");
     Console.WriteLine(SepBar);
-    Console.WriteLine("Creates a table using the CreateTable method.");
-    Console.WriteLine("Get multiple movies using a PartiQL SELECT statement.");
-    Console.WriteLine("Updates multiple movies using the ExecuteBatch method.");
-    Console.WriteLine("Delete multiple movies using a PartiQL DELETE statement.");
+    Console.WriteLine("Creates a table by using the CreateTable method.");
+    Console.WriteLine("Gets multiple movies by using a PartiQL SELECT statement.");
+    Console.WriteLine("Updates multiple movies by using the ExecuteBatch method.");
+    Console.WriteLine("Deletes multiple movies by using a PartiQL DELETE statement.");
     Console.WriteLine("Cleans up the resources created for the demo by deleting the table.");
     Console.WriteLine(SepBar);
 

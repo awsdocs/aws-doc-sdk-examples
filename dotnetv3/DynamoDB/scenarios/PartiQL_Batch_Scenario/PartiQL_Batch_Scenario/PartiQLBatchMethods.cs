@@ -10,15 +10,15 @@ namespace PartiQL_Batch_Scenario
         // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-InsertMovies]
 
         /// <summary>
-        /// Inserts movies imported from a JSON file into the movie table using
-        /// a DynamoDB PartiQL INSERT statement.
+        /// Inserts movies imported from a JSON file into the movie table by
+        /// using an Amazon DynamoDB PartiQL INSERT statement.
         /// </summary>
-        /// <param name="tableName">The name of the table where the movie
+        /// <param name="tableName">The name of the table into which the movie
         /// information will be inserted.</param>
-        /// <param name="movieFileName">The name of the JSON file containing
+        /// <param name="movieFileName">The name of the JSON file that contains
         /// movie information.</param>
-        /// <returns>A Boolean value indicating the success or failure of the
-        /// insert operation.</returns>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the insert operation.</returns>
         public static async Task<bool> InsertMovies(string tableName, string movieFileName)
         {
             // Get the list of movies from the JSON file.
@@ -28,8 +28,9 @@ namespace PartiQL_Batch_Scenario
 
             if (movies is not null)
             {
-                // Insert the movies in a batch using PartiQL. The batch can only contain
-                // a maxium of 25 items, so insert 25 movies at a time.
+                // Insert the movies in a batch using PartiQL. Because the
+                // batch can contain a maximum of 25 items, insert 25 movies
+                // at a time.
                 string insertBatch = $"INSERT INTO {tableName} VALUE {{'title': ?, 'year': ?}}";
                 var statements = new List<BatchStatementRequest>();
 
@@ -105,6 +106,20 @@ namespace PartiQL_Batch_Scenario
 
         // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch]
 
+        /// <summary>
+        /// Updates information for multiple movies.
+        /// </summary>
+        /// <param name="tableName">The name of the table containing the
+        /// movies to be updated.</param>
+        /// <param name="producer1">The producer name for the first movie
+        /// to update.</param>
+        /// <param name="title1">The title of the first movie.</param>
+        /// <param name="year1">The year that the first movie was released.</param>
+        /// <param name="producer2">The producer name for the second
+        /// movie to update.</param>
+        /// <param name="title2">The title of the second movie.</param>
+        /// <param name="year2">The year that the second movie was released.</param>
+        /// <returns>A Boolean value that indicates the success of the update.</returns>
         public static async Task<bool> UpdateBatch(
             string tableName,
             string producer1,
@@ -152,6 +167,17 @@ namespace PartiQL_Batch_Scenario
 
         // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch]
 
+        /// <summary>
+        /// Deletes multiple movies using a PartiQL BatchExecuteAsync
+        /// statement.
+        /// </summary>
+        /// <param name="tableName">The name of the table containing the
+        /// moves that will be deleted.</param>
+        /// <param name="title1">The title of the first movie.</param>
+        /// <param name="year1">The year the first movie was released.</param>
+        /// <param name="title2">The title of the second movie.</param>
+        /// <param name="year2">The year the second movie was released.</param>
+        /// <returns>A Boolean value indicating the success of the operation.</returns>
         public static async Task<bool> DeleteBatch(
             string tableName,
             string title1,

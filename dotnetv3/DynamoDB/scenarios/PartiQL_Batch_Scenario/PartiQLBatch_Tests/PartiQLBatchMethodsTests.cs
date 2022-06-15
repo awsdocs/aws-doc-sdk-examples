@@ -33,7 +33,7 @@ namespace PartiQL_Batch_Scenario.Tests
         [Fact(), TestPriority(2)]
         public async Task UpdateBatchTest()
         {
-            // Update multiple movies using the BatchExecute statement.
+            // Update multiple movies by using the BatchExecute statement.
             var producer1 = "LucasFilm";
             var title1 = "Star Wars";
             var year1 = 1977;
@@ -48,7 +48,7 @@ namespace PartiQL_Batch_Scenario.Tests
         [Fact(), TestPriority(3)]
         public async Task DeleteBatchTest()
         {
-            // Update multiple movies using the BatchExecute statement.
+            // Update multiple movies by using the BatchExecute statement.
             var title1 = "Star Wars";
             var year1 = 1977;
             var title2 = "Wizard of Oz";

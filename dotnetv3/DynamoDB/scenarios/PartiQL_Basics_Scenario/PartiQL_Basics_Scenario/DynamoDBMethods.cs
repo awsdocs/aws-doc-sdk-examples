@@ -4,20 +4,20 @@
 namespace PartiQL_Basics_Scenario
 {
     /// <summary>
-    /// This class is used to create the DynamoDB table usedby the PartiQL
-    /// scenario. The methods of this class create an populate the movies
-    /// table and, cleans up resources when the scenario is complete.
+    /// This class is used to create the Amazon DynamoDB table that is used by
+    /// the PartiQL scenario. The methods of this class create the movies
+    /// table and clean up resources after the scenario is complete.
     /// </summary>
     public class DynamoDBMethods
     {
         private static readonly AmazonDynamoDBClient Client = new AmazonDynamoDBClient();
 
         /// <summary>
-        /// Creates a new Amazon DynamoDB table and then waits for the new
-        /// table becomes active.
+        /// Creates a new DynamoDB table and then waits for the new
+        /// table to become active.
         /// </summary>
         /// <param name="tableName">The name of the table to create.</param>
-        /// <returns>A Boolean value indicating the success of the operation.</returns>
+        /// <returns>A Boolean value that indicates the success of the operation.</returns>
         public static async Task<bool> CreateMovieTableAsync(string tableName)
         {
             var response = await Client.CreateTableAsync(new CreateTableRequest
@@ -85,7 +85,7 @@ namespace PartiQL_Basics_Scenario
 
         /// <summary>
         /// Deletes the DynamoDB table of movie information when the scenario
-        /// has completed.
+        /// is complete.
         /// </summary>
         /// <param name="tableName">The name of the table to delete.</param>
         /// <returns>A Boolean value that indicates the success or failure of

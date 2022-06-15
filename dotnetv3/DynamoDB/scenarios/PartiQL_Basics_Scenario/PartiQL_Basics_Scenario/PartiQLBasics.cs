@@ -34,7 +34,7 @@ success = await PartiQLMethods.InsertMovies(tableName, movieFileName);
 
 WaitForEnter();
 
-// Get a movie using a SELECT statement.
+// Get a movie by using a SELECT statement.
 var movies = await PartiQLMethods.GetSingleMovie(tableName, "Escape Plan");
 DisplayMovies(movies);
 
@@ -73,7 +73,7 @@ else
 
 WaitForEnter();
 
-// Now delete the movie that was just added.
+// Delete the movie that was just added.
 success = await PartiQLMethods.DeleteSingleMovie(tableName, movieTitle, year);
 if (success)
 {
@@ -86,7 +86,7 @@ else
 
 WaitForEnter();
 
-// PartiQL Basics Scenario is complete so delete the movie table.
+// Now that the PartiQL Basics scenario is complete, delete the movie table.
 success = await DynamoDBMethods.DeleteTableAsync(tableName);
 
 if (success)
