@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetItemIndex.java demonstrates how to retrieve an item from an Amazon DynamoDB table using a secondary index.]
+//snippet-sourcedescription:[QueryItemsUsingIndex.java demonstrates how to query items from an Amazon DynamoDB table using a secondary index.]
 //snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -12,7 +12,7 @@
 
 package com.example.dynamodb;
 
-// snippet-start:[dynamodb.java2.get_item_sec_index.import]
+// snippet-start:[dynamodb.java2.query_items_sec_index.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -22,7 +22,7 @@ import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
 import software.amazon.awssdk.services.dynamodb.model.QueryResponse;
 import java.util.HashMap;
 import java.util.Map;
-// snippet-end:[dynamodb.java2.get_item_sec_index.import]
+// snippet-end:[dynamodb.java2.query_items_sec_index.import]
 
 
 /**
@@ -53,7 +53,7 @@ public class QueryItemsUsingIndex {
                 ddb.close();
         }
 
-        // snippet-start:[dynamodb.java2.get_item_sec_index.main]
+        // snippet-start:[dynamodb.java2.query_items_sec_index.main]
         public static void queryIndex(DynamoDbClient ddb, String tableName) {
 
                 try {
@@ -84,5 +84,5 @@ public class QueryItemsUsingIndex {
                 }
         }
 
-        // snippet-end:[dynamodb.java2.get_item_sec_index.main]
+        // snippet-end:[dynamodb.java2.query_items_sec_index.main]
 }
