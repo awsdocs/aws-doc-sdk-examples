@@ -7,7 +7,7 @@ namespace PartiQL_Batch_Scenario
     {
         private static readonly AmazonDynamoDBClient Client = new AmazonDynamoDBClient();
 
-        // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-InsertMovies]
+        // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies]
 
         /// <summary>
         /// Inserts movies imported from a JSON file into the movie table by
@@ -102,9 +102,9 @@ namespace PartiQL_Batch_Scenario
             }
         }
 
-        // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-InsertMovies]
+        // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies]
 
-        // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch]
+        // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch]
 
         /// <summary>
         /// Updates information for multiple movies.
@@ -163,9 +163,9 @@ namespace PartiQL_Batch_Scenario
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch]
+        // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch]
 
-        // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch]
+        // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch]
 
         /// <summary>
         /// Deletes multiple movies using a PartiQL BatchExecuteAsync
@@ -217,7 +217,7 @@ namespace PartiQL_Batch_Scenario
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch]
+        // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch]
     }
 }
 

@@ -148,3 +148,5 @@ void WaitForEnter()
     Console.Write(SepBar);
     _ = Console.ReadLine();
 }
+
+// snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario]
