@@ -59,13 +59,9 @@ The following tutorials use the synchronous Java client:
 
 + `Creating the Amazon Aurora Serverless item tracker application using the Java RdsDataClient API <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_serverless_aurora_app>`_ - Discusses using Amazon Aurora Serverless, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Java V2 client to create a web MVC application that tracks work items.
 
-+ `Creating_rds_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web application that tracks work items.
++ `Creating the Amazon Relational Database Service item tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web application that tracks work items.
 
-+ `Creating_dynamodb_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
-
-
-
-+ `Creating_mongodb_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_mongoDB_app>`_ - Discusses using Amazon EC2 (which hosts a MongoDB instance) with Amazon Simple Email Service (Amazon SES) and AWS Elastic Beanstalk to create a web application that tracks work items. 
++ `Creating the Amazon DynamoDB web application item tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
 + `Creating a Job Posting Site using Amazon Aurora and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_amazon_aurora_app>`_ - Discusses how to create a web application that uses Amazon Aurora (for Amazon RDS), the Java JDBC API, and Amazon Translate to display job listing data.
 
@@ -76,6 +72,8 @@ The following tutorials use the synchronous Java client:
 + `Creating a dynamic web application that analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app>`_ - Discusses using the AWS SDK for Java and various AWS services, such as Amazon Rekognition, to analyze images. The application analyzes many images and generate a report that breaks down each image into a series of labels.
 
 + `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
+
++ `Creating_mongodb_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_mongoDB_app>`_ - Discusses using Amazon EC2 (which hosts a MongoDB instance) with Amazon Simple Email Service (Amazon SES) and AWS Elastic Beanstalk to create a web application that tracks work items. 
 
 + `Creating scheduled events to invoke  Lambda functions <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events>`_ - Discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
