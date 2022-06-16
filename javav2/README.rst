@@ -59,23 +59,23 @@ The following tutorials use the synchronous Java client:
 
 + `Creating the Amazon Aurora Serverless item tracker application using the Java RdsDataClient API <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_serverless_aurora_app>`_ - Discusses using Amazon Aurora Serverless, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Java V2 client to create a web MVC application that tracks work items.
 
-+ `Creating the Amazon Relational Database Service item tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web application that tracks work items.
++ `Creating the Amazon Relational Database Service item tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web MVC application that tracks work items.
 
-+ `Creating the Amazon DynamoDB web application item tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
++ `Creating the Amazon DynamoDB web application item tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web MVC application that tracks work items.
 
-+ `Creating a Job Posting Site using Amazon Aurora and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_amazon_aurora_app>`_ - Discusses how to create a web application that uses Amazon Aurora (for Amazon RDS), the Java JDBC API, and Amazon Translate to display job listing data.
++ `Creating a Job Posting Site using Amazon Aurora and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_amazon_aurora_app>`_ - Discusses how to create a web MVC application that uses Amazon Aurora (for Amazon RDS), the Java JDBC API, and Amazon Translate to display job listing data.
 
-+ `Creating a Job Posting Site using Amazon Redshift and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_redshift_application>`_ - Discusses how to create a web application that uses the Amazon Redshift Data API and Amazon Translate to display job listing data. 
++ `Creating a Job Posting Site using Amazon Redshift and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_redshift_application>`_ - Discusses how to create a web MVC application that uses the Amazon Redshift Data API and Amazon Translate to display job listing data. 
 
-+ `Creating a dynamic web application that analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app>`_ - Discusses using the AWS SDK for Java and various AWS services, such as Amazon Rekognition, to analyze images. The application analyzes many images and generate a report that breaks down each image into a series of labels.
++ `Creating a dynamic web application that analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app>`_ - Discusses using the AWS SDK for Java and various AWS services, such as Amazon Rekognition, to analyze images. This web MVC applicatio analyzes many images and generate a report that breaks down each image into a series of labels.
 
-+ `Creating a Spring Boot Application that has publish/subscription functionality <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app>`_ - Discusses how to create a web application that has subscription and publish functionality. In this tutorial, the application is created using the Spring Framework with the AWS SDK for Java V2 API for Amazon SNS. 
++ `Creating a Spring Boot Application that has publish/subscription functionality <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the application is created using the Spring Framework with the AWS SDK for Java V2 API for Amazon SNS. 
 
-+ `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
++ `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web MVC application.
 
-+ `Building a Spring Boot web application that Streams Amazon S3 content over HTTP <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app>`_ - Discusses how to create a web application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework is used with the AWS SDK for Java API to create the application.
++ `Building a Spring Boot web application that Streams Amazon S3 content over HTTP <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app>`_ - Discusses how to create a web MVC application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework is used with the AWS SDK for Java API to create the application.
 
-+ `Using Amazon Cognito to require a user to log into a web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_amazon_cognito_app>`_ - Discusses how to use Amazon Cognito to require a web application to authenticate with users defined in an Amazon Cognito user pool.
++ `Using Amazon Cognito to require a user to log into a web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_amazon_cognito_app>`_ - Discusses how to use Amazon Cognito to require a web MVC application to authenticate with users defined in an Amazon Cognito user pool.
 
 + `Creating AWS serverless workflows using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_workflows_stepfunctions>`_ - Discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 
@@ -96,8 +96,6 @@ The following tutorials use the synchronous Java client:
 + `Creating Lambda functions that tags digital assets located in Amazon S3 buckets <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_tag_assets>`_ - Discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
 + `Creating an AWS document analyzer application using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_document_analyzer>`_ - Discusses how to use Amazon Textract and Amazon S3 to analyze PDF document images.
-
-
 
 + `Creating an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java V2.
 
