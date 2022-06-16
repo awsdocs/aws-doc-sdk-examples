@@ -21,6 +21,7 @@ find_package(ZLIB)
 
 set(EXAMPLES "")
 list(APPEND EXAMPLES "get_secret_value")
+list(APPEND EXAMPLES "create_secret_with_string")
 
 #build and link executable
 foreach(EXAMPLE IN LISTS EXAMPLES)

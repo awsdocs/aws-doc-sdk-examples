@@ -5,7 +5,7 @@
 #include <aws/core/Aws.h>
 #include <aws/core/utils/logging/LogLevel.h>
 #include <aws/secretsmanager/SecretsManagerClient.h>
-#include <aws/secretsmanager/model/GetSecretValueRequest.h>
+#include <aws/secretsmanager/model/CreateSecretRequest.h>
 
 using namespace Aws;
 
@@ -27,16 +27,18 @@ int main()
         }
         SecretsManager::SecretsManagerClient sm_client(config);
 
-        //TODO: Enter your secret name shown on the Secrets Manager console
-        String secretId = "<EXAMPLE_SECRET_NAME>";
-        SecretsManager::Model::GetSecretValueRequest request;
-        request.SetSecretId(secretId);
+        //TODO: Enter your secret name and content
+        String secretName = "<EXAMPLE_SECRET_NAME>";
+        String secretString = "<EXAMPLE_SECRET_CONTENT>";
+        SecretsManager::Model::CreateSecretRequest request;
+        request.SetName(secretName);
+        request.SetSecretString(secretString);
 
-        auto getSecretValueOutcome = sm_client.GetSecretValue(request);
-        if(getSecretValueOutcome.IsSuccess()){
-                std::cout << "Secret is: " << getSecretValueOutcome.GetResult().GetSecretString() << std::endl;
+        auto createSecretOutcome = sm_client.CreateSecret(request);
+        if(createSecretOutcome.IsSuccess()){
+                std::cout << "Create secret with name: " << createSecretOutcome.GetResult().GetName() << std::endl;
         }else{
-                std::cout << "Failed with Error: " << getSecretValueOutcome.GetError() << std::endl;
+                std::cout << "Failed with Error: " << createSecretOutcome.GetError() << std::endl;
         }
     }
 
