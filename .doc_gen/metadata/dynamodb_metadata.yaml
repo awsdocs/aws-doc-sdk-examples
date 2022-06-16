@@ -1511,9 +1511,10 @@ dynamodb_Scenario_PartiQLBatch:
           excerpts:
             - description:
               snippet_tags:
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertMovies
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch
+                - PartiQL.dotnetv3.PartiQLBatchScenario
+                - PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies
+                - PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch
+                - PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch
     Go:
       versions:
         - sdk_version: 2
