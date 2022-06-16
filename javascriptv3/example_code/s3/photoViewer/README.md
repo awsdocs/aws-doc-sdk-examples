@@ -16,7 +16,7 @@ such as *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and
 *@aws-sdk/credential-provider-cognito-identity*.
 ```
 npm install node -g
-cd javascriptv3/example_code/s3/src/photoViewer/src
+cd javascriptv3/example_code/s3/photoViewer/src
 npm install
 ```
 3. Follow the steps in the [AWS documentation for this examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-photos-view.html).
