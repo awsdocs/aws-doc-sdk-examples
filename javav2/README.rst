@@ -55,6 +55,8 @@ The following tutorials use the synchronous Java client:
 
 + `Creating your first AWS Java web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project>`_ - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk to create a web application.
 
++ `Creating a React and Spring REST application that queries Amazon Aurora Serverless data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest>`_ - Discusses how to develop a Spring REST API that queries Amazon Aurora Serverless data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.
+
 + `Creating an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java V2.
 
 + `Creating_rds_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web application that tracks work items.
