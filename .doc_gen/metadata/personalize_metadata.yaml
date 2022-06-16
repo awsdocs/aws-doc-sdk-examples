@@ -1,6 +1,6 @@
 # zexi 0.4.2
 personalize_createBatchInferenceJob:
-  title: Create an a batch inference job with &PERS; using an &AWS; SDK
+  title: Create a batch inference job with &PERS; using an &AWS; SDK
   title_abbrev: Create a batch interface job
   synopsis: create a &PERS; batch interface job.
   category:
@@ -26,7 +26,7 @@ personalize_createBatchInferenceJob:
   services:
     personalize: {CreateBatchInferenceJob}
 personalize_createBatchSegmentJob:
-  title: Create an a batch segment job with &PERS; using an &AWS; SDK
+  title: Create a batch segment job with &PERS; using an &AWS; SDK
   title_abbrev: Create a batch segment job
   synopsis: create a &PERS; batch segment job.
   category:
