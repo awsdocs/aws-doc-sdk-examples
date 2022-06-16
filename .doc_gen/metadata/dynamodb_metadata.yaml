@@ -560,15 +560,6 @@ dynamodb_GetItem:
             - description: Gets an item from a table by using the DynamoDbClient.
               snippet_tags:
                 - dynamodb.java2.query.main
-            - description: Gets an item from a table by using the DynamoDbClient and a secondary index.
-              snippet_tags:
-                - dynamodb.java2.query_items_sec_index.main 
-            - description: Gets an item from a table by using the enhanced client.
-              snippet_tags:
-                - dynamodb.java2.mapping.getitem.main
-            - description: Gets an item from a table by using the enhanced client and a secondary index.
-              snippet_tags:
-                - dynamodb.java2.get_item_index.main    
     Python:
       versions:
         - sdk_version: 3
@@ -956,6 +947,15 @@ dynamodb_Query:
             - description: Queries a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.query.main
+            - description: Queries a table by using the enhanced client and a secondary index.
+              snippet_tags:
+                - dynamodb.java2.get_item_index.main
+            - description: Queries a table by using the DynamoDbClient.
+              snippet_tags:
+                - dynamodb.java2.query.main
+            - description: Queries a table by using the DynamoDbClient and a secondary index.
+              snippet_tags:
+                - dynamodb.java2.query_items_sec_index.main               
     Python:
       versions:
         - sdk_version: 3
