@@ -47,9 +47,9 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 If you are interested in using the Asynchronous Java client, see one of these tutorials:
 
-+ `Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_async>`_ - Discusses using the AWS SDK for Java (asynchronous client) and various AWS services, such as the Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
++ `Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_async>`_ - Discusses using the AWS SDK for Java (asynchronous client) and various AWS services, such as the Amazon Rekognition service, to analyze images. This web MVC application can analyze many images and generate a report that breaks down each image into a series of labels.
 
-+ `Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async>`_ - Discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework is used with the AWS SDK for Java asynchronous client for Amazon Simple Notification Service (Amazon SNS).
++ `Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the Spring Framework is used with the AWS SDK for Java asynchronous client for Amazon Simple Notification Service (Amazon SNS).
 
 The following tutorials use the synchronous Java client:
 
