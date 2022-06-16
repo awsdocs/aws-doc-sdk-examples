@@ -81,6 +81,8 @@ The following tutorials use the synchronous Java client:
 
 + `Building an AWS Workflow that sends notifications over multiple channels <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels>`_ - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
++ `Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_etl_workflow>`_ - Discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
+
 + `Creating scheduled events to invoke  Lambda functions <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events>`_ - Discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
 + `Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe>`_ - Discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results and sends an email message. 
@@ -95,7 +97,7 @@ The following tutorials use the synchronous Java client:
 
 + `Creating an AWS document analyzer application using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_document_analyzer>`_ - Discusses how to use Amazon Textract and Amazon S3 to analyze PDF document images.
 
-+ `Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_etl_workflow>`_ - Discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
+
 
 + `Creating an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java V2.
 
