@@ -288,6 +288,27 @@ organizations:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: organizations-2016-11-28
+personalize:
+  long: "&PERSlong;"
+  short: "&PERS;"
+  sort: Personalize
+  tags:
+    product_categories: {'Machine Learning'}
+  version: personalize-2018-05-22
+personalize-runtime:
+  long: "&PERSRlong;"
+  short: "&PERSR;"
+  sort: Personalize Runtime
+  tags:
+    product_categories: {'Machine Learning'}
+  version: personalize-runtime-2018-05-22
+personalize-events:
+  long: "&PERSElong;"
+  short: "&PERSE;"
+  sort: Personalize Events
+  tags:
+    product_categories: {'Machine Learning'}
+  version: personalize-events-2018-03-22
 pinpoint:
   bundle: pinpoint
   long: '&PINlong;'
