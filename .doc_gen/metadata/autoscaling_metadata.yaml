@@ -5,6 +5,15 @@ auto-scaling_CreateAutoScalingGroup:
   synopsis: create an &AS; group.
   category:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.CreateAutoScalingGroup
     Rust:
       versions:
         - sdk_version: 1
@@ -16,11 +25,20 @@ auto-scaling_CreateAutoScalingGroup:
   services:
     auto-scaling: {CreateAutoScalingGroup}
 auto-scaling_DeleteAutoScalingGroup:
-  title: Delete the specified &AS; group using an &AWS; SDK
+  title: Delete an &AS; group using an &AWS; SDK
   title_abbrev: Delete a group
   synopsis: delete an &AS; group.
   category:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DeleteAutoScalingGroup
     Rust:
       versions:
         - sdk_version: 1
@@ -32,11 +50,20 @@ auto-scaling_DeleteAutoScalingGroup:
   services:
     auto-scaling: {DeleteAutoScalingGroup}
 auto-scaling_DescribeAutoScalingGroups:
-  title: Get information about the &AS; groups using an &AWS; SDK
-  title_abbrev: Get group information
+  title: Get information about &AS; groups using an &AWS; SDK
+  title_abbrev: Get information about groups
   synopsis: get information about &AS; groups.
   category:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DescribeAutoScalingGroups
     Rust:
       versions:
         - sdk_version: 1
@@ -48,11 +75,20 @@ auto-scaling_DescribeAutoScalingGroups:
   services:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_UpdateAutoScalingGroup:
-  title: Update the configuration for the specified &AS; group using an &AWS; SDK
-  title_abbrev: Update group configuration
+  title: Update an &AS; group using an &AWS; SDK
+  title_abbrev: Update a group
   synopsis: update the configuration for an &AS; group.
   category:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.UpdateAutoScalingGroup
     Rust:
       versions:
         - sdk_version: 1
@@ -63,3 +99,146 @@ auto-scaling_UpdateAutoScalingGroup:
                 - autoscaling.rust.update-autoscaling-group
   services:
     auto-scaling: {UpdateAutoScalingGroup}
+auto-scaling_TerminateInstanceInAutoScalingGroup:
+  title: Terminate an instance in an &AS; group using an &AWS; SDK
+  title_abbrev: Terminate an instance in a group
+  synopsis: terminate an instance in an &AS; group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.TerminateInstanceInAutoScalingGroup
+  services:
+    auto-scaling: {TerminateInstanceInAutoScalingGroup}
+auto-scaling_SetDesiredCapacity:
+  title: Set the desired capacity of an &AS; group using an &AWS; SDK
+  title_abbrev: Set the desired capacity of a group
+  synopsis: set the desired capacity of an &AS; group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.SetDesiredCapacity
+  services:
+    auto-scaling: {SetDesiredCapacity}
+auto-scaling_DescribeAutoScalingInstances:
+  title: Get information about &AS; instances using an &AWS; SDK
+  title_abbrev: Get information about instances
+  synopsis: get information about &AS; instances.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DescribeAutoScalingInstances
+  services:
+    auto-scaling: {DescribeAutoScalingInstances}
+auto-scaling_DescribeScalingActivities:
+  title: Get information about &AS; activities using an &AWS; SDK
+  title_abbrev: Get information about scaling activities
+  synopsis: get information about &AS; activities.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DescribeScalingActivities
+  services:
+    auto-scaling: {DescribeScalingActivities}
+auto-scaling_EnableMetricsCollection:
+  title: Enable &CW; metrics collection for an &AS; group using an &AWS; SDK
+  title_abbrev: Enable metrics collection for a group
+  synopsis: enable &CW; metrics collection for an &AS; group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.EnableMetricsCollection
+  services:
+    auto-scaling: {EnableMetricsCollection}
+auto-scaling_DisableMetricsCollection:
+  title: Disable &CW; metrics collection for an &AS; group using an &AWS; SDK
+  title_abbrev: Disable metrics collection for a group
+  synopsis: disable &CW; metrics collection for an &AS; group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DisableMetricsCollection
+  services:
+    auto-scaling: {DisableMetricsCollection}
+auto-scaling_Scenario_GroupsAndInstances:
+  title: Manage &AS; groups and instances using an &AWS; SDK
+  title_abbrev: Manage groups and instances
+  synopsis_list:
+    - Create an &ASlong; group configured with a launch template and Availability
+      Zones.
+    - Get information about the group and running instances.
+    - Enable &CWlong; metrics collection on the group.
+    - Update the desired capacity of the group and wait for an instance to start.
+    - Terminate an instance in the group.
+    - List scaling activities that have occurred in response to user requests and capacity
+      changes.
+    - Get statistics for &CW; metrics that have been collected during the example.
+    - Stop collecting metrics, terminate all instances, and delete the group.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.auto-scaling.Scenario_GroupsAndInstances
+            - description: Define functions that are called by the scenario to
+                manage launch templates and metrics. These functions wrap
+                &EC2; and &CW; actions.
+              snippet_tags:
+                - python.example_code.auto-scaling.helper.ServiceHelper
+  services:
+    auto-scaling: {CreateAutoScalingGroup, DeleteAutoScalingGroup, DisableMetricsCollection,
+                   EnableMetricsCollection, DescribeAutoScalingGroups, DescribeAutoScalingInstances,
+                   DescribeScalingActivities, SetDesiredCapacity, TerminateInstanceInAutoScalingGroup,
+                   UpdateAutoScalingGroup}
