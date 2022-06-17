@@ -3,7 +3,6 @@
 
 namespace CreateKeyPairExample
 {
-    
     // snippet-start:[EC2.dotnetv3.CreateKeyPairExample]
     using System;
     using System.Threading.Tasks;
