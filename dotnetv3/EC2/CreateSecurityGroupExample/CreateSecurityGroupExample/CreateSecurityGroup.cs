@@ -3,6 +3,8 @@
 
 namespace CreateSecurityGroupExample
 {
+
+    // snippet-start:[EC2.dotnetv3.CreateSecurityGroupExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.EC2;
@@ -13,8 +15,6 @@ namespace CreateSecurityGroupExample
     /// Cloud (Amazon EC2) VPC using the AWS SDK for .NET version 3.7 and
     /// .NET Core 5.0.
     /// </summary>
-
-    // snippet-start:[EC2.dotnetv3.CreateSecurityGroupExample]
     public class CreateSecurityGroup
     {
         /// <summary>

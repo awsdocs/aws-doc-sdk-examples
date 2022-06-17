@@ -3,6 +3,8 @@
 
 namespace CreateKeyPairExample
 {
+    
+    // snippet-start:[EC2.dotnetv3.CreateKeyPairExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.EC2;
@@ -13,7 +15,6 @@ namespace CreateKeyPairExample
     /// key pair. The example was uses the AWS SDK for .NET version 3.7 and
     /// .NET Core 5.0.
     /// </summary>
-    // snippet-start:[EC2.dotnetv3.CreateKeyPairExample]
     public class CreateKeyPair
     {
         /// <summary>

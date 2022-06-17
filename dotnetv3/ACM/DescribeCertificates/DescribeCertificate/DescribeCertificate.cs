@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[ACM.dotnetv3.DescribeCertificate]
 using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
@@ -9,8 +10,6 @@ using System.Threading.Tasks;
 
 namespace DescribeCertificate
 {
-    // snippet-start:[ACM.dotnetv3.DescribeCertificate]
-
     class DescribeCertificate
     {
         // The following example retrieves and displays the metadate for a
@@ -88,5 +87,6 @@ namespace DescribeCertificate
         }
     }
 
-    // snippet-end:[ACM.dotnetv3.DescribeCertificate]
 }
+
+// snippet-end:[ACM.dotnetv3.DescribeCertificate]

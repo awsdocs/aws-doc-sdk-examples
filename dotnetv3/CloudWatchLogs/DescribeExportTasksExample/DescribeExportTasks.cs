@@ -3,6 +3,8 @@
 
 namespace DescribeExportTasksExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
+
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -15,7 +17,6 @@ namespace DescribeExportTasksExample
     /// </summary>
     public class DescribeExportTasks
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
         public static async Task Main()
         {
             // This client object will be associated with the same AWS Region
@@ -41,7 +42,7 @@ namespace DescribeExportTasksExample
             }
             while (response.NextToken is not null);
         }
-
-        // snippet-end:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
     }
+    
+    // snippet-end:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
 }

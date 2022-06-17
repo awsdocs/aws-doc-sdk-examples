@@ -3,6 +3,8 @@
 
 namespace CreateLogGroupExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.CreateLogGroupExample]
+
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -14,7 +16,6 @@ namespace CreateLogGroupExample
     /// </summary>
     public class CreateLogGroup
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.CreateLogGroupExample]
         public static async Task Main()
         {
             // This client object will be associated with the same AWS Region
@@ -41,7 +42,7 @@ namespace CreateLogGroupExample
                 Console.WriteLine("Could not create log group.");
             }
         }
-
-        // snippet-end:[CloudWatchLogs.dotnetv3.CreateLogGroupExample]
     }
+    
+    // snippet-end:[CloudWatchLogs.dotnetv3.CreateLogGroupExample]
 }

@@ -3,6 +3,7 @@
 
 namespace CelebritiesInImageExample
 {
+    // snippet-start:[Rekognition.dotnetv3.CelebritiesInImageExample]
     using System;
     using System.IO;
     using System.Threading.Tasks;
@@ -16,7 +17,6 @@ namespace CelebritiesInImageExample
     /// </summary>
     public class CelebritiesInImage
     {
-        // snippet-start:[Rekognition.dotnetv3.CelebritiesInImageExample]
         public static async Task Main(string[] args)
         {
             string photo = "moviestars.jpg";
@@ -62,7 +62,6 @@ namespace CelebritiesInImageExample
 
             Console.WriteLine($"{recognizeCelebritiesResponse.UnrecognizedFaces.Count} face(s) were unrecognized.");
         }
-
-        // snippet-end:[Rekognition.dotnetv3.CelebritiesInImageExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.CelebritiesInImageExample]
 }

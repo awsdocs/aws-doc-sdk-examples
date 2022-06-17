@@ -3,6 +3,7 @@
 
 namespace GetSecretValueExample
 {
+    // snippet-start:[SecretsManager.dotnetv3.GetSecretValueExample]
     using System;
     using System.IO;
     using System.Threading.Tasks;
@@ -110,4 +111,5 @@ namespace GetSecretValueExample
             }
         }
     }
+    // snippet-end:[SecretsManager.dotnetv3.GetSecretValueExample]
 }

@@ -3,6 +3,8 @@
 
 namespace CancelExportTaskExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.CancelExportTaskExample]
+
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -14,7 +16,6 @@ namespace CancelExportTaskExample
     /// </summary>
     public class CancelExportTask
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.CancelExportTaskExample]
         public static async Task Main()
         {
             // This client object will be associated with the same AWS Region
@@ -40,7 +41,7 @@ namespace CancelExportTaskExample
                 Console.WriteLine($"{taskId} could not be canceled.");
             }
         }
-
-        // snippet-end:[CloudWatchLogs.dotnetv3.CancelExportTaskExample]
     }
+    
+    // snippet-end:[CloudWatchLogs.dotnetv3.CancelExportTaskExample]
 }
