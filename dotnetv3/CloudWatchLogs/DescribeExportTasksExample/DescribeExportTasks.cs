@@ -37,12 +37,11 @@ namespace DescribeExportTasksExample
                 response = await client.DescribeExportTasksAsync(request);
                 response.ExportTasks.ForEach(t =>
                 {
-                   Console.WriteLine($"{t.TaskName} with ID: {t.TaskId} has status: {t.Status}");
+                    Console.WriteLine($"{t.TaskName} with ID: {t.TaskId} has status: {t.Status}");
                 });
             }
             while (response.NextToken is not null);
         }
     }
-    
     // snippet-end:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
 }

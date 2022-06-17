@@ -27,7 +27,7 @@ namespace AssumeRoleExample
         /// </summary>
 
         private static readonly RegionEndpoint REGION = RegionEndpoint.USWest2;
-        
+
         static async Task Main()
         {
             // Create the SecurityToken client and then display the identity of the
@@ -42,7 +42,8 @@ namespace AssumeRoleExample
             Console.WriteLine($"Original Caller: {caller.Arn}");
 
             // Create the request to use with the AssumeRoleAsync call.
-            var assumeRoleReq = new AssumeRoleRequest() {
+            var assumeRoleReq = new AssumeRoleRequest()
+            {
                 DurationSeconds = 1600,
                 RoleSessionName = "Session1",
                 RoleArn = roleArnToAssume

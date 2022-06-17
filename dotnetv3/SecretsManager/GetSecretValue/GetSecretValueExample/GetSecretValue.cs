@@ -59,7 +59,7 @@ namespace GetSecretValueExample
             IAmazonSecretsManager client,
             string secretName)
         {
-            GetSecretValueRequest request = new ();
+            GetSecretValueRequest request = new();
             request.SecretId = secretName;
             request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
 

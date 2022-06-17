@@ -3,7 +3,6 @@
 
 namespace CreateVPCExample
 {
-    
     // snippet-start:[EC2.dotnetv3.CreateVPCExample]
     using System;
     using System.Threading.Tasks;

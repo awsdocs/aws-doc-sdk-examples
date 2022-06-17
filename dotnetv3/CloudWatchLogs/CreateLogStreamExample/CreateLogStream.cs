@@ -45,6 +45,5 @@ namespace CreateLogStreamExample
             }
         }
     }
-    
     // snippet-end:[CloudWatchLogs.dotnetv3.CreateLogStreamExample]
 }

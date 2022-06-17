@@ -36,7 +36,7 @@ namespace ListFunctionsExample
             var functions2 = await ListFunctionsPaginatorAsync(client);
 
             DisplayFunctionList(functions2);
-         }
+        }
 
         /// <summary>
         /// Calls the asynchronous ListFunctionsAsync method of the Lambda
