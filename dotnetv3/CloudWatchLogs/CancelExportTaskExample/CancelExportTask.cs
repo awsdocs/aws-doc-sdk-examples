@@ -42,6 +42,5 @@ namespace CancelExportTaskExample
             }
         }
     }
-    
     // snippet-end:[CloudWatchLogs.dotnetv3.CancelExportTaskExample]
 }

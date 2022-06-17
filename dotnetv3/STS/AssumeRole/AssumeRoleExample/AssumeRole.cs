@@ -59,4 +59,4 @@ namespace AssumeRoleExample
         }
     }
 }
-// snippet-start:[STS.dotnetv3.AssumeRoleMessage]
+// snippet-end:[STS.dotnetv3.AssumeRoleMessage]

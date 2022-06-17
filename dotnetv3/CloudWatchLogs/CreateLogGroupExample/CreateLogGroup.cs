@@ -43,6 +43,5 @@ namespace CreateLogGroupExample
             }
         }
     }
-    
     // snippet-end:[CloudWatchLogs.dotnetv3.CreateLogGroupExample]
 }
