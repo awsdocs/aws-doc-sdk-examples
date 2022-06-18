@@ -3,6 +3,7 @@ package com.example.cognito;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthRequest;
 
 
 /**
@@ -22,8 +23,8 @@ public class AdminInitiateAuth {
                 "    <AuthFlow> <ClientId> <UserPoolId>\n\n" +
                 "Where:\n" +
                 "    AuthFlow - The authentication flow for this call to run. \n\n" +
-                "    ClientId - The app client ID.\n\n"
-                "    UserPoolId - The user name of the user whose registration you want to confirm.\n\n"
+                "    ClientId - The app client ID.\n\n" +
+                "    UserPoolId - The user name of the user whose registration you want to confirm.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
