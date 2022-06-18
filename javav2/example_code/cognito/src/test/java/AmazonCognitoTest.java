@@ -82,7 +82,7 @@ public class AmazonCognitoTest {
             secretkey =  prop.getProperty("secretkey");
             password = prop.getProperty("password");
             confirmationCode = prop.getProperty("confirmationCode");
-
+            authFlow = prop.getProperty("authFlow");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -213,5 +213,12 @@ public class AmazonCognitoTest {
     public void ConfirmSignUp() {
         ConfirmSignUp.confirmSignUp(cognitoIdentityProviderClient, confirmationCode, username);
         System.out.println("Test 17 passed");
+    }
+
+    @Test
+    @Order(18)
+    public void AdminInitiateAuth() {
+        AdminInitiateAuth.adminInitiateAuth(cognitoIdentityProviderClient, authFlow, clientId, userPoolId);
+        System.out.println("Test 18 passed");
     }
 }
