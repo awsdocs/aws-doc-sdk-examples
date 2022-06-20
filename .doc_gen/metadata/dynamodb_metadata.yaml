@@ -1423,18 +1423,6 @@ dynamodb_Scenario_PartiQLSingle:
   synopsis: query a &DDB; table using PartiQL.
   category: Scenarios
   languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
-          excerpts:
-            - description:
-              snippet_tags:
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-Complete
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
     Go:
       versions:
         - sdk_version: 2
@@ -1504,16 +1492,6 @@ dynamodb_Scenario_PartiQLBatch:
   synopsis: query a &DDB; table by using batches of PartiQL statements.
   category: Scenarios
   languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
-          excerpts:
-            - description:
-              snippet_tags:
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertMovies
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateBatch
-                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteBatch
     Go:
       versions:
         - sdk_version: 2
