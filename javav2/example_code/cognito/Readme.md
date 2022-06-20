@@ -35,7 +35,8 @@ Define these values to successfully run the JUnit tests:
 - **username** – The user name that is used in the **CreateAdminUser** test.
 - **email** - The user email that is used in the **CreateAdminUser** test.
 - **clientName** - The client name that is used in the **CreateUserPoolClient** test.  
-- **identityPoolName** - The pool name used in the **CreateIdentityPool** test.  
+- **identityPoolName** - The pool name used in the **CreateIdentityPool** test. 
+- **confirmationCode** - The confirmation code that is used in the **ConfirmSignUp** test.
 
 ### Command line
 To execute the JUnit tests from the command line, you can use the following command.

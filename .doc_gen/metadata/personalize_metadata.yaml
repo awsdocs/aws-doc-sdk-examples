@@ -1,0 +1,549 @@
+# zexi 0.4.2
+personalize_createBatchInferenceJob:
+  title: Create a batch inference job with &PERS; using an &AWS; SDK
+  title_abbrev: Create a batch interface job
+  synopsis: create a &PERS; batch interface job.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createBatchInferenceJobV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_batch_inference_job.main
+  services:
+    personalize: {CreateBatchInferenceJob}
+personalize_createBatchSegmentJob:
+  title: Create a batch segment job with &PERS; using an &AWS; SDK
+  title_abbrev: Create a batch segment job
+  synopsis: create a &PERS; batch segment job.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createBatchSegmentJobV3
+  services:
+    personalize: {CreateBatchSegmentJob}
+personalize_createCampaign:
+  title: Create a campaign with &PERS; using an &AWS; SDK
+  title_abbrev: Create a campaign
+  synopsis: create a &PERS; campaign.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createCampaignV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_campaign.main
+  services:
+    personalize: {CreateCampaign}
+personalize_createDataset:
+  title: Create a dataset with &PERS; using an &AWS; SDK
+  title_abbrev: Create a dataset
+  synopsis: create a &PERS; dataset.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createDatasetV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_dataset.main
+  services:
+    personalize: {CreateDataset}
+personalize_createDatasetExportJob:
+  title: Create a dataset export job with &PERS; using an &AWS; SDK
+  title_abbrev: Create a dataset export job
+  synopsis: create a &PERS; dataset export job.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createDatasetExportJobV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_dataset_export_job.main
+  services:
+    personalize: {CreateDatasetExportJob}
+personalize_createDatasetGroup:
+  title: Create a dataset group with &PERS; using an &AWS; SDK
+  title_abbrev: Create a dataset group
+  synopsis: create a &PERS; dataset group.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createDatasetGroupV3
+            - description: Create a domain dataset group.
+              snippet_tags:
+                - personalize.JavaScript.createDomainDatasetGroupV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_dataset_group.main
+            - description: Create a domain dataset group.
+              snippet_tags:
+                - personalize.java2.create_domain_dataset_group.main
+  services:
+    personalize: {CreateDatasetGroup}
+personalize_createDatasetImportJob:
+  title: Create a dataset import job with &PERS; using an &AWS; SDK
+  title_abbrev: Create a dataset import job
+  synopsis: create a &PERS; dataset import job.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createDatasetImportJobV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_dataset_import_job.main
+  services:
+    personalize: {CreateDatasetImportJob}
+personalize_createDomainSchema:
+  title: Create a domain schema with &PERS; using an &AWS; SDK
+  title_abbrev: Create a domain schema
+  synopsis: create a &PERS; domain schema.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createDomainSchemaV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_domain_schema.main
+  services:
+    personalize: {CreateSchema}
+personalize_createEventTracker:
+  title: Create an event tracker with &PERS; using an &AWS; SDK
+  title_abbrev: Create an event tracker
+  synopsis: create a &PERS; event tracker.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createEventTrackerV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_event_tracker.main
+  services:
+    personalize: {CreateEventTracker}
+personalize_createFilter:
+  title: Create a filter with &PERS; using an &AWS; SDK
+  title_abbrev: Create a filter
+  synopsis: create a &PERS; filter.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createFilterV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_filter.main
+  services:
+    personalize: {CreateFilter}
+personalize_createRecommender:
+  title: Create a recommender with &PERS; using an &AWS; SDK
+  title_abbrev: Create a recommender
+  synopsis: create a &PERS; recommender.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createRecommenderV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_recommender.main
+  services:
+    personalize: {CreateRecommender}
+personalize_createSchema:
+  title: Create a schema with &PERS; using an &AWS; SDK
+  title_abbrev: Create a schema
+  synopsis: create a &PERS; schema.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createSchemaV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_schema.main
+  services:
+    personalize: {CreateSchema}
+personalize_createSolution:
+  title: Create a solution with &PERS; using an &AWS; SDK
+  title_abbrev: Create a solution
+  synopsis: create a &PERS; solution.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createSolutionV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_solution.main
+  services:
+    personalize: {CreateSolution}
+personalize_createSolutionVersion:
+  title: Create a solution version with &PERS; using an &AWS; SDK
+  title_abbrev: Create a solution version
+  synopsis: create a &PERS; solution.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.JavaScript.createSolutionVersionV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.create_solution_version.main
+  services:
+    personalize: {CreateSolutionVersion}
+personalize_deleteCampaign:
+  title: Delete a campaign in &PERS; using an &AWS; SDK
+  title_abbrev: Delete a campaign
+  synopsis: delete a campaign in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.delete_campaign.main
+  services:
+    personalize: {DeleteCampaign}
+personalize_deleteEventTracker:
+  title: Delete an event tracker in &PERS; using an &AWS; SDK
+  title_abbrev: Delete an event tracker
+  synopsis: delete an event tracker in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.delete_event_tracker.main
+  services:
+    personalize: {DeleteEventTracker}
+personalize_deleteSolution:
+  title: Delete a solution in &PERS; using an &AWS; SDK
+  title_abbrev: Delete a solution
+  synopsis: delete a solution in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.delete_solution.main
+  services:
+    personalize: {DeleteSolution}
+personalize_describeCampaign:
+  title: Describe a campaign in &PERS; using an &AWS; SDK
+  title_abbrev: Describe a campaign
+  synopsis: describe a campaign in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.describe_campaign.main
+  services:
+    personalize: {DescribeCampaign}
+personalize_describeRecipe:
+  title: Describe a recipe in &PERS; using an &AWS; SDK
+  title_abbrev: Describe a recipe
+  synopsis: describe a recipe in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.describe_recipe.main
+  services:
+    personalize: {DescribeRecipe}
+personalize_describeSolution:
+  title: Describe a solution in &PERS; using an &AWS; SDK
+  title_abbrev: Describe a solution
+  synopsis: describe a solution in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.describe_solution.main
+  services:
+    personalize: {DescribeSolution}
+personalize_listCampaigns:
+  title: List campaigns in &PERS; using an &AWS; SDK
+  title_abbrev: List campaigns
+  synopsis: list campaigns in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.list_campaigns.main
+  services:
+    personalize: {ListCampaigns}
+personalize_listDatasetGroups:
+  title: List dataset groups in &PERS; using an &AWS; SDK
+  title_abbrev: List dataset groups
+  synopsis: list dataset groups in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.list_dsgroups.main
+  services:
+    personalize: {ListDatasetGroups}
+personalize_listRecipes:
+  title: List recipes in &PERS; using an &AWS; SDK
+  title_abbrev: List recipes
+  synopsis: list recipes in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.list_recipes.main
+  services:
+    personalize: {ListRecipes}
+personalize_listSolutions:
+  title: List solutions in &PERS; using an &AWS; SDK
+  title_abbrev: List solutions
+  synopsis: list solutions in &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.list_solutions.main
+  services:
+    personalize: {ListSolutions}
+personalize_updateCampaign:
+  title: Update a campaign in &PERS; using an &AWS; SDK
+  title_abbrev: Update a campaign
+  synopsis: update a campaign &PERS;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javascipt/example_code/personalize
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - personalize.java2.update_campaign.main
+  services:
+    personalize: {UpdateCampaign}
