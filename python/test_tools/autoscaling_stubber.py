@@ -17,9 +17,9 @@ class AutoScalingStubber(ExampleStubber):
         Initializes the object with a specific client and configures it for
         stubbing or AWS passthrough.
 
-        :param client: A Boto3 EC2 Auto Scaling client.
-        :param use_stubs: When True, use stubs to intercept requests. Otherwise,
-                          pass requests through to AWS.
+        :param client: A Boto3 Amazon EC2 Auto Scaling client.
+        :param use_stubs: When True, uses stubs to intercept requests. Otherwise,
+                          passes requests through to AWS.
         """
         super().__init__(client, use_stubs)
 

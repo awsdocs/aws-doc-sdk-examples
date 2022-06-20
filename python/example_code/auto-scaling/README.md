@@ -5,7 +5,7 @@
 Shows how to use the AWS SDK for Python (Boto3) to create and manage Amazon EC2
 Auto Scaling groups and instances.
 
-*Amazon EC2 Auto Scaling automatically scales Amazon EC2 instances, either with scaling 
+*Amazon EC2 Auto Scaling automatically scales EC2 instances, either with scaling 
 policies or with scheduled scaling.*
 
 ## ⚠️ Important
@@ -52,24 +52,24 @@ functions within the same service.
 
 ### Prerequisites
 
-Prerequisites for running the examples for this service can be found in the 
+To find prerequisites for running these examples, see the 
 [README](../../README.md#Prerequisites) in the Python folder.
 
 ### Groups and instances
 
 This interactive scenario runs at a command prompt and shows you how to use 
-EC2 Auto Scaling to do the following:
+Amazon EC2 Auto Scaling to do the following:
 
 1. Create an Amazon Elastic Compute Cloud (Amazon EC2) launch template.
-2. Create an EC2 Auto Scaling group configured with a launch template and Availability
+2. Create an Auto Scaling group configured with a launch template and Availability
    Zones.
 3. Get information about the group and running instances.
 4. Enable Amazon CloudWatch metrics collection on the group.
 5. Update the desired capacity of the group and wait for an instance to start.
 6. Terminate an instance in the group.
-7. List scaling activities that have occurred in response to user requests and capacity
+7. List scaling activities that occur in response to user requests and capacity
    changes.
-8. Get statistics for CloudWatch metrics that have been collected during the example.
+8. Get statistics for CloudWatch metrics that are collected during the example.
 9. Stop collecting metrics, terminate all instances, and delete the group.
 
 Start the scenario at a command prompt.
@@ -80,14 +80,13 @@ python scenario_groups_and_instances.py
 
 ## Tests
 
-Instructions for running the tests for this service can be found in the
-[README](../../README.md#Tests) in the Python folder.
-
+To find instructions for running these tests, see the [README](../../README.md#Tests) 
+in the Python folder.
 
 ## Additional resources
 * [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
 * [Amazon EC2 Auto Scaling API Reference](https://docs.aws.amazon.com/autoscaling/ec2/APIReference)
-* [AWS SDK for Python EC2 Auto Scaling Client](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling.html) 
+* [AWS SDK for Python Amazon EC2 Auto Scaling Client](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling.html) 
 
 ---
 

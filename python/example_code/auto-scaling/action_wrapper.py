@@ -20,7 +20,7 @@ class AutoScalingWrapper:
     """Encapsulates Amazon EC2 Auto Scaling actions."""
     def __init__(self, autoscaling_client):
         """
-        :param autoscaling_client: A Boto3 EC2 Auto Scaling client.
+        :param autoscaling_client: A Boto3 Amazon EC2 Auto Scaling client.
         """
         self.autoscaling_client = autoscaling_client
 # snippet-end:[python.example_code.auto-scaling.AutoScalingWrapper.decl]
@@ -29,9 +29,9 @@ class AutoScalingWrapper:
     def create_group(
             self, group_name, group_zones, launch_template_name, min_size, max_size):
         """
-        Creates an EC2 Auto Scaling group.
+        Creates an Auto Scaling group.
 
-        :param group_name: The name to give the group.
+        :param group_name: The name to give to the group.
         :param group_zones: The Availability Zones in which instances can be created.
         :param launch_template_name: The name of an existing Amazon EC2 launch template.
                                      The launch template specifies the configuration of
@@ -57,7 +57,7 @@ class AutoScalingWrapper:
     # snippet-start:[python.example_code.auto-scaling.UpdateAutoScalingGroup]
     def update_group(self, group_name, **kwargs):
         """
-        Updates an EC2 Auto Scaling group.
+        Updates an Auto Scaling group.
 
         :param group_name: The name of the group to update.
         :param kwargs: Keyword arguments to pass through to the service.
@@ -75,7 +75,7 @@ class AutoScalingWrapper:
     # snippet-start:[python.example_code.auto-scaling.DeleteAutoScalingGroup]
     def delete_group(self, group_name):
         """
-        Deletes an EC2 Auto Scaling group. All instances must be stopped before the
+        Deletes an Auto Scaling group. All instances must be stopped before the
         group can be deleted.
 
         :param group_name: The name of the group to delete.
@@ -93,7 +93,7 @@ class AutoScalingWrapper:
     # snippet-start:[python.example_code.auto-scaling.DescribeAutoScalingGroups]
     def describe_group(self, group_name):
         """
-        Gets information about an EC2 Auto Scaling group.
+        Gets information about an Auto Scaling group.
 
         :param group_name: The name of the group to look up.
         :return: Information about the group, if found.
@@ -117,11 +117,12 @@ class AutoScalingWrapper:
         Stops an instance.
 
         :param instance_id: The ID of the instance to stop.
-        :param decrease_capacity: Specifies whether to decrement the desired capacity
-                                  of the group. Passing True for this parameter lets
-                                  you stop an instance without a replacement instance
-                                  starting when the desired capacity threshold is crossed.
-        :return: The scaling activity taken in response to this action.
+        :param decrease_capacity: Specifies whether to decrease the desired capacity
+                                  of the group. When passing True for this parameter,
+                                  you can stop an instance without having a replacement
+                                  instance start when the desired capacity threshold is
+                                  crossed.
+        :return: The scaling activity that occurs in response to this action.
         """
         try:
             response = self.autoscaling_client.terminate_instance_in_auto_scaling_group(
@@ -138,7 +139,7 @@ class AutoScalingWrapper:
     # snippet-start:[python.example_code.auto-scaling.SetDesiredCapacity]
     def set_desired_capacity(self, group_name, capacity):
         """
-        Sets the desired capacity of the group. EC2 Auto Scaling tries to keep the
+        Sets the desired capacity of the group. Amazon EC2 Auto Scaling tries to keep the
         number of running instances equal to the desired capacity.
 
         :param group_name: The name of the group to update.
@@ -200,8 +201,7 @@ class AutoScalingWrapper:
     # snippet-start:[python.example_code.auto-scaling.EnableMetricsCollection]
     def enable_metrics(self, group_name, metrics):
         """
-        Specifies that CloudWatch metrics should be collected for EC2 Auto Scaling
-        activities.
+        Enables CloudWatch metric collection for Amazon EC2 Auto Scaling activities.
 
         :param group_name: The name of the group to enable.
         :param metrics: A list of metrics to collect.
@@ -219,7 +219,7 @@ class AutoScalingWrapper:
     # snippet-start:[python.example_code.auto-scaling.DisableMetricsCollection]
     def disable_metrics(self, group_name):
         """
-        Stops CloudWatch metric collection for the EC2 Auto Scaling group.
+        Stops CloudWatch metric collection for the Auto Scaling group.
 
         :param group_name: The name of the group.
         """

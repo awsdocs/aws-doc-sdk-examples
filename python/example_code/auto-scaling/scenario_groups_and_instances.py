@@ -8,15 +8,15 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon EC2 Auto Scaling to
 do the following:
 
 1. Create an Amazon Elastic Compute Cloud (Amazon EC2) launch template.
-2. Create an EC2 Auto Scaling group configured with a launch template and Availability
+2. Create an Auto Scaling group and configure it with a launch template and Availability
    Zones.
 3. Get information about the group and running instances.
 4. Enable Amazon CloudWatch metrics collection on the group.
 5. Update the desired capacity of the group and wait for an instance to start.
 6. Terminate an instance in the group.
-7. List scaling activities that have occurred in response to user requests and capacity
+7. List scaling activities that occur in response to user requests and capacity
    changes.
-8. Get statistics for CloudWatch metrics that have been collected during the example.
+8. Get statistics for CloudWatch metrics that are collected during the example.
 9. Stop collecting metrics, terminate all instances, and delete the group.
 """
 
@@ -29,7 +29,7 @@ from botocore.exceptions import ClientError
 
 from action_wrapper import AutoScalingWrapper
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without needing to setup.
 sys.path.append('../..')
 import demo_tools.question as q
 from demo_tools.retries import wait
@@ -42,7 +42,7 @@ class ServiceHelper:
     """Encapsulates Amazon EC2 and CloudWatch actions for the example."""
     def __init__(self, ec2_client, cloudwatch_resource):
         """
-        :param ec2_client: A Boto3 EC2 client.
+        :param ec2_client: A Boto3 Amazon EC2 client.
         :param cloudwatch_resource: A Boto3 CloudWatch resource.
         """
         self.ec2_client = ec2_client
@@ -51,7 +51,7 @@ class ServiceHelper:
     def get_template(self, template_name):
         """
         Gets a launch template. Launch templates specify configuration for instances
-        that are launched by EC2 Auto Scaling.
+        that are launched by Amazon EC2 Auto Scaling.
 
         :param template_name: The name of the template to look up.
         :return: The template, if it exists.
@@ -72,10 +72,10 @@ class ServiceHelper:
 
     def create_template(self, template_name, inst_type, ami_id):
         """
-        Creates an EC2 launch template to use with EC2 Auto Scaling.
+        Creates an Amazon EC2 launch template to use with Amazon EC2 Auto Scaling.
 
-        :param template_name: The name to give the template.
-        :param inst_type: The type of the instance, such a t1.micro.
+        :param template_name: The name to give to the template.
+        :param inst_type: The type of the instance, such as t1.micro.
         :param ami_id: The ID of the Amazon Machine Image (AMI) to use when creating
                        an instance.
         :return: Information about the newly created template.
@@ -111,7 +111,7 @@ class ServiceHelper:
 
     def get_availability_zones(self):
         """
-        Gets a list of Availability Zones in the AWS Region of the EC2 client.
+        Gets a list of Availability Zones in the AWS Region of the Amazon EC2 client.
 
         :return: The list of Availability Zones for the client Region.
         """
@@ -172,7 +172,7 @@ class ServiceHelper:
 
 def print_simplified_group(group):
     """
-    Prints a subset of data for an EC2 Auto Scaling group.
+    Prints a subset of data for an Auto Scaling group.
     """
     print(group['AutoScalingGroupName'])
     print(f"\tLaunch template: {group['LaunchTemplate']['LaunchTemplateName']}")
@@ -185,8 +185,8 @@ def print_simplified_group(group):
 
 def wait_for_instances(group_name, as_wrapper):
     """
-    Waits for instances to start or stop in an EC2 Auto Scaling group.
-    Prints the data for each instance after scaling activities have completed.
+    Waits for instances to start or stop in an Auto Scaling group.
+    Prints the data for each instance after scaling activities are complete.
     """
     ready = False
     instance_ids = []
@@ -212,13 +212,13 @@ def run_scenario(as_wrapper, svc_helper):
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
     print('-'*88)
-    print("Welcome to the Amazon EC2 Auto Scaling groups and instances demo.")
+    print("Welcome to the Amazon EC2 Auto Scaling demo for managing groups and instances.")
     print('-'*88)
 
     print("This example requires a launch template that specifies how to create\n"
-          "EC2 instances. You can use an existing one or create a new one.")
+          "EC2 instances. You can use an existing template or create a new one.")
     template_name = q.ask(
-        "Enter the name of an existing launch template or press Enter to continue: ")
+        "Enter the name of an existing launch template or press Enter to create a new one: ")
     template = None
     if template_name:
         template = svc_helper.get_template(template_name)
@@ -235,7 +235,7 @@ def run_scenario(as_wrapper, svc_helper):
     print("Let's create an Auto Scaling group.")
     group_name = q.ask("Enter a name for the group: ", q.non_empty)
     zones = svc_helper.get_availability_zones()
-    print("Amazon EC2 instances can be created in the following Availability Zones:")
+    print("EC2 instances can be created in the following Availability Zones:")
     for index, zone in enumerate(zones):
         print(f"\t{index+1}. {zone}")
     print(f"\t{len(zones)+1}. All zones")
@@ -252,7 +252,8 @@ def run_scenario(as_wrapper, svc_helper):
     print('-'*88)
 
     use_metrics = q.ask(
-        "Do you want to collect metrics about Auto Scaling during this demo (y/n)? ", q.is_yesno)
+        "Do you want to collect metrics about Amazon EC2 Auto Scaling during this demo (y/n)? ",
+        q.is_yesno)
     if use_metrics:
         as_wrapper.enable_metrics(
             group_name, [
@@ -324,12 +325,12 @@ def run_scenario(as_wrapper, svc_helper):
                 span = 5
                 metric = metrics[metric_sel - 1]
                 print(f"Over the last {span} minutes, {metric.name} recorded:")
-                # CloudWatch metric times are in UTC.
+                # CloudWatch metric times are in the UTC+0 time zone.
                 now = datetime.now(timezone.utc)
                 metric_data = svc_helper.get_metric_statistics(
                     metric_dimensions, metric, now-timedelta(minutes=span), now)
                 pp(metric_data)
-                if not q.ask("Do you want to see another one (y/n)? ", q.is_yesno):
+                if not q.ask("Do you want to see another metric (y/n)? ", q.is_yesno):
                     done = True
             else:
                 done = True
