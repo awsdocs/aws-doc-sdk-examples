@@ -91,19 +91,19 @@ auto-scaling_scenario:
   title: Get started using &AS; group using the &AWS; SDK
   title_abbrev: Get started using &AS; group
    synopsis_list:
-    - Create an &AS; group.
-    - Gets a specific &AS; group and returns an instance Id value.
-    - Describe Auto Scaling with the Id value.
-    - Enable metrics collection.
-    - Update an &AS; group.
-    - Describe all &AS; groups to show the current state of the groups.
-    - Describe account details.
-    - Set desired capacity to 2.
-    - Get the two instance Id values and state.
-    - List the scaling activities that have occurred for the group.
-    - Terminate an instance in the &AS; group.
-    - Stop the metrics collection.
-    - Delete the &AS; group.
+    - Creates an Auto Scaling group.
+    - Gets a specific Auto Scaling group and returns an instance Id value.
+    - Describes an Auto Scaling group with the Id value.
+    - Enables metrics collection.
+    - Updates an Auto Scaling group.
+    - Describes all Auto Scaling group to show the current state of the groups.
+    - Describes account details.
+    - Sets desired capacity to 2.
+    - Gets the two instance Id values and state.
+    - Lists the scaling activities that have occurred for the group.
+    - Terminates an instance in the Auto Scaling group.
+    - Stops the metrics collection.
+    - Deletes the Auto Scaling group.
   category: Scenarios
   languages:
     Java:
