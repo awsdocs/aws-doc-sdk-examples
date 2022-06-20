@@ -90,7 +90,7 @@ auto-scaling_UpdateAutoScalingGroup:
 auto-scaling_scenario:
   title: Get started using &AS; group using the &AWS; SDK
   title_abbrev: Get started using &AS; group
-   synopsis_list:
+  synopsis_list:
     - Creates an Auto Scaling group.
     - Gets a specific Auto Scaling group and returns an instance Id value.
     - Describes an Auto Scaling group with the Id value.
@@ -115,3 +115,5 @@ auto-scaling_scenario:
             - description:
               snippet_tags:
                 - autoscale.java2.create_scaling_scenario.main  
+  services:
+    auto-scaling: {UpdateAutoScalingGroup}             
