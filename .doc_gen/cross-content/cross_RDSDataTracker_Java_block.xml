@@ -7,6 +7,11 @@
     <para>
         Shows how to create a web application that tracks and reports on work items stored in an &RDS; database. 
     </para>
+      <para>
+        For complete source code and instructions on how to set up a Spring REST API that queries Amazon Aurora Serverless data that  
+        uses the AWS SDK for Java (v2) and is used by a React application. See the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker">GitHub</ulink>.
+    </para>
     <para>
         For complete source code and instructions on how to set up and run an example that uses the JDBC API, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker">GitHub</ulink>.
