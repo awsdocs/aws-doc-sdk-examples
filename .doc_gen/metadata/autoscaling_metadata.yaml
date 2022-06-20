@@ -5,6 +5,14 @@ auto-scaling_CreateAutoScalingGroup:
   synopsis: create an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.create_scaling_group.main
     Rust:
       versions:
         - sdk_version: 1
@@ -21,6 +29,14 @@ auto-scaling_DeleteAutoScalingGroup:
   synopsis: delete an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.del_scaling_group.main
     Rust:
       versions:
         - sdk_version: 1
@@ -37,6 +53,14 @@ auto-scaling_DescribeAutoScalingGroups:
   synopsis: get information about &AS; groups.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_instances.main
     Rust:
       versions:
         - sdk_version: 1
@@ -63,3 +87,31 @@ auto-scaling_UpdateAutoScalingGroup:
                 - autoscaling.rust.update-autoscaling-group
   services:
     auto-scaling: {UpdateAutoScalingGroup}
+auto-scaling_scenario:
+  title: Get started using &AS; group using the &AWS; SDK
+  title_abbrev: Get started using &AS; group
+   synopsis_list:
+    - Create an &AS; group.
+    - Gets a specific &AS; group and returns an instance Id value.
+    - Describe Auto Scaling with the Id value.
+    - Enable metrics collection.
+    - Update an &AS; group.
+    - Describe all &AS; groups to show the current state of the groups.
+    - Describe account details.
+    - Set desired capacity to 2.
+    - Get the two instance Id values and state.
+    - List the scaling activities that have occurred for the group.
+    - Terminate an instance in the &AS; group.
+    - Stop the metrics collection.
+    - Delete the &AS; group.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.create_scaling_scenario.main  
