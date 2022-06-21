@@ -88,8 +88,8 @@ auto-scaling_UpdateAutoScalingGroup:
   services:
     auto-scaling: {UpdateAutoScalingGroup}
 auto-scaling_scenario:
-  title: Get started using &AS; group using the &AWS; SDK
-  title_abbrev: Get started using &AS; group
+  title: Get started using an &AS; group with the &AWS; SDK
+  title_abbrev: Get started using an &AS; group
   synopsis_list:
     - Creates an Auto Scaling group.
     - Gets a specific Auto Scaling group and returns an instance Id value.
