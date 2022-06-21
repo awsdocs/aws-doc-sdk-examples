@@ -9,7 +9,6 @@ use Aws\Laravel\AwsFacade as AWS;
 
 class ItemsController extends Controller
 {
-
     protected Item $item;
 
     public function __construct(Item $item)
@@ -82,5 +81,4 @@ class ItemsController extends Controller
             'FromEmailAddress' => env('EMAIL'),
         ]);
     }
-
 }
