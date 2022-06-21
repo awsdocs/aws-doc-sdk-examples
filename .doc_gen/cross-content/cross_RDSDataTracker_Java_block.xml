@@ -8,8 +8,8 @@
         Shows how to create a web application that tracks and reports on work items stored in an &RDS; database. 
     </para>
     <para>
-        For complete source code and instructions on how to set up a Spring REST API that queries Amazon Aurora Serverless data and 
-        is used by a React application, see the full example on
+        For complete source code and instructions on how to set up a Spring REST API that queries Amazon Aurora Serverless data and for use by
+        a React application, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest">GitHub</ulink>.
     </para>
     <para>
