@@ -237,3 +237,32 @@ class Ec2Stubber(ExampleStubber):
         }
         self._stub_bifurcator(
             'revoke_security_group_ingress', expected_params, error_code=error_code)
+
+    def stub_describe_launch_templates(self, template_names, templates, error_code=None):
+        expected_params = {'LaunchTemplateNames': template_names}
+        response = {'LaunchTemplates': templates}
+        self._stub_bifurcator(
+            'describe_launch_templates', expected_params, response, error_code=error_code)
+
+    def stub_create_launch_template(self, template_name, inst_type, ami_id, error_code=None):
+        expected_params = {
+            'LaunchTemplateName': template_name,
+            'LaunchTemplateData': {
+                'InstanceType': inst_type, 'ImageId': ami_id}}
+        response = {'LaunchTemplate': {'LaunchTemplateName': template_name}}
+        self._stub_bifurcator(
+            'create_launch_template', expected_params, response, error_code=error_code)
+
+    def stub_delete_launch_template(self, template_name, error_code=None):
+        expected_params = {'LaunchTemplateName': template_name}
+        response = {}
+        self._stub_bifurcator(
+            'delete_launch_template', expected_params, response, error_code=error_code)
+
+    def stub_describe_availability_zones(self, zones, error_code=None):
+        expected_params = {}
+        response = {
+            'AvailabilityZones': [{'ZoneName': zone} for zone in zones]
+        }
+        self._stub_bifurcator(
+            'describe_availability_zones', expected_params, response, error_code=error_code)
