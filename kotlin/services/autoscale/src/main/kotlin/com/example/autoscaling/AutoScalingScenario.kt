@@ -41,13 +41,13 @@ import kotlin.system.exitProcess
  * This code example performs the following operations:
  * 1. Creates an Auto Scaling group using an AutoScalingWaiter.
  * 2. Gets a specific Auto Scaling group and returns an instance Id value.
- * 3. Describes Auto Scaling with the Id value.
+ * 3. Describes the Auto Scaling group with the Id value.
  * 4. Enables metrics collection.
- * 5. Describes Auto Scaling groups.
- * 6. Describes Account details.
+ * 5. Describes the Auto Scaling groups.
+ * 6. Describes account details.
  * 7. Updates an Auto Scaling group to use an additional instance.
  * 8. Gets the specific Auto Scaling group and gets the number of instances.
- * 9. List the scaling activities that have occurred for the group.
+ * 9. Lists the scaling activities that occur for the group.
  * 10. Terminates an instance in the Auto Scaling group.
  * 11. Stops the metrics collection.
  * 12. Deletes the Auto Scaling group.
@@ -97,7 +97,7 @@ suspend fun main(args: Array<String>) {
     println("**** Enable metrics collection $instanceId")
     enableMetricsCollection(groupName)
 
-    println("**** Update an Auto Scaling group to update max size to 3")
+    println("**** Update an Auto Scaling group to maximum size of 3")
     updateAutoScalingGroup(groupName, launchTemplateName, serviceLinkedRoleARN)
 
     println("**** Describe all Auto Scaling groups to show the current state of the groups")
@@ -200,7 +200,7 @@ suspend fun setDesiredCapacity(groupName: String) {
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.setDesiredCapacity(capacityRequest)
-        println("You have set the DesiredCapacity to 2")
+        println("You set the DesiredCapacity to 2")
     }
 }
 
@@ -224,7 +224,7 @@ suspend fun updateAutoScalingGroup(groupName: String, launchTemplateNameVal: Str
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.updateAutoScalingGroup(groupRequest)
         autoScalingClient.waitUntilGroupExists(groupsRequestWaiter)
-        println("You successfully updated the auto scaling group  $groupName")
+        println("You successfully updated the Auto Scaling group  $groupName")
     }
 }
 
@@ -310,8 +310,8 @@ suspend fun describeAccountLimits() {
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
 
         val response = autoScalingClient.describeAccountLimits(DescribeAccountLimitsRequest {})
-        println("The max number of auto scaling groups is ${response.maxNumberOfAutoScalingGroups}")
-        println("The current number of auto scaling groups is ${response.numberOfAutoScalingGroups}")
+        println("The max number of Auto Scaling groups is ${response.maxNumberOfAutoScalingGroups}")
+        println("The current number of Auto Scaling groups is ${response.numberOfAutoScalingGroups}")
     }
 }
 
