@@ -16,8 +16,7 @@ buildscript {
 }
 
 repositories {
-    // Required to download KtLint
-    mavenCentral()
+   mavenCentral()
 }
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
