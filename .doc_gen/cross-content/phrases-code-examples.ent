@@ -43,6 +43,14 @@
 <!ENTITY QLDBSessionlong '&QLDBlong; Session'>
 <!ENTITY QLDBSession '&QLDB; Session'>
 
+<!-- Personalize Events -->
+<!ENTITY PERSElong '&PERSlong; Events'>
+<!ENTITY PERSE '&PERS; Events'>
+
+<!-- Personalize Runtime -->
+<!ENTITY PERSRlong '&PERSlong; Runtime'>
+<!ENTITY PERSR '&PERS; Runtime'>
+
 <!-- Transcribe Medical -->
 <!ENTITY TSCMlong '&TSClong; Medical'>
 <!ENTITY TSCM '&TSC; Medical'>
