@@ -93,14 +93,14 @@ auto-scaling_scenario:
   synopsis_list:
     - Creates an Auto Scaling group.
     - Gets a specific Auto Scaling group and returns an instance Id value.
-    - Describes an Auto Scaling group with the Id value.
+    - Describes the Auto Scaling group with the Id value.
     - Enables metrics collection.
     - Updates an Auto Scaling group.
-    - Describes all Auto Scaling group to show the current state of the groups.
+    - Describes all Auto Scaling groups to show the current state of the groups.
     - Describes account details.
     - Sets desired capacity to 2.
-    - Gets the two instance Id values and state.
-    - Lists the scaling activities that have occurred for the group.
+    - Gets the two instance Id values and states.
+    - Lists the scaling activities that occur for the group.
     - Terminates an instance in the Auto Scaling group.
     - Stops the metrics collection.
     - Deletes the Auto Scaling group.
