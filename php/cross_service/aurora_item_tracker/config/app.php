@@ -209,10 +209,8 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge(
-        [
+    'aliases' => Facade::defaultAliases()->merge([
         'AWS' => Aws\Laravel\AwsFacade::class,
-        ]
-    )->toArray(),
+    ])->toArray(),
 
 ];
