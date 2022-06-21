@@ -30,7 +30,7 @@ export const WorkItems = () => {
   const [email, setEmail] = useState('');
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState('active');
+  const [status, setStatus] = useState('');
   const [error, setError] = useState('');
 
   const getItems = async () => {
@@ -51,7 +51,7 @@ export const WorkItems = () => {
   }
 
   const sendReport = async () => {
-    service.mailItem(email).catch((e) => {setError(e.message)});
+    service.mailItem(email, status).catch((e) => {setError(e.message)});
   }
 
   const handleStatusChange = (newStatus) => {
@@ -73,8 +73,9 @@ export const WorkItems = () => {
         <Col className="col-3">
           <FloatingLabel controlId="floatingSelect" label="State">
             <Form.Select aria-label="Status" onChange={(event) => handleStatusChange(event.target.value)}>
-              <option value="active">Active</option>
+              <option value="">Active</option>
               <option value="archive">Archived</option>
+              <option value="all">All</option>
             </Form.Select>
           </FloatingLabel>
         </Col>
