@@ -19,8 +19,8 @@
     </info>
     <para>The following code examples show how to use &AWS-services; with an &AWS; software development kit (SDK).</para>
     <para role="topiclist-abbrev">Code examples</para>
-    {{- range $svc_slug, $service := .}}
-        {{- $section_id := printf "%s_code_examples" $svc_slug}}
+    {{- range $svc_sort, $service := .}}
+        {{- $section_id := printf "%s_code_examples" $service.Model}}
         {{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
         {{- $scenarios :=  index $service.CategorizedExampleSets "Scenarios"}}
         {{- $actions := index $service.CategorizedExampleSets "Actions"}}
@@ -59,10 +59,10 @@
                 {{- if .AddService}}
                     {{- $addSvc = printf "_%s" .AddService}}
                 {{- end}}
-                <section id="{{$svc_slug}}_example_{{.ExampleId}}_section" role="topic">
+                <section id="{{$service.Model}}_example_{{.ExampleId}}_section" role="topic">
                     <info>
-                        <title id="{{$svc_slug}}_example_{{.ExampleId}}_section.title">{{.Title}}</title>
-                        <titleabbrev id="{{$svc_slug}}_example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                        <title id="{{$service.Model}}_example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                        <titleabbrev id="{{$service.Model}}_example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
                         <abstract>
                             <para>{{.Title}}</para>
                         </abstract>
