@@ -26,10 +26,15 @@ class CloudWatchStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_list_metrics(self, namespace, name, metrics, recent=None, error_code=None):
-        expected_params = {'Namespace': namespace, 'MetricName': name}
+    def stub_list_metrics(
+            self, namespace, name=None, metrics=None, recent=None, dimensions=None, error_code=None):
+        expected_params = {'Namespace': namespace}
+        if name is not None:
+            expected_params['MetricName'] = name
         if recent is not None:
             expected_params['RecentlyActive'] = 'PT3H'
+        if dimensions is not None:
+            expected_params['Dimensions'] = dimensions
         response = {'Metrics': [{
             'Namespace': metric.namespace, 'MetricName': metric.name
         } for metric in metrics]}
@@ -57,11 +62,13 @@ class CloudWatchStubber(ExampleStubber):
             'put_metric_data', expected_params, response, error_code=error_code)
 
     def stub_get_metric_statistics(
-            self, namespace, name, start, end, period, stat_type, stats,
+            self, namespace, name, start, end, period, stat_type, stats, dimensions=None,
             error_code=None):
         expected_params = {
             'Namespace': namespace, 'MetricName': name, 'StartTime': start,
             'EndTime': end, 'Period': period, 'Statistics': [stat_type]}
+        if dimensions is not None:
+            expected_params['Dimensions'] = dimensions
         response = {
             'Label': name,
             'Datapoints': [{stat_type: stat} for stat in stats]
