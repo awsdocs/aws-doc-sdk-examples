@@ -12,6 +12,7 @@
 
 package com.example.sesv2;
 
+// snippet-start:[ses.java2.identities.sesv2.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
@@ -19,8 +20,9 @@ import software.amazon.awssdk.services.sesv2.model.IdentityInfo;
 import software.amazon.awssdk.services.sesv2.model.ListEmailIdentitiesRequest;
 import software.amazon.awssdk.services.sesv2.model.ListEmailIdentitiesResponse;
 import software.amazon.awssdk.services.sesv2.model.SesV2Exception;
-
 import java.util.List;
+// snippet-end:[ses.java2.identities.sesv2.import]
+
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -43,6 +45,7 @@ public class ListEmailIdentities {
                 listSESIdentities(sesv2Client);
         }
 
+        // snippet-start:[ses.java2.identities.sesv2.main]
         public static void listSESIdentities(SesV2Client sesV2Client) {
 
                 ListEmailIdentitiesRequest identitiesRequest = ListEmailIdentitiesRequest.builder()
@@ -59,4 +62,5 @@ public class ListEmailIdentities {
                         System.exit(1);
                 }
         }
+        // snippet-end:[ses.java2.identities.sesv2.main]
 }
