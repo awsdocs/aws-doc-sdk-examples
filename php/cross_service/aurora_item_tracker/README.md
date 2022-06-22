@@ -64,7 +64,7 @@ This will open a SQL query console. You can run any raw SQL queries here that yo
 following to create the work table.
 
 ```sql
-create table work_items1 (
+create table work_items (
   work_item_id INT AUTO_INCREMENT PRIMARY KEY,
   created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   description TEXT, 

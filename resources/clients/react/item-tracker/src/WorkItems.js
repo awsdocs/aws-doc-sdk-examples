@@ -140,7 +140,7 @@ export const WorkItems = () => {
                       <td>{item.description}</td>
                       <td>{item.status}</td>
                       <td>{
-                        status === 'active' ?
+                        status === '' ?
                           <Button variant="outline-secondary" size="sm" onClick={() => archiveItem(item.id)}>🗑</Button>
                           : null
                       }

@@ -33,7 +33,7 @@ class Item
         return $this->client->executeStatement($this->connection)->get('formattedRecords');
     }
 
-    public function storeItem(mixed $input)
+    public function storeItem(array $input)
     {
         $this->connection['sql'] =
             "INSERT INTO work_items (username, guide, description, status)

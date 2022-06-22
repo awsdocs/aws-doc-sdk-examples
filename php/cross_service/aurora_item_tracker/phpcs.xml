@@ -21,7 +21,7 @@
     <exclude-pattern>*/public/*</exclude-pattern>
 
     <rule ref="PSR1.Methods.CamelCapsMethodName">
-        <exclude-pattern>./tests/*</exclude-pattern>
+        <exclude-pattern>*/tests/*</exclude-pattern>
     </rule>
     <arg value="p"/>
 </ruleset>
