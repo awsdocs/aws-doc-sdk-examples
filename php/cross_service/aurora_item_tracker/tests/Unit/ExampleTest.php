@@ -27,5 +27,4 @@ class ExampleTest extends TestCase
         $this->assertJson($item->getItemsByState('archive'));
         $this->assertJson($item->getItemsByState('all'));
     }
-
 }

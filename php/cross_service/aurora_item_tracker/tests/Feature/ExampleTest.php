@@ -9,7 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Aws\Laravel\AwsFacade as AWS;
 
-
 class ExampleTest extends TestCase
 {
     protected static RdsClient $client;
