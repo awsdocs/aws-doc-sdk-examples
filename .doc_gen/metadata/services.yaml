@@ -35,7 +35,7 @@ auditmanager:
   version: auditmanager-2017-07-25
 auto-scaling:
   long: '&ASlong;'
-  short: '&AS;'
+  short: '&ASlong;'
   sort: EC2 Auto Scaling
   tags:
     product_categories: {'Management &amp; Governance'}
