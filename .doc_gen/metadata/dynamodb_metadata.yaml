@@ -557,9 +557,9 @@ dynamodb_GetItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Gets an item from a table by using the enhanced client.
+            - description: Gets an item from a table by using the DynamoDbClient.
               snippet_tags:
-                - dynamodb.java2.mapping.getitem.main
+                - dynamodb.java2.query.main
     Python:
       versions:
         - sdk_version: 3
@@ -947,6 +947,15 @@ dynamodb_Query:
             - description: Queries a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.query.main
+            - description: Queries a table by using the enhanced client and a secondary index.
+              snippet_tags:
+                - dynamodb.java2.get_item_index.main
+            - description: Queries a table by using the DynamoDbClient.
+              snippet_tags:
+                - dynamodb.java2.query.main
+            - description: Queries a table by using the DynamoDbClient and a secondary index.
+              snippet_tags:
+                - dynamodb.java2.query_items_sec_index.main               
     Python:
       versions:
         - sdk_version: 3
@@ -1510,6 +1519,24 @@ dynamodb_Scenario_PartiQLBatch:
                 PartiQL queries.
               snippet_tags:
                 - gov2.dynamodb.Scenario_PartiQLBatch
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.scenario.partiql.batch.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.scenario.partiql.batch.main
     JavaScript:
       versions:
         - sdk_version: 3

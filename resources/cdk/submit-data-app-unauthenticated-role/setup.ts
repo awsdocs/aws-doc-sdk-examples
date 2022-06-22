@@ -21,6 +21,7 @@ export class SetupStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+
     const table = new dynamodb.Table(this, 'table', {
           tableName: 'Items',
           partitionKey: {
@@ -111,4 +112,4 @@ export class SetupStack extends cdk.Stack {
 // Otherwise, any stack in the caller's account with the
 // name 'SetupStack3' might produce unexpected results.
 const app = new cdk.App();
-new SetupStack(app, 'SetupStack3');
+new SetupStack(app, 'SetupStack');
