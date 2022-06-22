@@ -6,7 +6,6 @@ namespace PartiQL_Batch_Scenario.Tests
     [TestCaseOrderer("PartiQLBatchMethods.Tests.PriorityOrderer", " PartiQLBatchMethods.Tests")]
     public class PartiQLBatchMethodsTests
     {
-        private static readonly AmazonDynamoDBClient Client = new AmazonDynamoDBClient();
         const string tableName = "test_movie_table";
 
         public PartiQLBatchMethodsTests()
@@ -31,6 +30,19 @@ namespace PartiQL_Batch_Scenario.Tests
         }
 
         [Fact(), TestPriority(2)]
+        public async Task GetBatchTest()
+        {
+            // Update multiple movies by using the BatchExecute statement.
+            var title1 = "Star Wars";
+            var year1 = 1977;
+            var title2 = "Wizard of Oz";
+            var year2 = 1939;
+
+            var success = await PartiQLBatchMethods.GetBatch(tableName, title1, title2, year1, year2);
+            Assert.True(success, $"Could not update {title1} or {title2}.");
+        }
+
+        [Fact(), TestPriority(3)]
         public async Task UpdateBatchTest()
         {
             // Update multiple movies by using the BatchExecute statement.
@@ -45,7 +57,7 @@ namespace PartiQL_Batch_Scenario.Tests
             Assert.True(success, $"Could not update {title1} or {title2}.");
         }
 
-        [Fact(), TestPriority(3)]
+        [Fact(), TestPriority(4)]
         public async Task DeleteBatchTest()
         {
             // Update multiple movies by using the BatchExecute statement.

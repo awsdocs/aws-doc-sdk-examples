@@ -12,8 +12,6 @@ var SepBar = new string('-', 80);
 const string tableName = "movie_table";
 const string movieFileName = "moviedata.json";
 
-var client = new AmazonDynamoDBClient();
-
 DisplayInstructions();
 
 // Create the table and wait for it to be active.
@@ -31,22 +29,45 @@ WaitForEnter();
 // instructions at the top of this file to download the JSON file.
 Console.WriteLine($"Inserting movies into the new table. Please wait...");
 success = await PartiQLBatchMethods.InsertMovies(tableName, movieFileName);
+if (success)
+{
+    Console.WriteLine("Movies successfully added to the table.");
+}
+else
+{
+    Console.WriteLine("Movies could not be added to the table.");
+}
+
+WaitForEnter();
+
+// Update multiple movies by using the BatchExecute statement.
+var title1 = "Star Wars";
+var year1 = 1977;
+var title2 = "Wizard of Oz";
+var year2 = 1939;
+
+Console.WriteLine($"Updating two movies with producer information: {title1} and {title2}.");
+success = await PartiQLBatchMethods.GetBatch(tableName, title1, title2, year1, year2);
+if (success)
+{
+    Console.WriteLine($"Successfully retrieved {title1} and {title2}.");
+}
+else
+{
+    Console.WriteLine("Select statement failed.");
+}
 
 WaitForEnter();
 
 // Update multiple movies by using the BatchExecute statement.
 var producer1 = "LucasFilm";
-var title1 = "Star Wars";
-var year1 = 1977;
 var producer2 = "MGM";
-var title2 = "Wizard of Oz";
-var year2 = 1939;
 
 Console.WriteLine($"Updating two movies with producer information: {title1} and {title2}.");
 success = await PartiQLBatchMethods.UpdateBatch(tableName, producer1, title1, year1, producer2, title2, year2);
 if (success)
 {
-    Console.WriteLine($"Successfully update {title1} and {title2}.");
+    Console.WriteLine($"Successfully updated {title1} and {title2}.");
 }
 else
 {

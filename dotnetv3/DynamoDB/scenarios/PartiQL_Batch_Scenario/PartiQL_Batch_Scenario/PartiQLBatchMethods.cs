@@ -5,7 +5,7 @@ namespace PartiQL_Batch_Scenario
 {
     public class PartiQLBatchMethods
     {
-        private static readonly AmazonDynamoDBClient Client = new AmazonDynamoDBClient();
+        private static readonly AmazonDynamoDBClient Client = new();
 
         // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies]
 
@@ -104,6 +104,71 @@ namespace PartiQL_Batch_Scenario
 
         // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies]
 
+        // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="title1"></param>
+        /// <param name="title2"></param>
+        /// <param name="year1"></param>
+        /// <param name="year2"></param>
+        /// <returns></returns>
+        public static async Task<bool> GetBatch(
+            string tableName,
+            string title1,
+            string title2,
+            int year1,
+            int year2)
+        {
+            var getBatch = $"SELECT FROM {tableName} WHERE title = ? AND year = ?";
+            var statements = new List<BatchStatementRequest>
+            {
+                new BatchStatementRequest
+                {
+                    Statement = getBatch,
+                    Parameters = new List<AttributeValue>
+                    {
+                        new AttributeValue { S = title1 },
+                        new AttributeValue { N = year1.ToString() },
+                    },
+                },
+
+                new BatchStatementRequest
+                {
+                    Statement = getBatch,
+                    Parameters = new List<AttributeValue>
+                    {
+                        new AttributeValue { S = title2 },
+                        new AttributeValue { N = year2.ToString() },
+                    },
+                }
+            };
+
+            var response = await Client.BatchExecuteStatementAsync(new BatchExecuteStatementRequest
+            {
+                Statements = statements,
+            });
+
+            if (response.Responses.Count > 0)
+            {
+                response.Responses.ForEach(r =>
+                {
+                    Console.WriteLine($"{r.Item["title"]}\t{r.Item["year"]}");
+                });
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"Couldn't find either {title1} or {title2}.");
+                return false;
+            }
+
+        }
+
+        // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch]
+
         // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch]
 
         /// <summary>
@@ -131,29 +196,30 @@ namespace PartiQL_Batch_Scenario
         {
 
             string updateBatch = $"UPDATE {tableName} SET Producer=? WHERE title = ? AND year = ?";
-            var statements = new List<BatchStatementRequest>();
-
-            statements.Add(new BatchStatementRequest
+            var statements = new List<BatchStatementRequest>
             {
-                Statement = updateBatch,
-                Parameters = new List<AttributeValue>
+                new BatchStatementRequest
                 {
-                    new AttributeValue { S = producer1 },
-                    new AttributeValue { S = title1 },
-                    new AttributeValue { N = year1.ToString() },
+                    Statement = updateBatch,
+                    Parameters = new List<AttributeValue>
+                    {
+                        new AttributeValue { S = producer1 },
+                        new AttributeValue { S = title1 },
+                        new AttributeValue { N = year1.ToString() },
+                    },
                 },
-            });
 
-            statements.Add(new BatchStatementRequest
-            {
-                Statement = updateBatch,
-                Parameters = new List<AttributeValue>
+                new BatchStatementRequest
                 {
-                    new AttributeValue { S = producer2 },
-                    new AttributeValue { S = title2 },
-                    new AttributeValue { N = year2.ToString() },
-                },
-            });
+                    Statement = updateBatch,
+                    Parameters = new List<AttributeValue>
+                    {
+                        new AttributeValue { S = producer2 },
+                        new AttributeValue { S = title2 },
+                        new AttributeValue { N = year2.ToString() },
+                    },
+                }
+            };
 
             var response = await Client.BatchExecuteStatementAsync(new BatchExecuteStatementRequest
             {
@@ -187,27 +253,28 @@ namespace PartiQL_Batch_Scenario
         {
 
             string updateBatch = $"DELETE FROM {tableName} WHERE title = ? AND year = ?";
-            var statements = new List<BatchStatementRequest>();
-
-            statements.Add(new BatchStatementRequest
+            var statements = new List<BatchStatementRequest>
             {
-                Statement = updateBatch,
-                Parameters = new List<AttributeValue>
+                new BatchStatementRequest
                 {
-                    new AttributeValue { S = title1 },
-                    new AttributeValue { N = year1.ToString() },
+                    Statement = updateBatch,
+                    Parameters = new List<AttributeValue>
+                    {
+                        new AttributeValue { S = title1 },
+                        new AttributeValue { N = year1.ToString() },
+                    },
                 },
-            });
 
-            statements.Add(new BatchStatementRequest
-            {
-                Statement = updateBatch,
-                Parameters = new List<AttributeValue>
+                new BatchStatementRequest
                 {
-                    new AttributeValue { S = title2 },
-                    new AttributeValue { N = year2.ToString() },
-                },
-            });
+                    Statement = updateBatch,
+                    Parameters = new List<AttributeValue>
+                    {
+                        new AttributeValue { S = title2 },
+                        new AttributeValue { N = year2.ToString() },
+                    },
+                }
+            };
 
             var response = await Client.BatchExecuteStatementAsync(new BatchExecuteStatementRequest
             {
