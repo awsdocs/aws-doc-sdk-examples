@@ -1,4 +1,4 @@
-# Amazon SES code examples for the SDK for Java
+# Amazon SES code examples for the AWS SDK for Java
 
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (v2) code examples for Amazon Simple Email Service (Amazon SES).
