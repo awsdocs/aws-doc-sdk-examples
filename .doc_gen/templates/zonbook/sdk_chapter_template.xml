@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
+    %phrases-code-examples;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<!-- zexi 0.2.0 -->
+{{- $chapter_title := print .SdkEntity.Short " code examples" }}
+{{- $chapter_title_abbrev := "Code examples" }}
+{{- if .TitleOverride.Title }}
+    {{- $chapter_title = .TitleOverride.Title }}
+{{- end}}
+{{- if .TitleOverride.TitleAbbrev }}
+    {{- $chapter_title_abbrev = .TitleOverride.TitleAbbrev }}
+{{- end }}
+{{- if eq .OutputType "section" }}
+<section id="{{.LanguageSlug}}_code_examples" role="topic">
+{{- else }}
+<chapter id="{{.LanguageSlug}}_code_examples" role="topic">
+{{- end }}
+    <info>
+        <title id="{{.LanguageSlug}}_code_examples.title">{{$chapter_title}}</title>
+        <titleabbrev id="{{.LanguageSlug}}_code_examples.titleabbrev">{{$chapter_title_abbrev}}</titleabbrev>
+        <abstract>
+            <para>Code examples that show how to use {{.SdkEntity.Long}} with &AWS;.</para>
+        </abstract>
+    </info>
+    <para>The code examples in this topic show you how to use the {{.SdkEntity.Long}} with &AWS;.</para>
+    <variablelist role="termdef">
+        <para>The examples are divided into the following categories:</para>
+        <varlistentry>
+            <term>Single-service actions</term>
+            <listitem><para>Code excerpts that show you how to call individual service functions.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>Single-service scenarios</term>
+            <listitem><para>Code examples that show you how to accomplish a specific task by
+                calling multiple functions within the same service.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>Cross-service examples</term>
+            <listitem><para>Sample applications that work across multiple &AWS-services;.</para></listitem>
+        </varlistentry>
+    </variablelist>
+    <para role="topiclist-abbrev">Examples</para>
+    {{- if .ApiExamples}}
+    <section id="{{$.LanguageSlug}}_code_examples_categorized" role="topic">
+        <info>
+            <title id="{{$.LanguageSlug}}_code_examples_categorized.title">Single-service actions and scenarios using {{$.SdkEntity.Short}}</title>
+            <titleabbrev id="{{$.LanguageSlug}}_code_examples_categorized.titleabbrev">Single-service actions and scenarios</titleabbrev>
+            <abstract>
+                <para>The following code examples show how to implement common scenarios and perform individual service actions by using
+                    {{$.SdkEntity.Short}} with &AWS-services;.</para>
+            </abstract>
+        </info>
+        <para>The following code examples show how to perform actions and implement common scenarios by using
+            the {{$.SdkEntity.Long}} with &AWS-services;.</para>
+        <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
+        <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
+            calling multiple functions within the same service.</para>
+        <para role="topiclist-abbrev">Services</para>
+        {{- end}}
+        {{- range $service, $svc_examples := .ApiExamples}}
+        <section id="{{$.LanguageSlug}}_{{$svc_examples.ServiceSlug}}_code_examples" role="topic">
+            <info>
+                <title id="{{$.LanguageSlug}}_{{$svc_examples.ServiceSlug}}_code_examples.title">{{$svc_examples.ServiceEntity.Short}} examples using {{$.SdkEntity.Short}}</title>
+                <titleabbrev id="{{$.LanguageSlug}}_{{$svc_examples.ServiceSlug}}_code_examples.titleabbrev">{{$svc_examples.ServiceEntity.Short}}</titleabbrev>
+                <abstract>
+                    <para>Code examples that show how to use {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+                </abstract>
+            </info>
+            <para>The following code examples show you how to perform actions and implement common scenarios by using
+                the {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+            <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual
+                {{$svc_examples.ServiceEntity.Short}} functions.</para>
+            <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task
+                by calling multiple {{$svc_examples.ServiceEntity.Short}} functions.</para>
+            <para>Each example includes a link to GitHub, where you can find
+                instructions on how to set up and run the code in context.</para>
+            <para role="topiclist-abbrev"/>
+            {{- range $category := $svc_examples.CategoryNamesSorted}}
+            {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
+            <section>
+                <info>
+                    <title>{{$cat_examples.CategoryName}}</title>
+                    <titleabbrev>{{$cat_examples.CategoryName}}</titleabbrev>
+                </info>
+                <collapsible expand-section="_collapse_all_">
+                    {{- range $cat_examples.Examples}}
+                    <section id="{{.ExampleId}}_{{$.LanguageSlug}}_topic">
+                        <info>
+                            <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.title">{{.TitleAbbrev}}</title>
+                            <titleabbrev id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                        </info>
+                        {{- if or .Synopsis .SynopsisList}}
+                            {{- $synopsis_prefix := "The following code example shows how to"}}
+                            {{- $synopsis_sep := " "}}
+                            {{- if not .Synopsis}}
+                                {{- $synopsis_sep = ":"}}
+                            {{- end}}
+                        <para>{{print $synopsis_prefix $synopsis_sep .Synopsis}}</para>
+                            {{- if .SynopsisList}}
+                        <itemizedlist>
+                            {{- range $synitem := .SynopsisList}}
+                            <listitem><para>{{$synitem}}</para></listitem>
+                            {{- end}}
+                        </itemizedlist>
+                            {{- end}}
+                        {{- end}}
+                        {{- if .GuideTopic.Url}}
+                        <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+                        {{- end}}
+                        <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
+                    </section>
+                    {{- end}}
+                </collapsible>
+            </section>
+            {{- end}}
+            {{- end}}
+        </section>
+        {{- end}}
+        {{- if .ApiExamples}}
+    </section>
+    {{- end}}
+    {{- if .CrossServiceExamples}}
+    <section id="{{.LanguageSlug}}_code_examples_cross_service" role="topic">
+        <info>
+            <title id="{{.LanguageSlug}}_code_examples_cross_service.title">Cross-service examples using {{.SdkEntity.Short}}</title>
+            <titleabbrev id="{{.LanguageSlug}}_code_examples_cross_service.titleabbrev">Cross-service examples</titleabbrev>
+            <abstract>
+                <para>The following sample applications use the {{.SdkEntity.Long}}
+                    to work across multiple &AWS-services;.</para>
+            </abstract>
+        </info>
+        <para>The following sample applications use the {{.SdkEntity.Long}}
+            to work across multiple &AWS-services;.</para>
+        <para role="topiclist-abbrev">Examples</para>
+        {{- end}}
+        {{- range .CrossServiceExamples}}
+        <section id="{{.ExampleId}}_{{$.LanguageSlug}}_topic" role="topic">
+            <info>
+                <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.title">{{.Title}}</title>
+                <titleabbrev id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+            </info>
+            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
+            {{- if .GuideTopic.Url}}
+            <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+            {{- end}}
+        </section>
+        {{- end}}
+        {{- if .CrossServiceExamples}}
+    </section>
+    {{- end}}
+{{- if eq .OutputType "section" }}
+</section>
+{{- else }}
+</chapter>
+{{- end }}

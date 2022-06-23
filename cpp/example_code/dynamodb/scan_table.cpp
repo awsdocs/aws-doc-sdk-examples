@@ -1,17 +1,16 @@
- 
-//snippet-sourcedescription:[get_item.cpp demonstrates how to perfrom scan operation on an Amazon DynamoDB table.]
-//snippet-service:[dynamodb]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
+//snippet-sourcedescription:[scan_table.cpp demonstrates how to scan an Amazon DynamoDB table]
+//snippet-keyword:[AWS SDK for C++]
 //snippet-keyword:[Code Sample]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[11/30/2021]
+//snippet-sourceauthor:[scmacdon - aws]
 
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 //snippet-start:[dynamodb.cpp.scan_table.inc]
 #include <aws/core/Aws.h>
@@ -23,17 +22,14 @@
 //snippet-end:[dynamodb.cpp.scan_table.inc]
 
 
-/**
-* Scan a DynamoDB table.
-*
-* Takes the name of the table.
-*
-* The table is scanned and all items are displayed. By default, all fields and values 
-* contained in the item are returned. If an optional projection expression is
-* specified on the command line, only the specified fields and values are 
-* returned.
-*
-*/
+/* 
+   Scans a DynamoDB table.
+
+  To run this C++ code example, ensure that you have setup your development environment, including your credentials.
+  For information, see this documentation topic:
+  https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+*/ 
+
 int main(int argc, char** argv)
 {
     const std::string USAGE = "\n" \
@@ -58,7 +54,7 @@ int main(int argc, char** argv)
 
     Aws::InitAPI(options);
     {
-        const Aws::String table(argv[1]);
+        const Aws::String table  = (argv[1]);
         const Aws::String projection(argc > 2 ? argv[2] : "");
 
         // snippet-start:[dynamodb.cpp.scan_table.code]
@@ -70,7 +66,6 @@ int main(int argc, char** argv)
 
         if (!projection.empty())
             req.SetProjectionExpression(projection);        
-
 
         // Perform scan on table
         const Aws::DynamoDB::Model::ScanOutcome& result = dynamoClient.Scan(req);

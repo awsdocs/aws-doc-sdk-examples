@@ -1,0 +1,16 @@
+# Yamale Schema for services metadata, which is the services.yaml file in the metadata folder.
+
+map(include('service'), key=regex('^[\da-z-]+$', name='service slug'))
+---
+service:
+  long: include('entity_regex')
+  short: include('entity_regex')
+  sort: regex('^[^&]\w', name='non-entity')
+  version: service_version()
+  caveat: str(required=False, upper_start=True, end_punc=True)
+  bundle: service_name(required=False)
+  tags: map(key=enum('product_categories'))
+  api_ref: include('doc_url', required=False)
+
+entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$|^&AWS; SDK for Kotlin Developer Guide$', name='valid entity')
+doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")

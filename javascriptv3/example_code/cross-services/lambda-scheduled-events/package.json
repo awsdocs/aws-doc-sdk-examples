@@ -7,18 +7,19 @@
   "author": "brmur",
   "license": "Apache 2.0",
   "scripts": {
-    "build": "webpack mylamdbafunction.ts --mode development --libraryTarget commonjs2 --target node --devtool false -o index.js",
+    "build": "webpack mylamdbafunction.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build-cdk": "aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM",
     "test": "exit 0"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.3.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
-    "@aws-sdk/client-dynamodb": "^3.3.0",
-    "@aws-sdk/client-iam": "^3.3.0",
-    "@aws-sdk/client-lambda": "^3.3.0",
-    "@aws-sdk/client-cloudformation": "^3.3.0",
-    "@aws-sdk/client-api-gateway": "^3.3.0",
-    "@aws-sdk/client-sns": "^3.3.0"
+    "@aws-sdk/client-cognito-identity": "^3.32.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
+    "@aws-sdk/client-dynamodb": "^3.32.0",
+    "@aws-sdk/client-iam": "^3.32.0",
+    "@aws-sdk/client-lambda": "^3.32.0",
+    "@aws-sdk/client-cloudformation": "^3.32.0",
+    "@aws-sdk/client-api-gateway": "^3.32.0",
+    "@aws-sdk/client-sns": "^3.32.0"
   },
   "devDependencies": {
     "webpack": "^4.42.0",

@@ -11,12 +11,12 @@
 # specific language governing permissions and limitations under the License.
 ###############################################################################
 #
-# This script contains general-purpose functions that are used throughout 
+# This script contains general-purpose functions that are used throughout
 # the AWS Command Line Interface (AWS CLI) code examples that are maintained
 # in the repo at https://github.com/awsdocs/aws-doc-sdk-examples.
 #
 # They are intended to abstract functionality that is required for the tests
-# to work without cluttering up the code. The intent is to ensure that the 
+# to work without cluttering up the code. The intent is to ensure that the
 # purpose of the code is clear.
 
 # Set global defaults:
@@ -26,17 +26,17 @@ VERBOSE=false
 # function run_test
 #
 # This function is used to perform a command and compare its output to both
-# the expected error code and the expected output string. If there isn't a 
+# the expected error code and the expected output string. If there isn't a
 # match, then the function invokes the test_failed function.
 ###############################################################################
 function run_test {
     local DESCRIPTION COMMAND EXPECTED_ERR_CODE EXPECTED_OUTPUT RESPONSE
-    
+
     DESCRIPTION="$1"
     COMMAND="$2"
     EXPECTED_ERR_CODE="$3"
     if [[ -z "$4" ]]; then EXPECTED_OUTPUT="$4"; else EXPECTED_OUTPUT=""; fi
-    
+
     iecho -n "Running test: $DESCRIPTION..."
     RESPONSE="$($COMMAND)"
     ERR="${?}"
@@ -54,7 +54,7 @@ function run_test {
             test_failed "The test \"$DESCRIPTION\" returned an unexpected output: $RESPONSE"
         fi
     fi
-    
+
     iecho "OK"
     ipause
 }
@@ -67,7 +67,6 @@ function run_test {
 ###############################################################################
 
 function test_failed {
-    
     errecho ""
     errecho "===TEST FAILED==="
     errecho "$@"
@@ -81,7 +80,7 @@ function test_failed {
     errecho "    script didn't complete successfully, then you must review and manually delete"
     errecho "    any resources created by this script that were not automatically removed."
     errecho ""
-    exit 1 
+    exit 1
 }
 
 
@@ -91,18 +90,18 @@ function test_failed {
 # This function outputs everything sent to it to STDERR (standard error output).
 ###############################################################################
 function errecho {
-    printf "%s\n" "$*" 2>&1
+    printf "%b\n" "$*" 2>&1
 }
 
 ###############################################################################
 # function iecho
 #
-# This function enables the script to display the specified text only if 
+# This function enables the script to display the specified text only if
 # the global variable $VERBOSE is set to true.
 ###############################################################################
 function iecho {
     if [[ $VERBOSE == true ]]; then
-        echo "$@"
+        echo -e "$@"
     fi
 }
 
@@ -136,7 +135,7 @@ function generate_random_name {
 
     # Initialize the FILENAME variable
     FILENAME="$ROOTNAME"
-    # Configure random number generator to issue numbers between 1000 and 9999, 
+    # Configure random number generator to issue numbers between 1000 and 9999,
     # inclusive.
     DIFF=$((9999-1000+1))
 

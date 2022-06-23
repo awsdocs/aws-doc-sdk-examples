@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.sage;
 
 //snippet-start:[sagemaker.java2.describe_train_job.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.DescribeTrainingJobRequest;
@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
 //snippet-end:[sagemaker.java2.describe_train_job.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,14 +32,14 @@ public class DescribeTrainingJob {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    DescribeTrainingJob <trainingJobName>\n\n" +
+                "    <trainingJobName>\n\n" +
                 "Where:\n" +
-                "    trainingJobName - the name of the training job.\n\n";
+                "    trainingJobName - The name of the training job.\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -47,14 +47,15 @@ public class DescribeTrainingJob {
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        desribeTrainJob(sageMakerClient, trainingJobName);
+        describeTrainJob(sageMakerClient, trainingJobName);
         sageMakerClient.close();
     }
 
     //snippet-start:[sagemaker.java2.describe_train_job.main]
-    public static void desribeTrainJob(SageMakerClient sageMakerClient, String trainingJobName) {
+    public static void describeTrainJob(SageMakerClient sageMakerClient, String trainingJobName) {
 
        try {
             DescribeTrainingJobRequest trainingJobRequest = DescribeTrainingJobRequest.builder()

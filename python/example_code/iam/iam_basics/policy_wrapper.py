@@ -7,6 +7,7 @@ Purpose
 Shows how to use AWS Identity and Access Management (IAM) policies.
 """
 
+# snippet-start:[python.example_code.iam.policy_wrapper.imports]
 import json
 import logging
 import operator
@@ -18,8 +19,10 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 iam = boto3.resource('iam')
+# snippet-end:[python.example_code.iam.policy_wrapper.imports]
 
 
+# snippet-start:[python.example_code.iam.CreatePolicy]
 def create_policy(name, description, actions, resource_arn):
     """
     Creates a policy that contains a single statement.
@@ -54,8 +57,10 @@ def create_policy(name, description, actions, resource_arn):
         raise
     else:
         return policy
+# snippet-end:[python.example_code.iam.CreatePolicy]
 
 
+# snippet-start:[python.example_code.iam.DeletePolicy]
 def delete_policy(policy_arn):
     """
     Deletes a policy.
@@ -68,8 +73,10 @@ def delete_policy(policy_arn):
     except ClientError:
         logger.exception("Couldn't delete policy %s.", policy_arn)
         raise
+# snippet-end:[python.example_code.iam.DeletePolicy]
 
 
+# snippet-start:[python.example_code.iam.CreatePolicyVersion]
 def create_policy_version(policy_arn, actions, resource_arn, set_as_default):
     """
     Creates a policy version. Policies can have up to five versions. The default
@@ -105,8 +112,10 @@ def create_policy_version(policy_arn, actions, resource_arn, set_as_default):
         raise
     else:
         return policy_version
+# snippet-end:[python.example_code.iam.CreatePolicyVersion]
 
 
+# snippet-start:[python.example_code.iam.ListPolicies]
 def list_policies(scope):
     """
     Lists the policies in the current account.
@@ -123,8 +132,11 @@ def list_policies(scope):
         raise
     else:
         return policies
+# snippet-end:[python.example_code.iam.ListPolicies]
 
 
+# snippet-start:[python.example_code.iam.GetPolicy]
+# snippet-start:[python.example_code.iam.GetPolicyVersion]
 def get_default_policy_statement(policy_arn):
     """
     Gets the statement of the default version of the specified policy.
@@ -134,6 +146,7 @@ def get_default_policy_statement(policy_arn):
     """
     try:
         policy = iam.Policy(policy_arn)
+        # To get an attribute of a policy, the SDK first calls get_policy.
         policy_doc = policy.default_version.document
         policy_statement = policy_doc.get('Statement', None)
         logger.info("Got default policy doc for %s.", policy.policy_name)
@@ -143,8 +156,11 @@ def get_default_policy_statement(policy_arn):
         raise
     else:
         return policy_statement
+# snippet-end:[python.example_code.iam.GetPolicyVersion]
+# snippet-end:[python.example_code.iam.GetPolicy]
 
 
+# snippet-start:[python.example_code.iam.Scenario_RollbackPolicyVersion]
 def rollback_policy_version(policy_arn):
     """
     Rolls back to the previous default policy, if it exists.
@@ -190,8 +206,10 @@ def rollback_policy_version(policy_arn):
         raise
     else:
         return rollback_version
+# snippet-end:[python.example_code.iam.Scenario_RollbackPolicyVersion]
 
 
+# snippet-start:[python.example_code.iam.AttachRolePolicy_Policy]
 def attach_to_role(role_name, policy_arn):
     """
     Attaches a policy to a role.
@@ -205,8 +223,10 @@ def attach_to_role(role_name, policy_arn):
     except ClientError:
         logger.exception("Couldn't attach policy %s to role %s.", policy_arn, role_name)
         raise
+# snippet-end:[python.example_code.iam.AttachRolePolicy_Policy]
 
 
+# snippet-start:[python.example_code.iam.DetachRolePolicy_Policy]
 def detach_from_role(role_name, policy_arn):
     """
     Detaches a policy from a role.
@@ -221,8 +241,10 @@ def detach_from_role(role_name, policy_arn):
         logger.exception(
             "Couldn't detach policy %s from role %s.", policy_arn, role_name)
         raise
+# snippet-end:[python.example_code.iam.DetachRolePolicy_Policy]
 
 
+# snippet-start:[python.example_code.iam.Scenario_PolicyManagement]
 def usage_demo():
     """Shows how to use the policy functions."""
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -256,6 +278,7 @@ def usage_demo():
     delete_policy(policy.arn)
     print(f"Deleted policy {policy.policy_name}.")
     print("Thanks for watching!")
+# snippet-end:[python.example_code.iam.Scenario_PolicyManagement]
 
 
 if __name__ == '__main__':

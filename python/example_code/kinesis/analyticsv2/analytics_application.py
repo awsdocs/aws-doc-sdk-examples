@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.ApplicationClass]
 class KinesisAnalyticsApplicationV2:
     """Encapsulates Kinesis Data Analytics application functions."""
     def __init__(self, analytics_client):
@@ -26,7 +27,9 @@ class KinesisAnalyticsApplicationV2:
         self.arn = None
         self.version_id = None
         self.create_timestamp = None
+# snippet-end:[python.example_code.kinesis-analytics-v2.ApplicationClass]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.helper_update_details]
     def _update_details(self, details):
         """
         Updates object properties with application details retrieved from the service.
@@ -37,6 +40,7 @@ class KinesisAnalyticsApplicationV2:
         self.version_id = details['ApplicationVersionId']
         self.arn = details['ApplicationARN']
         self.create_timestamp = details['CreateTimestamp']
+# snippet-end:[python.example_code.kinesis-analytics-v2.helper_update_details]
 
     @staticmethod
     def create_read_write_role(
@@ -103,6 +107,7 @@ class KinesisAnalyticsApplicationV2:
         else:
             return role
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.CreateApplication]
     def create(self, app_name, role_arn, env='SQL-1_0'):
         """
         Creates a Kinesis Data Analytics application.
@@ -126,7 +131,9 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return details
+# snippet-end:[python.example_code.kinesis-analytics-v2.CreateApplication]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.DeleteApplication]
     def delete(self):
         """
         Deletes an application.
@@ -138,7 +145,9 @@ class KinesisAnalyticsApplicationV2:
         except ClientError:
             logger.exception("Couldn't delete application %s.", self.name)
             raise
+# snippet-end:[python.example_code.kinesis-analytics-v2.DeleteApplication]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.DescribeApplication]
     def describe(self, name):
         """
         Gets metadata about an application.
@@ -157,7 +166,9 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return details
+# snippet-end:[python.example_code.kinesis-analytics-v2.DescribeApplication]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.DescribeApplicationSnapshot]
     def describe_snapshot(self, application_name, snapshot_name):
         """
         Gets metadata about a previously saved application snapshot.
@@ -180,7 +191,9 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return snapshot
+# snippet-end:[python.example_code.kinesis-analytics-v2.DescribeApplicationSnapshot]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.DiscoverInputSchema]
     def discover_input_schema(self, stream_arn, role_arn):
         """
         Discovers a schema that maps data in a stream to a format that is usable by
@@ -206,7 +219,9 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return schema
+# snippet-end:[python.example_code.kinesis-analytics-v2.DiscoverInputSchema]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.AddApplicationInput]
     def add_input(self, input_prefix, stream_arn, input_schema):
         """
         Adds an input stream to the application. The input stream data is mapped
@@ -239,7 +254,9 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return response
+# snippet-end:[python.example_code.kinesis-analytics-v2.AddApplicationInput]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.AddApplicationOutput]
     def add_output(self, in_app_stream_name, output_arn):
         """
         Adds an output stream to the application. Kinesis Data Analytics maps data
@@ -269,7 +286,9 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return outputs
+# snippet-end:[python.example_code.kinesis-analytics-v2.AddApplicationOutput]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.UpdateApplication]
     def update_code(self, code):
         """
         Updates the code that runs in the application. The code must run in the
@@ -297,7 +316,9 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return details
+# snippet-end:[python.example_code.kinesis-analytics-v2.UpdateApplication]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.StartApplication]
     def start(self, input_id):
         """
         Starts an application. After the application is running, it reads from the
@@ -317,7 +338,9 @@ class KinesisAnalyticsApplicationV2:
         except ClientError:
             logger.exception("Couldn't start application %s.", self.name)
             raise
+# snippet-end:[python.example_code.kinesis-analytics-v2.StartApplication]
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.StopApplication]
     def stop(self):
         """
         Stops an application. This stops the application from processing data but
@@ -329,3 +352,4 @@ class KinesisAnalyticsApplicationV2:
         except ClientError:
             logger.exception("Couldn't stop application %s.", self.name)
             raise
+# snippet-end:[python.example_code.kinesis-analytics-v2.StopApplication]

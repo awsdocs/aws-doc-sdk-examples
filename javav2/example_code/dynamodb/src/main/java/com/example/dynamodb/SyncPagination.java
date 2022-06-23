@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.sync_pagination.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -21,10 +21,11 @@ import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesIterable;
 // snippet-end:[dynamodb.java2.sync_pagination.import]
+
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,20 +34,22 @@ public class SyncPagination {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    SyncPagination <type>\n\n" +
+                "    <type>\n\n" +
                 "Where:\n" +
-                "    type - the type of pagination. (auto, manual, or default). \n\n" ;
+                "    type - The type of pagination. (auto, manual, or default). \n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String type = args[0];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 
@@ -97,11 +100,11 @@ public class SyncPagination {
             System.out.println(response.tableNames());
         }
 
-        // Print the table names using the responses stream
+        // Print the table names using the responses stream.
         System.out.println("AutoPagination: using stream");
         responses.stream().forEach(response -> System.out.println(response.tableNames()));
 
-        // Convert the stream of responses to stream of table names, then print the table names
+        // Convert the stream of responses to stream of table names, then print the table names.
         System.out.println("AutoPagination: using flatmap to get stream of table names");
 
         responses.stream()
@@ -132,5 +135,6 @@ public class SyncPagination {
             }
         }
     }
+    // snippet-end:[dynamodb.java2.sync_pagination.main]
 }
-// snippet-end:[dynamodb.java2.sync_pagination.main] 
+

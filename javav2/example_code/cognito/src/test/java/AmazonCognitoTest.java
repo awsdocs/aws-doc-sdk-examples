@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AmazonCognitoTest {
 
     private static CognitoIdentityProviderClient cognitoclient;
-    private static  CognitoIdentityProviderClient cognitoIdentityProviderClient ;
+    private static CognitoIdentityProviderClient cognitoIdentityProviderClient ;
     private static CognitoIdentityClient cognitoIdclient ;
     private static String userPoolName="";
     private static String identityId="";
@@ -40,14 +40,17 @@ public class AmazonCognitoTest {
         Region region = Region.US_EAST_1;
         cognitoclient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         cognitoIdclient  = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         cognitoIdentityProviderClient  = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
 
@@ -78,6 +81,7 @@ public class AmazonCognitoTest {
             clientId =  prop.getProperty("clientId");
             secretkey =  prop.getProperty("secretkey");
             password = prop.getProperty("password");
+            confirmationCode = prop.getProperty("confirmationCode");
 
 
         } catch (IOException ex) {
@@ -202,5 +206,12 @@ public class AmazonCognitoTest {
 
         DeleteIdentityPool.deleteIdPool(cognitoIdclient, identityPoolId);
         System.out.println("Test 16 passed");
+    }
+
+    @Test
+    @Order(17)
+    public void ConfirmSignUp() {
+        ConfirmSignUp.confirmSignUp(cognitoIdentityProviderClient, confirmationCode, username);
+        System.out.println("Test 17 passed");
     }
 }

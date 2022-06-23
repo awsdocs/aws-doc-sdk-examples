@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.kms;
 
 // snippet-start:[kms.java2_create_alias.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.CreateAliasRequest;
@@ -21,9 +21,9 @@ import software.amazon.awssdk.services.kms.model.KmsException;
 // snippet-end:[kms.java2_create_alias.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,15 +31,15 @@ public class CreateAlias {
 
     public static void main(String[] args) {
 
-         final String USAGE = "\n" +
+         final String usage = "\n" +
                 "Usage:\n" +
-                "    CreateAlias <targetKeyId> <aliasName> \n\n" +
+                "    <targetKeyId> <aliasName> \n\n" +
                 "Where:\n" +
-                "    targetKeyId - the key ID or the Amazon Resource Name (ARN) of the customer master key (CMK). \n\n" +
-                "    aliasName - an alias name (for example, alias/myAlias). \n\n" ;
+                "    targetKeyId - The key ID or the Amazon Resource Name (ARN) of the customer master key (CMK). \n\n" +
+                "    aliasName - An alias name (for example, alias/myAlias). \n\n" ;
 
          if (args.length != 2) {
-              System.out.println(USAGE);
+              System.out.println(usage);
              System.exit(1);
          }
 
@@ -48,6 +48,7 @@ public class CreateAlias {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createCustomAlias(kmsClient, targetKeyId, aliasName);
@@ -69,6 +70,6 @@ public class CreateAlias {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[kms.java2._create_alias.main]
     }
+    // snippet-end:[kms.java2._create_alias.main]
 }

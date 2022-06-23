@@ -8,6 +8,10 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.Core" Version="3.5.3.8" />
     <PackageReference Include="AWSSDK.SQS" Version="3.5.1.27" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

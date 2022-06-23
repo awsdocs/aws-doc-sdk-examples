@@ -51,7 +51,7 @@ func main() {
 
     file, err := os.Open(filename)
     if err != nil {
-        exitErrorf("Unable to open file %q, %v", err)
+        exitErrorf("Unable to open file %q, %v", filename, err)
     }
 
     defer file.Close()

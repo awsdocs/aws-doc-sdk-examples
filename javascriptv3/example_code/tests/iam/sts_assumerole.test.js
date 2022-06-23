@@ -1,13 +1,12 @@
-const mockAssumeRole = jest.fn();
-jest.mock("@aws-sdk/client-sts/commands/AssumeRoleCommand", () => ({
-  IAM: function IAM() {
-    this.AssumeRoleCommand = mockAssumeRole;
-  },
-}));
-const { params, run } = require("../../iam/src/sts_assumerole.js");
+const { run, params } = require("../../iam/src/sts_assumerole");
+const { stsClient } = require("../../iam/src/libs/stsClient.js");
 
-test("has to mock iam#assumerole", async (done) => {
-  await run();
-  expect(mockAssumeRole).toHaveBeenCalled;
-  done();
+jest.mock("../../iam/src/libs/stsClient.js");
+
+describe("@aws-sdk/client-sts mock", () => {
+  it("should successfully mock STS client", async () => {
+    stsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

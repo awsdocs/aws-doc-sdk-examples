@@ -21,6 +21,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.secrets-manager.SecretsManagerSecret]
 class SecretsManagerSecret:
     """Encapsulates Secrets Manager functions."""
     def __init__(self, secretsmanager_client):
@@ -29,10 +30,12 @@ class SecretsManagerSecret:
         """
         self.secretsmanager_client = secretsmanager_client
         self.name = None
+# snippet-end:[python.example_code.secrets-manager.SecretsManagerSecret]
 
     def _clear(self):
         self.name = None
 
+# snippet-start:[python.example_code.secrets-manager.CreateSecret]
     def create(self, name, secret_value):
         """
         Creates a new secret. The secret value can be a string or bytes.
@@ -56,7 +59,9 @@ class SecretsManagerSecret:
             raise
         else:
             return response
+# snippet-end:[python.example_code.secrets-manager.CreateSecret]
 
+# snippet-start:[python.example_code.secrets-manager.DescribeSecret]
     def describe(self, name=None):
         """
         Gets metadata about a secret.
@@ -79,7 +84,9 @@ class SecretsManagerSecret:
             raise
         else:
             return response
+# snippet-end:[python.example_code.secrets-manager.DescribeSecret]
 
+# snippet-start:[python.example_code.secrets-manager.GetSecretValue]
     def get_value(self, stage=None):
         """
         Gets the value of a secret.
@@ -104,7 +111,9 @@ class SecretsManagerSecret:
             raise
         else:
             return response
+# snippet-end:[python.example_code.secrets-manager.GetSecretValue]
 
+# snippet-start:[python.example_code.secrets-manager.GetRandomPassword]
     def get_random_password(self, pw_length):
         """
         Gets a randomly generated password.
@@ -122,7 +131,9 @@ class SecretsManagerSecret:
             raise
         else:
             return password
+# snippet-end:[python.example_code.secrets-manager.GetRandomPassword]
 
+# snippet-start:[python.example_code.secrets-manager.PutSecretValue]
     def put_value(self, secret_value, stages=None):
         """
         Puts a value into an existing secret. When no stages are specified, the
@@ -153,7 +164,9 @@ class SecretsManagerSecret:
             raise
         else:
             return response
+# snippet-end:[python.example_code.secrets-manager.PutSecretValue]
 
+# snippet-start:[python.example_code.secrets-manager.UpdateSecretVersionStage]
     def update_version_stage(self, stage, remove_from, move_to):
         """
         Updates the stage associated with a version of the secret.
@@ -177,7 +190,9 @@ class SecretsManagerSecret:
             raise
         else:
             return response
+# snippet-end:[python.example_code.secrets-manager.UpdateSecretVersionStage]
 
+# snippet-start:[python.example_code.secrets-manager.DeleteSecret]
     def delete(self, without_recovery):
         """
         Deletes the secret.
@@ -198,7 +213,9 @@ class SecretsManagerSecret:
         except ClientError:
             logger.exception("Deleted secret %s.", self.name)
             raise
+# snippet-end:[python.example_code.secrets-manager.DeleteSecret]
 
+# snippet-start:[python.example_code.secrets-manager.ListSecrets]
     def list(self, max_results):
         """
         Lists secrets for the current account.
@@ -215,6 +232,7 @@ class SecretsManagerSecret:
         except ClientError:
             logger.exception("Couldn't list secrets.")
             raise
+# snippet-end:[python.example_code.secrets-manager.ListSecrets]
 
 
 def deploy(stack_name, cf_resource):
@@ -288,16 +306,11 @@ def sql_runner(rdsdata, resource_arn, secret_arn):
     return _run
 
 
-def usage_demo(resources):
+# snippet-start:[python.example_code.secrets-manager.Scenario_CreateManageSecret]
+def create_and_manage_secret_demo():
     """
-    Shows how to use AWS Secrets Manager. There are two parts to the demo:
-
-    * How to create a secret, update its value and stage, and delete it.
-    * How to use an existing secret to run SQL statements on an Amazon
-      Aurora cluster.
-
-    :param resources: Resource identifiers that were output from the CloudFormation
-                      stack that created prerequisite resources for the demo.
+    Shows how to use AWS Secrets Manager to create a secret, update its value and
+    stage, and delete it.
     """
     secret = SecretsManagerSecret(boto3.client('secretsmanager'))
 
@@ -331,13 +344,25 @@ def usage_demo(resources):
         print(f"Name: {sec['Name']}")
     print("Delete the secret.")
     secret.delete(True)
+# snippet-end:[python.example_code.secrets-manager.Scenario_CreateManageSecret]
 
+
+# snippet-start:[python.example_code.secrets-manager.Scenario_AuroraSecret]
+def aurora_demo(resources):
+    """
+    Shows how to use AWS Secrets Manager to use an existing secret to run SQL
+    statements on an Amazon Aurora cluster.
+
+    :param resources: Resource identifiers that were output from the CloudFormation
+                      stack that created prerequisite resources for the demo.
+    """
     print('-'*88)
     print("Using a secret along with Amazon RDS Data Service to access an Amazon "
           "Aurora cluster.\n"
           "The secret and cluster were created by the CloudFormation stack included "
           "with this demo.")
     print('-'*88)
+    secret = SecretsManagerSecret(boto3.client('secretsmanager'))
     cf_secret_arn = secret.describe(resources['SecretId'])['ARN']
     print(f"Secret ID: {resources['SecretId']}")
     print(f"Secret ARN: {cf_secret_arn}")
@@ -366,6 +391,7 @@ def usage_demo(resources):
     response = runner(f'SELECT * FROM {table};', db)
     print(f"Got {len(response['records'])} records:")
     pprint(response['records'])
+# snippet-end:[python.example_code.secrets-manager.Scenario_AuroraSecret]
 
 
 def destroy(stack, cf_resource):
@@ -386,12 +412,13 @@ def destroy(stack, cf_resource):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Runs the AWS Secrets Manager demo. Run this script with the "
-                    "'deploy' flag to deploy prerequisite resources, then with the "
-                    "'demo' flag to see example usage. Run with the 'destroy' flag to "
-                    "clean up all resources.")
+        description="Runs the AWS Secrets Manager demo. "
+                    "Run with the 'deploy' action to deploy prerequisite resources. "
+                    "Run with the 'demo-secret' action to see the secret management demo. "
+                    "Run with the 'demo-aurora' action to see the Amazon Aurora demo. "
+                    "Run with the 'destroy' action to clean up all resources.")
     parser.add_argument(
-        'action', choices=['deploy', 'demo', 'destroy'],
+        'action', choices=['deploy', 'demo-secret', 'demo-aurora', 'destroy'],
         help="Indicates the action the script performs.")
     args = parser.parse_args()
 
@@ -408,16 +435,20 @@ def main():
         print("Deploying prerequisite resources for the demo.")
         deploy(stack.name, cf_resource)
         print('-'*88)
-        print("To see example usage, run the script again with the 'demo' flag.")
-    elif args.action == 'demo':
+        print("To see example usage, run the script again with the 'demo-secret' or "
+              "'demo-aurora' action.")
+    elif args.action in ['demo-secret', 'demo-aurora']:
         print('-'*88)
         print("Demonstrating how to use AWS Secrets Manager to create and manage "
               "secrets.")
         print('-'*88)
-        usage_demo({o['OutputKey']: o['OutputValue'] for o in stack.outputs})
+        if args.action == 'demo-secret':
+            create_and_manage_secret_demo()
+        elif args.action == 'demo-aurora':
+            aurora_demo({o['OutputKey']: o['OutputValue'] for o in stack.outputs})
         print('-'*88)
         print("To clean up all AWS resources created for the demo, run this script "
-              "again with the 'destroy' flag.")
+              "again with the 'destroy' action.")
     elif args.action == 'destroy':
         print("Destroying AWS resources created for the demo.")
         destroy(stack, cf_resource)

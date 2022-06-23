@@ -1,17 +1,16 @@
- 
 //snippet-sourcedescription:[query_items.cpp demonstrates how to perfrom Query operation and retrieve items from an Amazon DynamoDB table.]
-//snippet-service:[dynamodb]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[AWS SDK for C++]
 //snippet-keyword:[Code Sample]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2021-01-23]
-//snippet-sourceauthor:[Sarfraz]
+//snippet-sourcedate:[11/30/2021]
+//snippet-sourceauthor:[scmacdon - aws]
 
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 //snippet-start:[dynamodb.cpp.query_items.inc]
 #include <aws/core/Aws.h>
@@ -22,18 +21,19 @@
 #include <iostream>
 //snippet-end:[dynamodb.cpp.query_items.inc]
 
-
 /**
-* Perform query on a DynamoDB Table and retrieve item(s).
-*
-* Takes the name of the table and partition key attribute name and value to query.
-*
-* The partition key attribute is searched with the specified value. By default, all fields and values 
-* contained in the item are returned. If an optional projection expression is
-* specified on the command line, only the specified fields and values are 
-* returned.
-*
+  Perform query on a DynamoDB Table and retrieve item(s).
+
+  The partition key attribute is searched with the specified value. By default, all fields and values 
+  contained in the item are returned. If an optional projection expression is
+  specified on the command line, only the specified fields and values are 
+  returned.
+ 
+  To run this C++ code example, ensure that you have setup your development environment, including your credentials.
+  For information, see this documentation topic:
+  https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
 */
+
 int main(int argc, char** argv)
 {
     const std::string USAGE = "\n" \
@@ -43,15 +43,12 @@ int main(int argc, char** argv)
         "    table - the table to get an item from.\n"
         "    partitionKeyAttributeName  - Partition Key attribute of the table.\n"
         "    partitionKeyValue  - Partition Key value to query.\n\n"
-        "You can add an optional projection expression (a quote-delimited,\n"
-        "comma-separated list of attributes to retrieve) to limit the\n"
-        "fields returned from the table.\n\n"
         "Example:\n"
         "    query_items HelloTable Name=Namaste\n"
         "    query_items Players FirstName=Mike\n"
         "    query_items SiteColors Background=white \"default, bold\"\n";
 
-    if (argc < 3)
+    if (argc < 2)
     {
         std::cout << USAGE;
         return 1;
@@ -61,10 +58,8 @@ int main(int argc, char** argv)
 
     Aws::InitAPI(options);
     {
-        const Aws::String table(argv[1]);
-
-        const Aws::String partitionKeyNameAndValue(argv[2]);
-
+        const Aws::String table = (argv[1]);
+        const Aws::String partitionKeyNameAndValue = (argv[2]);
         Aws::String partitionKeyAttributeName("");
         Aws::String partitionKeyAttributeValue("");
 
@@ -74,7 +69,6 @@ int main(int argc, char** argv)
             {
                 partitionKeyAttributeName = flds[0];
                 partitionKeyAttributeValue = flds[1];
-
             }
             else
             {

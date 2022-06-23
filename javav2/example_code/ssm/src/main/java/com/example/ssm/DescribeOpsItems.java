@@ -4,8 +4,7 @@
 // snippet-keyword:[Amazon Simple Systems Management]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[AWS - scmacdon]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.ssm;
 
 //snippet-start:[ssm.java2.describe_ops.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.DescribeOpsItemsRequest;
@@ -25,9 +25,9 @@ import java.util.List;
 //snippet-end:[ssm.java2.describe_ops.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -38,6 +38,7 @@ public class DescribeOpsItems {
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         describeItems(ssmClient);

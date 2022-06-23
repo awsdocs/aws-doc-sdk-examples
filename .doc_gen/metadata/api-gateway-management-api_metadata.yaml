@@ -1,0 +1,19 @@
+# zexi 0.4.0
+apigatewaymanagementapi_PostToConnection:
+  title: Send the provided data to the specified connection using an &AWS; SDK
+  title_abbrev: Send data to a connection
+  synopsis: send data to a connection.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/apigatewaymanagement
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - apigatewaymanagement.rust.post_to_connection
+                - apigatewaymanagement.rust.post_to_connection_client
+  services:
+    apigatewaymanagementapi: {PostToConnection}

@@ -1,0 +1,144 @@
+# zexi 0.4.0
+C++:
+  property: cpp
+  sdk:
+    1:
+      long: "&CPPlong;"
+      short: "&CPP;"
+      api_ref:
+        uid: "SdkForCpp"
+        name: "&guide-cpp-api;"
+      title_override:
+        title: "Additional code examples for the &CPPlong;"
+        title_abbrev: "Additional code examples"
+  guide: "&guide-cpp-dev;"
+Go:
+  property: go
+  sdk:
+    1:
+      long: "&Golong; V1"
+      short: "&Go; V1"
+      api_ref:
+        uid: "SdkForGoV1"
+        name: "&guide-go-api;"
+    2:
+      long: "&Golong; V2"
+      short: "&Go; V2"
+      api_ref:
+        uid: "SdkForGoV2"
+        name: "&guide-go-api;"
+        link_template: "https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{.Service}}#Client.{{.Action}}"
+  guide: "&guide-go-dev;"
+Java:
+  property: java
+  sdk:
+    1:
+      long: "&Javalong; 1.x"
+      short: "&Java; 1.x"
+    2:
+      long: "&JavaV2long;"
+      short: "&JavaV2;"
+      bookmark: readme
+      api_ref:
+        uid: "SdkForJavaV2"
+        name: "&guide-javaV2-api;"
+  guide: "&guide-javaV2-dev;"
+JavaScript:
+  property: javascript
+  sdk:
+    2:
+      long: "&JSBlong; V2"
+      short: "&JSB; V2"
+      api_ref:
+        uid: "AWSJavaScriptSDK"
+        name: "&guide-jsb-api;"
+    3:
+      long: "&JSBlong; V3"
+      short: "&JSB; V3"
+      api_ref:
+        uid: "AWSJavaScriptSDKV3"
+        name: "&guide-jsb-api;"
+        link_template: "AWSJavaScriptSDK/v3/latest/clients/client-{{.Service}}/classes/{{.ActionLower}}command.html"
+  guide: "&guide-jsb-dev;"
+Kotlin:
+  property: kotlin
+  sdk:
+    1:
+      long: "&Kotlinlong;"
+      short: "&Kotlin;"
+      caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
+      api_ref:
+        uid: "SdkForKotlinV1"
+        name: "&guide-kotlin-api;"
+        link_template: "https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation"
+  guide: "&guide-kotlin-dev;"
+.NET:
+  property: csharp
+  sdk:
+    3:
+      long: "&NETlong;"
+      short: "&NET;"
+      api_ref:
+        uid: "DotNetSDKV3"
+        name: "&guide-net-api;"
+      title_override:
+        title: "Additional code examples for the &NET;"
+        title_abbrev: "Additional code examples"
+  guide: "&guide-net-dev;"
+PHP:
+  property: php
+  sdk:
+    3:
+      long: "&PHPlong;"
+      short: "&PHP;"
+      api_ref:
+        uid: "SdkForPHPV3"
+        name: "&guide-php-api;"
+      title_override:
+        title: "Additional code examples for the &PHPlong;"
+        title_abbrev: "Additional code examples"
+  guide: "&guide-php-dev;"
+Python:
+  property: python
+  sdk:
+    3:
+      long: "&Python3long;"
+      short: "&Python3;"
+      api_ref:
+        uid: "boto3"
+        name: "&guide-python3-api;"
+  guide: "&guide-python3-gsg;"
+Ruby:
+  property: ruby
+  sdk:
+    3:
+      long: "&Rubylong;"
+      short: "&Ruby;"
+      api_ref:
+        uid: "SdkForRubyV3"
+        name: "&guide-ruby-api;"
+  guide: "&guide-ruby-dev;"
+Rust:
+  property: rust
+  sdk:
+    1:
+      long: "&Rustlong;"
+      short: "&Rust;"
+      caveat: "This documentation is for an SDK in preview release. The SDK is subject to change and should not be used in production."
+      api_ref:
+        uid: "SdkForRustV1"
+        name: "&guide-rust-api;"
+        link_template: "https://docs.rs/releases/search?query=aws-sdk"
+  guide: "&guide-rust-dev;"
+Swift:
+  property: swift
+  sdk:
+    1:
+      long: "&Swiftlong;"
+      short: "&Swift;"
+      caveat: "This is prerelease documentation for an SDK in preview release. It is subject to change."
+      api_ref:
+        uid: "SdkForSwift"
+        name: "&guide-swift-api;"
+        link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
+  guide: "&guide-swift-dev;"

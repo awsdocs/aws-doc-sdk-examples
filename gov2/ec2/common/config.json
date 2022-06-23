@@ -1,0 +1,8 @@
+{
+    "ImageName": "abc-1234",
+    "Description": "Lorem ipsum dolor sit amet",
+    "TagName": "luggagetag",
+    "TagValue": "LAX to YYZ",
+    "Monitor": "ON",
+    "InstanceID": "EC2-7ce635c0603c4a519e90e77edaa8dba8"
+}

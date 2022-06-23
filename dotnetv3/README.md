@@ -1,18 +1,31 @@
-# README for AWS SDK for .NET documentation examples
+# README for AWS SDK for .NET 3.x documentation examples
 
-This is a collection of code examples for the AWS SDK for .NET public documentation.
-All of the code examples run on version 3.5 of the AWS SDK for .NET using version 3.1 of .NET Core.
-Each service directory under this directory contains a **Readme.md** file with information about
-the code examples within that service directory.
+
+This workspace contains both single service and cross-service examples for the AWS SDK for .NET.
+
+All of the examples run on version 3.5 or later of the AWS SDK for .NET using .NET Core 5.0.
+Each service directory also contains a **Readme.md** file with information about the code examples within that directory.
+
+## AWS single-service examples
+
+The AWS single-service C# .NET examples demonstrate how to perform simple API calls. They are divided into folders by the AWS service that they illustrate.
+
+## AWS cross-service examples
+
+AWS cross-service examples demonstrate how to combine multiple AWS services into a cohesive application. By following these examples, you will gain a deeper understanding of how to create C# .NET applications using .NET Core 5.0.
+
+Each example in the cross-services example directory includes a README.md file that describes how to create and run the example.
 
 ## Prerequisites
 
-To build and run the code examples in this collection, you need the following:
+To build and run the code examples for the AWS SDK for .NET, you need the following:
 
 - The AWS SDK for .NET. For more information, see the [AWS SDK for .NET
-Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide).
+Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/welcome.html).
 
-- AWS credentials, either configured in a local AWS credentials file, or by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables.  For more information, see the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/overview.html).
+- AWS credentials, either configured in a local AWS credentials file, or by
+setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables.
+For more information, see the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/overview.html).
 
 ## Building and running the code examples
 
@@ -27,7 +40,7 @@ In general, follow these steps:
    and a **.csproj** file.
 4. Run the project using the ```dotnet run``` command.
 
-## Unit tests
+## Running the unit tests
 
 All of the code example projects have a companion unit test,
 where the name of the unit test project is the same as the tested project,
@@ -116,17 +129,10 @@ If you want more information, run:
 dotnet test -l "console;verbosity=detailed"
 ```
 
-## Additional information
+## Additional resources
 
 - As an AWS best practice, grant all code least privilege, or only the permissions required to perform a task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*.
 - This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) on the AWS website.
 - Running this code might result in charges to your AWS account.
 
-## Copyright and License
-
-All content in this repository, unless otherwise stated, is 
-Copyright © Amazon Web Services, Inc. or its affiliates. All rights reserved.
-
-Except where otherwise noted, all examples in this collection are licensed under the [Apache
-license, version 2.0](https://www.apache.org/licenses/LICENSE-2.0) (the "License"). The full
-license text is provided in the `LICENSE` file accompanying this repository.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

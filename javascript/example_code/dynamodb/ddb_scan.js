@@ -39,9 +39,9 @@ const params = {
   FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
   // Define the expression attribute value, which are substitutes for the values you want to compare.
   ExpressionAttributeValues: {
-    ":topic": { S: "SubTitle2" },
-    ":s": { N: "1" },
-    ":e": { N: "2" },
+    ":topic": {S: "SubTitle2"},
+    ":s": {N: 1},
+    ":e": {N: 2},
   },
   // Set the projection expression, which are the attributes that you want.
   ProjectionExpression: "Season, Episode, Title, Subtitle",

@@ -1,19 +1,24 @@
-# TypeScript environment for Amazon Simple Queue Service (SQS) examples
-Environment for AWS SDK for JavaScript version 3 (v3) Amazon SQS examples. 
-
-The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples.html) contains these examples.
-
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-sqs/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon SQS client module.
-
+# Amazon Simple Queue Service (SQS) JavaScript SDK v3 code examples
 Amazon SQS is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.
 
-This is a workspace where you can find working AWS SDK for JavaScript v3 SQS examples. 
+## Code examples
+This is a workspace where you can find the following AWS SDK for JavaScript v3 SQS examples. 
+- [Changing visibility](src/sqs_changingvisibility.js)(ChangeMessageVisibilityCommand)
+- [Create a queue](src/sqs_createqueue.js)(CreateQueueCommand)
+- [Create a dead letter queue](src/sqs_deadletterqueue.js)(SetQueueAttributesCommand)
+- [Delete a queue](src/sqs_deletequeue.js)(DeleteQueueCommand)
+- [Get a queue URL](src/sqs_getqueueurl.js)(GetQueueUrlCommand)
+- [List queues](src/sqs_listqueues.js)(ListQueuesCommand)
+- [Create long polling queue](src/sqs_longpolling_createqueue.js)(CreateQueueCommand)
+- [Change time queue waits for messages](src/sqs_longpolling_existingqueue.js)(SetQueueAttributesCommand)
+- [Receive messages queue using long-polling support](src/sqs_longpolling_receivemessage.js)(ReceiveMessageCommand)
+- [Delete a message](src/sqs_deletemessage.js)(ReceiveMessageCommand / DeleteMessageCommand)
+- [Send messages](src/sqs_sendmessage.js)(SendMessageCommand)
 
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
 
-# Getting started
+## Getting started
 
 1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) repo to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
@@ -22,16 +27,20 @@ This is a workspace where you can find working AWS SDK for JavaScript v3 SQS exa
 **Note**: These include the client module for the AWS services required in these example, 
 which is "@aws-sdk/client-sqs".
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/sqs
 npm install
 ```
-3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
-4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
-5. Run sample code:
+3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
+
+4. Run sample code:
 ```
 cd src
-ts-node [example name].ts // e.g., ts-node sqs_changingvisibility.ts
+node [example name].js // For example, node sqs_changingvisibility.js
 ```
+## Resources
+- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) 
+- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples.html) 
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-sqs/index.html)

@@ -4,6 +4,8 @@ This README discusses how to run and test the Java code examples for Amazon Cogn
 
 ## Running the Amazon Cognito Java files
 
+The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+
 **IMPORTANT**
 
 The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
@@ -33,7 +35,8 @@ Define these values to successfully run the JUnit tests:
 - **username** – The user name that is used in the **CreateAdminUser** test.
 - **email** - The user email that is used in the **CreateAdminUser** test.
 - **clientName** - The client name that is used in the **CreateUserPoolClient** test.  
-- **identityPoolName** - The pool name used in the **CreateIdentityPool** test.  
+- **identityPoolName** - The pool name used in the **CreateIdentityPool** test. 
+- **confirmationCode** - The confirmation code that is used in the **ConfirmSignUp** test.
 
 ### Command line
 To execute the JUnit tests from the command line, you can use the following command.

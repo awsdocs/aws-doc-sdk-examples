@@ -1,0 +1,17 @@
+# zexi 0.4.0
+rds-data_ExecuteStatement:
+  title: Run an SQL statement using an &AWS; SDK
+  title_abbrev: Run an SQL statement
+  synopsis: run an SQL statement.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/rdsdata
+          excerpts:
+            - description:
+              snippet_tags:
+                - rdsdata.rust.rdsdata-helloworld
+  services:
+    rds-data: {ExecuteStatement}

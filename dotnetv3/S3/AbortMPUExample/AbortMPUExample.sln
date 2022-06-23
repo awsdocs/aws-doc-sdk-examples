@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbortMPUExample", "AbortMPUExample.csproj", "{67B9C67E-94E5-40A1-B2EC-4D943BC3000F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67B9C67E-94E5-40A1-B2EC-4D943BC3000F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67B9C67E-94E5-40A1-B2EC-4D943BC3000F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67B9C67E-94E5-40A1-B2EC-4D943BC3000F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67B9C67E-94E5-40A1-B2EC-4D943BC3000F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91D6269E-665E-4766-8107-FC8655633B95}
+	EndGlobalSection
+EndGlobal

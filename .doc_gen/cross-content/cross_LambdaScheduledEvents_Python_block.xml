@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        This example shows how to register an &LAMlong; function as the target of a
+        scheduled &EVlong; event. The &LAM; handler writes a friendly message and the
+        full event data to &CWLlong; for later retrieval.
+    </para>
+    <itemizedlist>
+        <listitem><para>Deploys a &LAM; function.</para></listitem>
+        <listitem><para>Creates an &EV; scheduled event and makes the &LAM; function the target.</para></listitem>
+        <listitem><para>Grants permission to let &EV; invoke the &LAM; function.</para></listitem>
+        <listitem><para>Prints the latest data from &CWL; to show the result of the scheduled invocations.</para></listitem>
+        <listitem><para>Cleans up all resources created during the demo.</para></listitem>
+    </itemizedlist>
+    <para>
+        This example is best viewed on GitHub. For complete source code and
+        instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/lambda#readme">GitHub</ulink>.
+    </para>
+</block>

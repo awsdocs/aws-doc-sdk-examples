@@ -16,7 +16,7 @@
 # function change_ec2_instance_type
 #
 # This function changes the instance type of the specified Amazon EC2 instance.
-# 
+#
 # Parameters:
 #   -i   [string, mandatory] The instance ID of the instance whose type you
 #                            want to change.
@@ -25,6 +25,7 @@
 #                            stopping the instance.
 #   -r   [switch, optional]  If set, the function restarts the instance after
 #                            changing the type.
+#   -v   [switch, optional]  Enable verbose logging.
 #   -h   [switch, optional]  Displays this help.
 #
 # Example:
@@ -32,7 +33,7 @@
 #      without pausing to ask permission. It automatically restarts the
 #      instance after changing the type.
 #
-#      change-instance-type -i i-123456789012 -f -r
+#      change_ec2_instance_type -i i-123456789012 -t t2.micro -f -r
 #
 # Returns:
 #      0 if successful
@@ -40,22 +41,22 @@
 ###############################################################################
 
 # Import the general_purpose functions.
-source awsdocs_general.sh 
+source awsdocs_general.sh
 
 ###############################################################################
 # function instance-exists
 #
 # This function checks to see if the specified instance already exists. If it
-# does, it sets two global parameters to return the running state and the 
+# does, it sets two global parameters to return the running state and the
 # instance type.
 #
 # Input parameters:
 #       $1 - The id of the instance to check
-# 
+#
 # Returns:
 #       0 if the instance already exists
 #       1 if the instance doesn't exist
-#     AND: 
+#     AND:
 #       Sets two global variables:
 #            EXISTING_STATE - Contains the running/stopped state of the instance.
 #            EXISTING_TYPE  - Contains the current type of the instance.
@@ -64,15 +65,15 @@ function get_instance_info {
 
     # Declare local variables.
     local INSTANCE_ID RESPONSE
-    
+
     # This function accepts a single parameter.
     INSTANCE_ID=$1
 
     # The following --filters parameter causes server-side filtering to limit
-    # results to only the records that match the specified ID. The --query 
+    # results to only the records that match the specified ID. The --query
     # parameter causes CLI client-side filtering to include only the values of
-    # the InstanceType and State.Code fields. 
-    
+    # the InstanceType and State.Code fields.
+
     RESPONSE=$(aws ec2 describe-instances \
                    --query 'Reservations[*].Instances[*].[State.Name, InstanceType]' \
                    --filters Name=instance-id,Values="$INSTANCE_ID" \
@@ -86,7 +87,7 @@ function get_instance_info {
 
     # If we got a response, the instance exists.
     # Retrieve the values of interest and set them as global variables.
-    EXISTING_STATE=$(echo "$RESPONSE" | cut -f 1 )        
+    EXISTING_STATE=$(echo "$RESPONSE" | cut -f 1 )
     EXISTING_TYPE=$(echo "$RESPONSE" | cut -f 2 )
 
     return 0        # 0 in Bash script means no error/true
@@ -106,16 +107,16 @@ function change_ec2_instance_type {
         echo "Parameter:"
         echo "  -i  Specify the instance ID whose type you want to modify."
         echo "  -t  Specify the instance type to convert the instance to."
-        echo "  -d  If the instance was originally running, this option prevents"
-        echo "      automatically restarting the instance."
         echo "  -f  If the instance was originally running, this option prevents"
         echo "      the script from asking permission before stopping the instance."
+        echo "  -r  Start instance after changing the type."
+        echo "  -v  Enable verbose logging."
         echo ""
     )
 
-    local FORCE RESTART REQUESTED_TYPE INSTANCE_ID VERBOSE OPTION RESPONSE ANSWER 
+    local FORCE RESTART REQUESTED_TYPE INSTANCE_ID VERBOSE OPTION RESPONSE ANSWER
     local OPTIND OPTARG # Required to use getopts command in a function.
-    
+
     # Set default values.
     FORCE=false
     RESTART=false
@@ -133,7 +134,7 @@ function change_ec2_instance_type {
             r)  RESTART=true;;
             v)  VERBOSE=true;;
             h)  usage; return 0;;
-            \?) echo "Invalid parameter"; usage; return 1;; 
+            \?) echo "Invalid parameter"; usage; return 1;;
         esac
     done
 
@@ -156,7 +157,7 @@ function change_ec2_instance_type {
     iecho "    Restart:       $RESTART"
     iecho "    Verbose:       $VERBOSE"
     iecho ""
-    
+
     # Check that the specified instance exists.
     iecho -n "Confirming that instance $INSTANCE_ID exists..."
     get_instance_info "$INSTANCE_ID"
@@ -183,7 +184,7 @@ function change_ec2_instance_type {
     # 16="running"
     if [[ "$EXISTING_STATE" == "running" ]]; then
         # If it is, we need to stop it.
-        # Do we have permission to stop it? 
+        # Do we have permission to stop it?
         # If -f (FORCE) was set, we do.
         # If not, we need to ask the user.
         if [[ $FORCE == false ]]; then
@@ -197,7 +198,7 @@ function change_ec2_instance_type {
                     [nN]* )
                         echo "Aborting."
                         exit;;
-                    * ) 
+                    * )
                         echo "Please answer Y or N."
                         ;;
                 esac
@@ -227,7 +228,7 @@ function change_ec2_instance_type {
     if [[ ${?} -ne 0 ]]; then
         echo "\nERROR - AWS reports that Wait command failed.\n$RESPONSE"
         return 1
-    fi 
+    fi
     iecho "stopped.\n"
 
     # Change the type - command produces no output.
@@ -260,14 +261,13 @@ function change_ec2_instance_type {
         if [[ ${?} -ne 0 ]]; then
             errecho "ERROR - AWS reports that Wait command failed.\n$RESPONSE"
             return 1
-        fi 
-        
+        fi
+
         iecho "running.\n"
-        
+
     else
         iecho "Restart was not requested with -r.\n"
     fi
-    
 }
 
 #// snippet-end:[ec2.bash.change-instance-type.complete]

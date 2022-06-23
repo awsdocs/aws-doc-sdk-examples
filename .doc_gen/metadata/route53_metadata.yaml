@@ -1,0 +1,18 @@
+# zexi 0.4.3
+route-53_ListHostedZones:
+  title: Get a list of the public and private &R53; hosted zones using an &AWS; SDK
+  title_abbrev: Get a list of the public and private hosted zones
+  synopsis: get a list of the public and private hosted zones.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route53.rust.route53-helloworld
+  services:
+    route-53: {ListHostedZones}

@@ -4,8 +4,7 @@
 // snippet-service:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/03/2020]
-// snippet-sourceauthor:[AWS - scmacdon]
+// snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.cloudtrail;
 
 //snippet-start:[cloudtrail.java2.getLogTime.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
 import software.amazon.awssdk.services.cloudtrail.model.CloudTrailException;
@@ -28,9 +28,9 @@ import java.util.Locale;
 //snippet-end:[cloudtrail.java2.getLogTime.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -39,14 +39,14 @@ public class GetTrailLoggingTime {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    GetTrailLoggingTime <trailName>  \n\n" +
+                "    <trailName>  \n\n" +
                 "Where:\n" +
-                "    trailName - the name of the trail. \n" ;
+                "    trailName - The name of the trail. \n" ;
 
          if (args.length != 1) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
          }
 
@@ -54,6 +54,7 @@ public class GetTrailLoggingTime {
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getLogTime(cloudTrailClient, trailName) ;

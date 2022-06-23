@@ -1,0 +1,146 @@
+# zexi 0.4.2
+sfn_CreateStateMachine:
+  title: Create a &SFN; state machine using an &AWS; SDK
+  title_abbrev: Create a state machine
+  synopsis: create a &SFN; state machine.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sfn.StepFunctionsStateMachine
+                - python.example_code.sfn.CreateStateMachine
+  services:
+    sfn: {CreateStateMachine}
+sfn_UpdateStateMachine:
+  title: Update a &SFN; state machine using an &AWS; SDK
+  title_abbrev: Update a state machine
+  synopsis: update a &SFN; state machine.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sfn.StepFunctionsStateMachine
+                - python.example_code.sfn.UpdateStateMachine
+  services:
+    sfn: {UpdateStateMachine}
+sfn_DeleteStateMachine:
+  title: Delete a &SFN; state machine using an &AWS; SDK
+  title_abbrev: Delete a state machine
+  synopsis: delete a &SFN; state machine.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sfn.StepFunctionsStateMachine
+                - python.example_code.sfn.DeleteStateMachine
+  services:
+    sfn: {DeleteStateMachine}
+sfn_ListStateMachines:
+  title: List &SFN; state machines using an &AWS; SDK
+  title_abbrev: List state machines
+  synopsis: list &SFN; state machines.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description: Find a state machine by name by searching the list of
+                state machines for the account.
+              snippet_tags:
+                - python.example_code.sfn.StepFunctionsStateMachine
+                - python.example_code.sfn.ListStateMachines
+  services:
+    sfn: {ListStateMachines}
+sfn_DescribeStateMachine:
+  title: Describe a &SFN; state machine using an &AWS; SDK
+  title_abbrev: Describe a state machine
+  synopsis: describe a &SFN; state machine.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sfn.StepFunctionsStateMachine
+                - python.example_code.sfn.DescribeStateMachine
+  services:
+    sfn: {DescribeStateMachine}
+sfn_StartExecution:
+  title: Start a &SFN; state machine run using an &AWS; SDK
+  title_abbrev: Start a state machine run
+  synopsis: start a &SFN; state machine run.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sfn.StepFunctionsStateMachine
+                - python.example_code.sfn.StartExecution
+  services:
+    sfn: {StartExecution}
+sfn_ListExecutions:
+  title: List &SFN; state machine runs using an &AWS; SDK
+  title_abbrev: List state machine runs
+  synopsis: list &SFN; state machine runs.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sfn.StepFunctionsStateMachine
+                - python.example_code.sfn.ListExecutions
+  services:
+    sfn: {ListExecutions}
+sfn_StopExecution:
+  title: Stop a &SFN; state machine run using an &AWS; SDK
+  title_abbrev: Stop a state machine run
+  synopsis: stop a &SFN; state machine run.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sfn.StepFunctionsStateMachine
+                - python.example_code.sfn.StopExecution
+  services:
+    sfn: {StopExecution}

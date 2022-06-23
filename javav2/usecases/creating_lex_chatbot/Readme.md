@@ -1,5 +1,15 @@
 # Building an Amazon Lex Chatbot that engages users in multiple languages
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description |  Discusses how to create an Amazon Lex Chatbot by using the AWS SDK for Java v2.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 5/10/2022        |
+| Required skills   | Java, Maven  |
+
+## Purpose
 You can create an Amazon Lex Chatbot within a web application to engage your web site visitors. An Amazon Lex Chatbot is functionality that performs on-line chat conversation with users without providing direct contact with a person. For example, the following illustration shows an Amazon Lex Chatbot that engages a user about booking a hotel room. 
 
 ![AWS Video Analyzer](images/chatintro.png)
@@ -18,10 +28,6 @@ This AWS tutorial guides you through creating an Amazon Lex chatbot and integrat
 + Amazon Comprehend
 + Amazon Translate
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
-
 #### Topics
 
 + Prerequisites
@@ -39,6 +45,14 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Maven 3.6 or later
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
 
 ## Create an Amazon Lex bot
 
@@ -84,48 +98,49 @@ Create an IntelliJ project that is used to create a web site that uses the Amazo
 
 At this point, you have a new project named **SpringChatbot**.
 
-![AWS Lex](images/pic6.png)
+![AWS Lex](images/project.png)
 
 Ensure that the pom.xml file resembles the following code.
 
-     <?xml version="1.0" encoding="UTF-8"?>
-      <project xmlns="http://maven.apache.org/POM/4.0.0"
+```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
-     <groupId>SpringChatbot</groupId>
-     <artifactId>SpringChatbot</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>SpringChatbot</groupId>
+    <artifactId>SpringChatbot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-     </parent>
-     <properties>
+        <version>2.6.1</version>
+        <relativePath/>
+    </parent>
+    <properties>
         <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.54</version>
+                <version>2.17.136</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>lexruntime</artifactId>
          </dependency>
@@ -149,25 +164,22 @@ Ensure that the pom.xml file resembles the following code.
             </exclusions>
         </dependency>
        </dependencies>
-     <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-     </build>
-     </project>
-     
+    </build>
+</project>
+```     
+
  ## Create the Java classes
  
- Create a Java package in the main/java folder named **com.aws.spring**.
+ Create a Java package in the main/java folder named **com.aws.spring**. The Java files go into this package.
  
- ![AWS Lex](images/pic7.png)
- 
- The Java files go into this package.
- 
-  ![AWS Lex](images/chatproject.png)
+  ![AWS Lex](images/project2.png)
  
  Create these Java classes:
 
@@ -179,6 +191,7 @@ Ensure that the pom.xml file resembles the following code.
 
 The following Java code represents the **BotExample** class.
 
+```java
      package com.aws.spring;
 
      import org.springframework.boot.SpringApplication;
@@ -191,12 +204,13 @@ The following Java code represents the **BotExample** class.
         SpringApplication.run(BotExample.class, args);
      }
     }
-
+```
 
 ### BotController class
 
 The following Java code represents the **BotController** class.
 
+```java
      package com.aws.spring;
 
      import org.springframework.beans.factory.annotation.Autowired;
@@ -230,6 +244,7 @@ The following Java code represents the **BotController** class.
        return message;
      }
     }
+```
 
 ### LexService class
 
@@ -237,6 +252,7 @@ The **LexService** class uses the AWS SDK for Java (v2) to handle all text submi
 
 If the text was in another language, then the text is translated back into the original language and passed back to the client where it's displayed in the Web UI. The following Java code represents the **LexService** class.
 
+```java
      package com.aws.spring;
 
      import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -390,7 +406,7 @@ If the text was in another language, then the text is translated back into the o
          return "";
        }
       }
-
+```
 
 **Note**: Ensure that you specify the bot name and the bot alias when creating the **PostTextRequest** object.  
 
@@ -402,10 +418,11 @@ At this point, you have created all of the Java files required for this example 
 
 The **index.html** file is the application's home view that displays the Amazon Lex bot. The following HTML represents the **index.html** file. 
 
-     <!DOCTYPE html>
-     <html xmlns:th="https://www.thymeleaf.org">
+```html
+    <!DOCTYPE html>
+    <html xmlns:th="https://www.thymeleaf.org">
 
-     <head>
+    <head>
      <title>Amazon Lex - Sample Application (BookTrip)</title>
       <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <style language="text/css">
@@ -440,9 +457,9 @@ The **index.html** file is the application's home view that displays the Amazon 
             float: right;
             background-color: #bbf;
             font-style: italic;
-         }
+        }
 
-         p.lexError {
+        p.lexError {
             margin: 4px;
             padding: 4px 10px 4px 10px;
             border-radius: 4px;
@@ -452,27 +469,27 @@ The **index.html** file is the application's home view that displays the Amazon 
             float: right;
             background-color: #f77;
         }
-       </style>
+        </style>
        </head>
 
       <body>
       <h1 style="text-align:  left">Amazon Lex - BookTrip</h1>
       <p style="width: 400px">
-       This multiple language chatbot shows you how easy it is to incorporate
-       <a href="https://aws.amazon.com/lex/" title="Amazon Lex (product)" target="_new">Amazon Lex</a> into your web apps.  Try it out.
-       </p>
-      <div id="conversation" style="width: 400px; height: 400px; border: 1px solid #ccc; background-color: #eee; padding: 4px; overflow: scroll"></div>
-      <input type="text" id="wisdom" size="80" value="" placeholder="J'ai besoin d'une chambre d'hôtel">
-      <br>
-      <button onclick="pushChat()">Send Text</button>
+      This multiple language chatbot shows you how easy it is to incorporate
+      <a href="https://aws.amazon.com/lex/" title="Amazon Lex (product)" target="_new">Amazon Lex</a> into your web apps.  Try it out.
+     </p>
+     <div id="conversation" style="width: 400px; height: 400px; border: 1px solid #ccc; background-color: #eee; padding: 4px; overflow: scroll"></div>
+     <input type="text" id="wisdom" size="80" value="I need a hotel room">
+     <br>
+     <button onclick="pushChat()">Send Text</button>
 
-      <script type="text/javascript">
+    <script type="text/javascript">
 
-       var g_text = "";
-       // set the focus to the input box
-       document.getElementById("wisdom").focus();
+     var g_text = "";
+    // set the focus to the input box
+     document.getElementById("wisdom").focus();
 
-       function pushChat() {
+     function pushChat() {
 
         // if there is text to be sent...
         var wisdomText = document.getElementById('wisdom');
@@ -484,10 +501,9 @@ The **index.html** file is the application's home view that displays the Amazon 
             wisdomText.locked = true;
             handletext(wisdom);
         }
-       }
+      }
 
-      function showRequest(daText) {
-
+     function showRequest(daText) {
             var conversationDiv = document.getElementById('conversation');
             var requestPara = document.createElement("P");
             requestPara.className = 'userRequest';
@@ -504,7 +520,6 @@ The **index.html** file is the application's home view that displays the Amazon 
 
 
            var lexTextResponse = lexResponse;
-
            responsePara.appendChild(document.createTextNode(lexTextResponse));
            responsePara.appendChild(document.createElement('br'));
            conversationDiv.appendChild(responsePara);
@@ -514,27 +529,37 @@ The **index.html** file is the application's home view that displays the Amazon 
         function handletext(text) {
 
             g_text = text
-            var xhr = new XMLHttpRequest();
-            xhr.addEventListener("load", loadNewItems, false);
-            xhr.open("POST", "../text", true);   // A Spring MVC controller
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-            xhr.send("text=" + text);
+            $.ajax('/text', {
+                type: 'POST',
+                data: 'text=' + text,
+                success: function (data, status, xhr) {
+
+                   showRequest();
+                   showResponse(data);
+
+                    // re-enable input
+                    var wisdomText = document.getElementById('wisdom');
+                    wisdomText.value = '';
+                    wisdomText.locked = false;
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    $('p').append('Error' + errorMessage);
+                }
+            });
         }
 
-       function loadNewItems(event) {
-
-        var msg = event.target.responseText;
-        showRequest();
-        showResponse(msg);
-
-        // re-enable input
-        var wisdomText = document.getElementById('wisdom');
-        wisdomText.value = '';
-        wisdomText.locked = false;
-      }
      </script>
      </body>
-</html>
+     </html>
+```
+
+## Run the application
+
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
+
+![AWS Tracking Application](images/runapp.png)
+
+**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. If you do deploy this application to AWS Elastic Beanstalk, you need to set up an additional inbound rule. For information about deploying a web application, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
 
 ### Next steps
 Congratulations! You have created a Spring Boot application that uses Amazon Lex to create an interactive user experience. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.

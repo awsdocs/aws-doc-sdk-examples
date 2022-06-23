@@ -1,0 +1,26 @@
+pinpoint-sms-voice_SendVoiceMessage:
+  title: Send a voice message with &PIN-SMS-Voice-API; using an &AWS; SDK
+  title_abbrev: Send a voice message with &PIN-SMS-Voice-API;
+  synopsis: send a voice message with &PIN-SMS-Voice-API;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/pinpoint-sms-voice
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_voice_message_sms_voice_api.complete
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          github: javascript/example_code/pinpoint-sms-voice
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_voice_message_sms_voice_api.complete
+  services:
+    pinpoint-sms-voice: {SendVoiceMessage}

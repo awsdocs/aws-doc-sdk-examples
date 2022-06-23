@@ -66,4 +66,3 @@ Please answer the following questions about the examples submitted to help us pr
 
 
 **Are there any hard-coded values that might need changing?**
-

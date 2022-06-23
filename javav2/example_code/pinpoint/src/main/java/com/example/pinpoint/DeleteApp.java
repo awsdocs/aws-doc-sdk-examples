@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.deleteapp.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.DeleteAppRequest;
@@ -21,32 +21,32 @@ import software.amazon.awssdk.services.pinpoint.model.DeleteAppResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.deleteapp.import]
 
-
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteApp {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage: " +
-                "DeleteApp <appId>\n\n" +
+                " <appId>\n\n" +
                 "Where:\n" +
-                "  appId - the ID of the application to delete.\n\n";
+                " appId - The ID of the application to delete.\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String appId = args[0];
         System.out.println("Deleting an application with ID: " + appId);
-
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         deletePinApp(pinpoint, appId) ;
@@ -71,8 +71,7 @@ public class DeleteApp {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
-        //snippet-end:[pinpoint.java2.deleteapp.main]
-    }
+   }
+    //snippet-end:[pinpoint.java2.deleteapp.main]
 }
 

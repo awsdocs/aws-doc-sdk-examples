@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.detect_text.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -21,7 +21,6 @@ import software.amazon.awssdk.services.rekognition.model.Image;
 import software.amazon.awssdk.services.rekognition.model.DetectTextResponse;
 import software.amazon.awssdk.services.rekognition.model.TextDetection;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -29,9 +28,9 @@ import java.util.List;
 // snippet-end:[rekognition.java2.detect_text.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -39,14 +38,14 @@ public class DetectText {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
-                "DetectText <sourceImage>\n\n" +
+                "   <sourceImage>\n\n" +
                 "Where:\n" +
-                "sourceImage - the path to the image that contains text (for example, C:\\AWS\\pic1.png). \n\n";
+                "   sourceImage - The path to the image that contains text (for example, C:\\AWS\\pic1.png). \n\n";
 
-        if (args.length != 1) {
-            System.out.println(USAGE);
+      if (args.length != 1) {
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -54,6 +53,7 @@ public class DetectText {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         detectTextLabels(rekClient, sourceImage );
@@ -65,7 +65,7 @@ public class DetectText {
 
         try {
 
-            InputStream sourceStream = new FileInputStream(new File(sourceImage));
+            InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
             // Create an Image object for the source image

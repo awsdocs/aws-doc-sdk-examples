@@ -3,15 +3,17 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-// snippet-start:[sqs.java2.send_recieve_messages.import]
+
 package com.example.sqs;
+
+// snippet-start:[sqs.java2.send_recieve_messages.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
@@ -22,9 +24,9 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
 // snippet-end:[sqs.java2.send_recieve_messages.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,25 +34,24 @@ public class SendMessages {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "SendMessages - send a message\n\n" +
-                "Usage: SendMessages <queueName> <message>\n\n" +
+        final String usage = "\n" +
+                "Usage: " +
+                "   <queueName> <message>\n\n" +
                 "Where:\n" +
-                "  queueName - the name of the queue.\n\n" +
-                "  message - the message to send.\n\n";
+                "   queueName - The name of the queue.\n\n" +
+                "   message - The message to send.\n\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
-        SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
-
         String queueName = args[0];
         String message = args[1];
-
+        SqsClient sqsClient = SqsClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
         sendMessage(sqsClient, queueName, message);
         sqsClient.close();
     }
@@ -82,5 +83,6 @@ public class SendMessages {
             System.exit(1);
         }
     }
+    // snippet-end:[sqs.java2.send_recieve_messages.main]
 }
-// snippet-end:[sqs.java2.send_recieve_messages.main]
+

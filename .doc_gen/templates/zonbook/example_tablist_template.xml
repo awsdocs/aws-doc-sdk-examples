@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
+]>
+<!-- zexi 0.2.0 -->
+<tablist>
+    {{- range $language, $example_id := .}}
+    <tablistentry>
+        <tabname>{{$language}}</tabname>
+        <tabcontent>
+            <xi:include href="file://AWSShared/code-samples/docs/{{$example_id}}_{{$language}}.xml"></xi:include>
+        </tabcontent>
+    </tablistentry>
+    {{- end}}
+</tablist>

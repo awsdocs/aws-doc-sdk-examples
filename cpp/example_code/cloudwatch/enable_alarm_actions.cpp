@@ -1,28 +1,22 @@
- 
-//snippet-sourcedescription:[enable_alarm_actions.cpp demonstrates how to enable actions on an Amazon CloudWatch alarm.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon CloudWatch]
-//snippet-service:[cloudwatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
 */
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: enable_alarm_actions.cpp demonstrates how to enable actions on an Amazon CloudWatch metric alarm.
+ *
+ * Prerequisites:
+ * An Amazon CloudWatch metric alarm.
+ *
+ * Inputs:
+ * - alarm_name: The name of the alarm (entered as the second argument in the command line).
+ * - instanceId: The instance ID of the alarm (entered as the third argument in the command line).
+ * - actionArn: The Amazon Resource Name (ARN) of the action (entered as the third argument in the command line).
+ *
+ * Outputs:
+ * The metric alarm is enabled.
+ * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.enable_alarm_actions.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>

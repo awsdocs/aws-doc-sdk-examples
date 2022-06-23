@@ -1,49 +1,52 @@
 ---
-# Amazon EC2 basic usage examples
+# Amazon Cloudwatch basic usage examples
 files:
-  - path: ec2_allocateaddress.ts
+  - path: .libs/cwClient.js
     services:
-      - ec2
-  - path: ec2_createinstances.ts
+      - cloudwatch
+  - path: .libs/cweClient.js
+      services:
+      - cloudwatch
+  - path: .libs/cwlClient.js
+      services:
+      - cloudwatch
+  - path: cw_deletealarms.js
     services:
-      - ec2
-  - path: ec2_createkeypair.ts
+      - cloudwatch
+  - path: cw_describealarms.js
     services:
-      - ec2
-  - path: ec2_createsecuritygroup.ts
+      - cloudwatch
+  - path: cw_disablealarmactions.js
     services:
-      - ec2
-  - path: ec2_deletekeypair.ts
+      - cloudwatch
+  - path: cw_enablealarmactions.js
     services:
-      - ec2
-  - path: ec2_deletesecuritygroup.ts
+      - cloudwatch
+  - path: cw_listmetrics.js
     services:
-      - ec2
-  - path: ec2_describeaddresses.ts
+      - cloudwatch
+  - path: cw_putmetricalarm.js
     services:
-      - ec2
-  - path: ec2_describeinstances.ts
+      - cloudwatch
+  - path: cw_putmetricdata.js
     services:
-      - ec2
-  - path: ec2_describekeypairs.ts
+      - cloudwatch
+  - path: cwe_putevents.js
     services:
-      - ec2
-  - path: ec2_describeregionsandzones.ts
+      - cloudwatch
+  - path: cwe_putrule.js
     services:
-      - ec2
-  - path: ec2_describesecuritygroups.ts
+      - cloudwatch
+  - path: cwe_puttargets.js
     services:
-      - ec2
-  - path: ec2_monitorinstances.ts
+      - cloudwatch
+  - path: cwl_deletesubscriptionfilter.js
     services:
-      - ec2
-  - path: ec2_rebootinstances.ts
+      - cloudwatch
+  - path: cwl_describesubscriptionfilters.js
     services:
-      - ec2
-  - path: ec2_releaseaddress.ts
+      - cloudwatch
+  - path: cwl_putsubscriptionfilter.js
     services:
-      - ec2
-  - path: ec2_startstopinstances.ts
-    services:
-      - ec2
+      - cloudwatch
 ...

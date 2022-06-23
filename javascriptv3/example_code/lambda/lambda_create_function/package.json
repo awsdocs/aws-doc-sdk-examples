@@ -7,17 +7,17 @@
   "author": "brmur",
   "license": "Apache 2.0",
   "scripts": {
-    "build:frontend": "webpack LambdaApp/index.ts --mode development --target web --devtool false -o LambdaApp/main.js",
-    "build:backend": "webpack mylamdbafunction.ts --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build:frontend": "webpack LambdaApp/index.js --mode development --target web --devtool false -o LambdaApp/main.js",
+    "build:backend": "webpack mylamdbafunction.js --mode development --target node --devtool false --output-library-target umd -o index.js",
     "test": "exit 0"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.3.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
-    "@aws-sdk/client-dynamodb": "^3.3.0",
-    "@aws-sdk/client-iam": "^3.3.0",
-    "@aws-sdk/client-lambda": "^3.3.0",
-    "@aws-sdk/client-cloudformation": "^3.3.0"
+    "@aws-sdk/client-cognito-identity": "^3.32.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
+    "@aws-sdk/client-dynamodb": "^3.32.0",
+    "@aws-sdk/client-iam": "^3.32.0",
+    "@aws-sdk/client-lambda": "^3.32.0",
+    "@aws-sdk/client-cloudformation": "^3.32.0"
   },
   "devDependencies": {
     "webpack": "^4.42.0",

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.kms;
 
 // snippet-start:[kms.java2_describe_key.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.DescribeKeyRequest;
@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.kms.model.KmsException;
 // snippet-end:[kms.java2_describe_key.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,15 +32,15 @@ public class DescribeKey {
 
     public static void main(String[] args) {
 
-       final String USAGE = "\n" +
+       final String usage = "\n" +
                 "Usage:\n" +
-                "    DescribeKey <keyId> \n\n" +
+                "    <keyId> \n\n" +
                 "Where:\n" +
-                "    keyId -  a key id value to describe (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
+                "    keyId -  A key id value to describe (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
 
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -48,6 +48,7 @@ public class DescribeKey {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         describeSpecifcKey(kmsClient, keyId );
@@ -70,6 +71,6 @@ public class DescribeKey {
            System.err.println(e.getMessage());
            System.exit(1);
        }
-        // snippet-end:[kms.java2_describe_key.main]
     }
+    // snippet-end:[kms.java2_describe_key.main]
 }

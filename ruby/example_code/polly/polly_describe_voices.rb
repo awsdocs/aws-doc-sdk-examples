@@ -1,25 +1,11 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists your Polly voices.]
-# snippet-keyword:[Amazon Polly]
-# snippet-keyword:[describe_voices method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[polly]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# polly_describe_voices.rb demonstrates how to
+# list your Amazon Polly voices using Amazon Polly using the AWS SDK for Ruby.
+
+# snippet-start:[polly.ruby.describeVoices]
 
 require 'aws-sdk-polly'  # In v2: require 'aws-sdk'
 
@@ -28,7 +14,7 @@ begin
   # credentials from the shared credentials file ~/.aws/credentials
   # and the configuration (region) from the shared configuration file ~/.aws/config
   polly = Aws::Polly::Client.new
-  
+
   # Get US English voices
   resp = polly.describe_voices(language_code: 'en-US')
 
@@ -42,3 +28,4 @@ rescue StandardError => ex
   puts 'Error message:'
   puts ex.message
 end
+# snippet-end:[polly.ruby.describeVoices]

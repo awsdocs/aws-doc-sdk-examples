@@ -49,6 +49,7 @@ public class CreateSolution {
         String solutionName = args[1];
         String recipeArn = args[2];
 
+        // Change to the region where your resources are located
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
                 .region(region)

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,7 +14,8 @@ package com.example.s3;
 // snippet-start:[s3.java2.set_acl.import]
 import java.util.ArrayList;
 import java.util.List;
-import software.amazon.awssdk.services.s3.model.Grantee;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.model.Permission;
 import software.amazon.awssdk.services.s3.model.Grant;
 import software.amazon.awssdk.services.s3.model.AccessControlPolicy;
@@ -27,37 +27,37 @@ import software.amazon.awssdk.services.s3.S3Client;
 // snippet-end:[s3.java2.set_acl.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class SetAcl {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "  SetAcl <bucketName> <id> \n\n" +
+                "  <bucketName> <id> \n\n" +
                 "Where:\n" +
-                    " bucketName - the Amazon S3 bucket to grant permissions on. \n" +
-                    " id - the ID of the owner of this bucket (you can get this value from the AWS Management Console).\n"  ;
+                 "  bucketName - The Amazon S3 bucket to grant permissions on. \n" +
+                 "  id - The ID of the owner of this bucket (you can get this value from the AWS Management Console).\n" ;
 
-        if (args.length != 3) {
-             System.out.println(USAGE);
+        if (args.length != 2) {
+             System.out.println(usage);
             System.exit(1);
         }
 
         String bucketName = args[0];
         String id = args[1];
-
         System.out.format("Setting access \n");
         System.out.println(" in bucket: " + bucketName);
 
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         setBucketAcl(s3, bucketName, id);
@@ -97,5 +97,6 @@ public class SetAcl {
             System.exit(1);
         }
     }
+    // snippet-end:[s3.java2.set_acl.main]
 }
-// snippet-end:[s3.java2.set_acl.main]
+

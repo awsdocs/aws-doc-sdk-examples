@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.createcampaign.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.CampaignResponse;
@@ -28,24 +28,24 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.createcampaign.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateCampaign {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
-                "CreateCampaign <appId> <segmentId>\n\n" +
+                "  <appId> <segmentId>\n\n" +
                 "Where:\n" +
-                "  appId - the ID of the application to create the campaign in.\n\n" +
-                "  segmentId - the ID of the segment to create the campaign from.\n\n";
+                "  appId - The ID of the application to create the campaign in.\n\n" +
+                "  segmentId - The ID of the segment to create the campaign from.\n\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -53,6 +53,7 @@ public class CreateCampaign {
         String segmentId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createPinCampaign(pinpoint, appId, segmentId) ;
@@ -62,13 +63,11 @@ public class CreateCampaign {
     //snippet-start:[pinpoint.java2.createcampaign.main]
     public static void createPinCampaign(PinpointClient pinpoint, String appId, String segmentId) {
 
-
         CampaignResponse result = createCampaign(pinpoint, appId, segmentId);
         System.out.println("Campaign " + result.name() + " created.");
         System.out.println(result.description());
 
     }
-
 
     public static CampaignResponse createCampaign(PinpointClient client, String appID, String segmentID) {
 
@@ -102,7 +101,6 @@ public class CreateCampaign {
             );
 
             System.out.println("Campaign ID: " + result.campaignResponse().id());
-
             return result.campaignResponse();
 
         } catch (PinpointException e) {

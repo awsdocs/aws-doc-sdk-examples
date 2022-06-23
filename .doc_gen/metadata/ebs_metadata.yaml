@@ -1,0 +1,49 @@
+# zexi 0.4.0
+ebs_StartSnapshot:
+  title: Create a &EBS; snapshot using an &AWS; SDK
+  title_abbrev: Create a snapshot
+  synopsis: create an &EBS; snapshot.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ebs
+          excerpts:
+            - description:
+              snippet_tags:
+                - ebs.rust.create-snapshot-start
+  services:
+    ebs: {StartSnapshot}
+ebs_PutSnapshotBlock:
+  title: Write a block of data to an &EBS; snapshot using an &AWS; SDK
+  title_abbrev: Write a block of data to a snapshot
+  synopsis: write a block of data to an &EBS; snapshot.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ebs
+          excerpts:
+            - description:
+              snippet_tags:
+                - ebs.rust.create-snapshot-add_block
+  services:
+    ebs: {PutSnapshotBlock}
+ebs_CompleteSnapshot:
+  title: Seal and complete the &EBS; snapshot using an &AWS; SDK
+  title_abbrev: Seal and complete a snapshot
+  synopsis: seal and complete an &EBS; snapshot.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ebs
+          excerpts:
+            - description:
+              snippet_tags:
+                - ebs.rust.create-snapshot-finish
+  services:
+    ebs: {CompleteSnapshot}

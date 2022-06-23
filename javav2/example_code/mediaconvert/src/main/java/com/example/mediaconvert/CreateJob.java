@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[smacdon - AWS ]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,6 +16,7 @@ package com.example.mediaconvert;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsResponse;
@@ -117,7 +117,7 @@ import software.amazon.awssdk.services.mediaconvert.model.M3u8Scte35Source;
  * Create a MediaConvert job. Must supply MediaConvert access role Amazon Resource Name (ARN), and a
  * valid video input file via Amazon S3 URL.
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -128,15 +128,15 @@ public class CreateJob {
 
    public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    CreateJob <mcRoleARN> <fileInput> \n\n" +
+                "    <mcRoleARN> <fileInput> \n\n" +
                 "Where:\n" +
-                "    mcRoleARN - the MediaConvert Role ARN. \n"+
-                "    fileInput -  the URL of an Amazon S3 bucket where the input file is located. \n";
+                "    mcRoleARN - The MediaConvert Role ARN. \n"+
+                "    fileInput -  The URL of an Amazon S3 bucket where the input file is located. \n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -145,6 +145,7 @@ public class CreateJob {
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
        String id = createMediaJob(mc, mcRoleARN, fileInput);
@@ -187,6 +188,7 @@ public class CreateJob {
             // output group Preset HLS high profole
             Output hlsHigh = createOutput("hls_high", "_high", "_$dt$", 3500000, 8, 1920, 1080, 1920);
             // snippet-start:[mediaconvert.java.createjob.create_hls_output]
+
             OutputGroup appleHLS = OutputGroup.builder().name("Apple HLS").customName("Example")
                     .outputGroupSettings(OutputGroupSettings.builder().type(OutputGroupType.HLS_GROUP_SETTINGS)
                             .hlsGroupSettings(HlsGroupSettings.builder()
@@ -206,6 +208,7 @@ public class CreateJob {
                     .outputs(hlsLow, hlsMedium, hlsHigh).build();
             // snippet-end:[mediaconvert.java.createjob.create_hls_output]
             // snippet-start:[mediaconvert.java.createjob.create_file_output]
+
             OutputGroup fileMp4 = OutputGroup.builder().name("File Group").customName("mp4")
                     .outputGroupSettings(OutputGroupSettings.builder().type(OutputGroupType.FILE_GROUP_SETTINGS)
                             .fileGroupSettings(FileGroupSettings.builder().destination(mp4Output).build()).build())
@@ -283,10 +286,12 @@ public class CreateJob {
                                     .build())
                             .build())
                     .build();
+
             // snippet-end:[mediaconvert.java.createjob.create_thumbnail_output]
-            Map<String, AudioSelector> audioSelectors = new HashMap<String, AudioSelector>();
+            Map<String, AudioSelector> audioSelectors = new HashMap<>();
             audioSelectors.put("Audio Selector 1",
                     AudioSelector.builder().defaultSelection(AudioDefaultSelection.DEFAULT).offset(0).build());
+
             JobSettings jobSettings = JobSettings.builder().inputs(Input.builder().audioSelectors(audioSelectors)
                     .videoSelector(
                             VideoSelector.builder().colorSpace(ColorSpace.FOLLOW).rotate(InputRotate.DEGREE_0).build())
@@ -387,13 +392,12 @@ public class CreateJob {
                             .build())
                     .build();
         } catch (MediaConvertException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             System.exit(0);
         }
         return output;
     }
     // snippet-end:[mediaconvert.java.createjob.create_output]
-
     // snippet-start:[mediaconvert.java.createjob.main]
 }
 // snippet-end:[mediaconvert.java.createjob.main]

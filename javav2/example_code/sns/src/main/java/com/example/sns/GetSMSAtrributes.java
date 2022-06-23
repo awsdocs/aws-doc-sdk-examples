@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
-//snippet-sourceauthor:[scmacdon- AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.sns;
 
 //snippet-start:[sns.java2.GetSMSAtrributes.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.GetSubscriptionAttributesRequest;
@@ -24,29 +24,30 @@ import java.util.Map;
 //snippet-end:[sns.java2.GetSMSAtrributes.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetSMSAtrributes {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
-                "GetSMSAtrributes <topicArn>\n\n" +
+                "   <topicArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic from which to retrieve attributes.\n\n";
+                "   topicArn - The ARN of the topic from which to retrieve attributes.\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_WEST_2)
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getSNSAttrutes(snsClient, topicArn);
@@ -67,7 +68,6 @@ public class GetSMSAtrributes {
 
             // Iterate through the map
             Iterator iter = map.entrySet().iterator();
-
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
@@ -79,6 +79,6 @@ public class GetSMSAtrributes {
         }
 
         System.out.println("\n\nStatus was good");
-        //snippet-end:[sns.java2.GetSMSAtrributes.main]
     }
+    //snippet-end:[sns.java2.GetSMSAtrributes.main]
 }

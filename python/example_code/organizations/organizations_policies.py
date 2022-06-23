@@ -18,6 +18,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.organizations.CreatePolicy]
 def create_policy(name, description, content, policy_type, orgs_client):
     """
     Creates a policy.
@@ -41,8 +42,10 @@ def create_policy(name, description, content, policy_type, orgs_client):
         raise
     else:
         return policy
+# snippet-end:[python.example_code.organizations.CreatePolicy]
 
 
+# snippet-start:[python.example_code.organizations.ListPolicies]
 def list_policies(policy_filter, orgs_client):
     """
     Lists the policies for the account, limited to the specified filter.
@@ -60,8 +63,10 @@ def list_policies(policy_filter, orgs_client):
         raise
     else:
         return policies
+# snippet-end:[python.example_code.organizations.ListPolicies]
 
 
+# snippet-start:[python.example_code.organizations.DescribePolicy]
 def describe_policy(policy_id, orgs_client):
     """
     Describes a policy.
@@ -79,8 +84,10 @@ def describe_policy(policy_id, orgs_client):
         raise
     else:
         return policy
+# snippet-end:[python.example_code.organizations.DescribePolicy]
 
 
+# snippet-start:[python.example_code.organizations.AttachPolicy]
 def attach_policy(policy_id, target_id, orgs_client):
     """
     Attaches a policy to a target. The target is an organization root, account, or
@@ -97,8 +104,10 @@ def attach_policy(policy_id, target_id, orgs_client):
         logger.exception(
             "Couldn't attach policy %s to target %s.", policy_id, target_id)
         raise
+# snippet-end:[python.example_code.organizations.AttachPolicy]
 
 
+# snippet-start:[python.example_code.organizations.DetachPolicy]
 def detach_policy(policy_id, target_id, orgs_client):
     """
     Detaches a policy from a target.
@@ -114,8 +123,10 @@ def detach_policy(policy_id, target_id, orgs_client):
         logger.exception(
             "Couldn't detach policy %s from target %s.", policy_id, target_id)
         raise
+# snippet-end:[python.example_code.organizations.DetachPolicy]
 
 
+# snippet-start:[python.example_code.organizations.DeletePolicy]
 def delete_policy(policy_id, orgs_client):
     """
     Deletes a policy.
@@ -130,6 +141,7 @@ def delete_policy(policy_id, orgs_client):
         logger.exception(
             "Couldn't delete policy %s.", policy_id)
         raise
+# snippet-end:[python.example_code.organizations.DeletePolicy]
 
 
 def usage_demo(target_id):

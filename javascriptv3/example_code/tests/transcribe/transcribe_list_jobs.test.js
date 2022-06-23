@@ -1,13 +1,14 @@
-const mockListTranscriptionJobs = jest.fn();
-jest.mock("@aws-sdk/client-transcribe/commands/ListTranscriptionJobCommand", () => ({
-  Transcribe: function Transcribe() {
-    this.ListTranscriptionJobCommand = mockListTranscriptionJobs;
-  },
-}));
-const { run } = require("../../transcribe/src/transcribe_list_jobs");
+const { run, params } = require("../../transcribe/src/transcribe_list_jobs");
+const {
+  transcribeClient,
+} = require("../../transcribe/src/libs/transcribeClient.js");
 
-test("has to mock Transcribe#transcribe_list_jobs", async (done) => {
-  await run();
-  expect(mockListTranscriptionJobs).toHaveBeenCalled;
-  done();
+jest.mock("../../transcribe/src/libs/transcribeClient.js");
+
+describe("@aws-sdk/client-transcribe mock", () => {
+  it("should successfully mock Transcribe client", async () => {
+    transcribeClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

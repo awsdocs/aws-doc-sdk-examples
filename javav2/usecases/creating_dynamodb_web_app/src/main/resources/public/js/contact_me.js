@@ -1,7 +1,5 @@
 $(function() {
 
-
-
     $("#SendButton" ).click(function($e) {
 
         var guide = $('#guide').val();
@@ -22,36 +20,19 @@ $(function() {
             return;
         }
 
-        //invokes the getMyForms POST operation
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadNewItems, false);
-        xhr.open("POST", "../add", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("guide=" + guide + "&description=" + description+ "&status=" + status);
+        $.ajax('/add', {
+            type: 'POST',  // http GET method
+            data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
+            success: function (data, status, xhr) {
+
+                alert("You have successfully added item "+data)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
+
     } );// END of the Send button click
-
-    //Handler for the uploadSave call
-    //This will populate the Data Table widget
-    function loadNewItems(event) {
-
-        var msg = event.target.responseText;
-        alert("You have successfully added item "+msg)
-
-    }
-
-   } );
-
-
-
-  function getDataValue()
-  {
-    var radioValue = $("input[name='optradio']:checked").val();
-   return radioValue;
-  }
-
-
-
-
-
+ } );
 
 

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_subscription_filter.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.CloudWatchLogsException;
@@ -33,27 +33,29 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilte
  * Make sure you replace the function name with your function name and replace the xxxxxx with your account details.
  * For more information, see "Subscription Filters with AWS Lambda" in the Amazon CloudWatch Logs Guide.
  *
- * In addition, ensure that you have setup your development environment, including your credentials.
- *  For information, see this documentation topic:
  *
- *   https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * Also, before running this Java V2 code example,set up your development environment,including your credentials.
+ *
+ * For more information,see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
  */
 
 public class PutSubscriptionFilter {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "  PutSubscriptionFilter <filter> <pattern> <logGroup> <functionArn> \n\n" +
+                "  <filter> <pattern> <logGroup> <functionArn> \n\n" +
                 "Where:\n" +
-                "  filter - a filter name (for example, myfilter).\n" +
-                "  pattern - a filter pattern (for example, ERROR).\n" +
-                "  logGroup - a log group name (testgroup).\n" +
-                "  functionArn - an AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1) .\n" ;
+                "  filter - A filter name (for example, myfilter).\n" +
+                "  pattern - A filter pattern (for example, ERROR).\n" +
+                "  logGroup - A log group name (testgroup).\n" +
+                "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1) .\n" ;
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -61,10 +63,10 @@ public class PutSubscriptionFilter {
         String pattern = args[1];
         String logGroup = args[2];
         String functionArn = args[3];
-
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cwl = CloudWatchLogsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         putSubFilters(cwl, filter, pattern, logGroup, functionArn ) ;
@@ -97,5 +99,6 @@ public class PutSubscriptionFilter {
             System.exit(1);
         }
     }
+    // snippet-end:[cloudwatch.java2.put_subscription_filter.main]
 }
-// snippet-end:[cloudwatch.java2.put_subscription_filter.main]
+

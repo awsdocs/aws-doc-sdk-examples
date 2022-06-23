@@ -10,10 +10,12 @@
 #include <aws/core/utils/logging/CRTLogSystem.h>
 #include <aws/s3-crt/S3CrtClient.h>
 #include <aws/s3-crt/model/CreateBucketRequest.h>
+#include <aws/s3-crt/model/BucketLocationConstraint.h>
 #include <aws/s3-crt/model/DeleteBucketRequest.h>
 #include <aws/s3-crt/model/PutObjectRequest.h>
 #include <aws/s3-crt/model/GetObjectRequest.h>
 #include <aws/s3-crt/model/DeleteObjectRequest.h>
+#include <aws/core/utils/UUID.h>
 
 static const char ALLOCATION_TAG[] = "s3-crt-demo";
 
@@ -41,12 +43,22 @@ bool ListBuckets(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& 
 }
 
 // Create an Amazon Simple Storage Service (Amazon S3) bucket.
-bool CreateBucket(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName) {
+bool CreateBucket(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName,
+    const Aws::S3Crt::Model::BucketLocationConstraint& locConstraint) {
 
     std::cout << "Creating bucket: \"" << bucketName << "\" ..." << std::endl;
 
     Aws::S3Crt::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
+
+    //  If you don't specify an AWS Region, the bucket is created in the US East (N. Virginia) Region (us-east-1)
+    if (locConstraint != Aws::S3Crt::Model::BucketLocationConstraint::us_east_1)
+    {
+        Aws::S3Crt::Model::CreateBucketConfiguration bucket_config;
+        bucket_config.SetLocationConstraint(locConstraint);
+
+        request.SetCreateBucketConfiguration(bucket_config);
+    }
 
     Aws::S3Crt::Model::CreateBucketOutcome outcome = s3CrtClient.CreateBucket(request);
 
@@ -99,6 +111,8 @@ bool PutObject(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bu
     }
     request.SetBody(bodyStream);
 
+    //A PUT operation turns into a multipart upload using the s3-crt client.
+    //https://github.com/aws/aws-sdk-cpp/wiki/Improving-S3-Throughput-with-AWS-SDK-for-CPP-v1.9
     Aws::S3Crt::Model::PutObjectOutcome outcome = s3CrtClient.PutObject(request);
 
     if (outcome.IsSuccess()) {
@@ -125,7 +139,9 @@ bool GetObject(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bu
     Aws::S3Crt::Model::GetObjectOutcome outcome = s3CrtClient.GetObject(request);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Object content: " << outcome.GetResult().GetBody().rdbuf() << std::endl << std::endl;
+       //Uncomment this line if you wish to have the contents of the file displayed. Not recommended for large files
+       // because it takes a while.
+       // std::cout << "Object content: " << outcome.GetResult().GetBody().rdbuf() << std::endl << std::endl;
 
         return true;
     }
@@ -168,10 +184,11 @@ bool DeleteObject(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String&
 int main(int argc, char* argv[]) {
 
     Aws::SDKOptions options;
-
-    // Override default log level for AWS common runtime libraries to prevent from being overwhelmed by logs from them.
+    //Turn on logging.
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Info;
+    // Override the default log level for AWS common runtime libraries to see multipart upload entries in the log file.
     options.loggingOptions.crt_logger_create_fn = []() {
-        return Aws::MakeShared<Aws::Utils::Logging::DefaultCRTLogSystem>(ALLOCATION_TAG, Aws::Utils::Logging::LogLevel::Warn);
+        return Aws::MakeShared<Aws::Utils::Logging::DefaultCRTLogSystem>(ALLOCATION_TAG, Aws::Utils::Logging::LogLevel::Debug);
     };
 
     // Uncomment the following code to override default global client bootstrap for AWS common runtime libraries.
@@ -186,16 +203,32 @@ int main(int argc, char* argv[]) {
     // Uncomment the following code to override default global TLS connection options for AWS common runtime libraries.
     // options.ioOptions.tlsConnectionOptions_create_fn = []() {
     //     Aws::Crt::Io::TlsContextOptions tlsCtxOptions = Aws::Crt::Io::TlsContextOptions::InitDefaultClient();
+    //     tlsCtxOptions.OverrideDefaultTrustStore(<CaPathString>, <CaCertString>);
     //     Aws::Crt::Io::TlsContext tlsContext(tlsCtxOptions, Aws::Crt::Io::TlsMode::CLIENT);
     //     return Aws::MakeShared<Aws::Crt::Io::TlsConnectionOptions>(ALLOCATION_TAG, tlsContext.NewConnectionOptions());
     // };
 
     Aws::InitAPI(options);
     {
-        Aws::String bucket_name = "my-bucket";
-        Aws::String object_key = "my-object";
-        Aws::String file_name = "my-file";
+
+        // TODO: Add a large file to your executable folder, and update file_name to the name of that file.
+        //    File "ny.json" (1940 census data; https://www.archives.gov/developer/1940-census#accessportiondataset) 
+        //    is an example data file large enough to demonstrate multipart upload.  
+        // Download "ny.json" from https://nara-1940-census.s3.us-east-2.amazonaws.com/metadata/json/ny.json
+        Aws::String file_name = "ny.json";
+        
+        //TODO: Set to your account AWS Region.
         Aws::String region = Aws::Region::US_EAST_1;
+
+        //The object_key is the unique identifier for the object in the bucket.
+        Aws::String object_key = "my-object";
+
+        // Create a globally unique name for the new bucket.
+        // Format: "my-bucket-" + lowercase UUID.
+        Aws::String uuid = Aws::Utils::UUID::RandomUUID();
+        Aws::String bucket_name = "my-bucket-" +
+            Aws::Utils::StringUtils::ToLower(uuid.c_str());
+
         const double throughput_target_gbps = 5;
         const uint64_t part_size = 8 * 1024 * 1024; // 8 MB.
 
@@ -206,9 +239,13 @@ int main(int argc, char* argv[]) {
 
         Aws::S3Crt::S3CrtClient s3_crt_client(config);
 
+        //Use BucketLocationConstraintMapper to get the BucketLocationConstraint enum from the region string.
+        //https://sdk.amazonaws.com/cpp/api/0.14.3/namespace_aws_1_1_s3_1_1_model_1_1_bucket_location_constraint_mapper.html#a50d4503d3f481022f969eff1085cfbb0
+        Aws::S3Crt::Model::BucketLocationConstraint locConstraint = Aws::S3Crt::Model::BucketLocationConstraintMapper::GetBucketLocationConstraintForName(region);
+
         ListBuckets(s3_crt_client, bucket_name);
 
-        CreateBucket(s3_crt_client, bucket_name);
+        CreateBucket(s3_crt_client, bucket_name, locConstraint);
 
         PutObject(s3_crt_client, bucket_name, object_key, file_name);
 

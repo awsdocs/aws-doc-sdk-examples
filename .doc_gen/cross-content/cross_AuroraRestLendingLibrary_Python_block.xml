@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to use the &Python3long; with the &RDSlong; (&RDS;) API and &AWS; Chalice to create a REST API
+        backed by an &AURlong; database. The web service is fully serverless and represents
+        a simple lending library where patrons can borrow and return books. Learn how to:
+    </para>
+
+    <itemizedlist>
+        <listitem><para>Create and manage a serverless &AUR; database cluster.</para></listitem>
+        <listitem><para>Use &ASMlong; to manage database credentials.</para></listitem>
+        <listitem><para>Implement a data storage layer that uses &RDS; to move data into
+            and out of the database.</para></listitem>
+        <listitem><para>Use &AWS; Chalice to deploy a serverless REST API to &ABPlong; and &LAMlong;.</para></listitem>
+        <listitem><para>Use the Requests package to send requests to the web service.</para></listitem>
+    </itemizedlist>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/aurora_rest_lending_library">GitHub</ulink>.
+    </para>
+</block>

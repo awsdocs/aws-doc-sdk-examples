@@ -1,28 +1,35 @@
-# AWS Step Functions state machine example
+# AWS Step Functions examples
 
 ## Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with AWS Step Functions to
 create and run state machines.
 
-* Create a state machine that retrieves and updates message records from an 
-Amazon DynamoDB table.
-* Update the state machine definition to also send messages to Amazon Simple Queue Service 
-(Amazon SQS).
-* Start and stop state machine runs.
-* Connect to AWS Lambda, DynamoDB, and Amazon SQS from a state machine by using service
-integrations.
+*AWS Step Functions makes it easy to coordinate the components of distributed 
+applications as a series of steps in a visual workflow.* 
 
-## Prerequisites
+## Code examples
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.14.47 or later
-- PyTest 5.3.5 or later (to run unit tests)
+### API examples
 
-## Cautions
+* [Create a state machine](stepfunctions_basics.py)
+(`CreateStateMachine`)
+* [Delete a state machine](stepfunctions_basics.py)
+(`DeleteStateMachine`)
+* [Describe a state machine](stepfunctions_basics.py)
+(`DescribeStateMachine`)
+* [List state machine runs](stepfunctions_basics.py)
+(`ListExecutions`)
+* [List state machines](stepfunctions_basics.py)
+(`ListStateMachines`)
+* [Start a state machine run](stepfunctions_basics.py)
+(`StartExecution`)
+* [Stop a state machine run](stepfunctions_basics.py)
+(`StopExecution`)
+* [Update a state machine](stepfunctions_basics.py)
+(`UpdateStateMachine`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -37,77 +44,28 @@ integrations.
 
 ## Running the code
 
-### Deploy resources
+### Prerequisites
 
-Deploy prerequisite resources by running the example script with the `deploy` flag at 
-a command prompt.
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.14.47 or later
+- PyTest 5.3.5 or later (to run unit tests)
 
-```
-python stepfunctions_demo.py deploy
-```
+### Command
 
-### Run the usage demonstration
+This example shows how to implement basic Step Functions operations. For
+a full example that can be run at a command prompt, see 
+[python/cross_service/stepfunctions_messenger](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/cross_service/stepfunctions_messenger). 
 
-Run the usage example with the `demo` flag at a command prompt.
+### Example structure
 
-```
-python stepfunctions_demo.py demo
-``` 
-
-### Destroy resources
-
-Destroy example resources by running the script with the `destroy` flag at a command 
-prompt.
-
-```
-python stepfunctions_demo.py destroy
-``` 
-
-## Example structure
-
-The example contains the following files.
-
-**state_definitions.py**
-
-Constructs state definitions used for the demonstration by inserting resource 
-identifiers that are retrieved from the CloudFormation stack and 
-optionally including a state that sends messages to Amazon SQS. Definitions are built 
-as Python dicts and must be transformed to JSON format before they are used in 
-Step Functions. 
+The example contains the following file.
 
 **stepfunctions_basics.py**
 
 Shows how to use AWS Step Functions state machine APIs. 
-
-**stepfunctions_demo.py**
-
-Shows how to create a Step Functions state machine that continuously reads message 
-records from an Amazon DynamoDB database and sends them to an Amazon Simple Queue 
-Service (Amazon SQS) queue.
-
-1. Creates a state machine that calls a Lambda function to get messages and update
-them as sent.
-1. Runs the state machine and verifies that it updates items as expected in the 
-DynamoDB table.
-1. Updates the state machine with a new definition that includes a state that sends
-message to Amazon SQS.
-1. Runs the state machine again and verifies that it now sends messages to Amazon SQS. 
-
-**setup.yaml**
-
-Contains a CloudFormation script that is used to create the resources needed for 
-the demo. Pass the `deploy` or `destroy` flag to the `stepfunctions_demo.py` script to 
-create or remove these resources:
-
-* A DynamoDB table.
-* A Lambda function.
-* An Amazon SQS queue.
-* AWS Identity and Access Management (IAM) roles.
-
-The `setup.yaml` file was built from the 
-[AWS Cloud Development Kit (AWS CDK)](https://docs.aws.amazon.com/cdk/) 
-source script here: 
-[/resources/cdk/python_example_code_stepfunctions_demo/setup.ts](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/python_example_code_stepfunctions_demo/setup.ts). 
 
 ## Running the tests
 

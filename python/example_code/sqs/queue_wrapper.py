@@ -3,36 +3,13 @@
 
 """
 Purpose
-    Demonstrate basic queue operations in Amazon Simple Queue Service (Amazon SQS).
-    Learn how to create, get, and remove standard, FIFO, and dead-letter queues.
-    Usage is shown in the test/test_queue_wrapper.py file.
 
-Prerequisites
-    - You must have an AWS account, and have your default credentials and AWS Region
-      configured as described in the [AWS Tools and SDKs Shared Configuration and
-      Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-    - Python 3.6 or later
-    - Boto 3 1.11.10 or later
-    - PyTest 5.3.5 or later (to run unit tests)
-
-Running the tests
-    The best way to learn how to use this service is to run the tests.
-    For instructions on testing, see the docstring in test/test_queue_wrapper.py.
-
-Running the code
-    Run individual functions in the Python shell to make calls to your AWS account.
-
-        > python
-        >>> import queue_wrapper
-        >>> queue_wrapper.create_queue("My-test-queue")
-        sqs.Queue(url='https://us-west-2.queue.amazonaws.com/1234EXAMPLE/My-test-queue')
-        >>> queue = queue_wrapper.get_queue("My-test-queue")
-        >>> queue_wrapper.remove_queue(queue)
-
-Additional information
-    Running this code might result in charges to your AWS account.
+Demonstrate basic queue operations in Amazon Simple Queue Service (Amazon SQS).
+Learn how to create, get, and remove standard, FIFO, and dead-letter queues.
+Usage is shown in the test/test_queue_wrapper.py file.
 """
 
+# snippet-start:[python.example_code.sqs.queue_wrapper_imports]
 import logging
 
 import boto3
@@ -40,13 +17,13 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 sqs = boto3.resource('sqs')
+# snippet-end:[python.example_code.sqs.queue_wrapper_imports]
 
 
+# snippet-start:[python.example_code.sqs.CreateQueue]
 def create_queue(name, attributes=None):
     """
     Creates an Amazon SQS queue.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param name: The name of the queue. This is part of the URL assigned to the queue.
     :param attributes: The attributes of the queue, such as maximum message size or
@@ -68,13 +45,13 @@ def create_queue(name, attributes=None):
         raise error
     else:
         return queue
+# snippet-end:[python.example_code.sqs.CreateQueue]
 
 
+# snippet-start:[python.example_code.sqs.GetQueueUrl]
 def get_queue(name):
     """
     Gets an SQS queue by name.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param name: The name that was used to create the queue.
     :return: A Queue object.
@@ -87,14 +64,14 @@ def get_queue(name):
         raise error
     else:
         return queue
+# snippet-end:[python.example_code.sqs.GetQueueUrl]
 
 
+# snippet-start:[python.example_code.sqs.ListQueues]
 def get_queues(prefix=None):
     """
     Gets a list of SQS queues. When a prefix is specified, only queues with names
     that start with the prefix are returned.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param prefix: The prefix used to restrict the list of returned queues.
     :return: A list of Queue objects.
@@ -109,14 +86,14 @@ def get_queues(prefix=None):
     else:
         logger.warning("No queues found.")
     return queues
+# snippet-end:[python.example_code.sqs.ListQueues]
 
 
+# snippet-start:[python.example_code.sqs.DeleteQueue]
 def remove_queue(queue):
     """
     Removes an SQS queue. When run against an AWS account, it can take up to
     60 seconds before the queue is actually deleted.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param queue: The queue to delete.
     :return: None
@@ -127,10 +104,16 @@ def remove_queue(queue):
     except ClientError as error:
         logger.exception("Couldn't delete queue with URL=%s!", queue.url)
         raise error
+# snippet-end:[python.example_code.sqs.DeleteQueue]
 
 
+# snippet-start:[python.example_code.sqs.Scenario_ManageQueues]
 def usage_demo():
-    """Demonstrates some ways to use the functions in this module."""
+    """Shows how to create, list, and delete queues."""
+    print('-'*88)
+    print("Welcome to the Amazon Simple Queue Service (Amazon SQS) demo!")
+    print('-'*88)
+
     prefix = 'sqs-usage-demo-'
     river_queue = create_queue(
         prefix + 'peculiar-river',
@@ -168,17 +151,10 @@ def usage_demo():
         remove_queue(queue)
         print(f"Removed queue with URL: {queue.url}.")
 
-
-def main():
-    go = input("Running the usage demonstration uses your default AWS account "
-               "credentials and might incur charges on your account. Do you want "
-               "to continue (y/n)? ")
-    if go.lower() == 'y':
-        print("Starting the usage demo. Enjoy!")
-        usage_demo()
-    else:
-        print("Thanks anyway!")
+    print("Thanks for watching!")
+    print('-'*88)
+# snippet-end:[python.example_code.sqs.Scenario_ManageQueues]
 
 
 if __name__ == '__main__':
-    main()
+    usage_demo()

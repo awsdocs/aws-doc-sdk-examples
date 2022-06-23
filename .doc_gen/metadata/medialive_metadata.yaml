@@ -1,0 +1,17 @@
+# zexi 0.4.0
+medialive_ListInputs:
+  title: List your &EML; inputs using an &AWS; SDK
+  title_abbrev: List inputs
+  synopsis: list your &EML; inputs.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/medialive
+          excerpts:
+            - description: List your &EML; input names and ARNs in the Region.
+              snippet_tags:
+                - medialive.rust.medialive-helloworld
+  services:
+    medialive: {ListInputs}

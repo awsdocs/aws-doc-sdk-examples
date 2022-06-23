@@ -1,26 +1,27 @@
-#  Creating the DynamoDB web application item tracker
+#  Creating the Amazon DynamoDB web application item tracker
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for Java V2.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 3/14/2022        |
+| Required Skills   | Java, Maven  |
+
+
+
+## Purpose
 You can develop a web application that tracks and reports on work items by using the following AWS services:
 
 + Amazon DynamoDB to store the data
 + Amazon Simple Email Service (Amazon SES) to send email messages
-+ AWS Elastic Beanstalk to host the application
 
-**Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and DynamoDB.
+**Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and Amazon DynamoDB.
 
-The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
 
-This tutorial guides you through creating the **DynamoDB Item Tracker** application. After the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
-The following figure shows you the structure of the Java project.
-
-![AWS Tracking Application](images/pic1a.png)
-
-**Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
@@ -32,8 +33,7 @@ The following figure shows you the structure of the Java project.
 + Create the Java classes
 + Create the HTML files
 + Create script files
-+ Create a JAR file for the application
-+ Deploy the application to Elastic Beanstalk
++ Run the application
 
 ## Prerequisites
 
@@ -41,9 +41,22 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java 1.8 JDK
++ Java JDK 1.8
 + Maven 3.6 or later
-+ A DynamoDB table named **Work** with a key named **id**
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
+In addition, make sure that you set up your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+
 
 ## Understand the DynamoDB Item Tracker application
 The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
@@ -61,7 +74,7 @@ The following figure shows the login page.
 
 When a user logs into the application, they see the **Home** page.
 
-![AWS Tracking Application](images/pic3a.png)
+![AWS Tracking Application](images/homepage2.png)
 
 #### Application functionality
 A user can perform these tasks in the **DynamoDB Item Tracker** application:
@@ -74,7 +87,7 @@ A user can perform these tasks in the **DynamoDB Item Tracker** application:
 
 The following figure shows the new item section.
 
-![AWS Tracking Application](images/pic4.png)
+![AWS Tracking Application](images/additems.png)
 
 A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from the DynamoDB **Work** table and displayed in the web application.
 
@@ -97,7 +110,7 @@ The DynamoDB table is named **Work** and contains the following fields:
 
 The following figure shows the **Work** table.
 
-![AWS Tracking Application](images/pic7.png)
+![AWS Tracking Application](images/worktable.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDB
 
@@ -112,231 +125,201 @@ The following figure shows the **Work** table.
 
 At this point, you have a new project named **ItemTrackerDynamoDB**.
 
-![AWS Tracking Application](images/pic8.png)
+![AWS Tracking Application](images/project.png)
 
 In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
 
      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-      </parent>
-
-In the **dependencies** element, add the following Spring Boot **dependency** elements.
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
-    <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-test</artifactId>
-     <scope>test</scope>
-      <exclusions>
-       <exclusion>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-       </exclusion>
-      </exclusions>
-    </dependency>
-
-Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
-
- 	<dependency>
-          <groupId>software.amazon.awssdk</groupId>
-          <artifactId>ses</artifactId>
-          <version>2.10.41</version>
-        </dependency>
+        <version>2.6.1</version>
+        <relativePath/> 
+    </parent>
 
 **Note:** Ensure that you are using Java 1.8 (as shown below).
 
 Ensure that the **pom.xml** file looks like the following.
 
-     <?xml version="1.0" encoding="UTF-8"?>
-	<project xmlns="http://maven.apache.org/POM/4.0.0"
+```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>ItemTrackerDynamoDB</groupId>
-    <artifactId>ItemTrackerDynamoDB</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <parent>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>ItemTrackerDynamoDB</groupId>
+   <artifactId>ItemTrackerDynamoDB</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.6.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <properties>
-       <java.version>1.8</java.version>
-    </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>2.11.11</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+   <properties>
+    <java.version>1.8</java.version>
+   </properties>
+   <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-            <version>2.5.10</version>
+            <artifactId>bom</artifactId>
+            <version>2.17.102</version>
+            <type>pom</type>
+            <scope>import</scope>
         </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb-enhanced</artifactId>
-            <version>2.11.4-PREVIEW</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.4.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-commons</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>1.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>ses</artifactId>
-        </dependency>
-         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.8.0</version>
-            <scope>test</scope>
-        </dependency>
-         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>protocol-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.5.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.5.5</version>
-        </dependency>
-        <dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>dynamodb</artifactId>
+        <version>2.17.102</version>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>dynamodb-enhanced</artifactId>
+        <version>2.17.102</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.8.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.8.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-commons</artifactId>
+        <version>1.8.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-launcher</artifactId>
+        <version>1.8.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>ses</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>3.8.0</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+        <version>1.6.0</version>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>protocol-core</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+        <version>1.6.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.6.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <!-- bootstrap and jquery -->
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>bootstrap</artifactId>
+        <version>5.1.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>jquery</artifactId>
+        <version>3.6.0</version>
+    </dependency>
+     <dependency>
+        <groupId>net.sourceforge.jexcelapi</groupId>
+        <artifactId>jxl</artifactId>
+        <version>2.6.12</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>20030203.000550</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.7</version>
+    </dependency>
+   </dependencies>
+   <build>
+    <plugins>
+        <plugin>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!-- bootstrap and jquery -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.2.1</version>
-        </dependency>
-        <!-- mysql connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.jexcelapi</groupId>
-            <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-       </dependencies>
-       <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-       </build>
-      </project>
-
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${project.parent.version}</version>
+        </plugin>
+    </plugins>
+   </build>
+   </project>
+```
 
 ## Set up the Java packages in your project
 
 Create a Java package in the **main/java** folder named **com.example**.
 
-![AWS Tracking Application](images/pic9.png)
+![AWS Tracking Application](images/project1.png)
 
 The Java files go into the following subpackages.
 
-![AWS Tracking Application](images/pic10.png)
+![AWS Tracking Application](images/project2.png)
 
 These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
-+ **secureweb** - Contains the SpringJava classes.
++ **secureweb** - Contains the Spring Java classes.
 
 **Note:** The only class that is in **com.example** is **SecureWebApp**. All other classes are in the subpackages.
 
@@ -348,6 +331,7 @@ Create the Java classes, including the Spring classes. In this application, a Ja
 
 In the **com.example** package, create a class named **SecureWebApp**. This is the entry point into the Spring boot application and uses the **@SpringBootApplication** annotation. The following Java code represents this class.
 
+```java
     package com.example;
 
     import org.springframework.boot.SpringApplication;
@@ -360,7 +344,7 @@ In the **com.example** package, create a class named **SecureWebApp**. This is t
         SpringApplication.run(SecureWebApp.class, args);
      }
     }
-
+```
 
 ### Create the Spring security classes
 
@@ -373,6 +357,7 @@ Create a Java package named **com.example.secureweb**. Next, create these classe
 
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
 
+```java
     package com.example.secureweb;
 
     import org.springframework.context.annotation.Bean;
@@ -428,6 +413,7 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         return new BCryptPasswordEncoder();
     }
     }
+```    
 
 **Note:** In this example, the user credentials to log in to the application are **user** and **password**.  
 
@@ -435,12 +421,11 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 In the **com.example.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
 
-**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of this method is shown later in this tutorial.
-
 #### MainController class
 
 The following Java code represents the **MainController** class.
 
+```java
      package com.example.secureweb;
 
      import com.example.entities.WorkItem;
@@ -589,17 +574,7 @@ The following Java code represents the **MainController** class.
       return name;
      }
      }
-
-#### To create the WebSecurityConfig classes
-
-1. Create the **com.example.secureweb** package.
-2. Create the **WebSecurityConfig** class and paste the code into it.
-
-#### To create the MainController class
-
-1. In the **com.example.secureweb** package, create the **MainController** class.
-2. Copy the code from the **MainController** class and paste it into this class in your project.
-
+```
 ### Create the WorkItem class
 
 Create a Java package named **com.example.entities**. Next, create a class named **WorkItem** that represents the application model.  
@@ -607,6 +582,7 @@ Create a Java package named **com.example.entities**. Next, create a class named
 #### WorkItem class
 The following Java code represents the **WorkItem** class.
 
+```java
     package com.example.entities;
 
     public class WorkItem {
@@ -666,10 +642,7 @@ The following Java code represents the **WorkItem** class.
      return this.guide;
      }
      }
-
-#### To create the WorkItem class
-1. In the **com.example.entities** package, create the **WorkItem** class.
-2. Copy the code from the **WorkItem** class and paste it into this class in your project.
+```
 
 ### Create the service classes
 
@@ -681,10 +654,10 @@ The service classes contain Java application logic that invokes AWS services. In
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
 
 #### DynamoDBService class
+
 The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code represents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query active or closed items. For example, in the **getClosedItems** method, only closed items are retrieved.
 
-Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
-
+```java
      package com.example.services;
 
      import com.example.entities.WorkItem;
@@ -727,8 +700,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
       // Create a DynamoDbClient object
       Region region = Region.US_EAST_1;
       DynamoDbClient ddb = DynamoDbClient.builder()
-         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-	 .region(region)
+         .region(region)
          .build();
 
        return ddb;
@@ -886,7 +858,6 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         }
         return "";
     }
-
       
       // Updates items in the Work table.
       public String UpdateItem(String id, String status){
@@ -1223,11 +1194,13 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             return null;
            }
           }
+```
 
 #### Work class
 The **Work** class is used with the DynamoDB enhanced client and maps the **Work** data members to items in the **Work** table. Notice that this class uses the **@DynamoDbBean** annotation.
 
-    package com.example.services;
+```java
+   package com.example.services;
 
     import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
     import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -1306,13 +1279,15 @@ The **Work** class is used with the DynamoDB enhanced client and maps the **Work
       this.description = description;
        }
       }
-
+```
 
 #### SendMessage class
+
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
+The following Java code represents the **SendMessage** class. 
 
+```java
     package com.example.services;
 
     import org.apache.commons.io.IOUtils;
@@ -1458,6 +1433,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
         System.out.println("Email sent with attachment");
       }
      }
+```
 
 **Note:** Update the email **sender** address with a verified email address.      
 
@@ -1465,6 +1441,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
 
+```java
     package com.rxample.services;
 
     import jxl.CellView;
@@ -1635,15 +1612,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return count;
      }
     }
-
-#### To create the service classes
-
-1. Create the **com.example.services** package.
-2. Create the **DynamoDBService** class and add the Java code to it.
-3. Create the **SendMessages** class and add the Java code to it.   
-4. Create the **WriteExcel** class and add the Java code to it.
-5. Create the **Work** class and add the Java code to it.
-
+```
 ## Create the HTML files
 
 At this point, you have created all of the Java files required for the **DynamoDB Item Tracker** application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder, and then create the following HTML files:
@@ -1660,6 +1629,7 @@ The **login.html** file is the login page where a user logs in to the applicatio
 
 The following HTML code represents the login form.
 
+```html
     	<!DOCTYPE html>
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
         xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -1756,55 +1726,53 @@ The following HTML code represents the login form.
 
        </body>
       </html>
+```
 
 #### index.html
 
 The following HTML code represents the **index.html** file. This file represents the application's home view.
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-
-      <title>AWS Item Tracker</title>
+     <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+     <title>Amazon DynamoDB Item Tracker</title>
      </head>
-
      <body>
-      <header th:replace="layout :: site-header"/>
-      <div class="container">
-
-      <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-
-      <h2>Amazon DynamoDB Item Tracker</h2>
-
-    <p>The Amazon DynamoDB Item Tracker sample application uses multiple AWS services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
-
-    <ol>
-        <li>Enter work items into the system by choosing the <b>Add Items</b> menu item. Fill in the form, and then choose <b>Create Item</b>.The AWS Item Tracker application stores the data into a DynamoDB table by using the DynamoDB Java V2 API. </li>
-        <li>You can view all of your items by choosing the <b>Get Items</b> menu item. Then choose <b>Get Active Items</b> in the dialog box.</li>
-        <li>Modify an Active Item by selecting an item in the table and then choosing <b>Get Single Item</b>. The item appears in the Modify Item section where you can modify the description or status.</li>
-        <li>Modify the item and then choose <b>Update Item</b>. You cannot modify the ID value. </li>
-        <li>You can archive any item by selecting the item and choosing <b>Archive Item</b>. Notice that the table is updated with only active items.</li>
-        <li>You can display all archived items by choosing <b>Get Archived Items</b>. You cannot modify an archived item.</li>
-        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <b>Send Report</b>. The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
-
+     <header th:replace="layout :: site-header"/>
+     <div class="container">
+     <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
+     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+     <h2>Amazon DynamoDB Item Tracker</h2>
+     <p>The Amazon DynamoDB Item Tracker example application uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
+     <ol>
+        <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
+        <li>The AWS Item Tracker application stores the data into an Amazon DynamoDB table by using the DynamoDB Java V2 API.</li>
+        <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
+        <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
+        <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
+        <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
+        <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
+        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>. </li>
+        <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
     </ol>
     <div>
-</body>
-</html>
+    </body>
+    </html>
+```
 
 #### add.html
 
 The following code represents the **add.html** file that enables users to add new items.
 
+```html
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
 	<head>
@@ -1856,11 +1824,13 @@ The following code represents the **add.html** file that enables users to add ne
 	</div>
 	</body>
 	</html>
+```
 
 #### items.html
 
 The following code represents the **items.html** file. This file enables users to modify items and send reports.
 
+```html
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
@@ -2100,12 +2070,14 @@ The following code represents the **items.html** file. This file enables users t
 
 	</body>
 	</html>
+```
 
 **Note:** Replace the default email addresses with real email addresses in this file.
 #### layout.html
 
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<head th:fragment="site-head">
@@ -2117,7 +2089,6 @@ The following code represents the **layout.html** file that represents the appli
 	<body>
 	<!-- th:href calls a controller method - which returns the view -->
 	<header th:fragment="site-header">
-    	<a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
     	<a href="#" style="color: white" th:href="@{/}">Home</a>
     	<a href="#" style="color: white" th:href="@{/add}">Add Items</a>
     	<a href="#"  style="color: white" th:href="@{/items}">Get Items</a>
@@ -2133,15 +2104,7 @@ The following code represents the **layout.html** file that represents the appli
 	<p>Welcome to  AWS Item Tracker.</p>
 	</body>
 	</html>
-
-#### To create the HTML files
-
-1. In the **resources** folder, create a folder named **templates**.  
-2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file.
-3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file.
-4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file.
-5. In the **templates** folder, create the **items.html** file and paste the HTML code into this file.
-6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file.
+```
 
 ## Create script files
 
@@ -2156,386 +2119,326 @@ Both files contain application logic that sends a request to the Spring MainCont
 
 The following JavaScript code represents the **items.js** file that is used in the **items.html** view.
 
+```javascript
 	$(function() {
 
-    	$( "#dialogtemplate2" ).dialog();
+        $( "#dialogtemplate2" ).dialog();
 
-    	$('#myTable').DataTable( {
-        scrollY:        "500px",
-        scrollX:        true,
-        scrollCollapse: true,
-        paging:         true,
-        columnDefs: [
+        $('#myTable').DataTable( {
+         scrollY:        "500px",
+         scrollX:        true,
+         scrollCollapse: true,
+         paging:         true,
+         columnDefs: [
             { width: 200, targets: 0 }
-        ],
-        fixedColumns: true
-    	} );
+         ],
+         fixedColumns: true
+      } );
 
-    	var table = $('#myTable').DataTable();
-    	$('#myTable tbody').on( 'click', 'tr', function () {
-
-	if ( $(this).hasClass('selected') ) {
+      var table = $('#myTable').DataTable();
+      $('#myTable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
         else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-    	} );
+      } );
 
+      // Disable the report button.
+      $('#reportbutton').prop("disabled",true);
+      $('#reportbutton').css("color", "#0d010d");
+     });
 
-    	// Disable the reportbutton
-    	$('#reportbutton').prop("disabled",true);
-    	$('#reportbutton').css("color", "#0d010d");
-
-	});
-
-
-	function modItem()
-	{
+     function modItem() {
         var id = $('#id').val();
         var description = $('#description').val();
         var status = $('#status').val();
 
-        if (id == "")
-        {
-            alert("Select an item from the table");
+        if (id == "") {
+            alert("Please select an item from the table");
             return;
         }
 
-        if (description.length > 350)
-        {
+        if (description.length > 350) {
             alert("Description has too many characters");
             return;
         }
 
-        if (status.length > 350)
-        {
+        if (status.length > 350) {
             alert("Status has too many characters");
             return;
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadMods, false);
-        xhr.open("POST", "../changewi", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("id=" + id + "&description=" + description+ "&status=" + status);
-    	}
+      $.ajax('/changewi', {
+        type: 'POST',
+        data: 'id=' + id + '&description=' + description+ '&status=' + status,
+        success: function (data, status, xhr) {
 
-	function loadMods(event) {
+            var msg = event.target.responseText;
+            alert("You have successfully modfied item "+msg)
 
-    	var msg = event.target.responseText;
-    	alert("You have successfully modified item "+msg)
+            $('#id').val("");
+            $('#description').val("");
+            $('#status').val("");
 
-    	$('#id').val("");
-    	$('#description').val("");
-    	$('#status').val("");
+            //Refresh the grid.
+            GetItems();
 
-    	//Refresh the grid
-    	GetItems();
-	}
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+     }
 
+    // Populate the table with work items.
+    function GetItems() {
+     var type="active";
+     $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
 
-	// Populate the table with work items
-	function GetItems() {
-    	var xhr = new XMLHttpRequest();
-    	var type="active";
-    	xhr.addEventListener("load", loadItems, false);
-    	xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    	xhr.send("type=" + type);
-	}
+            // Enable the buttons.
+            $('#singlebutton').prop("disabled",false);
+            $('#updatebutton').prop("disabled",false);
+            $('#reportbutton').prop("disabled",false);
+            $('#reportbutton').css("color", "#FFFFFF");
+            $('#singlebutton').css("color", "#FFFFFF");
+            $('#updatebutton').css("color", "#FFFFFF");
+            $('#archive').prop("disabled",false);
+            $('#archive').css("color", "#FFFFFF");
 
-	function loadItems(event) {
+            $("#modform").show();
 
-    	// Enable the buttons
-    	$('#singlebutton').prop("disabled",false);
-    	$('#updatebutton').prop("disabled",false);
-    	$('#reportbutton').prop("disabled",false);
-    	$('#reportbutton').css("color", "#FFFFFF");
-    	$('#singlebutton').css("color", "#FFFFFF");
-    	$('#updatebutton').css("color", "#FFFFFF");
-    	$('#archive').prop("disabled",false);
-    	$('#archive').css("color", "#FFFFFF");
+            var xml = data;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
 
-    	$("#modform").show();
+            $(xml).find('Item').each(function () {
 
-    	var xml = event.target.responseText;
-    	var oTable = $('#myTable').dataTable();
-    	oTable.fnClearTable(true);
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-    	$(xml).find('Item').each(function () {
+                //Set the new data
+                oTable.fnAddData( [
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status,,]
+                );
+            });
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var name = $field.find('Name').text();
-        var guide = $field.find('Guide').text();
-        var date = $field.find('Date').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
+            document.getElementById("info3").innerHTML = "Active Items";
 
-        // Set the new data
-        oTable.fnAddData( [
-            id,
-            name,
-            guide,
-            date,
-            description,
-            status,,]
-        	);
-    	});
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+       });
+      }
 
-    	document.getElementById("info3").innerHTML = "Active Items";
-	}
+     function ModifyItem() {
+     var table = $('#myTable').DataTable();
+     var myId="";
+     var arr = [];
+     $.each(table.rows('.selected').data(), function() {
 
-	function ModifyItem() {
-    	 var table = $('#myTable').DataTable();
-    	 var myId="";
-    	 var arr = [];
+        var value = this[0];
+        myId = value;
+     });
 
-    	$.each(table.rows('.selected').data(), function() {
-
-          var value = this[0];
-          myId = value;
-    	 });
-
-      if (myId == "") {
+     if (myId == "") {
         alert("You need to select a row");
         return;
       }
 
-      // Need to check that it's not an Archive item
-    	var h3Val =  document.getElementById("info3").innerHTML;
+     // Need to check its not an Archive item.
+     var h3Val =  document.getElementById("info3").innerHTML;
+     if (h3Val=="Archive Items") {
+        alert("You cannot modify an Archived item");
+        return;
+     }
 
-	if (h3Val=="Archive Items") {
-          alert("You cannot modify an Archived item");
-          return;
-    	}
+     $.ajax('/modify', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
 
-       // Post to modify
-       var xhr = new XMLHttpRequest();
-       xhr.addEventListener("load", onModifyLoad, false);
-       xhr.open("POST", "../modify", true);   //buildFormit -- a Spring MVC controller
-       xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-       xhr.send("id=" + myId);
-	}
+            var xml = data;
+            $(xml).find('Item').each(function () {
 
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-	// Handler for the uploadSave call
-	function onModifyLoad(event) {
+                //Set the fields
+                $('#id').val(id);
+                $('#description').val(description);
+                $('#status').val(status);
 
-     	var xml = event.target.responseText;
-    	$(xml).find('Item').each(function () {
+             });
+           },
+          error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+          }
+         });
+       }
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
-
-        // Set the fields
-        $('#id').val(id);
-        $('#description').val(description);
-        $('#status').val(status);
-
-    	});
-	}
-
-
-       function Report() {
+      function Report() {
         var email = $('#manager option:selected').text();
 
-        // Post to report
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", onReport, false);
-        xhr.open("POST", "../report", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("email=" + email);
-    	}
+        $.ajax('/report', {
+            type: 'POST',
+            data: 'email=' + email,
+            success: function (data, status, xhr) {
+                 alert(data);
 
-	function onReport(event) {
-
-    	 var data = event.target.responseText;
-    	 alert(data);
-	 }
-
-
-	 function GetArcItems(){
-
-    	  var xhr = new XMLHttpRequest();
-    	  var type="archive";
-    	  xhr.addEventListener("load", loadArcItems, false);
-    	  xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    	  xhr.send("type=" + type);
-	  }
-
- 	function loadArcItems(event) {
-
-    	 // Disable buttons when Archive button
-    	  $('#reportbutton').prop("disabled",true);
-    	  $('#reportbutton').css("color", "#0d010d");
-    	  $('#singlebutton').prop("disabled",true);
-    	  $('#singlebutton').css("color", "#0d010d");
-    	  $('#updatebutton').prop("disabled",true);
-    	  $('#updatebutton').css("color", "#0d010d");
-    	  $('#archive').prop("disabled",true);
-    	  $('#archive').css("color", "#0d010d");
-
-      	  $("#modform").hide();
-
-    	 var xml = event.target.responseText;
-    	 var oTable = $('#myTable').dataTable();
-    	 oTable.fnClearTable(true);
-
-    	 $(xml).find('Item').each(function () {
-
-          var $field = $(this);
-          var id = $field.find('Id').text();
-          var name = $field.find('Name').text();
-          var guide = $field.find('Guide').text();
-          var date = $field.find('Date').text();
-          var description = $field.find('Description').text();
-          var status = $field.find('Status').text();
-
-          // Set the new data
-          oTable.fnAddData( [
-            id,
-            name,
-            guide,
-            date,
-            description,
-            status,,]
-           );
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
           });
+        }
 
-          document.getElementById("info3").innerHTML = "Archive Items";
+     function GetArcItems() {
+     var type="archive";
+     $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
+            // Disable buttons when Achive button
+            $('#reportbutton').prop("disabled", true);
+            $('#reportbutton').css("color", "#0d010d");
+            $('#singlebutton').prop("disabled", true);
+            $('#singlebutton').css("color", "#0d010d");
+            $('#updatebutton').prop("disabled", true);
+            $('#updatebutton').css("color", "#0d010d");
+            $('#archive').prop("disabled", true);
+            $('#archive').css("color", "#0d010d");
 
-	}
+            $("#modform").hide();
+            var xml = event.target.responseText;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
 
-	 function archiveItem() {
-    	  var table = $('#myTable').DataTable();
-    	  var myId="";
-    	  var arr = [];
+            $(xml).find('Item').each(function () {
 
-	 $.each(table.rows('.selected').data(), function() {
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-          var value = this[0];
-          myId = value;
-    	  });
+                //Set the new data
+                oTable.fnAddData([
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status, ,]
+                );
+              });
 
-    	if (myId == "") {
-         alert("You need to select a row");
-         return;
-    	}
+             document.getElementById("info3").innerHTML = "Archive Items";
 
-    	var xhr = new XMLHttpRequest();
-    	xhr.addEventListener("load", onArch, false);
-    	xhr.open("POST", "../archive", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    	xhr.send("id=" + myId);
-	}
-
-	function onArch(event) {
-
-    	 var xml = event.target.responseText;
-    	 alert("Item "+xml +" is archived now");
-
-    	// Refresh the grid
-    	GetItems();
+            },
+           error: function (jqXhr, textStatus, errorMessage) {
+             $('p').append('Error' + errorMessage);
+           }
+          });
        }
+
+     function archiveItem() {
+     var table = $('#myTable').DataTable();
+     var myId = "";
+     var arr = [];
+     $.each(table.rows('.selected').data(), function () {
+
+        var value = this[0];
+        myId = value;
+     });
+
+     if (myId == "") {
+        alert("You need to select a row");
+        return;
+     }
+
+      $.ajax('/archive', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
+            alert("Item " + data + " is achived now");
+            //Refresh the grid
+            GetItems();
+
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+     }
+```
 
  #### contact_me.js file
 
 The following JavaScript code represents the **contact_me.js** file that is used in the **add.html** view.
 
+```javascript
 	$(function() {
 
-	    $("#SendButton" ).click(function($e) {
+         $("#SendButton" ).click(function($e) {
 
-            var guide = $('#guide').val();
-            var description = $('#description').val();
-            var status = $('#status').val();
+          var guide = $('#guide').val();
+          var description = $('#description').val();
+          var status = $('#status').val();
 
-            if (description.length > 350)
-       	    {
+         if (description.length > 350) {
             alert("Description has too many characters");
             return;
-            }
+        }
 
-          if (status.length > 350)
-        {
+        if (status.length > 350) {
             alert("Status has too many characters");
             return;
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadNewItems, false);
-        xhr.open("POST", "../add", true);   
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("guide=" + guide + "&description=" + description+ "&status=" + status);
-    } );// END of the Send button click
+        $.ajax('/add', {
+            type: 'POST',  
+            data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
+            success: function (data, status, xhr) {
 
-    // Handler for the click SendButton call
-    function loadNewItems(event) {
+                alert("You have successfully added item "+data)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+         });
 
-        var msg = event.target.responseText;
-        alert("You have successfully added item "+msg)
-
-    	}
-
-      });
+       } );// END of the Send button click
+     } );
+```
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
 
-## Create a JAR file for the DynamoDB Tracker application
+## Run the application
 
-Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
 
-	mvn package
-
-The JAR file is located in the target folder.
-
-![AWS Tracking Application](images/pic11.png)
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file that includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy the application to Elastic Beanstalk
-
-Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev, or prod-web, prod-worker, qa-web, qa-worker).
-
-If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll see the Elastic Beanstalk Dashboard, which lists all of your applications.
-
-#### To deploy the DynamoDB Tracker application to Elastic Beanstalk
-
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
-2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - DynamoDB Tracker
-   + **Description** - A description for the application
-4. Choose **Create**.
-5. Choose **Create a new environment**.
-6. Choose **Web server environment**.
-7. Choose **Select**.
-8. In the **Environment information** section, leave the default values.
-9. In the **Platform** section, choose **Managed platform**.
-10. For **Platform**, choose **Java** (accept the default values for the other fields).
-11. In the **Application code** section, choose **Upload your code**.
-12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created.
-
-![AWS Tracking Application](images/pic13.png)
-
-When you’re done, you will see the application state the **Health** is **Ok** .
-
-14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
-
-![AWS Tracking Application](images/pic14.png)
-
-**Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
-
-To access the application, open your browser and enter the URL for your application. You will see the login page for your application.
+![AWS Tracking Application](images/runapp.png)
 
 
 ### Next steps

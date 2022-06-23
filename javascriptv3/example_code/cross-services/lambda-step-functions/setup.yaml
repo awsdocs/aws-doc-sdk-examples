@@ -1,234 +1,143 @@
 Resources:
-  lambdabucket27057C9E:
-    Type: AWS::S3::Bucket
+  ExampleIdentityPool:
+    Type: AWS::Cognito::IdentityPool
     Properties:
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: false
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: false
-    UpdateReplacePolicy: Delete
-    DeletionPolicy: Delete
+      AllowUnauthenticatedIdentities: true
     Metadata:
-      aws:cdk:path: SetupStackStepFunctions1/lambda-bucket      /Resource
-  lambdabucketPolicyCE5D1D5D:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket:
-        Ref: lambdabucket27057C9E
-      PolicyDocument:
-        Statement:
-          - Action: s3:GetObject
-            Effect: Allow
-            Principal: "*"
-            Resource:
-              Fn::Join:
-                - ""
-                - - Fn::GetAtt:
-                      - lambdabucket27057C9E
-                      - Arn
-                  - /*
-          - Action: s3:PutObject
-            Effect: Allow
-            Principal: "*"
-            Resource:
-              Fn::Join:
-                - ""
-                - - Fn::GetAtt:
-                      - lambdabucket27057C9E
-                      - Arn
-                  - /*
-        Version: "2012-10-17"
-    Metadata:
-      aws:cdk:path: SetupStackStepFunctions1/lambda-bucket      /Policy/Resource
-  workflowsupport9677698A:
+      aws:cdk:path: stepfunctions/ExampleIdentityPool
+  LambdaRole3A44B857:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Statement:
+          - Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                cognito-identity.amazonaws.com:aud:
+                  Ref: ExampleIdentityPool
+              ForAnyValue:StringLike:
+                cognito-identity.amazonaws.com:amr: unauthenticated
+            Effect: Allow
+            Principal:
+              Federated: cognito-identity.amazonaws.com
           - Action: sts:AssumeRole
             Effect: Allow
             Principal:
               Service: lambda.amazonaws.com
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: SetupStackStepFunctions1/workflow-support/Resource
-  workflowsupportDefaultPolicy18A31009:
+      aws:cdk:path: stepfunctions/LambdaRole/Resource
+  LambdaRoleDefaultPolicy75625A82:
     Type: AWS::IAM::Policy
     Properties:
       PolicyDocument:
         Statement:
           - Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogStream
-              - logs:PutLogEvents
+              - lambda:InvokeFunction
+              - mobileanalytics:PutEvents
+              - cognito-sync:*
             Effect: Allow
             Resource: "*"
-        Version: "2012-10-17"
-      PolicyName: workflowsupportDefaultPolicy18A31009
-      Roles:
-        - Ref: workflowsupport9677698A
-    Metadata:
-      aws:cdk:path: SetupStackStepFunctions1/workflow-support/DefaultPolicy/Resource
-  lambdasupport4AFC7BAF:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-          - Action: sts:AssumeRole
-            Effect: Allow
-            Principal:
-              Service: lambda.amazonaws.com
-        Version: "2012-10-17"
-    Metadata:
-      aws:cdk:path: SetupStackStepFunctions1/lambda-support/Resource
-  lambdasupportDefaultPolicy80E3F09A:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyDocument:
-        Statement:
-          - Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogStream
-              - logs:PutLogEvents
-            Effect: Allow
-            Resource: "*"
-          - Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogtream
-              - logs:PutLogEvents
+          - Action: dynamodb:*
             Effect: Allow
             Resource: "*"
           - Action: ses:*
             Effect: Allow
             Resource: "*"
-          - Action:
-              - dynamodb:*
-              - dax:*
-              - application-autoscaling:DeleteScalingPolicy
-              - application-autoscaling:DeregisterScalableTarget
-              - application-autoscaling:DescribeScalableTargets
-              - application-autoscaling:DescribeScalingActivities
-              - application-autoscaling:DescribeScalingPolicies
-              - application-autoscaling:PutScalingPolicy
-              - application-autoscaling:RegisterScalableTarget
-              - cloudwatch:DeleteAlarms
-              - cloudwatch:DescribeAlarmHistory
-              - cloudwatch:DescribeAlarms
-              - cloudwatch:DescribeAlarmsForMetric
-              - cloudwatch:GetMetricStatistics
-              - cloudwatch:ListMetrics
-              - cloudwatch:PutMetricAlarm
-              - cloudwatch:GetMetricData
-              - datapipeline:ActivatePipeline
-              - datapipeline:CreatePipeline
-              - datapipeline:DeletePipeline
-              - datapipeline:DescribeObjects
-              - datapipeline:DescribePipelines
-              - datapipeline:GetPipelineDefinition
-              - datapipeline:ListPipelines
-              - datapipeline:PutPipelineDefinition
-              - datapipeline:QueryObjects
-              - ec2:DescribeVpcs
-              - ec2:DescribeSubnets
-              - ec2:DescribeSecurityGroups
-              - iam:GetRole
-              - iam:ListRoles
-              - kms:DescribeKey
-              - kms:ListAliases
-              - sns:CreateTopic
-              - sns:DeleteTopic
-              - sns:ListSubscriptions
-              - sns:ListSubscriptionsByTopic
-              - sns:ListTopics
-              - sns:Subscribe
-              - sns:Unsubscribe
-              - sns:SetTopicAttributes
-              - lambda:CreateFunction
-              - lambda:ListFunctions
-              - lambda:ListEventSourceMappings
-              - lambda:CreateEventSourceMapping
-              - lambda:DeleteEventSourceMapping
-              - lambda:GetFunctionConfiguration
-              - lambda:DeleteFunction
-              - resource-groups:ListGroups
-              - resource-groups:ListGroupResources
-              - resource-groups:GetGroup
-              - resource-groups:GetGroupQuery
-              - resource-groups:DeleteGroup
-              - resource-groups:CreateGroup
-              - tag:GetResources
-              - kinesis:ListStreams
-              - kinesis:DescribeStream
-              - kinesis:DescribeStreamSummary
-            Effect: Allow
-            Resource: "*"
-          - Action: cloudwatch:GetInsightRuleReport
-            Effect: Allow
-            Resource: arn:aws:cloudwatch:*:*:insight-rule/DynamoDBContributorInsights*
-          - Action: iam:PassRole
-            Condition:
-              StringLike:
-                iam:PassedToService:
-                  - application-autoscaling.amazonaws.com
-                  - application-autoscaling.amazonaws.com.cn
-                  - dax.amazonaws.com
-            Effect: Allow
-            Resource: "*"
-          - Action: iam:CreateServiceLinkedRole
+        Version: "2012-10-17"
+      PolicyName: LambdaRoleDefaultPolicy75625A82
+      Roles:
+        - Ref: LambdaRole3A44B857
+    Metadata:
+      aws:cdk:path: stepfunctions/LambdaRole/DefaultPolicy/Resource
+  DefaultValid:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId:
+        Ref: ExampleIdentityPool
+      Roles:
+        unauthenticated:
+          Fn::GetAtt:
+            - LambdaRole3A44B857
+            - Arn
+    Metadata:
+      aws:cdk:path: stepfunctions/DefaultValid
+  ExampleIdentityPoolWorkflow:
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      AllowUnauthenticatedIdentities: true
+    Metadata:
+      aws:cdk:path: stepfunctions/ExampleIdentityPoolWorkflow
+  WorkflowRole21EC4257:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRoleWithWebIdentity
             Condition:
               StringEquals:
-                iam:AWSServiceName:
-                  - replication.dynamodb.amazonaws.com
-                  - dax.amazonaws.com
-                  - dynamodb.application-autoscaling.amazonaws.com
-                  - contributorinsights.dynamodb.amazonaws.com
-                  - kinesisreplication.dynamodb.amazonaws.com
+                cognito-identity.amazonaws.com:aud:
+                  Ref: ExampleIdentityPoolWorkflow
+              ForAnyValue:StringLike:
+                cognito-identity.amazonaws.com:amr: unauthenticated
+            Effect: Allow
+            Principal:
+              Federated: cognito-identity.amazonaws.com
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                Fn::Join:
+                  - ""
+                  - - states.
+                    - Ref: AWS::Region
+                    - .amazonaws.com
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: stepfunctions/WorkflowRole/Resource
+  WorkflowRoleDefaultPolicyB4C63B85:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - lambda:InvokeFunction
+              - mobileanalytics:PutEvents
+              - cognito-sync:*
             Effect: Allow
             Resource: "*"
         Version: "2012-10-17"
-      PolicyName: lambdasupportDefaultPolicy80E3F09A
+      PolicyName: WorkflowRoleDefaultPolicyB4C63B85
       Roles:
-        - Ref: lambdasupport4AFC7BAF
+        - Ref: WorkflowRole21EC4257
     Metadata:
-      aws:cdk:path: SetupStackStepFunctions1/lambda-support/DefaultPolicy/Resource
-  table8235A42E:
-    Type: AWS::DynamoDB::Table
+      aws:cdk:path: stepfunctions/WorkflowRole/DefaultPolicy/Resource
+  DefaultValidWorkflow:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
     Properties:
-      KeySchema:
-        - AttributeName: id
-          KeyType: HASH
-      AttributeDefinitions:
-        - AttributeName: id
-          AttributeType: "N"
-      ProvisionedThroughput:
-        ReadCapacityUnits: 10
-        WriteCapacityUnits: 10
-      TableName: Case
-    UpdateReplacePolicy: Delete
-    DeletionPolicy: Delete
+      IdentityPoolId:
+        Ref: ExampleIdentityPoolWorkflow
+      Roles:
+        unauthenticated:
+          Fn::GetAtt:
+            - WorkflowRole21EC4257
+            - Arn
     Metadata:
-      aws:cdk:path: SetupStackStepFunctions1/table/Resource
+      aws:cdk:path: stepfunctions/DefaultValidWorkflow
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Modules: aws-cdk=1.87.1,@aws-cdk/assets=1.91.0,@aws-cdk/aws-applicationautoscaling=1.91.0,@aws-cdk/aws-autoscaling-common=1.91.0,@aws-cdk/aws-cloudwatch=1.91.0,@aws-cdk/aws-codeguruprofiler=1.91.0,@aws-cdk/aws-dynamodb=1.91.0,@aws-cdk/aws-ec2=1.91.0,@aws-cdk/aws-ecr=1.91.0,@aws-cdk/aws-ecr-assets=1.91.0,@aws-cdk/aws-events=1.91.0,@aws-cdk/aws-iam=1.91.0,@aws-cdk/aws-kms=1.91.0,@aws-cdk/aws-lambda=1.91.0,@aws-cdk/aws-logs=1.91.0,@aws-cdk/aws-s3=1.91.0,@aws-cdk/aws-s3-assets=1.91.0,@aws-cdk/aws-sqs=1.91.0,@aws-cdk/aws-ssm=1.91.0,@aws-cdk/cloud-assembly-schema=1.91.0,@aws-cdk/core=1.91.0,@aws-cdk/custom-resources=1.91.0,@aws-cdk/cx-api=1.91.0,@aws-cdk/region-info=1.91.0,jsii-runtime=node.js/v12.14.1
+      Modules: aws-cdk=1.109.0,@aws-cdk/assets=1.84.0,@aws-cdk/aws-applicationautoscaling=1.84.0,@aws-cdk/aws-autoscaling-common=1.84.0,@aws-cdk/aws-cloudwatch=1.84.0,@aws-cdk/aws-codeguruprofiler=1.84.0,@aws-cdk/aws-cognito=1.84.0,@aws-cdk/aws-ec2=1.84.0,@aws-cdk/aws-ecr=1.84.0,@aws-cdk/aws-ecr-assets=1.84.0,@aws-cdk/aws-events=1.84.0,@aws-cdk/aws-iam=1.84.0,@aws-cdk/aws-kms=1.84.0,@aws-cdk/aws-lambda=1.84.0,@aws-cdk/aws-logs=1.84.0,@aws-cdk/aws-s3=1.84.0,@aws-cdk/aws-s3-assets=1.84.0,@aws-cdk/aws-sqs=1.84.0,@aws-cdk/aws-ssm=1.84.0,@aws-cdk/cloud-assembly-schema=1.84.0,@aws-cdk/core=1.84.0,@aws-cdk/custom-resources=1.84.0,@aws-cdk/cx-api=1.84.0,@aws-cdk/region-info=1.84.0,jsii-runtime=node.js/v14.7.0
     Metadata:
-      aws:cdk:path: SetupStackStepFunctions1/CDKMetadata/Default
+      aws:cdk:path: stepfunctions/CDKMetadata/Default
     Condition: CDKMetadataAvailable
 Outputs:
-  Bucketname:
+  Lambdasupportrole:
     Value:
-      Ref: lambdabucket27057C9E
-  TableName:
+      Ref: LambdaRole3A44B857
+  Workflowsupportrole:
     Value:
-      Ref: table8235A42E
-  LambdaIAMrole:
-    Value:
-      Ref: lambdasupport4AFC7BAF
-  StepFunctionsIAMrole:
-    Value:
-      Ref: workflowsupport9677698A
+      Ref: WorkflowRole21EC4257
 Conditions:
   CDKMetadataAvailable:
     Fn::Or:

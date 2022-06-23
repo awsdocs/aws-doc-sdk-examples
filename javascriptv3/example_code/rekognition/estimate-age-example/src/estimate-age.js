@@ -1,46 +1,22 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the Amazon Rekognition Developer Guide' at
 https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
 
 Purpose:
 estimate-age.js is part of an sample that demonstrates how to use Amazon Rekognition to estimate the ages of faces in an photo.
-To view the full example, see https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
+
 
 Inputs :
-- REGION
 - IDENTITY_POOL_ID
 
 */
 // snippet-start:[rekognition.JavaScript.detect_faces_v3]
 
-// Import required AWS SDK clients and commands for Node.js
-const {
-  RekognitionClient,
-  DetectFacesCommand,
-} = require("@aws-sdk/client-rekognition");
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
-const {
-  fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-
-// Set the AWS Region.
-const REGION = "REGION"; //e.g. "us-east-1"
-
-const params = {
-  Region: REGION, // The AWS Region.
-  identityPoolID: "IDENTITY_POOL_ID", // Amazon Cognito Identity Pool ID.
-};
-
-// Create an Amazon Transcribe service client object.
-const client = new RekognitionClient({
-  region: params.Region,
-  credentials: fromCognitoIdentityPool({
-    client: new CognitoIdentityClient({ region: params.Region }),
-    identityPoolId: params.identityPoolID,
-  }),
-});
+// Import required AWS SDK clients and commands for Node.js.
+import { DetectFacesCommand } from "@aws-sdk/client-rekognition";
+import { rekognitionClient } from "./libs/rekognitionClient.js";
 
 // Calls DetectFaces API and shows estimated ages of detected faces.
 window.DetectFaces = async (imageData) => {
@@ -52,7 +28,8 @@ window.DetectFaces = async (imageData) => {
     Attributes: ["ALL"],
   };
   try {
-    const data = await client.send(new DetectFacesCommand(params));
+    const data = await rekognitionClient.send(new DetectFacesCommand(params));
+    return data; // For unit tests.
     var table = "<table><tr><th>Low</th><th>High</th></tr>";
     // show each face and build out estimated age table
     for (var i = 0; i < data.FaceDetails.length; i++) {
@@ -111,3 +88,5 @@ window.ProcessImage = async () => {
   reader.readAsDataURL(file);
 };
 // snippet-end:[rekognition.JavaScript.detect_faces_v3]
+// For unit tests.
+// module.exports = {DetectFaces}

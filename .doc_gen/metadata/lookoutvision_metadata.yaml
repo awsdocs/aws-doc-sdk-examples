@@ -1,0 +1,344 @@
+# zexi 0.4.3
+lookoutvision_CreateDataset:
+  title: Create a &LYRA; dataset using an &AWS; SDK
+  title_abbrev: Create a dataset
+  synopsis: create a &LYRA; dataset.
+  category:
+  guide_topic:
+    title: Creating your dataset
+    url: lookout-for-vision/latest/developer-guide/model-create-dataset.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Datasets
+                - python.example_code.lookoutvision.CreateDataset
+  services:
+    lookoutvision: {CreateDataset}
+lookoutvision_Scenario_CreateManifestFile:
+  title: Create a &LYRA; manifest file using an &AWS; SDK
+  title_abbrev: Create a manifest file
+  synopsis: create a &LYRA; manifest file and upload it to &S3;.
+  category: Scenarios
+  guide_topic:
+    title: Creating a manifest file
+    url: lookout-for-vision/latest/developer-guide/manifest-files.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Datasets
+                - python.example_code.lookoutvision.Scenario_CreateManifestFile
+  services:
+    lookoutvision: {}
+lookoutvision_DeleteDataset:
+  title: Delete a &LYRA; dataset using an &AWS; SDK
+  title_abbrev: Delete a dataset
+  synopsis: delete a &LYRA; dataset.
+  category:
+  guide_topic:
+    title: Deleting a dataset
+    url: lookout-for-vision/latest/developer-guide/delete-dataset.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Datasets
+                - python.example_code.lookoutvision.DeleteDataset
+  services:
+    lookoutvision: {DeleteDataset}
+lookoutvision_DescribeDataset:
+  title: Describe a &LYRA; dataset using an &AWS; SDK
+  title_abbrev: Describe a dataset
+  synopsis: describe a &LYRA; dataset.
+  category:
+  guide_topic:
+    title: Viewing your dataset
+    url: lookout-for-vision/latest/developer-guide/view-datasets.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Datasets
+                - python.example_code.lookoutvision.DescribeDataset
+  services:
+    lookoutvision: {DescribeDataset}
+lookoutvision_Scenario_FindTagInProjects:
+  title: Find a &LYRA; project with a specific tag using an &AWS; SDK
+  title_abbrev: Find a project with a specific tag
+  synopsis: find a &LYRA; project with a specific tag.
+  category: Scenarios
+  guide_topic:
+    title: Tagging models
+    url: lookout-for-vision/latest/developer-guide/tagging-model.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Scenario_FindTagInProjects
+  services:
+    lookoutvision: {}
+lookoutvision_StartModel:
+  title: Start a &LYRA; model using an &AWS; SDK
+  title_abbrev: Start a model
+  synopsis: start a &LYRA; model.
+  category:
+  guide_topic:
+    title: Starting your model
+    url: lookout-for-vision/latest/developer-guide/run-start-model.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Hosting
+                - python.example_code.lookoutvision.StartModel
+  services:
+    lookoutvision: {StartModel}
+lookoutvision_StopModel:
+  title: Stop a &LYRA; model using an &AWS; SDK
+  title_abbrev: Stop a model
+  synopsis: stop a &LYRA; model.
+  category:
+  guide_topic:
+    title: Stopping your model
+    url: lookout-for-vision/latest/developer-guide/run-stop-model.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Hosting
+                - python.example_code.lookoutvision.StopModel
+  services:
+    lookoutvision: {StopModel}
+lookoutvision_Scenario_ListHostedModels:
+  title: List &LYRA; models that are currently hosted using an &AWS; SDK
+  title_abbrev: List models that are currently hosted
+  synopsis: list &LYRA; models that are currently hosted.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Hosting
+                - python.example_code.lookoutvision.Scenario_ListHostedModels
+  services:
+    lookoutvision: {}
+lookoutvision_DetectAnomalies:
+  title: Detect anomalies in an image with a trained &LYRA; model using an &AWS; SDK
+  title_abbrev: Detect anomalies in an image with a trained model
+  synopsis: detect anomalies in an image with a trained &LYRA; model.
+  category:
+  guide_topic:
+    title: Detecting anomalies in an image
+    url: lookout-for-vision/latest/developer-guide/inference-detect-anomalies.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.DetectAnomalies
+  services:
+    lookoutvision: {DetectAnomalies}
+lookoutvision_CreateModel:
+  title: Create a &LYRA; model using an &AWS; SDK
+  title_abbrev: Create a model
+  synopsis: create a &LYRA; model.
+  category:
+  guide_topic:
+    title: Training your model
+    url: lookout-for-vision/latest/developer-guide/model-train.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Models
+                - python.example_code.lookoutvision.CreateModel
+  services:
+    lookoutvision: {CreateModel}
+lookoutvision_DescribeModel:
+  title: Describe a &LYRA; model using an &AWS; SDK
+  title_abbrev: Describe a model
+  synopsis: describe a &LYRA; model.
+  guide_topic:
+    title: Viewing your models
+    url: lookout-for-vision/latest/developer-guide/view-models.html
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Models
+                - python.example_code.lookoutvision.DescribeModel
+  services:
+    lookoutvision: {DescribeModel}
+lookoutvision_ListModels:
+  title: List &LYRA; models using an &AWS; SDK
+  title_abbrev: List models
+  synopsis: list &LYRA; models.
+  category:
+  guide_topic:
+    title: Viewing your models
+    url: lookout-for-vision/latest/developer-guide/view-models.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Models
+                - python.example_code.lookoutvision.ListModels
+  services:
+    lookoutvision: {ListModels}
+lookoutvision_DeleteModel:
+  title: Delete a &LYRA; model using an &AWS; SDK
+  title_abbrev: Delete a model
+  synopsis: delete a &LYRA; model.
+  category:
+  guide_topic:
+    title: Deleting a model
+    url: lookout-for-vision/latest/developer-guide/delete-model.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Models
+                - python.example_code.lookoutvision.DeleteModel
+  services:
+    lookoutvision: {DeleteModel}
+lookoutvision_CreateProject:
+  title: Create a &LYRA; project using an &AWS; SDK
+  title_abbrev: Create a project
+  synopsis: create a &LYRA; project.
+  category:
+  guide_topic:
+    title: Creating your project
+    url: lookout-for-vision/latest/developer-guide/model-create-project.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Projects
+                - python.example_code.lookoutvision.CreateProject
+  services:
+    lookoutvision: {CreateProject}
+lookoutvision_DeleteProject:
+  title: Delete a &LYRA; project using an &AWS; SDK
+  title_abbrev: Delete a project
+  synopsis: delete a &LYRA; project.
+  category:
+  guide_topic:
+    title: Deleting a project
+    url: lookout-for-vision/latest/developer-guide/delete-project.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Projects
+                - python.example_code.lookoutvision.DeleteProject
+  services:
+    lookoutvision: {DeleteProject}
+lookoutvision_ListProjects:
+  title: List &LYRA; projects using an &AWS; SDK
+  title_abbrev: List projects
+  synopsis: list &LYRA; projects.
+  category:
+  guide_topic:
+    title: Viewing your projects
+    url: lookout-for-vision/latest/developer-guide/view-projects.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Projects
+                - python.example_code.lookoutvision.ListProjects
+  services:
+    lookoutvision: {ListProjects}
+lookoutvision_Scenario_CreateTrainStartModel:
+  title: Create, train, and start a &LYRA; model using an &AWS; SDK
+  title_abbrev: Create, train, and start a model
+  synopsis: create, train, and start a &LYRA; model.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: scenario_LookoutVisionCreateTrainStartModel_Python_block.xml
+  services:
+    lookoutvision: {}

@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/05/2020]
-// snippet-sourceauthor:[scmacdon AWS]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,20 +13,20 @@
 package com.example.polly;
 
 // snippet-start:[polly.java2.list_icons.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
 import software.amazon.awssdk.services.polly.model.ListLexiconsResponse;
 import software.amazon.awssdk.services.polly.model.ListLexiconsRequest;
 import software.amazon.awssdk.services.polly.model.LexiconDescription;
 import software.amazon.awssdk.services.polly.model.PollyException ;
-import java.util.Iterator;
 import java.util.List;
 // snippet-end:[polly.java2.list_icons.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,6 +36,7 @@ public class ListLexicons {
 
         PollyClient polly = PollyClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listLexicons(polly) ;
@@ -47,18 +47,14 @@ public class ListLexicons {
     public static void listLexicons(PollyClient client) {
 
         try {
-        ListLexiconsRequest listLexiconsRequest = ListLexiconsRequest.builder()
+            ListLexiconsRequest listLexiconsRequest = ListLexiconsRequest.builder()
                 .build();
 
-        ListLexiconsResponse listLexiconsResult = client.listLexicons(listLexiconsRequest);
-        List<LexiconDescription> lexiconDescription = listLexiconsResult.lexicons();
-        Iterator<LexiconDescription> iterator = lexiconDescription.iterator();
-
-        // Get each voice
-        while (iterator.hasNext()) {
-            LexiconDescription lexDescription = iterator.next();
-            System.out.println("The name of the Lexicon is " +lexDescription.name());
-        }
+            ListLexiconsResponse listLexiconsResult = client.listLexicons(listLexiconsRequest);
+            List<LexiconDescription> lexiconDescription = listLexiconsResult.lexicons();
+            for (LexiconDescription lexDescription : lexiconDescription) {
+                System.out.println("The name of the Lexicon is " + lexDescription.name());
+            }
 
         } catch (PollyException e) {
             System.err.println("Exception caught: " + e);

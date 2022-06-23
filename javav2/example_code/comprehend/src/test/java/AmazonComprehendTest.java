@@ -1,6 +1,8 @@
 import com.example.comprehend.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
 import java.io.*;
@@ -24,6 +26,7 @@ public class AmazonComprehendTest {
         Region region = Region.US_EAST_1;
         comClient = ComprehendClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = AmazonComprehendTest.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -50,7 +53,7 @@ public class AmazonComprehendTest {
 
     @Test
     @Order(1)
-    public void whenInitializingAWSPinpointService_thenNotNull() {
+    public void whenInitializingAWSService_thenNotNull() {
         assertNotNull(comClient);
         System.out.println("Test 1 passed");
     }
@@ -102,6 +105,4 @@ public class AmazonComprehendTest {
       DocumentClassifierDemo.createDocumentClassifier(comClient, dataAccessRoleArn, s3Uri, documentClassifierName);
      System.out.println("Test 7 passed");
     }
-
-
 }

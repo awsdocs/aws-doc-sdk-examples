@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,19 +13,19 @@
 package com.example.rds;
 
 // snippet-start:[rds.java2.describe_account.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.AccountQuota;
-import software.amazon.awssdk.services.rds.model.DescribeAccountAttributesRequest;
 import software.amazon.awssdk.services.rds.model.RdsException;
 import software.amazon.awssdk.services.rds.model.DescribeAccountAttributesResponse;
 import java.util.List;
 // snippet-end:[rds.java2.describe_account.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,6 +36,7 @@ public class DescribeAccountAttributes {
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getAccountAttributes(rdsClient) ;
@@ -47,13 +47,8 @@ public class DescribeAccountAttributes {
     public static void getAccountAttributes(RdsClient rdsClient) {
 
     try {
-        DescribeAccountAttributesRequest accountAttributesRequest = DescribeAccountAttributesRequest.builder()
-            .build();
-
         DescribeAccountAttributesResponse response = rdsClient.describeAccountAttributes();
-
         List<AccountQuota> quotasList = response.accountQuotas();
-
         for (AccountQuota quotas: quotasList) {
             System.out.println("Name is: "+quotas.accountQuotaName());
             System.out.println("Max value is " +quotas.max());
@@ -63,6 +58,6 @@ public class DescribeAccountAttributes {
         System.out.println(e.getLocalizedMessage());
         System.exit(1);
     }
-        // snippet-end:[rds.java2.describe_account.main]
-   }
+  }
+    // snippet-end:[rds.java2.describe_account.main]
  }

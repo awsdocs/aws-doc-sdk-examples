@@ -1,0 +1,276 @@
+# zexi 0.2.0
+cloudwatch-logs_AssociateKmsKey:
+  title: Associate an &KMS; key to a &CWL; log group using an &AWS; SDK
+  title_abbrev: Associate an &KMS; key to log group
+  synopsis: associate an &KMS; key with an existing &CWL; log group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.AssociateKmsKeyExample
+  services:
+    cloudwatch-logs: {AssociateKmsKey}
+cloudwatch-logs_CancelExportTask:
+  title: Cancel a &CWL; export task using an &AWS; SDK
+  title_abbrev: Cancel an export task
+  synopsis: cancel an existing &CWL; export task.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.CancelExportTaskExample
+  services:
+    cloudwatch-logs: {CancelExportTask}
+cloudwatch-logs_CreateLogGroup:
+  title: Create a &CWL; log group using an &AWS; SDK
+  title_abbrev: Create a log group
+  synopsis: create a new &CWL; log group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.CreateLogGroupExample
+  services:
+    cloudwatch-logs: {CreateLogGroup}
+cloudwatch-logs_CreateLogStream:
+  title: Create a &CWL; log stream using an &AWS; SDK
+  title_abbrev: Create a new log stream
+  synopsis: create a new &CWL; log stream.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.CreateLogStreamExample
+  services:
+    cloudwatch-logs: {CreateLogStream}
+cloudwatch-logs_DeleteLogGroup:
+  title: Delete a &CWL; log group using an &AWS; SDK
+  title_abbrev: Delete a log group
+  synopsis: delete an existing &CWL; log group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.DeleteLogGroupExample
+  services:
+    cloudwatch-logs: {DeleteLogGroup}
+cloudwatch-logs_DescribeExportTasks:
+  title: Describe &CWL; export tasks using an &AWS; SDK
+  title_abbrev: Describe export tasks
+  synopsis: describe &CWL; export tasks.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.DescribeExportTasksExammple
+  services:
+    cloudwatch-logs: {DescribeExportTasks}
+cloudwatch-logs_DescribeLogGroups:
+  title: Describe &CWL; log groups using an &AWS; SDK
+  title_abbrev: Describe log groups
+  synopsis: describe &CWL; log groups.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.DescribeLogGroupsExample
+  services:
+    cloudwatch-logs: {DescribeLogGroups}
+cloudwatch-logs_DescribeSubscriptionFilters:
+  title: Describe &CWL; subscription filters using an &AWS; SDK
+  title_abbrev: Describe existing subscription filters
+  synopsis: describe &CWLlong; existing subscription filters.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.describe_subscription_filters.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.describe_subscription_filters.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch-logs
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cwl.cpp.describe_subscription_filters.inc
+            - description: List the subscription filters.
+              snippet_tags:
+                - cwl.cpp.describe_subscription_filters
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.describeSubscriptionFilters
+  services:
+    cloudwatch-logs: {DescribeSubscriptionFilters}
+cloudwatch-logs_DeleteSubscriptionFilter:
+  title: Delete a &CWL; subscription filter using an &AWS; SDK
+  title_abbrev: Delete a subscription filter
+  synopsis: delete an &CWLlong; subscription filter.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.delete_subscription_filter.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.delete_subscription_filter.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch-logs
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cwl.cpp.delete_subscription_filter.inc
+            - description: Delete the subscription filter.
+              snippet_tags:
+                - cwl.cpp.delete_subscription_filter
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.deleteSubscriptionFilter
+  services:
+    cloudwatch-logs: {DeleteSubscriptionFilter}
+cloudwatch-logs_PutSubscriptionFilter:
+  title: Create a &CWL; subscription filter using an &AWS; SDK
+  title_abbrev: Create a subscription filter
+  synopsis: create an &CWLlong; subscription filter.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.put_subscription_filter.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch-logs
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cwl.cpp.put_subscription_filter.inc
+            - description: Create the subscription filter.
+              snippet_tags:
+                - cwl.cpp.put_subscription_filter
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.putSubscriptionFilterV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.putSubscriptionFilter
+  services:
+    cloudwatch-logs: {PutSubscriptionFilter}
+    

@@ -50,6 +50,7 @@ public class GeneratePresignedURL {
                     .build();
 
             // Set the presigned URL to expire after one hour.
+            java.util.Date expiration = new java.util.Date();
             long expTimeMillis = Instant.now().toEpochMilli();
             expTimeMillis += 1000 * 60 * 60;
             expiration.setTime(expTimeMillis);

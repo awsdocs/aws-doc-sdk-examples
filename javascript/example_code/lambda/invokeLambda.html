@@ -36,34 +36,34 @@
 <title>Emoji Slots</title>
 <link href="emojislots.css" rel="stylesheet" type="text/css">
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-   // Configure AWS SDK for JavaScript
+   // Configure AWS SDK for JavaScript.
    AWS.config.update({region: 'REGION'});
    AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: 'IDENTITY_POOL_ID'});
 
    var pullReturned = null;
-   var slotResults;	
+   var slotResults;
    var isSpinning = false;
-	
-   // Prepare to call Lambda function
+
+   // Prepare to call Lambda function.
    var lambda = new AWS.Lambda({region: 'REGION', apiVersion: '2015-03-31'});
    var pullParams = {
       FunctionName : 'slotPull',
       InvocationType : 'RequestResponse',
       LogType : 'None'
    };
-		
+
    function pullHandle() {
       if (isSpinning == false) {
          // Show the handle pulled down
          slot_handle.src = "lever-dn.png";
       }
    }
-	
+
    function initiatePull() {
-      // Show the handle flipping back up
-      slot_handle.src = "lever-up.png";	
+      // Show the handle flipping back up.
+      slot_handle.src = "lever-up.png";
       // Set all three wheels "spinning"
       slot_L.src = "slotpullanimation.gif";
       slot_M.src = "slotpullanimation.gif";
@@ -78,9 +78,9 @@
             pullResults = JSON.parse(data.Payload);
             displayPull();
          }
-      });	
+      });
    }
-	
+
    function displayPull() {
       isSpinning = false;
       if (pullResults.isWinner) {

@@ -8,14 +8,17 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Comprehend to
 detect entities, phrases, and more in a document.
 """
 
+# snippet-start:[python.example_code.comprehend.ComprehendDetect_imports]
 import logging
 from pprint import pprint
 import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
+# snippet-end:[python.example_code.comprehend.ComprehendDetect_imports]
 
 
+# snippet-start:[python.example_code.comprehend.ComprehendDetect]
 class ComprehendDetect:
     """Encapsulates Comprehend detection functions."""
     def __init__(self, comprehend_client):
@@ -24,6 +27,9 @@ class ComprehendDetect:
         """
         self.comprehend_client = comprehend_client
 
+# snippet-end:[python.example_code.comprehend.ComprehendDetect]
+
+# snippet-start:[python.example_code.comprehend.DetectDominantLanguage]
     def detect_languages(self, text):
         """
         Detects languages used in a document.
@@ -40,7 +46,9 @@ class ComprehendDetect:
             raise
         else:
             return languages
+# snippet-end:[python.example_code.comprehend.DetectDominantLanguage]
 
+# snippet-start:[python.example_code.comprehend.DetectEntities]
     def detect_entities(self, text, language_code):
         """
         Detects entities in a document. Entities can be things like people and places
@@ -60,7 +68,9 @@ class ComprehendDetect:
             raise
         else:
             return entities
+# snippet-end:[python.example_code.comprehend.DetectEntities]
 
+# snippet-start:[python.example_code.comprehend.DetectKeyPhrases]
     def detect_key_phrases(self, text, language_code):
         """
         Detects key phrases in a document. A key phrase is typically a noun and its
@@ -80,7 +90,9 @@ class ComprehendDetect:
             raise
         else:
             return phrases
+# snippet-end:[python.example_code.comprehend.DetectKeyPhrases]
 
+# snippet-start:[python.example_code.comprehend.DetectPiiEntities]
     def detect_pii(self, text, language_code):
         """
         Detects personally identifiable information (PII) in a document. PII can be
@@ -100,7 +112,9 @@ class ComprehendDetect:
             raise
         else:
             return entities
+# snippet-end:[python.example_code.comprehend.DetectPiiEntities]
 
+# snippet-start:[python.example_code.comprehend.DetectSentiment]
     def detect_sentiment(self, text, language_code):
         """
         Detects the overall sentiment expressed in a document. Sentiment can
@@ -119,7 +133,9 @@ class ComprehendDetect:
             raise
         else:
             return response
+# snippet-end:[python.example_code.comprehend.DetectSentiment]
 
+# snippet-start:[python.example_code.comprehend.DetectSyntax]
     def detect_syntax(self, text, language_code):
         """
         Detects syntactical elements of a document. Syntax tokens are portions of
@@ -140,8 +156,10 @@ class ComprehendDetect:
             raise
         else:
             return tokens
+# snippet-end:[python.example_code.comprehend.DetectSyntax]
 
 
+# snippet-start:[python.example_code.comprehend.Usage_DetectApis]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Comprehend detection demo!")
@@ -193,6 +211,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.comprehend.Usage_DetectApis]
 
 
 if __name__ == '__main__':

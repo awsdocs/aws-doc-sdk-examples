@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.redshift;
 
 // snippet-start:[redshift.java2._nodes.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.DescribeReservedNodesResponse;
@@ -27,9 +27,9 @@ import java.util.ArrayList;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,13 +37,14 @@ public class FindReservedNodeOffer {
 
     public static String nodeTypeToPurchase = "dc2.large";
     public static Double fixedPriceLimit = 10000.00;
-    public static ArrayList<ReservedNodeOffering> matchingNodes = new ArrayList<ReservedNodeOffering>();
+    public static ArrayList<ReservedNodeOffering> matchingNodes = new ArrayList<>();
 
     public static void main(String[] args) {
 
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listReservedNodes(redshiftClient);
@@ -75,7 +76,7 @@ public class FindReservedNodeOffer {
                 .build();
 
         DescribeReservedNodeOfferingsResponse response = redshiftClient.describeReservedNodeOfferings(request);
-        Integer count = 0;
+        int count = 0;
         System.out.println("\nFinding nodes to purchase.");
 
         for (ReservedNodeOffering offering : response.reservedNodeOfferings()) {

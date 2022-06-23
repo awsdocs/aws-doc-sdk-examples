@@ -3,9 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
-//snippet-sourceauthor:[scmacdon - aws]
-
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,12 +12,10 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.batchitems.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 import software.amazon.awssdk.enhanced.dynamodb.model.BatchWriteItemEnhancedRequest;
 import software.amazon.awssdk.enhanced.dynamodb.model.WriteBatch;
 import software.amazon.awssdk.regions.Region;
@@ -32,8 +28,13 @@ import java.time.ZoneOffset;
 // snippet-end:[dynamodb.java2.mapping.batchitems.import]
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Before running this code example, create an Amazon DynamoDB table named Customer with these columns:
+ *   - id - the id of the record that is the key
+ *   - custName - the customer name
+ *   - email - the email value
+ *   - registrationDate - an instant value when the item was added to the table
+ *
+ * Also, ensure that you have set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -43,9 +44,11 @@ public class EnhancedBatchWriteItems {
 
     public static void main(String[] args) {
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -58,10 +61,9 @@ public class EnhancedBatchWriteItems {
 
     // snippet-start:[dynamodb.java2.mapping.batchitems.main]
     public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
+
         try {
-
-           DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-
+            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
@@ -78,7 +80,6 @@ public class EnhancedBatchWriteItems {
             record3.setEmail("spink@noserver.com");
             record3.setRegistrationDate(instant) ;
 
-            // Create a BatchWriteItemEnhancedRequest object
             BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest =
                     BatchWriteItemEnhancedRequest.builder()
                             .writeBatches(
@@ -89,57 +90,13 @@ public class EnhancedBatchWriteItems {
                                             .build())
                             .build();
 
-            // Add these two items to the table
+            // Add these two items to the table.
             enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
             System.out.println("done");
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        }
-    }
-
-    @DynamoDbBean
-    public static class Customer {
-
-        private String id;
-        private String name;
-        private String email;
-        private Instant regDate;
-
-        @DynamoDbPartitionKey
-        public String getId() {
-            return this.id;
-        };
-
-        public void setId(String id) {
-
-            this.id = id;
-        }
-
-        @DynamoDbSortKey
-        public String getCustName() {
-            return this.name;
-        }
-
-        public void setCustName(String name) {
-            this.name = name;
-        }
-
-        public String getEmail() {
-            return this.email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public Instant getRegistrationDate() {
-            return regDate;
-        }
-        public void setRegistrationDate(Instant registrationDate) {
-
-            this.regDate = registrationDate;
         }
     }
     // snippet-end:[dynamodb.java2.mapping.batchitems.main]

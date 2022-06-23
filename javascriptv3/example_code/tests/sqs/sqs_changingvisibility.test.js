@@ -1,13 +1,12 @@
-const mockChangingVisibility = jest.fn();
-jest.mock("@aws-sdk/client-sqs/commands/ReceiveMessageCommand", () => ({
-  SQS: function SQS() {
-    this.ReceiveMessageCommand = mockChangingVisibility;
-  },
-}));
-const { run } = require("../../sqs/src/sqs_changingvisibility.js");
+const { run, params } = require("../../sqs/src/sqs_changingvisibility");
+const { sqsClient } = require("../../sqs/src/libs/sqsClient.js");
 
-test("has to mock SQS#sqs_changingvisibility", async (done) => {
-  await run();
-  expect(mockChangingVisibility).toHaveBeenCalled;
-  done();
+jest.mock("../../sqs/src/libs/sqsClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sqsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

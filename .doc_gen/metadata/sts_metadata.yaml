@@ -1,0 +1,160 @@
+# zexi 0.4.2
+sts_AssumeRole:
+  title: Assume a role with &STS; using an &AWS; SDK
+  title_abbrev: Assume a role
+  synopsis: assume a role with &STS;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sts/sts_temporary_credentials
+          sdkguide:
+          excerpts:
+            - description: Assume an &IAM; role that requires an MFA token and use
+                temporary credentials to list &S3; buckets for the account.
+              snippet_tags:
+                - python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sts
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sts.AssumeRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sts
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - sts.JavaScript.createclientv3
+            - description: Assume the &IAM; role.
+              snippet_tags:
+                - iam.JavaScript.sts.AssumeRoleV3
+        - sdk_version: 2
+          github: javascript/example_code/sts
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sts.JavaScript.assumeRole
+  services:
+    sts: {AssumeRole}
+sts_GetSessionToken:
+  title: Get a session token with &STS; using an &AWS; SDK
+  title_abbrev: Get a session token
+  synopsis: get a session token with &STS; and use it to perform a service action that
+    requires an MFA token.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sts/sts_temporary_credentials
+          sdkguide:
+          excerpts:
+            - description: Get a session token by passing an MFA token and use
+                it to list &S3; buckets for the account.
+              snippet_tags:
+                - python.example_code.sts.Scenario_SessionTokenMfa_list_buckets
+  services:
+    sts: {GetSessionToken}
+sts_Scenario_AssumeRoleMfa:
+  title: Assume an &IAM; role that requires an MFA token with &STS; using an &AWS; SDK
+  title_abbrev: Assume an &IAM; role that requires an MFA token
+  synopsis: assume an &IAM; role that requires a multi-factor authentication
+    (MFA) token with &STS; and use temporary security credentials to access an &AWS;
+    resource.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sts/sts_temporary_credentials
+          sdkguide:
+          excerpts:
+            - description: Create an &IAM; user, register an MFA device, and create a
+                role that grants permission to list &S3; buckets. The user has rights
+                only to assume the role.
+              snippet_tags:
+                - python.example_code.sts.Scenario_AssumeRoleMfa_setup
+            - description: Show that assuming the role without an MFA token is not
+                allowed.
+              snippet_tags:
+                - python.example_code.sts.Scenario_AssumeRoleMfa_access_denied
+            - description: Assume the role that grants permission to list &S3; buckets,
+                passing the required MFA token, and show that buckets can be listed.
+              snippet_tags:
+                - python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets
+            - description: Destroy the resources created for the demo.
+              snippet_tags:
+                - python.example_code.sts.Scenario_AssumeRoleMfa_teardown
+            - description: Run this scenario by using the previously defined functions.
+              snippet_tags:
+                - python.example_code.sts.Scenario_AssumeRoleMfa_demo
+  services:
+    sts: {AssumeRole}
+sts_Scenario_ConstructFederatedUrl:
+  title: Construct a URL with &STS; for federated users using an &AWS; SDK
+  title_abbrev: Construct a URL for federated users
+  synopsis: construct a URL with &STS; to give federated users limited access to the
+    &AWS; Management Console.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sts/sts_temporary_credentials
+          sdkguide:
+          excerpts:
+            - description: Create a role that grants read-only access to the current
+                account's &S3; resources.
+              snippet_tags:
+                - python.example_code.sts.Scenario_ConstructFederatedUrl_setup
+            - description: Get a security token from the &AWS; federation endpoint
+                and construct a URL that can be used to access the console with
+                federated credentials.
+              snippet_tags:
+                - iam.python.construct_federated_url
+            - description: Destroy the resources created for the demo.
+              snippet_tags:
+                - python.example_code.sts.Scenario_ConstructFederatedUrl_teardown
+            - description: Run this scenario by using the previously defined functions.
+              snippet_tags:
+                - python.example_code.sts.Scenario_ConstructFederatedUrl_demo
+  services:
+    sts: {AssumeRole}
+sts_Scenario_SessionTokenMfa:
+  title: Get a session token that requires an MFA token with &STS; using an &AWS; SDK
+  title_abbrev: Get a session token that requires an MFA token
+  synopsis: get a session token that requires a mulfi-factor authentication
+    (MFA) token with &STS; and use  temporary credentials to access an &AWS; resource.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sts/sts_temporary_credentials
+          sdkguide:
+          excerpts:
+            - description: Create an &IAM; user, register an MFA device, and create a
+                role that grants permission to let the user list &S3; buckets only when
+                MFA credentials are used.
+              snippet_tags:
+                - python.example_code.sts.Scenario_SessionTokenMfa_setup
+            - description: Get temporary session credentials by passing an MFA token,
+                and use the credentials to list &S3; buckets for the account.
+              snippet_tags:
+                - python.example_code.sts.Scenario_SessionTokenMfa_list_buckets
+            - description: Destroy the resources created for the demo.
+              snippet_tags:
+                - python.example_code.sts.Scenario_SessionTokenMfa_teardown
+            - description: Run this scenario by using the previously defined functions.
+              snippet_tags:
+                - python.example_code.sts.Scenario_SessionTokenMfa_demo
+  services:
+    sts: {GetSessionToken}

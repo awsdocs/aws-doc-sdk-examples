@@ -1,13 +1,12 @@
-const mockCreateVault = jest.fn();
-jest.mock("@aws-sdk/client-glacier/commands/CreateVaultCommand", () => ({
-    Glacier: function Glacier() {
-        this.CreateVaultCommand = mockCreateVault;
-    },
-}));
-const { run } = require("../../glacier/src/createVault");
+const { run, params } = require("../../glacier/src/createVault");
+const { glacierClient } = require("../../glacier/src/libs/glacierClient.js");
 
-test("has to mock glacier#createvault", async (done) => {
-    await run();
-    expect(mockCreateVault).toHaveBeenCalled;
-    done();
+jest.mock("../../glacier/src/libs/glacierClient.js");
+
+describe("@aws-sdk/client-glacier mock", () => {
+  it("should successfully mock Glacier client", async () => {
+    glacierClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

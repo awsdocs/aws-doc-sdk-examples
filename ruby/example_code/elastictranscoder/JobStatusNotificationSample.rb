@@ -1,24 +1,11 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[AWS]
-# snippet-sourcedescription:[Creates a notification handler for an Elastic Transcoder job.]
-# snippet-keyword:[Amazon Elastic Transcoder]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[elastictranscoder]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# JobStatusNotificationSample.rb demonstrates how to create a notification handler for an
+# Amazon Elastic Transcoder job using the AWS SDK for Ruby.
+
+
 # snippet-start:[elastictranscoder.ruby.create_job_status_notification.import]
 require 'aws-sdk-elastictranscoder'
 require 'openssl'
@@ -43,8 +30,8 @@ preset_id = '1351620000001-000020'
 # All outputs will have this prefix prepended to their output key.
 output_key_prefix = 'elastic-transcoder-samples/output/'
 
-# Region where you setup your AWS resources.
-region = 'us-east-1'
+# Replace us-west-2 with the AWS Region you're using for Elastic Transcoder.
+region = 'us-west-2'
 
 def create_elastic_transcoder_job(region, pipeline_id, input_key, preset_id, output_key_prefix)
   # Create the client for Elastic Transcoder.

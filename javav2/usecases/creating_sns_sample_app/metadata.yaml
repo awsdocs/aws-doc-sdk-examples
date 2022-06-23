@@ -1,0 +1,13 @@
+--- 
+files:
+  - path: src/main/java/com/spring/sns/SnsService.java
+    services:
+      - SNS
+  - path: src/main/java/com/spring/sns/SubApplication.java
+    services:
+      - SNS
+  - path: src/main/java/com/spring/sns/SubController.java
+    services:
+      - SNS
+  
+        

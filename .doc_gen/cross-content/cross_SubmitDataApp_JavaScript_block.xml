@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        This example shows how to build an app that enables users to submit data to an &DDBlong; table, 
+        and send a text message to the administrator using &SNSlong; (&SNS;).
+    </para>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cross-services/submit-data-app">GitHub</ulink>.
+    </para>
+    <para>This example is also available in the
+        <ulink type="documentation" url="sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html">&JSBlong; v3 developer guide</ulink>.</para>
+</block>

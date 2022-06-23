@@ -3,9 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
-//snippet-sourceauthor:[scmacdon-aws]
-
+//snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -17,6 +15,8 @@ package com.example.sqs;
 // snippet-start:[sqs.java2.long_polling.import]
 import java.util.Date;
 import java.util.HashMap;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
@@ -29,9 +29,9 @@ import software.amazon.awssdk.services.sqs.model.*;
  */
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -41,9 +41,9 @@ public class LongPolling {
 
     public static void main(String[] args) {
 
-        // Create a SqsClient object
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         setLongPoll(sqsClient) ;
@@ -53,7 +53,7 @@ public class LongPolling {
     // snippet-start:[sqs.java2.long_polling.main]
     public static void setLongPoll( SqsClient sqsClient) {
 
-        // Enable long polling when creating a queue
+        // Enable long polling when creating a queue.
         HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
         attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "20");
 
@@ -64,14 +64,13 @@ public class LongPolling {
 
         try {
             sqsClient.createQueue(createRequest);
-
             GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
                 .queueName(QueueName)
                 .build();
 
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
 
-           // Enable long polling on an existing queue
+           // Enable long polling on an existing queue.
            SetQueueAttributesRequest setAttrsRequest = SetQueueAttributesRequest.builder()
                 .queueUrl(queueUrl)
                 .attributes(attributes)
@@ -79,7 +78,7 @@ public class LongPolling {
 
            sqsClient.setQueueAttributes(setAttrsRequest);
 
-            // Enable long polling on a message receipt
+            // Enable long polling on a message receipt.
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .waitTimeSeconds(20)
@@ -92,6 +91,7 @@ public class LongPolling {
             System.exit(1);
         }
     }
+    // snippet-end:[sqs.java2.long_polling.main]
 }
-// snippet-end:[sqs.java2.long_polling.main]
+
 // snippet-end:[sqs.java2.long_polling.complete]

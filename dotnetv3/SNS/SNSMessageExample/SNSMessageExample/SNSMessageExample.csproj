@@ -8,6 +8,10 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.Core" Version="3.5.2.1" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.5.1.34" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

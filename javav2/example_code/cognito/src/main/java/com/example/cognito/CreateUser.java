@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.new_admin_user.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserRequest;
@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIden
 //snippet-end:[cognito.java2.new_admin_user.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,10 +35,10 @@ public class CreateUser {
                 "Usage:\n" +
                 "    <userPoolId> <userName> <email> <password>\n\n" +
                 "Where:\n" +
-                "    userPoolId - the Id value for the user pool where the user is created.\n\n" +
-                "    userName - the user name for the new user.\n\n" +
-                "    email - the email to use for verifying the user.\n\n" +
-                "    password - the password for this user.\n\n" ;
+                "    userPoolId - The Id value for the user pool where the user is created.\n\n" +
+                "    userName - The user name for the new user.\n\n" +
+                "    email - The email to use for verifying the user.\n\n" +
+                "    password - The password for this user.\n\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -50,23 +50,23 @@ public class CreateUser {
         String email = args[2];
         String password = args[3];
 
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        createNewUser(cognitoclient, userPoolId, userName, email, password);
-        cognitoclient.close();
+        createNewUser(cognitoClient, userPoolId, userName, email, password);
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.add_login_provider.main]
-    public static void createNewUser(CognitoIdentityProviderClient cognitoclient,
+    public static void createNewUser(CognitoIdentityProviderClient cognitoClient,
                                    String userPoolId,
                                    String name,
                                    String email,
                                    String password){
 
         try{
-
             AttributeType userAttrs = AttributeType.builder()
                     .name("email")
                     .value(email)
@@ -80,13 +80,13 @@ public class CreateUser {
                     .messageAction("SUPPRESS")
                     .build() ;
 
-            AdminCreateUserResponse response = cognitoclient.adminCreateUser(userRequest);
+            AdminCreateUserResponse response = cognitoClient.adminCreateUser(userRequest);
             System.out.println("User " + response.user().username() + "is created. Status: " + response.user().userStatus());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.add_login_provider.main]
     }
+    //snippet-end:[cognito.java2.add_login_provider.main]
 }

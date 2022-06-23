@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+// SPDX - License - Identifier: Apache - 2.0
 
-#include <iostream>
+ #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/core/utils/UUID.h>
@@ -26,7 +26,7 @@ int main()
         Aws::S3::S3Client s3_client(config);
 
         // 1/6. Create the bucket to upload the object to.
-        // Create a unique bucket name to increase the chance of success 
+        // Create a unique bucket name to increase the chance of success
         // when trying to create the bucket.
         // Format: "my-bucket-" + lowercase UUID.
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
@@ -50,8 +50,8 @@ int main()
             return 1;
         }
 
-        // 2/6. Create the object to upload, and then upload the object 
-        // to the bucket. 
+        // 2/6. Create the object to upload, and then upload the object
+        // to the bucket.
         // For this test, create a text file named 'my-file.txt' in the same
         // directory as this test.
         std::ofstream myFile(file_name);
@@ -102,7 +102,7 @@ int main()
 
             return 1;
         }
-        
+
         // 5/6. Delete the object from the bucket.
         Aws::S3::Model::DeleteObjectRequest delete_object_request;
 
@@ -119,7 +119,7 @@ int main()
                 bucket_name << "':" <<
                 err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
             std::cout << "To clean up, you must delete the bucket '" <<
-                bucket_name << "' yourself." << std::endl; 
+                bucket_name << "' yourself." << std::endl;
 
             return 1;
         }

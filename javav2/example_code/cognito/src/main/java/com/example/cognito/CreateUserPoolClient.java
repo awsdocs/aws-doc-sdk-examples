@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.cognito;
 
 //snippet-start:[cognito.java2.user_pool.create_user_pool_client.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
@@ -21,58 +21,59 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CreateUserP
 //snippet-end:[cognito.java2.user_pool.create_user_pool_client.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateUserPoolClient {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <clientName> <userPoolId> \n\n" +
                 "Where:\n" +
-                "    clientName - the name for the user pool client to create.\n\n" +
-                "    userPoolId - the ID for the user pool.\n\n" ;
+                "    clientName - The name for the user pool client to create.\n\n" +
+                "    userPoolId - The ID for the user pool.\n\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String clientName = args[0];
         String userPoolId = args[1];
-
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        createPoolClient (cognitoclient, clientName, userPoolId) ;
-        cognitoclient.close();
+        createPoolClient (cognitoClient, clientName, userPoolId) ;
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.user_pool.create_user_pool_client.main]
-    public static void createPoolClient ( CognitoIdentityProviderClient cognitoclient,
+    public static void createPoolClient ( CognitoIdentityProviderClient cognitoClient,
                                           String clientName,
                                           String userPoolId ) {
 
         try {
 
-            CreateUserPoolClientResponse repsonse = cognitoclient.createUserPoolClient(
+            CreateUserPoolClientResponse response = cognitoClient.createUserPoolClient(
                     CreateUserPoolClientRequest.builder()
                             .clientName(clientName)
                             .userPoolId(userPoolId)
                             .build()
             );
 
-            System.out.println("User pool " + repsonse.userPoolClient().clientName() + " created. ID: " + repsonse.userPoolClient().clientId());
+            System.out.println("User pool " + response.userPoolClient().clientName() + " created. ID: " + response.userPoolClient().clientId());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.user_pool.create_user_pool_client.main]
     }
+    //snippet-end:[cognito.java2.user_pool.create_user_pool_client.main]
 }

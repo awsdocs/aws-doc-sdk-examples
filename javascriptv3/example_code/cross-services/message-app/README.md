@@ -1,8 +1,8 @@
-# TypeScript environment for tutorial building an Amazon Messaging app
+# JavaScript environment for tutorial building an Amazon Messaging app
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial demonstrating how to build an app 
 that sends and receives messages using Amazon Simple Queue Service (Amazon SQS).
 
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/messaging-app.html) contains these examples.
+For instructions on implementing this example, see [Creating an example messaging application](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/messaging-app.html) in the *AWS SDK for JavaScript v3 Developer Guide*.
 
 # Getting started
 
@@ -17,6 +17,7 @@ which are *@aws-sdk/client-cognito-identity*,  *@aws-sdk/credential-provider-cog
 
 They also include third-party Node.js modules, including webpack.
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g 
 cd javascriptv3/example_code/cross-services/message-app/
 npm install
+```

@@ -33,13 +33,11 @@ import (
 //     Otherwise, an empty string and an error from the call to
 func GetQueueURL(sess *session.Session, queue *string) (*sqs.GetQueueUrlOutput, error) {
     // Create an SQS service client
-    // snippet-start:[sqs.go.get_queue_url.call]
     svc := sqs.New(sess)
 
     urlResult, err := svc.GetQueueUrl(&sqs.GetQueueUrlInput{
         QueueName: queue,
     })
-    // snippet-end:[sqs.go.get_queue_url.call]
     if err != nil {
         return nil, err
     }

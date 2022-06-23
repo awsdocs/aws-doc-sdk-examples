@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,6 +16,8 @@ package com.example.mediastore;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastoredata.MediaStoreDataClient ;
@@ -29,9 +30,9 @@ import software.amazon.awssdk.services.mediastore.model.DescribeContainerRespons
 //snippet-end:[mediastore.java2.list_items.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -39,26 +40,27 @@ public class ListItems {
 
     public static void main(String[] args) throws URISyntaxException {
 
-       final String USAGE = "\n" +
+       final String usage = "\n" +
                 "Usage: " +
                 "ListItems <containerName> <completePath>\n\n" +
                 "Where:\n" +
-                "  containerName - the name of the container.\n" +
-                "  completePath - the path in the container where the objects are located (for example, /Videos5).";
+                "  containerName - The name of the container.\n" +
+                "  completePath - The path in the container where the objects are located (for example, /Videos5).";
 
-        //if (args.length != 1) {
-        //    System.out.println(USAGE);
-        //    System.exit(1);
-       // }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String containerName = "Videos5"; //args[0];
-        String completePath = "/Videos5";
+        String containerName = args[0];
+        String completePath = args[1];
         Region region = Region.US_EAST_1;
         URI uri = new URI(getEndpoint(containerName));
 
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
                 .endpointOverride(uri)
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllItems(mediaStoreData, completePath);
@@ -90,7 +92,7 @@ public class ListItems {
            System.exit(1);
        }
     }
-    //snippet-end:[mediastore.java2.list_items.main]
+
     private static String getEndpoint(String containerName){
 
         Region region = Region.US_EAST_1;
@@ -105,4 +107,5 @@ public class ListItems {
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();
     }
+    //snippet-end:[mediastore.java2.list_items.main]
 }

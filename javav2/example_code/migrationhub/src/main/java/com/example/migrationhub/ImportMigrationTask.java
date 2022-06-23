@@ -3,8 +3,7 @@
 // snippet-service:[AWS Migration Hub]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-05-2020]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.migrationhub;
 
 // snippet-start:[migration.java2.import_migration.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.CreateProgressUpdateStreamRequest;
@@ -22,9 +22,9 @@ import software.amazon.awssdk.services.migrationhub.model.MigrationHubException;
 // snippet-end:[migration.java2.import_migration.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,24 +32,24 @@ public class ImportMigrationTask {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    ImportMigrationTask <migrationTask> <progressStream> \n\n" +
+                "    <migrationTask> <progressStream> \n\n" +
                 "Where:\n" +
                 "    migrationTask - the name of a migration task. \n"+
                 "    progressStream - the name of a progress stream. \n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String migrationTask = args[0];
         String progressStream = args[1];
-
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         importMigrTask(migrationClient, migrationTask, progressStream);
@@ -57,17 +57,15 @@ public class ImportMigrationTask {
     }
 
     // snippet-start:[migration.java2.import_migration.main]
-    public static void importMigrTask(MigrationHubClient migrationClient,  String migrationTask, String progressStream) {
+    public static void importMigrTask(MigrationHubClient migrationClient, String migrationTask, String progressStream) {
 
     try {
-
         CreateProgressUpdateStreamRequest progressUpdateStreamRequest = CreateProgressUpdateStreamRequest.builder()
                 .progressUpdateStreamName(progressStream)
                 .dryRun(false)
                 .build();
 
        migrationClient.createProgressUpdateStream(progressUpdateStreamRequest);
-
        ImportMigrationTaskRequest migrationTaskRequest = ImportMigrationTaskRequest.builder()
                 .migrationTaskName(migrationTask)
                 .progressUpdateStream(progressStream)
@@ -80,6 +78,6 @@ public class ImportMigrationTask {
         System.out.println(e.getMessage());
         System.exit(1);
     }
+  }
     // snippet-end:[migration.java2.import_migration.main]
-    }
 }

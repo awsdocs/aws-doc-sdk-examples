@@ -5,21 +5,25 @@
 Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway to
 create a REST API that integrates with Amazon DynamoDB.
 
-* Create a REST API served by API Gateway.
-* Define REST methods that call DynamoDB to store and access data.
-* Call the REST API with the Requests package.
+*API Gateway enables you to create and deploy your own REST and WebSocket APIs 
+at any scale.*
 
-## Prerequisites
+## Code examples
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.5 or later
-- Boto3 1.15.4 or later
-- Requests 2.24.0 or later
-- PyTest 6.0.2 or later (to run unit tests)
+* [Adding a resource to a REST API](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/apigateway/aws_service/aws_service.py)
+(`create_resource`)
+* [Adding an integration method to a REST API](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/apigateway/aws_service/aws_service.py)
+(`add_integration_method`)
+* [Creating a REST API](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/apigateway/aws_service/aws_service.py)
+(`create_rest_api`)
+* [Deleting a REST API](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/apigateway/aws_service/aws_service.py)
+(`delete_rest_api`)
+* [Deploying a REST API](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/apigateway/aws_service/aws_service.py)
+(`create_deployment`)
+* [Listing REST APIs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/apigateway/aws_service/aws_service.py)
+(`get_rest_apis`)
 
-## Cautions
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -34,12 +38,24 @@ create a REST API that integrates with Amazon DynamoDB.
 
 ## Running the code
 
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.5 or later
+- Boto3 1.15.4 or later
+- Requests 2.24.0 or later
+- PyTest 6.0.2 or later (to run unit tests)
+
+### Command
+
 This example requires a DynamoDB table with a specific key schema and an 
 AWS Identity and Access Management (IAM) role that grants permission to let
 API Gateway perform actions on the table. These resources are managed by
 an AWS CloudFormation stack that is defined in the accompanying `setup.yaml` file. 
 
-### Deploy resources
+#### Deploy resources
 
 Deploy prerequisite resources by running the example script with the `deploy` flag at 
 a command prompt.
@@ -48,7 +64,7 @@ a command prompt.
 python aws_service.py deploy
 ```
 
-### Run the usage demonstration
+#### Run the usage demonstration
 
 Run the usage example with the `demo` flag at a command prompt.
 
@@ -56,7 +72,7 @@ Run the usage example with the `demo` flag at a command prompt.
 python aws_service.py demo
 ``` 
 
-### Destroy resources
+#### Destroy resources
 
 Destroy example resources by running the script with the `destroy` flag at a command 
 prompt.

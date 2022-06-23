@@ -1,0 +1,205 @@
+# zexi 0.4.0
+acm_DescribeCertificate:
+  title: Describe an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Describe a certificate
+  synopsis: describe &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.DescribeCertificate
+  services:
+    acm: {DescribeCertificate}
+acm_GetCertificate:
+  title: Get an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Get a certificate
+  synopsis: get &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.GetCertificate
+  services:
+    acm: {GetCertificate}
+acm_ListCertificates:
+  title: List &ACM; certificates using an &AWS; SDK
+  title_abbrev: List certificates
+  synopsis: list &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.ListCertificates
+  services:
+    acm: {ListCertificates}
+acm_ImportCertificate:
+  title: Import an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Import certificates
+  synopsis: import &ACM; certficates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.ImportCertificate
+  services:
+    acm: {ImportCertificate}
+acm_DeleteCertificate:
+  title: Delete an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Delete a certificate
+  synopsis: delete &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.DeleteCertificate
+  services:
+    acm: {DeleteCertificate}
+acm_AddTagsToCertificate:
+  title: Add tags to an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Add tags to a certificate
+  synopsis: add tags to &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.AddTagsToCertificate
+  services:
+    acm: {AddTagsToCertificate}
+acm_ListTagsForCertificate:
+  title: List tags for an &ACM; certificate using an &AWS; SDK
+  title_abbrev: List tags for a certificate
+  synopsis: list tags for &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.ListTagsForCertificate
+  services:
+    acm: {ListTagsForCertificate}
+acm_RemoveTagsFromCertificate:
+  title: Remove tags from an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Remove tags from a certificate
+  synopsis: remove tags from &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.RemoveTagsFromCertificate
+  services:
+    acm: {RemoveTagsFromCertificate}
+acm_RequestCertificate:
+  title: Request validation of an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Request validation of a certificate
+  synopsis: request validation of &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.RequestCertificate
+  services:
+    acm: {RequestCertificate}
+acm_ResendValidationEmail:
+  title: Resend validation email for an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Resend validation email for a certificate
+  synopsis: resend validation email for &ACM; certificates.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.ResendValidationEmail
+  services:
+    acm: {ResendValidationEmail}
+acm_Usage_ImportListRemove:
+  title: Manage &ACM; certificates using an &AWS; SDK
+  title_abbrev: Manage certificates
+  synopsis_list:
+    - Request a certificate from &ACM;.
+    - Import a self-signed certificate.
+    - List and describe certificates.
+    - Remove certificates.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          sdkguide:
+          excerpts:
+            - description: Create a class the wraps &ACM; operations.
+              snippet_tags:
+                - python.example_code.acm.imports
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.RequestCertificate
+                - python.example_code.acm.ImportCertificate
+                - python.example_code.acm.ListCertificates
+                - python.example_code.acm.DescribeCertificate
+                - python.example_code.acm.GetCertificate
+                - python.example_code.acm.AddTagsToCertificate
+                - python.example_code.acm.ListTagsForCertificate
+                - python.example_code.acm.RemoveTagsFromCertificate
+                - python.example_code.acm.DeleteCertificate
+            - description: Use the wrapper class to manage certificates for your account.
+              snippet_tags:
+                - python.example_code.acm.Usage_ImportListRemove
+  services:
+    acm: {}

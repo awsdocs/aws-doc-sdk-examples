@@ -6,9 +6,9 @@
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
   "license": "Apache 2.0",
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.3.0",
-    "@aws-sdk/node-http-handler": "^3.3.0",
-    "@aws-sdk/types": "^3.3.0",
+    "@aws-sdk/client-sqs": "^3.32.0",
+    "@aws-sdk/node-http-handler": "^3.32.0",
+    "@aws-sdk/types": "^3.32.0",
     "ts-node": "^9.0.0"
   },
   "devDependencies": {

@@ -1,15 +1,3 @@
- 
-//snippet-sourcedescription:[subscribe_email.cpp demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to an email address.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -26,17 +14,24 @@
 #include <aws/sns/model/SubscribeRequest.h>
 #include <aws/sns/model/SubscribeResult.h>
 #include <iostream>
-
+// snippet-start:[sns.cpp.subscribe_email.code]
 /**
- * Subscribe email
+ * Subscribe an email address endpoint to a topic - demonstrates how to initiate a subscription to an Amazon SNS topic with delivery
+ *  to an email address.
+ * 
+ * SNS will send a subscription confirmation email to the email address provided which you need to confirm to 
+ * receive messages.
+ *
+ * <protocol_value> set to "email" provides delivery of message via SMTP (see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html for available protocols).
+ * <topic_arn_value> can be obtained from run_list_topics executable and includes the "arn:" prefix.
  */
 
 int main(int argc, char ** argv)
 {
   if (argc != 4)
   {
-    std::cout << "Usage: subscribe <protocol_value/email> <topic_arn_value>"
-                 "email_address" << std::endl;
+    std::cout << "Usage: subscribe_email <protocol_value=email> <topic_arn_value>"
+                 " <email_address>" << std::endl;
     return 1;
   }
 
@@ -69,3 +64,4 @@ int main(int argc, char ** argv)
   Aws::ShutdownAPI(options);
   return 0;
 }
+// snippet-end:[sns.cpp.subscribe_email.code]

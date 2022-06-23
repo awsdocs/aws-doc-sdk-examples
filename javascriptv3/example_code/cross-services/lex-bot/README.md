@@ -1,8 +1,8 @@
-# TypeScript environment for tutorial building an Amazon Lex chatbot
+# JavaScript environment for tutorial building an Amazon Lex chatbot
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial that how to build and deploy an Amazon Lex chatbot
 within a web application to engage your web site visitors.
 
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html) contains these examples.
+For instructions on implementing this example, see [Building an Amazon Lex chatbot](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html) in the *AWS SDK for JavaScript v3 Developer Guide*.
 
 # Getting started
 
@@ -18,6 +18,6 @@ which are *@aws-sdk/client-cognito-identity*,  *@aws-sdk/credential-provider-cog
 
 They also include third-party Node.js modules, including webpack.
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g 
 cd javascriptv3/example_code/cross-services/lex-bot/
 npm install

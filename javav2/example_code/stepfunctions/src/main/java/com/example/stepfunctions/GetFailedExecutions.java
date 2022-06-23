@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/28/2021]
-//snippet-sourceauthor:[scmacdon-AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,10 +14,10 @@
 package com.example.stepfunctions;
 
 // snippet-start:[stepfunctions.java2.get_failed_exes.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.ListExecutionsRequest;
-import software.amazon.awssdk.services.sfn.model.ExecutionStatus;
 import software.amazon.awssdk.services.sfn.model.ListExecutionsResponse;
 import software.amazon.awssdk.services.sfn.model.ExecutionListItem;
 import software.amazon.awssdk.services.sfn.model.SfnException;
@@ -26,9 +25,9 @@ import java.util.List;
 // snippet-end:[stepfunctions.java2.get_failed_exes.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,21 +35,22 @@ public class GetFailedExecutions {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    GetFailedExecutions <stateMachineARN>\n\n" +
+                "    <stateMachineARN>\n\n" +
                 "Where:\n" +
                 "    stateMachineARN - The ARN of the state machine.\n";
 
-      //  if (args.length != 1) {
-      //      System.out.println(USAGE);
-      //      System.exit(1);
-      //  }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String stateMachineARN = "arn:aws:states:us-east-1:814548047983:stateMachine:CallCenterStateMachine";//args[0];
+        String stateMachineARN = args[0];
         Region region = Region.US_WEST_2;
         SfnClient sfnClient = SfnClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getFailedExes(sfnClient, stateMachineARN);

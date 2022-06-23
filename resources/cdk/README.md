@@ -2,41 +2,60 @@
 
 This document describes the resources created by the AWS CDK apps in this directory.
 
+These resources are for the following services:
+
+- AWS Identity and Access Management (IAM)
+- Amazon CloudWatch (CloudWatch)
+- Amazon Cognito
+- Amazon Comprehend
+- Amazon DynamoDB (DynamoDB)
+- Amazon Lex
+- Amazon Simple Nofification Service (Amazon SNS)
+- Amazon Simple Queue Service (Amazon SQS)
+- Amazon Simple Storage Service (Amazon S3)
+- Amazon Translate
+
 For instructions on how to run any of these apps, see [Running a CDK app](#cdk).
 
-## rekognition-sns-video-analyzer
-This AWS CDK app creates the following resources:
-- An AWS Identity and Access Management (IAM) unauthenticated role with permissions 
-  for Amazon Simple Email Service (Amazon SQS), Amazon Simple Storage Service (Amazon S3), 
-  and Amazon Rekognition.
-- An Amazon S3 bucket.
-- An Amazon Simple Notification Service (SNS) topic.
+## dynamodb_ruby_example_create_movies_table
 
-## messaging-app-unauthenticated-role-sqs-fifo-queue
 This AWS CDK app creates the following resources:
-- An AWS Identity and Access Management (IAM) unauthenticated role with permissions 
-  for Amazon Simple Queue Service (Amazon SQS).
-- An Amazon SQS First In First Out (FIFO) queue.
 
-## lex_bot_example_iam_unauth_role
+- A DynamoDB table.
+
+## dynamodb-ruby-example-create-users-table
+
 This AWS CDK app creates the following resources:
-- An AWS Identity and Access Management (IAM) unauthenticated role with permissions 
-  for Amazon Comprehend, Amazon Translate, and Amazon Lex.
+
+- A DynamoDB table.
 
 ## go_example_lambda
 
 This AWS CDK app creates the following resources:
 
-- An Amazon Simple Storage Service (Amazon S3) bucket
-- An Amazon DynamoDB (DynamoDB) table
-- An Amazon Simple Notification Service (Amazon SNS) topic
-- An Amazon Simple Queue Service (Amazon SQS) queue
+- An Amazon S3 bucket
+- A DynamoDB table
+- An Amazon SNS topic
+- An Amazon SQS queue
 
 In addition, this AWS CDK app creates notifications to
-Amazon Lambda (Lambda) function that detect changes in those resources,
-and handlers, in Go, that print messages to an Amazon CloudWatch (CloudWatch) log.
+Lambda function that detect changes in those resources,
+and handlers, in Go, that print messages to a CloudWatch log.
 
 For instructions on how to run any of these apps, see [.../cfn/go_example_lambda](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cfn/go_example_lambda).
+
+## go-apprunner
+
+This AWS CDK app creates the following resources:
+
+- A Docker container
+- IAM roles to enable running a Go app within the Docker container
+
+## iam-ruby-example-add-new-user
+
+This AWS CDK app creates the following resources:
+
+- An IAM user
 
 ## javascript_example_code_polly_aws_service
 
@@ -46,7 +65,6 @@ This AWS CDK app creates the following resources:
   access to Amazon Polly. 
 - An Amazon Cognito identity pool with the IAM unauthenticated role attached to
   it.
-
 
 ## javascript_example_code_transcribe_demo
 
@@ -62,8 +80,7 @@ This AWS CDK app creates the following resources:
 
 For more information on the example using these resources, see [Build a transcription app with authenticated users](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html).
 
-
-## javascript_example_lambda_aws-service
+## javascript_example_lambda_aws_service
 
 This AWS CDK app creates the following resources:
 
@@ -75,26 +92,67 @@ This AWS CDK app creates the following resources:
 
 For more information on the example using these resources, see [Tutorial: Creating and using Lambda functions](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html).
 
-
-
-## lambda-using-api-gateway
+## kinesis-example-create-stream
 
 This AWS CDK app creates the following resources:
 
-- An Amazon DynamoDB table.
-- An IAM role with attached permissions to execute Lambda functions.
-- An Amazon S3 bucket to host Lambda function. 
+- An Amazon Kinesis stream
+- An Amazon Cognito identity pool
+- An IAM role
+
+## kinesis-iam-unauthenticated-role
+
+This AWS CDK app creates the following resources:
+
+- An Amazon Cognito identity pool
+- An IAM role
+
+## lambda_api_step_functions
+
+This AWS CDK app creates the following resources:
+
+- An Amazon Cognito identity pool
+- An IAM role
+- An AWS Step Functions instance
+
+## lambda_using_api_gateway
+
+This AWS CDK app creates the following resources:
+
+- A DynamoDB table
+- An IAM role with attached permissions to execute Lambda functions
+- An Amazon S3 bucket to host Lambda function
 
 For more information on the example using these resources, see [Tutorial: Invoking Lambda with API Gateway](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/lambda-api-gateway).
+
+## lambda_using_scheduled_events
+
+This AWS CDK app creates the following resources:
+
+- An Amazon S3 bucket
+- An IAM role
+- A DynamoDB table
+
+## lex_bot_example_iam_unauth_role
+
+This AWS CDK app creates the following resources:
+
+- An IAM unauthenticated role with permissions 
+  for Amazon Comprehend, Amazon Translate, and Amazon Lex.
+
+## messaging-app-unauthenticated-role-sqs-fifo-queue
+
+This AWS CDK app creates the following resources:
+
+- An IAM unauthenticated role with permissions for Amazon SQS
+- An Amazon SQS First In First Out (FIFO) queue.
 
 ## python_example_code_apigateway_aws_service
 
 This AWS CDK app creates the following resources:
 
-- A DynamoDB table with a
-  `username` partition key
-- an IAM role
-  that enables Amazon API Gateway to read from and write to the table.
+- A DynamoDB table with a `username` partition key
+- an IAM role that enables Amazon API Gateway to read from and write to the table.
   
 For more information on the example using these resources, see [...python/example_code/apigateway/aws_service](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/apigateway/aws_service).
 
@@ -124,40 +182,74 @@ For more information on the example using these resources, see [...python/exampl
 
 This AWS CDK app creates the following resources:
 
-- A DynamoDB table with a
-  `username` partition key
-- An IAM role
-  that enables API Gateway to read from and write to the table.
+- A DynamoDB table with a `username` partition key
+- An IAM role that enables API Gateway to read from and write to the table.
 
 For more information on the example using these resources, see [...python/example_code/stepfunctions](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/stepfunctions).
+
+## rekognition-sns-video-analyzer
+
+This AWS CDK app creates the following resources:
+
+- An IAM unauthenticated role with permissions for Amazon SQS, Amazon S3, and Amazon Rekognition
+- An Amazon S3 bucket
+- An Amazon SNS topic.
+
+## rekognition-unauthrole
+
+This AWS CDK app creates the following resources:
+
+- An IAM role
+- An Amazon Cognito identity pool
+
+## s3-ruby-example-create-bucket
+
+This AWS CDK app creates the following resources:
+
+- An Amazon S3 bucket
+
+## submit-data-app-unauthenticated-role
+
+This AWS CDK app creates the following resources:
+
+- A DynamoDB table
+- An Amazon Cognito identity pool
+- An IAM role
 
 ## textract_example_s3_sns_sqs
 
 This AWS CDK app creates the following resources:
 
-* An Amazon S3 bucket that grants Amazon Textract read-write permission.
-* An Amazon SNS topic.
-* An IAM role that can be assumed by Amazon Textract and grants permission to publish to 
-the topic.
-* An Amazon SQS queue that is subscribed to receive messages from the topic.
+- An Amazon S3 bucket that grants Amazon Textract read-write permission
+- An Amazon SNS topic
+- An IAM role that can be assumed by Amazon Textract and grants permission to publish to the topic
+- An Amazon SQS queue that is subscribed to receive messages from the topic
 
 For more information on the example using these resources, see [...python/example_code/textract](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/textract).
-  
+
 ## textract_example_s3_sns_sqs_cognito
 
 This AWS CDK app creates the following resources:
 
-* An Amazon S3 bucket that grants Amazon Textract read-write permission.
-* An Amazon SNS topic.
-* An IAM role that can be assumed by Amazon Textract and grants permission to publish to 
-the topic.
-* An Amazon SQS queue that is subscribed to receive messages from the topic.
-* An Amazon Cognito user pool, identity pool, and authenticated user role that
-grants authenticated users permission to access Amazon Textract, the Amazon SQS
-queue, and the Amazon S3 bucket.
+- An Amazon S3 bucket that grants Amazon Textract read-write permission
+- An Amazon SNS topic
+- An IAM role that can be assumed by Amazon Textract and grants permission to publish to the topic
+- An Amazon SQS queue that is subscribed to receive messages from the topic
+- An Amazon Cognito user pool, identity pool, and authenticated user role that
+  grants authenticated users permission to access Amazon Textract, the Amazon SQS
+  queue, and the Amazon S3 bucket
 
 For more information on the example using these resources, see [...javascriptv3/example_code/cross-services/textract-react](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/textract-react).
-  
+
+## transcribe-streaming-unauth-role
+
+This AWS CDK app creates the following resources:
+
+- An IAM unauthenticated role with the following permissions:
+  - Amazon SES: SendEmail
+  - Amazon Transcribe: StartStreamTranscriptionWebSocket
+  - Amazon Comprehend: DetectDominantLanguage
+  - Amazon Translate: TranslateText
 
 # Running a CDK app<a name="cdk"></a>
 
@@ -179,7 +271,7 @@ To destroy the generated AWS resources after you are finished using them, run th
 
     cdk destroy
 
- **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
+ **Note**: In some cases, such as when an Amazon S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
 
      
  2. To run this app with the AWS Command Line Interface (AWS CLI):
@@ -208,7 +300,7 @@ To destroy the generated AWS resources after you are finished using them, run th
 
        aws cloudformation delete-stack --stack-name STACK_NAME
        
- **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
+ **Note**: In some cases, such as when an Amazon S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
 
  3. To run this app with the AWS CloudFormation console:
 
@@ -232,4 +324,4 @@ To destroy the generated AWS resources after you are finished using them, run th
        choose the stack in the console, choose Delete, and then follow
        the on-screen instructions.
 
- **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
+ **Note**: In some cases, such as when an Amazon S3 bucket is not empty, the AWS CDK app cannot destroy a resource.

@@ -1,5 +1,15 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+//snippet-sourcedescription:[list_objects.cpp demonstrates how to list objects located in a given Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-keyword:[AWS SDK for C++]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon S3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[11/30/2021]
+//snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 //snippet-start:[s3.cpp.list_objects.inc]
 #include <iostream>
@@ -70,7 +80,12 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String bucket_name = "my-bucket";
+        //TODO: Name of a bucket in your account.
+        //The bucket must have at least one object in it.  One way to achieve
+        //this is to configure and run put_object.cpp's executable first.
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
+
+        //TODO: Set to the AWS Region in which the bucket was created.
         Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::ListObjects(bucket_name, region))

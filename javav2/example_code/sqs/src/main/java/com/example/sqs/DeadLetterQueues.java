@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,8 +13,8 @@
 package com.example.sqs;
 
 // snippet-start:[sqs.java2.delete_letter_queues.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.sqs.model.*;
-
 import java.util.Date;
 import java.util.HashMap;
 import software.amazon.awssdk.regions.Region;
@@ -23,9 +22,9 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 // snippet-end:[sqs.java2.delete_letter_queues.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,12 +34,13 @@ public class DeadLetterQueues {
 
     public static void main(String[] args) {
 
-        SqsClient sqs = SqsClient.builder()
+        SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        setDeadLetterQueue(sqs);
-        sqs.close();
+        setDeadLetterQueue(sqsClient);
+        sqsClient.close();
     }
 
     // snippet-start:[sqs.java2.delete_letter_queues.main]
@@ -94,5 +94,5 @@ public class DeadLetterQueues {
             System.exit(1);
         }
     }
+    // snippet-end:[sqs.java2.delete_letter_queues.main]
 }
-// snippet-end:[sqs.java2.delete_letter_queues.main]

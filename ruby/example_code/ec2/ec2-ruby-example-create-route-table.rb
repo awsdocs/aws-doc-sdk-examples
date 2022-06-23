@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# ec2-ruby-example-create-route-table.rb demonstrates how to
+# create a route table in Amazon Virtual Private Cloud (Amazon VPC)
+# and then associates the route table with a subnet in Amazon VPC.
+
+# snippet-start:[ec2.Ruby.createRouteTable]
 require 'aws-sdk-ec2'
 
-# Creates a route table in Amazon Virtual Private Cloud (Amazon VPC)
-# and then associates the route table with a subnet in Amazon VPC.
-#
 # Prerequisites:
 #
 # - A VPC in Amazon VPC.
@@ -18,14 +21,14 @@ require 'aws-sdk-ec2'
 # @param subnet_id [String] The ID of the subnet for the route table.
 # @param gateway_id [String] The ID of the gateway for the route.
 # @param destination_cidr_block [String] The destination CIDR block
-#   for the route. 
+#   for the route.
 # @param tag_key [String] The key portion of the tag for the route table.
 # @param tag_value [String] The value portion of the tag for the route table.
 # @return [Boolean] true if the route table was created and associated;
 #   otherwise, false.
 # @example
 #   exit 1 unless route_table_created_and_associated?(
-#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     Aws::EC2::Resource.new(region: 'us-west-2'),
 #     'vpc-0b6f769731EXAMPLE',
 #     'subnet-03d9303b57EXAMPLE',
 #     'igw-06ca90c011EXAMPLE',
@@ -84,9 +87,10 @@ def run_me
     puts 'Usage: ruby ec2-ruby-example-create-route-table.rb ' \
       'VPC_ID SUBNET_ID GATEWAY_ID DESTINATION_CIDR_BLOCK ' \
       'TAG_KEY TAG_VALUE REGION'
+  # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-create-route-table.rb ' \
       'vpc-0b6f769731EXAMPLE subnet-03d9303b57EXAMPLE igw-06ca90c011EXAMPLE ' \
-      '\'0.0.0.0/0\' my-key my-value us-east-1'
+      '\'0.0.0.0/0\' my-key my-value us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
@@ -96,7 +100,8 @@ def run_me
     destination_cidr_block = '0.0.0.0/0'
     tag_key = 'my-key'
     tag_value = 'my-value'
-    region = 'us-east-1'
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     vpc_id = ARGV[0]
@@ -126,3 +131,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[ec2.Ruby.createRouteTable]

@@ -27,6 +27,7 @@ class JobInputFormat(Enum):
     per_line = 'ONE_DOC_PER_LINE'
 
 
+# snippet-start:[python.example_code.comprehend.ComprehendClassifier]
 class ComprehendClassifier:
     """Encapsulates an Amazon Comprehend custom classifier."""
     def __init__(self, comprehend_client):
@@ -35,7 +36,9 @@ class ComprehendClassifier:
         """
         self.comprehend_client = comprehend_client
         self.classifier_arn = None
+# snippet-end:[python.example_code.comprehend.ComprehendClassifier]
 
+# snippet-start:[python.example_code.comprehend.CreateDocumentClassifier]
     def create(
             self, name, language_code, training_bucket, training_key,
             data_access_role_arn, mode):
@@ -71,7 +74,9 @@ class ComprehendClassifier:
             raise
         else:
             return self.classifier_arn
+# snippet-end:[python.example_code.comprehend.CreateDocumentClassifier]
 
+# snippet-start:[python.example_code.comprehend.DescribeDocumentClassifier]
     def describe(self, classifier_arn=None):
         """
         Gets metadata about a custom classifier, including its current status.
@@ -91,7 +96,9 @@ class ComprehendClassifier:
             raise
         else:
             return classifier
+# snippet-end:[python.example_code.comprehend.DescribeDocumentClassifier]
 
+# snippet-start:[python.example_code.comprehend.ListDocumentClassifiers]
     def list(self):
         """
         Lists custom classifiers for the current account.
@@ -107,7 +114,9 @@ class ComprehendClassifier:
             raise
         else:
             return classifiers
+# snippet-end:[python.example_code.comprehend.ListDocumentClassifiers]
 
+# snippet-start:[python.example_code.comprehend.DeleteDocumentClassifier]
     def delete(self):
         """
         Deletes the classifier.
@@ -120,7 +129,9 @@ class ComprehendClassifier:
         except ClientError:
             logger.exception("Couldn't deleted classifier %s.", self.classifier_arn)
             raise
+# snippet-end:[python.example_code.comprehend.DeleteDocumentClassifier]
 
+# snippet-start:[python.example_code.comprehend.StartDocumentClassificationJob]
     def start_job(
             self, job_name, input_bucket, input_key, input_format, output_bucket,
             output_key, data_access_role_arn):
@@ -163,7 +174,9 @@ class ComprehendClassifier:
             raise
         else:
             return response
+# snippet-end:[python.example_code.comprehend.StartDocumentClassificationJob]
 
+# snippet-start:[python.example_code.comprehend.DescribeDocumentClassificationJob]
     def describe_job(self, job_id):
         """
         Gets metadata about a classification job.
@@ -181,7 +194,9 @@ class ComprehendClassifier:
             raise
         else:
             return job
+# snippet-end:[python.example_code.comprehend.DescribeDocumentClassificationJob]
 
+# snippet-start:[python.example_code.comprehend.ListDocumentClassificationJobs]
     def list_jobs(self):
         """
         Lists the classification jobs for the current account.
@@ -197,3 +212,4 @@ class ComprehendClassifier:
             raise
         else:
             return jobs
+# snippet-end:[python.example_code.comprehend.ListDocumentClassificationJobs]

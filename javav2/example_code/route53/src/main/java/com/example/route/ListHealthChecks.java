@@ -4,8 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-28]
-// snippet-sourceauthor:[AWS - scmacdon]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.route;
 
 // snippet-start:[route53.java2.list_health_checks.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.Route53Client;
 import software.amazon.awssdk.services.route53.model.HealthCheck;
@@ -23,9 +23,9 @@ import java.util.List;
 // snippet-end:[route53.java2.list_health_checks.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,6 +36,7 @@ public class ListHealthChecks {
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllHealthChecks(route53Client);
@@ -48,7 +49,6 @@ public class ListHealthChecks {
         try {
             ListHealthChecksResponse checksResponse = route53Client.listHealthChecks();
             List<HealthCheck> checklist = checksResponse.healthChecks();
-
             for (HealthCheck check: checklist) {
                 System.out.println("The health check id is: "+check.id());
                 System.out.println("The health threshold is: "+check.healthCheckConfig().healthThreshold());

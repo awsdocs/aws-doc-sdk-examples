@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_metric_data.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
@@ -29,23 +29,23 @@ import java.time.format.DateTimeFormatter;
 // snippet-end:[cloudwatch.java2.put_metric_data.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutMetricData {
     public static void main(String[] args) {
 
-       final String USAGE = "\n" +
+       final String usage = "\n" +
                 "Usage:\n" +
-                "  PutMetricData <dataPoint> \n\n" +
+                "  <dataPoint> \n\n" +
                 "Where:\n" +
-                "  dataPoint - the value for the metric.\n" ;
+                "  dataPoint - The value for the metric.\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -53,6 +53,7 @@ public class PutMetricData {
         Region region = Region.US_WEST_2;
         CloudWatchClient cw = CloudWatchClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         putMetData(cw, dataPoint) ;
@@ -67,7 +68,7 @@ public class PutMetricData {
                     .value("URLS")
                     .build();
 
-            // Set an Instant object
+            // Set an Instant object.
             String time = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT );
             Instant instant = Instant.parse(time);
 
@@ -89,6 +90,6 @@ public class PutMetricData {
             System.exit(1);
         }
         System.out.printf("Successfully put data point %f", dataPoint);
-        // snippet-end:[cloudwatch.java2.put_metric_data.main]
-    }
+     }
+    // snippet-end:[cloudwatch.java2.put_metric_data.main]
 }

@@ -1,0 +1,29 @@
+{
+  "name": "transcribe-steaming-example",
+  "version": "1.0.0",
+  "description": "Using the AWS SDK for JavaScript V3 to .",
+  "main": "index.js",
+  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/transcribe-streaming.git",
+  "author": "brmur",
+  "license": "Apache 2.0",
+  "scripts": {
+    "build": "webpack index.js --mode development --target web --devtool false -o main.js",
+    "test": "exit 0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.32.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
+    "@aws-sdk/client-transcribe-streaming": "^3.32.0",
+    "@aws-sdk/client-ses": "^3.32.0",
+    "@aws-sdk/client-comprehend": "^3.32.0",
+    "@aws-sdk/client-translate": "^3.32.0",
+    "microphone-stream": "6.0.0",
+    "get-user-media-promise": "^1.1.4",
+    "stream": "0.0.2"
+  },
+  "devDependencies": {
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "type": "module"
+}

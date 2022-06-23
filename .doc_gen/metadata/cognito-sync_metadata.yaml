@@ -1,0 +1,17 @@
+# zexi 0.4.0
+cognito-sync_ListIdentityPoolUsage:
+  title: Get a list of identity pools registered with &COG; using an &AWS; SDK
+  title_abbrev: List identity pools
+  synopsis: list &COG; identity pools.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/cognitosync
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognitosync.rust.list-identity-pool-usage
+  services:
+    cognito-sync: {ListIdentityPoolUsage}

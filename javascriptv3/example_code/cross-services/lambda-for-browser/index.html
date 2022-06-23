@@ -1,0 +1,45 @@
+<!--Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3.
+
+Purpose:
+index.html is the front-end for an example demonstrating how to trigger an AWS Lambda function from the browser.
+
+-->
+<!-- snippet-start:[cross-service.lambda-from-browser.HTML.v3.front-end]-->
+<html>
+   <head>
+      <script type = "text/javascript" src="./frontend-js/main.js"></script>
+</head>
+   <body>
+      <br>    <!--<form action="/myform" method="GET"> -->
+      <form action="#">
+      <div align = "Center">
+      <br>      <label for="skill"><b>Choose a colour and pattern</b></label>      <br>
+      <select name="colours" id="c1">
+         <option value="red">Red</option>
+         <option value="orange">Orange</option>
+         <option value="yellow">Yellow</option>
+         <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="indigo">Indigo</option>
+          <option value="violet">Violet</option>
+      </select>
+      <select name="pattern" id="p1">
+         <option value="floral">Floral</option>
+         <option value="floral">Floral</option>
+         <option value="modern">Modern</option>
+         <option value="paisley">Paisley</option>
+         <option value="plain">Plain</option>
+         <option value="plush">Plush</option>
+         <option value="squares">Squares</option>
+         <option value="stripes">Stripes</option>
+      </select>
+      <br>
+    </form>
+      <button type="button" onclick= "myFunction();">Submit</button>
+      </body>
+      </html>
+<!-- snippet-end:[cross-service.lambda-from-browser.HTML.v3.front-end]-->

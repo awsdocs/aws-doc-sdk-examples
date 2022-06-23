@@ -6,13 +6,12 @@
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
   "license": "Apache 2.0",
   "dependencies": {
-    "@aws-sdk/client-redshift-node": "^3.3.0",
-    "@aws-sdk/node-http-handler": "^3.3.0",
-    "@aws-sdk/types": "^3.3.0",
-    "ts-node": "^9.0.0"
+    "@aws-sdk/client-redshift": "^3.32.0",
+    "@aws-sdk/node-http-handler": "^3.32.0",
+    "@aws-sdk/types": "^3.32.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.23",
-    "typescript": "^4.0.2"
-  }
+    "@types/node": "^14.0.23"
+  },
+  "type": "module"
 }

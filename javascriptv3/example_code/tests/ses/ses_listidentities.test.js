@@ -1,13 +1,12 @@
-const mockListIdentities = jest.fn();
-jest.mock("@aws-sdk/client-ses/commands/ListIdentitiesCommand", () => ({
-  SES: function SES() {
-    this.ListIdentitiesCommand = mockListIdentities;
-  },
-}));
-const { run } = require("../../ses/src/ses_listidentities.js");
+const { run, params } = require("../../ses/src/ses_listreceiptfilters.js");
+const { sesClient } = require("../../ses/src/libs/sesClient.js");
 
-test("has to mock SES#listidentities", async (done) => {
-  await run();
-  expect(mockListIdentities).toHaveBeenCalled;
-  done();
+jest.mock("../../ses/src/libs/sesClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sesClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

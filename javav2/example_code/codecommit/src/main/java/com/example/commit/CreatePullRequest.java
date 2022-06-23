@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 // snippet-service:[AWS CodeCommit]
 // snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2020]
+//snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -38,7 +38,7 @@ public class CreatePullRequest {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreatePullRequest <repoName> <destinationReference> <sourceReference> \n\n" +
+                "    <repoName> <destinationReference> <sourceReference> \n\n" +
                 "Where:\n" +
                 "    repoName - the name of the repository.\n" +
                 "    destinationReference -  the branch of the repository where the pull request changes are merged.\n" +

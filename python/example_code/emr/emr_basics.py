@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.emr.RunJobFlow]
 def run_job_flow(
         name, log_uri, keep_alive, applications, job_flow_role, service_role,
         security_groups, steps, emr_client):
@@ -82,8 +83,10 @@ def run_job_flow(
         raise
     else:
         return cluster_id
+# snippet-end:[python.example_code.emr.RunJobFlow]
 
 
+# snippet-start:[python.example_code.emr.DescribeCluster]
 def describe_cluster(cluster_id, emr_client):
     """
     Gets detailed information about a cluster.
@@ -101,8 +104,10 @@ def describe_cluster(cluster_id, emr_client):
         raise
     else:
         return cluster
+# snippet-end:[python.example_code.emr.DescribeCluster]
 
 
+# snippet-start:[python.example_code.emr.TerminateJobFlows]
 def terminate_cluster(cluster_id, emr_client):
     """
     Terminates a cluster. This terminates all instances in the cluster and cannot
@@ -117,8 +122,10 @@ def terminate_cluster(cluster_id, emr_client):
     except ClientError:
         logger.exception("Couldn't terminate cluster %s.", cluster_id)
         raise
+# snippet-end:[python.example_code.emr.TerminateJobFlows]
 
 
+# snippet-start:[python.example_code.emr.AddJobFlowSteps]
 def add_step(cluster_id, name, script_uri, script_args, emr_client):
     """
     Adds a job step to the specified cluster. This example adds a Spark
@@ -150,8 +157,10 @@ def add_step(cluster_id, name, script_uri, script_args, emr_client):
         raise
     else:
         return step_id
+# snippet-end:[python.example_code.emr.AddJobFlowSteps]
 
 
+# snippet-start:[python.example_code.emr.ListSteps]
 def list_steps(cluster_id, emr_client):
     """
     Gets a list of steps for the specified cluster. In this example, all steps are
@@ -170,8 +179,10 @@ def list_steps(cluster_id, emr_client):
         raise
     else:
         return steps
+# snippet-end:[python.example_code.emr.ListSteps]
 
 
+# snippet-start:[python.example_code.emr.DescribeStep]
 def describe_step(cluster_id, step_id, emr_client):
     """
     Gets detailed information about the specified step, including the current state of
@@ -191,3 +202,4 @@ def describe_step(cluster_id, step_id, emr_client):
         raise
     else:
         return step
+# snippet-end:[python.example_code.emr.DescribeStep]

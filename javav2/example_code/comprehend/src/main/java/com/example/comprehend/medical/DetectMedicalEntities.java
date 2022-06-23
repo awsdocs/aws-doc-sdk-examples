@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend Medical]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/04/2020]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -23,7 +23,13 @@ import software.amazon.awssdk.services.comprehendmedical.model.ComprehendMedical
 import java.util.Iterator;
 import java.util.List;
 //snippet-end:[comprehendmed.java2.detect_entities.import]
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DetectMedicalEntities {
 
     public static void main(String[] args) {
@@ -71,6 +77,6 @@ public class DetectMedicalEntities {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[comprehendmed.java2.detect_entities.main]
     }
+    //snippet-end:[comprehendmed.java2.detect_entities.main]
 }

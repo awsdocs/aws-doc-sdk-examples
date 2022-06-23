@@ -10,18 +10,16 @@ manager automatically uses multipart uploads or downloads. This example
 shows how to use several of the available transfer manager settings, and reports
 thread usage and time to transfer.
 
-## Prerequisites
+*Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any 
+amount of data at any time, from anywhere on the web.*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto 3 1.11.10 or later
-- PyTest 5.3.5 or later (to run unit tests)
-- An Amazon S3 bucket to hold uploaded objects
-- A folder on your local drive to hold created and downloaded files
+## Code examples
 
-## Cautions
+### Scenario examples
+
+* [Use a transfer manager to upload and download files](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/file_transfer/demo_file_transfer.py)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -36,10 +34,23 @@ thread usage and time to transfer.
 
 ## Running the code
 
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.11.10 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
+
 Interactively demonstrates the code in file_transfer.py by running the following
 in a command window in the file_transfer folder.
 
-    python -m demo_file_transfer
+```
+python -m demo_file_transfer
+```
 
 The demonstration script asks questions, takes actions to upload and download
 files with various configurations, and manages artifact creation and cleanup.
@@ -49,28 +60,19 @@ up at the end.
 
 ## Running the tests
 
-Tests can be run in two modes. By default, tests use monkeypatch mocking,
-which captures requests before they are sent to AWS and returns a mocked response.
-Tests can also be run against your AWS account, in which case they will create and 
-manipulate AWS resources, which may incur charges on your account.
+The unit tests in this module use the botocore Stubber. This captures requests before 
+they are sent to AWS, and returns a mocked response. To run all of the tests, 
+run the following in your [GitHub root]/python/example_code/s3/file_transfer 
+folder.
 
-To run all of the file transfer tests with mocks, run the following in
-your [GitHub root]/python/example_code/s3/file_transfer folder.
+```
+python -m pytest
+```
 
-    python -m pytest -o log_cli=1 --log-cli-level=INFO
+## Additional information
 
-The '-o log_cli=1 --log-cli-level=INFO' flags configure pytest to output
-logs to stdout during the test run. Without them, pytest captures logs and prints
-them only when the test fails.
-
-To run the tests using your AWS account and default shared credentials, include the
-'--use-real-aws-may-incur-charges' flag.
-
-    python -m pytest -o log_cli=1 --log-cli-level=INFO --use-real-aws-may-incur-charges
-
-When run in this mode, a best effort is made to clean up any resources created during 
-the test. But it's your responsibility to verify that all resources have actually 
-been cleaned up.
+- [Boto3 Amazon S3 service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
+- [Amazon S3 documentation](https://docs.aws.amazon.com/s3)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

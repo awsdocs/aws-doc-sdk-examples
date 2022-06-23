@@ -1,7 +1,8 @@
-# TypeScript environment for the Transcription App tutorial
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) 'Transcription app' tutorial.
+# JavaScript environment for the Transcription App tutorial
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) 'Transcription app' tutorial.
 
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/tarnscription-app.html) contains these examples.
+For instructions on implementing this example, see [Build a transcription app with authenticated users](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/tarnscription-app.html) in the
+*AWS SDK for JavaScript v3 Developer Guide*.
 
 # Getting started
 
@@ -16,7 +17,7 @@ which are *@aws-sdk/client-iam*, *@aws-sdk/client-cognito-identity*, *@aws-sdk/c
 *@aws-sdk/client-dynamodb*, *@aws-sdk/util-create-request*, *@aws-sdk/util-format-url*, *@aws-sdk/client-transcribe* and *@aws-sdk/client-s3*.
 They also include third-party Node.js modules, path, node-fetch, and webpack.
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g 
 cd javascriptv3/example_code/cross-services/transcription-app 
 npm install
 ```

@@ -4,8 +4,7 @@
 // snippet-service:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/03/2020]
-// snippet-sourceauthor:[AWS - scmacdon]
+// snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.cloudtrail;
 
 //snippet-start:[cloudtrail.java2.create_trail.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
 import software.amazon.awssdk.services.cloudtrail.model.CloudTrailException;
@@ -23,9 +23,9 @@ import software.amazon.awssdk.services.cloudtrail.model.CreateTrailResponse;
 //snippet-end:[cloudtrail.java2.create_trail.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,24 +34,24 @@ public class CreateTrail {
 
     public static void main(String[] args) {
 
-         final String USAGE = "\n" +
+         final String usage = "\n" +
                 "Usage:\n" +
-                "    CreateTrail <trailName> <s3BucketName> \n\n" +
+                "    <trailName> <s3BucketName> \n\n" +
                 "Where:\n" +
-                "    trailName - the name of the trail. \n" +
-                "    s3BucketName - the name of the Amazon S3 bucket designated for publishing log files. \n" ;
+                "    trailName - The name of the trail. \n" +
+                "    s3BucketName - The name of the Amazon S3 bucket designated for publishing log files. \n" ;
 
          if (args.length != 2) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
          }
 
         String trailName = args[0] ;
         String s3BucketName = args[1] ;
-
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createNewTrail(cloudTrailClient, trailName, s3BucketName);

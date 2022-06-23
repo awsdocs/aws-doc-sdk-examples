@@ -1,0 +1,23 @@
+{
+  "name": "aws-sdk-v3-iam-examples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
+  "author": "Brian Murray <brmur@amazon.com>",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "@aws-sdk/client-mediaconvert": "^3.32.0",
+    "@aws-sdk/node-http-handler": "^3.32.0",
+    "@aws-sdk/types": "^3.32.0",
+    "node-fetch": "^2.6",
+    "jest": "^26.6.3"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.23",
+    "typescript": "^4.0.2"
+  },
+  "test": "module"
+}

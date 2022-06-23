@@ -1,13 +1,12 @@
-const mockListTemplates = jest.fn();
-jest.mock("@aws-sdk/client-ses/commands/ListTemplatesCommand", () => ({
-  SES: function SES() {
-    this.ListTemplatesCommand = mockListTemplates;
-  },
-}));
-const { run } = require("../../ses/src/ses_sendbulktemplatedemail.js");
+const { run, params } = require("../../ses/src/ses_sendbulktemplatedemail");
+const { sesClient } = require("../../ses/src/libs/sesClient.js");
 
-test("has to mock SES#sendbulktemplatedemail", async (done) => {
-  await run();
-  expect(mockListTemplates).toHaveBeenCalled;
-  done();
+jest.mock("../../ses/src/libs/sesClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sesClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

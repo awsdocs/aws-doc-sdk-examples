@@ -1,0 +1,430 @@
+# zexi 0.4.0
+cross_RDSDataTracker:
+  title: Create an &RDSlong; item tracker
+  title_abbrev: Create a web application to track &RDS; data
+  synopsis: create a web application that tracks and reports on work items using an &RDSlong; (&RDS;) database.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RDSDataTracker_Java_block.xml
+  services:
+    rds:
+    ses:
+cross_SnsPublishSubscription:
+  title: Build a publish and subscription application that translates messages
+  title_abbrev: Building an &SNS; application 
+  synopsis: create an application that has subscription and publish functionality and translates messages.
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_SNSSubPub_Kotlin_block.xml
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_SNSSubPub_Net_block.xml
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_SNSSubPub_Java_block.xml
+  services:
+    sns:
+    translate:
+cross_LexChatbotLanguages:
+  title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
+  title_abbrev: Building an &LEX2; Chatbot 
+  synopsis: create a Chatbot to engage your web site visitors.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_Lex_Java_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_Lex_JavaScript_block.xml
+  services:
+    lex:
+    translate:
+    comprehend:
+cross_DynamoDBDataTracker:
+  title: Create a dynamic web application to track &DDB; data
+  title_abbrev: Create a web application to track &DDB; data
+  synopsis: create a web application that tracks and reports on work items.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_DynamoDBDataTracker_Java_block.xml
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_DynamoDBDataTracker_Net_block.xml
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_DynamoDBDataTracker_Kotlin_block.xml
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_DynamoDBDataTracker_Python_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_DynamoDBDataTracker_JavaScript_block.xml
+  services:
+    dynamodb:
+    ses:
+cross_ApiGatewayDataTracker:
+  title: Create an &ABP; REST API to track COVID-19 data
+  title_abbrev: Create a REST API to track COVID-19 data
+  synopsis: create a REST API that simulates a system to track daily cases of
+    COVID-19 in the United States, using fictional data.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_ApiGatewayDataTracker_Python_block.xml
+  services:
+    api-gateway:
+    cloudformation:
+    dynamodb:
+    lambda:
+cross_ApiGatewayWebsocketChat:
+  title: Create a websocket chat application with &ABP;
+  title_abbrev: Create a websocket chat application
+  synopsis: create a chat application that is served by a websocket API built on &ABPlong;.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_ApiGatewayWebsocketChat_Python_block.xml
+  services:
+    api-gateway:
+    dynamodb:
+    lambda:
+cross_AuroraRestLendingLibrary:
+  title: Create a lending library REST API
+  title_abbrev: Create a lending library REST API
+  synopsis: create a lending library where patrons can borrow and return books by using a
+    REST API backed by an &AURlong; database.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_AuroraRestLendingLibrary_Python_block.xml
+  services:
+    api-gateway:
+    lambda:
+    rds:
+    secrets-manager:
+cross_StepFunctionsMessenger:
+  title: Create a messenger application with &SFN;
+  title_abbrev: Create a messenger application
+  synopsis: create an &SFNlong; messenger application that retrieves message records from a database table.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_StepFunctionsMessenger_Python_block.xml
+  services:
+    dynamodb:
+    lambda:
+    sqs:
+    sfn:
+cross_TextractExplorer:
+  title: Create an &TEXTRACT; explorer application
+  title_abbrev: Create an &TEXTRACT; explorer application
+  synopsis: explore &TEXTRACTlong; output through an interactive application.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_TextractExplorer_JavaScript_block.xml
+          add_services:
+            cognito-identity:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_TextractExplorer_Python_block.xml
+  services:
+    s3:
+    sns:
+    sqs:
+    textract:
+cross_TextractComprehendDetectEntities:
+  title: Detect entities in text extracted from an image using an &AWS; SDK
+  title_abbrev: Detect entities in text extracted from an image
+  synopsis: use &CMP; to detect entities in text extracted by &TEXTRACT; from an
+    image that is stored in &S3;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_TextractComprehendDetectEntities_Python_block.xml
+  services:
+    comprehend:
+    s3:
+    textract:
+cross_SubmitDataApp:
+  title: Build an application to submit data to a &DDB; table
+  title_abbrev: Build an app to submit data to a &DDB; table
+  synopsis: build an application that submits data to an &DDBlong; table and notifies
+    you when a user updates the table.
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_Android_Kotlin_block.xml
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_FirstJavaApp_Java_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_SubmitDataApp_JavaScript_block.xml
+  services:
+    dynamodb:
+    sns:
+cross_LambdaAPIGateway:
+  title: Use &ABP; to invoke a &LAM; function
+  title_abbrev: Use &ABP; to invoke a &LAM; function
+  synopsis: create an &LAMlong; function invoked by &ABPlong;.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_LambdaAPIGateway_Java_block.xml
+          add_services:
+            dynamodb:
+            sns:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_LambdaAPIGateway_JavaScript_block.xml
+          add_services:
+            dynamodb:
+            sns:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_LambdaAPIGateway_Python_block.xml
+  services:
+    api-gateway:
+    lambda:
+cross_LambdaScheduledEvents:
+  title: Use scheduled events to invoke a &LAM; function
+  title_abbrev: Use scheduled events to invoke a &LAM; function
+  synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_LambdaScheduledEvents_Java_block.xml
+          add_services:
+            dynamodb:
+            sns:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_LambdaScheduledEvents_JavaScript_block.xml
+          add_services:
+            dynamodb:
+            sns:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_LambdaScheduledEvents_Python_block.xml
+          add_services:
+            cloudwatch-logs:
+  services:
+    eventbridge:
+    lambda:
+cross_ServerlessWorkflows:
+  title: Use &SFN; to invoke &LAM; functions
+  title_abbrev: Use &SFN; to invoke &LAM; functions
+  synopsis: create an &SFNlong; state machine that invokes &LAMlong; functions in sequence.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_ServerlessWorkflows_Java_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_ServerlessWorkflows_JavaScript_block.xml
+  services:
+    dynamodb:
+    lambda:
+    ses:
+    sfn:
+cross_TranscriptionApp:
+  title: Build an &TSC; app
+  title_abbrev: Build an &TSC; app
+  synopsis: use &TSClong; to transcribe and display voice recordings in the browser.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_TranscriptionApp_JavaScript_block.xml
+  services:
+    cognito-identity:
+    s3:
+    transcribe:
+cross_TranscriptionStreamingApp:
+  title: Build an &TSC; streaming app
+  title_abbrev: Build an &TSC; streaming app
+  synopsis: build an app that records, transcribes, and translates live audio in real-time, and emails
+    the results.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_TranscriptionStreamingApp_JavaScript_block.xml
+  services:
+    translate:
+    comprehend:
+    transcribe:
+    ses:
+cross_RekognitionPhotoAnalyzerPPE:
+  title: Detect PPE in images with &REK; using an &AWS; SDK
+  title_abbrev: Detect PPE in images
+  synopsis: build an app that uses &REK; to detect Personal Protective Equipment (PPE) in images.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionLambdPPE_Java_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript_block.xml
+  services:
+    rekognition:
+    s3:
+    dynamodb:
+    ses:
+cross_RekognitionPhotoAnalyzer:
+  title: Detect objects in images with &REK; using an &AWS; SDK
+  title_abbrev: Detect objects in images
+  synopsis: build an app that uses &REK; to detect objects by category in images.
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RekognitionPhotoAnalyzer_Kotlin_block.xml
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionPhotoAnalyzer_Java_block.xml
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzer_Net_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzer_JavaScript_block.xml
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzer_Python_block.xml
+  services:
+    rekognition:
+    s3:
+    ses:
+cross_RekognitionVideoDetection:
+  title: Detect people and objects in a video with &REK; using an &AWS; SDK
+  title_abbrev: Detect people and objects in a video
+  synopsis: detect people and objects in a video with &REK;.
+  category: Cross-service examples
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionVideoAnalyzer_Java_block.xml
+          add_services:
+            s3:
+            ses:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionVideoAnalyzer_JavaScript_block.xml
+          add_services:
+            s3:
+            ses:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionVideoDetection_Python_block.xml
+          add_services:
+            sns:
+            sqs:
+  services:
+    rekognition:
+cross_DetectFaces:
+  title: Detect faces in an image using an &AWS; SDK
+  title_abbrev: Detect faces in an image
+  synopsis_list:
+    - Save an image in an &S3long; &S3;) bucket.
+    - Use &REKlong; (&REK;) to detect facial details, such as age range, gender, and emotion (smiling, etc.).
+    - Display those details.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_detect_faces_rust_block.xml
+  services:
+    rekognition: {}
+    s3: {}
+cross_DetectLabels:
+  title: Save EXIF and other image information using an &AWS; SDK
+  title_abbrev: Save EXIF and other image information
+  synopsis_list:
+    - Get EXIF information from a a JPG, JPEG, or PNG file.
+    - Upload the image file to an &S3long; (&S3;) bucket.
+    - Use &REKlong; (&REK;) to identify the three top attributes (labels in &REK;) in the file.
+    - Add the EXIF and label information to a &DDBlong; (&DDB;) table in the Region.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_detect_labels_rust_block.xml
+  services:
+    dynamodb: {}
+    rekognition: {}
+    s3: {}
+cross_Telephone:
+  title: Convert text to speech and back to text using an &AWS; SDK
+  title_abbrev: Convert text to speech and back to text
+  synopsis_list:
+    - Use &POLlong; to synthesize a plain text (UTF-8) input file to an audio file.
+    - Upload the audio file to an &S3long; (&S3;) bucket.
+    - Use &TSClong; to convert the audio file to text.
+    - Display the text.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_telephone_rust_block.xml
+  services:
+    polly: {}
+    s3: {}
+    transcribe: {}
+cross_LambdaForBrowser:
+  title: Invoke a &LAM; function from a browser
+  title_abbrev: Invoke a &LAM; function from a browser
+  synopsis: invoke an &LAMlong; function from a browser.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          block_content: cross_LambdaForBrowser_JavaScript_block.xml
+        - sdk_version: 3
+          block_content: cross_LambdaForBrowser_JavaScriptV3_block.xml
+  services:
+    lambda:
+    dynamodb:

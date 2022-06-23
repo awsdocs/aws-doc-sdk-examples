@@ -1,8 +1,9 @@
-# TypeScript environment for tutorial using Amazon API Gateway to invoke AWS Lambda functions
+# JavaScript environment for tutorial using Amazon API Gateway to invoke AWS Lambda functions
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial that demonstrates how to 
 use Amazon API Gateway to invoke AWS Lambda functions.
 
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html) contains these examples.
+For instructions on implementing this example, see [Invoking Lambda with API Gateway](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/api-gateway-invoking-lambda-example.html) in the *AWS SDK for JavaScript v3 Developer Guide*.
+
 
 # Getting started
 
@@ -14,11 +15,11 @@ instructions.
 
 **Note**: These include the AWS SDK for JavaScript v3 client modules for the AWS services required in this example, 
 which are  *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/client-dynamodb*,
-*@aws-sdk/client-iam*, *@aws-sdk/client-lambda*, *@aws-sdk/client-cloudformation*, *@aws-sdk/client-api-gateway*, and*@aws-sdk/client-sns*
+*@aws-sdk/client-lambda*, and*@aws-sdk/client-sns*
 
 They also include third-party Node.js modules, including webpack.
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/cross-services/lamba-api-gateway
 npm install
 ```

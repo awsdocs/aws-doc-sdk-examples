@@ -11,6 +11,8 @@ TransferDemoManager
     Handle user interactions like collecting user input and reporting
     transfer results.
 """
+
+# snippet-start:[python.example_code.s3.Scenario_FileTransfer_Demo]
 import hashlib
 import os
 import platform
@@ -328,3 +330,4 @@ if __name__ == '__main__':
         print(error)
         print("To run this example, you must have valid credentials in "
               "a shared credential file or set in environment variables.")
+# snippet-end:[python.example_code.s3.Scenario_FileTransfer_Demo]

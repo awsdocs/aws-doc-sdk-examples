@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/05/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.list_endpoints.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.EndpointResponse;
@@ -23,24 +23,26 @@ import java.util.List;
 //snippet-end:[pinpoint.java2.list_endpoints.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListEndpointIds {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "Usage: ListEndpointIds <applicationId> <userId>\n\n" +
+
+        final String usage = "\n" +
+                "Usage: " +
+                "   <applicationId> <userId>\n\n" +
 
                 "Where:\n" +
-                "  applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
-                "  userId - The user id applicable to the endpoints";
+                "   applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
+                "   userId - The user id applicable to the endpoints";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
            System.exit(1);
         }
 
@@ -48,6 +50,7 @@ public class ListEndpointIds {
         String userId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllEndpoints(pinpoint, applicationId, userId );

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to create an &LAMlong; function by using the &LAM; JavaScript runtime API.
+        This example invokes different &AWS; services to perform a specific use case. This example demonstrates how to
+        create a &LAM; function invoked by &ABPlong; that scans an &DDBlong; table for work anniversaries
+        and uses &SNSlong; (&SNS;) to send a text message to your employees that congratulates
+        them at their one year anniversary date.
+    </para>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cross-services/lambda-api-gateway">GitHub</ulink>.
+    </para>
+    <para>This example is also available in the
+        <ulink type="documentation" url="sdk-for-javascript/v3/developer-guide/api-gateway-invoking-lambda-example.html">&JSBlong; v3 developer guide</ulink>.</para>
+</block>

@@ -26,20 +26,18 @@
 package main
 
 import (
-    "github.com/aws/aws-sdk-go/aws"
+    "fmt"
+
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/cloudtrail"
-    
-    "fmt"
-    "os"
 )
 
 func main() {
-    // Initialize a session in us-west-2 that the SDK will use to load
+    // Initialize a session that the SDK will use to load
     // credentials from the shared credentials file ~/.aws/credentials.
-    sess, err := session.NewSession(&aws.Config{
-        Region: aws.String("us-west-2")},
-    )
+    sess := session.Must(session.NewSessionWithOptions(session.Options{
+        SharedConfigState: session.SharedConfigEnable,
+    }))
 
     // Create CloudTrail client
     svc := cloudtrail.New(sess)
@@ -48,10 +46,10 @@ func main() {
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())
-        os.Exit(1)
+        return
     }
 
-    fmt.Println("Found",len(resp.TrailList),"trail(s) in", "us-west-2")
+    fmt.Println("Found", len(resp.TrailList), "trail(s)")
     fmt.Println("")
 
     for _, trail := range resp.TrailList {

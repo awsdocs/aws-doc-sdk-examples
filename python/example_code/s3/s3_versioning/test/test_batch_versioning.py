@@ -5,6 +5,7 @@
 Unit tests for batch_versioning.py functions.
 """
 
+import time
 from unittest.mock import MagicMock
 from urllib import parse
 
@@ -32,7 +33,7 @@ def monkey_module():
 
 @pytest.fixture(scope='module', autouse=True)
 def sleepless(monkey_module):
-    monkey_module.setattr(batch_versioning, 'sleep', lambda x: None)
+    monkey_module.setattr(time, 'sleep', lambda x: None)
 
 
 @pytest.mark.parametrize('error_code', ['test-error', 'garbage-error'])

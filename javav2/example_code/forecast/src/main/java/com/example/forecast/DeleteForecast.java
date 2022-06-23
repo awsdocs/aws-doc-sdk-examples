@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.forecast;
 
 // snippet-start:[forecast.java2.delete_forecast.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.DeleteForecastRequest;
@@ -21,9 +21,9 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
 // snippet-end:[forecast.java2.delete_forecast.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,16 +31,14 @@ public class DeleteForecast {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    DeleteForecast <forecastArn> \n\n" +
+                "    <forecastArn> \n\n" +
                 "Where:\n" +
-                "    forecastArn - the ARN that belongs to the forecast to delete. \n\n" +
-                "Example:\n" +
-                "    DeleteForecast arn:aws:forecast:us-west-2:xxxxxe33:forecast/MyForecast\n";
+                "    forecastArn - The ARN that belongs to the forecast to delete. \n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -48,6 +46,7 @@ public class DeleteForecast {
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         delForecast(forecast, forecastArn) ;
@@ -64,7 +63,8 @@ public class DeleteForecast {
 
             forecast.deleteForecast(forecastRequest);
             System.out.println("The forecast was successfully deleted");
-      } catch (ForecastException e) {
+
+        } catch (ForecastException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

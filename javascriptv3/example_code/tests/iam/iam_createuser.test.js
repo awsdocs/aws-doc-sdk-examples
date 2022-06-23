@@ -1,13 +1,12 @@
-const mockGetUser = jest.fn();
-jest.mock("@aws-sdk/client-iam/commands/GetUserCommand", () => ({
-  IAM: function IAM() {
-    this.GetUserCommand = mockGetUser;
-  },
-}));
-const { params, run } = require("../../iam/src/iam_createuser.js");
+const { run, params } = require("../../iam/src/iam_createuser");
+const { iamClient } = require("../../iam/src/libs/iamClient.js");
 
-test("has to mock iam#getUser", async (done) => {
-  await run();
-  expect(mockGetUser).toHaveBeenCalled;
-  done();
+jest.mock("../../iam/src/libs/iamClient.js");
+
+describe("@aws-sdk/client-iam mock", () => {
+  it("should successfully mock IAM client", async () => {
+    iamClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

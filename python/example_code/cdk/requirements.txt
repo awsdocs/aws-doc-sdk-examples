@@ -1,3 +1,0 @@
-aws-cdk.cdk
-
-aws-cdk.aws-s3

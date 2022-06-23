@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/28/2021]
-//snippet-sourceauthor:[scmacdon-AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,6 +15,7 @@ package com.example.stepfunctions;
 // snippet-start:[stepfunctions.java2.create_machine.import]
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.CreateStateMachineRequest;
@@ -31,7 +31,7 @@ import java.io.IOException;
  *
  * To see an Amazon States Language definition example that you can use, see "Getting started with AWS Step Functions" at https://docs.aws.amazon.com/step-functions/latest/dg/getting-started.html.
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -42,16 +42,17 @@ import java.io.IOException;
 public class CreateStateMachine {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    CreateStateMachine <jsonFile> <roleARN> <stateMachineName>\n\n" +
+                "    <jsonFile> <roleARN> <stateMachineName>\n\n" +
                 "Where:\n" +
                 "    jsonFile - A JSON file that represents the Amazon States Language definition of the state machine.\n\n" +
                 "    roleARN - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.\n" +
                 "    stateMachineName - The name of the state machine to create.\n";
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -62,6 +63,7 @@ public class CreateStateMachine {
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String arnStateMachine = createMachine(sfnClient, roleARN, stateMachineName, jsonFile);
@@ -70,7 +72,7 @@ public class CreateStateMachine {
     }
 
     // snippet-start:[stepfunctions.java2.create_machine.main]
-    public static String createMachine( SfnClient sfnClient,  String roleARN, String stateMachineName, String jsonFile) {
+    public static String createMachine( SfnClient sfnClient, String roleARN, String stateMachineName, String jsonFile) {
 
         String json = getJSONString(jsonFile);
         try {
@@ -99,7 +101,7 @@ public class CreateStateMachine {
             JSONObject data = (JSONObject) parser.parse(new FileReader(path));//path to the JSON file.
             String json = data.toJSONString();
             return json;
-        } catch (IOException |  org.json.simple.parser.ParseException e) {
+        } catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
         return "";

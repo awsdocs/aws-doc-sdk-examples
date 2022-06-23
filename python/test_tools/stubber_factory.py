@@ -12,19 +12,30 @@ from test_tools.acm_stubber import AcmStubber
 from test_tools.apigateway_stubber import ApiGatewayStubber
 from test_tools.apigatewaymanagementapi_stubber import ApiGatewayManagementApiStubber
 from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
+from test_tools.auditmanager_stubber import AuditManagerStubber
+from test_tools.autoscaling_stubber import AutoScalingStubber
+from test_tools.cloudformation_stubber import CloudFormationStubber
+from test_tools.cloudfront_stubber import CloudFrontStubber
 from test_tools.cloudwatch_stubber import CloudWatchStubber
 from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
 from test_tools.comprehend_stubber import ComprehendStubber
+from test_tools.config_stubber import ConfigStubber
 from test_tools.dynamodb_stubber import DynamoStubber
 from test_tools.ec2_stubber import Ec2Stubber
 from test_tools.emr_stubber import EmrStubber
 from test_tools.eventbridge_stubber import EventBridgeStubber
+from test_tools.glacier_stubber import GlacierStubber
+from test_tools.glue_stubber import GlueStubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
+from test_tools.kms_stubber import KmsStubber
 from test_tools.lambda_stubber import LambdaStubber
+from test_tools.lookoutvision_stubber import LookoutVisionStubber
 from test_tools.organizations_stubber import OrganizationsStubber
 from test_tools.pinpoint_stubber import PinpointStubber
+from test_tools.pinpoint_email_stubber import PinpointEmailStubber
+from test_tools.pinpoint_sms_voice_stubber import PinpointSmsVoiceStubber
 from test_tools.polly_stubber import PollyStubber
 from test_tools.rdsdata_stubber import RdsDataStubber
 from test_tools.rds_stubber import RdsStubber
@@ -53,15 +64,25 @@ def stubber_factory(service_name):
     elif service_name == 'apigateway':
         return ApiGatewayStubber
     elif service_name == 'apigatewaymanagementapi':
-        return  ApiGatewayManagementApiStubber
+        return ApiGatewayManagementApiStubber
     elif service_name == 'apigatewayv2':
         return ApiGatewayV2Stubber
+    elif service_name == 'auditmanager':
+        return AuditManagerStubber
+    elif service_name == 'autoscaling':
+        return AutoScalingStubber
+    elif service_name == 'cloudformation':
+        return CloudFormationStubber
+    elif service_name == 'cloudfront':
+        return CloudFrontStubber
     elif service_name == 'cloudwatch':
         return CloudWatchStubber
     elif service_name == 'logs':
         return CloudWatchLogsStubber
     elif service_name == 'comprehend':
         return ComprehendStubber
+    elif service_name == 'config':
+        return ConfigStubber
     elif service_name == 'dynamodb':
         return DynamoStubber
     elif service_name == 'ec2':
@@ -70,18 +91,30 @@ def stubber_factory(service_name):
         return EmrStubber
     elif service_name == 'events':
         return EventBridgeStubber
+    elif service_name == 'glacier':
+        return GlacierStubber
+    elif service_name == 'glue':
+        return GlueStubber
     elif service_name == 'iam':
         return IamStubber
     elif service_name == 'kinesis':
         return KinesisStubber
     elif service_name == 'kinesisanalyticsv2':
         return KinesisAnalyticsV2Stubber
+    elif service_name == 'kms':
+        return KmsStubber
     elif service_name == 'lambda':
         return LambdaStubber
+    elif service_name == 'lookoutvision':
+        return LookoutVisionStubber
     elif service_name == 'organizations':
         return OrganizationsStubber
     elif service_name == 'pinpoint':
         return PinpointStubber
+    elif service_name == 'pinpoint-email':
+        return PinpointEmailStubber
+    elif service_name == 'pinpoint-sms-voice':
+        return PinpointSmsVoiceStubber
     elif service_name == 'polly':
         return PollyStubber
     elif service_name == 'rds':

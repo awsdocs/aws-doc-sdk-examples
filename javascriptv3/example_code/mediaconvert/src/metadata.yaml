@@ -1,28 +1,31 @@
 ---
 # Amazon MediaConvert basic usage examples
 files:
-  - path: emc_canceljob.ts
+  - path: .libs/emcClient.js
     services:
       - mediaconvert
-  - path: emc_createjob.ts
+  - path: emc_canceljob.js
+    services:
+      - mediaconvert
+  - path: emc_createjob.js
     services:
     - mediaconvert
-  - path: emc_create_jobtemplate.ts
+  - path: emc_create_jobtemplate.js
     services:
       - mediaconvert
-  - path: emc_deletetemplate.ts
+  - path: emc_deletetemplate.js
     services:
       - mediaconvert
-  - path: emc_getendpoint.ts
+  - path: emc_getendpoint.js
     services:
       - mediaconvert
-  - path: emc_listjobs.ts
+  - path: emc_listjobs.js
     services:
       - mediaconvert
-  - path: emc_listtemplates.ts
+  - path: emc_listtemplates.js
     services:
         - mediaconvert
-  - path: emc_template_createjob.ts
+  - path: emc_template_createjob.js
     services:
       - mediaconvert
 ...

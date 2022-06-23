@@ -3,16 +3,17 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-// snippet-start:[cloudwatch.java2.get_metric_data.import]
 package com.example.cloudwatch;
+
+// snippet-start:[cloudwatch.java2.get_metric_data.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricDataResponse;
@@ -29,9 +30,9 @@ import java.util.List;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -42,6 +43,7 @@ public class GetMetricData {
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getMetData(cw) ;
@@ -73,7 +75,7 @@ public class GetMetricData {
                     .returnData(true)
                     .build();
 
-            List<MetricDataQuery> dq = new ArrayList();
+            List<MetricDataQuery> dq = new ArrayList<>();
             dq.add(dataQUery);
 
             GetMetricDataRequest getMetReq = GetMetricDataRequest.builder()
@@ -86,16 +88,15 @@ public class GetMetricData {
             GetMetricDataResponse response = cw.getMetricData(getMetReq);
             List<MetricDataResult> data = response.metricDataResults();
 
-            for (int i = 0; i < data.size(); i++) {
-                MetricDataResult item = (MetricDataResult) data.get(i);
-                System.out.println("The label is "+item.label());
-                System.out.println("The status code is "+item.statusCode().toString());
+            for (MetricDataResult item : data) {
+                System.out.println("The label is " + item.label());
+                System.out.println("The status code is " + item.statusCode().toString());
             }
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[cloudwatch.java2.get_metric_alarm.main]
     }
+    // snippet-end:[cloudwatch.java2.get_metric_alarm.main]
 }

@@ -9,7 +9,7 @@ transcription of an audio file.
 
 This script is intended to be used with the instructions for getting started in the
 Amazon Transcribe Developer Guide here:
-    https://docs.aws.amazon.com/transcribe/latest/dg/getting-started-python.html.
+    https://docs.aws.amazon.com/transcribe/latest/dg/getting-started.html.
 """
 
 # snippet-start:[transcribe.python.start-transcription-job]

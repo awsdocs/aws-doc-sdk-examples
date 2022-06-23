@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+        <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+        %phrases-shared;
+        ]>
+<block>
+    <para>
+        You can create a browser-based application that uses an &LAMlong; function to update an &DDBlong;
+        table with user selections. This app uses &JSBlong; v3.
+    </para>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cross-services/lambda-for-browser">GitHub</ulink>.
+
+    </para>
+</block>

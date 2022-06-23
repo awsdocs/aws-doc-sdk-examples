@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[DeleteVault.java demonstrates how to delete an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) archive.]
+//snippet-sourcedescription:[DeleteVault.java demonstrates how to delete an Amazon Glacier archive.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3 Glacier]
+//snippet-service:[Amazon Glacier]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,27 +12,34 @@
 package com.example.glacier;
 
 // snippet-start:[glacier.java2.delete.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glacier.GlacierClient;
 import software.amazon.awssdk.services.glacier.model.DeleteArchiveRequest;
 import software.amazon.awssdk.services.glacier.model.GlacierException;
 // snippet-end:[glacier.java2.delete.import]
 
-
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DeleteArchive {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
-                "DeleteArchive <vaultName> <accountId> <archiveId>\n\n" +
+                "   <vaultName> <accountId> <archiveId>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault that contains the archive to delete.\n\n" +
-                "  accountId - the account ID value.\n\n"+
-                "  archiveId - the archive ID value.\n\n";
+                "   vaultName - The name of the vault that contains the archive to delete.\n\n" +
+                "   accountId - The account ID value.\n\n"+
+                "   archiveId - The archive ID value.\n\n";
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -43,6 +49,7 @@ public class DeleteArchive {
 
         GlacierClient glacier = GlacierClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         deleteGlacierArchive(glacier, vaultName, accountId, archiveId);
@@ -66,6 +73,6 @@ public class DeleteArchive {
             System.exit(1);
 
         }
-        // snippet-end:[glacier.java2.delete.main]
     }
+    // snippet-end:[glacier.java2.delete.main]
 }

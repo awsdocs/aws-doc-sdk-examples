@@ -1,25 +1,47 @@
-# Amazon Transcribe custom vocabulary example
+# Amazon Transcribe examples
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with the Amazon Transcribe API to
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Transcribe to
 transcribe an audio file to a text file. Learn how to:
 
 * Run a transcription job against an audio file in an Amazon S3 bucket.
 * Create and refine a custom vocabulary to improve the accuracy of the transcription.
 * List and manage transcription jobs and custom vocabularies.
 
-## Prerequisites
+*Amazon Transcribe provides transcription services for your audio files. It uses 
+advanced machine learning technologies to recognize spoken words and transcribe them 
+into text.* 
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.14.47 or later
-- Requests 2.23.0 or later 
-- PyTest 5.3.5 or later (to run unit tests)
+## Code examples
 
-## Cautions
+### Scenario examples
+
+* [Create and refine a custom vocabulary](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+* [Transcribe audio and get job data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/getting_started.py)
+
+### API examples
+
+* [Create a custom vocabulary](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`CreateVocabulary`)
+* [Delete a custom vocabulary](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`DeleteVocabulary`)
+* [Delete a transcription job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`DeleteTranscriptionJob`)
+* [Get a custom vocabulary](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`GetVocabulary`)
+* [Get a transcription job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`GetTranscriptionJob`)
+* [List custom vocabularies](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`ListVocabularies`)
+* [List transcription jobs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`ListTranscriptionJobs`)
+* [Start a transcription job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`StartTranscriptionJob`)
+* [Update a custom vocabulary](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/transcribe/transcribe_basics.py)
+(`UpdateVocabulary`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -33,6 +55,18 @@ transcribe an audio file to a text file. Learn how to:
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.14.47 or later
+- Requests 2.23.0 or later 
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
 
 Run this example at a command prompt with the following command.
 

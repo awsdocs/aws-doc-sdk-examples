@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/31/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,8 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.put_item_enc.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -20,15 +21,16 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.kms.KmsClient;
-import  software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kms.model.EncryptRequest;
 import software.amazon.awssdk.services.kms.model.EncryptResponse;
 import java.util.HashMap;
+// snippet-end:[dynamodb.java2.put_item_enc.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,23 +38,23 @@ public class PutItemEncrypt {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    PutItem <tableName> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
+                "    <tableName> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
                 "Where:\n" +
-                "    tableName - the Amazon DynamoDB table in which an item is placed (for example, Music3).\n" +
-                "    key - the key used in the Amazon DynamoDB table (for example, Artist).\n" +
-                "    keyval - the key value that represents the item to get (for example, Famous Band).\n" +
-                "    albumTitle - album title (for example, AlbumTitle).\n" +
-                "    AlbumTitleValue - the name of the album (for example, Songs About Life ).\n" +
-                "    Awards - the awards column (for example, Awards).\n" +
-                "    AwardVal - the value of the awards (for example, 10).\n" +
-                "    SongTitle - the song title (for example, SongTitle).\n" +
-                "    SongTitleVal - the value of the song title (for example, Happy Day).\n" +
-                "    keyId - a KMS key id value to use to encrypt/decrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).";
+                "    tableName - The Amazon DynamoDB table in which an item is placed (for example, Music3).\n" +
+                "    key - The key used in the Amazon DynamoDB table (for example, Artist).\n" +
+                "    keyval - The key value that represents the item to get (for example, Famous Band).\n" +
+                "    albumTitle - The album title (for example, AlbumTitle).\n" +
+                "    AlbumTitleValue - The name of the album (for example, Songs About Life ).\n" +
+                "    Awards - The awards column (for example, Awards).\n" +
+                "    AwardVal - The value of the awards (for example, 10).\n" +
+                "    SongTitle - The song title (for example, SongTitle).\n" +
+                "    SongTitleVal - The value of the song title (for example, Happy Day).\n" +
+                "    keyId - A KMS key id value to use to encrypt/decrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).";
 
         if (args.length != 10) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -67,12 +69,14 @@ public class PutItemEncrypt {
         String songTitleVal = args[8];
         String keyId = args[9] ;
 
-        Region region = Region.US_WEST_2;
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 
-        // Create a KmsClient object to use to encrpt data
+        // Create a KmsClient object to use to encrpt data.
         KmsClient kmsClient = KmsClient.builder()
                 .region(region)
                 .build();
@@ -82,6 +86,7 @@ public class PutItemEncrypt {
         ddb.close();
     }
 
+    // snippet-start:[dynamodb.java2.put_item_enc.main]
    public static void putItemInTable(DynamoDbClient ddb,
                                       KmsClient kmsClient,
                                       String tableName,
@@ -95,19 +100,14 @@ public class PutItemEncrypt {
                                       String songTitleVal,
                                       String keyId ){
 
-        HashMap<String,AttributeValue> itemValues = new HashMap<String,AttributeValue>();
-
-        // Encrypt the albumTitleValue before writing it to the table.
+        HashMap<String,AttributeValue> itemValues = new HashMap<>();
         SdkBytes myBytes = SdkBytes.fromUtf8String(albumTitleValue);
-
         EncryptRequest encryptRequest = EncryptRequest.builder()
                 .keyId(keyId)
                 .plaintext(myBytes)
                 .build();
 
         EncryptResponse response = kmsClient.encrypt(encryptRequest);
-
-        // Get the encrypted data.
         SdkBytes encryptedData = response.ciphertextBlob();
 
         // Add content to the table.
@@ -134,5 +134,6 @@ public class PutItemEncrypt {
             System.exit(1);
         }
     }
+    // snippet-end:[dynamodb.java2.put_item_enc.main]
 }
 

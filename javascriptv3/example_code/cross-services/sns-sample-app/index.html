@@ -1,0 +1,85 @@
+<!--  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. -->
+<!-- SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3.
+
+Purpose:
+index.html is front end HTML for a tutorial demonstrating subscription and publish functionality by using the
+Amazon Simple Notification Service (Amazon SNS) using the JavaScript SDK for JavaScript v3.
+To run the full tutorial, see https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/sns-sample-app.
+-->
+<!-- snippet-start:[sns-functions.HTML.frontend] -->
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8" />
+    <title>Subscription</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <script src="./js/main.js" ></script>
+    <link rel="stylesheet" href="../css/styles.css"  />
+</head>
+<body>
+<header th:replace="layout :: site-header"/>
+<div class="container">
+    <h3>Welcome to the Amazon Simple Notification Service example app</h3>
+    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+    <div class="row">
+        <div class="col">
+            <h4>Enter an email address<h3>
+                <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <div class="clearfix mt-40">
+
+                    <!-- Button trigger modal -->
+                    <button type="button"  onclick="subEmail() "class="btn btn-primary" >
+                        Subscribe
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="getSubs()">
+                        List Subscriptions
+                    </button>
+                    <button type="button" onclick="delSub()" class="btn btn-primary" >
+                        UnSubscribe
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">SNS Email Subscriptions</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+     </div>
+    <hr style="width:50%;text-align:left;margin-left:0">
+    <h4>Enter a message to publish</h4>
+    <div class="col-lg-12 mx-auto">
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <textarea class="form-control" id="body" rows="5" placeholder="Body" required="required" data-validation-required-message="Please enter a description."></textarea>
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary btn-xl" onclick="sendMessage()" id="SendButton">Publish</button>
+    </div>
+</div>
+<script src="./js/main.js" ></script>
+</body>
+</html>
+<!-- snippet-end:[sns-functions.HTML.frontend] -->

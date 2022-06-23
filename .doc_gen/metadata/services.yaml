@@ -1,0 +1,505 @@
+acm:
+  long: '&ACMlong;'
+  short: '&ACM;'
+  sort: ACM
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: acm-2015-12-08
+api-gateway:
+  long: '&ABPlong;'
+  short: '&ABP;'
+  sort: API Gateway
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
+  version: apigateway-2015-07-09
+apigatewaymanagementapi:
+  long: '&ABPMAlong;'
+  short: '&ABPMA;'
+  sort: API Gateway Management
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
+  version: apigatewaymanagementapi-2018-11-29
+application-autoscaling:
+  long: '&APP-ASlong;'
+  short: '&APP-AS;'
+  sort: Application Auto Scaling
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: application-autoscaling-2016-02-06
+auditmanager:
+  long: '&AMlong;'
+  short: '&AM;'
+  sort: Audit Manager
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: auditmanager-2017-07-25
+auto-scaling:
+  long: '&ASlong;'
+  short: '&ASlong;'
+  sort: EC2 Auto Scaling
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: autoscaling-2011-01-01
+  api_ref: autoscaling/ec2/APIReference/Welcome.html
+batch:
+  long: '&BATCHlong;'
+  short: '&BATCH;'
+  sort: Batch
+  tags:
+    product_categories: {'Compute'}
+  version: batch-2016-08-10
+cloudformation:
+  long: '&CFNlong;'
+  short: '&CFN;'
+  sort: CloudFormation
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: cloudformation-2010-05-15
+  api_ref: AWSCloudFormation/latest/APIReference/Welcome.html
+cloudfront:
+  long: '&CFlong;'
+  short: '&CF;'
+  sort: CloudFront
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
+  version: cloudfront-2020-05-31
+cloudwatch:
+  long: '&CWlong;'
+  short: '&CW;'
+  sort: CloudWatch
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: monitoring-2010-08-01
+  api_ref: AmazonCloudWatch/latest/APIReference/Welcome.html
+cloudwatch-events:
+  long: '&CWElong;'
+  short: '&CWE;'
+  sort: CloudWatch Events
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: eventbridge-2015-10-07
+  api_ref: eventbridge/latest/APIReference/Welcome.html
+cloudwatch-logs:
+  long: '&CWLlong;'
+  short: '&CWL;'
+  sort: CloudWatch Logs
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: logs-2014-03-28
+  api_ref: AmazonCloudWatchLogs/latest/APIReference/Welcome.html
+cognito-identity:
+  long: '&COGID;'
+  short: '&COGID;'
+  sort: Cognito Identity
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: cognito-identity-2014-06-30
+  api_ref: cognitoidentity/latest/APIReference/Welcome.html
+cognito-identity-provider:
+  long: '&COGIDP;'
+  short: '&COGIDP;'
+  sort: Cognito Identity Provider
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: cognito-idp-2016-04-18
+  api_ref: cognito-user-identity-pools/latest/APIReference/Welcome.html
+cognito-sync:
+  long: '&COGSYNClong;'
+  short: '&COGSYNC;'
+  sort: Cognito Sync
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: cognito-sync-2014-06-30
+  api_ref: cognitosync/latest/APIReference/Welcome.html
+comprehend:
+  long: '&CMPlong;'
+  short: '&CMP;'
+  sort: Comprehend
+  tags:
+    product_categories: {'Machine Learning'}
+  version: comprehend-2017-11-27
+config-service:
+  long: '&CClong;'
+  short: '&CC;'
+  sort: Config
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: config-2014-11-12
+  api_ref: config/latest/APIReference/Welcome.html
+device-farm:
+  long: '&ATPlong;'
+  short: '&ATP;'
+  sort: Device Farm
+  tags:
+    product_categories: {'Front-End Web &amp; Mobile'}
+  version: devicefarm-2015-06-23
+dynamodb:
+  long: '&DDBlong;'
+  short: '&DDB;'
+  sort: DynamoDB
+  tags:
+    product_categories: {'Database'}
+  version: dynamodb-2012-08-10
+  api_ref: amazondynamodb/latest/APIReference/Welcome.html
+ebs:
+  long: '&EBSlong;'
+  short: '&EBS;'
+  sort: EBS
+  tags:
+    product_categories: {'Storage'}
+  version: ebs-2019-11-02
+ec2:
+  long: '&EC2long;'
+  short: '&EC2;'
+  sort: EC2
+  tags:
+    product_categories: {'Compute'}
+  version: ec2-2016-11-15
+ecr:
+  long: '&ECRlong;'
+  short: '&ECR;'
+  sort: ECR
+  tags:
+    product_categories: {'Containers'}
+  version: ecr-2015-09-21
+ecs:
+  long: '&ECSlong;'
+  short: '&ECS;'
+  sort: ECS
+  tags:
+    product_categories: {'Containers'}
+  version: ecs-2014-11-13
+eks:
+  long: '&EKSlong;'
+  short: '&EKS;'
+  sort: EKS
+  tags:
+    product_categories: {'Containers'}
+  version: eks-2017-11-01
+emr:
+  long: '&EMRlong;'
+  short: '&EMR;'
+  sort: EMR
+  tags:
+    product_categories: {'Analytics'}
+  version: elasticmapreduce-2009-03-31
+eventbridge:
+  long: '&EVlong;'
+  short: '&EV;'
+  sort: EventBridge
+  tags:
+    product_categories: {'Application Integration'}
+  version: eventbridge-2015-10-07
+  api_ref: eventbridge/latest/APIReference/Welcome.html
+glacier:
+  long: '&GLlong;'
+  short: '&GLshort;'
+  sort: S3 Glacier
+  tags:
+    product_categories: {'Storage'}
+  version: glacier-2012-06-01
+  api_ref: amazonglacier/latest/dev/amazon-glacier-api.html
+glue:
+  long: '&GLUlong;'
+  short: '&GLU;'
+  sort: Glue
+  tags:
+    product_categories: {'Analytics'}
+  version: glue-2017-03-31
+  api_ref: glue/latest/dg/aws-glue-api.html
+iam:
+  bundle: iam
+  long: '&IAMlong;'
+  short: '&IAM;'
+  sort: IAM
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: iam-2010-05-08
+  api_ref: IAM/latest/APIReference/welcome.html
+iot:
+  long: '&IoTlong;'
+  short: '&IoT;'
+  sort: IOT
+  tags:
+    product_categories: {'Internet of Things (IoT)'}
+  version: iot-2015-05-28
+kinesis:
+  long: '&AKlong;'
+  short: '&AK;'
+  sort: Kinesis
+  tags:
+    product_categories: {'Analytics'}
+  version: kinesis-2013-12-02
+kinesis-analytics-v2:
+  long: '&AKAlong;'
+  short: '&AKA;'
+  sort: Kinesis DataAnalytics
+  tags:
+    product_categories: {'Analytics'}
+  version: kinesisanalyticsv2-2018-05-23
+kms:
+  long: '&KMSlong;'
+  short: '&KMS;'
+  sort: KMS
+  tags:
+    product_categories: {'Cryptography &amp; PKI'}
+  version: kms-2014-11-01
+lambda:
+  long: '&LAMlong;'
+  short: '&LAM;'
+  sort: Lambda
+  tags:
+    product_categories: {'Compute'}
+  version: lambda-2015-03-31
+  api_ref: lambda/latest/dg/API_Reference.html
+lex:
+  long: '&LEX2long;'
+  short: '&LEX2;'
+  sort: Lex
+  tags:
+    product_categories: {'Machine Learning'}
+  version: runtime.lex.v2-2020-08-07
+lookoutvision:
+  long: '&LYRAlong;'
+  short: '&LYRA;'
+  sort: Lookout for Vision
+  tags:
+    product_categories: {'Machine Learning'}
+  version: lookoutvision-2020-11-20
+  api_ref: lookout-for-vision/latest/APIReference/Welcome.html
+medialive:
+  long: '&EMLlong;'
+  short: '&EML;'
+  sort: MediaLive
+  tags:
+    product_categories: {'Media Services'}
+  version: medialive-2017-10-14
+mediapackage:
+  long: '&EMPlong;'
+  short: '&EMP;'
+  sort: MediaPackage
+  tags:
+    product_categories: {'Media Services'}
+  version: mediapackage-2017-10-12
+organizations:
+  long: '&AOlong;'
+  short: '&AO;'
+  sort: Organizations
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: organizations-2016-11-28
+personalize:
+  long: "&PERSlong;"
+  short: "&PERS;"
+  sort: Personalize
+  tags:
+    product_categories: {'Machine Learning'}
+  version: personalize-2018-05-22
+personalize-runtime:
+  long: "&PERSRlong;"
+  short: "&PERSR;"
+  sort: Personalize Runtime
+  tags:
+    product_categories: {'Machine Learning'}
+  version: personalize-runtime-2018-05-22
+personalize-events:
+  long: "&PERSElong;"
+  short: "&PERSE;"
+  sort: Personalize Events
+  tags:
+    product_categories: {'Machine Learning'}
+  version: personalize-events-2018-03-22
+pinpoint:
+  bundle: pinpoint
+  long: '&PINlong;'
+  short: '&PIN;'
+  sort: Pinpoint
+  tags:
+    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
+  version: pinpoint-2016-12-01
+  api_ref: pinpoint/latest/apireference/welcome.html
+pinpoint-email:
+  long: '&PIN-Email-API;'
+  short: '&PIN-Email-API;'
+  sort: Pinpoint Email
+  tags:
+    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
+  version: pinpoint-email-2018-07-26
+pinpoint-sms-voice:
+  bundle: pinpoint
+  long: '&PIN-SMS-Voice-API;'
+  short: '&PIN-SMS-Voice-API;'
+  sort: Pinpoint SMS and Voice
+  tags:
+    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
+  version: pinpoint-sms-voice-2018-09-05
+  api_ref: pinpoint-sms-voice/latest/APIReference/welcome.html
+polly:
+  long: '&POLlong;'
+  short: '&POL;'
+  sort: Polly
+  tags:
+    product_categories: {'Machine Learning'}
+  version: polly-2016-06-10
+qldb:
+  long: '&QLDBlong;'
+  short: '&QLDB;'
+  sort: QLDB
+  tags:
+    product_categories: {'Database'}
+  version: qldb-2019-01-02
+rds:
+  long: '&RDSlong;'
+  short: '&RDS;'
+  sort: RDS
+  tags:
+    product_categories: {'Database'}
+  version: rds-2014-10-31
+  api_ref: AmazonRDS/latest/APIReference/Welcome.html
+rds-data:
+  long: '&RDSDataServicelong;'
+  short: '&RDSDataService;'
+  sort: RDS Data Service
+  tags:
+    product_categories: {'Database'}
+  version: rds-data-2018-08-01
+  api_ref: rdsdataservice/latest/APIReference/Welcome.html
+rekognition:
+  caveat: The code examples in this chapter are intended to supplement the code examples
+    found throughout the rest of this guide.
+  long: '&REKlong;'
+  short: '&REK;'
+  sort: Rekognition
+  tags:
+    product_categories: {'Machine Learning'}
+  version: rekognition-2016-06-27
+  api_ref: rekognition/latest/APIReference/Welcome.html
+route-53:
+  long: '&R53long;'
+  short: '&R53;'
+  sort: Route 53
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
+  version: route53-2013-04-01
+route53-recovery-cluster:
+  long: '&R53ARClong;'
+  short: '&R53ARC;'
+  sort: Application Recovery Controller
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
+  version: route53-recovery-cluster-2019-12-02
+  api_ref: routing-control/latest/APIReference/Welcome.html
+s3:
+  long: '&S3long;'
+  short: '&S3;'
+  sort: S3
+  tags:
+    product_categories: {'Storage'}
+  version: s3-2006-03-01
+  api_ref: AmazonS3/latest/API/Welcome.html
+sagemaker:
+  long: '&SMlong;'
+  short: '&SM;'
+  sort: SageMaker
+  tags:
+    product_categories: {'Machine Learning'}
+  version: sagemaker-2017-07-24
+secrets-manager:
+  long: '&ASMlong;'
+  short: '&ASM;'
+  sort: Secrets Manager
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: secretsmanager-2017-10-17
+ses:
+  bundle: ses
+  long: '&SESlong;'
+  short: '&SES;'
+  sort: SES
+  tags:
+    product_categories: {'Business Applications'}
+  version: email-2010-12-01
+  api_ref: ses/latest/APIReference/Welcome.html
+sesv2:
+  bundle: ses
+  long: '&SESv2long;'
+  short: '&SESv2;'
+  sort: SES v2 API
+  tags:
+    product_categories: {'Business Applications'}
+  version: sesv2-2019-09-27
+sfn:
+  long: '&SFNlong;'
+  short: '&SFN;'
+  sort: Step Functions
+  tags:
+    product_categories: {'Application Integration'}
+  version: states-2016-11-23
+snowball:
+  long: '&Frozenlong;'
+  short: '&Frozen;'
+  sort: Snowball
+  tags:
+    product_categories: {'Storage'}
+  version: snowball-2016-06-30
+sns:
+  long: '&SNSlong;'
+  short: '&SNS;'
+  sort: SNS
+  tags:
+    product_categories: {'Application Integration', 'Front-End Web &amp; Mobile'}
+  version: sns-2010-03-31
+  api_ref: sns/latest/api/welcome.html
+sqs:
+  long: '&SQSlong;'
+  short: '&SQS;'
+  sort: SQS
+  tags:
+    product_categories: {'Application Integration'}
+  version: sqs-2012-11-05
+ssm:
+  long: '&SYSlong;'
+  short: '&SYS;'
+  sort: Systems Manager
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: ssm-2014-11-06
+sts:
+  bundle: iam
+  long: '&STSlong;'
+  short: '&STS;'
+  sort: STS
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: sts-2011-06-15
+  api_ref: STS/latest/APIReference/welcome.html
+textract:
+  long: '&TEXTRACTlong;'
+  short: '&TEXTRACT;'
+  sort: Textract
+  tags:
+    product_categories: {'Machine Learning'}
+  version: textract-2018-06-27
+  api_ref: textract/latest/dg/API_Reference.html
+transcribe:
+  long: '&TSClong;'
+  short: '&TSC;'
+  sort: Transcribe
+  tags:
+    product_categories: {'Machine Learning'}
+  version: transcribe-2017-10-26
+  api_ref: transcribe/latest/APIReference/Welcome.html
+transcribe-medical:
+  long: '&TSClong;'
+  short: '&TSC;'
+  sort: Transcribe medical
+  tags:
+    product_categories: {'Machine Learning'}
+  version: transcribe-2017-10-26
+translate:
+  long: '&TSLlong;'
+  short: '&TSL;'
+  sort: Translate
+  tags:
+    product_categories: {'Machine Learning'}
+  version: translate-2017-07-01

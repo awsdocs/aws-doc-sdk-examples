@@ -35,7 +35,7 @@ use Aws\WorkDocs\WorkDocsClient;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// Create a workdocs Client 
+// Create a workdocs Client
 // snippet-start:[workdocs.php.update_folder.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
@@ -44,7 +44,7 @@ $client = new Aws\WorkDocs\WorkDocsClient([
 ]);
 
 $authTokenFilePath = 'token.txt';
-$folderName = 'FolderName'
+$folderName = 'FolderName';
 $folder = 'folderid';
 $parentFolder = 'parentFolder_id';
 
@@ -56,7 +56,7 @@ try {
     $result = $client->updateFolder([
         'AuthenticationToken' => $authToken,
         'Name' => $folderName,
-        'ParentFolderId' => $parentFolder 
+        'ParentFolderId' => $parentFolder,
         'FolderId' => $folder
     ]);
 

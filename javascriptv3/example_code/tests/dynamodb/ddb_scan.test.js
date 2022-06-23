@@ -1,13 +1,13 @@
-const mockScan = jest.fn();
-jest.mock("@aws-sdk/client-dynamodb/commands/ScanCommand", () => ({
-    DynamoDB: function DynamoDB() {
-        this.ScanCommand = mockScan;
-    },
-}));
-const {run} = require("../../dynamodb/ddb_scan");
+// Get service clients module and commands using CommonJS syntax.
+const { run, params } = require("../../dynamodb/src/ddb_scan");
+const { ddbClient } = require("../../dynamodb/src/libs/ddbClient");
 
-test("has to mock db#Scan", async (done) => {
-    await run();
-    expect(mockScan).toHaveBeenCalled;
-    done();
+jest.mock("../../dynamodb/src/libs/ddbClient.js");
+
+describe("@aws-sdk/client-dynamodb mock", () => {
+    it("should successfully mock DynamoDB client", async () => {
+        ddbClient.send.mockResolvedValue({ isMock: true });
+        const response = await run(params);
+        expect(response.isMock).toEqual(true);
+    });
 });

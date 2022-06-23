@@ -3,9 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon-aws]
-
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +11,7 @@
 package com.example.kms;
 
 // snippet-start:[kms.java2_revoke_grant.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.KmsException;
@@ -20,9 +19,9 @@ import software.amazon.awssdk.services.kms.model.RevokeGrantRequest;
 // snippet-end:[kms.java2_revoke_grant.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -30,24 +29,24 @@ public class RevokeGrant {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    RevokeGrant <keyId> <grantId> \n\n" +
+                "    <keyId> <grantId> \n\n" +
                 "Where:\n" +
-                "    keyId - a unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
-                "    grantId - a grant id value of the grant revoke. \n\n" ;
+                "    keyId - A unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
+                "    grantId - A grant id value of the grant revoke. \n\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String keyId = args[0];
         String grantId = args[1];
-
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         revokeKeyGrant(kmsClient, keyId, grantId);
@@ -64,6 +63,7 @@ public class RevokeGrant {
                 .build();
 
             kmsClient.revokeGrant(grantRequest);
+
         } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);

@@ -1,15 +1,3 @@
- 
-//snippet-sourcedescription:[get_topic_attributes.cpp demonstrates how to retrieve the properties of an Amazon SNS topic.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -28,17 +16,19 @@
 #include <iostream>
 
 /**
- * Get the topic attributes based on command line input for topic arn
- */
+ * Get the topic attributes - demonstrates how to retrieve the properties of an Amazon SNS topic.
+ * 
+ * <topic_arn_value> can be obtained from run_list_topics executable and includes the "arn:" prefix.
+*/
 
 int main(int argc, char ** argv)
 {
   if (argc != 2)
   {
-    std::cout << "Usage: get_topic_attributes <topic_arn>" << std::endl;
+    std::cout << "Usage: get_topic_attributes <topic_arn_value>" << std::endl;
     return 1;
   }
-
+  // snippet-start:[sns.cpp.get_topic_attributes.code]
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
@@ -66,5 +56,6 @@ int main(int argc, char ** argv)
   }
 
   Aws::ShutdownAPI(options);
+  // snippet-end:[sns.cpp.get_topic_attributes.code]
   return 0;
 }

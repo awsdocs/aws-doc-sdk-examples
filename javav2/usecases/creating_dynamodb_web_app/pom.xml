@@ -6,12 +6,12 @@
 <groupId>ItemTrackerDynamoDB</groupId>
 <artifactId>ItemTrackerDynamoDB</artifactId>
 <version>1.0-SNAPSHOT</version>
-<parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.0.4.RELEASE</version>
-    <relativePath /> <!-- lookup parent from repository -->
-</parent>
+ <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 <properties>
     <java.version>1.8</java.version>
 </properties>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>bom</artifactId>
-            <version>2.11.11</version>
+            <version>2.17.102</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -30,34 +30,34 @@
     <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dynamodb</artifactId>
-        <version>2.5.10</version>
+        <version>2.17.102</version>
     </dependency>
     <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dynamodb-enhanced</artifactId>
-        <version>2.11.4-PREVIEW</version>
+        <version>2.17.102</version>
     </dependency>
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.4.2</version>
+        <version>5.8.2</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.4.2</version>
+        <version>5.8.2</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.junit.platform</groupId>
         <artifactId>junit-platform-commons</artifactId>
-        <version>1.4.0</version>
+        <version>1.8.2</version>
     </dependency>
     <dependency>
         <groupId>org.junit.platform</groupId>
         <artifactId>junit-platform-launcher</artifactId>
-        <version>1.4.0</version>
+        <version>1.8.2</version>
         <scope>test</scope>
     </dependency>
     <dependency>
@@ -82,18 +82,18 @@
     <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.5</version>
+        <version>4.13.2</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>javax.mail</groupId>
         <artifactId>javax.mail-api</artifactId>
-        <version>1.5.5</version>
+        <version>1.6.2</version>
     </dependency>
     <dependency>
         <groupId>com.sun.mail</groupId>
         <artifactId>javax.mail</artifactId>
-        <version>1.5.5</version>
+        <version>1.6.2</version>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -103,28 +103,22 @@
     <dependency>
         <groupId>org.webjars</groupId>
         <artifactId>bootstrap</artifactId>
-        <version>3.3.7</version>
+        <version>5.1.1</version>
     </dependency>
     <dependency>
         <groupId>org.webjars</groupId>
         <artifactId>jquery</artifactId>
-        <version>3.2.1</version>
+        <version>3.6.0</version>
     </dependency>
-    <!-- mysql connector -->
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <scope>runtime</scope>
-    </dependency>
-    <dependency>
+     <dependency>
         <groupId>net.sourceforge.jexcelapi</groupId>
         <artifactId>jxl</artifactId>
-        <version>2.6.10</version>
+        <version>2.6.12</version>
     </dependency>
     <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
-        <version>2.6</version>
+        <version>20030203.000550</version>
     </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -150,12 +144,18 @@
             </exclusion>
         </exclusions>
     </dependency>
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.7</version>
+    </dependency>
 </dependencies>
 <build>
     <plugins>
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${project.parent.version}</version>
         </plugin>
     </plugins>
 </build>

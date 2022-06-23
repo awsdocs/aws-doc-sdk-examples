@@ -3,9 +3,7 @@
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon GuardDuty]
 // snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/04/2020]
-// snippet-sourceauthor:[AWS - scmacdon]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +13,7 @@
 package com.example.guardduty;
 
 //snippet-start:[guard.java2.list_detectors.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.guardduty.GuardDutyClient;
 import software.amazon.awssdk.services.guardduty.model.GuardDutyException;
@@ -23,9 +22,9 @@ import java.util.List;
 //snippet-end:[guard.java2.list_detectors.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,6 +35,7 @@ public class ListDetectors {
         Region region = Region.US_EAST_1;
         GuardDutyClient guardDutyClient = GuardDutyClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllDetectors(guardDutyClient);

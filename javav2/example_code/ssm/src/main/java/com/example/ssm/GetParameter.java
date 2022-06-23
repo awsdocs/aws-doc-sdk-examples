@@ -4,8 +4,7 @@
 // snippet-keyword:[Amazon Simple Systems Management]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[AWS - scmacdon]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.ssm;
 
 // snippet-start:[ssm.Java2.get_para_value.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.GetParameterRequest;
@@ -23,9 +23,9 @@ import software.amazon.awssdk.services.ssm.model.SsmException;
 // snippet-end:[ssm.Java2.get_para_value.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,14 +33,14 @@ public class GetParameter {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    GetParameter <paraName>\n\n" +
+                "    <paraName>\n\n" +
                 "Where:\n" +
-                "    paraName - the name of the parameter.\n";
+                "    paraName - The name of the parameter.\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -48,6 +48,7 @@ public class GetParameter {
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getParaValue(ssmClient, paraName);

@@ -1,14 +1,12 @@
-const mockCreateReceiptFilter = jest.fn();
-jest.mock("@aws-sdk/client-ses/commands/CreateReceiptFilterCommand", () => ({
-  SES: function SES() {
-    this.CreateReceiptFilterCommand = mockCreateReceiptFilter;
-  },
-}));
-const { run } = require("../../ses/src/ses_createreceiptfilter");
+const { run, params } = require("../../ses/src/ses_createreceiptfilter");
+const { sesClient } = require("../../ses/src/libs/sesClient");
 
-//test function
-test("has to mock SES#createReceiptFilter", async (done) => {
-  await run();
-  expect(mockCreateReceiptFilter).toHaveBeenCalled;
-  done();
+jest.mock("../../ses/src/libs/sesClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sesClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

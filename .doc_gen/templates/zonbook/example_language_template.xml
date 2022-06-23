@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
+    %phrases-code-examples;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<!-- zexi 0.4.0 -->
+<variablelist role="termdef">
+    {{- range $version := .Versions}}
+    <varlistentry>
+        <term>{{- $version.SdkEntity.Short}}</term>
+        <listitem>
+            {{- if $version.Caveat}}
+            <note><para>{{$version.Caveat}}</para></note>
+            {{- end}}
+            {{- if $version.BlockContent}}
+            <xi:include href="file://AWSShared/code-samples/docs/{{.BlockContent}}"></xi:include>
+            <itemizedlist>
+                <title>Services used in this example</title>
+                {{- range $svc_ent := $version.Services}}
+                <listitem><para>{{$svc_ent.Short}}</para></listitem>
+                {{- end}}
+            </itemizedlist>
+            {{- else}}
+            {{- if $version.GitHubUrl}}
+            <tip>
+                <para>
+                    To learn how to set up and run this example, see
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>.
+                </para>
+            </tip>
+            {{- end}}
+            {{- range $version.Excerpts}}
+            <block>
+                <para>{{.Description}}</para>
+                <!-- The following line break must be preserved and left-justified exactly as-is, to keep snippets looking good. -->
+                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>
+{{end}}</programlisting>
+            </block>
+            {{- end}}
+            {{- if or $version.SdkGuideLink.Url (gt (len $version.ApiRefLinks) 0)}}
+            <itemizedlist>
+                {{- if $version.SdkGuideLink.Url}}
+                <listitem>
+                    <para>
+                        For more information, see <ulink {{$version.SdkGuideLink.DocType}} url="{{$version.SdkGuideLink.Url}}">{{$version.SdkGuideLink.Text}}</ulink>.
+                    </para>
+                </listitem>
+                {{- end}}
+                {{- if gt (len $version.ApiRefLinks) 0 }}
+                <listitem>
+                    {{- if eq (len $version.ApiRefLinks) 1 }}
+                    <para>
+                        For API details, see
+                        {{- range $actionLink := $version.ApiRefLinks}}
+                        <ulink {{$actionLink.DocType}} url="{{$actionLink.Url}}">{{$actionLink.Text}}</ulink>
+                        {{- end}}
+                        in <emphasis>{{$version.ApiRefName}}</emphasis>.
+                    </para>
+                    {{- else }}
+                    <para>For API details, see the following topics in <emphasis>{{$version.ApiRefName}}</emphasis>.</para>
+                    <itemizedlist>
+                        {{- range $actionLink := $version.ApiRefLinks}}
+                        <listitem><para><ulink {{$actionLink.DocType}} url="{{$actionLink.Url}}">{{$actionLink.Text}}</ulink></para></listitem>
+                        {{- end }}
+                    </itemizedlist>
+                    {{- end }}
+                </listitem>
+                {{- end}}
+            </itemizedlist>
+            {{- end}}
+            {{- end}}
+        </listitem>
+    </varlistentry>
+    {{- end}}
+</variablelist>

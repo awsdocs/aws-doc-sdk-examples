@@ -1,13 +1,12 @@
-const mockSetQueueAttributesLP = jest.fn();
-jest.mock("@aws-sdk/client-sqs/commands/SetQueueAttributesCommand", () => ({
-  SQS: function SQS() {
-    this.SetQueueAttributesCommand = mockSetQueueAttributesLP;
-  },
-}));
-const { run } = require("../../sqs/src/sqs_longpolling_existingqueue.js");
+const { run, params } = require("../../sqs/src/sqs_longpolling_existingqueue");
+const { sqsClient } = require("../../sqs/src/libs/sqsClient.js");
 
-test("has to mock SQS#sqs_longpolling_existingqueue", async (done) => {
-  await run();
-  expect(mockSetQueueAttributesLP).toHaveBeenCalled;
-  done();
+jest.mock("../../sqs/src/libs/sqsClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sqsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,18 +12,17 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.enable_alarm_actions.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsRequest;
-import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsResponse;
 // snippet-end:[cloudwatch.java2.enable_alarm_actions.import]
 
-
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,20 +30,21 @@ public class EnableAlarmActions {
 
     public static void main(String[] args) {
 
-       final String USAGE = "\n" +
+       final String usage = "\n" +
                 "Usage:\n" +
-                "  EnableAlarmActions <alarmName>\n\n" +
+                "  <alarmName>\n\n" +
                 "Where:\n" +
-                "  alarmName - an alarm name to enable (for example, MyAlarm).\n" ;
+                "  alarmName - An alarm name to enable (for example, MyAlarm).\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String alarm = args[0];
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .region(region)
                 .build();
 
@@ -68,8 +67,7 @@ public class EnableAlarmActions {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
-        // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
    }
+    // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
 }
 

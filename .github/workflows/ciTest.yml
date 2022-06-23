@@ -1,13 +1,13 @@
 # Run bash script on push or pull request
 name: BashPushOrPR
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,9 +29,6 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '^1.13.1' # The Go version to download (if necessary) and use.
-      - name: set env var
-        run: |
-            echo "GO111MODULE=off" >> $GITHUB_ENV # Do not run in module mode
       - uses: jitterbit/get-changed-files@v1
         id: files
         continue-on-error: true

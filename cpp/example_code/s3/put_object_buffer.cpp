@@ -71,9 +71,11 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String bucket_name = "my-bucket";
+        // TODO: Change bucket_name to the name of a bucket in your account.
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         const Aws::String object_name = "my-file.txt";
         const std::string object_content = "This is my sample text content.";
+        //TODO: Set to the AWS Region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::PutObjectBuffer(bucket_name, object_name, object_content, region)) 

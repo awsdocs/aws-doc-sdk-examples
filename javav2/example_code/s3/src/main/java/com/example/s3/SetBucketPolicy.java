@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.set_bucket_policy.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutBucketPolicyRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -29,24 +29,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 // snippet-end:[s3.java2.set_bucket_policy.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class SetBucketPolicy {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    SetBucketPolicy <bucketName> <polFile>\n\n" +
+                "    <bucketName> <polFile>\n\n" +
                 "Where:\n" +
-                "    bucketName - the Amazon S3 bucket to set the policy on.\n" +
-                "    polFile - a JSON file containing the policy (see the Amazon S3 Readme for an example). \n" ;
+                "    bucketName - The Amazon S3 bucket to set the policy on.\n" +
+                "    polFile - A JSON file containing the policy (see the Amazon S3 Readme for an example). \n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
          }
 
@@ -54,9 +55,11 @@ public class SetBucketPolicy {
         String polFile = args[1];
         String policyText = getBucketPolicyFromFile(polFile);
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         setPolicy(s3, bucketName, policyText);
@@ -112,5 +115,6 @@ public class SetBucketPolicy {
         }
         return fileText.toString();
     }
+    // snippet-end:[s3.java2.set_bucket_policy.main]
 }
- // snippet-end:[s3.java2.set_bucket_policy.main]
+

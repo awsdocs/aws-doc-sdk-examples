@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.kinesis.KinesisStream.class]
 class KinesisStream:
     """Encapsulates a Kinesis stream."""
     def __init__(self, kinesis_client):
@@ -25,6 +26,7 @@ class KinesisStream:
         self.name = None
         self.details = None
         self.stream_exists_waiter = kinesis_client.get_waiter('stream_exists')
+# snippet-end:[python.example_code.kinesis.KinesisStream.class]
 
     def _clear(self):
         """
@@ -39,6 +41,7 @@ class KinesisStream:
         """
         return self.details['StreamARN']
 
+# snippet-start:[python.example_code.kinesis.CreateStream]
     def create(self, name, wait_until_exists=True):
         """
         Creates a stream.
@@ -58,7 +61,9 @@ class KinesisStream:
         except ClientError:
             logger.exception("Couldn't create stream %s.", name)
             raise
+# snippet-end:[python.example_code.kinesis.CreateStream]
 
+# snippet-start:[python.example_code.kinesis.DescribeStream]
     def describe(self, name):
         """
         Gets metadata about a stream.
@@ -76,7 +81,9 @@ class KinesisStream:
             raise
         else:
             return self.details
+# snippet-end:[python.example_code.kinesis.DescribeStream]
 
+# snippet-start:[python.example_code.kinesis.DeleteStream]
     def delete(self):
         """
         Deletes a stream.
@@ -88,7 +95,9 @@ class KinesisStream:
         except ClientError:
             logger.exception("Couldn't delete stream %s.", self.name)
             raise
+# snippet-end:[python.example_code.kinesis.DeleteStream]
 
+# snippet-start:[python.example_code.kinesis.PutRecord]
     def put_record(self, data, partition_key):
         """
         Puts data into the stream. The data is formatted as JSON before it is passed
@@ -109,7 +118,9 @@ class KinesisStream:
             raise
         else:
             return response
+# snippet-end:[python.example_code.kinesis.PutRecord]
 
+# snippet-start:[python.example_code.kinesis.GetRecords]
     def get_records(self, max_records):
         """
         Gets records from the stream. This function is a generator that first gets
@@ -137,3 +148,4 @@ class KinesisStream:
         except ClientError:
             logger.exception("Couldn't get records from stream %s.", self.name)
             raise
+# snippet-end:[python.example_code.kinesis.GetRecords]

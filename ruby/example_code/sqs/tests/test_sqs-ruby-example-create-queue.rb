@@ -5,7 +5,7 @@ require_relative '../sqs-ruby-example-create-queue'
 
 describe '#queue_created?' do
   let(:queue_name) { 'my-queue' }
-  let(:queue_url) { 'https://sqs.us-east-1.amazonaws.com/111111111111/' + queue_name }
+  let(:queue_url) { 'https://sqs.us-west-2.amazonaws.com/111111111111/' + queue_name }
   let(:sqs_client) do
     Aws::SQS::Client.new(
       stub_responses: {

@@ -1,0 +1,11 @@
+{
+  "name": "aws-sdk-v3-codebuild-examples",
+  "version": "1.0.0",
+  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/codebuild.git",
+  "author": "Brian Murray <brmur@amazon.com>",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "@aws-sdk/client-codebuild": "^3.32.0"
+  },
+  "type": "module"
+}

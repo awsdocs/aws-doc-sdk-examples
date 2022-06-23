@@ -57,10 +57,11 @@
  *
  * Inputs:
  * - bucketName: The name of the bucket to set the ACL for. For example, 
- *   "my-bucket".
+ *   "DOC-EXAMPLE-BUCKET".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  * - ownerID: The canonical ID of the bucket owner. For example, 
  *   "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE".
+ *   See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
  * - granteePermission: The access level to enable for the grantee. For example:
  *   - "FULL_CONTROL": Can list objects in the bucket, create/overwrite/delete 
  *     objects in the bucket, and read/write the bucket's permissions.
@@ -93,7 +94,7 @@
  *
  * Inputs:
  * - bucketName: The name of the bucket to get ACL information for. For example,
- *   "my-bucket".
+ *   "DOC-EXAMPLE-BUCKET".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  *
  * Outputs: true if ACL information was retrieved for the bucket; 
@@ -272,15 +273,23 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String bucket_name = "my-bucket";
+        //TODO: Change bucket_name to the name of a bucket in your account.
+        //If the bucket is not in your account, you will get one of two errors: 
+        //AccessDenied if the bucket exists in some other account, or NoSuchBucket 
+        //if the bucket does not exist in any account.
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
+        //TODO: Set to the AWS Region in which the bucket was created.
+        const Aws::String region = "us-east-1";
 
-        // Set the ACL's owner information. 
+        //TODO: Set the ACL's owner information (if it is your bucket, then you want your canonical id). 
+        //See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
         const Aws::String owner_id = 
             "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
 
         // Set the ACL's grantee information.
-        const Aws::String grantee_permission = "READ";
+        const Aws::String grantee_permission = "READ"; //Give the grantee Read permissions.
         
+        //TODO: Select which form of grantee you want to specify, and update the corresponding data.
         // If the grantee is by canonical user, then either the user's ID or 
         // display name must be specified:
         const Aws::String grantee_type = "Canonical user";
@@ -300,8 +309,11 @@ int main()
         //     "http://acs.amazonaws.com/groups/global/AuthenticatedUsers";
 
         // Set the bucket's ACL.
+        //TODO: If you elected to use a grantee type other than canonical user above, update this method to 
+        //uncomment the additional parameters so that you are supplying the information necessary for the 
+        //grantee type you selected (e.g. the name, email address, etc).
         if (!AwsDoc::S3::PutBucketAcl(bucket_name,
-            "us-east-1",
+           region,
             owner_id,
             grantee_permission,
             grantee_type,
@@ -314,7 +326,7 @@ int main()
         }
         
         // Get the bucket's ACL information that was just set.
-        if (!AwsDoc::S3::GetBucketAcl(bucket_name, "us-east-1"))
+        if (!AwsDoc::S3::GetBucketAcl(bucket_name, region))
         {
             return 1;
         }

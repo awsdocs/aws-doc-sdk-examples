@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.firehose;
 
 // snippet-start:[firehose.java2.put_batch_records.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
 import software.amazon.awssdk.services.firehose.model.Record;
@@ -27,9 +27,9 @@ import java.util.List;
 // snippet-end:[firehose.java2.put_batch_records.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -38,14 +38,14 @@ public class PutBatchRecords {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    PutBatchRecords <streamName> \n\n" +
+                "    <streamName> \n\n" +
                 "Where:\n" +
-                "    streamName - the data stream name \n" ;
+                "    streamName - The data stream name \n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -53,6 +53,7 @@ public class PutBatchRecords {
         Region region = Region.US_WEST_2;
         FirehoseClient firehoseClient = FirehoseClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         addStockTradeData(firehoseClient, streamName);
@@ -63,7 +64,6 @@ public class PutBatchRecords {
     public static void addStockTradeData(FirehoseClient firehoseClient, String streamName) {
 
         List<Record> recordList = new ArrayList<>();
-
         try {
 
             // Repeatedly send stock trades with a 100 milliseconds wait in between
@@ -112,6 +112,6 @@ public class PutBatchRecords {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // snippet-end:[firehose.java2.put_batch_records.main]
     }
+    // snippet-end:[firehose.java2.put_batch_records.main]
 }

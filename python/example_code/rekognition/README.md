@@ -1,9 +1,9 @@
-# Amazon Rekognition image and video detection example
+# Amazon Rekognition Image, Video, and Custom labels examples
 
 ## Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Rekognition to
-recognize people, objects, and text in images and videos.
+recognize people, objects, and text in images and videos. 
 
 * Detect faces, celebrities, objects, and text in an image.
 * Create a collection of indexed faces and search for faces in your collection 
@@ -12,18 +12,61 @@ that match a reference image.
 * Create a notification channel so your code can determine when a video
 detection job has completed.
 
-## Prerequisites
+Also included are utilities that you can use with Amazon Rekognition Custom Labels.
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.14.47 or later
-- Requests 2.23.0 or later
-- Pillow 7.2.0 or later 
-- PyTest 5.3.5 or later (to run unit tests)
+*Amazon Rekognition makes it easy to add image and video analysis to your applications. 
+You provide an image or video to the Amazon Rekognition API, and the service 
+identifies objects, people, text, scenes, and activities.*
 
-## Cautions
+## Code examples
+
+**Cross-service examples**
+
+* [Detect faces, people, and objects in a video](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_video_detection.py)
+
+**Usage examples**
+
+* [Build a collection and find faces in it](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+* [Detect and display elements in images](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_image_detection.py)
+
+**API examples**
+
+* [Compare faces in an image against a reference image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_image_detection.py)
+(`compare_faces`)
+* [Create a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`create_collection`)
+* [Delete a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`delete_collection`)
+* [Delete faces from a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`delete_faces`)
+* [Describe a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`describe_collection`)
+* [Detect faces in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_image_detection.py)
+(`detect_faces`)
+* [Detect labels in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_image_detection.py)
+(`detect_labels`)
+* [Detect moderation labels in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_image_detection.py)
+(`detect_moderation_labels`)
+* [Detect text in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_image_detection.py)
+(`detect_text`)
+* [Index faces to a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`index_faces`)
+* [List faces in a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`list_faces`)
+* [List collections](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`list_collections`)
+* [Recognize celebrities in an image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_image_detection.py)
+(`recognize_celebrities`)
+* [Search for faces in a collection](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`search_faces`)
+* [Search for faces in a collection compared to a reference image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/rekognition_collections.py)
+(`search_faces_by_image`)
+
+**Utilities**
+
+* [Create a Custom Labels image-level manifest file from a CSV file](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/rekognition/custom_labels_csv_to_manifest.py)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -38,6 +81,19 @@ detection job has completed.
 
 ## Running the code
 
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.14.47 or later
+- Requests 2.23.0 or later
+- Pillow 7.2.0 or later 
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
+
 There are three demonstrations in this set of examples:
 
 * Detecting items in a single image.
@@ -48,7 +104,7 @@ There are three demonstrations in this set of examples:
 
 Run this example at a command prompt with the following command.
 
-```
+```commandline
 python rekognition_image_detection.py
 ``` 
 
@@ -56,7 +112,7 @@ python rekognition_image_detection.py
 
 Run this example at a command prompt with the following command.
 
-```
+```commandline
 python rekognition_collections.py
 ``` 
 
@@ -64,7 +120,7 @@ python rekognition_collections.py
 
 Run this example at a command prompt with the following command.
 
-```
+```commandline
 python rekognition_video_detection.py
 ``` 
 
@@ -105,7 +161,7 @@ they are sent to AWS, and returns a mocked response. To run all of the tests,
 run the following in your [GitHub root]/python/example_code/rekognition 
 folder.
 
-```    
+```commandline
 python -m pytest
 ```
 

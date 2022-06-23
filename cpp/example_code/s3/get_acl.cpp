@@ -1,5 +1,15 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+//snippet-sourcedescription:[get_acl.cpp demonstrates how to get information about an access control list (ACL) for an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-keyword:[AWS SDK for C++]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon S3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[12/15/2021]
+//snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 // snippet-start:[s3.cpp.get_acl.inc]
 #include <iostream>
@@ -9,14 +19,9 @@
 #include <aws/s3/model/GetObjectAclRequest.h>
 #include <aws/s3/model/Grant.h>
 #include <aws/s3/model/Permission.h>
-#include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.get_acl.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * GetBucketAcl:
- * 
- * Purpose: Gets information about an access control list (ACL) for a bucket 
- * in Amazon S3.
+/* 
  *
  * Prerequisites: The bucket to get the ACL information about.
  *
@@ -24,27 +29,44 @@
  * - bucketName: The name of the bucket to get the ACL information about.
  * - region: The AWS Region for the bucket.
  *
- * Outputs: true if information about the ACL was retrieved; otherwise, false.
- * ////////////////////////////////////////////////////////////////////////////
- * GetGranteeTypeString:
- *
- * Purpose: Converts a type enumeration to a human-readable string.
- *
- * Inputs:
- * - permission: The type enumeration.
- *
- * Outputs: A human-readable string for the associated type enumeration.
- * ////////////////////////////////////////////////////////////////////////////
- * GetPermissionString:
- *
- * Purpose: Converts a permission enumeration to a human-readable string.
- *
- * Inputs:
- * - type: The type of resource (bucket or object).
- * - permission: The permission enumeration.
- *
- * Outputs: A human-readable string for the associated permission enumeration.
- * ///////////////////////////////////////////////////////////////////////// */
+ * To run this C++ code example, ensure that you have setup your development environment, including your credentials.
+ *  For information, see this documentation topic:
+ *  https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ * 
+ */
+
+Aws::String GetGranteeTypeString(const Aws::S3::Model::Type& type);
+bool GetBucketAcl(const Aws::String& bucketName, const Aws::String& region);
+bool GetObjectAcl(const Aws::String& bucketName, const Aws::String& objectKey, const Aws::String& region);
+
+
+int main()
+{
+    //TODO: Name of your bucket that already contains "my-file.txt".  
+    //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
+    Aws::String bucket_name = "<Enter bucket name>";
+    //TODO: Name of object already in bucket.
+    Aws::String object_name = "<Enter object name>";
+    //TODO: Set to the AWS Region in which the bucket was created.
+    Aws::String region = "us-east-1";
+
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        if (!GetBucketAcl(bucket_name, region))
+        {
+            return 1;
+        }
+
+        if (!GetObjectAcl(bucket_name, object_name, region))
+        {
+            return 1;
+        }
+    }
+    Aws::ShutdownAPI(options);
+
+}
+
 
 Aws::String GetGranteeTypeString(const Aws::S3::Model::Type& type)
 {
@@ -114,8 +136,7 @@ Aws::String GetPermissionString(const Aws::String& type,
 }
 
 // snippet-start:[s3.cpp.get_acl_bucket.code]
-bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName, 
-    const Aws::String& region)
+bool GetBucketAcl(const Aws::String& bucketName, const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
@@ -190,8 +211,7 @@ bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName,
 // snippet-end:[s3.cpp.get_acl_bucket.code]
 
 // snippet-start:[s3.cpp.get_acl_object.code]
-bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName, 
-    const Aws::String& objectKey, const Aws::String& region)
+bool GetObjectAcl(const Aws::String& bucketName, const Aws::String& objectKey, const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
@@ -265,27 +285,3 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
     return true;
 }
 // snippet-end:[s3.cpp.get_acl_object.code]
-
-int main()
-{
-    Aws::String bucket_name = "my-bucket";
-    Aws::String object_name = "my-file.txt";
-    Aws::String region = "us-east-1";
-
-    Aws::SDKOptions options;
-    Aws::InitAPI(options);
-    {
-        if (!AwsDoc::S3::GetBucketAcl(bucket_name, region))
-        {
-            return 1;
-        }
-
-        if (!AwsDoc::S3::GetObjectAcl(bucket_name, object_name, region))
-        {
-            return 1;
-        }
-    }
-    Aws::ShutdownAPI(options);
-
-    return 0;
-}

@@ -1,0 +1,25 @@
+
+{
+    "Information" : [
+        "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
+        "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
+        "dotnet lambda help",
+        "All the command line options for the Lambda command can be specified in this file."
+    ],
+    "profile"     : "default",
+    "region"      : "us-east-2",
+    "configuration" : "Release",
+    "framework"     : "net5.0",
+    "function-runtime" : "provided",
+    "function-memory-size" : 256,
+    "function-timeout"     : 30,
+    "function-handler"     : "bootstrap::CreateDynamoDBTableExample.Function::FunctionHandler",
+    "msbuild-parameters"   : "--self-contained true",
+    "function-name"        : "CreateS3Bucket",
+    "function-description" : "Creates a new S3 bucket.",
+    "package-type"         : "Zip",
+    "function-role"        : "arn:aws:iam::704825161248:role/lambda-support",
+    "tracing-mode"         : "PassThrough",
+    "environment-variables" : "",
+    "image-tag"             : ""
+}

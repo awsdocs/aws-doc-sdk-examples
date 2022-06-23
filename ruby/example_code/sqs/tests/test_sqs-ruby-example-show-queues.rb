@@ -9,8 +9,8 @@ describe '#list_queue_urls' do
       stub_responses: {
         list_queues: {
           queue_urls: [
-            'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue',
-            'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue-2'
+            'https://sqs.us-west-2.amazonaws.com/111111111111/my-queue',
+            'https://sqs.us-west-2.amazonaws.com/111111111111/my-queue-2'
           ]
         }
       }
@@ -24,13 +24,13 @@ end
 
 describe '#list_queue_attributes' do
   let(:queue_name) { 'my-queue' }
-  let(:queue_url) { 'https://sqs.us-east-1.amazonaws.com/111111111111/' + queue_name }
+  let(:queue_url) { 'https://sqs.us-west-2.amazonaws.com/111111111111/' + queue_name }
   let(:sqs_client) do
     Aws::SQS::Client.new(
       stub_responses: {
         get_queue_attributes: {
           attributes: {
-           'QueueArn' => 'arn:aws:sqs:us-east-1:992648334831:my-queue',
+           'QueueArn' => 'arn:aws:sqs:us-west-2:992648334831:my-queue',
            'ApproximateNumberOfMessages' => '2',
            'ApproximateNumberOfMessagesNotVisible' => '0',
            'ApproximateNumberOfMessagesDelayed' => '0',

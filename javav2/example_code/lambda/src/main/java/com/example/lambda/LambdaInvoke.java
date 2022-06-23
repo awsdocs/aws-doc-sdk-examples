@@ -4,8 +4,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/11/2020]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,6 +15,8 @@
 package com.example.lambda;
 
 // snippet-start:[lambda.java2.invoke.import]
+import org.json.JSONObject;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.model.InvokeRequest;
@@ -30,7 +31,7 @@ public class LambdaInvoke {
    *  Function names appear as arn:aws:lambda:us-west-2:335556666777:function:HelloFunction
    *  you can retrieve the value by looking at the function in the AWS Console
    *
-   * Also, ensure that you have setup your development environment, including your credentials.
+   * Also, set up your development environment, including your credentials.
    *
    * For information, see this documentation topic:
    *
@@ -39,21 +40,22 @@ public class LambdaInvoke {
 
    public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    LambdaInvoke <functionName> \n\n" +
+                "    <functionName> \n\n" +
                 "Where:\n" +
-                "    functionName - the name of the Lambda function \n";
+                "    functionName - The name of the Lambda function \n";
 
-        if (args.length < 1) {
-            System.out.println(USAGE);
+        if (args.length != 1) {
+            System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String functionName = args[0];
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         invokeFunction(awsLambda, functionName);
@@ -66,7 +68,9 @@ public class LambdaInvoke {
          InvokeResponse res = null ;
         try {
             //Need a SdkBytes instance for the payload
-            String json = "{\"Hello \":\"Paris\"}";
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("inputValue", "2000");
+            String json = jsonObj.toString();
             SdkBytes payload = SdkBytes.fromUtf8String(json) ;
 
             //Setup an InvokeRequest
@@ -75,7 +79,6 @@ public class LambdaInvoke {
                     .payload(payload)
                     .build();
 
-            //Invoke the Lambda function
             res = awsLambda.invoke(request);
             String value = res.payload().asUtf8String() ;
             System.out.println(value);
@@ -84,7 +87,7 @@ public class LambdaInvoke {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[lambda.java2.invoke.main]
     }
+    // snippet-end:[lambda.java2.invoke.main]
 }
 // snippet-end:[lambda.java2.LambdaInvoke.complete]

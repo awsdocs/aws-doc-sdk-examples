@@ -1,4 +1,4 @@
-# AWS Secrets Manager example
+# AWS Secrets Manager examples
 
 ## Purpose
 
@@ -10,16 +10,36 @@ create, manage, and use secrets.
 * Use an existing secret with Amazon Relational Database Service (Amazon RDS) Data 
 Service to access a serverless Amazon Aurora cluster and database.
 
-## Prerequisites
+*AWS Secrets Manager helps you to securely encrypt, store, and retrieve credentials for 
+your databases and other services.*
+ 
+## Code examples
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.5 or later
-- Boto3 1.15.4 or later
-- PyTest 6.0.2 or later (to run unit tests)
+### Scenario examples
 
-## Cautions
+* [Connect to an Aurora database by using a secret](secretsmanager_basics.py)
+* [Create and manage a secret](secretsmanager_basics.py)
+
+### API examples
+
+* [Create a secret](secretsmanager_basics.py)
+(`CreateSecret`)
+* [Delete a secret](secretsmanager_basics.py)
+(`DeleteSecret`)
+* [Describe a secret](secretsmanager_basics.py)
+(`DescribeSecret`)
+* [Get a random password](secretsmanager_basics.py)
+(`GetRandomPassword`)
+* [Get a secret value](secretsmanager_basics.py)
+(`GetSecretValue`)
+* [List secrets](secretsmanager_basics.py)
+(`ListSecrets`)
+* [Put a value in a secret](secretsmanager_basics.py)
+(`PutSecretValue`)
+* [Update the stage of a secret version](secretsmanager_basics.py)
+(`UpdateSecretVersionStage`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -34,6 +54,32 @@ Service to access a serverless Amazon Aurora cluster and database.
 
 ## Running the code
 
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.5 or later
+- Boto3 1.15.4 or later
+- PyTest 6.0.2 or later (to run unit tests)
+
+### Command
+
+There are two demonstrations in this set of examples:
+
+* Creating and managing a secret.
+* Connecting to an Aurora database by using credentials stored in a secret.
+
+#### Secret management
+
+Run this example with the `demo-secret` action at a command prompt.
+
+```
+python secretsmanager_basics.py demo-secret
+``` 
+
+#### Connect to an Aurora database
+
 This example requires AWS resources that can be deployed by the 
 AWS CloudFormation stack that is defined in the accompanying `setup.yaml` file.
 This stack manages the following resources:
@@ -42,26 +88,26 @@ This stack manages the following resources:
 * A Secrets Manager secret that contains credentials needed to access the Amazon
 Aurora cluster.  
 
-### Deploy resources
+##### Deploy resources
 
-Deploy prerequisite resources by running the example script with the `deploy` flag at 
+Deploy prerequisite resources by running the example script with the `deploy` action at 
 a command prompt.
 
 ```
 python secretsmanager_basics.py deploy
 ```
 
-### Run the usage demonstration
+##### Run the demonstration
 
-Run the usage example with the `demo` flag at a command prompt.
+Run the usage example with the `demo-aurora` action at a command prompt.
 
 ```
-python secretsmanager_basics.py demo
+python secretsmanager_basics.py demo-aurora
 ``` 
 
-### Destroy resources
+##### Destroy resources
 
-Destroy example resources by running the script with the `destroy` flag at a command 
+Destroy example resources by running the script with the `destroy` action at a command 
 prompt.
 
 ```
@@ -74,23 +120,27 @@ The example contains the following files.
 
 **secretsmanager_basics.py**
 
-Shows how to create and manage Secrets Manager secrets. The `usage_demo` script
-performs the following actions:
+Shows how to create and manage Secrets Manager secrets.
+
+The `create_and_manage_secret_demo` script performs the following actions:
 
 1. Creates a secret.
 1. Updates the secret value with a randomly generated password.
 1. Updates the secret value with a Base64-encoded binary value.
 1. Lists secrets for the current account.
 1. Deletes the secret.
-1. Uses an existing secret to run SQL statements on an Amazon Aurora cluster:
-    1. Creates a database.
-    1. Creates and populates a table.
-    1. Queries the table. 
+
+The `aurora_demo` script uses an existing secret to run SQL statements on an Amazon 
+Aurora cluster:
+
+1. Creates a database.
+1. Creates and populates a table.
+1. Queries the table. 
 
 **setup.yaml**
 
 Contains a CloudFormation script that is used to create the resources needed for 
-the demo. Pass the `deploy` or `destroy` flag to the `secretsmanager_basics.py` script 
+the demo. Pass the `deploy` or `destroy` action to the `secretsmanager_basics.py` script 
 to create or remove these resources:  
 
 * An Amazon Aurora cluster and associated infrastructure. 

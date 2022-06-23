@@ -4,7 +4,7 @@
   "description": "A browser-based Photo Viewers demonstrating how to use the AWS SDK for JavaScript V3.",
   "main": "s3_PhotoViewer.js",
   "scripts": {
-    "build": "webpack s3_PhotoViewer.ts --mode development --target web --devtool false -o main.js",
+    "build": "webpack s3_PhotoViewer.js --mode development --target web --devtool false -o main.js",
     "test": "exit 0"
   },
   "repository": {
@@ -18,15 +18,15 @@
   },
   "homepage": "https://github.com/awsdocs/aws-doc-sdk-examples#readme",
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.3.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
-    "@aws-sdk/client-s3": "^3.3.0",
+    "@aws-sdk/client-cognito-identity": "^3.32.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
+    "@aws-sdk/client-s3": "^3.32.0",
     "fs": "0.0.1-security"
   },
   "devDependencies": {
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
-    "@aws-sdk/types": "^3.3.0",
+    "@aws-sdk/types": "^3.32.0",
     "@types/jest": "^26.0.13",
     "@types/node": "^14.0.23",
     "jest": "^26.4.2",

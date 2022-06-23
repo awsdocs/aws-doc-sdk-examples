@@ -1,0 +1,242 @@
+# zexi 0.4.3
+transcribe_StartTranscriptionJob:
+  title: Start an &TSC; transcription job using an &AWS; SDK
+  title_abbrev: Start a transcription job
+  synopsis: start an &TSC; transcription job.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.StartTranscriptionJob
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-start-transcription
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: Start a transcription job.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.createJobV3
+  services:
+    transcribe: {StartTranscriptionJob}
+transcribe_ListTranscriptionJobs:
+  title: List &TSC; transcription jobs using an &AWS; SDK
+  title_abbrev: List transcription jobs
+  synopsis: list &TSC; transcription jobs.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.ListTranscriptionJobs
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-list-jobs
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: List transcription jobs.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.listJobsV3
+  services:
+    transcribe: {ListTranscriptionJobs}
+transcribe_GetTranscriptionJob:
+  title: Get an &TSC; transcription job using an &AWS; SDK
+  title_abbrev: Get a transcription job
+  synopsis: get an &TSC; transcription job.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.GetTranscriptionJob
+  services:
+    transcribe: {GetTranscriptionJob}
+transcribe_DeleteTranscriptionJob:
+  title: Delete an &TSC; transcription job using an &AWS; SDK
+  title_abbrev: Delete a transcription job
+  synopsis: delete an &TSC; transcription job.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.DeleteTranscriptionJob
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-delete-job
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: Delete a transcription job.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.deleteJobV3
+  services:
+    transcribe: {DeleteTranscriptionJob}
+transcribe_CreateVocabulary:
+  title: Create a custom &TSC; vocabulary using an &AWS; SDK
+  title_abbrev: Create a custom vocabulary
+  synopsis: create a custom &TSC; vocabulary.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.CreateVocabulary
+  services:
+    transcribe: {CreateVocabulary}
+transcribe_ListVocabularies:
+  title: List custom &TSC; vocabularies using an &AWS; SDK
+  title_abbrev: List custom vocabularies
+  synopsis: list custom &TSC; vocabularies.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.ListVocabularies
+  services:
+    transcribe: {ListVocabularies}
+transcribe_GetVocabulary:
+  title: Get a custom &TSC; vocabulary using an &AWS; SDK
+  title_abbrev: Get a custom vocabulary
+  synopsis: get a custom &TSC; vocabulary.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.GetVocabulary
+  services:
+    transcribe: {GetVocabulary}
+transcribe_UpdateVocabulary:
+  title: Update a custom &TSC; vocabulary using an &AWS; SDK
+  title_abbrev: Update a custom vocabulary
+  synopsis: update a custom &TSC; vocabulary.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.UpdateVocabulary
+  services:
+    transcribe: {UpdateVocabulary}
+transcribe_DeleteVocabulary:
+  title: Delete a custom &TSC; vocabulary using an &AWS; SDK
+  title_abbrev: Delete a custom vocabulary
+  synopsis: delete a custom &TSC; vocabulary.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.transcribe.DeleteVocabulary
+  services:
+    transcribe: {DeleteVocabulary}
+transcribe_Scenario_GettingStartedTranscriptionJobs:
+  title: Transcribe audio and get job data with &TSC; using an &AWS; SDK
+  title_abbrev: Transcribe audio and get job data
+  synopsis: transcribe audio and get job data with &TSC;.
+  category: Scenarios
+  guide_topic:
+    title: Getting started with &TSC;
+    url: transcribe/latest/dg/getting-started.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.python.start-transcription-job
+  services:
+    transcribe: {StartTranscriptionJob, GetTranscriptionJob}
+transcribe_Scenario_CustomVocabulary:
+  title: Create and refine an &TSC; custom vocabulary using an &AWS; SDK
+  title_abbrev: Create and refine a custom vocabulary
+  synopsis: create and refine an &TSC; custom vocabulary to improve transcription
+    accuracy.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description: Transcribe an audio file that contains a reading of
+                Jabberwocky by Lewis Carroll. Start by creating
+                functions that wrap &TSC; actions.
+              snippet_tags:
+                - python.example_code.transcribe.StartTranscriptionJob
+                - python.example_code.transcribe.GetTranscriptionJob
+                - python.example_code.transcribe.DeleteTranscriptionJob
+                - python.example_code.transcribe.CreateVocabulary
+                - python.example_code.transcribe.GetVocabulary
+                - python.example_code.transcribe.UpdateVocabulary
+                - python.example_code.transcribe.ListVocabularies
+                - python.example_code.transcribe.DeleteVocabulary
+            - description: Call the wrapper functions to transcribe audio without
+                a custom vocabulary and then with different versions of a custom
+                vocabulary to see improved results.
+              snippet_tags:
+                - python.example_code.transcribe.Scenario_CustomVocabulary
+  services:
+    transcribe: {}

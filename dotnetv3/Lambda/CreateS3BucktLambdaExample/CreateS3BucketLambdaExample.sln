@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateS3BucketLambdaExample", "CreateS3BucketLambdaExample\CreateS3BucketLambdaExample.csproj", "{C1B59629-3844-4D1A-A56C-E3259D0E16B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1B59629-3844-4D1A-A56C-E3259D0E16B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B59629-3844-4D1A-A56C-E3259D0E16B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B59629-3844-4D1A-A56C-E3259D0E16B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1B59629-3844-4D1A-A56C-E3259D0E16B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {010FB739-6242-42DB-893D-87E11C442604}
+	EndGlobalSection
+EndGlobal

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,7 +12,7 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_log_events.import]
-import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsRequest;
@@ -24,31 +23,31 @@ import java.util.Arrays;
 // snippet-end:[cloudwatch.java2.put_log_events.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutLogEvents {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "  PutLogEvents <logGroupName> <streamName>\n\n" +
+                "  <logGroupName> <streamName>\n\n" +
                 "Where:\n" +
-                "  logGroupName - a log group name.\n" +
-                "  streamName - a stream name.\n" ;
+                "  logGroupName - A log group name.\n" +
+                "  streamName - A stream name.\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
-        String logGroupName = args[1];
-        String streamName = args[2];
-
+        String logGroupName = args[0];
+        String streamName = args[1];
         CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder()
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         putCWLogEvents(logsClient, logGroupName, streamName) ;
@@ -85,8 +84,6 @@ public class PutLogEvents {
                 .build();
 
         logsClient.putLogEvents(putLogEventsRequest);
-        // snippet-end:[cloudwatch.java2.put_log_events.main]
-
         System.out.println("Successfully put CloudWatch log event");
 
      } catch (CloudWatchException e) {
@@ -94,4 +91,5 @@ public class PutLogEvents {
          System.exit(1);
      }
     }
+    // snippet-end:[cloudwatch.java2.put_log_events.main]
 }

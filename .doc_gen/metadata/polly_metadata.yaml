@@ -1,0 +1,168 @@
+# zexi 0.4.0
+polly_DescribeVoices:
+  title: Get &POL; voices available for synthesis using an &AWS; SDK
+  title_abbrev: Get voices available for synthesis
+  synopsis: get &POL; voices available for synthesis.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.rust.describe-voices
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.polly.helper.PollyWrapper
+                - python.example_code.polly.DescribeVoices
+  services:
+    polly: {DescribeVoices}
+polly_GetLexicon:
+  title: Get an &POL; lexicon using an &AWS; SDK
+  title_abbrev: Get a lexicon
+  synopsis: get an &POL; lexicon.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.polly.helper.PollyWrapper
+                - python.example_code.polly.GetLexicon
+  services:
+    polly: {GetLexicon}
+polly_ListLexicons:
+  title: List &POL; pronunciation lexicons using an &AWS; SDK
+  title_abbrev: List pronunciation lexicons
+  synopsis: list &POL; pronunciation lexicons.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.polly.helper.PollyWrapper
+                - python.example_code.polly.ListLexicons
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.rust.list-lexicons
+  services:
+    polly: {ListLexicons}
+polly_PutLexicon:
+  title: Store an &POL; pronunciation lexicon using an &AWS; SDK
+  title_abbrev: Store a pronunciation lexicon
+  synopsis: store an &POL; pronunciation lexicon.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.polly.helper.PollyWrapper
+                - python.example_code.polly.PutLexicon
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.rust.put-lexicon
+  services:
+    polly: {PutLexicon}
+polly_SynthesizeSpeech:
+  title: Synthesize speech from text with &POL; using an &AWS; SDK
+  title_abbrev: Synthesize speech from text
+  synopsis: synthesize speech from text with &POL;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.polly.helper.PollyWrapper
+                - python.example_code.polly.Synthesize
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.rust.synthesize-speech
+  services:
+    polly: {SynthesizeSpeech}
+polly_GetSpeechSynthesisTask:
+  title: Get data about an &POL; speech synthesis task using an &AWS; SDK
+  title_abbrev: Get data about a speech synthesis task
+  synopsis: get data about an existing asynchronous &POL; speech synthesis task.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.polly.helper.PollyWrapper
+                - python.example_code.polly.GetSpeechSynthesisTask
+  services:
+    polly: {GetSpeechSynthesisTask}
+polly_StartSpeechSynthesisTask:
+  title: Start an &POL; speech synthesis task using an &AWS; SDK
+  title_abbrev: Start a speech synthesis task
+  synopsis: start an asynchronous &POL; speech synthesis task.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.polly.helper.PollyWrapper
+                - python.example_code.polly.StartSpeechSynthesisTask
+  services:
+    polly: {StartSpeechSynthesisTask}
+polly_LipSync:
+  title: Create a lip-sync application with &POL; using an &AWS; SDK
+  title_abbrev: Create a lip-sync application
+  synopsis: create a lip-sync application with &POL;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: scenario_PollyLipSync_Python_block.xml
+  services:
+    polly: {}

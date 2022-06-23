@@ -3,8 +3,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/11/2020]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,14 +13,19 @@
 package com.example.lambda;
 
 // snippet-start:[lambda.java2.create.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.FunctionCode;
-import software.amazon.awssdk.services.lambda.model.LambdaException;
 import software.amazon.awssdk.services.lambda.model.CreateFunctionResponse;
+import software.amazon.awssdk.services.lambda.model.GetFunctionRequest;
+import software.amazon.awssdk.services.lambda.model.GetFunctionResponse;
+import software.amazon.awssdk.services.lambda.model.LambdaException;
 import software.amazon.awssdk.services.lambda.model.Runtime;
+import software.amazon.awssdk.services.lambda.waiters.LambdaWaiter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -33,7 +37,7 @@ import java.io.InputStream;
  *
  *  https://github.com/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -44,17 +48,17 @@ public class CreateFunction {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    CreateFunction <functionName><filePath><role><handler> \n\n" +
+                "    <functionName> <filePath> <role> <handler> \n\n" +
                 "Where:\n" +
-                "    functionName - the name of the Lambda function. \n"+
-                "    filePath - the path to the ZIP or JAR where the code is located. \n"+
-                "    role - the role ARN that has Lambda permissions. \n"+
-                "    handler - the fully qualifed method name (for example, example.Handler::handleRequest).  \n";
+                "    functionName - The name of the Lambda function. \n"+
+                "    filePath - The path to the ZIP or JAR where the code is located. \n"+
+                "    role - The role ARN that has Lambda permissions. \n"+
+                "    handler - The fully qualified method name (for example, example.Handler::handleRequest).  \n";
 
           if (args.length != 4) {
-              System.out.println(USAGE);
+              System.out.println(usage);
               System.exit(1);
           }
 
@@ -66,6 +70,7 @@ public class CreateFunction {
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createLambdaFunction(awsLambda, functionName, filePath, role, handler);
@@ -80,6 +85,7 @@ public class CreateFunction {
                                             String handler) {
 
         try {
+            LambdaWaiter waiter = awsLambda.waiter();
             InputStream is = new FileInputStream(filePath);
             SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
@@ -96,8 +102,14 @@ public class CreateFunction {
                     .role(role)
                     .build();
 
+            // Create a Lambda function using a waiter
             CreateFunctionResponse functionResponse = awsLambda.createFunction(functionRequest);
-            System.out.println("The function ARN is "+functionResponse.functionArn());
+            GetFunctionRequest getFunctionRequest = GetFunctionRequest.builder()
+                    .functionName(functionName)
+                    .build();
+            WaiterResponse<GetFunctionResponse> waiterResponse = waiter.waitUntilFunctionExists(getFunctionRequest);
+            waiterResponse.matched().response().ifPresent(System.out::println);
+            System.out.println("The function ARN is " + functionResponse.functionArn());
 
         } catch(LambdaException | FileNotFoundException e) {
             System.err.println(e.getMessage());

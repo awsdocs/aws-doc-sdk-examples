@@ -1,0 +1,245 @@
+# zexi 0.4.0
+eventbridge_DeleteRule:
+  title: Delete an &EV; scheduled rule using an &AWS; SDK
+  title_abbrev: Delete a scheduled rule
+  synopsis: delete an &EVlong; scheduled rule.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._delete_rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._delete_rule.main
+  services:
+    eventbridge: {DeleteRule}
+eventbridge_PutRule:
+  title: Create an &EV; scheduled rule using an &AWS; SDK
+  title_abbrev: Create a scheduled rule
+  synopsis: create an &EVlong; scheduled rule.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._create_rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._create_rule.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_rule.inc
+            - description: Create the rule.
+              snippet_tags:
+                - cw.cpp.put_rule.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - eventbridge.JavaScript.events.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - eventBridge.JavaScript.eb.putRuleV3
+        - sdk_version: 2
+          github: javascript/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventBridge.JavaScript.eb.putRule
+  services:
+    eventbridge: {PutRule}
+eventbridge_PutEvents:
+  title: Send &EV; events using an &AWS; SDK
+  title_abbrev: Send events
+  synopsis: send &EVlong; events.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._put_event.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._put_event.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_events.inc
+            - description: Send the event.
+              snippet_tags:
+                - cw.cpp.put_events.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - eventbridge.JavaScript.events.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - eventBridge.JavaScript.eb.putEventsV3
+        - sdk_version: 2
+          github: javascript/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventBridge.JavaScript.eb.putEvents
+  services:
+    eventbridge: {PutEvents}
+eventbridge_PutTargets:
+  title: Add a &LAM; function target using an &AWS; SDK
+  title_abbrev: Add a &LAM; function target
+  synopsis: add an &LAMlong; function target to an &EVlong; event.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_targets.inc
+            - description: Add the target.
+              snippet_tags:
+                - cw.cpp.put_targets.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - eventbridge.JavaScript.events.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - eventBridge.JavaScript.eb.putTargetsV3
+        - sdk_version: 2
+          github: javascript/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventBridge.JavaScript.eb.putTargets
+  services:
+    eventbridge: {PutTargets}
+eventbridge_Scenario_createAndTriggerARule:
+  title: Create and trigger a rule in &EVlong; using an &AWS; SDK
+  title_abbrev: Create and trigger a rule
+  synopsis: create and trigger a rule in &EVlong;.
+  category: Scenarios
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Call the functions in the correct order.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.require
+            - description: Checks whether the specified &SNSlong; (&SNS;) topic exists among those provided to this function.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.sns
+            - description: Checks whether the specified topic exists among those available to the caller in &SNS;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.snstopic
+            - description: Create a topic in &SNS; and then subscribe an email address to receive notifications to that topic.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.createSnsTopic
+            - description: Check whether the specified &IAMlong; (&IAM;) role exists among those provided to this function.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.IamRole
+            - description: Check whether the specified role exists among those available to the caller in &IAM;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.checkIamRole
+            - description: Create a role in &IAM;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.createIamRole
+            - description: Checks whether the specified &EV; rule exists among those provided to this function.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.checkRuleExists
+            - description: Checks whether the specified rule exists among those available to the caller in &EV;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.checkRuleAvailable
+            - description: Create a rule in &EV;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.createRule
+            - description: Check to see whether the specified log group exists among those available to the caller in &CWLlong;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.checkLogGroup
+            - description: Create a log group in &CWL;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.createLogGroup
+            - description: Write an event to a log stream in &CWL;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.writeEvent
+            - description: Restart an &EC2long; (&EC2;) instance and adds information about the related activity to a log stream in &CWL;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.restartInstance
+            - description: Display information about activity for a rule in &EV;.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.displayInfo
+            - description: Display log information for all of the log streams in a &CWL; log group.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.displayLogInfo
+            - description: Display a reminder to the caller to manually clean up any associated &AWS; resources that they no longer need.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.displayReminder
+  services:
+    eventbridge: {}

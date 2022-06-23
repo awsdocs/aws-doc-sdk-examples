@@ -4,8 +4,7 @@
 // snippet-service:[AWS CloudFormation]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/03/2020]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.cloudformation;
 
 // snippet-start:[cf.java2.create_stack.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
@@ -36,9 +36,10 @@ import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationWait
  *  Also, the role that you use must have CloudFormation permissions as well as Amazon S3 and Amazon EC2 permissions. For more information,
  *  see "Getting started with AWS CloudFormation" in the AWS CloudFormation User Guide.
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
+ *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
  */
@@ -47,18 +48,18 @@ public class CreateStack {
 
    public static void main(String[] args) {
 
-       final String USAGE = "\n" +
+       final String usage = "\n" +
                "Usage:\n" +
-               "    CreateStack <stackName> <roleARN> <location> <key> <value> \n\n" +
+               "    <stackName> <roleARN> <location> <key> <value> \n\n" +
                "Where:\n" +
-               "    stackName - the name of the AWS CloudFormation stack. \n" +
-               "    roleARN - the ARN of the role that has AWS CloudFormation permissions. \n" +
-               "    location - the location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml). \n"+
-               "    key - the key associated with the parameter. \n" +
-               "    value - the value associated with the parameter. \n" ;
+               "    stackName - The name of the AWS CloudFormation stack. \n" +
+               "    roleARN - The ARN of the role that has AWS CloudFormation permissions. \n" +
+               "    location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml). \n"+
+               "    key - The key associated with the parameter. \n" +
+               "    value - The value associated with the parameter. \n" ;
 
        if (args.length != 5) {
-           System.out.println(USAGE);
+           System.out.println(usage);
            System.exit(1);
        }
 
@@ -71,6 +72,7 @@ public class CreateStack {
        Region region = Region.US_EAST_1;
        CloudFormationClient cfClient = CloudFormationClient.builder()
                .region(region)
+               .credentialsProvider(ProfileCredentialsProvider.create())
                .build();
 
        createCFStack(cfClient, stackName, roleARN, location, key, value);

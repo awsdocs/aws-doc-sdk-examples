@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+  <para>
+    Use &POLlong; to synthesize a plain text (UTF-8) input file to an audio file,
+    upload the audio file to an &S3long; bucket,
+    use &TSClong; to convert that audio file to text,
+    and display the text.
+  </para>
+  <para>
+    For complete source code and instructions on how to set up and run, see the full example on
+    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rust_dev_preview/cross_service#code-examples">GitHub</ulink>.
+  </para>
+</block>

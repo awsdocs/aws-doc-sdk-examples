@@ -35,6 +35,7 @@ func TakeRole(c context.Context, api STSAssumeRoleAPI, input *sts.AssumeRoleInpu
 func main() {
 	roleARN := flag.String("r", "", "The Amazon Resource Name (ARN) of the role to assume")
 	sessionName := flag.String("s", "", "The name of the session")
+	flag.Parse()
 
 	if *roleARN == "" || *sessionName == "" {
 		fmt.Println("You must supply a role ARN and session name")

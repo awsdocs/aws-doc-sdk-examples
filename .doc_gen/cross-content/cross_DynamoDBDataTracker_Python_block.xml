@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to use the &Python3long; to create a web application that tracks work
+        items in &DDBlong; and emails reports by using &SESlong; (&SES;).
+        This example uses the Flask web framework to host a local website and render
+        templated web pages.
+    </para>
+
+    <itemizedlist>
+        <listitem><para>Integrate a Flask web application with &AWS; services.</para></listitem>
+        <listitem><para>List, add, update, and delete items in a &DDB; table.</para></listitem>
+        <listitem><para>Send an email report of filtered work items using &SES;.</para></listitem>
+        <listitem><para>Make &AWS; requests with an &IAMlong; (&IAM;) role that restricts permissions.</para></listitem>
+        <listitem><para>Deploy and manage example resources with the included &CFNlong; script.</para></listitem>
+    </itemizedlist>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/dynamodb_item_tracker">GitHub</ulink>.
+    </para>
+</block>

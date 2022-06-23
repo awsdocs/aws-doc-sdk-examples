@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.mediastore;
 
 //snippet-start:[mediastore.java2.get_object.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
@@ -32,9 +32,9 @@ import java.net.URISyntaxException;
 //snippet-end:[mediastore.java2.get_object.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -42,16 +42,16 @@ public class GetObject {
 
     public static void main(String[] args) throws URISyntaxException {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
-                "GetObject  <completePath> <containerName> <savePath>\n\n" +
+                "   <completePath> <containerName> <savePath>\n\n" +
                 "Where:\n" +
-                "  completePath - the path of the object in the container (for example, Videos5/sampleVideo.mp4).\n"+
-                "  containerName - the name of the container.\n"+
-                "  savePath - the path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).\n";
+                "   completePath - The path of the object in the container (for example, Videos5/sampleVideo.mp4).\n"+
+                "   containerName - The name of the container.\n"+
+                "   savePath - The path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).\n";
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -65,6 +65,7 @@ public class GetObject {
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
                 .endpointOverride(uri)
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getMediaObject(mediaStoreData, completePath, savePath);
@@ -80,7 +81,7 @@ public class GetObject {
                 .build();
 
             // Write out the data to a file.
-            ResponseInputStream<GetObjectResponse> data=  mediaStoreData.getObject(objectRequest);
+            ResponseInputStream<GetObjectResponse> data = mediaStoreData.getObject(objectRequest);
             byte[] buffer = new byte[data.available()];
             data.read(buffer);
 
@@ -94,7 +95,7 @@ public class GetObject {
             System.exit(1);
         }
     }
-    //snippet-end:[mediastore.java2.get_object.main]
+
 
     private static String getEndpoint(String containerName){
 
@@ -110,4 +111,5 @@ public class GetObject {
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();
     }
+    //snippet-end:[mediastore.java2.get_object.main]
 }

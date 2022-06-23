@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to use &AWS; Chalice with the &Python3long; to
+        create a serverless REST API that uses &ABPlong;, &LAMlong;, and
+        &DDBlong;. The REST API simulates a system that tracks daily cases
+        of COVID-19 in the United States, using fictional data. Learn how to:
+    </para>
+    <itemizedlist>
+        <listitem><para>Use &AWS; Chalice to define routes in &LAM; functions that
+        are called to handle REST requests that come through &ABP;.</para></listitem>
+        <listitem><para>Use &LAM; functions to retrieve and store data in a &DDB;
+        table to serve REST requests.</para></listitem>
+        <listitem><para>Define table structure and security role resources in an &CFNlong; template.</para></listitem>
+        <listitem><para>Use &AWS; Chalice and &CFNshort; to package and deploy all necessary resources.</para></listitem>
+        <listitem><para>Use &CFNshort; to clean up all created resources.</para></listitem>
+    </itemizedlist>    
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/apigateway_covid-19_tracker">GitHub</ulink>.
+    </para>
+</block>

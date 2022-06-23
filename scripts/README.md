@@ -130,6 +130,32 @@ Run the following in the root folder of your GitHub clone.
 python -m scripts.summarizer --root python
 ``` 
 
+## testRust.sh
+
+1. Updates the SDK crate versions in the **Cargo.toml** files within the local clone of the [aws-doc-sdk-examples](https://github.com/awsdocs/aws-doc-sdk-examples) repository.
+1. Runs **cargo clippy**
+1. Runs **cargo fmt**
+
+### Prerequisites
+
+To run this script, you must have the following installed:
+
+* bash
+
+You must also set the following environment variables:
+
+- ``RustRoot`` is the fully-qualified path to the **rust_dev_preview** directory on your computer.
+- ``FromVersion`` is the version number of the previous SDK crates.
+- ``ToVersion`` is the version number of the SDK crates for the current release.
+
+If you are testing the existing release, set both **FromVersion** and **ToVersion** to the same value
+(**0.0.25-alpha** as of when this script was first checked in).
+
+### Running the script
+
+The script does not take any command-line arguments; 
+you can run it from any directory on your computer.
+
 ## vetCDK.sh
 
 ### Purpose

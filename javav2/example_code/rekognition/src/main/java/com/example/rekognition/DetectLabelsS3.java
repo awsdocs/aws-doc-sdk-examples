@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05-12-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.detect_labels_s3.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.Image;
@@ -25,9 +25,9 @@ import java.util.List;
 // snippet-end:[rekognition.java2.detect_labels_s3.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,15 +36,15 @@ public class DetectLabelsS3 {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
-                "<bucket> <image>\n\n" +
+                "   <bucket> <image>\n\n" +
                 "Where:\n" +
-                "bucket - the name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket)." +
-                "image - the name of the image located in the Amazon S3 bucket (for example, Lake.png). \n\n";
+                "   bucket - The name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket)." +
+                "   image - The name of the image located in the Amazon S3 bucket (for example, Lake.png). \n\n";
 
          if (args.length != 2) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
          }
 
@@ -53,6 +53,7 @@ public class DetectLabelsS3 {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getLabelsfromImage(rekClient, bucket, image);

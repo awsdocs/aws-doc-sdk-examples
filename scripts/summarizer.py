@@ -18,7 +18,7 @@ from urllib.parse import urljoin
 import urllib.request as request
 
 README_FILENAME = 'readme.md'
-GITHUB_URL = 'https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/'
+GITHUB_URL = 'https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/'
 PYTHON_VERSION = '3.6'
 BOTO3_VERSION = '1.11.10'
 PYTEST_VERSION = '5.3.5'

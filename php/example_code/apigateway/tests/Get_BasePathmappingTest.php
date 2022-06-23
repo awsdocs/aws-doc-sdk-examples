@@ -35,7 +35,7 @@ class GetBasePathMappingTest extends TestCase
             $apiGatewayClient,
             API_GATEWAY_BASE_PATH,
             API_GATEWAY_DOMAIN_NAME
-        ), 'The base path mapping\'s effective URI is: : ' .
+        ), 'The base path mapping\'s effective URI is: ' .
             'https://apigateway.us-east-1.amazonaws.com/domainnames/example.com/basepathmappings/%28none%29');
     }
 }

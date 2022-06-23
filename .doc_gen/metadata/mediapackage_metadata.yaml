@@ -1,0 +1,33 @@
+# zexi 0.4.0
+mediapackage_ListChannels:
+  title: List your &EMP; channels using an &AWS; SDK
+  title_abbrev: List channels
+  synopsis: list your &EMP; channels.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/mediapackage
+          excerpts:
+            - description: List channel ARNs and descriptions.
+              snippet_tags:
+                - mediapackage.rust.mediapackage-helloworld
+  services:
+    mediapackage: {ListChannels}
+mediapackage_ListOriginEndpoints:
+  title: List your &EMP; origin endpoints using an &AWS; SDK
+  title_abbrev: List your origin endpoints
+  synopsis: list your &EMP; origin endpoints.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/mediapackage
+          excerpts:
+            - description: List your endpoint descriptions and URLs.
+              snippet_tags:
+                - mediapackage.rust.list-endpoints
+  services:
+    mediapackage: {ListOriginEndpoints}

@@ -1,33 +1,44 @@
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Publishes a message to an SNS topic.]
-# snippet-keyword:[Amazon Simple Notification Service]
-# snippet-keyword:[Resource.topic method]
-# snippet-keyword:[Topic.publish method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sns]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# sns-ruby-example-send-message.rb demonstrates how to send a message using an Amazon Simple Notification Service (SNS) topic using
+# the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION
+# - SNS_TOPIC_ARN
+# - MESSAGE
+
+# snippet-start:[sns.Ruby.sendMessage]
 
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
-sns = Aws::SNS::Resource.new(region: 'us-west-2')
+def message_sent?(sns_client, topic_arn, message)
 
-topic = sns.topic('arn:aws:sns:us-west-2:123456789:MyGroovyTopic')
+  sns_client.publish(topic_arn: topic_arn, message: message)
+rescue StandardError => e
+  puts "Error while sending the message: #{e.message}"
+  end
 
-topic.publish({
-  message: 'Hello!'
-})
+def run_me
+
+  topic_arn = 'SNS_TOPIC_ARN'
+  region = 'REGION'
+  message = 'MESSAGE' # The text of the message to send.
+
+  sns_client = Aws::SNS::Client.new(region: region)
+
+  puts "Message sending."
+
+  if message_sent?(sns_client, topic_arn, message)
+    puts 'The message was sent.'
+  else
+    puts 'The message was not sent. Stopping program.'
+    exit 1
+  end
+  end
+
+run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[sns.Ruby.sendMessage]

@@ -1,0 +1,2561 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+
+<script>
+  function myfunction(){
+    var searchKey = document.getElementById('selectBlock').value
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function () {
+      var myObj = JSON.parse(this.responseText);
+      const selectedItem = myObj[searchKey]["title"];
+      document.getElementById("thetitle").value = selectedItem
+    }
+    const serviceStub = document.getElementById('selecttheservice').value
+    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    xmlhttp.open("GET", sourceJson, true);
+    xmlhttp.send();
+  };
+  function myfunction2(){
+    var searchKey = document.getElementById('selectBlock').value
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function () {
+      var myObj = JSON.parse(this.responseText);
+      const selectedItem = myObj[searchKey]["title_abbrev"];
+      document.getElementById("addatitle").value = selectedItem
+    }
+    const serviceStub = document.getElementById('selecttheservice').value
+    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    xmlhttp.open("GET", sourceJson, true);
+    xmlhttp.send();
+  };
+  function myfunction3(){
+    var searchKey = document.getElementById('selectBlock').value
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function () {
+      var myObj = JSON.parse(this.responseText);
+      const selectedItem = myObj[searchKey]["synopsis"];
+      console.log('this selected synopsis', selectedItem);
+      document.getElementById("synopsis").value = selectedItem
+      const languageList = Object.keys(myObj[searchKey]["languages"])
+      var select = document.getElementById("languages");
+      languageList.push('Not listed')
+      var options = languageList;
+      for (var i = 0; i < options.length; i++) {
+        var opt = options[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+      }
+    }
+
+    const serviceStub = document.getElementById('selecttheservice').value
+    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    xmlhttp.open("GET", sourceJson, true);
+    xmlhttp.send();
+  };
+  function myfunction35() {
+    var searchKey = document.getElementById('selectBlock').value
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function () {
+      var myObj = JSON.parse(this.responseText);
+      const selectedItem = myObj[searchKey]["category"];
+      document.getElementById("category").value = selectedItem
+    }
+    const serviceStub = document.getElementById('selecttheservice').value
+    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    xmlhttp.open("GET", sourceJson, true);
+    xmlhttp.send();
+  };
+  function myfunction4(){
+    var searchKey = document.getElementById('selectBlock').value
+    var searchLang = document.getElementById('languages').value
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        console.log('myObj search key', myObj[searchKey])
+        if (searchLang != "Not listed") {
+          const noOfVersions = myObj[searchKey]["languages"][searchLang]["versions"].length
+          let versions = [];
+          for (let i = 0; i < noOfVersions; i++) {
+            versions.push(myObj[searchKey]["languages"][searchLang]["versions"][i]["sdk_version"]);
+          }
+
+          var newBlocks = versions.push('Not listed')
+          var select = document.getElementById("sdkVersion");
+          var options = versions;
+          console.log('noOfOptions', options.length)
+          for (var i = 0; i < options.length; i++) {
+            var opt = options[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+          }
+        }
+        else{
+          console.log('this works')
+          var select = document.getElementById("sdkVersion");
+          var el = document.createElement("option");
+          el.textContent = "Not listed";
+          el.value = "not listed";
+          select.appendChild(el);
+        }
+      }
+
+
+    };
+    const serviceStub = document.getElementById('selecttheservice').value
+    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    xmlhttp.open("GET", sourceJson, true);
+    xmlhttp.send();
+  }
+  function myfunction45(){
+  };
+  function myfunction5(){
+    var searchKey = document.getElementById('selectBlock').value
+    var searchLang = document.getElementById('languages').value
+    var ThisSDKversion = document.getElementById('sdkVersion').value
+    console.log('ThisSDKversion', ThisSDKversion);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function () {
+      var myObj = JSON.parse(this.responseText);
+      console.log('myfirstversion', myObj[searchKey]["languages"][searchLang]["versions"][0]["sdk_version"])
+      if (myObj[searchKey]["languages"][searchLang]["versions"][0]["sdk_version"] == ThisSDKversion){
+        console.log("display something about 2")
+        const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["github"]
+        console.log("selectedItem",selectedItem)
+        document.getElementById("githublink").value = selectedItem
+      }
+      console.log('mysecondversion', myObj[searchKey]["languages"][searchLang]["versions"][1]["sdk_version"])
+      if(myObj[searchKey]["languages"][searchLang]["versions"][1]["sdk_version"] == ThisSDKversion){
+        console.log("display something about 1")
+        const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][1]["github"]
+        console.log("selectedItem1",selectedItem1)
+        document.getElementById("githublink").value = selectedItem1
+      }
+
+    }
+    const serviceStub = document.getElementById('selecttheservice').value
+    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    xmlhttp.open("GET", sourceJson, true);
+    xmlhttp.send();
+
+  }
+  function myfunction6(){
+    var searchKey = document.getElementById('selectBlock').value
+    var searchLang = document.getElementById('languages').value
+    var ThisSDKversion = document.getElementById('sdkVersion').value
+    console.log('ThisSDKversion', ThisSDKversion);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function () {
+      var myObj = JSON.parse(this.responseText);
+      console.log('myfirstversion', myObj[searchKey]["languages"][searchLang]["versions"][0]["sdk_version"])
+      if (myObj[searchKey]["languages"][searchLang]["versions"][0]["sdk_version"] == ThisSDKversion){
+        console.log("display something about 2")
+        const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["sdkguide"]
+        console.log("selectedItem",selectedItem)
+        document.getElementById("sdkguidelink").value = selectedItem
+      }
+      console.log('mysecondversion', myObj[searchKey]["languages"][searchLang]["versions"][1]["sdk_version"])
+      if(myObj[searchKey]["languages"][searchLang]["versions"][1]["sdk_version"] == ThisSDKversion){
+        console.log("display something about 1")
+        const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][1]["sdkguide"]
+        console.log("selectedItem1",selectedItem1)
+        document.getElementById("sdkguidelink").value = selectedItem1
+      }
+
+    }
+    const serviceStub = document.getElementById('selecttheservice').value
+    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    xmlhttp.open("GET", sourceJson, true);
+    xmlhttp.send();
+
+  }
+  function myfunction7(){
+    var searchKey = document.getElementById('selectBlock').value
+    var searchLang = document.getElementById('languages').value
+    var ThisSDKversion = document.getElementById('sdkVersion').value
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function () {
+      var myObj = JSON.parse(this.responseText);
+      if (myObj[searchKey]["languages"][searchLang]["versions"][0]["sdk_version"] == ThisSDKversion) {
+        const noOfExcerpts = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"].length;
+        console.log("noOfExcerpts", noOfExcerpts)
+          if(noOfExcerpts==1) {
+            $(
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag\" maxlength=\"200\"></textarea></p>\n" +
+              "       ").insertBefore("#newsnippet");
+            const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
+            document.getElementById("snippetdescription").value = selectedItem
+            const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
+            document.getElementById("snippettag").value = selectedItem1
+          }
+          if(noOfExcerpts==2) {
+            $(
+            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription\" maxlength=\"200\"></textarea></p>\n" +
+            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+              "       ").insertBefore("#newsnippet");
+            const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
+            document.getElementById("snippetdescription").value = selectedItem
+            const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
+            document.getElementById("snippettag").value = selectedItem1
+            const selectedItem2 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["description"]
+            document.getElementById("snippetdescription1").value = selectedItem2
+            const selectedItem3 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["snippet_tags"]
+            document.getElementById("snippettag1").value = selectedItem3
+          }
+          if(noOfExcerpts==3) {
+            $(
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+              "       ").insertBefore("#newsnippet");
+            const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
+            document.getElementById("snippetdescription").value = selectedItem
+            const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
+            document.getElementById("snippettag").value = selectedItem1
+            const selectedItem2 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["description"]
+            document.getElementById("snippetdescription1").value = selectedItem2
+            const selectedItem3 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["snippet_tags"]
+            document.getElementById("snippettag1").value = selectedItem3
+            const selectedItem4 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][2]["description"]
+            document.getElementById("snippetdescription2").value = selectedItem4
+            const selectedItem5 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][2]["snippet_tags"]
+            document.getElementById("snippettag2").value = selectedItem5
+          }
+          if(noOfExcerpts==4) {
+            $(
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+              "       ").insertBefore("#newsnippet");
+            const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
+            document.getElementById("snippetdescription").value = selectedItem
+            const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
+            document.getElementById("snippettag").value = selectedItem1
+            const selectedItem2 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["description"]
+            document.getElementById("snippetdescription1").value = selectedItem2
+            const selectedItem3 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["snippet_tags"]
+            document.getElementById("snippettag1").value = selectedItem3
+            const selectedItem4 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][2]["description"]
+            document.getElementById("snippetdescription2").value = selectedItem4
+            const selectedItem5 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][2]["snippet_tags"]
+            document.getElementById("snippettag2").value = selectedItem5
+            const selectedItem6 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][3]["description"]
+            document.getElementById("snippetdescription3").value = selectedItem6
+            const selectedItem7 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][3]["snippet_tags"]
+            document.getElementById("snippettag3").value = selectedItem7
+          }
+          if(noOfExcerpts==5) {
+            $(
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription4\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
+              "       ").insertBefore("#newsnippet");
+            const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
+            document.getElementById("snippetdescription").value = selectedItem
+            const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
+            document.getElementById("snippettag").value = selectedItem1
+            const selectedItem2 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["description"]
+            document.getElementById("snippetdescription1").value = selectedItem2
+            const selectedItem3 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["snippet_tags"]
+            document.getElementById("snippettag1").value = selectedItem3
+            const selectedItem4 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][2]["description"]
+            document.getElementById("snippetdescription2").value = selectedItem4
+            const selectedItem5 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][2]["snippet_tags"]
+            document.getElementById("snippettag2").value = selectedItem5
+            const selectedItem6 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][3]["description"]
+            document.getElementById("snippetdescription3").value = selectedItem6
+            const selectedItem7 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][3]["snippet_tags"]
+            document.getElementById("snippettag3").value = selectedItem7
+            const selectedItem8 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][4]["description"]
+            document.getElementById("snippetdescription4").value = selectedItem8
+            const selectedItem9 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][4]["snippet_tags"]
+            document.getElementById("snippettag4").value = selectedItem9
+          }
+          if(noOfExcerpts==6) {
+            $(
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription4\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
+              "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription5\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag5\" maxlength=\"200\"></textarea></p>\n" +
+              "       ").insertBefore("#newsnippet");
+            const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
+            document.getElementById("snippetdescription").value = selectedItem
+            const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
+            document.getElementById("snippettag").value = selectedItem1
+            const selectedItem2 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["description"]
+            document.getElementById("snippetdescription1").value = selectedItem2
+            const selectedItem3 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][1]["snippet_tags"]
+            document.getElementById("snippettag1").value = selectedItem3
+            const selectedItem4 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][2]["description"]
+            document.getElementById("snippetdescription2").value = selectedItem4
+            const selectedItem5 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][2]["snippet_tags"]
+            document.getElementById("snippettag2").value = selectedItem5
+            const selectedItem6 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][3]["description"]
+            document.getElementById("snippetdescription3").value = selectedItem6
+            const selectedItem7 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][3]["snippet_tags"]
+            document.getElementById("snippettag3").value = selectedItem7
+            const selectedItem8 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][4]["description"]
+            document.getElementById("snippetdescription4").value = selectedItem8
+            const selectedItem9 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][4]["snippet_tags"]
+            document.getElementById("snippettag4").value = selectedItem9
+            const selectedItem10 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][5]["description"]
+            document.getElementById("snippetdescription5").value = selectedItem10
+            const selectedItem11 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][5]["snippet_tags"]
+            document.getElementById("snippettag5").value = selectedItem11
+          }
+
+        }
+
+
+      }
+    const serviceStub = document.getElementById('selecttheservice').value
+    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    xmlhttp.open("GET", sourceJson, true);
+    xmlhttp.send();
+  };
+</script>
+<div id="pagebody">
+  <div class="split left">
+    <h1>SoS metadata GUI editor</h1>
+    <h3>Prerequisites</h3>
+    <ul>
+      <li><p>Ensure your <i>USERPROFILE</i> is set to 'C:\Users\[username]' </p>
+        <p>To get a list of all environment variables enter the command <i><b>set</b></i>.</p>
+        <p>You can send them to a text file enter the command <i><b>set > filename.txt</b></i>.</p></li>
+      <li>Create your authoring environment per <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAuthoringenvironment">Authoring environment</a>.</li>
+    </ul>
+    <h3>Create/update metadata</h3>
+    <ol>
+      <li><p>Follow steps 1 and 2 of <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAddinganewAPIexample">Adding a new API example</a>.</p>
+        <p>Ensure the metadata file you want to edit is in the <i>/.doc_gen/metadata/sos_editor</i> folder <br>
+          of the <b>AWSDocsSdkExamplesPublic</b> pagckage you're working on.</p>
+        <p>If not, create it. Remember to update the 'services' section of this 'mapping.yaml' file to include the entities for this new service.</p></li>
+      <li>Open the command line and navigate to the <i>/.doc_gen/metadata/sos_editor folder</i>.</li>
+      <li><p>Run <i>node create_json.js [stubname of service metadata to edit].</i></p>
+        <p>For example, <i>node create_json.js sns</i>.</p>
+      <p><b>Note</b>: You are required to run this command only once per session.</p></li>
+      <li><p>Create/edit your metadata using <b>Editor</b></p>
+      <li>Click <b>Create YAML</b> at the bottom of the <b>Editor</b>.</li>
+      <li>In the command line run <i>node update_yaml.js [stubname of service metadata to update].</i></p>
+        <p>For example, <i>node update_yaml.js sns</i>.</p></li>
+      <li>The metadata file is now updated locally. If you want to continue editing metadata, refresh the browser and proceed. <br>
+        Otherwise, validate, build, verify, and submit your changes for review as described in <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS#HValidatingmetadata">the SoS wiki</a>. </li>
+    </ol>
+
+  </div>
+</div>
+<div class="split right">
+  <h1 style="margin-right:50px">Editor</h1>
+  <div id="controls">
+    <p id ="selectMyService"><input type="text" class="thissize" name="blockname" id ="selecttheservice" maxlength="200"></input><button id = "selectService">Enter service stub</button></p>
+    <p id="selectBlockView" class="show-when-target"><label class="thissize">Select operation</label><select id="selectBlock" class="show-when-target"><option>Choose an operation</option></select> <br>If there are no options, follow steps 2 and 3, then refresh the browser.</p>
+    <p id ="addBlockName" class="show-when-target"><textarea type="text" class="thissize" name="blockname" id ="blockname" maxlength="200"></textarea><button id = "compBlockBtn">Complete blockname</button></p>
+    <p id ="addTitle" class="show-when-target"><label class="thissize">Title</label><textarea type="text" name="thetitle" id ="thetitle" maxlength="200"></textarea></p>
+    <p id ="addAbbTitle" class="show-when-target"><label class="thissize">Abbreviated title</label><textarea type="text" name="addatitle" id ="addatitle" maxlength="200"></textarea></p>
+    <div id ="addSynopsis" class="show-when-target"><p><label class="thissize">Synopsis (NB: No carriage returns!)</label></p>
+    <p><textarea type="text" name="synopsis" id ="synopsis" maxlength="200"></textarea></p></div>
+    <p id ="addCategory" class="show-when-target"><label class="thissize">Category (optional)</label><textarea type="text" name="category" id ="category" maxlength="200"></textarea></p>
+    <p id="chooseLangView" class="show-when-target"><label class="thissize">Choose Language</label><select id="languages" class="show-when-target"><option>Choose language</option></select></p>
+    <p id = "addLanguageView" class="show-when-target"><label class="thissize">Language</label><select id="addlanguage" class="show-when-target" ><option>Add a language</option></select></p>
+    <p id="chooseSDKView" class="show-when-target"><label class="thissize">SDK version</label><select id="sdkVersion" class="show-when-target" ><option>Choose an SDK version</option></select></p>
+    <p id ="addSdkVersion" class="show-when-target"><label class="thissize">Add SDK version</label><input type="text" class="thissize" name="text" id ="addskdversion" maxlength="200"></input><button id = "subVersion">Submit version</button></p>
+    <p id ="gitHub" class="show-when-target"><label class="thissize">GitHub link (Don't include 'https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/')</label><textarea type="text" name="text" id ="githublink" maxlength="200"></textarea></p>
+    <p id ="sdkGuide" class="show-when-target"><label class="thissize">SDK Guide link (Don't include 'https://docs.aws.amazon.com/')</label><textarea type="text" name="text" id ="sdkguidelink" maxlength="200"></textarea></p>
+   <p id ="anotherSnippet" class="show-when-target" class="thissize"><button id = "newsnippet">Add a snippet</button></p>
+    <p id ="removeSnippet" class="show-when-target" class="thissize"><button id = "removesnip">Remove a snippet</button></p>
+    <p id ="createYAML"  class="show-when-target"><button id = "yaml" onclick="createYAML()">Create YAML</button></p>
+  </div>
+</div>
+
+
+</div>
+<script type="text/javascript">
+
+  function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+  function createYAML() {
+    const serviceValue = document.getElementById('selecttheservice').value
+    console.log("serviceValue", serviceValue)
+    const blockValue = document.getElementById('selectBlock').value
+    console.log("blockValue", blockValue)
+    const blockName = document.getElementById('blockname').value
+    console.log('blockName', blockName)
+    const titleValue = document.getElementById('thetitle').value
+    console.log("titleValue", titleValue)
+    const abbrevTitleValue = document.getElementById('addatitle').value
+    console.log("abbrevTitleValue", abbrevTitleValue)
+    const synopsisValue = document.getElementById('synopsis').value
+    console.log("synopsisValue", synopsisValue)
+    const categoryValue = document.getElementById('category').value
+    console.log("categoryValue", categoryValue)
+    const languageValue = document.getElementById('languages').value
+    console.log("languageValue", languageValue)
+    const gitHubValue = document.getElementById('githublink').value
+    console.log("gitHubValue", gitHubValue)
+    const sdkVersion = document.getElementById('sdkVersion').value
+    console.log("sdkVersion", sdkVersion)
+    const snippetGuideValue = document.getElementById('sdkguidelink').value
+    console.log("snippetGuideValue", snippetGuideValue)
+    const addNewLanguage = document.getElementById('addlanguage').value
+    console.log("addNewLanguage", addNewLanguage)
+    const addedSDKVersion = document.getElementById('addskdversion').value
+    console.log("addedSDKVersion", addedSDKVersion);
+
+    var elements = document.getElementsByClassName('snipptag');
+    for (var i = 1 ; i < elements.length; i++) {
+      const snippettag = "snippettag" + i
+      console.log('this snippet tag', snippettag)
+
+      if(document.getElementById(snippettag).value == 0){
+          alert('You have empty snippet tags. This breaks the build.')
+        return
+      }
+
+    }
+    if (blockValue == "Not listed") {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onload = function () {
+        var myObj = JSON.parse(this.responseText);
+        console.log('whats this', myObj);
+        const addedSDKVersionFloat = parseFloat(addedSDKVersion)
+        const noOfSnippets = document.getElementsByClassName('snippdisc').length
+        if (noOfSnippets === 0) {
+          const editedJson =
+            {
+              title: titleValue,
+              title_abbrev: abbrevTitleValue,
+              synopsis: synopsisValue,
+              category: categoryValue,
+              languages: {
+                [languageValue]: {
+                  versions: [
+                    {
+                      sdk_version: addedSDKVersionFloat,
+                      github: gitHubValue,
+                      sdkguide: snippetGuideValue
+                    }
+                  ]
+                }
+              },
+              "services": [
+                serviceValue
+              ]
+            }
+          myObj[blockName] = editedJson
+          console.log('final object', myObj)
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 1) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const editedJson =
+            {
+              title: titleValue,
+              title_abbrev: abbrevTitleValue,
+              synopsis: synopsisValue,
+              category: categoryValue,
+              languages: {
+                [languageValue]: {
+                  versions: [
+                    {
+                      sdk_version: addedSDKVersionFloat,
+                      github: gitHubValue,
+                      sdkguide: snippetGuideValue,
+                      excerpts: [
+                        {
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "services": [
+                serviceValue
+              ]
+            }
+          myObj[blockName] = editedJson
+          console.log('final object', myObj)
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 2) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const editedJson =
+            {
+              title: titleValue,
+              title_abbrev: abbrevTitleValue,
+              synopsis: synopsisValue,
+              category: categoryValue,
+              languages: {
+                [languageValue]: {
+                  versions: [
+                    {
+                      sdk_version: addedSDKVersionFloat,
+                      github: gitHubValue,
+                      sdkguide: snippetGuideValue,
+                      excerpts: [
+                        {
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                        {
+                          description: snipdisc2,
+                          snippet_tags: [
+                            sniptag2
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "services": [
+                serviceValue
+              ]
+            }
+          myObj[blockName] = editedJson
+          console.log('final object', myObj)
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 3) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const editedJson =
+            {
+              title: titleValue,
+              title_abbrev: abbrevTitleValue,
+              synopsis: synopsisValue,
+              category: categoryValue,
+              languages: {
+                [languageValue]: {
+                  versions: [
+                    {
+                      sdk_version: addedSDKVersionFloat,
+                      github: gitHubValue,
+                      sdkguide: snippetGuideValue,
+                      excerpts: [
+                        {
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                        {
+                          description: snipdisc2,
+                          snippet_tags: [
+                            sniptag2
+                          ]
+                        },
+                        {
+                          description: snipdisc3,
+                          snippet_tags: [
+                            sniptag3
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "services": [
+                serviceValue
+              ]
+            }
+          myObj[blockName] = editedJson
+          console.log('final object', myObj)
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 4) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const editedJson =
+            {
+              title: titleValue,
+              title_abbrev: abbrevTitleValue,
+              synopsis: synopsisValue,
+              category: categoryValue,
+              languages: {
+                [languageValue]: {
+                  versions: [
+                    {
+                      sdk_version: addedSDKVersionFloat,
+                      github: gitHubValue,
+                      sdkguide: snippetGuideValue,
+                      excerpts: [
+                        {
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                        {
+                          description: snipdisc2,
+                          snippet_tags: [
+                            sniptag2
+                          ]
+                        },
+                        {
+                          description: snipdisc3,
+                          snippet_tags: [
+                            sniptag3
+                          ]
+                        },
+                        {
+                          description: snipdisc4,
+                          snippet_tags: [
+                            sniptag4
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "services": [
+                serviceValue
+              ]
+            }
+
+          myObj[blockName] = editedJson
+          console.log('final object', myObj)
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 5) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const snipdisc5 = document.getElementById("snippetdescription4").value
+          const sniptag5 = document.getElementById("snippettag4").value
+          const editedJson =
+            {
+              title: titleValue,
+              title_abbrev: abbrevTitleValue,
+              synopsis: synopsisValue,
+              category: categoryValue,
+              languages: {
+                [languageValue]: {
+                  versions: [
+                    {
+                      sdk_version: addedSDKVersionFloat,
+                      github: gitHubValue,
+                      sdkguide: snippetGuideValue,
+                      excerpts: [
+                        {
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                        {
+                          description: snipdisc2,
+                          snippet_tags: [
+                            sniptag2
+                          ]
+                        },
+                        {
+                          description: snipdisc3,
+                          snippet_tags: [
+                            sniptag3
+                          ]
+                        },
+                        {
+                          description: snipdisc4,
+                          snippet_tags: [
+                            sniptag4
+                          ]
+                        },
+                        {
+                          description: snipdisc5,
+                          snippet_tags: [
+                            sniptag5
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "services": [
+                serviceValue
+              ]
+            }
+
+          myObj[blockName] = editedJson
+          console.log('final object', myObj)
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 6) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const snipdisc5 = document.getElementById("snippetdescription4").value
+          const sniptag5 = document.getElementById("snippettag4").value
+          const snipdisc6 = document.getElementById("snippetdescription5").value
+          const sniptag6 = document.getElementById("snippettag5").value
+          const editedJson =
+            {
+              title: titleValue,
+              title_abbrev: abbrevTitleValue,
+              synopsis: synopsisValue,
+              category: categoryValue,
+              languages: {
+                [languageValue]: {
+                  versions: [
+                    {
+                      sdk_version: addedSDKVersionFloat,
+                      github: gitHubValue,
+                      sdkguide: snippetGuideValue,
+                      excerpts: [
+                        {
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                        {
+                          description: snipdisc2,
+                          snippet_tags: [
+                            sniptag2
+                          ]
+                        },
+                        {
+                          description: snipdisc3,
+                          snippet_tags: [
+                            sniptag3
+                          ]
+                        },
+                        {
+                          description: snipdisc4,
+                          snippet_tags: [
+                            sniptag4
+                          ]
+                        },
+                        {
+                          description: snipdisc5,
+                          snippet_tags: [
+                            sniptag5
+                          ]
+                        },
+                        {
+                          description: snipdisc6,
+                          snippet_tags: [
+                            sniptag6
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "services": [
+                serviceValue
+              ]
+            }
+
+          myObj[blockName] = editedJson
+          console.log('final object', myObj)
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+      }
+      const serviceStub = document.getElementById('selecttheservice').value
+      const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+      xmlhttp.open("GET", sourceJson, true);
+      xmlhttp.send();
+    }
+    else if(document.getElementById('languages').value=="Not listed") {
+      const addedSDKVersionFloat = parseFloat(addedSDKVersion)
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onload = function () {
+        var myObj = JSON.parse(this.responseText);
+        var myObj = myObj;
+        myObj[blockValue].title = titleValue;
+        myObj[blockValue].title_abbrev = abbrevTitleValue;
+        myObj[blockValue].synopsis = synopsisValue;
+        myObj[blockValue].category = categoryValue;
+        const noOfSnippets = document.getElementsByClassName('snippdisc').length
+        if (noOfSnippets === 0) {
+          const editedJson =
+                  {
+                    versions: [
+                      {
+                        sdk_version: addedSDKVersionFloat,
+                        github: gitHubValue,
+                        sdkguide: snippetGuideValue
+                      }]
+                  }
+
+
+          myObj[blockValue]["languages"][addNewLanguage] =editedJson;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+
+        if (noOfSnippets === 1) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const editedJson =
+                  {
+                    versions: [
+                      {
+                        sdk_version: addedSDKVersionFloat,
+                        github: gitHubValue,
+                        sdkguide: snippetGuideValue,
+                        excerpts: [{
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+
+                        }]
+                      }]
+                  }
+
+
+          myObj[blockValue]["languages"][addNewLanguage] =editedJson;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 2) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const editedJson =
+                  {
+                    versions: [
+                      {
+                        sdk_version: addedSDKVersionFloat,
+                        github: gitHubValue,
+                        sdkguide: snippetGuideValue,
+                        excerpts: [{
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                          {
+                            description: snipdisc21,
+                            snippet_tags: [
+                              sniptag21
+                            ]
+
+                          }]
+                      }
+                    ]
+                  }
+
+
+          myObj[blockValue]["languages"][addNewLanguage] =editedJson;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 3) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const snipdisc31 = document.getElementById("snippetdescription2").value
+          const sniptag31 = document.getElementById("snippettag2").value
+
+          const editedJson =
+                  {
+                    versions: [
+                      {
+                        sdk_version: addedSDKVersionFloat,
+                        github: gitHubValue,
+                        sdkguide: snippetGuideValue,
+                        excerpts: [{
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                          {
+                            description: snipdisc21,
+                            snippet_tags: [
+                              sniptag21
+                            ]
+
+                          },
+                          {
+                            description: snipdisc31,
+                            snippet_tags: [
+                              sniptag31
+                            ]
+
+                          }]
+                      }
+                    ]
+                  }
+
+          myObj[blockValue]["languages"][addNewLanguage] =editedJson;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 4) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const snipdisc31 = document.getElementById("snippetdescription2").value
+          const sniptag31 = document.getElementById("snippettag2").value
+          const snipdisc41 = document.getElementById("snippetdescription3").value
+          const sniptag41 = document.getElementById("snippettag3").value
+
+          const editedJson =
+                  {
+                    versions: [
+                      {
+                        sdk_version: addedSDKVersionFloat,
+                        github: gitHubValue,
+                        sdkguide: snippetGuideValue,
+                        excerpts: [{
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                          {
+                            description: snipdisc21,
+                            snippet_tags: [
+                              sniptag21
+                            ]
+
+                          },
+                          {
+                            description: snipdisc31,
+                            snippet_tags: [
+                              sniptag31
+                            ]
+
+                          },
+                          {
+                            description: snipdisc41,
+                            snippet_tags: [
+                              sniptag41
+                            ]
+
+                          }]
+                      }
+                    ]
+                  }
+
+          myObj[blockValue]["languages"][addNewLanguage] =editedJson;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 5) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const snipdisc31 = document.getElementById("snippetdescription2").value
+          const sniptag31 = document.getElementById("snippettag2").value
+          const snipdisc41 = document.getElementById("snippetdescription3").value
+          const sniptag41 = document.getElementById("snippettag3").value
+          const snipdisc51 = document.getElementById("snippetdescription4").value
+          const sniptag51 = document.getElementById("snippettag4").value
+
+          const editedJson =
+                  {
+                    versions: [
+                      {
+                        sdk_version: addedSDKVersionFloat,
+                        github: gitHubValue,
+                        sdkguide: snippetGuideValue,
+                        excerpts: [{
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                          {
+                            description: snipdisc21,
+                            snippet_tags: [
+                              sniptag21
+                            ]
+
+                          },
+                          {
+                            description: snipdisc31,
+                            snippet_tags: [
+                              sniptag31
+                            ]
+
+                          },
+                          {
+                            description: snipdisc41,
+                            snippet_tags: [
+                              sniptag41
+                            ]
+
+                          },
+                          {
+                            description: snipdisc51,
+                            snippet_tags: [
+                              sniptag51
+                            ]
+
+                          }]
+                      }
+                    ]
+                  }
+
+          myObj[blockValue]["languages"][addNewLanguage] =editedJson;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 6) {
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const snipdisc31 = document.getElementById("snippetdescription2").value
+          const sniptag31 = document.getElementById("snippettag2").value
+          const snipdisc41 = document.getElementById("snippetdescription3").value
+          const sniptag41 = document.getElementById("snippettag3").value
+          const snipdisc51 = document.getElementById("snippetdescription4").value
+          const sniptag51 = document.getElementById("snippettag4").value
+          const snipdisc61 = document.getElementById("snippetdescription5").value
+          const sniptag61 = document.getElementById("snippettag5").value
+          const editedJson =
+                  {
+                    versions: [
+                      {
+                        sdk_version: addedSDKVersionFloat,
+                        github: gitHubValue,
+                        sdkguide: snippetGuideValue,
+                        excerpts: [{
+                          description: snippetDescValue,
+                          snippet_tags: [
+                            snippetTagValue
+                          ]
+                        },
+                          {
+                            description: snipdisc21,
+                            snippet_tags: [
+                              sniptag21
+                            ]
+
+                          },
+                          {
+                            description: snipdisc31,
+                            snippet_tags: [
+                              sniptag31
+                            ]
+
+                          },
+                          {
+                            description: snipdisc41,
+                            snippet_tags: [
+                              sniptag41
+                            ]
+
+                          },
+                          {
+                            description: snipdisc51,
+                            snippet_tags: [
+                              sniptag51
+                            ]
+
+                          },
+                          {
+                            description: snipdisc61,
+                            snippet_tags: [
+                              sniptag61
+                            ]
+
+                          }]
+                      }
+                    ]
+                  }
+
+          myObj[blockValue]["languages"][addNewLanguage] =editedJson;
+          const finalObject = JSON.stringify(myObj);
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+      }
+      const serviceStub = document.getElementById('selecttheservice').value
+      const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+      xmlhttp.open("GET", sourceJson, true);
+      xmlhttp.send();
+    }
+    else if(document.getElementById('sdkVersion').value === "Not listed") {
+
+
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onload = function () {
+        const addedSDKVersionFloat = parseFloat(addedSDKVersion)
+        var myObj = JSON.parse(this.responseText);
+        var myObj = myObj;
+        myObj[blockValue].title = titleValue;
+        myObj[blockValue].title_abbrev = abbrevTitleValue;
+        myObj[blockValue].synopsis = synopsisValue;
+        myObj[blockValue].category = categoryValue;
+        const noOfSnippets = document.getElementsByClassName('snippdisc').length
+        if (noOfSnippets === 0) {
+
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+                }
+
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+
+          const finalObject = JSON.stringify(myObj);
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 1) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+
+          const finalObject = JSON.stringify(myObj);
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 2) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 3) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                },
+                {
+                  description: snipdisc3,
+                  snippet_tags: [
+                    sniptag3
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 4) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                },
+                {
+                  description: snipdisc3,
+                  snippet_tags: [
+                    sniptag3
+                  ]
+                },
+                {
+                  description: snipdisc4,
+                  snippet_tags: [
+                    sniptag4
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 5) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const snipdisc5 = document.getElementById("snippetdescription4").value
+          const sniptag5 = document.getElementById("snippettag4").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                },
+                {
+                  description: snipdisc3,
+                  snippet_tags: [
+                    sniptag3
+                  ]
+                },
+                {
+                  description: snipdisc4,
+                  snippet_tags: [
+                    sniptag4
+                  ]
+                },
+                {
+                  description: snipdisc5,
+                  snippet_tags: [
+                    sniptag5
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 6) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const snipdisc5 = document.getElementById("snippetdescription4").value
+          const sniptag5 = document.getElementById("snippettag4").value
+          const snipdisc6 = document.getElementById("snippetdescription5").value
+          const sniptag6 = document.getElementById("snippettag5").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                },
+                {
+                  description: snipdisc3,
+                  snippet_tags: [
+                    sniptag3
+                  ]
+                },
+                {
+                  description: snipdisc4,
+                  snippet_tags: [
+                    sniptag4
+                  ]
+                },
+                {
+                  description: snipdisc5,
+                  snippet_tags: [
+                    sniptag5
+                  ]
+                },
+                {
+                  description: snipdisc6,
+                  snippet_tags: [
+                    sniptag6
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+      }
+      const serviceStub = document.getElementById('selecttheservice').value
+      const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+      xmlhttp.open("GET", sourceJson, true);
+      xmlhttp.send();
+      var xmlhttp = new XMLHttpRequest();
+
+    /*  xmlhttp.onload = function () {
+        console.log("processing mapping")
+        var myObj = JSON.parse(this.responseText);
+        var myObj = myObj;
+        if (languageValue == "JavaScript") {
+          const editedJson =
+            {
+              [addedSDKVersion]: {
+                "long": "&JSBlong; V" + addedSDKVersion,
+                "short": "&JSB; V" + addedSDKVersion,
+                "guide": "&guide-jsb-dev;"
+              }
+            }
+          myObj["sdks"][languageValue]["sdk"] = editedJson ;
+          const finalObject = JSON.stringify(myObj);
+          const filename = "mapping.json";
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (languageValue == "Java") {
+          const editedJson =
+            {
+              [addedSDKVersion]: {
+                "long": "&Javalong; V" + addedSDKVersion,
+                "short": "&Java; V" + addedSDKVersion
+              },
+              "guide": "&guide-javav2-dev;"
+            }
+
+          myObj["sdks"][languageValue]["sdk"].push(editedJson);
+          const finalObject = JSON.stringify(myObj);
+          const filename = "mapping.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (languageValue == "Go") {
+          const editedJson =
+            {
+              [addedSDKVersion]: {
+                "long": "&Golong; V" + addedSDKVersion,
+                "short": "&Go; V" + addedSDKVersion
+              },
+              "guide": "&guide-go-dev;"
+            }
+          myObj["sdks"][languageValue]["sdk"].push(editedJson);
+          const finalObject = JSON.stringify(myObj);
+          const filename = "mapping.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (languageValue == "Python") {
+          const editedJson =
+            {
+              [addedSDKVersion]: {
+                "long": "&Python3long;",
+                "short": "&Python3"
+              },
+              "guide": "&guide-python3-gsg;"
+            }
+          myObj["sdks"][languageValue]["sdk"].push(editedJson);
+          const finalObject = JSON.stringify(myObj);
+          const filename = "mapping.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (languageValue == "PHP") {
+          const editedJson =
+            {
+              [addedSDKVersion]: {
+                "long": "&PHPlong; V" + addedSDKVersion,
+                "short": "&PHP; V" + addedSDKVersion
+              },
+              "guide": "&guide-php-dev;"
+            }
+          myObj["sdks"][languageValue]["sdk"].push(editedJson);
+          const finalObject = JSON.stringify(myObj);
+          const filename = "mapping.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (languageValue == "C++") {
+          const editedJson =
+            {
+              [addedSDKVersion]: {
+                "long": "&CPPlong; V" + addedSDKVersion,
+                "short": "&CPP; V" + addedSDKVersion
+              },
+              "guide": "&guide-cpp-dev;"
+            }
+          myObj["sdks"][languageValue]["sdk"].push(editedJson);
+          const finalObject = JSON.stringify(myObj);
+          const filename = "mapping.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (languageValue == "Ruby") {
+          const editedJson =
+            {
+              [addedSDKVersion]: {
+                "long": "&Rubylong; V" + addedSDKVersion,
+                "short": "&Ruby; V" + addedSDKVersion,
+                "guide": "&guide-ruby-dev;"
+              }
+            }
+          myObj["sdks"][languageValue]["sdk"].push(editedJson);
+          const finalObject = JSON.stringify(myObj);
+          const filename = "mapping.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (languageValue == ".Net") {
+          const editedJson =
+            {
+              [addedSDKVersion]: {
+                "long": "&Netlong; V" + addedSDKVersion,
+                "short": "&Net; V" + addedSDKVersion,
+                "guide": "&guide-net-dev;"
+              }
+            }
+          myObj["sdks"][languageValue]["sdk"].push(editedJson);
+          const finalObject = JSON.stringify(myObj);
+          const filename = "mapping.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+    }
+    const sourceJson1 = "./jsonholder/mapping.json"
+    xmlhttp.open("GET", sourceJson1, true);
+    xmlhttp.send();
+*/
+
+  }
+    else if(document.getElementById('sdkVersion').value === "Not listed") {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onload = function () {
+        const addedSDKVersionFloat = parseFloat(addedSDKVersion)
+        var myObj = JSON.parse(this.responseText);
+        var myObj = myObj;
+        myObj[blockValue].title = titleValue;
+        myObj[blockValue].title_abbrev = abbrevTitleValue;
+        myObj[blockValue].synopsis = synopsisValue;
+        myObj[blockValue].category = categoryValue;
+        const noOfSnippets = document.getElementsByClassName('snippdisc').length
+        if (noOfSnippets === 0) {
+
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+                }
+
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj);
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 1) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+
+          const finalObject = JSON.stringify(myObj);
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 2) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 3) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                },
+                {
+                  description: snipdisc3,
+                  snippet_tags: [
+                    sniptag3
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 4) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                },
+                {
+                  description: snipdisc3,
+                  snippet_tags: [
+                    sniptag3
+                  ]
+                },
+                {
+                  description: snipdisc4,
+                  snippet_tags: [
+                    sniptag4
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 5) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const snipdisc5 = document.getElementById("snippetdescription4").value
+          const sniptag5 = document.getElementById("snippettag4").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                },
+                {
+                  description: snipdisc3,
+                  snippet_tags: [
+                    sniptag3
+                  ]
+                },
+                {
+                  description: snipdisc4,
+                  snippet_tags: [
+                    sniptag4
+                  ]
+                },
+                {
+                  description: snipdisc5,
+                  snippet_tags: [
+                    sniptag5
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 6) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc2 = document.getElementById("snippetdescription1").value
+          const sniptag2 = document.getElementById("snippettag1").value
+          const snipdisc3 = document.getElementById("snippetdescription2").value
+          const sniptag3 = document.getElementById("snippettag2").value
+          const snipdisc4 = document.getElementById("snippetdescription3").value
+          const sniptag4 = document.getElementById("snippettag3").value
+          const snipdisc5 = document.getElementById("snippetdescription4").value
+          const sniptag5 = document.getElementById("snippettag4").value
+          const snipdisc6 = document.getElementById("snippetdescription5").value
+          const sniptag6 = document.getElementById("snippettag5").value
+          const editedJson =
+            {
+              sdk_version: addedSDKVersionFloat,
+              github: gitHubValue,
+              sdkguide: snippetGuideValue,
+              excerpts: [
+                {
+                  description: snippetDescValue,
+                  snippet_tags: [
+                    snippetTagValue
+                  ]
+                },
+                {
+                  description: snipdisc2,
+                  snippet_tags: [
+                    sniptag2
+                  ]
+                },
+                {
+                  description: snipdisc3,
+                  snippet_tags: [
+                    sniptag3
+                  ]
+                },
+                {
+                  description: snipdisc4,
+                  snippet_tags: [
+                    sniptag4
+                  ]
+                },
+                {
+                  description: snipdisc5,
+                  snippet_tags: [
+                    sniptag5
+                  ]
+                },
+                {
+                  description: snipdisc6,
+                  snippet_tags: [
+                    sniptag6
+                  ]
+                }
+              ]
+            }
+
+          myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
+
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+      }
+      const sourceJson = "./jsonholder/mapping.json"
+      xmlhttp.open("GET", sourceJson, true);
+      xmlhttp.send();
+
+    }
+    else{
+      console.log('this is else')
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onload = function () {
+        var myObj = JSON.parse(this.responseText);
+        var myObj = myObj;
+        myObj[blockValue].title =titleValue;
+        myObj[blockValue].title_abbrev= abbrevTitleValue;
+        myObj[blockValue].synopsis= synopsisValue;
+        myObj[blockValue].category = categoryValue;
+        const noOfVersions = myObj[blockValue]["languages"][languageValue]["versions"].length;
+        let versions = [];
+        for (let i = 0; i < noOfVersions; i++) {
+          versions.push(myObj[blockValue]["languages"][languageValue]["versions"][i]["sdk_version"]);
+        }
+        console.log('sdkversion', '"'+ sdkVersion +'"')
+        console.log ("versions", versions)
+        const newSDKV = parseInt(sdkVersion);
+        const myLatestNumber = versions.indexOf(newSDKV);
+        console.log('MyLatestNumber', myLatestNumber);
+
+        myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber].sdk_version = parseFloat(sdkVersion);
+        console.log("sdkversion value", myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber].sdk_version)
+        myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["github"] = gitHubValue;
+        console.log('gitHub value', myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["github"])
+        myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["sdkguide"] = snippetGuideValue;
+
+        const noOfSnippets = document.getElementsByClassName('snippdisc').length
+
+        if (noOfSnippets === 0) {
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 1) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const editedJson =
+            [{
+                description: snippetDescValue,
+                snippet_tags: [
+                  snippetTagValue
+                ]
+
+              }]
+
+          myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"] = editedJson ;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 2) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const editedJson =
+            [{
+                description: snippetDescValue,
+                snippet_tags: [
+                  snippetTagValue
+                ]
+              },
+                {
+                  description: snipdisc21,
+                  snippet_tags: [
+                    sniptag21
+                  ]
+
+                }]
+
+
+          myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"] = editedJson ;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 3) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const snipdisc31 = document.getElementById("snippetdescription2").value
+          const sniptag31 = document.getElementById("snippettag2").value
+
+          const editedJson =
+
+
+              [{
+                description: snippetDescValue,
+                snippet_tags: [
+                  snippetTagValue
+                ]
+              },
+                {
+                  description: snipdisc21,
+                  snippet_tags: [
+                    sniptag21
+                  ]
+
+                },
+                {
+                  description: snipdisc31,
+                  snippet_tags: [
+                    sniptag31
+                  ]
+
+                }]
+
+
+          myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"] = editedJson ;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 4) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const snipdisc31 = document.getElementById("snippetdescription2").value
+          const sniptag31 = document.getElementById("snippettag2").value
+          const snipdisc41 = document.getElementById("snippetdescription3").value
+          const sniptag41 = document.getElementById("snippettag3").value
+
+          const editedJson =
+             [{
+                description: snippetDescValue,
+                snippet_tags: [
+                  snippetTagValue
+                ]
+              },
+                {
+                  description: snipdisc21,
+                  snippet_tags: [
+                    sniptag21
+                  ]
+
+                },
+                {
+                  description: snipdisc31,
+                  snippet_tags: [
+                    sniptag31
+                  ]
+
+                },
+                {
+                  description: snipdisc41,
+                  snippet_tags: [
+                    sniptag41
+                  ]
+
+                }]
+
+
+
+          myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"] = editedJson ;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 5) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const snipdisc31 = document.getElementById("snippetdescription2").value
+          const sniptag31 = document.getElementById("snippettag2").value
+          const snipdisc41 = document.getElementById("snippetdescription3").value
+          const sniptag41 = document.getElementById("snippettag3").value
+          const snipdisc51 = document.getElementById("snippetdescription4").value
+          const sniptag51 = document.getElementById("snippettag4").value
+
+          const editedJson =
+            [{
+                description: snippetDescValue,
+                snippet_tags: [
+                  snippetTagValue
+                ]
+              },
+                {
+                  description: snipdisc21,
+                  snippet_tags: [
+                    sniptag21
+                  ]
+
+                },
+                {
+                  description: snipdisc31,
+                  snippet_tags: [
+                    sniptag31
+                  ]
+
+                },
+                {
+                  description: snipdisc41,
+                  snippet_tags: [
+                    sniptag41
+                  ]
+
+                },
+                {
+                  description: snipdisc51,
+                  snippet_tags: [
+                    sniptag51
+                  ]
+
+                }]
+
+          myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"] = editedJson ;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+        if (noOfSnippets === 6) {
+          const snippetDescValue = document.getElementById('snippetdescription').value
+          const snippetTagValue = document.getElementById('snippettag').value
+          const snipdisc21 = document.getElementById("snippetdescription1").value
+          const sniptag21 = document.getElementById("snippettag1").value
+          const snipdisc31 = document.getElementById("snippetdescription2").value
+          const sniptag31 = document.getElementById("snippettag2").value
+          const snipdisc41 = document.getElementById("snippetdescription3").value
+          const sniptag41 = document.getElementById("snippettag3").value
+          const snipdisc51 = document.getElementById("snippetdescription4").value
+          const sniptag51 = document.getElementById("snippettag4").value
+          const snipdisc61 = document.getElementById("snippetdescription5").value
+          const sniptag61 = document.getElementById("snippettag5").value
+          const editedJson =
+              [{
+                description: snippetDescValue,
+                snippet_tags: [
+                  snippetTagValue
+                ]
+              },
+                {
+                  description: snipdisc21,
+                  snippet_tags: [
+                    sniptag21
+                  ]
+
+                },
+                {
+                  description: snipdisc31,
+                  snippet_tags: [
+                    sniptag31
+                  ]
+
+                },
+                {
+                  description: snipdisc41,
+                  snippet_tags: [
+                    sniptag41
+                  ]
+
+                },
+                {
+                  description: snipdisc51,
+                  snippet_tags: [
+                    sniptag51
+                  ]
+
+                },
+                {
+                  description: snipdisc61,
+                  snippet_tags: [
+                    sniptag61
+                  ]
+
+                }]
+
+
+          myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"] = editedJson ;
+          const finalObject = JSON.stringify(myObj)
+          const filename = serviceValue + "_metadata.json"
+          var f = new File([myObj], filename, {type: "text/plain"})
+          download(filename, finalObject)
+        }
+             }
+      const serviceStub = document.getElementById('selecttheservice').value
+      const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+      xmlhttp.open("GET", sourceJson, true);
+      xmlhttp.send();
+    }
+    const serviceStub = document.getElementById('selecttheservice').value
+    setTimeout(function(){
+      alert('Success. To save these changes your local metadata, navigate in your CLI to your metadata/sos_editor folder and run \'node update_yaml.js ' +serviceStub + '\'.' + '\n' +
+              '\n' +
+              'Note: You can ignore these changes and restart by deleting the ' +serviceStub + '_metadata.json file from your Downloads folder.')
+      window.location.reload();
+    }, 3000);//wait 2 second
+  };
+  $("#selectService").on('click', function() {
+    console.log('selectService clicked')
+    if (document.getElementById('selecttheservice').value != "") {
+      document.getElementById('selectService').disabled = true;
+      var element = document.getElementById('selectBlockView');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('selectBlock');
+      element.setAttribute("style", "visibility: visible");
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onload = function () {
+        console.log('tried to')
+        var myObj = JSON.parse(this.responseText);
+        const selectedItem = Object.keys(myObj)[1];
+        console.log(selectedItem);
+        const myBlocks = Object.keys(myObj);
+        console.log('myBlocks', myBlocks);
+        var newBlocks = myBlocks.push('Not listed')
+        console.log(newBlocks)
+        console.log(myBlocks)
+        var select = document.getElementById("selectBlock");
+        var options = myBlocks;
+        for (var i = 0; i < options.length; i++) {
+          var opt = options[i];
+          var el = document.createElement("option");
+          el.textContent = opt;
+          el.value = opt;
+          select.appendChild(el);
+        }
+
+      }
+      const serviceStub = document.getElementById('selecttheservice').value
+      const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+      xmlhttp.open("GET", sourceJson, true);
+      xmlhttp.send();
+    } if(document.getElementById('selecttheservice').value == "") {
+      alert('You must enter the service stub');
+    }
+  });
+
+  $("#selectBlock").on('change', function() {
+    document.getElementById('selectBlock').disabled = true;
+    if (document.getElementById("selectBlock").value === "Not listed") {
+      var element = document.getElementById('addBlockName');
+      element.setAttribute("style", "visibility: visible");
+      const myService = document.getElementById('selecttheservice').value;
+      theService = myService + "_"
+      document.getElementById('blockname').value = theService;
+    } else {
+      var element = document.getElementById('addTitle');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('addAbbTitle');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('addSynopsis');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('addCategory');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('languages');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('chooseLangView');
+      element.setAttribute("style", "visibility: visible");
+      var select = document.getElementById("languages");
+    }
+    myfunction();
+    myfunction2();
+    myfunction3();
+    myfunction35();
+
+  });
+  $("#addServiceBtn").on('click', function() {
+    document.getElementById('addServiceBtn').disabled = true;
+    console.log('button clicked')
+    var element = document.getElementById('addBlockName');
+    element.setAttribute("style", "visibility: visible");
+    if(document.getElementById('selecttheservice').value === "Not listed") {
+      myService = document.getElementById('service').value;
+      theService = myService.slice(0, myService.lastIndexOf('_')) + "_";
+      document.getElementById('blockname').value = theService;
+    }
+  });
+  $("#compBlockBtn").on('click', function() {
+    document.getElementById('compBlockBtn').disabled = true;
+    console.log('button clicked')
+    var element = document.getElementById('addBlockName');
+    element.setAttribute("style", "visibility: visible");
+    var element = document.getElementById('addTitle');
+    element.setAttribute("style", "visibility: visible");
+    var element = document.getElementById('addAbbTitle');
+    element.setAttribute("style", "visibility: visible");
+    var element = document.getElementById('addSynopsis');
+    element.setAttribute("style", "visibility: visible");
+    var element = document.getElementById('addCategory');
+    element.setAttribute("style", "visibility: visible");
+    var element = document.getElementById('chooseLangView');
+    element.setAttribute("style", "visibility: visible");
+    var element = document.getElementById('languages');
+    element.setAttribute("style", "visibility: visible");
+    var select = document.getElementById("languages");
+    var options = ["C++", "Java", "JavaScript", "PHP", "Python", "Ruby", ".Net"];
+    for (var i = 0; i < options.length; i++) {
+      var opt = options[i];
+      var el = document.createElement("option");
+      el.textContent = opt;
+      el.value = opt;
+      select.appendChild(el);
+    }
+  });
+  $("#languages").on('change', function() {
+    const titleValue = document.getElementById('thetitle').value
+    const abbrevTitleValue = document.getElementById('addatitle').value
+    const synopsisValue = document.getElementById('synopsis').value
+    if(titleValue==""||abbrevTitleValue==""||synopsisValue==""){
+      alert('You must have a title, abbreviated title, and a synopsis.')
+      document.getElementById("languages").selectedIndex = 0;
+
+      return
+    }
+    document.getElementById('languages').disabled = true;
+
+    console.log('button clicked');
+    var selectedLanguage = document.getElementById('languages').value
+    var searchKey = document.getElementById('selectBlock').value
+    console.log('selectedLanguage', selectedLanguage)
+    if(selectedLanguage == "Not listed"){
+      var element = document.getElementById('addlanguage');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('addLanguageView');
+      element.setAttribute("style", "visibility: visible");
+      let currentLangs = [];
+      var values = $("#languages>option").map(function() { return $(this).val(); }).get();
+      currentLangs.push(values);
+      mycurrentLangs = currentLangs[0].splice(0,1);
+      const mynewcurrentlangs = currentLangs[0].splice(-1,1);
+      console.log('currentLangs', currentLangs)
+      var allOptions = ["C++", "Java", "JavaScript", "PHP", "Python", "Ruby"];
+      var options = $.grep(allOptions, function(value) {
+        return $.inArray(value, currentLangs[0]) < 0;
+      });
+console.log('options',options)
+      var select = document.getElementById("addlanguage");
+      for (var i = 0; i < options.length; i++) {
+        var opt = options[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+      }
+    }
+    if(searchKey == "Not listed"){
+      var element = document.getElementById('addSdkVersion');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('chooseSDKView');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('gitHub');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('sdkGuide');
+      element.setAttribute("style", "visibility: visible");
+     /* var element = document.getElementById('snippDesc');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('snippet');
+      element.setAttribute("style", "visibility: visible");*/
+      var element = document.getElementById('anotherSnippet');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('removeSnippet');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('createYAML');
+      element.setAttribute("style", "visibility: visible");
+      myfunction4();
+    }
+    if(selectedLanguage != "Not listed" && searchKey != "Not listed"){
+      var element = document.getElementById('sdkVersion');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('chooseSDKView');
+      element.setAttribute("style", "visibility: visible");
+      myfunction4();
+    }
+  });
+  $("#addlanguage").on('change', function() {
+
+    document.getElementById('addlanguage').disabled = true;
+
+    var element = document.getElementById('addSdkVersion');
+    element.setAttribute("style", "visibility: visible");
+  });
+
+  $("#subVersion").on('click', function() {
+    console.log('why')
+    if(document.getElementById('languages').value !== "Not listed") {
+      alert('You may need to add an entry for this version in the \'sdk \' section of the mapping.yaml.')
+      let currentVersions = [];
+      var values = $("#sdkVersion>option").map(function () {
+        return $(this).val();
+      }).get();
+      currentVersions.push(values);
+      const mynewcurrentVersions = currentVersions[0].splice(-1, 1);
+      console.log('currentVersions1', currentVersions)
+      const valueToCheck = document.getElementById('addskdversion').value
+      if (currentVersions[0].includes(valueToCheck) === true) {
+        console.log('says it does')
+        var element = document.getElementById('addSdkVersion');
+        element.setAttribute("style", "class:show-when-target");
+        alert('This SDK version already exists. Please select it.')
+        document.getElementById('sdkVersion').disabled = false;
+      }
+      else{
+        document.getElementById('sdkVersion').disabled = true;
+        var element = document.getElementById('gitHub');
+        element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('sdkGuide');
+        element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('anotherSnippet');
+        element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('removeSnippet');
+        element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('createYAML');
+        element.setAttribute("style", "visibility: visible");
+      }
+    }
+else{
+      document.getElementById('subVersion').disabled = true;
+        alert('You may need to add an entry for this version in the \'sdk \' section of the mapping.yaml.')
+      var element = document.getElementById('gitHub');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('sdkGuide');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('anotherSnippet');
+      element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('removeSnippet');
+        element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('createYAML');
+      element.setAttribute("style", "visibility: visible");
+    }
+  });
+
+  $("#sdkVersion").on('change', function() {
+    document.getElementById('sdkVersion').disabled = true;
+
+    if(document.getElementById('sdkVersion').value == "Not listed"){
+      console.log('its happening')
+      var element = document.getElementById('addSdkVersion');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('addSdkVersion');
+      element.setAttribute("style", "visibility: visible");
+    }
+    else {
+      var element = document.getElementById('gitHub');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('sdkGuide');
+      element.setAttribute("style", "visibility: visible");
+ /*     var element = document.getElementById('snippDesc');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('snippet');
+      element.setAttribute("style", "visibility: visible");*/
+      var element = document.getElementById('anotherSnippet');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('removeSnippet');
+      element.setAttribute("style", "visibility: visible");
+      var element = document.getElementById('createYAML');
+      element.setAttribute("style", "visibility: visible");
+      myfunction5();
+      myfunction6();
+      myfunction7();
+    }
+
+  });
+
+
+
+  $("#newsnippet").on('click', function() {
+    const noOfSnippets = document.getElementsByClassName('snippdisc').length
+    if(noOfSnippets==0) {
+      $(
+        "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription\" maxlength=\"200\"></textarea></p>\n" +
+        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag\" maxlength=\"200\"></textarea></p>\n" +
+        "       ").insertBefore("#newsnippet");
+    }
+    if(noOfSnippets==1) {
+      $(
+        "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+        "       ").insertBefore("#newsnippet");
+    }
+    if(noOfSnippets==2) {
+      $(
+        "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
+        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+        "       ").insertBefore("#newsnippet");
+    }
+    if(noOfSnippets==3) {
+      $(
+        "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
+        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+        "       ").insertBefore("#newsnippet");
+    }
+    if(noOfSnippets==4) {
+      $(
+        "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription4\" maxlength=\"200\"></textarea></p>\n" +
+        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
+        "       ").insertBefore("#newsnippet");
+    }
+    if(noOfSnippets==5) {
+      $(
+        "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription5\" maxlength=\"200\"></textarea></p>\n" +
+        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag5\" maxlength=\"200\"></textarea></p>\n" +
+        "       ").insertBefore("#newsnippet");
+    }
+    if(noOfSnippets==6) {
+      alert('Maximum of 6 snippets allowed.')
+    }
+  });
+
+  $("#removesnip").on('click', function() {
+    console.log('clicked')
+    const noOfSnippets = document.getElementsByClassName('snippdisc').length;
+    console.log('noOfSnippets', noOfSnippets)
+    if(noOfSnippets==0) {
+      alert('There are no snippets to remove')
+    }
+    else {
+      $("p[id=snippDesc]:last").remove();
+      $("p[id=snippet]:last").remove();
+    }
+  });
+
+</script>
+</body>
+</html>
+
+
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0 -->

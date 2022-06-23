@@ -5,8 +5,8 @@ ABOUT THIS NODE.JS SAMPLE: This sample is part of the Amazon S3 Developer Guide 
 https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadObjectPreSignedURLJavaScriptSDK.html
 
 Purpose:
-s3_put_presignedURL.js demonstrates how to generate a presigned URL that a non-authenticate user
-can use to upload (put) an object to an S3 bucket.
+s3_getsignedURL.js demonstrates how to generate a presigned URL that a non-authenticated user
+can use to retrieve (get) an object to an Amazon S3 bucket.
 
 Inputs:
 - REGION (into command line below)
@@ -15,7 +15,7 @@ Inputs:
 - EXPIRATION (into code; in seconds, e.g., 60*5)
 
 Running the code:
-node s3_presignedURLs.js REGION BUCKET_NAME FILE_NAME
+node s3_getsignedURL.js REGION BUCKET_NAME FILE_NAME
 */
 // snippet-start:[s3.JavaScript.presignedURL.complete]
 const AWS = require('aws-sdk');
@@ -35,4 +35,4 @@ const presignedURL = s3.getSignedUrl('putObject', {
     Expires: signedUrlExpireSeconds
 })
 console.log(presignedURL)
-//<!-- snippet-end:[s3.JavaScript.presignedURL.complete] -->
+// snippet-end:[s3.JavaScript.presignedURL.complete]

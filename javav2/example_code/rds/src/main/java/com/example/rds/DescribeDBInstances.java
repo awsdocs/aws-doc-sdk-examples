@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.rds;
 
 // snippet-start:[rds.java2.describe_instances.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.DescribeDbInstancesResponse;
@@ -23,9 +23,9 @@ import java.util.List;
 // snippet-end:[rds.java2.describe_instances.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,9 +33,10 @@ public class DescribeDBInstances {
 
     public static void main(String[] args) {
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         RdsClient rdsClient = RdsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         describeInstances(rdsClient) ;
@@ -46,13 +47,10 @@ public class DescribeDBInstances {
     public static void describeInstances(RdsClient rdsClient) {
 
         try {
-
             DescribeDbInstancesResponse response = rdsClient.describeDBInstances();
-
             List<DBInstance> instanceList = response.dbInstances();
-
             for (DBInstance instance: instanceList) {
-                System.out.println("Instance Identifier is: "+instance.dbInstanceIdentifier());
+                System.out.println("Instance ARN is: "+instance.dbInstanceArn());
                 System.out.println("The Engine is " +instance.engine());
                 System.out.println("Connection endpoint is" +instance.endpoint().address());
             }
@@ -61,7 +59,7 @@ public class DescribeDBInstances {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // snippet-end:[rds.java2.describe_instances.main]
     }
+    // snippet-end:[rds.java2.describe_instances.main]
 }
 

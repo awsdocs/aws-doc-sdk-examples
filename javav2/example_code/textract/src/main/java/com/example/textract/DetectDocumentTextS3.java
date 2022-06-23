@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.textract;
 
 // snippet-start:[textract.java2._detect_s3_text.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.textract.model.S3Object;
 import software.amazon.awssdk.services.textract.TextractClient;
@@ -29,9 +29,9 @@ import java.util.List;
 // snippet-end:[textract.java2._detect_s3_text.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -39,24 +39,24 @@ public class DetectDocumentTextS3 {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    DetectDocumentTextS3 <bucketName> <docName> \n\n" +
+                "    <bucketName> <docName> \n\n" +
                 "Where:\n" +
                 "    bucketName - The name of the Amazon S3 bucket that contains the document. \n\n" +
                 "    docName - The document name (must be an image, i.e., book.png). \n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String bucketName = args[0];
         String docName = args[1];
-
         Region region = Region.US_WEST_2;
         TextractClient textractClient = TextractClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         detectDocTextS3(textractClient, bucketName, docName);
@@ -102,6 +102,6 @@ public class DetectDocumentTextS3 {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[textract.java2._detect_s3_text.main]
     }
+    // snippet-end:[textract.java2._detect_s3_text.main]
 }

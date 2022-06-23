@@ -1,16 +1,12 @@
-const mockListSubscriptionsByTopic = jest.fn();
-jest.mock(
-  "@aws-sdk/client-sns/commands/ListSubscriptionsByTopicCommand",
-  () => ({
-    SNS: function SNS() {
-      this.ListSubscriptionsByTopicCommand = mockListSubscriptionsByTopic;
-    },
-  })
-);
-const { run } = require("../../sns/src/sns_listsubscriptions.js");
+const { run, params } = require("../../sns/src/sns_listsubscriptions");
+const { snsClient } = require("../../sns/src/libs/snsClient.js");
 
-test("has to mock SNS#listsubscriptions", async (done) => {
-  await run();
-  expect(mockListSubscriptionsByTopic).toHaveBeenCalled;
-  done();
+jest.mock("../../sns/src/libs/snsClient.js");
+
+describe("@aws-sdk/client-emc mock", () => {
+    it("should successfully mock SNS client", async () => {
+        snsClient.send.mockResolvedValue({ isMock: true });
+        const response = await run(params);
+        expect(response.isMock).toEqual(true);
+    });
 });

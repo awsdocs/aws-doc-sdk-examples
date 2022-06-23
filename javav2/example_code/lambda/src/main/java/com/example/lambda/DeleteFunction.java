@@ -4,8 +4,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/11/2020]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,6 +15,7 @@
 package com.example.lambda;
 
 // snippet-start:[lambda.java2.delete.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.model.DeleteFunctionRequest;
@@ -23,9 +23,9 @@ import software.amazon.awssdk.services.lambda.model.LambdaException;
 // snippet-end:[lambda.java2.delete.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,14 +33,14 @@ public class DeleteFunction {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    DeleteFunction <functionName> \n\n" +
+                "    <functionName> \n\n" +
                 "Where:\n" +
-                "    functionName - the name of the Lambda function \n";
+                "    functionName - The name of the Lambda function. \n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
        }
 
@@ -48,6 +48,7 @@ public class DeleteFunction {
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         deleteLambdaFunction(awsLambda, functionName);
@@ -69,7 +70,7 @@ public class DeleteFunction {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[lambda.java2.delete.main]
     }
+    // snippet-end:[lambda.java2.delete.main]
 }
 // snippet-end:[lambda.java2.DeleteFunction.complete]

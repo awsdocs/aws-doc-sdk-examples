@@ -1,27 +1,31 @@
 /*Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
     SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 index.js contains the JavaScript for an web app that analyzes videos for label detection using the
 AWS JavaScript SDK for JavaScript v3.
 
 Inputs:
-- REGION
 - BUCKET
-- SNS_TOPIC_ARN
-- IDENTITY_POOL_ID
 - IAM_ROLE_ARN
 
-Running the code:
-To run the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
  */
 <!-- snippet-start:[rekognition.Javascript.video-analyzer.complete]-->
 <!-- snippet-start:[rekognition.Javascript.video-analyzer.config]-->
+import { rekognitionClient } from "../libs/rekognitionClient.js";
+import { s3Client } from "../libs/s3Client.js";
+import { sesClient } from "../libs/sesClient.js";
+import { SendEmailCommand } from "@aws-sdk/client-ses";
+import { ListObjectsCommand } from "@aws-sdk/client-s3";
+import { StartFaceDetectionCommand, GetFaceDetectionCommand } from "@aws-sdk/client-rekognition";
+const BUCKET = "BUCKET_NAME";
+const IAM_ROLE_ARN = "IAM_ROLE_ARN";
+
+<!-- snippet-end:[rekognition.Javascript.video-analyzer.config]-->
+<!-- snippet-start:[rekognition.Javascript.video-analyzer.upload]-->
 $(function () {
   $("#myTable").DataTable({
     scrollY: "500px",
@@ -32,50 +36,11 @@ $(function () {
     fixedColumns: true,
   });
 });
+// Upload the video.
 
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
-const {
-  fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const {
-  S3Client,
-  PutObjectCommand,
-  DeleteObjectCommand,
-  ListObjectsCommand,
-  GetObjectCommand,
-} = require("@aws-sdk/client-s3");
-const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
-const {
-  RekognitionClient,
-  StartFaceDetectionCommand,
-  GetFaceDetectionCommand,
-} = require("@aws-sdk/client-rekognition");
-const path = require("path");
-
-const REGION = "REGION";
-const BUCKET =
-  "BUCKET";
-const SNSTOPIC =
-  "SNS_TOPIC_ARN"; // The Amazon Resource Number (ARN) of the Amazon Simple Notification Service (SNS) topic.
-const IDENTITYPOOLID = "IDENTITY_POOL_ID";
-const IAM_ROLE_ARN = "IAM_ROLE_ARN";
-
-const cognitoConfig = {
-  region: REGION,
-  credentials: fromCognitoIdentityPool({
-    client: new CognitoIdentityClient({ region: REGION }),
-    identityPoolId: IDENTITYPOOLID,
-  }),
-};
-
-const sesClient = new SESClient(cognitoConfig);
-const s3Client = new S3Client(cognitoConfig);
-const rekognitionClient = new RekognitionClient(cognitoConfig);
-
-<!-- snippet-end:[rekognition.Javascript.video-analyzer.config]-->
-<!-- snippet-start:[rekognition.Javascript.video-analyzer.upload]-->
 const uploadVideo = async () => {
   try {
+    // Retrieve a list of objects in the bucket.
     const listObjects = await s3Client.send(
       new ListObjectsCommand({ Bucket: BUCKET })
     );
@@ -83,18 +48,20 @@ const uploadVideo = async () => {
     console.log("listObjects.Contents ", listObjects.Contents );
 
     const noOfObjects = listObjects.Contents;
-    debugger;
+    // If the Amazon S3 bucket is not empty, delete the existing content.
     if(noOfObjects != null) {
       for (let i = 0; i < noOfObjects.length; i++) {
         const data = await s3Client.send(
             new DeleteObjectCommand({
               Bucket: BUCKET,
-              Key: listObjects.Contents[i].Key,
+              Key: listObjects.Contents[i].Key
             })
         );
       }
     }
     console.log("Success - bucket empty.");
+
+    // Create the parameters for uploading the video.
     const videoName = document.getElementById("videoname").innerHTML + ".mp4";
     const files = document.getElementById("videoupload").files;
     const file = files[0];
@@ -112,11 +79,11 @@ const uploadVideo = async () => {
 window.uploadVideo = uploadVideo;
 <!-- snippet-end:[rekognition.Javascript.video-analyzer.upload]-->
 <!-- snippet-start:[rekognition.Javascript.video-analyzer.getvideo]-->
-
+//
 const getVideo = async () => {
   try {
     const listVideoParams = {
-      Bucket: BUCKET,
+      Bucket: BUCKET
     };
     const data = await s3Client.send(new ListObjectsCommand(listVideoParams));
     console.log("Success - video deleted", data);
@@ -137,12 +104,13 @@ window.getVideo = getVideo;
 <!-- snippet-start:[rekognition.Javascript.video-analyzer.processimages]-->
 const ProcessImages = async () => {
   try {
+    // Create the parameters required to start face detection.
     const videoName = document.getElementById("videoname").innerHTML;
     const startDetectParams = {
       Video: {
         S3Object: {
           Bucket: BUCKET,
-          Name: videoName,
+          Name: videoName
         },
       },
       notificationChannel: {
@@ -150,6 +118,7 @@ const ProcessImages = async () => {
         SNSTopicArn: SNSTOPIC
       },
     };
+    // Start the Amazon Rekognition face detection process.
     const data = await rekognitionClient.send(
       new StartFaceDetectionCommand(startDetectParams)
     );
@@ -222,7 +191,7 @@ const uploadFile = async (csv) => {
   const uploadParams = {
     Bucket: BUCKET,
     Body: csv,
-    Key: "Face.csv",
+    Key: "Face.csv"
   };
   try {
     const data = await s3Client.send(new PutObjectCommand(uploadParams));
@@ -244,7 +213,7 @@ const uploadFile = async (csv) => {
 // Helper function to send an email to user.
 const sendEmail = async (bucket, key) => {
   const toEmail = document.getElementById("email").value;
-  const fromEmail = "briangermurray@gmail.com";
+  const fromEmail = "SENDER_ADDRESS";//
   try {
     const linkToCSV =
       "https://s3.console.aws.amazon.com/s3/object/" +

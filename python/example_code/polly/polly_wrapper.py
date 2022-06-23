@@ -17,6 +17,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.polly.helper.PollyWrapper]
 class PollyWrapper:
     """Encapsulates Amazon Polly functions."""
     def __init__(self, polly_client, s3_resource):
@@ -27,7 +28,9 @@ class PollyWrapper:
         self.polly_client = polly_client
         self.s3_resource = s3_resource
         self.voice_metadata = None
+# snippet-end:[python.example_code.polly.helper.PollyWrapper]
 
+# snippet-start:[python.example_code.polly.DescribeVoices]
     def describe_voices(self):
         """
         Gets metadata about available voices.
@@ -43,7 +46,9 @@ class PollyWrapper:
             raise
         else:
             return self.voice_metadata
+# snippet-end:[python.example_code.polly.DescribeVoices]
 
+# snippet-start:[python.example_code.polly.Synthesize]
     def synthesize(
             self, text, engine, voice, audio_format, lang_code=None,
             include_visemes=False):
@@ -88,6 +93,7 @@ class PollyWrapper:
             raise
         else:
             return audio_stream, visemes
+# snippet-end:[python.example_code.polly.Synthesize]
 
     def _wait_for_task(self, tries, task_id, task_type, wait_callback, output_bucket):
         """
@@ -130,6 +136,7 @@ class PollyWrapper:
 
         return output_stream
 
+# snippet-start:[python.example_code.polly.StartSpeechSynthesisTask]
     def do_synthesis_task(
             self, text, engine, voice, audio_format, s3_bucket, lang_code=None,
             include_visemes=False, wait_callback=None):
@@ -196,7 +203,9 @@ class PollyWrapper:
                            viseme_data.read().decode().split() if v]
 
             return audio_stream, visemes
+# snippet-end:[python.example_code.polly.StartSpeechSynthesisTask]
 
+# snippet-start:[python.example_code.polly.GetSpeechSynthesisTask]
     def get_speech_synthesis_task(self, task_id):
         """
         Gets metadata about an asynchronous speech synthesis task, such as its status.
@@ -213,7 +222,9 @@ class PollyWrapper:
             raise
         else:
             return task
+# snippet-end:[python.example_code.polly.GetSpeechSynthesisTask]
 
+# snippet-start:[python.example_code.polly.PutLexicon]
     def create_lexicon(self, name, content):
         """
         Creates a lexicon with the specified content. A lexicon contains custom
@@ -228,7 +239,9 @@ class PollyWrapper:
         except ClientError:
             logger.exception("Couldn't create lexicon %s.")
             raise
+# snippet-end:[python.example_code.polly.PutLexicon]
 
+# snippet-start:[python.example_code.polly.GetLexicon]
     def get_lexicon(self, name):
         """
         Gets metadata and contents of an existing lexicon.
@@ -244,7 +257,9 @@ class PollyWrapper:
             raise
         else:
             return response
+# snippet-end:[python.example_code.polly.GetLexicon]
 
+# snippet-start:[python.example_code.polly.ListLexicons]
     def list_lexicons(self):
         """
         Lists lexicons in the current account.
@@ -260,6 +275,7 @@ class PollyWrapper:
             raise
         else:
             return lexicons
+# snippet-end:[python.example_code.polly.ListLexicons]
 
     def get_voice_engines(self):
         """

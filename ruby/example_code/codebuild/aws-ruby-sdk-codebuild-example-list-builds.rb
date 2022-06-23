@@ -1,29 +1,15 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Gets information about all of your CodeBuild builds.]
-# snippet-keyword:[AWS CodeBuild]
-# snippet-keyword:[list_builds method]
-# snippet-keyword:[batch_get_builds method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[codebuild]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# aws-ruby-sdk-codebuild-example-list-builds.rb demonstrates how to list your
+# AWS CodeBuild builds using the AWS SDK for Ruby.
+
+# snippet-start:[codebuild.Ruby.listBuilds]
 
 require 'aws-sdk-codebuild'  # v2: require 'aws-sdk'
 
+# Replace us-west-2 with the AWS Region you're using for Amazon CodeBuild.
 client = Aws::CodeBuild::Client.new(region: 'us-west-2')
 
 build_list = client.list_builds({sort_order: 'ASCENDING', })
@@ -35,3 +21,4 @@ builds.builds.each do |build|
   puts 'Phase:      ' + build.current_phase
   puts 'Status:     ' + build.build_status
 end
+# snippet-end:[codebuild.Ruby.listBuilds]

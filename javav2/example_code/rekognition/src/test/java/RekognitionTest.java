@@ -5,6 +5,8 @@
 import com.example.rekognition.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import java.io.*;
 import java.util.Properties;
@@ -43,10 +45,12 @@ public class RekognitionTest {
         Region region = Region.US_EAST_1;
         rekClient = RekognitionClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         s3 = S3Client.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = RekognitionTest.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -58,7 +62,6 @@ public class RekognitionTest {
                 return;
             }
 
-            //load a properties file
             prop.load(input);
             facesImage = prop.getProperty("facesImage");
             celebritiesImage = prop.getProperty("celebritiesImage");

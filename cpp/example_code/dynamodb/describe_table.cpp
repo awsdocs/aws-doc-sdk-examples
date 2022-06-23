@@ -1,28 +1,17 @@
- 
 //snippet-sourcedescription:[describe_table.cpp demonstrates how to retrieve information about an Amazon DynamoDB table.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[AWS SDK for C++]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-service:[dynamodb]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+//snippet-sourcedate:[11/30/2021]
+//snippet-sourceauthor:[scmacdon - aws]
 
 
 /*
-Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-This file is licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of
-the License is located at
-
-http://aws.amazon.com/apache2.0/
-
-This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+
 //snippet-start:[dynamodb.cpp.describe_table.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
@@ -31,27 +20,23 @@ specific language governing permissions and limitations under the License.
 #include <iostream>
 //snippet-end:[dynamodb.cpp.describe_table.inc]
 
-
-/**
-* Get information about (describe) a DynamoDB table.
-*
-* Takes the name of the table as input.
-*
-* This code expects that you have AWS credentials set up per:
-* http://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/credentials.html
+/*
+   Get information about (describe) a DynamoDB table.
+   
+   To run this C++ code example, ensure that you have setup your development environment, including your credentials.
+   For information, see this documentation topic:
+   https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
 */
+
 int main(int argc, char** argv)
 {
     const Aws::String USAGE = "\n" \
         "Usage:\n"
-        "    describe_table <table> <optional:region>\n\n"
+        "    describe_table <table>\n\n"
         "Where:\n"
-        "    table - the table to delete.\n"
-        "    region- optional region\n\n"
-        "Example:\n"
-        "    describe_table HelloTable\n";
+        "    table - the table to describe.\n";
 
-    if (argc < 2)
+    if (argc < 1)
     {
         std::cout << USAGE;
         return 1;
@@ -61,8 +46,8 @@ int main(int argc, char** argv)
 
     Aws::InitAPI(options);
     {
-        const Aws::String table(argv[1]);
-        const Aws::String region(argc > 2 ? argv[2] : "");
+        const Aws::String table = (argv[1]);
+        const Aws::String region = "us-east-1"; 
 
         // snippet-start:[dynamodb.cpp.describe_table.code]
         Aws::Client::ClientConfiguration clientConfig;

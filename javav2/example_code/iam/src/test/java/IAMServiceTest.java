@@ -1,8 +1,3 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
 import com.example.iam.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,6 +6,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -21,15 +17,25 @@ public class IAMServiceTest {
     private static String policyName="";
     private static String roleName="";
     private static String policyARN=""; // Set in test 3
-    private static String accessKey="" ;
     private static String keyId ="" ; // set in test 4
     private static String accountAlias="";
+
+    // Create data members to test the IAMScenario
+    private static String usernameSc = "";
+    private static String policyNameSc = "";
+    private static String roleNameSc = "";
+    private static String roleSessionName = "";
+    private static String fileLocationSc = "";
+    private static String bucketNameSc = "";
 
     @BeforeAll
     public static void setUp() throws IOException {
 
         Region region = Region.AWS_GLOBAL;
-        iam =  IamClient.builder().region(region).build();
+        iam = IamClient.builder()
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         try (InputStream input = IAMServiceTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -41,6 +47,12 @@ public class IAMServiceTest {
             policyARN= prop.getProperty("policyARN");
             roleName=prop.getProperty("roleName");
             accountAlias=prop.getProperty("accountAlias");
+            usernameSc=prop.getProperty("usernameSc");
+            policyNameSc=prop.getProperty("policyNameSc");
+            roleNameSc=prop.getProperty("roleNameSc");
+            roleSessionName=prop.getProperty("roleSessionName");
+            fileLocationSc=prop.getProperty("fileLocationSc");
+            bucketNameSc=prop.getProperty("bucketNameSc");
 
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
@@ -164,5 +176,35 @@ public class IAMServiceTest {
 
         DeleteUser.deleteIAMUser(iam,userName);
         System.out.println("\n Test 14 passed");
+    }
+
+    @Test
+    @Order(14)
+    public void TestIAMScenario() throws InterruptedException {
+
+        // Create the IAM user.
+        Boolean createUser = IAMScenario.createIAMUser(iam, usernameSc);
+
+        if (createUser) {
+            System.out.println(usernameSc + " was successfully created.");
+
+            String polArn = IAMScenario.createIAMPolicy(iam, policyNameSc);
+            System.out.println("The policy " + polArn + " was successfully created.");
+
+            String roleArn = IAMScenario.createIAMRole(iam, roleNameSc, fileLocationSc);
+            System.out.println(roleArn + " was successfully created.");
+            IAMScenario.attachIAMRolePolicy(iam, roleNameSc, polArn);
+
+            System.out.println("*** Wait for 1 MIN so the resource is available");
+            TimeUnit.MINUTES.sleep(1);
+            IAMScenario.assumeGivenRole(roleArn, roleSessionName, bucketNameSc);
+
+            System.out.println("*** Getting ready to delete the AWS resources");
+            IAMScenario.deleteRole(iam, roleNameSc, polArn);
+            IAMScenario.deleteIAMUser(iam, usernameSc);
+            System.out.println("This IAM Scenario has successfully completed");
+        } else {
+            System.out.println(usernameSc +" was not successfully created.");
+        }
     }
 }

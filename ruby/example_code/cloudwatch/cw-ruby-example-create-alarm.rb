@@ -1,10 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# The following code example shows how to create or update an Amazon CloudWatch alarm.
+
+# snippet-start:[cloudwatch.Ruby.createAlarm]
+
 require 'aws-sdk-cloudwatch'
 
-# Creates or updates an alarm in Amazon CloudWatch.
-#
 # @param cloudwatch_client [Aws::CloudWatch::Client]
 #   An initialized CloudWatch client.
 # @param alarm_name [String] The name of the alarm.
@@ -110,6 +112,7 @@ def run_me
   evaluation_periods = 1 # More than one day.
   threshold = 1 # One object.
   comparison_operator = 'GreaterThanThreshold' # More than one object.
+  # Replace us-west-2 with the AWS Region you're using for Amazon CloudWatch.
   region = 'us-east-1'
 
   cloudwatch_client = Aws::CloudWatch::Client.new(region: region)
@@ -136,3 +139,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[cloudwatch.Ruby.createAlarm]

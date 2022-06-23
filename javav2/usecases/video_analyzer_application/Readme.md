@@ -1,5 +1,6 @@
 #  Creating AWS video analyzer applications using the AWS SDK for Java
 
+## Purpose
 You can create a Java web application that analyzes videos for label detection by using the Java SDK for Java version 2. The application created in this AWS tutorial lets you upload a video (MP4 file) to an Amazon Simple Storage Service (Amazon S3) bucket. Then the appliction uses the Amazon Rekognition service to analyze the video. The results are used to populate a data model and then a report is generated and emailed to a specific user by using the Amazon Simple Email Service (SES).
 
 The following illustration shows a report that is generated after the application completes analyzing the video.
@@ -13,10 +14,6 @@ This application uses the following AWS services:
 *	Amazon S3
 *	Amazon SES
 *	AWS Elastic Beanstalk
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
 
 #### Topics
 
@@ -38,8 +35,20 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Maven 3.6 or later
-+ An Amazon S3 bucket named **video[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
-+ You must create an IAM role and a valid SNS topic. You need to reference these values in the **VideoDetectFaces** class. If you do not set these values, the application that you create does not work. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).  
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+An Amazon S3 bucket named **video[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
+
+You must create an IAM role and a valid SNS topic. You need to reference these values in the **VideoDetectFaces** class. If you do not set these values, the application that you create does not work. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).  
+
 
 ## Understand the AWS Video Analyzer application
 
@@ -87,6 +96,7 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
 
    Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -185,6 +195,7 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
         </plugins>
       </build>
      </project>
+```
 
 ## Create the Java classes
 
@@ -211,6 +222,7 @@ Create these Java classes:
 
 The following Java code represents the **BucketItem** class that stores S3 object data.
 
+```java
     package com.example.photo;
 
     public class BucketItem {
@@ -254,11 +266,13 @@ The following Java code represents the **BucketItem** class that stores S3 objec
         return this.key ;
     }
     }
+```    
     
 ### FaceItems class
 
 The following Java code represents the **FaceItems** class that stores data returned by the Amazon Rekognition service.
 
+```java
     package com.example.video;
 
     // Represents a model that stores labels detected in a video
@@ -320,12 +334,13 @@ The following Java code represents the **FaceItems** class that stores data retu
         this.smile = smile ;
     }
    }
-
+```
 
 ### S3Service class
 
 The following class uses the Amazon S3 API to perform S3 operations. For example, the **putObject** method places the video into the specified Amazon S3 bucket. Be sure to replace the bucket name in this code example with your bucket name.
 
+```java
     package com.example.video;
 
     import org.springframework.stereotype.Component;
@@ -531,8 +546,8 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         }
         return null;
        }
-
       }
+ ```
 
 **Note**: In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
 
@@ -540,6 +555,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
 
 The following Java code represents the **SendMessage** class. This class uses the Amazon SES API to send an email message with an attachment that represents the report.
 
+```java
      package com.example.photo;
 
     import org.apache.commons.io.IOUtils;
@@ -682,11 +698,13 @@ The following Java code represents the **SendMessage** class. This class uses th
         System.out.println("Email sent with attachment.");
         }
        }
+```
 
  ### VideoApplication class
 
  The following Java code represents the **VideoApplication** class.
 
+```java
      package com.example.video;
 
     import org.springframework.boot.SpringApplication;
@@ -699,11 +717,13 @@ The following Java code represents the **SendMessage** class. This class uses th
         SpringApplication.run(VideoApplication.class, args);
      }
     }
+ ```
 
 ### VideoController class
 
 The following Java code represents the **VideoController** class that handles HTTP requests. For example, when a new video is uploaded to an Amazon S3 bucket, the **singleFileUpload** method handles the request.
 
+```java
      package com.example.video;
 
     import org.springframework.beans.factory.annotation.Autowired;
@@ -798,6 +818,7 @@ The following Java code represents the **VideoController** class that handles HT
         return "The "+ myKey +" video has been successfully analyzed and the report is sent to "+email;
       } 
      }
+```
 
 **Note**: Change the **bucketName** variable to match your bucket. 
 
@@ -806,6 +827,7 @@ The following Java code represents the **VideoDetectFaces** class. This class us
 
 You can get the results of the job by invoking the **GetFaceResults** method. Notice in this code example, a while loop is used to wait until the job is finished. This method returns a list where each element is a **FaceItems** object. 
 
+```java
     package com.example.video;
 
     import org.springframework.stereotype.Component;
@@ -951,6 +973,7 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
         return null;
        }
       }
+ ```
 
 **Note**: Specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
 
@@ -958,6 +981,7 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
 
 The following Java code represents the **WriteExcel** class.
 
+```java
      package com.example.video;
 
     import jxl.CellView;
@@ -1123,6 +1147,7 @@ The following Java code represents the **WriteExcel** class.
         return count;
       }
      }
+ ```
 
 ## Create the HTML files
 
@@ -1139,6 +1164,7 @@ The **index.html** file is the application's home view. The **process.html** fil
 
 The following HTML represents the **index.html** file.
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" >
 
@@ -1175,11 +1201,13 @@ The following HTML represents the **index.html** file.
     </div>
     </body>
     </html>
+```
 
 ### process.html
 
 The following HTML represents the **process.html** file.
 
+```html
     <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head>
@@ -1228,12 +1256,13 @@ The following HTML represents the **process.html** file.
       </div>
      </body>
      </html>
-
+```
 
 ### upload.html
 
 The following HTML represents the **upload.html** file.
 
+```html
     <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" >
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
@@ -1303,11 +1332,13 @@ The following HTML represents the **upload.html** file.
       </div>
      </body>
      </html>
+```
 
 ### layout.html
 
 The following HTML represents the **layout.html** file for the application's menu.
 
+```html
      <!DOCTYPE html>
       <html xmlns:th="http://www.thymeleaf.org">
       <head th:fragment="site-head">
@@ -1330,7 +1361,8 @@ The following HTML represents the **layout.html** file for the application's men
     <p>Welcome to  AWS Video Analyzer.</p>
     </body>
     </html>
-
+```
+          
 ## Create script files
 
 Both the upload and process views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application won't work.
@@ -1344,6 +1376,7 @@ Both files contain application logic that sends a request to the Spring controll
 
 The following JavaScript represents the **items.js** file.
 
+```javascript
     $(function() {
 
     $('#myTable').DataTable( {
@@ -1389,12 +1422,13 @@ The following JavaScript represents the **items.js** file.
         );
         });
         }
-
+```
 
 ### message.js
 
 The following JavaScript represents the **message.js** file. The **ProcessImages** function sends a request to the **/report** handler in the controller that generates a report. Notice that an email address is posted to the **Controller** method.
 
+```javascript
    $(function() {
 
     $('#spinner').hide();
@@ -1422,6 +1456,7 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
      $('#button').prop("disabled",false);
      alert(res) ;
     }
+```
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 

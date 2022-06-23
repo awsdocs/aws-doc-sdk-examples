@@ -1,0 +1,80 @@
+<!--  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8" />
+    <title>Subscription</title>
+
+    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+     <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
+    <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<header th:replace="layout :: site-header"/>
+<div class="container">
+     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+    <div class="row">
+        <div class="col">
+            <h4>Enter an email address<h3>
+                <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <div class="clearfix mt-40">
+
+                    <!-- Button trigger modal -->
+                    <button type="button"  onclick="subEmail() "class="btn btn-primary" >
+                        Subscribe
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="getSubs()">
+                        List Subscriptions
+                    </button>
+                    <button type="button" onclick="delSub()" class="btn btn-primary" >
+                        UnSubscribe
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">SNS Email Subscriptions</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+     </div>
+    <hr style="width:50%;text-align:left;margin-left:0">
+    <h4>Enter a message to publish</h4>
+    <div class="col-lg-12 mx-auto">
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <textarea class="form-control" id="body" rows="5" placeholder="Body" required="required" data-validation-required-message="Please enter a description."></textarea>
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <br>
+        <div>
+            <label for="lang">Select a Language:</label>
+            <select name="lang" id="lang">
+                <option>English</option>
+                <option>French</option>
+                <option>Spanish</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Publish</button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,14 +1,12 @@
-const mockDeleteIdentity = jest.fn();
-jest.mock("@aws-sdk/client-ses/commands/DeleteIdentityCommand", () => ({
-  SES: function SES() {
-    this.DeleteIdentityCommand = mockDeleteIdentity;
-  },
-}));
-const { run } = require("../../ses/src/ses_deleteidentity.js");
+const { run, params } = require("../../ses/src/ses_deleteidentity");
+const { sesClient } = require("../../ses/src/libs/sesClient.js");
 
-//test function
-test("has to mock SES#createReceiptFilter", async (done) => {
-  await run();
-  expect(mockDeleteIdentity).toHaveBeenCalled;
-  done();
+jest.mock("../../ses/src/libs/sesClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sesClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

@@ -88,7 +88,7 @@ public class DynamoDBAsyncGetItem {
                     .build();
 
             // Invoke the DynamoDbAsyncClient object's getItem
-            java.util.Collection<software.amazon.awssdk.services.dynamodb.model.AttributeValue> returnedItem = client.getItem(request).join().item().values();
+            java.util.Collection<AttributeValue> returnedItem = client.getItem(request).join().item().values();
 
             // Convert Set to Map
             Map<String, AttributeValue> map = returnedItem.stream().collect(Collectors.toMap(AttributeValue::s, s->s));

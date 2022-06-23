@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.kms;
 
 // snippet-start:[kms.java2_list_keys.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.KeyListEntry;
@@ -24,9 +24,9 @@ import java.util.List;
 // snippet-end:[kms.java2_list_keys.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,6 +37,7 @@ public class ListKeys {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAllKeys(kmsClient);
@@ -57,10 +58,11 @@ public class ListKeys {
                 System.out.println("The key ARN is: " + key.keyArn());
                 System.out.println("The key Id is: " + key.keyId());
             }
+
         } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[kms.java2_list_keys.main]
-    }
+      }
+    // snippet-end:[kms.java2_list_keys.main]
 }

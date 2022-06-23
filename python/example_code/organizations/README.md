@@ -5,16 +5,27 @@
 Shows how to use the AWS SDK for Python (Boto3) to create and manage AWS Organizations
 policies.
 
-## Prerequisites
+*AWS Organizations lets you consolidate multiple AWS accounts into an organization 
+that you create and centrally manage.*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.14.47 or later
-- PyTest 5.3.5 or later (to run unit tests)
+## Code examples
 
-## Cautions
+### API examples
+
+* [Attach a policy to a target](organizations_policies.py)
+(`AttachPolicy`)
+* [Create a policy](organizations_policies.py)
+(`CreatePolicy`)
+* [Delete a policy](organizations_policies.py)
+(`DeletePolicy`)
+* [Describe a policy](organizations_policies.py)
+(`DescribePolicy`)
+* [Detach a policy from a target](organizations_policies.py)
+(`DetachPolicy`)
+* [List policies](organizations_policies.py)
+(`ListPolicies`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -27,8 +38,18 @@ policies.
   on the AWS website.
 - Running this code might result in charges to your AWS account.
 
-
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.14.47 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
 
 Run this example at a command prompt with the following command.
 

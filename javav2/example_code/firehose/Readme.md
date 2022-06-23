@@ -4,6 +4,8 @@ This README discusses how to run and test the Java code examples for Amazon Kine
 
 ## Running the Amazon Kinesis Date Firehose Java files
 
+The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+
 **IMPORTANT**
 
 The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.

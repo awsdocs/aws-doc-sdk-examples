@@ -32,7 +32,7 @@ export class SetupStack extends cdk.Stack {
     unauthenticatedRole.addToPolicy(new PolicyStatement({
       effect: Effect.ALLOW,
       actions: [
-        "polly:*"
+        "polly:SynthesizeSpeech"
       ],
       resources: ["*"],
     }));

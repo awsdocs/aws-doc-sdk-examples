@@ -1,0 +1,18 @@
+# snippet-start:[logging.rust.logger-cargo.toml]
+[package]
+authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
+edition = "2018"
+name = "logging-example"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+# snippet-start:[logging.rust.logger-cargo.toml-env_logger]
+env_logger = "0.9.0"
+# snippet-end:[logging.rust.logger-cargo.toml-env_logger]
+structopt = { version = "0.3", default-features = false }
+tokio = { version = "1", features = ["full"] }
+# snippet-end:[logging.rust.logger-cargo.toml]

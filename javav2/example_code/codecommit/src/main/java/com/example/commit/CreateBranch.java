@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 // snippet-service:[AWS CodeCommit]
 // snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2020]
+//snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -34,7 +34,7 @@ public class CreateBranch {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateBranch <repoName> <branchName> <commitId> \n\n" +
+                "    <repoName> <branchName> <commitId> \n\n" +
                 "Where:\n" +
                 "    repoName - the name of the repository.\n" +
                 "    branchName -  the name of the branch.\n" +

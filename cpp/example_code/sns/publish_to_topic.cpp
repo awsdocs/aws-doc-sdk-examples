@@ -1,14 +1,3 @@
- 
-//snippet-sourcedescription:[publish_to_topic.cpp demonstrates how to send a message to an Amazon SNS topic.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
 
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -28,17 +17,19 @@
 #include <iostream>
 
 /**
- * Publish sms
- */
+ * Publish SMS to topic - demonstrates how to send a message to an Amazon SNS topic.
+ * 
+ * <topic_arn_value> can be obtained from run_list_topics executable and includes the "arn:" prefix.
+*/
 
 int main(int argc, char ** argv)
 {
   if (argc != 3)
   {
-    std::cout << "Usage: publish_sms <message_value> <topic_arn_value> " << std::endl;
+    std::cout << "Usage: publish_to_topic <message_value> <topic_arn_value> " << std::endl;
     return 1;
   }
-
+  // snippet-start:[sns.cpp.publish_to_topic.code]
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
@@ -64,5 +55,6 @@ int main(int argc, char ** argv)
   }
 
   Aws::ShutdownAPI(options);
+  // snippet-end:[sns.cpp.publish_to_topic.code]
   return 0;
 }

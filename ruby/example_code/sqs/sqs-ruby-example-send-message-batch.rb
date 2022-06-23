@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX - License - Identifier: Apache - 2.0
+
+# Purpose
+# This code example demonstrates how to send multiple messages as a batch to a queue in Amazon Simple Queue Service (Amazon SQS).
+
+# snippet-start:[s3.sqs-ruby-example-send-message-batch.rb]
 
 require 'aws-sdk-sqs'
 require 'aws-sdk-sts'
 
-# Sends multiple messages as a batch to a queue in
-# Amazon Simple Queue Service (Amazon SQS).
 #
 # @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
 # @param queue_url [String] The URL of the queue.
@@ -14,8 +17,8 @@ require 'aws-sdk-sts'
 # @return [Boolean] true if the messages were sent; otherwise, false.
 # @example
 #   exit 1 unless messages_sent?(
-#     Aws::SQS::Client.new(region: 'us-east-1'),
-#     'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue',
+#     Aws::SQS::Client.new(region: 'us-west-2'),
+#     'https://sqs.us-west-2.amazonaws.com/111111111111/my-queue',
 #     [
 #       {
 #         id: 'Message1',
@@ -39,8 +42,9 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 def run_me
-  region = 'us-east-1'
+  region = 'us-west-2'
   queue_name = 'my-queue'
   entries = [
     {
@@ -54,12 +58,12 @@ def run_me
   ]
 
   sts_client = Aws::STS::Client.new(region: region)
-  
+
   # For example:
-  # 'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
-  queue_url = 'https://sqs.' + region + '.amazonaws.com/' + 
+  # 'https://sqs.us-west-2.amazonaws.com/111111111111/my-queue'
+  queue_url = 'https://sqs.' + region + '.amazonaws.com/' +
     sts_client.get_caller_identity.account + '/' + queue_name
-  
+
   sqs_client = Aws::SQS::Client.new(region: region)
 
   puts "Sending messages to the queue named '#{queue_name}'..."
@@ -72,3 +76,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.sqs-ruby-example-send-message-batch.rb]

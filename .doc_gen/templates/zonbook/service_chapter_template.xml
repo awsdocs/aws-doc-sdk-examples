@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
+    %phrases-code-examples;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<!-- zexi 0.4.1  -->
+{{- $doc_id := "service_code_examples"}}
+{{- $title_abbrev := "Code examples"}}
+{{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
+{{- $scenarios :=  index .CategorizedExampleSets "Scenarios"}}
+{{- $actions := index .CategorizedExampleSets "Actions"}}
+{{- if .Bundle}}
+{{- $doc_id = printf "service_code_examples_%s" .Model }}
+{{- $title_abbrev = printf "%s examples" .ServiceEntity.Short }}
+<section id="{{$doc_id}}" role="topic">
+{{- else}}
+<chapter id="{{$doc_id}}" role="topic">
+{{end}}
+    <info>
+        <title id="{{$doc_id}}.title">Code examples for {{.ServiceEntity.Short}} using &AWS; SDKs</title>
+        <titleabbrev id="{{$doc_id}}.titleabbrev">{{$title_abbrev}}</titleabbrev>
+        <abstract>
+            <para>Code examples that show how to use {{.ServiceEntity.Short}} with an &AWS; SDK.</para>
+        </abstract>
+    </info>
+    <para>The following code examples show how to use {{.ServiceEntity.Short}} with an &AWS; software development kit (SDK).
+        {{.ServiceEntity.Caveat}}</para>
+    <variablelist role="termdef">
+        <para>The examples are divided into the following categories:</para>
+        {{- if $actions.Examples}}
+        <varlistentry>
+            <term>Actions</term>
+            <listitem><para>Code excerpts that show you how to call individual service functions.</para></listitem>
+        </varlistentry>
+        {{- end}}
+        {{- if $scenarios.Examples}}
+        <varlistentry>
+            <term>Scenarios</term>
+            <listitem><para>Code examples that show you how to accomplish a specific task by calling multiple
+                functions within the same service.</para></listitem>
+        </varlistentry>
+        {{- end }}
+        {{- if $cross_service.Examples}}
+        <varlistentry>
+            <term>Cross-service examples</term>
+            <listitem><para>Sample applications that work across multiple &AWS-services;.</para></listitem>
+        </varlistentry>
+        {{- end }}
+    </variablelist>
+    <para>For a complete list of &AWS; SDK developer guides and code examples, see
+        <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
+        This topic also includes information about getting started and details about previous SDK versions.</para>
+    <para role="contents-abbrev">Code examples</para>
+    {{- range $category := .CategoryNamesSorted}}
+    {{- with $cat_examples := index $.CategorizedExampleSets $category}}
+    <section id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}" role="topic">
+        <info>
+            <title id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} for {{$.ServiceEntity.Short}} using &AWS; SDKs</title>
+            <titleabbrev id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.titleabbrev">{{$cat_examples.CategoryName}}</titleabbrev>
+            <abstract>
+                <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
+            </abstract>
+        </info>
+        {{- if eq $cat_examples.CategoryName "Cross-service examples"}}
+        <para>The following sample applications use &AWS; SDKs to combine {{$.ServiceEntity.Short}}
+            with other &AWS-services;. Each example includes a link to GitHub, where you can find
+            instructions on how to set up and run the application.</para>
+        {{- else if eq $cat_examples.CategoryName "Scenarios"}}
+        <para>The following code examples show you how to implement common scenarios in {{$.ServiceEntity.Short}}
+            with &AWS; SDKs. These scenarios show you how to accomplish specific tasks by calling multiple functions
+            within {{$.ServiceEntity.Short}}. Each scenario includes a link to GitHub, where you can find instructions
+            on how to set up and run the code.</para>
+        {{- else if eq $cat_examples.CategoryName "Actions"}}
+        <para>The following code examples demonstrate how to perform individual {{$.ServiceEntity.Short}}
+            actions with &AWS; SDKs. These excerpts call the {{$.ServiceEntity.Short}} API and are not
+            intended to be run in isolation. Each example includes a link to GitHub, where you can find
+            instructions on how to set up and run the code in context.</para>
+        <para>
+            The following examples include only the most commonly used actions.
+            For a complete list, see the
+            {{- if $.ApiRef}}
+            <ulink type="documentation" url="{{$.ApiRef}}">{{$.ServiceEntity.Long}} API Reference</ulink>.
+            {{- else }}
+            <emphasis>{{$.ServiceEntity.Long}} API Reference</emphasis>.
+            {{- end}}
+            </para>
+        {{- else}}
+        <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
+        {{- end}}
+        <para role="topiclist-abbrev">Examples</para>
+        {{- range $cat_examples.Examples}}
+        {{- $addSvc := ""}}
+        {{- if .AddService}}
+            {{- $addSvc = printf "_%s" .AddService}}
+        {{- end}}
+        <section id="example_{{.ExampleId}}_section" role="topic">
+            <info>
+                <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                <abstract>
+                    <para>{{.Title}}</para>
+                </abstract>
+            </info>
+            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_desc.xml"></xi:include>
+            <note buildtype="markdown">
+                <para>The source code for these examples is in the
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; Code Examples GitHub repository</ulink>.
+                    Have feedback on a code example?
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose">Create an Issue</ulink>
+                    in the code examples repo.
+                </para>
+            </note>
+            {{- if .GuideTopic.Url}}
+            <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+            {{- end}}
+            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
+            <para>For a complete list of &AWS; SDK developer guides and code examples, see
+                <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
+                This topic also includes information about getting started and details about previous SDK versions.</para>
+        </section>
+        {{- end}}
+    </section>
+    {{- end}}
+    {{- end}}
+{{- if .Bundle}}
+</section>
+{{- else}}
+</chapter>
+{{end}}

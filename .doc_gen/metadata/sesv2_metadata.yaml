@@ -1,0 +1,97 @@
+# zexi 0.4.0
+sesv2_CreateContactList:
+  title: Create an &SESv2; contact list using an &AWS; SDK
+  title_abbrev: Create a contact list
+  synopsis: create an &SESv2; contact list.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.rust.create-contact-list
+  services:
+    sesv2: {CreateContactList}
+sesv2_CreateContact:
+  title: Create an &SESv2; contact in a contact list using an &AWS; SDK
+  title_abbrev: Create a contact in a contact list
+  synopsis: create an &SESv2; contact in a contact list.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.rust.create-contact
+  services:
+    sesv2: {CreateContact}
+sesv2_GetEmailIdentity:
+  title: Get information about an &SESv2; identity using an &AWS; SDK
+  title_abbrev: Get identity information
+  synopsis: get &SESv2; identity information.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ses
+          excerpts:
+            - description: Determines whether an email address has been verified.
+              snippet_tags:
+                - ses.rust.is-email-verified
+  services:
+    sesv2: {GetEmailIdentity}
+sesv2_ListContactLists:
+  title: List the &SESv2; contact lists using an &AWS; SDK
+  title_abbrev: List the contact lists
+  synopsis: list the &SESv2; contact lists.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.rust.list-contact-lists
+  services:
+    sesv2: {ListContactLists}
+sesv2_ListContacts:
+  title: List the contacts in an &SESv2; contact list using an &AWS; SDK
+  title_abbrev: List the contacts in a contact list
+  synopsis: list the contacts in an &SESv2; contact list.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.rust.list-contacts
+  services:
+    sesv2: {ListContacts}
+sesv2_SendEmail:
+  title: Send an &SESv2; email using an &AWS; SDK
+  title_abbrev: Send an email
+  synopsis: send an &SESv2; email.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ses
+          excerpts:
+            - description: Sends a message to all members of the contact list.
+              snippet_tags:
+                - ses.rust.send-email
+  services:
+    sesv2: {SendEmail}

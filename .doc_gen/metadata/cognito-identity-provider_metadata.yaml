@@ -1,0 +1,17 @@
+# zexi 0.4.0
+cognito-identity-provider_ListUserPools:
+  title: List the &COGIDP; user pools using an &AWS; SDK
+  title_abbrev: List the user pools
+  synopsis: list the &COGIDP; user pools.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/cognitoidentityprovider
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognitoidentityprovider.rust.list-user-pools
+  services:
+    cognito-identity-provider: {ListUserPools}

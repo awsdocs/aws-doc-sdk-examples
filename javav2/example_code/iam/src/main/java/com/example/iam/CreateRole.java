@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,40 +12,44 @@
 
 package com.example.iam;
 
+// snippet-start:[iam.java2.create_role.import]
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import software.amazon.awssdk.services.iam.model.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.services.iam.model.CreateRoleRequest;
+import software.amazon.awssdk.services.iam.model.CreateRoleResponse;
+import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-
 import java.io.FileReader;
+// snippet-end:[iam.java2.create_role.import]
 
 /*
-*    This example requires a trust policy document. For more information, see:
-*    https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/
+*   This example requires a trust policy document. For more information, see:
+*   https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/
 *
 *
-* In addition, ensure that you have setup your development environment, including your credentials.
+*  In addition, set up your development environment, including your credentials.
 *
-* For information, see this documentation topic:
+*  For information, see this documentation topic:
 *
-* https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+*  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 
 public class CreateRole {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    CreateRole <rolename> <fileLocation> \n\n" +
+                "    <rolename> <fileLocation> \n\n" +
                 "Where:\n" +
-                "    rolename - the name of the role to create. \n\n" +
-                "    fileLocation - the location of the JSON document that represents the trust policy. \n\n" ;
+                "    rolename - The name of the role to create. \n\n" +
+                "    fileLocation - The location of the JSON document that represents the trust policy. \n\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -55,6 +58,7 @@ public class CreateRole {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String result = createIAMRole(iam, rolename, fileLocation) ;
@@ -62,12 +66,11 @@ public class CreateRole {
         iam.close();
     }
 
-    public static String createIAMRole(IamClient iam, String rolename, String fileLocation ) {
+    // snippet-start:[iam.java2.create_role.main]
+    public static String createIAMRole(IamClient iam, String rolename, String fileLocation ) throws Exception {
 
         try {
-
             JSONObject jsonObject = (JSONObject) readJsonSimpleDemo(fileLocation);
-
             CreateRoleRequest request = CreateRoleRequest.builder()
                     .roleName(rolename)
                     .assumeRolePolicyDocument(jsonObject.toJSONString())
@@ -80,8 +83,6 @@ public class CreateRole {
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return "";
     }
@@ -91,4 +92,5 @@ public class CreateRole {
         JSONParser jsonParser = new JSONParser();
         return jsonParser.parse(reader);
     }
+    // snippet-end:[iam.java2.create_role.main]
 }

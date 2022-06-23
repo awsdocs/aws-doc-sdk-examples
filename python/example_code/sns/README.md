@@ -5,21 +5,33 @@
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Notification Service
 (Amazon SNS).
 
-* Create a notification topic.
-* Subscribe phone numbers and emails to the topic.
-* Publish messages to the topic and receive them at your subscribed endpoints.
-* Add filtering attributes to a subscription.
+*Amazon SNS enables applications, end-users, and devices to instantly send and 
+receive notifications from the cloud.*
 
-## Prerequisites
+## Code examples
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.5 or later
-- Boto3 1.15.4 or later
-- PyTest 5.3.5 or later (to run unit tests)
+* [Creating a topic](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`create_topic`)
+* [Deleting a topic](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`delete_topic`)
+* [Listing subscriptions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`list_subscriptions`)
+* [Listing topics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`list_topics`)
+* [Publishing a message with custom attributes](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`publish_message_attributes`)
+* [Publishing a message that differs based on the protocol of the subscriber](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`publish_message_structure`)
+* [Publishing a text message to a phone number](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`publish_text_message`)
+* [Setting subscription attributes](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`set_subscription_attributes`)
+* [Subscribing an endpoint to a topic](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`subscribe`)
+* [Unsubscribing an endpoint from a topic](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/sns/sns_basics.py)
+(`unsubscribe`)
 
-## Cautions
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -33,6 +45,17 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Notification 
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.5 or later
+- Boto3 1.15.4 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
 
 Run this example at a command prompt with the following command.
 

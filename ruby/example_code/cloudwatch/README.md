@@ -1,23 +1,23 @@
 # AWS SDK for Ruby code examples for Amazon CloudWatch
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon CloudWatch.
 
-## Prerequisites
+Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes. 
+You no longer need to set up, manage, and scale your own monitoring systems and infrastructure.
 
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
-  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
-- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
-  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
-- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
-  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
+## Code examples
 
-## Cautions
+###  Usage examples
+- [Create an alarm and disable all actions for the alarm](./cw-ruby-example-alarm-actions.rb)
+- [List alarms, create a new alarm, and delete an alarm](./cw-ruby-example-alarm-basics.rb)
+- [Add a datapoint to a metric, and list all metrics for a namespace](./cw-ruby-example-metrics-basics.rb)
+
+### API examples
+- [Create an alarm](./cw-ruby-example-create-alarm.rb)
+- [Show alarms](./cw-ruby-example-show-alarms.rb)
+
+## Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -30,6 +30,19 @@ This folder contains code examples that demonstrate how to use the AWS SDK for R
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
+- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
+  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
+  *AWS SDK for Ruby Developer Guide*.
+- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
+  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
+- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
+- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
+  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
+  *AWS SDK for Ruby Developer Guide*.
 
 Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `cw-ruby-example-create-alarm.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 

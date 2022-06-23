@@ -4,8 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.running_instances.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Filter;
@@ -26,9 +26,9 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.running_instances.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -38,6 +38,7 @@ public class FindRunningInstances {
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         findRunningEC2Instances(ec2);
@@ -45,7 +46,6 @@ public class FindRunningInstances {
     }
 
    // snippet-start:[ec2.java2.running_instances.main]
-   // This method creates a Filter to find all running instances
    public static void findRunningEC2Instances(Ec2Client ec2) {
 
        try {
@@ -76,8 +76,7 @@ public class FindRunningInstances {
                             instance.instanceType(),
                             instance.state().name(),
                             instance.monitoring().state());
-                    System.out.println("");
-                }
+                    }
             }
             nextToken = response.nextToken();
 
@@ -87,6 +86,6 @@ public class FindRunningInstances {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
         }
-        // snippet-end:[ec2.java2.running_instances.main]
-    }
+      }
+    // snippet-end:[ec2.java2.running_instances.main]
 }

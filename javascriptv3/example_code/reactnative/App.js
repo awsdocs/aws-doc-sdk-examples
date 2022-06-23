@@ -15,9 +15,11 @@ Running the code:
 Refer to the topic in the AWS SDK for JavaScript Developer Guide (https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-react.html.
  */
 // snippet-start:[s3.JavaScript.react-native-example.codev3]
-import React, { useState } from "javascriptv3/example_code/reactnative/App";
+import React, { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
+import "react-native-get-random-values";
+import "react-native-url-polyfill/auto";
 import {
   S3Client,
   CreateBucketCommand,

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.glue;
 
 //snippet-start:[glue.java2.get_databases.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.Database;
@@ -23,9 +23,9 @@ import java.util.List;
 //snippet-end:[glue.java2.get_databases.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,6 +36,7 @@ public class GetDatabases {
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getAllDatabases(glueClient);
@@ -52,7 +53,6 @@ public class GetDatabases {
 
             GetDatabasesResponse response = glueClient.getDatabases(databasesRequest);
             List<Database> databases = response.databaseList();
-
             for (Database database: databases) {
                 System.out.println("The Database name is : "+database.name());
             }

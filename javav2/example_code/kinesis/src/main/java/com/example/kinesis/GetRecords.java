@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.kinesis;
 
 //snippet-start:[kinesis.java2.getrecord.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
@@ -29,11 +29,9 @@ import java.util.List;
 //snippet-end:[kinesis.java2.getrecord.import]
 
 /**
- * Demonstrates how to read data from a Amazon Kinesis Data Stream. Before running this Java code example, populate a Data Stream
- * by running the StockTradesWriter example. That example populates a Data Stream that you can then use for this example.
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -42,23 +40,22 @@ public class GetRecords {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    GetRecords <streamName>\n\n" +
+                "    <streamName>\n\n" +
                 "Where:\n" +
-                "    streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).\n\n" +
-                "Example:\n" +
-                "    GetRecords streamName\n";
+                "    streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).\n\n" ;
 
-        if (args.length != 1) {
-            System.out.println(USAGE);
+       if (args.length != 1) {
+            System.out.println(usage);
             System.exit(1);
-        }
+       }
 
         String streamName = args[0];
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getStockTrades(kinesisClient,streamName);
@@ -90,7 +87,7 @@ public class GetRecords {
             GetShardIteratorRequest itReq = GetShardIteratorRequest.builder()
                     .streamName(streamName)
                     .shardIteratorType("TRIM_HORIZON")
-                    .shardId(shards.get(0).shardId())
+                    .shardId(lastShardId)
                     .build();
 
             GetShardIteratorResponse shardIteratorResult = kinesisClient.getShardIterator(itReq);

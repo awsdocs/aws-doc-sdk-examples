@@ -38,8 +38,8 @@ describe '#list_regions_endpoints' do
               region_name: 'ap-northeast-1'
             },
             {
-              endpoint: 'ec2.us-east-1.amazonaws.com',
-              region_name: 'us-east-1'
+              endpoint: 'ec2.us-west-2.amazonaws.com',
+              region_name: 'us-west-2'
             },
             {
               endpoint: 'ec2.sa-east-1.amazonaws.com',
@@ -72,33 +72,33 @@ describe '#list_availability_zones' do
           availability_zones: [
             {
               messages: [],
-              region_name: 'us-east-1',
+              region_name: 'us-west-2',
               state: 'available',
-              zone_name: 'us-east-1a'
+              zone_name: 'us-west-2a'
             },
             {
               messages: [],
-              region_name: 'us-east-1',
+              region_name: 'us-west-2',
               state: 'available',
-              zone_name: 'us-east-1b'
+              zone_name: 'us-west-2b'
             },
             {
               messages: [],
-              region_name: 'us-east-1',
+              region_name: 'us-west-2',
               state: 'available',
-              zone_name: 'us-east-1c'
+              zone_name: 'us-west-2c'
             },
             {
               messages: [],
-              region_name: 'us-east-1',
+              region_name: 'us-west-2',
               state: 'available',
-              zone_name: 'us-east-1d',
+              zone_name: 'us-west-2d',
             },
             {
               messages: [],
-              region_name: 'us-east-1',
+              region_name: 'us-west-2',
               state: 'available',
-              zone_name: 'us-east-1e'
+              zone_name: 'us-west-2e'
             } 
           ]
         }

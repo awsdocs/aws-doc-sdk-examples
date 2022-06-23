@@ -13,39 +13,11 @@ import pytest
 from test_tools.stubber_factory import stubber_factory
 
 
-def pytest_addoption(parser):
-    """Add an option to run tests against an actual AWS account instead of
-    the Stubber."""
-    parser.addoption(
-        "--use-real-aws-may-incur-charges", action="store_true", default=False,
-        help="Connect to real AWS services while testing. **Warning: this might incur "
-             "charges on your account!**"
-    )
-
-
 def pytest_configure(config):
-    """Register the skip_if_real_aws marker with Pytest."""
     config.addinivalue_line(
-        "markers", "skip_if_real_aws: mark test to run only when stubbed."
+        "markers", "integ: integration test that requires and uses AWS resources. "
+                   "Use of this tag is likely to incur charges on your account."
     )
-
-
-def pytest_runtest_setup(item):
-    """Handle the custom marker skip_if_real_aws, which skips a test when it is
-    run against actual AWS services."""
-    skip_if_real_aws = 'skip_if_real_aws' in [m.name for m in item.iter_markers()]
-    if skip_if_real_aws:
-        if item.config.getoption("--use-real-aws-may-incur-charges"):
-            pytest.skip("When run with actual AWS services instead of stub functions, "
-                        "this test will fail because it uses test data. To run this "
-                        "test with AWS services, you must first substitute actual "
-                        "data, such as user IDs, for test data.")
-
-
-@pytest.fixture(name="use_real_aws")
-def fixture_use_real_aws(request):
-    """Indicates whether the 'use_real_aws' option is on or off."""
-    return request.config.getoption("--use-real-aws-may-incur-charges")
 
 
 @pytest.fixture(name='make_stubber')
@@ -74,17 +46,13 @@ def fixture_make_stubber(request, monkeypatch):
         :return: The stubber object, configured either for actual AWS or for stubbing.
         """
         fact = stubber_factory(service_client.meta.service_model.service_name)
-        stubber = fact(
-            service_client,
-            not request.config.getoption("--use-real-aws-may-incur-charges")
-        )
+        stubber = fact(service_client)
 
-        if stubber.use_stubs:
-            def fin():
-                stubber.assert_no_pending_responses()
-                stubber.deactivate()
-            request.addfinalizer(fin)
-            stubber.activate()
+        def fin():
+            stubber.assert_no_pending_responses()
+            stubber.deactivate()
+        request.addfinalizer(fin)
+        stubber.activate()
 
         return stubber
 
@@ -161,7 +129,9 @@ class StubRunner:
         self.error_code = error_code
         self.stop_on_method = stop_on_method
 
-    def add(self, func, *func_args, keep_going=False, **func_kwargs):
+    def add(
+            self, func, *func_args, keep_going=False, raise_and_continue=False,
+            **func_kwargs):
         """
         Adds a stubbed function response to the list.
 
@@ -174,6 +144,7 @@ class StubRunner:
         """
         self.stubs.append({
             'func': func, 'keep_going': keep_going,
+            'raise_and_continue': raise_and_continue,
             'func_args': func_args, 'func_kwargs': func_kwargs
         })
 
@@ -190,7 +161,8 @@ class StubRunner:
             if self.stop_on_method == stub['func'].__name__ and not stub['keep_going']:
                 stub['func_kwargs']['error_code'] = self.error_code
             stub['func'](*stub['func_args'], **stub['func_kwargs'])
-            if self.stop_on_method == stub['func'].__name__ and not stub['keep_going']:
+            if (self.stop_on_method == stub['func'].__name__ and not stub['keep_going']
+                    and not stub['raise_and_continue']):
                 break
 
 

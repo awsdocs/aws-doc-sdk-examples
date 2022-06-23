@@ -1,15 +1,17 @@
-# TypeScript environment for Amazon Redshift examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon Redshift examples. 
-
-The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html) contains these examples.
-
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-redshift/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Redshift client module.
-
+# Amazon Redshift JavaScript SDK v3 code examples
 Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. You can start with just a few hundred gigabytes of data and scale to a petabyte or more. This enables you to use your data to acquire new insights for your business and customers.
- 
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
+
+## Code examples
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Redshift examples. 
+
+- [Create Redshift cluster](src/redshift-create-cluster.js)
+- [Delete a Redshift cluster](src/redshift-delete-cluster.js)
+- [Describe Redshift clusters](src/redshift-describe-clusters.js)
+- [Modify Redshift clusters](src/redshift-modify-cluster.js)
+
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
+
 
 # Getting started
 
@@ -21,17 +23,22 @@ Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the
 which is *@aws-sdk/client-redshift-node*.
 
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/redshift
 npm install
 ```
-3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
-4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
+3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
-5. Run sample code:
+4. Run sample code:
 ```
 cd src
-ts-node [example name].ts // e.g., ts-node redshift-create-cluster.ts
+node [example name].js // For example, node redshift-create-cluster.js
 ```
 
+## Resources
+- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)  
+- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html) 
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-redshift/index.html)
+
+ 

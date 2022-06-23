@@ -1,7 +1,0 @@
----
-# Amazon messaging app cross-service example
-files:
-  - path: ./js/index.ts
-    services:
-      - SQS
-...

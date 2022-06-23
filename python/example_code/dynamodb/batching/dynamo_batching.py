@@ -12,6 +12,7 @@ of the Amazon DynamoDB batch writing API on your behalf. This includes buffering
 removing duplicates, and retrying unprocessed items.
 """
 
+# snippet-start:[python.example_code.dynamodb.Batching_imports]
 import decimal
 import json
 import logging
@@ -25,6 +26,8 @@ logger = logging.getLogger(__name__)
 dynamodb = boto3.resource('dynamodb')
 
 MAX_GET_SIZE = 100  # Amazon DynamoDB rejects a get batch larger than 100 items.
+
+# snippet-end:[python.example_code.dynamodb.Batching_imports]
 
 
 def create_table(table_name, schema):
@@ -56,6 +59,7 @@ def create_table(table_name, schema):
         return table
 
 
+# snippet-start:[python.example_code.dynamodb.BatchGetItem]
 def do_batch_get(batch_keys):
     """
     Gets a batch of items from Amazon DynamoDB. Batches can contain keys from
@@ -97,8 +101,10 @@ def do_batch_get(batch_keys):
             break
 
     return retrieved
+# snippet-end:[python.example_code.dynamodb.BatchGetItem]
 
 
+# snippet-start:[python.example_code.dynamodb.PutItem_BatchWriter]
 def fill_table(table, table_data):
     """
     Fills an Amazon DynamoDB table with the specified data, using the Boto3
@@ -121,8 +127,10 @@ def fill_table(table, table_data):
     except ClientError:
         logger.exception("Couldn't load data into table %s.", table.name)
         raise
+# snippet-end:[python.example_code.dynamodb.PutItem_BatchWriter]
 
 
+# snippet-start:[python.example_code.dynamodb.BatchGetItem_CallBatchGet]
 def get_batch_data(movie_table, movie_list, actor_table, actor_list):
     """
     Gets data from the specified movie and actor tables. Data is retrieved in batches.
@@ -152,8 +160,10 @@ def get_batch_data(movie_table, movie_list, actor_table, actor_list):
         raise
     else:
         return retrieved
+# snippet-end:[python.example_code.dynamodb.BatchGetItem_CallBatchGet]
 
 
+# snippet-start:[python.example_code.dynamodb.Usage_ArchiveMovies]
 def archive_movies(movie_table, movie_data):
     """
     Archives a list of movies to a newly created archive table and then deletes the
@@ -232,8 +242,10 @@ def archive_movies(movie_table, movie_data):
         raise
 
     return archive_table
+# snippet-end:[python.example_code.dynamodb.Usage_ArchiveMovies]
 
 
+# snippet-start:[python.example_code.dynamodb.Usage_BatchFunctions]
 def usage_demo():
     """
     Shows how to use the Amazon DynamoDB batch functions.
@@ -324,6 +336,7 @@ def usage_demo():
     actor_table.delete()
     print(f"Deleted {movie_table.name}, {archive_table.name}, and {actor_table.name}.")
     print("Thanks for watching!")
+# snippet-end:[python.example_code.dynamodb.Usage_BatchFunctions]
 
 
 if __name__ == '__main__':

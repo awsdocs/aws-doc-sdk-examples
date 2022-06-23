@@ -1,25 +1,26 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-using Amazon;
-using System;
-using System.Threading.Tasks;
-
 namespace SNSMessageExample
 {
-    class SNSMessageExample
+    using System;
+    using System.Threading.Tasks;
+    using Amazon;
+
+    /// <summary>
+    /// This example sends an SMS message using Amazon Simple Notification
+    /// Service (Amazon SNS).
+    /// </summary>
+    public class SNSMessageExample
     {
-        /// <summary>
-        /// This example sends an SMS message using Amazon Simple Notification
-        /// Service (Amazon SNS).
-        /// </summary>
+        // snippet-start:[SNS.dotnetv3.SendTextMessage]
 
         // Change the endpoint to match your own AWS Region. This is only an example endpoint.
-        private static readonly RegionEndpoint _regionEndpoint = RegionEndpoint.USWest2;
+        private static readonly RegionEndpoint RegionEndpoint = RegionEndpoint.USWest2;
 
-        static async Task Main()
+        public static async Task Main()
         {
-            var snsMessage = new SNSMessage(_regionEndpoint);
+            var snsMessage = new SNSMessage(RegionEndpoint);
 
             string phoneNumber = "1xxxyyyzzzz";
             string message = "This is a test message.";
@@ -27,5 +28,7 @@ namespace SNSMessageExample
             Console.Write($"Sending: \"{message}\" to {phoneNumber}.");
             await snsMessage.SendTextMessageAsync(phoneNumber, message);
         }
+
+        // snippet-end:[SNS.dotnetv3.SendTextMessage]
     }
 }

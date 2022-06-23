@@ -81,10 +81,14 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String bucket_name = "my-bucket";
+        //TODO: Change bucket_name to the name of a bucket in your account.
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
+        //TODO: Set to the AWS Region in which the bucket was created.
+        const Aws::String region = "us-east-1";
+        //TODO: Create these two files to serve as your website
         const Aws::String index_page = "index.html";
         const Aws::String error_page = "404.html";
-        const Aws::String region = "us-east-1";
+
 
         if (!AwsDoc::S3::PutWebsiteConfig(bucket_name, index_page, error_page, region))
         {

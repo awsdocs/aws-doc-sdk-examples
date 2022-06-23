@@ -29,7 +29,7 @@ def scan_for_items_from_table(dynamodb_client, scan_condition)
         puts "#{movie["title"]} (#{movie["year"].to_i}), " \
           "Rating: #{movie["info"]["rating"].to_f}"
       end
-        
+
       break if result.last_evaluated_key.nil?
 
       puts "Searching for more movies..."
@@ -44,6 +44,7 @@ rescue StandardError => e
 end
 
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Movies'
   start_year = 1950
@@ -57,7 +58,7 @@ def run_me
   )
 
   dynamodb_client = Aws::DynamoDB::Client.new
-      
+
   scan_condition = {
     table_name: table_name,
     projection_expression: '#yr, title, info.rating',
@@ -72,7 +73,7 @@ def run_me
   puts "Searching for items in the '#{table_name}' table from #{start_year} " \
     "through #{end_year}..."
 
-  scan_for_items_from_table(dynamodb_client, scan_condition)  
+  scan_for_items_from_table(dynamodb_client, scan_condition)
 end
 
 run_me if $PROGRAM_NAME == __FILE__

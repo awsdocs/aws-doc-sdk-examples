@@ -26,26 +26,26 @@
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/emc-examples-getendpoint.html
 
 // snippet-start:[mediaconvert.JavaScript.endoint.describeEndpoints]
-// Load the SDK for JavaScript
-var AWS = require('aws-sdk');
-// Set the Region
-AWS.config.update({region: 'us-west-2'});
+// Load the SDK for JavaScript.
+const aws = require('aws-sdk');
 
-// Create empty request parameters
-var params = {
-  MaxResults: 0,
-};
+// Set the AWS Region.
+aws.config.update({region: 'us-west-2'});
 
-// Create a promise on a MediaConvert object
-var endpointPromise = new AWS.MediaConvert({apiVersion: '2017-08-29'}).describeEndpoints(params).promise();
+// Create the client.
+const mediaConvert = new aws.MediaConvert({apiVersion: '2017-08-29'});
 
+exports.handler = async (event, context) => {
+  // Create empty request parameters
+  const params = {
+    MaxResults: 0,
+  };
 
-endpointPromise.then(
-  function(data) {
-    console.log("Your MediaConvert endpoint is ", data.Endpoints);
-  },
-  function(err) {
-    console.log("Error", err);
+  try {
+    const { Endpoints } = await mediaConvert.describeEndpoints(params).promise();
+    console.log("Your MediaConvert endpoint is ", Endpoints);
+  } catch (err) {
+    console.log("MediaConvert Error", err);
   }
-);
+}
 // snippet-end:[mediaconvert.JavaScript.endoint.describeEndpoints]

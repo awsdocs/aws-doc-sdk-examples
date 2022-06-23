@@ -3,66 +3,68 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+
 package com.example.cognito;
 //snippet-start:[cognito.java2.ListUsers.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersResponse;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.UserType;
 //snippet-end:[cognito.java2.ListUsers.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListUsers {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <userPoolId> \n\n" +
                 "Where:\n" +
-                "    userPoolId - the ID given to your user pool when it's created.\n\n" ;
+                "    userPoolId - The ID given to your user pool when it's created.\n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String userPoolId = args[0];
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        listAllUsers(cognitoclient, userPoolId );
-        cognitoclient.close();
+        listAllUsers(cognitoClient, userPoolId );
+        listUsersFilter(cognitoClient, userPoolId );
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.ListUsers.main]
-    // Shows how to list all users in the given user pool.
-    public static void listAllUsers(CognitoIdentityProviderClient cognitoclient, String userPoolId ) {
+    public static void listAllUsers(CognitoIdentityProviderClient cognitoClient, String userPoolId ) {
 
         try {
-            // List all users
             ListUsersRequest usersRequest = ListUsersRequest.builder()
                     .userPoolId(userPoolId)
                     .build();
 
-            ListUsersResponse response = cognitoclient.listUsers(usersRequest);
-            for(UserType user : response.users()) {
-                System.out.println("User " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
-            }
+            ListUsersResponse response = cognitoClient.listUsers(usersRequest);
+            response.users().forEach(user -> {
+                        System.out.println("User " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
+                    }
+            );
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -71,26 +73,25 @@ public class ListUsers {
     }
 
     // Shows how to list users by using a filter.
-    public static void listUsersFilter(CognitoIdentityProviderClient cognitoclient, String userPoolId ) {
+    public static void listUsersFilter(CognitoIdentityProviderClient cognitoClient, String userPoolId ) {
 
         try {
-            // List only users with specific email.
             String filter = "email = \"tblue@noserver.com\"";
-
             ListUsersRequest usersRequest = ListUsersRequest.builder()
                     .userPoolId(userPoolId)
                     .filter(filter)
                     .build();
 
-            ListUsersResponse response = cognitoclient.listUsers(usersRequest);
-            for(UserType user : response.users()) {
-                System.out.println("User with filter applied " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
-            }
+            ListUsersResponse response = cognitoClient.listUsers(usersRequest);
+            response.users().forEach(user -> {
+                        System.out.println("User with filter applied " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
+                    }
+            );
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.ListUsers.main]
     }
+    //snippet-end:[cognito.java2.ListUsers.main]
 }

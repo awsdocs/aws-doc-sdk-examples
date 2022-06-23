@@ -1,0 +1,33 @@
+# zexi 0.4.0
+ssm_DescribeParameters:
+  title: Get information about &SYS; parameters using an &AWS; SDK
+  title_abbrev: Get parameters information
+  synopsis: get &SYS; parameters information.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.rust.describe-parameters
+  services:
+    ssm: {DescribeParameters}
+ssm_PutParameter:
+  title: Add a &SYS; parameter using an &AWS; SDK
+  title_abbrev: Add a parameter
+  synopsis: add a &SYS; parameter.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.rust.create-parameter
+  services:
+    ssm: {PutParameter}

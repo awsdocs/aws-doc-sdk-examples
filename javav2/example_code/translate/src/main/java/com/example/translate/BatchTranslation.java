@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.translate;
 
 // snippet-start:[translate.java2._batch.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import software.amazon.awssdk.services.translate.model.StartTextTranslationJobRequest;
@@ -26,9 +26,9 @@ import software.amazon.awssdk.services.translate.model.TranslateException;
 // snippet-end:[translate.java2._batch.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -38,17 +38,17 @@ public class BatchTranslation {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    BatchTranslation <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn> \n\n" +
+                "    <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn> \n\n" +
                 "Where:\n" +
-                "    s3Uri - the URI of the Amazon S3 bucket where the documents to translate are located. \n" +
-                "    s3UriOut - the URI of the Amazon S3 bucket where the translated documents are saved to.  \n" +
-                "    jobName - the job name. \n" +
-                "    dataAccessRoleArn - the Amazon Resource Name (ARN) value of the role required for translation jobs.\n";
+                "    s3Uri - The URI of the Amazon S3 bucket where the documents to translate are located. \n" +
+                "    s3UriOut - The URI of the Amazon S3 bucket where the translated documents are saved to.  \n" +
+                "    jobName - The job name. \n" +
+                "    dataAccessRoleArn - The Amazon Resource Name (ARN) value of the role required for translation jobs.\n";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -60,6 +60,7 @@ public class BatchTranslation {
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String id = translateDocuments(translateClient, s3Uri, s3UriOut, jobName, dataAccessRoleArn);
@@ -126,6 +127,6 @@ public class BatchTranslation {
         System.exit(1);
     }
      return "";
-        // snippet-end:[translate.java2._batch.main]
   }
+    // snippet-end:[translate.java2._batch.main]
 }

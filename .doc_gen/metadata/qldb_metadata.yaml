@@ -1,0 +1,33 @@
+# zexi 0.4.0
+qldb_CreateLedger:
+  title: Create a &QLDB; ledger using an &AWS; SDK
+  title_abbrev: Create a ledger
+  synopsis: create a &QLDB; ledger.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/qldb
+          excerpts:
+            - description:
+              snippet_tags:
+                - qldb.rust.create-ledger
+  services:
+    qldb: {CreateLedger}
+qldb_ListLedgers:
+  title: List your &QLDB; ledgers using an &AWS; SDK
+  title_abbrev: List your ledgers
+  synopsis: list your &QLDB; ledgers.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/qldb
+          excerpts:
+            - description:
+              snippet_tags:
+                - qldb.rust.list-ledgers
+  services:
+    qldb: {ListLedgers}

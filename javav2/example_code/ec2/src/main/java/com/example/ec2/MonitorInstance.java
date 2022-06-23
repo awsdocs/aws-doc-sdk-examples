@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.monitor_instance.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.MonitorInstancesRequest;
@@ -21,9 +21,9 @@ import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
 // snippet-end:[ec2.java2.monitor_instance.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,24 +31,25 @@ public class MonitorInstance {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "MonitorInstance <instanceId> <monitor>\n\n" +
+                "   <instanceId> <monitor>\n\n" +
                 "Where:\n" +
-                "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" +
-                "    monitor - a monitoring status (true|false)";
+                "   instanceId - An instance id value that you can obtain from the AWS Management Console. \n\n" +
+                "   monitor - A monitoring status (true|false)";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String instanceId = args[0];
         boolean monitor = Boolean.valueOf(args[1]);
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         if (monitor) {
@@ -59,29 +60,25 @@ public class MonitorInstance {
         ec2.close();
     }
 
+    // snippet-start:[ec2.java2.monitor_instance.main]
     public static void monitorInstance( Ec2Client ec2, String instanceId) {
-        // snippet-start:[ec2.java2.monitor_instance.main]
+
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
                 .instanceIds(instanceId).build();
 
         ec2.monitorInstances(request);
-
-        // snippet-end:[ec2.java2.monitor_instance.main]
-        System.out.printf(
-                "Successfully enabled monitoring for instance %s",
-                instanceId);
+        System.out.printf("Successfully enabled monitoring for instance %s", instanceId);
     }
+    // snippet-end:[ec2.java2.monitor_instance.main]
 
+    // snippet-start:[ec2.java2.monitor_instance.stop]
     public static void unmonitorInstance(Ec2Client ec2, String instanceId) {
-        // snippet-start:[ec2.java2.monitor_instance.stop]
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
                 .instanceIds(instanceId).build();
 
         ec2.unmonitorInstances(request);
-        // snippet-end:[ec2.java2.monitor_instance.stop]
-        System.out.printf(
-                "Successfully disabled monitoring for instance %s",
-                instanceId);
-    }
 
+        System.out.printf("Successfully disabled monitoring for instance %s", instanceId);
+    }
+    // snippet-end:[ec2.java2.monitor_instance.stop]
 }

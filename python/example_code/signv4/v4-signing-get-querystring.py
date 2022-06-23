@@ -22,7 +22,7 @@
 # See: http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html
 # This version makes a GET request and passes request parameters
 # and authorization information in the query string
-import sys, os, base64, datetime, hashlib, hmac, urllib
+import sys, os, datetime, hashlib, hmac, urllib.parse
 import requests # pip install requests
 
 # ************* REQUEST VALUES *************
@@ -88,10 +88,9 @@ credential_scope = datestamp + '/' + region + '/' + service + '/' + 'aws4_reques
 # Step 4: Create the canonical query string. In this example, request
 # parameters are in the query string. Query string values must
 # be URL-encoded (space=%20). The parameters must be sorted by name.
-# use urllib.parse.quote_plus() if using Python 3
 canonical_querystring = 'Action=CreateUser&UserName=NewUser&Version=2010-05-08'
 canonical_querystring += '&X-Amz-Algorithm=AWS4-HMAC-SHA256'
-canonical_querystring += '&X-Amz-Credential=' + urllib.quote_plus(access_key + '/' + credential_scope)
+canonical_querystring += '&X-Amz-Credential=' + urllib.parse.quote_plus(access_key + '/' + credential_scope)
 canonical_querystring += '&X-Amz-Date=' + amz_date
 canonical_querystring += '&X-Amz-Expires=30'
 canonical_querystring += '&X-Amz-SignedHeaders=' + signed_headers

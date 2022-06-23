@@ -7,28 +7,18 @@
   "author": "brmur",
   "license": "Apache 2.0",
   "scripts": {
-    "build-lambda-1": "webpack getid.ts --mode development --libraryTarget commonjs2 --target node --devtool false -o index.js",
-    "build-lambda-2": "webpack additem.js --mode development --libraryTarget commonjs2 --target node --devtool false -o index.js",
-    "build-lambda-3": "webpack sendemail.js --mode development --libraryTarget commonjs2 --target node --devtool false -o index.js",
-    "test": "exit 0",
-    "dev": "parcel sendemail.ts",
-    "build": "parcel build index.js"
-  },
-  "resolutions": {
-    "@babel/preset-env": "7.13.8"
+    "build-lambda-1": "webpack getid.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build-lambda-2": "webpack additem.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build-lambda-3": "webpack sendemail.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build-cdk": "aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM",
+    "test": "exit 0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.3.0",
-    "@aws-sdk/client-lambda": "^3.3.0",
-    "@aws-sdk/client-ses": "^3.7.0",
+    "@aws-sdk/client-dynamodb": "^3.32.0",
+    "@aws-sdk/client-ses": "^3.7.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.23",
-    "parcel": "1.12.3",
-    "path-browserify": "^1.0.1",
-    "rollup": "^1.10.0",
-    "typescript": "^4.0.2",
-    "webpack": "4.0",
+    "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11"
   }
 }

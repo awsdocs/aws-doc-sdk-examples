@@ -5,7 +5,7 @@ require_relative '../sqs-ruby-example-get-messages'
 
 describe '#receive_messages' do
   let(:queue_name) { 'my-queue' }
-  let(:queue_url) { 'https://sqs.us-east-1.amazonaws.com/111111111111/' + queue_name }
+  let(:queue_url) { 'https://sqs.us-west-2.amazonaws.com/111111111111/' + queue_name }
   let(:max_number_of_messages) { 10 }
   let(:sqs_client) do
     Aws::SQS::Client.new(

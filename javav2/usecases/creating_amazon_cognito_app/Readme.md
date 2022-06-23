@@ -1,5 +1,6 @@
 # Using Amazon Cognito to require a user to log into a web application
 
+## Purpose
 Amazon Cognito lets you add user sign-up, sign-in, and access control to your web applications. Amazon Cognito scales to millions of users and supports sign-in with social identity providers, such as Facebook, Google, and enterprise identity providers such as OAuth2. In this tutorial, OAuth2 and Amazon Cognito are used to protect a web application. This means a user has to log into the application by using the credentials of a user defined in an Amazon Cognito User Pool. For example, when a user accesses a web application, they see a web page that lets anonymous users view a log in page, as shown in the following illustration.   
 
 ![AWS Tracking Application](images/pic1a.png)
@@ -12,27 +13,13 @@ After the user enters their credentials, they can access the web application.
 
 ![AWS Tracking Application](images/pic3.png)
 
-**Note**: The Spring Boot application used in this tutorial is created by following [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project). Before following along with this tutorial, you must complete that tutorial. 
-
-The following illustration shows the project files created in this tutorial (most of these files were created by following the tutorial referenced in the previous link). The files circled in red are the new files specific to this tutorial. 
+The following illustration shows the project files created in this tutorial (most of these files were created by following the tutorial referenced in the **Creating the resources** section). The files circled in red are the new files specific to this tutorial. 
 
 ![AWS Tracking Application](images/pic4.png)
 
-## Prerequisites
-
-To complete the tutorial, you need the following:
-
-+ An AWS account
-+ A Java IDE (this example uses IntelliJ)
-+ Java 1.8 SDK and Maven
-+ Complete the Creating your first AWS Java web application tutorial. 
-
-**Cost to complete:** The AWS services you'll use in this example are part of the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** When you're done developing the application, be sure to delete all of the resources you created to ensure that you're not charged.
-
 **Topics**
 
++ Prerequisites
 + Update the POM file
 + Create an Amazon Cognito User Pool
 + Define a client application within the User Pool
@@ -41,10 +28,33 @@ To complete the tutorial, you need the following:
 + Create a user
 + Modify your web application
 
+
+## Prerequisites
+
+To complete the tutorial, you need the following:
+
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Maven 3.6 or later+ 
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Complete the **Creating your first AWS Java web application** tutorial. For information, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
+
+
 ## Update the POM file
 
 The first step in this tutorial is to update the POM file in your project to ensure you have the required dependencies (this is the project you created by following the Creating your first AWS Java web application tutorial). Ensure your project has the following POM dependencies. 
 
+```xml
       <?xml version="1.0" encoding="UTF-8"?>
       <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -118,73 +128,69 @@ The first step in this tutorial is to update the POM file in your project to ens
         </plugins>
        </build>
      </project>
+```
 
-
-## Create an Amazon Cognito User Pool
+## Create an Amazon Cognito user pool and app client
 
 Create a User Pool in the AWS Management Console named **spring-example**. Once the User Pool is successfully created, you see a confirmation message.
 
-![AWS Tracking Application](images/pic5.png)
+![AWS Tracking Application](images/pic5-updated.png)
 
 1. Open the Amazon Cognito console at https://console.aws.amazon.com/cognito/home.
 
-2. Choose the **Manage User Pools** button. 
+2. Choose **User Pools** from the left navigation pane. 
 
-3. Choose the **Create a user pool** button.
+3. Choose the **Create user pool** button and provide your preferred settings through the wizard.
 
-4. In the **Pool name** field, enter **spring-example**. 
+4. In the **User pool name** field, enter **spring-example**. 
 
-5. Choose **Review Defaults**.
+5. In the **App client name** field, enter **spring-boot**.
 
-6. Choose **Create Pool**. 
+![AWS Tracking Application](images/pic7-updated.png)
 
-## Define a client application within the User Pool
+6. Choose **Next**, review your choices, then choose **Create user pool**. 
 
-Define the client application that can use the User Pool. 
+## Configure the app client
 
-1. Choose **App clients** from the menu on the left side. 
+You must configure the app client. For example, you need to define the allowed OAuth scope values, as shown in this illustration.
 
-![AWS Tracking Application](images/pic6.png)
+![AWS Tracking Application](images/pic8-updated.png)
 
-2. Choose **Add an app client**.
+1. Choose your **spring-example** user pool from the **User pools** page. 
 
-3. Specify a name for the client application. For example, **spring-boot**.
+2. Choose the **App integration** tab.
 
-![AWS Tracking Application](images/pic7.png)
+3. Choose your **spring-boot** app client under **App clients and analytics**.
 
-4. Choose **Create client app**.
+4. Under **Hosted UI**, choose **Edit**.
 
-5. Write down the generated App client id and App client secret values (you need these values for a later step in this tutorial).
+![AWS Tracking Application](images/pic6a-updated.png)
 
-## Configure the client application
+5. Add an **Allowed callback URL**. For example, with Spring Security, you can define the path as *http://localhost:8080/login/oauth2/code/cognito*. For local development, the localhost URL is all that is required. 
 
-You must configure the client application. For example, you need to define the allowed OAuth scope values, as shown in this illustration.
+**Note**: For production applications, you can choose **Add another URL** to enter additional production callback URLs.
 
-![AWS Tracking Application](images/pic8.png)
+6. For the **Allowed sign-out URLs**, add *http://localhost:8080/logout*. 
 
-1. Choose **App client settings** from the menu on the left side. 
+7. Add **Authorization code grant** to **OAuth 2.0 grant types**.
 
-![AWS Tracking Application](images/pic6a.png)
+8. Add **email** and **openid** to **OpenID Connect scopes**.
 
-2. Specify the correct callback URL. For example, with Spring Security, you can define the path as http://localhost:8080/login/oauth2/code/cognito. For local development, the localhost URL is all that is required. 
-
-**Note**: For production applications, you can enter multiple production URLs as a comma-separated list.
-
-3. For the **Sign out URL**, specify http://localhost:8080/logout. 
-
-4. Select **Authorization code grant** and allow **email** and **openid** scope (shown in the previous illustration).
-
-5. Choose **Save Changes**. 
+9. Choose **Save Changes**. 
 
 ## Configure a domain name
 
 In order for a Spring Boot application to use the log in form that is provided by Amazon Cognito, define a domain name in the AWS Management Console. 
 
-1. Choose **Domain name** from the menu on the left side. 
+1. Choose your **spring-example** user pool from the **User pools** page. 
 
-![AWS Tracking Application](images/pic9.png)
+2. Choose the **App integration** tab. 
 
-2. Enter a domain name. Be sure to choose the **Check availability** button to see if your value is valid.
+3. Next to **Domain**, choose **Actions**, then **Create Cognito domain**.
+
+![AWS Tracking Application](images/pic9-updated.png)
+
+2. Enter a domain name.
 
 3. Choose **Save Changes**. 
 
@@ -192,23 +198,24 @@ In order for a Spring Boot application to use the log in form that is provided b
 
 Create a user that you can use to log into the application. In this example, the user has a user name and a password. 
 
-1. Choose **Users and groups** from the menu on the left side. 
-
-![AWS Tracking Application](images/pic10.png)
+1. Choose the **Users** tab. 
 
 2. Choose **Create User**.
 
-3. In the Create user dialog, enter the user name and other information. 
+![AWS Tracking Application](images/pic10-updated.png)
 
-![AWS Tracking Application](images/pic11.png)
+3. In the **Create user** dialog, enter the user name and any additional information you want to provide. Choose **Mark email address as verified**. 
 
-**Note**: The user has a temporary password that should be changed to a regular password before logging into an application.
+![AWS Tracking Application](images/pic11-updated.png)
 
 4. Choose **Create user**.
 
-After the user is confirmed, you see the valid users, as shown in this illustration.
+5. Set the user's password permanently with the following CLI command:
+aws cognito-idp admin-set-user-password --user-pool-id us-east-1_EXAMPLE --username UserFoo --password abc123EXAMPLEpassword! --permanent
 
-![AWS Tracking Application](images/pic12.png)
+6. Review the **Users** tab. Ensure that your new user is verified and confirmed.
+
+![AWS Tracking Application](images/pic12-updated.png)
 
 At this point, you need the following values to proceed: client id, client secret, pool id value, and the AWS region you are using. Without all of these values, you cannot use Amazon Cognito to require a user to log into your web application. 
 
@@ -220,6 +227,7 @@ If you do not have a web project, create one by following [Creating your first A
 
 Add the **WebSecurityConfig** class to the **com.example.handlingformsubmission** package. This file ensures that the application rerquires a user to log into it. The following Java code represents this class. 
 
+```java
      package com.example.handlingformsubmission;
 
     import org.springframework.context.annotation.Configuration;
@@ -243,6 +251,7 @@ Add the **WebSecurityConfig** class to the **com.example.handlingformsubmission*
                 .logoutSuccessUrl("/");
       }
     }
+```
 
 ### Add an application YML file to your project
 
@@ -267,6 +276,7 @@ Under your project’s resource folder, add a new file named **application.yml**
  
 The final step in the AWS tutorial is to modify the **greeting.html** file located under resources/templates folder. You have to add logic to inform the application what content is available for anonymous users and what content can be viewed by authenticated users. Add the following code to the **greeting.html** file. 
 
+```html
      <!DOCTYPE HTML>
      <html lang="en"
        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -318,6 +328,7 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
      </div>
      </body>
     </html>
+```
 
 ### Next steps
 Congratulations, you have required a user to log into a web application by using Amazon Cognito. As stated at the beginning of this tutorial, be sure to delete all of the resources you created while going through this tutorial to ensure that you’re not charged.

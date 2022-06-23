@@ -1,28 +1,16 @@
- 
 //snippet-sourcedescription:[update_item.cpp demonstrates how to update an item in an Amazon DynamoDB table.]
-//snippet-service:[dynamodb]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[AWS SDK for C++]
 //snippet-keyword:[Code Sample]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05-24-2019]
-//snippet-sourceauthor:[AWS]
-
+//snippet-sourcedate:[11/30/2021]
+//snippet-sourceauthor:[scmacdon - aws]
 
 /*
-Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-This file is licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of
-the License is located at
-
-http://aws.amazon.com/apache2.0/
-
-This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+
 //snippet-start:[dynamodb.cpp.update_item.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
@@ -33,20 +21,23 @@ specific language governing permissions and limitations under the License.
 //snippet-end:[dynamodb.cpp.update_item.inc]
 
 
-/**
- * Update a DynamoDB table item
- *
- * Accepts the table name, the key value to update, the attribute name
- * to update, and the new attribute value. If an attribute of the specified
- * name does not exist, it is added to the key value.
- *
- * The specified table must have a key called "Name".
- * 
- * The example code only sets/updates an attribute value. It processes
- * the attribute value as a string, even if the value could be interpreted 
- * as a number. Also, the example code does not remove an existing attribute
- * from the key value. Adding support for number values or removal of an
- * attribute would require simple modifications that should be self-evident.
+/*
+   Update a DynamoDB table item
+ 
+   Accepts the table name, the key value to update, the attribute name
+   to update, and the new attribute value. If an attribute of the specified
+   name does not exist, it is added to the key value.
+ 
+  The specified table must have a key called "id".
+ 
+  The example code only sets/updates an attribute value. It processes
+  the attribute value as a string, even if the value could be interpreted
+  as a number. Also, the example code does not remove an existing attribute
+  from the key value. 
+  
+   To run this C++ code example, ensure that you have setup your development environment, including your credentials.
+   For information, see this documentation topic:
+   https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  */
 int main(int argc, char** argv)
 {
@@ -70,31 +61,31 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String tableName(argv[1]);
-        const Aws::String keyValue(argv[2]);
-        const Aws::String attributeNameAndValue(argv[3]);
+        const Aws::String tableName = (argv[1]);
+        const Aws::String keyValue =  (argv[2]);
+        const Aws::String attributeNameAndValue = (argv[3]);
 
         // snippet-start:[dynamodb.cpp.update_item.code]
         Aws::Client::ClientConfiguration clientConfig;
         Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
         // *** Define UpdateItem request arguments
-        // Define TableName argument
+        // Define TableName argument.
         Aws::DynamoDB::Model::UpdateItemRequest request;
         request.SetTableName(tableName);
 
-        // Define KeyName argument
+        // Define KeyName argument.
         Aws::DynamoDB::Model::AttributeValue attribValue;
         attribValue.SetS(keyValue);
-        request.AddKey("Name", attribValue);
+        request.AddKey("id", attribValue);
 
-        // Construct the SET update expression argument
+        // Construct the SET update expression argument.
         Aws::String update_expression("SET #a = :valueA");
         request.SetUpdateExpression(update_expression);
 
-        // Parse the attribute name and value. Syntax: "name=value"
+        // Parse the attribute name and value. Syntax: "name=value".
         auto parsed = Aws::Utils::StringUtils::Split(attributeNameAndValue, '=');
-        // parsed[0] == attribute name, parsed[1] == attribute value
+        
         if (parsed.size() != 2)
         {
             std::cout << "Invalid argument syntax: " << attributeNameAndValue << USAGE;
@@ -110,14 +101,14 @@ int main(int argc, char** argv)
         expressionAttributeNames["#a"] = parsed[0];
         request.SetExpressionAttributeNames(expressionAttributeNames);
 
-        // Construct attribute value argument
+        // Construct attribute value argument.
         Aws::DynamoDB::Model::AttributeValue attributeUpdatedValue;
         attributeUpdatedValue.SetS(parsed[1]);
         Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> expressionAttributeValues;
         expressionAttributeValues[":valueA"] = attributeUpdatedValue;
         request.SetExpressionAttributeValues(expressionAttributeValues);
 
-        // Update the item
+        // Update the item.
         const Aws::DynamoDB::Model::UpdateItemOutcome& result = dynamoClient.UpdateItem(request);
         if (!result.IsSuccess())
         {

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,15 +12,16 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.delete_subscription_filter.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFilterRequest;
 // snippet-end:[cloudwatch.java2.delete_subscription_filter.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -29,21 +29,22 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFi
 public class DeleteSubscriptionFilter {
     public static void main(String[] args) {
 
-       final String USAGE = "\n" +
+       final String usage = "\n" +
                 "Usage:\n" +
-                "  DeleteSubscriptionFilter <filter> <logGroup>\n\n" +
+                "  <filter> <logGroup>\n\n" +
                 "Where:\n" +
-                "  filter - the name of the subscription filter (for example, MyFilter).\n" +
-                "  logGroup - the name of the log group. (for example, testgroup).\n" ;
+                "  filter - The name of the subscription filter (for example, MyFilter).\n" +
+                "  logGroup - The name of the log group. (for example, testgroup).\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String filter = args[0];
         String logGroup = args[1];
         CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         deleteSubFilter(logs, filter, logGroup );
@@ -70,5 +71,6 @@ public class DeleteSubscriptionFilter {
            System.exit(1);
        }
    }
+   // snippet-end:[cloudwatch.java2.delete_subscription_filter.main]
 }
-// snippet-end:[cloudwatch.java2.delete_subscription_filter.main]
+

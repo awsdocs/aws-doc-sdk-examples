@@ -1,0 +1,2639 @@
+# zexi 0.4.0
+iam_CreateAccountAlias:
+  title: Create an alias for an &IAM; account using an &AWS; SDK
+  title_abbrev: Create an alias for an account
+  synopsis: create an alias for an &IAM; account.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_account_alias.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_account_alias.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateAccountAlias
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags: ['iam.go-v2.CreateAccountAlias']
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-creating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the account alias.
+              snippet_tags:
+                - iam.JavaScript.alias.createAccountAliasV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.alias.createAccountAlias
+  services:
+    iam: {CreateAccountAlias}
+iam_DeleteAccountAlias:
+  title: Delete an &IAM; account alias using an &AWS; SDK
+  title_abbrev: Delete an account alias
+  synopsis: delete an &IAM; account alias.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_account_alias.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.delete_account_alias.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeleteAccountAlias
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-deleting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the account alias.
+              snippet_tags:
+                - iam.JavaScript.alias.deleteAccountAliasV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.alias.deleteAccountAlias
+  services:
+    iam: {DeleteAccountAlias}
+iam_ListAccountAliases:
+  title: List &IAM; account aliases using an &AWS; SDK
+  title_abbrev: List account aliases
+  synopsis: list &IAM; account aliases.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_account_aliases.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.list_account_aliases.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListAccountAliases
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.ListAccountAliases
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-listing
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the account aliases.
+              snippet_tags:
+                - iam.JavaScript.alias.listAccountAliasesV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html4#iam-examples-account-aliases-listing
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.alias.listAccountAliases
+  services:
+    iam: {ListAccountAliases}
+iam_GetAccountAuthorizationDetails:
+  title: Get a detailed &IAM; authorization report for your account using an &AWS; SDK
+  title_abbrev: Get a detailed authorization report for your account
+  synopsis: get a detailed &IAM; authorization report for your account.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccountAuthorizationDetails
+  services:
+    iam: {GetAccountAuthorizationDetails}
+iam_GetAccountSummary:
+  title: Get a summary of account usage from &IAM; using an &AWS; SDK
+  title_abbrev: Get a summary of account usage
+  synopsis: get a summary of account usage from &IAM;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccountSummary
+  services:
+    iam: {GetAccountSummary}
+iam_GenerateCredentialReport:
+  title: Generate a credential report from &IAM; using an &AWS; SDK
+  title_abbrev: Generate a credential report
+  synopsis: generate a credential report from &IAM; for the current account.
+    After the report is generated, get it by using the GetCredentialReport action.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GenerateCredentialReport
+  services:
+    iam: {GenerateCredentialReport}
+iam_GetCredentialReport:
+  title: Get a credential report from &IAM; using an &AWS; SDK
+  title_abbrev: Get a credential report
+  synopsis: get the most recently generated credential report from &IAM;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetCredentialReport
+  services:
+    iam: {GetCredentialReport}
+iam_GetAccountPasswordPolicy:
+  title: Get the &IAM; account password policy using an &AWS; SDK
+  title_abbrev: Get the account password policy
+  synopsis: get the &IAM; account password policy.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetAccountPasswordPolicyExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the account password policy.
+              snippet_tags:
+                - iam.JavaScript.getaccountpasswordpolicyV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetAccountPasswordPolicy']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getAccountPasswordPolicy
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccountPasswordPolicy
+
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.GetAccountPasswordPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.get_account_password_policy
+  services:
+    iam: {GetAccountPasswordPolicy}
+iam_ListSAMLProviders:
+  title: List SAML providers for &IAM; using an &AWS; SDK
+  title_abbrev: List SAML providers
+  synopsis: list SAML providers for &IAM;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListSAMLProvidersExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the SAML providers.
+              snippet_tags:
+                - iam.JavaScript.listsamlprovidersV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListSAMLProviders']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listSAMLProviders
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListSAMLProviders
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.ListSamlProviders
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_saml_providers
+  services:
+    iam: {ListSAMLProviders}
+iam_Scenario_AccountManagement:
+  title: Manage your &IAM; account using an &AWS; SDK
+  title_abbrev: Manage your account
+  synopsis: manage your &IAM; account.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; account actions.
+              snippet_tags:
+                - python.example_code.iam.account_wrapper.imports
+                - python.example_code.iam.ListAccountAliases
+                - python.example_code.iam.CreateAccountAlias
+                - python.example_code.iam.DeleteAccountAlias
+                - python.example_code.iam.GenerateCredentialReport
+                - python.example_code.iam.GetCredentialReport
+                - python.example_code.iam.GetAccountSummary
+                - python.example_code.iam.GetAccountAuthorizationDetails
+            - description: Call wrapper functions to change the account alias and
+                to get reports about the account.
+              snippet_tags:
+                - python.example_code.iam.Scenario_AccountManagement
+  services:
+    iam: {}
+iam_CreateAccessKey:
+  title: Create an &IAM; access key using an &AWS; SDK
+  title_abbrev: Create an access key
+  synopsis: create an &IAM; access key.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateAccessKey
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_access_key.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_access_key.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateAccessKey
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.CreateAccessKey
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-creating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.createAccessKeyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.createAccessKey
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.CreateAccessKey
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_access_key
+  services:
+    iam: {CreateAccessKey}
+iam_DeleteAccessKey:
+  title: Delete an &IAM; access key using an &AWS; SDK
+  title_abbrev: Delete an access key
+  synopsis: delete an &IAM; access key.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_access_key.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.delete_access_key.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeleteAccessKey
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.DeleteAccessKey
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-deleting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.deleteAccessKeyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.deleteAccessKey
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_access_key
+  services:
+    iam: {DeleteAccessKey}
+iam_DeleteRolePolicy:
+  title: Delete an &IAM; role policy using an &AWS; SDK
+  title_abbrev: Delete a role policy
+  synopsis: delete an &IAM; role policy.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteRolePolicyExample
+  services:
+    iam: {DeleteRolePolicy}
+iam_GetAccessKeyLastUsed:
+  title: Get data about the last use of an &IAM; access key using an &AWS; SDK
+  title_abbrev: Get data about the last use of an access key
+  synopsis: get data about the last use of an &IAM; access key.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccessKeyLastUsed
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.AccessKeyLastUsed
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-last-used
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.getAccessKeyLastUsedV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-last-used
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.getAccessKeyLastUsed
+  services:
+    iam: {GetAccessKeyLastUsed}
+iam_ListAccessKeys:
+  title: List a user's &IAM; access keys using an &AWS; SDK
+  title_abbrev: List a user's access keys
+  synopsis: list a user's &IAM; access keys.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_access_keys.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.list_access_keys.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListAccessKeys
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.ListAccessKeys
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-listing
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the access keys.
+              snippet_tags:
+                - iam.JavaScript.keys.listAccessKeysV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iiam-examples-managing-access-keys-listing
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.listAccessKeys
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteUser
+  services:
+    iam: {ListAccessKeys}
+iam_UpdateAccessKey:
+  title: Update an &IAM; access key using an &AWS; SDK
+  title_abbrev: Update an access key
+  synopsis: update an &IAM; access key.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.update_access_key.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.UpdateAccessKey
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags: ['iam.go-v2.UpdateAccessKey']
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-updating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Update the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.updateAccessKeyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-updating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.updateAccessKey
+  services:
+    iam: {UpdateAccessKey}
+iam_Scenario_ManageAccessKeys:
+  title: Manage &IAM; access keys using an &AWS; SDK
+  title_abbrev: Manage access keys
+  synopsis: manage &IAM; access keys.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; access key actions.
+              snippet_tags:
+                - python.example_code.iam.access_key_wrapper.imports
+                - python.example_code.iam.ListAccessKeys
+                - python.example_code.iam.CreateAccessKey
+                - python.example_code.iam.GetAccessKeyLastUsed
+                - python.example_code.iam.UpdateAccessKey
+                - python.example_code.iam.DeleteAccessKey
+            - description: Use the wrapper functions to perform access key actions for
+                the current user.
+              snippet_tags:
+                - python.example_code.iam.Scenario_ManageAccessKeys
+  services:
+    iam: {}
+iam_CreatePolicy:
+  title: Create an &IAM; policy using an &AWS; SDK
+  title_abbrev: Create a policy
+  synopsis: create an &IAM; policy.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreatePolicyAsync
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_policy.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_policy.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreatePolicy
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createPolicy
+                - php.example_code.iam.service.createPolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.createPolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.createPolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreatePolicy']
+              description: ''
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.CreatePolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_policy
+  services:
+    iam: {CreatePolicy}
+iam_DeletePolicy:
+  title: Delete an &IAM; policy using an &AWS; SDK
+  title_abbrev: Delete a policy
+  synopsis: delete an &IAM; policy.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_policy.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.delete_policy.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeletePolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the policy.
+              snippet_tags:
+                - iam.JavaScript.users.deletepolicyv3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_policy
+  services:
+    iam: {DeletePolicy}
+iam_CreatePolicyVersion:
+  title: Create an &IAM; policy version using an &AWS; SDK
+  title_abbrev: Create a policy version
+  synopsis: create an &IAM; policy version.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreatePolicyVersion
+  services:
+    iam: {CreatePolicyVersion}
+iam_ListPolicies:
+  title: List &IAM; policies using an &AWS; SDK
+  title_abbrev: List policies
+  synopsis: list &IAM; policies.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListPoliciesExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the policies.
+              snippet_tags:
+                - iam.JavaScript.listpoliciesv3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListPolicies']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listPolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListPolicies
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.ListPolicies
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_policies
+  services:
+    iam: {ListPolicies}
+iam_GetPolicy:
+  title: Get an &IAM; policy using an &AWS; SDK
+  title_abbrev: Get a policy
+  synopsis: get an &IAM; policy.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetPolicyExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.get_policy.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-getting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.getPolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-getting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.getPolicy
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getPolicy
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetPolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetPolicy']
+              description: ''
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.GetPolicy
+  services:
+    iam: {GetPolicy}
+iam_GetPolicyVersion:
+  title: Get an &IAM; policy version using an &AWS; SDK
+  title_abbrev: Get a policy version
+  synopsis: get an &IAM; policy version.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetPolicyVersion
+  services:
+    iam: {GetPolicyVersion}
+iam_Scenario_RollbackPolicyVersion:
+  title: Rollback an &IAM; policy version using an &AWS; SDK
+  title_abbrev: Rollback a policy version
+  synopsis: rollback an &IAM; policy version.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.Scenario_RollbackPolicyVersion
+  services:
+    iam: {}
+iam_AttachRolePolicy:
+  title: Attach an &IAM; policy to a role using an &AWS; SDK
+  title_abbrev: Attach a policy to a role
+  synopsis: attach an &IAM; policy to a role.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.AttachPolicy
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.attach_role_policy.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.attach_role_policy.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createRole
+                - php.example_code.iam.iam_basics.createPolicy
+                - php.example_code.iam.iam_basics.attachRolePolicy
+                - php.example_code.iam.service.attachRolePolicy
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Attach a policy to a role using the Boto3 Policy object.
+              snippet_tags:
+                - python.example_code.iam.AttachRolePolicy_Policy
+            - description: Attach a policy to a role using the Boto3 Role object.
+              snippet_tags:
+                - python.example_code.iam.AttachRolePolicy_Role
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.AttachRolePolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.attach_role_policy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-attaching-role-policy
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Attach the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.attachRolePolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-attaching-role-policy
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.attachRolePolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.AttachRolePolicy']
+              description: ''
+  services:
+    iam: {AttachRolePolicy}
+iam_ListAttachedRolePolicies:
+  title: List policies attached to an &IAM; role using an &AWS; SDK
+  title_abbrev: List policies attached to a role
+  synopsis: list policies attached to an &IAM; role.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListAttachedRolePoliciesExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the policies that are attached to a role.
+              snippet_tags:
+                - iam.JavaScript.listattachedrolepoliciesV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListAttachedRolePolicies']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listAttachRolePolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListAttachedRolePolicies
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_attached_role_policies
+  services:
+    iam: {ListAttachedRolePolicies}
+iam_DetachRolePolicy:
+  title: Detach an &IAM; policy from a role using an &AWS; SDK
+  title_abbrev: Detach a policy from a role
+  synopsis: detach an &IAM; policy from a role.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.detach_role_policy.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.detach_role_policy.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Detach a policy from a role using the Boto3 Policy object.
+              snippet_tags:
+                - python.example_code.iam.DetachRolePolicy_Policy
+            - description: Detach a policy from a role using the Boto3 Role object.
+              snippet_tags:
+                - python.example_code.iam.DetachRolePolicy_Role
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.detach_role_policy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-detaching-role-policy
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Detach the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.detachRolePolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-detaching-role-policy
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.detachRolePolicy
+  services:
+    iam: {DetachRolePolicy}
+iam_Scenario_PolicyManagement:
+  title: Manage &IAM; policies using an &AWS; SDK
+  title_abbrev: Manage policies
+  synopsis: manage &IAM; policies.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; policy actions.
+              snippet_tags:
+                - python.example_code.iam.policy_wrapper.imports
+                - python.example_code.iam.CreatePolicy
+                - python.example_code.iam.ListPolicies
+                - python.example_code.iam.CreatePolicyVersion
+                - python.example_code.iam.GetPolicyVersion
+                - python.example_code.iam.Scenario_RollbackPolicyVersion
+                - python.example_code.iam.DeletePolicy
+            - description: Use the wrapper functions to create policies, update
+                versions, and get information about them.
+              snippet_tags:
+                - python.example_code.iam.Scenario_PolicyManagement
+  services:
+    iam: {}
+iam_CreateRole:
+  title: Create an &IAM; role using an &AWS; SDK
+  title_abbrev: Create a role
+  synopsis: create an &IAM; role.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateRoleAsync
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_role.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createRole
+                - php.example_code.iam.service.createRole
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateRole
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.CreateRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_role
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the role.
+              snippet_tags:
+                - iam.JavaScript.users.createrolev3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreateRole']
+              description: ''
+  services:
+    iam: {CreateRole}
+iam_ListRoles:
+  title: List &IAM; roles using an &AWS; SDK
+  title_abbrev: List roles
+  synopsis: list &IAM; roles.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListRolesExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListRoles
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListRoles']
+              description: ''
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the roles.
+              snippet_tags:
+                - iam.JavaScript.listrolesV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listRoles
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.ListRoles
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_roles
+  services:
+    iam: {ListRoles}
+iam_GetRole:
+  title: Get an &IAM; role using an &AWS; SDK
+  title_abbrev: Get a role
+  synopsis: get an &IAM; role.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetRoleExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the role.
+              snippet_tags:
+                - iam.JavaScript.getRoleV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetRole']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getRole
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetRole
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.GetRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.get_role
+  services:
+    iam: {GetRole}
+iam_DeleteRole:
+  title: Delete an &IAM; role using an &AWS; SDK
+  title_abbrev: Delete a role
+  synopsis: delete an &IAM; role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeleteRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the role.
+              snippet_tags:
+                - iam.JavaScript.users.deleterolev3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_role
+  services:
+    iam: {DeleteRole}
+iam_ListRolePolicies:
+  title: List inline policies for an &IAM; role using an &AWS; SDK
+  title_abbrev: List inline policies for a role
+  synopsis: list inline policies for an &IAM; role.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListRolePoliciesExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the policies.
+              snippet_tags:
+                - iam.JavaScript.listrolepoliciesv3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListRolePolicies']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listRolePolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListRolePolicies
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_role_policies
+  services:
+    iam: {ListRolePolicies}
+iam_Scenario_RoleManagement:
+  title: Manage &IAM; roles using an &AWS; SDK
+  title_abbrev: Manage roles
+  synopsis: manage &IAM; roles.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; role actions.
+              snippet_tags:
+                - python.example_code.iam.role_wrapper.imports
+                - python.example_code.iam.CreateRole
+                - python.example_code.iam.AttachRolePolicy_Role
+                - python.example_code.iam.DetachRolePolicy_Role
+                - python.example_code.iam.DeleteRole
+            - description: Use the wrapper functions to create a role, then attach
+                and detach a policy.
+              snippet_tags:
+                - python.example_code.iam.Scenario_RoleManagement
+  services:
+    iam: {}
+iam_CreateUser:
+  title: Create an &IAM; user using an &AWS; SDK
+  title_abbrev: Create a user
+  synopsis: create an &IAM; user.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateUserAsync
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_user.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_user.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createUser
+                - php.example_code.iam.service.createUser
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateUser
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.CreateUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_user
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.CreateUser
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the user.
+              snippet_tags:
+                - iam.JavaScript.users.getUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.getUser
+  services:
+    iam: {CreateUser}
+iam_DeleteUser:
+  title: Delete an &IAM; user using an &AWS; SDK
+  title_abbrev: Delete a user
+  synopsis: delete an &IAM; user.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_user.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.delete_user.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeleteUser
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_user
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.DeleteUser
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the user.
+              snippet_tags:
+                - iam.JavaScript.users.deleteUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/23/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.deleteUser
+  services:
+    iam: {DeleteUser}
+iam_ListUsers:
+  title: List &IAM; users using an &AWS; SDK
+  title_abbrev: List users
+  synopsis: list &IAM; users.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListUsersExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_users.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.list_users.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listUsers
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListUsers
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.ListUsers
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_users
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.ListUsers
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the users.
+              snippet_tags:
+                - iam.JavaScript.users.listUsersV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.listUsers
+  services:
+    iam: {ListUsers}
+iam_UpdateUser:
+  title: Update an &IAM; user using an &AWS; SDK
+  title_abbrev: Update a user
+  synopsis: update an &IAM; user.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.update_user.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.update_user.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.UpdateUser
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags: ['iam.go-v2.UpdateUser']
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Update the user.
+              snippet_tags:
+                - iam.JavaScript.users.updateUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/23/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.updateUser
+  services:
+    iam: {UpdateUser}
+iam_AttachUserPolicy:
+  title: Attach an &IAM; policy to a user using an &AWS; SDK
+  title_abbrev: Attach a policy to a user
+  synopsis: attach an &IAM; policy to a user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.AttachUserPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.attach_user_policy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.AttachUserPolicy
+  services:
+    iam: {AttachUserPolicy}
+iam_DetachUserPolicy:
+  title: Detach an &IAM; policy from a user using an &AWS; SDK
+  title_abbrev: Detach a policy from a user
+  synopsis: detach an &IAM; policy from a user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DetachUserPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.detach_user_policy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags: ['iam.go-v2.DetachUserPolicy']
+
+  services:
+    iam: {DetachUserPolicy}
+iam_PutUserPolicy:
+  title: Create an inline &IAM; policy for a user using an &AWS; SDK
+  title_abbrev: Create an inline policy for a user
+  synopsis: create an inline &IAM; policy for a user.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.PutUserPolicy
+  services:
+    iam: {PutUserPolicy}
+iam_DeleteUserPolicy:
+  title: Delete an inline &IAM; policy from a user using an &AWS; SDK
+  title_abbrev: Delete an inline policy from a user
+  synopsis: delete an inline &IAM; policy from a user.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_user_policy
+  services:
+    iam: {DeleteUserPolicy}
+iam_Scenario_UserPolicies:
+  title: Create read-only and read-write &IAM; users using an &AWS; SDK
+  title_abbrev: Create read-only and read-write users
+  synopsis: create two &IAMlong; (&IAM;) users, where one user can get and put
+    objects in an &S3long; (&S3;) bucket and the other can only get objects from
+    the bucket. The users' credentials are then used to move objects in and out of
+    the bucket.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; user actions.
+              snippet_tags:
+                - python.example_code.iam.user_wrapper.imports
+                - python.example_code.iam.CreateUser
+                - python.example_code.iam.UpdateUser
+                - python.example_code.iam.ListUsers
+                - python.example_code.iam.DeleteUser
+                - python.example_code.iam.AttachUserPolicy
+                - python.example_code.iam.DetachUserPolicy
+            - description: Create functions that wrap &IAM; policy actions.
+              snippet_tags:
+                - python.example_code.iam.policy_wrapper.imports
+                - python.example_code.iam.CreatePolicy
+                - python.example_code.iam.DeletePolicy
+            - description: Create functions that wrap &IAM; access key actions.
+              snippet_tags:
+                - python.example_code.iam.access_key_wrapper.imports
+                - python.example_code.iam.CreateAccessKey
+                - python.example_code.iam.DeleteAccessKey
+            - description: Use the wrapper functions to create users with differing
+                policies and use their credentials to access an &S3; bucket.
+              snippet_tags:
+                - python.example_code.iam.Scenario_UserPolicies
+  services:
+    iam: {}
+iam_ListServerCertificates:
+  title: List &IAM; server certificates using an &AWS; SDK
+  title_abbrev: List server certificates
+  synopsis: list &IAM; server certificates.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-listing
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the certificates.
+              snippet_tags:
+                - iam.JavaScript.certs.listServerCertificatesV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-listing
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.listServerCertificates
+  services:
+    iam: {ListServerCertificates}
+iam_GetServerCertificate:
+  title: Get an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Get a server certificate
+  synopsis: get an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-getting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.getServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-getting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.getServerCertificate
+  services:
+    iam: {GetServerCertificate}
+iam_UpdateServerCertificate:
+  title: Update an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Update a server certificate
+  synopsis: update an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-updating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Update a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.updateServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-updating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.updateServerCertificate
+  services:
+    iam: {UpdateServerCertificate}
+iam_DeleteServerCertificate:
+  title: Delete an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Delete a server certificate
+  synopsis: delete an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-deleting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.deleteServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.deleteServerCertificate
+  services:
+    iam: {DeleteServerCertificate}
+iam_ListGroups:
+  title: List &IAM; groups using an &AWS; SDK
+  title_abbrev: List groups
+  synopsis: list &IAM; groups.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListGroupsExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the groups.
+              snippet_tags:
+                - iam.JavaScript.listgroupsV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListGroups']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listGroups
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListGroups
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.ListGroups
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_groups
+  services:
+    iam: {ListGroups}
+iam_CreateServiceLinkedRole:
+  title: Create an &IAM; service-linked role using an &AWS; SDK
+  title_abbrev: Create a service-linked role
+  synopsis: create an &IAM; service-linked role.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create a service-linked role.
+              snippet_tags:
+                - iam.JavaScript.createservicelinkedrolev3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreateServiceLinkedRole']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.createServiceLinkedRole
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateServiceLinkedRole
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.CreateServiceLinkedRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_service_linked_role
+  services:
+    iam: {CreateServiceLinkedRole}
+iam_DeleteServiceLinkedRole:
+  title: Delete an &IAM; service-linked role using an &AWS; SDK
+  title_abbrev: Delete a service-linked role
+  synopsis: delete an &IAM; service-linked role.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.DeleteServiceLinkedRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_service_linked_role
+  services:
+    iam: {DeleteServiceLinkedRole}
+iam_Scenario_CreateUserAssumeRole:
+  title: Create an &IAM; user and assume a role with &STS; using an &AWS; SDK
+  title_abbrev: Create a user and assume a role
+  synopsis_list:
+    - Create a user who has no permissions.
+    - Create a role that grants permission to list &S3; buckets for the account.
+    - Add a policy to let the user assume the role.
+    - Assume the role and list &S3; buckets using temporary credentials.
+    - Delete the policy, role, and user.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM/IAM_Basics_Scenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.IAM_BasicsScenario
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; user actions.
+              snippet_tags:
+                - iam.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; user actions.
+              snippet_tags:
+                - iam.java2.scenario.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.scenario.createclientv3
+            - description: Create an &IAM; user and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - javascript.iam_scenarios.iam_basics
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.scenario
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create an &IAM; user and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - python.example_code.iam.Scenario_CreateUserAssumeRole
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.go-v2.iam_basics
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.Scenario_CreateUserAssumeRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.iam_basics.scenario
+  services:
+    iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
+          PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,
+          DeleteAccessKey, DeleteUser}

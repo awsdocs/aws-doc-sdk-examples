@@ -1,30 +1,37 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+//snippet-sourcedescription:[get_bucket_policy.cpp demonstrates how to get information about a bucket policy for an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-keyword:[AWS SDK for C++]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon S3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[12/15/2021]
+//snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 // snippet-start:[s3.cpp.get_bucket_policy.inc]
 #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetBucketPolicyRequest.h>
-#include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.get_bucket_policy.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets information about a bucket policy for a bucket
- * in Amazon S3.
- *
+/* 
  * Prerequisites: The bucket to get bucket policy information about.
  *
  * Inputs:
  * - bucketName: The name of the bucket to get bucket policy information about.
  * - region: The AWS Region for the bucket.
  *
- * Outputs: true if information about the bucket policy was retrieved; 
- * otherwise, false.
- * ///////////////////////////////////////////////////////////////////////// */
+ *  To run this C++ code example, ensure that you have setup your development environment, including your credentials.
+ *  For information, see this documentation topic:
+ *  https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+*/
 
 // snippet-start:[s3.cpp.get_bucket_policy.code]
-bool AwsDoc::S3::GetBucketPolicy(const Aws::String& bucketName, 
+bool GetBucketPolicy(const Aws::String& bucketName, 
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -63,13 +70,15 @@ bool AwsDoc::S3::GetBucketPolicy(const Aws::String& bucketName,
 
 int main()
 {
-    Aws::String bucket_name = "my-bucket";
-    Aws::String region = "us-east-1";
+    //TODO: Change bucket_name to the name of a bucket in your account.
+    const Aws::String bucket_name = "<Enter bucket name>";
+    //TODO: Set to the AWS Region in which the bucket was created.
+    const Aws::String region = "us-east-1";
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (!AwsDoc::S3::GetBucketPolicy(bucket_name, region))
+        if (!GetBucketPolicy(bucket_name, region))
         {
             return 1;
         }

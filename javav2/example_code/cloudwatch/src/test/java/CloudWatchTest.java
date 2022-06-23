@@ -6,6 +6,8 @@
 import com.example.cloudwatch.DeleteAlarm;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
@@ -39,18 +41,21 @@ public class CloudWatchTest {
     @BeforeAll
     public static void setUp() throws IOException {
 
-        Region region = Region.US_WEST_2;;
+        Region region = Region.US_WEST_2;
         cw = CloudWatchClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         cloudWatchLogsClient = CloudWatchLogsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         cwe = CloudWatchEventsClient.builder()
-                        .region(region)
-                        .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         try (InputStream input = CloudWatchTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -103,7 +108,7 @@ public class CloudWatchTest {
     @Order(3)
     public void DescribeAlarms() {
 
-       DescribeAlarms.deleteCWAlarms(cw);
+       DescribeAlarms.desCWAlarms(cw);
        System.out.printf("\n Test 3 passed");
     }
 

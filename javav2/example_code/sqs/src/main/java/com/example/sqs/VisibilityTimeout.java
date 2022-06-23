@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.sqs;
 
 // snippet-start:[sqs.java2.visibility_timeout.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
@@ -21,20 +21,22 @@ import java.util.List;
 import java.util.Date;
 // snippet-end:[sqs.java2.visibility_timeout.import]
 
-// snippet-start:[sqs.java2.visibility_timeout.main]
+
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class VisibilityTimeout {
 
+    // snippet-start:[sqs.java2.visibility_timeout.main]
     public static void main(String[] args) {
         final String queueName = "testQueue" + new Date().getTime();
         SqsClient sqs = SqsClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         // First, create a queue (unless it exists already)
@@ -135,5 +137,6 @@ public class VisibilityTimeout {
             System.exit(1);
         }
     }
+    // snippet-end:[sqs.java2.visibility_timeout.main]
 }
-// snippet-end:[sqs.java2.visibility_timeout.main]
+

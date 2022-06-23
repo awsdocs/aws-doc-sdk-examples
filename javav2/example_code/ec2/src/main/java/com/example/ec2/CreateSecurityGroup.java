@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.create_security_group.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupRequest;
@@ -26,9 +26,9 @@ import software.amazon.awssdk.services.ec2.model.IpRange;
 // snippet-end:[ec2.java2.create_security_group.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,16 +36,16 @@ public class CreateSecurityGroup {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "CreateSecurityGroup <groupName> <groupDesc> <vpcId> \n\n" +
+                "   <groupName> <groupDesc> <vpcId> \n\n" +
                 "Where:\n" +
-                "    groupName - a group name (for example, TestKeyPair). \n\n"  +
-                "    groupDesc - a group description  (for example, TestKeyPair). \n\n"  +
-                "    vpc-id - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n"  ;
+                "   groupName - A group name (for example, TestKeyPair). \n\n" +
+                "   groupDesc - A group description  (for example, TestKeyPair). \n\n"+
+                "   vpcId - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n";
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -54,9 +54,10 @@ public class CreateSecurityGroup {
         String vpcId = args[2];
 
         // snippet-start:[ec2.java2.create_security_group.client]
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
         // snippet-end:[ec2.java2.create_security_group.client]
 
@@ -107,9 +108,7 @@ public class CreateSecurityGroup {
 
             AuthorizeSecurityGroupIngressResponse authResponse =
             ec2.authorizeSecurityGroupIngress(authRequest);
-            // snippet-end:[ec2.java2.create_security_group.config]
 
-            // snippet-end:[ec2.java2.create_security_group.main]
             System.out.printf(
                 "Successfully added ingress policy to Security Group %s",
                 groupName);
@@ -122,5 +121,7 @@ public class CreateSecurityGroup {
         }
         return "";
     }
+    // snippet-end:[ec2.java2.create_security_group.config]
+    // snippet-end:[ec2.java2.create_security_group.main]
 }
 

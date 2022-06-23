@@ -3,8 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,12 +12,19 @@
 package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.detect_ppe.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
-import software.amazon.awssdk.services.rekognition.model.*;
+import software.amazon.awssdk.services.rekognition.model.BoundingBox;
+import software.amazon.awssdk.services.rekognition.model.DetectProtectiveEquipmentRequest;
+import software.amazon.awssdk.services.rekognition.model.DetectProtectiveEquipmentResponse;
+import software.amazon.awssdk.services.rekognition.model.EquipmentDetection;
+import software.amazon.awssdk.services.rekognition.model.ProtectiveEquipmentBodyPart;
+import software.amazon.awssdk.services.rekognition.model.ProtectiveEquipmentSummarizationAttributes;
 import software.amazon.awssdk.services.rekognition.model.Image;
+import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -30,9 +36,9 @@ import java.util.List;
 // snippet-end:[rekognition.java2.detect_ppe.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -40,15 +46,15 @@ public class DetectPPE {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
             "Usage: " +
-            "DetectPPE <sourceImage> <bucketName>\n\n" +
+            "   <sourceImage> <bucketName>\n\n" +
             "Where:\n" +
-            "sourceImage - the name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
-            "bucketName - the name of the Amazon S3 bucket (for example, myBucket). \n\n";
+            "   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
+            "   bucketName - The name of the Amazon S3 bucket (for example, myBucket). \n\n";
 
         if (args.length != 2) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
         }
 
@@ -57,11 +63,13 @@ public class DetectPPE {
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         RekognitionClient rekClient = RekognitionClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         displayGear(s3, rekClient, sourceImage, bucketName) ;
         s3.close();
@@ -117,7 +125,6 @@ public class DetectPPE {
 
                                 System.out.println("\t\tBounding Box");
                                 BoundingBox box =item.boundingBox();
-
                                 System.out.println("\t\tLeft: " +box.left().toString());
                                 System.out.println("\t\tTop: " + box.top().toString());
                                 System.out.println("\t\tWidth: " + box.width().toString());
@@ -130,15 +137,13 @@ public class DetectPPE {
             }
             System.out.println("Person ID Summary\n-----------------");
 
-            DisplaySummary("With required equipment", result.summary().personsWithRequiredEquipment());
-            DisplaySummary("Without required equipment", result.summary().personsWithoutRequiredEquipment());
-            DisplaySummary("Indeterminate", result.summary().personsIndeterminate());
+            displaySummary("With required equipment", result.summary().personsWithRequiredEquipment());
+            displaySummary("Without required equipment", result.summary().personsWithoutRequiredEquipment());
+            displaySummary("Indeterminate", result.summary().personsIndeterminate());
 
         } catch (RekognitionException e) {
             e.printStackTrace();
             System.exit(1);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -152,8 +157,7 @@ public class DetectPPE {
                     .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
-            byte[] data = objectBytes.asByteArray();
-            return data;
+            return objectBytes.asByteArray();
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -162,19 +166,16 @@ public class DetectPPE {
         return null;
     }
 
-    static void DisplaySummary(String summaryType,List<Integer> idList)
-    {
+    static void displaySummary(String summaryType,List<Integer> idList) {
         System.out.print(summaryType + "\n\tIDs  ");
         if (idList.size()==0) {
             System.out.println("None");
-        }
-        else {
+        } else {
             int count=0;
             for (Integer id: idList ) {
                 if (count++ == idList.size()-1) {
                     System.out.println(id.toString());
-                }
-                else {
+                } else {
                     System.out.print(id.toString() + ", ");
                 }
             }

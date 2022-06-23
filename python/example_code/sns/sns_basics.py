@@ -18,6 +18,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.sns.SnsWrapper]
 class SnsWrapper:
     """Encapsulates Amazon SNS topic and subscription functions."""
     def __init__(self, sns_resource):
@@ -25,7 +26,9 @@ class SnsWrapper:
         :param sns_resource: A Boto3 Amazon SNS resource.
         """
         self.sns_resource = sns_resource
+# snippet-end:[python.example_code.sns.SnsWrapper]
 
+# snippet-start:[python.example_code.sns.CreateTopic]
     def create_topic(self, name):
         """
         Creates a notification topic.
@@ -41,7 +44,9 @@ class SnsWrapper:
             raise
         else:
             return topic
+# snippet-end:[python.example_code.sns.CreateTopic]
 
+# snippet-start:[python.example_code.sns.ListTopics]
     def list_topics(self):
         """
         Lists topics for the current account.
@@ -56,8 +61,10 @@ class SnsWrapper:
             raise
         else:
             return topics_iter
+# snippet-end:[python.example_code.sns.ListTopics]
 
     @staticmethod
+# snippet-start:[python.example_code.sns.DeleteTopic]
     def delete_topic(topic):
         """
         Deletes a topic. All subscriptions to the topic are also deleted.
@@ -68,8 +75,10 @@ class SnsWrapper:
         except ClientError:
             logger.exception("Couldn't delete topic %s.", topic.arn)
             raise
+# snippet-end:[python.example_code.sns.DeleteTopic]
 
     @staticmethod
+# snippet-start:[python.example_code.sns.Subscribe]
     def subscribe(topic, protocol, endpoint):
         """
         Subscribes an endpoint to the topic. Some endpoint types, such as email,
@@ -94,7 +103,9 @@ class SnsWrapper:
             raise
         else:
             return subscription
+# snippet-end:[python.example_code.sns.Subscribe]
 
+# snippet-start:[python.example_code.sns.ListSubscriptions]
     def list_subscriptions(self, topic=None):
         """
         Lists subscriptions for the current account, optionally limited to a
@@ -114,8 +125,10 @@ class SnsWrapper:
             raise
         else:
             return subs_iter
+# snippet-end:[python.example_code.sns.ListSubscriptions]
 
     @staticmethod
+# snippet-start:[python.example_code.sns.SetSubscriptionAttributes]
     def add_subscription_filter(subscription, attributes):
         """
         Adds a filter policy to a subscription. A filter policy is a key and a
@@ -134,8 +147,10 @@ class SnsWrapper:
             logger.exception(
                 "Couldn't add filter to subscription %s.", subscription.arn)
             raise
+# snippet-end:[python.example_code.sns.SetSubscriptionAttributes]
 
     @staticmethod
+# snippet-start:[python.example_code.sns.Unsubscribe]
     def delete_subscription(subscription):
         """
         Unsubscribes and deletes a subscription.
@@ -146,7 +161,9 @@ class SnsWrapper:
         except ClientError:
             logger.exception("Couldn't delete subscription %s.", subscription.arn)
             raise
+# snippet-end:[python.example_code.sns.Unsubscribe]
 
+# snippet-start:[python.example_code.sns.Publish_TextMessage]
     def publish_text_message(self, phone_number, message):
         """
         Publishes a text message directly to a phone number without need for a
@@ -168,8 +185,10 @@ class SnsWrapper:
             raise
         else:
             return message_id
+# snippet-end:[python.example_code.sns.Publish_TextMessage]
 
     @staticmethod
+# snippet-start:[python.example_code.sns.Publish_MessageAttributes]
     def publish_message(topic, message, attributes):
         """
         Publishes a message, with attributes, to a topic. Subscriptions can be filtered
@@ -199,8 +218,10 @@ class SnsWrapper:
             raise
         else:
             return message_id
+# snippet-end:[python.example_code.sns.Publish_MessageAttributes]
 
     @staticmethod
+# snippet-start:[python.example_code.sns.Publish_MessageStructure]
     def publish_multi_message(
             topic, subject, default_message, sms_message, email_message):
         """
@@ -233,6 +254,7 @@ class SnsWrapper:
             raise
         else:
             return message_id
+# snippet-end:[python.example_code.sns.Publish_MessageStructure]
 
 
 def usage_demo():

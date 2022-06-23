@@ -99,12 +99,15 @@ class IamStubber(ExampleStubber):
         self._stub_bifurcator(
             'get_credential_report', response=response, error_code=error_code)
 
-    def stub_create_role(self, role_name, assume_role_policy=ANY, error_code=None):
+    def stub_create_role(
+            self, role_name, assume_role_policy=ANY, role_arn=None, error_code=None):
         expected_params = {
             'RoleName': role_name,
             'AssumeRolePolicyDocument': assume_role_policy
         }
         response = self._add_role({}, role_name)
+        if role_arn is not None:
+            response['Role']['Arn'] = role_arn
         self._stub_bifurcator(
             'create_role', expected_params, response, error_code=error_code)
 
@@ -242,6 +245,13 @@ class IamStubber(ExampleStubber):
             'list_attached_role_policies', expected_params, response,
             error_code=error_code)
 
+    def stub_list_role_policies(
+            self, role_name, policies=None, error_code=None):
+        expected_params = {'RoleName': role_name}
+        response = {'PolicyNames': policies}
+        self._stub_bifurcator(
+            'list_role_policies', expected_params, response, error_code=error_code)
+
     def stub_detach_role_policy(self, role_name, policy_arn, error_code=None):
         self._stub_bifurcator(
             'detach_role_policy',
@@ -256,7 +266,7 @@ class IamStubber(ExampleStubber):
                 'UserName': user_name,
                 'AccessKeyId': 'test-id-plus-more-characters',
                 'Status': 'Active',
-                'SecretAccessKey': 'test-secret-plus-more-characters    ',
+                'SecretAccessKey': 'test-secret-plus-more-characters',
                 'CreateDate': datetime.datetime.now()
             }
         }
@@ -471,3 +481,34 @@ class IamStubber(ExampleStubber):
         expected_params = {'InstanceProfileName': profile_name}
         self._stub_bifurcator(
             'delete_instance_profile', expected_params, error_code=error_code)
+
+    def stub_create_service_linked_role(
+            self, service_name, desc, role_name, error_code=None):
+        expected_params = {'AWSServiceName': service_name, 'Description': desc}
+        response = self._add_role({}, role_name)
+        self._stub_bifurcator(
+            'create_service_linked_role', expected_params, response, error_code=error_code)
+
+    def stub_delete_service_linked_role(self, role_name, deletion_task_id, error_code=None):
+        expected_params = {'RoleName': role_name}
+        response = {'DeletionTaskId': deletion_task_id}
+        self._stub_bifurcator(
+            'delete_service_linked_role', expected_params, response, error_code=error_code)
+
+    def stub_get_service_linked_role_deletion_status(self, task_id, status, error_code=None):
+        expected_params = {'DeletionTaskId': task_id}
+        response = {'Status': status}
+        self._stub_bifurcator(
+            'get_service_linked_role_deletion_status', expected_params, response, error_code=error_code)
+
+    def stub_get_account_password_policy(self, error_code=None):
+        expected_params = {}
+        response = {'PasswordPolicy': {}}
+        self._stub_bifurcator(
+            'get_account_password_policy', expected_params, response, error_code=error_code)
+
+    def stub_list_saml_providers(self, providers, error_code=None):
+        expected_params = {}
+        response = {'SAMLProviderList': [{'Arn': p} for p in providers]}
+        self._stub_bifurcator(
+            'list_saml_providers', expected_params, response, error_code=error_code)

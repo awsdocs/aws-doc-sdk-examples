@@ -1,0 +1,27 @@
+--- 
+files:
+  - path: src/main/java/com/example/ecs/CreateCluster.java
+    services:
+      - ecs
+  - path: src/main/java/com/example/ecs/CreateService.java
+    services:
+      - ecs
+  - path: src/main/java/com/example/ecs/DeleteService.java
+    services:
+      - ecs
+  - path: src/main/java/com/example/ecs/DescribeClusters.java
+    services:
+      - ecs
+  - path: src/main/java/com/example/ecs/ListClusters.java
+    services:
+      - ecs
+  - path: src/main/java/com/example/ecs/ListTaskDefinitions.java
+    services:
+      - ecs
+    - path: src/main/java/com/example/ecs/UpdateService.java
+    services:
+      - ecs
+  - path: src/test/java/EcsTest.java
+    services:
+      - ecs
+    

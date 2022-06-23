@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.sfn.StepFunctionsStateMachine]
 class StepFunctionsStateMachine:
     """Encapsulates Step Functions state machine functions."""
     def __init__(self, stepfunctions_client):
@@ -24,6 +25,7 @@ class StepFunctionsStateMachine:
         self.stepfunctions_client = stepfunctions_client
         self.state_machine_name = None
         self.state_machine_arn = None
+# snippet-end:[python.example_code.sfn.StepFunctionsStateMachine]
 
     def _clear(self):
         """
@@ -32,6 +34,7 @@ class StepFunctionsStateMachine:
         self.state_machine_name = None
         self.state_machine_arn = None
 
+# snippet-start:[python.example_code.sfn.CreateStateMachine]
     def create(self, name, definition, role_arn):
         """
         Creates a new state machine.
@@ -56,7 +59,9 @@ class StepFunctionsStateMachine:
             raise
         else:
             return self.state_machine_arn
+# snippet-end:[python.example_code.sfn.CreateStateMachine]
 
+# snippet-start:[python.example_code.sfn.UpdateStateMachine]
     def update(self, definition, role_arn=None):
         """
         Updates an existing state machine. Any runs currently operating do not update
@@ -82,7 +87,9 @@ class StepFunctionsStateMachine:
             logger.exception(
                 "Couldn't update state machine %s.", self.state_machine_name)
             raise
+# snippet-end:[python.example_code.sfn.UpdateStateMachine]
 
+# snippet-start:[python.example_code.sfn.DeleteStateMachine]
     def delete(self):
         """
         Deletes a state machine and all associated run information.
@@ -98,7 +105,9 @@ class StepFunctionsStateMachine:
             logger.exception(
                 "Couldn't delete state machine %s.", self.state_machine_name)
             raise
+# snippet-end:[python.example_code.sfn.DeleteStateMachine]
 
+# snippet-start:[python.example_code.sfn.ListStateMachines]
     def find(self, state_machine_name):
         """
         Finds a state machine by name. This function iterates the state machines for
@@ -130,7 +139,9 @@ class StepFunctionsStateMachine:
             raise
         else:
             return self.state_machine_arn
+# snippet-end:[python.example_code.sfn.ListStateMachines]
 
+# snippet-start:[python.example_code.sfn.DescribeStateMachine]
     def describe(self):
         """
         Gets metadata about a state machine.
@@ -149,7 +160,9 @@ class StepFunctionsStateMachine:
             raise
         else:
             return response
+# snippet-end:[python.example_code.sfn.DescribeStateMachine]
 
+# snippet-start:[python.example_code.sfn.StartExecution]
     def start_run(self, run_name, run_input=None):
         """
         Starts a run with the current state definition.
@@ -173,7 +186,9 @@ class StepFunctionsStateMachine:
             raise
         else:
             return run_arn
+# snippet-end:[python.example_code.sfn.StartExecution]
 
+# snippet-start:[python.example_code.sfn.ListExecutions]
     def list_runs(self, run_status=None):
         """
         Lists the runs for the state machine.
@@ -198,7 +213,9 @@ class StepFunctionsStateMachine:
             raise
         else:
             return runs
+# snippet-end:[python.example_code.sfn.ListExecutions]
 
+# snippet-start:[python.example_code.sfn.StopExecution]
     def stop_run(self, run_arn, cause):
         """
         Stops a run.
@@ -212,3 +229,4 @@ class StepFunctionsStateMachine:
         except ClientError:
             logger.exception("Couldn't stop run %s.", run_arn)
             raise
+# snippet-end:[python.example_code.sfn.StopExecution]

@@ -1,0 +1,56 @@
+<!-- SDK for Swift -->
+<!ENTITY Swiftlong '&AWS; SDK for Swift'>
+<!ENTITY Swift 'SDK for Swift'>
+<!ENTITY guide-swift-dev '&Swiftlong; developer guide'>
+<!ENTITY guide-swift-api '&Swiftlong; API reference'>
+
+<!-- SDK for Kotlin Alpha -->
+
+<!ENTITY Kotlinlong '&AWS; SDK for Kotlin'>
+<!ENTITY Kotlin 'SDK for Kotlin'>
+<!ENTITY guide-kotlin-dev '&Kotlinlong; developer guide'>
+<!ENTITY guide-kotlin-api '&Kotlinlong; API reference'>
+
+<!-- SDK for Rust Alpha -->
+
+<!ENTITY Rustlong '&AWS; SDK for Rust'>
+<!ENTITY Rust 'SDK for Rust'>
+<!ENTITY guide-rust-dev '&Rustlong; developer guide'>
+<!ENTITY guide-rust-api '&Rustlong; API reference'>
+
+<!-- API Gateway Management API -->
+
+<!ENTITY ABPMA '&ABP; Management API'>
+<!ENTITY ABPMAlong '&ABPlong; Management API'>
+
+<!-- Route 53 Application Recovery Controller -->
+
+<!ENTITY R53ARClong 'Amazon Route 53 Application Recovery Controller'>
+<!ENTITY R53ARC 'Application Recovery Controller'>
+
+<!-- RDS Data Service -->
+<!ENTITY RDSDataServicelong '&RDSlong; Data Service'>
+<!ENTITY RDSDataService '&RDS; Data Service'>
+
+<!-- SES V2 -->
+<!ENTITY SESv2long '&SESlong; API v2'>
+<!ENTITY SESv2 '&SES; API v2'>
+
+<!-- Cognito Identity Provider -->
+<!ENTITY COGIDP '&COGID; Provider'>
+
+<!-- QLDB Session -->
+<!ENTITY QLDBSessionlong '&QLDBlong; Session'>
+<!ENTITY QLDBSession '&QLDB; Session'>
+
+<!-- Personalize Events -->
+<!ENTITY PERSElong '&PERSlong; Events'>
+<!ENTITY PERSE '&PERS; Events'>
+
+<!-- Personalize Runtime -->
+<!ENTITY PERSRlong '&PERSlong; Runtime'>
+<!ENTITY PERSR '&PERS; Runtime'>
+
+<!-- Transcribe Medical -->
+<!ENTITY TSCMlong '&TSClong; Medical'>
+<!ENTITY TSCM '&TSC; Medical'>

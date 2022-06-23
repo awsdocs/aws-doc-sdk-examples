@@ -83,6 +83,8 @@ int main()
         Aws::String file_name = "my-file-" + uuid + ".txt";
 
         Aws::String region = Aws::Region::US_EAST_1;
+        Aws::S3Crt::Model::BucketLocationConstraint loc =
+            Aws::S3Crt::Model::BucketLocationConstraint::us_east_1;
         const double throughput_target_gbps = 5;
         const uint64_t part_size = 8 * 1024 * 1024; // 8 MB.
 
@@ -97,7 +99,8 @@ int main()
             success = false;
         }
 
-        if (success && !CreateBucket(s3_crt_client, bucket_name)) {
+
+        if (success && !CreateBucket(s3_crt_client, bucket_name, loc)) {
             success = false;
         }
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+  <para>
+    Shows how to use the &JSBlong; to build a React application
+    that uses &TEXTRACTlong; to extract data from a document image and display it in
+    an interactive web page. This example runs in a web browser and requires an 
+    authenticated &COGlong; identity for credentials. It uses &S3long; (&S3;) for storage, and for notifications
+    it polls an &SQSlong; (&SQS;) queue that is subscribed to an &SNSlong; (&SNS;) topic.
+  </para>
+  <para>
+    For complete source code and instructions on how to set up and run, see the full example on
+    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cross-services/textract-react">GitHub</ulink>.
+  </para>
+</block>

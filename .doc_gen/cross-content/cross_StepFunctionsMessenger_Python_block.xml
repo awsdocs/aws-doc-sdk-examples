@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to use the &Python3long; with &SFNlong; to create a messenger application that
+        retrieves message records from an &DDBlong; table and sends them with &SQSlong; (&SQS;).
+        The state machine integrates with an &LAMlong; function to scan the database for unsent messages.
+    </para>
+
+    <itemizedlist>
+        <listitem><para>Create a state machine that retrieves and updates message records from an &DDBlong; table.</para></listitem>
+        <listitem><para>Update the state machine definition to also send messages to &SQSlong; (&SQS;).</para></listitem>
+        <listitem><para>Start and stop state machine runs.</para></listitem>
+        <listitem><para>Connect to &LAM;, &DDB;, and &SQS; from a state machine by using service integrations.</para></listitem>
+    </itemizedlist>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/stepfunctions_messenger">GitHub</ulink>.
+    </para>
+</block>
