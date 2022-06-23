@@ -96,7 +96,7 @@ public class SendMessageAttachment {
                 byte[] fileContent = Files.readAllBytes(theFile.toPath());
                 Session session = Session.getDefaultInstance(new Properties());
 
-                // Create a new MimeMessage object.
+                // Create a MimeMessage object.
                 MimeMessage message = new MimeMessage(session);
 
                 // Add subject and add from and to lines.
