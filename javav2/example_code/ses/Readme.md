@@ -1,7 +1,7 @@
-# Amazon Simple Email Service Java code examples
+# Amazon SES code examples for the SDK for Java
 
 ## Overview
-This README discusses how to run and test the Java code examples for Amazon Simple Email Service (Amazon SES).
+This README discusses how to run and test the AWS SDK for Java (v2) code examples for Amazon Simple Email Service (Amazon SES).
 
 Amazon SES is a cost-effective, flexible, and scalable email service that developers can use to send email.
 
