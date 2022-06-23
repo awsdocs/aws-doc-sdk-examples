@@ -40,6 +40,14 @@ import java.nio.file.Files;
 import java.util.Properties;
 // snippet-end:[ses.java2.sendmessage.request.sesv2.import]
 
+/**
+ * Before running this AWS SDK for Java (v2) example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class SendMessageAttachment {
 
         public static void main(String[] args) throws MessagingException, IOException {
@@ -49,10 +57,11 @@ public class SendMessageAttachment {
                         "    <sender> <recipient> <subject> \n\n" +
                         "Where:\n" +
                         "    sender - An email address that represents the sender. \n"+
-                        "    recipient -  An email address that represents the recipient. \n"+
-                        "    subject - The  subject line. \n" ;
+                        "    recipient - An email address that represents the recipient. \n"+
+                        "    subject - The subject line. \n" +
+                        "    fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). \n" ;
 
-                if (args.length != 3) {
+                if (args.length != 4) {
                          System.out.println(usage);
                           System.exit(1);
                 }
@@ -90,7 +99,7 @@ public class SendMessageAttachment {
                 // Create a new MimeMessage object.
                 MimeMessage message = new MimeMessage(session);
 
-                // Add subject, from and to lines.
+                // Add subject and add from and to lines.
                 message.setSubject(subject, "UTF-8");
                 message.setFrom(new InternetAddress(sender));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));

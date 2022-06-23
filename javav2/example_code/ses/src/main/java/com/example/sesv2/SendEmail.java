@@ -26,7 +26,7 @@ import software.amazon.awssdk.services.sesv2.SesV2Client;
 // snippet-end:[ses.java2.sendmessage.sesv2.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this AWS SDK for Java (v2) example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -42,8 +42,8 @@ public class SendEmail {
                         "    <sender> <recipient> <subject> \n\n" +
                         "Where:\n" +
                         "    sender - An email address that represents the sender. \n"+
-                        "    recipient -  An email address that represents the recipient. \n"+
-                        "    subject - The  subject line. \n" ;
+                        "    recipient - An email address that represents the recipient. \n"+
+                        "    subject - The subject line. \n" ;
 
                if (args.length != 3) {
                       System.out.println(usage);

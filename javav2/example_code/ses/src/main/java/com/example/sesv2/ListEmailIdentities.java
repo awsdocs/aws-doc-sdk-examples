@@ -25,7 +25,7 @@ import java.util.List;
 
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this AWS SDK for Java (v2) code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
