@@ -61,7 +61,7 @@ The web client sends the following REST requests to the REST endpoint:
 #### GET /items
 #### GET /items/&lt;state>
 
-Retries a list of work items. The default route returns all active items. Optional states are `archive`
+Retrieves a list of work items. The default route returns all active items. Optional states are `archive`
 for archived items and `all` for all items regardless of state.
 * 
 * Items are expected to be a JSON array of items that each have the following fields:
