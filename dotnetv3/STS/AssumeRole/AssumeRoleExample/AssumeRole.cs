@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[STS.dotnetv3.AssumeRoleMessage]
 using Amazon;
 using Amazon.SecurityToken;
 using Amazon.SecurityToken.Model;
@@ -26,7 +27,7 @@ namespace AssumeRoleExample
         /// </summary>
 
         private static readonly RegionEndpoint REGION = RegionEndpoint.USWest2;
-        
+
         static async Task Main()
         {
             // Create the SecurityToken client and then display the identity of the
@@ -41,7 +42,8 @@ namespace AssumeRoleExample
             Console.WriteLine($"Original Caller: {caller.Arn}");
 
             // Create the request to use with the AssumeRoleAsync call.
-            var assumeRoleReq = new AssumeRoleRequest() {
+            var assumeRoleReq = new AssumeRoleRequest()
+            {
                 DurationSeconds = 1600,
                 RoleSessionName = "Session1",
                 RoleArn = roleArnToAssume
@@ -58,3 +60,4 @@ namespace AssumeRoleExample
         }
     }
 }
+// snippet-end:[STS.dotnetv3.AssumeRoleMessage]

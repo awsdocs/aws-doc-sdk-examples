@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[acm.dotNET.ListCertificates]
-
 using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
@@ -49,10 +47,9 @@ namespace ListCertificatesTest
 
             bool gotResult = response != null;
             Assert.True(gotResult, "Copy operation failed.");
-            
+
             bool ok = response.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, "Retrieved certificates list.");
         }
     }
 }
-// snippet-end:[acm.dotNET.ListCertificates]

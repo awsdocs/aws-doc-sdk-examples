@@ -3,6 +3,7 @@
 
 namespace ListPoliciesExample
 {
+    // snippet-start:[Organizations.dotnetv3.ListPoliciesExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -68,4 +69,5 @@ namespace ListPoliciesExample
             Console.WriteLine(policyInfo);
         }
     }
+    // snippet-end:[Organizations.dotnetv3.ListPoliciesExample]
 }

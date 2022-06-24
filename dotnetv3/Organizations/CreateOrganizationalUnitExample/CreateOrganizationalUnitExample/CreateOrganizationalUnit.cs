@@ -3,6 +3,7 @@
 
 namespace CreateOrganizationalUnitExample
 {
+    // snippet-start:[Organizations.dotnetv3.CreateOrganizationalUnitExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -46,4 +47,5 @@ namespace CreateOrganizationalUnitExample
             }
         }
     }
+    // snippet-end:[Organizations.dotnetv3.CreateOrganizationalUnitExample]
 }
