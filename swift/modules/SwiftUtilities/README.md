@@ -57,6 +57,23 @@ space unnecessarily.
 A `String` containing up to `paragraphs` paragraphs of Lorem Ipsum style
 generated text.
 
+## Testing
+
+This package includes automated tests for each function. Before you run the
+tests, make sure you configure your environment to allow access to AWS and
+[download and install](https://www.swift.org/download/) the Swift tools if you don't already have them.
+
+To run the tests, make sure you have Swift installed, then issue the command
+`swift test` to run the tests.
+
+```
+$ cd SwiftUtilities
+$ swift test
+```
+
+The tests will compile and run, outputting the results to the console. You can
+also run the tests in Xcode if you prefer.
+
 ---
 
 **_Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved._**  
