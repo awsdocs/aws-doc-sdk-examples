@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
+// snippet-start:[SNS.dotnetv3.SNSMessageExample]
 using Amazon;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
@@ -59,3 +60,4 @@ namespace SNSMessageExample
 
     }
 }
+// snippet-end:[SNS.dotnetv3.SNSMessageExample]

@@ -3,6 +3,8 @@
 
 namespace AssociateKmsKeyExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.AssociateKmsKeyExample]
+
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -15,7 +17,6 @@ namespace AssociateKmsKeyExample
     /// </summary>
     public class AssociateKmsKey
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.AssociateKmsKeyExample]
         public static async Task Main()
         {
             // This client object will be associated with the same AWS Region
@@ -45,6 +46,6 @@ namespace AssociateKmsKeyExample
             }
         }
 
-        // snippet-end:[CloudWatchLogs.dotnetv3.AssociateKmsKeyExample]
     }
+    // snippet-end:[CloudWatchLogs.dotnetv3.AssociateKmsKeyExample]
 }

@@ -3,6 +3,7 @@
 
 namespace DeleteFacesExample
 {
+    // snippet-start:[Rekognition.dotnetv3.DeleteFacesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -16,7 +17,6 @@ namespace DeleteFacesExample
     /// </summary>
     public class DeleteFaces
     {
-        // snippet-start:[Rekognition.dotnetv3.DeleteFacesExample]
         public static async Task Main()
         {
             string collectionId = "MyCollection";
@@ -37,6 +37,6 @@ namespace DeleteFacesExample
             });
         }
 
-        // snippet-end:[Rekognition.dotnetv3.DeleteFacesExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.DeleteFacesExample]
 }
