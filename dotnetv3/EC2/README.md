@@ -1,9 +1,10 @@
-# Amazon Comprehend code examples for the AWS SDK for .NET v3
+# Amazon EC2 code examples for the AWS SDK for .NET v3
 
 ## Overview
 
-The examples in this section how to use the AWS SDK for .NET with Amazon
-Comprehend to inspect documents and discover information about them.
+The examples in this section how to use the AWS SDK for .NET with Amazon Elastic Compute Cloud (Amazon EC2).
+
+Amazon EC2 provides secure, resizable compute capacity in the cloud.
 
 ## ⚠️ Important
 
@@ -19,13 +20,16 @@ Comprehend to inspect documents and discover information about them.
 
 ### Single actions
 
-- [Detecting the dominant language](DetectDominantLanguageExampe/)
-- [Detecting entities](DetectEntitiesExample)
-- [Detecting personally identificable information (PII)](DetectingPIIExample/)
-- [Detecting syntax](DetectingSyntaxExample/)
-- [Detecting key phrases](DetectKeyPhrasesExample/)
-- [Detecting sentiment](DetectSentimentExample/)
-- [Topic modeling](TopicModelingExample/)
+- [Creating a key pair](CreateKeyPairExample/)
+- [Creating a security group](CreateSecurityGroupExample/)
+- [Creating a VPC](CreateVPCExample/)
+- [Deleting a key pair](DeleteKeyPairExample/)
+- [Deleting a security group](DeleteSecurityGroupExample/)
+- [Deleting a VPC](DeleteVPCExample/)
+- [Describing instances](DescribeInstancesExample/)
+- [Rebooting instances](RebootInstancesExample/)
+- [Starting instances](StartInstancesExample/)
+- [Stopping instances](StopInstancesExample/)
 
 ## Running the examples
 

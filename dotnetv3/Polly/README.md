@@ -1,4 +1,4 @@
-# Amazon Polly code examples for .NET
+# Amazon Polly code examples for the AWS SDK for .NET v3
 
 ## Overview
 
@@ -17,13 +17,13 @@ that convert text to speech using a number of different voices and languages.
 
 ### Single action
 
-- [DeleteLexiconExample](DeleteLexiconExample/) - Deletes an Amazon Polly lexicon. (`DeleteLexiconAsync`)
-- [DescribeVoicesExample](DescribeVoicesExample/) - Describes the voices available for Amazon Polly. (`DescribeVoicesAsync`)
-- [GetLexiconExample](GetLexiconExample/) - Gets information about an Amazon Polly lexicon. (`GetLexiconAsync`)
-- [ListLexiconsExample](ListLexiconsExample/) - Lists the Amazon Polly lexicons available. (`ListLexiconsAsync`)
-- [PutLexiconExample](PutLexiconExample/) - Adds a new Amazon Polly lexicon to an account. (`PutLexiconAsync`)
-- [SynthesizeSpeech](SynthesizeSpeechExample/) - Converts text to speech and saves the results in a file. (`SynthesizeSpeechAsync`)
-- [SynthesizeSpeechMarksExample](SynthesizeSpeechMarksExample/) - Synthesizes speech using speech marks. (`SynthesizeSpeechAsync`)
+- [Deleting a lexicon](DeleteLexiconExample/)
+- [Describing voices](DescribeVoicesExample/)
+- [Getting a lexicon](GetLexiconExample/)
+- [Listing lexicons](ListLexiconsExample/)
+- [Adding a lexicon](PutLexiconExample/)
+- [Synthesizing speech](SynthesizeSpeechExample/)
+- [Synthesizing speech marks](SynthesizeSpeechMarksExample/)
 
 ## Running the examples
 

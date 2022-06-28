@@ -1,9 +1,13 @@
-# Amazon Comprehend code examples for the AWS SDK for .NET v3
+# CloudWatch Logs examples for the AWS SDK for .NET v3
 
 ## Overview
 
-The examples in this section how to use the AWS SDK for .NET with Amazon
-Comprehend to inspect documents and discover information about them.
+This folder contains examples that show how to use the AWS SDK for .NET v3 to
+get started working with CloudWatch Logs.
+
+Amazon CloudWatch Logs Amazon CloudWatch Logs to monitor, store, and access
+your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS
+CloudTrail, Route 53, and other sources.
 
 ## ⚠️ Important
 
@@ -17,15 +21,16 @@ Comprehend to inspect documents and discover information about them.
 
 ## Code examples
 
-### Single actions
+### Sincle actions
 
-- [Detecting the dominant language](DetectDominantLanguageExampe/)
-- [Detecting entities](DetectEntitiesExample)
-- [Detecting personally identificable information (PII)](DetectingPIIExample/)
-- [Detecting syntax](DetectingSyntaxExample/)
-- [Detecting key phrases](DetectKeyPhrasesExample/)
-- [Detecting sentiment](DetectSentimentExample/)
-- [Topic modeling](TopicModelingExample/)
+- [Associating KMS keys](AssociateKmsKeyExample/)
+- [Canceling an export task](CancelExportTasksExample/) 
+- [Creating an export task](CreateExportTaskExample/)
+- [Creating a log group](CreateLogGroupExample/)
+- [Creating a log stream](CreateLogStreamExample/)
+- [Deleting a log group](DeleteLogGroupExample/)
+- [Describing export tasks](DescribeExportTasksExample/)
+- [Describing log groups](DescribeLogGroupsExample/)
 
 ## Running the examples
 
@@ -45,4 +50,3 @@ Or you can execute the example from within your IDE.
 - [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
-

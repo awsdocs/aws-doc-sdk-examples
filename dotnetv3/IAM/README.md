@@ -16,67 +16,32 @@ The examples in this section show how to use AWS Identity and Access Management 
 
 ## Code examples
 
-### Scenario
-
-- [IAMUserExample](IAMUserExample/IAMUserExample/) - This application uses the
-  basic features of the AWS Identity and Access Management (IAM) creating,
-  managing, and controlling access to resources for users. The application was
-  created using the AWS SDK for .NET version 3.7 and .NET Core 5. The application
-  the following API commands:
-
-  - CreateUsserAsync
-  - CreateAccessKeyAsync
-  - CreateRoleAsync
-  - CreatePolicyAsync
-  - AttachRolePolicyAsync
-  - AssumeRoleAsync
-  - DetatchRolePolicyAsync
-  - DeleteRolePolicyAsync
-  - DeletePolicyAsync
-  - DeleteRoleAsync
-  - DeleteAccessKeyAsync
-  - DeleteUserAsync
-
-- [IAM Basics](IAM_Basics_Scenario/) - This example uses AWS Identity and Access
-  Management (IAM) to create a user, and then create a role that can use Amazon Simple
-  Storage Service (Amazon S3) read-only permissions. This example was created using
-  the AWS SDK for .NET version 3.7 and .NET Core 5. The application deletes all
-  resources before exiting. This scenario uses the following API commands:
-
-  - CreateUserAsync
-  - CreateAccessKeyAsync
-  - CreatePolicyAsync
-  - CreateRoleAsync
-  - ListBucketsAsync
-  - AssumeRoleAsync
-  - DeleteUserAsync
-  - DeleteAccessKeyAsync
-  - DeletePolicyAsync
-  - DeleteRoleAsync
-  - DeleteRolePolicyAsync
-
 ### Single action
 
-- [AttachRolePolicyExample](AttachRolePolicyExample/AttachRolePolicyExample/) - Attaches a policy to an IAM role. (`AttachRolePolicyAsync`)
-- [CreateAccessKeyExample](CreateAccessKeyExample/CreateAccessKeyExample/) - Creates a new IAM access key. (`CreateAccessKeyAsync`)
-- [CreatePolicyExample](CreatePolicyExample/) - Creates a new IAM policy. (`CreatePolicyAsync`)
-- [CreateRoleExample](CreateRoleExample/) - Creates a new IAM role. (`CreateRoleAsync`)
-- [CreateUserExample](CreateUserExample/) - Creates a new IAM user. (`CreateUserAsync`)
-- [DeleteAccessKeyExample](DeleteAccessKeyExample/) - Deletes an IAM access key. (`DeleteAccessKeyAsync`)
-- [DeleteRolePolicyExample](DeleteRolePolicyExample/) - Deletes an IAM role policy. (`DeleteRolePolicyAsync`)
-- [DeleteUserExample](DeleteUserExample/) - Deletes an IAM user. (`DeleteUserAsync`)
-- [DetachRolePolicyExample](DetachRolePolicyExample/) - Detaches a policy from an IAM role. (`DetatchRolePolicyAsync`)
-- [GetAccountPasswordPolicyExample](GetAccountPasswordPolicyExample/) - Gets the IAM account password policy.
-- [GetPolicyExample](GetPolicyExample/) - Gets the details of an IAM policy. (`GetPolicyAsync`)
-- [GetRoleExample](GetRoleExample/) - Gets the details of an IAM role. (`GetRoleAsync`)
-- [ListAttachedRolePoliciesExample](ListAttachedRolePoliciesExample/) - Lists the IAM policies attached to a role. (`ListAttachedRolePoliciesAsync`)
-- [ListGroupsExample](ListGroupsExample/) - Lists the IAM groups for an account. (`ListGroupsAsync`)
-- [ListPoliciesExample](ListPoliciesExample/) - Lists the IAM policies for an account. (`ListPoliciesAsync`)
-- [ListRolePoliciesExample](ListRolePoliciesExample/) - Lists the IAM role policies for an account. (`ListRolePoliciesAsync`)
-- [ListRolesExample](ListRolesExample/) - Lists the IAM roles for an account. (`ListRolesAsync`)
-- [ListSAMLProvidersExample](ListSAMLProvidersExample/) - Lists the SAML providers defined with an account. (`ListSAMLProvidersAsync`)
-- [ListUsersExample](ListUsersExample/) - Lists the users for an account. (`ListUsersAsync`)
+- [Attaching a role policy](AttachRolePolicyExample/AttachRolePolicyExample/)
+- [Creating an access key](CreateAccessKeyExample/CreateAccessKeyExample/)
+- [Creating a policy](CreatePolicyExample/)
+- [Creating a role](CreateRoleExample/)
+- [Creating a user](CreateUserExample/)
+- [Deleting an access key](DeleteAccessKeyExample/)
+- [Deleting a role policy](DeleteRolePolicyExample/)
+- [Deleting a user](DeleteUserExample/)
+- [Detaching a role policy](DetachRolePolicyExample/)
+- [Getting an account password policy](GetAccountPasswordPolicyExample/)
+- [Getting a policy](GetPolicyExample/)
+- [Getting a role](GetRoleExample/)
+- [Listing attached role policies](ListAttachedRolePoliciesExample/)
+- [Listing groups](ListGroupsExample/)
+- [Listing policies](ListPoliciesExample/)
+- [Listing role policies](ListRolePoliciesExample/)
+- [Listing roles](ListRolesExample/)
+- [Listing SAML providers](ListSAMLProvidersExample/)
+- [Listing users](ListUsersExample/)
 
+### Scenarios
+
+- [IAMUserExample](IAMUserExample/IAMUserExample/)
+- [IAM Basics](IAM_Basics_Scenario/)
 
 ## Running the examples
 
@@ -92,8 +57,8 @@ Alternatively, you can run the example from within your IDE.
 
 ## Resources and documentation
 
-[AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-[AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
+- [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
+- [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
