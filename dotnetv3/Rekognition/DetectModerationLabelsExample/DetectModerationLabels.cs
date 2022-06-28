@@ -3,6 +3,7 @@
 
 namespace DetectModerationLabelsExample
 {
+    // snippet-start:[Rekognition.dotnetv3.DetectModerationLabelsExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace DetectModerationLabelsExample
     /// </summary>
     public class DetectModerationLabels
     {
-        // snippet-start:[Rekognition.dotnetv3.DetectModerationLabelsExample]
         public static async Task Main(string[] args)
         {
             string photo = "input.jpg";
@@ -52,7 +52,6 @@ namespace DetectModerationLabelsExample
                 Console.WriteLine(ex.Message);
             }
         }
-
-        // snippet-end:[Rekognition.dotnetv3.DetectModerationLabelsExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.DetectModerationLabelsExample]
 }

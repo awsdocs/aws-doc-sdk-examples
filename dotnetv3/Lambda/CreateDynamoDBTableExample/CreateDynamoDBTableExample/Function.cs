@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Lambda.dotnetv3.CreateDynamoDBTableLambdaExample]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -109,3 +110,4 @@ namespace CreateDynamoDBTableExample
         }
     }
 }
+// snippet-end:[Lambda.dotnetv3.CreateDynamoDBTableLambdaExample]

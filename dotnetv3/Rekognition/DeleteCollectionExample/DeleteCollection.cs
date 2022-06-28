@@ -3,6 +3,7 @@
 
 namespace DeleteCollectionExample
 {
+    // snippet-start:[Rekognition.dotnetv3.DeleteCollectionExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace DeleteCollectionExample
     /// </summary>
     public class DeleteCollection
     {
-        // snippet-start:[Rekognition.dotnetv3.DeleteCollectionExample]
         public static async Task Main()
         {
             var rekognitionClient = new AmazonRekognitionClient();
@@ -31,7 +31,6 @@ namespace DeleteCollectionExample
             var deleteCollectionResponse = await rekognitionClient.DeleteCollectionAsync(deleteCollectionRequest);
             Console.WriteLine($"{collectionId}: {deleteCollectionResponse.StatusCode}");
         }
-
-        // snippet-end:[Rekognition.dotnetv3.DeleteCollectionExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.DeleteCollectionExample]
 }

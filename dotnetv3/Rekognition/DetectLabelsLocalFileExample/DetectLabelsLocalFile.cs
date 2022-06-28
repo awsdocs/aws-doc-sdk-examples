@@ -3,6 +3,7 @@
 
 namespace DetectLabelsLocalFileExample
 {
+    // snippet-start:[Rekognition.dotnetv3.DetectLabelsLocalFile]
     using System;
     using System.IO;
     using System.Threading.Tasks;
@@ -16,7 +17,6 @@ namespace DetectLabelsLocalFileExample
     /// </summary>
     public class DetectLabelsLocalFile
     {
-        // snippet-start:[Rekognition.dotnetv3.DetectLabelsLocalFile]
         public static async Task Main()
         {
             string photo = "input.jpg";
@@ -59,7 +59,6 @@ namespace DetectLabelsLocalFileExample
                 Console.WriteLine(ex.Message);
             }
         }
-
-        // snippet-end:[Rekognition.dotnetv3.DetectLabelsLocalFile]
     }
+    // snippet-end:[Rekognition.dotnetv3.DetectLabelsLocalFile]
 }

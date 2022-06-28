@@ -3,6 +3,7 @@
 
 namespace ListCollectionsExample
 {
+    // snippet-start:[Rekognition.dotnetv3.ListCollectionsExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace ListCollectionsExample
     /// </summary>
     public class ListCollections
     {
-        // snippet-start:[Rekognition.dotnetv3.ListCollectionsExample]
         public static async Task Main()
         {
             var rekognitionClient = new AmazonRekognitionClient();
@@ -46,7 +46,6 @@ namespace ListCollectionsExample
             }
             while (listCollectionsResponse.NextToken is not null);
         }
-
-        // snippet-end:[Rekognition.dotnetv3.ListCollectionsExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.ListCollectionsExample]
 }

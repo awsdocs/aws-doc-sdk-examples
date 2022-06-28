@@ -3,6 +3,7 @@
 
 namespace CreateExportTaskExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.CreateExportTaskExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -16,7 +17,6 @@ namespace CreateExportTaskExample
     /// </summary>
     public class CreateExportTask
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.CreateExportTaskExample]
         public static async Task Main()
         {
             // This client object will be associated with the same AWS Region
@@ -47,6 +47,6 @@ namespace CreateExportTaskExample
             }
         }
 
-        // snippet-end:[CloudWatchLogs.dotnetv3.CreateExportTaskExample]
     }
+    // snippet-end:[CloudWatchLogs.dotnetv3.CreateExportTaskExample]
 }
