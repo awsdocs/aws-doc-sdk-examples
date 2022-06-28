@@ -28,7 +28,7 @@ AWS Organizations, programmatically manages AWS accounts, allocates resources, a
 - [Deleting a policy](DeletePolicyExample/)
 - [Detaching a policy](DetachPolicyExample/)
 - [Listing accounts](ListAccountsExample/)
-- [Listing organizational units for a parent organization](ListOrganizationalUnitsForParentExample/)
+- [Listing organizational units for a parent organization](ListOrgUnitsForParentExample/)
 - [Listing policies](ListPoliciesExample/)
 
 ## Running the examples

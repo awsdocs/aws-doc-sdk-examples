@@ -1,48 +1,38 @@
 # Amazon Simple Notification Service (Amazon SNS) SDK for .NET 3 examples
 
+## Purpose
+
 Amazon SNS is a fully managed messaging service for both system-to-system and app-to-person (A2P) communication. 
 
 ## Code examples
 
 This is a workspace where you can find AWS SDK for .NET version 3 (v3) Amazon SNS examples.
 
-- [Create SNS Topic](CreateSNSTopicExample)
-- [Delete SNS Topic](DeleteSNSTopicExample)
-- [Get Topic Attributes](GetTopicAttributesExample)
-- [Is Phone Number Opted Out](IsPhoneNumOptedOut)
-- [List SNS Subscriptions](ListSNSSubscriptionsExample)
-- [List SNS Topics](ListSNSTopicsExample)
-- [Manage Topic Subscription](ManageTopicSubscriptionExample)
+- [Creating an SNS topic](CreateSNSTopicExample)
+- [Deleting an SNS topic](DeleteSNSTopicExample)
+- [Getting the attributes for a topic](GetTopicAttributesExample)
+- [Checking whether a phone number has opted out](IsPhoneNumOptedOut)
+- [Listing SNS subscriptions](ListSNSSubscriptionsExample)
+- [Listing SNS topics](ListSNSTopicsExample)
+- [Managing topic subscriptions](ManageTopicSubscriptionExample)
 - [Publish to SNS Topic](PublishToSNSTopicExample)
-- [Send SNS Message](SNSMessageExample)
+- [Sending an SNS message](SNSMessageExample)
 
-**Note**: All code examples are written in C# 9 using the AWS SDK for .NET 3.5 or greater and .NET Core 5.0.
+## Running the examples
 
-## Getting started
+Once the example has been compiled, you can run it from the command line by
+first navigating to the folder that contains the .csproj file, and then
+issuing the following command:
 
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
-
-## Running the Examples
-
-You can run the examples in your IDE of choice, or you can use the dotnet command line to run the example from
-the console. To run an example from the console, enter the following commands:
-
-
-```bash
-cd <ExampleFolder>\<ProjectFolder>
+```
 dotnet run
 ```
 
-If the example is ListTopicsExample, starting in ~\Source\Repos\aws-doc-sdk-examples\dotnetv3\SNS
-type the following:
+Or you can execute the example from within your IDE.
 
-```bash
-cd ListTopicsExample\ListTopicsExample
-dotnet run
-```
+## Additional resources
 
-## Resources
-
-- [AWS SDK for .NET](https://aws.amazon.com/sdk-for-net/)
-- [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/welcome.html)
+- [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 - [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

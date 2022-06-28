@@ -2,8 +2,7 @@
 
 ## Overview
 
-The examples in this section how to use the AWS SDK for .NET with Amazon
-Comprehend to inspect documents and discover information about them.
+The examples in this section how to use the AWS SDK for .NET use Amazon Comprehend to inspect documents and discover information about them.
 
 ## ⚠️ Important
 
@@ -25,7 +24,7 @@ Comprehend to inspect documents and discover information about them.
 - [Detecting syntax](DetectingSyntaxExample/)
 - [Detecting key phrases](DetectKeyPhrasesExample/)
 - [Detecting sentiment](DetectSentimentExample/)
-- [Topic modeling](TopicModelingExample/)
+- [Using topic modeling](TopicModelingExample/)
 
 ## Running the examples
 
