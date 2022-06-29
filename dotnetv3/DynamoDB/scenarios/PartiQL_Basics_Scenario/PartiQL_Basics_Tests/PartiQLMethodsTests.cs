@@ -49,6 +49,15 @@ namespace PartiQL_Basics_Tests
         }
 
         [Fact(), TestPriority(4)]
+        public async Task GetMoviesTest()
+        {
+            int year = 2010;
+            var movies = await PartiQLMethods.GetMovies(tableName, year);
+            var foundIt = movies.Count > 0;
+            Assert.True(foundIt, $"Couldn't find any movies released in {year}.");
+        }
+
+        [Fact(), TestPriority(5)]
         public async Task InsertSingleMovieTest()
         {
             var movieTitle = "Butch Cassidy and the Sundance Kid";
@@ -57,7 +66,7 @@ namespace PartiQL_Basics_Tests
             Assert.True(success, $"Could not insert {movieTitle}.");
         }
 
-        [Fact(), TestPriority(5)]
+        [Fact(), TestPriority(6)]
         public async Task UpdateSingleMovieTest()
         {
             var producer = "MGM";
@@ -68,7 +77,7 @@ namespace PartiQL_Basics_Tests
             Assert.True(success, $"Could not update {movieTitle}.");
         }
 
-        [Fact(), TestPriority(6)]
+        [Fact(), TestPriority(7)]
         public async Task DeleteSingleMovieTest()
         {
             var movieTitle = "Butch Cassidy and the Sundance Kid";

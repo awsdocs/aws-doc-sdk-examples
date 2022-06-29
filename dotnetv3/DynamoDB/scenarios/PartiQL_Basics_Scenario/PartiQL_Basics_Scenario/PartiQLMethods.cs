@@ -133,6 +133,32 @@ namespace PartiQL_Basics_Scenario
 
         // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie]
 
+        // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-GetMovies]
+
+        /// <summary>
+        /// Retrieve multiple movies by year using a SELECT statement.
+        /// </summary>
+        /// <param name="tableName">The name of the movie table.</param>
+        /// <param name="year">The year the movies were released.</param>
+        /// <returns></returns>
+        public static async Task<List<Dictionary<string, AttributeValue>>> GetMovies(string tableName, int year)
+        {
+            string selectSingle = $"SELECT * FROM {tableName} WHERE year = ?";
+            var parameters = new List<AttributeValue>
+            {
+                new AttributeValue { N = year.ToString() },
+            };
+
+            var response = await Client.ExecuteStatementAsync(new ExecuteStatementRequest
+            {
+                Statement = selectSingle,
+                Parameters = parameters,
+            });
+
+            return response.Items;
+        }
+        // snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-GetMovies]
+
         // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie]
 
         /// <summary>

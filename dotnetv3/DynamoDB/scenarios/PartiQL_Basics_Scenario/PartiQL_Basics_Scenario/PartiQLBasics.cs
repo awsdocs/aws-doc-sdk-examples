@@ -40,6 +40,12 @@ DisplayMovies(movies);
 
 WaitForEnter();
 
+// Get a movie by using a SELECT statement.
+movies = await PartiQLMethods.GetMovies(tableName, 2010);
+DisplayMovies(movies);
+
+WaitForEnter();
+
 // Add a single movie to the table.
 var movieTitle = "Spider-Man: No Way Home";
 var year = 2021;
