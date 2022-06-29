@@ -6,7 +6,9 @@ import PackageDescription
 let package = Package(
     name: "SwiftUtilities",
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
+        // Products define the executables and libraries a package produces.
+        // They also make their own executables and libraries visible to other
+        // packages.
         .library(
             name: "SwiftUtilities",
             targets: ["SwiftUtilities"]),
@@ -20,8 +22,8 @@ let package = Package(
         ),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
+        // Targets can depend on other targets in this package. They can also
+        // depend on products in packages this package depends on.
         .target(
             name: "SwiftUtilities",
             dependencies: [

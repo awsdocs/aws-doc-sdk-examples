@@ -3,7 +3,7 @@
 The _SwiftUtilities_ package provides various tools and utility functions
 that are useful in sample code and in tests for those examples.
 
-The included utility functions are:
+The included utility functions are as follows:
 
 ## String
 
@@ -27,25 +27,24 @@ other named object.
 * `isValid`: A Boolean indicating whether or not the generated name should be a
   valid one. For the purposes of this function, it is assumed that a valid name
   cannot start with a comma (","), and should not include either numbers or the
-  percent ("%") symbol. Between these, the resulting string should usually be
-  invalid for most use cases. By default, this is `false`, which causes a valid
+  percent ("%") symbol. Between these, the resulting string is usually not valid for most use cases. By default, this is `false`, which causes a valid
   name to be returned.
 
 ### Return value
 
-A `String` containing the generated unique name. The name is in fact a UUID,
-though possibly altered based on the provided options.
+A `String` containing the generated unique name. The name is a UUID,
+although it might be altered based on the provided options.
 
 ### `withLoremText(paragraphs:) -> String`
 
-Returns a Lorem Ipsum style string containing the specified number of randomly-generated
-paragraphs. If `paragraphs` is not specified, then 5 paragraphs of Lorem Ipsum
-text are returned. Each paragraph is between four and eight sentences long, and
-each sentence contains between 3 and 9 words.
+Returns a Lorem Ipsum-style string containing the specified number of randomly
+generated paragraphs. If `paragraphs` is not specified, then five paragraphs of
+Lorem Ipsum text are returned. Each paragraph is four to eight sentences long,
+and each sentence contains three to nine words.
 
-This text is suitable for use in test files and strings so that tests and
-examples don't need to contain strings that may need translation or may take up
-space unnecessarily.
+The Lorem Ipsum text is suitable for use in test files and example strings
+because it doesn't need translation and it doesn't unnecessarily make test code
+larger than necessary.
 
 #### Parameters
 
@@ -54,7 +53,7 @@ space unnecessarily.
 
 #### Return value
 
-A `String` containing up to `paragraphs` paragraphs of Lorem Ipsum style
+A `String` containing up to `paragraphs` paragraphs of Lorem Ipsum-style
 generated text.
 
 ## Testing

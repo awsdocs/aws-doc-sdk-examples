@@ -7,8 +7,8 @@ import XCTest
 @testable import SwiftUtilities
 
 final class UniqueNameStringTests: XCTestCase {
-    /// Test to ensure that calling uniqueName() with no
-    /// inputs simply returns a lowercased UUID.
+    /// Test to confirm that calling uniqueName() with no
+    /// inputs returns a lowercased UUID.
     func testSimpleUniqueName() {
         let ts = String.uniqueName()
         XCTAssertTrue(ts.lowercased() == ts)
@@ -17,13 +17,12 @@ final class UniqueNameStringTests: XCTestCase {
         XCTAssertNotNil(tsUUID)
     }
 
-    /// Ensure that the `withPrefix` property works by
-    /// checking that the returned value:
+    /// Confirm that the `withPrefix` property works by checking that the
+    /// returned value has the following properties:
     ///
     /// * Is non-nil
     /// * Starts with the specified prefix
-    /// * That removing the prefix results in a valid lowercased
-    ///   UUID
+    /// * When the prefix is removed, has a valid lowercased UUID
     func testUniqueNamePrefixed() {
         let prefix = "prefix"
         let ts = String.uniqueName(withPrefix: prefix)
@@ -37,13 +36,12 @@ final class UniqueNameStringTests: XCTestCase {
         XCTAssertNotNil(UUID(uuidString: lcUUID.uppercased()))
     }
 
-    /// Ensure that the `withExtension` property works by
-    /// checking that the returned value:
+    /// Confirm that the `withExtension` property works by checking that the
+    /// returned value has the following properties:
     ///
     /// * Is non-nil
     /// * Ends with a period followed by the extension
-    /// * That removing the extension (and period) results in 
-    ///   a valid lowercased UUID
+    /// * When the extension and period are removed, has a valid lowercased UUID
     func testUniqueNameWithExtension() {
         let ext = "txt"
         let ts = String.uniqueName(withExtension: ext)
@@ -57,13 +55,14 @@ final class UniqueNameStringTests: XCTestCase {
         XCTAssertNotNil(UUID(uuidString: lcUUID.uppercased()))
     }
 
-    /// Ensure that the `isValid` property works by
-    /// checking that when false, the returned value:
+    /// Confirm that the `isValid` property works by
+    /// checking that, when false, the returned value has
+    /// the following properties:
     ///
     /// * Is non-nil
     /// * Starts with the prefix that invalidates the name
-    /// * That removing the prefix results in a valid
-    ///   lowercased UUID
+    /// * When the prefix is removed, has a valid lowercased
+    ///   UUID
     func testInvalidUniqueName() {
         let invalidatePrefix = ",12%"
         let ts = String.uniqueName(isValid: false)

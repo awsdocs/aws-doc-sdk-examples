@@ -1,4 +1,7 @@
 /*
+   An addition to the String class to add support for generating
+   Lorem Ipsum-style strings, using the Fakery library.
+
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
@@ -7,14 +10,13 @@ import Foundation
 import Fakery
 
 public extension String {
-    /// Return a new randomly-generated LoremIpsum-style string
+    /// Return a new randomly generated Lorem Ipsum-style string
     /// with the specified number of paragraphs.
     /// - Parameter paragraphs: An integer specifying the number
     ///   of paragraphs to return. The default is 5.
     /// - Returns: A `String` containing the specified number of
     ///   random Lorem Ipsum paragraphs. Each paragraph contains
-    ///   between 4 and 8 sentences, each of between 3 and 9
-    ///   words.
+    ///   four to eight sentences of three to nine words each.
     static func withLoremText(paragraphs: Int = 5) -> String {
         var text = ""
 

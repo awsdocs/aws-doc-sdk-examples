@@ -1,4 +1,6 @@
 /*
+   Tests for the Fakery extension to the String class.
+
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
@@ -9,8 +11,8 @@ import XCTest
 final class FakeryStringTests: XCTestCase {
     let defaultNumParagraphs = 5
 
-    /// Get the number of words in the specified string
-    /// - Parameter str: The string to count words in
+    /// Get the number of words in the specified string.
+    /// - Parameter str: The string to count words in.
     /// - Returns: An integer value indicating the word count.
     private func countWords(inString str: String) -> Int {
         let components = str.components(separatedBy: .whitespacesAndNewlines)
@@ -19,7 +21,7 @@ final class FakeryStringTests: XCTestCase {
     }
 
     /// Count the sentences in the specified string.
-    /// - Parameter str: The string to count sentences in
+    /// - Parameter str: The string to count sentences in.
     /// - Returns: An integer indicating the sentence count.
     private func countSentences(inString str: String) -> Int {
         let cset = CharacterSet(charactersIn: ". \n")
@@ -29,7 +31,7 @@ final class FakeryStringTests: XCTestCase {
     }
 
     /// Count the paragraphs in the string given.
-    /// - Parameter str: The string to count paragraphs in
+    /// - Parameter str: The string to count paragraphs in.
     /// - Returns: An integer giving the string's paragraph count.
     private func countParagraphs(inString str: String) -> Int {
         let components = str.components(separatedBy: "\n")
@@ -37,7 +39,7 @@ final class FakeryStringTests: XCTestCase {
         return paragraphs.count
     }
 
-    /// Ensure that creating a LoremIpsum string results in the
+    /// Confirm that creating a Lorem Ipsum string results in the
     /// expected number of paragraphs by default.
     func testStringWithLoremText() {
         let ts = String.withLoremText()
