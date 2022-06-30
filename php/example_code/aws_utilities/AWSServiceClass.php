@@ -39,5 +39,4 @@ abstract class AWSServiceClass
         }
         return $result;
     }
-
 }

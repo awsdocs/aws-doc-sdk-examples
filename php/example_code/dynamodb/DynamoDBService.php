@@ -7,24 +7,14 @@ use Aws\DynamoDb\Marshaler;
 use AwsUtilities\AWSServiceClass;
 use Exception;
 
-class DynamoDBAttribute
-{
-    public string $AttributeName;
-    public string $AttributeType;
-    public string $KeyType;
-
-    public function __construct(string $AttributeName, string $AttributeType, string $KeyType = '')
-    {
-        $this->AttributeName = $AttributeName;
-        $this->AttributeType = $AttributeType;
-        $this->KeyType = $KeyType;
-    }
-}
-
 class DynamoDBService extends AWSServiceClass
 {
-    public function __construct(DynamoDbClient $client = null, string $region = 'us-west-2', string $version = 'latest', string $profile = 'default')
-    {
+    public function __construct(
+        DynamoDbClient $client = null,
+        string $region = 'us-west-2',
+        string $version = 'latest',
+        string $profile = 'default'
+    ) {
         if (gettype($client) == DynamoDbClient::class) {
             $this->dynamoDbClient = $client;
             return;
@@ -52,7 +42,8 @@ class DynamoDBService extends AWSServiceClass
         foreach ($attributes as $attribute) {
             if (is_a($attribute, DynamoDBAttribute::class)) {
                 $keySchema[] = ['AttributeName' => $attribute->AttributeName, 'KeyType' => $attribute->KeyType];
-                $attributeDefinitions[] = ['AttributeName' => $attribute->AttributeName, 'AttributeType' => $attribute->AttributeType];
+                $attributeDefinitions[] =
+                    ['AttributeName' => $attribute->AttributeName, 'AttributeType' => $attribute->AttributeType];
             }
         }
 
@@ -62,7 +53,6 @@ class DynamoDBService extends AWSServiceClass
             'AttributeDefinitions' => $attributeDefinitions,
             'ProvisionedThroughput' => ['ReadCapacityUnits' => 10, 'WriteCapacityUnits' => 10],
         ]);
-
     }
     # snippet-end:[php.example_code.dynamodb.service.createTable]
 
@@ -157,8 +147,13 @@ class DynamoDBService extends AWSServiceClass
     #snippet-end:[php.example_code.dynamodb.service.scan]
 
     #snippet-start:[php.example_code.dynamodb.service.updateItem]
-    public function updateItemAttributeByKey(string $tableName, array $key, string $attributeName, string $attributeType, string $newValue)
-    {
+    public function updateItemAttributeByKey(
+        string $tableName,
+        array $key,
+        string $attributeName,
+        string $attributeType,
+        string $newValue
+    ) {
         $this->dynamoDbClient->updateItem([
             'Key' => $key['Key'],
             'TableName' => $tableName,
@@ -201,7 +196,9 @@ class DynamoDBService extends AWSServiceClass
     #snippet-start:[php.example_code.dynamodb.service.writeBatchItem]
     public function writeBatch(string $TableName, array $Batch, int $depth = 2)
     {
-        if (--$depth <= 0) throw new Exception("Max depth exceeded. Please try with fewer batch items or increase depth.");
+        if (--$depth <= 0) {
+            throw new Exception("Max depth exceeded. Please try with fewer batch items or increase depth.");
+        }
 
         $marshal = new Marshaler();
         $total = 0;
@@ -225,5 +222,4 @@ class DynamoDBService extends AWSServiceClass
         }
     }
     #snippet-end:[php.example_code.dynamodb.service.writeBatchItem]
-
 }
