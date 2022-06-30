@@ -2,6 +2,7 @@ package com.example.dynamodb;
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondaryPartitionKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
 @DynamoDbBean
@@ -10,6 +11,7 @@ public class Movies {
     private int year;
     private String info;
 
+    @DynamoDbSecondaryPartitionKey(indexNames = { "year-index" })
     @DynamoDbPartitionKey
     public int getYear() {
       return this.year;

@@ -114,34 +114,50 @@ public class AutoScaleTest {
     @Order(6)
     public void autoScalingScenario() throws InterruptedException {
         System.out.println("**** Create an Auto Scaling group named "+groupName);
-        assertDoesNotThrow(() -> AutoScalingScenario.createAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName, serviceLinkedRoleARN, vpcZoneId));
-        System.out.println("**** Get Auto Scaling groups");
-        assertDoesNotThrow(() -> AutoScalingScenario.getAutoScalingGroups(autoScalingClient));
+        AutoScalingScenario.createAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName, serviceLinkedRoleARN, vpcZoneId);
+
         System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
+
         System.out.println("**** Get Auto Scale group Id value");
         String instanceId = AutoScalingScenario.getSpecificAutoScalingGroups(autoScalingClient, groupNameSc);
         assertTrue(!instanceId.isEmpty());
+
         System.out.println("**** Describe Auto Scaling with the Id value "+instanceId);
-        assertDoesNotThrow(() -> AutoScalingScenario.describeAutoScalingInstance( autoScalingClient, instanceId));
+        AutoScalingScenario.describeAutoScalingInstance( autoScalingClient, instanceId);
+
         System.out.println("**** Enable metrics collection "+instanceId);
-        assertDoesNotThrow(() -> AutoScalingScenario.enableMetricsCollection(autoScalingClient, groupNameSc));
-        System.out.println("**** Describe Auto Scaling groups");
-        assertDoesNotThrow(() -> AutoScalingScenario.describeAutoScalingGroups(autoScalingClient, groupNameSc));
-        System.out.println("**** Describe Account details");
-        assertDoesNotThrow(() -> AutoScalingScenario.describeAccountLimits(autoScalingClient));
-        System.out.println("**** Update an Auto Scaling group");
-        assertDoesNotThrow(() -> AutoScalingScenario.updateAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName, serviceLinkedRoleARN));
+        AutoScalingScenario.enableMetricsCollection(autoScalingClient, groupNameSc);
+
+        System.out.println("**** Update an Auto Scaling group to update max size to 3");
+        AutoScalingScenario.updateAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName, serviceLinkedRoleARN);
+
+        System.out.println("**** Describe all Auto Scaling groups to show the current state of the groups");
+        AutoScalingScenario.describeAutoScalingGroups(autoScalingClient, groupNameSc);
+
+        System.out.println("**** Describe account details");
+        AutoScalingScenario.describeAccountLimits(autoScalingClient);
+
         System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
-        System.out.println("**** Get the three instance Id values");
-        assertDoesNotThrow(() -> AutoScalingScenario.getSpecificAutoScalingGroups(autoScalingClient, groupNameSc));
+
+        System.out.println("**** Set desired capacity to 2");
+        AutoScalingScenario.setDesiredCapacity(autoScalingClient, groupNameSc);
+
+        System.out.println("**** Get the two instance Id values and state");
+        AutoScalingScenario.getSpecificAutoScalingGroups(autoScalingClient, groupNameSc);
+
+        System.out.println("**** List the scaling activities that have occurred for the group");
+        AutoScalingScenario.describeScalingActivities(autoScalingClient, groupNameSc);
+
         System.out.println("**** Terminate an instance in the Auto Scaling group");
-        assertDoesNotThrow(() -> AutoScalingScenario.terminateInstanceInAutoScalingGroup(autoScalingClient, instanceId));
-        System.out.println("**** Disable the metrics collection");
-        assertDoesNotThrow(() -> AutoScalingScenario.disableMetricsCollection(autoScalingClient, groupNameSc));
+        AutoScalingScenario.terminateInstanceInAutoScalingGroup(autoScalingClient, instanceId);
+
+        System.out.println("**** Stop the metrics collection");
+        AutoScalingScenario.disableMetricsCollection(autoScalingClient, groupNameSc);
+
         System.out.println("**** Delete the Auto Scaling group");
-        assertDoesNotThrow(() -> AutoScalingScenario.deleteAutoScalingGroup(autoScalingClient, groupNameSc));
+        AutoScalingScenario.deleteAutoScalingGroup(autoScalingClient, groupNameSc);
     }
 }
 
