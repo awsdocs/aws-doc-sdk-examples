@@ -3,6 +3,8 @@
 
 namespace DeleteLogGroupExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.DeleteLogGroupExample]
+
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -15,7 +17,6 @@ namespace DeleteLogGroupExample
     /// </summary>
     public class DeleteLogGroup
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.DeleteLogGroupExample]
         public static async Task Main()
         {
             var client = new AmazonCloudWatchLogsClient();
@@ -33,7 +34,7 @@ namespace DeleteLogGroupExample
                 Console.WriteLine($"Successfully deleted CloudWatch log group, {logGroupName}.");
             }
         }
-
-        // snippet-end:[CloudWatchLogs.dotnetv3.DeleteLogGroupExample]
     }
+
+    // snippet-end:[CloudWatchLogs.dotnetv3.DeleteLogGroupExample]
 }

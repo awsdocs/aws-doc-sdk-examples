@@ -3,6 +3,7 @@
 
 namespace DeleteSecurityGroupExample
 {
+    // snippet-start:[EC2.dotnetv3.DeleteSecurityGroupExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.EC2;
@@ -47,4 +48,5 @@ namespace DeleteSecurityGroupExample
             }
         }
     }
+    // snippet-end:[EC2.dotnetv3.DeleteSecurityGroupExample]
 }

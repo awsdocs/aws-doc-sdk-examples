@@ -3,6 +3,7 @@
 
 namespace DetachPolicyExample
 {
+    // snippet-start:[Organizations.dotnetv3.DetachPolicyExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -45,4 +46,5 @@ namespace DetachPolicyExample
             }
         }
     }
+    // snippet-end:[Organizations.dotnetv3.DetachPolicyExample]
 }
