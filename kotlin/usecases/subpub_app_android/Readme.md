@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a native Android application that has publish-subsciption functionality as well as the ability to translate messages by using the AWS SDK for Kotlin.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/18/2022        |
+| Updated   | 6/30/2022        |
 | Required Skills   | Kotlin, Gradle  |
 
 ## Purpose
