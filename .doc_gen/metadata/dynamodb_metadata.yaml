@@ -49,6 +49,15 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.java2.create_table.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description: Create a table.
+              snippet_tags:
+                - php.example_code.dynamodb.basics.createTable
+                - php.example_code.dynamodb.service.createTable
     Python:
       versions:
         - sdk_version: 3
@@ -244,6 +253,14 @@ dynamodb_BatchWriteItem:
             - description: Inserts many items into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.batchitems.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.batchWriteItem
     Python:
       versions:
         - sdk_version: 3
@@ -364,6 +381,14 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.java2.delete_table.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.deleteTable
     Python:
       versions:
         - sdk_version: 3
@@ -460,6 +485,15 @@ dynamodb_PutItem:
             - description: Puts an item into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.putitem.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.putItem
+                - php.example_code.dynamodb.service.putItem
     Python:
       versions:
         - sdk_version: 3
@@ -560,6 +594,15 @@ dynamodb_GetItem:
             - description: Gets an item from a table by using the DynamoDbClient.
               snippet_tags:
                 - dynamodb.java2.query.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.getItem
+                - php.example_code.dynamodb.service.getItem
     Python:
       versions:
         - sdk_version: 3
@@ -660,6 +703,15 @@ dynamodb_UpdateItem:
             - description: Updates an item located in a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.moditem.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.updateItem
+                - php.example_code.dynamodb.service.updateItem
     Python:
       versions:
         - sdk_version: 3
@@ -750,6 +802,16 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - dynamodb.java2.delete_item.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.key
+                - php.example_code.dynamodb.basics.deleteItem
+                - php.example_code.dynamodb.service.deleteItem
     Python:
       versions:
         - sdk_version: 3
@@ -856,6 +918,14 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.java2.list_tables.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.listTables
     Python:
       versions:
         - sdk_version: 3
@@ -956,6 +1026,15 @@ dynamodb_Query:
             - description: Queries a table by using the DynamoDbClient and a secondary index.
               snippet_tags:
                 - dynamodb.java2.query_items_sec_index.main               
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.query
+                - php.example_code.dynamodb.service.query
     Python:
       versions:
         - sdk_version: 3
@@ -1063,6 +1142,15 @@ dynamodb_Scan:
             - description: Scans an Amazon DynamoDB table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.scan.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb/dynamodb_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.scan
+                - php.example_code.dynamodb.service.scan
     Python:
       versions:
         - sdk_version: 3

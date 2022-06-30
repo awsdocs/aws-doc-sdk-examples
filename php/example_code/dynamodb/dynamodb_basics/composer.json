@@ -1,7 +1,6 @@
 {
   "require": {
     "aws/aws-sdk-php": "^3.209",
-    "phpunit/phpunit": "^9.5",
     "guzzlehttp/guzzle": "^7.0"
   },
   "autoload": {
@@ -9,9 +8,9 @@
       "": "*"
     },
     "psr-4": {
-      "DynamoDb\\": "dynamodb/",
-      "DynamoDb\\Basics\\": "dynamodb/dynamodb_basics",
-      "AwsUtilities\\": "aws_utilities"
+      "DynamoDb\\": "../../dynamodb/",
+      "DynamoDb\\Basics\\": "../../dynamodb/dynamodb_basics",
+      "AwsUtilities\\": "../../aws_utilities"
     }
   }
 }
