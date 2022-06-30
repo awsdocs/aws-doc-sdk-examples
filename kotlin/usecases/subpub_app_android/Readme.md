@@ -142,8 +142,8 @@ Add the following dependencies to the Gradle build file.
    dependencies {
 
      implementation 'androidx.core:core-ktx:1.6.0'
-     implementation("aws.sdk.kotlin:translate:0.9.4-beta")
-     implementation("aws.sdk.kotlin:sns:0.9.4-beta")  {
+     implementation("aws.sdk.kotlin:translate:0.14.3-beta")
+     implementation("aws.sdk.kotlin:sns:0.14.3-beta")  {
         exclude group: "xmlpull", module: "xmlpull"
      }
      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
