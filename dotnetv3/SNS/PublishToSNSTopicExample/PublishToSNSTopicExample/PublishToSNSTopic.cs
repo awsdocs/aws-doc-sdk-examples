@@ -3,6 +3,7 @@
 
 namespace PublishToSNSTopicExample
 {
+    // snippet-start:[SNS.dotnetv3.PublishToSNSTopicExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
@@ -15,8 +16,6 @@ namespace PublishToSNSTopicExample
     /// </summary>
     public class PublishToSNSTopic
     {
-        // snippet-start:[SNS.dotnetv3.PublishToSNSTopicExample]
-
         public static async Task Main()
         {
             string topicArn = "arn:aws:sns:us-east-2:000000000000:ExampleSNSTopic";
@@ -49,7 +48,6 @@ namespace PublishToSNSTopicExample
 
             Console.WriteLine($"Successfully published message ID: {response.MessageId}");
         }
-
-        // snippet-end:[SNS.dotnetv3.PublishToSNSTopicExample]
     }
+    // snippet-end:[SNS.dotnetv3.PublishToSNSTopicExample]
 }

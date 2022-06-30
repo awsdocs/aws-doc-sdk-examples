@@ -3,6 +3,7 @@
 
 namespace DeleteOrganizationalUnitExample
 {
+    // snippet-start:[Organizations.dotnetv3.DeleteOrganizationalUnitExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -44,4 +45,5 @@ namespace DeleteOrganizationalUnitExample
             }
         }
     }
+    // snippet-end:[Organizations.dotnetv3.DeleteOrganizationalUnitExample]
 }

@@ -3,6 +3,7 @@
 
 namespace DetectLabelsExample
 {
+    // snippet-start:[Rekognition.dotnetv3.DetectLabelsExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace DetectLabelsExample
     /// </summary>
     public class DetectLabels
     {
-        // snippet-start:[Rekognition.dotnetv3.DetectLabelsExample]
         public static async Task Main()
         {
             string photo = "del_river_02092020_01.jpg"; // "input.jpg";
@@ -51,7 +51,6 @@ namespace DetectLabelsExample
                 Console.WriteLine(ex.Message);
             }
         }
-
-        // snippet-end:[Rekognition.dotnetv3.DetectLabelsExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.DetectLabelsExample]
 }

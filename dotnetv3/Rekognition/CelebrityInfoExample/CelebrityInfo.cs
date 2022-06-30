@@ -3,6 +3,7 @@
 
 namespace CelebrityInfoExample
 {
+    // snippet-start:[Rekognition.dotnetv3.CelebrityInfoExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace CelebrityInfoExample
     /// </summary>
     public class CelebrityInfo
     {
-        // snippet-start:[Rekognition.dotnetv3.CelebrityInfoExample]
         public static async Task Main()
         {
             string celebId = "nnnnnnnn";
@@ -39,7 +39,6 @@ namespace CelebrityInfoExample
                 Console.WriteLine(url);
             });
         }
-
-        // snippet-end:[Rekognition.dotnetv3.CelebrityInfoExample]
-        }
     }
+    // snippet-end:[Rekognition.dotnetv3.CelebrityInfoExample]
+}
