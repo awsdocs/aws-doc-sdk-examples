@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glue_Basics", "Glue_Basics\Glue_Basics.csproj", "{69BB6306-A91E-4BDA-B2DC-BE84C63B97D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glue_Basics_Tests", "Glue_Basics_Tests\Glue_Basics_Tests.csproj", "{463EEEFB-0A13-4DB3-A813-46771FDED480}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69BB6306-A91E-4BDA-B2DC-BE84C63B97D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69BB6306-A91E-4BDA-B2DC-BE84C63B97D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69BB6306-A91E-4BDA-B2DC-BE84C63B97D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69BB6306-A91E-4BDA-B2DC-BE84C63B97D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{463EEEFB-0A13-4DB3-A813-46771FDED480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{463EEEFB-0A13-4DB3-A813-46771FDED480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{463EEEFB-0A13-4DB3-A813-46771FDED480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{463EEEFB-0A13-4DB3-A813-46771FDED480}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68BB4A83-723B-4FFB-8CB7-BD4F5DE329FE}
+	EndGlobalSection
+EndGlobal
