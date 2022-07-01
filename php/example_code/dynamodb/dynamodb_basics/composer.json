@@ -11,6 +11,7 @@
       "DynamoDb\\": "../../dynamodb/",
       "DynamoDb\\Basics\\": "../../dynamodb/dynamodb_basics",
       "AwsUtilities\\": "../../aws_utilities"
-    }
+    },
+    "files": ["../../aws_utilities/TestableReadline.php"]
   }
 }

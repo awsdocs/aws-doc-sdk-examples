@@ -26,17 +26,12 @@
 # snippet-start:[php.example_code.dynamodb.basics.scenario]
 namespace DynamoDb\Basics;
 
-require_once "vendor/autoload.php";
-
-include "../../aws_utilities/TestableReadline.php";
-
 use Aws\DynamoDb\Marshaler;
 use DynamoDb;
 use DynamoDb\DynamoDBAttribute;
 use DynamoDb\DynamoDBService;
 use GuzzleHttp\Client as GuzzleClient;
 use ZipArchive;
-use function AwsUtilities\testable_readline;
 
 class GettingStartedWithDynamoDB
 {

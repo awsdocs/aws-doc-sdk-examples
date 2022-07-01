@@ -1,7 +1,5 @@
 <?php
 
-namespace AwsUtilities;
-
 /**
  * This is a helper function so command line programs can receive prefab input from a test.
  * To use, place the line
