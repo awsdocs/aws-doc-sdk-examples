@@ -1129,14 +1129,14 @@ dynamodb_ExecuteStatement:
             - description: Use a SELECT statement to get an item.
               snippet_tags:
                 - PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie
-           - description: Use a SELECT statement to get a list of items.
+            - description: Use a SELECT statement to get a list of items.
               snippet_tags:
                 - PartiQL.dotnetv3.PartiQLBasicsScenario-GetMovies
             - description: Use an UPDATE statement to update an item.
               snippet_tags:
                 - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
             - description: Use a DELETE statement to delete a single movie.
-             snippet_tags:
+              snippet_tags:
               - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
     Go:
       versions:
