@@ -1123,7 +1123,7 @@ dynamodb_ExecuteStatement:
         - sdk_version: 3
           github: dotnetv3/DynamoDB
           excerpts:
-           - description: Use an INSERT statement to add an item.
+            - description: Use an INSERT statement to add an item.
               snippet_tags:
                 - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie
             - description: Use a SELECT statement to get an item.
