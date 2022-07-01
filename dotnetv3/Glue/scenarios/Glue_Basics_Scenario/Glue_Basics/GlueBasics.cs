@@ -26,14 +26,14 @@ using Amazon.Glue;
 using Glue_Basics;
 
 // Initialize the values we need for the scenario.
-var iam = "arn:aws:iam::814548047983:role/AWSGlueServiceRoleDefault"; // args[0];
-var s3Path = "s3://glue-demo-scott/read"; // args[1];
+var iam = "arn:aws:iam::012345678901:role/AWSGlueServiceRoleDefault"; // args[0];
+var s3Path = "s3://glue-demo/read"; // args[1];
 var cron = "cron(15 12 * * ? *)"; // args[2];
 var dbName = "glue-db305";  // args[3];
 var crawlerName = "crawl2019"; // args[4];
 var jobName = "glue-job34"; // args[5];
-var scriptLocation = "s3://aws-glue-scripts-814548047983-us-east-1/PowerUserScott"; // args[6];
-var locationUri = "s3://crawler-public-us-east-1/flight/2016/csv/"; // args[7];
+var scriptLocation = "s3://aws-glue-scripts-012345678901-us-west-1/GlueDemoUser"; // args[6];
+var locationUri = "s3://crawler-public-us-west-1/flight/2016/csv/"; // args[7];
 var glueClient = new AmazonGlueClient();
 
 await GlueMethods.CreateDatabaseAsync(glueClient, dbName, locationUri);
