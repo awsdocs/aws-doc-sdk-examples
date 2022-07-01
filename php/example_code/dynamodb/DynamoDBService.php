@@ -193,7 +193,7 @@ class DynamoDBService extends AWSServiceClass
         $this->dynamoDbClient->updateItem($updateItem);
     }
 
-    #snippet-start:[php.example_code.dynamodb.service.writeBatchItem]
+    #snippet-start:[php.example_code.dynamodb.service.batchWriteItem]
     public function writeBatch(string $TableName, array $Batch, int $depth = 2)
     {
         if (--$depth <= 0) {
@@ -221,5 +221,5 @@ class DynamoDBService extends AWSServiceClass
             }
         }
     }
-    #snippet-end:[php.example_code.dynamodb.service.writeBatchItem]
+    #snippet-end:[php.example_code.dynamodb.service.batchWriteItem]
 }
