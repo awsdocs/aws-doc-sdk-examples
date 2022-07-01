@@ -1137,7 +1137,7 @@ dynamodb_ExecuteStatement:
                 - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
             - description: Use a DELETE statement to delete a single movie.
               snippet_tags:
-              - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
     Go:
       versions:
         - sdk_version: 2
