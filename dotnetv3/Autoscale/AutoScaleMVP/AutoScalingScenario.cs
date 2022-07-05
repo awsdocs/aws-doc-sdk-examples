@@ -3,11 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-using System;
-using Amazon;
-using Amazon.AutoScaling;
-using Amazon.AutoScaling.Model;
-
 /**
  *  Before running this SDK for .NET (v3) code example, set up your development environment, including your credentials.
  *
@@ -36,6 +31,15 @@ using Amazon.AutoScaling.Model;
 
 namespace AutoScaleMVP
 {
+    // snippet-start:[autoscale.dotnetv3.create_scaling_scenario.import]
+    using System;
+    using Amazon;
+    using Amazon.AutoScaling;
+    using Amazon.AutoScaling.Model;
+    // snippet-end:[autoscale.dotnetv3.create_scaling_scenario.import]
+
+
+    // snippet-start:[autoscale.dotnetv3.create_scaling_scenario.main]
     public class AutoScalingScenario
     {
         public async Task PerformAutoScalingTasks()
@@ -323,3 +327,4 @@ namespace AutoScaleMVP
         }
     }
 }
+// snippet-end:[autoscale.dotnetv3.create_scaling_scenario.main]
