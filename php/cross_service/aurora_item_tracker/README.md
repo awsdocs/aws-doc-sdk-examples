@@ -13,14 +13,14 @@
 
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
-+ Amazon Serverless Amazon Aurora database
-+ Amazon Simple Email Service (Amazon SES).
++ Amazon Aurora Serverless database
++ Amazon Simple Email Service (Amazon SES)
 
-For more information on Laravel and how to use it visit [Laravel.com](laravel.com).
+For more information on Laravel and how to use it, see [Laravel.com](laravel.com).
 
 This AWS tutorial uses the [RDSDataServiceClient](https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.RDSDataService.RDSDataServiceClient.html) object to perform CRUD operations on the Aurora Serverless database.
 
-**Note:** You can only use the **RDSDataServiceClient** object for an Aurora Serverless DB cluster or an Aurora PostgreSQL. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).
+**Note:** You can only use the **RDSDataServiceClient** object for an Aurora Serverless DB cluster or an Amazon Aurora PostgreSQL-Compatible Edition. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).
 
 #### Topics
 
@@ -39,28 +39,28 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A PHP IDE (such as PHPStorm https://www.jetbrains.com/phpstorm/download/)
-+ PHP 5.4 or later (https://php.net)
++ PHP 8.0 or later (https://php.net)
 + Composer installed (https://getcomposer.org/)
 
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 + Running this code might result in charges to your AWS account.
-+ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
++ Make sure to delete all the resources that you create during this tutorial so that you won't be charged.
 
 ### Creating the resources
 
-This tutorial uses the CDK to automatically build and create the required RDS setup for you.
+This tutorial uses the AWS Cloud Development Kit (AWS CDK) to automatically build and create the required Amazon Relational Database Service (Amazon RDS) setup for you.
 
 Follow the instructions here: https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/cdk/aurora_serverless_app
 
-Once you have completed the resource scaffolding using the CDK, connect to the RDS console.
-Select *Query Editor*. Then, choose the database instance created using the CDK.
-For database username, choose *Connect with a Secrets Manager ARN*. Put the *SecretARN* revealed by
-the *describe-stacks* command from the CDK instructions. Do the same for the database name.
+After you complete the resource scaffolding by using the AWS CDK, connect to the Amazon RDS console.
+Select *Query Editor*. Then, choose the database instance created by using the AWS CDK.
+For *Database username*, choose *Connect with a Secrets Manager ARN*. Put the *SecretARN* revealed by
+the *describe-stacks* command from the AWS CDK instructions. Do the same for the database name.
 
-This will open a SQL query console. You can run any raw SQL queries here that you want. Run the 
+This opens a SQL query console. You can run any raw SQL queries here that you want. Run the 
 following to create the work table.
 
 ```sql
@@ -89,18 +89,18 @@ A user can perform the following tasks in the AWS Tracker application:
 #### Build the front end
 
 We have provided a React (https://reactjs.org/) front end which can connect to any backend configured
-with the proper REST endpoints. Follow the README at resources/clients/react/item-tracker/README.md. Once
+with the proper REST endpoints. Follow the README at resources/clients/react/item-tracker/README.md. When
 you have a local server running at http://localhost:3000, finish this section by setting up the config.json.
 
 Open the resources/clients/react/item-tracker/src/config.json file and change the *BASE_URL* value to
-"http://localhost:8000/api"
+"http://localhost:8000/api".
 
 ### Deploy Laravel
 
-First, you need to setup the environment file to read from your database. Add these key/values to the end
+First, you need to set up the environment file to read from your database. Add the following key/values to the end
 of the php/cross_service/aurora_item_tracker/.env file. Replace the ResourceArn and SecretArn values with
-the values from *describe-stacks* from the CDK section. Replace *your@email* with an email address you've
-set up as a sender in SES.
+the values from *describe-stacks* from the AWS CDK section. Replace *your@email* with an email address you've
+set up as a sender in Amazon SES.
 ```yaml
 RESOURCE_ARN=*ResourceArn*
 SECRET_ARN=*SecretArn*
@@ -109,20 +109,21 @@ EMAIL=your@email
 ```
 
 From a terminal, go to php/cross_service/aurora_item_tracker. Run *composer install* followed by *php
-artisan serve*. This will start your Laravel application running at http://localhost:8000. This is where
-the front end will look for api endpoints, and it's also where you can run api calls directly to see what
+artisan serve*. This starts your Laravel application running at http://localhost:8000. This is where
+the front end looks for API endpoints, and it's also where you can run API calls directly to see what
 the raw output looks like.
 
 ## Run the application
 
-Now, you're all set! Access the application by opening http://localhost:3000 in a web browser. You can add
-items, archive then, filter by state, and send an email report out (before sending an email, make sure
-you register the email as a sender with SES (https://aws.amazon.com/ses/)).
+Now, you're all set! Access the application by opening http://localhost:3000 in a web browser. 
+You can add items, archive them, filter by state, and send out an email report. 
+(Before sending an email, make sure to register the email as a sender with 
+[Amazon SES](https://aws.amazon.com/ses/).)
 
 
 ### Next steps
 Congratulations, you have created and deployed a Laravel application that interacts with Amazon RDS 
-(and other AWS services). 
-As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while 
-going through this tutorial to ensure that you’re no longer charged.
+(and other AWS services).
+As stated at the beginning of this tutorial, be sure to delete all the resources you created
+during this tutorial so that you won't continue to be charged.
 
