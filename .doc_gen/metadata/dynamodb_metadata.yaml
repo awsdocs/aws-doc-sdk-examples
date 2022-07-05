@@ -1457,7 +1457,7 @@ dynamodb_Scenario_GettingStartedMovies:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:

@@ -1,5 +1,8 @@
 <?php
 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * This is a helper function so command line programs can receive prefab input from a test.
  * To use, place the line

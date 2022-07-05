@@ -5,7 +5,7 @@
 
 /**
  * Purpose
- * Shows how to use the AWS SDK for Python (Boto3) with Amazon DynamoDB to
+ * Shows how to use the AWS SDK for PHP with Amazon DynamoDB to
  * create and use a table that stores data about movies.
  * 1. Create the table and load it with data from a JSON file.
  * 2. Perform basic operations like adding, getting, and updating data for individual movies.
