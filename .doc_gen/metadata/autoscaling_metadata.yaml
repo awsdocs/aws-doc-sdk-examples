@@ -5,6 +5,14 @@ auto-scaling_CreateAutoScalingGroup:
   synopsis: create an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.create_scaling_group.main
     Python:
       versions:
         - sdk_version: 3
@@ -30,6 +38,14 @@ auto-scaling_DeleteAutoScalingGroup:
   synopsis: delete an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.del_scaling_group.main
     Python:
       versions:
         - sdk_version: 3
@@ -55,6 +71,14 @@ auto-scaling_DescribeAutoScalingGroups:
   synopsis: get information about &AS; groups.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_instances.main
     Python:
       versions:
         - sdk_version: 3
@@ -223,6 +247,24 @@ auto-scaling_Scenario_GroupsAndInstances:
     - Stop collecting metrics, terminate all instances, and delete the group.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.create_scaling_scenario.main 
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.create_scaling_scenario.main  
     Python:
       versions:
         - sdk_version: 3
