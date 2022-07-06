@@ -29,11 +29,9 @@ using Glue_Basics;
 
 // Initialize the values we need for the scenario.
 // The ARN of the service role used by the crawler.
-// var iam = "arn:aws:iam::012345678901:role/AWSGlueServiceRole-CrawlerTutorial";
-var iam = "arn:aws:iam::704825161248:role/service-role/AWSGlueServiceRole-CrawlerTutorial";
+var iam = "arn:aws:iam::012345678901:role/AWSGlueServiceRole-CrawlerTutorial";
 
-    // The path to the Amazon S3 bucket where the comma-delimited file is stored.
-// var s3Path = "s3://glue-demo/read";
+// The path to the Amazon S3 bucket where the comma-delimited file is stored.
 var s3Path = "s3://crawler-public-us-east-1/flight/2016/csv";
 
 var cron = "cron(15 12 * * ? *)";
