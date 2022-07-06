@@ -52,7 +52,7 @@ dynamodb_CreateTable:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description: Create a table.
               snippet_tags:
@@ -256,7 +256,7 @@ dynamodb_BatchWriteItem:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -384,7 +384,7 @@ dynamodb_DeleteTable:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -488,7 +488,7 @@ dynamodb_PutItem:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -597,7 +597,7 @@ dynamodb_GetItem:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -706,7 +706,7 @@ dynamodb_UpdateItem:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -805,7 +805,7 @@ dynamodb_DeleteItem:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -921,7 +921,7 @@ dynamodb_ListTables:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1029,7 +1029,7 @@ dynamodb_Query:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1145,7 +1145,7 @@ dynamodb_Scan:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/dynamodb/dynamodb_basics
+          github: php/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:

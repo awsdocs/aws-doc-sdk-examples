@@ -77,7 +77,9 @@ the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide]
 
 ## Additional resources
 
-- [Amazon DynamoDB documentation](https://docs.aws.amazon.com/dynamodb)
+- [Amazon DynamoDB Documentation](https://docs.aws.amazon.com/dynamodb)
+- [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations_Amazon_DynamoDB.html)
+- [AWS SDK for PHP DynamoDB Namespace](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.DynamoDb.html)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
