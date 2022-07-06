@@ -1,8 +1,8 @@
-# Amazon DynamoDB code examples for the AWS SDK for PHP v3
+# Amazon DynamoDB code examples for the SDK for PHP (v3)
 
 ## Purpose
 
-Shows how to use the AWS SDK for PHP v3 to get started using operations in Amazon DynamoDB. Learn to create tables, add
+Shows how to use the AWS SDK for PHP (v3) to get started using operations in Amazon DynamoDB. Learn to create tables, add
 items, update data, create custom queries, and delete tables and items.
 
 *Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless
@@ -23,7 +23,7 @@ For more information, see
 
 ### Single actions
 
-**Actions**
+Code excerpts that show you how to call individual service functions.
 
 * [Creating a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`create_table`)
 * [Deleting a table](DynamoDBService.php)(`delete_table`)
@@ -41,27 +41,30 @@ For more information, see
 
 ### Scenario examples
 
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
 * [Getting started with DynamoDB](dynamodb_basics/GettingStartedWithDynamoDB.php)
 
 ## Running the examples
 **Getting started with DynamoDB**
 
 This scenario shows you how to create an Amazon DynamoDB table for storing movie data. The scenario loads movies into
-the table from a JSON-formatted file, walks you through an interactive demo to add, update, and delete movies one at a
-time, and shows you how to query for sets of movies.
+the table from a JSON-formatted file and walks you through an interactive demo to add, update, and delete movies one at
+a time. The scenario also shows you how to query for sets of movies.
 
 ```
 composer install
 ```
 
-Once your composer dependencies are successfully installed, you can run the interactive getting started file directly
-with:
+After your composer dependencies are installed, you can run the interactive getting started file directly with the
+following:
 
 ```
 php Runner.php
 ```   
 
-Or, to have the choices automatically selected, you can run it as part of a PHPUnit test with:
+Alternatively, you can have the choices automatically selected by running the file as part of a PHPUnit test with the
+following:
 
 ```
 ..\..\vendor\bin\phpunit DynamoDBBasicsTests.php
@@ -72,8 +75,8 @@ Or, to have the choices automatically selected, you can run it as part of a PHPU
 - You must have an AWS account, and have your default credentials and AWS Region configured as described in
 the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide]
 (https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- PHP 7.1 or later
-- Composer installed
+- PHP 7.1 or later.
+- Composer installed.
 
 ## Additional resources
 

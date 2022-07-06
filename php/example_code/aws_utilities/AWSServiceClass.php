@@ -8,10 +8,11 @@ namespace AwsUtilities;
 use Aws\Exception\AwsException;
 
 /**
- * This class can be used when an AWS waiter class is not available. Call this function instead of the AWS function
- * call, then pass in the function you wish to wait on. The wait time and max attempts can be changed via the static
- * properties. This function will catch any AwsException thrown, so it might erroneously wait if there is a problem
- * with your API call. Turn on the $verbose flag during development and testing to be sure what the root problem is.
+ * You can use this class when an AWS waiter class is not available. Call this function instead of the AWS function
+ * call, then pass in the function that you want to wait on. You can change the wait time and max attempts by using the
+ * static properties. This function catches any AwsException that's thrown, so it might erroneously wait if there is a
+ * problem with your API call. Turn on the $verbose flag during development and testing to see details about the root
+ * problem.
  */
 abstract class AWSServiceClass
 {

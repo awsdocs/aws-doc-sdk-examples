@@ -12,13 +12,13 @@
  * 3. Use conditional expressions to update movie data only when it meets certain criteria.
  * 4. Query and scan the table to retrieve movie data that meets varying criteria.
  *
- * You will need to run the following command to install dependencies:
+ * Run the following command to install dependencies:
  * composer install
  *
- * Then run the example either directly with:
+ * Then, run the example. You can run it directly with:
  * php GettingStartedWithDynamoDB.php
  *
- * or as a PHPUnit test:
+ * Alternatively, you can run the example as a PHPUnit test:
  * vendor/bin/phpunit DynamoDBBasicsTests.php
  *
  **/
