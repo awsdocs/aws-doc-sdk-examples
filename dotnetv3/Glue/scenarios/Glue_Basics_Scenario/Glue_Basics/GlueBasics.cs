@@ -48,29 +48,38 @@ var locationUri = "s3://crawler-public-us-eest-1/flight/2016/csv/";
 
 var glueClient = new AmazonGlueClient();
 
+Console.WriteLine("Creating the database and crawler for the AWS Glue example.");
 await GlueMethods.CreateDatabaseAsync(glueClient, dbName, locationUri);
 await GlueMethods.CreateGlueCrawlerAsync(glueClient, iam, s3Path, cron, dbName, crawlerName);
 
 // Get information about the AWS Glue crawler.
+Console.WriteLine("Showing information about the newly created AWS Glue crawler.");
 await GlueMethods.GetSpecificCrawlerAsync(glueClient, crawlerName);
 
+Console.WriteLine("Starting the new AWS Glue crawler.");
 await GlueMethods.StartSpecificCrawlerAsync(glueClient, crawlerName);
 
+Console.WriteLine("Displaying information about the database used by the crawler.");
 await GlueMethods.GetSpecificDatabaseAsync(glueClient, dbName);
 await GlueMethods.GetGlueTablesAsync(glueClient, dbName);
 
+Console.WriteLine("Creating a new AWS Glue job.");
 await GlueMethods.CreateJobAsync(glueClient, jobName, iam, scriptLocation);
+
+Console.WriteLine("Starting the new AWS Glue job.");
 await GlueMethods.StartJobAsync(glueClient, jobName);
 
+Console.WriteLine("Getting information about the AWS Glue job.");
 await GlueMethods.GetAllJobsAsync(glueClient);
 await GlueMethods.GetJobRunsAsync(glueClient, jobName);
 
+Console.WriteLine("Deleting the AWS Glue job used by the exmple.");
 await GlueMethods.DeleteJobAsync(glueClient, jobName);
 
-Console.WriteLine("*** Wait 5 MIN for the " + crawlerName + " to stop");
+Console.WriteLine("\n*** Waiting 5 MIN for the " + crawlerName + " to stop");
 System.Threading.Thread.Sleep(300000);
 
-// Clean up the resources created for the example.
+Console.WriteLine("Clean up the resources created for the example.");
 await GlueMethods.DeleteDatabaseAsync(glueClient, dbName);
 await GlueMethods.DeleteSpecificCrawlerAsync(glueClient, crawlerName);
 
