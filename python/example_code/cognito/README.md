@@ -1,4 +1,4 @@
-# Amazon Cognito code examples for the AWS SDK for Python
+# Amazon Cognito code examples for the SDK for Python
 
 ## Overview
 
@@ -11,7 +11,7 @@ get access tokens.
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
 * Running the tests might result in charges to your AWS account.
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -74,16 +74,18 @@ Amazon Cognito to do the following:
 
 Signing in with a tracked device requires the client to respond to authentication
 challenges that use the Secure Remote Password (SRP) protocol. This example uses the
-`warrant` package to help with SRP calculations. You can learn more about SRP on
-[Wikipedia](https://en.wikipedia.org/wiki/Secure_Remote_Password_protocol).
+`warrant` package to help with SRP calculations. To learn more, see 
+[Secure Remote Password protocol](https://en.wikipedia.org/wiki/Secure_Remote_Password_protocol) 
+on Wikipedia.
 
 #### Create a user pool and add a client ID
 
-This scenario requires an existing Amazon Cognito user pool that is configured to
-allow self sign-up, and a client ID that can be used to authenticate with Amazon
-Cognito.
+This scenario requires the following resources:
 
-You can create these resources by running the AWS CloudFormation script in the
+* An existing Amazon Cognito user pool that is configured to allow self sign-up.
+* A client ID to use for authenticating with Amazon Cognito.
+
+To create these resources, run the AWS CloudFormation script in the
 [resources/cdk/cognito_scenario_user_pool_with_mfa](../../../resources/cdk/cognito_scenario_user_pool_with_mfa)
 folder. This script outputs a user pool ID and a client ID that you can use to run
 the scenario.
@@ -102,7 +104,8 @@ python -m pip install -r requirements.txt
 
 #### Run the scenario
 
-Run the scenario by supplying a user pool ID and a client ID at a command prompt:
+To run the scenario, supply a user pool ID and a client ID and run the following 
+at a command prompt:
 
 ```
 python scenario_signup_user_with_mfa.py [user_pool_id] [client_id]

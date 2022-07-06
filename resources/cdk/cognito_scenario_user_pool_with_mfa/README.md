@@ -5,12 +5,12 @@
 Creates AWS resources for Amazon Cognito scenarios. The scripts in this
 example create the following resources:
  
-* An Amazon Cognito user pool that is configured to:
-    * allow self sign-up
-    * verify by email
-    * require multi-factor authentication (MFA)
-    * allow device tracking
-* An associated client application that can authenticate with the user pool. 
+* An Amazon Cognito user pool that is configured to do the following:
+    * Allow self sign-up
+    * Verify by email
+    * Require multi-factor authentication (MFA)
+    * Allow device tracking
+* An associated client application that can authenticate with the user pool 
 
 ## ⚠️ Important
 
@@ -48,7 +48,7 @@ doc-example-cognito-scenario-signup-user-with-mfa.UserPoolId = us-west-2_CzEXAMP
 
 ### Deploying with the AWS CLI 
 
-To deploy with the AWS CLI you must first install the 
+To deploy with the AWS CLI, you must first install the 
 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
 1. Deploy AWS resources by running the following at a command prompt in the 

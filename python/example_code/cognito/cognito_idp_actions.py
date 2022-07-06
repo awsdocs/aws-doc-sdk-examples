@@ -24,7 +24,7 @@ class CognitoIdentityProviderWrapper:
     """Encapsulates Amazon Cognito actions"""
     def __init__(self, cognito_idp_client, user_pool_id, client_id, client_secret=None):
         """
-        :param cognito_idp_client: An Boto3 Amazon Cognito Identity Provider client.
+        :param cognito_idp_client: A Boto3 Amazon Cognito Identity Provider client.
         :param user_pool_id: The ID of an existing Amazon Cognito user pool.
         :param client_id: The ID of a client application registered with the user pool.
         :param client_secret: The client secret, if the client has a secret.
@@ -52,7 +52,7 @@ class CognitoIdentityProviderWrapper:
     # snippet-start:[python.example_code.cognito-idp.SignUp]
     def sign_up_user(self, user_name, password, user_email):
         """
-        Signs up a new user with Amazon Cognito. This action triggers Amazon Cognito
+        Signs up a new user with Amazon Cognito. This action prompts Amazon Cognito
         to send an email to the specified email address. The email contains a code that
         can be used to confirm the user.
 
@@ -62,8 +62,8 @@ class CognitoIdentityProviderWrapper:
         :param user_name: The user name that identifies the new user.
         :param password: The password for the new user.
         :param user_email: The email address for the new user.
-        :return: True when the user is already confirmed with Amazon Cognito;
-                 otherwise, false.
+        :return: True when the user is already confirmed with Amazon Cognito.
+                 Otherwise, false.
         """
         try:
             kwargs = {
@@ -90,7 +90,7 @@ class CognitoIdentityProviderWrapper:
     # snippet-start:[python.example_code.cognito-idp.ResendConfirmationCode]
     def resend_confirmation(self, user_name):
         """
-        Causes Amazon Cognito to resend an email with a confirmation code.
+        Prompts Amazon Cognito to resend an email with a new confirmation code.
 
         :param user_name: The name of the user who will receive the email.
         :return: Delivery information about where the email is sent.
@@ -120,7 +120,7 @@ class CognitoIdentityProviderWrapper:
         :param user_name: The name of the user to confirm.
         :param confirmation_code: The confirmation code sent to the user's registered
                                   email address.
-        :return: True when the confirmation succeeded.
+        :return: True when the confirmation succeeds.
         """
         try:
             kwargs = {
@@ -160,10 +160,10 @@ class CognitoIdentityProviderWrapper:
     # snippet-start:[python.example_code.cognito-idp.AdminInitiateAuth]
     def start_sign_in(self, user_name, password):
         """
-        Starts the sign in process for a user by using administrator credentials.
+        Starts the sign-in process for a user by using administrator credentials.
         This method of signing in is appropriate for code running on a secure server.
 
-        If the user pool is configured to require MFA and this is the first sign in
+        If the user pool is configured to require MFA and this is the first sign-in
         for the user, Amazon Cognito returns a challenge response to set up an
         MFA application. When this occurs, this function gets an MFA secret from
         Amazon Cognito and returns it to the caller.
@@ -171,7 +171,7 @@ class CognitoIdentityProviderWrapper:
         :param user_name: The name of the user to sign in.
         :param password: The user's password.
         :return: The result of the sign-in attempt. When sign-in is successful, this
-                 is an access token that can be used to get AWS credentials. Otherwise,
+                 returns an access token that can be used to get AWS credentials. Otherwise,
                  Amazon Cognito returns a challenge to set up an MFA application,
                  or a challenge to enter an MFA code from a registered MFA application.
         """
@@ -250,7 +250,7 @@ class CognitoIdentityProviderWrapper:
     def respond_to_mfa_challenge(self, user_name, session, mfa_code):
         """
         Responds to a challenge for an MFA code. This completes the second step of
-        a two-factor sign in. When sign in is successful, it returns an access token
+        a two-factor sign-in. When sign-in is successful, it returns an access token
         that can be used to get AWS credentials from Amazon Cognito.
 
         :param user_name: The name of the user who is signing in.
@@ -274,7 +274,7 @@ class CognitoIdentityProviderWrapper:
         except ClientError as err:
             if err.response['Error']['Code'] == 'ExpiredCodeException':
                 logger.warning(
-                    "Your MFA code has expired or has been used already. You may have "
+                    "Your MFA code has expired or has been used already. You might have "
                     "to wait a few seconds until your app shows you a new code.")
             else:
                 logger.error(
@@ -302,7 +302,7 @@ class CognitoIdentityProviderWrapper:
         :param aws_srp: A class that helps with Secure Remote Password (SRP)
                         calculations. The scenario associated with this example uses
                         the warrant package.
-        :return: True when the user must confirm the device; otherwise, False. When
+        :return: True when the user must confirm the device. Otherwise, False. When
                  False, the device is automatically confirmed and tracked.
         """
         srp_helper = aws_srp.AWSSRP(

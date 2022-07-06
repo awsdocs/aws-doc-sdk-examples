@@ -15,9 +15,10 @@ do the following:
 6. Sign in by using a password and information from the tracked device. This avoids the
    need to enter a new MFA code.
 
-This scenario requires an existing Amazon Cognito user pool that is configured to
-allow self sign-up, and a client ID that can be used to authenticate with Amazon
-Cognito.
+This scenario requires the following resources:
+
+* An existing Amazon Cognito user pool that is configured to allow self sign-up.
+* A client ID to use for authenticating with Amazon Cognito.
 """
 
 import argparse
@@ -34,7 +35,7 @@ from warrant import aws_srp
 
 from cognito_idp_actions import CognitoIdentityProviderWrapper
 
-# Add relative path to include demo_tools in this code example without needing to setup.
+# Add relative path to include demo_tools in this code example without needing to set up.
 sys.path.append('../..')
 import demo_tools.question as q
 
@@ -100,7 +101,7 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
             response = cog_wrapper.verify_mfa(response['Session'], mfa_code)
             print(f"MFA device setup {response['Status']}")
             print("Now that an MFA application is set up, let's sign in again.")
-            print("You may have to wait a few seconds for a new MFA code to appear in "
+            print("You might have to wait a few seconds for a new MFA code to appear in "
                   "your MFA application.")
             challenge = 'ADMIN_USER_PASSWORD_AUTH'
         elif response['ChallengeName'] == 'SOFTWARE_TOKEN_MFA':
@@ -133,7 +134,7 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
     print('-'*88)
 
     print(f"Now let's sign in as {user_name} from your confirmed device {device_key}.\n"
-          f"Because this device is tracked by Cognito, you won't have to re-enter an MFA code.")
+          f"Because this device is tracked by Amazon Cognito, you won't have to re-enter an MFA code.")
     q.ask("Press Enter when ready.")
     auth_tokens = cog_wrapper.sign_in_with_tracked_device(
         user_name, password, device_key, device_group_key, device_password, aws_srp)
@@ -156,7 +157,7 @@ def main():
     try:
         run_scenario(boto3.client('cognito-idp'), args.user_pool_id, args.client_id)
     except Exception:
-        logging.exception("Something went wrong with the demo!")
+        logging.exception("Something went wrong with the demo.")
 
 
 if __name__ == '__main__':

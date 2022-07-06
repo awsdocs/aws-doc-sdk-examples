@@ -5,12 +5,12 @@
  * Defines an AWS CloudFormation stack that creates AWS resources for Amazon Cognito
  * scenarios. The scripts in this example create the following resources:
  *
- * * An Amazon Cognito user pool that is configured to:
- *   * allow self sign-up
- *   * verify by email
- *   * require multi-factor authentication (MFA)
- *   * allow device tracking
- * * An associated client application that can authenticate with the user pool.
+ * * An Amazon Cognito user pool that is configured to do the following:
+ *   * Allow self sign-up
+ *   * Verify by email
+ *   * Require multi-factor authentication (MFA)
+ *   * Allow device tracking
+ * * An associated client application that can authenticate with the user pool
  */
 
 import 'source-map-support/register';
