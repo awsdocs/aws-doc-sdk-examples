@@ -6,8 +6,16 @@ namespace Glue_Basics
     using Amazon.Glue;
     using Amazon.Glue.Model;
 
+    /// <summary>
+    /// Methods for working the AWS Glue using the AWS SDK for .NET v3.7.
+    /// </summary>
     public static class GlueMethods
     {
+        /// <summary>
+        /// Deletes the named AWS Glue crawler.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="crawlerName">The name of the crawler to delete.</param>
         public static async Task DeleteSpecificCrawlerAsync(AmazonGlueClient glueClient, string crawlerName)
         {
             var deleteCrawlerRequest = new DeleteCrawlerRequest
@@ -20,6 +28,11 @@ namespace Glue_Basics
             Console.WriteLine($"{crawlerName} was deleted");
         }
 
+        /// <summary>
+        /// Deletes an AWS Glue database.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue cllient.</param>
+        /// <param name="databaseName">The name of the database to delte.</param>
         public static async Task DeleteDatabaseAsync(AmazonGlueClient glueClient, string databaseName)
         {
             var request = new DeleteDatabaseRequest
@@ -32,6 +45,11 @@ namespace Glue_Basics
             Console.WriteLine($"{databaseName} was successfully deleted");
         }
 
+        /// <summary>
+        /// Deletes the named job.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="jobName">The name of the job to delete.</param>
         public static async Task DeleteJobAsync(AmazonGlueClient glueClient, string jobName)
         {
             var jobRequest = new DeleteJobRequest
@@ -44,6 +62,12 @@ namespace Glue_Basics
             Console.WriteLine($"{jobName} was successfully deleted");
         }
 
+        /// <summary>
+        /// Retrieves information about an AWS Glue job.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="jobName">The AWS Glue object for which to retrieve run
+        /// information.</param>
         public static async Task GetJobRunsAsync(AmazonGlueClient glueClient, string jobName)
         {
             var runsRequest = new GetJobRunsRequest
@@ -63,6 +87,10 @@ namespace Glue_Basics
             }
         }
 
+        /// <summary>
+        /// Gets a list of AWS Glue jobs.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
         public static async Task GetAllJobsAsync(AmazonGlueClient glueClient)
         {
             var jobsRequest = new GetJobsRequest
@@ -76,6 +104,11 @@ namespace Glue_Basics
             jobs.ForEach(job => { Console.WriteLine($"The job name is: {job.Name}"); });
         }
 
+        /// <summary>
+        /// Starts an AWS Glue job.
+        /// </summary>
+        /// <param name="glueClient">The initialized Glue client.</param>
+        /// <param name="jobName">The name of the AWS Glue job to start.</param>
         public static async Task StartJobAsync(AmazonGlueClient glueClient, string jobName)
         {
             var runRequest = new StartJobRunRequest
@@ -90,6 +123,14 @@ namespace Glue_Basics
             Console.WriteLine("The job run id is " + response.JobRunId);
         }
 
+        /// <summary>
+        /// Creates an AWS Glue job.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="jobName">The name of the job to create.</param>
+        /// <param name="iam">The Amazon Resource Name (ARN) of the IAM role
+        /// that will be used by the job.</param>
+        /// <param name="scriptLocation">The location where the script is stored.</param>
         public static async Task CreateJobAsync(AmazonGlueClient glueClient, string jobName, string iam, string scriptLocation)
         {
             var command = new JobCommand
@@ -114,7 +155,15 @@ namespace Glue_Basics
             Console.WriteLine($"{jobName} was successfully created.");
         }
 
-        public static async Task GetSpecificDatabaseAsync(AmazonGlueClient glueClient, string databaseName)
+        /// <summary>
+        /// Gets information about the database created for this Glue
+        /// example.
+        /// </summary>
+        /// <param name="glueClient">The initialized Glue client.</param>
+        /// <param name="databaseName"></param>
+        public static async Task GetSpecificDatabaseAsync(
+            AmazonGlueClient glueClient,
+            string databaseName)
         {
             GetDatabaseRequest databasesRequest = new GetDatabaseRequest
             {
@@ -126,6 +175,11 @@ namespace Glue_Basics
             Console.WriteLine($"The Create Time is {response.Database.CreateTime}");
         }
 
+        /// <summary>
+        /// Starts the named AWS Glue crawler.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="crawlerName">The name of the crawler to start.</param>
         public static async Task StartSpecificCrawlerAsync(AmazonGlueClient glueClient, string crawlerName)
         {
             var crawlerRequest = new StartCrawlerRequest
@@ -136,7 +190,11 @@ namespace Glue_Basics
             await glueClient.StartCrawlerAsync(crawlerRequest);
             Console.WriteLine($"{crawlerName} was successfully started!");
         }
-
+        /// <summary>
+        /// Retrieves information about a specific AWS Glue crawler.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="crawlerName">The name of the crawer.</param>
         public static async Task GetSpecificCrawlerAsync(AmazonGlueClient glueClient, string crawlerName)
         {
             GetCrawlerRequest crawlerRequest = new GetCrawlerRequest
@@ -149,6 +207,17 @@ namespace Glue_Basics
             Console.WriteLine($"{crawlerName} has the database {databaseName}");
         }
 
+        /// <summary>
+        /// Creates an AWS Glue crawler.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="iam">The Amazon Resource Name (ARN) of the IAM role
+        /// used by the crawler.</param>
+        /// <param name="s3Path">The path to the Amazon S3 bucket where
+        /// data is stored.</param>
+        /// <param name="cron">The name of the CRON job that runs the crawler.</param>
+        /// <param name="dbName">The name of the database.</param>
+        /// <param name="crawlerName">The name of the AWS Glue crawler.</param>
         public static async Task CreateGlueCrawlerAsync(
             AmazonGlueClient glueClient,
             string iam,
@@ -184,6 +253,13 @@ namespace Glue_Basics
             Console.WriteLine($"{crawlerName} was successfully created");
         }
 
+        /// <summary>
+        /// Creates a database for use by an AWS Glue crawler.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="dbName">The name of the new database.</param>
+        /// <param name="locationUri">The location of scripts that will be
+        /// used by the AWS Glue crawler.</param>
         public static async Task CreateDatabaseAsync(AmazonGlueClient glueClient, string dbName, string locationUri)
         {
             try
@@ -209,7 +285,14 @@ namespace Glue_Basics
             }
         }
 
-        public static async Task GetGlueTablesAsync(AmazonGlueClient glueClient, string dbName)
+        /// <summary>
+        /// Gets the tables used by the database for an AWS Glue crawler.
+        /// </summary>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="dbName">The name of the database.</param>
+        public static async Task GetGlueTablesAsync(
+            AmazonGlueClient glueClient,
+            string dbName)
         {
             var tableRequest = new GetTablesRequest
             {
