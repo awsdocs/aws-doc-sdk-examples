@@ -3,6 +3,7 @@
 
 namespace FaceRekognitionExample
 {
+    // snippet-start:[Rekognition.dotnetv3.FaceRekognitionExample]
     using System;
     using System.Drawing;
     using System.IO;
@@ -181,4 +182,5 @@ namespace FaceRekognitionExample
             }
         }
     }
+    // snippet-end:[Rekognition.dotnetv3.FaceRekognitionExample]
 }

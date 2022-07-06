@@ -3,6 +3,7 @@
 
 namespace SetuplambdaRoleExample
 {
+    // snippet-start:[Lambda.dotnetv3.SetupLambdaRoleExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.IdentityManagement;
@@ -63,4 +64,5 @@ namespace SetuplambdaRoleExample
             }
         }
     }
+    // snippet-end:[Lambda.dotnetv3.SetupLambdaRoleExample]
 }

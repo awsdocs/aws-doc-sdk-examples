@@ -1,8 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
-// snippet-start:[acm.dotNET.DescribeCertificate]
-
+// snippet-start:[ACM.dotnetv3.DescribeCertificate]
 using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
@@ -33,11 +32,10 @@ namespace DescribeCertificate
             var certificateDetailResp = DescribeCertificateResponseAsync(client: _client, request: describeCertificateReq);
             var certificateDetail = certificateDetailResp.Result.Certificate;
 
-            if(certificateDetail is not null)
+            if (certificateDetail is not null)
             {
                 DisplayCertificateDetails(certificateDetail);
             }
-
         }
 
         /// <summary>
@@ -75,11 +73,11 @@ namespace DescribeCertificate
             {
                 response = await client.DescribeCertificateAsync(request);
             }
-            catch(InvalidArnException ex)
+            catch (InvalidArnException ex)
             {
                 Console.WriteLine($"Error: The ARN specified is invalid.");
             }
-            catch(ResourceNotFoundException ex)
+            catch (ResourceNotFoundException ex)
             {
                 Console.WriteLine($"Error: The specified certificate cound not be found.");
             }
@@ -87,5 +85,7 @@ namespace DescribeCertificate
             return response;
         }
     }
+
 }
-// snippet-end:[acm.dotNET.DescribeCertificate]
+
+// snippet-end:[ACM.dotnetv3.DescribeCertificate]

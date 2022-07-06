@@ -12,9 +12,9 @@ instructions.
 1. Install the dependencies listed in the [root]/javascriptv3/example_code/cross-services/submit-data-app/package.json.
 
 **Note**: These include the AWS SDK for JavaScript v3 client modules for the AWS services required in this example, 
-which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/client-cognito-identity-browser*, *@aws-sdk/client-dynamodb*,
+which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/client-dynamodb*,
 *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/client-sns*, *@aws-sdk/client-s3*, and *@aws-sdk/client-iam*.
-They also include third-party Node.js modules, fs (file-server), path, and webpack.
+They also include third-party Node.js modules, webpack.
 ```
 npm install node -g 
 cd javascriptv3/example_code/cross-services/submit-data-app 

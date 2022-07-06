@@ -3,6 +3,7 @@
 
 namespace SearchFacesMatchingImageExample
 {
+    // snippet-start:[Rekognition.dotnetv3.SearchFacesMatchingImageExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace SearchFacesMatchingImageExample
     /// </summary>
     public class SearchFacesMatchingImage
     {
-        // snippet-start:[Rekognition.dotnetv3.SearchFacesMatchingImageExample]
         public static async Task Main()
         {
             string collectionId = "MyCollection";
@@ -50,7 +50,6 @@ namespace SearchFacesMatchingImageExample
                 Console.WriteLine($"FaceId: {face.Face.FaceId}, Similarity: {face.Similarity}");
             });
         }
-
-        // snippet-end:[Rekognition.dotnetv3.SearchFacesMatchingImageExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.SearchFacesMatchingImageExample]
 }

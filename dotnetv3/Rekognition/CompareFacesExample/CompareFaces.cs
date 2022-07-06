@@ -3,6 +3,7 @@
 
 namespace CompareFacesExample
 {
+    // snippet-start:[Rekognition.dotnetv3.CompareFacesExample]
     using System;
     using System.IO;
     using System.Threading.Tasks;
@@ -15,7 +16,6 @@ namespace CompareFacesExample
     /// </summary>
     public class CompareFaces
     {
-        // snippet-start:[Rekognition.dotnetv3.CompareFacesExample]
         public static async Task Main()
         {
             float similarityThreshold = 70F;
@@ -76,7 +76,6 @@ namespace CompareFacesExample
 
             Console.WriteLine($"Found {compareFacesResponse.UnmatchedFaces.Count} face(s) that did not match.");
         }
-
-        // snippet-end:[Rekognition.dotnetv3.CompareFacesExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.CompareFacesExample]
 }

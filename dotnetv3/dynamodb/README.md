@@ -8,33 +8,49 @@ Amazon DynamoDB is a key-value and document database that delivers single-digit 
 
 ## ⚠️ Important
 
-- Running this code might result in charges to your AWS account. 
+- Running this code might result in charges to your AWS account.
 - We recommend that you grant your code least privilege, or at most the minimum
   permissions required to perform the task. For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
-- This code is not tested in all AWS Regions. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in all AWS Regions. For more information, see
   [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 
 ## Code examples
 
 ### Scenario
 
-  [Get started using DynamoDB tables, items, and queries](scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/)
+[Get started using DynamoDB tables, items, and queries](scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/)
 
-  This application uses the basic features of DynamoDB for creating,
-  updating, and managing data. The application was created using the AWS
-  SDK for .NET version 3.7 and .NET Core 5. The application performs the
-  following tasks:
+This application uses the basic features of DynamoDB for creating,
+updating, and managing data. The application was created using the AWS
+SDK for .NET version 3.7 and .NET Core 5. The DynamoDB Basics scenario
+performs the following tasks:
 
-  1. Creates a table with partition: year and sort:title. (`CreateTableAsync`)
-  2. Adds a single movie to the table. (`PutItemAsync`)
-  3. Adds movies to the table from moviedata.json. (`CreateBatchWrite`, `ExecuteAsync`)
-  4. Updates the rating and plot of the movie that was just added. (`UpdateItemAsync`)
-  5. Gets a movie using its key (partition + sort). (`GetItemAsync`)
-  6. Deletes a movie. (`DeleteItemAsync`)
-  7. Uses QueryAsync to return all movies released in a given year. (`QueryAsync`)
-  8. Uses ScanAsync to return all movies released within a range of years. (`ScanAsync`)
-  9. Finally, it deletes the table that was just created. (`DeleteTableAsync`)
+1. Creates a table with partition: year and sort:title. (`CreateTableAsync`)
+2. Adds a single movie to the table. (`PutItemAsync`)
+3. Adds movies to the table from moviedata.json. (`CreateBatchWrite`, `ExecuteAsync`)
+4. Updates the rating and plot of the movie that was just added. (`UpdateItemAsync`)
+5. Gets a movie using its key (partition + sort). (`GetItemAsync`)
+6. Deletes a movie. (`DeleteItemAsync`)
+7. Uses QueryAsync to return all movies released in a given year. (`QueryAsync`)
+8. Uses ScanAsync to return all movies released within a range of years. (`ScanAsync`)
+9. Finally, it deletes the table that was just created. (`DeleteTableAsync`)
+
+[Query a table using PartiQL](scenarios/PartiQL_Basics/DynamoDB_PartiQL_Basics_Scenario)
+This application uses the basic features of PartiQL for creating, updating,
+and managing data. The application was created using the AWS SDK for .NET version 3.7
+and .NET Core 5. The PartiQL Basics Scenario performs the following tasks:
+
+1. Inserts movies into a table using the BatchExecuteStatement method.
+2. Gets a single movie from the database using a PartiQL SELECT statement.
+3. Inserts a movie using the PartiQL INSERT statement.
+4. Updates a movie using a PartiQL UPDATE statement."
+5. Deletes a movie using a PartiQL DELETE statement.
+6. Then, the program uses the BatchExecuteStatement Method to:
+   - Get multiple movies using a PartiQL SELECT statement.
+   - Update multiple movies using a PartiQL UPDATE statement.
+   - Delete multiple movies using a PartiQL DELETE statement.
+   - Finally, we clean up the resources we created by deleting the table.
 
 ### Single action
 
@@ -79,30 +95,30 @@ Amazon DynamoDB is a key-value and document database that delivers single-digit 
   DynamoDB table. (`UpdateItemAsync`)
 - [HighLevelBatchWriteItemExample](high-level-api/HighLevelBatchWriteItemExample/) -
   Writes items to a DynamoDB table using batch calls. (`ExecuteAsync`)
-- [HighLevelItemCRUDExample](high-level-api/HighLevelItemCRUDExample/) - 
+- [HighLevelItemCRUDExample](high-level-api/HighLevelItemCRUDExample/) -
   Performs CRUD (Create, Read, Update, and Delete) operations on a DynamoDB table.
   (`LoadAsync`, `DeleteAsync`, `SaveAsync`)
-- [HighLevelMappingArbitraryDataExample](high-level-api/HighLevelMappingArbitraryDataExample/) - 
+- [HighLevelMappingArbitraryDataExample](high-level-api/HighLevelMappingArbitraryDataExample/) -
   Shows how to map arbitrary data to an Amazon DynamoDB table. (`SaveAsync`, `LoadAsync`)
-- [HighLevelQueryAndScanExample](high-level-api/HighLevelQueryAndScanExample/) - 
-  Performs high level query and scan operations on a DynamoDB table. 
+- [HighLevelQueryAndScanExample](high-level-api/HighLevelQueryAndScanExample/) -
+  Performs high level query and scan operations on a DynamoDB table.
   (`LoadAsync<T>`, `QueryAsync<T>`, `ScanAsync<T>`)
 - [LowLevelBatchGet](low-level-api/LowLevelBatchGet/) - Retrieves multiple
   items from a DynamoDB table. (`BatchGetItemAsync`)
 - [LowLevelBatchWrite](low-level-api/LowLevelBatchWrite/) - Performs a batch
   write operation on a DynamoDB table. (`BatchWriteItemAsync`)
-- [LowLevelGlobalSecondaryIndexExample](low-level-api/LowLevelSecondaryIndexExample/) - 
+- [LowLevelGlobalSecondaryIndexExample](low-level-api/LowLevelSecondaryIndexExample/) -
   Creates and uses a DynamoDB table with a secondary index. (`CreateTableAsync`)
-- [LowLevelItemBinaryExample](low-level-api/LowLevelItemBinaryExample/) - 
-  Creates and adds items to a DynamoDB table using low-level API  calls.
+- [LowLevelItemBinaryExample](low-level-api/LowLevelItemBinaryExample/) -
+  Creates and adds items to a DynamoDB table using low-level API calls.
   (`GetItemAsync`, `GetItemAsync`)
 - [LowLevelItemCRUDExample](low-level-api/LowLevelItemCRUDExample/) Performs
   CRUD (Create, Read, Update, and Delete) perations on a DynamoDB table using
   the low-level API. (`PutItemAsync`, `GetItemAsync`, `UpdateItemAsync`, `DeleteItemAsync`)
-- [LowLevelLocalSecondaryIndexExample](low-level-api/LowLevelLocalSecondaryIndexExample/) - 
+- [LowLevelLocalSecondaryIndexExample](low-level-api/LowLevelLocalSecondaryIndexExample/) -
   Uses low-level API calls to work with a DynamoDB table with a secondary index.
   (`CreateTableAsync`, `PutItemAsync`, `QueryAsync`, `DeleteTableAsync`, `DescribeTableAsync`)
-- [LowLevelParallelScan](low-level-api/LowLevelParallelScan/) - 
+- [LowLevelParallelScan](low-level-api/LowLevelParallelScan/) -
 - [LowLevelQuery](low-level-api/LowLevelQuery/) - Queries a DynamoDB table for
   information. (`QueryAsync`)
 - [LowLevelScan](low-level-api/LowLevelScan/) - Scans a DynamoDB table for
@@ -110,12 +126,12 @@ Amazon DynamoDB is a key-value and document database that delivers single-digit 
 - [LowLevelTableExample](low-level-api/LowLevelTableExample/)- Performs
   operations on a DynamoDB table using low-level API methods. (`CreateTableAsync`,
   `ListTablesAsync`, `DescribeTableAsync`, `UpdateTableAsync`, `DeleteTableAsync`)
-- [MidLevelBatchWriteItemExample](mid-level-api/MidLevelBatchWriteItemExample/) - 
+- [MidLevelBatchWriteItemExample](mid-level-api/MidLevelBatchWriteItemExample/) -
   Adds items to a DynamoDB table in a batch. (`QueryAsync`, `ScanAsync`)
 - [MidlevelItemCRUDExample](mid-level-api/MidlevelItemCRUDExample/) Performs
   CRUD (Create, Read, Update, and Delete) operations on a DynamoDB table.
   (`Table.LoadTable`, `PutItemAsync`, `GetItemAsync`, `UpdateItemAsync`, `DeleteItemAsync`)
-- [MidLevelQueryAndScanExample](mid-level-api/MidLevelQueryAndScanExample/) - 
+- [MidLevelQueryAndScanExample](mid-level-api/MidLevelQueryAndScanExample/) -
   Performs query and scan operations on a DynamoDB table using mid-level
   API commands. (`GetItemAsync`, `Table.Query`, `GetNextSetAsync`)
 - [MidLevelScanOnlyExample](mid-level-api/MidLevelScanOnlyExample/) - Shows two
@@ -140,4 +156,3 @@ Alternatively, you can run the example from within your IDE.
 [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
-
