@@ -57,7 +57,7 @@ public class S3BucketDeletion {
                 .region(region)
                 .credentialsProvider(credentialsProvider)
                 .build();
-        // snippet-start:[s3.java2.bucket_deletion.region]
+        // snippet-end:[s3.java2.bucket_deletion.region]
 
         deleteAllObjects(s3,bucket) ;
         s3.close();
