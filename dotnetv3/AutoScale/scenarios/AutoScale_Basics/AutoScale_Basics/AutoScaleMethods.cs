@@ -32,7 +32,7 @@ namespace AutoScale_Basics
             };
 
             await autoScalingClient.TerminateInstanceInAutoScalingGroupAsync(request);
-            Console.WriteLine("You have terminated instance " + instanceId);
+            Console.WriteLine("You have terminated the instance " + instanceId);
         }
 
         // snippet-end:[autoscale.dotnetv3.create_scaling_scenario.TerminateInstanceInAutoScalingGroup]
