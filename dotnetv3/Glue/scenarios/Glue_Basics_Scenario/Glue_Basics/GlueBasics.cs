@@ -29,7 +29,8 @@ using Glue_Basics;
 
 // Initialize the values we need for the scenario.
 // The ARN of the service role used by the crawler.
-var iam = "arn:aws:iam::012345678901:role/AWSGlueServiceRole-CrawlerTutorial";
+// var iam = "arn:aws:iam::012345678901:role/AWSGlueServiceRole-CrawlerTutorial";
+var iam = "arn:aws:iam::704825161248:role/service-role/AWSGlueServiceRole-CrawlerTutorial";
 
 // The path to the Amazon S3 bucket where the comma-delimited file is stored.
 var s3Path = "s3://crawler-public-us-east-1/flight/2016/csv";
@@ -41,10 +42,11 @@ var dbName = "test-flights-db";
 
 var crawlerName = "Flight Data Crawler";
 var jobName = "glue-job34";
-var scriptLocation = "s3://aws-glue-scripts-012345678901-us-west-1/GlueDemoUser";
-var locationUri = "s3://crawler-public-us-eest-1/flight/2016/csv/";
+var scriptLocation = "s3://aws-glue-scripts-704825161248-us-west-1/GlueDemoUser";
+var locationUri = "s3://crawler-public-us-east-1/flight/2016/csv/";
 
 var glueClient = new AmazonGlueClient();
+await GlueMethods.DeleteDatabaseAsync(glueClient, dbName);
 
 Console.WriteLine("Creating the database and crawler for the AWS Glue example.");
 await GlueMethods.CreateDatabaseAsync(glueClient, dbName, locationUri);
