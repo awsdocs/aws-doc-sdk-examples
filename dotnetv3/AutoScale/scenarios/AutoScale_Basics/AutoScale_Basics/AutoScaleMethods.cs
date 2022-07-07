@@ -1,4 +1,7 @@
-﻿namespace AutoScale_Basics
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+namespace AutoScale_Basics
 {
     public class AutoScaleMethods
     {
