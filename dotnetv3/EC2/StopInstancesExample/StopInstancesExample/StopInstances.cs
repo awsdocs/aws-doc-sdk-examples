@@ -3,6 +3,7 @@
 
 namespace StopInstancesExample
 {
+    // snippet-start:[EC2.dotnetv3.StopInstancesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -54,4 +55,5 @@ namespace StopInstancesExample
             }
         }
     }
+    // snippet-end:[EC2.dotnetv3.StopInstancesExample]
 }

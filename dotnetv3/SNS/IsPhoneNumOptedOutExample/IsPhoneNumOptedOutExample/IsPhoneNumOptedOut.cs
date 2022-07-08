@@ -3,6 +3,7 @@
 
 namespace IsPhoneNumOptedOutExample
 {
+    // snippet-start:[SNS.dotnetv3.CheckIfOptedOut]
     using System;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
@@ -24,8 +25,6 @@ namespace IsPhoneNumOptedOutExample
 
             await CheckIfOptedOutAsync(client, phoneNumber);
         }
-
-        // snippet-start:[SNS.dotnetv3.CheckIfOptedOut]
 
         /// <summary>
         /// Checks to see if the supplied phone number has been opted out.
@@ -56,7 +55,6 @@ namespace IsPhoneNumOptedOutExample
                 Console.WriteLine($"{ex.Message}");
             }
         }
-
-        // snippet-end:[SNS.dotnetv3.CheckIfOptedOut]
     }
+    // snippet-end:[SNS.dotnetv3.CheckIfOptedOut]
 }

@@ -3,13 +3,12 @@
 
 namespace GetTopicAttributesExample
 {
+    // snippet-start:[SNS.dotnetv3.GetTopicAttributesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
     using Amazon.SimpleNotificationService.Model;
-
-    // snippet-start:[SNS.dotnetv3.GetTopicAttributesExample]
 
     /// <summary>
     /// This example shows how to retrieve the attributes of an Amazon Simple

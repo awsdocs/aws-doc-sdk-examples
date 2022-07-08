@@ -3,6 +3,8 @@
 
 namespace DescribeExportTasksExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
+
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -15,7 +17,6 @@ namespace DescribeExportTasksExample
     /// </summary>
     public class DescribeExportTasks
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
         public static async Task Main()
         {
             // This client object will be associated with the same AWS Region
@@ -36,12 +37,11 @@ namespace DescribeExportTasksExample
                 response = await client.DescribeExportTasksAsync(request);
                 response.ExportTasks.ForEach(t =>
                 {
-                   Console.WriteLine($"{t.TaskName} with ID: {t.TaskId} has status: {t.Status}");
+                    Console.WriteLine($"{t.TaskName} with ID: {t.TaskId} has status: {t.Status}");
                 });
             }
             while (response.NextToken is not null);
         }
-
-        // snippet-end:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
     }
+    // snippet-end:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
 }

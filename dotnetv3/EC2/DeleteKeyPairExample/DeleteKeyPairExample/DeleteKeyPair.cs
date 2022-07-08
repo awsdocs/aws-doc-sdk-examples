@@ -3,6 +3,7 @@
 
 namespace DeleteKeyPairExample
 {
+    // snippet-start:[EC2.dotnetv3.DeleteKeyPairExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.EC2;
@@ -45,4 +46,6 @@ namespace DeleteKeyPairExample
             }
         }
     }
+
+    // snippet-end:[EC2.dotnetv3.DeleteKeyPairExample]
 }

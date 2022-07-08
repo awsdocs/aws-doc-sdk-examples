@@ -3,6 +3,7 @@
 
 namespace DetectTextExample
 {
+    // snippet-start:[Rekognition.dotnetv3.DetectTextExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace DetectTextExample
     /// </summary>
     public class DetectText
     {
-        // snippet-start:[Rekognition.dotnetv3.DetectTextExample]
         public static async Task Main()
         {
             string photo = "Dad_photographer.jpg"; // "input.jpg";
@@ -53,7 +53,6 @@ namespace DetectTextExample
                 Console.WriteLine(e.Message);
             }
         }
-
-        // snippet-end:[Rekognition.dotnetv3.DetectTextExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.DetectTextExample]
 }

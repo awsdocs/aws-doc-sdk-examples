@@ -1,5 +1,6 @@
 ﻿namespace DetectFacesExample
 {
+    // snippet-start:[Rekognition.dotnetv3.DetectFacesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -13,7 +14,6 @@
     /// </summary>
     public class DetectFaces
     {
-        // snippet-start:[Rekognition.dotnetv3.DetectFacesExample]
         public static async Task Main()
         {
             string photo = "input.jpg";
@@ -61,7 +61,6 @@
                 Console.WriteLine(ex.Message);
             }
         }
-
-        // snippet-end:[Rekognition.dotnetv3.DetectFacesExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.DetectFacesExample]
 }

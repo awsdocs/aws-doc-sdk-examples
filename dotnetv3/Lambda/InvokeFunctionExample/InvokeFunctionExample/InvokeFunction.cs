@@ -3,6 +3,7 @@
 
 namespace InvokeFunctionExample
 {
+    // snippet-start:[Lambda.dotnetv3.InvokeFunctionExample]
     using System.Threading.Tasks;
     using Amazon.Lambda;
     using Amazon.Lambda.Model;
@@ -34,4 +35,5 @@ namespace InvokeFunctionExample
                 });
         }
     }
+    // snippet-end:[Lambda.dotnetv3.InvokeFunctionExample]
 }

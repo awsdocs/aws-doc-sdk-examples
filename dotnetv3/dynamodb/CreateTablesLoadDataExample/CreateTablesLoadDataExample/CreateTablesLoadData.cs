@@ -3,6 +3,8 @@
 
 namespace CreateTablesLoadDataExample
 {
+    // snippet-start:[dynamodb.dotnetv3.CreateTablesLoadDataExample]
+
     using System;
     using System.Collections.Generic;
     using System.Net;
@@ -10,8 +12,6 @@ namespace CreateTablesLoadDataExample
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.DocumentModel;
     using Amazon.DynamoDBv2.Model;
-
-    // snippet-start:[dynamodb.dotnetv3.CreateTablesLoadDataExample]
 
     /// <summary>
     /// This example creates several Amazon DynamoDB tables and then adds
