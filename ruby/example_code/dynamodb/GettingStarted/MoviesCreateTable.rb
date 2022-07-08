@@ -4,7 +4,7 @@
 # This code example demonstrates how to create a new table in
 # Amazon DynamoDB. The table is named 'Movies' and contains
 # a composite primary key (also known as a hash-range key)
-# consisting of a 'year' hash/partition key attrribute and a
+# consisting of a 'year' hash/partition key attribute and a
 # 'title' range/sort key attribute. The table creation status
 # is then returned, for example 'CREATING'.
 
