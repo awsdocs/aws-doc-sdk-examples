@@ -3,6 +3,7 @@
 
 namespace AddFacesExample
 {
+    // snippet-start:[Rekognition.dotnetv3.AddFacesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -17,7 +18,6 @@ namespace AddFacesExample
     /// </summary>
     public class AddFaces
     {
-        // snippet-start:[Rekognition.dotnetv3.AddFacesExample]
         public static async Task Main()
         {
             string collectionId = "MyCollection2";
@@ -51,7 +51,6 @@ namespace AddFacesExample
                 Console.WriteLine($"Face detected: Faceid is {faceRecord.Face.FaceId}");
             }
         }
-
-        // snippet-end:[Rekognition.dotnetv3.AddFacesExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.AddFacesExample]
 }

@@ -3,6 +3,7 @@
 
 namespace DescribeCollectionExample
 {
+    // snippet-start:[Rekognition.dotnetv3.DescribeCollectionExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace DescribeCollectionExample
     /// </summary>
     public class DescribeCollection
     {
-        // snippet-start:[Rekognition.dotnetv3.DescribeCollectionExample]
         public static async Task Main()
         {
             var rekognitionClient = new AmazonRekognitionClient();
@@ -34,7 +34,6 @@ namespace DescribeCollectionExample
             Console.WriteLine($"Face model version: {describeCollectionResponse.FaceModelVersion}");
             Console.WriteLine($"Created: {describeCollectionResponse.CreationTimestamp}");
         }
-
-        // snippet-end:[Rekognition.dotnetv3.DescribeCollectionExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.DescribeCollectionExample]
 }

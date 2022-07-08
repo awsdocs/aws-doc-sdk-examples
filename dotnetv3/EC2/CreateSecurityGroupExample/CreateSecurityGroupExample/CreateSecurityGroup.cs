@@ -3,6 +3,8 @@
 
 namespace CreateSecurityGroupExample
 {
+
+    // snippet-start:[EC2.dotnetv3.CreateSecurityGroupExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.EC2;
@@ -38,4 +40,6 @@ namespace CreateSecurityGroupExample
             Console.WriteLine($"Successfully created security group: {groupName} with ID: {groupId}");
         }
     }
+
+    // snippet-end:[EC2.dotnetv3.CreateSecurityGroupExample]
 }

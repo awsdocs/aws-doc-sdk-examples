@@ -3,6 +3,7 @@
 
 namespace ListFunctionsExample
 {
+    // snippet-start:[Lambda.dotnetv3.ListFunctionsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace ListFunctionsExample
             var functions2 = await ListFunctionsPaginatorAsync(client);
 
             DisplayFunctionList(functions2);
-         }
+        }
 
         /// <summary>
         /// Calls the asynchronous ListFunctionsAsync method of the Lambda
@@ -94,4 +95,5 @@ namespace ListFunctionsExample
                 .ForEach(f => Console.WriteLine($"{f.FunctionName}\t{f.Handler}"));
         }
     }
+    // snippet-end:[Lambda.dotnetv3.ListFunctionsExample]
 }

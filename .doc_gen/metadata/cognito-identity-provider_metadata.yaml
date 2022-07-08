@@ -1,8 +1,8 @@
 # zexi 0.4.0
 cognito-identity-provider_ListUserPools:
-  title: List the &COGIDP; user pools using an &AWS; SDK
+  title: List the &COG; user pools using an &AWS; SDK
   title_abbrev: List the user pools
-  synopsis: list the &COGIDP; user pools.
+  synopsis: list the &COG; user pools.
   category:
   languages:
     Rust:
@@ -15,3 +15,251 @@ cognito-identity-provider_ListUserPools:
                 - cognitoidentityprovider.rust.list-user-pools
   services:
     cognito-identity-provider: {ListUserPools}
+cognito-identity-provider_SignUp:
+  title: Sign up a user with &COG; using an &AWS; SDK
+  title_abbrev: Sign up a user
+  synopsis: sign up a user with &COG;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.SignUp
+  services:
+    cognito-identity-provider: {SignUp}
+cognito-identity-provider_AdminGetUser:
+  title: Get information about an &COG; user using an &AWS; SDK
+  title_abbrev: Get information about a user
+  synopsis: get information about an &COG; user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.SignUp
+  services:
+    cognito-identity-provider: {AdminGetUser}
+cognito-identity-provider_ResendConfirmationCode:
+  title: Resend an &COG; confirmation code using an &AWS; SDK
+  title_abbrev: Resend a confirmation code
+  synopsis: resend an &COG; confirmation code.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.ResendConfirmationCode
+  services:
+    cognito-identity-provider: {ResendConfirmationCode}
+cognito-identity-provider_ConfirmSignUp:
+  title: Confirm an &COG; user using an &AWS; SDK
+  title_abbrev: Confirm a user
+  synopsis: confirm an &COG; user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.ConfirmSignUp
+  services:
+    cognito-identity-provider: {ConfirmSignUp}
+cognito-identity-provider_ListUsers:
+  title: List &COG; users using an &AWS; SDK
+  title_abbrev: List users
+  synopsis: list &COG; users.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.ListUsers
+  services:
+    cognito-identity-provider: {ListUsers}
+cognito-identity-provider_AdminInitiateAuth:
+  title: Start authentication with &COG; and administrator credentials using an &AWS; SDK
+  title_abbrev: Start authentication with administrator credentials
+  synopsis: start authentication with &COG; and administrator credentials.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.AdminInitiateAuth
+  services:
+    cognito-identity-provider: {AdminInitiateAuth}
+cognito-identity-provider_AssociateSoftwareToken:
+  title: Get a token to associate an MFA application with an &COG; user using an &AWS; SDK
+  title_abbrev: Get a token to associate an MFA application with a user
+  synopsis: get a token to associate an MFA application with an &COG; user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.AssociateSoftwareToken
+  services:
+    cognito-identity-provider: {AssociateSoftwareToken}
+cognito-identity-provider_VerifySoftwareToken:
+  title: Verify an MFA application with an &COG; user using an &AWS; SDK
+  title_abbrev: Verify an MFA application with a user
+  synopsis: verify an MFA application with an &COG; user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.VerifySoftwareToken
+  services:
+    cognito-identity-provider: {VerifySoftwareToken}
+cognito-identity-provider_AdminRespondToAuthChallenge:
+  title: Respond to an &COG; authentication challenge using an &AWS; SDK
+  title_abbrev: Respond to an authentication challenge
+  synopsis: respond to an &COG; authentication challenge.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description: Respond to an MFA challenge by providing a
+                code generated by an associated MFA application.
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.AdminRespondToAuthChallenge
+  services:
+    cognito-identity-provider: {AdminRespondToAuthChallenge}
+cognito-identity-provider_ConfirmDevice:
+  title: Confirm an MFA device for tracking by &COG; using an &AWS; SDK
+  title_abbrev: Confirm an MFA device for tracking
+  synopsis: confirm an MFA device for tracking by &COG;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.ConfirmDevice
+  services:
+    cognito-identity-provider: {ConfirmDevice}
+cognito-identity-provider_InitiateAuth:
+  title: Start authentication with a device tracked by &COG; using an &AWS; SDK
+  title_abbrev: Start authentication with a tracked device
+  synopsis: start authentication with a device tracked by &COG;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description: Sign in with a tracked device. To complete sign-in,
+                the client must respond correctly to Secure Remote Password (SRP)
+                challenges.
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.InitiateAuth
+  services:
+    cognito-identity-provider: {InitiateAuth}
+cognito-identity-provider_RespondToAuthChallenge:
+  title: Respond to &COG; SRP authentication challenges using an &AWS; SDK
+  title_abbrev: Respond to SRP authentication challenges
+  synopsis: respond to &COG; SRP authentication challenges.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description: Sign in with a tracked device. To complete sign-in,
+                the client must respond correctly to Secure Remote Password (SRP)
+                challenges.
+              snippet_tags:
+                - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
+                - python.example_code.cognito-idp.RespondToAuthChallenge
+  services:
+    cognito-identity-provider: {RespondToAuthChallenge}
+cognito-identity-provider_Scenario_SignUpUserWithMfa:
+  title: Sign up a user with an &COG; user pool that requires MFA using an &AWS; SDK
+  title_abbrev: Sign up a user with a user pool that requires MFA
+  synopsis_list:
+    - Sign up a user with a user name, password, and email address.
+    - Confirm the user from a code sent in email.
+    - Set up multi-factor authentication by associating an MFA application with the user.
+    - Sign in by using a password and an MFA code.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description: In addition to the previously listed steps, this example
+                also registers an MFA device to be tracked by &COG; and shows you
+                how to sign in by using a password and information from the tracked
+                device. This avoids the need to enter a new MFA code.
+              snippet_tags:
+                - python.example_code.cognito-idp.Scenario_SignUpUserWithMfa
+  services:
+    cognito-identity-provider: {ConfirmSignUp, ConfirmDevice, AssociateSoftwareToken,
+                                AdminGetUser, ListUsers, ResendConfirmationCode,
+                                RespondToAuthChallenge, AdminRespondToAuthChallenge,
+                                SignUp, InitiateAuth, AdminInitiateAuth, VerifySoftwareToken}

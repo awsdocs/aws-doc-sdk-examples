@@ -3,6 +3,7 @@
 
 namespace DeleteVPCExample
 {
+    // snippet-start:[EC2.dotnetv3.DeleteVPCExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.EC2;
@@ -41,4 +42,5 @@ namespace DeleteVPCExample
             }
         }
     }
+    // snippet-end:[EC2.dotnetv3.DeleteVPCExample]
 }

@@ -3,6 +3,7 @@
 
 namespace CreateOrganizationExample
 {
+    // snippet-start:[Organizations.dotnetv3.CreateOrganizationExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -33,4 +34,5 @@ namespace CreateOrganizationExample
             Console.WriteLine($"Organization: {newOrg.Id} Main Accoount: {newOrg.MasterAccountId}");
         }
     }
+    // snippet-end:[Organizations.dotnetv3.CreateOrganizationExample]
 }
