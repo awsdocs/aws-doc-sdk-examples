@@ -11,7 +11,7 @@ cross_RDSDataTracker:
     PHP:
       versions:
         - sdk_version: 3
-          block_content: cross_DynamoDBDataTracker_PHP_block.xml
+          block_content: cross_RDSDataTracker_PHP_block.xml
   services:
     rds:
     ses:
