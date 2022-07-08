@@ -89,10 +89,11 @@ A user can perform the following tasks in the AWS Tracker application:
 #### Build the front end
 
 We have provided a React (https://reactjs.org/) front end which can connect to any backend configured
-with the proper REST endpoints. Follow the README at resources/clients/react/item-tracker/README.md. When
-you have a local server running at http://localhost:3000, finish this section by setting up the config.json.
+with the proper REST endpoints. Follow the [README](../../../resources/clients/react/item-tracker/README.md) to run a 
+local copy. When you have a local server running at http://localhost:3000, finish this section by setting up the 
+config.json.
 
-Open the resources/clients/react/item-tracker/src/config.json file and change the *BASE_URL* value to
+Open the [config.json](../../../resources/clients/react/item-tracker/src/config.json) file and change the *BASE_URL* value to
 "http://localhost:8000/api".
 
 ### Deploy Laravel
