@@ -17,7 +17,7 @@ SDK for .NET.
 
 ## Code examples
 
-### Scenarios
+### Scenario
 
 Code examples that show you how to accomplish a specific task by calling
 multiple functions within the same service.
