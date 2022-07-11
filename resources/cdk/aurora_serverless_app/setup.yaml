@@ -1,0 +1,141 @@
+Resources:
+  docexampleauroraappsecret8BAF8B56:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      GenerateSecretString:
+        ExcludePunctuation: true
+        GenerateStringKey: password
+        IncludeSpace: false
+        SecretStringTemplate: '{"username":"docexampleadmin"}'
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: doc-example-aurora-app/doc-example-aurora-app-secret/Resource
+  docexampleauroraappsecretAttachment45B3872B:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId:
+        Ref: docexampleauroraappsecret8BAF8B56
+      TargetId:
+        Ref: docexampleauroraappclusterEB7E1241
+      TargetType: AWS::RDS::DBCluster
+    Metadata:
+      aws:cdk:path: doc-example-aurora-app/doc-example-aurora-app-secret/Attachment/Resource
+  docexampleauroraappclusterEB7E1241:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      Engine: aurora-mysql
+      DatabaseName: auroraappdb
+      DBClusterParameterGroupName: default.aurora-mysql5.7
+      EnableHttpEndpoint: true
+      EngineMode: serverless
+      MasterUsername: docexampleadmin
+      MasterUserPassword:
+        Fn::Join:
+          - ""
+          - - "{{resolve:secretsmanager:"
+            - Ref: docexampleauroraappsecret8BAF8B56
+            - :SecretString:password::}}
+      StorageEncrypted: true
+      VpcSecurityGroupIds: []
+    UpdateReplacePolicy: Snapshot
+    DeletionPolicy: Snapshot
+    Metadata:
+      aws:cdk:path: doc-example-aurora-app/doc-example-aurora-app-cluster/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/12MOw/CMAyEfwt7GmgF7FB2pMKOQmJK+kiQ7ZShyn+nr6FiOt93vstkdpC7jfpSok2dNPYp+xsrXYsBPXoCjcDUKqdKwCGavMhfbrlmuSssgU88FN8tuNXDfxIFGhp3sANsgChvAjHg2LicFxOjKIB8QA0jvwb+hGlzTXPvjGXrXRTOG5AVbbv0KNO9zDYVWZtgcGxbkMWsPyaNbS3qAAAA
+    Metadata:
+      aws:cdk:path: doc-example-aurora-app/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Outputs:
+  SecretArn:
+    Value:
+      Ref: docexampleauroraappsecret8BAF8B56
+  ClusterArn:
+    Value:
+      Fn::Join:
+        - ""
+        - - "arn:"
+          - Ref: AWS::Partition
+          - ":rds:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - ":cluster:"
+          - Ref: docexampleauroraappclusterEB7E1241
+  DbName:
+    Value: auroraappdb
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2

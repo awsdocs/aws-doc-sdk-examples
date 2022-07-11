@@ -1,3 +1,7 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.dynamodb;
 
 import software.amazon.awssdk.enhanced.dynamodb.EnhancedType;
@@ -6,18 +10,12 @@ import software.amazon.awssdk.enhanced.dynamodb.internal.converter.attribute.Str
 import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
 
 @DynamoDbBean
 public class Contact {
-    private String id;
-    private List<String> pid;
-    // getters and setters
-
     public static final StaticTableSchema.Builder<Contact> TABLE_SCHEMA =
             StaticTableSchema.builder(Contact.class)
                     .newItemSupplier(Contact::new)
@@ -34,6 +32,9 @@ public class Contact {
                                             .elementConverter(StringAttributeConverter.create())
                                             .build()));
 
+    private String id;
+    private List<String> pid;
+
     @DynamoDbPartitionKey
     public String getId() {
         return this.id;
@@ -48,7 +49,7 @@ public class Contact {
         return this.pid;
     }
 
-    public void setPid(List pid) {
+    public void setPid(List<String> pid) {
         this.pid = pid;
     }
 }

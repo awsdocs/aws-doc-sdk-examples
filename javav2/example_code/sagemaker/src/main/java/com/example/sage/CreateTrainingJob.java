@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.sage;
 
 //snippet-start:[sagemaker.java2.train_job.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.S3DataSource;
@@ -36,10 +36,10 @@ import java.util.Map;
 //snippet-end:[sagemaker.java2.train_job.import]
 
 /**
- *  To setup the model data and other requirements to make this Java V2 example work, follow this AWS tutorial prior to running this Java code example.
+ *  To set up the model data and other requirements to make this Java V2 example work, follow this AWS tutorial prior to running this Java code example.
  *  https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -49,20 +49,20 @@ public class CreateTrainingJob {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <s3UriData> <s3Uri> <trainingJobName> <roleArn> <s3OutputPath> <channelName> <trainingImage>\n\n" +
                 "Where:\n" +
-                "    s3UriData - the location of the training data (for example, s3://trainbucket/train.csv).\n\n" +
-                "    s3Uri - the Amazon S3 path where you want Amazon SageMaker to store checkpoints (for example, s3://trainbucket).\n\n" +
-                "    trainingJobName - the name of the training job. \n\n" +
-                "    roleArn - the Amazon Resource Name (ARN) of the IAM role that SageMaker uses.\n\n" +
-                "    s3OutputPath - the output path located in an Amazon S3 bucket (for example, s3://trainbucket/sagemaker).\n\n" +
-                "    channelName  - the channel name (for example, s3://trainbucket/sagemaker).\n\n" +
-                "    trainingImage  - the training image (for example, 000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.\n\n";
+                "    s3UriData - The location of the training data (for example, s3://trainbucket/train.csv).\n\n" +
+                "    s3Uri - The Amazon S3 path where you want Amazon SageMaker to store checkpoints (for example, s3://trainbucket).\n\n" +
+                "    trainingJobName - The name of the training job. \n\n" +
+                "    roleArn - The Amazon Resource Name (ARN) of the IAM role that SageMaker uses.\n\n" +
+                "    s3OutputPath - The output path located in an Amazon S3 bucket (for example, s3://trainbucket/sagemaker).\n\n" +
+                "    channelName - The channel name (for example, s3://trainbucket/sagemaker).\n\n" +
+                "    trainingImage - The training image (for example, 000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.\n\n";
 
         if (args.length != 7) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
          }
 
@@ -77,6 +77,7 @@ public class CreateTrainingJob {
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         trainJob(sageMakerClient, s3UriData, s3Uri, trainingJobName, roleArn, s3OutputPath, channelName, trainingImage);
@@ -111,7 +112,7 @@ public class CreateTrainingJob {
                     .build();
 
             // Build a list of channels
-            List<Channel> myChannel = new ArrayList();
+            List<Channel> myChannel = new ArrayList<>();
             myChannel.add(channel);
 
             ResourceConfig resourceConfig = ResourceConfig.builder()
@@ -138,7 +139,7 @@ public class CreateTrainingJob {
                     .build();
 
             // Set hyper parameters.
-            Map<String,String> hyperParameters = new HashMap<String, String>();
+            Map<String,String> hyperParameters = new HashMap<>();
             hyperParameters.put("num_round", "100");
             hyperParameters.put("eta", "0.2");
             hyperParameters.put("gamma", "4");

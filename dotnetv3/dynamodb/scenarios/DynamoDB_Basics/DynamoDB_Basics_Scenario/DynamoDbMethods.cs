@@ -15,7 +15,7 @@ namespace DynamoDB_Basics_Scenario
 
     public class DynamoDbMethods
     {
-        // snippet-start:[DynamoDB.dotnetv3.CreateTable]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.CreateTable]
 
         /// <summary>
         /// Creates a new Amazon DynamoDB table and then waits for the new
@@ -88,9 +88,9 @@ namespace DynamoDB_Basics_Scenario
             return status == TableStatus.ACTIVE;
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.CreateTable]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.CreateTable]
 
-        // snippet-start:[DynamoDB.dotnetv3.PutItem]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.PutItem]
 
         /// <summary>
         /// Adds a new item to the table.
@@ -118,9 +118,9 @@ namespace DynamoDB_Basics_Scenario
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.PutItem]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.PutItem]
 
-        // snippet-start:[DynamoDB.dotnetv3.UpdateItem]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.UpdateItem]
 
         /// <summary>
         /// Updates an existing item in the movies table.
@@ -170,9 +170,9 @@ namespace DynamoDB_Basics_Scenario
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.UpdateItem]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.UpdateItem]
 
-        // snippet-start:[DynamoDB.dotnetv3.GetItem]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.GetItem]
 
         /// <summary>
         /// Gets information about an existing movie from the table.
@@ -201,9 +201,9 @@ namespace DynamoDB_Basics_Scenario
             return response.Item;
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.GetItem]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.GetItem]
 
-        // snippet-start:[DynamoDB.dotnetv3.BatchWriteItem]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem]
 
         /// <summary>
         /// Loads the contents of a JSON file into a list of movies to be
@@ -256,9 +256,9 @@ namespace DynamoDB_Basics_Scenario
             return movies.Count;
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.BatchWriteItem]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem]
 
-        // snippet-start:[DynamoDB.dotnetv3.DeleteItem]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.DeleteItem]
 
         /// <summary>
         /// Deletes a single item from a DynamoDB table.
@@ -291,9 +291,9 @@ namespace DynamoDB_Basics_Scenario
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.DeleteItem]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.DeleteItem]
 
-        // snippet-start:[DynamoDB.dotnetv3.QueryItems]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.QueryItems]
 
         /// <summary>
         /// Queries the table for movies released in a particular year and
@@ -344,9 +344,9 @@ namespace DynamoDB_Basics_Scenario
             return moviesFound;
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.QueryItems]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.QueryItems]
 
-        // snippet-start:[DynamoDB.dotnetv3.ScanTable]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.ScanTable]
         public static async Task<int> ScanTableAsync(
             AmazonDynamoDBClient client,
             string tableName,
@@ -383,9 +383,9 @@ namespace DynamoDB_Basics_Scenario
             return foundCount;
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.ScanTable]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.ScanTable]
 
-        // snippet-start:[DynamoDB.dotnetv3.DeleteTableExample]
+        // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample]
         public static async Task<bool> DeleteTableAsync(AmazonDynamoDBClient client, string tableName)
         {
             var request = new DeleteTableRequest
@@ -406,7 +406,7 @@ namespace DynamoDB_Basics_Scenario
             }
         }
 
-        // snippet-end:[DynamoDB.dotnetv3.DeleteTableExample]
+        // snippet-end:[DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample]
 
         /// <summary>
         /// Displays a DynamoDB document on the console.

@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +12,7 @@
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.start_stop_instance.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
@@ -20,32 +20,33 @@ import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 // snippet-end:[ec2.java2.start_stop_instance.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class StartStopInstance {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "   <instanceId>\n\n" +
                 "Where:\n" +
                 "   instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String instanceId = args[0];
         boolean start;
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         if(args[1].equals("start")) {

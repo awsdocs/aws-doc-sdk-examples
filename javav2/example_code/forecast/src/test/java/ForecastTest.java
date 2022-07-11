@@ -27,6 +27,7 @@ public class ForecastTest {
         region = Region.US_WEST_2;
         forecast = ForecastClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = ForecastTest.class.getClassLoader().getResourceAsStream("config.properties")) {

@@ -12,7 +12,7 @@ namespace AddItem
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.Model;
 
-    // snippet-start:[dynamodb.dotnet35.AddItemExample]
+    // snippet-start:[dynamodb.dotnetv3.AddItemExample]
 
     /// <summary>
     /// Add an item to an Amazon DynamoDB table.
@@ -181,5 +181,5 @@ namespace AddItem
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.AddItemExample]
+    // snippet-end:[dynamodb.dotnetv3.AddItemExample]
 }

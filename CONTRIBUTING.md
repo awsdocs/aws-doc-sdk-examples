@@ -25,12 +25,13 @@ We look forward to receiving your pull requests for:
 
 ## Where to put a new code example
 
-If you are contributing a new, single-API code example,
-add it to the appropriate *language*/*service*/*action* directory,
-where *action* follows the naming convention in the service reference docs for that service's action.
-For example, a new code example that lists your Amazon ECS clusters using version 2 
-of the AWS SDK for Go would be
-**gov2/ecs/ListClusters/ListClusters.go**.
+Code examples are organized by service for each SDK. Within each SDK, the folder and example structure varies. To add
+an example, find the SDK and service folder and add the example following the established convention for that SDK.
+
+For example:
+
+* Amazon S3 examples for AWS SDK for Java V2 are stored in separate files for each action in the `javav2/example_code/s3/src/main/java/com/example/s3` folder.
+* Amazon S3 examples for AWS SDK for Python (Boto3) are stored in thematically grouped files, such as `bucket_wrapper.py` in `python/example_code/s3/s3_basics` for bucket actions.
 
 If your example uses multiple APIs from a single service,
 use the action that you consider most important.

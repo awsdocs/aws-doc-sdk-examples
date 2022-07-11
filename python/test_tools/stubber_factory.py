@@ -13,10 +13,12 @@ from test_tools.apigateway_stubber import ApiGatewayStubber
 from test_tools.apigatewaymanagementapi_stubber import ApiGatewayManagementApiStubber
 from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
 from test_tools.auditmanager_stubber import AuditManagerStubber
+from test_tools.autoscaling_stubber import AutoScalingStubber
 from test_tools.cloudformation_stubber import CloudFormationStubber
 from test_tools.cloudfront_stubber import CloudFrontStubber
 from test_tools.cloudwatch_stubber import CloudWatchStubber
 from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
+from test_tools.cognito_idp_stubber import CognitoIdpStubber
 from test_tools.comprehend_stubber import ComprehendStubber
 from test_tools.config_stubber import ConfigStubber
 from test_tools.dynamodb_stubber import DynamoStubber
@@ -68,6 +70,8 @@ def stubber_factory(service_name):
         return ApiGatewayV2Stubber
     elif service_name == 'auditmanager':
         return AuditManagerStubber
+    elif service_name == 'autoscaling':
+        return AutoScalingStubber
     elif service_name == 'cloudformation':
         return CloudFormationStubber
     elif service_name == 'cloudfront':
@@ -76,6 +80,8 @@ def stubber_factory(service_name):
         return CloudWatchStubber
     elif service_name == 'logs':
         return CloudWatchLogsStubber
+    elif service_name == 'cognito-idp':
+        return CognitoIdpStubber
     elif service_name == 'comprehend':
         return ComprehendStubber
     elif service_name == 'config':

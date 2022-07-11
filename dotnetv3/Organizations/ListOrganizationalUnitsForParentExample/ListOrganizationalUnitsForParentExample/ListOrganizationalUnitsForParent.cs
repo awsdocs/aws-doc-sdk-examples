@@ -3,6 +3,7 @@
 
 namespace ListOrganizationalUnitsForParentExample
 {
+    // snippet-start:[Organizations.dotnetv3.ListOrganizationalUnitsForParentExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -65,4 +66,5 @@ namespace ListOrganizationalUnitsForParentExample
             Console.WriteLine(accountInfo);
         }
     }
+    // snippet-end:[Organizations.dotnetv3.ListOrganizationalUnitsForParentExample]
 }

@@ -52,7 +52,7 @@ public class DeleteCampaign {
         deleteSpecificCampaign(personalizeClient, campaignArn) ;
         personalizeClient.close();
     }
-
+//snippet-start:[personalize.java2.delete_campaign.main]
     public static void deleteSpecificCampaign(PersonalizeClient personalizeClient, String campaignArn ) {
 
         try {
@@ -69,3 +69,4 @@ public class DeleteCampaign {
         }
       }
     }
+//snippet-end:[personalize.java2.delete_campaign.main]

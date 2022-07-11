@@ -4,8 +4,7 @@
 // snippet-keyword:[Amazon Simple Systems Management]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/27/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@
 package com.example.ssm;
 
 //snippet-start:[ssm.java2.create_ops.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.CreateOpsItemRequest;
@@ -23,9 +23,9 @@ import software.amazon.awssdk.services.ssm.model.SsmException;
 //snippet-end:[ssm.java2.create_ops.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,10 +37,10 @@ public class CreateOpsItem {
                 "Usage:\n" +
                 "    <title> <source> <category> <severity>\n\n" +
                 "Where:\n" +
-                "    title - the OpsItem title.\n" +
-                "    source - the origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.\n" +
-                "    category - a category to assign to an OpsItem.\n" +
-                "    severity - a severity to assign to an OpsItem.\n";
+                "    title - The OpsItem title.\n" +
+                "    source - The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.\n" +
+                "    category - A category to assign to an OpsItem.\n" +
+                "    severity - A severity to assign to an OpsItem.\n";
 
             if (args.length != 4) {
                 System.out.println(USAGE);
@@ -55,6 +55,7 @@ public class CreateOpsItem {
             Region region = Region.US_EAST_1;
             SsmClient ssmClient = SsmClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
             System.out.println("The Id of the OpsItem is " +createNewOpsItem(ssmClient, title, source, category, severity));

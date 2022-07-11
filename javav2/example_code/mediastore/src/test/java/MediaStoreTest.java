@@ -4,6 +4,7 @@
 */
 
 import com.example.mediastore.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastoredata.MediaStoreDataClient ;
 import org.junit.jupiter.api.*;
@@ -33,6 +34,7 @@ public class MediaStoreTest {
         Region region = Region.US_EAST_1;
         mediaStoreClient = MediaStoreClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = MediaStoreTest.class.getClassLoader().getResourceAsStream("config.properties")) {

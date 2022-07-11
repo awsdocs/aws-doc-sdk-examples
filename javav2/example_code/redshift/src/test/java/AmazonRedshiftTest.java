@@ -24,6 +24,7 @@ public class AmazonRedshiftTest {
         region = Region.US_WEST_2;
         redshiftClient = RedshiftClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
         try (InputStream input = AmazonRedshiftTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 

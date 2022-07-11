@@ -10,7 +10,7 @@ namespace UpdateItemDataModelExample
     using Amazon.DynamoDBv2;
     using Amazon.DynamoDBv2.DataModel;
 
-    // snippet-start:[dynamodb.dotnet35.UpdateItemDataModelExample]
+    // snippet-start:[dynamodb.dotnetv3.UpdateItemDataModelExample]
 
     /// <summary>
     /// Update the model of items in an Amazon DynamoDB table. The
@@ -138,5 +138,5 @@ namespace UpdateItemDataModelExample
         }
     }
 
-    // snippet-end:[dynamodb.dotnet35.UpdateItemDataModelExample]
+    // snippet-end:[dynamodb.dotnetv3.UpdateItemDataModelExample]
 }

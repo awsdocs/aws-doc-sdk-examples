@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/17/2021]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +12,7 @@
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.del_function.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
@@ -20,9 +20,9 @@ import software.amazon.awssdk.services.cloudfront.model.DeleteFunctionRequest;
 // snippet-end:[cloudfront.java2.del_function.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,15 +31,15 @@ public class DeleteFunction {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <functionName> <ifMatchVal>\n\n" +
                 "Where:\n" +
-                "    functionName - the name of the function to delete. \n"+
+                "    functionName - The name of the function to delete. \n"+
                 "    ifMatchVal - The current version (ETag value) of the function that you are deleting, which you can get using DescribeFunction. \n" ;
 
         if (args.length != 2) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
         }
 
@@ -47,6 +47,7 @@ public class DeleteFunction {
         String ifMatchVal = args[1];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
                 .region(Region.AWS_GLOBAL)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         deleteSpecificFunction(cloudFrontClient, functionName, ifMatchVal);
