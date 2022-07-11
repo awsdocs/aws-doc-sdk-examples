@@ -1,85 +1,123 @@
-﻿using Xunit;
+﻿using Amazon.Glue;
+using Glue_Basics;
+using Xunit;
 
 namespace Glue_Basics.Tests
 {
     public class GlueMethodsTests
     {
-        [Fact()]
-        public void DeleteSpecificCrawlerAsyncTest()
+        // Initialize the values we need for the scenario.
+        // The ARN of the service role used by the crawler.
+        readonly string iam = "arn:aws:iam::012345678901:role/AWSGlueServiceRole-CrawlerTutorial";
+
+        // The path to the Amazon S3 bucket where the comma-delimited file is stored.
+        readonly string s3Path = "s3://crawler-public-us-east-1/flight/2016/csv";
+        readonly string cron = "cron(15 12 * * ? *)";
+
+        // The name of the database used by the crawler.
+        readonly string dbName = "test-flights-db";
+        readonly string crawlerName = "Test Scenario Crawler";
+        readonly string jobName = "glue-job-test";
+        readonly string scriptLocation = "s3://aws-glue-scripts-012345678901-us-west-1/GlueDemoUser";
+        readonly string locationUri = "s3://crawler-public-us-east-1/flight/2016/csv/";
+
+        readonly AmazonGlueClient _Client;
+
+        public GlueMethodsTests()
         {
-            Assert.True(false, "This test needs an implementation");
+            _Client = new AmazonGlueClient();
         }
 
         [Fact()]
-        public void DeleteDatabaseAsyncTest()
+        public async Task CreateDatabaseAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.CreateDatabaseAsync(_Client, dbName, locationUri);
+            Assert.True(success, "Could not create the database.");
         }
 
         [Fact()]
-        public void DeleteJobAsyncTest()
+        public async Task CreateGlueCrawlerAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.CreateGlueCrawlerAsync(
+                _Client, iam, s3Path, cron, dbName, crawlerName);
+            Assert.True(success, "Could not create the crawler.");
         }
 
         [Fact()]
-        public void GetJobRunsAsyncTest()
+        public async Task CreateJobAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.CreateJobAsync(_Client, jobName, iam, scriptLocation);
+            Assert.True(success, "Could not create the AWS Glue job.");
         }
 
         [Fact()]
-        public void GetAllJobsAsyncTest()
+        public async Task DeleteSpecificCrawlerAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.DeleteSpecificCrawlerAsync(_Client, crawlerName);
+            Assert.True(success, $"Could not delete the AWS Glue crawler {crawlerName}.");
         }
 
         [Fact()]
-        public void StartJobAsyncTest()
+        public async Task DeleteDatabaseAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.DeleteDatabaseAsync(_Client, dbName);
+            Assert.True(success, $"Could not delete {dbName}.");
         }
 
         [Fact()]
-        public void CreateJobAsyncTest()
+        public async Task DeleteJobAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.DeleteJobAsync(_Client, jobName);
+            Assert.True(success, $"Could not delete the job, {jobName}.");
         }
 
         [Fact()]
-        public void GetSpecificDatabaseAsyncTest()
+        public async Task GetAllJobsAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.GetAllJobsAsync(_Client);
+            Assert.True(success, "Could not get any AWS Glue job information.");
         }
 
         [Fact()]
-        public void StartSpecificCrawlerAsyncTest()
+        public async Task GetGlueTablesAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.GetGlueTablesAsync(_Client, dbName);
+            Assert.True(success, $"Couldn't get information for any tables in {dbName}.");
         }
 
         [Fact()]
-        public void GetSpecificCrawlerAsyncTest()
+        public async Task GetJobRunsAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.GetJobRunsAsync(_Client, jobName);
+            Assert.True(success, $"No information for job runs for {jobName}.");
         }
 
         [Fact()]
-        public void CreateGlueCrawlerAsyncTest()
+        public async Task GetSpecificCrawlerAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.GetSpecificCrawlerAsync(_Client, crawlerName);
+            Assert.True(success, $"Couldn't fimd any information about {crawlerName}");
         }
 
         [Fact()]
-        public void CreateDatabaseAsyncTest()
+        public async Task GetSpecificDatabaseAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.GetSpecificDatabaseAsync(_Client, dbName);
+            Assert.True(success, $"Couldn't find any information about {dbName}.");
         }
 
         [Fact()]
-        public void GetGlueTablesAsyncTest()
+        public async Task StartJobAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var success = await GlueMethods.StartJobAsync(_Client, jobName);
+            Assert.True(success, $"Couldn't start job: {jobName}.");
+        }
+
+        [Fact()]
+        public async Task StartSpecificCrawlerAsyncTest()
+        {
+            var success = await GlueMethods.StartSpecificCrawlerAsync(_Client, crawlerName);
+            Assert.True(success, $"Couldn't start crawler, {crawlerName}");
         }
     }
 }
