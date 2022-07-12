@@ -8,7 +8,7 @@ dynamodb_CreateTable:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -114,7 +114,7 @@ dynamodb_BatchGetItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -230,7 +230,7 @@ dynamodb_BatchWriteItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description: Writes a batch of items to the movie table.
               snippet_tags:
@@ -340,7 +340,7 @@ dynamodb_DeleteTable:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -444,7 +444,7 @@ dynamodb_PutItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -662,7 +662,7 @@ dynamodb_UpdateItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -770,7 +770,7 @@ dynamodb_DeleteItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -976,7 +976,7 @@ dynamodb_Query:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -1101,7 +1101,7 @@ dynamodb_Scan:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -1408,7 +1408,7 @@ dynamodb_Scenario_GettingStartedMovies:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -1567,7 +1567,7 @@ dynamodb_Scenario_PartiQLSingle:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -1648,7 +1648,7 @@ dynamodb_Scenario_PartiQLBatch:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
