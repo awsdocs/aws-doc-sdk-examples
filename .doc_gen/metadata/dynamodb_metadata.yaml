@@ -1209,22 +1209,23 @@ dynamodb_ExecuteStatement:
     .NET:
       versions:
         - sdk_version: 3
-        excerpts:
-          - description: Use an INSERT statement to add an item.
-            snippet_tags:
-              - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie
-          - description: Use a SELECT statement to get an item.
-            snippet_tags:
-              - PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie
-          - description: Use a SELECT statement to get a list of items.
-            snippet_tags:
-              - PartiQL.dotnetv3.PartiQLBasicsScenario-GetMovies
-          - description: Use an UPDATE statement to update an item.
-            snippet_tags:
-              - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
-          - description: Use a DELETE statement to delete a single movie.
-            snippet_tags:
-              - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
+          github: dotnetv3/DynamoDB
+          excerpts:
+            - description: Use an INSERT statement to add an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie
+            - description: Use a SELECT statement to get an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie
+            - description: Use a SELECT statement to get a list of items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetMovies
+            - description: Use an UPDATE statement to update an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
+            - description: Use a DELETE statement to delete a single movie.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
     Go:
       versions:
         - sdk_version: 2
