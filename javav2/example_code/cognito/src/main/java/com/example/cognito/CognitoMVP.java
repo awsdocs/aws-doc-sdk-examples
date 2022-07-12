@@ -3,13 +3,14 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/08/22]
+//snippet-sourcedate:[07/12/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.mvp.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
@@ -38,27 +39,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+//snippet-end:[cognito.java2.mvp.import]
 
+
+//snippet-start:[cognito.java2.mvp.main]
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For more information, see the following documentation topic:
+ * For more information, see the following documentation:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * This code example performs these operations:
+ * TIP: To set up the required user pool, run the AWS CDK script provided in this GitHub repo at resources/cdk/cognito_scenario_user_pool_with_mfa.
  *
- * 1. Sign up a user.
- * 2. AdminGetUser to get user confirmation status if user exists.
- * 3. ResendConfirmationCode if user needs another code.
- * 4. Confirm signup: ConfirmSignUp
- * 5. Sign in, get prompted to set up TOTP (Time-based one-time password) MFA: AdminInitiateAuth with ADMIN_USER_PASSWORD_AUTH (Response: “ChallengeName”: “MFA_SETUP”)
- * 6. Generate a TOTP MFA private key: AssociateSoftwareToken.
- * 7. Verify the TOTP and register for MFA: VerifySoftwareToken
- * 8. Sign in again, get prompted to submit TOTP: AdminInitiateAuth with ADMIN_USER_PASSWORD_AUTH (Response: “ChallengeName”: “SOFTWARE_TOKEN_MFA”)
- * 9. Provide TOTP, get tokens: AdminRespondToAuthChallenge
+ * This code example performs the following operations:
  *
- * NOTE: You can set up the required User Pool by running the AWS CDK script provided in this Github repo at resources/cdk/cognito_scenario_user_pool_with_mfa.
+ * 1. Invokes the signUp method to sign up a user.
+ * 2. Invokes the adminGetUser method to get the user's confirmation status.
+ * 3. Invokes the ResendConfirmationCode method if the user requested another code.
+ * 4. Invokes the confirmSignUp method.
+ * 5. Invokes the initiateAuth to sign in. This results in being prompted to set up TOTP (time-based one-time password). (The response is “ChallengeName”: “MFA_SETUP”).
+ * 6. Invokes the AssociateSoftwareToken method to generate a TOTP MFA private key. This can be used with Google Authenticator. 
+ * 7. Invokes the VerifySoftwareToken method to verify the TOTP and register for MFA. 
+ * 8. Invokes the AdminInitiateAuth to sign in again. This results in being prompted to submit a TOTP (Response: “ChallengeName”: “SOFTWARE_TOKEN_MFA”).
+ * 9. Invokes the AdminRespondToAuthChallenge to get back a token. 
  */
 
 public class CognitoMVP {
@@ -69,31 +73,31 @@ public class CognitoMVP {
             "Usage:\n" +
             "    <clientId> <poolId>\n\n" +
             "Where:\n" +
-            "    clientId - The app client id value that you can obtain from the AWS CDK script.\n\n" +
-            "    poolId - The Id of the pool you can obtain from the AWS CDK script. \n\n" ;
+            "    clientId - The app client Id value that you can get from the AWS CDK script.\n\n" +
+            "    poolId - The pool Id that you can get from the AWS CDK script. \n\n" ;
 
-         if (args.length != 2) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+         //  if (args.length != 2) {
+         //          System.out.println(usage);
+         //          System.exit(1);
+         //  }
 
-        String clientId = args[0];
-        String poolId = args[1];
+        String clientId = "65kshga9h31bhb9t5d9stlffm";  //args[0];
+        String poolId = "us-east-1_pExGe6XAk"; // args[1];
 
         CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        // Using Console to input data from user.
-        System.out.println("*** Please enter use name");
+        // Use the console to get data from the user.
+        System.out.println("*** Enter your use name");
         Scanner in = new Scanner(System.in);
         String userName = in.nextLine();
 
-        System.out.println("*** Please enter password");
+        System.out.println("*** Enter your password");
         String password = in.nextLine();
 
-        System.out.println("*** Please enter email");
+        System.out.println("*** Enter your email");
         String email = in.nextLine();
 
         System.out.println("*** Signing up " + userName);
@@ -110,30 +114,30 @@ public class CognitoMVP {
             System.out.println("*** Sending a new confirmation code");
         }
 
-        System.out.println("*** Please enter confirmation code ");
+        System.out.println("*** Enter confirmation code that was emailed");
         String code = in.nextLine();
         confirmSignUp(identityProviderClient, clientId, code, userName);
 
-        System.out.println("*** Rechecking the status " + userName + " in the user pool");
+        System.out.println("*** Rechecking the status of " + userName + " in the user pool");
         getAdminUser(identityProviderClient, userName, poolId);
 
         InitiateAuthResponse authResponse = initiateAuth(identityProviderClient, clientId, userName, password) ;
         String mySession = authResponse.session() ;
         String newSession = getSecretForAppMFA(identityProviderClient, mySession);
 
-        System.out.println("*** Please enter 6 digit code displayed in Google Authenticator");
+        System.out.println("*** Enter the 6-digit code displayed in Google Authenticator");
         String myCode = in.nextLine();
 
         // Verify the TOTP and register for MFA.
         verifyTOTP(identityProviderClient, newSession, myCode);
-        System.out.println("*** Re-enter a 6 digit code displayed in Google Authenticator");
+        System.out.println("*** Re-enter a 6-digit code displayed in Google Authenticator");
         String mfaCode = in.nextLine();
         InitiateAuthResponse authResponse1 = initiateAuth(identityProviderClient, clientId, userName, password);
         String session2 = authResponse1.session();
         adminRespondToAuthChallenge(identityProviderClient, userName, clientId, mfaCode, session2);
     }
 
-    // Responds to an authentication challenge.
+    // Respond to an authentication challenge.
     public static void adminRespondToAuthChallenge(CognitoIdentityProviderClient identityProviderClient, String userName, String clientId, String mfaCode, String session) {
 
         System.out.println("SOFTWARE_TOKEN_MFA challenge is generated");
@@ -288,3 +292,4 @@ public class CognitoMVP {
         }
     }
 }
+//snippet-end:[cognito.java2.mvp.main]
