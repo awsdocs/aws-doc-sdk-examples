@@ -1292,6 +1292,7 @@ dynamodb_BatchExecuteStatement:
       versions:
         - sdk_version: 3
           github: dotnetv3/DynamoDB
+          excerpts:
             - description: Use batches of INSERT statements to add items.
               snippet_tags:
                 - PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch
