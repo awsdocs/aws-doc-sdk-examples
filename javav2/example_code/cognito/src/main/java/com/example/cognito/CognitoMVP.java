@@ -76,13 +76,13 @@ public class CognitoMVP {
             "    clientId - The app client Id value that you can get from the AWS CDK script.\n\n" +
             "    poolId - The pool Id that you can get from the AWS CDK script. \n\n" ;
 
-         //  if (args.length != 2) {
-         //          System.out.println(usage);
-         //          System.exit(1);
-         //  }
+         if (args.length != 2) {
+             System.out.println(usage);
+             System.exit(1);
+         }
 
-        String clientId = "65kshga9h31bhb9t5d9stlffm";  //args[0];
-        String poolId = "us-east-1_pExGe6XAk"; // args[1];
+        String clientId = args[0];
+        String poolId = args[1];
 
         CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
             .region(Region.US_EAST_1)
