@@ -16,7 +16,9 @@ The web client is designed to send requests to one of the following sample appli
 Each sample application shows you how to use an AWS SDK to store work items using AWS 
 resources:
 
-* [TBD: sample application for an SDK]()
+* [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](../../../../javav2/usecases/Creating_Spring_RDS_%20Rest)
+* [Creating the Amazon Aurora Serverless backend using the AWS SDK for PHP](../../../../php/cross_service/aurora_item_tracker)
+* [Tracking work items in a serverless Aurora database with the SDK for Python](../../../../python/cross_service/aurora_item_tracker)
 
 ## Running the client
 
