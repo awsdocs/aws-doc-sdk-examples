@@ -27,12 +27,12 @@ async fn list_asset_models(client: &Client) -> Result<(), Error> {
     println!("Asset Models:");
 
     for asset in resp.asset_model_summaries.unwrap() {
-        println!("  ID:  {}", asset.id().as_deref().unwrap_or_default());
-        println!("  ARN:  {}", asset.arn().as_deref().unwrap_or_default());
-        println!("  Name:   {}", asset.name().as_deref().unwrap_or_default());
+        println!("  ID:  {}", asset.id().unwrap_or_default());
+        println!("  ARN:  {}", asset.arn().unwrap_or_default());
+        println!("  Name:   {}", asset.name().unwrap_or_default());
         println!(
             "  Description:   {}",
-            asset.description().as_deref().unwrap_or_default()
+            asset.description().unwrap_or_default()
         );
         println!(
             "  Creation Date:   {}",

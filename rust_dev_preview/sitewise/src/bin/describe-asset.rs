@@ -36,19 +36,19 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
 
     println!(
         "  Asset ID:  {}",
-        asset.asset_id().as_deref().unwrap_or_default()
+        asset.asset_id().unwrap_or_default()
     );
     println!(
         "  Asset ARN:  {}",
-        asset.asset_arn().as_deref().unwrap_or_default()
+        asset.asset_arn().unwrap_or_default()
     );
     println!(
         "  Asset Name:   {}",
-        asset.asset_name().as_deref().unwrap_or_default()
+        asset.asset_name().unwrap_or_default()
     );
     println!(
         "  Asset Model ID:   {}",
-        asset.asset_model_id().as_deref().unwrap_or_default()
+        asset.asset_model_id().unwrap_or_default()
     );
     println!(
         "  Asset Creation Date:   {}",
@@ -68,11 +68,11 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
     for asset_hierarchy in asset.asset_hierarchies().unwrap() {
         println!(
             "    ID:   {}",
-            asset_hierarchy.id().as_deref().unwrap_or_default()
+            asset_hierarchy.id().unwrap_or_default()
         );
         println!(
             "    Name:   {}",
-            asset_hierarchy.name().as_deref().unwrap_or_default()
+            asset_hierarchy.name().unwrap_or_default()
         );
     }
 
@@ -81,7 +81,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
     for asset_property in asset.asset_properties().unwrap() {
         println!(
             "    Alias:   {}",
-            asset_property.alias().as_deref().unwrap_or_default()
+            asset_property.alias().unwrap_or_default()
         );
         println!(
             "    Data Type:   {}",
@@ -93,11 +93,11 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
         );
         println!(
             "    ID:   {}",
-            asset_property.id().as_deref().unwrap_or_default()
+            asset_property.id().unwrap_or_default()
         );
         println!(
             "    Name:   {}",
-            asset_property.name().as_deref().unwrap_or_default()
+            asset_property.name().unwrap_or_default()
         );
         println!(
             "    Notification State:   {}",
@@ -133,12 +133,11 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
             "    Description:   {}",
             asset_composite_model
                 .description()
-                .as_deref()
                 .unwrap_or_default()
         );
         println!(
             "    Name:   {}",
-            asset_composite_model.name().as_deref().unwrap_or_default()
+            asset_composite_model.name().unwrap_or_default()
         );
 
         println!("    Properties:");
@@ -146,7 +145,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
         for property in asset_composite_model.properties().unwrap() {
             println!(
                 "      Alias:   {}",
-                property.alias().as_deref().unwrap_or_default()
+                property.alias().unwrap_or_default()
             );
             println!(
                 "      Data Type:   {}",
@@ -159,7 +158,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
             println!("      ID:   {}", property.id.as_deref().unwrap_or_default());
             println!(
                 "      Name:   {}",
-                property.name().as_deref().unwrap_or_default()
+                property.name().unwrap_or_default()
             );
             println!(
                 "      Notification State:   {}",
@@ -184,7 +183,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
             );
             println!(
                 "      Unit:   {}",
-                property.unit().as_deref().unwrap_or_default()
+                property.unit().unwrap_or_default()
             );
         }
     }
