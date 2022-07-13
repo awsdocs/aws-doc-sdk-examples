@@ -39,7 +39,7 @@ The following examples use the **CognitoIdentityProviderClient** object:
 
 The following example is an Amazon Cognito scenario:
 
-- [Adding a new user to your user pool](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cognito/src/main/java/com/example/cognito/CognitoMVP.java) (various commands)
+- [Signing up a new user with Amazon Cognito and associate the user with an MFA application for multi-factor authentication](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cognito/src/main/java/com/example/cognito/CognitoMVP.java) (various commands)
 
 ## Running the Amazon Cognito Java files
 
