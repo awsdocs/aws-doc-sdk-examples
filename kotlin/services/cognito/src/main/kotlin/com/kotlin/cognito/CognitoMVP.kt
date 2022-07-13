@@ -60,8 +60,8 @@ suspend fun main(args: Array<String>) {
     """
 
     if (args.size != 1) {
-         println(usage)
-         exitProcess(1)
+        println(usage)
+        exitProcess(1)
     }
 
     val clientId = args[0]
