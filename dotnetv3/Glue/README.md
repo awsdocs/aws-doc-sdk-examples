@@ -1,9 +1,14 @@
-# AWS Auto Scaling code examples for the AWS SDK for .NET v3
+# AWS Glue code examples for the AWS SDK for .NET v3
 
 ## Overview
 
-Examples in this folder show how to use AWS Glue with the AWS
-SDK for .NET.
+Examples in this folder show how to use AWS Glue with the AWS SDK for .NET.
+
+AWS Glue is a serverless data integration service that makes it easy to 
+discover, prepare, and combine data for analytics, machine learning, and
+application development. AWS Glue provides all the capabilities needed for data
+integration so that you can start analyzing your data and putting it to use in
+minutes instead of months.
 
 ## ⚠️ Important
 
