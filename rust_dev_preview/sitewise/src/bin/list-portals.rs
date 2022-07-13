@@ -27,31 +27,31 @@ async fn list_portals(client: &Client) -> Result<(), Error> {
     println!("Portals:");
 
     for asset in resp.portal_summaries.unwrap() {
-        println!("  ID:  {}", asset.id.as_deref().unwrap_or_default());
+        println!("  ID:  {}", asset.id().as_deref().unwrap_or_default());
         println!(
             "  Role ARN:  {}",
-            asset.role_arn.as_deref().unwrap_or_default()
+            asset.role_arn().as_deref().unwrap_or_default()
         );
-        println!("  Name:   {}", asset.name.as_deref().unwrap_or_default());
+        println!("  Name:   {}", asset.name().as_deref().unwrap_or_default());
         println!(
             "  Description:   {}",
-            asset.description.as_deref().unwrap_or_default()
+            asset.description().as_deref().unwrap_or_default()
         );
         println!(
             "  Creation Date:   {}",
-            asset.creation_date.unwrap().to_chrono_utc()
+            asset.creation_date().unwrap().to_chrono_utc()
         );
         println!(
             "  Last Update Date:   {}",
-            asset.last_update_date.unwrap().to_chrono_utc()
+            asset.last_update_date().unwrap().to_chrono_utc()
         );
         println!(
             "  Start Url:   {}",
-            asset.start_url.as_deref().unwrap_or_default()
+            asset.start_url().as_deref().unwrap_or_default()
         );
         println!(
             "  Current Status:   {}",
-            asset.status.unwrap().state.unwrap().as_str()
+            asset.status().unwrap().state().unwrap().as_str()
         );
 
         println!();

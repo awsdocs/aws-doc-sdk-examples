@@ -36,76 +36,76 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
 
     println!(
         "  Asset ID:  {}",
-        asset.asset_id.as_deref().unwrap_or_default()
+        asset.asset_id().as_deref().unwrap_or_default()
     );
     println!(
         "  Asset ARN:  {}",
-        asset.asset_arn.as_deref().unwrap_or_default()
+        asset.asset_arn().as_deref().unwrap_or_default()
     );
     println!(
         "  Asset Name:   {}",
-        asset.asset_name.as_deref().unwrap_or_default()
+        asset.asset_name().as_deref().unwrap_or_default()
     );
     println!(
         "  Asset Model ID:   {}",
-        asset.asset_model_id.as_deref().unwrap_or_default()
+        asset.asset_model_id().as_deref().unwrap_or_default()
     );
     println!(
         "  Asset Creation Date:   {}",
-        asset.asset_creation_date.unwrap().to_chrono_utc()
+        asset.asset_creation_date().unwrap().to_chrono_utc()
     );
     println!(
         "  Asset Last Update Date:   {}",
-        asset.asset_last_update_date.unwrap().to_chrono_utc()
+        asset.asset_last_update_date().unwrap().to_chrono_utc()
     );
     println!(
         "  Asset Status:   {}",
-        asset.asset_status.unwrap().state.unwrap().as_str()
+        asset.asset_status().unwrap().state().unwrap().as_str()
     );
 
     println!("  Assets Hierarchies:");
 
-    for asset_hierarchy in asset.asset_hierarchies.unwrap() {
+    for asset_hierarchy in asset.asset_hierarchies().unwrap() {
         println!(
             "    ID:   {}",
-            asset_hierarchy.id.as_deref().unwrap_or_default()
+            asset_hierarchy.id().as_deref().unwrap_or_default()
         );
         println!(
             "    Name:   {}",
-            asset_hierarchy.name.as_deref().unwrap_or_default()
+            asset_hierarchy.name().as_deref().unwrap_or_default()
         );
     }
 
     println!("  Assets Properties:");
 
-    for asset_property in asset.asset_properties.unwrap() {
+    for asset_property in asset.asset_properties().unwrap() {
         println!(
             "    Alias:   {}",
-            asset_property.alias.as_deref().unwrap_or_default()
+            asset_property.alias().as_deref().unwrap_or_default()
         );
         println!(
             "    Data Type:   {}",
-            asset_property.data_type.unwrap().as_str()
+            asset_property.data_type().unwrap().as_str()
         );
         println!(
             "    Data Type Spec:   {}",
-            asset_property.data_type_spec.unwrap_or_default().as_str()
+            asset_property.data_type_spec().unwrap_or_default()
         );
         println!(
             "    ID:   {}",
-            asset_property.id.as_deref().unwrap_or_default()
+            asset_property.id().as_deref().unwrap_or_default()
         );
         println!(
             "    Name:   {}",
-            asset_property.name.as_deref().unwrap_or_default()
+            asset_property.name().as_deref().unwrap_or_default()
         );
         println!(
             "    Notification State:   {}",
             asset_property
-                .notification
+                .notification()
                 .as_ref()
                 .unwrap()
-                .state
+                .state()
                 .as_ref()
                 .unwrap()
                 .as_str()
@@ -113,13 +113,12 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
         println!(
             "    Notification Topic:   {}",
             asset_property
-                .notification
+                .notification()
                 .as_ref()
                 .unwrap()
-                .topic
+                .topic()
                 .as_ref()
                 .unwrap()
-                .as_str()
         );
         println!(
             "    Unit:   {}",
@@ -129,46 +128,46 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
 
     println!("  Assets Composite Models:");
 
-    for asset_composite_model in asset.asset_composite_models.unwrap() {
+    for asset_composite_model in asset.asset_composite_models().unwrap() {
         println!(
             "    Description:   {}",
             asset_composite_model
-                .description
+                .description()
                 .as_deref()
                 .unwrap_or_default()
         );
         println!(
             "    Name:   {}",
-            asset_composite_model.name.as_deref().unwrap_or_default()
+            asset_composite_model.name().as_deref().unwrap_or_default()
         );
 
         println!("    Properties:");
 
-        for property in asset_composite_model.properties.unwrap() {
+        for property in asset_composite_model.properties().unwrap() {
             println!(
                 "      Alias:   {}",
-                property.alias.as_deref().unwrap_or_default()
+                property.alias().as_deref().unwrap_or_default()
             );
             println!(
                 "      Data Type:   {}",
-                property.data_type.unwrap().as_str()
+                property.data_type().unwrap().as_str()
             );
             println!(
                 "      Data Type Spec:   {}",
-                property.data_type_spec.unwrap_or_default().as_str()
+                property.data_type_spec().unwrap_or_default()
             );
             println!("      ID:   {}", property.id.as_deref().unwrap_or_default());
             println!(
                 "      Name:   {}",
-                property.name.as_deref().unwrap_or_default()
+                property.name().as_deref().unwrap_or_default()
             );
             println!(
                 "      Notification State:   {}",
                 property
-                    .notification
+                    .notification()
                     .as_ref()
                     .unwrap()
-                    .state
+                    .state()
                     .as_ref()
                     .unwrap()
                     .as_str()
@@ -176,17 +175,16 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
             println!(
                 "      Notification Topic:   {}",
                 property
-                    .notification
+                    .notification()
                     .as_ref()
                     .unwrap()
-                    .topic
+                    .topic()
                     .as_ref()
                     .unwrap()
-                    .as_str()
             );
             println!(
                 "      Unit:   {}",
-                property.unit.as_deref().unwrap_or_default()
+                property.unit().as_deref().unwrap_or_default()
             );
         }
     }
