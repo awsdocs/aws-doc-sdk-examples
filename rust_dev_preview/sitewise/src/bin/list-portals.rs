@@ -28,10 +28,7 @@ async fn list_portals(client: &Client) -> Result<(), Error> {
 
     for asset in resp.portal_summaries.unwrap() {
         println!("  ID:  {}", asset.id().unwrap_or_default());
-        println!(
-            "  Role ARN:  {}",
-            asset.role_arn().unwrap_or_default()
-        );
+        println!("  Role ARN:  {}", asset.role_arn().unwrap_or_default());
         println!("  Name:   {}", asset.name().unwrap_or_default());
         println!(
             "  Description:   {}",
@@ -45,10 +42,7 @@ async fn list_portals(client: &Client) -> Result<(), Error> {
             "  Last Update Date:   {}",
             asset.last_update_date().unwrap().to_chrono_utc()
         );
-        println!(
-            "  Start Url:   {}",
-            asset.start_url().unwrap_or_default()
-        );
+        println!("  Start Url:   {}", asset.start_url().unwrap_or_default());
         println!(
             "  Current Status:   {}",
             asset.status().unwrap().state().unwrap().as_str()

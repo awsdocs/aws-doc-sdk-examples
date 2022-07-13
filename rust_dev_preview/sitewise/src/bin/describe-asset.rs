@@ -34,18 +34,9 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
 
     println!("Your Asset:");
 
-    println!(
-        "  Asset ID:  {}",
-        asset.asset_id().unwrap_or_default()
-    );
-    println!(
-        "  Asset ARN:  {}",
-        asset.asset_arn().unwrap_or_default()
-    );
-    println!(
-        "  Asset Name:   {}",
-        asset.asset_name().unwrap_or_default()
-    );
+    println!("  Asset ID:  {}", asset.asset_id().unwrap_or_default());
+    println!("  Asset ARN:  {}", asset.asset_arn().unwrap_or_default());
+    println!("  Asset Name:   {}", asset.asset_name().unwrap_or_default());
     println!(
         "  Asset Model ID:   {}",
         asset.asset_model_id().unwrap_or_default()
@@ -66,14 +57,8 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
     println!("  Assets Hierarchies:");
 
     for asset_hierarchy in asset.asset_hierarchies().unwrap() {
-        println!(
-            "    ID:   {}",
-            asset_hierarchy.id().unwrap_or_default()
-        );
-        println!(
-            "    Name:   {}",
-            asset_hierarchy.name().unwrap_or_default()
-        );
+        println!("    ID:   {}", asset_hierarchy.id().unwrap_or_default());
+        println!("    Name:   {}", asset_hierarchy.name().unwrap_or_default());
     }
 
     println!("  Assets Properties:");
@@ -91,14 +76,8 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
             "    Data Type Spec:   {}",
             asset_property.data_type_spec().unwrap_or_default()
         );
-        println!(
-            "    ID:   {}",
-            asset_property.id().unwrap_or_default()
-        );
-        println!(
-            "    Name:   {}",
-            asset_property.name().unwrap_or_default()
-        );
+        println!("    ID:   {}", asset_property.id().unwrap_or_default());
+        println!("    Name:   {}", asset_property.name().unwrap_or_default());
         println!(
             "    Notification State:   {}",
             asset_property
@@ -131,9 +110,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
     for asset_composite_model in asset.asset_composite_models().unwrap() {
         println!(
             "    Description:   {}",
-            asset_composite_model
-                .description()
-                .unwrap_or_default()
+            asset_composite_model.description().unwrap_or_default()
         );
         println!(
             "    Name:   {}",
@@ -143,10 +120,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
         println!("    Properties:");
 
         for property in asset_composite_model.properties().unwrap() {
-            println!(
-                "      Alias:   {}",
-                property.alias().unwrap_or_default()
-            );
+            println!("      Alias:   {}", property.alias().unwrap_or_default());
             println!(
                 "      Data Type:   {}",
                 property.data_type().unwrap().as_str()
@@ -156,10 +130,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
                 property.data_type_spec().unwrap_or_default()
             );
             println!("      ID:   {}", property.id.as_deref().unwrap_or_default());
-            println!(
-                "      Name:   {}",
-                property.name().unwrap_or_default()
-            );
+            println!("      Name:   {}", property.name().unwrap_or_default());
             println!(
                 "      Notification State:   {}",
                 property
@@ -181,10 +152,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
                     .as_ref()
                     .unwrap()
             );
-            println!(
-                "      Unit:   {}",
-                property.unit().unwrap_or_default()
-            );
+            println!("      Unit:   {}", property.unit().unwrap_or_default());
         }
     }
 
