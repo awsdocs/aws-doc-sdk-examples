@@ -251,15 +251,15 @@ iam_GetAccountPasswordPolicy:
   synopsis: get the &IAM; account password policy.
   category:
   languages:
-    Python:
+    .NET:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: dotnetv3/IAM
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.iam.GetAccountPasswordPolicy
+                - IAM.dotnetv3.GetAccountPasswordPolicyExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -272,22 +272,22 @@ iam_GetAccountPasswordPolicy:
             - description: Get the account password policy.
               snippet_tags:
                 - iam.JavaScript.getaccountpasswordpolicyV3
-    Ruby:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetAccountPasswordPolicy']
+              description: ''
+    PHP:
       versions:
         - sdk_version: 3
-          github: ruby/example_code/iam
+          github: php/example_code/iam/iam_basics
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.GetAccountPasswordPolicy
-  services:
-    iam: {GetAccountPasswordPolicy}
-iam_ListSAMLProviders:
-  title: List SAML providers for &IAM; using an &AWS; SDK
-  title_abbrev: List SAML providers
-  synopsis: list SAML providers for &IAM;.
-  category:
-  languages:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getAccountPasswordPolicy
     Python:
       versions:
         - sdk_version: 3
@@ -296,7 +296,41 @@ iam_ListSAMLProviders:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.iam.ListSAMLProviders
+                - python.example_code.iam.GetAccountPasswordPolicy
+
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.GetAccountPasswordPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.get_account_password_policy
+  services:
+    iam: {GetAccountPasswordPolicy}
+iam_ListSAMLProviders:
+  title: List SAML providers for &IAM; using an &AWS; SDK
+  title_abbrev: List SAML providers
+  synopsis: list SAML providers for &IAM;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListSAMLProvidersExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -309,6 +343,31 @@ iam_ListSAMLProviders:
             - description: List the SAML providers.
               snippet_tags:
                 - iam.JavaScript.listsamlprovidersV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListSAMLProviders']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listSAMLProviders
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListSAMLProviders
     Ruby:
       versions:
         - sdk_version: 3
@@ -317,6 +376,14 @@ iam_ListSAMLProviders:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListSamlProviders
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_saml_providers
   services:
     iam: {ListSAMLProviders}
 iam_Scenario_AccountManagement:
@@ -353,6 +420,14 @@ iam_CreateAccessKey:
   synopsis: create an &IAM; access key.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateAccessKey
     Kotlin:
       versions:
         - sdk_version: 1
@@ -415,6 +490,14 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.CreateAccessKey
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_access_key
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -423,6 +506,15 @@ iam_DeleteAccessKey:
   synopsis: delete an &IAM; access key.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -485,8 +577,33 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_access_key
   services:
     iam: {DeleteAccessKey}
+iam_DeleteRolePolicy:
+  title: Delete an &IAM; role policy using an &AWS; SDK
+  title_abbrev: Delete a role policy
+  synopsis: delete an &IAM; role policy.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteRolePolicyExample
+  services:
+    iam: {DeleteRolePolicy}
 iam_GetAccessKeyLastUsed:
   title: Get data about the last use of an &IAM; access key using an &AWS; SDK
   title_abbrev: Get data about the last use of an access key
@@ -685,6 +802,15 @@ iam_CreatePolicy:
   synopsis: create an &IAM; policy.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreatePolicyAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -712,6 +838,16 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreatePolicy
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createPolicy
+                - php.example_code.iam.service.createPolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -731,6 +867,13 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.createPolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreatePolicy']
+              description: ''
     Ruby:
       versions:
         - sdk_version: 3
@@ -739,6 +882,14 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.CreatePolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_policy
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -794,6 +945,14 @@ iam_DeletePolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_policy
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -819,15 +978,15 @@ iam_ListPolicies:
   synopsis: list &IAM; policies.
   category:
   languages:
-    Python:
+    .NET:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: dotnetv3/IAM
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.iam.ListPolicies
+                - IAM.dotnetv3.ListPoliciesExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -840,6 +999,31 @@ iam_ListPolicies:
             - description: List the policies.
               snippet_tags:
                 - iam.JavaScript.listpoliciesv3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListPolicies']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listPolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListPolicies
     Ruby:
       versions:
         - sdk_version: 3
@@ -848,6 +1032,14 @@ iam_ListPolicies:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListPolicies
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_policies
   services:
     iam: {ListPolicies}
 iam_GetPolicy:
@@ -856,6 +1048,14 @@ iam_GetPolicy:
   synopsis: get an &IAM; policy.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetPolicyExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -865,14 +1065,6 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - iam.kotlin.get_policy.main
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - iam.go-v2.GetPolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -892,6 +1084,15 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.getPolicy
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getPolicy
     Python:
       versions:
         - sdk_version: 3
@@ -900,6 +1101,13 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetPolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetPolicy']
+              description: ''
     Ruby:
       versions:
         - sdk_version: 3
@@ -950,6 +1158,15 @@ iam_AttachRolePolicy:
   synopsis: attach an &IAM; policy to a role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.AttachPolicy
     Kotlin:
       versions:
         - sdk_version: 1
@@ -968,6 +1185,18 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - iam.java2.attach_role_policy.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createRole
+                - php.example_code.iam.iam_basics.createPolicy
+                - php.example_code.iam.iam_basics.attachRolePolicy
+                - php.example_code.iam.service.attachRolePolicy
     Python:
       versions:
         - sdk_version: 3
@@ -988,6 +1217,14 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.AttachRolePolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.attach_role_policy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1007,6 +1244,13 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.attachRolePolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.AttachRolePolicy']
+              description: ''
   services:
     iam: {AttachRolePolicy}
 iam_ListAttachedRolePolicies:
@@ -1015,15 +1259,15 @@ iam_ListAttachedRolePolicies:
   synopsis: list policies attached to an &IAM; role.
   category:
   languages:
-    Python:
+    .NET:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: dotnetv3/IAM
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.iam.ListAttachedRolePolicies
+                - IAM.dotnetv3.ListAttachedRolePoliciesExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1036,6 +1280,31 @@ iam_ListAttachedRolePolicies:
             - description: List the policies that are attached to a role.
               snippet_tags:
                 - iam.JavaScript.listattachedrolepoliciesV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListAttachedRolePolicies']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listAttachRolePolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListAttachedRolePolicies
     Ruby:
       versions:
         - sdk_version: 3
@@ -1044,6 +1313,14 @@ iam_ListAttachedRolePolicies:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_attached_role_policies
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -1052,6 +1329,15 @@ iam_DetachRolePolicy:
   synopsis: detach an &IAM; policy from a role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1090,6 +1376,14 @@ iam_DetachRolePolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.detach_role_policy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1144,6 +1438,15 @@ iam_CreateRole:
   synopsis: create an &IAM; role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateRoleAsync
     Java:
       versions:
         - sdk_version: 2
@@ -1153,6 +1456,16 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - iam.java2.create_role.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createRole
+                - php.example_code.iam.service.createRole
     Python:
       versions:
         - sdk_version: 3
@@ -1177,7 +1490,7 @@ iam_CreateRole:
           excerpts:
             - description:
               snippet_tags:
-                - iam.rust.create-role
+                - rust.example_code.iam.service.create_role
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1189,6 +1502,13 @@ iam_CreateRole:
             - description: Create the role.
               snippet_tags:
                 - iam.JavaScript.users.createrolev3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreateRole']
+              description: ''
   services:
     iam: {CreateRole}
 iam_ListRoles:
@@ -1197,6 +1517,14 @@ iam_ListRoles:
   synopsis: list &IAM; roles.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListRolesExample
     Python:
       versions:
         - sdk_version: 3
@@ -1206,6 +1534,13 @@ iam_ListRoles:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListRoles
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListRoles']
+              description: ''
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1218,6 +1553,15 @@ iam_ListRoles:
             - description: List the roles.
               snippet_tags:
                 - iam.JavaScript.listrolesV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listRoles
     Ruby:
       versions:
         - sdk_version: 3
@@ -1226,6 +1570,14 @@ iam_ListRoles:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListRoles
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_roles
   services:
     iam: {ListRoles}
 iam_GetRole:
@@ -1234,15 +1586,15 @@ iam_GetRole:
   synopsis: get an &IAM; role.
   category:
   languages:
-    Python:
+    .NET:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: dotnetv3/IAM
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.iam.GetRole
+                - IAM.dotnetv3.GetRoleExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1255,6 +1607,31 @@ iam_GetRole:
             - description: Get the role.
               snippet_tags:
                 - iam.JavaScript.getRoleV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetRole']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.getRole
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetRole
     Ruby:
       versions:
         - sdk_version: 3
@@ -1263,6 +1640,14 @@ iam_GetRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.GetRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.get_role
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1300,6 +1685,14 @@ iam_DeleteRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_role
   services:
     iam: {DeleteRole}
 iam_ListRolePolicies:
@@ -1308,15 +1701,15 @@ iam_ListRolePolicies:
   synopsis: list inline policies for an &IAM; role.
   category:
   languages:
-    Python:
+    .NET:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: dotnetv3/IAM
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.iam.ListRolePolicies
+                - IAM.dotnetv3.ListRolePoliciesExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1329,6 +1722,39 @@ iam_ListRolePolicies:
             - description: List the policies.
               snippet_tags:
                 - iam.JavaScript.listrolepoliciesv3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListRolePolicies']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listRolePolicies
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListRolePolicies
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_role_policies
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
@@ -1362,6 +1788,15 @@ iam_CreateUser:
   synopsis: create an &IAM; user.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateUserAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1380,6 +1815,16 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - iam.java2.create_user.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.iam_basics.createUser
+                - php.example_code.iam.service.createUser
     Python:
       versions:
         - sdk_version: 3
@@ -1397,6 +1842,14 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.CreateUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_user
     Go:
       versions:
         - sdk_version: 2
@@ -1432,6 +1885,15 @@ iam_DeleteUser:
   synopsis: delete an &IAM; user.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteResourcesAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1467,6 +1929,14 @@ iam_DeleteUser:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_user
     Go:
       versions:
         - sdk_version: 2
@@ -1502,6 +1972,15 @@ iam_ListUsers:
   synopsis: list &IAM; users.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.ListUsersExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1520,6 +1999,15 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - iam.java2.list_users.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listUsers
     Python:
       versions:
         - sdk_version: 3
@@ -1537,6 +2025,14 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.ListUsers
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_users
     Go:
       versions:
         - sdk_version: 2
@@ -1642,6 +2138,14 @@ iam_AttachUserPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.AttachUserPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.attach_user_policy
     Go:
       versions:
         - sdk_version: 2
@@ -1667,6 +2171,14 @@ iam_DetachUserPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.DetachUserPolicy
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.detach_user_policy
     Go:
       versions:
         - sdk_version: 2
@@ -1709,6 +2221,14 @@ iam_DeleteUserPolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteUser
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_user_policy
   services:
     iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:
@@ -1865,15 +2385,15 @@ iam_ListGroups:
   synopsis: list &IAM; groups.
   category:
   languages:
-    Python:
+    .NET:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: dotnetv3/IAM
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.iam.ListGroups
+                - IAM.dotnetv3.ListGroupsExample
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1886,22 +2406,22 @@ iam_ListGroups:
             - description: List the groups.
               snippet_tags:
                 - iam.JavaScript.listgroupsV3
-    Ruby:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListGroups']
+              description: ''
+    PHP:
       versions:
         - sdk_version: 3
-          github: ruby/example_code/iam
+          github: php/example_code/iam/iam_basics
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.ListGroups
-  services:
-    iam: {ListGroups}
-iam_CreateServiceLinkedRole:
-  title: Create an &IAM; service-linked role using an &AWS; SDK
-  title_abbrev: Create a service-linked role
-  synopsis: create an &IAM; service-linked role.
-  category:
-  languages:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.listGroups
     Python:
       versions:
         - sdk_version: 3
@@ -1910,7 +2430,31 @@ iam_CreateServiceLinkedRole:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.iam.CreateServiceLinkedRole
+                - python.example_code.iam.ListGroups
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.ListGroups
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.list_groups
+  services:
+    iam: {ListGroups}
+iam_CreateServiceLinkedRole:
+  title: Create an &IAM; service-linked role using an &AWS; SDK
+  title_abbrev: Create a service-linked role
+  synopsis: create an &IAM; service-linked role.
+  category:
+  languages:
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1923,6 +2467,31 @@ iam_CreateServiceLinkedRole:
             - description: Create a service-linked role.
               snippet_tags:
                 - iam.JavaScript.createservicelinkedrolev3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreateServiceLinkedRole']
+              description: ''
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.startService
+                - php.example_code.iam.service.createServiceLinkedRole
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateServiceLinkedRole
     Ruby:
       versions:
         - sdk_version: 3
@@ -1931,6 +2500,14 @@ iam_CreateServiceLinkedRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.CreateServiceLinkedRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.create_service_linked_role
   services:
     iam: {CreateServiceLinkedRole}
 iam_DeleteServiceLinkedRole:
@@ -1948,6 +2525,14 @@ iam_DeleteServiceLinkedRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteServiceLinkedRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.service.delete_service_linked_role
   services:
     iam: {DeleteServiceLinkedRole}
 iam_Scenario_CreateUserAssumeRole:
@@ -1961,6 +2546,15 @@ iam_Scenario_CreateUserAssumeRole:
     - Delete the policy, role, and user.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM/IAM_Basics_Scenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.IAM_BasicsScenario
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1979,18 +2573,6 @@ iam_Scenario_CreateUserAssumeRole:
             - description: Create functions that wrap &IAM; user actions.
               snippet_tags:
                 - iam.java2.scenario.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description: Create an &IAM; user and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
-              snippet_tags:
-                - python.example_code.iam.Scenario_CreateUserAssumeRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2006,6 +2588,35 @@ iam_Scenario_CreateUserAssumeRole:
                 the account.
               snippet_tags:
                 - javascript.iam_scenarios.iam_basics
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.iam.iam_basics.scenario
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create an &IAM; user and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - python.example_code.iam.Scenario_CreateUserAssumeRole
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.go-v2.iam_basics
     Ruby:
       versions:
         - sdk_version: 3
@@ -2014,6 +2625,14 @@ iam_Scenario_CreateUserAssumeRole:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.Scenario_CreateUserAssumeRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.iam.iam_basics.scenario
   services:
     iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
           PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,

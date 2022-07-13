@@ -3,6 +3,7 @@
 
 namespace CreateSNSTopicExample
 {
+    // snippet-start:[SNS.dotnetv3.CreateSNSTopic]
     using System;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
@@ -25,8 +26,6 @@ namespace CreateSNSTopicExample
             Console.WriteLine($"New topic ARN: {topicArn}");
         }
 
-        // snippet-start:[SNS.dotnetv3.CreateSNSTopic]
-
         /// <summary>
         /// Creates a new SNS topic using the supplied topic name.
         /// </summary>
@@ -46,6 +45,6 @@ namespace CreateSNSTopicExample
             return response.TopicArn;
         }
 
-        // snippet-end:[SNS.dotnetv3.CreateSNSTopic]
     }
+    // snippet-end:[SNS.dotnetv3.CreateSNSTopic]
 }

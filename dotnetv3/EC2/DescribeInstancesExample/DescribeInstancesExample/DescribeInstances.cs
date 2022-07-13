@@ -3,6 +3,7 @@
 
 namespace DescribeInstancesExample
 {
+    // snippet-start:[EC2.dotnetv3.DescribeInstancesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -111,4 +112,5 @@ namespace DescribeInstancesExample
             }
         }
     }
+    // snippet-end:[EC2.dotnetv3.DescribeInstancesExample]
 }

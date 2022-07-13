@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+        <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+        %xinclude;
+        <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
+        %phrases-code-examples;
+        <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+        %phrases-shared;
+        ]>
+{{- $chapter_id := printf "code_example_library_by_%s" .TagName}}
+{{- $grouping := ""}}
+{{- if eq .TagName "product_categories"}}
+    {{- $grouping = " by product category"}}
+{{- end}}
+<chapter id="{{$chapter_id}}" role="topic">
+    <info>
+        <title id="{{$chapter_id}}.title">Code examples{{$grouping}} using &AWS; SDKs</title>
+        <titleabbrev id="{{$chapter_id}}.titleabbrev">Code examples{{$grouping}}</titleabbrev>
+        <abstract>
+            <para>Code examples{{$grouping}} that show how to use &AWS-services; with
+                &AWS; software development kits (SDKs).</para>
+        </abstract>
+    </info>
+    <para>Code examples{{$grouping}} that show how to use &AWS-services; with
+        &AWS; software development kits (SDKs).</para>
+    {{- range $category, $chapters := .TagValues}}
+    <section>
+        <info>
+            <title>{{$category}}</title>
+        </info>
+        <itemizedlist>
+            {{- range $chapter := $chapters}}
+            <listitem><para><xref linkend="{{$chapter.Model}}_code_examples" endterm="{{$chapter.Model}}_code_examples.titleabbrev"></xref></para></listitem>
+            {{- end}}
+        </itemizedlist>
+    </section>
+    {{- end}}
+</chapter>

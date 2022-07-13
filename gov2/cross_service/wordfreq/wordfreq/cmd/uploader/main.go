@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	wordfreq "example.aws/wordfreq/shared"
+	wordfreq "example.aws/go-v2/examples/cross_service/wordfreq/service/shared"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	awsConfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials/stscreds"

@@ -3,18 +3,17 @@
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[01/07/2022]
-// snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.example.textract;
 
 // snippet-start:[textract.java2._start_doc_analysis.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.textract.model.S3Object;
 import software.amazon.awssdk.services.textract.TextractClient;
@@ -29,6 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 // snippet-end:[textract.java2._start_doc_analysis.import]
 
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class StartDocumentAnalysis {
 
     public static void main(String[] args) {
@@ -37,19 +43,20 @@ public class StartDocumentAnalysis {
                 "Usage:\n" +
                 "    <bucketName> <docName> \n\n" +
                 "Where:\n" +
-                "    bucketName - the name of the Amazon S3 bucket that contains the document. \n\n" +
-                "    docName - the document name (must be an image, for example, book.png). \n";
+                "    bucketName - The name of the Amazon S3 bucket that contains the document. \n\n" +
+                "    docName - The document name (must be an image, for example, book.png). \n";
 
         if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String bucketName =  args[0];
+        String bucketName = args[0];
         String docName = args[1];
         Region region = Region.US_WEST_2;
         TextractClient textractClient = TextractClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String jobId = startDocAnalysisS3 (textractClient, bucketName, docName);

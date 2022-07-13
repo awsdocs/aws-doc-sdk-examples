@@ -13,6 +13,7 @@ Inputs (replace in code):
 - LANGUAGE_CODE
 - SOURCE_FILE_FORMAT
 - SOURCE_LOCATION
+- S3_BUCKET_DESTINATION
 
 Running the code:
 node transcribe_create_job.test.js
@@ -31,6 +32,7 @@ export const params = {
     MediaFileUri: "SOURCE_LOCATION",
     // For example, "https://transcribe-demo.s3-REGION.amazonaws.com/hello_world.wav"
   },
+  OutputBucketName: "OUTPUT_BUCKET_NAME"
 };
 
 export const run = async () => {

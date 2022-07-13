@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EMR]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/19/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,93 +12,96 @@
 package aws.example.emr;
 
 // snippet-start:[emr.java2._create_fleet.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.emr.EmrClient;
-import software.amazon.awssdk.services.emr.model.*;
+import software.amazon.awssdk.services.emr.model.InstanceTypeConfig;
+import software.amazon.awssdk.services.emr.model.InstanceFleetConfig;
+import software.amazon.awssdk.services.emr.model.InstanceFleetType;
+import software.amazon.awssdk.services.emr.model.JobFlowInstancesConfig;
+import software.amazon.awssdk.services.emr.model.RunJobFlowRequest;
+import software.amazon.awssdk.services.emr.model.Application;
+import software.amazon.awssdk.services.emr.model.RunJobFlowResponse;
+import software.amazon.awssdk.services.emr.model.EmrException;
 import java.util.Arrays;
 // snippet-end:[emr.java2._create_fleet.import]
 
-/*
- *   Ensure that you have setup your development environment, including your credentials.
- *   For information, see this documentation topic:
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- *   https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * For more information, see the following documentation topic:
  *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
  *  Also. to run the CreateEmrFleet example, it is recommended that you go through the following document:
  *
  * https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-gs.html
  * -------------------------------------
- *
  */
 public class CreateEmrFleet {
 
     public static void main(String[] args) throws Exception {
 
         Region region = Region.US_EAST_1;
-        EmrClient emr = EmrClient.builder()
+        EmrClient emrClient = EmrClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
-
-        createFleet(emr);
-
+        createFleet(emrClient);
     }
 
 // snippet-start:[emr.java2._create_fleet.main]
 public static void createFleet(EmrClient emr) {
-        try {
 
-        // Instance Types
-        // M Family
-        InstanceTypeConfig m3xLarge =  InstanceTypeConfig.builder()
+   try {
+        InstanceTypeConfig m3xLarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("m3.xlarge")
                 .weightedCapacity(1)
                 .build();
-        InstanceTypeConfig m4xLarge =  InstanceTypeConfig.builder()
+
+        InstanceTypeConfig m4xLarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("m4.xlarge")
                 .weightedCapacity(1)
                 .build();
-        InstanceTypeConfig m5xLarge =  InstanceTypeConfig.builder()
+
+        InstanceTypeConfig m5xLarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("m5.xlarge")
                 .weightedCapacity(1)
                 .build();
-        // R Family
-        InstanceTypeConfig r5xlarge =  InstanceTypeConfig.builder()
+
+        InstanceTypeConfig r5xlarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("r5.xlarge")
                 .weightedCapacity(2)
                 .build();
-        InstanceTypeConfig r4xlarge =  InstanceTypeConfig.builder()
+
+        InstanceTypeConfig r4xlarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("r4.xlarge")
                 .weightedCapacity(2)
                 .build();
-        InstanceTypeConfig r3xlarge =  InstanceTypeConfig.builder()
+
+        InstanceTypeConfig r3xlarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("r3.xlarge")
                 .weightedCapacity(2)
                 .build();
-        // C Family
-        InstanceTypeConfig c32xlarge =  InstanceTypeConfig.builder()
+
+        InstanceTypeConfig c32xlarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("c3.2xlarge")
                 .weightedCapacity(4)
                 .build();
-        InstanceTypeConfig c42xlarge =  InstanceTypeConfig.builder()
+
+        InstanceTypeConfig c42xlarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("c4.2xlarge")
                 .weightedCapacity(4)
                 .build();
-        InstanceTypeConfig c52xlarge =  InstanceTypeConfig.builder()
-                .bidPriceAsPercentageOfOnDemandPrice(100.0)
-                .instanceType("c5.2xlarge")
-                .weightedCapacity(4)
-                .build();
 
-        // Master
         InstanceFleetConfig masterFleet = InstanceFleetConfig.builder()
                 .name("master-fleet")
                 .instanceFleetType(InstanceFleetType.MASTER)
@@ -110,7 +112,7 @@ public static void createFleet(EmrClient emr) {
                 ))
                 .targetOnDemandCapacity(1)
                 .build();
-        // Core
+
         InstanceFleetConfig coreFleet = InstanceFleetConfig.builder()
                 .name("core-fleet")
                 .instanceFleetType(InstanceFleetType.CORE)
@@ -124,7 +126,7 @@ public static void createFleet(EmrClient emr) {
                 .targetOnDemandCapacity(20)
                 .targetSpotCapacity(10)
                 .build();
-        // Task
+
         InstanceFleetConfig taskFleet = InstanceFleetConfig.builder()
                 .name("task-fleet")
                 .instanceFleetType(InstanceFleetType.TASK)
@@ -163,7 +165,7 @@ public static void createFleet(EmrClient emr) {
                 .build();
 
          RunJobFlowResponse response = emr.runJobFlow(flowRequest);
-        System.out.println(response.toString());
+         System.out.println(response.toString());
 
     } catch (EmrException e) {
         System.err.println(e.awsErrorDetails().errorMessage());

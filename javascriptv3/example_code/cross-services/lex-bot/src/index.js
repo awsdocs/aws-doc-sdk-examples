@@ -25,7 +25,7 @@ import { translateClient } from "./libs/translateClient.js";
 import { comprehendClient } from "./libs/comprehendClient.js";
 
 var g_text = "";
-// set the focus to the input box
+// Set the focus to the input box.
 document.getElementById("wisdom").focus();
 
 function showRequest(daText) {
@@ -63,7 +63,7 @@ function loadNewItems(event) {
   var msg = event.target.responseText;
   showRequest();
 
-  // re-enable input
+  // Re-enable input.
   var wisdomText = document.getElementById("wisdom");
   wisdomText.value = "";
   wisdomText.locked = false;
@@ -78,6 +78,7 @@ const createResponse = async () => {
     var wisdom = wisdomText.value.trim();
     wisdomText.value = "...";
     wisdomText.locked = true;
+    handletext(wisdom);
 
     const comprehendParams = {
       Text: wisdom,
@@ -99,12 +100,13 @@ const createResponse = async () => {
         const data = await translateClient.send(
           new TranslateTextCommand(translateParams)
         );
+        var daText= data.TranslatedText
         console.log("Success. Translated text: ", data.TranslatedText);
         const lexParams = {
-          botAlias: "BOT_ALIAS",
-          botName: "BOT_NAME",
+          botName: "BookTrip",
+          botAlias: "mynewalias",
           inputText: data.TranslatedText,
-          userId: "USER_ID", // For example, 'chatbot-demo'.
+          userId: "chatbot" // For example, 'chatbot-demo'.
         };
         try {
           const data = await lexClient.send(new PostTextCommand(lexParams));

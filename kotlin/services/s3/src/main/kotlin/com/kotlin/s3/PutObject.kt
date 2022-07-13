@@ -1,10 +1,9 @@
-//snippet-sourcedescription:[PutObject.kt demonstrates how to upload an object to an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[PutObject.kt demonstrates how to upload an object to an Amazon Simple Storage Service (Amazon S3) bucket.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon S3]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[05/30/2021]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -22,10 +21,10 @@ import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.s3_object_upload.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
@@ -35,9 +34,9 @@ suspend fun main(args: Array<String>) {
         <bucketName> <objectKey> <objectPath>
 
     Where:
-        bucketName - the Amazon S3 bucket to upload an object into.
-        objectKey - the object to upload (for example, book.pdf).
-        objectPath - the path where the file is located (for example, C:/AWS/book2.pdf).
+        bucketName - The Amazon S3 bucket to upload an object into.
+        objectKey - The object to upload (for example, book.pdf).
+        objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).
     """
 
     if (args.size != 1) {
@@ -54,19 +53,19 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[s3.kotlin.s3_object_upload.main]
 suspend fun putS3Object(bucketName: String, objectKey: String, objectPath: String) {
 
-            val metadataVal = mutableMapOf<String, String>()
-            metadataVal["myVal"] = "test"
+    val metadataVal = mutableMapOf<String, String>()
+    metadataVal["myVal"] = "test"
 
-            val request = PutObjectRequest {
-                bucket = bucketName
-                key = objectKey
-                metadata = metadataVal
-                this.body = Paths.get(objectPath).asByteStream()
-            }
+    val request = PutObjectRequest {
+        bucket = bucketName
+        key = objectKey
+        metadata = metadataVal
+        this.body = Paths.get(objectPath).asByteStream()
+    }
 
-            S3Client { region = "us-east-1" }.use { s3 ->
-               val response =s3.putObject(request)
-               println("Tag information is ${response.eTag}")
-            }
-      }
+    S3Client { region = "us-east-1" }.use { s3 ->
+        val response = s3.putObject(request)
+        println("Tag information is ${response.eTag}")
+    }
+}
 // snippet-end:[s3.kotlin.s3_object_upload.main]

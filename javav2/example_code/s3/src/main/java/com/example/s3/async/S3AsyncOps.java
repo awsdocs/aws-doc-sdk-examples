@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +14,7 @@ package com.example.s3.async;
 // snippet-start:[s3.java2.async_ops.complete]
 // snippet-start:[s3.java2.async_ops.import]
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -26,9 +26,9 @@ import java.util.concurrent.CompletableFuture;
 // snippet-start:[s3.java2.async_ops.main]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,34 +37,40 @@ public class S3AsyncOps {
 
      public static void main(String[] args) {
 
-         final String USAGE = "\n" +
+         final String usage = "\n" +
                  "Usage:\n" +
-                 "    S3AsyncOps <bucketName> <key> <path>\n\n" +
+                 "    <bucketName> <key> <path>\n\n" +
                  "Where:\n" +
-                 "    bucketName - the name of the Amazon S3 bucket (for example, bucket1). \n\n" +
-                 "    key - the name of the object (for example, book.pdf). \n" +
-                 "    path - the local path to the file (for example, C:/AWS/book.pdf). \n" ;
+                 "    bucketName - The name of the Amazon S3 bucket (for example, bucket1). \n\n" +
+                 "    key - The name of the object (for example, book.pdf). \n" +
+                 "    path - The local path to the file (for example, C:/AWS/book.pdf). \n";
 
-        if (args.length != 3) {
-            System.out.println(USAGE);
+         if (args.length != 3) {
+             System.out.println(usage);
              System.exit(1);
-        }
+         }
 
-        String bucketName = args[0];
-        String key = args[1];
-        String path = args[2];
+         String bucketName = args[0];
+         String key = args[1];
+         String path = args[2];
 
-        Region region = Region.US_WEST_2;
-        S3AsyncClient client = S3AsyncClient.builder()
-                .region(region)
-                .build();
+         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+         Region region = Region.US_EAST_1;
+         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
+                 .region(region)
+                 .credentialsProvider(credentialsProvider)
+                 .build();
+
+         putObjectAsync(s3AsyncClient, bucketName, key, path);
+     }
+
+     public static void putObjectAsync(S3AsyncClient client,String bucketName, String key, String path) {
 
         PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
                 .build();
 
-        // Put the object into the bucket
         CompletableFuture<PutObjectResponse> future = client.putObject(objectRequest,
                 AsyncRequestBody.fromFile(Paths.get(path))
         );
@@ -73,11 +79,11 @@ public class S3AsyncOps {
                 if (resp != null) {
                     System.out.println("Object uploaded. Details: " + resp);
                 } else {
-                    // Handle error
+                    // Handle error.
                     err.printStackTrace();
                 }
             } finally {
-                // Only close the client when you are completely done with it
+                // Only close the client when you are completely done with it.
                 client.close();
             }
         });

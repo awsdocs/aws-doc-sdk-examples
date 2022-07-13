@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +13,7 @@
 package com.example.firehose;
 
 // snippet-start:[firehose.java2.create_stream.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
 import software.amazon.awssdk.services.firehose.model.FirehoseException;
@@ -23,9 +23,9 @@ import software.amazon.awssdk.services.firehose.model.CreateDeliveryStreamRespon
 // snippet-end:[firehose.java2.create_stream.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,16 +33,16 @@ public class CreateDeliveryStream {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketARN> <roleARN> <streamName> \n\n" +
                 "Where:\n" +
-                "    bucketARN - the ARN of the Amazon S3 bucket where the data stream is written. \n\n" +
-                "    roleARN - the ARN of the IAM role that has the permissions that Kinesis Data Firehose needs. \n" +
-                "    streamName - the name of the delivery stream. \n";
+                "    bucketARN - The ARN of the Amazon S3 bucket where the data stream is written. \n\n" +
+                "    roleARN - The ARN of the IAM role that has the permissions that Kinesis Data Firehose needs. \n" +
+                "    streamName - The name of the delivery stream. \n";
 
         if (args.length != 3) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -53,6 +53,7 @@ public class CreateDeliveryStream {
         Region region = Region.US_WEST_2;
         FirehoseClient firehoseClient = FirehoseClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createStream(firehoseClient, bucketARN, roleARN, streamName) ;
@@ -63,7 +64,6 @@ public class CreateDeliveryStream {
     public static void createStream(FirehoseClient firehoseClient, String bucketARN, String roleARN, String streamName) {
 
     try {
-
         ExtendedS3DestinationConfiguration destinationConfiguration = ExtendedS3DestinationConfiguration.builder()
                 .bucketARN(bucketARN)
                 .roleARN(roleARN)

@@ -26,6 +26,7 @@ public class GlacierTest {
 
         glacier = GlacierClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = GlacierTest.class.getClassLoader().getResourceAsStream("config.properties")) {

@@ -22,7 +22,7 @@ accurately and at scale.*
 * [Create a manifest file](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/datasets.py)
 * [Create, train, and start a model](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/train_host.py)
 * [Find a project with a specific tag](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/find_tag.py)
-* [List models that are currently hosted](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/hosting.py)
+* [List models that are currently hosted](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/find_running_models.py)
 
 ### API examples
 
@@ -40,6 +40,8 @@ accurately and at scale.*
 (`DeleteProject`)
 * [Describe a dataset](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/datasets.py)
 (`DescribeDataset`)
+* [Update a dataset](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/datasets.py)
+(`UpdateDatasetEntries`)
 * [Describe a model](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/models.py)
 (`DescribeModel`)
 * [Detect anomalies in an image with a trained model](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/inference.py)
@@ -202,6 +204,15 @@ A class that shows how to create and manage a Lookout for Vision project. Used b
 Shows how to create and host a model. The code creates a project, creates a manifest 
 file, creates a dataset using the manifest file, and trains a model. Finally, if 
 desired, the example shows how to host the model. Used by `train_host.py`.
+
+### find_running_models.py
+You are charged for the amount of time that an Amazon Lookout for Vision model is 
+running (hosted). Use this script to find the running models in the commercial AWS 
+partition. You can stop a model by calling the [StopModel](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/run-stop-model.html) operation. 
+
+### update_dataset.py
+Shows how to add or update images in an Amazon Lookout for Vision dataset.
+
 
 ## Additional information
 

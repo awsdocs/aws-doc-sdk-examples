@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/19/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,20 +13,29 @@
 package com.example.pipeline;
 
 // snippet-start:[pipeline.java2.create_pipeline.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codepipeline.CodePipelineClient;
-import software.amazon.awssdk.services.codepipeline.model.*;
+import software.amazon.awssdk.services.codepipeline.model.CreatePipelineRequest;
+import software.amazon.awssdk.services.codepipeline.model.ActionTypeId;
+import software.amazon.awssdk.services.codepipeline.model.OutputArtifact;
+import software.amazon.awssdk.services.codepipeline.model.InputArtifact;
+import software.amazon.awssdk.services.codepipeline.model.ActionDeclaration;
+import software.amazon.awssdk.services.codepipeline.model.StageDeclaration;
+import software.amazon.awssdk.services.codepipeline.model.ArtifactStore;
+import software.amazon.awssdk.services.codepipeline.model.PipelineDeclaration;
+import software.amazon.awssdk.services.codepipeline.model.CreatePipelineResponse;
+import software.amazon.awssdk.services.codepipeline.model.CodePipelineException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 // snippet-end:[pipeline.java2.create_pipeline.import]
 
-
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,17 +44,17 @@ public class CreatePipeline {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage: " +
                 "   <name> <roleArn> <s3Bucket> <s3OuputBucket>\n\n" +
                 "Where:\n" +
-                "   name - the name of the pipeline to create. \n\n" +
-                "   roleArn - the Amazon Resource Name (ARN) for AWS CodePipeline to use.  \n\n"+
-                "   s3Bucket - the name of the Amazon S3 bucket where the code is located.  \n\n"+
-                "   s3OuputBucket - the name of the Amazon S3 bucket where the code is deployed.  \n\n";
+                "   name - The name of the pipeline to create. \n\n" +
+                "   roleArn - The Amazon Resource Name (ARN) for AWS CodePipeline to use.  \n\n"+
+                "   s3Bucket - The name of the Amazon S3 bucket where the code is located.  \n\n"+
+                "   s3OuputBucket - The name of the Amazon S3 bucket where the code is deployed.  \n\n";
 
          if (args.length != 4) {
-             System.out.println(USAGE);
+             System.out.println(usage);
              System.exit(1);
         }
 
@@ -57,6 +65,7 @@ public class CreatePipeline {
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         createNewPipeline(pipelineClient, name, roleArn, s3Bucket, s3OuputBucket);
@@ -64,7 +73,7 @@ public class CreatePipeline {
     }
 
     // snippet-start:[pipeline.java2.create_pipeline.main]
-    public static void createNewPipeline(CodePipelineClient pipelineClient, String name,  String roleArn, String s3Bucket,  String s3OuputBucket ) {
+    public static void createNewPipeline(CodePipelineClient pipelineClient, String name, String roleArn, String s3Bucket, String s3OuputBucket) {
 
         try {
             ActionTypeId actionTypeSource = ActionTypeId.builder()
@@ -75,7 +84,7 @@ public class CreatePipeline {
                     .build();
 
             // Set Config information
-            Map<String,String> mapConfig = new HashMap<String,String>();
+            Map<String,String> mapConfig = new HashMap<>();
             mapConfig.put("PollForSourceChanges","false");
             mapConfig.put("S3Bucket",s3Bucket);
             mapConfig.put("S3ObjectKey","SampleApp_Windows.zip");
@@ -93,8 +102,8 @@ public class CreatePipeline {
                     .name("Source")
                     .build();
 
-            // Set Config information
-            Map<String,String> mapConfig1 = new HashMap<String,String>();
+            // Set Config information.
+            Map<String,String> mapConfig1 = new HashMap<>();
             mapConfig1.put("BucketName",s3OuputBucket);
             mapConfig1.put("ObjectKey","SampleApp.zip");
             mapConfig1.put("Extract","false");

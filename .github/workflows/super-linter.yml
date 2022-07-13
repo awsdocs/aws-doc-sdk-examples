@@ -27,7 +27,6 @@ jobs:
           VALIDATE_ALL_CODEBASE: false 
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_PHP_BUILTIN:  true
           VALIDATE_PHP_PHPCS: true
           VALIDATE_PYTHON: true
           VALIDATE_PYTHON_PYLINT: true
@@ -35,3 +34,5 @@ jobs:
           VALIDATE_RUST_2021: true
           VALIDATE_RUBY: true
           VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_CSHARP: true
+          VALIDATE_KOTLIN: true

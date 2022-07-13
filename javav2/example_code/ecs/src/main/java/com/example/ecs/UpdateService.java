@@ -3,9 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
+//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -14,6 +12,7 @@
 package com.example.ecs;
 
 // snippet-start:[ecs.java2.update_service.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.EcsException;
@@ -21,11 +20,11 @@ import software.amazon.awssdk.services.ecs.model.UpdateServiceRequest;
 // snippet-end:[ecs.java2.update_service.import]
 
 /**
- To run this Java V2 code example, ensure that you have setup your development environment,
- including your credentials.
-
- For information, see this documentation topic:
- https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class UpdateService {
@@ -34,11 +33,10 @@ public class UpdateService {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "  UpdateService " +
                 "   <clusterName> <serviceArn> \n\n" +
                 "Where:\n" +
-                "  clusterName - the cluster name.\n" +
-                "  serviceArn - the service ARN value.\n" ;
+                "  clusterName - The cluster name.\n" +
+                "  serviceArn - The service ARN value.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -50,6 +48,7 @@ public class UpdateService {
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         updateSpecificService(ecsClient, clusterName, serviceArn );
@@ -60,7 +59,6 @@ public class UpdateService {
     public static void updateSpecificService( EcsClient ecsClient, String clusterName, String serviceArn) {
 
         try {
-
             UpdateServiceRequest serviceRequest = UpdateServiceRequest.builder()
                 .cluster(clusterName)
                 .service(serviceArn)

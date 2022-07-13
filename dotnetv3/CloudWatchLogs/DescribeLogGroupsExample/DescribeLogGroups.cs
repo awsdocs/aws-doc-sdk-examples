@@ -3,6 +3,8 @@
 
 namespace DescribeLogGroupsExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.DescribeLogGroupsExample]
+
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -15,7 +17,6 @@ namespace DescribeLogGroupsExample
     /// </summary>
     public class DescribeLogGroups
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.DescribeLogGroupsExample]
         public static async Task Main()
         {
             // Creates a CloudWatch Logs client using the default
@@ -45,7 +46,7 @@ namespace DescribeLogGroupsExample
                 while (response.NextToken is not null);
             }
         }
-
-        // snippet-end:[CloudWatchLogs.dotnetv3.DescribeLogGroupsExample]
     }
+
+    // snippet-end:[CloudWatchLogs.dotnetv3.DescribeLogGroupsExample]
 }
