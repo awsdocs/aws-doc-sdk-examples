@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario-Complete]
 namespace PartiQL_Basics_Scenario
 {
     public class PartiQLMethods
@@ -269,3 +270,5 @@ namespace PartiQL_Basics_Scenario
 
     }
 }
+
+// snippet-end:[PartiQL.dotnetv3.PartiQLBasicsScenario-Complete]
