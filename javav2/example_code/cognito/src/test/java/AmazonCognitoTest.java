@@ -1,8 +1,16 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 import com.example.cognito.*;
 import org.junit.jupiter.api.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAuthResponse;
+
 import java.io.*;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AmazonCognitoTest {
 
     private static CognitoIdentityProviderClient cognitoclient;
-    private static CognitoIdentityProviderClient cognitoIdentityProviderClient ;
+    private static  CognitoIdentityProviderClient cognitoIdentityProviderClient ;
     private static CognitoIdentityClient cognitoIdclient ;
     private static String userPoolName="";
     private static String identityId="";
@@ -30,7 +38,11 @@ public class AmazonCognitoTest {
     private static String clientId="";
     private static String secretkey="";
     private static String password="";
-
+    private static String poolIdMVP="";
+    private static String clientIdMVP="";
+    private static String userNameMVP="";
+    private static String passwordMVP="";
+    private static String emailMVP="";
 
 
     @BeforeAll
@@ -81,8 +93,11 @@ public class AmazonCognitoTest {
             clientId =  prop.getProperty("clientId");
             secretkey =  prop.getProperty("secretkey");
             password = prop.getProperty("password");
-            confirmationCode = prop.getProperty("confirmationCode");
-
+            poolIdMVP = prop.getProperty("poolIdMVP");
+            clientIdMVP = prop.getProperty("clientIdMVP");
+            userNameMVP = prop.getProperty("userNameMVP");
+            passwordMVP = prop.getProperty("passwordMVP");
+            emailMVP = prop.getProperty("emailMVP");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -210,8 +225,38 @@ public class AmazonCognitoTest {
 
     @Test
     @Order(17)
-    public void ConfirmSignUp() {
-        ConfirmSignUp.confirmSignUp(cognitoIdentityProviderClient, confirmationCode, username);
-        System.out.println("Test 17 passed");
+    public void testMVP() {
+
+        Scanner in = new Scanner(System.in);
+        System.out.println("*** Signing up " + userNameMVP);
+        CognitoMVP.signUp(cognitoIdentityProviderClient, clientIdMVP, userNameMVP, passwordMVP, emailMVP);
+
+        System.out.println("*** Getting " + userNameMVP + " in the user pool");
+        CognitoMVP.getAdminUser(cognitoIdentityProviderClient, userNameMVP, poolIdMVP);
+
+        System.out.println("*** Enter confirmation code that was emailed");
+        String code = in.nextLine();
+        CognitoMVP.confirmSignUp(cognitoIdentityProviderClient, clientIdMVP, code, userNameMVP);
+
+        System.out.println("*** Rechecking the status of " + userNameMVP + " in the user pool");
+        CognitoMVP.getAdminUser(cognitoIdentityProviderClient, userNameMVP, poolIdMVP);
+
+        InitiateAuthResponse authResponse = CognitoMVP.initiateAuth(cognitoIdentityProviderClient, clientIdMVP, userNameMVP, passwordMVP) ;
+        String mySession = authResponse.session() ;
+        assertTrue(!mySession.isEmpty());
+
+        String newSession = CognitoMVP.getSecretForAppMFA(cognitoIdentityProviderClient, mySession);
+        assertTrue(!newSession.isEmpty());
+
+        System.out.println("*** Enter the 6-digit code displayed in Google Authenticator");
+        String myCode = in.nextLine();
+
+        // Verify the TOTP and register for MFA.
+        CognitoMVP.verifyTOTP(cognitoIdentityProviderClient, newSession, myCode);
+        System.out.println("*** Re-enter a 6-digit code displayed in Google Authenticator");
+        String mfaCode = in.nextLine();
+        InitiateAuthResponse authResponse1 =  CognitoMVP.initiateAuth(cognitoIdentityProviderClient, clientIdMVP, userNameMVP, passwordMVP);
+        String session2 = authResponse1.session();
+        CognitoMVP.adminRespondToAuthChallenge(cognitoIdentityProviderClient, userNameMVP, clientIdMVP, mfaCode, session2);
     }
 }
