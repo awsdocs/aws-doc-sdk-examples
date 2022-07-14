@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lambda_function'
 require 'test/unit'
 require 'json'
@@ -12,9 +14,8 @@ class TestFunction < Test::Unit::TestCase
   def test_invoke
     file = File.read('event.json')
     event = JSON.parse(file)
-    context = Hash.new
+    context = {}
     result = lambda_handler(event: event, context: context)
     assert_match('function_count', result.to_s, 'Should match')
   end
-
 end

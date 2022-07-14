@@ -151,7 +151,6 @@ def elastic_ip_address_released?(ec2_client, allocation_id)
   return true
 rescue StandardError => e
   return "Error releasing Elastic IP address: #{e.message}"
-  return false
 end
 
 # Full example call:

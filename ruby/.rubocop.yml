@@ -6,9 +6,12 @@
 inherit_gem:
   rubocop-github:
     - config/default.yml
+Layout/EndOfLine:
+  Enabled: False
 Metrics/MethodLength:
   Max: 75
 Metrics/AbcSize:
   Max: 20
 Style/FrozenStringLiteralComment:
   Enabled: false
+
