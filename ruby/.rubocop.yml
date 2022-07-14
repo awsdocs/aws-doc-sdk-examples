@@ -7,7 +7,7 @@ inherit_gem:
   rubocop-github:
     - config/default.yml
 Metrics/MethodLength:
-  Max: 20
+  Max: 75
 Metrics/AbcSize:
   Max: 20
 Style/FrozenStringLiteralComment:

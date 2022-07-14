@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -6,19 +8,19 @@
 # If an item with the specified attributes exists in the table,
 # information about that item is updated. In this example, the item
 # must have a 'year' attribute value of 2015 and a 'title' attribute value
-# of 'The Big New Movie'. If so, the value of the item's 'info' attribute is
-# changed to 5.5 for 'rating', to 'Everything happens all at once.' for
-# 'plot', and to [ 'Larry', 'Moe', 'Curly' ] for 'actors'. Only information
-# about the updated attributes are returned, as specified by 'UPDATED_NEW'.
+# of 'The Big New Movie'. If so, and if the 'actors' value of the item's
+# 'info' attribute contains more than three, then value of the first
+# actor is removed. Only information about the updated attribute is
+# returned, as specified by 'UPDATED_NEW'.
 
-# snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps03]
-require 'aws-sdk-dynamodb'
+# snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps05]
+require "aws-sdk-dynamodb"
 
 def table_item_updated?(dynamodb_client, table_item)
-  response = dynamodb_client.update_item(table_item)
+  result = dynamodb_client.update_item(table_item)
   puts "Table item updated with the following attributes for 'info':"
-  response.attributes['info'].each do |key, value|
-    if key == 'rating'
+  result.attributes["info"].each do |key, value|
+    if key == "rating"
       puts "#{key}: #{value.to_f}"
     else
       puts "#{key}: #{value}"
@@ -31,10 +33,10 @@ rescue StandardError => e
 end
 
 def run_me
-# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
-  title = 'The Big New Movie'
+  # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
+  region = "us-west-2"
+  table_name = "Movies"
+  title = "The Big New Movie"
   year = 2015
 
   # To use the downloadable version of Amazon DynamoDB,
@@ -52,24 +54,23 @@ def run_me
       year: year,
       title: title
     },
-    update_expression: 'SET info.rating = :r, info.plot = :p, info.actors = :a',
+    update_expression: "REMOVE info.actors[0]",
+    condition_expression: "size(info.actors) > :num",
     expression_attribute_values: {
-      ':r': 5.5,
-      ':p': 'Everything happens all at once.',
-      ':a': [ 'Larry', 'Moe', 'Curly' ]
+      ':num': 3
     },
-    return_values: 'UPDATED_NEW'
+    return_values: "UPDATED_NEW"
   }
 
   puts "Updating table '#{table_name}' with information about " \
     "'#{title} (#{year})'..."
 
   if table_item_updated?(dynamodb_client, table_item)
-    puts 'Table updated.'
+    puts "Table updated."
   else
-    puts 'Table not updated.'
+    puts "Table not updated."
   end
 end
 
 run_me if $PROGRAM_NAME == __FILE__
-# snippet-end:[dynamodb.Ruby.CodeExample.MoviesItemOps03]
+# snippet-end:[dynamodb.Ruby.CodeExample.MoviesItemOps05]

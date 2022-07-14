@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -9,7 +11,7 @@
 # of 'The Big New Movie'.
 
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps02]
-require 'aws-sdk-dynamodb'
+require "aws-sdk-dynamodb"
 
 def get_item_from_table(dynamodb_client, table_item)
   result = dynamodb_client.get_item(table_item)
@@ -22,10 +24,10 @@ rescue StandardError => e
 end
 
 def run_me
-# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
-  title = 'The Big New Movie'
+  # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
+  region = "us-west-2"
+  table_name = "Movies"
+  title = "The Big New Movie"
   year = 2015
 
   # To use the downloadable version of Amazon DynamoDB,

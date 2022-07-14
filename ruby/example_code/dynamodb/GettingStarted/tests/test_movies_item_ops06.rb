@@ -1,19 +1,21 @@
+# frozen_string_literal: true
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative '../MoviesItemOps06'
+require_relative "../movies_item_ops06"
 
-describe '#table_item_deleted?' do
+describe "#table_item_deleted?" do
   let(:table_item) do
     {
-      table_name: 'Movies',
+      table_name: "Movies",
       key: {
         year: 2015,
-        title: 'The Big New Movie'
+        title: "The Big New Movie"
       },
-      condition_expression: 'info.rating <= :val',
+      condition_expression: "info.rating <= :val",
       expression_attribute_values: {
-        ':val' => 5
+        ":val" => 5
       }
     }
   end
@@ -23,14 +25,14 @@ describe '#table_item_deleted?' do
         delete_item: {
           consumed_capacity: {
             capacity_units: 1.0,
-            table_name: 'Movies'
+            table_name: "Movies"
           }
         }
       }
     )
   end
 
-  it 'deletes an item from a table' do
+  it "deletes an item from a table" do
     expect(table_item_deleted?(dynamodb_client, table_item)).to eq(true)
   end
 end

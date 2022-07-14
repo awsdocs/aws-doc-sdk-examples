@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -10,7 +12,7 @@
 # a 'plot' and 'rating'.
 
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps01]
-require 'aws-sdk-dynamodb'
+require "aws-sdk-dynamodb"
 
 def add_item_to_table(dynamodb_client, table_item)
   dynamodb_client.put_item(table_item)
@@ -22,10 +24,10 @@ rescue StandardError => e
 end
 
 def run_me
-# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
-  title = 'The Big New Movie'
+  # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
+  region = "us-west-2"
+  table_name = "Movies"
+  title = "The Big New Movie"
   year = 2015
 
   # To use the downloadable version of Amazon DynamoDB,
@@ -41,7 +43,7 @@ def run_me
     year: year,
     title: title,
     info: {
-      plot: 'Nothing happens at all.',
+      plot: "Nothing happens at all.",
       rating: 0
     }
   }

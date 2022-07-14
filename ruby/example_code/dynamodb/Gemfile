@@ -1,4 +1,7 @@
-source "https://rubygems.org"
-gem "aws-sdk"
-gem "rspec"
-gem "rubyzip"
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+gem 'aws-sdk'
+gem 'rspec'
+gem 'rubyzip'
+gem 'rubocop'

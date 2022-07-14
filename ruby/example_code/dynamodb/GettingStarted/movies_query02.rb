@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -9,10 +11,11 @@
 # sort key, if available, is optional and can speed up query operations. Also,
 # query operations are faster than scan operations, as scan operations must
 # search through every item in a table.) In this example, matching items
-# must have a 'year' attribute value of 1985.
+# must have a 'year' attribute value of 1992 and a 'title' attribute value
+# beginning with the letters 'A' through 'L'.
 
-# snippet-start:[dynamodb.Ruby.CodeExample.MoviesQuery01]
-require 'aws-sdk-dynamodb'
+# snippet-start:[dynamodb.Ruby.CodeExample.MoviesQuery02]
+require "aws-sdk-dynamodb"
 
 def query_for_items_from_table(dynamodb_client, query_condition)
   # To display the elapsed time for the query operation,
@@ -22,11 +25,23 @@ def query_for_items_from_table(dynamodb_client, query_condition)
   # finish = Time.now
   # puts "Search took #{finish - start} seconds."
   if result.items.count.zero?
-    puts 'No matching movies found.'
+    puts "No matching movies found."
   else
     puts "Found #{result.items.count} matching movies:"
     result.items.each do |movie|
-      puts "#{movie['title']} (#{movie['year'].to_i})"
+      puts "#{movie['title']} (#{movie['year'].to_i}):"
+      if movie["info"].key?("genres") && movie["info"]["genres"].count.positive?
+        puts "  Genres:"
+        movie["info"]["genres"].each do |genre|
+          puts "    #{genre}"
+        end
+      end
+      next unless movie["info"].key?("actors") && movie["info"]["actors"].count.positive?
+
+      puts "  Actors:"
+      movie["info"]["actors"].each do |actor|
+        puts "    #{actor}"
+      end
     end
   end
 rescue StandardError => e
@@ -34,10 +49,12 @@ rescue StandardError => e
 end
 
 def run_me
-# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
-  year = 1985
+  # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
+  region = "us-west-2"
+  table_name = "Movies"
+  year = 1982
+  letter1 = "A"
+  letter2 = "L"
 
   # To use the downloadable version of Amazon DynamoDB,
   # uncomment the endpoint statement.
@@ -48,25 +65,23 @@ def run_me
 
   dynamodb_client = Aws::DynamoDB::Client.new
 
-  # To query on the 'title' range/sort key in addition to the 'year'
-  # hash/partition key, uncomment the following three 'title' comments.
   query_condition = {
     table_name: table_name,
-    key_condition_expression: '#yr = :yyyy', # '#yr = :yyyy AND #t = :title'
-    expression_attribute_names: {
-      # '#t' => 'title',
-      '#yr' => 'year'
-    },
+    projection_expression: "#yr, title, info.genres, info.actors[0]",
+    key_condition_expression: "#yr = :yyyy AND title BETWEEN :letter1 AND :letter2",
+    expression_attribute_names: { "#yr" => "year" },
     expression_attribute_values: {
-      # ':title' => 'After Hours',
-      ':yyyy' => year
+      ":yyyy" => year,
+      ":letter1" => letter1,
+      ":letter2" => letter2
     }
   }
 
-  puts "Searching for items in the '#{table_name}' table from '#{year}'..."
+  puts "Searching for items in the '#{table_name}' table from '#{year}' and " \
+    "titles starting with the letters '#{letter1}' through '#{letter2}'..."
 
   query_for_items_from_table(dynamodb_client, query_condition)
 end
 
 run_me if $PROGRAM_NAME == __FILE__
-# snippet-end:[dynamodb.Ruby.CodeExample.MoviesQuery01]
+# snippet-end:[dynamodb.Ruby.CodeExample.MoviesQuery02]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -12,22 +14,22 @@
 # searched (making it slower than a query operation).
 
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesScan]
-require 'aws-sdk-dynamodb'
+require "aws-sdk-dynamodb"
 
 def scan_for_items_from_table(dynamodb_client, scan_condition)
   # To display the elapsed time for the query operation,
   # uncomment the following three comments.
-  #start = Time.now
+  # start = Time.now
   loop do
     result = dynamodb_client.scan(scan_condition)
 
     if result.items.count.zero?
-      puts 'No matching movies found (yet)...'
+      puts "No matching movies found (yet)..."
     else
       puts "Found #{result.items.count} matching movies (so far):"
       result.items.each do |movie|
-        puts "#{movie["title"]} (#{movie["year"].to_i}), " \
-          "Rating: #{movie["info"]["rating"].to_f}"
+        puts "#{movie['title']} (#{movie['year'].to_i}), " \
+          "Rating: #{movie['info']['rating'].to_f}"
       end
 
       break if result.last_evaluated_key.nil?
@@ -36,7 +38,7 @@ def scan_for_items_from_table(dynamodb_client, scan_condition)
       scan_condition[:exclusive_start_key] = result.last_evaluated_key
     end
   end
-  puts 'Finished searching.'
+  puts "Finished searching."
   # finish = Time.now
   # puts "Search took #{finish - start} seconds."
 rescue StandardError => e
@@ -44,9 +46,9 @@ rescue StandardError => e
 end
 
 def run_me
-# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
+  # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
+  region = "us-west-2"
+  table_name = "Movies"
   start_year = 1950
   end_year = 1959
 
@@ -61,12 +63,12 @@ def run_me
 
   scan_condition = {
     table_name: table_name,
-    projection_expression: '#yr, title, info.rating',
-    filter_expression: '#yr between :start_yr and :end_yr',
-    expression_attribute_names: { '#yr' => 'year' },
+    projection_expression: "#yr, title, info.rating",
+    filter_expression: "#yr between :start_yr and :end_yr",
+    expression_attribute_names: { "#yr" => "year" },
     expression_attribute_values: {
-      ':start_yr' => start_year,
-      ':end_yr' => end_year
+      ":start_yr" => start_year,
+      ":end_yr" => end_year
     }
   }
 
