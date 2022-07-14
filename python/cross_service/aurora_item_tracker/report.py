@@ -18,8 +18,7 @@ logger = logging.getLogger(__name__)
 class Report(Resource):
     """
     Encapsulates a report resource that can get reports of work items from an
-    Amazon Aurora database and use Amazon Simple Email Services (Amazon SES) to
-    send emails about them.
+    Amazon Aurora database and use Amazon SES to send emails about them.
     """
     def __init__(self, storage, email_sender, ses_client):
         """
@@ -44,7 +43,7 @@ class Report(Resource):
           clients that cannot render HTML receive this version.
 
         When your Amazon SES account is in the sandbox, both the sender and recipient
-        email addresses must be registered with SES.
+        email addresses must be registered with Amazon SES.
 
         JSON request parameters:
             email: The recipient's email address.

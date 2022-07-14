@@ -13,9 +13,9 @@
     </para>
     <para>
         <itemizedlist>
-            <listitem><para>Integrate a React.js web application with &AWS; services.</para></listitem>
+            <listitem><para>Integrate a React.js web application with &AWS-services;.</para></listitem>
             <listitem><para>List, add, and update items in an &AUR; table.</para></listitem>
-            <listitem><para>Send an email report of filtered work items using &SES;.</para></listitem>
+            <listitem><para>Send an email report of filtered work items by using &SES;.</para></listitem>
             <listitem><para>Deploy and manage example resources with the included &CFNlong; script.</para></listitem>
         </itemizedlist>
     </para>

@@ -24,7 +24,7 @@ class Storage:
     """
     def __init__(self, cluster, secret, db_name, table_name, rdsdata_client):
         """
-        :param cluster: The Amazon Resource Name (ARN) of an Amazon Aurora cluster that
+        :param cluster: The Amazon Resource Name (ARN) of an Amazon Aurora DB cluster that
                         contains the work item database.
         :param secret: The ARN of an AWS Secrets Manager secret that contains
                        credentials used to connect to the database.

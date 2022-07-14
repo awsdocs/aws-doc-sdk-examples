@@ -1,11 +1,11 @@
-#  Tracking work items in a serverless Aurora database with the SDK for Python
+#  Tracking work items in an Aurora Serverless database with the SDK for Python
 
 ## Overview
 
 This example shows you how to use the AWS SDK for Python (Boto3) to create a REST 
 service that lets you do the following:
 
-* Read, write, and update work items that are stored in a serverless Amazon Aurora
+* Read, write, and update work items that are stored in an Amazon Aurora Serverless
   database.
 * Use Amazon Simple Email Service (Amazon SES) to send email reports of work items.
 
@@ -32,9 +32,9 @@ For instructions on how to run the script, see the [README](../../../resources/c
 
 ### Creating the work items table
 
-After you have created the Aurora cluster and database, you must create a table to
-contain work items. You can do this by using either the AWS CLI or the AWS Management
-Console.
+After you have created the Aurora DB cluster and database, you must create a table to
+contain work items. You can do this by using either the AWS Command Line Interface 
+(AWS CLI) or the AWS Management Console.
 
 #### AWS CLI
 
@@ -42,15 +42,15 @@ Use the AWS CLI to create the `work_items` table by running the following comman
 command prompt. Before you run, replace the following values with the output from the 
 CloudFormation setup script:
 
-* **CLUSTER_ARN** — Replace with the ARN of the Aurora cluster, such as 
+* **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as 
 `arn:aws:rds:us-west-2:123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-15xfvaEXAMPLE`.
 * **SECRET_ARN** — Replace with the ARN of the secret that contains your database
 credentials, such as `arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`.
 * **DATABASE** — Replace with the name of the database, such as `auroraappdb`.  
 
-*Tip:* The caret `^` is the line-continuation character for a Windows command prompt.
-If you run this command on another platform, replace with the line-continuation
-character for that platform. 
+*Tip:* The caret `^` is the line continuation character for a Windows command prompt.
+If you run this command on another platform, replace the caret with the line continuation
+character for that platform.
 
 ```
 aws rds-data execute-statement ^
@@ -110,7 +110,7 @@ python -m pip install -r requirements.txt
 Replace the values in [config.py](config.py) with the values for the AWS resources
 used by the example.
 
-* **CLUSTER_ARN** — Replace with the ARN of the Aurora cluster, such as 
+* **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as 
 `arn:aws:rds:us-west-2:123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-15xfvaEXAMPLE`.
 * **SECRET_ARN** — Replace with the ARN of the secret that contains your database
 credentials, such as `arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`.
@@ -122,7 +122,7 @@ The example sends an email report by using Amazon SES. When your account is in t
 sandbox, you must register both the sender and recipient email addresses. You can
 do this by using [the console](https://console.aws.amazon.com/ses).
 
-*Tip:* For this example, you can register the same email account as both the sender and 
+*Tip:* For this example, you can register the same email account for both the sender and 
 the recipient.
 
 #### Running the web server
@@ -178,12 +178,12 @@ You can archive work items, query for work items by state, and send an email rep
 
 To avoid charges, delete all the resources that you created for this tutorial.
 Follow the instructions in the [Destroying resources](../../../resources/cdk/aurora_serverless_app#destroying-resources)
-section of the README for the Aurora serverless sample application.
+section of the README for the Aurora Serverless sample application.
 
 ## Next steps
 
 Congratulations! You have built a web application that reads, writes, and archives 
-work items that are stored in a serverless Amazon Aurora database, and that uses 
+work items that are stored in an Amazon Aurora Serverless database, and that uses 
 Amazon SES to send email to a registered user.
 
 ## Additional resources

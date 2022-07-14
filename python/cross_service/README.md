@@ -44,7 +44,7 @@ using the AWS SDK for Python.
     Amazon Aurora database and use Amazon Simple Email Service (Amazon SES) 
     to send email reports of work items.
     
-    * Amazon Aurora
+    * Aurora
     * Amazon SES
 
 * [Amazon Aurora serverless REST API lending library example](aurora_rest_lending_library/README.md)

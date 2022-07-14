@@ -1,4 +1,4 @@
-# Aurora serverless sample application resources
+# Aurora Serverless sample application resources
 
 ## Overview
 

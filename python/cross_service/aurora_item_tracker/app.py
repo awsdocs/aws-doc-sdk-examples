@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) to create a RESTful web service that
-stores work items in an Amazon Aurora serverless database and uses Amazon Simple
+stores work items in an Amazon Aurora Serverless database and uses Amazon Simple
 Email Service (Amazon SES) to let client applications do the following:
 
 * Get a list of active or archived work items.
@@ -37,7 +37,7 @@ def create_app(test_config=None):
 
     To use this application, you must first specify the following in the accompanying
     config.py file:
-    * The Amazon Resource Name (ARN) of an Amazon Aurora cluster.
+    * The Amazon Resource Name (ARN) of an Amazon Aurora DB cluster.
     * The name of a database and table where work items are stored.
     * The ARN of an AWS Secrets Manager secret that contains credentials for the
       database.
@@ -64,7 +64,7 @@ def create_app(test_config=None):
             "To run this app, you must first enter configuration information in config.py.")
 
     # Suppress CORS errors when working with React during development.
-    # Remove this when you deploy your application!
+    # Important: Remove this when you deploy your application.
     CORS(app)
     api = Api(app)
 
@@ -85,6 +85,6 @@ def create_app(test_config=None):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     try:
-        create_app().run(debug=True)  # Run in debug mode for better errors during development.
+        create_app().run(debug=True)  # Run in debug mode for more descriptive errors during development.
     except RuntimeError as error:
         logger.error(error)
