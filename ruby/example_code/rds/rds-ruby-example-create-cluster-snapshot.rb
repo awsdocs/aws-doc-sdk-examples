@@ -7,16 +7,16 @@
 
 # snippet-start:[rds.ruby.createClusterSnapshot]
 
-require 'aws-sdk-rds'  # v2: require 'aws-sdk'
+require "aws-sdk-rds"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon RDS.
-rds = Aws::RDS::Resource.new(region: 'us-west-2')
+rds = Aws::RDS::Resource.new(region: "us-west-2")
 
 cluster = rds.db_cluster(cluster_name)
 
 date =  Time.new
-date_time =  date.year.to_s +  '-' +  date.month.to_s +  '-' +  date.day.to_s +  '-' +  date.hour.to_s +  '-' +  date.min.to_s
+date_time =  date.year.to_s +  "-" +  date.month.to_s +  "-" +  date.day.to_s +  "-" +  date.hour.to_s +  "-" +  date.min.to_s
 
-id = cluster_name + '-' + date_time
+id = cluster_name + "-" + date_time
 
 cluster.create_snapshot({db_cluster_snapshot_identifier: id})
 

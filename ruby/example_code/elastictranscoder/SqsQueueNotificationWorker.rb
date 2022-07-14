@@ -6,8 +6,8 @@
 # for an Amazon Elastic Transcoder job using the AWS SDK for Ruby.
 
 # snippet-start:[elastictranscoder.ruby.create_sqs_notification_queue.import]
-require 'aws-sdk-elastictranscoder'
-require 'aws-sdk-sqs'
+require "aws-sdk-elastictranscoder"
+require "aws-sdk-sqs"
 
 # Class which will poll SQS for job state notifications in a separate thread.
 # This class is intended for batch-processing.  If you are using a ruby-on-rails
@@ -54,7 +54,7 @@ class SqsQueueNotificationWorker
       next if sqs_messages.nil?
 
       sqs_messages.each do |sqs_message|
-        notification = JSON.parse(JSON.parse(sqs_message[:body])['Message'])
+        notification = JSON.parse(JSON.parse(sqs_message[:body])["Message"])
         @handlers.each do |handler|
           handler.call(notification)
           sqs_client.delete_message(queue_url: @queue_url, receipt_handle: sqs_message[:receipt_handle])

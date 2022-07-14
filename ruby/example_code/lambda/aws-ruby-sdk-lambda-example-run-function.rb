@@ -7,25 +7,25 @@
 
 # snippet-start:[lambda.ruby.runFunction]
 
-require 'aws-sdk-lambda'  # v2: require 'aws-sdk'
-require 'json'
+require "aws-sdk-lambda"  # v2: require 'aws-sdk'
+require "json"
 
 # To run on Windows:
-require 'os'
+require "os"
 if OS.windows?
   Aws.use_bundled_cert!
 end
 # Replace us-west-2 with the AWS Region you're using for Lambda.
-client = Aws::Lambda::Client.new(region: 'us-west-2')
+client = Aws::Lambda::Client.new(region: "us-west-2")
 
 # Get the 10 most recent items
-req_payload = {:SortBy => 'time', :SortOrder => 'descending', :NumberToGet => 10}
+req_payload = {SortBy: "time", SortOrder: "descending", NumberToGet: 10}
 payload = JSON.generate(req_payload)
 
 resp = client.invoke({
-                         function_name: 'MyGetItemsFunction',
-                         invocation_type: 'RequestResponse',
-                         log_type: 'None',
+                         function_name: "MyGetItemsFunction",
+                         invocation_type: "RequestResponse",
+                         log_type: "None",
                          payload: payload
                        })
 
