@@ -13,4 +13,4 @@ Metrics/AbcSize:
 Style/FrozenStringLiteralComment:
   Enabled: false
 Layout/EndOfLine:
-   Enabled: false
+  Enabled: false
