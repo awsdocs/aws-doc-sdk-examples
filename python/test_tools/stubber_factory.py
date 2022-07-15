@@ -18,6 +18,7 @@ from test_tools.cloudformation_stubber import CloudFormationStubber
 from test_tools.cloudfront_stubber import CloudFrontStubber
 from test_tools.cloudwatch_stubber import CloudWatchStubber
 from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
+from test_tools.cognito_idp_stubber import CognitoIdpStubber
 from test_tools.comprehend_stubber import ComprehendStubber
 from test_tools.config_stubber import ConfigStubber
 from test_tools.dynamodb_stubber import DynamoStubber
@@ -79,6 +80,8 @@ def stubber_factory(service_name):
         return CloudWatchStubber
     elif service_name == 'logs':
         return CloudWatchLogsStubber
+    elif service_name == 'cognito-idp':
+        return CognitoIdpStubber
     elif service_name == 'comprehend':
         return ComprehendStubber
     elif service_name == 'config':
