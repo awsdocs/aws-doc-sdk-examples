@@ -1,3 +1,3 @@
-# Add 'test' label to any change to *.spec.js files within the source dir
-lang/ruby:
-- *.rb
+# Add 'label1' to any changes within 'example' folder or any subfolders
+test:
+- ruby/example_code/dynamodb/GettingStarted/*
