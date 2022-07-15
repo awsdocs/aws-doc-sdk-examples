@@ -1,4 +1,5 @@
-# AWS SDK for Ruby Version 3 code examples
+# AWS SDK for Ruby - Code Examples
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 
 ## Overview
 
