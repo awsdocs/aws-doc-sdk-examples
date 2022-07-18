@@ -1,3 +1,2 @@
-# Add 'label1' to any changes within 'example' folder or any subfolders
 test:
-- ruby/example_code/dynamodb/GettingStarted/*
+- ruby/**/*
