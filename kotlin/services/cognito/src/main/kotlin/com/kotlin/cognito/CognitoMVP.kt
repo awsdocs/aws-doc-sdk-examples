@@ -66,7 +66,7 @@ suspend fun main(args: Array<String>) {
     }
 
     val clientId = args[0]
-    val poolId = args[0]
+    val poolId = args[1]
 
     // Use the console to get data from the user.
     println("*** Enter your use name")
