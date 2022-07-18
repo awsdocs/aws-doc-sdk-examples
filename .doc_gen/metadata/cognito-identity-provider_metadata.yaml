@@ -129,7 +129,7 @@ cognito-identity-provider_ConfirmSignUp:
   synopsis: confirm an &COG; user.
   category:
   languages:
-     Kotlin:
+    Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/cognito
