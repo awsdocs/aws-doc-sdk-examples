@@ -65,8 +65,8 @@ suspend fun main(args: Array<String>) {
         exitProcess(1)
     }
 
-    val clientId = "65kshga9h31bhb9t5d9stlffm" // args[0]
-    val poolId = "us-east-1_pExGe6XAk" // args[0]
+    val clientId = args[0]
+    val poolId = args[0]
 
     // Use the console to get data from the user.
     println("*** Enter your use name")
