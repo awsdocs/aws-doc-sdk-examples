@@ -313,7 +313,7 @@ class DynamoDBService extends AWSServiceClass
             ],
         ]);
     }
-    #snippet-start:[php.example_code.dynamodb.service.updateItemByPartiQLBatch]
+    #snippet-end:[php.example_code.dynamodb.service.updateItemByPartiQLBatch]
 
     #snippet-start:[php.example_code.dynamodb.service.deleteItemByPartiQLBatch]
     public function deleteItemByPartiQLBatch(string $statement, array $parameters)
@@ -327,7 +327,7 @@ class DynamoDBService extends AWSServiceClass
             ],
         ]);
     }
-    #snippet-start:[php.example_code.dynamodb.service.deleteItemByPartiQLBatch]
+    #snippet-end:[php.example_code.dynamodb.service.deleteItemByPartiQLBatch]
 
     /**
      * @param string $action
