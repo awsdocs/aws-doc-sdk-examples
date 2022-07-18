@@ -275,7 +275,7 @@ class DynamoDBService extends AWSServiceClass
             'Statements' => $statements,
         ]);
     }
-    #snippet-end:[php.example_code.dynamodb.service.getItem]
+    #snippet-end:[php.example_code.dynamodb.service.getItemByPartiQLBatch]
 
     public function insertItemByPartiQLBatch(string $statement, array $parameters)
     {
