@@ -38,6 +38,22 @@ Code excerpts that show you how to call individual service functions.
   (`scan`)
 * [Updating an item in a table](dynamodb_basics/GettingStartedWithDynamoDB.php)
   (`update_item`)
+* [Creating an item in a table with PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
+  (`executeStatement - INSERT`)
+* [Getting an item in a table with PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
+  (`executeStatement - SELECT`)
+* [Updating an item in a table with PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
+  (`executeStatement - UPDATE`)
+* [Deleting an item in a table with PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
+  (`executeStatement - DELETE`)
+* [Creating an item in a table with PartiQL - BatchExecuteStatement](partiql_basics/GettingStartedWithPartiQLBatch.php)
+  (`executeStatement - INSERT`)
+* [Getting an item in a table with PartiQL - BatchExecuteStatement](partiql_basics/GettingStartedWithPartiQLBatch.php)
+  (`executeStatement - SELECT`)
+* [Updating an item in a table with PartiQL - BatchExecuteStatement](partiql_basics/GettingStartedWithPartiQLBatch.php)
+  (`executeStatement - UPDATE`)
+* [Deleting an item in a table with PartiQL - BatchExecuteStatement](partiql_basics/GettingStartedWithPartiQLBatch.php)
+  (`executeStatement - DELETE`)
 
 ### Scenario examples
 
@@ -57,7 +73,7 @@ composer install
 ```
 
 After your composer dependencies are installed, you can run the interactive getting started file directly with the
-following:
+following from the `aws-doc-sdk-examples\php\dynamodb\dynamodb_basics` directory:
 
 ```
 php Runner.php
@@ -68,6 +84,32 @@ following:
 
 ```
 ..\..\vendor\bin\phpunit DynamoDBBasicsTests.php
+```
+
+**Getting started with DynamoDB and PartiQL**
+
+This scenario shows you how to create an Amazon DynamoDB table for storing movie data. The scenario loads movies into
+the table from a JSON-formatted file and walks you through an interactive demo to add, update, and delete movies using
+PartiQL (both with `executeStatement` and `batchExecuteStatement`).
+
+Run the following from the `aws-doc-sdk-examples\php\dynamodb\partiql_basics` directory:
+
+```
+composer install
+```
+
+After your composer dependencies are installed, you can run the interactive getting started file directly with the
+following:
+
+```
+php Runner.php
+```   
+
+Alternatively, you can have the choices automatically selected by running the file as part of a PHPUnit test with the
+following:
+
+```
+..\..\vendor\bin\phpunit PartiQLBasicsTests.php
 ```
 
 ### Prerequisites

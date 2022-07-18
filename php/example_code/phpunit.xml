@@ -14,6 +14,9 @@
         <testsuite name="dynamodb-basics">
             <file>dynamodb/dynamodb_basics/DynamoDBBasicsTests.php</file>
         </testsuite>
+        <testsuite name="partiql-basics">
+            <file>dynamodb/partiql_basics/PartiQLBasicsTests.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"

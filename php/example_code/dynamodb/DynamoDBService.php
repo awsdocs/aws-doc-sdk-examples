@@ -7,6 +7,7 @@ namespace DynamoDb;
 
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
+use Aws\Result;
 use AwsUtilities\AWSServiceClass;
 use Exception;
 
@@ -73,7 +74,7 @@ class DynamoDBService extends AWSServiceClass
     public function deleteItemByKey(string $tableName, array $key)
     {
         $this->dynamoDbClient->deleteItem([
-            'Key' => $key['Key'],
+            'Key' => $key['Item'],
             'TableName' => $tableName,
         ]);
     }
@@ -94,7 +95,7 @@ class DynamoDBService extends AWSServiceClass
     public function getItemByKey(string $tableName, array $key)
     {
         return $this->dynamoDbClient->getItem([
-            'Key' => $key['Key'],
+            'Key' => $key['Item'],
             'TableName' => $tableName,
         ]);
     }
@@ -158,7 +159,7 @@ class DynamoDBService extends AWSServiceClass
         string $newValue
     ) {
         $this->dynamoDbClient->updateItem([
-            'Key' => $key['Key'],
+            'Key' => $key['Item'],
             'TableName' => $tableName,
             'UpdateExpression' => "set #NV=:NV",
             'ExpressionAttributeNames' => [
@@ -187,7 +188,7 @@ class DynamoDBService extends AWSServiceClass
         }
         $updateExpression = substr($updateExpression, 0, -1);
         $updateItem = [
-            'Key' => $key['Key'],
+            'Key' => $key['Item'],
             'TableName' => $tableName,
             'UpdateExpression' => $updateExpression,
             'ExpressionAttributeNames' => $expressionAttributeNames,
@@ -225,4 +226,134 @@ class DynamoDBService extends AWSServiceClass
         }
     }
     #snippet-end:[php.example_code.dynamodb.service.batchWriteItem]
+
+    # snippet-start:[php.example_code.dynamodb.service.getItemByPartiQL]
+    public function getItemByPartiQL(string $tableName, array $key): Result
+    {
+        list($statement, $parameters) = $this->buildStatementAndParameters("SELECT", $tableName, $key['Item']);
+
+        return $this->dynamoDbClient->executeStatement([
+            'Parameters' => $parameters,
+            'Statement' => $statement,
+        ]);
+    }
+    #snippet-end:[php.example_code.dynamodb.service.getItemByPartiQL]
+
+    #snippet-start:[php.example_code.dynamodb.service.insertItemByPartiQL]
+    public function insertItemByPartiQL(string $statement, array $parameters)
+    {
+        $this->dynamoDbClient->executeStatement([
+            'Statement' => "$statement",
+            'Parameters' => $parameters,
+        ]);
+    }
+    #snippet-end:[php.example_code.dynamodb.service.insertItemByPartiQL]
+
+    #snippet-start:[php.example_code.dynamodb.service.updateItemByPartiQL]
+    public function updateItemByPartiQL(string $statement, array $parameters)
+    {
+        $this->dynamoDbClient->executeStatement([
+            'Statement' => $statement,
+            'Parameters' => $parameters,
+        ]);
+    }
+    #snippet-end:[php.example_code.dynamodb.service.updateItemByPartiQL]
+
+    #snippet-start:[php.example_code.dynamodb.service.getItemByPartiQLBatch]
+    public function getItemByPartiQLBatch(string $tableName, array $keys): Result
+    {
+        $statements = [];
+        foreach ($keys as $key) {
+            list($statement, $parameters) = $this->buildStatementAndParameters("SELECT", $tableName, $key['Item']);
+            $statements[] = [
+                'Statement' => "$statement",
+                'Parameters' => $parameters,
+            ];
+        }
+
+        return $this->dynamoDbClient->batchExecuteStatement([
+            'Statements' => $statements,
+        ]);
+    }
+    #snippet-end:[php.example_code.dynamodb.service.getItem]
+
+    public function insertItemByPartiQLBatch(string $statement, array $parameters)
+    {
+        $this->dynamoDbClient->batchExecuteStatement([
+            'Statements' => [
+                [
+                    'Statement' => "$statement",
+                    'Parameters' => $parameters,
+                ],
+            ],
+        ]);
+    }
+
+    public function updateItemByPartiQLBatch(string $statement, array $parameters)
+    {
+        $this->dynamoDbClient->batchExecuteStatement([
+            'Statements' => [
+                [
+                    'Statement' => "$statement",
+                    'Parameters' => $parameters,
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * @param string $action
+     * @param string $tableName
+     * @param $key
+     * @param array $attributes
+     * @return array ($statement, $parameter)
+     */
+    public function buildStatementAndParameters(string $action, string $tableName, $key, array $attributes = []): array
+    {
+        $actionText = match ($action) {
+            "SELECT" => "SELECT * FROM ",
+            "INSERT" => "INSERT INTO ",
+            "DELETE" => "DELETE FROM ",
+            "UPDATE" => "UPDATE ",
+            default => $action,
+        };
+
+        $statement = "$actionText $tableName ";
+        $parameters = [];
+
+        if ($action == "INSERT") {
+            $statement .= "VALUE {";
+            foreach ($key['Item'] as $name => $value) {
+                $statement .= "'$name':?,";
+                $parameters[] = $value;
+            }
+            $statement = substr($statement, 0, -1);
+            $statement .= "}";
+        }
+
+        if ($action == "SELECT" || $action == "DELETE") {
+            $statement .= " WHERE ";
+            foreach ($key as $name => $value) {
+                $parameters[] = $value;
+                $statement .= "$name = ? AND ";
+            }
+            $statement = substr($statement, 0, -5);
+        }
+
+        if ($action == "UPDATE") {
+            /** @var DynamoDBAttribute $attribute */
+            foreach ($attributes as $attribute) {
+                $statement .= "SET " . $attribute->AttributeName . " = ? ";
+                $parameters[] = [$attribute->AttributeType => $attribute->Value];
+            }
+            $statement .= "WHERE ";
+            foreach ($key['Item'] as $name => $where) {
+                $statement .= "$name = ? AND ";
+                $parameters[] = $where;
+            }
+            $statement = substr($statement, 0, -5);
+        }
+
+        return array($statement, $parameters);
+    }
 }
