@@ -8,7 +8,7 @@ dynamodb_CreateTable:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -114,7 +114,7 @@ dynamodb_BatchGetItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -230,7 +230,7 @@ dynamodb_BatchWriteItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description: Writes a batch of items to the movie table.
               snippet_tags:
@@ -340,7 +340,7 @@ dynamodb_DeleteTable:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -444,7 +444,7 @@ dynamodb_PutItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -662,7 +662,7 @@ dynamodb_UpdateItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -770,7 +770,7 @@ dynamodb_DeleteItem:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -976,7 +976,7 @@ dynamodb_Query:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -1101,7 +1101,7 @@ dynamodb_Scan:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -1206,6 +1206,26 @@ dynamodb_ExecuteStatement:
   synopsis: run a PartiQL statement on a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/DynamoDB
+          excerpts:
+            - description: Use an INSERT statement to add an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie
+            - description: Use a SELECT statement to get an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie
+            - description: Use a SELECT statement to get a list of items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetMovies
+            - description: Use an UPDATE statement to update an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
+            - description: Use a DELETE statement to delete a single movie.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
     Go:
       versions:
         - sdk_version: 2
@@ -1268,6 +1288,23 @@ dynamodb_BatchExecuteStatement:
   synopsis: run batches of PartiQL statements on a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/DynamoDB
+          excerpts:
+            - description: Use batches of INSERT statements to add items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch
+            - description: Use batches of SELECT statements to get items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies
+            - description: Use batches of UPDATE statements to update items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch
+            - description: Use batches of DELETE statements to delete items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch
     Go:
       versions:
         - sdk_version: 2
@@ -1372,7 +1409,7 @@ dynamodb_Scenario_GettingStartedMovies:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/dynamodb
+          github: dotnetv3/DynamoDB
           excerpts:
             - description:
               snippet_tags:
@@ -1528,6 +1565,18 @@ dynamodb_Scenario_PartiQLSingle:
   synopsis: query a &DDB; table using PartiQL.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/DynamoDB
+          excerpts:
+            - description:
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-Complete
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
     Go:
       versions:
         - sdk_version: 2
@@ -1606,6 +1655,18 @@ dynamodb_Scenario_PartiQLBatch:
   synopsis: query a &DDB; table by using batches of PartiQL statements.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/DynamoDB
+          excerpts:
+            - description:
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario
+                - PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch
+                - PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies
+                - PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch
+                - PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch
     Go:
       versions:
         - sdk_version: 2

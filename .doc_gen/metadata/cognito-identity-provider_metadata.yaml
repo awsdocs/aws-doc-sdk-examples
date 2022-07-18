@@ -246,6 +246,15 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
     - Sign in by using a password and an MFA code.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.mvp.main
     Python:
       versions:
         - sdk_version: 3
