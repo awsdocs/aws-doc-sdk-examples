@@ -259,6 +259,16 @@ class DynamoDBService extends AWSServiceClass
     }
     #snippet-end:[php.example_code.dynamodb.service.updateItemByPartiQL]
 
+    #snippet-start:[php.example_code.dynamodb.service.deleteItemByPartiQL]
+    public function deleteItemByPartiQL(string $statement, array $parameters)
+    {
+        $this->dynamoDbClient->executeStatement([
+            'Statement' => $statement,
+            'Parameters' => $parameters,
+        ]);
+    }
+    #snippet-end:[php.example_code.dynamodb.service.deleteItemByPartiQL]
+
     #snippet-start:[php.example_code.dynamodb.service.getItemByPartiQLBatch]
     public function getItemByPartiQLBatch(string $tableName, array $keys): Result
     {
@@ -277,6 +287,7 @@ class DynamoDBService extends AWSServiceClass
     }
     #snippet-end:[php.example_code.dynamodb.service.getItemByPartiQLBatch]
 
+    #snippet-start:[php.example_code.dynamodb.service.insertItemByPartiQLBatch]
     public function insertItemByPartiQLBatch(string $statement, array $parameters)
     {
         $this->dynamoDbClient->batchExecuteStatement([
@@ -288,7 +299,9 @@ class DynamoDBService extends AWSServiceClass
             ],
         ]);
     }
+    #snippet-end:[php.example_code.dynamodb.service.insertItemByPartiQLBatch]
 
+    #snippet-start:[php.example_code.dynamodb.service.updateItemByPartiQLBatch]
     public function updateItemByPartiQLBatch(string $statement, array $parameters)
     {
         $this->dynamoDbClient->batchExecuteStatement([
@@ -300,6 +313,21 @@ class DynamoDBService extends AWSServiceClass
             ],
         ]);
     }
+    #snippet-start:[php.example_code.dynamodb.service.updateItemByPartiQLBatch]
+
+    #snippet-start:[php.example_code.dynamodb.service.deleteItemByPartiQLBatch]
+    public function deleteItemByPartiQLBatch(string $statement, array $parameters)
+    {
+        $this->dynamoDbClient->batchExecuteStatement([
+            'Statements' => [
+                [
+                    'Statement' => "$statement",
+                    'Parameters' => $parameters,
+                ],
+            ],
+        ]);
+    }
+    #snippet-start:[php.example_code.dynamodb.service.deleteItemByPartiQLBatch]
 
     /**
      * @param string $action
