@@ -42,7 +42,7 @@ $subscription_token = 'arn:aws:sns:us-east-1:111122223333:MyTopic:123456-abcd-12
 $topic = 'arn:aws:sns:us-east-1:111122223333:MyTopic';
 
 try {
-    $result = $SnSclient->subscribe([
+    $result = $SnSclient->confirmSubscription([
         'Token' => $subscription_token,
         'TopicArn' => $topic,
     ]);
