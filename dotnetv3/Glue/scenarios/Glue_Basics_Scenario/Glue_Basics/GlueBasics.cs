@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc.or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache - 2.0
 
+// snippet-start:[Glue.dotnetv3.GlueBasicsScenario.Main]
 // This example uses .NET Core 6 and the AWS SDK for .NET v3.7
 // Before running the code, et up your development environment,
 // including your credentials. For more information, see the
@@ -24,8 +25,6 @@
 //   11. DeleteJob
 //   12. DeleteDatabase
 //   13. DeleteCrawler
-using Amazon.Glue;
-using Glue_Basics;
 
 // Initialize the values we need for the scenario.
 // The ARN of the service role used by the crawler.
@@ -75,7 +74,7 @@ success = await GlueMethods.GetJobRunsAsync(glueClient, jobName);
 Console.WriteLine("Deleting the AWS Glue job used by the exmple.");
 success = await GlueMethods.DeleteJobAsync(glueClient, jobName);
 
-Console.WriteLine("\n*** Waiting 5 MIN for the " + crawlerName + " to stop");
+Console.WriteLine("\n*** Waiting 5 MIN for the " + crawlerName + " to stop. ***");
 System.Threading.Thread.Sleep(300000);
 
 Console.WriteLine("Clean up the resources created for the example.");
@@ -83,3 +82,5 @@ success = await GlueMethods.DeleteDatabaseAsync(glueClient, dbName);
 success = await GlueMethods.DeleteSpecificCrawlerAsync(glueClient, crawlerName);
 
 Console.WriteLine("Successfully completed the AWS Glue Scenario ");
+
+// snippet-end:[Glue.dotnetv3.GlueBasicsScenario.Main]

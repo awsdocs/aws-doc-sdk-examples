@@ -1,9 +1,10 @@
-﻿using Amazon.Glue;
-using Glue_Basics;
-using Xunit;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Glue_Basics.Tests
 {
+    using Amazon.Glue;
+
+    [TestClass()]
     public class GlueMethodsTests
     {
         // Initialize the values we need for the scenario.
@@ -21,103 +22,103 @@ namespace Glue_Basics.Tests
         readonly string scriptLocation = "s3://aws-glue-scripts-012345678901-us-west-1/GlueDemoUser";
         readonly string locationUri = "s3://crawler-public-us-east-1/flight/2016/csv/";
 
-        readonly AmazonGlueClient _Client;
+        private readonly AmazonGlueClient _Client;
 
         public GlueMethodsTests()
         {
             _Client = new AmazonGlueClient();
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task CreateDatabaseAsyncTest()
         {
             var success = await GlueMethods.CreateDatabaseAsync(_Client, dbName, locationUri);
-            Assert.True(success, "Could not create the database.");
+            Assert.IsTrue(success, "Could not create the database.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task CreateGlueCrawlerAsyncTest()
         {
             var success = await GlueMethods.CreateGlueCrawlerAsync(
                 _Client, iam, s3Path, cron, dbName, crawlerName);
-            Assert.True(success, "Could not create the crawler.");
+            Assert.IsTrue(success, "Could not create the crawler.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task CreateJobAsyncTest()
         {
             var success = await GlueMethods.CreateJobAsync(_Client, jobName, iam, scriptLocation);
-            Assert.True(success, "Could not create the AWS Glue job.");
+            Assert.IsTrue(success, "Could not create the AWS Glue job.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task DeleteSpecificCrawlerAsyncTest()
         {
             var success = await GlueMethods.DeleteSpecificCrawlerAsync(_Client, crawlerName);
-            Assert.True(success, $"Could not delete the AWS Glue crawler {crawlerName}.");
+            Assert.IsTrue(success, $"Could not delete the AWS Glue crawler {crawlerName}.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task DeleteDatabaseAsyncTest()
         {
             var success = await GlueMethods.DeleteDatabaseAsync(_Client, dbName);
-            Assert.True(success, $"Could not delete {dbName}.");
+            Assert.IsTrue(success, $"Could not delete {dbName}.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task DeleteJobAsyncTest()
         {
             var success = await GlueMethods.DeleteJobAsync(_Client, jobName);
-            Assert.True(success, $"Could not delete the job, {jobName}.");
+            Assert.IsTrue(success, $"Could not delete the job, {jobName}.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task GetAllJobsAsyncTest()
         {
             var success = await GlueMethods.GetAllJobsAsync(_Client);
-            Assert.True(success, "Could not get any AWS Glue job information.");
+            Assert.IsTrue(success, "Could not get any AWS Glue job information.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task GetGlueTablesAsyncTest()
         {
             var success = await GlueMethods.GetGlueTablesAsync(_Client, dbName);
-            Assert.True(success, $"Couldn't get information for any tables in {dbName}.");
+            Assert.IsTrue(success, $"Couldn't get information for any tables in {dbName}.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task GetJobRunsAsyncTest()
         {
             var success = await GlueMethods.GetJobRunsAsync(_Client, jobName);
-            Assert.True(success, $"No information for job runs for {jobName}.");
+            Assert.IsTrue(success, $"No information for job runs for {jobName}.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task GetSpecificCrawlerAsyncTest()
         {
             var success = await GlueMethods.GetSpecificCrawlerAsync(_Client, crawlerName);
-            Assert.True(success, $"Couldn't fimd any information about {crawlerName}");
+            Assert.IsTrue(success, $"Couldn't fimd any information about {crawlerName}");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task GetSpecificDatabaseAsyncTest()
         {
             var success = await GlueMethods.GetSpecificDatabaseAsync(_Client, dbName);
-            Assert.True(success, $"Couldn't find any information about {dbName}.");
+            Assert.IsTrue(success, $"Couldn't find any information about {dbName}.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task StartJobAsyncTest()
         {
             var success = await GlueMethods.StartJobAsync(_Client, jobName);
-            Assert.True(success, $"Couldn't start job: {jobName}.");
+            Assert.IsTrue(success, $"Couldn't start job: {jobName}.");
         }
 
-        [Fact()]
+        [TestMethod()]
         public async Task StartSpecificCrawlerAsyncTest()
         {
             var success = await GlueMethods.StartSpecificCrawlerAsync(_Client, crawlerName);
-            Assert.True(success, $"Couldn't start crawler, {crawlerName}");
+            Assert.IsTrue(success, $"Couldn't start crawler, {crawlerName}");
         }
     }
 }

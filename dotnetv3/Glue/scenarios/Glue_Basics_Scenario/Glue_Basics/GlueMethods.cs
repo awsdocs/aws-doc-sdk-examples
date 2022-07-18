@@ -3,14 +3,13 @@
 
 namespace Glue_Basics
 {
-    using Amazon.Glue;
-    using Amazon.Glue.Model;
-
     /// <summary>
     /// Methods for working the AWS Glue using the AWS SDK for .NET v3.7.
     /// </summary>
     public static class GlueMethods
     {
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.CreateDatabaseAsync]
+
         /// <summary>
         /// Creates a database for use by an AWS Glue crawler.
         /// </summary>
@@ -54,6 +53,10 @@ namespace Glue_Basics
                 return false;
             }
         }
+
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.CreateDatabaseAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.CreateGlueCrawlerAsync]
 
         /// <summary>
         /// Creates an AWS Glue crawler.
@@ -114,6 +117,10 @@ namespace Glue_Basics
             }
         }
 
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.CreateGlueCrawlerAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.CreateJobAsync]
+
         /// <summary>
         /// Creates an AWS Glue job.
         /// </summary>
@@ -156,6 +163,10 @@ namespace Glue_Basics
             return false;
         }
 
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.CreateJobAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.DeleteSpecificCrawlerAsync]
+
         /// <summary>
         /// Deletes the named AWS Glue crawler.
         /// </summary>
@@ -181,6 +192,10 @@ namespace Glue_Basics
             Console.WriteLine($"Could not create {crawlerName}.");
             return false;
         }
+
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.DeleteSpecificCrawlerAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.DeleteDatabaseAsync]
 
         /// <summary>
         /// Deletes an AWS Glue database.
@@ -208,6 +223,10 @@ namespace Glue_Basics
             return false;
         }
 
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.DeleteDatabaseAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.DeleteJobAsync]
+
         /// <summary>
         /// Deletes the named job.
         /// </summary>
@@ -233,6 +252,10 @@ namespace Glue_Basics
             Console.WriteLine($"{jobName} could not be deleted.");
             return false;
         }
+
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.DeleteJobAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.GetAllJobsAsync]
 
         /// <summary>
         /// Gets a list of AWS Glue jobs.
@@ -262,6 +285,10 @@ namespace Glue_Basics
                 return false;
             }
         }
+
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.GetAllJobsAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.GetGlueTablesAsync]
 
         /// <summary>
         /// Gets the tables used by the database for an AWS Glue crawler.
@@ -295,6 +322,10 @@ namespace Glue_Basics
                 return false;
             }
         }
+
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.GetGlueTablesAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.GetJobRunsAsync]
 
         /// <summary>
         /// Retrieves information about an AWS Glue job.
@@ -333,6 +364,10 @@ namespace Glue_Basics
             }
         }
 
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.GetJobRunsAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.GetSpecificCrawlerAsync]
+
         /// <summary>
         /// Retrieves information about a specific AWS Glue crawler.
         /// </summary>
@@ -358,6 +393,10 @@ namespace Glue_Basics
             Console.WriteLine($"No information regarding {crawlerName} could be found.");
             return false;
         }
+
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.GetSpecificCrawlerAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.GetSpecificDatabaseAsync]
 
         /// <summary>
         /// Gets information about the database created for this Glue
@@ -388,6 +427,10 @@ namespace Glue_Basics
             return false;
         }
 
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.GetSpecificDatabaseAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.StartJobAsync]
+
         /// <summary>
         /// Starts an AWS Glue job.
         /// </summary>
@@ -415,6 +458,10 @@ namespace Glue_Basics
             return false;
         }
 
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.StartJobAsync]
+
+        // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.StartSpecificCrawlerAsync]
+
         /// <summary>
         /// Starts the named AWS Glue crawler.
         /// </summary>
@@ -440,5 +487,7 @@ namespace Glue_Basics
             Console.WriteLine($"Could not start AWS Glue crawler, {crawlerName}.");
             return false;
         }
+
+        // snippet-end:[Glue.dotnetv3.GlueBasicsScenario.StartSpecificCrawlerAsync]
     }
 }
