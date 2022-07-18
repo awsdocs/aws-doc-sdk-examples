@@ -1577,6 +1577,15 @@ dynamodb_Scenario_PartiQLSingle:
             - description: Query single items.
               snippet_tags:
                 - javascript.dynamodb_scenarios.partiQL_basics
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.partiql_basics.getItem
+                - php.example_code.dynamodb.service.getItemByPartiQL
     Python:
       versions:
         - sdk_version: 3
@@ -1648,6 +1657,15 @@ dynamodb_Scenario_PartiQLBatch:
             - description: Query items by batch.
               snippet_tags:
                 - javascript.dynamodb_scenarios.partiQL_batch_basics
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.partiql_batch.getItem
+                - php.example_code.dynamodb.service.getItemByPartiQLBatch
     Python:
       versions:
         - sdk_version: 3
