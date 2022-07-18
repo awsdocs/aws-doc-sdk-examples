@@ -21,10 +21,11 @@ import aws.sdk.kotlin.services.cognitoidentityprovider.model.ChallengeNameType
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.ConfirmSignUpRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.InitiateAuthRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.InitiateAuthResponse
+import aws.sdk.kotlin.services.cognitoidentityprovider.model.ResendConfirmationCodeRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.RespondToAuthChallengeRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.SignUpRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.VerifySoftwareTokenRequest
-import java.util.Scanner
+import java.util.*
 import kotlin.system.exitProcess
 // snippet-end:[cognito.kotlin.mvp.import]
 
@@ -91,6 +92,7 @@ suspend fun main(args: Array<String>) {
 
     if (ans.compareTo("Yes") == 0) {
         println("*** Sending a new confirmation code")
+        resendConfirmationCode(clientId, userName)
     }
     println("*** Enter the confirmation code that was emailed")
     val code = inOb.nextLine()
@@ -113,6 +115,22 @@ suspend fun main(args: Array<String>) {
     val session2 = authResponse1.session
     adminRespondToAuthChallenge(userName, clientId, mfaCode, session2)
 }
+
+
+//snippet-start:[cognito.kotlin.confirm.resend.mvp.main]
+suspend fun resendConfirmationCode(clientIdVal: String?, userNameVal: String?) {
+
+    val codeRequest = ResendConfirmationCodeRequest{
+        clientId = clientIdVal
+        username = userNameVal
+    }
+
+    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+        val response= identityProviderClient.resendConfirmationCode(codeRequest)
+        println("Method of delivery is " + (response.codeDeliveryDetails?.deliveryMedium))
+    }
+}
+ //snippet-end:[cognito.kotlin.confirm.resend.mvp.main]
 
 //snippet-start:[cognito.kotlin.verify.main]
 // Respond to an authentication challenge.
@@ -208,6 +226,7 @@ suspend fun confirmSignUp(clientIdVal: String?, codeVal: String?, userNameVal: S
 //snippet-end:[cognito.kotlin.confirm.signup.mvp.main]
 
 
+//snippet-start:[cognito.kotlin.confirm.getuser.mvp.main]
 suspend fun getAdminUser(userNameVal: String?, poolIdVal: String?) {
 
     val userRequest = AdminGetUserRequest {
@@ -220,6 +239,7 @@ suspend fun getAdminUser(userNameVal: String?, poolIdVal: String?) {
         println("User status ${response.userStatus}")
     }
 }
+//snippet-end:[cognito.kotlin.confirm.getuser.mvp.main]
 
 //snippet-start:[cognito.kotlin.signup.mvp.main]
 suspend fun signUp(clientIdVal: String?, userNameVal: String?, passwordVal: String?, emailVal: String?) {
