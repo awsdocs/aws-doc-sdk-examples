@@ -21,6 +21,15 @@ cognito-identity-provider_SignUp:
   synopsis: sign up a user with &COG;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.signup.mvp.main
     Python:
       versions:
         - sdk_version: 3
@@ -39,6 +48,15 @@ cognito-identity-provider_AdminGetUser:
   synopsis: get information about an &COG; user.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.confirm.getuser.mvp.main
     Python:
       versions:
         - sdk_version: 3
@@ -57,6 +75,15 @@ cognito-identity-provider_ResendConfirmationCode:
   synopsis: resend an &COG; confirmation code.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.confirm.resend.mvp.main
     Python:
       versions:
         - sdk_version: 3
@@ -75,6 +102,15 @@ cognito-identity-provider_ConfirmSignUp:
   synopsis: confirm an &COG; user.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.confirm.signup.mvp.main
     Python:
       versions:
         - sdk_version: 3
@@ -93,6 +129,15 @@ cognito-identity-provider_ListUsers:
   synopsis: list &COG; users.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.ListUsers.main
     Python:
       versions:
         - sdk_version: 3
@@ -111,6 +156,15 @@ cognito-identity-provider_AdminInitiateAuth:
   synopsis: start authentication with &COG; and administrator credentials.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.initiateauth.main
     Python:
       versions:
         - sdk_version: 3
@@ -129,6 +183,15 @@ cognito-identity-provider_AssociateSoftwareToken:
   synopsis: get a token to associate an MFA application with an &COG; user.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.token.main
     Python:
       versions:
         - sdk_version: 3
@@ -147,6 +210,15 @@ cognito-identity-provider_VerifySoftwareToken:
   synopsis: verify an MFA application with an &COG; user.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.token.verify.main
     Python:
       versions:
         - sdk_version: 3
@@ -165,6 +237,15 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
   synopsis: respond to an &COG; authentication challenge.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.verify.main
     Python:
       versions:
         - sdk_version: 3
