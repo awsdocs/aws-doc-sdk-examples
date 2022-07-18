@@ -1270,6 +1270,17 @@ dynamodb_ExecuteStatement:
             - description: Delete an item using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.deleteItemV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.insertItemByPartiQL
+                - php.example_code.dynamodb.service.getItemByPartiQL
+                - php.example_code.dynamodb.service.updateItemByPartiQL
+                - php.example_code.dynamodb.service.deleteItemByPartiQL
     Python:
       versions:
         - sdk_version: 3
@@ -1345,6 +1356,17 @@ dynamodb_BatchExecuteStatement:
             - description: Delete a batch of items using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.deleteItemsV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.getItemByPartiQLBatch
+                - php.example_code.dynamodb.service.insertItemByPartiQLBatch
+                - php.example_code.dynamodb.service.updateItemByPartiQLBatch
+                - php.example_code.dynamodb.service.deleteItemByPartiQLBatch
     Python:
       versions:
         - sdk_version: 3
