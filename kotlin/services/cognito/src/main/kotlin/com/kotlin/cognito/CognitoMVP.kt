@@ -61,7 +61,7 @@ suspend fun main(args: Array<String>) {
             poolId - The pool Id that you can get from the AWS CDK script. 
     """
 
-    if (args.size != 1) {
+    if (args.size != 2) {
         println(usage)
         exitProcess(1)
     }
