@@ -11,9 +11,15 @@ The AWS SDK for Ruby provides a Ruby API for AWS infrastructure services. Using 
 
 * **Cross-service examples** - Sample applications that work across multiple AWS services.
 
-Single-service actions and scenarios are organized by AWS service in the [*example_code folder*](*link to example folder*). A README in each folder lists and describes how to run the examples.
+### Finding code examples
 
-Cross-service examples are located in the [*cross-services folder*](*link to cross-services folder*). A README in each folder describes how to run the example.
+Single-service actions and scenarios are organized by AWS service in the 
+[example_code folder](example_code). A README in each folder lists and describes how 
+to run the examples.
+
+There are currently no cross-service examples for the AWS SDK for Ruby.
+To request a cross-service example, create an issue in the 
+[AWS SDK Code Examples](https://github.com/awsdocs/aws-doc-sdk-examples/) repo.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
