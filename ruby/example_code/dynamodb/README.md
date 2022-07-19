@@ -1,4 +1,4 @@
-# AWS SDK for Ruby - Code Examples: DynamoDB
+#  DynamoDB code examples for the AWS SDK for Ruby
 
 ## Overview
 
