@@ -7,7 +7,7 @@ glue_GetCrawler:
   languages:
     .NET:
       versions:
-        - sdk_version:3
+        - sdk_version: 3
           github: dotnetv3/Glue
           sdkguide:
           excerpts:
