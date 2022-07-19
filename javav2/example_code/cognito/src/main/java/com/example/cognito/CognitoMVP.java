@@ -41,7 +41,6 @@ import java.util.Map;
 import java.util.Scanner;
 //snippet-end:[cognito.java2.mvp.import]
 
-
 //snippet-start:[cognito.java2.mvp.main]
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -50,7 +49,7 @@ import java.util.Scanner;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * TIP: To set up the required user pool, run the AWS CDK script provided in this GitHub repo at resources/cdk/cognito_scenario_user_pool_with_mfa.
+ * TIP: To set up the required user pool, run the AWS Cloud Development Kit (AWS CDK) script provided in this GitHub repo at resources/cdk/cognito_scenario_user_pool_with_mfa.
  *
  * This code example performs the following operations:
  *
@@ -76,10 +75,10 @@ public class CognitoMVP {
             "    clientId - The app client Id value that you can get from the AWS CDK script.\n\n" +
             "    poolId - The pool Id that you can get from the AWS CDK script. \n\n" ;
 
-         if (args.length != 2) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+           if (args.length != 2) {
+                   System.out.println(usage);
+                   System.exit(1);
+           }
 
         String clientId = args[0];
         String poolId = args[1];
@@ -90,7 +89,7 @@ public class CognitoMVP {
             .build();
 
         // Use the console to get data from the user.
-        System.out.println("*** Enter your use name");
+        System.out.println("*** Enter your user name");
         Scanner in = new Scanner(System.in);
         String userName = in.nextLine();
 
@@ -137,6 +136,7 @@ public class CognitoMVP {
         adminRespondToAuthChallenge(identityProviderClient, userName, clientId, mfaCode, session2);
     }
 
+    //snippet-start:[cognito.java2.verify.main]
     // Respond to an authentication challenge.
     public static void adminRespondToAuthChallenge(CognitoIdentityProviderClient identityProviderClient, String userName, String clientId, String mfaCode, String session) {
 
@@ -156,7 +156,9 @@ public class CognitoMVP {
         RespondToAuthChallengeResponse respondToAuthChallengeResult = identityProviderClient.respondToAuthChallenge(respondToAuthChallengeRequest);
         System.out.println("respondToAuthChallengeResult.getAuthenticationResult()" + respondToAuthChallengeResult.authenticationResult());
     }
+    //snippet-end:[cognito.java2.verify.main]
 
+    //snippet-start:[cognito.java2.token.verify.main]
     // Verify the TOTP and register for MFA.
     public static void verifyTOTP(CognitoIdentityProviderClient identityProviderClient, String session, String code) {
 
@@ -174,7 +176,9 @@ public class CognitoMVP {
             System.exit(1);
         }
     }
+    //snippet-end:[cognito.java2.token.verify.main]
 
+    //snippet-start:[cognito.java2.initiateauth.main]
     public static InitiateAuthResponse initiateAuth(CognitoIdentityProviderClient identityProviderClient, String clientId, String userName, String password) {
 
         try {
@@ -199,7 +203,9 @@ public class CognitoMVP {
 
         return null;
     }
+    //snippet-end:[cognito.java2.initiateauth.main]
 
+    //snippet-start:[cognito.java2.token.main]
     public static String getSecretForAppMFA(CognitoIdentityProviderClient identityProviderClient, String session) {
 
         AssociateSoftwareTokenRequest softwareTokenRequest = AssociateSoftwareTokenRequest.builder()
@@ -212,7 +218,9 @@ public class CognitoMVP {
         System.out.println(secretCode);
         return tokenResponse.session();
     }
+    //snippet-end:[cognito.java2.token.main]
 
+    //snippet-start:[cognito.java2.confirm.signup.mvp.main]
     public static void confirmSignUp(CognitoIdentityProviderClient identityProviderClient, String clientId, String code, String userName) {
 
         try {
@@ -230,7 +238,9 @@ public class CognitoMVP {
             System.exit(1);
         }
     }
+    //snippet-end:[cognito.java2.confirm.signup.mvp.main]
 
+    //snippet-start:[cognito.java2.confirm.resend.mvp.main]
     public static void resendConfirmationCode(CognitoIdentityProviderClient identityProviderClient, String clientId, String userName) {
 
         try {
@@ -247,7 +257,9 @@ public class CognitoMVP {
             System.exit(1);
         }
     }
+    //snippet-end:[cognito.java2.confirm.resend.mvp.main]
 
+    //snippet-start:[cognito.java2.signup.mvp.main]
     public static void signUp(CognitoIdentityProviderClient identityProviderClient, String clientId, String userName, String password, String email) {
 
         AttributeType userAttrs = AttributeType.builder()
@@ -274,7 +286,10 @@ public class CognitoMVP {
             System.exit(1);
         }
     }
+    //snippet-end:[cognito.java2.signup.mvp.main]
 
+
+    //snippet-start:[cognito.java2.confirm.getuser.mvp.main]
     public static void getAdminUser(CognitoIdentityProviderClient identityProviderClient, String userName, String poolId) {
 
         try {
@@ -291,5 +306,6 @@ public class CognitoMVP {
             System.exit(1);
         }
     }
+    //snippet-end:[cognito.java2.confirm.getuser.mvp.main]
 }
 //snippet-end:[cognito.java2.mvp.main]
