@@ -32,6 +32,10 @@ github.com/aws/aws-sdk-go-v2/service/sts v1.16.3 h1:cJGRyzCSVwZC7zZZ1xbx9m32UnrK
 github.com/aws/aws-sdk-go-v2/service/sts v1.16.3/go.mod h1:bfBj0iVmsUyUg4weDB4NxktD9rDGeKSVWnjTnwbx9b8=
 github.com/aws/smithy-go v1.11.2 h1:eG/N+CcUMAvsdffgMvjMKwfyDzIkjM6pfxMJ8Mzc6mE=
 github.com/aws/smithy-go v1.11.2/go.mod h1:3xHYmszWVx2c0kIwQeEVf9uSm4fYZt67FBJnwub1bgM=
+github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools v0.0.0-20220706224858-5c7f475624dc h1:GXIhJ+DrwX3Jy97Tvr0RsMSWa71jkZMHEJA906F/dMs=
+github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools v0.0.0-20220706224858-5c7f475624dc/go.mod h1:0r22nlw0YYkUMowQkNluzs2dc8kf6s2bg9Oema9TzlE=
+github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools v0.0.0-20220706224858-5c7f475624dc h1:so4oHlm/tkXyJLgrGNny31jqppmezivsObRCmHwMCLU=
+github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools v0.0.0-20220706224858-5c7f475624dc/go.mod h1:eYo61vnozsPsxLFPmQOkdDAvn0K6EX1wDrf+3IZM514=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
