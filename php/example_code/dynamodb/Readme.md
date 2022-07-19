@@ -60,6 +60,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
 * [Getting started with DynamoDB](dynamodb_basics/GettingStartedWithDynamoDB.php)
+* [Getting started with DynamoDB and PartiQL](dynamodb_basics/GettingStartedWithPartiQL.php)
+* [Getting started with PartiQL Batching](dynamodb_basics/GettingStartedWithPartiQLBatch.php)
 
 ## Running the examples
 **Getting started with DynamoDB**
@@ -111,6 +113,9 @@ following:
 ```
 ..\..\vendor\bin\phpunit PartiQLBasicsTests.php
 ```
+
+*Note: `batchExecuteStatement` examples are found in `GettingStartedWithPartiQLBatch.php`. To run this example with 
+`Runner.php`, edit the file and change all instances of `GettingStartedWithPartiQL` to `GettingStartedWithPartiQLBatch`.
 
 ### Prerequisites
 
