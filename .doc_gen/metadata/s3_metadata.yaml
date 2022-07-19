@@ -295,6 +295,12 @@ s3_DeleteObject:
             - description: Revive a deleted object by removing the object's active delete marker.
               snippet_tags:
                 - s3.python.versioning.revive_object
+            - description:
+                Create a &LAM; handler that removes a delete marker from
+                an &S3; object. This handler can be used to efficiently clean up
+                extraneous delete markers in a versioned bucket.
+              snippet_tags:
+                - s3.python.lambda.remove_delete_marker
     Rust:
       versions:
         - sdk_version: 1
@@ -1566,26 +1572,6 @@ s3_Scenario_TransferManager:
                 - python.example_code.s3.Scenario_FileTransfer_Demo
   services:
     s3: {}
-s3_Scenario_RemoveDeleteMarkers:
-  title: Remove delete markers from versioned &S3; objects using an &AWS; SDK
-  title_abbrev: Remove delete markers from versioned objects
-  synopsis: remove delete markers from versioned &S3; objects.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_versioning
-          sdkguide:
-          excerpts:
-            - description:
-                Create a &LAM; handler that removes a delete marker from
-                an &S3; object. This handler can be used to efficiently clean up
-                extraneous delete markers in a versioned bucket.
-              snippet_tags:
-                - s3.python.lambda.remove_delete_marker
-  services:
-    s3: {}
 s3_Scenario_BatchObjectVersioning:
   title: Manage versioned &S3; objects in batches with a &LAM; function using an &AWS; SDK
   title_abbrev: Manage versioned objects in batches with a &LAM; function
@@ -1664,7 +1650,12 @@ s3_Scenario_PresignedUrl:
 s3_Scenario_ObjectVersioningUsage:
   title: Work with &S3; versioned objects using an &AWS; SDK
   title_abbrev: Work with versioned objects
-  synopsis: work with &S3; versioned objects.
+  synopsis_list:
+    - Create a versioned &S3; bucket.
+    - Get all versions of an object.
+    - Roll an object back to a previous version.
+    - Delete and restore a versioned object.
+    - Permanently delete all versions of an object.
   category: Scenarios
   languages:
     Python:
@@ -1673,14 +1664,19 @@ s3_Scenario_ObjectVersioningUsage:
           github: python/example_code/s3/s3_versioning
           sdkguide:
           excerpts:
+            - description: Create functions that wrap &S3; actions.
+              snippet_tags:
+                - s3.python.versioning.create_versioned_bucket
+                - s3.python.versioning.rollback_object
+                - s3.python.versioning.revive_object
+                - s3.python.versioning.permanently_delete_object
             - description:
-                Call some of the functions defined in the API examples
-                section to upload the stanza of a poem to a versioned object and
+                Upload the stanza of a poem to a versioned object and
                 perform a series of actions on it.
               snippet_tags:
                 - python.example_code.s3.Scenario_ObjectVersions
   services:
-    s3: {}
+    s3: {CreateBucket, PutBucketLifecycleConfiguration, ListObjectVersions, DeleteObject}
 s3_GetBucketLocation:
   title: Get the Region where the &S3; bucket resides using an &AWS; SDK
   title_abbrev: Get the Region location for a bucket
