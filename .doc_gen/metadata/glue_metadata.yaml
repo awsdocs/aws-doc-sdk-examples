@@ -12,7 +12,8 @@ glue_GetCrawler:
           sdkguide:
           excerpts:
             - description:
-              - Glue.dotnetv3.GlueBasicsScenario.GetSpecificCrawlerAsync
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetSpecificCrawlerAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -101,8 +102,8 @@ glue_StartCrawler:
           sdkguide:
           excerpts:
             - description:
-            snippet_tags:
-              - Glue.dotnetv3.GlueBasicsScenario.StartSpecificCrawlerAsync
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.StartSpecificCrawlerAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -187,11 +188,12 @@ glue_GetTables:
     .NET:
       versions:
         - sdk_version: 3
-        github: dotnetv3/Glue
-        sdkguide:
-          - description:
-            snippet_tags:
-              - Glue.dotnetv3.GlueBasicsScenario.GetGlueTablesAsync
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetGlueTablesAsync
     Java:
       versions:
         - sdk_version: 2
@@ -222,12 +224,12 @@ glue_CreateJob:
     .NET:
       versions:
         - sdk_version: 3
-        github: dotnetv3/Glue
-        sdkguide:
-        excerpts:
-          - description:
-            snippet_tags:
-              - Glue.dotnetv3.GlueBasicsScenario.CreateJobAsync
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.CreateJobAsync
     Python:
       versions:
         - sdk_version: 3
