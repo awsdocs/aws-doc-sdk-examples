@@ -61,7 +61,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 * [Getting started with DynamoDB](dynamodb_basics/GettingStartedWithDynamoDB.php)
 * [Getting started with DynamoDB and PartiQL](dynamodb_basics/GettingStartedWithPartiQL.php)
-* [Getting started with PartiQL Batching](dynamodb_basics/GettingStartedWithPartiQLBatch.php)
+* [Getting started with PartiQL batching](dynamodb_basics/GettingStartedWithPartiQLBatch.php)
 
 ## Running the examples
 **Getting started with DynamoDB**
@@ -91,8 +91,8 @@ following:
 **Getting started with DynamoDB and PartiQL**
 
 This scenario shows you how to create an Amazon DynamoDB table for storing movie data. The scenario loads movies into
-the table from a JSON-formatted file and walks you through an interactive demo to add, update, and delete movies using
-PartiQL (both with `executeStatement` and `batchExecuteStatement`).
+the table from a JSON-formatted file and walks you through an interactive demo to add, update, and delete movies by 
+using PartiQL (both with `executeStatement` and `batchExecuteStatement`).
 
 Run the following from the `aws-doc-sdk-examples\php\dynamodb\partiql_basics` directory:
 

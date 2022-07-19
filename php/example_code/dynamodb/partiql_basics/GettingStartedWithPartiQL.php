@@ -129,7 +129,7 @@ class GettingStartedWithPartiQL
 # snippet-end:[php.example_code.dynamodb.partiql_basics.updateItem]
 
         $movie = $service->getItemByPartiQL($tableName, $key);
-        echo "Ok, you have rated {$movie['Items'][0]['title']['S']} as a {$movie['Items'][0]['rating']['N']}\n";
+        echo "Okay, you have rated {$movie['Items'][0]['title']['S']} as a {$movie['Items'][0]['rating']['N']}\n";
 
 # snippet-start:[php.example_code.dynamodb.partiql_basics.deleteItem]
         $service->deleteItemByKey($tableName, $key);

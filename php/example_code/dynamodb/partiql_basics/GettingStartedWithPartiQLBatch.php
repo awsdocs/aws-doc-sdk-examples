@@ -128,7 +128,7 @@ class GettingStartedWithPartiQLBatch
 # snippet-end:[php.example_code.dynamodb.partiql_batch.updateItem]
 
         $movie = $service->getItemByPartiQLBatch($tableName, [$key]);
-        echo "Ok, you have rated {$movie['Responses'][0]['Item']['title']['S']} 
+        echo "Okay, you have rated {$movie['Responses'][0]['Item']['title']['S']} 
         as a {$movie['Responses'][0]['Item']['rating']['N']}\n";
 
 # snippet-start:[php.example_code.dynamodb.partiql_batch.deleteItem]
