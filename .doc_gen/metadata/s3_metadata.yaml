@@ -1045,6 +1045,7 @@ s3_PutObject:
                 - s3.swift.basics.handler.uploadfile
             - description: Upload the contents of a Swift Data object to a
             bucket.
+              snippet_tags:
                 - s3.swift.basics.handler.createfile
   services:
     s3: {PutObject}
