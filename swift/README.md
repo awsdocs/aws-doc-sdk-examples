@@ -40,6 +40,9 @@ To run the tests for an example, use the command `swift test` in the example's d
 * [AWS SDK for Swift project on
   GitHub](https://github.com/awslabs/aws-sdk-swift): Contribute to the AWS SDK
   for Swift
+* [AWS SDK for Swift project on
+  GitHub](https://github.com/awslabs/aws-sdk-swift): Contribute to the AWS SDK
+  for Swift
 * [The Swift Programming Language](https://docs.swift.org/swift-book): The
   definitive reference and guide for Swift programmers
 
