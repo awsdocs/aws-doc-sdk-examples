@@ -237,7 +237,7 @@ final class BasicsTests: XCTestCase {
             _ = try await createTestBucket(name: bucketName)
             XCTFail("CreateBucket should fail when given the name of an existing bucket")
         } catch {
-            return      // This is an expected error
+            return      // This is an expected error.
         }
     }
 
@@ -248,7 +248,7 @@ final class BasicsTests: XCTestCase {
             _ = try await createTestBucket(name: String.uniqueName(isValid: false))
             XCTFail("CreateBucket should throw an exception when given an invalid bucket name")
         } catch {
-            return      // This is an expected error
+            return      // This is an expected error.
         }
     }
 
@@ -367,9 +367,9 @@ final class BasicsTests: XCTestCase {
                 // Attempt to copy the file.
 
                 let destFileInfo = try await copyTestFile(fileInfo: srcFileInfo, to: destBucketName)
-                XCTFail("Copying file to a non-existent bucket didn't fail like it should")
+                XCTFail("Copying file to a nonexistent bucket didn't fail like it should")
             } catch {
-                return      // An error is a success case here
+                return      // An error is a success case here.
             }
         } catch {
             throw error
@@ -389,7 +389,7 @@ final class BasicsTests: XCTestCase {
                                 withParagraphs: Int.random(in: 1...15))
             }
 
-            // Get a list of the contents of the bucket
+            // Get a list of the contents of the bucket.
 
             let fileNames = try await listTestFiles(bucket: bucketName)
             let listedFileCount = fileNames.count
@@ -410,8 +410,8 @@ final class BasicsTests: XCTestCase {
 
             XCTAssertEqual(listedFileCount, expectedFileCount, "Number of files found in the bucket (\(listedFileCount)) doesn't equal the expected number (\(expectedFileCount))")
 
-            // Make sure that both every file that exists is one we expect, and
-            // that every file we expect to see is present.
+            // Make sure that very file that exists is one we expect, and also
+            // make sure that every file we expect to see is present.
 
             for name in fileNames {
                 if expectedNames.contains(name) {

@@ -77,9 +77,9 @@ public class ServiceHandler {
     /// file's contents are uploaded from a `Data` object.
     ///
     /// - Parameters:
-    ///   - bucket: Name of the bucket to create a file in
-    ///   - key: Name of the file to create
-    ///   - data: A `Data` object to write into the new file
+    ///   - bucket: Name of the bucket to create a file in.
+    ///   - key: Name of the file to create.
+    ///   - data: A `Data` object to write into the new file.
     public func createFile(bucket: String, key: String, withData data: Data) async throws {
         let dataStream = ByteStream.from(data: data)
 
@@ -95,10 +95,10 @@ public class ServiceHandler {
     /// Download the named file to the given directory on the local device.
     ///
     /// - Parameters:
-    ///   - bucket: Name of the bucket containing the file to be copied
-    ///   - key: The name of the file to copy from the bucket
-    ///   - to: The path of the directory on the local device to download
-    ///     the file into
+    ///   - bucket: Name of the bucket that contains the file to be copied.
+    ///   - key: The name of the file to copy from the bucket.
+    ///   - to: The path of the directory on the local device where you want to
+    ///     download the file.
     // snippet-start:[s3.swift.basics.handler.downloadfile]
     public func downloadFile(bucket: String, key: String, to: String) async throws {
         let fileUrl = URL(fileURLWithPath: to).appendingPathComponent(key)
@@ -122,8 +122,8 @@ public class ServiceHandler {
     /// `Data` object.
     ///
     /// - Parameters:
-    ///   - bucket: Name of the bucket containing the file to read
-    ///   - key: Name of the file within the bucket to read
+    ///   - bucket: Name of the bucket containing the file to read.
+    ///   - key: Name of the file within the bucket to read.
     ///
     /// - Returns: A `Data` object containing the complete file data.
     // snippet-start:[s3.swift.basics.handler.readfile]
@@ -147,9 +147,9 @@ public class ServiceHandler {
     /// Copy a file from one bucket to another.
     ///
     /// - Parameters:
-    ///   - sourceBucket: Name of the bucket containing the source file
-    ///   - name: Name of the source file
-    ///   - destBucket: Name of the bucket to copy the file into
+    ///   - sourceBucket: Name of the bucket containing the source file.
+    ///   - name: Name of the source file.
+    ///   - destBucket: Name of the bucket to copy the file into.
     // snippet-start:[s3.swift.basics.handler.copyfile]
     public func copyFile(from sourceBucket: String, name: String, to destBucket: String) async throws {
         let srcUrl = ("\(sourceBucket)/\(name)").addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
@@ -166,8 +166,8 @@ public class ServiceHandler {
     /// Deletes the specified file from Amazon S3.
     ///
     /// - Parameters:
-    ///   - bucket: Name of the bucket containing the file to delete
-    ///   - key: Name of the file to delete
+    ///   - bucket: Name of the bucket containing the file to delete.
+    ///   - key: Name of the file to delete.
     ///
     // snippet-start:[s3.swift.basics.handler.deletefile]
     public func deleteFile(bucket: String, key: String) async throws {
@@ -188,7 +188,7 @@ public class ServiceHandler {
     /// Returns an array of strings, each naming one file in the
     /// specified bucket.
     ///
-    /// - Parameter bucket: Name of the bucket to get a file listing for
+    /// - Parameter bucket: Name of the bucket to get a file listing for.
     /// - Returns: An array of `String` objects, each giving the name of
     ///            one file contained in the bucket.
     public func listBucketFiles(bucket: String) async throws -> [String] {
