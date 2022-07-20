@@ -1043,8 +1043,7 @@ s3_PutObject:
             - description: Upload a file from local storage to a bucket.
               snippet_tags:
                 - s3.swift.basics.handler.uploadfile
-            - description: Upload the contents of a Swift Data object to a
-            bucket.
+            - description: Upload the contents of a Swift Data object to a bucket.
               snippet_tags:
                 - s3.swift.basics.handler.createfile
   services:
