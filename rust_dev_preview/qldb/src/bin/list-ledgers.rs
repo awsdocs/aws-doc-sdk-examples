@@ -25,9 +25,9 @@ async fn show_ledgers(client: &QLDBClient) -> Result<(), Error> {
     let mut pages = client.list_ledgers().into_paginator().page_size(2).send();
 
     while let Some(page) = pages.next().await {
-        println!("* {:?}", page); //prints an entire page of ledgers
+        println!("* {:?}", page); //Prints an entire page of ledgers.
         for ledger in page.unwrap().ledgers().unwrap() {
-            println!("* {:?}", ledger); //prints the LedgerSummary of a single ledger
+            println!("* {:?}", ledger); //Prints the LedgerSummary of a single ledger.
         }
     }
 
