@@ -717,6 +717,7 @@ s3_GetObject:
               snippet_tags:
                 - s3.swift.basics.handler.downloadfile
             - description: Read an object into a Swift Data object.
+              snippet_tags:
                 - s3.swift.basics.handler.readfile
   services:
     s3: {GetObject}
