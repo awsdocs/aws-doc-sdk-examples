@@ -36,6 +36,8 @@ Resources:
           - - "{{resolve:secretsmanager:"
             - Ref: docexampleauroraappsecret8BAF8B56
             - :SecretString:password::}}
+      ScalingConfiguration:
+        AutoPause: false
       StorageEncrypted: true
       VpcSecurityGroupIds: []
     UpdateReplacePolicy: Snapshot
