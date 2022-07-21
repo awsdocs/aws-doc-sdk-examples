@@ -164,7 +164,7 @@ comprehend_Usage_ComprehendClassifier:
               snippet_tags:
                 - python.example_code.comprehend.helper.ClassifierDemo_class
             - description: Train a classifier on a set of GitHub issues with known labels,
-                then send a second set of GitHub issues to the classifier so they can be labeled.
+                then send a second set of GitHub issues to the classifier so that they can be labeled.
               snippet_tags:
                 - python.example_code.comprehend.Scenario_CustomClassifier
   services:

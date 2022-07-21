@@ -289,8 +289,8 @@ api-gateway_Usage_CreateDeployRest:
   title_abbrev: Create and deploy a REST API
   synopsis_list:
     - Create a REST API served by &ABP;.
-    - Add resources to the REST API that represent a user profile.
-    - Add integration methods so the REST API uses a &DDB; table to store user profile data.
+    - Add resources to the REST API to represent a user profile.
+    - Add integration methods so that the REST API uses a &DDB; table to store user profile data.
     - Send HTTP requests to the REST API to add and retrieve user profiles.
   category: Scenarios
   languages:

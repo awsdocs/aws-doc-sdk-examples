@@ -394,7 +394,7 @@ iam_Scenario_AccountManagement:
     - Generate a report of users and their credentials.
     - Get a summary of account usage.
     - Get details about all users, groups, roles, and policies in your account, including
-      their relationships to one another.
+      their relationships to each other.
   category: Scenarios
   languages:
     Python:
