@@ -10,11 +10,13 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
 
-      # The Add Labels workflow will apply a label based on the
-      # paths that are modified in the pull request.
+      # The Add Labels workflow adds a label to pull requests
+      # based on the files included in the proposed change.
       #
-      # To use this workflow, you will need to set up a .github/label-ruleset.yml
-      # file with configuration.  For more information, see:
+      # To use this workflow, you must set up and configure 
+      # rules in a .github/label-ruleset.yml file 
+      #
+      # For more information, see:
       # https://github.com/actions/labeler
       -
         name: Add Labels
@@ -23,10 +25,12 @@ jobs:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: .github/label-ruleset.yml
 
-      # The Audit Labels workflow will manage labels in
-      # GitHub (create/rename/update/delete) as code.
+      # The Audit Labels workflow creates, renames, updates
+      # or deletes labels based on a list of allowed labels.
       #
-      # Existing labels are located in a .github/allowed-labels.yml
+      # To use this workflow, you must set up and configure 
+      # labels in a .github/allowed-labels.yml file
+      #
       # For more information, see:
       # https://github.com/crazy-max/ghaction-github-labeler
       -
