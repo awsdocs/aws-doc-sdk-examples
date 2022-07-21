@@ -14,3 +14,4 @@ venv
 xcuserdata
 .swiftpm
 Package.resolved
+super-linter.log
