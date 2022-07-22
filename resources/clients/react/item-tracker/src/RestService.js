@@ -49,6 +49,6 @@ export const archiveItem = async (itemId) => {
  * @param email: The report recipient's email address.
  * @returns {Promise<void>}
  */
-export const mailItem = async (email) => {
-  await axios.post(`${configData.BASE_URL}/report`, {email: email});
+export const mailItem = async (email, status) => {
+  await axios.post(`${configData.BASE_URL}/report`, {email: email, status: status});
 }

@@ -16,7 +16,9 @@ The web client is designed to send requests to one of the following sample appli
 Each sample application shows you how to use an AWS SDK to store work items using AWS 
 resources:
 
-* [TBD: sample application for an SDK]()
+* [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](../../../../javav2/usecases/Creating_Spring_RDS_%20Rest)
+* [Creating the Amazon Aurora Serverless backend using the AWS SDK for PHP](../../../../php/cross_service/aurora_item_tracker)
+* [Tracking work items in an Aurora Serverless database with the SDK for Python](../../../../python/cross_service/aurora_item_tracker)
 
 ## Running the client
 
@@ -58,11 +60,12 @@ retrieve any existing active work items and displays them in a table.
 
 The web client sends the following REST requests to the REST endpoint:
 
+#### GET /items
 #### GET /items/&lt;state>
 
-Retrieves a list of work items with the specified state from the endpoint.
-
-* `state` can be either `active` or `archive`.
+Retrieves a list of work items. The default route returns all active items. Optional states are `archive`
+for archived items and `all` for all items regardless of state.
+* 
 * Items are expected to be a JSON array of items that each have the following fields:
 
     ```
@@ -102,10 +105,13 @@ Archives an active work item.
 
 Sends an email report of work items.
 
-* The body of the request is a single item in JSON format.
+* The body of the request has the target email and the currently shown state in JSON format.
 
     ```
-    {"email": "<recipient's email address>"}
+    {
+        "email": "<recipient's email address>",
+        "status": "<blank>|all|archive"
+    }
     ```
 
 ### Run the tests
