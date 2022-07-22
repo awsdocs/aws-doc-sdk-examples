@@ -386,6 +386,7 @@ glue_DeleteDatabase:
     .NET:
       versions:
         - sdk_version: 3
+          github: dotnetv3/Glue
           sdkguide:
           excerpts:
             - description:
