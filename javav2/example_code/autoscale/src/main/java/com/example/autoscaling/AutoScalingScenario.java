@@ -2,7 +2,6 @@
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon EC2 Auto Scaling]
 
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
