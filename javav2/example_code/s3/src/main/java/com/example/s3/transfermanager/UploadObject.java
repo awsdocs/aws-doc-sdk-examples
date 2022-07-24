@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[UploadObject.java demonstrates how to upload an object to an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -11,7 +8,6 @@
 */
 package com.example.transfermanager;
 
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.transfer.s3.FileUpload;
@@ -30,12 +26,12 @@ public class UploadObject {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <bucketName> <objectKey> <objectPath> \n\n" +
-                "Where:\n" +
-                "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
-                "  objectKey - The object to upload (for example, book.pdf).\n" +
-                "  objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
+            "Usage:\n" +
+            "  <bucketName> <objectKey> <objectPath> \n\n" +
+            "Where:\n" +
+            "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
+            "  objectKey - The object to upload (for example, book.pdf).\n" +
+            "  objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
 
        if (args.length != 3) {
             System.out.println(usage);
