@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateDataSet.java demonstrates how to create a data set for the Amazon Forecast service.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,12 +33,12 @@ public class CreateDataSet {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <name> \n\n" +
-                "Where:\n" +
-                "    name - The name of the data set. \n\n" ;
+            "Usage:\n" +
+            "    <name> \n\n" +
+            "Where:\n" +
+            "    name - The name of the data set. \n\n" ;
 
-       if (args.length != 1) {
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -50,9 +46,9 @@ public class CreateDataSet {
         String name = args[0];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String myDataSetARN = createForecastDataSet(forecast, name);
         System.out.println("The ARN of the new data set is "+myDataSetARN) ;
@@ -62,7 +58,7 @@ public class CreateDataSet {
     // snippet-start:[forecast.java2.create_forecast_dataset.main]
     public static String createForecastDataSet(ForecastClient forecast, String name) {
 
-       try {
+        try {
             Schema schema = Schema.builder()
                 .attributes(getSchema())
                 .build();
@@ -89,22 +85,21 @@ public class CreateDataSet {
     // Create a SchemaAttribute list required to create a data set.
     private static List<SchemaAttribute> getSchema() {
 
-        List<SchemaAttribute> schemaList = new ArrayList();
-
+        List<SchemaAttribute> schemaList = new ArrayList<>();
         SchemaAttribute att1 = SchemaAttribute.builder()
-                .attributeName("item_id")
-                .attributeType("string")
-                .build();
+            .attributeName("item_id")
+            .attributeType("string")
+            .build();
 
         SchemaAttribute att2 = SchemaAttribute.builder()
-                .attributeName("timestamp")
-                .attributeType("timestamp")
-                .build();
+            .attributeName("timestamp")
+            .attributeType("timestamp")
+            .build();
 
         SchemaAttribute att3 = SchemaAttribute.builder()
-                .attributeName("target_value")
-                .attributeType("float")
-                .build();
+            .attributeName("target_value")
+            .attributeType("float")
+            .build();
 
         // Push the SchemaAttribute objects to the List.
         schemaList.add(att1);

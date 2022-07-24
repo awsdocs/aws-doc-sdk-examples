@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteForecast.java demonstrates how to delete a forecast that belongs to the Amazon Forecast service.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class DeleteForecast {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <forecastArn> \n\n" +
-                "Where:\n" +
-                "    forecastArn - The ARN that belongs to the forecast to delete. \n\n" ;
+            "Usage:\n" +
+            "    <forecastArn> \n\n" +
+            "Where:\n" +
+            "    forecastArn - The ARN that belongs to the forecast to delete. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class DeleteForecast {
         String forecastArn = args[0];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         delForecast(forecast, forecastArn) ;
         forecast.close();
@@ -58,8 +55,8 @@ public class DeleteForecast {
 
         try {
             DeleteForecastRequest forecastRequest = DeleteForecastRequest.builder()
-                    .forecastArn(forecastArn)
-                    .build() ;
+                .forecastArn(forecastArn)
+                .build() ;
 
             forecast.deleteForecast(forecastRequest);
             System.out.println("The forecast was successfully deleted");
