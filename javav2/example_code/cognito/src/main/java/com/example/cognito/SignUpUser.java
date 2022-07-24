@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -44,14 +43,14 @@ public class SignUpUser {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <clientId> <secretkey> <userName> <password> <email>\n\n" +
-                "Where:\n" +
-                "    clientId - The app client id value that you can obtain from the AWS Management Console.\n\n" +
-                "    secretkey - The app client secret value that you can obtain from the AWS Management Console.\n\n" +
-                "    userName - The user name of the user you wish to register.\n\n" +
-                "    password - The password for the user.\n\n" +
-                "    email - The email address for the user.\n\n";
+            "Usage:\n" +
+            "    <clientId> <secretkey> <userName> <password> <email>\n\n" +
+            "Where:\n" +
+            "    clientId - The app client id value that you can obtain from the AWS Management Console.\n\n" +
+            "    secretkey - The app client secret value that you can obtain from the AWS Management Console.\n\n" +
+            "    userName - The user name of the user you wish to register.\n\n" +
+            "    password - The password for the user.\n\n" +
+            "    email - The email address for the user.\n\n";
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -65,9 +64,9 @@ public class SignUpUser {
         String email = args[4];
 
         CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         signUp(identityProviderClient, clientId, secretKey, userName, password, email);
         identityProviderClient.close();
@@ -82,22 +81,21 @@ public class SignUpUser {
                                   String email) {
 
         AttributeType attributeType = AttributeType.builder()
-                .name("email")
-                .value(email)
-                .build();
+            .name("email")
+            .value(email)
+            .build();
 
         List<AttributeType> attrs = new ArrayList<>();
         attrs.add(attributeType);
-
        try {
            String secretVal = calculateSecretHash(clientId, secretKey, userName);
            SignUpRequest signUpRequest = SignUpRequest.builder()
-                   .userAttributes(attrs)
-                   .username(userName)
-                   .clientId(clientId)
-                   .password(password)
-                   .secretHash(secretVal)
-                   .build();
+               .userAttributes(attrs)
+               .username(userName)
+               .clientId(clientId)
+               .password(password)
+               .secretHash(secretVal)
+               .build();
 
            identityProviderClient.signUp(signUpRequest);
            System.out.println("User has been signed up");
@@ -116,8 +114,8 @@ public class SignUpUser {
         final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
 
         SecretKeySpec signingKey = new SecretKeySpec(
-                userPoolClientSecret.getBytes(StandardCharsets.UTF_8),
-                HMAC_SHA256_ALGORITHM);
+            userPoolClientSecret.getBytes(StandardCharsets.UTF_8),
+            HMAC_SHA256_ALGORITHM);
 
         Mac mac = Mac.getInstance(HMAC_SHA256_ALGORITHM);
         mac.init(signingKey);

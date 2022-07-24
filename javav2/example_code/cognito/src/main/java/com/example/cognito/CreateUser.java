@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -19,6 +18,9 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreate
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
+
+import java.util.ArrayList;
+import java.util.List;
 //snippet-end:[cognito.java2.new_admin_user.import]
 
 /**
@@ -32,13 +34,13 @@ public class CreateUser {
 
     public static void main(String[] args) {
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <userPoolId> <userName> <email> <password>\n\n" +
-                "Where:\n" +
-                "    userPoolId - The Id value for the user pool where the user is created.\n\n" +
-                "    userName - The user name for the new user.\n\n" +
-                "    email - The email to use for verifying the user.\n\n" +
-                "    password - The password for this user.\n\n" ;
+            "Usage:\n" +
+            "    <userPoolId> <userName> <email> <password>\n\n" +
+            "Where:\n" +
+            "    userPoolId - The Id value for the user pool where the user is created.\n\n" +
+            "    userName - The user name for the new user.\n\n" +
+            "    email - The email to use for verifying the user.\n\n" +
+            "    password - The password for this user.\n\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -51,9 +53,9 @@ public class CreateUser {
         String password = args[3];
 
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createNewUser(cognitoClient, userPoolId, userName, email, password);
         cognitoClient.close();
@@ -68,9 +70,18 @@ public class CreateUser {
 
         try{
             AttributeType userAttrs = AttributeType.builder()
-                    .name("email")
-                    .value(email)
-                    .build();
+                .name("email")
+                .value(email)
+                .build();
+
+            AttributeType userAttrs1 = AttributeType.builder()
+                .name("autoVerifyEmail")
+                .value("true")
+                .build();
+
+            List<AttributeType> userAttrsList = new ArrayList<>();
+            userAttrsList.add(userAttrs);
+            userAttrsList.add(userAttrs1);
 
             AdminCreateUserRequest userRequest = AdminCreateUserRequest.builder()
                     .userPoolId(userPoolId)

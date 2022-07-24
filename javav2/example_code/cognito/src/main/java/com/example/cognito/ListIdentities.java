@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,10 +32,10 @@ public class ListIdentities {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <identityPoolId>\n\n" +
-                "Where:\n" +
-                "    identityPoolId - The id value of your identity pool (for example, us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx).\n\n" ;
+            "Usage:\n" +
+            "    <identityPoolId>\n\n" +
+            "Where:\n" +
+            "    identityPoolId - The id value of your identity pool (for example, us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx).\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +44,9 @@ public class ListIdentities {
 
         String identityPoolId = args[0];
         CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listPoolIdentities(cognitoClient, identityPoolId);
         cognitoClient.close();
@@ -58,15 +57,14 @@ public class ListIdentities {
 
         try {
             ListIdentitiesRequest identitiesRequest = ListIdentitiesRequest.builder()
-                    .identityPoolId(identityPoolId)
-                    .maxResults(15)
-                    .build() ;
+                .identityPoolId(identityPoolId)
+                .maxResults(15)
+                .build() ;
 
             ListIdentitiesResponse response = cognitoClient.listIdentities(identitiesRequest);
             response.identities().forEach(identity -> {
                 System.out.println("The ID is : "+identity.identityId());
-                }
-            );
+            });
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

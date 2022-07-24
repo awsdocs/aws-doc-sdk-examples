@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,9 +32,9 @@ public class ListUserPools {
     public static void main(String[] args) {
 
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllUserPools(cognitoClient) ;
         cognitoClient.close();
@@ -46,14 +45,13 @@ public class ListUserPools {
 
         try {
             ListUserPoolsRequest request = ListUserPoolsRequest.builder()
-                    .maxResults(10)
-                    .build();
+                .maxResults(10)
+                .build();
 
             ListUserPoolsResponse response = cognitoClient.listUserPools(request);
             response.userPools().forEach(userpool -> {
-                        System.out.println("User pool " + userpool.name() + ", User ID " + userpool.id() );
-                    }
-            );
+                System.out.println("User pool " + userpool.name() + ", User ID " + userpool.id() );
+            });
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

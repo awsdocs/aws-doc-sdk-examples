@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +31,10 @@ public class ListUserPoolClients {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    ListUserPoolClients <userPoolId> \n\n" +
-                "Where:\n" +
-                "    userPoolId - The ID given to your user pool.\n\n" ;
+            "Usage:\n" +
+            "    ListUserPoolClients <userPoolId> \n\n" +
+            "Where:\n" +
+            "    userPoolId - The ID given to your user pool.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +43,9 @@ public class ListUserPoolClients {
 
         String userPoolId = args[0];
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllUserPoolClients(cognitoClient, userPoolId ) ;
         cognitoClient.close();
@@ -57,13 +56,12 @@ public class ListUserPoolClients {
 
         try {
             ListUserPoolClientsResponse response = cognitoClient.listUserPoolClients(ListUserPoolClientsRequest.builder()
-                    .userPoolId(userPoolId)
-                    .build());
+                .userPoolId(userPoolId)
+                .build());
 
             response.userPoolClients().forEach(userPoolClient -> {
                 System.out.println("User pool client " + userPoolClient.clientName() + ", Pool ID " + userPoolClient.userPoolId() + ", Client ID " + userPoolClient.clientId() );
-                    }
-            );
+            });
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

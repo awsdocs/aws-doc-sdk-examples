@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +31,10 @@ public class GetIdentityCredentials {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <identityId> \n\n" +
-                "Where:\n" +
-                "    identityId - The Id of an existing identity.\n\n" ;
+            "Usage:\n" +
+            "    <identityId> \n\n" +
+            "Where:\n" +
+            "    identityId - The Id of an existing identity.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +43,9 @@ public class GetIdentityCredentials {
 
         String identityId = args[0];
         CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getCredsForIdentity(cognitoClient, identityId);
         cognitoClient.close();
@@ -54,11 +53,10 @@ public class GetIdentityCredentials {
 
     //snippet-start:[cognito.java2.GetIdentityCredentials.main]
     public static void getCredsForIdentity(CognitoIdentityClient cognitoClient, String identityId) {
-
         try {
             GetCredentialsForIdentityRequest getCredentialsForIdentityRequest = GetCredentialsForIdentityRequest.builder()
-                    .identityId(identityId)
-                    .build();
+                .identityId(identityId)
+                .build();
 
             GetCredentialsForIdentityResponse response = cognitoClient.getCredentialsForIdentity(getCredentialsForIdentityRequest);
             System.out.println("Identity ID " + response.identityId() + ", Access key ID " + response.credentials().accessKeyId());

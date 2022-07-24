@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +31,10 @@ public class CreateUserPool {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <userPoolName> \n\n" +
-                "Where:\n" +
-                "    userPoolName - The name to give your user pool when it's created.\n\n" ;
+            "Usage:\n" +
+            "    <userPoolName> \n\n" +
+            "Where:\n" +
+            "    userPoolName - The name to give your user pool when it's created.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +43,9 @@ public class CreateUserPool {
 
         String userPoolName = args[0];
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String id = createPool(cognitoClient,userPoolName);
         System.out.println("User pool ID: " + id);
@@ -57,11 +56,11 @@ public class CreateUserPool {
     public static String createPool(CognitoIdentityProviderClient cognitoClient, String userPoolName ) {
 
         try {
-            CreateUserPoolResponse response = cognitoClient.createUserPool(
-                    CreateUserPoolRequest.builder()
-                            .poolName(userPoolName)
-                            .build()
-            );
+            CreateUserPoolRequest request = CreateUserPoolRequest.builder()
+                .poolName(userPoolName)
+                .build();
+
+            CreateUserPoolResponse response = cognitoClient.createUserPool(request);
             return response.userPool().id();
 
         } catch (CognitoIdentityProviderException e){
