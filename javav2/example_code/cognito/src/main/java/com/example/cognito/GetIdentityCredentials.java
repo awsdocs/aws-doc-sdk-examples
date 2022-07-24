@@ -1,8 +1,6 @@
 //snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an identity in an Amazon Cognito identity pool.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0

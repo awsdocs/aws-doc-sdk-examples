@@ -1,8 +1,6 @@
 //snippet-sourcedescription:[DeleteUserPool.java demonstrates how to delete an existing user pool.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0

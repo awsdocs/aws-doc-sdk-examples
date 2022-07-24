@@ -1,8 +1,6 @@
 //snippet-sourcedescription:[ListUserPoolClients.java demonstrates how to list existing user pool clients that are available in the specified AWS Region in your current AWS account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
