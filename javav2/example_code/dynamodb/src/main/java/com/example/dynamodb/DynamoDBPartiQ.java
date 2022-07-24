@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DynamoDBPartiQ.java demonstrates how to work with PartiQL for Amazon DynamoDB.]
-//snippet-keyword:[AWS SDK for Java V2]
-//snippet-keyword:[Code Sample]
+//snippet-keyword:[SDK for Java v2]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,17 +40,17 @@ public class DynamoDBPartiQ {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         AttributeValue att1 = AttributeValue.builder()
-                .s("Acme Band")
-                .build();
+            .s("Acme Band")
+            .build();
 
         AttributeValue att2 = AttributeValue.builder()
-                .s("PartiQL Rocks")
-                .build();
+            .s("PartiQL Rocks")
+            .build();
 
         List<AttributeValue> parameters = new ArrayList<>();
         parameters.add(att1);
@@ -94,14 +91,14 @@ public class DynamoDBPartiQ {
         System.out.println("This code example has completed");
     }
 
-        private static ExecuteStatementResponse executeStatementRequest(DynamoDbClient ddb, String statement, List<AttributeValue> parameters ) {
-            ExecuteStatementRequest request = ExecuteStatementRequest.builder()
-                    .statement(statement)
-                    .parameters(parameters)
-                    .build();
+    private static ExecuteStatementResponse executeStatementRequest(DynamoDbClient ddb, String statement, List<AttributeValue> parameters ) {
+        ExecuteStatementRequest request = ExecuteStatementRequest.builder()
+            .statement(statement)
+            .parameters(parameters)
+            .build();
 
-            return ddb.executeStatement(request);
-        }
+        return ddb.executeStatement(request);
+    }
 
     private static void processResults(ExecuteStatementResponse executeStatementResult) {
         System.out.println("ExecuteStatement successful: "+ executeStatementResult.toString());
