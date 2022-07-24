@@ -1,9 +1,7 @@
 // snippet-sourcedescription:[DeleteCollection.java demonstrates how to delete an Amazon Rekognition collection.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +30,10 @@ public class DeleteCollection {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <collectionId> \n\n" +
-                "Where:\n" +
-                "   collectionId - The id of the collection to delete. \n\n";
+            "Usage: " +
+            "   <collectionId> \n\n" +
+            "Where:\n" +
+            "   collectionId - The id of the collection to delete. \n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,13 +43,11 @@ public class DeleteCollection {
         String collectionId = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
-        System.out.println("Deleting collection: " +
-                collectionId);
-
+        System.out.println("Deleting collection: " + collectionId);
         deleteMyCollection(rekClient, collectionId);
         rekClient.close();
     }
@@ -59,20 +55,19 @@ public class DeleteCollection {
     // snippet-start:[rekognition.java2.delete_collection.main]
     public static void deleteMyCollection(RekognitionClient rekClient,String collectionId ) {
 
-    try {
-
-        DeleteCollectionRequest deleteCollectionRequest = DeleteCollectionRequest.builder()
+        try {
+            DeleteCollectionRequest deleteCollectionRequest = DeleteCollectionRequest.builder()
                 .collectionId(collectionId)
                 .build();
 
-        DeleteCollectionResponse deleteCollectionResponse = rekClient.deleteCollection(deleteCollectionRequest);
-        System.out.println(collectionId + ": " + deleteCollectionResponse.statusCode().toString());
+            DeleteCollectionResponse deleteCollectionResponse = rekClient.deleteCollection(deleteCollectionRequest);
+            System.out.println(collectionId + ": " + deleteCollectionResponse.statusCode().toString());
 
-    } catch(RekognitionException e) {
-        System.out.println(e.getMessage());
-        System.exit(1);
+        } catch(RekognitionException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
     }
-  }
     // snippet-end:[rekognition.java2.delete_collection.main]
- }
+}
 
