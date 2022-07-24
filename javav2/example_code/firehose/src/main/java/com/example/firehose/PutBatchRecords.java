@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[PutBatchRecords.java demonstrates how to write multiple data records into a delivery stream and check each record using the response object.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -39,10 +36,10 @@ public class PutBatchRecords {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <streamName> \n\n" +
-                "Where:\n" +
-                "    streamName - The data stream name \n" ;
+            "Usage:\n" +
+            "    <streamName> \n\n" +
+            "Where:\n" +
+            "    streamName - The data stream name \n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -52,9 +49,9 @@ public class PutBatchRecords {
         String streamName = args[0];
         Region region = Region.US_WEST_2;
         FirehoseClient firehoseClient = FirehoseClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         addStockTradeData(firehoseClient, streamName);
         firehoseClient.close();
@@ -76,8 +73,8 @@ public class PutBatchRecords {
                 byte[] bytes = trade.toJsonAsBytes();
 
                 Record myRecord = Record.builder()
-                        .data(SdkBytes.fromByteArray(bytes))
-                        .build();
+                    .data(SdkBytes.fromByteArray(bytes))
+                    .build();
 
                 System.out.println("Adding trade: " + trade.toString());
                 recordList.add(myRecord);
@@ -85,9 +82,9 @@ public class PutBatchRecords {
             }
 
             PutRecordBatchRequest recordBatchRequest = PutRecordBatchRequest.builder()
-                    .deliveryStreamName(streamName)
-                    .records(recordList)
-                    .build();
+                .deliveryStreamName(streamName)
+                .records(recordList)
+                .build();
 
             PutRecordBatchResponse recordResponse = firehoseClient.putRecordBatch(recordBatchRequest) ;
             System.out.println("The number of records added is: "+recordResponse.requestResponses().size());
@@ -106,7 +103,7 @@ public class PutBatchRecords {
                     errorMsg = result.errorMessage();
                     System.out.println("Error code for record ID : "+result.recordId() + " is "+errorMsg);
                 }
-        }
+            }
 
         } catch (FirehoseException | InterruptedException e) {
             System.out.println(e.getLocalizedMessage());
