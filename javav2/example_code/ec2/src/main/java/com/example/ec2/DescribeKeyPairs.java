@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DescribeKeyPairs.java demonstrates how to get information about all instance key pairs.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
-
+//snippet-service:[Amazon EC2]e]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -46,8 +42,8 @@ public class DescribeKeyPairs {
         try {
             DescribeKeyPairsResponse response = ec2.describeKeyPairs();
             response.keyPairs().forEach(keyPair -> System.out.printf(
-                    "Found key pair with name %s " +
-                            "and fingerprint %s",
+                "Found key pair with name %s " +
+                   "and fingerprint %s",
                     keyPair.keyName(),
                     keyPair.keyFingerprint())
             );
