@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListServerCertificates.java demonstrates how to list all server certificates associated with an AWS account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,9 +30,9 @@ public class ListServerCertificates {
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listCertificates(iam);
         System.out.println("Done");
@@ -50,31 +47,28 @@ public class ListServerCertificates {
             String newMarker = null;
 
             while(!done) {
-              ListServerCertificatesResponse response;
+                ListServerCertificatesResponse response;
 
-            if (newMarker == null) {
-                ListServerCertificatesRequest request =
-                        ListServerCertificatesRequest.builder().build();
-                response = iam.listServerCertificates(request);
-            } else {
-                ListServerCertificatesRequest request =
-                        ListServerCertificatesRequest.builder()
-                                .marker(newMarker).build();
-                response = iam.listServerCertificates(request);
-            }
+                if (newMarker == null) {
+                    ListServerCertificatesRequest request = ListServerCertificatesRequest.builder().build();
+                    response = iam.listServerCertificates(request);
+                } else {
+                    ListServerCertificatesRequest request = ListServerCertificatesRequest.builder()
+                        .marker(newMarker)
+                        .build();
+                    response = iam.listServerCertificates(request);
+                }
 
-            for(ServerCertificateMetadata metadata :
-                    response.serverCertificateMetadataList()) {
-                System.out.printf("Retrieved server certificate %s",
-                        metadata.serverCertificateName());
-            }
+                for(ServerCertificateMetadata metadata : response.serverCertificateMetadataList()) {
+                    System.out.printf("Retrieved server certificate %s", metadata.serverCertificateName());
+                }
 
-            if(!response.isTruncated()) {
-                done = true;
-            } else {
-                newMarker = response.marker();
+                if(!response.isTruncated()) {
+                    done = true;
+                } else {
+                    newMarker = response.marker();
+                }
             }
-        }
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
