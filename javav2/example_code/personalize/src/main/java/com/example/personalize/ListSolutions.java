@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListSolutions.java demonstrates how to list Amazon Personalize solutions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +31,10 @@ public class ListSolutions {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    ListSolutions <datasetGroupArn>\n\n" +
-                "Where:\n" +
-                "    datasetGroupArn - The ARN of the data set group.\n\n";
+            "Usage:\n" +
+            "    ListSolutions <datasetGroupArn>\n\n" +
+            "Where:\n" +
+            "    datasetGroupArn - The ARN of the data set group.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -48,28 +44,27 @@ public class ListSolutions {
         String datasetGroupArn = args[0];
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         listAllSolutions(personalizeClient, datasetGroupArn);
         personalizeClient.close();
     }
-//snippet-start:[personalize.java2.list_solutions.main]
 
     public static void listAllSolutions(PersonalizeClient personalizeClient, String datasetGroupArn) {
 
         try {
-        ListSolutionsRequest solutionsRequest = ListSolutionsRequest.builder()
+            ListSolutionsRequest solutionsRequest = ListSolutionsRequest.builder()
                 .maxResults(10)
                 .datasetGroupArn(datasetGroupArn)
                 .build() ;
 
-        ListSolutionsResponse response = personalizeClient.listSolutions(solutionsRequest);
-        List<SolutionSummary> solutions = response.solutions();
-        for (SolutionSummary solution: solutions) {
-            System.out.println("The solution ARN is: "+solution.solutionArn());
-            System.out.println("The solution name is: "+solution.name());
-        }
+            ListSolutionsResponse response = personalizeClient.listSolutions(solutionsRequest);
+            List<SolutionSummary> solutions = response.solutions();
+            for (SolutionSummary solution: solutions) {
+                System.out.println("The solution ARN is: "+solution.solutionArn());
+                System.out.println("The solution name is: "+solution.name());
+            }
 
         } catch (PersonalizeException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -77,4 +72,3 @@ public class ListSolutions {
         }
     }
 }
-//snippet-end:[personalize.java2.list_solutions.main]
