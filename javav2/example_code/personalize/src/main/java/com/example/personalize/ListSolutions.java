@@ -50,7 +50,7 @@ public class ListSolutions {
         listAllSolutions(personalizeClient, datasetGroupArn);
         personalizeClient.close();
     }
-
+    //snippet-start:[personalize.java2.list_solutions.main]
     public static void listAllSolutions(PersonalizeClient personalizeClient, String datasetGroupArn) {
 
         try {
@@ -71,4 +71,5 @@ public class ListSolutions {
             System.exit(1);
         }
     }
+    //snippet-end:[personalize.java2.list_solutions.main]
 }
