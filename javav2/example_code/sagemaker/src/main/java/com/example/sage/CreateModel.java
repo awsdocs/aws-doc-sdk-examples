@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateModel.java demonstrates how to create a model in Amazon SageMaker.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,6 +17,8 @@ import software.amazon.awssdk.services.sagemaker.model.ContainerDefinition;
 import software.amazon.awssdk.services.sagemaker.model.ContainerMode;
 import software.amazon.awssdk.services.sagemaker.model.CreateModelRequest;
 import software.amazon.awssdk.services.sagemaker.model.CreateModelResponse;
+import software.amazon.awssdk.services.sagemaker.model.ImageConfig;
+import software.amazon.awssdk.services.sagemaker.model.RepositoryAccessMode;
 import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
 //snippet-end:[sagemaker.java2.create_model.import]
 
@@ -35,13 +34,13 @@ public class CreateModel {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <dataUrl> <image> <modelName> <executionRoleArn>\n\n" +
-                "Where:\n" +
-                "    dataUrl - The Amazon S3 path where the model artifacts, which result from model training, are stored.\n\n" +
-                "    image - The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored (for example, xxxxx5047983.dkr.ecr.us-west-2.amazonaws.com/train).\n\n" +
-                "    modelName - The name of the model.\n\n" +
-                "    executionRoleArn - The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can assume to access model artifacts (for example, arn:aws:iam::xxxxx5047983:role/service-role/AmazonSageMaker-ExecutionRole-20200627T12xxxx).\n\n";
+            "Usage:\n" +
+            "    <dataUrl> <image> <modelName> <executionRoleArn>\n\n" +
+            "Where:\n" +
+            "    dataUrl - The Amazon S3 path where the model artifacts, which result from model training, are stored.\n\n" +
+            "    image - The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored (for example, xxxxx5047983.dkr.ecr.us-west-2.amazonaws.com/train).\n\n" +
+            "    modelName - The name of the model.\n\n" +
+            "    executionRoleArn - The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can assume to access model artifacts (for example, arn:aws:iam::xxxxx5047983:role/service-role/AmazonSageMaker-ExecutionRole-20200627T12xxxx).\n\n";
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -55,9 +54,9 @@ public class CreateModel {
 
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createSagemakerModel(sageMakerClient, dataUrl, image, modelName, executionRoleArn);
         sageMakerClient.close();
@@ -70,17 +69,22 @@ public class CreateModel {
                                             String modelName,
                                             String executionRoleArn) {
         try {
+            ImageConfig config = ImageConfig.builder()
+                .repositoryAccessMode(RepositoryAccessMode.PLATFORM)
+                .build();
+
             ContainerDefinition containerDefinition = ContainerDefinition.builder()
-                    .modelDataUrl(dataUrl)
-                    .image(image)
-                    .mode(ContainerMode.SINGLE_MODEL)
-                    .build();
+                .modelDataUrl(dataUrl)
+                .imageConfig(config)
+                .image(image)
+                .mode(ContainerMode.SINGLE_MODEL)
+                .build();
 
             CreateModelRequest modelRequest = CreateModelRequest.builder()
-                    .modelName(modelName)
-                    .executionRoleArn(executionRoleArn)
-                    .primaryContainer(containerDefinition)
-                    .build() ;
+                .modelName(modelName)
+                .executionRoleArn(executionRoleArn)
+                .primaryContainer(containerDefinition)
+                .build() ;
 
             CreateModelResponse response = sageMakerClient.createModel(modelRequest);
             System.out.println("The ARN of the model is " +response.modelArn() );
