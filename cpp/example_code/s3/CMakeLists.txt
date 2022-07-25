@@ -17,7 +17,7 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 
 # Enable CTest for testing these code examples.
-include(CTest)
+#include(CTest)
 
 # Build shared libraries by default.
 if(NOT BUILD_SHARED_LIBS)
@@ -50,10 +50,12 @@ file(GLOB AWSDOC_S3_HEADERS
     "include/awsdoc/s3/*.h"
 )
 
-# Add the code example-specific source files.
-file(GLOB AWSDOC_S3_SOURCE
-    "*.cpp"
-)
+# Add the code example-specific source files if the source input is not already defined.
+if(NOT DEFINED AWSDOC_S3_SOURCE)
+    file(GLOB AWSDOC_S3_SOURCE
+        "*.cpp"
+    )
+endif()
 
 # Check whether the target system is Windows, including Win64.
 if(WIN32)
@@ -63,7 +65,7 @@ if(WIN32)
         source_group("Source Files" FILES ${AWSDOC_S3_SOURCE})
     endif(MSVC)
 endif()
-
+set (BUILD_TESTING OFF)
 foreach(file ${AWSDOC_S3_SOURCE})
     get_filename_component(EXAMPLE ${file} NAME_WE)
 
