@@ -18,7 +18,7 @@ enum S3DemoCleanupError: Error {
     case notFound           /// Attempted to access an item that doesn't exist.
 }
 
-/// A structure identifying a file given its bucket name and the
+/// A structure identifying a file given its Amazon S3 bucket name and the
 /// file's name within the bucket.
 public struct S3DemoFileInfo: Equatable {
     /// The name of the bucket containing the file.
@@ -45,9 +45,9 @@ public struct S3DemoFileInfo: Equatable {
     }
 }
 
+/// A class used to record information about files and buckets created by the
+/// example that need to be deleted before the example exits.
 public class S3DemoCleanup {
-    /// Returns a single shared instance of `S3DemoCleanup` that should
-    /// always be used to access the cleanup manager.
     var client: S3Client? = nil
     var buckets: [String]
     var files: [S3DemoFileInfo]
@@ -56,7 +56,7 @@ public class S3DemoCleanup {
         do {
             self.client = try await S3Client()
         } catch {
-            print("Error initializing S3 client for test cleanup processor:")
+            print("Error initializing S3 client for tracking and deleting Amazon S3 buckets and files created by the example:")
             dump(error)
             exit(1)
         }
@@ -64,7 +64,7 @@ public class S3DemoCleanup {
         self.files = []
     }
 
-    /// Return the index into the tracked file list at which the specified
+    /// Return the index into the tracked file list where the specified
     /// `S3DemoFileInfo` object is found.
     ///
     /// - Parameter fileInfo: The `S3DemoFileInfo` object to find in the tracked
@@ -83,8 +83,8 @@ public class S3DemoCleanup {
         return -1
     }
 
-    /// Clean up all of the files and buckets previously added to the
-    /// demo cleanup manager.
+    /// Clean up all of the files and buckets being tracked by the
+    /// `S3DemoCleanup` object.
     func cleanup() async {
         do {
             try await self.disposeAllFiles()
@@ -173,7 +173,7 @@ public class S3DemoCleanup {
         self.buckets = self.buckets.filter { $0 != name }
     }
 
-    /// Dispose of all buckets previously added to the demo cleanup manager.
+    /// Dispose of all buckets previously added by calls to `addBucket(name:)`.
     public func disposeAllBuckets() async throws {
         for bucket in self.buckets {
             do {

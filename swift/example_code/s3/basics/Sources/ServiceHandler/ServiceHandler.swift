@@ -1,4 +1,6 @@
 /*
+   A class containing functions that interact with AWS services.
+   
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
@@ -135,7 +137,7 @@ public class ServiceHandler {
         let output = try await client.getObject(input: input)
 
         // Get the stream and return its contents in a `Data` object. If
-        // there is no11 stream, return an empty `Data` object instead.
+        // there is no stream, return an empty `Data` object instead.
         guard let body = output.body else {
             return "".data(using: .utf8)!
         }

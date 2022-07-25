@@ -1,18 +1,18 @@
 //
-// AWS S3 Basics
+// Amazon S3 Basics
 //
 // A demonstration program that follows the actions listed in the article
-// "S3 Getting started":
+// "Getting started with Amazon S3":
 //
 // https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
 //
-// 1. Create a bucket
-// 2. Upload a local file to the bucket
-// 3. Download the object from the bucket to a local file
-// 4. Copy the object to a different "folder" in the bucket
-// 5. List the objects in the bucket
-// 6. Delete all the objects in the bucket
-// 7. Delete the bucket
+// 1. Create a bucket.
+// 2. Upload a local file to the bucket.
+// 3. Download the object from the bucket to a local file.
+// 4. Copy the object to a different "folder" in the bucket.
+// 5. List the objects in the bucket.
+// 6. Delete all the objects in the bucket.
+// 7. Delete the bucket.
 //
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
@@ -36,25 +36,25 @@ struct ExampleCommand: ParsableCommand {
     @Argument(help: "The name (key) to give the file in the S3 bucket")
     var objName: String
 
-    @Argument(help: "Bucket to copy the object to on S3")
+    @Argument(help: "S3 bucket to copy the object to")
     var destBucket: String
 
-    @Argument(help: "Directory to which to download the file from the S3 bucket")
+    @Argument(help: "Directory where you want to download the file from the S3 bucket")
     var downloadDir: String
 
     static var configuration = CommandConfiguration(
         commandName: "s3-basics",
         abstract: "Demonstrates a series of basic AWS S3 functions.",
         discussion: """
-        Performs a series of AWS S3 commands:
+        Performs the following Amazon S3 commands:
 
-        * CreateBucket
-        * PutObject
-        * GetObject
-        * CopyObject
-        * ListObjects
-        * DeleteObjects
-        * DeleteBucket
+        * `CreateBucket`
+        * `PutObject`
+        * `GetObject`
+        * `CopyObject`
+        * `ListObjects`
+        * `DeleteObjects`
+        * `DeleteBucket`
         """
     )
 
@@ -64,23 +64,23 @@ struct ExampleCommand: ParsableCommand {
     func runAsync() async throws {
         let serviceHandler = await ServiceHandler()
 
-        // 1. Create the bucket
+        // 1. Create the bucket.
         print("Creating the bucket \(bucketName)...")
         try await serviceHandler.createBucket(name: bucketName)
 
-        // 2. Upload a file to the bucket
+        // 2. Upload a file to the bucket.
         print("Uploading the file \(uploadSource)...")
         try await serviceHandler.uploadFile(bucket: bucketName, key: objName, file: uploadSource)
 
-        // 3. Download the file
+        // 3. Download the file.
         print("Downloading the file \(objName) to \(downloadDir)...")
         try await serviceHandler.downloadFile(bucket: bucketName, key: objName, to: downloadDir)
 
-        // 4. Copy the file to another bucket
+        // 4. Copy the file to another bucket.
         print("Copying the file to the bucket \(destBucket)...")
         try await serviceHandler.copyFile(from: bucketName, name: objName, to: destBucket)
 
-        // 5. List the contents of the bucket
+        // 5. List the contents of the bucket.
 
         print("Getting a list of the files in the bucket \(bucketName)")
         let fileList = try await serviceHandler.listBucketFiles(bucket: bucketName)
@@ -94,14 +94,14 @@ struct ExampleCommand: ParsableCommand {
             print("No files found in bucket \(bucketName)")
         }
 
-        // 6. Delete the objects from the bucket
+        // 6. Delete the objects from the bucket.
 
         print("Deleting the file \(objName) from the bucket \(bucketName)...")
         try await serviceHandler.deleteFile(bucket: bucketName, key: objName)
         print("Deleting the file \(objName) from the bucket \(destBucket)...")
         try await serviceHandler.deleteFile(bucket: destBucket, key: objName)
 
-        // 7. Delete the bucket
+        // 7. Delete the bucket.
         print("Deleting the bucket \(bucketName)...")
         try await serviceHandler.deleteBucket(name: bucketName)
 

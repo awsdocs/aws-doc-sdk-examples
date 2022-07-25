@@ -11,14 +11,14 @@ import SwiftUtilities
 
 @testable import ServiceHandler
 
-/// Performs tests on the S3Basics program. Call Amazon S3 service functions
+/// Perform tests on the S3Basics program. Call Amazon S3 service functions
 /// using the global `BasicsTests.serviceHandler` property, and manage the demo
 /// cleanup handler object using the global `BasicsTests.demoCleanup` property.
 final class BasicsTests: XCTestCase {
     static var serviceHandler: ServiceHandler? = nil
     static var demoCleanup: S3DemoCleanup? = nil
 
-    /// Class-wide setup function for the test case, which is run *once*, before
+    /// Class-wide setup function for the test case, which is run *once* before
     /// any tests are run.
     /// 
     /// This function sets up the following:
@@ -28,7 +28,7 @@ final class BasicsTests: XCTestCase {
     ///     Amazon S3 functions.
     ///     Instantiates the demo cleanup handler, which is used to
     ///     track the names of the files and buckets created by the tests
-    ///     in order to remove them once testing is complete.
+    ///     in order to remove them after testing is complete.
     override class func setUp() {
         let tdSem = TestWaiter(name: "Setup")
         super.setUp()
@@ -61,8 +61,8 @@ final class BasicsTests: XCTestCase {
 
     //*********** UTILITY FUNCTIONS *********************************
 
-    /// Create an Amazon S3 bucket and add it to the list of buckets to be
-    /// removed when the `demoCleanup.cleanup()` function is called.
+    /// Create an S3 bucket and add it to the list of buckets to be removed when
+    /// the `demoCleanup.cleanup()` function is called.
     ///
     /// - Parameter name: The name of the bucket to create. If not specified (or
     ///   nil), a random bucket name is used.
@@ -79,9 +79,8 @@ final class BasicsTests: XCTestCase {
         return bucketName
     }
 
-    /// Delete an Amazon S3 bucket and removes it from the list of test
-    /// buckets.
-    /// - Parameter name: The name of the bucket to delete
+    /// Delete a S3 bucket and remove it from the list of test buckets.
+    /// - Parameter name: The name of the bucket to delete.
     func deleteTestBucket(name: String) async throws {
         do {
             try await BasicsTests.serviceHandler?.deleteBucket(name: name)
@@ -95,9 +94,9 @@ final class BasicsTests: XCTestCase {
     ///
     /// - Parameters:
     ///   - bucket: The name of the bucket to create the file in.
-    ///   - file: The name of the file to create; if `nil` or unspecified, a
+    ///   - file: The name of the file to create. If `nil` or unspecified, a
     ///     random name is generated.
-    ///   - paragraphs: The number of paragraphs to write into the file; default
+    ///   - paragraphs: The number of paragraphs to write into the file. Default
     ///     is 1.
     /// - Returns: An `S3DemoFileInfo` object describing the file and its
     ///   expected contents.
@@ -134,7 +133,7 @@ final class BasicsTests: XCTestCase {
     /// Verify that the contents of a file on Amazon S3 match the file's
     /// `contents` property.
     /// - Parameter fileInfo: An `S3DemoFileInfo` object indicating which file
-    ///   to verify
+    ///   to verify.
     /// - Returns: A `Bool` which is `true` if the file matches the expected
     ///   contents, or `false` if the contents don't match.
     func verifyTestFileContents(fileInfo: S3DemoFileInfo) async throws -> Bool {
@@ -144,10 +143,10 @@ final class BasicsTests: XCTestCase {
             // Handle empty file cases first.
 
             if fileData == nil && fileInfo.contents == nil {
-                return true     // Two empty files match
+                return true     // Two empty files match.
             }
             if fileData == nil || fileInfo.contents == nil {
-                return false    // If one is empty and the other not, no match
+                return false    // If one is empty and the other not, no match.
             }
 
             // Compare the contents.
@@ -175,9 +174,9 @@ final class BasicsTests: XCTestCase {
     /// Copy a file from its original bucket to another bucket.
     ///
     /// - Parameters:
-    ///   - fileInfo: An `S3DemoFileInfo` object indicating the file to copy
+    ///   - fileInfo: An `S3DemoFileInfo` object indicating the file to copy.
     ///   - destBucket: A string indicating the name of the bucket to copy the
-    ///     file into
+    ///     file into.
     /// - Returns: An `S3D3moFileInfo` object representing the copy of the file.
     func copyTestFile(fileInfo: S3DemoFileInfo, to destBucket: String) async throws -> S3DemoFileInfo {
         do {
@@ -191,7 +190,7 @@ final class BasicsTests: XCTestCase {
 
     /// Get a list of the files contained in a bucket.
     ///
-    /// - Parameter bucket: The name of the bucket to get the filenames from.
+    /// - Parameter bucket: The name of the bucket to get the file names from.
     /// - Returns: An array of strings, each identifying a single file in the
     ///   bucket.
     func listTestFiles(bucket: String) async throws -> [String] {
