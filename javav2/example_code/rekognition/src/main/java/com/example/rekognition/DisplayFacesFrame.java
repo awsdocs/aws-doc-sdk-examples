@@ -1,9 +1,7 @@
 // snippet-sourcedescription:[DisplayFacesFrame.java demonstrates how to display a bounding box around faces in an image.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -55,11 +53,11 @@ public class DisplayFacesFrame extends JPanel {
     public static void main(String[] args) throws Exception {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <sourceImage> <bucketName>\n\n" +
-                "Where:\n" +
-                "   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
-                "   bucketName - The name of the Amazon S3 bucket (for example, myBucket). \n\n";
+            "Usage: " +
+            "   <sourceImage> <bucketName>\n\n" +
+            "Where:\n" +
+            "   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
+            "   bucketName - The name of the Amazon S3 bucket (for example, myBucket). \n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -70,14 +68,14 @@ public class DisplayFacesFrame extends JPanel {
         String bucketName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         displayAllFaces(s3, rekClient, sourceImage, bucketName);
         s3.close();
@@ -94,66 +92,64 @@ public class DisplayFacesFrame extends JPanel {
         byte[] data = getObjectBytes (s3, bucketName, sourceImage);
         InputStream is = new ByteArrayInputStream(data);
 
-       try {
-           SdkBytes sourceBytes = SdkBytes.fromInputStream(is);
-           image = ImageIO.read(sourceBytes.asInputStream());
+        try {
+            SdkBytes sourceBytes = SdkBytes.fromInputStream(is);
+            image = ImageIO.read(sourceBytes.asInputStream());
+            width = image.getWidth();
+            height = image.getHeight();
 
-           width = image.getWidth();
-           height = image.getHeight();
-
-        // Create an Image object for the source image
-        software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
+            // Create an Image object for the source image
+            software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
                 .bytes(sourceBytes)
                 .build();
 
-        DetectFacesRequest facesRequest = DetectFacesRequest.builder()
+            DetectFacesRequest facesRequest = DetectFacesRequest.builder()
                 .attributes(Attribute.ALL)
                 .image(souImage)
                 .build();
 
-         result = rekClient.detectFaces(facesRequest);
+            result = rekClient.detectFaces(facesRequest);
 
-        // Show the bounding box info for each face.
-        List<FaceDetail> faceDetails = result.faceDetails();
-        for (FaceDetail face : faceDetails) {
+            // Show the bounding box info for each face.
+            List<FaceDetail> faceDetails = result.faceDetails();
+            for (FaceDetail face : faceDetails) {
+                BoundingBox box = face.boundingBox();
+                float left = width * box.left();
+                float top = height * box.top();
+                System.out.println("Face:");
 
-            BoundingBox box = face.boundingBox();
-            float left = width * box.left();
-            float top = height * box.top();
-            System.out.println("Face:");
+                System.out.println("Left: " + (int) left);
+                System.out.println("Top: " + (int) top);
+                System.out.println("Face Width: " + (int) (width * box.width()));
+                System.out.println("Face Height: " + (int) (height * box.height()));
+                System.out.println();
+            }
 
-            System.out.println("Left: " + (int) left);
-            System.out.println("Top: " + (int) top);
-            System.out.println("Face Width: " + (int) (width * box.width()));
-            System.out.println("Face Height: " + (int) (height * box.height()));
-            System.out.println();
-        }
+            // Create the frame and panel.
+            JFrame frame = new JFrame("RotateImage");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            DisplayFacesFrame panel = new DisplayFacesFrame(image);
+            panel.setPreferredSize(new Dimension(image.getWidth() / scale, image.getHeight() / scale));
+            frame.setContentPane(panel);
+            frame.pack();
+            frame.setVisible(true);
 
-        // Create the frame and panel.
-        JFrame frame = new JFrame("RotateImage");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        DisplayFacesFrame panel = new DisplayFacesFrame(image);
-        panel.setPreferredSize(new Dimension(image.getWidth() / scale, image.getHeight() / scale));
-        frame.setContentPane(panel);
-        frame.pack();
-        frame.setVisible(true);
-
-     } catch (RekognitionException | FileNotFoundException e) {
+        } catch (RekognitionException | FileNotFoundException e) {
             System.out.println(e.getMessage());
             System.exit(1);
-       } catch (IOException e) {
+        } catch (IOException e) {
            e.printStackTrace();
-       }
+        }
     }
 
     public static byte[] getObjectBytes (S3Client s3, String bucketName, String keyName) {
 
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+                .builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();
@@ -177,7 +173,6 @@ public class DisplayFacesFrame extends JPanel {
         float top;
         int height = image.getHeight(this);
         int width = image.getWidth(this);
-
         Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g.
 
         // Draw the image
@@ -187,7 +182,6 @@ public class DisplayFacesFrame extends JPanel {
         // Iterate through the faces and display bounding boxes.
         List<FaceDetail> faceDetails = result.faceDetails();
         for (FaceDetail face : faceDetails) {
-
             BoundingBox box = face.boundingBox();
             left = width * box.left();
             top = height * box.top();

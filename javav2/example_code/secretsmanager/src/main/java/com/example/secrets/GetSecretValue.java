@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetSecretValue.java demonstrates how to get the value of a secret from AWS Secrets Manager.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Secrets Manager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,22 +30,22 @@ public class GetSecretValue {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <secretName> \n\n" +
-                "Where:\n" +
-                "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n";
+            "Usage:\n" +
+            "    <secretName> \n\n" +
+            "Where:\n" +
+            "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n";
 
-       if (args.length != 1) {
+        if (args.length != 1) {
             System.out.println(usage);
-           System.exit(1);
-       }
+            System.exit(1);
+        }
 
         String secretName = args[0];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getValue(secretsClient, secretName);
         secretsClient.close();

@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email message with an attachment by using the Amazon Simple Email Service (Amazon SES).]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Email Service]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,7 +12,6 @@
 package com.example.ses;
 
 // snippet-start:[ses.java2.sendmessageattachment.import]
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
@@ -54,13 +50,13 @@ public class SendMessageAttachment {
     public static void main(String[] args) throws IOException {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <sender> <recipient> <subject> <fileLocation> \n\n" +
-                "Where:\n" +
-                "    sender - An email address that represents the sender. \n"+
-                "    recipient -  An email address that represents the recipient. \n"+
-                "    subject - The  subject line. \n" +
-                "    fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). \n" ;
+            "Usage:\n" +
+            "    <sender> <recipient> <subject> <fileLocation> \n\n" +
+            "Where:\n" +
+            "    sender - An email address that represents the sender. \n"+
+            "    recipient -  An email address that represents the recipient. \n"+
+            "    subject - The  subject line. \n" +
+            "    fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). \n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -82,9 +78,9 @@ public class SendMessageAttachment {
 
         Region region = Region.US_WEST_2;
         SesClient client = SesClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         try {
             sendemailAttachment(client, sender, recipient, subject, bodyText, bodyHTML, fileLocation );
@@ -108,7 +104,7 @@ public class SendMessageAttachment {
         java.io.File theFile = new java.io.File(fileLocation);
         byte[] fileContent = Files.readAllBytes(theFile.toPath());
 
-       Session session = Session.getDefaultInstance(new Properties());
+        Session session = Session.getDefaultInstance(new Properties());
 
         // Create a new MimeMessage object.
         MimeMessage message = new MimeMessage(session);
@@ -144,8 +140,6 @@ public class SendMessageAttachment {
 
         // Add the parent container to the message.
         message.setContent(msg);
-
-        // Add the multipart/alternative part to the message.
         msg.addBodyPart(wrap);
 
         // Define the attachment.
@@ -171,14 +165,13 @@ public class SendMessageAttachment {
             buf.get(arr);
 
             SdkBytes data = SdkBytes.fromByteArray(arr);
-
             RawMessage rawMessage = RawMessage.builder()
-                    .data(data)
-                    .build();
+                .data(data)
+                .build();
 
             SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                    .rawMessage(rawMessage)
-                    .build();
+                .rawMessage(rawMessage)
+                .build();
 
             client.sendRawEmail(rawEmailRequest);
 
@@ -186,7 +179,7 @@ public class SendMessageAttachment {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.println("Email sent with attachment");
+        System.out.println("Email sent using SesClient with attachment");
      }
     // snippet-end:[ses.java2.sendmessageattachment.main]
 }

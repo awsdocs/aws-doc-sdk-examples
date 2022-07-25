@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to an existing AWS Identity and Access Management (IAM) role.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,11 +33,11 @@ public class AttachRolePolicy {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <roleName> <policyArn> \n\n" +
-                "Where:\n" +
-                "    roleName - A role name that you can obtain from the AWS Management Console. \n\n" +
-                "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
+            "Usage:\n" +
+            "    <roleName> <policyArn> \n\n" +
+            "Where:\n" +
+            "    roleName - A role name that you can obtain from the AWS Management Console. \n\n" +
+            "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,9 +50,9 @@ public class AttachRolePolicy {
         // snippet-start:[iam.java2.attach_role_policy.client]
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         // snippet-end:[iam.java2.attach_role_policy.client]
 
         attachIAMRolePolicy(iam, roleName, policyArn);
@@ -66,9 +63,9 @@ public class AttachRolePolicy {
     public static void attachIAMRolePolicy(IamClient iam, String roleName, String policyArn ) {
 
         try {
-             ListAttachedRolePoliciesRequest request = ListAttachedRolePoliciesRequest.builder()
-                    .roleName(roleName)
-                    .build();
+            ListAttachedRolePoliciesRequest request = ListAttachedRolePoliciesRequest.builder()
+                .roleName(roleName)
+                .build();
 
             ListAttachedRolePoliciesResponse response = iam.listAttachedRolePolicies(request);
             List<AttachedPolicy> attachedPolicies = response.attachedPolicies();
@@ -78,31 +75,28 @@ public class AttachRolePolicy {
             for (AttachedPolicy policy: attachedPolicies) {
                 polArn = policy.policyArn();
                 if (polArn.compareTo(policyArn)==0) {
-                   System.out.println(roleName +
-                            " policy is already attached to this role.");
+                    System.out.println(roleName + " policy is already attached to this role.");
                     return;
                 }
-          }
+            }
 
            // snippet-start:[iam.java2.attach_role_policy.attach]
-            AttachRolePolicyRequest attachRequest =
-                AttachRolePolicyRequest.builder()
-                        .roleName(roleName)
-                        .policyArn(policyArn)
-                        .build();
+           AttachRolePolicyRequest attachRequest = AttachRolePolicyRequest.builder()
+               .roleName(roleName)
+               .policyArn(policyArn)
+               .build();
 
-            iam.attachRolePolicy(attachRequest);
+           iam.attachRolePolicy(attachRequest);
+           // snippet-end:[iam.java2.attach_role_policy.attach]
 
-            // snippet-end:[iam.java2.attach_role_policy.attach]
-            System.out.println("Successfully attached policy " + policyArn +
+           System.out.println("Successfully attached policy " + policyArn +
                 " to role " + roleName);
 
-         } catch (IamException e) {
-                System.err.println(e.awsErrorDetails().errorMessage());
-                System.exit(1);
-          }
-
-     System.out.println("Done");
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        System.out.println("Done");
     }
     // snippet-end:[iam.java2.attach_role_policy.main]
 }

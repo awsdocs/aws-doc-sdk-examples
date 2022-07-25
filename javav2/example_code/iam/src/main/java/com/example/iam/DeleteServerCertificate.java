@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteServerCertificate.java demonstrates how to delete an AWS Identity and Access Management (IAM) server certificate.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,10 +27,10 @@ public class DeleteServerCertificate {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <certName> \n\n" +
-                "Where:\n" +
-                "    certName - A certificate name to delete. \n\n" ;
+            "Usage:\n" +
+            "    <certName> \n\n" +
+            "Where:\n" +
+            "    certName - A certificate name to delete. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,9 +40,9 @@ public class DeleteServerCertificate {
         String certName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteCert(iam, certName) ;
         System.out.println("Done");
@@ -56,14 +53,12 @@ public class DeleteServerCertificate {
     public static void deleteCert(IamClient iam,String certName ) {
 
         try {
-            DeleteServerCertificateRequest request =
-                DeleteServerCertificateRequest.builder()
-                        .serverCertificateName(certName)
-                        .build();
+            DeleteServerCertificateRequest request = DeleteServerCertificateRequest.builder()
+                .serverCertificateName(certName)
+                .build();
 
             iam.deleteServerCertificate(request);
-            System.out.println("Successfully deleted server certificate " +
-                    certName);
+            System.out.println("Successfully deleted server certificate " + certName);
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

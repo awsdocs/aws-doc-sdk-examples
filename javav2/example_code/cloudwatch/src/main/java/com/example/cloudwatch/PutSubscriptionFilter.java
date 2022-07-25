@@ -1,15 +1,11 @@
 //snippet-sourcedescription:[PutSubscriptionFilter.java demonstrates how to create an Amazon CloudWatch log subscription filter.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 
 package com.example.cloudwatch;
 
@@ -46,13 +42,13 @@ public class PutSubscriptionFilter {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <filter> <pattern> <logGroup> <functionArn> \n\n" +
-                "Where:\n" +
-                "  filter - A filter name (for example, myfilter).\n" +
-                "  pattern - A filter pattern (for example, ERROR).\n" +
-                "  logGroup - A log group name (testgroup).\n" +
-                "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1) .\n" ;
+            "Usage:\n" +
+            "  <filter> <pattern> <logGroup> <functionArn> \n\n" +
+            "Where:\n" +
+            "  filter - A filter name (for example, myfilter).\n" +
+            "  pattern - A filter pattern (for example, ERROR).\n" +
+            "  logGroup - A log group name (testgroup).\n" +
+            "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1) .\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -65,9 +61,9 @@ public class PutSubscriptionFilter {
         String functionArn = args[3];
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cwl = CloudWatchLogsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         putSubFilters(cwl, filter, pattern, logGroup, functionArn ) ;
         cwl.close();
@@ -81,13 +77,12 @@ public class PutSubscriptionFilter {
                                      String functionArn) {
 
         try {
-            PutSubscriptionFilterRequest request =
-                    PutSubscriptionFilterRequest.builder()
-                            .filterName(filter)
-                            .filterPattern(pattern)
-                            .logGroupName(logGroup)
-                            .destinationArn(functionArn)
-                            .build();
+            PutSubscriptionFilterRequest request = PutSubscriptionFilterRequest.builder()
+                .filterName(filter)
+                .filterPattern(pattern)
+                .logGroupName(logGroup)
+                .destinationArn(functionArn)
+                .build();
 
             cwl.putSubscriptionFilter(request);
             System.out.printf(

@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[ListMigrationTasks.java demonstrates how to list migration tasks.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS Migration Hub]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,21 +33,21 @@ public class ListMigrationTasks {
 
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listMigrTasks(migrationClient) ;
         migrationClient.close();
-   }
+    }
 
     // snippet-start:[migration.java2.list_migration_tasks.main]
     public static void listMigrTasks(MigrationHubClient migrationClient) {
 
         try{
             ListMigrationTasksRequest listMigrationTasksRequest = ListMigrationTasksRequest.builder()
-                    .maxResults(10)
-                    .build();
+                .maxResults(10)
+                .build();
 
             ListMigrationTasksResponse response = migrationClient.listMigrationTasks(listMigrationTasksRequest);
             List<MigrationTaskSummary> migrationList = response.migrationTaskSummaryList();

@@ -1,8 +1,6 @@
 //snippet-sourcedescription:[GetTemplateByName.java demonstrates how to get a template.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,14 +29,12 @@ public class GetTemplateByName {
 
         // Change "MyNewTemplate-1" to the name of the template to retrieve.
         String templateName = "MyNewTemplate-1";
-
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         EmailTemplateResponse templateResponse = getTemplateByName(pinpoint, templateName);
-
         System.out.println("Response : " + templateResponse);
         pinpoint.close();
     }
@@ -47,8 +43,8 @@ public class GetTemplateByName {
 
         try {
             EmailTemplateResponse response = client.getEmailTemplate(GetEmailTemplateRequest.builder()
-                            .templateName(templateName)
-                            .build()).
+                .templateName(templateName)
+                .build()).
                     emailTemplateResponse();
             return response;
 
@@ -58,5 +54,4 @@ public class GetTemplateByName {
         }
         return null;
     }
-
 }

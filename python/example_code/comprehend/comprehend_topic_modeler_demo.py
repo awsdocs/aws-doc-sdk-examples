@@ -37,6 +37,7 @@ class JobCompleteWaiter(CustomWaiter):
         self._wait(JobId=job_id)
 
 
+# snippet-start:[python.example_code.comprehend.Scenario_TopicModeler]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Comprehend topic modeling demo!")
@@ -86,6 +87,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.comprehend.Scenario_TopicModeler]
 
 
 if __name__ == '__main__':

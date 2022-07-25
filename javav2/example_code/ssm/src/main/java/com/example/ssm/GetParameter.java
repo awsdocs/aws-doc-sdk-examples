@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetParameter.java demonstrates how to get a parameter value for Amazon Simple Systems Management (Amazon SSM).]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Systems Management]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class GetParameter {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <paraName>\n\n" +
-                "Where:\n" +
-                "    paraName - The name of the parameter.\n";
+            "Usage:\n" +
+            "    <paraName>\n\n" +
+            "Where:\n" +
+            "    paraName - The name of the parameter.\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class GetParameter {
         String paraName = args[0];
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getParaValue(ssmClient, paraName);
         ssmClient.close();
@@ -67,9 +64,9 @@ public class GetParameter {
             System.out.println("The parameter value is "+parameterResponse.parameter().value());
 
         } catch (SsmException e) {
-        System.err.println(e.getMessage());
-        System.exit(1);
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
    }
-    // snippet-end:[ssm.Java2.get_para_value.main]
+   // snippet-end:[ssm.Java2.get_para_value.main]
 }

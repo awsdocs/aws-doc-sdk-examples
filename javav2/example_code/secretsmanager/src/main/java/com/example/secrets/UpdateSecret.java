@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[UpdateSecret.java demonstrates how to update a secret for AWS Secrets Manager.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Secrets Manager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,12 +28,12 @@ public class UpdateSecret {
 
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "    <secretName> <secretValue>\n\n" +
-                "Where:\n" +
-                "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n"+
-                "    secretValue - The secret value that is updated. \n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <secretName> <secretValue>\n\n" +
+            "Where:\n" +
+            "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n"+
+            "    secretValue - The secret value that is updated. \n";
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class UpdateSecret {
         String secretValue = args[1];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         updateMySecret(secretsClient, secretName, secretValue);
         secretsClient.close();

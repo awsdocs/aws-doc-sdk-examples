@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[PutEventSelectors.java demonstrates how to configure an event selector for your trail.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CloudTrail]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,11 +32,11 @@ public class PutEventSelectors {
 
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "    <trailName> \n\n" +
-                "Where:\n" +
-                "    trailName - The name of the trail. \n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <trailName> \n\n" +
+            "Where:\n" +
+            "    trailName - The name of the trail. \n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -49,9 +46,9 @@ public class PutEventSelectors {
         String trailName = args[0];
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         setSelector(cloudTrailClient, trailName);
         cloudTrailClient.close();
@@ -67,7 +64,6 @@ public class PutEventSelectors {
 
             List<EventSelector> selList = new ArrayList<>();
             selList.add(selector);
-
             PutEventSelectorsRequest selectorsRequest = PutEventSelectorsRequest.builder()
                 .trailName(trailName)
                 .eventSelectors(selList)

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteIdentityPool.java demonstrates how to delete an existing Amazon Cognito identity pool.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +28,10 @@ public class DeleteIdentityPool {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <identityPoolId> \n\n" +
-                "Where:\n" +
-                "    identityPoolId - The Id value of your identity pool.\n\n" ;
+            "Usage:\n" +
+            "    <identityPoolId> \n\n" +
+            "Where:\n" +
+            "    identityPoolId - The Id value of your identity pool.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,9 +40,9 @@ public class DeleteIdentityPool {
 
         String identityPoold = args[0];
         CognitoIdentityClient cognitoIdClient = CognitoIdentityClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteIdPool(cognitoIdClient, identityPoold);
         cognitoIdClient.close();
@@ -56,8 +53,8 @@ public class DeleteIdentityPool {
         try {
 
             DeleteIdentityPoolRequest identityPoolRequest = DeleteIdentityPoolRequest.builder()
-                    .identityPoolId(identityPoold)
-                    .build();
+                .identityPoolId(identityPoold)
+                .build();
 
             cognitoIdClient.deleteIdentityPool(identityPoolRequest);
             System.out.println("Done");

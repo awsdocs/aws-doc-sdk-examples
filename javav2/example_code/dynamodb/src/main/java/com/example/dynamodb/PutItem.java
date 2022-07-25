@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[PutItem.java demonstrates how to place an item into an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -15,14 +11,14 @@ package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.put_item.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import java.util.HashMap;
 // snippet-end:[dynamodb.java2.put_item.import]
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -40,19 +36,19 @@ public class PutItem {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <tableName> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
-                "Where:\n" +
-                "    tableName - The Amazon DynamoDB table in which an item is placed (for example, Music3).\n" +
-                "    key - The key used in the Amazon DynamoDB table (for example, Artist).\n" +
-                "    keyval - The key value that represents the item to get (for example, Famous Band).\n" +
-                "    albumTitle - The Album title (for example, AlbumTitle).\n" +
-                "    AlbumTitleValue - The name of the album (for example, Songs About Life ).\n" +
-                "    Awards - The awards column (for example, Awards).\n" +
-                "    AwardVal - The value of the awards (for example, 10).\n" +
-                "    SongTitle - The song title (for example, SongTitle).\n" +
-                "    SongTitleVal - The value of the song title (for example, Happy Day).\n" +
-                "**Warning** This program will  place an item that you specify into a table!\n";
+            "Usage:\n" +
+            "    <tableName> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
+            "Where:\n" +
+            "    tableName - The Amazon DynamoDB table in which an item is placed (for example, Music3).\n" +
+            "    key - The key used in the Amazon DynamoDB table (for example, Artist).\n" +
+            "    keyval - The key value that represents the item to get (for example, Famous Band).\n" +
+            "    albumTitle - The Album title (for example, AlbumTitle).\n" +
+            "    AlbumTitleValue - The name of the album (for example, Songs About Life ).\n" +
+            "    Awards - The awards column (for example, Awards).\n" +
+            "    AwardVal - The value of the awards (for example, 10).\n" +
+            "    SongTitle - The song title (for example, SongTitle).\n" +
+            "    SongTitleVal - The value of the song title (for example, Happy Day).\n" +
+            "**Warning** This program will  place an item that you specify into a table!\n";
 
         if (args.length != 9) {
             System.out.println(usage);
@@ -72,9 +68,9 @@ public class PutItem {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         putItemInTable(ddb, tableName, key, keyVal, albumTitle, albumTitleValue, awards, awardVal, songTitle, songTitleVal);
         System.out.println("Done!");
@@ -100,13 +96,13 @@ public class PutItem {
         itemValues.put(awards, AttributeValue.builder().s(awardVal).build());
 
         PutItemRequest request = PutItemRequest.builder()
-                .tableName(tableName)
-                .item(itemValues)
-                .build();
+            .tableName(tableName)
+            .item(itemValues)
+            .build();
 
         try {
-            ddb.putItem(request);
-            System.out.println(tableName +" was successfully updated");
+            PutItemResponse response = ddb.putItem(request);
+            System.out.println(tableName +" was successfully updated. The request id is "+response.responseMetadata().requestId());
 
         } catch (ResourceNotFoundException e) {
             System.err.format("Error: The Amazon DynamoDB table \"%s\" can't be found.\n", tableName);

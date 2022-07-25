@@ -3,8 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elastic Beanstalk ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -41,9 +39,9 @@ public class DescribeApplications {
 
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeApps(beanstalkClient);
     }
@@ -57,8 +55,8 @@ public class DescribeApplications {
             for (ApplicationDescription app: apps) {
                 System.out.println("The application name is "+app.applicationName());
                 DescribeEnvironmentsRequest desRequest = DescribeEnvironmentsRequest.builder()
-                            .applicationName(app.applicationName())
-                            .build();
+                    .applicationName(app.applicationName())
+                    .build();
 
                 DescribeEnvironmentsResponse res = beanstalkClient.describeEnvironments(desRequest) ;
                 List<EnvironmentDescription> envDesc = res.environments();

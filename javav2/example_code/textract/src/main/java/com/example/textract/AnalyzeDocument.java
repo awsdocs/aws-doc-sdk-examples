@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[AnalyzeDocument.java demonstrates how to analyze a document.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Textract]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
