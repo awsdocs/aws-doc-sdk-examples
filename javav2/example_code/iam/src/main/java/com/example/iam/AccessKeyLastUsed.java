@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[AccessKeyLastUsed.java demonstrates how to display the time that an access key was last used.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,11 +28,11 @@ import software.amazon.awssdk.services.iam.model.IamException;
 public class AccessKeyLastUsed {
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "    <accessId> \n\n" +
-                "Where:\n" +
-                "    accessId - An access key id that you can obtain from the AWS Management Console. \n\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <accessId> \n\n" +
+            "Where:\n" +
+            "    accessId - An access key id that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class AccessKeyLastUsed {
         String accessId = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAccessKeyLastUsed(iam, accessId) ;
         iam.close();
@@ -58,10 +55,10 @@ public class AccessKeyLastUsed {
 
         try {
             GetAccessKeyLastUsedRequest request = GetAccessKeyLastUsedRequest.builder()
-                    .accessKeyId(accessId).build();
+                .accessKeyId(accessId)
+                .build();
 
             GetAccessKeyLastUsedResponse response = iam.getAccessKeyLastUsed(request);
-
             System.out.println("Access key was last used at: " +
                     response.accessKeyLastUsed().lastUsedDate());
 
@@ -69,6 +66,7 @@ public class AccessKeyLastUsed {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+
         System.out.println("Done");
     }
     // snippet-end:[iam.java2.access_key_last_used.main]

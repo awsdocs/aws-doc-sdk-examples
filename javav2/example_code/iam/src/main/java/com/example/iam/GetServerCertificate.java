@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get information about the specified AWS Identity and Access Management (IAM) role..]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class GetServerCertificate {
     public static void main(String[] args) {
 
          final String usage = "\n" +
-                "Usage:\n" +
-                "    <certName> \n\n" +
-                "Where:\n" +
-                "    certName - A certificate name. \n\n" ;
+             "Usage:\n" +
+             "    <certName> \n\n" +
+             "Where:\n" +
+             "    certName - A certificate name. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class GetServerCertificate {
         String certName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getCertificate(iam, certName );
         System.out.println("Done");
@@ -59,14 +56,14 @@ public class GetServerCertificate {
 
         try {
             GetServerCertificateRequest request = GetServerCertificateRequest.builder()
-                    .serverCertificateName(certName)
-                    .build();
+                .serverCertificateName(certName)
+                .build();
 
             GetServerCertificateResponse response = iam.getServerCertificate(request);
             System.out.format("Successfully retrieved certificate with body %s",
                 response.serverCertificate().certificateBody());
 
-         } catch (IamException e) {
+        } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

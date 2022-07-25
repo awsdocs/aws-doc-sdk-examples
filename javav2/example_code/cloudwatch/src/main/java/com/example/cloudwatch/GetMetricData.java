@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[PutMetricData.java demonstrates how to get Amazon CloudWatch metric data.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,9 +39,9 @@ public class GetMetricData {
 
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getMetData(cw) ;
         cw.close();
@@ -52,28 +49,26 @@ public class GetMetricData {
 
     // snippet-start:[cloudwatch.java2.get_metric_alarm.main]
     public static void getMetData( CloudWatchClient cw) {
-
         try {
-            // Set the date
+            // Set the date.
             Instant start = Instant.parse("2019-10-23T10:12:35Z");
             Instant endDate = Instant.now();
-
             Metric met = Metric.builder()
-                    .metricName("DiskReadBytes")
-                    .namespace("AWS/EC2")
-                     .build();
+                .metricName("DiskReadBytes")
+                .namespace("AWS/EC2")
+                .build();
 
             MetricStat metStat = MetricStat.builder()
-                    .stat("Minimum")
-                    .period(60)
-                    .metric(met)
-                    .build();
+                .stat("Minimum")
+                .period(60)
+                .metric(met)
+                .build();
 
             MetricDataQuery dataQUery = MetricDataQuery.builder()
-                    .metricStat(metStat)
-                    .id("foo2")
-                    .returnData(true)
-                    .build();
+                .metricStat(metStat)
+                .id("foo2")
+                .returnData(true)
+                .build();
 
             List<MetricDataQuery> dq = new ArrayList<>();
             dq.add(dataQUery);

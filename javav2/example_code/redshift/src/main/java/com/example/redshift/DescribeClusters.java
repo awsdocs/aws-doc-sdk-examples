@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeClusters.java demonstrates how to describe Amazon Redshift clusters.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
+//snippet-service:[Amazon Redshift]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class DescribeClusters {
 
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeRedshiftClusters(redshiftClient) ;
         redshiftClient.close();
@@ -60,5 +57,4 @@ public class DescribeClusters {
        }
    }
     // snippet-end:[redshift.java2.describe_cluster.main]
-
 }

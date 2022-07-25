@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[S3AsyncStreamOps.java demonstrates how to use the streaming operations of an Amazon Simple Storage Service (Amazon S3) asynchronous client.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

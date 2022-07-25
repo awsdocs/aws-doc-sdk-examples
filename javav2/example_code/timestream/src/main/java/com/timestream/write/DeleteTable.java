@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteTable.java demonstrates how to delete a database table.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Timestream]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class DeleteTable {
     public static void main(String[] args){
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <dbName> <tableName>\n\n" +
-                "Where:\n" +
-                "   dbName - The name of the database.\n\n"+
-                "   tableName - The name of the table.\n\n";
+            "Usage: " +
+            "   <dbName> <tableName>\n\n" +
+            "Where:\n" +
+            "   dbName - The name of the database.\n\n"+
+            "   tableName - The name of the table.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class DeleteTable {
         String dbName = args[0];
         String tableName = args[1];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSpecificTable(timestreamWriteClient, dbName, tableName);
         timestreamWriteClient.close();
@@ -61,9 +58,9 @@ public class DeleteTable {
         try {
             System.out.println("Deleting table");
             DeleteTableRequest deleteTableRequest = DeleteTableRequest.builder()
-                    .databaseName(dbName)
-                    .tableName(tableName)
-                    .build();
+                .databaseName(dbName)
+                .tableName(tableName)
+                .build();
 
             DeleteTableResponse response = timestreamWriteClient.deleteTable(deleteTableRequest);
             System.out.println("Delete table status: " + response.sdkHttpResponse().statusCode());

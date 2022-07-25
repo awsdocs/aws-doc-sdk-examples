@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteStream.java demonstrates how to delete a delivery stream.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class DeleteStream {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <streamName> \n\n" +
-                "Where:\n" +
-                "    streamName - The data stream name to delete. \n";
+            "Usage:\n" +
+            "    <streamName> \n\n" +
+            "Where:\n" +
+            "    streamName - The data stream name to delete. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class DeleteStream {
         String streamName = args[0];
         Region region = Region.US_WEST_2;
         FirehoseClient firehoseClient = FirehoseClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         delStream(firehoseClient, streamName) ;
         firehoseClient.close();
@@ -58,8 +55,8 @@ public class DeleteStream {
 
         try {
             DeleteDeliveryStreamRequest deleteDeliveryStreamRequest = DeleteDeliveryStreamRequest.builder()
-                    .deliveryStreamName(streamName)
-                    .build();
+                .deliveryStreamName(streamName)
+                .build();
 
             firehoseClient.deleteDeliveryStream(deleteDeliveryStreamRequest);
             System.out.println("Delivery Stream "+streamName +" is deleted");

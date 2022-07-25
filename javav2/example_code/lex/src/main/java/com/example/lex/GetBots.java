@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetBots.java demonstrates how to return information about Amazon Lex chatbots.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
-//snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class GetBots {
 
         Region region = Region.US_WEST_2;
         LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAllBots(lexClient);
         lexClient.close();
@@ -51,12 +48,12 @@ public class GetBots {
             for (BotMetadata bot: bots) {
                 System.out.println("The bot name is : "+bot.name());
                 System.out.println("The bot version is : "+bot.version());
-             }
+            }
 
         } catch (LexModelBuildingException e) {
-        System.out.println(e.getLocalizedMessage());
-        System.exit(1);
+            System.out.println(e.getLocalizedMessage());
+            System.exit(1);
+        }
     }
-  }
     // snippet-end:[lex.java2.get_bots.main]
 }

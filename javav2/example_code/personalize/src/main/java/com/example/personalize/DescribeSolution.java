@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DescribeSolution.java demonstrates how to describe an Amazon Personalize solution.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +29,10 @@ public class DescribeSolution {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    DescribeSolution <solutionArn>\n\n" +
-                "Where:\n" +
-                "    solutionArn - The ARN of the solution.\n\n";
+            "Usage:\n" +
+            "    DescribeSolution <solutionArn>\n\n" +
+            "Where:\n" +
+            "    solutionArn - The ARN of the solution.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -46,8 +42,8 @@ public class DescribeSolution {
         String solutionArn = args[0];
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         describeSpecificSolution(personalizeClient, solutionArn);
         personalizeClient.close();
@@ -56,18 +52,18 @@ public class DescribeSolution {
     //snippet-start:[personalize.java2.describe_solution.main]
    public static void describeSpecificSolution(PersonalizeClient personalizeClient, String solutionArn) {
 
-     try {
-        DescribeSolutionRequest solutionRequest = DescribeSolutionRequest.builder()
-                .solutionArn(solutionArn)
-                .build();
+       try {
+           DescribeSolutionRequest solutionRequest = DescribeSolutionRequest.builder()
+               .solutionArn(solutionArn)
+               .build();
 
-        DescribeSolutionResponse response = personalizeClient.describeSolution(solutionRequest);
-        System.out.println("The Solution name is "+response.solution().name());
+           DescribeSolutionResponse response = personalizeClient.describeSolution(solutionRequest);
+           System.out.println("The Solution name is "+response.solution().name());
 
-        } catch (PersonalizeException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-    //snippet-end:[personalize.java2.describe_solution.main]
+       } catch (PersonalizeException e) {
+           System.err.println(e.awsErrorDetails().errorMessage());
+           System.exit(1);
+       }
+   }
+   //snippet-end:[personalize.java2.describe_solution.main]
 }

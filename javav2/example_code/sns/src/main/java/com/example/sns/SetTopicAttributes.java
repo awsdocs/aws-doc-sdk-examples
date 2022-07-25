@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SetTopicAttributes.java demonstrates how to set attributes for an Amazon Simple Notification Service (Amazon SNS) topic.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,12 +31,12 @@ public class SetTopicAttributes {
 
         final String usage = "\n" +
 
-                "Usage: " +
-                "   <attribute> <topicArn> <value>\n\n" +
-                "Where:\n" +
-                "   attribute - The attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .\n" +
-                "   topicArn - The ARN of the topic. \n" +
-                "   value - The value for the attribute.\n\n";
+            "Usage: " +
+            "   <attribute> <topicArn> <value>\n\n" +
+            "Where:\n" +
+            "   attribute - The attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .\n" +
+            "   topicArn - The ARN of the topic. \n" +
+            "   value - The value for the attribute.\n\n";
 
         if (args.length < 3) {
             System.out.println(usage);
@@ -51,20 +48,18 @@ public class SetTopicAttributes {
         String value = args[2];
 
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         setTopAttr(snsClient, attribute, topicArn, value);
         snsClient.close();
-
     }
 
     //snippet-start:[sns.java2.SetTopicAttributes.main]
     public static void setTopAttr(SnsClient snsClient, String attribute, String topicArn, String value) {
 
         try {
-
             SetTopicAttributesRequest request = SetTopicAttributesRequest.builder()
                 .attributeName(attribute)
                 .attributeValue(value)

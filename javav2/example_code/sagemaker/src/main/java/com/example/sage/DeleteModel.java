@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteModel.java demonstrates how to delete a model in Amazon SageMaker.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class DeleteModel {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <modelName>\n\n" +
-                "Where:\n" +
-                "    modelName - The name of the model.\n\n";
+            "Usage:\n" +
+            "    <modelName>\n\n" +
+            "Where:\n" +
+            "    modelName - The name of the model.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class DeleteModel {
         String modelName = args[0];
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSagemakerModel(sageMakerClient, modelName);
         sageMakerClient.close();
@@ -57,7 +54,7 @@ public class DeleteModel {
     //snippet-start:[sagemaker.java2.delete_model.main]
     public static void deleteSagemakerModel(SageMakerClient sageMakerClient, String modelName) {
 
-       try {
+        try {
             DeleteModelRequest deleteModelRequest = DeleteModelRequest.builder()
                 .modelName(modelName)
                 .build();

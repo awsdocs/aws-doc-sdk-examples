@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListDataSets.java demonstrates how to list Amazon QuickSight datasets.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class ListDataSets {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <account>\n\n" +
-                "Where:\n" +
-                "   account - The ID of the AWS account.\n\n";
+            "Usage: " +
+            "   <account>\n\n" +
+            "Where:\n" +
+            "   account - The ID of the AWS account.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,13 +43,12 @@ public class ListDataSets {
 
         String account = args[0];
         QuickSightClient qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllDataSets(qsClient, account);
         qsClient.close();
-
     }
 
     // snippet-start:[quicksight.java2.list_datasets.main]
@@ -60,13 +56,12 @@ public class ListDataSets {
 
         try {
             ListDataSetsRequest datasetRequest = ListDataSetsRequest.builder()
-                    .awsAccountId(account)
-                    .maxResults(20)
-                    .build();
+                .awsAccountId(account)
+                .maxResults(20)
+                .build();
 
             ListDataSetsResponse res = qsClient.listDataSets(datasetRequest);
             List<DataSetSummary> dataSets = res.dataSetSummaries();
-
             for (DataSetSummary dataset: dataSets) {
                 System.out.println("Dataset name: "+dataset.name());
                 System.out.println("Dataset ARN: "+dataset.arn());

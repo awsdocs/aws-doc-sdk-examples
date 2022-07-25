@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[S3log.java demonstrates how to log information.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -35,7 +31,6 @@ import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 public class S3Log {
 
     private static final Logger logger = LogManager.getLogger(S3Log.class);
-
     public static void main (String[] args) {
         System.out.println("testing logging setup for " + S3Log.class);
 

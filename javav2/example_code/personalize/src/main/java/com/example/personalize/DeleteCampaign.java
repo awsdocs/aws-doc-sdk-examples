@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeleteCampaign.java demonstrates how to delete an Amazon Personalize campaign.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,13 +9,13 @@
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.delete_campaign.import]
+//snippet-start:[personalize.java2.create_campaign.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.DeleteCampaignRequest;
 import software.amazon.awssdk.services.personalize.model.CreateCampaignResponse;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
-//snippet-end:[personalize.java2.delete_campaign.import]
+//snippet-end:[personalize.java2.create_campaign.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -33,10 +29,10 @@ public class DeleteCampaign {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    DeleteCampaign <campaignArn> \n\n" +
-                "Where:\n" +
-                "    campaignArn - The ARN of the campaign to delete.\n\n";
+            "Usage:\n" +
+            "    DeleteCampaign <campaignArn> \n\n" +
+            "Where:\n" +
+            "    campaignArn - The ARN of the campaign to delete.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -46,17 +42,16 @@ public class DeleteCampaign {
         String campaignArn = args[0];
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         deleteSpecificCampaign(personalizeClient, campaignArn) ;
         personalizeClient.close();
     }
-//snippet-start:[personalize.java2.delete_campaign.main]
+
     public static void deleteSpecificCampaign(PersonalizeClient personalizeClient, String campaignArn ) {
 
         try {
-
             DeleteCampaignRequest campaignRequest = DeleteCampaignRequest.builder()
                 .campaignArn(campaignArn)
                 .build();
@@ -67,6 +62,5 @@ public class DeleteCampaign {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-      }
     }
-//snippet-end:[personalize.java2.delete_campaign.main]
+}

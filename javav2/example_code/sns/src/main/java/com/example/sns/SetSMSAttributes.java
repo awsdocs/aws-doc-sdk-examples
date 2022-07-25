@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[SetSMSAttributes.java demonstrates how to set attributes for Amazon Simple Notification Service (Amazon SNS).]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,15 +33,15 @@ public class SetSMSAttributes {
         attributes.put("UsageReportS3Bucket", "janbucket" );
 
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         setSNSAttributes(snsClient, attributes);
         snsClient.close();
-        }
+    }
 
     //snippet-start:[sns.java2.SetSMSAttributes.main]
-   public static void setSNSAttributes( SnsClient snsClient, HashMap<String, String> attributes) {
+    public static void setSNSAttributes( SnsClient snsClient, HashMap<String, String> attributes) {
 
         try {
             SetSmsAttributesRequest request = SetSmsAttributesRequest.builder()
@@ -59,6 +55,6 @@ public class SetSMSAttributes {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-     }
+    }
     //snippet-end:[sns.java2.SetSMSAttributes.main]
 }

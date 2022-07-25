@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[StartLogging.java demonstrates how to start and stop logging.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CloudTrail]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/17/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,23 +29,23 @@ public class StartLogging {
 
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "    <trailName> \n\n" +
-                "Where:\n" +
-                "    trailName - The name of the trail. \n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <trailName> \n\n" +
+            "Where:\n" +
+            "    trailName - The name of the trail. \n" ;
 
         if (args.length != 1) {
-             System.out.println(usage);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
          }
 
         String trailName = args[0] ;
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         startLog(cloudTrailClient, trailName);
         stopLog(cloudTrailClient, trailName);
@@ -73,11 +70,10 @@ public class StartLogging {
     }
 
     public static void stopLog( CloudTrailClient cloudTrailClientClient, String trailName) {
-
         try {
             StartLoggingRequest loggingRequest = StartLoggingRequest.builder()
-                    .name(trailName)
-                    .build() ;
+                .name(trailName)
+                .build() ;
 
             cloudTrailClientClient.startLogging(loggingRequest);
             System.out.println(trailName +" has started logging");

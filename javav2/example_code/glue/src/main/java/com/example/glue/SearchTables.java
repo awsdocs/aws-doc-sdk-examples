@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SearchTables.java demonstrates how to search a set of tables based on properties.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,10 +34,10 @@ public class SearchTables {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <text>\n\n" +
-                "Where:\n" +
-                "    text - A string used for a text search. \n";
+            "Usage:\n" +
+            "    <text>\n\n" +
+            "Where:\n" +
+            "    text - A string used for a text search. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,9 +47,9 @@ public class SearchTables {
         String text = args[0];
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         searchGlueTable(glueClient, text);
         glueClient.close();
@@ -74,6 +71,7 @@ public class SearchTables {
                 System.out.println("Table name is : "+table.name());
                 System.out.println("Database name is : "+table.databaseName());
             }
+
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
