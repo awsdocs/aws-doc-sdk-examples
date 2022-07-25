@@ -13,7 +13,6 @@ package com.example.personalize;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.DeleteCampaignRequest;
-import software.amazon.awssdk.services.personalize.model.CreateCampaignResponse;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 //snippet-end:[personalize.java2.create_campaign.import]
 
@@ -49,6 +48,7 @@ public class DeleteCampaign {
         personalizeClient.close();
     }
 
+    //snippet-start:[personalize.java2.create_campaign.main]
     public static void deleteSpecificCampaign(PersonalizeClient personalizeClient, String campaignArn ) {
 
         try {
@@ -63,4 +63,5 @@ public class DeleteCampaign {
             System.exit(1);
         }
     }
+    //snippet-end:[personalize.java2.create_campaign.main]
 }
