@@ -1,8 +1,8 @@
-# AWS Glue code examples for the AWS SDK for .NET v3
+# AWS Glue code examples for the AWS SDK for .NET (v3)
 
 ## Overview
 
-Examples in this folder show how to use AWS Glue with the AWS SDK for .NET.
+The examples in this folder show how to use AWS Glue with the AWS SDK for .NET.
 
 AWS Glue is a serverless data integration service that makes it easy to 
 discover, prepare, and combine data for analytics, machine learning, and
@@ -16,9 +16,9 @@ minutes instead of months.
 - Running the tests might result in charges to your AWS account.
 - We recommend that you grant your code least privilege. At most, grant only
   the minimum permissions required to perform the task. For more information,
-  see Grant least privilege.
-- This code is not tested in every AWS Region. For more information, see AWS
-  Regional Services.
+  see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in every AWS Region. For more information, see [AWS
+  Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 
 ## Code examples
 
@@ -31,8 +31,8 @@ multiple functions within the same service.
 
 ## Running the examples
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then issuing
+After the example is compiled, you can run it from the command line. To
+do this, navigate to the folder that contains the .csproj file, and then issue
 the following command:
 
 ```
@@ -44,8 +44,8 @@ Alternatively, you can execute the example from within your IDE.
 ### Prerequisites
 
 - You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the AWS Tools and SDKs Shared Configuration and
-- Credentials Reference Guide.
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
 - NET Core 6.0 or later
 - AWS SDK for .NET 3.7 or later
 
@@ -53,9 +53,9 @@ Alternatively, you can execute the example from within your IDE.
 
 ⚠️ Running the tests might result in charges to your AWS account.
 
-The scenario has a test project included in the solution.
+The scenario includes a test project in the solution.
 
-1. Naviate to the folder containing the scenario and then enter:
+1. Naviate to the folder that contains the scenario and then enter:
 
 ```
 dotnet test
@@ -66,8 +66,8 @@ Test Runner to execute the tests.
 
 ## Additional Resources
 
-- [AWS Glue developer guide](https://docs.aws.amazon.com/glue/latest/dg/glue-dg.pdf)
-- [AWS Glue API reference guide](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)
-- [AWS Glue API reference guide SDK for the AWS SDK for .NET](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glue/NGlue.html)
+- [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/glue-dg.pdf)
+- [AWS Glue API in the AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)
+- [AWS Glue section of the AWS SDK for .NET (v3) API Documentation](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glue/NGlue.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

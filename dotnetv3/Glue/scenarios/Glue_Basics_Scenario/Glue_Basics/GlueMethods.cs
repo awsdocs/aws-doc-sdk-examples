@@ -5,7 +5,7 @@
 namespace Glue_Basics
 {
     /// <summary>
-    /// Methods for working the AWS Glue using the AWS SDK for .NET v3.7.
+    /// Methods for working the AWS Glue by using the AWS SDK for .NET (v3.7).
     /// </summary>
     public static class GlueMethods
     {
@@ -26,7 +26,7 @@ namespace Glue_Basics
             {
                 var dataBaseInput = new DatabaseInput
                 {
-                    Description = "Built with the AWS SDK for .NET v3",
+                    Description = "Built with the AWS SDK for .NET (v3)",
                     Name = dbName,
                     LocationUri = locationUri,
                 };
@@ -64,7 +64,7 @@ namespace Glue_Basics
         /// </summary>
         /// <param name="glueClient">The initialized AWS Glue client.</param>
         /// <param name="iam">The Amazon Resource Name (ARN) of the IAM role
-        /// used by the crawler.</param>
+        /// that is used by the crawler.</param>
         /// <param name="s3Path">The path to the Amazon S3 bucket where
         /// data is stored.</param>
         /// <param name="cron">The name of the CRON job that runs the crawler.</param>
@@ -201,8 +201,8 @@ namespace Glue_Basics
         /// <summary>
         /// Deletes an AWS Glue database.
         /// </summary>
-        /// <param name="glueClient">The initialized AWS Glue cllient.</param>
-        /// <param name="databaseName">The name of the database to delte.</param>
+        /// <param name="glueClient">The initialized AWS Glue client.</param>
+        /// <param name="databaseName">The name of the database to delete.</param>
         /// <returns>A Boolean value indicating whether the AWS Glue database was
         /// deleted successfully.</returns>
         public static async Task<bool> DeleteDatabaseAsync(AmazonGlueClient glueClient, string databaseName)
@@ -264,7 +264,7 @@ namespace Glue_Basics
         /// <param name="glueClient">The initialized AWS Glue client.</param>
         /// <returns>A Boolean value indicating whether information about the
         /// AWS Glue jobs was retrieved successfully.</returns>
-        /// <returns>A Boolean value that indicates whether information about
+        /// <returns>A Boolean value indicating whether information about
         /// all AWS Glue jobs was retrieved.</returns>
         public static async Task<bool> GetAllJobsAsync(AmazonGlueClient glueClient)
         {
@@ -307,13 +307,13 @@ namespace Glue_Basics
                 DatabaseName = dbName,
             };
 
-            // Get the list of Glue databases.
+            // Get the list of AWS Glue databases.
             var response = await glueClient.GetTablesAsync(tableRequest);
             var tables = response.TableList;
 
             if (tables.Count > 0)
             {
-                // Display the list of table names.
+                // Displays the list of table names.
                 tables.ForEach(table => { Console.WriteLine($"Table name is: {table.Name}"); });
                 return true;
             }
@@ -404,7 +404,7 @@ namespace Glue_Basics
         /// example.
         /// </summary>
         /// <param name="glueClient">The initialized Glue client.</param>
-        /// <param name="databaseName">The  name of the AWS Glue database.</param>
+        /// <param name="databaseName">The name of the AWS Glue database.</param>
         /// <returns>A Boolean value indicating whether information about
         /// the AWS Glue database was retrieved successfully.</returns>
         public static async Task<bool> GetSpecificDatabaseAsync(

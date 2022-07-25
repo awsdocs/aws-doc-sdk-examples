@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache - 2.0
 
 // snippet-start:[Glue.dotnetv3.GlueBasicsScenario.Main]
-// This example uses .NET Core 6 and the AWS SDK for .NET v3.7
-// Before running the code, et up your development environment,
+// This example uses .NET Core 6 and the AWS SDK for .NET (v3.7)
+// Before running the code, set up your development environment,
 // including your credentials. For more information, see the
 // following topic:
 //    https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
 //
-// To set up the resources you need, see this topic:
+// To set up the resources you need, see the following topic:
 //    https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html
 //
 // This example performs the following tasks:
@@ -26,8 +26,8 @@
 //   12. DeleteDatabase
 //   13. DeleteCrawler
 
-// Initialize the values we need for the scenario.
-// The ARN of the service role used by the crawler.
+// Initialize the values that we need for the scenario.
+// The Amazon Resource Name (ARN) of the service role used by the crawler.
 var iam = "arn:aws:iam::012345678901:role/AWSGlueServiceRole-CrawlerTutorial";
 
 // The path to the Amazon S3 bucket where the comma-delimited file is stored.
