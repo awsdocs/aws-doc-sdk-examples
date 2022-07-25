@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListStateMachines.java demonstrates how to List existing state machines for AWS Step Functions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class ListStateMachines {
 
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listMachines(sfnClient);
         sfnClient.close();
@@ -47,12 +44,12 @@ public class ListStateMachines {
     public static void listMachines(SfnClient sfnClient) {
 
         try {
-        ListStateMachinesResponse response = sfnClient.listStateMachines();
-        List<StateMachineListItem> machines = response.stateMachines();
-        for (StateMachineListItem machine :machines) {
-            System.out.println("The name of the state machine is: "+machine.name());
-            System.out.println("The ARN value is : "+machine.stateMachineArn());
-        }
+            ListStateMachinesResponse response = sfnClient.listStateMachines();
+            List<StateMachineListItem> machines = response.stateMachines();
+            for (StateMachineListItem machine :machines) {
+                System.out.println("The name of the state machine is: "+machine.name());
+                System.out.println("The ARN value is : "+machine.stateMachineArn());
+            }
 
         } catch (SfnException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

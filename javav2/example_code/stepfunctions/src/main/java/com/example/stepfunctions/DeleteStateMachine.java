@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeleteStateMachine.java demonstrates how to delete a state machine for AWS Step Functions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +28,10 @@ public class DeleteStateMachine {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <stateMachineArn>\n\n" +
-                "Where:\n" +
-                "    stateMachineArn - The ARN of the state machine to delete.\n";
+            "Usage:\n" +
+            "    <stateMachineArn>\n\n" +
+            "Where:\n" +
+            "    stateMachineArn - The ARN of the state machine to delete.\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +41,9 @@ public class DeleteStateMachine {
         String stateMachineArn = args[0];
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteMachine(sfnClient, stateMachineArn);
         sfnClient.close();
@@ -58,8 +54,8 @@ public class DeleteStateMachine {
 
         try {
             DeleteStateMachineRequest deleteStateMachineRequest = DeleteStateMachineRequest.builder()
-                    .stateMachineArn(stateMachineArn)
-                    .build();
+                .stateMachineArn(stateMachineArn)
+                .build();
 
             sfnClient.deleteStateMachine(deleteStateMachineRequest);
             System.out.println(stateMachineArn +" was successfully deleted.");
