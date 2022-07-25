@@ -5,6 +5,7 @@
 global using System.Text;
 global using Amazon;
 global using Amazon.S3;
+global using Amazon.S3.Model;
 global using Amazon.S3.Transfer;
 global using TransferUtilityBasics;
 

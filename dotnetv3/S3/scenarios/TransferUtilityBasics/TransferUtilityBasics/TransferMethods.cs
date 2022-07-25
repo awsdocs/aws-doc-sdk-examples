@@ -18,7 +18,7 @@ namespace TransferUtilityBasics
                 FilePath = $"{localPath}\\{keyName}",
             });
 
-            if (File.Exists($"{localPath}\\keyName"))
+            if (File.Exists($"{localPath}\\{keyName}"))
             {
                 return true;
             }

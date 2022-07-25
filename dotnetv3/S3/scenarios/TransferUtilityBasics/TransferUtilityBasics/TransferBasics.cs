@@ -6,11 +6,9 @@
 IAmazonS3 client = new AmazonS3Client();
 var transferUtil = new TransferUtility(client);
 
-// Change the following values to Amazon S3 buckets that
-// exist in your Amazon account.Make sure that you have an
-// existing bucket that you can use or create a new bucket on
-// your account.
-var bucketName = "igsmith-doc-example-bucket1";
+// Change the following values to an Amazon S3 bucket that
+// exists in your Amazon account.
+var bucketName = "doc-example-bucket1";
 var localPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\TransferFolder";
 
 DisplayInstructions();
@@ -35,11 +33,17 @@ var keyPrefix = "UploadFolder";
 var uploadPath = $"{localPath}\\UploadFolder";
 
 Console.WriteLine($"Uploading the files in {uploadPath} to {bucketName}");
+Console.WriteLine($"{uploadPath} contains the following files:");
+DisplayLocalFiles(uploadPath);
+Console.WriteLine();
 
 success = await TransferMethods.UploadFullDirectoryAsync(transferUtil, bucketName, keyPrefix, uploadPath);
 if (success)
 {
     Console.WriteLine($"Successfully uploaded the files in {uploadPath} to {bucketName}.");
+    Console.WriteLine($"{bucketName} currently contains the following files:");
+    await DisplayBucketFiles(client, bucketName, keyPrefix);
+    Console.WriteLine();
 }
 
 PressEnter();
@@ -62,15 +66,21 @@ PressEnter();
 var s3Path = "DownloadFolder";
 var downloadPath = $"{localPath}\\DownloadFolder";
 
-Console.WriteLine("Downloading the contents of {bucketName}\\{s3Path}");
+Console.WriteLine($"Downloading the contents of {bucketName}\\{s3Path}");
+Console.WriteLine($"{bucketName}\\{s3Path} contains the following files:");
+await DisplayBucketFiles(client, bucketName, s3Path);
+Console.WriteLine();
 
 success = await TransferMethods.DownloadS3DirectoryAsync(transferUtil, bucketName, s3Path, downloadPath);
 if (success)
 {
     Console.WriteLine($"Downloaded the files in {bucketName} to {downloadPath}.");
+    Console.WriteLine($"{downloadPath} now contains the fillowing files:");
+    DisplayLocalFiles(downloadPath);
 }
 
-Console.WriteLine("The TransferUtility Basics application has completed.");
+Console.WriteLine("\nThe TransferUtility Basics application has completed.");
+PressEnter();
 
 static void DisplayInstructions()
 {
@@ -81,7 +91,6 @@ static void DisplayInstructions()
     Console.WriteLine(CenterText("Amazon S3 Transfer Utility Basics"));
     Console.WriteLine(sepBar);
     Console.WriteLine("This program shows how to use the Amazon S3 Transfer Utility.");
-    Console.WriteLine(sepBar);
     Console.WriteLine("It performs the following actions:");
     Console.WriteLine("\t1. Upload a single object to an Amazon S3 bucket.");
     Console.WriteLine("\t2. Upload all an entire directory from the local computer to an Amazon\n\t   S3 bucket.");
@@ -103,4 +112,40 @@ static string CenterText(string textToCenter)
     centeredText.Append(new string(' ', (int)(80 - textToCenter.Length) / 2));
     centeredText.Append(textToCenter);
     return centeredText.ToString();
+}
+
+static void DisplayLocalFiles(string localPath)
+{
+    var fileList = Directory.GetFiles(localPath);
+    if (fileList is not null)
+    {
+        foreach (var fileName in fileList)
+        {
+            Console.WriteLine(fileName);
+        }
+    }
+}
+
+static async Task DisplayBucketFiles(IAmazonS3 client, string bucketName, string s3Path)
+{
+    ListObjectsV2Request request = new()
+    {
+        BucketName = bucketName,
+        Prefix = s3Path,
+        MaxKeys = 5,
+    };
+
+    var response = new ListObjectsV2Response();
+
+    do
+    {
+        response = await client.ListObjectsV2Async(request);
+
+        response.S3Objects
+            .ForEach(obj => Console.WriteLine($"{obj.Key}"));
+
+        // If the response is truncated, set the request ContinuationToken
+        // from the NextContinuationToken property of the response.
+        request.ContinuationToken = response.NextContinuationToken;
+    } while (response.IsTruncated);
 }
