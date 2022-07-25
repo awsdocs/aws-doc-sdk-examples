@@ -3,13 +3,13 @@
 
 // snippet-start:[S3.dotnetv3.TransferUtilityBasics.Main]
 
-// The Amazon S3 client here uses the default user credentials
+// This Amazon S3 client uses the default user credentials
 // defined for this computer.
 IAmazonS3 client = new AmazonS3Client();
 var transferUtil = new TransferUtility(client);
 
 // Change the following values to an Amazon S3 bucket that
-// exists in your Amazon account.
+// exists in your AWS account.
 var bucketName = "doc-example-bucket1";
 var localPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\TransferFolder";
 
@@ -17,10 +17,10 @@ DisplayInstructions();
 
 PressEnter();
 
-// Upload a single file to an Amazon S3 bucket.
+// Upload a single file to an S3 bucket.
 var fileToUpload = "UploadTest.docx";
 
-Console.WriteLine($"Uploading {fileToUpload} to the Amazon S3 bucket, {bucketName}.");
+Console.WriteLine($"Uploading {fileToUpload} to the S3 bucket, {bucketName}.");
 
 var success = await TransferMethods.UploadSingleFileAsync(transferUtil, bucketName, fileToUpload, localPath);
 if (success)
@@ -30,7 +30,7 @@ if (success)
 
 PressEnter();
 
-// Upload a local directory to an Amazon S3 bucket.
+// Upload a local directory to an S3 bucket.
 var keyPrefix = "UploadFolder";
 var uploadPath = $"{localPath}\\UploadFolder";
 
@@ -51,7 +51,7 @@ if (success)
 PressEnter();
 
 
-// Download a single file from an Amazon S3 bucket.
+// Download a single file from an S3 bucket.
 var keyName = "FileToDownload.docx";
 
 Console.WriteLine($"Downloading {keyName} from {bucketName}.");
@@ -64,7 +64,7 @@ if (success)
 
 PressEnter();
 
-// Download the contents of a directory from an Amazon S3 bucket.
+// Download the contents of a directory from an S3 bucket.
 var s3Path = "DownloadFolder";
 var downloadPath = $"{localPath}\\DownloadFolder";
 
@@ -94,10 +94,10 @@ static void DisplayInstructions()
     Console.WriteLine(sepBar);
     Console.WriteLine("This program shows how to use the Amazon S3 Transfer Utility.");
     Console.WriteLine("It performs the following actions:");
-    Console.WriteLine("\t1. Upload a single object to an Amazon S3 bucket.");
-    Console.WriteLine("\t2. Upload all an entire directory from the local computer to an Amazon\n\t   S3 bucket.");
-    Console.WriteLine("\t3. Download a single object from an Amazon S3 bucket.");
-    Console.WriteLine("\t4. Download the objects in an Amazon S3 directory to a local directory.");
+    Console.WriteLine("\t1. Upload a single object to an S3 bucket.");
+    Console.WriteLine("\t2. Upload all an entire directory from the local computer to an\n\t  S3 bucket.");
+    Console.WriteLine("\t3. Download a single object from an S3 bucket.");
+    Console.WriteLine("\t4. Download the objects in an S3 bucket to a local directory.");
     Console.WriteLine($"\n{sepBar}");
 }
 

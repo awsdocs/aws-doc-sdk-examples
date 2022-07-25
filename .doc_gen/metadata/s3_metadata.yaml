@@ -1555,8 +1555,8 @@ s3_Scenario_TransferManager:
           sdkguide:
           excerpts:
             - description:
-                Call functions that transfer files to and from an &S3; bucket
-                using the &S3 TransferUtility.
+                Call functions that transfer files to and from an S3 bucket
+                using the &S3; TransferUtility.
               snippet_tags:
                 - S3.dotnetv3.TransferUtilityBasics.GlobalUsings
                 - S3.dotnetv3.TransferUtilityBasics.Main
@@ -1569,7 +1569,7 @@ s3_Scenario_TransferManager:
             - description: Download a single file.
               snippet_tags:
                 - S3.dotnetv3.TransferUtilityBasics.DownloadSingleFileAsync
-            - description: Download contents of an &S3; bucket.
+            - description: Download contents of an S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync
     Python:
