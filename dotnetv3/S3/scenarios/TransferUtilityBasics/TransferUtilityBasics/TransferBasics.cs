@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[S3.dotnetv3.TransferUtilityBasics.Main]
+
 // The Amazon S3 client here uses the default user credentials
 // defined for this computer.
 IAmazonS3 client = new AmazonS3Client();
@@ -149,3 +151,5 @@ static async Task DisplayBucketFiles(IAmazonS3 client, string bucketName, string
         request.ContinuationToken = response.NextContinuationToken;
     } while (response.IsTruncated);
 }
+
+// snippet-end:[S3.dotnetv3.TransferUtilityBasics.Main]

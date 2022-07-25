@@ -5,8 +5,9 @@ namespace TransferUtilityBasics
 {
     public class TransferMethods
     {
+        // snippet-start:[S3.dotnetv3.TransferUtilityBasics.DownloadSingleFileAsync]
         public static async Task<bool> DownloadSingleFileAsync(
-            TransferUtility transferUtil,
+        TransferUtility transferUtil,
             string bucketName,
             string keyName,
             string localPath)
@@ -28,6 +29,9 @@ namespace TransferUtilityBasics
             }
         }
 
+        // snippet-end:[S3.dotnetv3.TransferUtilityBasics.DownloadSingleFileAsync]
+
+        // snippet-start:[S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync]
         public static async Task<bool> DownloadS3DirectoryAsync(
             TransferUtility transferUtil,
             string bucketName,
@@ -51,6 +55,9 @@ namespace TransferUtilityBasics
             }
         }
 
+        // snippet-end:[S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync]
+
+        // snippet-start:[S3.dotnetv3.TransferUtilityBasics.UploadSingleFileAsync]
         public static async Task<bool> UploadSingleFileAsync(
             TransferUtility transferUtil,
             string bucketName,
@@ -83,6 +90,9 @@ namespace TransferUtilityBasics
                 return false;
             }
         }
+        // snippet-end:[S3.dotnetv3.TransferUtilityBasics.UploadSingleFileAsync]
+
+        // snippet-start:[S3.dotnetv3.TransferUtilityBasics.UploadFullDirectoryAsync]
         public static async Task<bool> UploadFullDirectoryAsync(
             TransferUtility transferUtil,
             string bucketName,
@@ -115,5 +125,7 @@ namespace TransferUtilityBasics
                 return false;
             }
         }
+
+        // snippet-end:[S3.dotnetv3.TransferUtilityBasics.UploadFullDirectoryAsync]
     }
 }
