@@ -73,8 +73,7 @@ namespace AwsDoc
         AWSDOC_S3_API bool PutWebsiteConfig(const Aws::String& bucketName,
             const Aws::String& indexPage, const Aws::String& errorPage,
             const Aws::String& region = "");
-        AWSDOC_S3_API bool S3Scenario(const Aws::String& bucketName,
-             const Aws::String& key, const Aws::String& objectPath,
+        AWSDOC_S3_API bool S3Scenario(const Aws::String& key, const Aws::String& objectPath,
              const Aws::String& savePath, const Aws::String& toBucket,
              const Aws::Client::ClientConfiguration &clientConfig);
     }
