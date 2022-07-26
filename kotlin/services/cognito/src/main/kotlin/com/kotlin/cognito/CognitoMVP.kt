@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[CognitoMVP.kt demonstrates how to sign up a new user with Amazon Cognito and associate the user with an MFA application for multi-factor authentication.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-service:[Amazon Cognito]
-// snippet-sourcetype:[full-example]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
