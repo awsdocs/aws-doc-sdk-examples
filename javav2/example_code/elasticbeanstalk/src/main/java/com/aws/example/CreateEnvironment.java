@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateEnvironment.java demonstrates how to create an AWS Elastic Beanstalk environment.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elastic Beanstalk ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,11 +32,11 @@ public class CreateEnvironment {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <envName> \n\n" +
-                "Where:\n" +
-                "    envName - The name of the AWS Elastic Beanstalk environment. \n" +
-                "    appName - The name of the AWS Elastic Beanstalk application." ;
+            "Usage:\n" +
+            "    <envName> \n\n" +
+            "Where:\n" +
+            "    envName - The name of the AWS Elastic Beanstalk environment. \n" +
+            "    appName - The name of the AWS Elastic Beanstalk application." ;
 
        if (args.length != 1) {
             System.out.println(usage);
@@ -50,9 +47,9 @@ public class CreateEnvironment {
         String appName = args[1];
         Region region = Region.US_WEST_2;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String environmentArn = createEBEnvironment(beanstalkClient, envName, appName);
         System.out.println("The ARN of the environment is " +environmentArn);
@@ -63,18 +60,18 @@ public class CreateEnvironment {
 
         try {
             ConfigurationOptionSetting setting1 = ConfigurationOptionSetting.builder()
-                    .namespace("aws:autoscaling:launchconfiguration")
-                    .optionName("IamInstanceProfile")
-                    .value("aws-elasticbeanstalk-ec2-role")
-                    .build();
+                .namespace("aws:autoscaling:launchconfiguration")
+                .optionName("IamInstanceProfile")
+                .value("aws-elasticbeanstalk-ec2-role")
+                .build();
 
             CreateEnvironmentRequest applicationRequest = CreateEnvironmentRequest.builder()
-                    .description("An AWS Elastic Beanstalk environment created using the AWS Java API")
-                    .environmentName(envName)
-                    .solutionStackName("64bit Amazon Linux 2 v3.2.12 running Corretto 11")
-                    .applicationName(appName)
-                    .optionSettings(setting1)
-                    .build();
+                .description("An AWS Elastic Beanstalk environment created using the AWS Java API")
+                .environmentName(envName)
+                .solutionStackName("64bit Amazon Linux 2 v3.2.12 running Corretto 11")
+                .applicationName(appName)
+                .optionSettings(setting1)
+                .build();
 
             CreateEnvironmentResponse response = beanstalkClient.createEnvironment(applicationRequest);
             return response.environmentArn();

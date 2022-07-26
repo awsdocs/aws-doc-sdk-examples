@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteDataset.java demonstrates how to delete a data set that belongs to the Amazon Forecast service.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,22 +30,22 @@ public class DeleteDataset {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <datasetARN> \n\n" +
-                "Where:\n" +
-                "    datasetARN - The ARN of the data set to delete. \n\n" ;
+            "Usage:\n" +
+            "    <datasetARN> \n\n" +
+            "Where:\n" +
+            "    datasetARN - The ARN of the data set to delete. \n\n" ;
 
-         if (args.length != 1) {
-              System.out.println(usage);
-              System.exit(1);
-           }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String datasetARN = args[0];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteForecastDataSet(forecast, datasetARN);
         forecast.close();
@@ -59,8 +56,8 @@ public class DeleteDataset {
 
         try {
             DeleteDatasetRequest deleteRequest = DeleteDatasetRequest.builder()
-                    .datasetArn(myDataSetARN)
-                    .build();
+                .datasetArn(myDataSetARN)
+                .build();
 
             forecast.deleteDataset(deleteRequest);
             System.out.println("The Data Set was deleted") ;

@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[StopQueryExecutionExample.java demonstrates how to stop a query and check its status.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -39,9 +37,9 @@ public class StopQueryExecutionExample {
     public static void main(String[] args) {
 
         AthenaClient athenaClient = AthenaClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String sampleQueryExecutionId = submitAthenaQuery(athenaClient);
         stopAthenaQuery(athenaClient, sampleQueryExecutionId);
@@ -51,17 +49,17 @@ public class StopQueryExecutionExample {
     //snippet-start:[athena.java2.StopQueryExecutionExample.main]
     public static void stopAthenaQuery(AthenaClient athenaClient, String sampleQueryExecutionId){
 
-       try {
+        try {
             StopQueryExecutionRequest stopQueryExecutionRequest = StopQueryExecutionRequest.builder()
-                    .queryExecutionId(sampleQueryExecutionId)
-                    .build();
+                .queryExecutionId(sampleQueryExecutionId)
+                .build();
 
             athenaClient.stopQueryExecution(stopQueryExecutionRequest);
 
             // Ensure that the query was stopped.
             GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
-                    .queryExecutionId(sampleQueryExecutionId)
-                    .build();
+                .queryExecutionId(sampleQueryExecutionId)
+                .build();
 
             GetQueryExecutionResponse getQueryExecutionResponse = athenaClient.getQueryExecution(getQueryExecutionRequest);
             if (getQueryExecutionResponse.queryExecution()
@@ -80,13 +78,14 @@ public class StopQueryExecutionExample {
 
     // Submits an example query and returns a query execution Id value
     public static String submitAthenaQuery(AthenaClient athenaClient) {
-
         try {
             QueryExecutionContext queryExecutionContext = QueryExecutionContext.builder()
-                .database(ExampleConstants.ATHENA_DEFAULT_DATABASE).build();
+                .database(ExampleConstants.ATHENA_DEFAULT_DATABASE)
+                .build();
 
             ResultConfiguration resultConfiguration = ResultConfiguration.builder()
-                .outputLocation(ExampleConstants.ATHENA_OUTPUT_BUCKET).build();
+                .outputLocation(ExampleConstants.ATHENA_OUTPUT_BUCKET)
+                .build();
 
             StartQueryExecutionRequest startQueryExecutionRequest = StartQueryExecutionRequest.builder()
                 .queryExecutionContext(queryExecutionContext)
@@ -107,5 +106,4 @@ public class StopQueryExecutionExample {
 }
 
 //snippet-end:[athena.java.StopQueryExecutionExample.complete]
-
 //snippet-end:[athena.java2.StopQueryExecutionExample.complete]

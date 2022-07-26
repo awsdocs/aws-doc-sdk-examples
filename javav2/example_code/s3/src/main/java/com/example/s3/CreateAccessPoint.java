@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateAccessPoint.java demonstrates how to create and delete an access point for an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,12 +31,12 @@ public class CreateAccessPoint {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <accountId> <bucketName> <accessPointName>\n\n" +
-                "Where:\n" +
-                "    accountId - The account id that owns the Amazon S3 bucket. \n\n" +
-                "    bucketName - The Amazon S3 bucket name. \n" +
-                "    accessPointName - The access point name (for example, myaccesspoint). \n";
+            "Usage:\n" +
+            "    <accountId> <bucketName> <accessPointName>\n\n" +
+            "Where:\n" +
+            "    accountId - The account id that owns the Amazon S3 bucket. \n\n" +
+            "    bucketName - The Amazon S3 bucket name. \n" +
+            "    accessPointName - The access point name (for example, myaccesspoint). \n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -53,9 +50,9 @@ public class CreateAccessPoint {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3ControlClient s3ControlClient = S3ControlClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName );
         deleteSpecificAccessPoint(s3ControlClient, accountId, accessPointName);
@@ -64,17 +61,14 @@ public class CreateAccessPoint {
 
     // snippet-start:[s3.java2.create_access_point.main]
     // This method creates an access point for the given Amazon S3 bucket.
-    public static void createSpecificAccessPoint(S3ControlClient s3ControlClient,
-                                                 String accountId,
-                                                 String bucketName,
-                                                 String accessPointName) {
+    public static void createSpecificAccessPoint(S3ControlClient s3ControlClient, String accountId, String bucketName, String accessPointName) {
 
         try {
             CreateAccessPointRequest accessPointRequest = CreateAccessPointRequest.builder()
-                    .accountId(accountId)
-                    .bucket(bucketName)
-                    .name(accessPointName)
-                    .build();
+                .accountId(accountId)
+                .bucket(bucketName)
+                .name(accessPointName)
+                .build();
 
             s3ControlClient.createAccessPoint(accessPointRequest);
             System.out.println("The access point was created" );
@@ -85,10 +79,9 @@ public class CreateAccessPoint {
         }
     }
     // snippet-end:[s3.java2.create_access_point.main]
-
-    public static void deleteSpecificAccessPoint(S3ControlClient s3ControlClient,
-                                                 String accountId,
-                                                 String accessPointName) {
+    
+    public static void deleteSpecificAccessPoint(S3ControlClient s3ControlClient, String accountId, String accessPointName) {
+        
         try {
             DeleteAccessPointRequest deleteAccessPointRequest = DeleteAccessPointRequest.builder()
                 .name(accessPointName)
@@ -96,6 +89,7 @@ public class CreateAccessPoint {
                 .build();
 
             s3ControlClient.deleteAccessPoint(deleteAccessPointRequest);
+            System.out.println("The access point was deleted" );
 
         } catch (S3ControlException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeSubscriptionFilters.java demonstrates how to get a list of Amazon CloudWatch subscription filters associated with a log group.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class DescribeSubscriptionFilters {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <logGroup>\n\n" +
-                "Where:\n" +
-                "  logGroup - A log group name (for example, myloggroup).\n" ;
+            "Usage:\n" +
+            "  <logGroup>\n\n" +
+            "Where:\n" +
+            "  logGroup - A log group name (for example, myloggroup).\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +42,8 @@ public class DescribeSubscriptionFilters {
 
         String logGroup = args[0];
         CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeFilters(logs, logGroup);
         logs.close();
@@ -60,44 +57,38 @@ public class DescribeSubscriptionFilters {
             String newToken = null;
 
             while(!done) {
-
                 DescribeSubscriptionFiltersResponse response;
                 if (newToken == null) {
-                    DescribeSubscriptionFiltersRequest request =
-                        DescribeSubscriptionFiltersRequest.builder()
-                                .logGroupName(logGroup)
-                                .limit(1).build();
+                    DescribeSubscriptionFiltersRequest request = DescribeSubscriptionFiltersRequest.builder()
+                        .logGroupName(logGroup)
+                        .limit(1).build();
 
                     response = logs.describeSubscriptionFilters(request);
                 } else {
-                    DescribeSubscriptionFiltersRequest request =
-                        DescribeSubscriptionFiltersRequest.builder()
-                                .nextToken(newToken)
-                                .logGroupName(logGroup)
-                                .limit(1).build();
-
-                response = logs.describeSubscriptionFilters(request);
+                    DescribeSubscriptionFiltersRequest request = DescribeSubscriptionFiltersRequest.builder()
+                        .nextToken(newToken)
+                        .logGroupName(logGroup)
+                        .limit(1).build();
+                    response = logs.describeSubscriptionFilters(request);
                 }
 
                 for(SubscriptionFilter filter : response.subscriptionFilters()) {
-                    System.out.printf(
-                        "Retrieved filter with name %s, " +
-                                "pattern %s " +
-                                "and destination arn %s",
+                    System.out.printf("Retrieved filter with name %s, " + "pattern %s " + "and destination arn %s",
                         filter.filterName(),
                         filter.filterPattern(),
                         filter.destinationArn());
-               }
+                }
 
-            if(response.nextToken() == null) {
-                done = true;
-            } else {
-                newToken = response.nextToken();
-            }
-            }
+                if(response.nextToken() == null) {
+                    done = true;
+                } else {
+                    newToken = response.nextToken();
+                }
+           }
+
         } catch (CloudWatchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+           System.err.println(e.awsErrorDetails().errorMessage());
+           System.exit(1);
         }
         System.out.printf("Done");
     }

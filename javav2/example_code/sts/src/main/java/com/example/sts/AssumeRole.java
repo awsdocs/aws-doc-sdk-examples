@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[AssumeRole.java demonstrates how to obtain a set of temporary security credentials by using AWS Security Token Service (AWS STS).]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[AWS Security Token Service (AWS STS)]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -59,11 +56,11 @@ public class AssumeRole {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <roleArn> <roleSessionName> \n\n" +
-                "Where:\n" +
-                "    roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role). \n"+
-                "    roleSessionName - An identifier for the assumed role session (for example, mysession). \n";
+            "Usage:\n" +
+            "    <roleArn> <roleSessionName> \n\n" +
+            "Where:\n" +
+            "    roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role). \n"+
+            "    roleSessionName - An identifier for the assumed role session (for example, mysession). \n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -72,12 +69,11 @@ public class AssumeRole {
 
         String roleArn = args[0];
         String roleSessionName = args[1];
-
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         assumeGivenRole(stsClient, roleArn, roleSessionName);
         stsClient.close();
@@ -86,8 +82,8 @@ public class AssumeRole {
     // snippet-start:[sts.java2.assume_role.main]
     public static void assumeGivenRole(StsClient stsClient, String roleArn, String roleSessionName) {
 
-       try {
-           AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
+        try {
+            AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
                 .roleArn(roleArn)
                 .roleSessionName(roleSessionName)
                 .build();
@@ -113,5 +109,5 @@ public class AssumeRole {
            System.exit(1);
        }
    }
-    // snippet-end:[sts.java2.assume_role.main]
+   // snippet-end:[sts.java2.assume_role.main]
 }

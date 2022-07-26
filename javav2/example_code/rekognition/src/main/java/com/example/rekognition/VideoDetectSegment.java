@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[VideoDetectSegment.java demonstrates how to detect technical cue segments and shot detection segments in a video stored in an Amazon S3 bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -49,13 +46,13 @@ public class VideoDetectSegment {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <bucket> <video> <topicArn> <roleArn>\n\n" +
-                "Where:\n" +
-                "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
-                "   video - The name of video (for example, people.mp4). \n\n" +
-                "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
-                "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
+            "Usage: " +
+            "   <bucket> <video> <topicArn> <roleArn>\n\n" +
+            "Where:\n" +
+            "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
+            "   video - The name of video (for example, people.mp4). \n\n" +
+            "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
+            "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -69,19 +66,19 @@ public class VideoDetectSegment {
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         SqsClient sqs = SqsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         NotificationChannel channel = NotificationChannel.builder()
-                .snsTopicArn(topicArn)
-                .roleArn(roleArn)
-                .build();
+            .snsTopicArn(topicArn)
+            .roleArn(roleArn)
+            .build();
 
         StartSegmentDetection(rekClient, channel, bucket, video);
         getSegmentResults(rekClient);
@@ -97,35 +94,34 @@ public class VideoDetectSegment {
                                    String video) {
         try {
             S3Object s3Obj = S3Object.builder()
-                    .bucket(bucket)
-                    .name(video)
-                    .build();
+                .bucket(bucket)
+                .name(video)
+                .build();
 
             Video vidOb = Video.builder()
-                    .s3Object(s3Obj)
-                    .build();
+                .s3Object(s3Obj)
+                .build();
 
             StartShotDetectionFilter cueDetectionFilter = StartShotDetectionFilter.builder()
-                    .minSegmentConfidence(60F)
-                    .build();
-
+                .minSegmentConfidence(60F)
+                .build();
 
             StartTechnicalCueDetectionFilter technicalCueDetectionFilter = StartTechnicalCueDetectionFilter.builder()
-                    .minSegmentConfidence(60F)
-                    .build();
+                .minSegmentConfidence(60F)
+                .build();
 
             StartSegmentDetectionFilters filters = StartSegmentDetectionFilters.builder()
-                    .shotFilter(cueDetectionFilter)
-                    .technicalCueFilter(technicalCueDetectionFilter)
-                    .build();
+                .shotFilter(cueDetectionFilter)
+                .technicalCueFilter(technicalCueDetectionFilter)
+                .build();
 
             StartSegmentDetectionRequest segDetectionRequest = StartSegmentDetectionRequest.builder()
-                    .jobTag("DetectingLabels")
-                    .notificationChannel(channel)
-                    .segmentTypes(SegmentType.TECHNICAL_CUE , SegmentType.SHOT)
-                    .video(vidOb)
-                    .filters(filters)
-                    .build();
+                .jobTag("DetectingLabels")
+                .notificationChannel(channel)
+                .segmentTypes(SegmentType.TECHNICAL_CUE , SegmentType.SHOT)
+                .video(vidOb)
+                .filters(filters)
+                .build();
 
             StartSegmentDetectionResponse segDetectionResponse = rekClient.startSegmentDetection(segDetectionRequest);
             startJobId = segDetectionResponse.jobId();
@@ -141,24 +137,22 @@ public class VideoDetectSegment {
         try {
             String paginationToken = null;
             GetSegmentDetectionResponse segDetectionResponse = null;
-            Boolean finished = false;
-            String status = "";
+            boolean finished = false;
+            String status;
             int yy = 0;
 
             do {
-
                 if (segDetectionResponse != null)
                     paginationToken = segDetectionResponse.nextToken();
 
                 GetSegmentDetectionRequest recognitionRequest = GetSegmentDetectionRequest.builder()
-                        .jobId(startJobId)
-                        .nextToken(paginationToken)
-                        .maxResults(10)
-                        .build();
+                    .jobId(startJobId)
+                    .nextToken(paginationToken)
+                    .maxResults(10)
+                    .build();
 
-                // Wait until the job succeeds
+                // Wait until the job succeeds.
                 while (!finished) {
-
                     segDetectionResponse = rekClient.getSegmentDetection(recognitionRequest);
                     status = segDetectionResponse.jobStatusAsString();
 
@@ -172,9 +166,8 @@ public class VideoDetectSegment {
                 }
                 finished = false;
 
-                // Proceed when the job is done - otherwise VideoMetadata is null
+                // Proceed when the job is done - otherwise VideoMetadata is null.
                 List<VideoMetadata> videoMetaData = segDetectionResponse.videoMetadata();
-
                 for (VideoMetadata metaData : videoMetaData) {
                     System.out.println("Format: " + metaData.format());
                     System.out.println("Codec: " + metaData.codec());
@@ -185,27 +178,28 @@ public class VideoDetectSegment {
 
                 List<SegmentDetection> detectedSegment = segDetectionResponse.segments();
                 String type = detectedSegment.get(0).type().toString();
-
                 if (type.contains(SegmentType.TECHNICAL_CUE.toString())) {
                     System.out.println("Technical Cue");
                     TechnicalCueSegment segmentCue = detectedSegment.get(0).technicalCueSegment();
                     System.out.println("\tType: " + segmentCue.type());
                     System.out.println("\tConfidence: " + segmentCue.confidence().toString());
                 }
+
                 if (type.contains(SegmentType.SHOT.toString())) {
                     System.out.println("Shot");
                     ShotSegment segmentShot = detectedSegment.get(0).shotSegment();
                     System.out.println("\tIndex " + segmentShot.index());
                     System.out.println("\tConfidence: " + segmentShot.confidence().toString());
                 }
+
                 long seconds = detectedSegment.get(0).durationMillis();
-                System.out.println("\tDuration : " + Long.toString(seconds) + " milliseconds");
+                System.out.println("\tDuration : " + seconds + " milliseconds");
                 System.out.println("\tStart time code: " + detectedSegment.get(0).startTimecodeSMPTE());
                 System.out.println("\tEnd time code: " + detectedSegment.get(0).endTimecodeSMPTE());
                 System.out.println("\tDuration time code: " + detectedSegment.get(0).durationSMPTE());
                 System.out.println();
 
-        } while (segDetectionResponse !=null && segDetectionResponse.nextToken() != null);
+            } while (segDetectionResponse !=null && segDetectionResponse.nextToken() != null);
 
         } catch(RekognitionException | InterruptedException e) {
             System.out.println(e.getMessage());

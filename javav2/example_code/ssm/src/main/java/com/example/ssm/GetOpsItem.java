@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetOpsItem.java demonstrates how to get information about an OpsItem for Amazon Simple Systems Management (Amazon SSM).]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Systems Management]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +32,10 @@ public class GetOpsItem {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <opsID>\n\n" +
-                "Where:\n" +
-                "    opsID - The Ops item ID value.\n";
+            "Usage:\n" +
+            "    <opsID>\n\n" +
+            "Where:\n" +
+            "    opsID - The Ops item ID value.\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,9 +45,9 @@ public class GetOpsItem {
         String opsID = args[0];
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getOpsItem(ssmClient, opsID );
         ssmClient.close();
@@ -61,8 +58,8 @@ public class GetOpsItem {
 
         try {
             GetOpsItemRequest opsRequest = GetOpsItemRequest.builder()
-                    .opsItemId(opsID)
-                    .build();
+                .opsItemId(opsID)
+                .build();
 
             // Get SSM Parameters (you can define them in the AWS Management Console)
             GetOpsItemResponse opsItem = ssmClient.getOpsItem(opsRequest);

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteAutoScalingGroup.java deletes an Auto Scaling group.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2 Auto Scaling]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/05/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class DeleteAutoScalingGroup {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <groupName>\n\n" +
-                "Where:\n" +
-                "    groupName - The name of the Auto Scaling group.\n" ;
+            "Usage:\n" +
+            "    <groupName>\n\n" +
+            "Where:\n" +
+            "    groupName - The name of the Auto Scaling group.\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +41,9 @@ public class DeleteAutoScalingGroup {
 
         String groupName = args[0];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteAutoScalingGroup(autoScalingClient, groupName);
         autoScalingClient.close();
@@ -54,12 +51,11 @@ public class DeleteAutoScalingGroup {
 
     // snippet-start:[autoscale.java2.del_scaling_group.main]
     public static void deleteAutoScalingGroup(AutoScalingClient autoScalingClient, String groupName) {
-
         try {
             DeleteAutoScalingGroupRequest deleteAutoScalingGroupRequest = DeleteAutoScalingGroupRequest.builder()
-                    .autoScalingGroupName(groupName)
-                    .forceDelete(true)
-                    .build() ;
+                .autoScalingGroupName(groupName)
+                .forceDelete(true)
+                .build() ;
 
             autoScalingClient.deleteAutoScalingGroup(deleteAutoScalingGroupRequest) ;
             System.out.println("You successfully deleted "+groupName);

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListEventBuses.java demonstrates how to list your Amazon EventBridge buses.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class ListEventBuses {
 
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listBuses(eventBrClient) ;
         eventBrClient.close();

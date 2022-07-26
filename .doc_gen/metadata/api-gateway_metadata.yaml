@@ -287,7 +287,11 @@ api-gateway_UpdateBasePathMapping:
 api-gateway_Usage_CreateDeployRest:
   title: Create and deploy a REST API using an &AWS; SDK
   title_abbrev: Create and deploy a REST API
-  synopsis: create and deploy a REST API.
+  synopsis_list:
+    - Create a REST API served by &ABP;.
+    - Add resources to the REST API to represent a user profile.
+    - Add integration methods so that the REST API uses a &DDB; table to store user profile data.
+    - Send HTTP requests to the REST API to add and retrieve user profiles.
   category: Scenarios
   languages:
     Python:
@@ -309,4 +313,5 @@ api-gateway_Usage_CreateDeployRest:
               snippet_tags:
                 - python.example_code.api-gateway.Usage_CreateDeployRest
   services:
-    api-gateway: {}
+    api-gateway: {CreateDeployment, CreateResource, CreateRestApi, DeleteRestApi, GetResources,
+                  GetRestApis, PutIntegration, PutIntegrationResponse, PutMethod, PutMethodResponse}

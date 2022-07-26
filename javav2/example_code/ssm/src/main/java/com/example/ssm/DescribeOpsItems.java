@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[DescribeOpsItems.java demonstrates how to describe an OpsItem for Amazon Simple Systems Management (Amazon SSM).]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Systems Management]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,9 +34,9 @@ public class DescribeOpsItems {
 
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeItems(ssmClient);
         ssmClient.close();
@@ -59,10 +56,10 @@ public class DescribeOpsItems {
                 System.out.println("The item title is "+item.title());
             }
 
-         } catch (SsmException e) {
+        } catch (SsmException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-      }
-    //snippet-end:[ssm.java2.describe_ops.main]
     }
+    //snippet-end:[ssm.java2.describe_ops.main]
+}

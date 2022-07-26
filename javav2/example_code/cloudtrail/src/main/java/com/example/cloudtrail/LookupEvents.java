@@ -1,11 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[LookupEvents.java demonstrates how to look up Cloud Trail events.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CloudTrail]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/17/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -38,9 +34,9 @@ public class LookupEvents {
 
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         lookupAllEvents(cloudTrailClient);
         cloudTrailClient.close();
@@ -48,7 +44,6 @@ public class LookupEvents {
 
     //snippet-start:[cloudtrail.java2.events.main]
     public static void lookupAllEvents(CloudTrailClient cloudTrailClientClient) {
-
         try {
             LookupEventsRequest eventsRequest = LookupEventsRequest.builder()
                 .maxResults(20)
@@ -56,7 +51,6 @@ public class LookupEvents {
 
             LookupEventsResponse response = cloudTrailClientClient.lookupEvents(eventsRequest);
             List<Event> events = response.events();
-
             for (Event event: events) {
                 System.out.println("Event name is : "+event.eventName());
                 System.out.println("The event source is : "+event.eventSource());

@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[ListApplications.java demonstrates how to list applications.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS Migration Hub]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class ListApplications {
 
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listApps(migrationClient);
         migrationClient.close();
@@ -48,16 +45,16 @@ public class ListApplications {
     public static void listApps(MigrationHubClient migrationClient) {
 
         try{
-        ListApplicationStatesRequest applicationStatesRequest = ListApplicationStatesRequest.builder()
+            ListApplicationStatesRequest applicationStatesRequest = ListApplicationStatesRequest.builder()
                 .maxResults(10)
                 .build();
 
-        ListApplicationStatesResponse response = migrationClient.listApplicationStates(applicationStatesRequest);
-        List<ApplicationState> apps = response.applicationStateList();
-        for (ApplicationState appState : apps) {
-             System.out.println("App Id is " + appState.applicationId());
-             System.out.println("The status is " + appState.applicationStatus().toString());
-        }
+            ListApplicationStatesResponse response = migrationClient.listApplicationStates(applicationStatesRequest);
+            List<ApplicationState> apps = response.applicationStateList();
+            for (ApplicationState appState : apps) {
+                System.out.println("App Id is " + appState.applicationId());
+                System.out.println("The status is " + appState.applicationStatus().toString());
+            }
 
         } catch(MigrationHubException e) {
             System.out.println(e.getMessage());

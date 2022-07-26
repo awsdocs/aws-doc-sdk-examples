@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateSamplingRule.java demonstrates how to create a rule to control sampling behavior for instrumented applications.]
 //snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS X-Ray Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/29/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0

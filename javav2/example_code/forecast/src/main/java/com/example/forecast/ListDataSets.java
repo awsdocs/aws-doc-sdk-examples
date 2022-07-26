@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListDataSets.java demonstrates how to list Amazon Forecast data sets.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -48,8 +45,8 @@ public class ListDataSets {
 
        try {
            ListDatasetsRequest group = ListDatasetsRequest.builder()
-                .maxResults(10)
-                .build();
+               .maxResults(10)
+               .build();
 
            ListDatasetsResponse response = forecast.listDatasets(group);
            List<DatasetSummary> groups = response.datasets();
