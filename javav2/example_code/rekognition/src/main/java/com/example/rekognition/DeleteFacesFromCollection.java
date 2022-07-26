@@ -1,9 +1,7 @@
 // snippet-sourcedescription:[DeleteFacesFromCollection.java demonstrates how to delete faces from an Amazon Rekognition collection.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -30,11 +28,11 @@ public class DeleteFacesFromCollection {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <collectionId> <faceId> \n\n" +
-                "Where:\n" +
-                "   collectionId - The id of the collection from which faces are deleted. \n\n" +
-                "   faceId - The id of the face to delete. \n\n";
+            "Usage: " +
+            "   <collectionId> <faceId> \n\n" +
+            "Where:\n" +
+            "   collectionId - The id of the collection from which faces are deleted. \n\n" +
+            "   faceId - The id of the face to delete. \n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,12 +43,11 @@ public class DeleteFacesFromCollection {
         String faceId = args[1];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
-        System.out.println("Deleting collection: " +
-                collectionId);
+        System.out.println("Deleting collection: " + collectionId);
         deleteFacesCollection(rekClient, collectionId, faceId);
         rekClient.close();
     }

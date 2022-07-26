@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeAutoScalingInstances.java gets information about the Auto Scaling groups in the account and Region.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2 Auto Scaling]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/05/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,10 +33,10 @@ public class DescribeAutoScalingInstances {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <groupName>\n\n" +
-                "Where:\n" +
-                "    groupName - The name of the Auto Scaling group.\n" ;
+            "Usage:\n" +
+            "    <groupName>\n\n" +
+            "Where:\n" +
+            "    groupName - The name of the Auto Scaling group.\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,9 +45,9 @@ public class DescribeAutoScalingInstances {
 
         String groupName = args[0];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String instanceId = getAutoScaling(autoScalingClient, groupName);
         System.out.println(instanceId);
@@ -59,12 +56,11 @@ public class DescribeAutoScalingInstances {
 
     // snippet-start:[autoscale.java2.describe_instances.main]
     public static String getAutoScaling( AutoScalingClient autoScalingClient, String groupName) {
-
         try{
             String instanceId = "";
             DescribeAutoScalingGroupsRequest scalingGroupsRequest = DescribeAutoScalingGroupsRequest.builder()
-                    .autoScalingGroupNames(groupName)
-                    .build();
+                .autoScalingGroupNames(groupName)
+                .build();
 
             DescribeAutoScalingGroupsResponse response = autoScalingClient.describeAutoScalingGroups(scalingGroupsRequest);
             List<AutoScalingGroup> groups = response.autoScalingGroups();

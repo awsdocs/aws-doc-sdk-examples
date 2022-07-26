@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateIdentityPool.java demonstrates how to create a new Amazon Cognito identity pool. The identity pool is a store of user identity information that is specific to your AWS account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +29,10 @@ public class CreateIdentityPool {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <identityPoolName> \n\n" +
-                "Where:\n" +
-                "    identityPoolName - The name to give your identity pool.\n\n" ;
+            "Usage:\n" +
+            "    <identityPoolName> \n\n" +
+            "Where:\n" +
+            "    identityPoolName - The name to give your identity pool.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +41,9 @@ public class CreateIdentityPool {
 
         String identityPoolName = args[0];
         CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String identityPoolId = createIdPool(cognitoClient, identityPoolName) ;
         System.out.println("Unity pool ID " + identityPoolId);
@@ -58,9 +55,9 @@ public class CreateIdentityPool {
 
         try {
             CreateIdentityPoolRequest poolRequest = CreateIdentityPoolRequest.builder()
-                    .allowUnauthenticatedIdentities(false)
-                    .identityPoolName(identityPoolName)
-                    .build() ;
+                .allowUnauthenticatedIdentities(false)
+                .identityPoolName(identityPoolName)
+                .build() ;
 
             CreateIdentityPoolResponse response = cognitoClient.createIdentityPool(poolRequest);
             return response.identityPoolId();

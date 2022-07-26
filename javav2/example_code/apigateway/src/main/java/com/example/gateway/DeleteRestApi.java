@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeleteRestApi.java demonstrates how to delete an existing RestApi resource.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/21/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -59,13 +55,13 @@ public class DeleteRestApi {
 
         try {
             DeleteRestApiRequest request = DeleteRestApiRequest.builder()
-                    .restApiId(restApiId)
-                    .build();
+                .restApiId(restApiId)
+                .build();
 
             apiGateway.deleteRestApi(request);
             System.out.println("The API was successfully deleted");
 
-            } catch (ApiGatewayException e) {
+        } catch (ApiGatewayException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

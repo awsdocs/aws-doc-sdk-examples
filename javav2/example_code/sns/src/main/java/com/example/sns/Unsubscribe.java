@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[Unsubscribe.java demonstrates how to remove an Amazon Simple Notification Service (Amazon SNS) subscription.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class Unsubscribe {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <subscriptionArn>\n\n" +
-                "Where:\n" +
-                "   subscriptionArn - The ARN of the subscription to delete.\n\n";
+            "Usage: " +
+            "   <subscriptionArn>\n\n" +
+            "Where:\n" +
+            "   subscriptionArn - The ARN of the subscription to delete.\n\n";
 
         if (args.length < 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class Unsubscribe {
 
         String subscriptionArn = args[0];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         unSub(snsClient, subscriptionArn);
         snsClient.close();
@@ -62,7 +59,6 @@ public class Unsubscribe {
                 .build();
 
             UnsubscribeResponse result = snsClient.unsubscribe(request);
-
             System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode()
                 + "\n\nSubscription was removed for " + request.subscriptionArn());
 

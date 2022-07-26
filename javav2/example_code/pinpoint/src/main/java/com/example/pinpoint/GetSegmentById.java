@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetSegmentById.java demonstrates how to get a segment using its id value.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,13 +30,13 @@ public class GetSegmentById {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                " Usage:" +
-                "   <appId> <segmentId>\n\n" +
-                " Where:\n" +
-                "   appId - The id of the application.\n\n"+
-                "   segmentId - The id of the segment.\n\n";
+            " Usage:" +
+            "   <appId> <segmentId>\n\n" +
+            " Where:\n" +
+            "   appId - The id of the application.\n\n"+
+            "   segmentId - The id of the segment.\n\n";
 
-       if (args.length != 2) {
+        if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -47,9 +44,9 @@ public class GetSegmentById {
         String appId = args[0];
         String segmentId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Name of the segment is " + getSegmentById(pinpoint, appId, segmentId) );
         pinpoint.close();
@@ -60,9 +57,9 @@ public class GetSegmentById {
 
         try {
             GetSegmentRequest request = GetSegmentRequest.builder()
-                    .applicationId(applicationId)
-                    .segmentId(segmentId)
-                    .build();
+                .applicationId(applicationId)
+                .segmentId(segmentId)
+                .build();
 
             GetSegmentResponse segmentResponse = client.getSegment(request);
             return segmentResponse.segmentResponse().name();

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListSegements.java demonstrates how to list segments in an application.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +32,10 @@ public class ListSegments {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "  <appId>\n\n" +
-                "Where:\n" +
-                "  appId - The ID of the application that contains a segment.\n\n";
+            "Usage: " +
+            "  <appId>\n\n" +
+            "Where:\n" +
+            "  appId - The ID of the application that contains a segment.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class ListSegments {
 
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listSegs(pinpoint, appId);
         pinpoint.close();
@@ -60,14 +57,15 @@ public class ListSegments {
 
         try {
             GetSegmentsRequest request = GetSegmentsRequest.builder()
-                    .applicationId(appId)
-                    .build();
+                .applicationId(appId)
+                .build();
 
             GetSegmentsResponse response = pinpoint.getSegments(request);
             List<SegmentResponse> segments = response.segmentsResponse().item();
             for(SegmentResponse segment: segments) {
                 System.out.println("Segement " + segment.id() + " " + segment.name() + " " + segment.lastModifiedDate());
             }
+
         } catch ( PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

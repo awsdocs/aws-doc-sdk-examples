@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListPipelineExecutions.java demonstrates how to get all executions for a specific pipeline.]
 //snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +32,10 @@ public class ListPipelineExecutions {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <name>\n\n" +
-                "Where:\n" +
-                "   name - The name of the pipeline. \n\n" ;
+            "Usage: " +
+            "   <name>\n\n" +
+            "Where:\n" +
+            "   name - The name of the pipeline. \n\n" ;
 
         if (args.length != 1) {
              System.out.println(usage);
@@ -48,9 +45,9 @@ public class ListPipelineExecutions {
         String name = args[0];
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listExecutions(pipelineClient, name);
         pipelineClient.close();
@@ -61,9 +58,9 @@ public class ListPipelineExecutions {
 
         try {
             ListPipelineExecutionsRequest executionsRequest = ListPipelineExecutionsRequest.builder()
-                    .maxResults(10)
-                    .pipelineName(name)
-                    .build();
+                .maxResults(10)
+                .pipelineName(name)
+                .build();
 
             ListPipelineExecutionsResponse response = pipelineClient.listPipelineExecutions(executionsRequest);
             List<PipelineExecutionSummary> executionSummaryList = response.pipelineExecutionSummaries();

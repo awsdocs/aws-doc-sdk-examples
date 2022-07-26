@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[VideoDetectInappropriate.java demonstrates how to detect inappropriate or offensive content in a video stored in an Amazon S3 bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -43,13 +40,13 @@ public class VideoDetectInappropriate {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <bucket> <video> <topicArn> <roleArn>\n\n" +
-                "Where:\n" +
-                "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
-                "   video - The name of video (for example, people.mp4). \n\n" +
-                "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
-                "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
+            "Usage: " +
+            "   <bucket> <video> <topicArn> <roleArn>\n\n" +
+            "Where:\n" +
+            "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
+            "   video - The name of video (for example, people.mp4). \n\n" +
+            "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
+            "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -62,14 +59,14 @@ public class VideoDetectInappropriate {
         String roleArn = args[3];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         NotificationChannel channel = NotificationChannel.builder()
-                .snsTopicArn(topicArn)
-                .roleArn(roleArn)
-                .build();
+            .snsTopicArn(topicArn)
+            .roleArn(roleArn)
+            .build();
 
         startModerationDetection(rekClient, channel, bucket, video);
         GetModResults(rekClient);
@@ -85,19 +82,19 @@ public class VideoDetectInappropriate {
 
         try {
             S3Object s3Obj = S3Object.builder()
-                    .bucket(bucket)
-                    .name(video)
-                    .build();
+                .bucket(bucket)
+                .name(video)
+                .build();
 
             Video vidOb = Video.builder()
-                    .s3Object(s3Obj)
-                    .build();
+                .s3Object(s3Obj)
+                .build();
 
             StartContentModerationRequest modDetectionRequest = StartContentModerationRequest.builder()
-                    .jobTag("Moderation")
-                    .notificationChannel(channel)
-                    .video(vidOb)
-                    .build();
+                .jobTag("Moderation")
+                .notificationChannel(channel)
+                .video(vidOb)
+                .build();
 
             StartContentModerationResponse startModDetectionResult = rekClient.startContentModeration(modDetectionRequest);
             startJobId=startModDetectionResult.jobId();
@@ -113,24 +110,22 @@ public class VideoDetectInappropriate {
         try {
             String paginationToken=null;
             GetContentModerationResponse modDetectionResponse=null;
-            Boolean finished = false;
-            String status="";
+            boolean finished = false;
+            String status;
             int yy=0 ;
 
             do{
-
                 if (modDetectionResponse !=null)
                     paginationToken = modDetectionResponse.nextToken();
 
                 GetContentModerationRequest modRequest = GetContentModerationRequest.builder()
-                        .jobId(startJobId)
-                        .nextToken(paginationToken)
-                        .maxResults(10)
-                        .build();
+                    .jobId(startJobId)
+                    .nextToken(paginationToken)
+                    .maxResults(10)
+                    .build();
 
                 // Wait until the job succeeds
                 while (!finished) {
-
                     modDetectionResponse = rekClient.getContentModeration(modRequest);
                     status = modDetectionResponse.jobStatusAsString();
 
@@ -147,7 +142,6 @@ public class VideoDetectInappropriate {
 
                 // Proceed when the job is done - otherwise VideoMetadata is null
                 VideoMetadata videoMetaData=modDetectionResponse.videoMetadata();
-
                 System.out.println("Format: " + videoMetaData.format());
                 System.out.println("Codec: " + videoMetaData.codec());
                 System.out.println("Duration: " + videoMetaData.durationMillis());

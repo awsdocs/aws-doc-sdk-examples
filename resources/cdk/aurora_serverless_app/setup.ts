@@ -12,7 +12,7 @@
 
 import 'source-map-support/register';
 import {Construct} from "constructs";
-import {App, CfnOutput, Stack, StackProps} from 'aws-cdk-lib';
+import {App, CfnOutput, Duration, Stack, StackProps} from 'aws-cdk-lib';
 import {Secret} from 'aws-cdk-lib/aws-secretsmanager';
 import {Credentials, DatabaseClusterEngine, ServerlessCluster} from "aws-cdk-lib/aws-rds";
 
@@ -37,6 +37,7 @@ export class SetupStack extends Stack {
       engine: DatabaseClusterEngine.AURORA_MYSQL,
       defaultDatabaseName: dbname,
       enableDataApi: true,
+      scaling: {autoPause: Duration.minutes(0)},
       credentials: Credentials.fromSecret(secret, username)
     })
 

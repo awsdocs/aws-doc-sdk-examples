@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteQueue.java demonstrates how to delete an Amazon Simple Queue Service (Amazon SQS) queue.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class DeleteQueue {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <queueName>\n\n" +
-                "Where:\n" +
-                "   queueName - The name of the Amazon SQS queue to delete.\n\n" ;
+            "Usage: " +
+            "   <queueName>\n\n" +
+            "Where:\n" +
+            "   queueName - The name of the Amazon SQS queue to delete.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class DeleteQueue {
 
         String queueName = args[0];
         SqsClient sqs = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSQSQueue(sqs, queueName);
         sqs.close();
@@ -58,16 +55,14 @@ public class DeleteQueue {
     public static void deleteSQSQueue(SqsClient sqsClient, String queueName) {
 
         try {
-
             GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
-                    .queueName(queueName)
-                    .build();
+                .queueName(queueName)
+                .build();
 
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
-
             DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
-                    .queueUrl(queueUrl)
-                    .build();
+                .queueUrl(queueUrl)
+                .build();
 
             sqsClient.deleteQueue(deleteQueueRequest);
 

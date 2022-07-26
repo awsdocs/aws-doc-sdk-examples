@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListAccountAliases.java demonstrates how to list all aliases associated with an AWS account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,9 +28,9 @@ public class ListAccountAliases {
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAliases(iam);
         System.out.println("Done");
@@ -45,7 +42,6 @@ public class ListAccountAliases {
 
         try {
             ListAccountAliasesResponse response = iam.listAccountAliases();
-
             for (String alias : response.accountAliases()) {
                 System.out.printf("Retrieved account alias %s", alias);
             }

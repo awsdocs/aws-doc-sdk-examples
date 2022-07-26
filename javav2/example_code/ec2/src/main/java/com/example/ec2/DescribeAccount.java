@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeAccount.java demonstrates how to get information about the Amazon Elastic Compute Cloud (Amazon EC2) account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,26 +30,26 @@ public class DescribeAccount {
 
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeEC2Account(ec2);
         System.out.print("Done");
         ec2.close();
      }
 
-     // snippet-start:[ec2.java2.describe_account.main]
-     public static void describeEC2Account(Ec2Client ec2) {
+    // snippet-start:[ec2.java2.describe_account.main]
+    public static void describeEC2Account(Ec2Client ec2) {
 
         try{
             DescribeAccountAttributesResponse accountResults = ec2.describeAccountAttributes();
             accountResults.accountAttributes().forEach(attribute -> {
                         System.out.print("\n The name of the attribute is "+attribute.attributeName());
 
-                            attribute.attributeValues().forEach(myValue ->
-                                System.out.print("\n The value of the attribute is "+myValue.attributeValue()));
-                            }
+                        attribute.attributeValues().forEach(myValue ->
+                            System.out.print("\n The value of the attribute is "+myValue.attributeValue()));
+                        }
             );
 
         } catch (Ec2Exception e) {

@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeleteDeployment.java demonstrates how to delete a deployment.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/21/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -60,9 +56,9 @@ public class DeleteDeployment {
 
         try {
             DeleteDeploymentRequest request = DeleteDeploymentRequest.builder()
-                    .restApiId(restApiId)
-                    .deploymentId(deploymentId)
-                    .build();
+                .restApiId(restApiId)
+                .deploymentId(deploymentId)
+                .build();
 
             apiGateway.deleteDeployment(request);
             System.out.println("Deployment was deleted" );

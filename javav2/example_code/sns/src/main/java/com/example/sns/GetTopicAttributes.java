@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetTopicAttributes.java demonstrates how to retrieve the defaults for an Amazon Simple Notification Service (Amazon SNS) topic.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class GetTopicAttributes {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <topicArn>\n\n" +
-                "Where:\n" +
-                "   topicArn - The ARN of the topic to look up.\n\n";
+            "Usage: " +
+            "   <topicArn>\n\n" +
+            "Where:\n" +
+            "   topicArn - The ARN of the topic to look up.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +41,9 @@ public class GetTopicAttributes {
 
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Getting attributes for a topic with name: " + topicArn);
         getSNSTopicAttributes(snsClient, topicArn) ;

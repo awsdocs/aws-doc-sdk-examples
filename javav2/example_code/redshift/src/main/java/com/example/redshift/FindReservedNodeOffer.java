@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[FindReservedNodeOffer.java demonstrates how to find additional Amazon Redshift nodes for purchase.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
+//snippet-service:[Amazon Redshift]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,9 +40,9 @@ public class FindReservedNodeOffer {
 
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listReservedNodes(redshiftClient);
         findReservedNodeOffer(redshiftClient);
@@ -56,10 +53,8 @@ public class FindReservedNodeOffer {
     public static void listReservedNodes(RedshiftClient redshiftClient) {
 
         try {
-
             DescribeReservedNodesResponse reservedNodesResponse = redshiftClient.describeReservedNodes();
             System.out.println("Listing nodes already purchased.");
-
             for (ReservedNode node : reservedNodesResponse.reservedNodes()) {
                 printReservedNodeDetails(node);
             }
@@ -71,34 +66,34 @@ public class FindReservedNodeOffer {
     }
 
     public static void findReservedNodeOffer(RedshiftClient redshiftClient) {
-     try {
-        DescribeReservedNodeOfferingsRequest request = DescribeReservedNodeOfferingsRequest.builder()
+        try {
+            DescribeReservedNodeOfferingsRequest request = DescribeReservedNodeOfferingsRequest.builder()
                 .build();
 
-        DescribeReservedNodeOfferingsResponse response = redshiftClient.describeReservedNodeOfferings(request);
-        int count = 0;
-        System.out.println("\nFinding nodes to purchase.");
+            DescribeReservedNodeOfferingsResponse response = redshiftClient.describeReservedNodeOfferings(request);
+            int count = 0;
+            System.out.println("\nFinding nodes to purchase.");
 
-        for (ReservedNodeOffering offering : response.reservedNodeOfferings()) {
-            if (offering.nodeType().equals(nodeTypeToPurchase)){
-
-                if (offering.fixedPrice() < fixedPriceLimit) {
-                    matchingNodes.add(offering);
-                    printOfferingDetails(offering);
-                    count +=1;
+            for (ReservedNodeOffering offering : response.reservedNodeOfferings()) {
+                if (offering.nodeType().equals(nodeTypeToPurchase)){
+                    if (offering.fixedPrice() < fixedPriceLimit) {
+                        matchingNodes.add(offering);
+                        printOfferingDetails(offering);
+                        count +=1;
+                    }
                 }
             }
-        }
-        if (count == 0) {
-            System.out.println("\nNo reserved node offering matches found.");
-        } else {
-            System.out.println("\nFound " + count + " matches.");
-        }
 
-     } catch (RedshiftException e) {
-           System.err.println(e.getMessage());
-           System.exit(1);
-       }
+            if (count == 0) {
+                System.out.println("\nNo reserved node offering matches found.");
+            } else {
+                System.out.println("\nFound " + count + " matches.");
+            }
+
+        } catch (RedshiftException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
 
     private static void printReservedNodeDetails(ReservedNode node) {
@@ -112,8 +107,7 @@ public class FindReservedNodeOffer {
         System.out.format("Duration: %s\n", node.duration());
     }
 
-    private static void printOfferingDetails(
-            ReservedNodeOffering offering) {
+    private static void printOfferingDetails(ReservedNodeOffering offering) {
         System.out.println("\nOffering Match:");
         System.out.format("Id: %s\n", offering.reservedNodeOfferingId());
         System.out.format("Node Type: %s\n", offering.nodeType());

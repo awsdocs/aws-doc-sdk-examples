@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DescribeDBInstances.java demonstrates how to describe Amazon Relational Database Service (RDS) instances.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -35,9 +31,9 @@ public class DescribeDBInstances {
 
         Region region = Region.US_EAST_1;
         RdsClient rdsClient = RdsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeInstances(rdsClient) ;
         rdsClient.close();

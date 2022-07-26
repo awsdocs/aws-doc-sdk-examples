@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[CreateCollection.java demonstrates how to create an Amazon Rekognition collection.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +29,10 @@ public class CreateCollection {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <collectionName> \n\n" +
-                "Where:\n" +
-                "   collectionName - The name of the collection. \n\n";
+            "Usage: " +
+            "   <collectionName> \n\n" +
+            "Where:\n" +
+            "   collectionName - The name of the collection. \n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,13 +42,11 @@ public class CreateCollection {
         String collectionId = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
-        System.out.println("Creating collection: " +
-                collectionId);
-
+        System.out.println("Creating collection: " +collectionId);
         createMyCollection(rekClient, collectionId );
         rekClient.close();
     }
@@ -61,18 +56,16 @@ public class CreateCollection {
 
         try {
             CreateCollectionRequest collectionRequest = CreateCollectionRequest.builder()
-                    .collectionId(collectionId)
-                    .build();
+                .collectionId(collectionId)
+                .build();
 
             CreateCollectionResponse collectionResponse = rekClient.createCollection(collectionRequest);
-            System.out.println("CollectionArn : " +
-                    collectionResponse.collectionArn());
-            System.out.println("Status code : " +
-                    collectionResponse.statusCode().toString());
+            System.out.println("CollectionArn: " + collectionResponse.collectionArn());
+            System.out.println("Status code: " + collectionResponse.statusCode().toString());
 
         } catch(RekognitionException e) {
-                System.out.println(e.getMessage());
-                System.exit(1);
+            System.out.println(e.getMessage());
+            System.exit(1);
         }
     }
     // snippet-end:[rekognition.java2.create_collection.main]

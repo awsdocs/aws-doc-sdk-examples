@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeleteAlarm.java demonstrates how to delete an Amazon CloudWatch alarm.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +27,10 @@ public class DeleteAlarm {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <alarmName>\n\n" +
-                "Where:\n" +
-                "  alarmName - An alarm name to delete (for example, MyAlarm).\n" ;
+            "Usage:\n" +
+            "  <alarmName>\n\n" +
+            "Where:\n" +
+            "  alarmName - An alarm name to delete (for example, MyAlarm).\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +40,9 @@ public class DeleteAlarm {
         String alarmName = args[0];
         Region region = Region.US_EAST_2;
         CloudWatchClient cw = CloudWatchClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteCWAlarm(cw, alarmName) ;
         cw.close();
@@ -57,8 +53,8 @@ public class DeleteAlarm {
 
         try {
             DeleteAlarmsRequest request = DeleteAlarmsRequest.builder()
-                    .alarmNames(alarmName)
-                    .build();
+                .alarmNames(alarmName)
+                .build();
 
             cw.deleteAlarms(request);
             System.out.printf("Successfully deleted alarm %s", alarmName);
