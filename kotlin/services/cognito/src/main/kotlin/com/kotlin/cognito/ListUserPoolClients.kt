@@ -56,4 +56,4 @@ suspend fun listAllUserPoolClients(userPoolId: String) {
         }
     }
 }
-//  snippet-end:[cognito.kotlin.ListUserPoolClients.main]
+// snippet-end:[cognito.kotlin.ListUserPoolClients.main]
