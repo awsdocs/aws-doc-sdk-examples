@@ -36,10 +36,10 @@ suspend fun main(args: Array<String>) {
         objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).
     """
 
-   if (args.size != 3) {
+    if (args.size != 3) {
         println(usage)
         exitProcess(0)
-   }
+    }
 
     val bucketName = args[0]
     val objectKey = args[1]
