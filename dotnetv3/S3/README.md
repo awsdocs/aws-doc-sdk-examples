@@ -4,6 +4,7 @@
 
 The code examples in this directory demonstrate how to work with Amazon Simple
 Storage Service (Amazon S3) features using the AWS SDK for .NET v3.5 or later.
+
 Amazon S3 is storage for the internet. You can use Amazon S3 to store and
 retrieve any amount of data at any time, from anywhere on the web.
 
@@ -11,39 +12,29 @@ retrieve any amount of data at any time, from anywhere on the web.
 
 ### Scenario Examples
 
- - [S3 Basics](S3_Basics) - Shows the basic procedures used to work with Amazon
-   S3 buckets. The example creates a bucket, uploads and downloads objects
-   to that bucket and then deletes the objects and the bucket. This example uses
-   the following API methods:
-   
-   - CreateBucketAsync
-   - PutObjectAsync
-   - GetObjectAsync
-   - CopyObjectAsync
-   - ListObjectsAsync
-   - DeleteObjectsAsync
-   - DeleteBucketAsync
+ - [S3 basics](S3_Basics)
+ - [Transfer Utility basics](scenarios/TransferUtilityBasics/)
 
 ### API examples
 
-- [AbortMPUExample](AbortMPUExample/) (`AbortMultipartUploadsAsync`)
+- [Abort multi-part upload](AbortMPUExample/) (`AbortMultipartUploadsAsync`)
 - [BucketACLExample](BucketACLExample/) (`PutBucketACLAsync`, `GetBucketAclAsync` )
-- [CopyObjectExample](CopyObjectExample/) (`CopyObjectAsync`)
-- [CreateBucketExample](CreateBucketExample/) (`CreateBucketAsync`)
-- [CrossRegionReplicationExample](CrossRegionReplicationExample/)
+- [Copy an object](CopyObjectExample/) (`CopyObjectAsync`)
+- [Create a bucket](CreateBucketExample/) (`CreateBucketAsync`)
+- [Cross-region replication](CrossRegionReplicationExample/)
 (`PutBucketReplicationAsync`, `GetBucketReplicationAsync`)
-- [DeleteBucketExample](DeleteBucketExample/) (`DeleteBucketAsync`)
+- [Delete a bucket](DeleteBucketExample/) (`DeleteBucketAsync`)
 - [DualStackEndpointExample](DualStackEndpointExample/) (`ListObjectsV2Async`)
-- [EnableNotificationsExample](EnableNotificationsExample/) (`PutBucketNotificationAsync`)
-- [GenPresignedURLExample](GenPresignedURLExample/) (`GetPreSignedURLAsync`)
-- [GetObjectExample](GetObjectExample/) (`GetObjectAsync`)
-- [LifecycleExample](LifecycleExample/)
+- [Enable notifications](EnableNotificationsExample/) (`PutBucketNotificationAsync`)
+- [Gen presigned URL](GenPresignedURLExample/) (`GetPreSignedURLAsync`)
+- [Get an object](GetObjectExample/) (`GetObjectAsync`)
+- [Bucket lifecycle](LifecycleExample/)
 (`GetBucketLifecycleConfigurationAsync`, `PutBucketLifecycleConfigurationAsync`, `DeleteLifecycleConfigurationAsync`)
-- [ListBucketsExample](ListBucketsExample/) (`ListBucketsAsync`)
-- [ListObjectsExample](ListObjectsExample/) (`ListObjectsV2Async`)
-- [ListObjectsPaginatorExample](ListObjectsPaginatorExample/) (`ListObjectsV2Async`)
-- [ManageACLsExample](ManageACLsExample/) (`PutBucketAsync`, `GetACLAsync`, `PutACLAsync`)
-- [ManageObjectACLExample](ManageObjectACLExample/) (`PubtObjectACLAsync`, `GetObjectAclAsync`)
+- [List buckets](ListBucketsExample/) (`ListBucketsAsync`)
+- [List objects](ListObjectsExample/) (`ListObjectsV2Async`)
+- [List objects using a paginator](ListObjectsPaginatorExample/) (`ListObjectsV2Async`)
+- [Manage bucket access control list](ManageACLsExample/) (`PutBucketAsync`, `GetACLAsync`, `PutACLAsync`)
+- [Manage object access control list](ManageObjectACLExample/) (`PubtObjectACLAsync`, `GetObjectAclAsync`)
 - [MPUapiCopyObjExample](MPUapiCopyObjExample/)
 (`InitiateMultipartUploadAsync`, `CopyPartAsync`, `CompleteMultipartUploadAsync`)
 - [DeleteMultipleObjectsExample](non-versioned-examples/DeleteMultipleObjectsExample/) (`DeleteObjectsAsync`)
@@ -96,20 +87,13 @@ issuing the following command:
 dotnet run
 ```
 
-Or you can execute the example from within your IDE.
+Alternatively you can execute the example from within your IDE.
 
 ## Resources and documentation
 
-[AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
+- [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
+- [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
-[AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
-
-## Contributing
-
-To propose a new code example to the AWS documentation team, see the
-[CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md).
-The team prefers to create code examples that show broad scenarios rather than
-individual API calls. 
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
