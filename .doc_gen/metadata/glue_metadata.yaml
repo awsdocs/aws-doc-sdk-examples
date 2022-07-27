@@ -454,8 +454,8 @@ glue_Scenario_GetStartedCrawlersJobs:
           github: dotnetv3/Glue
           sdkguide:
           excerpts:
-            - description: Create a class that wraps &GLU; functions used that
-                are used in in the scenario.
+            - description: Create a class that wraps &GLU; functions that are
+                used in the scenario.
               snippet_tags:
                 - Glue.dotnetv3.GlueBasicsScenario.GlueMethods
             - description: Create a class that runs the scenario.

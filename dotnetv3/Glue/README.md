@@ -22,6 +22,22 @@ minutes instead of months.
 
 ## Code examples
 
+### Single Actions
+
+- [Create a crawler](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateCrawlerAsync`)
+- [Create a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateDatabaseAsync`)
+- [Create a job definition](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateJobAsync`)
+- [Delete a crawler](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteCrawlerAsync`)
+- [Delete a database from the AWS Glue Data Catalog](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteDatabaseAsync`)
+- [Delete a job definition](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteJobAsync`)
+- [Get all jobs](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobsAsync`)
+- [Get tables from a database](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetTablesAsync`)
+- [Get runs of a job](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobRunsAsync`)
+- [Get a crawler](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetCrawlerAsync`)
+- [Get a databasse](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetDatabaseAsync`)
+- [Start a crawler](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartCrawlerAsync`)
+- [Start a job run](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartJobRunAsync`)
+
 ### Scenario
 
 Code examples that show you how to accomplish a specific task by calling
@@ -66,7 +82,7 @@ Test Runner to execute the tests.
 
 ## Additional Resources
 
-- [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/glue-dg.pdf)
+- [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/glue-dg.html)
 - [AWS Glue API in the AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)
 - [AWS Glue section of the AWS SDK for .NET (v3) API Documentation](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glue/NGlue.html)
 
