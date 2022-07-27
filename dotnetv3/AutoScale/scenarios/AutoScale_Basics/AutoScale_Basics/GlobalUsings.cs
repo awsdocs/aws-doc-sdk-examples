@@ -5,5 +5,6 @@
 global using Amazon;
 global using Amazon.AutoScaling;
 global using Amazon.AutoScaling.Model;
+global using AutoScale_Basics;
 
 // snippet-end:[autoscale.dotnetv3.create_scaling_scenario.import]

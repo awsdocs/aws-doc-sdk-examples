@@ -6,7 +6,7 @@ namespace AutoScale_Basics
     public class AutoScaleMethods
     {
         // snippet-start:[autoscale.dotnetv3.create_scaling_scenario.DeleteAutoScalingGroup]
-        public static async Task DeleteAutoScalingGroup(
+        public static async Task<bool> DeleteAutoScalingGroup(
             AmazonAutoScalingClient autoScalingClient,
             string groupName)
         {
@@ -16,14 +16,23 @@ namespace AutoScale_Basics
                 ForceDelete = true,
             };
 
-            await autoScalingClient.DeleteAutoScalingGroupAsync(deleteAutoScalingGroupRequest);
-            Console.WriteLine("You successfully deleted " + groupName);
+            var response = await autoScalingClient.DeleteAutoScalingGroupAsync(deleteAutoScalingGroupRequest);
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine($"You successfully deleted {groupName}");
+                return true;
+            }
+
+            Console.WriteLine($"Couldn't delete {groupName}.");
+            return false;
         }
 
         // snippet-end:[autoscale.dotnetv3.create_scaling_scenario.DeleteAutoScalingGroup]
 
         // snippet-start:[autoscale.dotnetv3.create_scaling_scenario.TerminateInstanceInAutoScalingGroup]
-        public static async Task TerminateInstanceInAutoScalingGroup(AmazonAutoScalingClient autoScalingClient, string instanceId)
+        public static async Task<bool> TerminateInstanceInAutoScalingGroup(
+            AmazonAutoScalingClient autoScalingClient,
+            string instanceId)
         {
             var request = new TerminateInstanceInAutoScalingGroupRequest
             {
@@ -31,14 +40,22 @@ namespace AutoScale_Basics
                 ShouldDecrementDesiredCapacity = false,
             };
 
-            await autoScalingClient.TerminateInstanceInAutoScalingGroupAsync(request);
-            Console.WriteLine("You have terminated the instance " + instanceId);
+            var response = await autoScalingClient.TerminateInstanceInAutoScalingGroupAsync(request);
+
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine($"You have terminated the instance {instanceId}");
+                return true;
+            }
+
+            Console.WriteLine($"Could not terminate {instanceId}");
+            return false;
         }
 
         // snippet-end:[autoscale.dotnetv3.create_scaling_scenario.TerminateInstanceInAutoScalingGroup]
 
         // snippet-start:[autoscale.dotnetv3.create_scaling_scenario.DescribeScalingActivities]
-        public static async Task DescribeScalingActivities(AmazonAutoScalingClient autoScalingClient, string groupName)
+        public static async Task<List<Activity>> DescribeScalingActivities(AmazonAutoScalingClient autoScalingClient, string groupName)
         {
             var scalingActivitiesRequest = new DescribeScalingActivitiesRequest
             {
@@ -47,12 +64,7 @@ namespace AutoScale_Basics
             };
 
             var response = await autoScalingClient.DescribeScalingActivitiesAsync(scalingActivitiesRequest);
-            var activities = response.Activities;
-            foreach (Activity activity in activities)
-            {
-                Console.WriteLine("The activity Id is " + activity.ActivityId);
-                Console.WriteLine("The activity details are " + activity.Details);
-            }
+            return response.Activities;
         }
 
         // snippet-end:[autoscale.dotnetv3.create_scaling_scenario.DescribeScalingActivities]
