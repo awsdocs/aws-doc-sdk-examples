@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EMR]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,22 +31,22 @@ public class DescribeCluster {
     public static void main(String[] args){
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <clusterId> \n\n" +
-                "Where:\n" +
-                "   clusterId - The identifier of the cluster to describe. \n\n" ;
+            "Usage: " +
+            "   <clusterId> \n\n" +
+            "Where:\n" +
+            "   clusterId - The identifier of the cluster to describe. \n\n" ;
 
         if (args.length != 1) {
-              System.out.println(usage);
-              System.exit(1);
-         }
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String clusterId = args[0] ;
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeMyCluster(emrClient, clusterId);
         emrClient.close();
@@ -58,8 +57,8 @@ public class DescribeCluster {
 
         try {
             DescribeClusterRequest clusterRequest = DescribeClusterRequest.builder()
-                    .clusterId(clusterId)
-                    .build();
+                .clusterId(clusterId)
+                .build();
 
             DescribeClusterResponse response = emrClient.describeCluster(clusterRequest);
             System.out.println("The name of the cluster is "+response.cluster().name());
@@ -67,7 +66,7 @@ public class DescribeCluster {
         } catch(EmrException e){
         System.err.println(e.getMessage());
         System.exit(1);
+        }
     }
- }
     // snippet-end:[emr.java2.describe_cluster.main]
 }

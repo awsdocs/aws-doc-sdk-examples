@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeAccountAttributes.java demonstrates how to retrieve attributes that belongs to an Amazon Relational Database Service (RDS) account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class DescribeAccountAttributes {
 
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAccountAttributes(rdsClient) ;
         rdsClient.close();
@@ -46,18 +43,18 @@ public class DescribeAccountAttributes {
     // snippet-start:[rds.java2.describe_account.main]
     public static void getAccountAttributes(RdsClient rdsClient) {
 
-    try {
-        DescribeAccountAttributesResponse response = rdsClient.describeAccountAttributes();
-        List<AccountQuota> quotasList = response.accountQuotas();
-        for (AccountQuota quotas: quotasList) {
-            System.out.println("Name is: "+quotas.accountQuotaName());
-            System.out.println("Max value is " +quotas.max());
-        }
+        try {
+            DescribeAccountAttributesResponse response = rdsClient.describeAccountAttributes();
+            List<AccountQuota> quotasList = response.accountQuotas();
+            for (AccountQuota quotas: quotasList) {
+                System.out.println("Name is: "+quotas.accountQuotaName());
+                System.out.println("Max value is " +quotas.max());
+            }
 
-    } catch (RdsException e) {
-        System.out.println(e.getLocalizedMessage());
-        System.exit(1);
+        } catch (RdsException e) {
+            System.out.println(e.getLocalizedMessage());
+            System.exit(1);
+        }
     }
-  }
     // snippet-end:[rds.java2.describe_account.main]
- }
+}

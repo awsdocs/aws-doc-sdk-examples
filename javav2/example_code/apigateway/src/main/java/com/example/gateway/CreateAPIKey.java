@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateAPIKeys.java demonstrates how to create Api keys.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/16/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -44,9 +40,8 @@ public class CreateAPIKey {
     public static void createApiKey(ApiGatewayClient apiGateway) {
 
         try {
-
             CreateApiKeyRequest apiKeyRequest = CreateApiKeyRequest.builder()
-                    .name("Key Name")
+                    .name("TestKey66")
                     .description("Key description")
                     .enabled(true)
                     .generateDistinctId(true)
@@ -54,11 +49,10 @@ public class CreateAPIKey {
 
             //Creating a api key
             CreateApiKeyResponse response = apiGateway.createApiKey(apiKeyRequest);
-         /*
-          If we have a plan for the api keys, we can set it for the created api key.
-         */
+
+            // If we have a plan for the api keys, we can set it for the created api key.
             CreateUsagePlanKeyRequest planRequest = CreateUsagePlanKeyRequest.builder()
-                    .usagePlanId("<Enter Value>")
+                    .usagePlanId("q18zxs")
                     .keyId(response.id())
                     .keyType("API_KEY")
                     .build();
@@ -69,7 +63,7 @@ public class CreateAPIKey {
         } catch (ApiGatewayException e) {
           System.err.println(e.awsErrorDetails().errorMessage());
           System.exit(1);
+        }
     }
-}
-// snippet-end:[apigateway.java2.createapikeys.main]
+    // snippet-end:[apigateway.java2.createapikeys.main]
 }

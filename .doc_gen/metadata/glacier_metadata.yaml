@@ -360,7 +360,7 @@ glacier_Usage_UploadNotifyInitiate:
               snippet_tags:
                 - python.example_code.glacier.usage.upload_demo
   services:
-    glacier: {}
+    glacier: {CreateVault, InitiateJob, ListJobs, ListVaults, SetVaultNotifications, UploadArchive}
 glacier_Usage_RetrieveDelete:
   category: Scenarios
   title: |-
@@ -391,4 +391,4 @@ glacier_Usage_RetrieveDelete:
               snippet_tags:
                 - python.example_code.glacier.usage.retrieve_demo
   services:
-    glacier: {}
+    glacier: {DeleteArchive, DeleteVault, GetJobOutput, ListJobs}

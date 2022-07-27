@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[WorkflowStarter.java demonstrates how to how to start an Amazon Simple Workflow Service (Amazon SWF) workflow.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon Simple Workflow Service]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,13 +33,13 @@ public class WorkflowStarter {
     public static void main(String[] args) {
 
          final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <domain> <workflowInput> <workflow> <workflowVersion> \n\n" +
-                "Where:\n" +
-                "    domain - the domain to use (ie, mydomain). \n" +
-                "    workflowInput - the input to the workflow (ie, ProcessFile).  \n" +
-                "    workflow - the name of the workflow (ie, myworkflow).\n" +
-                "    workflowVersion - the workflow version. \n" ;
+             "Usage:\n" +
+             "    <domain> <workflowInput> <workflow> <workflowVersion> \n\n" +
+             "Where:\n" +
+             "    domain - the domain to use (ie, mydomain). \n" +
+             "    workflowInput - the input to the workflow (ie, ProcessFile).  \n" +
+             "    workflow - the name of the workflow (ie, myworkflow).\n" +
+             "    workflowVersion - the workflow version. \n" ;
 
         if (args.length < 4) {
             System.out.println(USAGE);
@@ -57,9 +53,9 @@ public class WorkflowStarter {
 
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+             .region(region)
+             .credentialsProvider(ProfileCredentialsProvider.create())
+             .build();
 
         System.out.println("Starting the workflow execution '" + WORKFLOW_EXECUTION +
                 "' with input '" + workflowInput + "'.");
@@ -77,17 +73,17 @@ public class WorkflowStarter {
 
         try {
             WorkflowType wfType = WorkflowType.builder()
-                    .name(workflow)
-                    .version(workflowVersion)
-                    .build();
+                .name(workflow)
+                .version(workflowVersion)
+                .build();
 
             StartWorkflowExecutionResponse run = swf.startWorkflowExecution(StartWorkflowExecutionRequest.builder()
-                    .domain(domain)
-                    .workflowType(wfType)
-                    .workflowId(WORKFLOW_EXECUTION)
-                    .input(workflowInput)
-                    .executionStartToCloseTimeout("90")
-                    .build());
+                .domain(domain)
+                .workflowType(wfType)
+                .workflowId(WORKFLOW_EXECUTION)
+                .input(workflowInput)
+                .executionStartToCloseTimeout("90")
+                .build());
 
             System.out.println("Workflow execution started with the run id '" +
                     run.runId() + "'.");

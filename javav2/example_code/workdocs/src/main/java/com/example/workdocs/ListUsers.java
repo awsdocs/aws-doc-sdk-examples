@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListUsers.java demonstrates how to list the users for an organization.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,7 +13,6 @@ package com.example.workdocs;
 // snippet-start:[workdocs.java2.list_users.import]
 import java.util.ArrayList;
 import java.util.List;
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
@@ -38,25 +34,25 @@ public class ListUsers {
         // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <organizationId>   \n\n" +
-                "Where:\n" +
-                "    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console. \n" ;
+            "Usage:\n" +
+            "    <organizationId>   \n\n" +
+            "Where:\n" +
+            "    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console. \n" ;
 
        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+           System.out.println(usage);
+           System.exit(1);
+       }
 
-        String orgId = args[0];
-        Region region = Region.US_WEST_2;
-        WorkDocsClient workDocs = WorkDocsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+       String orgId = args[0];
+       Region region = Region.US_WEST_2;
+       WorkDocsClient workDocs = WorkDocsClient.builder()
+           .region(region)
+           .credentialsProvider(ProfileCredentialsProvider.create())
+           .build();
 
-        getAllUsers(workDocs, orgId);
-        workDocs.close();
+       getAllUsers(workDocs, orgId);
+       workDocs.close();
     }
 
     // snippet-start:[workdocs.java2.list_users.main]
@@ -81,7 +77,6 @@ public class ListUsers {
             }
 
             System.out.println("List of users:");
-
             wdUsers.addAll(result.users());
             marker = result.marker();
         } while (marker != null);

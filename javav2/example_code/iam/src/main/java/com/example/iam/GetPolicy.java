@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetPolicy.java demonstrates how to get the details for an AWS Identity and Access Management (IAM) policy.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,11 +28,11 @@ public class GetPolicy {
 
     public static void main(String[] args) {
 
-      final String usage = "\n" +
-                "Usage:\n" +
-                "    <policyArn> \n\n" +
-                "Where:\n" +
-                "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <policyArn> \n\n" +
+            "Where:\n" +
+            "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class GetPolicy {
         String policyArn = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getIAMPolicy(iam, policyArn);
         System.out.println("Done");
@@ -58,9 +55,9 @@ public class GetPolicy {
     public static void getIAMPolicy(IamClient iam, String policyArn) {
 
         try {
-
             GetPolicyRequest request = GetPolicyRequest.builder()
-                .policyArn(policyArn).build();
+                .policyArn(policyArn)
+                .build();
 
             GetPolicyResponse response = iam.getPolicy(request);
             System.out.format("Successfully retrieved policy %s",

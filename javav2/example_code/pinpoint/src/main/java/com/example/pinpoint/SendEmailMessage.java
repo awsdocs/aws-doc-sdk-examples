@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SendEmailMessage.java demonstrates how to send an email message.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -51,29 +48,28 @@ public class SendEmailMessage {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <subject> <appId> <senderAddress> <toAddress>\n\n" +
-                "Where:\n" +
-                "   subject - The email subject to use.\n\n"+
-                "   appId - The Amazon Pinpoint project/application ID to use when you send this message\n\n" +
-                "   senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" +
-                "   toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" ;
+            "Usage: " +
+            "   <subject> <appId> <senderAddress> <toAddress>\n\n" +
+            "Where:\n" +
+            "   subject - The email subject to use.\n\n"+
+            "   appId - The Amazon Pinpoint project/application ID to use when you send this message\n\n" +
+            "   senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" +
+            "   toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" ;
 
         if (args.length != 4) {
-           System.out.println(usage);
-           System.exit(1);
-       }
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String subject = args[0];
         String appId = args[1] ;
         String senderAddress = args[2] ;
         String toAddress = args[3] ;
-
         System.out.println("Sending a message" );
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         sendEmail(pinpoint, subject, appId, senderAddress, toAddress);
         System.out.println("Email was sent");
@@ -90,44 +86,44 @@ public class SendEmailMessage {
         try {
             Map<String,AddressConfiguration> addressMap = new HashMap<>();
             AddressConfiguration configuration = AddressConfiguration.builder()
-                    .channelType(ChannelType.EMAIL)
-                    .build();
+                .channelType(ChannelType.EMAIL)
+                .build();
 
             addressMap.put(toAddress, configuration);
             SimpleEmailPart emailPart = SimpleEmailPart.builder()
-                    .data(htmlBody)
-                    .charset(charset)
-                    .build() ;
+                .data(htmlBody)
+                .charset(charset)
+                .build() ;
 
             SimpleEmailPart subjectPart = SimpleEmailPart.builder()
-                    .data(subject)
-                    .charset(charset)
-                    .build() ;
+                .data(subject)
+                .charset(charset)
+                .build() ;
 
             SimpleEmail simpleEmail = SimpleEmail.builder()
-                    .htmlPart(emailPart)
-                    .subject(subjectPart)
-                    .build();
+                .htmlPart(emailPart)
+                .subject(subjectPart)
+                .build();
 
             EmailMessage emailMessage = EmailMessage.builder()
-                    .body(htmlBody)
-                    .fromAddress(senderAddress)
-                    .simpleEmail(simpleEmail)
-                    .build();
+                .body(htmlBody)
+                .fromAddress(senderAddress)
+                .simpleEmail(simpleEmail)
+                .build();
 
             DirectMessageConfiguration directMessageConfiguration = DirectMessageConfiguration.builder()
-                    .emailMessage(emailMessage)
-                    .build();
+                .emailMessage(emailMessage)
+                .build();
 
             MessageRequest messageRequest = MessageRequest.builder()
-                    .addresses(addressMap)
-                    .messageConfiguration(directMessageConfiguration)
-                    .build();
+                .addresses(addressMap)
+                .messageConfiguration(directMessageConfiguration)
+                .build();
 
             SendMessagesRequest messagesRequest = SendMessagesRequest.builder()
-                    .applicationId(appId)
-                    .messageRequest(messageRequest)
-                    .build();
+                .applicationId(appId)
+                .messageRequest(messageRequest)
+                .build();
 
             pinpoint.sendMessages(messagesRequest);
 

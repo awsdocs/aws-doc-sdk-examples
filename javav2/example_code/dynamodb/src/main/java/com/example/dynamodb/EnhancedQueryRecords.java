@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[EnhancedQueryRecords.java demonstrates how to query an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -22,7 +19,6 @@ import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-
 import java.util.Iterator;
 // snippet-end:[dynamodb.java2.mapping.query.import]
 
@@ -42,18 +38,18 @@ import java.util.Iterator;
 
 public class EnhancedQueryRecords {
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
 
-         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-         Region region = Region.US_EAST_1;
-         DynamoDbClient ddb = DynamoDbClient.builder()
-                 .region(region)
-                 .credentialsProvider(credentialsProvider)
-                 .build();
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+            .dynamoDbClient(ddb)
+            .build();
 
         String result = queryTable(enhancedClient);
         System.out.println(result);
@@ -65,10 +61,9 @@ public class EnhancedQueryRecords {
 
         try{
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-            QueryConditional queryConditional = QueryConditional
-                    .keyEqualTo(Key.builder()
-                            .partitionValue("id101")
-                            .build());
+            QueryConditional queryConditional = QueryConditional.keyEqualTo(Key.builder()
+                .partitionValue("id101")
+                .build());
 
             // Get items in the table and write out the ID value.
             Iterator<Customer> results = mappedTable.query(queryConditional).items().iterator();

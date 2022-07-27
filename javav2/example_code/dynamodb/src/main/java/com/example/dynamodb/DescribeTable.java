@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeTable.java demonstrates how to retrieve information about an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +32,10 @@ public class DescribeTable {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <tableName>\n\n" +
-                "Where:\n" +
-                "    tableName - The Amazon DynamoDB table to get information about (for example, Music3).\n\n" ;
+             "Usage:\n" +
+             "    <tableName>\n\n" +
+             "Where:\n" +
+             "    tableName - The Amazon DynamoDB table to get information about (for example, Music3).\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,9 +47,9 @@ public class DescribeTable {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         describeDymamoDBTable(ddb,tableName);
         ddb.close();
@@ -62,42 +59,31 @@ public class DescribeTable {
     public static void describeDymamoDBTable(DynamoDbClient ddb,String tableName ) {
 
         DescribeTableRequest request = DescribeTableRequest.builder()
-                .tableName(tableName)
-                .build();
+            .tableName(tableName)
+            .build();
 
         try {
-            TableDescription tableInfo =
-                    ddb.describeTable(request).table();
-
+            TableDescription tableInfo = ddb.describeTable(request).table();
             if (tableInfo != null) {
-                System.out.format("Table name  : %s\n",
-                        tableInfo.tableName());
-                System.out.format("Table ARN   : %s\n",
-                        tableInfo.tableArn());
-                System.out.format("Status      : %s\n",
-                        tableInfo.tableStatus());
-                System.out.format("Item count  : %d\n",
-                        tableInfo.itemCount().longValue());
-                System.out.format("Size (bytes): %d\n",
-                        tableInfo.tableSizeBytes().longValue());
+                System.out.format("Table name  : %s\n", tableInfo.tableName());
+                System.out.format("Table ARN   : %s\n", tableInfo.tableArn());
+                System.out.format("Status      : %s\n", tableInfo.tableStatus());
+                System.out.format("Item count  : %d\n", tableInfo.itemCount().longValue());
+                System.out.format("Size (bytes): %d\n", tableInfo.tableSizeBytes().longValue());
 
-                ProvisionedThroughputDescription throughputInfo =
-                        tableInfo.provisionedThroughput();
+                ProvisionedThroughputDescription throughputInfo = tableInfo.provisionedThroughput();
                 System.out.println("Throughput");
-                System.out.format("  Read Capacity : %d\n",
-                        throughputInfo.readCapacityUnits().longValue());
-                System.out.format("  Write Capacity: %d\n",
-                        throughputInfo.writeCapacityUnits().longValue());
+                System.out.format("  Read Capacity : %d\n", throughputInfo.readCapacityUnits().longValue());
+                System.out.format("  Write Capacity: %d\n", throughputInfo.writeCapacityUnits().longValue());
 
-                List<AttributeDefinition> attributes =
-                        tableInfo.attributeDefinitions();
+                List<AttributeDefinition> attributes = tableInfo.attributeDefinitions();
                 System.out.println("Attributes");
 
                 for (AttributeDefinition a : attributes) {
-                    System.out.format("  %s (%s)\n",
-                            a.attributeName(), a.attributeType());
+                    System.out.format("  %s (%s)\n", a.attributeName(), a.attributeType());
                 }
             }
+
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);

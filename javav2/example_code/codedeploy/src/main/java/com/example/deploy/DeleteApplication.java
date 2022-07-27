@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteApplication.java demonstrates how to delete an application.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
+//snippet-keyword:[AWS CodeDeploy]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,22 +30,22 @@ public class DeleteApplication {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <appName> \n\n" +
-                "Where:\n" +
-                "    appName -  The name of the application. \n";
+            "Usage:\n" +
+            "    <appName> \n\n" +
+            "Where:\n" +
+            "    appName -  The name of the application. \n";
 
         if (args.length != 1) {
-               System.out.println(usage);
-               System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
          }
 
         String appName = args[0];
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         delApplication(deployClient, appName);
         deployClient.close();
@@ -58,7 +55,6 @@ public class DeleteApplication {
     public static void delApplication(CodeDeployClient deployClient, String appName) {
 
         try {
-
             DeleteApplicationRequest deleteApplicationRequest = DeleteApplicationRequest.builder()
                 .applicationName(appName)
                 .build();

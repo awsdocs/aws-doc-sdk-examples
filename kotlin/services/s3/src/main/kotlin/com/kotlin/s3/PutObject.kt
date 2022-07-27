@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[PutObject.kt demonstrates how to upload an object to an Amazon Simple Storage Service (Amazon S3) bucket.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-service:[Amazon S3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/30/2021]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,7 +13,7 @@ package com.kotlin.s3
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.PutObjectRequest
 import aws.smithy.kotlin.runtime.content.asByteStream
-import java.nio.file.Paths
+import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.s3_object_upload.import]
 
@@ -39,7 +36,7 @@ suspend fun main(args: Array<String>) {
         objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).
     """
 
-    if (args.size != 1) {
+    if (args.size != 3) {
         println(usage)
         exitProcess(0)
     }
@@ -60,7 +57,7 @@ suspend fun putS3Object(bucketName: String, objectKey: String, objectPath: Strin
         bucket = bucketName
         key = objectKey
         metadata = metadataVal
-        this.body = Paths.get(objectPath).asByteStream()
+        body = File(objectPath).asByteStream()
     }
 
     S3Client { region = "us-east-1" }.use { s3 ->

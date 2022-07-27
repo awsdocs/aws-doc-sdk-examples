@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetRole.java demonstrates how to get information about the specified AWS Identity and Access Management (IAM) role.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +28,10 @@ public class GetRole {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <policyArn> \n\n" +
-                "Where:\n" +
-                "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
+            "Usage:\n" +
+            "    <policyArn> \n\n" +
+            "Where:\n" +
+            "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +41,9 @@ public class GetRole {
         String roleName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getRoleInformation(iam, roleName);
         System.out.println("Done");
@@ -57,8 +54,8 @@ public class GetRole {
 
         try {
             GetRoleRequest roleRequest = GetRoleRequest.builder()
-                    .roleName(roleName)
-                    .build();
+                .roleName(roleName)
+                .build();
 
             GetRoleResponse response = iam.getRole(roleRequest) ;
             System.out.println("The ARN of the role is " +response.role().arn());

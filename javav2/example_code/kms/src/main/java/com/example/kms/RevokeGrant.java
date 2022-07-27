@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[RevokeGrant.java demonstrates how to revoke a grant for the specified customer master key (CMK).]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -30,11 +27,11 @@ public class RevokeGrant {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <keyId> <grantId> \n\n" +
-                "Where:\n" +
-                "    keyId - A unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
-                "    grantId - A grant id value of the grant revoke. \n\n" ;
+            "Usage:\n" +
+            "    <keyId> <grantId> \n\n" +
+            "Where:\n" +
+            "    keyId - A unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
+            "    grantId - A grant id value of the grant revoke. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class RevokeGrant {
         String grantId = args[1];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         revokeKeyGrant(kmsClient, keyId, grantId);
         kmsClient.close();
@@ -70,4 +67,4 @@ public class RevokeGrant {
         }
      }
     // snippet-end:[kms.java2_revoke_grant.main]
-    }
+}

@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DescribeUserPool.kt demonstrates how to obtain information about an existing user pool.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DescribeUserPool.kt demonstrates how to obtain information about an existing user pool.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Cognito]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,49 +9,49 @@
 
 package com.kotlin.cognito
 
-//snippet-start:[cognito.kotlin.DescribeUserPool.import]
+// snippet-start:[cognito.kotlin.DescribeUserPool.import]
 import aws.sdk.kotlin.services.cognitoidentityprovider.CognitoIdentityProviderClient
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.DescribeUserPoolRequest
 import kotlin.system.exitProcess
-//snippet-end:[cognito.kotlin.DescribeUserPool.import]
+// snippet-end:[cognito.kotlin.DescribeUserPool.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args: Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage: <userPoolId>
     
         Where:
-            userPoolId - the ID given to your user pool.
+            userPoolId - The ID given to your user pool.
         """
 
-      if (args.size != 1) {
-          println(usage)
-          exitProcess(0)
-      }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val userPoolId = args[0]
     describePool(userPoolId)
-   }
+}
 
-//snippet-start:[cognito.kotlin.DescribeUserPool.main]
- suspend fun describePool(userPoolId: String) {
+// snippet-start:[cognito.kotlin.DescribeUserPool.main]
+suspend fun describePool(userPoolId: String) {
 
-    val request = DescribeUserPoolRequest{
+    val request = DescribeUserPoolRequest {
         this.userPoolId = userPoolId
     }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
-            val response = cognitoClient.describeUserPool(request)
-            val poolARN = response.userPool?.arn
-            println("The user pool ARN is $poolARN")
+        val response = cognitoClient.describeUserPool(request)
+        val poolARN = response.userPool?.arn
+        println("The user pool ARN is $poolARN")
     }
- }
-//snippet-end:[cognito.kotlin.DescribeUserPool.main]
+}
+// snippet-end:[cognito.kotlin.DescribeUserPool.main]

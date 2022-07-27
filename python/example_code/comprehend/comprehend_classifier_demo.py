@@ -57,6 +57,7 @@ class JobCompleteWaiter(CustomWaiter):
         self._wait(JobId=job_id)
 
 
+# snippet-start:[python.example_code.comprehend.helper.ClassifierDemo_class]
 class ClassifierDemo:
     """
     Encapsulates functions used to run the demonstration.
@@ -207,8 +208,10 @@ class ClassifierDemo:
                     f"\tClassifier assigned {out_labels}.")
         logger.info("Reconciled input and output labels.")
         return reconciled
+# snippet-end:[python.example_code.comprehend.helper.ClassifierDemo_class]
 
 
+# snippet-start:[python.example_code.comprehend.Scenario_CustomClassifier]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Comprehend custom document classifier demo!")
@@ -286,6 +289,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.comprehend.Scenario_CustomClassifier]
 
 
 if __name__ == '__main__':

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[LongPolling.java demonstrates how to enable long polling on an Amazon Simple Queue Service (Amazon SQS) queue.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -15,11 +12,15 @@ package com.example.sqs;
 // snippet-start:[sqs.java2.long_polling.import]
 import java.util.Date;
 import java.util.HashMap;
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.*;
+import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
+import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
+import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
+import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
+import software.amazon.awssdk.services.sqs.model.SqsException;
 // snippet-end:[sqs.java2.long_polling.import]
 
 /*
@@ -42,9 +43,9 @@ public class LongPolling {
     public static void main(String[] args) {
 
         SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         setLongPoll(sqsClient) ;
         sqsClient.close();
@@ -58,9 +59,9 @@ public class LongPolling {
         attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "20");
 
         CreateQueueRequest createRequest = CreateQueueRequest.builder()
-                .queueName(QueueName)
-                .attributes(attributes)
-                .build();
+            .queueName(QueueName)
+            .attributes(attributes)
+            .build();
 
         try {
             sqsClient.createQueue(createRequest);
@@ -69,14 +70,12 @@ public class LongPolling {
                 .build();
 
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
-
-           // Enable long polling on an existing queue.
-           SetQueueAttributesRequest setAttrsRequest = SetQueueAttributesRequest.builder()
+            SetQueueAttributesRequest setAttrsRequest = SetQueueAttributesRequest.builder()
                 .queueUrl(queueUrl)
                 .attributes(attributes)
                 .build();
 
-           sqsClient.setQueueAttributes(setAttrsRequest);
+            sqsClient.setQueueAttributes(setAttrsRequest);
 
             // Enable long polling on a message receipt.
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()

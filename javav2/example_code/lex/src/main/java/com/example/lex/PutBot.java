@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[PutBot.java demonstrates how to creates an Amazon Lex conversational bot.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
-//snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,29 +34,29 @@ public class PutBot {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <botName> <intentName> <intentVersion> \n\n" +
-                "Where:\n" +
-                "   botName - The name of bot (for example, BookHotel).\n\n" +
-                "   intentName - The name of an existing intent (for example, BookHotel).\n\n" +
-                "   intentVersion - The version of the intent (for example, 1).\n\n";
+            "Usage: " +
+            "   <botName> <intentName> <intentVersion> \n\n" +
+            "Where:\n" +
+            "   botName - The name of bot (for example, BookHotel).\n\n" +
+            "   intentName - The name of an existing intent (for example, BookHotel).\n\n" +
+            "   intentVersion - The version of the intent (for example, 1).\n\n";
 
        if (args.length != 3) {
-             System.out.println(usage);
-             System.exit(1);
-        }
+            System.out.println(usage);
+            System.exit(1);
+       }
 
-        String botName = args[0];
-        String intentName = args[1];
-        String intentVersion = args[2];
-        Region region = Region.US_WEST_2;
-        LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+       String botName = args[0];
+       String intentName = args[1];
+       String intentVersion = args[2];
+       Region region = Region.US_WEST_2;
+       LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
+           .region(region)
+           .credentialsProvider(ProfileCredentialsProvider.create())
+           .build();
 
-        createBot(lexClient, botName, intentName, intentVersion);
-        lexClient.close();
+       createBot(lexClient, botName, intentName, intentVersion);
+       lexClient.close();
     }
 
     // snippet-start:[lex.java2.create_bot.main]
@@ -71,34 +68,33 @@ public class PutBot {
         try {
             // Create an Intent object for the bot.
             Intent weatherIntent = Intent.builder()
-                    .intentName(intentName)
-                    .intentVersion(intentVersion)
-                    .build();
+                .intentName(intentName)
+                .intentVersion(intentVersion)
+                .build();
 
             ArrayList<Intent> intents = new ArrayList<>();
             intents.add(weatherIntent);
 
             // Create an abort statement.
             Message msg = Message.builder()
-                    .content("I do not understand you!")
-                    .contentType(ContentType.PLAIN_TEXT )
-                    .build();
+                .content("I do not understand you!")
+                .contentType(ContentType.PLAIN_TEXT )
+                .build();
 
             ArrayList<Message> abortMsg = new ArrayList<>();
             abortMsg.add(msg);
-
             Statement statement = Statement.builder()
-                    .messages(abortMsg)
-                    .build();
+                .messages(abortMsg)
+                .build();
 
             PutBotRequest botRequest = PutBotRequest.builder()
-                    .abortStatement(statement)
-                    .description("Created by using the Amazon Lex Java API")
-                    .childDirected(true)
-                    .locale("en-US")
-                    .name(botName)
-                    .intents(intents)
-                    .build();
+                .abortStatement(statement)
+                .description("Created by using the Amazon Lex Java API")
+                .childDirected(true)
+                .locale("en-US")
+                .name(botName)
+                .intents(intents)
+                .build();
 
             lexClient.putBot(botRequest);
             System.out.println("The Amazon Lex bot was successfully created");

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeDatabase.java demonstrates how to return information about the database.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Timestream]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +32,10 @@ public class DescribeDatabase {
     public static void main(String[] args){
 
         final String USAGE = "\n" +
-                "Usage: " +
-                "   <dbName>\n\n" +
-                "Where:\n" +
-                "   dbName - The name of the database.\n\n";
+            "Usage: " +
+            "   <dbName>\n\n" +
+            "Where:\n" +
+            "   dbName - The name of the database.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -47,9 +44,9 @@ public class DescribeDatabase {
 
         String dbName = args[0];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         DescribeSingleDatabases(timestreamWriteClient, dbName);
         timestreamWriteClient.close();
@@ -60,8 +57,8 @@ public class DescribeDatabase {
 
         System.out.println("Describing database");
         DescribeDatabaseRequest describeDatabaseRequest = DescribeDatabaseRequest.builder()
-                .databaseName(dbName)
-                .build();
+            .databaseName(dbName)
+            .build();
         try {
             DescribeDatabaseResponse response = timestreamWriteClient.describeDatabase(describeDatabaseRequest);
             final Database databaseRecord = response.database();

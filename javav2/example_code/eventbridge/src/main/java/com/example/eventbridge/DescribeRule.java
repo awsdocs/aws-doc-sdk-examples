@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeRule.java demonstrates how to describe an Amazon EventBridge rule.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class DescribeRule {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <ruleName> \n\n" +
-                "Where:\n" +
-                "    ruleName - The name of the rule to describe. \n";
+            "Usage:\n" +
+            "    <ruleName> \n\n" +
+            "Where:\n" +
+            "    ruleName - The name of the rule to describe. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class DescribeRule {
         String ruleName = args[0];
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeSpecificRule(eventBrClient, ruleName) ;
         eventBrClient.close();
@@ -59,19 +56,19 @@ public class DescribeRule {
     public static void describeSpecificRule(EventBridgeClient eventBrClient, String ruleName) {
 
        try {
-            DescribeRuleRequest ruleRequest = DescribeRuleRequest.builder()
-                .name(ruleName)
-                .eventBusName("default")
-                .build();
+           DescribeRuleRequest ruleRequest = DescribeRuleRequest.builder()
+               .name(ruleName)
+               .eventBusName("default")
+               .build();
 
-            DescribeRuleResponse ruleResponse = eventBrClient.describeRule(ruleRequest);
-            System.out.println("The rule ARN is " +ruleResponse.arn());
-            System.out.println("The role ARN is " +ruleResponse.roleArn());
+           DescribeRuleResponse ruleResponse = eventBrClient.describeRule(ruleRequest);
+           System.out.println("The rule ARN is " +ruleResponse.arn());
+           System.out.println("The role ARN is " +ruleResponse.roleArn());
 
        } catch (EventBridgeException e) {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
        }
    }
-    // snippet-end:[eventbridge.java2._describe_rule.main]
+   // snippet-end:[eventbridge.java2._describe_rule.main]
 }

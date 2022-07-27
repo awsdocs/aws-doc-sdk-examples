@@ -553,7 +553,8 @@ cloudwatch_Usage_MetricsAlarms:
               snippet_tags:
                 - python.example_code.cloudwatch.Usage_MetricsAlarms
   services:
-    cloudwatch: {}
+    cloudwatch: {DeleteAlarms, DescribeAlarmsForMetric, DisableAlarmActions, EnableAlarmActions,
+                 GetMetricStatistics, ListMetrics, PutMetricAlarm, PutMetricData, PutMetricData}
 cloudwatch_DescribeAlarmHistory:
   title: Describe a &CW; alarm's history using an &AWS; SDK
   title_abbrev: Describe alarm history

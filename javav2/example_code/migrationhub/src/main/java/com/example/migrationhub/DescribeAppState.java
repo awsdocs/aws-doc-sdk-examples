@@ -1,15 +1,11 @@
 // snippet-sourcedescription:[DescribeAppState.java demonstrates how to get the migration status of an application.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS Migration Hub]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 
 package com.example.migrationhub;
 
@@ -34,10 +30,10 @@ public class DescribeAppState {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    DescribeAppState <appId> \n\n" +
-                "Where:\n" +
-                "    appId -  the application id value. \n";
+            "Usage:\n" +
+            "    DescribeAppState <appId> \n\n" +
+            "Where:\n" +
+            "    appId -  the application id value. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,9 +43,9 @@ public class DescribeAppState {
         String appId = args[0];
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeApplicationState(migrationClient, appId);
         migrationClient.close();
@@ -60,8 +56,8 @@ public class DescribeAppState {
 
         try {
             DescribeApplicationStateRequest applicationStateRequest = DescribeApplicationStateRequest.builder()
-                    .applicationId(appId)
-                    .build();
+                .applicationId(appId)
+                .build();
 
             DescribeApplicationStateResponse applicationStateResponse = migrationClient.describeApplicationState(applicationStateRequest);
             System.out.println("The application status is " +applicationStateResponse.applicationStatusAsString() );
