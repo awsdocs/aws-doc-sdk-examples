@@ -1,26 +1,35 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.7.10"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+buildscript {
+    repositories {
+        maven("https://plugins.gradle.org/m2/")
+    }
+    dependencies {
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+    }
 }
 
+repositories {
+    mavenCentral()
+    jcenter()
+}
+apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:dynamodb:0.15.2-beta")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+    implementation("aws.sdk.kotlin:dynamodb:0.17.1-beta")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
     implementation(kotlin("reflect"))
     implementation("com.fasterxml.jackson.core:jackson-core:2.12.5")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.12.5")
 }
-
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
