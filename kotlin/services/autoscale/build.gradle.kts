@@ -1,9 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.7.10"
+    application
 }
-group = "me.test"
+
+group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -11,29 +13,20 @@ buildscript {
         maven("https://plugins.gradle.org/m2/")
     }
     dependencies {
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.2.1")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
     }
 }
 
 repositories {
-   mavenCentral()
+    mavenCentral()
+    jcenter()
 }
-
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:autoscaling:0.14.3-beta")
-    implementation("com.pinterest:ktlint:0.34.2")
-    implementation("aws.sdk.kotlin:sts:0.12.0-beta")
-    implementation("aws.sdk.kotlin:s3:0.12.0-beta")
-    implementation("com.googlecode.json-simple:json-simple:1.1.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+    implementation("aws.sdk.kotlin:autoscaling:0.17.1-beta")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
 }
-
-tasks.test {
-    useJUnit()
-}
-
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
