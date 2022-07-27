@@ -24,19 +24,19 @@ minutes instead of months.
 
 ### Single Actions
 
-- [Create a crawler](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateCrawlerAsync`)
+- [Create a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateCrawlerAsync`)
 - [Create a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateDatabaseAsync`)
-- [Create a job definition](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateJobAsync`)
-- [Delete a crawler](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteCrawlerAsync`)
-- [Delete a database from the AWS Glue Data Catalog](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteDatabaseAsync`)
-- [Delete a job definition](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteJobAsync`)
-- [Get all jobs](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobsAsync`)
-- [Get tables from a database](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetTablesAsync`)
-- [Get runs of a job](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobRunsAsync`)
-- [Get a crawler](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetCrawlerAsync`)
-- [Get a databasse](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetDatabaseAsync`)
-- [Start a crawler](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartCrawlerAsync`)
-- [Start a job run](Scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartJobRunAsync`)
+- [Create a job definition](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateJobAsync`)
+- [Delete a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteCrawlerAsync`)
+- [Delete a database from the AWS Glue Data Catalog](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteDatabaseAsync`)
+- [Delete a job definition](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteJobAsync`)
+- [Get all jobs](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobsAsync`)
+- [Get tables from a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetTablesAsync`)
+- [Get runs of a job](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobRunsAsync`)
+- [Get a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetCrawlerAsync`)
+- [Get a databasse](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetDatabaseAsync`)
+- [Start a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartCrawlerAsync`)
+- [Start a job run](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartJobRunAsync`)
 
 ### Scenario
 
