@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[CreateNamedQueryExample.java demonstrates how to create a named query.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,10 +31,10 @@ public class CreateNamedQueryExample {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <name>\n\n" +
-                "Where:\n" +
-                "    name - the name of the Amazon Athena query. \n\n" ;
+            "Usage:\n" +
+            "    <name>\n\n" +
+            "Where:\n" +
+            "    name - the name of the Amazon Athena query. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -45,9 +43,9 @@ public class CreateNamedQueryExample {
 
         String name = args[0];
         AthenaClient athenaClient = AthenaClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createNamedQuery(athenaClient, name);
         athenaClient.close();
@@ -55,15 +53,14 @@ public class CreateNamedQueryExample {
 
     //snippet-start:[athena.java2.CreateNamedQueryExample.main]
     public static void createNamedQuery(AthenaClient athenaClient, String name) {
-
         try {
             // Create the named query request.
             CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
-                    .database(ExampleConstants.ATHENA_DEFAULT_DATABASE)
-                    .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
-                    .description("Sample Description")
-                    .name(name)
-                    .build();
+                .database(ExampleConstants.ATHENA_DEFAULT_DATABASE)
+                .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
+                .description("Sample Description")
+                .name(name)
+                .build();
 
             athenaClient.createNamedQuery(createNamedQueryRequest);
             System.out.println("Done");

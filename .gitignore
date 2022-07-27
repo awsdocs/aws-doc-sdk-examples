@@ -16,3 +16,4 @@ xcuserdata
 Package.resolved
 *.phpunit.cache
 *.phpunit.result.cache
+super-linter.log

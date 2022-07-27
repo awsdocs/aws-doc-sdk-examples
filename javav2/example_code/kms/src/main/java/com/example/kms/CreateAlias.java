@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateAlias.java demonstrates how to create an AWS Key Management Service (AWS KMS) alias.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,25 +28,25 @@ public class CreateAlias {
 
     public static void main(String[] args) {
 
-         final String usage = "\n" +
-                "Usage:\n" +
-                "    <targetKeyId> <aliasName> \n\n" +
-                "Where:\n" +
-                "    targetKeyId - The key ID or the Amazon Resource Name (ARN) of the customer master key (CMK). \n\n" +
-                "    aliasName - An alias name (for example, alias/myAlias). \n\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <targetKeyId> <aliasName> \n\n" +
+            "Where:\n" +
+            "    targetKeyId - The key ID or the Amazon Resource Name (ARN) of the customer master key (CMK). \n\n" +
+            "    aliasName - An alias name (for example, alias/myAlias). \n\n" ;
 
-         if (args.length != 2) {
-              System.out.println(usage);
-             System.exit(1);
-         }
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String targetKeyId = args[0];
         String aliasName = args[1];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createCustomAlias(kmsClient, targetKeyId, aliasName);
         kmsClient.close();

@@ -15,21 +15,17 @@ auditmanager_Scenario_CreateAssessmentReport:
               snippet_tags:
                 - python.example_code.auditmanager.Scenario_CreateAssessmentReport
   services:
-    auditmanager:
-      ? AssociateAssessmentReportEvidenceFolder
-      ? BatchDisassociateAssessmentReportEvidence
-      ? CreateAssessmentReport
-      ? DisassociateAssessmentReportEvidenceFolder
-      ? GetAssessment
-      ? GetAssessmentReportUrl
-      ? GetEvidenceFoldersByAssessment
-      ? GetEvidenceByEvidenceFolder
-      ? ListAssessmentReports
+    auditmanager: {AssociateAssessmentReportEvidenceFolder, BatchDisassociateAssessmentReportEvidence,
+                   CreateAssessmentReport, DisassociateAssessmentReportEvidenceFolder,
+                   GetAssessment, GetAssessmentReportUrl, GetEvidenceFoldersByAssessment,
+                   GetEvidenceByEvidenceFolder, ListAssessmentReports}
 auditmanager_Scenario_CustomFrameworkFromConformancePack:
   title: Create an &AM; custom framework from an &CC; conformance pack using an &AWS; SDK
   title_abbrev: Create a custom framework from an &CC; conformance pack
-  synopsis: create an &AM; custom framework that contains custom controls that are
-    created from managed rules in an &CC; conformance pack.
+  synopsis_list:
+    - Get a list of &CC; conformance packs.
+    - Create an &AM; custom control for each managed rule in a conformance pack.
+    - Create an &AM; custom framework that contains the controls.
   category: Scenarios
   languages:
     Python:
@@ -46,8 +42,9 @@ auditmanager_Scenario_CustomFrameworkFromConformancePack:
 auditmanager_Scenario_CustomFrameworkFromSecurityHub:
   title: Create an &AM; custom framework that contains &ASH; controls using an &AWS; SDK
   title_abbrev: Create a custom framework that contains &ASH; controls
-  synopsis: create an &AM; custom framework that contains all standard controls that
-    have &ASH; as their data source.
+  synopsis_list:
+    - Get a list of all standard controls that have &ASH; as their data source.
+    - Create an &AM; custom framework that contains the controls.
   category: Scenarios
   languages:
     Python:

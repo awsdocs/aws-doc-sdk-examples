@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[AddExampleEndpoints.java demonstrates how to update several existing endpoints in a single call to the API.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -41,10 +38,10 @@ public class AddExampleEndpoints {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <appId>\n\n" +
-                "Where:\n" +
-                "   appId - The ID of the application.\n\n" ;
+            "Usage: " +
+            "   <appId>\n\n" +
+            "Where:\n" +
+            "   appId - The ID of the application.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -53,9 +50,9 @@ public class AddExampleEndpoints {
 
         String applicationId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         updateEndpointsViaBatch(pinpoint, applicationId);
         pinpoint.close();
@@ -65,7 +62,7 @@ public class AddExampleEndpoints {
     public static void updateEndpointsViaBatch( PinpointClient pinpoint, String applicationId) {
 
         try {
-            List<String> myList = new ArrayList<String>();
+            List<String> myList = new ArrayList<>();
             myList.add("music");
             myList.add("books");
 
@@ -136,13 +133,12 @@ public class AddExampleEndpoints {
 
             //  Updates the endpoints with Amazon Pinpoint.
             UpdateEndpointsBatchResponse result = pinpoint.updateEndpointsBatch(batchRequest);
-            System.out.format("Update endpoints batch result: %s\n",
-                result.messageBody().message());
+            System.out.format("Update endpoints batch result: %s\n", result.messageBody().message());
 
-     } catch (PinpointException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
-  }
     //snippet-end:[pinpoint.java2.update_batch.main]
 }

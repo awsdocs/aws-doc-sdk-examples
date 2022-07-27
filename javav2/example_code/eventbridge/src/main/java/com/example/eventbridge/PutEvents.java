@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[PutEvents.java demonstrates how to send custom events to Amazon EventBridge.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -36,9 +32,9 @@ public class PutEvents {
     public static void main(String[] args) {
 
         final String usage =
-                "To run this example, supply two resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. " +
-                        "Any number, including zero, may be present. \n" +
-                        "For example: PutEvents <resourceArn> <resourceArn2>\n";
+            "To run this example, supply two resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. " +
+            "Any number, including zero, may be present. \n" +
+            "For example: PutEvents <resourceArn> <resourceArn2>\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -49,9 +45,9 @@ public class PutEvents {
         String resourceArn2 = args[1];
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         putEBEvents(eventBrClient, resourceArn, resourceArn2);
         eventBrClient.close();
@@ -67,15 +63,15 @@ public class PutEvents {
             resources.add(resourceArn2);
 
             PutEventsRequestEntry reqEntry = PutEventsRequestEntry.builder()
-                    .resources(resources)
-                    .source("com.mycompany.myapp")
-                    .detailType("myDetailType")
-                    .detail("{ \"key1\": \"value1\", \"key2\": \"value2\" }")
-                    .build();
+                .resources(resources)
+                .source("com.mycompany.myapp")
+                .detailType("myDetailType")
+                .detail("{ \"key1\": \"value1\", \"key2\": \"value2\" }")
+                .build();
 
             PutEventsRequest eventsRequest = PutEventsRequest.builder()
-                    .entries(reqEntry)
-                    .build();
+                .entries(reqEntry)
+                .build();
 
             PutEventsResponse result = eventBrClient.putEvents(eventsRequest);
             for (PutEventsResultEntry resultEntry : result.entries()) {
@@ -87,7 +83,6 @@ public class PutEvents {
             }
 
         } catch (EventBridgeException e) {
-
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

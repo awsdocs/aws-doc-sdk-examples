@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListEndpointIds.java demonstrates how to retrieve information about all the endpoints that are associated with a specific user ID.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,12 +31,11 @@ public class ListEndpointIds {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <applicationId> <userId>\n\n" +
-
-                "Where:\n" +
-                "   applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
-                "   userId - The user id applicable to the endpoints";
+            "Usage: " +
+            "   <applicationId> <userId>\n\n" +
+            "Where:\n" +
+            "   applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
+            "   userId - The user id applicable to the endpoints";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -49,9 +45,9 @@ public class ListEndpointIds {
         String applicationId = args[0];
         String userId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllEndpoints(pinpoint, applicationId, userId );
         pinpoint.close();
@@ -60,18 +56,18 @@ public class ListEndpointIds {
     //snippet-start:[pinpoint.java2.list_endpoints.main]
     public static void listAllEndpoints(PinpointClient pinpoint,
                                         String applicationId,
-                                       String userId ) {
+                                       String userId) {
 
         try {
             GetUserEndpointsRequest endpointsRequest = GetUserEndpointsRequest.builder()
-                    .userId(userId)
-                    .applicationId(applicationId)
-                    .build();
+                .userId(userId)
+                .applicationId(applicationId)
+                .build();
 
             GetUserEndpointsResponse response = pinpoint.getUserEndpoints(endpointsRequest);
             List<EndpointResponse> endpoints = response.endpointsResponse().item();
 
-            // Display the results
+            // Display the results.
             for (EndpointResponse endpoint: endpoints) {
                 System.out.println("The channel type is: "+endpoint.channelType());
                 System.out.println("The address is  "+endpoint.address());

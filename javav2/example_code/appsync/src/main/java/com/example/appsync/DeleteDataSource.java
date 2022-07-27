@@ -1,10 +1,7 @@
 // snippet-sourcedescription:[DeleteDataSource.java demonstrates how to delete an AWS AppSync data source.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS AppSync]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04-01-2022]
-// snippet-sourceauthor:[scmacdon - AWS]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0

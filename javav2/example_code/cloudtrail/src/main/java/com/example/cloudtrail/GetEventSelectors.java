@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetEventSelectors.java demonstrates how to get event selectors for a given trail.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CloudTrail]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,10 +34,10 @@ public class GetEventSelectors {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <trailName>  \n\n" +
-                "Where:\n" +
-                "    trailName - The name of the trail. \n" ;
+            "Usage:\n" +
+            "    <trailName>  \n\n" +
+            "Where:\n" +
+            "    trailName - The name of the trail. \n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,9 +47,9 @@ public class GetEventSelectors {
         String trailName = args[0];
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getSelectors(cloudTrailClient, trailName);
         cloudTrailClient.close();
@@ -60,8 +57,7 @@ public class GetEventSelectors {
 
     //snippet-start:[cloudtrail.java2.get_event_selectors.main]
     public static void getSelectors(CloudTrailClient cloudTrailClientClient, String trailName) {
-
-       try {
+        try {
             GetEventSelectorsRequest selectorsRequest = GetEventSelectorsRequest.builder()
                 .trailName(trailName)
                 .build();
@@ -72,10 +68,10 @@ public class GetEventSelectors {
                 System.out.println("The type is  "+selector.readWriteTypeAsString());
             }
 
-       } catch (CloudTrailException e) {
-           System.err.println(e.getMessage());
-           System.exit(1);
-       }
+        } catch (CloudTrailException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
     //snippet-end:[cloudtrail.java2.get_event_selectors.main]
  }

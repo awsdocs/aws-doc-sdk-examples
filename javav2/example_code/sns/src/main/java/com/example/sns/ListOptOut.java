@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListOptOut.java demonstrates how to list the phone numbers for which the users have selected to no longer receive future text messages.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service (Amazon SNS)]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
+//snippet-keyword:[Amazon Simple Notification Service]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,9 +28,9 @@ public class ListOptOut {
     public static void main(String[] args) {
 
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listOpts(snsClient);
         snsClient.close();
@@ -43,7 +40,6 @@ public class ListOptOut {
     public static void listOpts( SnsClient snsClient) {
 
         try {
-
             ListPhoneNumbersOptedOutRequest request = ListPhoneNumbersOptedOutRequest.builder().build();
             ListPhoneNumbersOptedOutResponse result = snsClient.listPhoneNumbersOptedOut(request);
             System.out.println("Status is " + result.sdkHttpResponse().statusCode() + "\n\nPhone Numbers: \n\n" + result.phoneNumbers());

@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[DeleteFunction.java demonstrates how to delete an AWS Lambda function by using the LambdaClient object]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[AWS Lambda]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,34 +31,33 @@ public class DeleteFunction {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <functionName> \n\n" +
-                "Where:\n" +
-                "    functionName - The name of the Lambda function. \n";
+            "Usage:\n" +
+            "    <functionName> \n\n" +
+            "Where:\n" +
+            "    functionName - The name of the Lambda function. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String functionName = args[0];
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteLambdaFunction(awsLambda, functionName);
         awsLambda.close();
     }
 
     // snippet-start:[lambda.java2.delete.main]
-    public static void deleteLambdaFunction(LambdaClient awsLambda, String functionName ) {
+    public static void deleteLambdaFunction(LambdaClient awsLambda, String functionName) {
         try {
-            //Setup an DeleteFunctionRequest
             DeleteFunctionRequest request = DeleteFunctionRequest.builder()
-                    .functionName(functionName)
-                    .build();
+                .functionName(functionName)
+                .build();
 
             awsLambda.deleteFunction(request);
             System.out.println("The "+functionName +" function was deleted");

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ActivityWorkerWithGracefulShutdown.java demonstrates how to implement an activity worker with a graceful shutdown.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -45,11 +42,11 @@ public class ActivityWorkerWithGracefulShutdown {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <domain> <taskList> \n\n" +
-                "Where:\n" +
-                "    domain - The domain to use (ie, mydomain). \n" +
-                "    taskList - The taskList to use (ie, HelloTasklist).  \n" ;
+            "Usage:\n" +
+            "    <domain> <taskList> \n\n" +
+            "Where:\n" +
+            "    domain - The domain to use (ie, mydomain). \n" +
+            "    taskList - The taskList to use (ie, HelloTasklist).  \n" ;
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -58,12 +55,11 @@ public class ActivityWorkerWithGracefulShutdown {
 
         String domain = args[0];
         String taskList = args[1];
-
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override

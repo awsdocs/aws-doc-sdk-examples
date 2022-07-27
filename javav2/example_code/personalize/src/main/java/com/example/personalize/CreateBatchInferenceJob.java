@@ -1,11 +1,7 @@
 //snippet-sourcedescription:[CreateBatchInferenceJob.java demonstrates how to create
 // an Amazon Personalize batch inference job.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/1/2021]
-//snippet-sourceauthor:[seashman - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,11 +11,9 @@
 package com.example.personalize;
 
 //snippet-start:[personalize.java2.create_batch_inference_job.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.*;
-
 import java.time.Instant;
 import java.util.HashMap;
 //snippet-end:[personalize.java2.create_batch_inference_job.import]
@@ -37,21 +31,21 @@ public class CreateBatchInferenceJob {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    CreateDatasetImportJob <solutionVersionArn, jobName, roleArn, s3DataSource, s3DataDestination, explorationWeight," +
-                "explorationItemAgeCutOff>\n\n" +
-                "Where:\n" +
-                "    solutionVersionArn - The Amazon Resource Name (ARN) of the solution version you want to use.\n" +
-                "    jobName - The name for the batch inference job.\n" +
-                "    s3InputDataSource - The path to the Amazon S3 bucket where your input list of users or items is stored.\n" +
-                "    s3DataDestination - The path to the Amazon S3 bucket where Amazon Personalize will output the " +
-                "batch recommendations.\n" +
-                "    roleArn - The ARN of the IAM service-linked role that" + "" +
-                "has permissions to add data to your output Amazon S3 bucket.\n" + "" +
-                "   explorationWeight - A User-Personalization recipe specific field that specifies how " +
-                "much to explore (how often to include new items in recommendations)\n" +
-                "    explorationItemAgeCutOff - A User-Personalization recipe specific field that defines " +
-                "what Amazon Personalize considers a new item in exploration.\n\n";
+            "Usage:\n" +
+            "    CreateDatasetImportJob <solutionVersionArn, jobName, roleArn, s3DataSource, s3DataDestination, explorationWeight," +
+            "explorationItemAgeCutOff>\n\n" +
+            "Where:\n" +
+            "    solutionVersionArn - The Amazon Resource Name (ARN) of the solution version you want to use.\n" +
+            "    jobName - The name for the batch inference job.\n" +
+            "    s3InputDataSource - The path to the Amazon S3 bucket where your input list of users or items is stored.\n" +
+            "    s3DataDestination - The path to the Amazon S3 bucket where Amazon Personalize will output the " +
+            "batch recommendations.\n" +
+            "    roleArn - The ARN of the IAM service-linked role that" + "" +
+            "has permissions to add data to your output Amazon S3 bucket.\n" + "" +
+            "   explorationWeight - A User-Personalization recipe specific field that specifies how " +
+            "much to explore (how often to include new items in recommendations)\n" +
+            "    explorationItemAgeCutOff - A User-Personalization recipe specific field that defines " +
+            "what Amazon Personalize considers a new item in exploration.\n\n";
 
         // If omitting User-Personalization exploration fields, change from 7 to 5.
         if (args.length != 7) {
@@ -69,8 +63,8 @@ public class CreateBatchInferenceJob {
         // Change to the region where your Amazon Personalize resources are located
         Region region = Region.US_WEST_2;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         String batchInferenceJobArn = createPersonalizeBatchInferenceJob(personalizeClient, solutionVersionArn,
                 jobName, s3InputDataSource, s3DataDestination, roleArn, explorationWeight, explorationItemAgeCutOff);
@@ -96,18 +90,20 @@ public class CreateBatchInferenceJob {
 
             // Set up data input and output parameters.
             S3DataConfig inputSource = S3DataConfig.builder()
-                    .path(s3InputDataSourcePath)
-                    .build();
+                .path(s3InputDataSourcePath)
+                .build();
+
             S3DataConfig outputDestination = S3DataConfig.builder()
-                    .path(s3DataDestinationPath)
-                    .build();
+                .path(s3DataDestinationPath)
+                .build();
 
             BatchInferenceJobInput jobInput = BatchInferenceJobInput.builder()
-                    .s3DataSource(inputSource)
-                    .build();
+                .s3DataSource(inputSource)
+                .build();
+
             BatchInferenceJobOutput jobOutputLocation = BatchInferenceJobOutput.builder()
-                    .s3DataDestination(outputDestination)
-                    .build();
+                .s3DataDestination(outputDestination)
+                .build();
 
             // Optional code to build the User-Personalization specific item exploration config.
             HashMap<String, String> explorationConfig = new HashMap<>();
@@ -116,32 +112,33 @@ public class CreateBatchInferenceJob {
             explorationConfig.put("explorationItemAgeCutOff", explorationItemAgeCutOff);
 
             BatchInferenceJobConfig jobConfig = BatchInferenceJobConfig.builder()
-                    .itemExplorationConfig(explorationConfig)
-                    .build();
+                .itemExplorationConfig(explorationConfig)
+                .build();
+
             // End optional User-Personalization recipe specific code.
 
             CreateBatchInferenceJobRequest createBatchInferenceJobRequest = CreateBatchInferenceJobRequest.builder()
-                    .solutionVersionArn(solutionVersionArn)
-                    .jobInput(jobInput)
-                    .jobOutput(jobOutputLocation)
-                    .jobName(jobName)
-                    .roleArn(roleArn)
-                    .batchInferenceJobConfig(jobConfig)   // Optional
-                    .build();
+                .solutionVersionArn(solutionVersionArn)
+                .jobInput(jobInput)
+                .jobOutput(jobOutputLocation)
+                .jobName(jobName)
+                .roleArn(roleArn)
+                .batchInferenceJobConfig(jobConfig)   // Optional
+                .build();
 
             batchInferenceJobArn = personalizeClient.createBatchInferenceJob(createBatchInferenceJobRequest)
-                    .batchInferenceJobArn();
+                 .batchInferenceJobArn();
+
             DescribeBatchInferenceJobRequest describeBatchInferenceJobRequest = DescribeBatchInferenceJobRequest.builder()
-                    .batchInferenceJobArn(batchInferenceJobArn)
-                    .build();
+                .batchInferenceJobArn(batchInferenceJobArn)
+                .build();
 
             long maxTime = Instant.now().getEpochSecond() + 3 * 60 * 60;
-
             while (Instant.now().getEpochSecond() < maxTime) {
 
                 BatchInferenceJob batchInferenceJob = personalizeClient
-                        .describeBatchInferenceJob(describeBatchInferenceJobRequest)
-                        .batchInferenceJob();
+                    .describeBatchInferenceJob(describeBatchInferenceJobRequest)
+                    .batchInferenceJob();
 
                 status = batchInferenceJob.status();
                 System.out.println("Batch inference job status: " + status);
@@ -161,7 +158,7 @@ public class CreateBatchInferenceJob {
             System.out.println(e.awsErrorDetails().errorMessage());
         }
         return "";
-    }//snippet-end:[personalize.java2.create_batch_inference_job.main]
+    }
+    //snippet-end:[personalize.java2.create_batch_inference_job.main]
 
 }
-

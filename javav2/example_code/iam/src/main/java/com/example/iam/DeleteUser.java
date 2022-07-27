@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteUser.java demonstrates how to delete an AWS Identity and Access Management (IAM) user. This is only possible for users with no associated resources.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,10 +27,10 @@ public class DeleteUser {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <userName> \n\n" +
-                "Where:\n" +
-                "    userName - The name of the user to delete. \n\n" ;
+            "Usage:\n" +
+            "    <userName> \n\n" +
+            "Where:\n" +
+            "    userName - The name of the user to delete. \n\n" ;
 
        if (args.length != 1) {
             System.out.println(usage);
@@ -43,9 +40,9 @@ public class DeleteUser {
         String userName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteIAMUser(iam, userName);
         System.out.println("Done");
@@ -57,11 +54,12 @@ public class DeleteUser {
 
         try {
             DeleteUserRequest request = DeleteUserRequest.builder()
-                    .userName(userName)
-                    .build();
+                .userName(userName)
+                .build();
 
             iam.deleteUser(request);
             System.out.println("Successfully deleted IAM user " + userName);
+
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

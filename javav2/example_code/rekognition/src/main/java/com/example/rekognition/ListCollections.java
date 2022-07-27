@@ -1,9 +1,7 @@
 // snippet-sourcedescription:[ListCollections.java demonstrates how to list the available Amazon Rekognition collections.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,9 +32,9 @@ public class ListCollections {
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Listing collections");
         listAllCollections(rekClient);
@@ -45,12 +43,10 @@ public class ListCollections {
 
     // snippet-start:[rekognition.java2.list_collections.main]
     public static void listAllCollections(RekognitionClient rekClient) {
-
         try {
-
             ListCollectionsRequest listCollectionsRequest = ListCollectionsRequest.builder()
-                    .maxResults(10)
-                    .build();
+                .maxResults(10)
+                .build();
 
             ListCollectionsResponse response = rekClient.listCollections(listCollectionsRequest);
             List<String> collectionIds = response.collectionIds();

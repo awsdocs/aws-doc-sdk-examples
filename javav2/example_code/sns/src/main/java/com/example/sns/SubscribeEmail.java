@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SubscribeEmail.java demonstrates how to subscribe to an Amazon Simple Notification Service (Amazon SNS) email endpoint.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class SubscribeEmail {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "    <topicArn> <email>\n\n" +
-                "Where:\n" +
-                "   topicArn - The ARN of the topic to subscribe.\n\n" +
-                "   email - The email address to use.\n\n";
+            "Usage: " +
+            "    <topicArn> <email>\n\n" +
+            "Where:\n" +
+            "   topicArn - The ARN of the topic to subscribe.\n\n" +
+            "   email - The email address to use.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,11 +43,10 @@ public class SubscribeEmail {
 
         String topicArn = args[0];
         String email = args[1];
-
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         subEmail(snsClient, topicArn, email) ;
         snsClient.close();

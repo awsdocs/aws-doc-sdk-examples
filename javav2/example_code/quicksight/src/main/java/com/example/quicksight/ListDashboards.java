@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListDashboards.java demonstrates how to list Amazon QuickSight dashboards.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class ListDashboards {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <account>\n\n" +
-                "Where:\n" +
-                "   account - The ID of the AWS account.\n\n";
+            "Usage: " +
+            "   <account>\n\n" +
+            "Where:\n" +
+            "   account - The ID of the AWS account.\n\n";
 
          if (args.length != 1) {
              System.out.println(usage);
@@ -46,9 +43,9 @@ public class ListDashboards {
 
         String account = args[0];
         QuickSightClient qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllDashboards(qsClient, account);
         qsClient.close();
@@ -58,19 +55,18 @@ public class ListDashboards {
     public static void listAllDashboards(QuickSightClient qsClient, String account) {
 
         try {
-             ListDashboardsRequest dashboardsRequest = ListDashboardsRequest.builder()
+            ListDashboardsRequest dashboardsRequest = ListDashboardsRequest.builder()
                 .awsAccountId(account)
                 .maxResults(20)
                 .build();
 
-             ListDashboardsResponse res = qsClient.listDashboards(dashboardsRequest);
-             List<DashboardSummary> dashboards = res.dashboardSummaryList();
-
-             for (DashboardSummary dashboard: dashboards) {
+            ListDashboardsResponse res = qsClient.listDashboards(dashboardsRequest);
+            List<DashboardSummary> dashboards = res.dashboardSummaryList();
+            for (DashboardSummary dashboard: dashboards) {
                 System.out.println("Dashboard name: "+dashboard.name());
                 System.out.println("Dashboard ARN: "+dashboard.arn());
                 System.out.println("Dashboard Id: "+dashboard.dashboardId());
-             }
+            }
 
         } catch (QuickSightException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

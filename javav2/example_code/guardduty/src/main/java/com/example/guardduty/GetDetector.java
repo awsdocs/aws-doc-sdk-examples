@@ -2,9 +2,7 @@
 // snippet-sourcedescription:[GetDetector.java demonstrates how to obtain a detector using its id value.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon GuardDuty]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0

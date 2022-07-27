@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DescribeStacks.java demonstrates how to obtain information about stacks.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CloudFormation]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class DescribeStacks {
 
         Region region = Region.US_WEST_2;
         CloudFormationClient cfClient = CloudFormationClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeAllStacks(cfClient);
         cfClient.close();
@@ -46,15 +43,13 @@ public class DescribeStacks {
 
     // snippet-start:[cf.java2.get_stacks.main]
     public static void describeAllStacks(CloudFormationClient cfClient) {
-
         try {
             DescribeStacksResponse stacksResponse = cfClient.describeStacks();
             List<Stack> stacks = stacksResponse.stacks();
-
             for (Stack stack : stacks) {
                 System.out.println("The stack description is " + stack.description());
                 System.out.println("The stack Id is " + stack.stackId());
-                }
+            }
 
         } catch (CloudFormationException e) {
             System.err.println(e.getMessage());

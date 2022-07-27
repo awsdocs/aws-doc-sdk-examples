@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListTextTranslationJobs.java demonstrates how to list all translation jobs.]
 //snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,9 +34,9 @@ public class ListTextTranslationJobs {
 
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getTranslationJobs(translateClient);
         translateClient.close();
@@ -48,22 +45,21 @@ public class ListTextTranslationJobs {
     // snippet-start:[translate.java2._list_jobs.main]
     public static void getTranslationJobs( TranslateClient translateClient) {
         try {
-        ListTextTranslationJobsRequest textTranslationJobsRequest = ListTextTranslationJobsRequest.builder()
+            ListTextTranslationJobsRequest textTranslationJobsRequest = ListTextTranslationJobsRequest.builder()
                 .maxResults(10)
                 .build();
 
-        ListTextTranslationJobsResponse jobsResponse = translateClient.listTextTranslationJobs(textTranslationJobsRequest);
-        List<TextTranslationJobProperties> props = jobsResponse.textTranslationJobPropertiesList();
+            ListTextTranslationJobsResponse jobsResponse = translateClient.listTextTranslationJobs(textTranslationJobsRequest);
+            List<TextTranslationJobProperties> props = jobsResponse.textTranslationJobPropertiesList();
+            for (TextTranslationJobProperties prop: props) {
+                System.out.println("The job name is: "+prop.jobName());
+                System.out.println("The job id is: "+prop.jobId());
+            }
 
-        for (TextTranslationJobProperties prop: props) {
-            System.out.println("The job name is: "+prop.jobName());
-            System.out.println("The job id is: "+prop.jobId());
+        } catch (TranslateException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-
-    } catch (TranslateException e) {
-        System.err.println(e.getMessage());
-        System.exit(1);
     }
- }
     // snippet-end:[translate.java2._list_jobs.main]
 }
