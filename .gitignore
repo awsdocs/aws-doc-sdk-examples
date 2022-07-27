@@ -14,3 +14,5 @@ venv
 xcuserdata
 .swiftpm
 Package.resolved
+*.phpunit.cache
+*.phpunit.result.cache

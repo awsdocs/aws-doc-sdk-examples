@@ -1655,8 +1655,11 @@ dynamodb_Scenario_PartiQLSingle:
           excerpts:
             - description:
               snippet_tags:
-                - php.example_code.dynamodb.partiql_basics.getItem
+                - php.example_code.dynamodb.partiql_basics.scenario
+                - php.example_code.dynamodb.service.insertItemByPartiQL
                 - php.example_code.dynamodb.service.getItemByPartiQL
+                - php.example_code.dynamodb.service.updateItemByPartiQL
+                - php.example_code.dynamodb.service.deleteItemByPartiQL
     Python:
       versions:
         - sdk_version: 3
@@ -1747,8 +1750,11 @@ dynamodb_Scenario_PartiQLBatch:
           excerpts:
             - description:
               snippet_tags:
-                - php.example_code.dynamodb.partiql_batch.getItem
+                - php.example_code.dynamodb.partiql_batch.scenario
+                - php.example_code.dynamodb.service.insertItemByPartiQLBatch
                 - php.example_code.dynamodb.service.getItemByPartiQLBatch
+                - php.example_code.dynamodb.service.updateItemByPartiQLBatch
+                - php.example_code.dynamodb.service.deleteItemByPartiQLBatch
     Python:
       versions:
         - sdk_version: 3

@@ -102,7 +102,7 @@ class GettingStartedWithPartiQL
 
         list($statement, $parameters) = $service->buildStatementAndParameters("UPDATE", $tableName, $key, $attributes);
         $service->updateItemByPartiQL($statement, $parameters);
-        echo "Movie added and updated.";
+        echo "Movie added and updated.\n";
 
 
 
@@ -132,7 +132,7 @@ class GettingStartedWithPartiQL
         echo "Okay, you have rated {$movie['Items'][0]['title']['S']} as a {$movie['Items'][0]['rating']['N']}\n";
 
 # snippet-start:[php.example_code.dynamodb.partiql_basics.deleteItem]
-        $service->deleteItemByKey($tableName, $key);
+        $service->deleteItemByPartiQL($statement, $parameters);
         echo "But, bad news, this was a trap. That movie has now been deleted because of your rating...harsh.\n";
 # snippet-end:[php.example_code.dynamodb.partiql_basics.deleteItem]
 
