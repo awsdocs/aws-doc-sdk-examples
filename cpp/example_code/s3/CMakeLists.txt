@@ -17,7 +17,7 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 
 # Enable CTest for testing these code examples.
-#include(CTest)
+include(CTest)
 
 # Build shared libraries by default.
 if(NOT BUILD_SHARED_LIBS)
@@ -27,7 +27,7 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS s3 sts)
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++, 
+# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
@@ -65,7 +65,7 @@ if(WIN32)
         source_group("Source Files" FILES ${AWSDOC_S3_SOURCE})
     endif(MSVC)
 endif()
-set (BUILD_TESTING OFF)
+
 foreach(file ${AWSDOC_S3_SOURCE})
     get_filename_component(EXAMPLE ${file} NAME_WE)
 
@@ -115,9 +115,11 @@ foreach(file ${AWSDOC_S3_SOURCE})
             target_include_directories(${EXAMPLE_TEST} PUBLIC
                 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                 $<INSTALL_INTERFACE:include>)
-            target_link_libraries(${EXAMPLE_TEST} ${EXAMPLE_LIB} )
+            target_link_libraries(${EXAMPLE_TEST}
+                    ${EXAMPLE_LIB})
             add_test(${EXAMPLE_TEST} ${EXAMPLE_TEST})
         endif()
-
     endif()
 endforeach()
+
+add_subdirectory(gtests)

@@ -19,16 +19,14 @@
 #include <aws/s3/model/DeleteObjectRequest.h>
 #include <aws/s3/model/GetObjectRequest.h>
 #include <aws/s3/model/ListObjectsRequest.h>
+#include <aws/s3/model/PutObjectRequest.h>
 #include <aws/s3/model/BucketLocationConstraint.h>
 #include <aws/s3/model/CreateBucketConfiguration.h>
-#include <aws/s3/model/PutObjectRequest.h>
 #include <aws/core/utils/UUID.h>
 #include <aws/core/utils/StringUtils.h>
 #include <aws/core/utils/memory/stl/AWSAllocator.h>
 #include <aws/core/utils/memory/stl/AWSStreamFwd.h>
-#include "include/awsdoc/s3/s3_examples.h"
 #include <fstream>
-
 // snippet-end:[s3.cpp.s3_scenario.inc]
 
 // snippet-start:[s3.cpp.s3_scenario.main]
@@ -51,7 +49,11 @@
 
 static bool DeleteTempBucket(const Aws::String& bucketName, Aws::S3::S3Client &client);
 static bool DeleteObjectFromBucket(const Aws::String& bucketName, const Aws::String& key, Aws::S3::S3Client &client);
+bool S3Scenario(const Aws::String& key, const Aws::String& objectPath,
+                const Aws::String& savePath, const Aws::String& toFolder,
+                const Aws::Client::ClientConfiguration &clientConfig);
 
+#ifndef TESTING_BUILD
 int main(int argc, char* argv[])  {
 
     if (argc != 5) {
@@ -74,14 +76,15 @@ int main(int argc, char* argv[])  {
     InitAPI(options);
 
     Aws::Client::ClientConfiguration clientConfig;
-    AwsDoc::S3::S3Scenario(key, objectPath, savePath, toFolder, clientConfig);
+    S3Scenario(key, objectPath, savePath, toFolder, clientConfig);
 
     ShutdownAPI(options);
 
     return 0;
 }
+#endif // TESTING_BUILD
 
-AWSDOC_S3_API bool AwsDoc::S3::S3Scenario(const Aws::String& key, const Aws::String& objectPath,
+bool S3Scenario(const Aws::String& key, const Aws::String& objectPath,
                               const Aws::String& savePath, const Aws::String& toFolder,
                               const Aws::Client::ClientConfiguration &clientConfig) {
 
@@ -254,6 +257,8 @@ bool DeleteObjectFromBucket(const Aws::String& bucketName, const Aws::String& ke
         DeleteTempBucket(bucketName, client);
         return false;
     }
+
+    return true;
 }
 
 

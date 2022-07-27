@@ -27,7 +27,7 @@ int main()
         config.region = "us-east-1";
         Aws::S3::S3Client s3_client(config);
 
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         // 1/6. Create the bucket to upload the object to.
         // Create a unique bucket name to increase the chance of success 
