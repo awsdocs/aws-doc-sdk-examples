@@ -15,13 +15,13 @@ class DynamoDBBasicsTests extends TestCase
 {
     public function testItRunsWithoutThrowingAnException()
     {
-        global $argv;
-        $argv[] = "test movie"; //Movie title
-        $argv[] = "2020";       //Release year
-        $argv[] = "5";          //Rating
-        $argv[] = "Some code was tested."; //Plot summary
-        $argv[] = "1";          //Fellowship rating
-        $argv[] = "1999";       //Birth year
+        global $LINES;
+        $LINES[] = "test movie"; //Movie title
+        $LINES[] = "2020";       //Release year
+        $LINES[] = "5";          //Rating
+        $LINES[] = "Some code was tested."; //Plot summary
+        $LINES[] = "1";          //Fellowship rating
+        $LINES[] = "1999";       //Birth year
 
         $start = new GettingStartedWithDynamoDB();
         $start->run();
