@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DescribeClusters.kt demonstrates how to describe Amazon Redshift clusters.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[DescribeClusters.kt demonstrates how to describe Amazon Redshift clusters.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Redshift]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -18,31 +14,30 @@ import aws.sdk.kotlin.services.redshift.model.DescribeClustersRequest
 // snippet-end:[redshift.kotlin.describe_cluster.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-  describeRedshiftClusters()
+    describeRedshiftClusters()
 }
 
 // snippet-start:[redshift.kotlin.describe_cluster.main]
 suspend fun describeRedshiftClusters() {
 
     RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
-      val clusterResponse= redshiftClient.describeClusters(DescribeClustersRequest{})
-      val clusterList = clusterResponse.clusters
+        val clusterResponse = redshiftClient.describeClusters(DescribeClustersRequest {})
+        val clusterList = clusterResponse.clusters
 
-      if (clusterList != null) {
-        for (cluster in clusterList) {
-             println("Cluster database name is ${cluster.dbName}")
-             println("Cluster status is ${cluster.clusterStatus}")
+        if (clusterList != null) {
+            for (cluster in clusterList) {
+                println("Cluster database name is ${cluster.dbName}")
+                println("Cluster status is ${cluster.clusterStatus}")
             }
         }
-
     }
 }
 // snippet-end:[redshift.kotlin.describe_cluster.main]
