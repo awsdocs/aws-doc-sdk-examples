@@ -5,6 +5,15 @@ glue_GetCrawler:
   synopsis: get an &GLU; crawler.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetSpecificCrawlerAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -41,6 +50,15 @@ glue_CreateCrawler:
   synopsis: create an &GLU; crawler.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.CreateGlueCrawlerAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -77,6 +95,15 @@ glue_StartCrawler:
   synopsis: start an &GLU; crawler.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.StartSpecificCrawlerAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -113,6 +140,15 @@ glue_GetDatabase:
   synopsis: get a database from the &GLUDCLong;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetSpecificDatabaseAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -149,6 +185,15 @@ glue_GetTables:
   synopsis: get tables from a database in the &GLUDCLong;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetGlueTablesAsync
     Java:
       versions:
         - sdk_version: 2
@@ -176,6 +221,15 @@ glue_CreateJob:
   synopsis: create an &GLU; job definition.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.CreateJobAsync
     Python:
       versions:
         - sdk_version: 3
@@ -194,6 +248,15 @@ glue_StartJobRun:
   synopsis: start an &GLU; job run.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.StartJobAsync
     Python:
       versions:
         - sdk_version: 3
@@ -230,6 +293,15 @@ glue_GetJobRuns:
   synopsis: get runs of an &GLU; job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetJobRunsAsync
     Python:
       versions:
         - sdk_version: 3
@@ -266,6 +338,15 @@ glue_DeleteJob:
   synopsis: delete an &GLU; job definition and all associated runs.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.DeleteJobAsync
     Python:
       versions:
         - sdk_version: 3
@@ -302,6 +383,15 @@ glue_DeleteDatabase:
   synopsis: delete a database from the &GLUDCLong;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.DeleteDatabaseAsync
     Python:
       versions:
         - sdk_version: 3
@@ -320,6 +410,15 @@ glue_DeleteCrawler:
   synopsis: delete an &GLU; crawler.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.DeleteSpecificCrawlerAsync
     Python:
       versions:
         - sdk_version: 3
@@ -349,6 +448,20 @@ glue_Scenario_GetStartedCrawlersJobs:
     title: "Tutorial: Getting started with &GLU; Studio"
     url: glue/latest/ug/tutorial-create-job.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &GLU; functions that are
+                used in the scenario.
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GlueMethods
+            - description: Create a class that runs the scenario.
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GlobalUsings
+                - Glue.dotnetv3.GlueBasicsScenario.Main
     Kotlin:
       versions:
         - sdk_version: 1
