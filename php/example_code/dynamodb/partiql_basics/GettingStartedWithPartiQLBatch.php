@@ -16,38 +16,37 @@
  * composer install
  *
  * After your composer dependencies are installed, you can run the interactive getting started file directly with the
- * following from the `aws-doc-sdk-examples\php\dynamodb\dynamodb_basics` directory:
- * php Runner.php
+ * following from the `aws-doc-sdk-examples\php\dynamodb\partiql_basics` directory:
+ * php BatchRunner.php
  *
  * Alternatively, you can have the choices automatically selected by running the file as part of a PHPUnit test with the
  * following:
- * vendor\bin\phpunit DynamoDBBasicsTests.php
+ * vendor\bin\phpunit PartiQLBasicsTests.php
  *
  **/
 
-# snippet-start:[php.example_code.dynamodb.basics.scenario]
-namespace DynamoDb\Basics;
+# snippet-start:[php.example_code.dynamodb.partiql_batch.scenario]
+namespace DynamoDb\PartiQL_Basics;
 
 use Aws\DynamoDb\Marshaler;
 use DynamoDb;
 use DynamoDb\DynamoDBAttribute;
-use DynamoDb\DynamoDBService;
 
-class GettingStartedWithDynamoDB
+class GettingStartedWithPartiQLBatch
 {
     public function run()
     {
         echo("--------------------------------------\n");
-        print("Welcome to the Amazon DynamoDB getting started demo using PHP!\n");
+        print("Welcome to the Amazon DynamoDB - PartiQL getting started demo using PHP!\n");
         echo("--------------------------------------\n");
 
-# snippet-start:[php.example_code.dynamodb.basics.startService]
+# snippet-start:[php.example_code.dynamodb.partiql_batch.startService]
         $uuid = uniqid();
-        $service = new DynamoDBService();
-# snippet-end:[php.example_code.dynamodb.basics.startService]
+        $service = new DynamoDb\DynamoDBService();
+# snippet-end:[php.example_code.dynamodb.partiql_batch.startService]
 
-# snippet-start:[php.example_code.dynamodb.basics.createTable]
-        $tableName = "ddb_demo_table_$uuid";
+# snippet-start:[php.example_code.dynamodb.partiql_batch.createTable]
+        $tableName = "partiql_demo_table_$uuid";
         $service->createTable(
             $tableName,
             [
@@ -55,13 +54,13 @@ class GettingStartedWithDynamoDB
                 new DynamoDBAttribute('title', 'S', 'RANGE')
             ]
         );
-# snippet-end:[php.example_code.dynamodb.basics.createTable]
+# snippet-end:[php.example_code.dynamodb.partiql_batch.createTable]
 
         echo "Waiting for table...";
         $service->dynamoDbClient->waitUntil("TableExists", ['TableName' => $tableName]);
         echo "table $tableName found!\n";
 
-# snippet-start:[php.example_code.dynamodb.basics.putItem]
+# snippet-start:[php.example_code.dynamodb.partiql_batch.putItem]
         echo "What's the name of the last movie you watched?\n";
         while (empty($movieName)) {
             $movieName = testable_readline("Movie name: ");
@@ -71,8 +70,8 @@ class GettingStartedWithDynamoDB
         while (!is_numeric($movieYear) || intval($movieYear) != $movieYear) {
             $movieYear = testable_readline("Year released: ");
         }
-
-        $service->putItem([
+# snippet-start:[php.example_code.dynamodb.partiql_batch.key]
+        $key = [
             'Item' => [
                 'year' => [
                     'N' => "$movieYear",
@@ -81,9 +80,11 @@ class GettingStartedWithDynamoDB
                     'S' => $movieName,
                 ],
             ],
-            'TableName' => $tableName,
-        ]);
-# snippet-end:[php.example_code.dynamodb.basics.putItem]
+        ];
+# snippet-end:[php.example_code.dynamodb.partiql_batch.key]
+        list($statement, $parameters) = $service->buildStatementAndParameters("INSERT", $tableName, $key);
+        $service->insertItemByPartiQLBatch($statement, $parameters);
+# snippet-end:[php.example_code.dynamodb.partiql_batch.putItem]
 
         echo "How would you rate the movie from 1-10?\n";
         $rating = 0;
@@ -94,66 +95,53 @@ class GettingStartedWithDynamoDB
         while (empty($plot)) {
             $plot = testable_readline("Plot summary: ");
         }
-# snippet-start:[php.example_code.dynamodb.basics.key]
-        $key = [
-            'Item' => [
-                'title' => [
-                    'S' => $movieName,
-                ],
-                'year' => [
-                    'N' => $movieYear,
-                ],
-            ]
+        $attributes = [
+            new DynamoDBAttribute('rating', 'N', 'HASH', $rating),
+            new DynamoDBAttribute('plot', 'S', 'RANGE', $plot),
         ];
-# snippet-end:[php.example_code.dynamodb.basics.key]
-        $attributes = ["rating" =>
-            [
-                'AttributeName' => 'rating',
-                'AttributeType' => 'N',
-                'Value' => $rating,
-            ],
-            'plot' => [
-                'AttributeName' => 'plot',
-                'AttributeType' => 'S',
-                'Value' => $plot,
-            ]
-        ];
-        $service->updateItemAttributesByKey($tableName, $key, $attributes);
-        echo "Movie added and updated.";
+
+        list($statement, $parameters) = $service->buildStatementAndParameters("UPDATE", $tableName, $key, $attributes);
+        $service->updateItemByPartiQLBatch($statement, $parameters);
+        echo "Movie added and updated.\n";
 
         $batch = json_decode(loadMovieData());
 
-        $limit = 0;
         $service->writeBatch($tableName, $batch);
 
-# snippet-start:[php.example_code.dynamodb.basics.getItem]
-
-        $movie = $service->getItemByKey($tableName, $key);
-        echo "\nThe movie {$movie['Item']['title']['S']} was released in {$movie['Item']['year']['N']}.\n";
-# snippet-end:[php.example_code.dynamodb.basics.getItem]
-# snippet-start:[php.example_code.dynamodb.basics.updateItem]
-        echo "What rating would you like to give {$movie['Item']['title']['S']}?\n";
+# snippet-start:[php.example_code.dynamodb.partiql_batch.getItem]
+        $movie = $service->getItemByPartiQLBatch($tableName, [$key]);
+        echo "\nThe movie {$movie['Responses'][0]['Item']['title']['S']} 
+        was released in {$movie['Responses'][0]['Item']['year']['N']}.\n";
+# snippet-end:[php.example_code.dynamodb.partiql_batch.getItem]
+# snippet-start:[php.example_code.dynamodb.partiql_batch.updateItem]
+        echo "What rating would you like to give {$movie['Responses'][0]['Item']['title']['S']}?\n";
         $rating = 0;
         while (!is_numeric($rating) || intval($rating) != $rating || $rating < 1 || $rating > 10) {
             $rating = testable_readline("Rating (1-10): ");
         }
-        $service->updateItemAttributeByKey($tableName, $key, 'rating', 'N', $rating);
-# snippet-end:[php.example_code.dynamodb.basics.updateItem]
+        $attributes = [
+            new DynamoDBAttribute('rating', 'N', 'HASH', $rating),
+            new DynamoDBAttribute('plot', 'S', 'RANGE', $plot)
+        ];
+        list($statement, $parameters) = $service->buildStatementAndParameters("UPDATE", $tableName, $key, $attributes);
+        $service->updateItemByPartiQLBatch($statement, $parameters);
+# snippet-end:[php.example_code.dynamodb.partiql_batch.updateItem]
 
-        $movie = $service->getItemByKey($tableName, $key);
-        echo "Ok, you have rated {$movie['Item']['title']['S']} as a {$movie['Item']['rating']['N']}\n";
+        $movie = $service->getItemByPartiQLBatch($tableName, [$key]);
+        echo "Okay, you have rated {$movie['Responses'][0]['Item']['title']['S']} 
+        as a {$movie['Responses'][0]['Item']['rating']['N']}\n";
 
-# snippet-start:[php.example_code.dynamodb.basics.deleteItem]
-        $service->deleteItemByKey($tableName, $key);
+# snippet-start:[php.example_code.dynamodb.partiql_batch.deleteItem]
+        $service->deleteItemByPartiQLBatch($statement, $parameters);
         echo "But, bad news, this was a trap. That movie has now been deleted because of your rating...harsh.\n";
-# snippet-end:[php.example_code.dynamodb.basics.deleteItem]
+# snippet-end:[php.example_code.dynamodb.partiql_batch.deleteItem]
 
         echo "That's okay though. The book was better. Now, for something lighter, in what year were you born?\n";
         $birthYear = "not a number";
         while (!is_numeric($birthYear) || $birthYear >= date("Y")) {
             $birthYear = testable_readline("Birth year: ");
         }
-# snippet-start:[php.example_code.dynamodb.basics.query]
+# snippet-start:[php.example_code.dynamodb.partiql_batch.query]
         $birthKey = [
             'Key' => [
                 'year' => [
@@ -162,7 +150,7 @@ class GettingStartedWithDynamoDB
             ],
         ];
         $result = $service->query($tableName, $birthKey);
-# snippet-end:[php.example_code.dynamodb.basics.query]
+# snippet-end:[php.example_code.dynamodb.partiql_batch.query]
         $marshal = new Marshaler();
         echo "Here are the movies in our collection released the year you were born:\n";
         $oops = "Oops! There were no movies released in that year (that we know of).\n";
@@ -173,7 +161,7 @@ class GettingStartedWithDynamoDB
         }
         echo ($display) ?: $oops;
 
-# snippet-start:[php.example_code.dynamodb.basics.scan]
+# snippet-start:[php.example_code.dynamodb.partiql_batch.scan]
         $yearsKey = [
             'Key' => [
                 'year' => [
@@ -191,10 +179,10 @@ class GettingStartedWithDynamoDB
             $movie = $marshal->unmarshalItem($movie);
             echo $movie['title'] . "\n";
         }
-# snippet-end:[php.example_code.dynamodb.basics.scan]
+# snippet-end:[php.example_code.dynamodb.partiql_batch.scan]
 
         echo "\nCleaning up this demo by deleting table $tableName...\n";
         $service->deleteTable($tableName);
     }
 }
-# snippet-end:[php.example_code.dynamodb.basics.scenario]
+# snippet-end:[php.example_code.dynamodb.partiql_batch.scenario]
