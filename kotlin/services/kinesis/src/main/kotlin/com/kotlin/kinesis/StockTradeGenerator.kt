@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[StockTradeGenerator.kt is a helper class.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Kinesis]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+// snippet-sourcedescription:[StockTradeGenerator.kt is a helper class.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Amazon Kinesis]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -12,8 +8,9 @@
 package com.kotlin.kinesis
 
 import com.kotlin.kinesis.StockTrade.TradeType
-import java.util.*
+import java.util.Random
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.collections.ArrayList
 
 /**
  * Generates random stock trades by picking randomly from a collection of stocks, assigning a
