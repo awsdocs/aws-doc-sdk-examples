@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[CreateDBInstance.kt demonstrates how to create an Amazon Relational Database Service (RDS) instance and wait for it to be in an available state.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Relational Database Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[CreateDBInstance.kt demonstrates how to create an Amazon Relational Database Service (RDS) instance and wait for it to be in an available state.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Relational Database Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -22,29 +18,28 @@ import kotlin.system.exitProcess
 // snippet-end:[rds.kotlin.create_instance.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
             <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> 
 
         Where:
-            dbInstanceIdentifier - the database instance identifier. 
-            dbName - the database name. 
-            masterUsername - the master user name. 
-            masterUserPassword - the password that corresponds to the master user name. 
+            dbInstanceIdentifier - The database instance identifier. 
+            dbName - The database name. 
+            masterUsername - The master user name. 
+            masterUserPassword - The password that corresponds to the master user name. 
         """
 
     if (args.size != 4) {
-      println(usage)
-      exitProcess(0)
+        println(usage)
+        exitProcess(0)
     }
 
     val dbInstanceIdentifier = args[0]
@@ -63,17 +58,17 @@ suspend fun createDatabaseInstance(
     masterUserPasswordVal: String?
 ) {
 
-     val instanceRequest = CreateDbInstanceRequest{
-            dbInstanceIdentifier = dbInstanceIdentifierVal
-            allocatedStorage = 100
-            dbName = dbNamedbVal
-            engine = "mysql"
-            dbInstanceClass = "db.m4.large"
-            engineVersion = "8.0.15"
-            storageType = "standard"
-            masterUsername = masterUsernameVal
-            masterUserPassword = masterUserPasswordVal
-     }
+    val instanceRequest = CreateDbInstanceRequest {
+        dbInstanceIdentifier = dbInstanceIdentifierVal
+        allocatedStorage = 100
+        dbName = dbNamedbVal
+        engine = "mysql"
+        dbInstanceClass = "db.m4.large"
+        engineVersion = "8.0.15"
+        storageType = "standard"
+        masterUsername = masterUsernameVal
+        masterUserPassword = masterUserPasswordVal
+    }
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbInstance(instanceRequest)
@@ -82,7 +77,7 @@ suspend fun createDatabaseInstance(
 }
 
 // Waits until the database instance is available.
-suspend  fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
+suspend fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
     val sleepTime: Long = 20
     var instanceReady = false
     var instanceReadyStr = ""
@@ -93,7 +88,7 @@ suspend  fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
     }
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
-       while (!instanceReady) {
+        while (!instanceReady) {
             val response = rdsClient.describeDbInstances(instanceRequest)
             val instanceList = response.dbInstances
             if (instanceList != null) {
@@ -108,7 +103,7 @@ suspend  fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
                     }
                 }
             }
-       }
+        }
         println("Database instance is available!")
     }
 }
