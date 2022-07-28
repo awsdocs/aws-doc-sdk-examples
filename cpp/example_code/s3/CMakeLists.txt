@@ -17,7 +17,9 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 
 # Enable CTest for testing these code examples.
-include(CTest)
+if(BUILD_TESTS)
+    include(CTest)
+endif()
 
 # Build shared libraries by default.
 if(NOT BUILD_SHARED_LIBS)
@@ -85,7 +87,7 @@ foreach(file ${AWSDOC_S3_SOURCE})
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
         ${AWSSDK_PLATFORM_DEPS})
 
-    if(BUILD_TESTING)
+    if(BUILD_TESTS)
         # Enable testing for this directory and below.
         enable_testing()
 
@@ -122,4 +124,7 @@ foreach(file ${AWSDOC_S3_SOURCE})
     endif()
 endforeach()
 
-add_subdirectory(gtests)
+if(BUILD_TESTS)
+    add_subdirectory(gtests)
+endif()
+

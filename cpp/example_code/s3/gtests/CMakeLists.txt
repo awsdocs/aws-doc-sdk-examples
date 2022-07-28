@@ -64,21 +64,39 @@ endif()
 
 enable_testing()
 
-add_executable(
-        gtest_s3_scenario
-        gtest_s3_scenario.cpp
-        ../s3_scenario.cpp
+file(GLOB GTEST_SOURCE_FILES
+        "gtest_*.cpp"
 )
 
-target_compile_definitions(gtest_s3_scenario PUBLIC
+foreach(TEST_FILE ${GTEST_SOURCE_FILES})
+    string(REPLACE "gtest_" "../" SOURCE_FILE ${TEST_FILE})
+     if (EXISTS ${SOURCE_FILE})
+        list(APPEND GTEST_SOURCE ${SOURCE_FILE} ${TEST_FILE})
+    else()
+        message("Error: no associated source file found for ${TEST_FILE}")
+    endif()
+
+endforeach()
+
+
+add_executable(
+        s3_gtest
+        ${GTEST_SOURCE}
+)
+
+target_include_directories(s3_gtest PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+        $<INSTALL_INTERFACE:../include>)
+
+target_compile_definitions(s3_gtest PUBLIC
         TESTING_BUILD)
 
 target_link_libraries(
-        gtest_s3_scenario
+        s3_gtest
         GTest::gtest_main
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
 )
 
 include(GoogleTest)
-gtest_discover_tests(gtest_s3_scenario)
+gtest_discover_tests(s3_gtest)
