@@ -1,40 +1,32 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.20"
-
+    kotlin("jvm") version "1.7.10"
     application
 }
 
-group = "com.example"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+group = "me.scmacdon"
+version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
-dependencies {
-   implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation ("javax.mail:javax.mail-api:1.5.5")
-    implementation ("com.sun.mail:javax.mail:1.5.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
-    implementation("com.amazonaws:aws-lambda-java-core:1.2.0")
-    implementation("com.google.code.gson:gson:2.8.4")
-    api("aws.sdk.kotlin:dynamodb:0.4.0-SNAPSHOT")
-    api("aws.sdk.kotlin:ses:0.4.0-SNAPSHOT")
-
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+buildscript {
+    repositories {
+        maven("https://plugins.gradle.org/m2/")
+    }
+    dependencies {
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+repositories {
+    mavenCentral()
+    jcenter()
+}
+apply(plugin = "org.jlleitschuh.gradle.ktlint")
+dependencies {
+    implementation("aws.sdk.kotlin:lambda:0.17.1-beta")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+}
+tasks.withType<KotlinCompile>() {
+    kotlinOptions.jvmTarget = "1.8"
 }
