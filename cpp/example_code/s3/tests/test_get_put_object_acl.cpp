@@ -105,8 +105,8 @@ int main()
         }
 
         if (!AwsDoc::S3::PutObjectAcl(bucket_name, 
-            file_name, 
-            "us-east-1",
+            file_name,
+            config.region,
             owner_id,
             "READ",
             "Canonical user",

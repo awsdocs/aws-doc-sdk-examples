@@ -18,7 +18,7 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         Aws::Client::ClientConfiguration config;
         config.region = "us-east-1";
@@ -84,7 +84,7 @@ int main()
         }
 
         // 3/6. Get the bucket ACL.
-        if (!AwsDoc::S3::GetBucketAcl(bucket_name, "us-east-1"))
+        if (!AwsDoc::S3::GetBucketAcl(bucket_name, config.region))
         {
             std::cout << "Error: GetAcls test: Get ACL for bucket '" <<
                 bucket_name << "'. To clean up, you must delete the bucket '" <<

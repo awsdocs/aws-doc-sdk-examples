@@ -16,7 +16,7 @@ namespace AwsDoc
             const Aws::String& fromBucket, const Aws::String& toBucket, 
             const Aws::String& region = "");
         AWSDOC_S3_API bool CreateBucket(const Aws::String& bucketName, 
-            const Aws::S3::Model::BucketLocationConstraint& region);
+            const Aws::String& region);
         AWSDOC_S3_API bool DeleteBucket(const Aws::String& bucketName,
             const Aws::String& region = "");
         AWSDOC_S3_API bool DeleteBucketPolicy(const Aws::String& bucketName, 

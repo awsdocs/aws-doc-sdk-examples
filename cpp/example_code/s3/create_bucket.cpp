@@ -19,6 +19,7 @@
 #include <aws/s3/model/BucketLocationConstraint.h>
 #include <aws/core/utils/UUID.h>
 #include <aws/core/utils/StringUtils.h>
+#include "awsdoc/s3/s3_examples.h"
 // snippet-end:[s3.cpp.create_bucket.inc]
 
 /* 
@@ -32,46 +33,51 @@
  */
  
 // snippet-start:[s3.cpp.create_bucket.code]
-using namespace Aws;
+bool AwsDoc::S3::CreateBucket(const Aws::String &bucketName, const Aws::String &region) {
+    // Create the bucket.
+    Aws::Client::ClientConfiguration clientConfig;
+    if (!region.empty())
+        clientConfig.region = region;
+
+    Aws::S3::S3Client client(clientConfig);
+    Aws::S3::Model::CreateBucketRequest request;
+    request.SetBucket(bucketName);
+
+    Aws::S3::Model::CreateBucketOutcome outcome = client.CreateBucket(request);
+    if (!outcome.IsSuccess())
+    {
+        auto err = outcome.GetError();
+        std::cout << "Error: CreateBucket: " <<
+                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+        return false;
+    }
+    else
+    {
+        std::cout << "Created bucket " << bucketName <<
+                  " in the specified AWS Region." << std::endl;
+        return true;
+    }
+
+}
 int main()
 {
     Aws::SDKOptions options;
     InitAPI(options);
-    {
-        //TODO: Set to the AWS Region of your account.  If not, you will get a runtime
-        //IllegalLocationConstraintException Message: "The unspecified location constraint is incompatible
-        //for the Region specific endpoint this request was sent to."
-        Aws::String region = "us-east-1";
 
-        // Create a unique bucket name to increase the chance of success 
-        // when trying to create the bucket.
-        // Format: "my-bucket-" + lowercase UUID.
-        Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-        Aws::String bucketName = "my-bucket-" +
-            Aws::Utils::StringUtils::ToLower(uuid.c_str());
+    //TODO: Set to the AWS Region of your account.  If not, you will get a runtime
+    //IllegalLocationConstraintException Message: "The unspecified location constraint is incompatible
+    //for the Region specific endpoint this request was sent to."
+    Aws::String region = "us-east-1";
 
-        // Create the bucket.
-        Aws::Client::ClientConfiguration clientConfig;
-        if (!region.empty())
-            clientConfig.region = region;
+    // Create a unique bucket name to increase the chance of success
+    // when trying to create the bucket.
+    // Format: "my-bucket-" + lowercase UUID.
+    Aws::String uuid = Aws::Utils::UUID::RandomUUID();
+    Aws::String bucketName = "my-bucket-" +
+                             Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
-        S3::S3Client client(clientConfig);
-        Aws::S3::Model::CreateBucketRequest request;
-        request.SetBucket(bucketName);
-        
-        Aws::S3::Model::CreateBucketOutcome outcome = client.CreateBucket(request);
-        if (!outcome.IsSuccess())
-        {
-            auto err = outcome.GetError();
-            std::cout << "Error: CreateBucket: " <<
-               err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Created bucket " << bucketName <<
-                " in the specified AWS Region." << std::endl;
-        }
-    }
+    AwsDoc::S3::CreateBucket(bucketName, region);
+
     ShutdownAPI(options);
 }
 // snippet-end:[s3.cpp.create_bucket.code]
