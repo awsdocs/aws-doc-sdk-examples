@@ -2,8 +2,6 @@
 // snippet-sourcedescription:[ListEmailIdentities.java demonstrates how to get a list of email identities that are associated with your Amazon Web Services account.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Email Service]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,33 +32,33 @@ import java.util.List;
 
 public class ListEmailIdentities {
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
 
-                Region region = Region.US_EAST_1;
-                SesV2Client sesv2Client = SesV2Client.builder()
-                        .region(region)
-                        .credentialsProvider(ProfileCredentialsProvider.create())
-                        .build();
+        Region region = Region.US_EAST_1;
+        SesV2Client sesv2Client = SesV2Client.builder()
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
-                listSESIdentities(sesv2Client);
+        listSESIdentities(sesv2Client);
+    }
+
+    // snippet-start:[ses.java2.identities.sesv2.main]
+    public static void listSESIdentities(SesV2Client sesV2Client) {
+
+        ListEmailIdentitiesRequest identitiesRequest = ListEmailIdentitiesRequest.builder()
+            .pageSize(5)
+            .build();
+
+        try {
+            ListEmailIdentitiesResponse response = sesV2Client.listEmailIdentities(identitiesRequest);
+            final List<IdentityInfo> identities = response.emailIdentities();
+            identities.forEach(identity -> System.out.println(identity.identityName()));
+
+        } catch (SesV2Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-
-        // snippet-start:[ses.java2.identities.sesv2.main]
-        public static void listSESIdentities(SesV2Client sesV2Client) {
-
-                ListEmailIdentitiesRequest identitiesRequest = ListEmailIdentitiesRequest.builder()
-                        .pageSize(5)
-                        .build();
-
-                try {
-                        ListEmailIdentitiesResponse response = sesV2Client.listEmailIdentities(identitiesRequest);
-                        final List<IdentityInfo> identities = response.emailIdentities();
-                        identities.forEach(identity -> System.out.println(identity.identityName()));
-
-                } catch (SesV2Exception e) {
-                        System.err.println(e.awsErrorDetails().errorMessage());
-                        System.exit(1);
-                }
-        }
-        // snippet-end:[ses.java2.identities.sesv2.main]
+    }
+    // snippet-end:[ses.java2.identities.sesv2.main]
 }

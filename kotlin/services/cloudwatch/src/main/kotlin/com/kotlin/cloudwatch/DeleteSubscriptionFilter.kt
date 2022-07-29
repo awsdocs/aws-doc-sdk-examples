@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteSubscriptionFilter.kt demonstrates how to delete Amazon CloudWatch log subscription filters.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[DeleteSubscriptionFilter.kt demonstrates how to delete Amazon CloudWatch log subscription filters.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon CloudWatch]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,7 +15,14 @@ import aws.sdk.kotlin.services.cloudwatchlogs.model.DeleteSubscriptionFilterRequ
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.delete_subscription_filter.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
 
@@ -27,32 +30,32 @@ suspend fun main(args:Array<String>) {
         <filter> <pattern>
 
     Where:
-        filter - a filter name (for example, myfilter).
-        pattern - a filter pattern (for example, ERROR).
+        filter - A filter name (for example, myfilter).
+        pattern - A filter pattern (for example, ERROR).
         
     """
 
     if (args.size != 2) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val filter = args[0]
     val pattern = args[1]
     deleteSubFilter(filter, pattern)
-   }
+}
 
 // snippet-start:[cloudwatch.kotlin.delete_subscription_filter.main]
-suspend fun deleteSubFilter( filter: String?, logGroup: String?) {
+suspend fun deleteSubFilter(filter: String?, logGroup: String?) {
 
-     val request = DeleteSubscriptionFilterRequest {
-         filterName = filter
-         logGroupName = logGroup
-     }
+    val request = DeleteSubscriptionFilterRequest {
+        filterName = filter
+        logGroupName = logGroup
+    }
 
-     CloudWatchLogsClient { region = "us-west-2" }.use { logs ->
+    CloudWatchLogsClient { region = "us-west-2" }.use { logs ->
         logs.deleteSubscriptionFilter(request)
-        println( "Successfully deleted CloudWatch logs subscription filter named $filter")
+        println("Successfully deleted CloudWatch logs subscription filter named $filter")
     }
 }
 // snippet-end:[cloudwatch.kotlin.delete_subscription_filter.main]

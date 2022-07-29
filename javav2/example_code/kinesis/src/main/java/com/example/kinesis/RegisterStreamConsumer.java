@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListShards.java demonstrates how to register a consumer with a Kinesis data stream.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -30,24 +27,24 @@ public class RegisterStreamConsumer {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <streamARN>\n\n" +
-                "Where:\n" +
-                "    streamARN - The Amazon Kinesis data stream (for example, arn:aws:kinesis:us-east-1:814548xxxxxx:stream/LamDataStream)\n\n" ;
+            "Usage:\n" +
+            "    <streamARN>\n\n" +
+            "Where:\n" +
+            "    streamARN - The Amazon Kinesis data stream (for example, arn:aws:kinesis:us-east-1:814548xxxxxx:stream/LamDataStream)\n\n" ;
 
-          if (args.length != 1) {
-              System.out.println(usage);
-              System.exit(1);
-         }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String streamARN = args[0];
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
-       String arnValue =  regConsumer(kinesisClient, streamARN);
+       String arnValue = regConsumer(kinesisClient, streamARN);
        System.out.println(arnValue);
        kinesisClient.close();
     }
@@ -56,10 +53,9 @@ public class RegisterStreamConsumer {
 
         try {
             RegisterStreamConsumerRequest regCon = RegisterStreamConsumerRequest.builder()
-                    .consumerName("MyConsumer")
-                    .streamARN(streamARN)
-                    .build();
-
+                .consumerName("MyConsumer")
+                .streamARN(streamARN)
+                .build();
 
             RegisterStreamConsumerResponse resp = kinesisClient.registerStreamConsumer(regCon);
             return resp.consumer().consumerARN();

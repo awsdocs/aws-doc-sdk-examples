@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteIndex.java demonstrates how to delete an Amazon Kendra index.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kendra]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,10 +28,10 @@ public class DeleteIndex {
 
     public static void main(String[] args) {
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <indexId> \n\n" +
-                "Where:\n" +
-                "    indexId - The id value of the index.\n" ;
+            "Usage:\n" +
+            "    <indexId> \n\n" +
+            "Where:\n" +
+            "    indexId - The id value of the index.\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,9 +40,10 @@ public class DeleteIndex {
 
         String indexId = args[0];
         KendraClient kendra = KendraClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
+
         deleteSpecificIndex(kendra, indexId);
     }
 
@@ -54,8 +52,8 @@ public class DeleteIndex {
 
         try {
             DeleteIndexRequest deleteIndexRequest = DeleteIndexRequest.builder()
-                    .id(indexId)
-                    .build();
+                .id(indexId)
+                .build();
 
             kendra.deleteIndex(deleteIndexRequest);
             System.out.println(indexId + " was successfully deleted.");

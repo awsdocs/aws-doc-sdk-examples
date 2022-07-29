@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GeneratePresignedUrlUploadImage.java demonstrates how to use the S3Presigner client to create a presigned URL and upload a PNG image file.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
+// snippet-keyword:[AWS SDK for Java v2]
+// snippet-service:[Amazon S3]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,7 +16,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
@@ -42,17 +38,17 @@ public class GeneratePresignedUrlUploadImage {
     public static void main(String[] args) throws IOException {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName> <keyName> <imageLocation> \n\n" +
-                "Where:\n" +
-                "    bucketName - The name of the Amazon S3 bucket. \n\n" +
-                "    keyName - A key name that represents a text file. \n" +
-                "    imageLocation - The location of a PNG file (C:/AWS/Bo.png). \n" ;
+            "Usage:\n" +
+            "    <bucketName> <keyName> <imageLocation> \n\n" +
+            "Where:\n" +
+            "    bucketName - The name of the Amazon S3 bucket. \n\n" +
+            "    keyName - A key name that represents a text file. \n" +
+            "    imageLocation - The location of a PNG file (C:/AWS/Bo.png). \n" ;
 
-         if (args.length != 3) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+        if (args.length != 3) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String bucketName = args[0];
         String keyName = args[1];
@@ -61,9 +57,9 @@ public class GeneratePresignedUrlUploadImage {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         signBucket(presigner, bucketName, keyName, pic);
         presigner.close();
@@ -72,40 +68,38 @@ public class GeneratePresignedUrlUploadImage {
     // snippet-start:[presigned.java2.generatepresignedurlimage.main]
     public static void signBucket(S3Presigner presigner, String bucketName, String keyName, byte[] pic) {
 
-        try {
-            PutObjectRequest objectRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(keyName)
-                    .contentType("image/png")
-                    .build();
+       try {
+           PutObjectRequest objectRequest = PutObjectRequest.builder()
+               .bucket(bucketName)
+               .key(keyName)
+               .contentType("image/png")
+               .build();
 
-            PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10))
-                    .putObjectRequest(objectRequest)
-                    .build();
+           PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
+               .signatureDuration(Duration.ofMinutes(10))
+               .putObjectRequest(objectRequest)
+               .build();
 
-            PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
+           PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
+           String myURL = presignedRequest.url().toString();
+           System.out.println("Presigned URL to upload a file to: " +myURL);
+           System.out.println("Which HTTP method needs to be used when uploading a file: " + presignedRequest.httpRequest().method());
 
-            String myURL = presignedRequest.url().toString();
-            System.out.println("Presigned URL to upload a file to: " +myURL);
-            System.out.println("Which HTTP method needs to be used when uploading a file: " +
-                    presignedRequest.httpRequest().method());
+           // Upload content to the Amazon S3 bucket by using this URL.
+           URL url = presignedRequest.url();
 
-            // Upload content to the Amazon S3 bucket by using this URL.
-            URL url = presignedRequest.url();
+           // Create the connection and use it to upload the new object by using the presigned URL.
+           HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+           connection.setDoOutput(true);
+           connection.setRequestProperty("Content-Type","image/png");
+           connection.setRequestMethod("PUT");
+           connection.getOutputStream().write(pic);
+           connection.getResponseCode();
+           System.out.println("HTTP response code is " + connection.getResponseCode());
 
-            // Create the connection and use it to upload the new object by using the presigned URL.
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestProperty("Content-Type","image/png");
-            connection.setRequestMethod("PUT");
-            connection.getOutputStream().write(pic);
-            connection.getResponseCode();
-            System.out.println("HTTP response code is " + connection.getResponseCode());
-
-        } catch (S3Exception | IOException e) {
-            e.getStackTrace();
-        }
+       } catch (S3Exception | IOException e) {
+           e.getStackTrace();
+       }
     }
     // snippet-end:[presigned.java2.generatepresignedurlimage.main]
 }

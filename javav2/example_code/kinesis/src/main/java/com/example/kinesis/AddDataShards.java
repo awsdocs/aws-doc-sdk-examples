@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[AddDataShards.java demonstrates how to increase shard count in an Amazon Kinesis data stream.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class AddDataShards {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <streamName>\n\n" +
-                "Where:\n" +
-                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" ;
+            "Usage:\n" +
+            "    <streamName>\n\n" +
+            "Where:\n" +
+            "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,9 +47,9 @@ public class AddDataShards {
         // snippet-start:[kinesis.java2.AddDataShards.client]
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         // snippet-end:[kinesis.java2.AddDataShards.client]
 
         addShards(kinesisClient, name, goalShards);
@@ -64,7 +61,7 @@ public class AddDataShards {
     public static void addShards(KinesisClient kinesisClient, String name , int goalShards) {
 
         try {
-             UpdateShardCountRequest request = UpdateShardCountRequest.builder()
+            UpdateShardCountRequest request = UpdateShardCountRequest.builder()
                 .scalingType("UNIFORM_SCALING")
                 .streamName(name)
                 .targetShardCount(goalShards)

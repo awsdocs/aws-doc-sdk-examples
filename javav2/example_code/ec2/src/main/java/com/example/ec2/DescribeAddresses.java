@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[DescribeAddresses.java demonstrates how to get information about elastic IP addresses.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,9 +30,9 @@ public class DescribeAddresses {
 
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeEC2Address(ec2 );
         ec2.close();
@@ -48,9 +46,9 @@ public class DescribeAddresses {
             for(Address address : response.addresses()) {
                 System.out.printf(
                     "Found address with public IP %s, " +
-                            "domain %s, " +
-                            "allocation id %s " +
-                            "and NIC id %s",
+                       "domain %s, " +
+                       "allocation id %s " +
+                       "and NIC id %s",
                     address.publicIp(),
                     address.domain(),
                     address.allocationId(),

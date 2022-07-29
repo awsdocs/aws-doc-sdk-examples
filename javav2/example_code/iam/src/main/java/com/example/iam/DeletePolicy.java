@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeletePolicy.java demonstrates how to delete a fixed policy with a provided policy name.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +28,10 @@ public class DeletePolicy {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <policyARN> \n\n" +
-                "Where:\n" +
-                "    policyARN - A policy ARN value to delete. \n\n" ;
+            "Usage:\n" +
+            "    <policyARN> \n\n" +
+            "Where:\n" +
+            "    policyARN - A policy ARN value to delete. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +41,9 @@ public class DeletePolicy {
         String policyARN = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteIAMPolicy(iam, policyARN);
         iam.close();
@@ -57,8 +54,8 @@ public class DeletePolicy {
 
         try {
             DeletePolicyRequest request = DeletePolicyRequest.builder()
-                   .policyArn(policyARN)
-                   .build();
+                .policyArn(policyARN)
+                .build();
 
             iam.deletePolicy(request);
             System.out.println("Successfully deleted the policy");

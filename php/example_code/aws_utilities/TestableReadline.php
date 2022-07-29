@@ -17,13 +17,9 @@ use function AwsUtilities\testable_readline;
 
 function testable_readline($prompt)
 {
-    global $argv;
-    if (count($argv) > 1) {
-        $zero = array_shift($argv);
-        $one = array_shift($argv);
-        $value = array_shift($argv);
-        array_unshift($argv, $one, $zero);
-        return $value;
+    global $LINES;
+    if (count($LINES) > 0) {
+        return array_shift($LINES);
     }
     return readline($prompt);
 }

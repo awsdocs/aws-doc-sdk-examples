@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[EnableAlarmActions.java demonstrates how to enable actions on a CloudWatch alarm.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -30,11 +26,11 @@ public class EnableAlarmActions {
 
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "  <alarmName>\n\n" +
-                "Where:\n" +
-                "  alarmName - An alarm name to enable (for example, MyAlarm).\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "  <alarmName>\n\n" +
+            "Where:\n" +
+            "  alarmName - An alarm name to enable (for example, MyAlarm).\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +40,9 @@ public class EnableAlarmActions {
         String alarm = args[0];
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .region(region)
-                .build();
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .region(region)
+            .build();
 
         enableActions(cw, alarm) ;
         cw.close();
@@ -57,11 +53,11 @@ public class EnableAlarmActions {
 
         try {
             EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()
-                .alarmNames(alarm).build();
+                .alarmNames(alarm)
+                .build();
 
-           cw.enableAlarmActions(request);
-            System.out.printf(
-                    "Successfully enabled actions on alarm %s", alarm);
+            cw.enableAlarmActions(request);
+            System.out.printf("Successfully enabled actions on alarm %s", alarm);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

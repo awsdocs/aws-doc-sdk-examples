@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetObjectData.java demonstrates how to read data from an Amazon Simple Storage Service (Amazon S3) object.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,12 +37,12 @@ public class GetObjectData {
     public static void main(String[] args) {
 
      final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName> <keyName> <path>\n\n" +
-                "Where:\n" +
-                "    bucketName - The Amazon S3 bucket name. \n\n"+
-                "    keyName - The key name. \n\n"+
-                "    path - The path where the file is written to. \n\n";
+         "Usage:\n" +
+         "    <bucketName> <keyName> <path>\n\n" +
+         "Where:\n" +
+         "    bucketName - The Amazon S3 bucket name. \n\n"+
+         "    keyName - The key name. \n\n"+
+         "    path - The path where the file is written to. \n\n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -59,23 +56,23 @@ public class GetObjectData {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         getObjectBytes(s3,bucketName,keyName, path);
         s3.close();
     }
 
     // snippet-start:[s3.java2.getobjectdata.main]
-    public static void getObjectBytes (S3Client s3, String bucketName, String keyName, String path ) {
+    public static void getObjectBytes (S3Client s3, String bucketName, String keyName, String path) {
 
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+                .builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             byte[] data = objectBytes.asByteArray();
@@ -90,8 +87,8 @@ public class GetObjectData {
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (S3Exception e) {
-          System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
     // snippet-end:[s3.java2.getobjectdata.main]

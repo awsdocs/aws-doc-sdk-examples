@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[GetSessionToken.java demonstrates how to return a set of temporary credentials.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[AWS Security Token Service (AWS STS)]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,9 +31,9 @@ public class GetSessionToken {
 
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getToken(stsClient);
         stsClient.close();
@@ -47,8 +44,8 @@ public class GetSessionToken {
 
         try {
             GetSessionTokenRequest tokenRequest = GetSessionTokenRequest.builder()
-                    .durationSeconds(1500)
-                    .build();
+                .durationSeconds(1500)
+                .build();
 
             GetSessionTokenResponse tokenResponse = stsClient.getSessionToken(tokenRequest);
             System.out.println("The token value is "+tokenResponse.credentials().sessionToken());

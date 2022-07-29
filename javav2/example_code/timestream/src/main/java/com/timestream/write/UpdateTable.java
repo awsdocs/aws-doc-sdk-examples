@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[UpdateTable.java demonstrates how to update a database table.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Timestream]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,11 +34,11 @@ public class UpdateTable {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <dbName> <newTable>\n\n" +
-                "Where:\n" +
-                "   dbName - The name of the database.\n\n" +
-                "   newTable - The name of the table.\n\n";
+            "Usage: " +
+            "   <dbName> <newTable>\n\n" +
+            "Where:\n" +
+            "   dbName - The name of the database.\n\n" +
+            "   newTable - The name of the table.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -51,9 +48,9 @@ public class UpdateTable {
         String dbName = args[0];
         String tableName = args[1];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         updateTable(timestreamWriteClient, dbName, tableName);
         timestreamWriteClient.close();
@@ -62,28 +59,27 @@ public class UpdateTable {
     //snippet-start:[timestream.java2.update_table.main]
     public static void updateTable( TimestreamWriteClient timestreamWriteClient, String dbName, String tableName ) {
 
-            System.out.println("Updating table");
+        System.out.println("Updating table");
+        try {
+            RetentionProperties retentionProperties = RetentionProperties.builder()
+                .memoryStoreRetentionPeriodInHours(HT_TTL_HOURS)
+                .magneticStoreRetentionPeriodInDays(CT_TTL_DAYS)
+                .build();
 
-            try {
-                RetentionProperties retentionProperties = RetentionProperties.builder()
-                    .memoryStoreRetentionPeriodInHours(HT_TTL_HOURS)
-                    .magneticStoreRetentionPeriodInDays(CT_TTL_DAYS)
-                    .build();
+            UpdateTableRequest updateTableRequest = UpdateTableRequest.builder()
+                .databaseName(dbName)
+                .tableName(tableName)
+                .retentionProperties(retentionProperties)
+                .build();
 
-                UpdateTableRequest updateTableRequest = UpdateTableRequest.builder()
-                    .databaseName(dbName)
-                    .tableName(tableName)
-                    .retentionProperties(retentionProperties)
-                    .build();
+            timestreamWriteClient.updateTable(updateTableRequest);
+            System.out.println("Table updated");
 
-                timestreamWriteClient.updateTable(updateTableRequest);
-                System.out.println("Table updated");
-
-            } catch (TimestreamWriteException e) {
-                System.err.println(e.awsErrorDetails().errorMessage());
-                System.exit(1);
-            }
+        } catch (TimestreamWriteException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-        //snippet-end:[timestream.java2.update_table.main]
     }
+    //snippet-end:[timestream.java2.update_table.main]
+}
 

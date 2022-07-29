@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetTable.java demonstrates how to get an AWS Glue table.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -36,11 +33,11 @@ public class GetTable {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <dbName> <tableName>\n\n" +
-                "Where:\n" +
-                "    dbName - The database name. \n" +
-                "    tableName - The name of the table. \n";
+            "Usage:\n" +
+            "    <dbName> <tableName>\n\n" +
+            "Where:\n" +
+            "    dbName - The database name. \n" +
+            "    tableName - The name of the table. \n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -51,9 +48,9 @@ public class GetTable {
         String tableName = args[1];
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getGlueTable(glueClient, dbName, tableName);
         glueClient.close();
@@ -72,10 +69,9 @@ public class GetTable {
             Instant createDate = tableResponse.table().createTime();
 
             // Convert the Instant to readable date.
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
-                            .withLocale( Locale.US)
-                            .withZone( ZoneId.systemDefault() );
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
+                .withLocale( Locale.US)
+                .withZone( ZoneId.systemDefault() );
 
             formatter.format( createDate );
             System.out.println("The create date of the table is " + createDate );

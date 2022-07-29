@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListSecrets.java demonstrates how to list all of the secrets that are stored by Secrets Manager.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Secrets Manager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class ListSecrets {
 
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllSecrets(secretsClient);
         secretsClient.close();
@@ -45,11 +42,9 @@ public class ListSecrets {
 
     //snippet-start:[secretsmanager.java2.list_secrets.main]
     public static void listAllSecrets(SecretsManagerClient secretsClient) {
-
         try {
             ListSecretsResponse secretsResponse = secretsClient.listSecrets();
             List<SecretListEntry> secrets = secretsResponse.secretList();
-
             for (SecretListEntry secret: secrets) {
                 System.out.println("The secret name is "+secret.name());
                 System.out.println("The secret descreiption is "+secret.description());

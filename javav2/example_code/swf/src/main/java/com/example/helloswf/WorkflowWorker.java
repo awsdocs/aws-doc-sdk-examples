@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[WorkflowWorker.java demonstrates how to poll for a decision task in a task list.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -44,13 +41,13 @@ public class WorkflowWorker {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <domain> <taskList> <activity> <activityVersion> \n\n" +
-                "Where:\n" +
-                "    domain - the domain to use (ie, mydomain). \n" +
-                "    taskList - the taskList to use (ie, HelloTasklist).  \n" +
-                "    activity - the activity to use (ie, GrayscaleTransform).  \n" +
-                "    activityVersion - the activity version. \n";
+            "Usage:\n" +
+            "    <domain> <taskList> <activity> <activityVersion> \n\n" +
+            "Where:\n" +
+            "    domain - the domain to use (ie, mydomain). \n" +
+            "    taskList - the taskList to use (ie, HelloTasklist).  \n" +
+            "    activity - the activity to use (ie, GrayscaleTransform).  \n" +
+            "    activityVersion - the activity version. \n";
 
         if (args.length != 4) {
             System.out.println(USAGE);
@@ -64,9 +61,9 @@ public class WorkflowWorker {
 
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         pollADecision(swf, domain, taskList, activity, activityVersion);
         swf.close();

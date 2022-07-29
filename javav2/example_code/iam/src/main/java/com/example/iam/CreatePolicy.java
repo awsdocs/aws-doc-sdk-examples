@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreatePolicy.java demonstrates how to create a policy by using waiters.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
+//snippet-service:[IAM]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -56,9 +53,9 @@ public class CreatePolicy {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    CreatePolicy <policyName> \n\n" +
-                "Where:\n" +
+            "Usage:\n" +
+            "    CreatePolicy <policyName> \n\n" +
+            "Where:\n" +
                 "    policyName - A unique policy name. \n\n" ;
 
         if (args.length != 1) {
@@ -69,31 +66,33 @@ public class CreatePolicy {
         String policyName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String result = createIAMPolicy(iam, policyName);
         System.out.println("Successfully created a policy with this ARN value: " +result);
         iam.close();
     }
+
     // snippet-start:[iam.java2.create_policy.main]
     public static String createIAMPolicy(IamClient iam, String policyName ) {
 
         try {
-            // Create an IamWaiter object
+            // Create an IamWaiter object.
             IamWaiter iamWaiter = iam.waiter();
 
             CreatePolicyRequest request = CreatePolicyRequest.builder()
                 .policyName(policyName)
-                .policyDocument(PolicyDocument).build();
+                .policyDocument(PolicyDocument)
+                .build();
 
             CreatePolicyResponse response = iam.createPolicy(request);
 
-            // Wait until the policy is created
+            // Wait until the policy is created.
             GetPolicyRequest polRequest = GetPolicyRequest.builder()
-                    .policyArn(response.policy().arn())
-                    .build();
+                .policyArn(response.policy().arn())
+                .build();
 
             WaiterResponse<GetPolicyResponse> waitUntilPolicyExists = iamWaiter.waitUntilPolicyExists(polRequest);
             waitUntilPolicyExists.matched().response().ifPresent(System.out::println);

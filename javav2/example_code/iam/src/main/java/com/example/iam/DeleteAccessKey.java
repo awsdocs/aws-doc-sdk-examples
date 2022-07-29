@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteAccessKey.java demonstrates how to delete an access key from an AWS Identity and Access Management (IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,11 +27,11 @@ public class DeleteAccessKey {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <username> <accessKey> \n\n" +
-                "Where:\n" +
-                "    username - The name of the user. \n\n" +
-                "    accessKey - The access key ID for the secret access key you want to delete. \n\n" ;
+            "Usage:\n" +
+            "    <username> <accessKey> \n\n" +
+            "Where:\n" +
+            "    username - The name of the user. \n\n" +
+            "    accessKey - The access key ID for the secret access key you want to delete. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class DeleteAccessKey {
         String accessKey = args[1];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         deleteKey(iam, username, accessKey);
         iam.close();
     }
@@ -57,9 +54,9 @@ public class DeleteAccessKey {
 
         try {
             DeleteAccessKeyRequest request = DeleteAccessKeyRequest.builder()
-                    .accessKeyId(accessKey)
-                    .userName(username)
-                    .build();
+                .accessKeyId(accessKey)
+                .userName(username)
+                .build();
 
             iam.deleteAccessKey(request);
             System.out.println("Successfully deleted access key " + accessKey +

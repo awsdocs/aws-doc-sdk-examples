@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DescribeAccountAttributes.kt demonstrates how to retrieve attributes that belong to an Amazon Relational Database Service (RDS) account.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Relational Database Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[DescribeAccountAttributes.kt demonstrates how to retrieve attributes that belong to an Amazon Relational Database Service (RDS) account.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Relational Database Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,26 +15,25 @@ import aws.sdk.kotlin.services.rds.model.DescribeAccountAttributesRequest
 // snippet-end:[rds.kotlin.describe_account.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
-
+*/
 suspend fun main() {
-   getAccountAttributes()
+    getAccountAttributes()
 }
 
 // snippet-start:[rds.kotlin.describe_account.main]
 suspend fun getAccountAttributes() {
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
-      val response = rdsClient.describeAccountAttributes(DescribeAccountAttributesRequest{})
-      response.accountQuotas?.forEach { quotas ->
-        val response = response.accountQuotas
-                println("Name is: ${quotas.accountQuotaName}")
-                println("Max value is ${quotas.max}")
+        val response = rdsClient.describeAccountAttributes(DescribeAccountAttributesRequest {})
+        response.accountQuotas?.forEach { quotas ->
+            val response = response.accountQuotas
+            println("Name is: ${quotas.accountQuotaName}")
+            println("Max value is ${quotas.max}")
         }
     }
 }

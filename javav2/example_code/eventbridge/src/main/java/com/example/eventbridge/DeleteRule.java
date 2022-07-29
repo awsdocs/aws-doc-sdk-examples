@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeleteRule.java demonstrates how to delete an Amazon EventBridge rule.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,10 +29,10 @@ public class DeleteRule {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <ruleName> \n\n" +
-                "Where:\n" +
-                "    ruleName - The name of the rule to delete. \n";
+            "Usage:\n" +
+            "    <ruleName> \n\n" +
+            "Where:\n" +
+            "    ruleName - The name of the rule to delete. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,34 +42,33 @@ public class DeleteRule {
         String ruleName = args[0];
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteEBRule(eventBrClient, ruleName);
         eventBrClient.close();
-   }
+    }
 
     // snippet-start:[eventbridge.java2._delete_rule.main]
     public static void deleteEBRule(EventBridgeClient eventBrClient, String ruleName) {
 
         try {
             DisableRuleRequest disableRuleRequest = DisableRuleRequest.builder()
-                    .name(ruleName)
-                    .eventBusName("default")
-                    .build();
+                .name(ruleName)
+                .eventBusName("default")
+                .build();
 
             eventBrClient.disableRule(disableRuleRequest);
             DeleteRuleRequest ruleRequest = DeleteRuleRequest.builder()
-                    .name(ruleName)
-                    .eventBusName("default")
-                    .build();
+                .name(ruleName)
+                .eventBusName("default")
+                .build();
 
             eventBrClient.deleteRule(ruleRequest);
-           System.out.println("Rule "+ruleName + " was successfully deleted!");
+            System.out.println("Rule "+ruleName + " was successfully deleted!");
 
         } catch (EventBridgeException e) {
-
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
