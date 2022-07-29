@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[IAMScenario.kt demonstrates how to perform various AWS Identity and Access Management (IAM) operations.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
-// snippet-service:[IAM]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[01/20/2022]
-// snippet-sourceauthor:[scmacdon-aws]
+// snippet-service:[Identity and Access Management (IAM)]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,10 +34,10 @@ import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.scenario.import]
 
 /**
-To run this Kotlin code example, ensure that you have set up your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 This example performs these operations:
@@ -62,12 +58,12 @@ suspend fun main(args: Array<String>) {
         <username> <policyName> <roleName> <roleSessionName> <fileLocation> <bucketName> 
 
     Where:
-        username - the name of the IAM user to create. 
-        policyName - the name of the policy to create. 
-        roleName - the name of the role to create. 
-        roleSessionName - the name of the session required for the assumeRole operation. 
-        fileLocation - the file location to the JSON required to create the role (see Readme). 
-        bucketName - the name of the Amazon S3 bucket from which objects are read. 
+        username - The name of the IAM user to create. 
+        policyName - The name of the policy to create. 
+        roleName - The name of the role to create. 
+        roleSessionName - The name of the session required for the assumeRole operation. 
+        fileLocation - The file location to the JSON required to create the role (see Readme). 
+        bucketName - The name of the Amazon S3 bucket from which objects are read. 
     """
 
     if (args.size != 6) {

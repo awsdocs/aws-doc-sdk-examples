@@ -2,10 +2,6 @@
 // snippet-sourcedescription:[DeleteHostedZone.kt demonstrates how to delete a hosted zone.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/5/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,10 +17,10 @@ import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.delete_hosted_zone.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
@@ -35,28 +31,28 @@ suspend fun main(args: Array<String>) {
         <hostedZoneId> 
 
     Where:
-        hostedZoneId - the hosted zone id.
+        hostedZoneId - The hosted zone id.
     """
 
-      if (args.size != 1) {
-          println(usage)
-          exitProcess(0)
-      }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val hostedZoneId = args[0]
     delHostedZone(hostedZoneId)
-    }
+}
 
 // snippet-start:[route53.kotlin.delete_hosted_zone.main]
 suspend fun delHostedZone(hostedZoneId: String?) {
 
-         val deleteHostedZoneRequestRequest = DeleteHostedZoneRequest {
-                id = hostedZoneId
-          }
+    val deleteHostedZoneRequestRequest = DeleteHostedZoneRequest {
+        id = hostedZoneId
+    }
 
-        Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
-            route53Client.deleteHostedZone(deleteHostedZoneRequestRequest)
-            println("The hosted zone with id $hostedZoneId was deleted")
-        }
+    Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+        route53Client.deleteHostedZone(deleteHostedZoneRequestRequest)
+        println("The hosted zone with id $hostedZoneId was deleted")
+    }
 }
 // snippet-end:[route53.kotlin.delete_hosted_zone.main]

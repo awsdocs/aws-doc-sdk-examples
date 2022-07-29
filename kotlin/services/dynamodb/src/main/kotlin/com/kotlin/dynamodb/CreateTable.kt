@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[CreateTable.kt demonstrates how to create an Amazon DynamoDB table using a waiter.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-service:[Amazon DynamoDB]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

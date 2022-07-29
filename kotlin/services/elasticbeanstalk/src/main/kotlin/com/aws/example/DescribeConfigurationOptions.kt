@@ -1,26 +1,20 @@
-//snippet-sourcedescription:[DescribeConfigurationOptions.kt demonstrates how to describe configuration options.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS Elastic Beanstalk ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[DescribeConfigurationOptions.kt demonstrates how to describe configuration options.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[AWS Elastic Beanstalk]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.aws.example
 
-//snippet-start:[eb.kotlin.describe_config.import]
+// snippet-start:[eb.kotlin.describe_config.import]
 import aws.sdk.kotlin.services.elasticbeanstalk.ElasticBeanstalkClient
 import aws.sdk.kotlin.services.elasticbeanstalk.model.DescribeConfigurationOptionsRequest
 import aws.sdk.kotlin.services.elasticbeanstalk.model.OptionSpecification
 import kotlin.system.exitProcess
-//snippet-end:[eb.kotlin.describe_config.import]
-
+// snippet-end:[eb.kotlin.describe_config.import]
 
 /**
 Before running this Kotlin code example, set up your development environment,
@@ -49,35 +43,35 @@ suspend fun main(args: Array<String>) {
     getOptions(envName)
 }
 
-//snippet-start:[eb.kotlin.describe_config.main]
-suspend fun getOptions(envName:String) {
+// snippet-start:[eb.kotlin.describe_config.main]
+suspend fun getOptions(envName: String) {
 
-        val spec = OptionSpecification {
-            namespace = "aws:ec2:instances"
+    val spec = OptionSpecification {
+        namespace = "aws:ec2:instances"
+    }
+
+    val request = DescribeConfigurationOptionsRequest {
+        environmentName = envName
+        options = listOf(spec)
+    }
+
+    ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
+        val res = beanstalkClient.describeConfigurationOptions(request)
+        res.options?.forEach { option ->
+
+            println("The namespace is ${option.namespace}")
+            val optionName = option.name
+            println("The name is $optionName")
+            if (optionName != null) {
+                if (optionName.compareTo("InstanceTypes") == 0) {
+
+                    val valueOptions = option.valueOptions
+                    valueOptions?.forEach { value ->
+                        println("The value is $value")
+                    }
+                }
+            }
         }
-
-        val request = DescribeConfigurationOptionsRequest {
-            environmentName = envName
-            options = listOf(spec)
-        }
-
-       ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
-         val res = beanstalkClient.describeConfigurationOptions(request)
-         res.options?.forEach { option ->
-
-             println("The namespace is ${option.namespace}")
-             val optionName = option.name
-             println("The name is $optionName")
-             if (optionName != null) {
-                 if (optionName.compareTo("InstanceTypes") == 0) {
-
-                     val valueOptions = option.valueOptions
-                     valueOptions?.forEach { value ->
-                         println("The value is $value")
-                     }
-                 }
-             }
-         }
-       }
+    }
 }
-//snippet-end:[eb.kotlin.describe_config.main]
+// snippet-end:[eb.kotlin.describe_config.main]

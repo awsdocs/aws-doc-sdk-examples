@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DescribeSecurityGroups.kt demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) Security Groups.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DescribeSecurityGroups.kt demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) Security Groups.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon EC2]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,14 +16,14 @@ import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_security_groups.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
 
@@ -45,7 +41,7 @@ suspend fun main(args:Array<String>) {
 
     val groupId = args[0]
     describeEC2SecurityGroups(groupId)
-   }
+}
 
 // snippet-start:[ec2.kotlin.describe_security_groups.main]
 suspend fun describeEC2SecurityGroups(groupId: String) {
