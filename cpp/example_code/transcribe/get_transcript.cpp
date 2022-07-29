@@ -25,14 +25,6 @@ int main()
 	{
 		//TODO: Set to the region of your AWS account.
 		const Aws::String region = Aws::Region::US_WEST_2;
-		//TODO: Set access id and key. Note, it's not recommended to use this authentication mechanism on production code - but auth is not the focus of this example.
-		const Aws::String accessIDKey = "TODO";
-		const Aws::String Key = "TODO";
-
-
-		Aws::Auth::AWSCredentials aws_credentials;
-		aws_credentials.SetAWSAccessKeyId(accessIDKey);
-		aws_credentials.SetAWSSecretKey(Key);
 
 		Aws::Utils::Threading::Semaphore received(0 /*initialCount*/, 1 /*maxCount*/);
 
@@ -42,7 +34,7 @@ int main()
 		config.caFile = "C:\\TODO\\curl-ca-bundle.crt";
 		config.region = region;
 
-		TranscribeStreamingServiceClient client(aws_credentials, config);
+		TranscribeStreamingServiceClient client(config);
 		StartStreamTranscriptionHandler handler;
 		handler.SetOnErrorCallback([](const Aws::Client::AWSError<TranscribeStreamingServiceErrors>& error) {
 			printf("ERROR: %s", error.GetMessage().c_str());
