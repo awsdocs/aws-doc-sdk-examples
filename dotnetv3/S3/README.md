@@ -76,7 +76,7 @@ retrieve any amount of data at any time, from anywhere on the web.
 
 ### Cross-service examples
 
-- [Create a web application that analyzes photos in a bucket using the Amazon Rekognition service](dotnetv3/cross-service/PhotoAnalyzerApp)
+- [Create a web application that analyzes photos in a bucket using the Amazon Rekognition service](../cross-service/PhotoAnalyzerApp)
 
 ## Running the Examples
 
