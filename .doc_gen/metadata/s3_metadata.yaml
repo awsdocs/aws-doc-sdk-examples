@@ -1554,6 +1554,30 @@ s3_Scenario_TransferManager:
     title: Uploading an object using multipart upload
     url: AmazonS3/latest/userguide/mpu-upload-object.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/
+          sdkguide:
+          excerpts:
+            - description:
+                Call functions that transfer files to and from an S3 bucket
+                using the &S3; TransferUtility.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.GlobalUsings
+                - S3.dotnetv3.TransferUtilityBasics.Main
+            - description: Upload a single file.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.UploadSingleFileAsync
+            - description: Upload an entire local directory.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.UploadFullDirectoryAsync
+            - description: Download a single file.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.DownloadSingleFileAsync
+            - description: Download contents of an S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync
     Python:
       versions:
         - sdk_version: 3
