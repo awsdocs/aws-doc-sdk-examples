@@ -1,3 +1,8 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 #include <aws/core/Aws.h>
 #include <aws/core/utils/threading/Semaphore.h>
 #include <aws/core/auth/AWSCredentialsProviderChain.h>
