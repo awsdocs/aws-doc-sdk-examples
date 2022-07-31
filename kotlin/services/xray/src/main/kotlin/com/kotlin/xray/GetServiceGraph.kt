@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[GetServiceGraph.kt demonstrates how to retrieve a document that describes services that process incoming requests.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS X-Ray Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
+// snippet-sourcedescription:[GetServiceGraph.kt demonstrates how to retrieve a document that describes services that process incoming requests.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[AWS X-Ray Service]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -19,7 +14,14 @@ import aws.sdk.kotlin.services.xray.model.GetServiceGraphRequest
 import kotlin.system.exitProcess
 // snippet-end:[xray.kotlin_get_graph.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
         
@@ -27,7 +29,7 @@ suspend fun main(args:Array<String>) {
             <groupName>
         
         Where:
-            groupName - the name of a group based on which you want to generate a graph. 
+            groupName - The name of a group based on which you want to generate a graph. 
                 
         """
 
@@ -38,11 +40,10 @@ suspend fun main(args:Array<String>) {
 
     val groupName = args[0]
     getGraph(groupName)
-    }
+}
 
 // snippet-start:[xray.kotlin_get_graph.main]
 suspend fun getGraph(groupNameVal: String?) {
-
 
     val time = aws.smithy.kotlin.runtime.time.Instant
     val getServiceGraphRequest = GetServiceGraphRequest {
@@ -53,7 +54,7 @@ suspend fun getGraph(groupNameVal: String?) {
     XRayClient { region = "us-east-1" }.use { xRayClient ->
         val response = xRayClient.getServiceGraph(getServiceGraphRequest)
         response.services?.forEach { service ->
-                println("The name of the service is  ${service.name}")
+            println("The name of the service is  ${service.name}")
         }
     }
 }
