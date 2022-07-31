@@ -23,9 +23,12 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:sns:0.17.1-beta")
+    implementation("aws.sdk.kotlin:sqs:0.17.1-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+    implementation(kotlin("reflect"))
+    implementation("com.fasterxml.jackson.core:jackson-core:2.13.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.3")
 }
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
