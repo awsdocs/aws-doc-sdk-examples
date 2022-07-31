@@ -2,10 +2,6 @@
 // snippet-sourcedescription:[GetAccessKeyInfo.kt demonstrates how to return the account identifier for the specified access key ID by using AWS Security Token Service (AWS STS).]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-keyword:[AWS Security Token Service (AWS STS)]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/05/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,26 +16,26 @@ import aws.sdk.kotlin.services.sts.model.GetAccessKeyInfoRequest
 import kotlin.system.exitProcess
 // snippet-end:[sts.kotlin.get_access_key.import]
 
-
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
-For information, see this documentation topic:
+
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
             accessKeyId> 
 
         Where:
-            accessKeyId - the identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA). 
+            accessKeyId - The identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA). 
         """
 
     if (args.size != 1) {
-       println(usage)
-       exitProcess(0)
+        println(usage)
+        exitProcess(0)
     }
 
     val accessKeyId = args[0]
