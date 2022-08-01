@@ -35,7 +35,7 @@ public class ServiceHandler {
     /// Create a new user given the specified name.
     ///
     /// - Parameters:
-    ///
+    ///   - name: Name of the bucket to create.
     /// Throws an exception if an error occurs.
     // snippet-start:[s3.swift.basics.handler.createbucket]
     public func createBucket(name: String) async throws {
@@ -50,6 +50,8 @@ public class ServiceHandler {
     }
     // snippet-end:[s3.swift.basics.handler.createbucket]
 
+    /// Delete a bucket.
+    /// - Parameter name: Name of the bucket to delete.
     // snippet-start:[s3.swift.basics.handler.deletebucket]
     public func deleteBucket(name: String) async throws {
         let input = DeleteBucketInput(
@@ -59,6 +61,11 @@ public class ServiceHandler {
     }
     // snippet-end:[s3.swift.basics.handler.deletebucket]
 
+    /// Upload a file from local storage to the bucket.
+    /// - Parameters:
+    ///   - bucket: Name of the bucket to upload the file to.
+    ///   - key: Name of the file to create.
+    ///   - file: Path name of the file to upload.
     // snippet-start:[s3.swift.basics.handler.uploadfile]
     public func uploadFile(bucket: String, key: String, file: String) async throws {
         let fileUrl = URL(fileURLWithPath: file)
@@ -74,7 +81,6 @@ public class ServiceHandler {
     }
     // snippet-end:[s3.swift.basics.handler.uploadfile]
 
-    // snippet-start:[s3.swift.basics.handler.createfile]
     /// Create a file in the specified bucket with the given name. The new
     /// file's contents are uploaded from a `Data` object.
     ///
@@ -82,6 +88,7 @@ public class ServiceHandler {
     ///   - bucket: Name of the bucket to create a file in.
     ///   - key: Name of the file to create.
     ///   - data: A `Data` object to write into the new file.
+    // snippet-start:[s3.swift.basics.handler.createfile]
     public func createFile(bucket: String, key: String, withData data: Data) async throws {
         let dataStream = ByteStream.from(data: data)
 
@@ -186,13 +193,13 @@ public class ServiceHandler {
     }
     // snippet-end:[s3.swift.basics.handler.deletefile]
 
-    // snippet-start:[s3.swift.basics.handler.listbucketfiles]
     /// Returns an array of strings, each naming one file in the
     /// specified bucket.
     ///
     /// - Parameter bucket: Name of the bucket to get a file listing for.
     /// - Returns: An array of `String` objects, each giving the name of
     ///            one file contained in the bucket.
+    // snippet-start:[s3.swift.basics.handler.listbucketfiles]
     public func listBucketFiles(bucket: String) async throws -> [String] {
         let input = ListObjectsV2Input(
             bucket: bucket

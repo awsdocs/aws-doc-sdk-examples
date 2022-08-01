@@ -1,10 +1,10 @@
 # Amazon S3 code examples for the SDK for Swift
 ## Overview
 This folder contains code examples demonstrating how to use the AWS SDK for
-Swift to use the Amazon Simple Storage Service (S3). This README discusses how
+Swift to use the Amazon Simple Storage Service (`S3`). This README discusses how
 to run these examples.
 
-Amazon Simple Storage Service (Amazon S3) is storage for the internet. You can
+Amazon Simple Storage Service (`Amazon S3`) is storage for the internet. You can
 use Amazon S3 to store and retrieve any amount of data at any time, from
 anywhere on the web.
 
@@ -16,13 +16,19 @@ anywhere on the web.
 
 ## Code examples
 
-<!-- ### Single actions
+### Single actions
 Code excerpts that show you how to call individual service functions.
-* [*Abbreviated title of code example (to match SOS), using imperative form of verb*](*relative link to code example*)(*API command*) --->
+* [Copy an object](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`CopyObject`)
+* [Create a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`CreateBucket`)
+* [Delete a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`DeleteBucket`)
+* [Delete an object](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`DeleteObject`)
+* [Get an object from a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`GetObject`)
+* [List objects in a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`ListObjectsV2`)
+* [Upload an object to a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`PutObject`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
-* [Amazon S3 basics](./basics/)
+* [Amazon S3 basics](./basics/Sources/ServiceHandler/ServiceHandler.swift)
 
 <!-- ### Cross-service examples
 Sample applications that work across multiple AWS services.
@@ -49,13 +55,9 @@ See the [Prequisites](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/
 To run the tests for an example, use the command `swift test` in the example's directory.
 
 ## Additional resources
-* [AWS SDK for Swift Developer Guide](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide): The documentation for the AWS SDK for Swift
-* [AWS SDK for Swift Developer
-  Reference](https://awslabs.github.io/aws-sdk-swift/reference/0.x/): API reference for the AWS SDK for Swift
-* [AWS SDK for Swift project on
-  GitHub](https://github.com/awslabs/aws-sdk-swift): Contribute to the AWS SDK
-  for Swift
-* [The Swift Programming Language](https://docs.swift.org/swift-book): The
-  definitive reference and guide for Swift programmers
+* [Amazon S3 user guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide)
+* [Amazon S3 API reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Type_API_Reference.html)
+* [S3 developer guide for Swift](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide)
+* [S3 API reference for Swift](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSS3/Home)
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+_Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0_

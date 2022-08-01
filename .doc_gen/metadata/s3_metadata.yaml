@@ -95,7 +95,7 @@ s3_CreateBucket:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: Create a bucket in a specific Region.
+            - description:
               snippet_tags:
                 - s3.swift.basics.handler.createbucket
     Go:
@@ -208,7 +208,7 @@ s3_CopyObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: Copy an object from one bucket to another.
+            - description:
               snippet_tags:
                 - s3.swift.basics.handler.copyfile
   services:
@@ -348,7 +348,7 @@ s3_DeleteObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: Delete an object.
+            - description:
               snippet_tags:
                 - s3.swift.basics.handler.deletefile
   services:
@@ -908,7 +908,7 @@ s3_ListObjects:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: List the objects in a bucket.
+            - description:
               snippet_tags:
                 - s3.swift.basics.handler.listbucketfiles
   services:
@@ -1163,7 +1163,7 @@ s3_DeleteBucket:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: Delete a bucket.
+            - description:
               snippet_tags:
                 - s3.swift.basics.handler.deletebucket
   services:
