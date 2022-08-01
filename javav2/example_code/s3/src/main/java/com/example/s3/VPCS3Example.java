@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[VPCS3Example.java demonstrates how to setup a S3Client object using a virtual private cloud (VPC) URL.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -62,16 +59,15 @@ public class VPCS3Example {
 
         listBucketObjects(s3, bucketName);
         s3.close();
-}
+    }
 
     // snippet-start:[s3.java2.vpc.example.main]
     public static void listBucketObjects(S3Client s3, String bucketName ) {
 
         try {
-            ListObjectsRequest listObjects = ListObjectsRequest
-                    .builder()
-                    .bucket(bucketName)
-                    .build();
+            ListObjectsRequest listObjects = ListObjectsRequest.builder()
+                .bucket(bucketName)
+                .build();
 
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
@@ -86,7 +82,8 @@ public class VPCS3Example {
             System.exit(1);
         }
     }
-    //convert bytes to kbs
+
+    //convert bytes to kbs.
     private static long convertBToKb(Long val) {
         return val/1024;
     }

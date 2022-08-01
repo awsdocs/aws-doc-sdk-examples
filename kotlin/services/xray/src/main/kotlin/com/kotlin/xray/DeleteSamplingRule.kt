@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteSamplingRule.kt demonstrates how to create a rule to control sampling behavior for instrumented applications.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS X-Ray Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DeleteSamplingRule.kt demonstrates how to create a rule to control sampling behavior for instrumented applications.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[AWS X-Ray Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,7 +15,14 @@ import aws.sdk.kotlin.services.xray.model.DeleteSamplingRuleRequest
 import kotlin.system.exitProcess
 // snippet-end:[xray.kotlin_delete_rule.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
         
@@ -27,29 +30,29 @@ suspend fun main(args:Array<String>) {
             <ruleName>
         
         Where:
-            ruleName - the name of the rule. 
+            ruleName - The name of the rule. 
                 
         """
 
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val ruleName = args[0]
     deleteRule(ruleName)
-   }
+}
 
 // snippet-start:[xray.kotlin_delete_rule.main]
 suspend fun deleteRule(ruleNameVal: String?) {
 
-        val ruleRequest = DeleteSamplingRuleRequest {
-            ruleName = ruleNameVal
-        }
+    val ruleRequest = DeleteSamplingRuleRequest {
+        ruleName = ruleNameVal
+    }
 
-        XRayClient { region = "us-east-1" }.use { xRayClient ->
-            xRayClient.deleteSamplingRule(ruleRequest)
-            println("$ruleNameVal was deleted")
-        }
- }
+    XRayClient { region = "us-east-1" }.use { xRayClient ->
+        xRayClient.deleteSamplingRule(ruleRequest)
+        println("$ruleNameVal was deleted")
+    }
+}
 // snippet-end:[xray.kotlin_delete_rule.main]

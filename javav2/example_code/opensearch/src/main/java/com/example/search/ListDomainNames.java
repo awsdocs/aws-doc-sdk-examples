@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListDomainNames.java demonstrates how to list Amazon OpenSearch Service domains.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class ListDomainNames {
 
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         listAllDomains(searchClient);
         System.out.println("Done");
     }
@@ -48,8 +45,8 @@ public class ListDomainNames {
 
         try {
             ListDomainNamesRequest namesRequest = ListDomainNamesRequest.builder()
-                    .engineType("OpenSearch")
-                    .build();
+                .engineType("OpenSearch")
+                .build();
 
             ListDomainNamesResponse response = searchClient.listDomainNames(namesRequest) ;
             List<DomainInfo> domainInfoList = response.domainNames();
@@ -61,5 +58,5 @@ public class ListDomainNames {
             System.exit(1);
         }
    }
-    // snippet-end:[opensearch.java2.list_domains.main]
+   // snippet-end:[opensearch.java2.list_domains.main]
 }

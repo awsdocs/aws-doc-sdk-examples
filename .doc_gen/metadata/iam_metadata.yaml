@@ -389,7 +389,12 @@ iam_ListSAMLProviders:
 iam_Scenario_AccountManagement:
   title: Manage your &IAM; account using an &AWS; SDK
   title_abbrev: Manage your account
-  synopsis: manage your &IAM; account.
+  synopsis_list:
+    - Get and update the alias for the account.
+    - Generate a report of users and their credentials.
+    - Get a summary of account usage.
+    - Get details about all users, groups, roles, and policies in your account, including
+      their relationships to each other.
   category: Scenarios
   languages:
     Python:
@@ -413,7 +418,8 @@ iam_Scenario_AccountManagement:
               snippet_tags:
                 - python.example_code.iam.Scenario_AccountManagement
   services:
-    iam: {}
+    iam: {ListAccountAliases, CreateAccountAlias, DeleteAccountAlias, GenerateCredentialReport,
+          GetCredentialReport, GetAccountSummary, GetAccountAuthorizationDetails}
 iam_CreateAccessKey:
   title: Create an &IAM; access key using an &AWS; SDK
   title_abbrev: Create an access key
@@ -773,7 +779,10 @@ iam_UpdateAccessKey:
 iam_Scenario_ManageAccessKeys:
   title: Manage &IAM; access keys using an &AWS; SDK
   title_abbrev: Manage access keys
-  synopsis: manage &IAM; access keys.
+  synopsis_list:
+    - Create and list access keys.
+    - Find out when and how an access key was last used.
+    - Update and delete access keys.
   category: Scenarios
   languages:
     Python:
@@ -795,7 +804,7 @@ iam_Scenario_ManageAccessKeys:
               snippet_tags:
                 - python.example_code.iam.Scenario_ManageAccessKeys
   services:
-    iam: {}
+    iam: {ListAccessKeys, CreateAccessKey, GetAccessKeyLastUsed, UpdateAccessKey, DeleteAccessKey}
 iam_CreatePolicy:
   title: Create an &IAM; policy using an &AWS; SDK
   title_abbrev: Create a policy
@@ -1136,9 +1145,13 @@ iam_GetPolicyVersion:
   services:
     iam: {GetPolicyVersion}
 iam_Scenario_RollbackPolicyVersion:
-  title: Rollback an &IAM; policy version using an &AWS; SDK
-  title_abbrev: Rollback a policy version
-  synopsis: rollback an &IAM; policy version.
+  title: Roll back an &IAM; policy version using an &AWS; SDK
+  title_abbrev: Roll back a policy version
+  synopsis_list:
+    - Get the list of policy versions in order by date.
+    - Find the default policy version.
+    - Make the previous policy version the default.
+    - Delete the old default version.
   category: Scenarios
   languages:
     Python:
@@ -1151,7 +1164,7 @@ iam_Scenario_RollbackPolicyVersion:
               snippet_tags:
                 - python.example_code.iam.Scenario_RollbackPolicyVersion
   services:
-    iam: {}
+    iam: {ListPolicyVersions, SetDefaultPolicyVersion, DeletePolicyVersion}
 iam_AttachRolePolicy:
   title: Attach an &IAM; policy to a role using an &AWS; SDK
   title_abbrev: Attach a policy to a role
@@ -1408,7 +1421,11 @@ iam_DetachRolePolicy:
 iam_Scenario_PolicyManagement:
   title: Manage &IAM; policies using an &AWS; SDK
   title_abbrev: Manage policies
-  synopsis: manage &IAM; policies.
+  synopsis_list:
+    - Create and list policies.
+    - Create and get policy versions.
+    - Roll back a policy to a previous version.
+    - Delete policies.
   category: Scenarios
   languages:
     Python:
@@ -1431,7 +1448,8 @@ iam_Scenario_PolicyManagement:
               snippet_tags:
                 - python.example_code.iam.Scenario_PolicyManagement
   services:
-    iam: {}
+    iam: {CreatePolicy, ListPolicies, CreatePolicyVersion, GetPolicyVersion, DeletePolicy,
+          ListPolicyVersions, SetDefaultPolicyVersion, DeletePolicyVersion}
 iam_CreateRole:
   title: Create an &IAM; role using an &AWS; SDK
   title_abbrev: Create a role
@@ -1760,7 +1778,10 @@ iam_ListRolePolicies:
 iam_Scenario_RoleManagement:
   title: Manage &IAM; roles using an &AWS; SDK
   title_abbrev: Manage roles
-  synopsis: manage &IAM; roles.
+  synopsis_list:
+    - Create an &IAM; role.
+    - Attach and detach policies for a role.
+    - Delete a role.
   category: Scenarios
   languages:
     Python:
@@ -1781,7 +1802,7 @@ iam_Scenario_RoleManagement:
               snippet_tags:
                 - python.example_code.iam.Scenario_RoleManagement
   services:
-    iam: {}
+    iam: {CreateRole, AttachRolePolicy, DetachRolePolicy, DeleteRole}
 iam_CreateUser:
   title: Create an &IAM; user using an &AWS; SDK
   title_abbrev: Create a user
@@ -2234,10 +2255,11 @@ iam_DeleteUserPolicy:
 iam_Scenario_UserPolicies:
   title: Create read-only and read-write &IAM; users using an &AWS; SDK
   title_abbrev: Create read-only and read-write users
-  synopsis: create two &IAMlong; (&IAM;) users, where one user can get and put
-    objects in an &S3long; (&S3;) bucket and the other can only get objects from
-    the bucket. The users' credentials are then used to move objects in and out of
-    the bucket.
+  synopsis_list:
+    - Create two &IAM; users.
+    - Attach a policy that lets one of the users get and put objects in an &S3long; (&S3;) bucket.
+    - Attach a policy that lets the other user get objects from the bucket.
+    - Obtain differing permissions to the bucket based on user credentials.
   category: Scenarios
   languages:
     Python:
@@ -2270,7 +2292,8 @@ iam_Scenario_UserPolicies:
               snippet_tags:
                 - python.example_code.iam.Scenario_UserPolicies
   services:
-    iam: {}
+    iam: {CreateUser, UpdateUser, ListUsers, DeleteUser, AttachUserPolicy, DetachUserPolicy,
+          CreatePolicy, DeletePolicy, CreateAccessKey, DeleteAccessKey}
 iam_ListServerCertificates:
   title: List &IAM; server certificates using an &AWS; SDK
   title_abbrev: List server certificates

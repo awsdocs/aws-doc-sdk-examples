@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteAccountAlias.java demonstrates how to delete an alias from an AWS account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,10 +27,10 @@ public class DeleteAccountAlias {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <alias> \n\n" +
-                "Where:\n" +
-                "    alias - The account alias to delete. \n\n" ;
+            "Usage:\n" +
+            "    <alias> \n\n" +
+            "Where:\n" +
+            "    alias - The account alias to delete. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,9 +40,9 @@ public class DeleteAccountAlias {
         String alias = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteIAMAccountAlias(iam, alias) ;
         iam.close();
@@ -56,8 +53,8 @@ public class DeleteAccountAlias {
 
         try {
             DeleteAccountAliasRequest request = DeleteAccountAliasRequest.builder()
-                    .accountAlias(alias)
-                    .build();
+                .accountAlias(alias)
+                .build();
 
             iam.deleteAccountAlias(request);
             System.out.println("Successfully deleted account alias " + alias);

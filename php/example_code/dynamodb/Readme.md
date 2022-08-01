@@ -25,25 +25,43 @@ For more information, see
 
 Code excerpts that show you how to call individual service functions.
 
-* [Creating a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`create_table`)
-* [Deleting a table](DynamoDBService.php)(`delete_table`)
-* [Deleting an item from a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`delete_item`)
-* [Getting an item from a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`get_item`)
-* [Putting an item into a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`put_item`)
-* [Putting items loaded from a JSON file into a table](dynamodb_basics/GettingStartedWithDynamoDB.php)
+* [Create a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`create_table`)
+* [Delete a table](DynamoDBService.php)(`delete_table`)
+* [Delete an item from a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`delete_item`)
+* [Get an item from a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`get_item`)
+* [Put an item into a table](dynamodb_basics/GettingStartedWithDynamoDB.php)(`put_item`)
+* [Put items loaded from a JSON file into a table](dynamodb_basics/GettingStartedWithDynamoDB.php)
   (`put_item`)
-* [Querying items by using a key condition expression](dynamodb_basics/GettingStartedWithDynamoDB.php)
+* [Query items by using a key condition expression](dynamodb_basics/GettingStartedWithDynamoDB.php)
   (`query`)
-* [Scanning a table for items](dynamodb_basics/GettingStartedWithDynamoDB.php)
+* [Scan a table for items](dynamodb_basics/GettingStartedWithDynamoDB.php)
   (`scan`)
-* [Updating an item in a table](dynamodb_basics/GettingStartedWithDynamoDB.php)
+* [Update an item in a table](dynamodb_basics/GettingStartedWithDynamoDB.php)
   (`update_item`)
+* [Create an item in a table with PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
+  (`executeStatement - INSERT`)
+* [Get an item in a table with PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
+  (`executeStatement - SELECT`)
+* [Update an item in a table with PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
+  (`executeStatement - UPDATE`)
+* [Delete an item in a table with PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
+  (`executeStatement - DELETE`)
+* [Create an item in a table with PartiQL - BatchExecuteStatement](partiql_basics/GettingStartedWithPartiQLBatch.php)
+  (`executeStatement - INSERT`)
+* [Get an item in a table with PartiQL - BatchExecuteStatement](partiql_basics/GettingStartedWithPartiQLBatch.php)
+  (`executeStatement - SELECT`)
+* [Update an item in a table with PartiQL - BatchExecuteStatement](partiql_basics/GettingStartedWithPartiQLBatch.php)
+  (`executeStatement - UPDATE`)
+* [Delete an item in a table with PartiQL - BatchExecuteStatement](partiql_basics/GettingStartedWithPartiQLBatch.php)
+  (`executeStatement - DELETE`)
 
 ### Scenario examples
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
 * [Getting started with DynamoDB](dynamodb_basics/GettingStartedWithDynamoDB.php)
+* [Getting started with DynamoDB and PartiQL](dynamodb_basics/GettingStartedWithPartiQL.php)
+* [Getting started with PartiQL batching](dynamodb_basics/GettingStartedWithPartiQLBatch.php)
 
 ## Running the examples
 **Getting started with DynamoDB**
@@ -51,6 +69,32 @@ Code examples that show you how to accomplish a specific task by calling multipl
 This scenario shows you how to create an Amazon DynamoDB table for storing movie data. The scenario loads movies into
 the table from a JSON-formatted file and walks you through an interactive demo to add, update, and delete movies one at
 a time. The scenario also shows you how to query for sets of movies.
+
+```
+composer install
+```
+
+After your composer dependencies are installed, you can run the interactive getting started file directly with the
+following from the `aws-doc-sdk-examples\php\dynamodb\dynamodb_basics` directory:
+
+```
+php Runner.php
+```   
+
+Alternatively, you can have the choices automatically selected by running the file as part of a PHPUnit test with the
+following:
+
+```
+..\..\vendor\bin\phpunit DynamoDBBasicsTests.php
+```
+
+**Getting started with DynamoDB and PartiQL**
+
+This scenario shows you how to create an Amazon DynamoDB table for storing movie data. The scenario loads movies into
+the table from a JSON-formatted file and walks you through an interactive demo to add, update, and delete movies by 
+using PartiQL (both with `executeStatement` and `batchExecuteStatement`).
+
+Run the following from the `aws-doc-sdk-examples\php\dynamodb\partiql_basics` directory:
 
 ```
 composer install
@@ -67,8 +111,11 @@ Alternatively, you can have the choices automatically selected by running the fi
 following:
 
 ```
-..\..\vendor\bin\phpunit DynamoDBBasicsTests.php
+..\..\vendor\bin\phpunit PartiQLBasicsTests.php
 ```
+
+*Note: `batchExecuteStatement` examples are found in `GettingStartedWithPartiQLBatch.php`. To run this example with 
+`Runner.php`, edit the file and change all instances of `GettingStartedWithPartiQL` to `GettingStartedWithPartiQLBatch`.
 
 ### Prerequisites
 

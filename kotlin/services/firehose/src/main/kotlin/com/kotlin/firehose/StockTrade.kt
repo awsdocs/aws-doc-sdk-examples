@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[StockTrade.kt is a helper class.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[StockTrade.kt is a helper class.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Kinesis Data Firehose]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0

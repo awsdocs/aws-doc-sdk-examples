@@ -1,9 +1,7 @@
 // snippet-sourcedescription:[RecognizeCelebrities.java demonstrates how to recognize celebrities in a given image.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -39,10 +37,10 @@ public class RecognizeCelebrities {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <sourceImage>\n\n" +
-                "Where:\n" +
-                "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+            "Usage: " +
+            "   <sourceImage>\n\n" +
+            "Where:\n" +
+            "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -52,9 +50,9 @@ public class RecognizeCelebrities {
         String sourceImage = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Locating celebrities in " + sourceImage);
         recognizeAllCelebrities(rekClient, sourceImage);
@@ -65,23 +63,19 @@ public class RecognizeCelebrities {
     public static void recognizeAllCelebrities(RekognitionClient rekClient, String sourceImage) {
 
         try {
-
             InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
-
             Image souImage = Image.builder()
                 .bytes(sourceBytes)
                 .build();
 
             RecognizeCelebritiesRequest request = RecognizeCelebritiesRequest.builder()
-                    .image(souImage)
-                    .build();
+                .image(souImage)
+                .build();
 
             RecognizeCelebritiesResponse result = rekClient.recognizeCelebrities(request) ;
-
             List<Celebrity> celebs=result.celebrityFaces();
             System.out.println(celebs.size() + " celebrity(s) were recognized.\n");
-
             for (Celebrity celebrity: celebs) {
                 System.out.println("Celebrity recognized: " + celebrity.name());
                 System.out.println("Celebrity ID: " + celebrity.id());
@@ -98,6 +92,6 @@ public class RecognizeCelebrities {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-     }
+    }
     // snippet-end:[rekognition.java2.recognize_celebs.main]
 }

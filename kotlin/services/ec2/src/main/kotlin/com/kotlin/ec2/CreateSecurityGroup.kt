@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[CreateSecurityGroup.kt demonstrates how to create an Amazon Elastic Compute Cloud (Amazon EC2) Security Group.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[CreateSecurityGroup.kt demonstrates how to create an Amazon Elastic Compute Cloud (Amazon EC2) Security Group.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon EC2]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,31 +10,31 @@ package com.kotlin.ec2
 
 // snippet-start:[ec2.kotlin.create_security_group.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
-import aws.sdk.kotlin.services.ec2.model.CreateSecurityGroupRequest
-import aws.sdk.kotlin.services.ec2.model.IpRange
-import aws.sdk.kotlin.services.ec2.model.IpPermission
 import aws.sdk.kotlin.services.ec2.model.AuthorizeSecurityGroupIngressRequest
+import aws.sdk.kotlin.services.ec2.model.CreateSecurityGroupRequest
+import aws.sdk.kotlin.services.ec2.model.IpPermission
+import aws.sdk.kotlin.services.ec2.model.IpRange
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.create_security_group.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
             <groupName> <groupDesc> <vpcId> 
 
         Where:
-            groupName - a group name (for example, TestKeyPair). 
-            groupDesc - a group description  (for example, TestKeyPair). 
-            vpc-id - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). 
+            groupName - A group name (for example, TestKeyPair). 
+            groupDesc - A group description  (for example, TestKeyPair). 
+            vpc-id - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). 
         """
 
     if (args.size != 3) {
@@ -56,7 +52,7 @@ suspend fun main(args:Array<String>) {
 // snippet-start:[ec2.kotlin.create_security_group.main]
 suspend fun createEC2SecurityGroup(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?): String? {
 
-    val request =  CreateSecurityGroupRequest {
+    val request = CreateSecurityGroupRequest {
         groupName = groupNameVal
         description = groupDescVal
         vpcId = vpcIdVal
@@ -89,6 +85,6 @@ suspend fun createEC2SecurityGroup(groupNameVal: String?, groupDescVal: String?,
         ec2.authorizeSecurityGroupIngress(authRequest)
         println("Successfully added ingress policy to Security Group $groupNameVal")
         return resp.groupId
-      }
+    }
 }
 // snippet-end:[ec2.kotlin.create_security_group.main]

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteUserPool.java demonstrates how to delete an existing user pool.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +28,10 @@ public class DeleteUserPool {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <userPoolId> \n\n" +
-                "Where:\n" +
-                "    userPoolId - The Id value given to your user pool.\n\n" ;
+            "Usage:\n" +
+            "    <userPoolId> \n\n" +
+            "Where:\n" +
+            "    userPoolId - The Id value given to your user pool.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,9 +40,9 @@ public class DeleteUserPool {
 
         String userPoolId = args[0];
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deletePool(cognitoClient, userPoolId);
         cognitoClient.close();
@@ -56,8 +53,8 @@ public class DeleteUserPool {
 
         try {
             DeleteUserPoolRequest request = DeleteUserPoolRequest.builder()
-                    .userPoolId(userPoolId)
-                    .build();
+                .userPoolId(userPoolId)
+                .build();
 
             DeleteUserPoolResponse response = cognitoClient.deleteUserPool(request);
             System.out.println("User pool " + response.toString() + " deleted. ID: " + request.userPoolId());

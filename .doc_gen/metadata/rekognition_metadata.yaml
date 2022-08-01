@@ -416,7 +416,11 @@ rekognition_ListCollections:
 rekognition_Usage_FindFacesInCollection:
   title: Build an &REK; collection and find faces in it using an &AWS; SDK
   title_abbrev: Build a collection and find faces in it
-  synopsis: build an &REK; collection and find faces in it.
+  synopsis_list:
+    - Create an &REK; collection.
+    - Add images to the collection and detect faces in it.
+    - Search the collection for faces that match a reference image.
+    - Delete a collection.
   category: Scenarios
   guide_topic:
     title: Searching faces in a collection
@@ -749,7 +753,9 @@ rekognition_RecognizeCelebrities:
 rekognition_Usage_DetectAndDisplayImage:
   title: Detect and display elements in images with &REK; using an &AWS; SDK
   title_abbrev: Detect and display elements in images
-  synopsis: detect and display elements in images with &REK;.
+  synopsis_list:
+    - Detect elements in images by using &REK;.
+    - Display images and draw bounding boxes around detected elements.
   category: Scenarios
   guide_topic:
     title: Displaying bounding boxes
@@ -813,7 +819,10 @@ rekognition_GetCelebrityInfo:
 rekognition_VideoDetection:
   title: Detect information in videos using &REK; and the &AWS; SDK
   title_abbrev: Detect information in videos
-  synopsis: detect information in videos.
+  synopsis_list:
+    - Start &REK; jobs to detect elements like people, objects, and text in videos.
+    - Check job status until jobs finish.
+    - Output the list of elements detected by each job.
   category: Scenarios
   languages:
     Kotlin:
@@ -856,4 +865,7 @@ rekognition_VideoDetection:
               snippet_tags:
                 - rekognition.java2.recognize_video_person.main     
   services:
-    rekognition: {}
+    rekognition: {GetCelebrityRecognition, GetContentModeration, GetLabelDetection, GetPersonTracking,
+                  GetSegmentDetection, GetTextDetection, StartCelebrityRecognition,
+                  StartContentModeration, StartLabelDetection, StartPersonTracking,
+                  StartSegmentDetection, StartTextDetection}

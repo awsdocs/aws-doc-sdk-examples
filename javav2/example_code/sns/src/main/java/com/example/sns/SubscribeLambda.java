@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SubscribeLambda.java demonstrates how to subscribe to an Amazon Simple Notification Service (Amazon SNS) lambda function.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class SubscribeLambda {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <topicArn> <lambdaArn>\n\n" +
-                "Where:\n" +
-                "   topicArn - The ARN of the topic to subscribe.\n\n" +
-                "   lambdaArn - The ARN of an AWS Lambda function.\n\n";
+            "Usage: " +
+            "   <topicArn> <lambdaArn>\n\n" +
+            "Where:\n" +
+            "   topicArn - The ARN of the topic to subscribe.\n\n" +
+            "   lambdaArn - The ARN of an AWS Lambda function.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,11 +43,10 @@ public class SubscribeLambda {
 
         String topicArn = args[0];
         String lambdaArn = args[1];
-
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String arnValue = subLambda(snsClient, topicArn, lambdaArn) ;
         System.out.println("Subscription ARN: " + arnValue);
@@ -61,7 +57,6 @@ public class SubscribeLambda {
     public static String subLambda(SnsClient snsClient, String topicArn, String lambdaArn) {
 
         try {
-
             SubscribeRequest request = SubscribeRequest.builder()
                 .protocol("lambda")
                 .endpoint(lambdaArn)

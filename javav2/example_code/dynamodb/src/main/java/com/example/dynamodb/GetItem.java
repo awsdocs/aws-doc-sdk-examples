@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,12 +37,12 @@ public class GetItem {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <tableName> <key> <keyVal>\n\n" +
-                "Where:\n" +
-                "    tableName - The Amazon DynamoDB table from which an item is retrieved (for example, Music3). \n" +
-                "    key - The key used in the Amazon DynamoDB table (for example, Artist). \n" +
-                "    keyval - The key value that represents the item to get (for example, Famous Band).\n" ;
+            "Usage:\n" +
+            "    <tableName> <key> <keyVal>\n\n" +
+            "Where:\n" +
+            "    tableName - The Amazon DynamoDB table from which an item is retrieved (for example, Music3). \n" +
+            "    key - The key used in the Amazon DynamoDB table (for example, Artist). \n" +
+            "    keyval - The key value that represents the item to get (for example, Famous Band).\n" ;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -55,15 +52,14 @@ public class GetItem {
         String tableName = args[0];
         String key = args[1];
         String keyVal = args[2];
-        System.out.format("Retrieving item \"%s\" from \"%s\"\n",
-                keyVal, tableName);
+        System.out.format("Retrieving item \"%s\" from \"%s\"\n", keyVal, tableName);
 
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         getDynamoDBItem(ddb, tableName, key, keyVal);
         ddb.close();
@@ -74,16 +70,16 @@ public class GetItem {
 
         HashMap<String,AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put(key, AttributeValue.builder()
-                .s(keyVal).build());
+            .s(keyVal)
+            .build());
 
         GetItemRequest request = GetItemRequest.builder()
-                .key(keyToGet)
-                .tableName(tableName)
-                .build();
+            .key(keyToGet)
+            .tableName(tableName)
+            .build();
 
         try {
             Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
-
             if (returnedItem != null) {
                 Set<String> keys = returnedItem.keySet();
                 System.out.println("Amazon DynamoDB table attributes: \n");
@@ -94,6 +90,7 @@ public class GetItem {
             } else {
                 System.out.format("No item found with the key %s!\n", key);
             }
+
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);

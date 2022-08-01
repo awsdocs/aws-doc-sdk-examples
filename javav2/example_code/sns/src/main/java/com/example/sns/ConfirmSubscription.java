@@ -2,8 +2,6 @@
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,11 +29,11 @@ public class ConfirmSubscription {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <subscriptionToken> <topicArn>\n\n" +
-                "Where:\n" +
-                "   subscriptionToken - A short-lived token sent to an endpoint during the Subscribe action.\n\n" +
-                "   topicArn - The ARN of the topic. \n\n";
+            "Usage: " +
+            "   <subscriptionToken> <topicArn>\n\n" +
+            "Where:\n" +
+            "   subscriptionToken - A short-lived token sent to an endpoint during the Subscribe action.\n\n" +
+            "   topicArn - The ARN of the topic. \n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,9 +43,9 @@ public class ConfirmSubscription {
         String subscriptionToken = args[0];
         String topicArn = args[1];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         confirmSub(snsClient, subscriptionToken, topicArn ) ;
         snsClient.close();
@@ -57,7 +55,7 @@ public class ConfirmSubscription {
     public static void confirmSub(SnsClient snsClient, String subscriptionToken, String topicArn ) {
 
         try {
-             ConfirmSubscriptionRequest request = ConfirmSubscriptionRequest.builder()
+            ConfirmSubscriptionRequest request = ConfirmSubscriptionRequest.builder()
                 .token(subscriptionToken)
                 .topicArn(topicArn)
                 .build();

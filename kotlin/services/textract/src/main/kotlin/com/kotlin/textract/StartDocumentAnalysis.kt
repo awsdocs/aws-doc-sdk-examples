@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[StartDocumentAnalysis.kt demonstrates how to start the asynchronous analysis of a document.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Textract]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[07/16/2021]
-// snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,12 +11,23 @@ package com.kotlin.textract
 
 // snippet-start:[textract.kotlin._start_doc_analysis.import]
 import aws.sdk.kotlin.services.textract.TextractClient
-import aws.sdk.kotlin.services.textract.model.*
+import aws.sdk.kotlin.services.textract.model.DocumentLocation
+import aws.sdk.kotlin.services.textract.model.FeatureType
+import aws.sdk.kotlin.services.textract.model.GetDocumentAnalysisRequest
+import aws.sdk.kotlin.services.textract.model.S3Object
+import aws.sdk.kotlin.services.textract.model.StartDocumentAnalysisRequest
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[textract.kotlin._start_doc_analysis.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
@@ -34,10 +41,10 @@ suspend fun main(args:Array<String>) {
     if (args.size != 2) {
         println(usage)
         exitProcess(1)
-     }
+    }
 
     val bucketName = args[0]
-    val docName =  args[1]
+    val docName = args[1]
     startDocAnalysisS3(bucketName, docName)
 }
 
@@ -73,7 +80,6 @@ suspend fun startDocAnalysisS3(bucketName: String?, docName: String?) {
 }
 
 private suspend fun getJobResults(textractClient: TextractClient, jobIdVal: String?): String {
-
 
     var finished = false
     var index = 0

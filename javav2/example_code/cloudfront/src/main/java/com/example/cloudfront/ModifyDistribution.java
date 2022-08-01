@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[ModifyDistribution.java demonstrates how to modify a CloudFront distribution.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2021]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,38 +30,37 @@ import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
  */
 public class ModifyDistribution {
 
- public static void main(String[] args) {
+    public static void main(String[] args) {
 
-     final String usage = "\n" +
+        final String usage = "\n" +
              "Usage:\n" +
              "    <id> \n\n" +
              "Where:\n" +
              "    id - the id value of the distribution. \n";
 
-     if (args.length != 1) {
-         System.out.println(usage);
-         System.exit(1);
-     }
+        if (args.length != 1) {
+             System.out.println(usage);
+             System.exit(1);
+        }
 
-     String id = args[0];
-     CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-             .region(Region.AWS_GLOBAL)
-             .credentialsProvider(ProfileCredentialsProvider.create())
-             .build();
+        String id = args[0];
+        CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
+            .region(Region.AWS_GLOBAL)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
-     modDistribution(cloudFrontClient, id);
-     cloudFrontClient.close();
- }
+        modDistribution(cloudFrontClient, id);
+        cloudFrontClient.close();
+    }
 
     // snippet-start:[cloudfront.java2.mod.main]
- public static void modDistribution(CloudFrontClient cloudFrontClient, String idVal) {
+    public static void modDistribution(CloudFrontClient cloudFrontClient, String idVal) {
 
         try {
-
             // Get the Distribution to modify.
             GetDistributionRequest disRequest = GetDistributionRequest.builder()
-                    .id(idVal)
-                    .build();
+                 .id(idVal)
+                 .build();
 
             GetDistributionResponse response = cloudFrontClient.getDistribution(disRequest);
             Distribution disObject = response.distribution();
@@ -71,29 +68,29 @@ public class ModifyDistribution {
 
             // Create a new  DistributionConfig object and add new values to comment and aliases
             DistributionConfig config1 = DistributionConfig.builder()
-                    .aliases(config.aliases()) // You can pass in new values here
-                    .comment("New Comment")
-                    .cacheBehaviors(config.cacheBehaviors())
-                    .priceClass(config.priceClass())
-                    .defaultCacheBehavior(config.defaultCacheBehavior())
-                    .enabled(config.enabled())
-                    .callerReference(config.callerReference())
-                    .logging(config.logging())
-                    .originGroups(config.originGroups())
-                    .origins(config.origins())
-                    .restrictions(config.restrictions())
-                    .defaultRootObject(config.defaultRootObject())
-                    .webACLId(config.webACLId())
-                    .httpVersion(config.httpVersion())
-                    .viewerCertificate(config.viewerCertificate())
-                    .customErrorResponses(config.customErrorResponses())
-                    .build();
+                .aliases(config.aliases()) // You can pass in new values here
+                .comment("New Comment")
+                .cacheBehaviors(config.cacheBehaviors())
+                .priceClass(config.priceClass())
+                .defaultCacheBehavior(config.defaultCacheBehavior())
+                .enabled(config.enabled())
+                .callerReference(config.callerReference())
+                .logging(config.logging())
+                .originGroups(config.originGroups())
+                .origins(config.origins())
+                .restrictions(config.restrictions())
+                .defaultRootObject(config.defaultRootObject())
+                .webACLId(config.webACLId())
+                .httpVersion(config.httpVersion())
+                .viewerCertificate(config.viewerCertificate())
+                .customErrorResponses(config.customErrorResponses())
+                .build();
 
-             UpdateDistributionRequest updateDistributionRequest = UpdateDistributionRequest.builder()
-                    .distributionConfig(config1)
-                    .id(disObject.id())
-                    .ifMatch(response.eTag())
-                    .build();
+            UpdateDistributionRequest updateDistributionRequest = UpdateDistributionRequest.builder()
+                .distributionConfig(config1)
+                .id(disObject.id())
+                .ifMatch(response.eTag())
+                .build();
 
             cloudFrontClient.updateDistribution(updateDistributionRequest);
 
@@ -101,7 +98,7 @@ public class ModifyDistribution {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-   }
-    // snippet-end:[cloudfront.java2.mod.main]
+    }
+ // snippet-end:[cloudfront.java2.mod.main]
 }
 

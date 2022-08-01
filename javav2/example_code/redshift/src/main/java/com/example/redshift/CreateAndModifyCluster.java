@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateAndModifyCluster.java demonstrates how to create and modify an Amazon Redshift cluster.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
+//snippet-service:[Amazon Redshift]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -42,12 +38,12 @@ public class CreateAndModifyCluster {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <clusterId> <masterUsername> <masterUserPassword> \n\n" +
-                "Where:\n" +
-                "    clusterId - The id of the cluster to create. \n" +
-                "    masterUsername - The master user name. \n" +
-                "    masterUserPassword - The password that corresponds to the master user name. \n" ;
+            "Usage:\n" +
+            "    <clusterId> <masterUsername> <masterUserPassword> \n\n" +
+            "Where:\n" +
+            "    clusterId - The id of the cluster to create. \n" +
+            "    masterUsername - The master user name. \n" +
+            "    masterUserPassword - The password that corresponds to the master user name. \n" ;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -60,9 +56,9 @@ public class CreateAndModifyCluster {
 
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createCluster(redshiftClient,clusterId, masterUsername, masterUserPassword );
         waitForClusterReady(redshiftClient, clusterId);
@@ -73,8 +69,8 @@ public class CreateAndModifyCluster {
     // snippet-start:[redshift.java2.create_cluster.main]
     public static void createCluster(RedshiftClient redshiftClient, String clusterId, String masterUsername, String masterUserPassword ) {
 
-       try {
-           CreateClusterRequest clusterRequest = CreateClusterRequest.builder()
+        try {
+            CreateClusterRequest clusterRequest = CreateClusterRequest.builder()
                 .clusterIdentifier(clusterId)
                 .masterUsername(masterUsername) // set the user name here
                 .masterUserPassword(masterUserPassword) // set the user password here
@@ -100,7 +96,7 @@ public class CreateAndModifyCluster {
         String clusterReadyStr;
         System.out.println("Waiting for cluster to become available.");
 
-       try {
+        try {
             DescribeClustersRequest clustersRequest = DescribeClustersRequest.builder()
                 .clusterIdentifier(clusterId)
                 .build();
@@ -131,16 +127,15 @@ public class CreateAndModifyCluster {
     public static void modifyCluster(RedshiftClient redshiftClient, String clusterId) {
 
         try {
-        ModifyClusterRequest modifyClusterRequest = ModifyClusterRequest.builder()
-                 .clusterIdentifier(clusterId)
-                  .preferredMaintenanceWindow("wed:07:30-wed:08:00")
-                 .build();
+            ModifyClusterRequest modifyClusterRequest = ModifyClusterRequest.builder()
+                .clusterIdentifier(clusterId)
+                 .preferredMaintenanceWindow("wed:07:30-wed:08:00")
+                .build();
 
-        ModifyClusterResponse clusterResponse = redshiftClient.modifyCluster(modifyClusterRequest);
-        System.out.println("The modified cluster was successfully modified and has "+ clusterResponse.cluster().preferredMaintenanceWindow() +" as the maintenance window");
+            ModifyClusterResponse clusterResponse = redshiftClient.modifyCluster(modifyClusterRequest);
+            System.out.println("The modified cluster was successfully modified and has "+ clusterResponse.cluster().preferredMaintenanceWindow() +" as the maintenance window");
 
         } catch (RedshiftException e) {
-
             System.err.println(e.getMessage());
             System.exit(1);
         }

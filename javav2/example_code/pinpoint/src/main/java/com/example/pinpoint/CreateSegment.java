@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateSegment.java demonstrates how to create a segment for a campaign in Amazon Pinpoint.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -44,10 +41,10 @@ public class CreateSegment {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "  <appId>\n\n" +
-                "Where:\n" +
-                "  appId - The application ID to create a segment for.\n\n";
+            "Usage: " +
+            "  <appId>\n\n" +
+            "Where:\n" +
+            "  appId - The application ID to create a segment for.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -56,9 +53,9 @@ public class CreateSegment {
 
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         SegmentResponse result = createSegment(pinpoint, appId);
         System.out.println("Segment " + result.name() + " created.");
@@ -72,44 +69,44 @@ public class CreateSegment {
         try {
             Map<String, AttributeDimension> segmentAttributes = new HashMap<>();
             segmentAttributes.put("Team", AttributeDimension.builder()
-                    .attributeType(AttributeType.INCLUSIVE)
-                    .values("Lakers")
-                    .build());
+                .attributeType(AttributeType.INCLUSIVE)
+                .values("Lakers")
+                .build());
 
             RecencyDimension recencyDimension = RecencyDimension.builder()
-                    .duration("DAY_30")
-                    .recencyType("ACTIVE")
-                    .build();
+                .duration("DAY_30")
+                .recencyType("ACTIVE")
+                .build();
 
             SegmentBehaviors segmentBehaviors = SegmentBehaviors.builder()
-                    .recency(recencyDimension)
-                    .build();
+                .recency(recencyDimension)
+                .build();
 
             SegmentDemographics segmentDemographics = SegmentDemographics
-                    .builder()
-                    .build();
+                .builder()
+                .build();
 
             SegmentLocation segmentLocation = SegmentLocation
-                    .builder()
-                    .build();
+                .builder()
+                .build();
 
             SegmentDimensions dimensions = SegmentDimensions
-                    .builder()
-                    .attributes(segmentAttributes)
-                    .behavior(segmentBehaviors)
-                    .demographic(segmentDemographics)
-                    .location(segmentLocation)
-                    .build();
+                .builder()
+                .attributes(segmentAttributes)
+                .behavior(segmentBehaviors)
+                .demographic(segmentDemographics)
+                .location(segmentLocation)
+                .build();
 
             WriteSegmentRequest writeSegmentRequest = WriteSegmentRequest.builder()
-                    .name("MySegment")
-                    .dimensions(dimensions)
-                    .build();
+                .name("MySegment")
+                .dimensions(dimensions)
+                .build();
 
             CreateSegmentRequest createSegmentRequest = CreateSegmentRequest.builder()
-                    .applicationId(appId)
-                    .writeSegmentRequest(writeSegmentRequest)
-                    .build();
+                .applicationId(appId)
+                .writeSegmentRequest(writeSegmentRequest)
+                .build();
 
             CreateSegmentResponse createSegmentResult = client.createSegment(createSegmentRequest);
             System.out.println("Segment ID: " + createSegmentResult.segmentResponse().id());

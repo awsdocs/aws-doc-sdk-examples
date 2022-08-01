@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[PutTargets.java demonstrates how to creates an Amazon CloudWatch event-routing rule target.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,7 +14,6 @@ import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutTargetsRequest;
-import software.amazon.awssdk.services.cloudwatchevents.model.PutTargetsResponse;
 import software.amazon.awssdk.services.cloudwatchevents.model.Target;
 // snippet-end:[cloudwatch.java2.put_targets.import]
 
@@ -33,12 +29,12 @@ public class PutTargets {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <ruleName> <functionArn> <targetId> \n\n" +
-                "Where:\n" +
-                "  ruleName - A rule name (for example, myrule).\n" +
-                "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1).\n" +
-                "  targetId - A target id value.\n" ;
+            "Usage:\n" +
+            "  <ruleName> <functionArn> <targetId> \n\n" +
+            "Where:\n" +
+            "  ruleName - A rule name (for example, myrule).\n" +
+            "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1).\n" +
+            "  targetId - A target id value.\n" ;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -50,9 +46,9 @@ public class PutTargets {
         String targetId = args[2];
 
         CloudWatchEventsClient cwe = CloudWatchEventsClient.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         putCWTargets(cwe, ruleName, functionArn, targetId);
         cwe.close();
@@ -72,7 +68,7 @@ public class PutTargets {
                 .rule(ruleName)
                 .build();
 
-            PutTargetsResponse response = cwe.putTargets(request);
+            cwe.putTargets(request);
             System.out.printf(
                 "Successfully created CloudWatch events target for rule %s",
                 ruleName);

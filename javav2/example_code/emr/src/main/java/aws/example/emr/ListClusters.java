@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EMR]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -35,9 +34,9 @@ public class ListClusters {
 
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllClusters(emrClient);
         emrClient.close();
@@ -48,7 +47,7 @@ public class ListClusters {
 
         try {
             ListClustersRequest clustersRequest = ListClustersRequest.builder()
-                    .build();
+                .build();
             ListClustersResponse response = emrClient.listClusters(clustersRequest);
             List<ClusterSummary> clusters = response.clusters();
 

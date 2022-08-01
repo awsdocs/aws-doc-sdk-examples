@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[UpdateDomain.java demonstrates how modify a cluster configuration of the specified domain.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon OpenSearch Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,22 +31,23 @@ public class UpdateDomain {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <domainName>\n\n" +
-                "Where:\n" +
-                "    domainName - The name of the domain to update.\n\n" ;
+            "Usage:\n" +
+            "    <domainName>\n\n" +
+            "Where:\n" +
+            "    domainName - The name of the domain to update.\n\n" ;
 
         if (args.length != 1) {
-             System.out.println(usage);
-              System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String domainName = args[0];
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
+
         updateSpecificDomain(searchClient, domainName);
         System.out.println("Done");
     }
@@ -59,13 +57,13 @@ public class UpdateDomain {
 
         try {
             ClusterConfig clusterConfig = ClusterConfig.builder()
-                    .instanceCount(3)
-                    .build();
+                .instanceCount(3)
+                .build();
 
             UpdateDomainConfigRequest updateDomainConfigRequest = UpdateDomainConfigRequest.builder()
-                    .domainName(domainName)
-                    .clusterConfig(clusterConfig)
-                    .build();
+                .domainName(domainName)
+                .clusterConfig(clusterConfig)
+                .build();
 
             System.out.println("Sending domain update request...");
             UpdateDomainConfigResponse updateResponse = searchClient.updateDomainConfig(updateDomainConfigRequest);

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeFunction.java demonstrates how to get configuration information and metadata about a CloudFront function.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2021]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,10 +31,10 @@ public class DescribeFunction {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <functionName> \n\n" +
-                "Where:\n" +
-                "    functionName - The name of the function to describe. \n";
+            "Usage:\n" +
+            "    <functionName> \n\n" +
+            "Where:\n" +
+            "    functionName - The name of the function to describe. \n";
 
          if (args.length != 1) {
              System.out.println(usage);
@@ -46,9 +43,9 @@ public class DescribeFunction {
 
         String functionName = args[0];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-                .region(Region.AWS_GLOBAL)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.AWS_GLOBAL)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String eTagVal = describeSinFunction(cloudFrontClient, functionName);
         System.out.println(eTagVal +" is the eTag value.");
@@ -59,11 +56,10 @@ public class DescribeFunction {
     public static String describeSinFunction(CloudFrontClient cloudFrontClient, String functionName) {
 
         try {
-
             DescribeFunctionRequest functionRequest = DescribeFunctionRequest.builder()
-                    .name(functionName)
-                    .stage(FunctionStage.DEVELOPMENT)
-                    .build();
+                .name(functionName)
+                .stage(FunctionStage.DEVELOPMENT)
+                .build();
 
             DescribeFunctionResponse functionResponse = cloudFrontClient.describeFunction(functionRequest);
             return functionResponse.eTag();

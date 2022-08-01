@@ -15,11 +15,13 @@
  * Run the following command to install dependencies:
  * composer install
  *
- * Then, run the example. You can run it directly with:
- * php GettingStartedWithDynamoDB.php
+ * After your composer dependencies are installed, you can run the interactive getting started file directly with the
+ * following from the `aws-doc-sdk-examples\php\dynamodb\dynamodb_basics` directory:
+ * php Runner.php
  *
- * Alternatively, you can run the example as a PHPUnit test:
- * vendor/bin/phpunit DynamoDBBasicsTests.php
+ * Alternatively, you can have the choices automatically selected by running the file as part of a PHPUnit test with the
+ * following:
+ * vendor\bin\phpunit DynamoDBBasicsTests.php
  *
  **/
 
@@ -30,8 +32,6 @@ use Aws\DynamoDb\Marshaler;
 use DynamoDb;
 use DynamoDb\DynamoDBAttribute;
 use DynamoDb\DynamoDBService;
-use GuzzleHttp\Client as GuzzleClient;
-use ZipArchive;
 
 class GettingStartedWithDynamoDB
 {
@@ -41,10 +41,10 @@ class GettingStartedWithDynamoDB
         print("Welcome to the Amazon DynamoDB getting started demo using PHP!\n");
         echo("--------------------------------------\n");
 
-# snippet-start:[php.example_code.ddb.dynamodb_basics.startService]
+# snippet-start:[php.example_code.dynamodb.basics.startService]
         $uuid = uniqid();
         $service = new DynamoDBService();
-# snippet-end:[php.example_code.ddb.dynamodb_basics.startService]
+# snippet-end:[php.example_code.dynamodb.basics.startService]
 
 # snippet-start:[php.example_code.dynamodb.basics.createTable]
         $tableName = "ddb_demo_table_$uuid";
@@ -94,8 +94,9 @@ class GettingStartedWithDynamoDB
         while (empty($plot)) {
             $plot = testable_readline("Plot summary: ");
         }
+# snippet-start:[php.example_code.dynamodb.basics.key]
         $key = [
-            'Key' => [
+            'Item' => [
                 'title' => [
                     'S' => $movieName,
                 ],
@@ -104,6 +105,7 @@ class GettingStartedWithDynamoDB
                 ],
             ]
         ];
+# snippet-end:[php.example_code.dynamodb.basics.key]
         $attributes = ["rating" =>
             [
                 'AttributeName' => 'rating',
@@ -119,46 +121,12 @@ class GettingStartedWithDynamoDB
         $service->updateItemAttributesByKey($tableName, $key, $attributes);
         echo "Movie added and updated.";
 
-
-        function loadJsonData()
-        {
-            $movieFileName = 'moviedata.json';
-            $movieZipName = 'moviedata.zip';
-
-            $url = 'https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip';
-            $guzzle = new GuzzleClient(['verify' => false]);
-            $file = \GuzzleHttp\Psr7\Utils::tryFopen($movieZipName, 'w');
-            $guzzle->request("get", $url, ['sink' => $file]);
-
-            $zip = new ZipArchive();
-            $extractPath = ".";
-            if ($zip->open($movieZipName) !== true) {
-                echo "Could not open/find the zip file. Please check your file system permissions.";
-            }
-            $zip->extractTo($extractPath);
-            $zip->close();
-
-            return file_get_contents($movieFileName);
-        }
-
-        $batch = json_decode(loadJsonData());
+        $batch = json_decode(loadMovieData());
 
         $limit = 0;
         $service->writeBatch($tableName, $batch);
 
 # snippet-start:[php.example_code.dynamodb.basics.getItem]
-# snippet-start:[php.example_code.dynamodb.basics.key]
-        $key = [
-            'Key' => [
-                'title' => [
-                    'S' => 'The Lord of the Rings: The Fellowship of the Ring',
-                ],
-                'year' => [
-                    'N' => "2001",
-                ],
-            ]
-        ];
-# snippet-end:[php.example_code.dynamodb.basics.key]
 
         $movie = $service->getItemByKey($tableName, $key);
         echo "\nThe movie {$movie['Item']['title']['S']} was released in {$movie['Item']['year']['N']}.\n";

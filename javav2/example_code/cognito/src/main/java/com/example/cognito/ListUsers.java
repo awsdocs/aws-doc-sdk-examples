@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListUsers.java demonstrates how to list users in the specified user pool.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +28,10 @@ public class ListUsers {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <userPoolId> \n\n" +
-                "Where:\n" +
-                "    userPoolId - The ID given to your user pool when it's created.\n\n" ;
+            "Usage:\n" +
+            "    <userPoolId> \n\n" +
+            "Where:\n" +
+            "    userPoolId - The ID given to your user pool when it's created.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,9 +40,9 @@ public class ListUsers {
 
         String userPoolId = args[0];
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllUsers(cognitoClient, userPoolId );
         listUsersFilter(cognitoClient, userPoolId );
@@ -54,17 +51,15 @@ public class ListUsers {
 
     //snippet-start:[cognito.java2.ListUsers.main]
     public static void listAllUsers(CognitoIdentityProviderClient cognitoClient, String userPoolId ) {
-
         try {
             ListUsersRequest usersRequest = ListUsersRequest.builder()
-                    .userPoolId(userPoolId)
-                    .build();
+                .userPoolId(userPoolId)
+                .build();
 
             ListUsersResponse response = cognitoClient.listUsers(usersRequest);
             response.users().forEach(user -> {
-                        System.out.println("User " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
-                    }
-            );
+                System.out.println("User " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
+            });
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -78,15 +73,14 @@ public class ListUsers {
         try {
             String filter = "email = \"tblue@noserver.com\"";
             ListUsersRequest usersRequest = ListUsersRequest.builder()
-                    .userPoolId(userPoolId)
-                    .filter(filter)
-                    .build();
+                .userPoolId(userPoolId)
+                .filter(filter)
+                .build();
 
             ListUsersResponse response = cognitoClient.listUsers(usersRequest);
             response.users().forEach(user -> {
-                        System.out.println("User with filter applied " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
-                    }
-            );
+                System.out.println("User with filter applied " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
+            });
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

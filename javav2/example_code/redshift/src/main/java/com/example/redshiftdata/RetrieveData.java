@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[RetrieveData.java demonstrates how to query data and check the results by using a RedshiftDataClient object.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
+//snippet-service:[Amazon Redshift]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,18 +35,18 @@ public class RetrieveData {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    RetrieveData <database> <dbUser> <sqlStatement> <clusterId> \n\n" +
-                "Where:\n" +
-                "    database - The name of the database (for example, dev) \n" +
-                "    dbUser - The master user name \n" +
-                "    sqlStatement - The sql statement to use (for example, select * from information_schema.tables;) \n" +
-                "    clusterId - The id of the Redshift cluster (for example, redshift-cluster) \n" ;
+            "Usage:\n" +
+            "    RetrieveData <database> <dbUser> <sqlStatement> <clusterId> \n\n" +
+            "Where:\n" +
+            "    database - The name of the database (for example, dev) \n" +
+            "    dbUser - The master user name \n" +
+            "    sqlStatement - The sql statement to use (for example, select * from information_schema.tables;) \n" +
+            "    clusterId - The id of the Redshift cluster (for example, redshift-cluster) \n" ;
 
-          if (args.length != 4) {
-             System.out.println(usage);
-              System.exit(1);
-          }
+        if (args.length != 4) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String database = args[0];
         String dbUser = args[1];
@@ -58,9 +55,9 @@ public class RetrieveData {
 
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String id = performSQLStatement(redshiftDataClient, database, dbUser, sqlStatement, clusterId);
         System.out.println("The identifier of the statement is "+id);
@@ -122,7 +119,6 @@ public class RetrieveData {
         return "";
     }
 
-
     public static void getResults(RedshiftDataClient redshiftDataClient, String statementId) {
 
         try {
@@ -131,19 +127,17 @@ public class RetrieveData {
                     .build();
 
             GetStatementResultResponse response = redshiftDataClient.getStatementResult(resultRequest);
-
-            // Iterate through the List element where each element is a List object.
             List<List<Field>> dataList = response.records();
 
             // Print out the records.
-            for (List list: dataList) {
-                for (Object myField:list) {
+            for (List list : dataList) {
+                for (Object myField : list) {
                     Field field = (Field) myField;
                     String value = field.stringValue();
                     if (value != null)
-                          System.out.println("The value of the field is " + value);
-                    }
+                        System.out.println("The value of the field is " + value);
                 }
+            }
 
         } catch (RedshiftDataException e) {
             System.err.println(e.getMessage());
