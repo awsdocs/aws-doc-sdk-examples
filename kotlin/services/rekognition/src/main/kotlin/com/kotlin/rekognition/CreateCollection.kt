@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[CreateCollection.kt demonstrates how to create an Amazon Rekognition collection.]
-//snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-05-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,43 +15,43 @@ import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.create_collection.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args: Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage: 
             <collectionName> 
 
         Where:
-            collectionName - the name of the collection. 
+            collectionName - The name of the collection. 
     """
 
-     if (args.size != 1) {
-         println(usage)
-         exitProcess(0)
-     }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val collectionName = args[0]
     createMyCollection(collectionName)
 }
 
 // snippet-start:[rekognition.kotlin.create_collection.main]
- suspend fun createMyCollection(collectionIdVal: String) {
+suspend fun createMyCollection(collectionIdVal: String) {
 
-        val request = CreateCollectionRequest {
-            collectionId = collectionIdVal
-        }
-
-        RekognitionClient { region = "us-east-1" }.use { rekClient ->
-            val response = rekClient.createCollection(request)
-            println("Collection ARN is ${response.collectionArn}")
-            println("Status code is ${response.statusCode}" )
-        }
+    val request = CreateCollectionRequest {
+        collectionId = collectionIdVal
     }
+
+    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+        val response = rekClient.createCollection(request)
+        println("Collection ARN is ${response.collectionArn}")
+        println("Status code is ${response.statusCode}")
+    }
+}
 // snippet-end:[rekognition.kotlin.create_collection.main]

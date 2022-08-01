@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[VideoDetectFaces.kt demonstrates how to detect faces in a video stored in an Amazon S3 bucket.]
-//snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-05-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,27 +9,27 @@ package com.kotlin.rekognition
 
 // snippet-start:[rekognition.kotlin.recognize_video_faces.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
-import aws.sdk.kotlin.services.rekognition.model.StartFaceDetectionRequest
+import aws.sdk.kotlin.services.rekognition.model.FaceAttributes
+import aws.sdk.kotlin.services.rekognition.model.GetFaceDetectionRequest
+import aws.sdk.kotlin.services.rekognition.model.GetFaceDetectionResponse
 import aws.sdk.kotlin.services.rekognition.model.NotificationChannel
 import aws.sdk.kotlin.services.rekognition.model.S3Object
+import aws.sdk.kotlin.services.rekognition.model.StartFaceDetectionRequest
 import aws.sdk.kotlin.services.rekognition.model.Video
-import aws.sdk.kotlin.services.rekognition.model.FaceAttributes
-import aws.sdk.kotlin.services.rekognition.model.GetFaceDetectionResponse
-import aws.sdk.kotlin.services.rekognition.model.GetFaceDetectionRequest
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.recognize_video_faces.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 private var startJobId = ""
-suspend fun main(args: Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
         
@@ -41,19 +37,19 @@ suspend fun main(args: Array<String>){
             <bucket> <video> <topicArn> <roleArn>
         
         Where:
-            bucket - the name of the bucket in which the video is located (for example, (for example, myBucket). 
-            video - the name of the video (for example, people.mp4). 
-            topicArn - the ARN of the Amazon Simple Notification Service (Amazon SNS) topic. 
-            roleArn - the ARN of the AWS Identity and Access Management (IAM) role to use. 
+            bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). 
+            video - The name of the video (for example, people.mp4). 
+            topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. 
+            roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. 
         
         """
 
     if (args.size != 4) {
-         println(usage)
-         exitProcess(0)
-     }
+        println(usage)
+        exitProcess(0)
+    }
 
-    val bucket =args[0]
+    val bucket = args[0]
     val video = args[1]
     val topicArn = args[2]
     val roleArnVal = args[3]
@@ -65,30 +61,30 @@ suspend fun main(args: Array<String>){
 
     startFaceDetection(channel, bucket, video)
     getFaceResults()
-    }
+}
 
 // snippet-start:[rekognition.kotlin.recognize_video_faces.main]
 suspend fun startFaceDetection(channelVal: NotificationChannel?, bucketVal: String, videoVal: String) {
 
-        val s3Obj = S3Object {
-            bucket = bucketVal
-            name = videoVal
-        }
-        val vidOb = Video {
-            s3Object = s3Obj
-        }
+    val s3Obj = S3Object {
+        bucket = bucketVal
+        name = videoVal
+    }
+    val vidOb = Video {
+        s3Object = s3Obj
+    }
 
-        val request = StartFaceDetectionRequest {
-             jobTag = "Faces"
-             faceAttributes = FaceAttributes.All
-             notificationChannel = channelVal
-             video = vidOb
-        }
+    val request = StartFaceDetectionRequest {
+        jobTag = "Faces"
+        faceAttributes = FaceAttributes.All
+        notificationChannel = channelVal
+        video = vidOb
+    }
 
-        RekognitionClient { region = "us-east-1" }.use { rekClient ->
-          val startLabelDetectionResult = rekClient.startFaceDetection(request)
-          startJobId = startLabelDetectionResult.jobId.toString()
-        }
+    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+        val startLabelDetectionResult = rekClient.startFaceDetection(request)
+        startJobId = startLabelDetectionResult.jobId.toString()
+    }
 }
 
 suspend fun getFaceResults() {
@@ -97,7 +93,7 @@ suspend fun getFaceResults() {
     var status: String
     var yy = 0
     RekognitionClient { region = "us-east-1" }.use { rekClient ->
-        var response : GetFaceDetectionResponse? = null
+        var response: GetFaceDetectionResponse? = null
 
         val recognitionRequest = GetFaceDetectionRequest {
             jobId = startJobId

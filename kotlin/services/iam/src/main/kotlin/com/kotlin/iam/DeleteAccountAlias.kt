@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteAccountAlias.kt demonstrates how to delete an alias from an AWS account.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Identity and Access Management (IAM)]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DeleteAccountAlias.kt demonstrates how to delete an alias from an AWS account.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Identity and Access Management (IAM)]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,10 +16,10 @@ import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.delete_account_alias.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
@@ -33,7 +29,7 @@ suspend fun main(args: Array<String>) {
         Usage:
             <alias> 
         Where:
-            alias - the account alias to delete (for example, myawsaccount).  
+            alias - The account alias to delete (for example, myawsaccount).  
         """
 
     if (args.size != 1) {
@@ -43,13 +39,13 @@ suspend fun main(args: Array<String>) {
 
     val alias = args[0]
     deleteIAMAccountAlias(alias)
-    }
+}
 
 // snippet-start:[iam.kotlin.delete_account_alias.main]
 suspend fun deleteIAMAccountAlias(alias: String) {
 
     val request = DeleteAccountAliasRequest {
-        accountAlias =alias
+        accountAlias = alias
     }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->

@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[GetPolicy.kt demonstrates how to get the details for an AWS Identity and Access Management (IAM) policy.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Identity and Access Management (IAM)]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
+// snippet-sourcedescription:[GetPolicy.kt demonstrates how to get the details for an AWS Identity and Access Management (IAM) policy.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Identity and Access Management (IAM)]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -20,10 +15,10 @@ import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.get_policy.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
@@ -33,7 +28,7 @@ suspend fun main(args: Array<String>) {
         Usage:
             <policyARN> 
         Where:
-           policyARN - a policy ARN value to delete.
+           policyARN - A policy ARN value to delete.
         """
 
     if (args.size != 1) {
@@ -43,7 +38,7 @@ suspend fun main(args: Array<String>) {
 
     val policyARN = args[0]
     getIAMPolicy(policyARN)
-    }
+}
 
 // snippet-start:[iam.kotlin.get_policy.main]
 suspend fun getIAMPolicy(policyArnVal: String?) {
