@@ -16,7 +16,7 @@
             {
                 LaunchTemplateData = new RequestLaunchTemplateData
                 {
-                    ImageId =imageId,
+                    ImageId = imageId,
                     InstanceType = instanceType,
                 },
                 LaunchTemplateName = launchTemplateName,
