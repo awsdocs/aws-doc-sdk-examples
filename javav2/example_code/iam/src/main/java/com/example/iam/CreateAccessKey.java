@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateAccessKey.java demonstrates how to create an access key for an AWS Identity and Access Management (IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class CreateAccessKey {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "   <user> \n\n" +
-                "Where:\n" +
-                "   user - An AWS IAM user that you can obtain from the AWS Management Console.\n\n";
+            "Usage:\n" +
+            "   <user> \n\n" +
+            "Where:\n" +
+            "   user - An AWS IAM user that you can obtain from the AWS Management Console.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class CreateAccessKey {
         String user = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String keyId = createIAMAccessKey(iam, user);
         System.out.println("The Key Id is " +keyId);
@@ -59,11 +56,11 @@ public class CreateAccessKey {
 
         try {
             CreateAccessKeyRequest request = CreateAccessKeyRequest.builder()
-                .userName(user).build();
+                .userName(user)
+                .build();
 
             CreateAccessKeyResponse response = iam.createAccessKey(request);
-           String keyId = response.accessKey().accessKeyId();
-           return keyId;
+            return response.accessKey().accessKeyId();
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

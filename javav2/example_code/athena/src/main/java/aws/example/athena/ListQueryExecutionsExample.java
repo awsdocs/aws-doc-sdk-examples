@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[ListQueryExecutionsExample.java demonstrates how to obtain a list of query execution Id values.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -35,10 +33,10 @@ public class ListQueryExecutionsExample {
 
     public static void main(String[] args) {
 
-       AthenaClient athenaClient = AthenaClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+        AthenaClient athenaClient = AthenaClient.builder()
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listQueryIds(athenaClient);
         athenaClient.close();
@@ -47,19 +45,19 @@ public class ListQueryExecutionsExample {
     //snippet-start:[athena.java2.ListNamedQueryExecutionsExample.main]
     public static void listQueryIds(AthenaClient athenaClient) {
 
-       try {
-             ListQueryExecutionsRequest listQueryExecutionsRequest = ListQueryExecutionsRequest.builder().build();
-             ListQueryExecutionsIterable listQueryExecutionResponses = athenaClient.listQueryExecutionsPaginator(listQueryExecutionsRequest);
-
+        try {
+            ListQueryExecutionsRequest listQueryExecutionsRequest = ListQueryExecutionsRequest.builder().build();
+            ListQueryExecutionsIterable listQueryExecutionResponses = athenaClient.listQueryExecutionsPaginator(listQueryExecutionsRequest);
             for (ListQueryExecutionsResponse listQueryExecutionResponse : listQueryExecutionResponses) {
                 List<String> queryExecutionIds = listQueryExecutionResponse.queryExecutionIds();
                 System.out.println("\n" +queryExecutionIds);
-          }
-    } catch (AthenaException e) {
-        e.printStackTrace();
-        System.exit(1);
+            }
+
+        } catch (AthenaException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
-  }
     //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.main]
 }
 //snippet-end:[athena.java.ListNamedQueryExecutionsExample.complete]

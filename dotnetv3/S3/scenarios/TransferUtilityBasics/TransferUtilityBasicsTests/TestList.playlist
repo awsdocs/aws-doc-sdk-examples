@@ -1,0 +1,48 @@
+<Playlist Version="2.0">
+  <Rule Name="Includes" Match="Any">
+    <Rule Match="All">
+      <Property Name="Solution" />
+      <Rule Match="Any">
+        <Rule Match="All">
+          <Property Name="Project" Value="TransferUtilityBasicsTests" />
+          <Rule Match="Any">
+            <Rule Match="All">
+              <Property Name="Namespace" Value="TransferUtilityBasics.Tests" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="TransferMethodsTests" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="TransferUtilityBasics.Tests.TransferMethodsTests.DownloadS3DirectoryAsyncTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="DownloadS3DirectoryAsyncTest" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="TransferUtilityBasics.Tests.TransferMethodsTests.DownloadSingleFileAsyncTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="DownloadSingleFileAsyncTest" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="TransferUtilityBasics.Tests.TransferMethodsTests.UploadFullDirectoryAsyncTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="UploadFullDirectoryAsyncTest" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="TransferUtilityBasics.Tests.TransferMethodsTests.UploadSingleFileAsyncTest" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="UploadSingleFileAsyncTest" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+          </Rule>
+        </Rule>
+      </Rule>
+    </Rule>
+  </Rule>
+</Playlist>

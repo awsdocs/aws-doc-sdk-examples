@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[InsertData.java demonstrates how to insert data by using a RedshiftDataClient object.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
+//snippet-service:[Amazon Redshift]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -58,10 +55,10 @@ public class InsertData {
             String sqlStatement = "INSERT INTO blog (idblog, date, title, body, author) VALUES( '"+uuid+"' ,'"+sqlDate +"','"+title +"' , '"+body +"', '"+author +"');";
 
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
-                    .clusterIdentifier(clusterId)
-                    .database(database)
-                    .dbUser(dbUser)
-                    .sql(sqlStatement)
+                .clusterIdentifier(clusterId)
+                .database(database)
+                .dbUser(dbUser)
+                .sql(sqlStatement)
                     .build();
 
             ExecuteStatementResponse response = redshiftDataClient.executeStatement(statementRequest);
@@ -78,9 +75,9 @@ public class InsertData {
 
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         return redshiftDataClient;
     }

@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[DynamoDBScanItems demonstrates how to return items from an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -40,10 +36,10 @@ public class DynamoDBScanItems {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <tableName>\n\n" +
-                "Where:\n" +
-                "    tableName - The Amazon DynamoDB table to get information from (for example, Music3).\n\n" ;
+            "Usage:\n" +
+            "    <tableName>\n\n" +
+            "Where:\n" +
+            "    tableName - The Amazon DynamoDB table to get information from (for example, Music3).\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -54,9 +50,9 @@ public class DynamoDBScanItems {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         scanItems(ddb,tableName);
         ddb.close();
@@ -67,8 +63,8 @@ public class DynamoDBScanItems {
 
         try {
             ScanRequest scanRequest = ScanRequest.builder()
-                    .tableName(tableName)
-                    .build();
+                .tableName(tableName)
+                .build();
 
             ScanResponse response = ddb.scan(scanRequest);
             for (Map<String, AttributeValue> item : response.items()) {

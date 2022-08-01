@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateContainer.java demonstrates how to create an AWS Elemental MediaStore container.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,26 +28,25 @@ import software.amazon.awssdk.services.mediastore.model.MediaStoreException;
 public class CreateContainer {
 
     public static long sleepTime = 10;
-
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <containerName>\n\n" +
-                "Where:\n" +
-                "   containerName - The name of the container to create.\n";
+            "Usage: " +
+            "   <containerName>\n\n" +
+            "Where:\n" +
+            "   containerName - The name of the container to create.\n";
 
-         if (args.length != 1) {
+        if (args.length != 1) {
             System.out.println(usage);
-             System.exit(1);
+            System.exit(1);
         }
 
         String containerName = args[0];
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createMediaContainer(mediaStoreClient, containerName);
         mediaStoreClient.close();
@@ -67,12 +63,12 @@ public class CreateContainer {
             CreateContainerResponse containerResponse = mediaStoreClient.createContainer(containerRequest);
             String status = containerResponse.container().status().toString();
 
-            // Wait unitl the container is in an active state
+            // Wait unitl the container is in an active state.
             while (!status.equalsIgnoreCase("Active")){
                 status = DescribeContainer.checkContainer(mediaStoreClient, containerName);
                 System.out.println("Status - "+ status);
                 Thread.sleep(sleepTime * 1000);
-                }
+            }
 
             System.out.println("The container ARN value is "+containerResponse.container().arn());
             System.out.println("Finished ");

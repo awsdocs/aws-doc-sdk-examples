@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[GetAcl.java demonstrates how to get the access control list (ACL) for an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,11 +30,11 @@ public class GetAcl {
 
     public static void main(String[] args) {
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <bucketName> <objectKey>\n\n" +
-                "Where:\n" +
-                "  bucketName - The Amazon S3 bucket to get the access control list (ACL) for.\n" +
-                "  objectKey - The object to get the ACL for. \n" ;
+            "Usage:\n" +
+            "  <bucketName> <objectKey>\n\n" +
+            "Where:\n" +
+            "  bucketName - The Amazon S3 bucket to get the access control list (ACL) for.\n" +
+            "  objectKey - The object to get the ACL for. \n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,9 +49,9 @@ public class GetAcl {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         getBucketACL(s3,objectKey,bucketName);
         s3.close();
@@ -75,15 +71,16 @@ public class GetAcl {
             List<Grant> grants = aclRes.grants();
             String grantee = "";
             for (Grant grant : grants) {
-                System.out.format("  %s: %s\n", grant.grantee().id(),
-                        grant.permission());
+                System.out.format("  %s: %s\n", grant.grantee().id(), grant.permission());
                 grantee = grant.grantee().id();
             }
+            
             return grantee;
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        
         return "";
     }
     // snippet-end:[s3.java2.get_acl.main]

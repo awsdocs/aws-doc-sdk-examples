@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListForecasts.java demonstrates how to list forecasts for the Amazon Forecast service.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class ListForecasts {
 
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllForeCasts(forecast);
         forecast.close();
@@ -47,7 +44,7 @@ public class ListForecasts {
     // snippet-start:[forecast.java2.list_forecasts.main]
     public static void listAllForeCasts(ForecastClient forecast) {
 
-     try {
+        try {
             ListForecastsRequest request = ListForecastsRequest.builder()
                 .maxResults(10)
                 .build();
@@ -55,10 +52,10 @@ public class ListForecasts {
             ListForecastsResponse response = forecast.listForecasts(request);
             List<ForecastSummary> forecasts = response.forecasts();
             for (ForecastSummary forecastSummary : forecasts) {
-             System.out.println("The name of the forecast is " + forecastSummary.forecastName());
-           }
+                System.out.println("The name of the forecast is " + forecastSummary.forecastName());
+            }
 
-     } catch (ForecastException e) {
+        } catch (ForecastException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

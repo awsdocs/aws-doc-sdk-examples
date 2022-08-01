@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[UpdateUser.java demonstrates how to update the name of an AWS Identity and Access Management (IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,11 +27,11 @@ public class UpdateUser {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <curName> <newName> \n\n" +
-                "Where:\n" +
-                "    curName - The current user name. \n\n" +
-                "    newName - An updated user name. \n\n" ;
+            "Usage:\n" +
+            "    <curName> <newName> \n\n" +
+            "Where:\n" +
+            "    curName - The current user name. \n\n" +
+            "    newName - An updated user name. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class UpdateUser {
         String newName = args[1];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         updateIAMUser(iam, curName, newName) ;
         System.out.println("Done");
@@ -59,17 +56,17 @@ public class UpdateUser {
 
         try {
             UpdateUserRequest request = UpdateUserRequest.builder()
-                    .userName(curName)
-                    .newUserName(newName)
-                    .build();
+                .userName(curName)
+                .newUserName(newName)
+                .build();
 
             iam.updateUser(request);
-            System.out.printf("Successfully updated user to username %s",
-                newName);
+            System.out.printf("Successfully updated user to username %s", newName);
+
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-      }
+    }
     // snippet-end:[iam.java2.update_user.main]
 }

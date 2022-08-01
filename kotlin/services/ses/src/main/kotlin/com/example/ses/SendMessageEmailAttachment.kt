@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[SendMessageAttachment.kt demonstrates how to send an email message with an attachment by using the Amazon Simple Email Service (Amazon SES).]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-keyword:[Amazon Simple Email Service]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/05/2021]
-// snippet-sourceauthor:[AWS-scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,7 +16,7 @@ import aws.sdk.kotlin.services.ses.model.SendRawEmailRequest
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.file.Files
-import java.util.*
+import java.util.Properties
 import javax.activation.DataHandler
 import javax.activation.DataSource
 import javax.mail.Message
@@ -34,7 +30,14 @@ import javax.mail.util.ByteArrayDataSource
 import kotlin.system.exitProcess
 // snippet-end:[ses.kotlin.sendmessageattachment.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
 
@@ -42,10 +45,10 @@ suspend fun main(args:Array<String>) {
         <sender> <recipient> <subject> <fileLocation> 
 
     Where:
-        sender - an email address that represents the sender. 
-        recipient -  an email address that represents the recipient. 
-        subject - the  subject line. 
-        fileLocation - the location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). 
+        sender - An email address that represents the sender. 
+        recipient -  An email address that represents the recipient. 
+        subject - The subject line. 
+        fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). 
     """
 
     if (args.size != 4) {
@@ -59,13 +62,13 @@ suspend fun main(args:Array<String>) {
     val fileLocation = args[3]
 
     // The HTML body of the email
-    val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p> See the list of customers.</p>" + "</body>" + "</html>")
+    val bodyHTML = (
+        "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>" +
+            "<p> See the list of customers.</p>" + "</body>" + "</html>"
+        )
 
-
-     try{
+    try {
         sendemailAttachment(sender, recipient, subject, bodyHTML, bodyHTML, fileLocation)
-
     } catch (e: MessagingException) {
         e.stackTrace
     }
@@ -150,7 +153,7 @@ suspend fun sendemailAttachment(
 
     SesClient { region = "us-east-1" }.use { sesClient ->
         sesClient.sendRawEmail(rawEmailRequest)
-     }
+    }
     println("Email sent with attachment")
 }
 // snippet-end:[ses.kotlin.sendmessageattachment.main]

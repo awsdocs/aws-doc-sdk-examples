@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListMetrics.java demonstrates how to list Amazon CloudWatch metrics.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,13 +29,13 @@ public class ListMetrics {
 
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "  <namespace> \n\n" +
-                "Where:\n" +
-                "  namespace - The namespace to filter against (for example, AWS/EC2). \n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "  <namespace> \n\n" +
+            "Where:\n" +
+            "  namespace - The namespace to filter against (for example, AWS/EC2). \n" ;
 
-       if (args.length != 1) {
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -46,9 +43,9 @@ public class ListMetrics {
         String namespace = args[0];
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listMets(cw, namespace) ;
         cw.close();
@@ -64,25 +61,23 @@ public class ListMetrics {
             while(!done) {
 
                 ListMetricsResponse response;
-
                 if (nextToken == null) {
-                   ListMetricsRequest request = ListMetricsRequest.builder()
+                    ListMetricsRequest request = ListMetricsRequest.builder()
                         .namespace(namespace)
                         .build();
 
-                 response = cw.listMetrics(request);
+                    response = cw.listMetrics(request);
                 } else {
-                  ListMetricsRequest request = ListMetricsRequest.builder()
+                    ListMetricsRequest request = ListMetricsRequest.builder()
                         .namespace(namespace)
                         .nextToken(nextToken)
                         .build();
 
-                response = cw.listMetrics(request);
-            }
+                    response = cw.listMetrics(request);
+                }
 
             for (Metric metric : response.metrics()) {
-                System.out.printf(
-                        "Retrieved metric %s", metric.metricName());
+                System.out.printf("Retrieved metric %s", metric.metricName());
                 System.out.println();
             }
 

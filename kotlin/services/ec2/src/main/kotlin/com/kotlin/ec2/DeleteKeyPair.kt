@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteKeyPair.kt demonstrates how to delete an Amazon Elastic Compute Cloud (Amazon EC2) key pair.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DeleteKeyPair.kt demonstrates how to delete an Amazon Elastic Compute Cloud (Amazon EC2) key pair.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon EC2]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,14 +15,14 @@ import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.delete_key_pair.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
 
@@ -34,7 +30,7 @@ suspend fun main(args:Array<String>) {
         <keyName> 
 
     Where:
-        keyName - a key pair name (for example, TestKeyPair). 
+        keyName - A key pair name (for example, TestKeyPair). 
     """
 
     if (args.size != 1) {
@@ -43,7 +39,7 @@ suspend fun main(args:Array<String>) {
     }
 
     val keyName = args[0]
-    deleteKeys( keyName)
+    deleteKeys(keyName)
 }
 
 // snippet-start:[ec2.kotlin.delete_key_pair.main]

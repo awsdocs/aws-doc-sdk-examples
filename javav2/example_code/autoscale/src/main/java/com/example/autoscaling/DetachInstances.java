@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DetachInstances.java removes one or more instances from the specified Auto Scaling group.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2 Auto Scaling]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/05/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,11 +28,11 @@ public class DetachInstances {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <groupName> <instanceId>\n\n" +
-                "Where:\n" +
-                "    groupName - The name of the Auto Scaling group.\n" +
-                "    instanceId - The instance Id value.\n" ;
+            "Usage:\n" +
+            "    <groupName> <instanceId>\n\n" +
+            "Where:\n" +
+            "    groupName - The name of the Auto Scaling group.\n" +
+            "    instanceId - The instance Id value.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,9 +42,9 @@ public class DetachInstances {
         String groupName = args[0];
         String instanceId = args[1];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         detachInstance(autoScalingClient, groupName, instanceId);
         autoScalingClient.close();
@@ -56,13 +52,12 @@ public class DetachInstances {
 
     // snippet-start:[autoscale.java2.detach.main]
     public static void detachInstance(AutoScalingClient autoScalingClient, String groupName, String instanceId) {
-
         try {
             DetachInstancesRequest detachInstancesRequest = DetachInstancesRequest.builder()
-                    .autoScalingGroupName(groupName)
-                    .shouldDecrementDesiredCapacity(false)
-                    .instanceIds(instanceId)
-                    .build();
+                .autoScalingGroupName(groupName)
+                .shouldDecrementDesiredCapacity(false)
+                .instanceIds(instanceId)
+                .build();
 
             autoScalingClient.detachInstances(detachInstancesRequest);
             System.out.println("You have detached instance "+instanceId +" from "+groupName);

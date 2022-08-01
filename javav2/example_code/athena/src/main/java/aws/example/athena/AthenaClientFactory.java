@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[AthenaClientFactory.java demonstrates how to create and configure an Amazon Athena client.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

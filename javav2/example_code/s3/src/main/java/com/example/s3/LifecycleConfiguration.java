@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[LifecycleConfiguration.java demonstrates how to add, update, and delete a Lifecycle configuration.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,11 +40,11 @@ public class LifecycleConfiguration {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <bucketName> <accountId> \n\n" +
-                "Where:\n" +
-                "  bucketName - The Amazon Simple Storage Service (Amazon S3) bucket to upload an object into.\n" +
-                "  accountId - The id of the account that owns the Amazon S3 bucket.\n" ;
+            "Usage:\n" +
+            "  <bucketName> <accountId> \n\n" +
+            "Where:\n" +
+            "  bucketName - The Amazon Simple Storage Service (Amazon S3) bucket to upload an object into.\n" +
+            "  accountId - The id of the account that owns the Amazon S3 bucket.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -59,9 +56,9 @@ public class LifecycleConfiguration {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         setLifecycleConfig(s3, bucketName, accountId);
         getLifecycleConfig(s3, bucketName, accountId);
@@ -76,40 +73,40 @@ public class LifecycleConfiguration {
         try {
             // Create a rule to archive objects with the "glacierobjects/" prefix to Amazon S3 Glacier.
             LifecycleRuleFilter ruleFilter = LifecycleRuleFilter.builder()
-                    .prefix("glacierobjects/")
-                    .build();
+                .prefix("glacierobjects/")
+                .build();
 
             Transition transition = Transition.builder()
-                    .storageClass(TransitionStorageClass.GLACIER)
-                    .days(0)
-                    .build();
+                .storageClass(TransitionStorageClass.GLACIER)
+                .days(0)
+                .build();
 
             LifecycleRule rule1 = LifecycleRule.builder()
-                    .id("Archive immediately rule")
-                    .filter(ruleFilter)
-                    .transitions(transition)
-                    .status(ExpirationStatus.ENABLED)
-                    .build();
+                .id("Archive immediately rule")
+                .filter(ruleFilter)
+                .transitions(transition)
+                .status(ExpirationStatus.ENABLED)
+                .build();
 
             // Create a second rule.
             Transition transition2 = Transition.builder()
-                    .storageClass(TransitionStorageClass.GLACIER)
-                    .days(0)
-                    .build();
+                .storageClass(TransitionStorageClass.GLACIER)
+                .days(0)
+                .build();
 
             List<Transition> transitionList = new ArrayList<>();
             transitionList.add(transition2);
 
             LifecycleRuleFilter ruleFilter2 = LifecycleRuleFilter.builder()
-                    .prefix("glacierobjects/")
-                    .build();
+                .prefix("glacierobjects/")
+                .build();
 
             LifecycleRule rule2 = LifecycleRule.builder()
-                    .id("Archive and then delete rule")
-                    .filter(ruleFilter2)
-                    .transitions(transitionList)
-                    .status(ExpirationStatus.ENABLED)
-                    .build();
+                .id("Archive and then delete rule")
+                .filter(ruleFilter2)
+                .transitions(transitionList)
+                .status(ExpirationStatus.ENABLED)
+                .build();
 
             // Add the LifecycleRule objects to an ArrayList.
             ArrayList<LifecycleRule> ruleList = new ArrayList<>();
@@ -117,14 +114,14 @@ public class LifecycleConfiguration {
             ruleList.add(rule2);
 
             BucketLifecycleConfiguration lifecycleConfiguration = BucketLifecycleConfiguration.builder()
-                    .rules(ruleList)
-                    .build();
+                .rules(ruleList)
+                .build();
 
             PutBucketLifecycleConfigurationRequest putBucketLifecycleConfigurationRequest = PutBucketLifecycleConfigurationRequest.builder()
-                    .bucket(bucketName)
-                    .lifecycleConfiguration(lifecycleConfiguration)
-                    .expectedBucketOwner(accountId)
-                    .build();
+                .bucket(bucketName)
+                .lifecycleConfiguration(lifecycleConfiguration)
+                .expectedBucketOwner(accountId)
+                .build();
 
             s3.putBucketLifecycleConfiguration(putBucketLifecycleConfigurationRequest);
 
@@ -139,13 +136,11 @@ public class LifecycleConfiguration {
 
         try {
             GetBucketLifecycleConfigurationRequest getBucketLifecycleConfigurationRequest = GetBucketLifecycleConfigurationRequest.builder()
-                    .bucket(bucketName)
-                    .expectedBucketOwner(accountId)
-                    .build();
+                .bucket(bucketName)
+                .expectedBucketOwner(accountId)
+                .build();
 
             GetBucketLifecycleConfigurationResponse response = s3.getBucketLifecycleConfiguration(getBucketLifecycleConfigurationRequest);
-
-            // Create a new List.
             List<LifecycleRule> newList = new ArrayList<>();
             List<LifecycleRule> rules = response.rules();
             for (LifecycleRule rule: rules) {
@@ -154,32 +149,32 @@ public class LifecycleConfiguration {
 
             // Add a new rule with both a prefix predicate and a tag predicate.
             LifecycleRuleFilter ruleFilter = LifecycleRuleFilter.builder()
-                    .prefix("YearlyDocuments/")
-                    .build();
+                .prefix("YearlyDocuments/")
+                .build();
 
             Transition transition = Transition.builder()
-                    .storageClass(TransitionStorageClass.GLACIER)
-                    .days(3650)
-                    .build();
+                .storageClass(TransitionStorageClass.GLACIER)
+                .days(3650)
+                .build();
 
             LifecycleRule rule1 = LifecycleRule.builder()
-                    .id("NewRule")
-                    .filter(ruleFilter)
-                    .transitions(transition)
-                    .status(ExpirationStatus.ENABLED)
-                    .build();
+                .id("NewRule")
+                .filter(ruleFilter)
+                .transitions(transition)
+                .status(ExpirationStatus.ENABLED)
+                .build();
 
             // Add the new rule to the list.
             newList.add(rule1);
             BucketLifecycleConfiguration lifecycleConfiguration = BucketLifecycleConfiguration.builder()
-                    .rules(newList)
-                    .build();
+                .rules(newList)
+                .build();
 
             PutBucketLifecycleConfigurationRequest putBucketLifecycleConfigurationRequest = PutBucketLifecycleConfigurationRequest.builder()
-                    .bucket(bucketName)
-                    .lifecycleConfiguration(lifecycleConfiguration)
-                    .expectedBucketOwner(accountId)
-                    .build();
+                .bucket(bucketName)
+                .lifecycleConfiguration(lifecycleConfiguration)
+                .expectedBucketOwner(accountId)
+                .build();
 
             s3.putBucketLifecycleConfiguration(putBucketLifecycleConfigurationRequest);
 
@@ -189,21 +184,21 @@ public class LifecycleConfiguration {
         }
     }
 
-  // Delete the configuration from the Amazon S3 bucket.
-  public static void deleteLifecycleConfig(S3Client s3, String bucketName, String accountId) {
+    // Delete the configuration from the Amazon S3 bucket.
+    public static void deleteLifecycleConfig(S3Client s3, String bucketName, String accountId) {
 
         try {
-                DeleteBucketLifecycleRequest deleteBucketLifecycleRequest = DeleteBucketLifecycleRequest.builder()
-                    .bucket(bucketName)
-                    .expectedBucketOwner(accountId)
-                    .build();
+            DeleteBucketLifecycleRequest deleteBucketLifecycleRequest = DeleteBucketLifecycleRequest.builder()
+                .bucket(bucketName)
+                .expectedBucketOwner(accountId)
+                .build();
 
-                s3.deleteBucketLifecycle(deleteBucketLifecycleRequest);
+            s3.deleteBucketLifecycle(deleteBucketLifecycleRequest);
 
-           } catch (S3Exception e) {
+        } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-  }
+    }
     // snippet-end:[s3.java2.manage_lifecycle.main]
 }

@@ -760,44 +760,13 @@ kms_PutKeyPolicy:
                 - python.example_code.kms.PutKeyPolicy
   services:
     kms: {PutKeyPolicy}
-kms_Scenario_AliasManagement:
-  title: Manage &KMS; aliases using an &AWS; SDK
-  title_abbrev: Manage aliases
-  synopsis: manage &KMS; aliases.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.Scenario_AliasManagement
-  services:
-    kms: {CreateAlias, ListAliases, UpdateAlias, DeleteAlias}
-kms_Scenario_GrantManagement:
-  title: Manage &KMS; grants using an &AWS; SDK
-  title_abbrev: Manage grants
-  synopsis: manage &KMS; grants.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.Scenario_GrantManagement
-  services:
-    kms: {CreateGrant, ListGrants, RetireGrant, RevokeGrant}
 kms_Scenario_KeyEncryption:
   title: Encrypt and decrypt text with &kms-keys-long; using an &AWS; SDK
   title_abbrev: Encrypt and decrypt text
-  synopsis: encrypt and decrypt text with &kms-keys;.
+  synopsis_list:
+    - Encrypt plain text by using a &kms-key;.
+    - Decrypt ciphertext by using a &kms-key;.
+    - Reencrypt ciphertext by using a second &kms-key;.
   category: Scenarios
   languages:
     Python:
@@ -814,7 +783,12 @@ kms_Scenario_KeyEncryption:
 kms_Scenario_KeyManagement:
   title: Manage &kms-keys-long; using an &AWS; SDK
   title_abbrev: Manage keys
-  synopsis: manage &kms-keys-long;.
+  synopsis_list:
+    - Create a &kms-key;.
+    - List &kms-keys; for your account and get details about them.
+    - Enable and disable &kms-keys;.
+    - Generate a symmetric data key that can be used for client-side encryption.
+    - Delete &kms-keys;.
   category: Scenarios
   languages:
     Python:
@@ -828,20 +802,3 @@ kms_Scenario_KeyManagement:
                 - python.example_code.kms.Scenario_KeyManagement
   services:
     kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, DisableKey, ScheduleKeyDeletion}
-kms_Scenario_ManageKeyPolicies:
-  title: Manage &kms-key-long; policies using an &AWS; SDK
-  title_abbrev: Manage key policies
-  synopsis: manage &kms-key; policies.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.Scenario_ManageKeyPolicies
-  services:
-    kms: {ListKeyPolicies, GetKeyPolicy, PutKeyPolicy}

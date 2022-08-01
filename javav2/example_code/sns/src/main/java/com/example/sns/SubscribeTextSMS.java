@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SubscribeTextSMS.java demonstrates how to subscribe to an Amazon Simple Notification Service (Amazon SNS) text endpoint.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class SubscribeTextSMS {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <topicArn> <phoneNumber>\n\n" +
-                "Where:\n" +
-                "   topicArn - The ARN of the topic to subscribe.\n\n" +
-                "   phoneNumber - A mobile phone number that receives notifications (for example, +1XXX5550100).\n\n";
+            "Usage: " +
+            "   <topicArn> <phoneNumber>\n\n" +
+            "Where:\n" +
+            "   topicArn - The ARN of the topic to subscribe.\n\n" +
+            "   phoneNumber - A mobile phone number that receives notifications (for example, +1XXX5550100).\n\n";
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class SubscribeTextSMS {
         String topicArn = args[0];
         String phoneNumber = args[1];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         subTextSNS(snsClient, topicArn, phoneNumber);
         snsClient.close();

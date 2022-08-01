@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateForecast.java demonstrates how to create a forecast for the Amazon Forecast service.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,11 +30,11 @@ public class CreateForecast {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <name> <predictorArn> \n\n" +
-                "Where:\n" +
-                "    name - The name of the forecast. \n\n" +
-                "    predictorArn - The arn of the predictor to use. \n\n" ;
+            "Usage:\n" +
+            "    <name> <predictorArn> \n\n" +
+            "Where:\n" +
+            "    name - The name of the forecast. \n\n" +
+            "    predictorArn - The arn of the predictor to use. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -49,9 +45,9 @@ public class CreateForecast {
         String predictorArn = args[1];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String forecastArn = createNewForecast(forecast, name, predictorArn) ;
         System.out.println("The ARN of the new forecast is "+forecastArn);

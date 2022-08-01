@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeAnalysis.java demonstrates how to obtain a summary of the metadata for an analysis.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class DescribeAnalysis {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <account> <analysisId>\n\n" +
-                "Where:\n" +
-                "   account - The ID of the AWS account that contains the analysis.\n\n" +
-                "   queueName - The ID of the Amazon QuickSight Analysis that you're describing.\n\n";
+            "Usage: " +
+            "   <account> <analysisId>\n\n" +
+            "Where:\n" +
+            "   account - The ID of the AWS account that contains the analysis.\n\n" +
+            "   queueName - The ID of the Amazon QuickSight Analysis that you're describing.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class DescribeAnalysis {
         String account = args[0];
         String analysisId = args[1];
         QuickSightClient qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeSpecificAnalysis(qsClient, account, analysisId);
         qsClient.close();
@@ -60,9 +57,9 @@ public class DescribeAnalysis {
 
         try {
             DescribeAnalysisRequest analysisRequest = DescribeAnalysisRequest.builder()
-                    .awsAccountId(account)
-                    .analysisId(analysisId)
-                    .build();
+                .awsAccountId(account)
+                .analysisId(analysisId)
+                .build();
 
             DescribeAnalysisResponse analysisResponse = qsClient.describeAnalysis(analysisRequest);
             System.out.println("The Analysis ARN value is "+ analysisResponse.analysis().arn());
