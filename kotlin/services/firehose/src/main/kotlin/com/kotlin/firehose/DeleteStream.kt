@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteStream.kt demonstrates how to delete a delivery stream.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[DeleteStream.kt demonstrates how to delete a delivery stream.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Kinesis Data Firehose]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,14 +16,14 @@ import kotlin.system.exitProcess
 // snippet-end:[firehose.kotlin.delete_stream.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     
@@ -35,13 +31,13 @@ suspend fun main(args:Array<String>) {
         <streamName> 
 
     Where:
-        streamName - the name of the delivery stream. 
+        streamName - The name of the delivery stream. 
     """
 
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val streamName = args[0]
     delStream(streamName)
@@ -55,8 +51,8 @@ suspend fun delStream(streamName: String) {
     }
 
     FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
-          firehoseClient.deleteDeliveryStream(request)
-          println("Delivery Stream $streamName is deleted")
+        firehoseClient.deleteDeliveryStream(request)
+        println("Delivery Stream $streamName is deleted")
     }
 }
 // snippet-end:[firehose.kotlin.delete_stream.main]

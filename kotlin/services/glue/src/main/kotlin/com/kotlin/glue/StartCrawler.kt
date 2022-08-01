@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[StartCrawler.kt demonstrates how to start an AWS Glue crawler.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+// snippet-sourcedescription:[StartCrawler.kt demonstrates how to start an AWS Glue crawler.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[AWS Glue]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -12,21 +8,21 @@
 
 package com.kotlin.glue
 
-//snippet-start:[glue.kotlin.start_crawler.import]
+// snippet-start:[glue.kotlin.start_crawler.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.StartCrawlerRequest
 import kotlin.system.exitProcess
-//snippet-end:[glue.kotlin.start_crawler.import]
+// snippet-end:[glue.kotlin.start_crawler.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
@@ -45,7 +41,7 @@ suspend fun main(args:Array<String>) {
     startSpecificCrawler(crawlerName)
 }
 
-//snippet-start:[glue.kotlin.start_crawler.main]
+// snippet-start:[glue.kotlin.start_crawler.main]
 suspend fun startSpecificCrawler(crawlerName: String?) {
 
     val request = StartCrawlerRequest {
@@ -53,8 +49,8 @@ suspend fun startSpecificCrawler(crawlerName: String?) {
     }
 
     GlueClient { region = "us-west-2" }.use { glueClient ->
-          glueClient.startCrawler(request)
-          println("$crawlerName was successfully started.")
-       }
+        glueClient.startCrawler(request)
+        println("$crawlerName was successfully started.")
+    }
 }
-//snippet-end:[glue.kotlin.start_crawler.main]
+// snippet-end:[glue.kotlin.start_crawler.main]

@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DescribeAddresses.kt demonstrates how to get information about elastic IP addresses.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DescribeAddresses.kt demonstrates how to get information about elastic IP addresses.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon EC2]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -18,23 +14,22 @@ import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeAddressesRequest
 // snippet-end:[ec2.kotlin.describe_addresses.import]
 
-
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-  describeEC2Address()
+    describeEC2Address()
 }
 
 // snippet-start:[ec2.kotlin.describe_addresses.main]
 suspend fun describeEC2Address() {
     Ec2Client { region = "us-west-2" }.use { ec2 ->
-        val response = ec2.describeAddresses(DescribeAddressesRequest{})
+        val response = ec2.describeAddresses(DescribeAddressesRequest {})
         response.addresses?.forEach { address ->
             println("Found address with public IP ${address.publicIp}, domain is ${address.domain}, allocation id ${address.allocationId} and NIC id: ${address.networkInterfaceId} ")
         }

@@ -1,24 +1,18 @@
-//snippet-sourcedescription:[DeleteApplication.kt demonstrates how to delete an AWS Elastic Beanstalk application.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS Elastic Beanstalk ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
-
+// snippet-sourcedescription:[DeleteApplication.kt demonstrates how to delete an AWS Elastic Beanstalk application.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[AWS Elastic Beanstalk]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.aws.example
 
-//snippet-start:[eb.kotlin.delete_app.import]
+// snippet-start:[eb.kotlin.delete_app.import]
 import aws.sdk.kotlin.services.elasticbeanstalk.ElasticBeanstalkClient
 import aws.sdk.kotlin.services.elasticbeanstalk.model.DeleteApplicationRequest
 import kotlin.system.exitProcess
-//snippet-end:[eb.kotlin.delete_app.import]
+// snippet-end:[eb.kotlin.delete_app.import]
 
 /**
 Before running this Kotlin code example, set up your development environment,
@@ -46,17 +40,17 @@ suspend fun main(args: Array<String>) {
     deleteApp(appName)
 }
 
-//snippet-start:[eb.kotlin.delete_app.main]
+// snippet-start:[eb.kotlin.delete_app.main]
 suspend fun deleteApp(appName: String?) {
 
     val applicationRequest = DeleteApplicationRequest {
-         applicationName = appName
-         terminateEnvByForce = true
-        }
+        applicationName = appName
+        terminateEnvByForce = true
+    }
 
     ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
         beanstalkClient.deleteApplication(applicationRequest)
         println("The Elastic Beanstalk application was successfully deleted!")
     }
 }
-//snippet-end:[eb.kotlin.delete_app.main]
+// snippet-end:[eb.kotlin.delete_app.main]
