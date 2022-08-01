@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.AutoScaling" Version="3.7.10.28" />
-    <PackageReference Include="AWSSDK.Core" Version="3.7.12.5" />
+    <PackageReference Include="AWSSDK.AutoScaling" Version="3.7.10.39" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.12.16" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.80" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
