@@ -1,6 +1,5 @@
-//
-// Created by Meyer, Steve on 7/27/22.
-//
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
 #include <gtest/gtest.h>
 #include <aws/core/Aws.h>
@@ -28,6 +27,9 @@ TEST(S3ScenarioTest, Test_valid_arguments) {
         std::ifstream save_file(TEST_SAVE_FILE);
         EXPECT_TRUE(save_file.is_open());
     }
+
+    remove(TEST_FILE);
+    remove(TEST_SAVE_FILE);
 
     ShutdownAPI(options);
 }

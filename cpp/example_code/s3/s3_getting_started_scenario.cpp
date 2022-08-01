@@ -1,9 +1,3 @@
-//snippet-sourcedescription:[S3_GettingStartedScenario.cpp demonstrates how to perform various Amazon Simple Storage Service (Amazon S3) operations.]
-//snippet-keyword:[AWS SDK for C++]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -15,6 +9,10 @@
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+ *
+ * Purpose
+ *
+ * Demonstrates using the AWS SDK for C++ to create an S3 bucket and upload objects to S3 buckets.
  *
  * 1. Create a bucket.
  * 2. Upload a local file to the bucket.
@@ -88,9 +86,9 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
     Aws::S3::S3Client client(clientConfig);
 
     // Create a unique bucket name which is only temporary and will be deleted.
-    // Format: "temporary-" + lowercase UUID.
+    // Format: "doc-example-bucket-" + lowercase UUID.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-    Aws::String bucketName = "temporary-" +
+    Aws::String bucketName = "doc-example-bucket-" +
                              Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
     // 1. Create a bucket.

@@ -71,9 +71,9 @@ int main()
 
     // Create a unique bucket name to increase the chance of success
     // when trying to create the bucket.
-    // Format: "my-bucket-" + lowercase UUID.
+    // Format: "doc-example-bucket-" + lowercase UUID.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-    Aws::String bucketName = "my-bucket-" +
+    Aws::String bucketName = "doc-example-bucket-" +
                              Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
     AwsDoc::S3::CreateBucket(bucketName, region);
