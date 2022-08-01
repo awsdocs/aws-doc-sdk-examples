@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[RemoveQueueTag.kt demonstrates how to remove a tag from an Amazon Simple Queue Service (Amazon SQS) queue.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[RemoveQueueTag.kt demonstrates how to remove a tag from an Amazon Simple Queue Service (Amazon SQS) queue.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Simple Queue Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,22 +16,28 @@ import aws.sdk.kotlin.services.sqs.model.UntagQueueRequest
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.remove_tag.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
 
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage: 
             <queueName> <tagName>
         Where:
-           queueName - the name of the queue from which tags are removed.
-           tagName - the name of the tag to remove.
+           queueName - The name of the queue from which tags are removed.
+           tagName - The name of the tag to remove.
 
         """
 
     if (args.size != 2) {
-         println(usage)
-         exitProcess(0)
-     }
+        println(usage)
+        exitProcess(0)
+    }
 
     val queueName = args[0]
     val tagName = args[1]
