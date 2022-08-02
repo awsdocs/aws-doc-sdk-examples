@@ -39,7 +39,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 // snippet-start:[s3.kotlin.s3_operations.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <bucketName> <key> <objectPath> <savePath> <toBucket>
@@ -87,7 +86,6 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun createBucket(bucketName: String) {
-
     val request = CreateBucketRequest {
         bucket = bucketName
     }
@@ -99,7 +97,6 @@ suspend fun createBucket(bucketName: String) {
 }
 
 suspend fun putObject(bucketName: String, objectKey: String, objectPath: String) {
-
     val metadataVal = mutableMapOf<String, String>()
     metadataVal["myVal"] = "test"
 
@@ -117,7 +114,6 @@ suspend fun putObject(bucketName: String, objectKey: String, objectPath: String)
 }
 
 suspend fun getObject(bucketName: String, keyName: String, path: String) {
-
     val request = GetObjectRequest {
         key = keyName
         bucket = bucketName
@@ -133,7 +129,6 @@ suspend fun getObject(bucketName: String, keyName: String, path: String) {
 }
 
 suspend fun listBucketObs(bucketName: String) {
-
     val request = ListObjectsRequest {
         bucket = bucketName
     }
@@ -149,7 +144,6 @@ suspend fun listBucketObs(bucketName: String) {
 }
 
 suspend fun copyBucketOb(fromBucket: String, objectKey: String, toBucket: String) {
-
     var encodedUrl = ""
     try {
         encodedUrl = URLEncoder.encode("$fromBucket/$objectKey", StandardCharsets.UTF_8.toString())
@@ -168,7 +162,6 @@ suspend fun copyBucketOb(fromBucket: String, objectKey: String, toBucket: String
 }
 
 suspend fun deleteBucketObs(bucketName: String, objectName: String) {
-
     val objectId = ObjectIdentifier {
         key = objectName
     }
@@ -189,7 +182,6 @@ suspend fun deleteBucketObs(bucketName: String, objectName: String) {
 }
 
 suspend fun deleteBucket(bucketName: String?) {
-
     val request = DeleteBucketRequest {
         bucket = bucketName
     }
