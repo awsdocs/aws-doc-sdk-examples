@@ -26,7 +26,6 @@ import java.io.File
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import java.nio.file.Paths
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.s3_operations.import]
 
@@ -50,7 +49,7 @@ suspend fun main(args: Array<String>) {
         key - The key to use.
         objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).   
         savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf).     
-        toBucket - An existing Amazon S3 bucket to where an object is copied. 
+        toBucket - An existing Amazon S3 bucket to where an object is copied to. 
         """
 
     if (args.size != 4) {
