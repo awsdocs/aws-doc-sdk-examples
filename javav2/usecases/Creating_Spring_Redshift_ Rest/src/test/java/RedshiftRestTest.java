@@ -47,14 +47,6 @@ public class RedshiftRestTest {
 
     @Test
     @Order(1)
-    public void checkValues() {
-        assertNotNull(id);
-        assertNotNull(email);
-        System.out.println("Test 1 passed");
-    }
-
-    @Test
-    @Order(2)
     public void invokeArchive() {
         RetrieveItems ri = new RetrieveItems();
         List<WorkItem> myList = ri.getData(1);
@@ -63,7 +55,7 @@ public class RedshiftRestTest {
     }
 
     @Test
-    @Order(3)
+    @Order(2)
     public void invokeActive() {
         RetrieveItems ri = new RetrieveItems();
         List<WorkItem> myList = ri.getData(1);
@@ -72,7 +64,7 @@ public class RedshiftRestTest {
     }
 
     @Test
-    @Order(4)
+    @Order(3)
     public void flipItem(){
         RetrieveItems ri = new RetrieveItems();
         assertDoesNotThrow(() -> ri.flipItemArchive(id));
@@ -80,7 +72,7 @@ public class RedshiftRestTest {
     }
 
     @Test
-    @Order(5)
+    @Order(4)
     public void sendReport() {
         SendMessage sm = new SendMessage();
         RetrieveItems ri = new RetrieveItems();
