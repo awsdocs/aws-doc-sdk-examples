@@ -61,7 +61,7 @@ body:
         - label: Java
         - label: Java v2
         - label: Javascript
-        - label: avascript v3
+        - label: Javascript v3
         - label: Kotlin
         - label: PHP
         - label: Python
