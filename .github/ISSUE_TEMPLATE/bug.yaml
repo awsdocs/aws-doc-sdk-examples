@@ -35,7 +35,7 @@ body:
   - type: textarea
     id: reproduce
     attributes:
-      label: Steps to reproduce.
+      label: Steps to reproduce
       description: "How do you trigger this bug? Please walk us through it step by step. NOTE: Screenshots welcome! Just Ctrl+Copy them here."
       value: |
         1.
@@ -61,11 +61,11 @@ body:
       label: Which SDK were you using?
       options:
         - .NET
-        - Go
+        - Go v2
         - Java
         - Java v2
-        - Javascript
-        - Javascript v3
+        - JavaScript
+        - JavaScript v3
         - Kotlin
         - PHP
         - Python

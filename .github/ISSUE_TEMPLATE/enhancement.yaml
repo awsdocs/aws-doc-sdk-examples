@@ -45,11 +45,11 @@ body:
       options:
         - label: All languages
         - label: .NET
-        - label: Go
+        - label: Go v2
         - label: Java
         - label: Java v2
-        - label: Javascript
-        - label: Javascript v3
+        - label: JavaScript
+        - label: JavaScript v3
         - label: Kotlin
         - label: PHP
         - label: Python

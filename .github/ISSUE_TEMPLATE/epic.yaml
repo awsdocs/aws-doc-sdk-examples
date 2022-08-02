@@ -60,8 +60,8 @@ body:
         - label: Go
         - label: Java
         - label: Java v2
-        - label: Javascript
-        - label: Javascript v3
+        - label: JavaScript
+        - label: JavaScript v3
         - label: Kotlin
         - label: PHP
         - label: Python
@@ -73,7 +73,7 @@ body:
     id: which-examples
     attributes:
       label: Is there any existing code that could be leveraged?
-      description: Check [here](https://docs.aws.amazon.com/code-samples/latest/catalog/welcome.html) for possible scaffolding or foundation.
+      description: Check [here](https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html) for possible scaffolding or foundation.
       placeholder: Use hyperlinks!
     validations:
       required: false
