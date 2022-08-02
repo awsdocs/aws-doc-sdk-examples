@@ -129,7 +129,7 @@ namespace AutoScale_Basics
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-start: [AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
+        // snippet-end: [AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup]
         public static async Task<bool> DeleteAutoScalingGroupAsync(
