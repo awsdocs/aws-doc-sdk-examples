@@ -26,7 +26,6 @@ import java.io.File
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import java.nio.file.Paths
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.s3_operations.import]
 
@@ -40,7 +39,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 // snippet-start:[s3.kotlin.s3_operations.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <bucketName> <key> <objectPath> <savePath> <toBucket>
@@ -50,7 +48,7 @@ suspend fun main(args: Array<String>) {
         key - The key to use.
         objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).   
         savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf).     
-        toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). 
+        toBucket - An existing Amazon S3 bucket to where an object is copied to. 
         """
 
     if (args.size != 4) {
@@ -76,7 +74,7 @@ suspend fun main(args: Array<String>) {
     // List all objects located in the Amazon S3 bucket.
     listBucketObs(bucketName)
 
-    // Copy the object to another Amazon S3 bucket
+    // Copy the object to another Amazon S3 bucket.
     copyBucketOb(bucketName, key, toBucket)
 
     // Delete the object from the Amazon S3 bucket.
@@ -88,7 +86,6 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun createBucket(bucketName: String) {
-
     val request = CreateBucketRequest {
         bucket = bucketName
     }
@@ -100,7 +97,6 @@ suspend fun createBucket(bucketName: String) {
 }
 
 suspend fun putObject(bucketName: String, objectKey: String, objectPath: String) {
-
     val metadataVal = mutableMapOf<String, String>()
     metadataVal["myVal"] = "test"
 
@@ -108,7 +104,7 @@ suspend fun putObject(bucketName: String, objectKey: String, objectPath: String)
         bucket = bucketName
         key = objectKey
         metadata = metadataVal
-        this.body = Paths.get(objectPath).asByteStream()
+        this.body = File(objectPath).asByteStream()
     }
 
     S3Client { region = "us-east-1" }.use { s3 ->
@@ -118,7 +114,6 @@ suspend fun putObject(bucketName: String, objectKey: String, objectPath: String)
 }
 
 suspend fun getObject(bucketName: String, keyName: String, path: String) {
-
     val request = GetObjectRequest {
         key = keyName
         bucket = bucketName
@@ -134,7 +129,6 @@ suspend fun getObject(bucketName: String, keyName: String, path: String) {
 }
 
 suspend fun listBucketObs(bucketName: String) {
-
     val request = ListObjectsRequest {
         bucket = bucketName
     }
@@ -150,7 +144,6 @@ suspend fun listBucketObs(bucketName: String) {
 }
 
 suspend fun copyBucketOb(fromBucket: String, objectKey: String, toBucket: String) {
-
     var encodedUrl = ""
     try {
         encodedUrl = URLEncoder.encode("$fromBucket/$objectKey", StandardCharsets.UTF_8.toString())
@@ -169,7 +162,6 @@ suspend fun copyBucketOb(fromBucket: String, objectKey: String, toBucket: String
 }
 
 suspend fun deleteBucketObs(bucketName: String, objectName: String) {
-
     val objectId = ObjectIdentifier {
         key = objectName
     }
@@ -190,7 +182,6 @@ suspend fun deleteBucketObs(bucketName: String, objectName: String) {
 }
 
 suspend fun deleteBucket(bucketName: String?) {
-
     val request = DeleteBucketRequest {
         bucket = bucketName
     }
