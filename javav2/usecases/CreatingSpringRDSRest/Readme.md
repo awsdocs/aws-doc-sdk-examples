@@ -131,7 +131,7 @@ Active items are queried from the database and used to dynamically create an Exc
 
 At this point, you have a new project named **ItemTrackerRDSRest**.
 
-![AWS Tracking Application](images/project.png)
+![AWS Tracking Application](images/projectRedshift.png)
 
 **Note:** Make sure to use Java 1.8 (as shown in the following example).
 
