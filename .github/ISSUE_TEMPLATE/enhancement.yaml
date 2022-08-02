@@ -61,7 +61,7 @@ body:
     id: which-examples
     attributes:
       label: Are there any existing code examples could be leveraged?
-      description: Are there any [existing code examples](https://docs.aws.amazon.com/code-samples/latest/catalog/welcome.html) that might provide a foundation?
+      description: Are there any [existing code examples](https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html) that might provide a foundation?
       placeholder: Use hyperlinks!
     validations:
       required: false

@@ -27,7 +27,7 @@ body:
     attributes:
       label: What exactly will this accomplish?
       description: Provide a detailed list of your desired outcomes.
-      placeholder: Be specific! Use bullet-points liberally.
+      placeholder: Be specific! Use bullet points liberally.
     validations:
       required: true
   - type: textarea
@@ -53,7 +53,7 @@ body:
   - type: checkboxes
     id: lingo-type
     attributes:
-      label: Which AWS SDK's or tools?
+      label: Which AWS SDKs or tools?
       options:
         - label: All languages
         - label: .NET
