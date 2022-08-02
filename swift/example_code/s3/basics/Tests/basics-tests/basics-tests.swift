@@ -42,11 +42,6 @@ final class BasicsTests: XCTestCase {
         tdSem.wait()
     }
 
-    /// Perform state setup prior to test. `setUp()` is called before
-    /// calling each `testX()` function that follows.
-    override func setUp() async {
-    }
-
     /// Called after **each** `testX()` function that follows, in order
     /// to clean up after each test is run.
     override func tearDown() async throws {
