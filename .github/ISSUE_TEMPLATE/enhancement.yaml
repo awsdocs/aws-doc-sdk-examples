@@ -1,0 +1,82 @@
+name: Feature Request
+description: Request a new code example
+title: "[Enhancement]: <DESCRIPTIVE TITLE HERE>"
+labels: ["type/enhancement"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Warning
+        Issues that do not follow the below template will be marked `status/back-to-author` and assigned back to the creator.
+        
+        ---
+        
+        # ✨ Code Example Details
+  - type: textarea
+    id: context
+    attributes:
+      label: Background story
+      description: Take a moment and give us some context! Why is this example important to you?
+      placeholder: Be specific! Ctrl+Copy screenshots!
+    validations:
+      required: true
+  - type: textarea
+    id: accomplishment
+    attributes:
+      label: What does this example accomplish?
+      description: Provide a clear and brief description of what the code example should do. For example, "I want to upload a file to the cloud."
+      placeholder: Be specific! Ctrl+Copy screenshots!
+    validations:
+      required: true
+  - type: input
+    id: which-services
+    attributes:
+      label: Which AWS service(s)?
+      description: List out the [AWS service(s)](https://aws.amazon.com/products/) this code will engage.
+      placeholder: Be specific!
+    validations:
+      required: true
+  - type: checkboxes
+    id: lingo-type
+    attributes:
+      label: Which AWS SDK's or tools?
+      options:
+        - label: Not applicable
+        - label: AWS CLI
+        - label: Java
+        - label: Kotlin
+        - label: Python
+        - label: C++
+        - label: Ruby
+        - label: .NET
+        - label: Javascript
+        - label: Java v2
+        - label: Javascript v3
+        - label: Go
+        - label: PHP
+        - label: Rust
+        - label: Swift
+        - label: Typescript
+  - type: textarea
+    id: which-examples
+    attributes:
+      label: Are there any existing code examples could be leveraged?
+      description: Are there any [existing code examples](https://docs.aws.amazon.com/code-samples/latest/catalog/welcome.html) that might provide a foundation?
+      placeholder: Use hyperlinks!
+    validations:
+      required: false
+  - type: textarea
+    id: your-code
+    attributes:
+      label: Do you have any reference code?
+      description: This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## What's next?
+        A member of the AWS SDK Example Code will review your issue and reply within 10 business days. In the meantime, we discourage editing the issue but welcome structural edits and additional details! 🙂

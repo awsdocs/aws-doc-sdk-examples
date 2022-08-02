@@ -1,0 +1,30 @@
+name: Task (Internal Use Only 🔒)
+description: Define a sub-unit of a larger user story.
+title: "[Task]: <DESCRIPTIVE TITLE HERE>"
+labels: ["type/task"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Warning
+        Issues that do not follow the below template will be marked `status/back-to-author` and assigned back to the creator.
+        
+        ---
+        
+        # ☑️ Task Details
+  - type: input
+    id: context
+    attributes:
+      label: Parent story
+      description: Provide the hyperlink of the over-arching story.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## What's next?
+        A member of the AWS SDK Example Code will review your issue and reply within 10 business days. In the meantime, we discourage editing the issue but welcome structural edits and additional details! 🙂
