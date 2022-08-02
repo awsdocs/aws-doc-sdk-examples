@@ -36,7 +36,7 @@ public struct S3DemoFileInfo: Equatable {
 
     /// Determine if the `S3DemoFileInfo` matches the given bucket
     /// name and file name.
-    ///
+    ///1
     /// - Parameters:
     ///   - bucket: Bucket name to compare to.
     ///   - file: File name to compare to.

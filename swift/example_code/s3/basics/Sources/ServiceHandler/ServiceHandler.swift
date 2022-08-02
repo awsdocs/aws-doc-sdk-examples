@@ -5,6 +5,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+// snippet-start:[s3.swift.basics.handler]
 // snippet-start:[s3.swift.basics.handler.imports]
 import Foundation
 import AWSS3
@@ -221,3 +222,4 @@ public class ServiceHandler {
     }
     // snippet-end:[s3.swift.basics.handler.listbucketfiles]
 }
+// snippet-end:[s3.swift.basics.handler]

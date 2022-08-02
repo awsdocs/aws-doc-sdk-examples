@@ -17,6 +17,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
 
+// snippet-start:[s3.swift.basics.example]
 // snippet-start:[s3.swift.basics.main.imports]
 import Foundation
 import ServiceHandler
@@ -129,3 +130,4 @@ struct Main {
     }    
 }
 // snippet-end:[s3.swift.basics.main]
+// snippet-end:[s3.swift.basics.example]

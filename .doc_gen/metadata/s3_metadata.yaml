@@ -1873,5 +1873,17 @@ s3_Scenario_GettingStarted:
             - description: A library crate with common actions called by the binary.
               snippet_tags:
                 - rust.example_code.s3.scenario_getting_started.lib
+
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description: A Swift class that handles calls to the SDK for Swift.
+              snippet_tags:
+                - s3.swift.basics.handler
+            - description: A Swift command-line program to manage the SDK calls.
+              snippet_tags:
+                - s3.swift.basics.main
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
