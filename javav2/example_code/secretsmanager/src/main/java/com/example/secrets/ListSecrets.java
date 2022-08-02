@@ -13,6 +13,7 @@ package com.example.secrets;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.ListSecretsRequest;
 import software.amazon.awssdk.services.secretsmanager.model.ListSecretsResponse;
 import software.amazon.awssdk.services.secretsmanager.model.SecretListEntry;
 import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerException;
@@ -43,7 +44,12 @@ public class ListSecrets {
     //snippet-start:[secretsmanager.java2.list_secrets.main]
     public static void listAllSecrets(SecretsManagerClient secretsClient) {
         try {
-            ListSecretsResponse secretsResponse = secretsClient.listSecrets();
+
+            ListSecretsRequest secretsRequest = ListSecretsRequest.builder()
+                    .maxResults(10)
+                    .build(); 
+                        
+            ListSecretsResponse secretsResponse = secretsClient.listSecrets(secretsRequest);
             List<SecretListEntry> secrets = secretsResponse.secretList();
             for (SecretListEntry secret: secrets) {
                 System.out.println("The secret name is "+secret.name());
