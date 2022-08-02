@@ -1884,6 +1884,6 @@ s3_Scenario_GettingStarted:
                 - s3.swift.basics.handler
             - description: A Swift command-line program to manage the SDK calls.
               snippet_tags:
-                - s3.swift.basics.main
+                - s3.swift.basics.example
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
