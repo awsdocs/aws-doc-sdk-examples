@@ -41,24 +41,22 @@ body:
   - type: checkboxes
     id: lingo-type
     attributes:
-      label: Which AWS SDK's or tools?
+      label: Which AWS SDKs or tools?
       options:
-        - label: Not applicable
-        - label: AWS CLI
-        - label: Java
-        - label: Kotlin
-        - label: Python
-        - label: C++
-        - label: Ruby
+        - label: All languages
         - label: .NET
-        - label: Javascript
-        - label: Java v2
-        - label: Javascript v3
         - label: Go
+        - label: Java
+        - label: Java v2
+        - label: Javascript
+        - label: avascript v3
+        - label: Kotlin
         - label: PHP
+        - label: Python
+        - label: Ruby
         - label: Rust
         - label: Swift
-        - label: Typescript
+        - label: Not applicable
   - type: textarea
     id: which-examples
     attributes:
@@ -79,4 +77,4 @@ body:
         ---
         
         ## What's next?
-        A member of the AWS SDK Example Code will review your issue and reply within 10 business days. In the meantime, we discourage editing the issue but welcome structural edits and additional details! 🙂
+        A member of the AWS SDK Example Code team will review your issue and reply within 10 business days. 🙂

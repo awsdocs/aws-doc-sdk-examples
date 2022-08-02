@@ -35,11 +35,3 @@ body:
       description: Provide the hyperlink of the over-arching epic.
     validations:
       required: true
-
-  - type: markdown
-    attributes:
-      value: |
-        ---
-        
-        ## What's next?
-        A member of the AWS SDK Example Code will review your issue and reply within 10 business days. In the meantime, we discourage editing the issue but welcome structural edits and additional details! 🙂

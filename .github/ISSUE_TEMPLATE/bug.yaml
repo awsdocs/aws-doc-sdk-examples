@@ -60,19 +60,18 @@ body:
     attributes:
       label: Which SDK were you using?
       options:
+        - .NET
+        - Go
         - Java
+        - Java v2
+        - Javascript
+        - avascript v3
         - Kotlin
+        - PHP
         - Python
         - Ruby
-        - .NET
-        - Javascript
-        - Java v2
-        - Javascript v3
-        - Go
-        - PHP
         - Rust
         - Swift
-        - Typescript
     validations:
       required: true
   - type: dropdown
@@ -107,4 +106,4 @@ body:
         ---
         
         ## What's next?
-        A member of the AWS SDK Example Code will review your issue and reply within 10 business days. In the meantime, we discourage editing the issue but welcome structural edits and additional details! 🙂
+        A member of the AWS SDK Example Code team will review your issue and reply within 10 business days. 🙂
