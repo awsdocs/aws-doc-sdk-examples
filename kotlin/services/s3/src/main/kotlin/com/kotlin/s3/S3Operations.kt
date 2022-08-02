@@ -50,7 +50,7 @@ suspend fun main(args: Array<String>) {
         key - The key to use.
         objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).   
         savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf).     
-        toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). 
+        toBucket - An existing Amazon S3 bucket to where an object is copied. 
         """
 
     if (args.size != 4) {
@@ -108,7 +108,7 @@ suspend fun putObject(bucketName: String, objectKey: String, objectPath: String)
         bucket = bucketName
         key = objectKey
         metadata = metadataVal
-        this.body = Paths.get(objectPath).asByteStream()
+        this.body = File(objectPath).asByteStream()
     }
 
     S3Client { region = "us-east-1" }.use { s3 ->
