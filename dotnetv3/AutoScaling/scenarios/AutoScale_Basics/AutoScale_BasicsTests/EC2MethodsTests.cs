@@ -15,7 +15,7 @@ namespace AutoScale_Basics.Tests
         public async Task CreateLaunchTemplateAsyncTest()
         {
             launchTemplateId = await EC2Methods.CreateLaunchTemplateAsync(imageId, instanceType, launchTemplateName);
-            Assert.IsTrue(launchTemplateId !=String.Empty, "Couldn't create launch template.");
+            Assert.IsTrue(launchTemplateId != String.Empty, "Couldn't create launch template.");
         }
 
         [TestMethod()]
