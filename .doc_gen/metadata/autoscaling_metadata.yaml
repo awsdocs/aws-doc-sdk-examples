@@ -193,6 +193,7 @@ auto-scaling_SetDesiredCapacity:
         - sdk_version: 3
           github: dotnetv3/AutoScaling
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - AutoScale.dotnetv3.AutoScale_Basics.SetDesiredCapacity
