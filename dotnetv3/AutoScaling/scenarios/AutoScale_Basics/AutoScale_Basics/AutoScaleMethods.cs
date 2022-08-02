@@ -117,6 +117,20 @@ namespace AutoScale_Basics
 
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingGroups]
 
+        // snippet-start: [AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
+        public static async Task<bool> DisableMetricsCollectionAsync(AmazonAutoScalingClient client, string groupName)
+        {
+            var request = new DisableMetricsCollectionRequest
+            {
+                AutoScalingGroupName = groupName,
+            };
+
+            var response = await client.DisableMetricsCollectionAsync(request);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        // snippet-start: [AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
+
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup]
         public static async Task<bool> DeleteAutoScalingGroupAsync(
             AmazonAutoScalingClient autoScalingClient,
@@ -161,41 +175,6 @@ namespace AutoScale_Basics
         }
 
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.EnableMetricsCollection]
-
-        // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.GetSpecificAutoScalingGroups]
-        public static async Task<string> GetSpecificAutoScalingGroups(
-            AmazonAutoScalingClient client,
-            string groupName)
-        {
-            var groupNameList = new List<string>
-            {
-                groupName,
-            };
-
-            var scalingGroupsRequest = new DescribeAutoScalingGroupsRequest
-            {
-                AutoScalingGroupNames = groupNameList,
-            };
-
-            var response = await client.DescribeAutoScalingGroupsAsync(scalingGroupsRequest);
-            var groups = response.AutoScalingGroups;
-            string instanceId;
-            foreach (var group in groups)
-            {
-                Console.WriteLine("The group name is " + group.AutoScalingGroupName);
-                Console.WriteLine("The group ARN is " + group.AutoScalingGroupARN);
-                var instances = group.Instances;
-                foreach (var instance in instances)
-                {
-                    Console.WriteLine($"The instance id is {instance.InstanceId}.");
-                    Console.WriteLine("The lifecycle state is " + instance.LifecycleState);
-                }
-            }
-
-            return group.Instances.InstanceID;
-        }
-
-        // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.GetSpecificAutoScalingGroups]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.SetDesiredCapacity]
         public static async Task<bool> SetDesiredCapacityAsync(
