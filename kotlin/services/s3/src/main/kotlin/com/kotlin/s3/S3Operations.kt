@@ -75,7 +75,7 @@ suspend fun main(args: Array<String>) {
     // List all objects located in the Amazon S3 bucket.
     listBucketObs(bucketName)
 
-    // Copy the object to another Amazon S3 bucket
+    // Copy the object to another Amazon S3 bucket.
     copyBucketOb(bucketName, key, toBucket)
 
     // Delete the object from the Amazon S3 bucket.
