@@ -1,13 +1,13 @@
-# Aurora Serverless sample application resources
+# Amazon Redshift item tracker sample application resources
 
 ## Overview
 
-Creates AWS resources for Amazon Aurora sample applications. The scripts in this
+Creates AWS resources for Amazon Redshift sample applications. The scripts in this
 example create the following resources:
  
 * An AWS Secrets Manager secret that contains administrator credentials in a format 
-that can be used by an Aurora MySQL database. 
-* An Aurora MySQL database configured to use the credentials from the secret.
+that can be used by an Amazon Redshift database. 
+* A Redshift cluster and database configured to use the credentials from the secret.
 
 ## ⚠️ Important
 
@@ -24,10 +24,10 @@ You can use the AWS Cloud Development Kit (AWS CDK) or the AWS Command Line Inte
 To deploy with the AWS CDK, you must install [Node.js](https://nodejs.org) and the 
 [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
-This example was built and tested with AWS CDK 2.25.0.
+This example was built and tested with AWS CDK 2.33.0.
 
 Deploy AWS resources by running the following at a command prompt in the
-`resources/cdk/aurora_serverless_app` folder:
+`resources/cdk/redshift_item_tracker` folder:
 
 ```
 npm install
@@ -39,9 +39,9 @@ the following:
 
 ```
 Outputs:
-doc-example-aurora-app.ClusterArn = arn:aws:rds:us-west-2:0123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-1bqmf5EXAMPLE
-doc-example-aurora-app.DbName = auroraappdb
-doc-example-aurora-app.SecretArn = arn:aws:secretsmanager:us-west-2:0123456789012:secret:docexampleauroraappsecret8B-rEHdtEXAMPLE-111222
+RedshiftItemTrackerStack.ClusterId = doc-example-work-items-cluster
+RedshiftItemTrackerStack.Database = workitemtracker
+RedshiftItemTrackerStack.SecretArn = arn:aws:secretsmanager:us-west-2:0123456789012:secret:docexampleredshiftworkitems-QlmFqEXAMPLE-nsoAF0
 ```
 
 ### Deploying with the AWS CLI 
@@ -50,10 +50,10 @@ To deploy with the AWS CLI, you must first install the
 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
 1. Deploy AWS resources by running the following at a command prompt in the 
-    `resources/cdk/aurora_serverless_app` folder:
+    `resources/cdk/redshift_item_tracker` folder:
     
     ```
-    aws cloudformation create-stack --template-body file://setup.yaml --stack-name YOUR_STACK_NAME
+    aws cloudformation create-stack --template-body file://redshift_item_tracker.yaml --stack-name YOUR_STACK_NAME
     ```
     
     *Note:* The stack name must be unique within an AWS Region and AWS account. You can 
@@ -76,44 +76,55 @@ To deploy with the AWS CLI, you must first install the
     This results in output like the following: 
     
     ```
-    SecretArn  arn:aws:secretsmanager:us-west-2:0123456789012:secret:docexampleauroraappsecret8B-6N2njEXAMPLE-111222
-    ClusterArn arn:aws:rds:us-west-2:0123456789012:cluster:aurora-test-stack-docexampleauroraappcluster12345-kh39pEXAMPLE
-    DbName     auroraappdb
+    ClusterId = doc-example-work-items-cluster
+    Database = workitemtracker
+    SecretArn = arn:aws:secretsmanager:us-west-2:0123456789012:secret:docexampleredshiftworkitems-QlmFqEXAMPLE-nsoAF0
     ```
 
 ## Using the resources
 
 After the database and secret are created, you can use the AWS Management Console,
 AWS CLI, or an AWS SDK to run SQL commands to create tables and manage data in the 
-Aurora database.
+Redshift database.
 
-For example, use the AWS CLI to run a statement with the Amazon Relational
-Database Service (Amazon RDS) Data Service to create a table in the Aurora database. 
-Replace the `resource-arn` and `secret-arn` values with the values that were output 
-when you deployed the resource stack.
-
-```
-aws rds-data execute-statement ^
-    --resource-arn "arn:aws:rds:us-west-2:0123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-1bqmf5EXAMPLE" ^
-    --database "auroraappdb" ^
-    --secret-arn "arn:aws:secretsmanager:us-west-2:0123456789012:secret:docexampleauroraappsecret8B-6N2njEXAMPLE-111222" ^
-    --sql "CREATE TABLE Persons (PersonID int, LastName varchar(255), FirstName varchar(255));"
-```
-
-> *Note:* Because Aurora is serverless, your cluster may need to warm up before it can 
-> run statements. If you receive a BadRequestException about a communications link 
-> failure, wait a short time and run the statement again. 
-
-You can insert a row into the `Persons` table by substituting SQL like the following:
+For example, use the AWS CLI to run a statement with the Redshift Data API to 
+create a table in the Redshift database. 
+Replace the `secret-arn` value with the value that was output when you deployed the 
+resource stack.
 
 ```
-    --sql "INSERT INTO Persons VALUES (1, 'Owusu', 'Efua');"
+aws redshift-data execute-statement ^
+    --cluster-identifier "doc-example-work-items-cluster" ^
+    --database "workitemtracker" ^
+    --secret-arn "arn:aws:secretsmanager:us-west-2:0123456789012:secret:docexampleredshiftworkitems-QlmFqEXAMPLE-nsoAF0" ^
+    --sql "create table work_items (work_item_id INT GENERATED BY DEFAULT AS IDENTITY ( 1, 1 ) PRIMARY KEY, created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, description TEXT, guide TEXT, status TEXT, username VARCHAR(45), archive BOOL DEFAULT 0);"
 ```
 
-Or get all data from the `Persons` table:
+You can insert a row into the `work_items` table by substituting SQL as in the
+following example:
 
 ```
-    --sql "SELECT * FROM Persons;"
+    --sql "insert into work_items (description, guide, status, username) values ('My first work item', 'My guide', 'Not started', 'myuser');"
+```
+
+You can get all data from the `work_items` table:
+
+```
+    --sql "select * FROM work_items;"
+```
+
+Instead of returning the result of the SELECT statement, this command returns data
+about the statement, including the statement ID:
+
+```
+"Id": "cexample-bc7e-409d-9095-39540EXAMPLE"
+``` 
+
+To get the records returned from the SELECT statement, call `get-statement-result` and
+pass it the statement ID that was returned from the `execute-statement` command:
+
+```
+aws redshift-data get-statement-result --id "cexample-bc7e-409d-9095-39540EXAMPLE"
 ```
 
 ## Destroying resources
