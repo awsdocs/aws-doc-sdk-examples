@@ -5,6 +5,10 @@ on: [pull_request]
 jobs:
   label-linter:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    
     steps:
       -
         name: Checkout
