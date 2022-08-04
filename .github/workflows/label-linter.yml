@@ -1,6 +1,6 @@
 name: "Lint Labels"
 
-on: [pull_request]
+on: [push]
 
 jobs:
   label-linter:
