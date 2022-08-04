@@ -89,58 +89,36 @@ public class APIGatewayTest {
         System.out.println("Test 4 passed");
     }
     
+
     @Test
     @Order(5)
-    public void CreateDeploymentForImported() throws InterruptedException {
-    	Thread.sleep(3000);//to avoid too many requests error
-    	deploymentIdForImported = CreateDeployment.createNewDeployment(apiGateway, newImportedRestApiId, stageName);
-        assertTrue(!deploymentIdForImported.isEmpty());
+    public void GetDeployments() {
+        GetDeployments.getAllDeployments(apiGateway, newApiId);
         System.out.println("Test 5 passed");
     }
+    
 
     @Test
     @Order(6)
-    public void GetDeployments() {
-        GetDeployments.getAllDeployments(apiGateway, newApiId);
+    public void GetMethod() {
+        GetMethod.getSpecificMethod(apiGateway, restApiId, resourceId, httpMethod);
         System.out.println("Test 6 passed");
     }
     
+    
+
     @Test
     @Order(7)
-    public void GetDeploymentsForImported() {
-        GetDeployments.getAllDeployments(apiGateway, newImportedRestApiId);
-        System.out.println("Test 7 passed");
-    }
-
-
-    @Test
-    @Order(8)
-    public void GetMethod() {
-        GetMethod.getSpecificMethod(apiGateway, restApiId, resourceId, httpMethod);
-        System.out.println("Test 8 passed");
-    }
-    
-    
-
-    @Test
-    @Order(9)
     public void GetStages() {
 
         GetStages.getAllStages(apiGateway, newApiId);
-        System.out.println("Test 9 passed");
+        System.out.println("Test 7 passed");
     }
     
-    @Test
-    @Order(10)
-    public void GetStagesForImported() {
-
-        GetStages.getAllStages(apiGateway, newImportedRestApiId);
-        System.out.println("Test 10 passed");
-        }
-
+ 
 
     @Test
-    @Order(11)
+    @Order(8)
     public void DeleteRestApi() {
 
         Region region = Region.US_EAST_1;
@@ -149,11 +127,11 @@ public class APIGatewayTest {
                 .build();
 
         DeleteRestApi.deleteAPI(apiGateway2, newApiId);
-        System.out.println("Test 11 passed");
+        System.out.println("Test 8 passed");
     }
     
     @Test
-    @Order(12)
+    @Order(9)
     public void DeleteImportedRestApi() {
 
         Region region = Region.US_EAST_1;
@@ -162,6 +140,6 @@ public class APIGatewayTest {
                 .build();
 
         DeleteRestApi.deleteAPI(apiGateway2, newImportedRestApiId);
-        System.out.println("Test 12 passed");
+        System.out.println("Test 9 passed");
     }
 }
