@@ -61,6 +61,8 @@ endif()
 
 # Check whether the target system is Windows, including Win64.
 if(WIN32)
+    list(FILTER AWSDOC_S3_SOURCE EXCLUDE REGEX "/list_buckets_disabling_dns_cache.cpp$") # Not supported in windows, see file for details
+
     # Check whether the compiler is some version of Microsoft Visual C++, or another compiler simulating C++.
     if(MSVC)
         source_group("Header Files\\awsdoc\\s3" FILES ${AWSDOC_S3_HEADERS})

@@ -34,6 +34,11 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS s3 sts)
 
+add_executable(
+        s3_gtest
+)
+
+
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
@@ -47,10 +52,13 @@ if(MSVC AND BUILD_SHARED_LIBS)
     #TODO:Choose appropriate one of the following two lines, you want to copy to the same folder where your executables are.
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
     #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs
-    
-    message(STATUS ">>CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
-    message(STATUS ">>CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
-endif()
+    add_custom_command(
+        TARGET s3_gtest  POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/gtest_main.dll
+                ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/gtest.dll
+                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+ endif()
 
 
 # Check whether the target system is Windows, including Win64.
@@ -79,8 +87,9 @@ foreach(TEST_FILE ${GTEST_SOURCE_FILES})
 endforeach()
 
 
-add_executable(
+target_sources(
         s3_gtest
+        PUBLIC
         ${GTEST_SOURCE}
 )
 
