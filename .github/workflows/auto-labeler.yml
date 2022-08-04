@@ -5,6 +5,9 @@ on: [push]
 jobs:
   auto-labeler:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       # The Add Labels workflow adds a label to pull requests
       # based on the files included in the proposed change.
