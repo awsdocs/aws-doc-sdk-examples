@@ -1,0 +1,23 @@
+name: Task (Internal Use Only 🔒)
+description: Define a sub-unit of a larger user story.
+title: "[Task]: <DESCRIPTIVE TITLE HERE>"
+labels: ["type/task"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Warning
+        Issues that do not follow the below template will be marked `status/back-to-author` and assigned back to the creator.
+        
+        ---
+        
+        # ☑️ Task Details
+  - type: input
+    id: context
+    attributes:
+      label: Parent story
+      description: Provide the hyperlink of the over-arching story.
+    validations:
+      required: true
