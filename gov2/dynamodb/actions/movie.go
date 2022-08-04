@@ -23,7 +23,6 @@ type Movie struct {
 	Title      string                 `dynamodbav:"title"`
 	Year       int                    `dynamodbav:"year"`
 	Info       map[string]interface{} `dynamodbav:"info"`
-	test_thing string
 }
 
 // GetKey returns the composite primary key of the movie in a format that can be
