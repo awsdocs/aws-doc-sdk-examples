@@ -2,7 +2,7 @@
 
 ## Overview
 
-The code examples in this topic show you how to use the AWS SDK for Python (Boto3) 
+The code examples in this sub-directory show you how to use the AWS SDK for Python (Boto3) 
 with AWS. 
 
 The AWS SDK for Python provides a Python API for AWS infrastructure services.
