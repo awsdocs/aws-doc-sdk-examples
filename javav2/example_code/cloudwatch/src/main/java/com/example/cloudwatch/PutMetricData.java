@@ -1,15 +1,11 @@
 //snippet-sourcedescription:[PutMetricData.java demonstrates how to put a sample metric data point for a metric defined for a CloudWatch alarm.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 
 package com.example.cloudwatch;
 
@@ -38,11 +34,11 @@ import java.time.format.DateTimeFormatter;
 public class PutMetricData {
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "  <dataPoint> \n\n" +
-                "Where:\n" +
-                "  dataPoint - The value for the metric.\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "  <dataPoint> \n\n" +
+            "Where:\n" +
+            "  dataPoint - The value for the metric.\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -52,9 +48,9 @@ public class PutMetricData {
         Double dataPoint = Double.parseDouble(args[0]);
         Region region = Region.US_WEST_2;
         CloudWatchClient cw = CloudWatchClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         putMetData(cw, dataPoint) ;
         cw.close();
@@ -64,9 +60,9 @@ public class PutMetricData {
 
         try {
             Dimension dimension = Dimension.builder()
-                    .name("UNIQUE_PAGES")
-                    .value("URLS")
-                    .build();
+                .name("UNIQUE_PAGES")
+                .value("URLS")
+                .build();
 
             // Set an Instant object.
             String time = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT );

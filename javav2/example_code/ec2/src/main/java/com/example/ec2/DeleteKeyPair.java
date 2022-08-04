@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteKeyPair.java demonstrates how to delete an Amazon Elastic Compute Cloud (Amazon EC2) key pair.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class DeleteKeyPair {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "   <keyPair> \n\n" +
-                "Where:\n" +
-                "   keyPair - A key pair name (for example, TestKeyPair).";
+            "Usage:\n" +
+            "   <keyPair> \n\n" +
+            "Where:\n" +
+            "   keyPair - A key pair name (for example, TestKeyPair).";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class DeleteKeyPair {
         String keyPair = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteKeys(ec2,keyPair);
         ec2.close();
@@ -56,18 +53,17 @@ public class DeleteKeyPair {
     // snippet-start:[ec2.java2.delete_key_pair.main]
     public static void deleteKeys(Ec2Client ec2, String keyPair) {
 
-       try {
-           DeleteKeyPairRequest request = DeleteKeyPairRequest.builder()
+        try {
+            DeleteKeyPairRequest request = DeleteKeyPairRequest.builder()
                 .keyName(keyPair)
                 .build();
 
-           ec2.deleteKeyPair(request);
-           System.out.printf(
-                "Successfully deleted key pair named %s", keyPair);
+            ec2.deleteKeyPair(request);
+            System.out.printf("Successfully deleted key pair named %s", keyPair);
 
         } catch (Ec2Exception e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
     // snippet-end:[ec2.java2.delete_key_pair.main]

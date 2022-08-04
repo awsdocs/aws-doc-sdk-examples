@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[AutoScalingScenario.kt performs multiple Auto Scaling operations.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-service:[Amazon EC2 Auto Scaling]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/05/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

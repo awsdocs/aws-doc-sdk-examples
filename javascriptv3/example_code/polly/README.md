@@ -25,7 +25,7 @@ npm install node -g
 cd javascriptv3/example_code/polly
 npm install
 ```
-3. Follow the instructions in the [Getting Started in the browser topic of the AWS SDK for JavaScript (V3) DeveloperGuide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-browser.html).
+3. Follow the instructions in the [Getting Started in the browser topic of the AWS SDK for JavaScript (V3) DeveloperGuide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-browser.html).
 
 
 ## Resources

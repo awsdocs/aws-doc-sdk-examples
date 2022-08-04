@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateDataStream.java demonstrates how to create an Amazon Kinesis data stream.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +28,10 @@ public class CreateDataStream {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <streamName>\n\n" +
-                "Where:\n" +
-                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream).\n\n" ;
+            "Usage:\n" +
+            "    <streamName>\n\n" +
+            "Where:\n" +
+            "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream).\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +41,9 @@ public class CreateDataStream {
         String streamName = args[0];
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         createStream(kinesisClient, streamName);
         System.out.println("Done");
         kinesisClient.close();
@@ -57,15 +54,16 @@ public class CreateDataStream {
 
         try {
             CreateStreamRequest streamReq = CreateStreamRequest.builder()
-                    .streamName(streamName)
-                    .shardCount(1)
-                    .build();
+                .streamName(streamName)
+                .shardCount(1)
+                .build();
 
             kinesisClient.createStream(streamReq);
+
         } catch (KinesisException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-     }
+    }
     // snippet-end:[kinesis.java2.create.main]
 }

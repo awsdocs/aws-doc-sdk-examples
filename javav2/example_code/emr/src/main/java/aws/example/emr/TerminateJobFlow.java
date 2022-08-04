@@ -3,7 +3,6 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EMR]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -30,25 +29,25 @@ public class TerminateJobFlow {
     public static void main(String[] args){
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <id>\n\n" +
-                "Where:\n" +
-                "   id - An id of a job flow to shut down.\n\n" ;
+            "Usage: " +
+            "   <id>\n\n" +
+            "Where:\n" +
+            "   id - An id of a job flow to shut down.\n\n" ;
 
         if (args.length != 1) {
-              System.out.println(usage);
-              System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String id = args[0] ;
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         terminateFlow(emrClient, id);
-         emrClient.close();
+        emrClient.close();
     }
 
     // snippet-start:[emr.java2.terminate_job.main]
@@ -57,8 +56,8 @@ public class TerminateJobFlow {
         try{
 
             TerminateJobFlowsRequest jobFlowsRequest = TerminateJobFlowsRequest.builder()
-                    .jobFlowIds(id)
-                    .build();
+                .jobFlowIds(id)
+                .build();
 
             emrClient.terminateJobFlows(jobFlowsRequest);
             System.out.println("You have successfully terminated "+id);

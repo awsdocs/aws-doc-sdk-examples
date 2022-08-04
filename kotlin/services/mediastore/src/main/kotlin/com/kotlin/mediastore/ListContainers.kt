@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[ListContainers.kt demonstrates how to list your AWS Elemental MediaStore containers.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS Elemental MediaStore]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedescription:[ListContainers.kt demonstrates how to list your AWS Elemental MediaStore containers.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[AWS Elemental MediaStore]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,31 +9,31 @@
 
 package com.kotlin.mediastore
 
-//snippet-start:[mediastore.kotlin.list_containers.import]
+// snippet-start:[mediastore.kotlin.list_containers.import]
 import aws.sdk.kotlin.services.mediastore.MediaStoreClient
 import aws.sdk.kotlin.services.mediastore.model.ListContainersRequest
-//snippet-end:[mediastore.kotlin.list_containers.import]
+// snippet-end:[mediastore.kotlin.list_containers.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(){
+suspend fun main() {
     listAllContainers()
 }
 
-//snippet-start:[mediastore.kotlin.list_containers.main]
+// snippet-start:[mediastore.kotlin.list_containers.main]
 suspend fun listAllContainers() {
 
-         MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
-            val response = mediaStoreClient.listContainers(ListContainersRequest{})
-            response.containers?.forEach { container ->
-                    println("Container name is ${container.name}")
-            }
+    MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
+        val response = mediaStoreClient.listContainers(ListContainersRequest {})
+        response.containers?.forEach { container ->
+            println("Container name is ${container.name}")
         }
- }
-//snippet-end:[mediastore.kotlin.list_containers.main]
+    }
+}
+// snippet-end:[mediastore.kotlin.list_containers.main]

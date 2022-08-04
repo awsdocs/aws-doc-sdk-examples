@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateAutoScalingGroup.java creates an Auto Scaling group with the specified name and attributes using a waiter.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2 Auto Scaling]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/05/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,13 +33,13 @@ public class CreateAutoScalingGroup {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>\n\n" +
-                "Where:\n" +
-                "    groupName - The name of the Auto Scaling group.\n" +
-                "    launchTemplateName - The name of the launch template. \n" +
-                "    serviceLinkedRoleARN - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses.\n" +
-                "    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.\n" ;
+            "Usage:\n" +
+            "    <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>\n\n" +
+            "Where:\n" +
+            "    groupName - The name of the Auto Scaling group.\n" +
+            "    launchTemplateName - The name of the launch template. \n" +
+            "    serviceLinkedRoleARN - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses.\n" +
+            "    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -56,9 +52,9 @@ public class CreateAutoScalingGroup {
         String vpcZoneId = args[3];
 
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId);
         autoScalingClient.close();
@@ -73,25 +69,24 @@ public class CreateAutoScalingGroup {
 
         try {
             AutoScalingWaiter waiter = autoScalingClient.waiter();
-
             LaunchTemplateSpecification templateSpecification = LaunchTemplateSpecification.builder()
-                    .launchTemplateName(launchTemplateName)
-                    .build();
+                .launchTemplateName(launchTemplateName)
+                .build();
 
             CreateAutoScalingGroupRequest request = CreateAutoScalingGroupRequest.builder()
-                    .autoScalingGroupName(groupName)
-                    .availabilityZones("us-east-1a")
-                    .launchTemplate(templateSpecification)
-                    .maxSize(1)
-                    .minSize(1)
-                    .vpcZoneIdentifier(vpcZoneId)
-                    .serviceLinkedRoleARN(serviceLinkedRoleARN)
-                    .build();
+                .autoScalingGroupName(groupName)
+                .availabilityZones("us-east-1a")
+                .launchTemplate(templateSpecification)
+                .maxSize(1)
+                .minSize(1)
+                .vpcZoneIdentifier(vpcZoneId)
+                .serviceLinkedRoleARN(serviceLinkedRoleARN)
+                .build();
 
             autoScalingClient.createAutoScalingGroup(request);
             DescribeAutoScalingGroupsRequest groupsRequest = DescribeAutoScalingGroupsRequest.builder()
-                    .autoScalingGroupNames(groupName)
-                    .build();
+                .autoScalingGroupNames(groupName)
+                .build();
 
             WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse = waiter.waitUntilGroupExists(groupsRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ArchiveDownload.java demonstrates how to create a job start to retrieve inventory for an Amazon Glacier vault.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,12 +40,12 @@ public class ArchiveDownload {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <vaultName> <accountId> <path>\n\n" +
-                "Where:\n" +
-                "   vaultName - The name of the vault.\n" +
-                "   accountId - The account ID value.\n\n"+
-                "   path - The path where the file is written to.\n\n";
+            "Usage: " +
+            "   <vaultName> <accountId> <path>\n\n" +
+            "Where:\n" +
+            "   vaultName - The name of the vault.\n" +
+            "   accountId - The account ID value.\n\n"+
+            "   path - The path where the file is written to.\n\n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -59,9 +56,9 @@ public class ArchiveDownload {
         String accountId = args[1];
         String path = args[2];
         GlacierClient glacier = GlacierClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String jobNum = createJob(glacier, vaultName, accountId) ;
         checkJob(glacier, jobNum,vaultName,accountId, path);
@@ -74,17 +71,16 @@ public class ArchiveDownload {
         try {
 
             JobParameters job = JobParameters.builder()
-                    .type("inventory-retrieval")
-                    .build();
+                .type("inventory-retrieval")
+                .build();
 
             InitiateJobRequest initJob = InitiateJobRequest.builder()
-                    .jobParameters(job)
-                    .accountId(accountId)
-                    .vaultName(vaultName)
-                    .build();
+                .jobParameters(job)
+                .accountId(accountId)
+                .vaultName(vaultName)
+                .build();
 
             InitiateJobResponse response = glacier.initiateJob(initJob);
-
             System.out.println("The job ID is: " +response.jobId()) ;
             System.out.println("The relative URI path of the job is: " +response.location()) ;
             return response.jobId();
@@ -101,16 +97,16 @@ public class ArchiveDownload {
     public static void checkJob(GlacierClient glacier, String jobId, String name, String account, String path) {
 
        try{
-            Boolean finished = false;
-            String jobStatus;
-            int yy=0;
+           boolean finished = false;
+           String jobStatus;
+           int yy=0;
 
-            while (!finished) {
-                DescribeJobRequest jobRequest = DescribeJobRequest.builder()
-                        .jobId(jobId)
-                        .accountId(account)
-                        .vaultName(name)
-                        .build();
+           while (!finished) {
+               DescribeJobRequest jobRequest = DescribeJobRequest.builder()
+                   .jobId(jobId)
+                   .accountId(account)
+                   .vaultName(name)
+                   .build();
 
                 DescribeJobResponse response = glacier.describeJob(jobRequest);
                 jobStatus = response.statusCodeAsString();
@@ -126,13 +122,12 @@ public class ArchiveDownload {
 
            System.out.println("Job has Succeeded");
            GetJobOutputRequest jobOutputRequest = GetJobOutputRequest.builder()
-                   .jobId(jobId)
-                   .vaultName(name)
-                   .accountId(account)
-                   .build();
+               .jobId(jobId)
+               .vaultName(name)
+               .accountId(account)
+               .build();
 
            ResponseBytes<GetJobOutputResponse> objectBytes = glacier.getJobOutputAsBytes(jobOutputRequest);
-
            // Write the data to a local file.
            byte[] data = objectBytes.asByteArray();
            File myFile = new File(path);

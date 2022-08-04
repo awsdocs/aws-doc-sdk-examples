@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete an AWS Key Management Service (AWS KMS) alias.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,22 +29,22 @@ public class DeleteAlias {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <aliasName> \n\n" +
-                "Where:\n" +
-                "    aliasName - An alias name to delete (for example, alias/myAlias). \n\n" ;
+            "Usage:\n" +
+            "    <aliasName> \n\n" +
+            "Where:\n" +
+            "    aliasName - An alias name to delete (for example, alias/myAlias). \n\n" ;
 
-         if (args.length != 1) {
-              System.out.println(usage);
-             System.exit(1);
-         }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String aliasName = args[0];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSpecificAlias(kmsClient, aliasName );
         kmsClient.close();
@@ -62,6 +59,7 @@ public class DeleteAlias {
                 .build();
 
             kmsClient.deleteAlias(deleteAliasRequest);
+
         } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);

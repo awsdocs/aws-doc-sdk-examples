@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteDBInstance.java demonstrates how to delete an Amazon Relational Database Service (RDS) snapshot.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class DeleteDBInstance {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <dbInstanceIdentifier> \n\n" +
-                "Where:\n" +
-                "    dbInstanceIdentifier - The database instance identifier \n";
+            "Usage:\n" +
+            "    <dbInstanceIdentifier> \n\n" +
+            "Where:\n" +
+            "    dbInstanceIdentifier - The database instance identifier \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class DeleteDBInstance {
         String dbInstanceIdentifier = args[0];
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteDatabaseInstance(rdsClient, dbInstanceIdentifier);
         rdsClient.close();
@@ -58,10 +55,10 @@ public class DeleteDBInstance {
     public static void deleteDatabaseInstance( RdsClient rdsClient, String dbInstanceIdentifier) {
         try {
             DeleteDbInstanceRequest deleteDbInstanceRequest = DeleteDbInstanceRequest.builder()
-                    .dbInstanceIdentifier(dbInstanceIdentifier)
-                    .deleteAutomatedBackups(true)
-                    .skipFinalSnapshot(true)
-                    .build();
+                .dbInstanceIdentifier(dbInstanceIdentifier)
+                .deleteAutomatedBackups(true)
+                .skipFinalSnapshot(true)
+                .build();
 
             DeleteDbInstanceResponse response = rdsClient.deleteDBInstance(deleteDbInstanceRequest);
             System.out.print("The status of the database is " + response.dbInstance().dbInstanceStatus());

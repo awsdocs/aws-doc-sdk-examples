@@ -185,7 +185,7 @@ acm_Usage_ImportListRemove:
           github: python/example_code/acm
           sdkguide:
           excerpts:
-            - description: Create a class the wraps &ACM; operations.
+            - description: Create a class that wraps &ACM; operations.
               snippet_tags:
                 - python.example_code.acm.imports
                 - python.example_code.acm.AcmCertificate
@@ -202,4 +202,6 @@ acm_Usage_ImportListRemove:
               snippet_tags:
                 - python.example_code.acm.Usage_ImportListRemove
   services:
-    acm: {}
+    acm: {AddTagsToCertificate, DeleteCertificate, DescribeCertificate, GetCertificate,
+          ImportCertificate, ListCertificates, ListTagsForCertificate, RemoveTagsFromCertificate,
+          RequestCertificate, ResendValidationEmail}

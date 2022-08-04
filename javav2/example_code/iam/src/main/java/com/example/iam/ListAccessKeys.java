@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListAccessKeys.java demonstrates how to list access keys associated with an AWS Identity and Access Management (IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +28,10 @@ public class ListAccessKeys {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <userName> \n\n" +
-                "Where:\n" +
-                "    userName - The name of the user for which access keys are retrieved. \n\n" ;
+            "Usage:\n" +
+            "    <userName> \n\n" +
+            "Where:\n" +
+            "    userName - The name of the user for which access keys are retrieved. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +41,9 @@ public class ListAccessKeys {
         String userName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listKeys(iam,userName) ;
         System.out.println("Done");
@@ -64,21 +60,24 @@ public class ListAccessKeys {
             while (!done) {
                 ListAccessKeysResponse response;
 
-            if(newMarker == null) {
-                ListAccessKeysRequest request = ListAccessKeysRequest.builder()
-                        .userName(userName).build();
-                response = iam.listAccessKeys(request);
-            } else {
-                ListAccessKeysRequest request = ListAccessKeysRequest.builder()
-                        .userName(userName)
-                        .marker(newMarker).build();
-                response = iam.listAccessKeys(request);
-            }
+                if(newMarker == null) {
+                    ListAccessKeysRequest request = ListAccessKeysRequest.builder()
+                    .userName(userName)
+                    .build();
 
-            for (AccessKeyMetadata metadata :
-                    response.accessKeyMetadata()) {
-                System.out.format("Retrieved access key %s",
-                        metadata.accessKeyId());
+                    response = iam.listAccessKeys(request);
+
+                } else {
+                    ListAccessKeysRequest request = ListAccessKeysRequest.builder()
+                        .userName(userName)
+                        .marker(newMarker)
+                        .build();
+
+                    response = iam.listAccessKeys(request);
+                }
+
+                for (AccessKeyMetadata metadata : response.accessKeyMetadata()) {
+                    System.out.format("Retrieved access key %s", metadata.accessKeyId());
             }
 
             if (!response.isTruncated()) {

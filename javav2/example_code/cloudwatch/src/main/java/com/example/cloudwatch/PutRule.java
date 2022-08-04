@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[PutRule.java demonstrates how to creates a CloudWatch event-routing rule.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,12 +28,12 @@ public class PutRule {
 
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "  <ruleName> roleArn> \n\n" +
-                "Where:\n" +
-                "  ruleName - A rule name (for example, myrule).\n" +
-                "  roleArn - A role ARN value (for example, arn:aws:iam::xxxxxx047983:user/MyUser).\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "  <ruleName> roleArn> \n\n" +
+            "Where:\n" +
+            "  ruleName - A rule name (for example, myrule).\n" +
+            "  roleArn - A role ARN value (for example, arn:aws:iam::xxxxxx047983:user/MyUser).\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,8 +43,8 @@ public class PutRule {
         String ruleName = args[0];
         String roleArn = args[1];
         CloudWatchEventsClient cwe = CloudWatchEventsClient.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         putCWRule(cwe, ruleName, roleArn) ;
         cwe.close();
@@ -69,6 +65,7 @@ public class PutRule {
             System.out.printf(
                     "Successfully created CloudWatch events rule %s with arn %s",
                     roleArn, response.ruleArn());
+
         } catch (
             CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListDeliveryStreams.java demonstrates how to list all delivery streams.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,9 +30,9 @@ public class ListDeliveryStreams {
 
         Region region = Region.US_EAST_1;
         FirehoseClient firehoseClient = FirehoseClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listStreams(firehoseClient) ;
         firehoseClient.close();

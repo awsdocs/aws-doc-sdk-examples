@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[ListNamedQueryExample.Kt demonstrates how to obtain a list of named query Id values.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Athena]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/25/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

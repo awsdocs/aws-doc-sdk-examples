@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteSecurityGroup.kt demonstrates how to delete an Amazon Elastic Compute Cloud (Amazon EC2) Security Group.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DeleteSecurityGroup.kt demonstrates how to delete an Amazon Elastic Compute Cloud (Amazon EC2) Security Group.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon EC2]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,21 +15,21 @@ import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.delete_security_group.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
             <groupId> 
 
         Where:
-            groupId - a security group id that you can obtain from the AWS Management Console (for example, sg-xxxxxx1c0b65785c3).
+            groupId - A security group id that you can obtain from the AWS Management Console (for example, sg-xxxxxx1c0b65785c3).
         """
 
     if (args.size != 1) {
@@ -53,7 +49,7 @@ suspend fun deleteEC2SecGroup(groupIdVal: String) {
     }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
-       ec2.deleteSecurityGroup(request)
+        ec2.deleteSecurityGroup(request)
         println("Successfully deleted Security Group with id $groupIdVal")
     }
 }

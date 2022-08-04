@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetTrailStatus.java demonstrates how to look up time information about a trail.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CloudTrail]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,22 +37,22 @@ public class GetTrailLoggingTime {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <trailName>  \n\n" +
-                "Where:\n" +
-                "    trailName - The name of the trail. \n" ;
+            "Usage:\n" +
+            "    <trailName>  \n\n" +
+            "Where:\n" +
+            "    trailName - The name of the trail. \n" ;
 
-         if (args.length != 1) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String trailName = args[0] ;
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getLogTime(cloudTrailClient, trailName) ;
         cloudTrailClient.close();
@@ -66,8 +63,8 @@ public class GetTrailLoggingTime {
 
         try {
             GetTrailStatusRequest trailStatusRequest = GetTrailStatusRequest.builder()
-                    .name(trailName)
-                    .build();
+                .name(trailName)
+                .build();
 
             GetTrailStatusResponse trailStatusResponse = cloudTrailClientClient.getTrailStatus(trailStatusRequest);
             Instant lastestNotication = trailStatusResponse.startLoggingTime();

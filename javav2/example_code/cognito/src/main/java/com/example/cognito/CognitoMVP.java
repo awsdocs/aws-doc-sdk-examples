@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CognitoMVP.java demonstrates how to sign up a new user with Amazon Cognito and associate the user with an MFA application for multi-factor authentication.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/12/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -78,7 +75,7 @@ public class CognitoMVP {
            if (args.length != 2) {
                    System.out.println(usage);
                    System.exit(1);
-           }
+         }
 
         String clientId = args[0];
         String poolId = args[1];

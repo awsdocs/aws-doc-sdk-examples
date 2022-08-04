@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[RetrieveMessages.kt demonstrates how to retrieve messages from an Amazon Simple Queue Service (Amazon SQS) queue.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[RetrieveMessages.kt demonstrates how to retrieve messages from an Amazon Simple Queue Service (Amazon SQS) queue.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Simple Queue Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,14 +15,20 @@ import aws.sdk.kotlin.services.sqs.model.ReceiveMessageRequest
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.get_messages.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
 
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage: 
             <queueName> <tagName>
         Where:
-           queueURL - the URL of the queue from which messages are retrieved.
+           queueURL - The URL of the queue from which messages are retrieved.
       """
 
     if (args.size != 1) {
@@ -37,7 +39,7 @@ suspend fun main(args:Array<String>) {
     val queueUrl = args[0]
     receiveMessages(queueUrl)
     println("The AWS SQS operation example is complete!")
-    }
+}
 
 // snippet-start:[sqs.kotlin.get_messages.main]
 suspend fun receiveMessages(queueUrlVal: String?) {
@@ -46,13 +48,13 @@ suspend fun receiveMessages(queueUrlVal: String?) {
 
     val receiveMessageRequest = ReceiveMessageRequest {
         queueUrl = queueUrlVal
-        maxNumberOfMessages =5
+        maxNumberOfMessages = 5
     }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
-        val response =  sqsClient.receiveMessage(receiveMessageRequest)
+        val response = sqsClient.receiveMessage(receiveMessageRequest)
         response.messages?.forEach { message ->
-             println(message.body)
+            println(message.body)
         }
     }
 }

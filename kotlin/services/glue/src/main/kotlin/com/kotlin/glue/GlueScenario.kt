@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[GlueScenario.kt demonstrates how to perform multiple AWS Glue operations.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/17/2022]
-//snippet-sourceauthor:[scmacdon AWS]
+// snippet-sourcedescription:[GlueScenario.kt demonstrates how to perform multiple AWS Glue operations.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[AWS Glue]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -12,29 +8,29 @@
 
 package com.kotlin.glue
 
-//snippet-start:[glue.kotlin.scenario.import]
+// snippet-start:[glue.kotlin.scenario.import]
 import aws.sdk.kotlin.services.glue.GlueClient
-import aws.sdk.kotlin.services.glue.model.DatabaseInput
-import aws.sdk.kotlin.services.glue.model.CreateDatabaseRequest
-import aws.sdk.kotlin.services.glue.model.StartJobRunRequest
-import aws.sdk.kotlin.services.glue.model.CreateJobRequest
-import aws.sdk.kotlin.services.glue.model.JobCommand
-import aws.sdk.kotlin.services.glue.model.CreateCrawlerRequest
-import aws.sdk.kotlin.services.glue.model.WorkerType
-import aws.sdk.kotlin.services.glue.model.GetDatabaseRequest
-import aws.sdk.kotlin.services.glue.model.GetTablesRequest
-import aws.sdk.kotlin.services.glue.model.S3Target
-import aws.sdk.kotlin.services.glue.model.GetCrawlerRequest
-import aws.sdk.kotlin.services.glue.model.GetJobsRequest
-import aws.sdk.kotlin.services.glue.model.GetJobRunsRequest
-import aws.sdk.kotlin.services.glue.model.DeleteJobRequest
-import aws.sdk.kotlin.services.glue.model.StartCrawlerRequest
-import aws.sdk.kotlin.services.glue.model.DeleteDatabaseRequest
-import aws.sdk.kotlin.services.glue.model.DeleteCrawlerRequest
 import aws.sdk.kotlin.services.glue.model.CrawlerTargets
+import aws.sdk.kotlin.services.glue.model.CreateCrawlerRequest
+import aws.sdk.kotlin.services.glue.model.CreateDatabaseRequest
+import aws.sdk.kotlin.services.glue.model.CreateJobRequest
+import aws.sdk.kotlin.services.glue.model.DatabaseInput
+import aws.sdk.kotlin.services.glue.model.DeleteCrawlerRequest
+import aws.sdk.kotlin.services.glue.model.DeleteDatabaseRequest
+import aws.sdk.kotlin.services.glue.model.DeleteJobRequest
+import aws.sdk.kotlin.services.glue.model.GetCrawlerRequest
+import aws.sdk.kotlin.services.glue.model.GetDatabaseRequest
+import aws.sdk.kotlin.services.glue.model.GetJobRunsRequest
+import aws.sdk.kotlin.services.glue.model.GetJobsRequest
+import aws.sdk.kotlin.services.glue.model.GetTablesRequest
+import aws.sdk.kotlin.services.glue.model.JobCommand
+import aws.sdk.kotlin.services.glue.model.S3Target
+import aws.sdk.kotlin.services.glue.model.StartCrawlerRequest
+import aws.sdk.kotlin.services.glue.model.StartJobRunRequest
+import aws.sdk.kotlin.services.glue.model.WorkerType
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
-//snippet-end:[glue.kotlin.scenario.import]
+// snippet-end:[glue.kotlin.scenario.import]
 
 /**
  Before running this Kotlin code example, set up your development environment,
@@ -45,11 +41,11 @@ import kotlin.system.exitProcess
 
  To set up the resources, see this documentation topic:
 
-  https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html
+ https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html
 */
 
-//snippet-start:[glue.kotlin.scenario.main]
-suspend fun main(args:Array<String>) {
+// snippet-start:[glue.kotlin.scenario.main]
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
@@ -63,13 +59,13 @@ suspend fun main(args:Array<String>) {
             crawlerName - The name of the crawler. 
             jobName - The name you assign to this job definition.
             scriptLocation - Specifies the Amazon S3 path to a script that runs a job.
-            locationUri - Specifies the location of the database. 
+            locationUri - Specifies the location of the database 
         """
 
     if (args.size != 8) {
         println(usage)
         exitProcess(1)
-     }
+    }
 
     val iam = args[0]
     val s3Path = args[1]
@@ -86,7 +82,7 @@ suspend fun main(args:Array<String>) {
     getCrawler(crawlerName)
     startCrawler(crawlerName)
     getDatabase(dbName)
-    getGlueTables( dbName)
+    getGlueTables(dbName)
     createJob(jobName, iam, scriptLocation)
     startJob(jobName)
     getJobs()
@@ -98,50 +94,50 @@ suspend fun main(args:Array<String>) {
     deleteCrawler(crawlerName)
 }
 
-suspend fun createDatabase( dbName: String?, locationUriVal: String?) {
+suspend fun createDatabase(dbName: String?, locationUriVal: String?) {
 
-        val input = DatabaseInput {
-            description = "Built with the AWS SDK for Kotlin"
-            name = dbName
-            locationUri = locationUriVal
-        }
+    val input = DatabaseInput {
+        description = "Built with the AWS SDK for Kotlin"
+        name = dbName
+        locationUri = locationUriVal
+    }
 
-        val request = CreateDatabaseRequest {
-            databaseInput = input
-        }
+    val request = CreateDatabaseRequest {
+        databaseInput = input
+    }
 
-        GlueClient { region = "us-east-1" }.use { glueClient ->
-            glueClient.createDatabase(request)
-            println("The database was successfully created")
-        }
- }
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        glueClient.createDatabase(request)
+        println("The database was successfully created")
+    }
+}
 
 suspend fun createCrawler(iam: String?, s3Path: String?, cron: String?, dbName: String?, crawlerName: String) {
 
-        val s3Target = S3Target {
-            path=  s3Path
-        }
+    val s3Target = S3Target {
+        path = s3Path
+    }
 
-        val targetList = ArrayList<S3Target>()
-        targetList.add(s3Target)
+    val targetList = ArrayList<S3Target>()
+    targetList.add(s3Target)
 
-        val targetOb = CrawlerTargets {
-            s3Targets = targetList
-        }
+    val targetOb = CrawlerTargets {
+        s3Targets = targetList
+    }
 
-        val crawlerRequest = CreateCrawlerRequest {
-            databaseName= dbName
-            name = crawlerName
-            description = "Created by the AWS Glue Java API"
-            targets = targetOb
-            role = iam
-            schedule = cron
-        }
+    val crawlerRequest = CreateCrawlerRequest {
+        databaseName = dbName
+        name = crawlerName
+        description = "Created by the AWS Glue Java API"
+        targets = targetOb
+        role = iam
+        schedule = cron
+    }
 
-        GlueClient { region = "us-east-1" }.use { glueClient ->
-          glueClient.createCrawler(crawlerRequest)
-          println("$crawlerName was successfully created")
-        }
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        glueClient.createCrawler(crawlerRequest)
+        println("$crawlerName was successfully created")
+    }
 }
 
 suspend fun getCrawler(crawlerName: String?) {
@@ -159,15 +155,15 @@ suspend fun getCrawler(crawlerName: String?) {
 
 suspend fun startCrawler(crawlerName: String) {
 
-        val crawlerRequest = StartCrawlerRequest {
-            name = crawlerName
-        }
+    val crawlerRequest = StartCrawlerRequest {
+        name = crawlerName
+    }
 
-        GlueClient { region = "us-east-1" }.use { glueClient ->
-            glueClient.startCrawler(crawlerRequest)
-            println("$crawlerName was successfully started.")
-        }
- }
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        glueClient.startCrawler(crawlerRequest)
+        println("$crawlerName was successfully started.")
+    }
+}
 
 suspend fun getDatabase(databaseName: String?) {
 
@@ -182,7 +178,7 @@ suspend fun getDatabase(databaseName: String?) {
     }
 }
 
-suspend fun getGlueTables( dbName: String?) {
+suspend fun getGlueTables(dbName: String?) {
 
     val tableRequest = GetTablesRequest {
         databaseName = dbName
@@ -198,17 +194,17 @@ suspend fun getGlueTables( dbName: String?) {
 
 suspend fun startJob(jobNameVal: String?) {
 
-        val runRequest = StartJobRunRequest {
-            workerType = WorkerType.G1X
-            numberOfWorkers = 10
-            jobName = jobNameVal
-        }
+    val runRequest = StartJobRunRequest {
+        workerType = WorkerType.G1X
+        numberOfWorkers = 10
+        jobName = jobNameVal
+    }
 
-        GlueClient { region = "us-east-1" }.use { glueClient ->
-          val response = glueClient.startJobRun(runRequest)
-          println("The job run Id is ${response.jobRunId}")
-      }
- }
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        val response = glueClient.startJobRun(runRequest)
+        println("The job run Id is ${response.jobRunId}")
+    }
+}
 
 suspend fun createJob(jobName: String, iam: String?, scriptLocationVal: String?) {
 
@@ -252,7 +248,7 @@ suspend fun getJobRuns(jobNameVal: String?) {
 
     val request = GetJobRunsRequest {
         jobName = jobNameVal
-   }
+    }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getJobRuns(request)
@@ -271,20 +267,20 @@ suspend fun deleteJob(jobNameVal: String) {
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteJob(jobRequest)
         println("$jobNameVal was successfully deleted")
-   }
+    }
 }
 
 suspend fun deleteMyDatabase(databaseName: String) {
 
-        val request = DeleteDatabaseRequest {
-            name = databaseName
-        }
+    val request = DeleteDatabaseRequest {
+        name = databaseName
+    }
 
-        GlueClient { region = "us-east-1" }.use { glueClient ->
-          glueClient.deleteDatabase(request)
-          println("$databaseName was successfully deleted")
-        }
- }
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        glueClient.deleteDatabase(request)
+        println("$databaseName was successfully deleted")
+    }
+}
 
 suspend fun deleteCrawler(crawlerName: String) {
 
@@ -296,4 +292,4 @@ suspend fun deleteCrawler(crawlerName: String) {
         println("$crawlerName was deleted")
     }
 }
-//snippet-end:[glue.kotlin.scenario.main]
+// snippet-end:[glue.kotlin.scenario.main]

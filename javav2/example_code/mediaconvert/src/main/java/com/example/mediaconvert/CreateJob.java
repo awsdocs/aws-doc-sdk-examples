@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateJob.java demonstrates how to create AWS Elemental MediaConvert jobs.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
