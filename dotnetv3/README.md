@@ -1,4 +1,4 @@
-# README for AWS SDK for .NET 3.x documentation examples
+# AWS SDK for .NET 3.x documentation examples
 
 
 This workspace contains both single service and cross-service examples for the AWS SDK for .NET.
