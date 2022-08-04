@@ -50,4 +50,4 @@ jobs:
       - name: run golangci-lint
         run: |
           cd gov2/dynamodb
-          golangci-lint run --config ../../.github/linters/.golangci.yml --new
+          golangci-lint run --config ../../.github/linters/.golangci.yml --new ./...
