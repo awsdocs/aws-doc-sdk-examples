@@ -22,7 +22,8 @@ jobs:
         with:
           go-version: 1.18
       - uses: actions/checkout@v3
-#      - name: install golangci-lint
+      - name: install golangci-lint
+        run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.47.3
 #        uses: golangci/golangci-lint-action@v3
 #        with:
 #          # Optional: Version of golangci-lint to use. For example, v1.2 or v1.2.3, or latest to use the latest version.
