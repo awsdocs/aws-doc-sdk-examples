@@ -1,0 +1,22 @@
+name: "Add Labels"
+
+on: [push]
+
+jobs:
+  auto-labeler:
+    runs-on: ubuntu-latest
+    steps:
+      # The Add Labels workflow adds a label to pull requests
+      # based on the files included in the proposed change.
+      #
+      # To use this workflow, you must set up and configure 
+      # rules in a .github/label-ruleset.yml file 
+      #
+      # For more information, see:
+      # https://github.com/actions/labeler
+      -
+       name: Add Labels
+       uses: actions/labeler@v4
+       with:
+         repo-token: "${{ secrets.GITHUB_TOKEN }}"
+         configuration-path: .github/label-ruleset.yml
