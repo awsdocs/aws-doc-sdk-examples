@@ -8,6 +8,7 @@ on:
   pull_request:
     paths:
       - 'gov2/**'
+  workflow_dispatch:
 permissions:
   contents: read
   # Optional: Allow read access to pull request. Use with `only-new-issues` option.
