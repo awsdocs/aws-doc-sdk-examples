@@ -92,7 +92,7 @@ public class APIGatewayTest {
     @Test
     @Order(5)
     public void CreateDeploymentForImported() throws InterruptedException {
-    	Thread.sleep(1000);//to avoid too many requests
+    	Thread.sleep(3000);//to avoid too many requests error
     	deploymentIdForImported = CreateDeployment.createNewDeployment(apiGateway, newImportedRestApiId, stageName);
         assertTrue(!deploymentIdForImported.isEmpty());
         System.out.println("Test 5 passed");
