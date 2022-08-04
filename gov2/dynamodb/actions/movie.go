@@ -20,9 +20,10 @@ import (
 // of the movie in Amazon DynamoDB. Title is the sort key, Year is the partition key,
 // and Info is additional data.
 type Movie struct {
-	Title string                 `dynamodbav:"title"`
-	Year  int                    `dynamodbav:"year"`
-	Info  map[string]interface{} `dynamodbav:"info"`
+	Title      string                 `dynamodbav:"title"`
+	Year       int                    `dynamodbav:"year"`
+	Info       map[string]interface{} `dynamodbav:"info"`
+	test_thing string
 }
 
 // GetKey returns the composite primary key of the movie in a format that can be
