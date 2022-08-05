@@ -74,7 +74,7 @@ namespace AwsDoc
             const Aws::String& indexPage, const Aws::String& errorPage,
             const Aws::String& region = "");
         bool S3_GettingStartedScenario(const Aws::String& uploadFilePath, const Aws::String& saveFilePath,
-                                                     const Aws::Client::ClientConfiguration &clientConfig,
-                                                     bool logProgress = true);
+            const Aws::Client::ClientConfiguration &clientConfig,
+            bool logProgress = true);
     }
 }
