@@ -63,15 +63,13 @@ int main()
 {
     Aws::SDKOptions options;
     InitAPI(options);
-
-    //TODO: Set to the AWS Region of your account.  If not, you will get a runtime
-    //IllegalLocationConstraintException Message: "The unspecified location constraint is incompatible
-    //for the Region specific endpoint this request was sent to."
+        //TODO: Set to the AWS Region of your account.  If you don't, you will get a runtime
+        //IllegalLocationConstraintException Message: "The unspecified location constraint is incompatible
+        //for the Region specific endpoint this request was sent to."
     Aws::String region = "us-east-1";
-
-    // Create a unique bucket name to increase the chance of success
-    // when trying to create the bucket.
-    // Format: "doc-example-bucket-" + lowercase UUID.
+        // Create a unique bucket name to increase the chance of success
+        // when trying to create the bucket.
+        // Format: "doc-example-bucket-" + lowercase UUID.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
     Aws::String bucketName = "doc-example-bucket-" +
                              Aws::Utils::StringUtils::ToLower(uuid.c_str());

@@ -47,7 +47,7 @@
 namespace AwsDoc {
     namespace S3 {
 
-        //! Delete an S3 Bucket.
+        //! Delete an S3 bucket.
         /*!
           \sa DeleteBucket()
           \param bucketName the S3 bucket's name.
@@ -56,7 +56,7 @@ namespace AwsDoc {
         */
         static bool DeleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client, bool logProgress);
 
-        //! Delete an object in an S3 Bucket.
+        //! Delete an object in an S3 bucket.
         /*!
           \sa DeleteObjectFromBucket()
           \param bucketName the S3 bucket's name.

@@ -1,4 +1,4 @@
-﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 # Set the minimum required version of CMake for this project.
@@ -16,11 +16,11 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/google/googletest.git
         GIT_TAG release-1.12.1
 )
-# For Windows: Prevent overriding the parent project's compiler/linker settings
+# For Windows: Prevent overriding the parent project's compiler/linker settings.
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-#Set the location of where Windows can find the installed libraries of the SDK.
+# Set the location for Windows to find the installed libraries of the SDK.
 if(MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
@@ -47,11 +47,11 @@ if(MSVC AND BUILD_SHARED_LIBS)
     list(APPEND SERVICE_LIST s3 sts)
     #For IDE's like Xcode and Visual Studio this line will be ignored because Release/Debug 
     #  is switched internally, but this is necessary for non-IDE builds.
-    set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type
+    set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type.
 	
-    #TODO:Choose appropriate one of the following two lines, you want to copy to the same folder where your executables are.
+    #TODO:Choose which of the following two lines to use to copy to the same folder where your executables are.
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
-    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs
+    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs.
     add_custom_command(
         TARGET s3_gtest  POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
