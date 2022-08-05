@@ -54,12 +54,10 @@ public class S3BucketDeletion {
                 .build();
 
         deleteObjectsInBucket(s3,bucket);
-        deleteBucket(s3, bucket);
-
         s3.close();
     }
 
-    // snippet-start:[s3.java2.s3_bucket_ops.delete_objects]
+    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
     public static void deleteObjectsInBucket (S3Client s3, String bucket) {
 
         try {
@@ -77,21 +75,17 @@ public class S3BucketDeletion {
                             .key(s3Object.key())
                             .build());
                 }
-            } while(listObjectsV2Response.isTruncated());
-            // snippet-end:[s3.java2.s3_bucket_ops.delete_objects]
+            } while (listObjectsV2Response.isTruncated());
+            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
+
+            DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
+            s3.deleteBucket(deleteBucketRequest);
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-
-    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
-    private static void deleteBucket(S3Client s3, String bucket) {
-        DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
-        s3.deleteBucket(deleteBucketRequest);
-    }
-    // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
     // snippet-end:[s3.java2.bucket_deletion.main]
 }
 
