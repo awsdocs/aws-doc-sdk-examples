@@ -3,6 +3,7 @@
 
 namespace DeleteOrganizationExample
 {
+    // snippet-start:[Organizations.dotnetv3.DeleteOrganizationExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -36,4 +37,5 @@ namespace DeleteOrganizationExample
             }
         }
     }
+    // snippet-end:[Organizations.dotnetv3.DeleteOrganizationExample]
 }

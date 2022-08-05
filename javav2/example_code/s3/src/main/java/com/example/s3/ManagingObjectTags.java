@@ -1,8 +1,7 @@
 //snippet-sourcedescription:[ManagingObjectTags.java demonstrates how to set tags for an object in an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcedate:[05/16/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -41,12 +40,12 @@ public class ManagingObjectTags {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <bucketName> <objectKey> <objectPath> \n\n" +
-                "Where:\n" +
-                "  bucketName - The Amazon S3 bucket.\n" +
-                "  objectKey - The object that a tag is applied (for example, book.pdf).\n" +
-                "  objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
+            "Usage:\n" +
+            "  <bucketName> <objectKey> <objectPath> \n\n" +
+            "Where:\n" +
+            "  bucketName - The Amazon S3 bucket.\n" +
+            "  objectKey - The object that a tag is applied (for example, book.pdf).\n" +
+            "  objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -62,9 +61,9 @@ public class ManagingObjectTags {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         putS3ObjectTags(s3, bucketName, objectKey, objectPath);
         updateObjectTags(s3, bucketName, objectKey);
@@ -75,7 +74,7 @@ public class ManagingObjectTags {
     public static void putS3ObjectTags(S3Client s3, String bucketName, String objectKey, String objectPath) {
 
         try {
-            // Define the tags.
+
             Tag tag1 = Tag.builder()
                 .key("Tag 1")
                 .value("This is tag 1")
@@ -111,16 +110,12 @@ public class ManagingObjectTags {
     public static void updateObjectTags(S3Client s3, String bucketName, String objectKey) {
 
         try {
-
-            // Retrieve the object's tags.
             GetObjectTaggingRequest taggingRequest = GetObjectTaggingRequest.builder()
-                    .bucket(bucketName)
-                    .key(objectKey)
-                    .build();
+                .bucket(bucketName)
+                .key(objectKey)
+                .build();
 
             GetObjectTaggingResponse getTaggingRes = s3.getObjectTagging(taggingRequest);
-
-            // Write out the tags.
             List<Tag> obTags = getTaggingRes.tagSet();
             for (Tag sinTag: obTags) {
                 System.out.println("The tag key is: "+sinTag.key());
@@ -129,32 +124,30 @@ public class ManagingObjectTags {
 
             // Replace the object's tags with two new tags.
             Tag tag3 = Tag.builder()
-                    .key("Tag 3")
-                    .value("This is tag 3")
-                    .build();
+                .key("Tag 3")
+                .value("This is tag 3")
+                .build();
 
             Tag tag4 = Tag.builder()
-                    .key("Tag 4")
-                    .value("This is tag 4")
-                    .build();
+                .key("Tag 4")
+                .value("This is tag 4")
+                .build();
 
             List<Tag> tags = new ArrayList<>();
             tags.add(tag3);
             tags.add(tag4);
 
             Tagging updatedTags = Tagging.builder()
-                    .tagSet(tags)
-                    .build();
+                .tagSet(tags)
+                .build();
 
             PutObjectTaggingRequest taggingRequest1 = PutObjectTaggingRequest.builder()
-                    .bucket(bucketName)
-                    .key(objectKey)
-                    .tagging(updatedTags)
-                    .build();
+                .bucket(bucketName)
+                .key(objectKey)
+                .tagging(updatedTags)
+                .build();
 
             s3.putObjectTagging(taggingRequest1);
-
-            // Write out the modified tags.
             GetObjectTaggingResponse getTaggingRes2 = s3.getObjectTagging(taggingRequest);
             List<Tag> modTags = getTaggingRes2.tagSet();
             for (Tag sinTag: modTags) {
@@ -169,7 +162,7 @@ public class ManagingObjectTags {
     }
     // snippet-end:[s3.java2.s3_object_manage_tags.main]
 
-    // Return a byte array
+    // Return a byte array.
     private static byte[] getObjectFile(String filePath) {
 
         FileInputStream fileInputStream = null;
@@ -192,6 +185,7 @@ public class ManagingObjectTags {
                 }
             }
         }
+
         return bytesArray;
     }
 }

@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeployApplication.java demonstrates how to deploy an application revision.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
-
+//snippet-keyword:[AWS CodeDeploy]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -42,14 +38,14 @@ public class DeployApplication {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <appName> <bucketName> <bundleType> <key> <deploymentGroup> \n\n" +
-                "Where:\n" +
-                "    appName - The name of the application. \n" +
-                "    bucketName - The name of the Amazon S3 bucket that contains the ZIP to deploy. \n" +
-                "    bundleType - The bundle type (for example, zip). \n" +
-                "    key - The key located in the S3 bucket (for example, mywebapp.zip). \n"+
-                "    deploymentGroup - The name of the deployment group (for example, group1). \n";
+            "Usage:\n" +
+            "    <appName> <bucketName> <bundleType> <key> <deploymentGroup> \n\n" +
+            "Where:\n" +
+            "    appName - The name of the application. \n" +
+            "    bucketName - The name of the Amazon S3 bucket that contains the ZIP to deploy. \n" +
+            "    bundleType - The bundle type (for example, zip). \n" +
+            "    key - The key located in the S3 bucket (for example, mywebapp.zip). \n"+
+            "    deploymentGroup - The name of the deployment group (for example, group1). \n";
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -64,9 +60,9 @@ public class DeployApplication {
 
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String deploymentId = createAppDeployment(deployClient, appName, bucketName, bundleType, key, deploymentGroup);
         System.out.println("The deployment Id is "+deploymentId);

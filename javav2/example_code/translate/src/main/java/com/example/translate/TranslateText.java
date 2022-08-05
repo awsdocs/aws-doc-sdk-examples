@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[TranslateText.java demonstrates how to translate text from one language to another.]
 //snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -36,9 +32,9 @@ public class TranslateText {
 
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         textTranslate( translateClient);
         translateClient.close();

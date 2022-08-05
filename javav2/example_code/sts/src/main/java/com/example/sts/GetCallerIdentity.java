@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[GetCallerIdentity.java demonstrates how to obtain details about the IAM user whose credentials are used to call the operation.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[AWS Security Token Service (AWS STS)]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,9 +31,9 @@ public class GetCallerIdentity {
 
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getCallerId(stsClient);
         stsClient.close();

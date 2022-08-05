@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetObject.java demonstrates how to download an object from an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,12 +27,12 @@ public class GetObject {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <bucketName> <objectKey> <objectPath> \n\n" +
-                "Where:\n" +
-                "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
-                "  objectKey - The object to download (for example, book.pdf).\n" +
-                "  objectPath - The path where the file is written (for example, C:/AWS/book2.pdf). \n\n" ;
+            "Usage:\n" +
+            "  <bucketName> <objectKey> <objectPath> \n\n" +
+            "Where:\n" +
+            "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
+            "  objectKey - The object to download (for example, book.pdf).\n" +
+            "  objectPath - The path where the file is written (for example, C:/AWS/book2.pdf). \n\n" ;
 
        if (args.length != 3) {
               System.out.println(usage);
@@ -50,11 +47,11 @@ public class GetObject {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3TransferManager transferManager = S3TransferManager.builder()
-                .s3ClientConfiguration(cfg ->cfg.region(region)
-                        .credentialsProvider(credentialsProvider)
-                        .targetThroughputInGbps(20.0)
-                        .minimumPartSizeInBytes(10 * mb))
-                .build();
+            .s3ClientConfiguration(cfg ->cfg.region(region)
+            .credentialsProvider(credentialsProvider)
+            .targetThroughputInGbps(20.0)
+            .minimumPartSizeInBytes(10 * mb))
+            .build();
 
         downloadObjectTM(transferManager, bucketName, objectKey, objectPath);
         System.out.println("Object was successfully downloaded using the Transfer Manager.");

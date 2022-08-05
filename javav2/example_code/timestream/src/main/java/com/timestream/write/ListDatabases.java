@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListDatabases.java demonstrates how to return a list of your databases.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Timestream]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,9 +34,9 @@ public class ListDatabases {
     public static void main(String[] args){
 
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllDatabases(timestreamWriteClient);
         timestreamWriteClient.close();

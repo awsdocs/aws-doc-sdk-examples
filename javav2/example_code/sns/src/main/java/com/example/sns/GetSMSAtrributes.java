@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetSMSAtrributes.java demonstrates how to retrieve the default SMS type for Amazon Simple Notification Service (Amazon SNS).]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class GetSMSAtrributes {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <topicArn>\n\n" +
-                "Where:\n" +
-                "   topicArn - The ARN of the topic from which to retrieve attributes.\n\n";
+            "Usage: " +
+            "   <topicArn>\n\n" +
+            "Where:\n" +
+            "   topicArn - The ARN of the topic from which to retrieve attributes.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class GetSMSAtrributes {
 
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getSNSAttrutes(snsClient, topicArn);
         snsClient.close();
@@ -59,8 +56,8 @@ public class GetSMSAtrributes {
 
         try {
             GetSubscriptionAttributesRequest request = GetSubscriptionAttributesRequest.builder()
-                    .subscriptionArn(topicArn)
-                    .build();
+                .subscriptionArn(topicArn)
+                .build();
 
             // Get the Subscription attributes
             GetSubscriptionAttributesResponse res = snsClient.getSubscriptionAttributes(request);

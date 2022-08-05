@@ -2,9 +2,6 @@
 //snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/21/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -41,19 +38,19 @@ public class GetDeployments {
                 "Where:\n" +
                 "    restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).\n" ;
 
-        if (args.length != 1) {
-            System.out.println(USAGE);
-            System.exit(1);
+       if (args.length != 1) {
+           System.out.println(USAGE);
+           System.exit(1);
         }
 
-        String restApiId  = args[0];
-        Region region = Region.US_EAST_1;
-        ApiGatewayClient apiGateway = ApiGatewayClient.builder()
-                .region(region)
-                .build();
+       String restApiId  =  "inx39975"; // args[0];
+       Region region = Region.US_EAST_1;
+       ApiGatewayClient apiGateway = ApiGatewayClient.builder()
+            .region(region)
+            .build();
 
-        getAllDeployments(apiGateway, restApiId);
-        apiGateway.close();
+       getAllDeployments(apiGateway, restApiId);
+       apiGateway.close();
     }
 
     // snippet-start:[apigateway.java2.get_deployments.main]
@@ -61,8 +58,8 @@ public class GetDeployments {
 
         try {
             GetDeploymentsRequest request = GetDeploymentsRequest.builder()
-                    .restApiId(restApiId)
-                    .build();
+               .restApiId(restApiId)
+               .build();
 
             GetDeploymentsResponse response = apiGateway.getDeployments(request);
             List<Deployment> deployments = response.items();

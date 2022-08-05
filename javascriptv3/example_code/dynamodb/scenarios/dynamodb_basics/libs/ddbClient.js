@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3Client.js is a helper function that creates an Amazon Simple Storage Service (Amazon S3) service client.
+ddbClient.js is a helper function that creates an Amazon Simple Storage Service (Amazon S3) service client.
 
 Inputs (replace in code):
 

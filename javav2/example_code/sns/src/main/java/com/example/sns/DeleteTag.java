@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteTag.java demonstrates how to delete tags from an Amazon Simple Notification Service (Amazon SNS) topic.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,11 +29,11 @@ public class DeleteTag {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <topicArn> <tagKey>\n\n" +
-                "Where:\n" +
-                "  topicArn - The ARN of the topic to which tags are added.\n\n"+
-                "  tagKey - The key of the tag to delete.";
+            "Usage: " +
+            "   <topicArn> <tagKey>\n\n" +
+            "Where:\n" +
+            "  topicArn - The ARN of the topic to which tags are added.\n\n"+
+            "  tagKey - The key of the tag to delete.";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class DeleteTag {
         String topicArn = args[0];
         String tagKey = args[1];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         removeTag(snsClient, topicArn, tagKey);
         snsClient.close();
@@ -58,11 +55,10 @@ public class DeleteTag {
     public static void removeTag(SnsClient snsClient, String topicArn, String tagKey) {
 
         try {
-
             UntagResourceRequest resourceRequest = UntagResourceRequest.builder()
-                    .resourceArn(topicArn)
-                    .tagKeys(tagKey)
-                    .build();
+                .resourceArn(topicArn)
+                .tagKeys(tagKey)
+                .build();
 
             snsClient.untagResource(resourceRequest);
             System.out.println(tagKey +" was deleted from "+topicArn);

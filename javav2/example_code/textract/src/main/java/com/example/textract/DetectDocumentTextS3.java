@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[DetectDocumentText.java demonstrates how to detect text in the input document that is retrieved from an Amazon S3 bucket.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Textract]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -40,11 +36,11 @@ public class DetectDocumentTextS3 {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName> <docName> \n\n" +
-                "Where:\n" +
-                "    bucketName - The name of the Amazon S3 bucket that contains the document. \n\n" +
-                "    docName - The document name (must be an image, i.e., book.png). \n";
+            "Usage:\n" +
+            "    <bucketName> <docName> \n\n" +
+            "Where:\n" +
+            "    bucketName - The name of the Amazon S3 bucket that contains the document. \n\n" +
+            "    docName - The document name (must be an image, i.e., book.png). \n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -55,9 +51,9 @@ public class DetectDocumentTextS3 {
         String docName = args[1];
         Region region = Region.US_WEST_2;
         TextractClient textractClient = TextractClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         detectDocTextS3(textractClient, bucketName, docName);
         textractClient.close();
@@ -68,29 +64,21 @@ public class DetectDocumentTextS3 {
 
         try {
             S3Object s3Object = S3Object.builder()
-                    .bucket(bucketName)
-                    .name(docName)
-                    .build();
+                .bucket(bucketName)
+                .name(docName)
+                .build();
 
             // Create a Document object and reference the s3Object instance
             Document myDoc = Document.builder()
-                    .s3Object(s3Object)
-                    .build();
+                .s3Object(s3Object)
+                .build();
 
-            // Create a DetectDocumentTextRequest object
             DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
-                    .document(myDoc)
-                    .build();
+                .document(myDoc)
+                .build();
 
-            // Invoke the detectDocumentText method
             DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
-
-            List<Block> docInfo = textResponse.blocks();
-
-            Iterator<Block> blockIterator = docInfo.iterator();
-
-            while(blockIterator.hasNext()) {
-                Block block = blockIterator.next();
+            for (Block block: textResponse.blocks()) {
                 System.out.println("The block type is " +block.blockType().toString());
             }
 

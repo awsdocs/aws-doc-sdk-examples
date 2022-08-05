@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteApplication.java demonstrates how to delete an AWS Elastic Beanstalk application.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elastic Beanstalk ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class DeleteApplication {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <appName> \n\n" +
-                "Where:\n" +
-                "    appName - The name of the AWS Elastic Beanstalk application. \n";
+            "Usage:\n" +
+            "    <appName> \n\n" +
+            "Where:\n" +
+            "    appName - The name of the AWS Elastic Beanstalk application. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class DeleteApplication {
         String appName = args[0];
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteApp(beanstalkClient, appName);
     }
@@ -58,9 +55,9 @@ public class DeleteApplication {
 
         try {
             DeleteApplicationRequest applicationRequest = DeleteApplicationRequest.builder()
-                    .applicationName(appName)
-                    .terminateEnvByForce(true)
-                    .build();
+                .applicationName(appName)
+                .terminateEnvByForce(true)
+                .build();
 
             beanstalkClient.deleteApplication(applicationRequest);
             System.out.println("The Elastic Beanstalk application was successfully deleted!");

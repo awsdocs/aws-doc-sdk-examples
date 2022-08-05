@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[GetAPIKeys.java demonstrates how to obtain information about the current ApiKeys resource.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/21/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -51,6 +46,7 @@ public class GetAPIKeys {
             List<ApiKey> keys = response.items();
             for (ApiKey key: keys) {
                 System.out.println("key id is: "+key.id());
+                System.out.println("key name is: "+key.name());
             }
 
         } catch (ApiGatewayException e) {

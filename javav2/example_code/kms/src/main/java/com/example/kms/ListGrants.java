@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListGrants.java demonstrates how to get information about AWS Key Management Service (AWS KMS) grants related to a key.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class ListGrants {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <keyId> \n\n" +
-                "Where:\n" +
-                "    keyId - a key id value to use (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
+            "Usage:\n" +
+            "    <keyId> \n\n" +
+            "Where:\n" +
+            "    keyId - a key id value to use (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class ListGrants {
         String keyId = args[0];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         displayGrantIds(kmsClient, keyId);
         kmsClient.close();
@@ -58,22 +55,22 @@ public class ListGrants {
     // snippet-start:[kms.java2_list_grant.main]
     public static void displayGrantIds(KmsClient kmsClient, String keyId) {
 
-     try {
-        ListGrantsRequest grantsRequest = ListGrantsRequest.builder()
+        try {
+            ListGrantsRequest grantsRequest = ListGrantsRequest.builder()
                 .keyId(keyId)
                 .limit(15)
                 .build();
 
-        ListGrantsResponse response = kmsClient.listGrants(grantsRequest);
-        List<GrantListEntry> grants = response.grants();
-        for ( GrantListEntry grant: grants) {
-            System.out.println("The grant Id is : "+grant.grantId());
-        }
+            ListGrantsResponse response = kmsClient.listGrants(grantsRequest);
+            List<GrantListEntry> grants = response.grants();
+            for ( GrantListEntry grant: grants) {
+                System.out.println("The grant Id is : "+grant.grantId());
+            }
 
-     } catch (KmsException e) {
-        System.err.println(e.getMessage());
-        System.exit(1);
+        } catch (KmsException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
-  }
     // snippet-end:[kms.java2_list_grant.main]
 }

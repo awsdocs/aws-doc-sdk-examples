@@ -3,6 +3,7 @@
 
 namespace ListSNSTopicsExample
 {
+    // snippet-start:[SNS.dotnetv3.ListSNSTopicsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -16,8 +17,6 @@ namespace ListSNSTopicsExample
     /// </summary>
     public class ListSNSTopics
     {
-        // snippet-start:[SNS.dotnetv3.ListSNSTopicsExample]
-
         public static async Task Main()
         {
             IAmazonSimpleNotificationService client = new AmazonSimpleNotificationServiceClient();
@@ -58,7 +57,6 @@ namespace ListSNSTopicsExample
                 Console.WriteLine($"{topic.TopicArn}");
             }
         }
-
-        // snippet-end:[SNS.dotnetv3.ListSNSTopicsExample]
     }
+    // snippet-end:[SNS.dotnetv3.ListSNSTopicsExample]
 }

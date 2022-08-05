@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an Amazon Elastic Compute Cloud (Amazon EC2) Security Group.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,12 +33,12 @@ public class CreateSecurityGroup {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "   <groupName> <groupDesc> <vpcId> \n\n" +
-                "Where:\n" +
-                "   groupName - A group name (for example, TestKeyPair). \n\n" +
-                "   groupDesc - A group description  (for example, TestKeyPair). \n\n"+
-                "   vpcId - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n";
+            "Usage:\n" +
+            "   <groupName> <groupDesc> <vpcId> \n\n" +
+            "Where:\n" +
+            "   groupName - A group name (for example, TestKeyPair). \n\n" +
+            "   groupDesc - A group description  (for example, TestKeyPair). \n\n"+
+            "   vpcId - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -56,15 +52,13 @@ public class CreateSecurityGroup {
         // snippet-start:[ec2.java2.create_security_group.client]
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         // snippet-end:[ec2.java2.create_security_group.client]
 
         String id = createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
-        System.out.printf(
-                "Successfully created Security Group with this ID %s",
-                id);
+        System.out.printf("Successfully created Security Group with this ID %s", id);
         ec2.close();
     }
 
@@ -102,17 +96,13 @@ public class CreateSecurityGroup {
 
             AuthorizeSecurityGroupIngressRequest authRequest =
                 AuthorizeSecurityGroupIngressRequest.builder()
-                        .groupName(groupName)
-                        .ipPermissions(ipPerm, ipPerm2)
-                        .build();
+                    .groupName(groupName)
+                    .ipPermissions(ipPerm, ipPerm2)
+                    .build();
 
             AuthorizeSecurityGroupIngressResponse authResponse =
             ec2.authorizeSecurityGroupIngress(authRequest);
-
-            System.out.printf(
-                "Successfully added ingress policy to Security Group %s",
-                groupName);
-
+            System.out.printf("Successfully added ingress policy to Security Group %s", groupName);
             return resp.groupId();
 
         } catch (Ec2Exception e) {

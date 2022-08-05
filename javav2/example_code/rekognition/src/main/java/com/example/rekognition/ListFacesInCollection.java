@@ -1,9 +1,7 @@
 // snippet-sourcedescription:[ListFacesInCollection.java demonstrates how to list the faces in an Amazon Rekognition collection.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,10 +32,10 @@ public class ListFacesInCollection {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <collectionId>\n\n" +
-                "Where:\n" +
-                "   collectionId - The name of the collection. \n\n";
+            "Usage: " +
+            "   <collectionId>\n\n" +
+            "Where:\n" +
+            "   collectionId - The name of the collection. \n\n";
 
         if (args.length < 1) {
             System.out.println(usage);
@@ -47,9 +45,9 @@ public class ListFacesInCollection {
         String collectionId = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Faces in collection " + collectionId);
         listFacesCollection(rekClient, collectionId) ;
@@ -58,7 +56,6 @@ public class ListFacesInCollection {
 
     // snippet-start:[rekognition.java2.list_faces_collection.main]
     public static void listFacesCollection(RekognitionClient rekClient, String collectionId ) {
-
         try {
             ListFacesRequest facesRequest = ListFacesRequest.builder()
                 .collectionId(collectionId)
@@ -66,8 +63,6 @@ public class ListFacesInCollection {
                 .build();
 
             ListFacesResponse facesResponse = rekClient.listFaces(facesRequest);
-
-            // For each face in the collection, print out the confidence level and face id value.
             List<Face> faces = facesResponse.faces();
             for (Face face: faces) {
                 System.out.println("Confidence level there is a face: "+face.confidence());

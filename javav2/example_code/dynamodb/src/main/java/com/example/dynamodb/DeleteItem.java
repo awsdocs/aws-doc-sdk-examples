@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteItem.java demonstrates how to delete an item from an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,12 +30,12 @@ public class DeleteItem {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <tableName> <key> <keyval>\n\n" +
-                "Where:\n" +
-                "    tableName - The Amazon DynamoDB table to delete the item from (for example, Music3).\n" +
-                "    key - The key used in the Amazon DynamoDB table (for example, Artist). \n" +
-                "    keyval - The key value that represents the item to delete (for example, Famous Band).\n" ;
+            "Usage:\n" +
+            "    <tableName> <key> <keyval>\n\n" +
+            "Where:\n" +
+            "    tableName - The Amazon DynamoDB table to delete the item from (for example, Music3).\n" +
+            "    key - The key used in the Amazon DynamoDB table (for example, Artist). \n" +
+            "    keyval - The key value that represents the item to delete (for example, Famous Band).\n" ;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -53,32 +50,31 @@ public class DeleteItem {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         deleteDymamoDBItem(ddb, tableName, key, keyVal);
         ddb.close();
     }
 
    // snippet-start:[dynamodb.java2.delete_item.main]
-  public static void deleteDymamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
-
+    public static void deleteDymamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
         HashMap<String,AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put(key, AttributeValue.builder()
-                .s(keyVal)
-                .build());
+            .s(keyVal)
+            .build());
 
         DeleteItemRequest deleteReq = DeleteItemRequest.builder()
-                .tableName(tableName)
-                .key(keyToGet)
-                .build();
+            .tableName(tableName)
+            .key(keyToGet)
+            .build();
 
         try {
             ddb.deleteItem(deleteReq);
         } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
+           System.err.println(e.getMessage());
+           System.exit(1);
         }
     }
     // snippet-end:[dynamodb.java2.delete_item.main]

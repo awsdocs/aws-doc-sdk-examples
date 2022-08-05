@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteAlarm.kt demonstrates how to delete an Amazon CloudWatch alarm.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[DeleteAlarm.kt demonstrates how to delete an Amazon CloudWatch alarm.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon CloudWatch]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,15 +15,22 @@ import aws.sdk.kotlin.services.cloudwatch.model.DeleteAlarmsRequest
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.delete_metrics.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
 
-    val usage  = """
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
+
+    val usage = """
 
     Usage:
         <alarmName>  
 
     Where:
-        alarmName - an alarm name to delete.
+        alarmName - An alarm name to delete.
      """
 
     if (args.size != 1) {
@@ -47,8 +50,8 @@ suspend fun deleteCWAlarm(alarmNameVal: String) {
     }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
-            cwClient.deleteAlarms(request)
-            println("Successfully deleted alarm $alarmNameVal")
+        cwClient.deleteAlarms(request)
+        println("Successfully deleted alarm $alarmNameVal")
     }
 }
 // snippet-end:[cloudwatch.kotlin.delete_metrics.main]

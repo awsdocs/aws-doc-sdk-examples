@@ -8,6 +8,14 @@ cross_RDSDataTracker:
       versions:
         - sdk_version: 2
           block_content: cross_RDSDataTracker_Java_block.xml
+    PHP:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RDSDataTracker_PHP_block.xml
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RDSDataTracker_Python_block.xml
   services:
     rds:
     ses:
@@ -428,3 +436,32 @@ cross_LambdaForBrowser:
   services:
     lambda:
     dynamodb:
+cross_ShortLivedEmrCluster:
+  title: Create a short-lived &EMR; cluster and run a step using an &AWS; SDK
+  title_abbrev: Create a short-lived &EMR; cluster and run a step
+  synopsis: create a short-lived &EMR; cluster that runs a step and automatically
+    terminates after the step completes.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_EmrShortLivedCluster_Python_block.xml
+  services:
+    ec2:
+    emr:
+    iam:
+    s3:
+cross_LongLivedEmrCluster:
+  title: Create a long-lived &EMR; cluster and run several steps using an &AWS; SDK
+  title_abbrev: Create a long-lived &EMR; cluster and run several steps
+  synopsis: create a long-lived &EMR; cluster and run several steps.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_EmrLongLivedCluster_Python_block.xml
+  services:
+    ec2:
+    emr:
+    iam:
+    s3:

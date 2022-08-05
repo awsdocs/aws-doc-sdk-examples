@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[PutObjectRetention demonstrates how to place an object retention configuration on an Amazon Simple Storage Service (Amazon S3) object.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,11 +35,11 @@ public class PutObjectRetention {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <key> <bucketName> \n\n" +
-                "Where:\n" +
-                "    key - The name of the object (for example, book.pdf). \n\n" +
-                "    bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1). \n" ;
+            "Usage:\n" +
+            "    <key> <bucketName> \n\n" +
+            "Where:\n" +
+            "    key - The name of the object (for example, book.pdf). \n\n" +
+            "    bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1). \n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -54,9 +51,9 @@ public class PutObjectRetention {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         setRentionPeriod(s3, key, bucketName) ;
         s3.close();
@@ -82,9 +79,7 @@ public class PutObjectRetention {
                 .retention(lockRetention)
                 .build();
 
-            /**
-             * To set Retention on an object, the Amazon S3 bucket must support object locking, otherwise an exception is thrown.
-             */
+            // To set Retention on an object, the Amazon S3 bucket must support object locking, otherwise an exception is thrown.
             s3.putObjectRetention(retentionRequest);
             System.out.print("An object retention configuration was successfully placed on the object");
 

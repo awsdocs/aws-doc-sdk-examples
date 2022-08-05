@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListKeys.java demonstrates how to get a list of AWS Key Management Service (AWS KMS) keys.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class ListKeys {
 
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllKeys(kmsClient);
         kmsClient.close();
@@ -49,8 +46,8 @@ public class ListKeys {
 
         try {
             ListKeysRequest listKeysRequest = ListKeysRequest.builder()
-                    .limit(15)
-                    .build();
+                .limit(15)
+                .build();
 
             ListKeysResponse keysResponse = kmsClient.listKeys(listKeysRequest);
             List<KeyListEntry> keyListEntries = keysResponse.keys();
@@ -63,6 +60,6 @@ public class ListKeys {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-      }
+    }
     // snippet-end:[kms.java2_list_keys.main]
 }

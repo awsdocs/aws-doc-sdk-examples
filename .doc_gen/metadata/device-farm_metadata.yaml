@@ -17,7 +17,7 @@ device-farm_Scenario_BrowserTesting:
               snippet_tags:
                 - python.example_code.device-farm.Scenario_BrowserTesting
   services:
-    device-farm: {}
+    device-farm: {CreateTestGridUrl, GetTestGridSession}
 device-farm_Scenario_DeviceTesting:
   title: Upload and test mobile device packages with &ATP; using an &AWS; SDK
   title_abbrev: Upload and test mobile device packages
@@ -36,4 +36,5 @@ device-farm_Scenario_DeviceTesting:
               snippet_tags:
                 - python.example_code.device-farm.Scenario_DeviceTesting
   services:
-    device-farm: {}
+    device-farm: {CreateUpload, GetUpload, ScheduleRun, GetRun, StopRun, ListJobs, ListSuites,
+                  ListTests, ListArtifacts}

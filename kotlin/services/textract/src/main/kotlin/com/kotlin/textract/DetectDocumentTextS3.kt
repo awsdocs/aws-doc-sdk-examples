@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[DetectDocumentTextS3.kt demonstrates how to detect text in an input document located in an Amazon S3 bucket.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Textract]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[07/16/2021]
-// snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,13 +11,20 @@ package com.kotlin.textract
 
 // snippet-start:[textract.kotlin._detect_s3_text.import]
 import aws.sdk.kotlin.services.textract.TextractClient
-import aws.sdk.kotlin.services.textract.model.S3Object
 import aws.sdk.kotlin.services.textract.model.DetectDocumentTextRequest
 import aws.sdk.kotlin.services.textract.model.Document
+import aws.sdk.kotlin.services.textract.model.S3Object
 import kotlin.system.exitProcess
 // snippet-end:[textract.kotlin._detect_s3_text.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
@@ -59,9 +62,9 @@ suspend fun detectDocTextS3(bucketName: String?, docName: String?) {
     }
 
     TextractClient { region = "us-west-2" }.use { textractClient ->
-      val response = textractClient.detectDocumentText(detectDocumentTextRequest)
+        val response = textractClient.detectDocumentText(detectDocumentTextRequest)
         response.blocks?.forEach { block ->
-            println("The block type is ${block.blockType.toString()}")
+            println("The block type is ${block.blockType}")
         }
 
         val documentMetadata = response.documentMetadata

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[UpdateTable.java demonstrates how to update an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,14 +28,14 @@ public class UpdateTable {
 
     public static void main(String[] args) {
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <tableName> <readCapacity> <writeCapacity>\n\n" +
-                "Where:\n" +
-                "    tableName - The Amazon DynamoDB table to update (for example, Music3).\n" +
-                "    readCapacity  - The new read capacity of the table (for example, 16).\n" +
-                "    writeCapacity - The new write capacity of the table (for example, 10).\n\n" +
-                "Example:\n" +
-                "    UpdateTable Music3 16 10\n";
+            "Usage:\n" +
+            "    <tableName> <readCapacity> <writeCapacity>\n\n" +
+            "Where:\n" +
+            "    tableName - The Amazon DynamoDB table to update (for example, Music3).\n" +
+            "    readCapacity  - The new read capacity of the table (for example, 16).\n" +
+            "    writeCapacity - The new write capacity of the table (for example, 10).\n\n" +
+            "Example:\n" +
+            "    UpdateTable Music3 16 10\n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -52,34 +49,30 @@ public class UpdateTable {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
+
         updateDynamoDBTable(ddb, tableName, readCapacity, writeCapacity);
         ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.update_table.main]
-    public static void updateDynamoDBTable(DynamoDbClient ddb,
-                                           String tableName,
-                                           Long readCapacity,
-                                           Long writeCapacity) {
+    public static void updateDynamoDBTable(DynamoDbClient ddb, String tableName, Long readCapacity, Long writeCapacity) {
 
-        System.out.format(
-                "Updating %s with new provisioned throughput values\n",
-                tableName);
+        System.out.format("Updating %s with new provisioned throughput values\n", tableName);
         System.out.format("Read capacity : %d\n", readCapacity);
         System.out.format("Write capacity : %d\n", writeCapacity);
 
         ProvisionedThroughput tableThroughput = ProvisionedThroughput.builder()
-                .readCapacityUnits(readCapacity)
-                .writeCapacityUnits(writeCapacity)
-                .build();
+            .readCapacityUnits(readCapacity)
+            .writeCapacityUnits(writeCapacity)
+            .build();
 
         UpdateTableRequest request = UpdateTableRequest.builder()
-                .provisionedThroughput(tableThroughput)
-                .tableName(tableName)
-                .build();
+            .provisionedThroughput(tableThroughput)
+            .tableName(tableName)
+            .build();
 
         try {
             ddb.updateTable(request);
@@ -87,7 +80,6 @@ public class UpdateTable {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
         System.out.println("Done!");
     }
     // snippet-end:[dynamodb.java2.update_table.main]

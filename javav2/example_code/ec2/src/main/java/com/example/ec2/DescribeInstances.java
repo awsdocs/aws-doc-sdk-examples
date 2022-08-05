@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[DescribeInstances.java demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) Instances associated with an AWS account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,16 +31,15 @@ import java.util.logging.Logger;
  */
 public class DescribeInstances {
 
-   // private static Global logger;
+    // private static Global logger;
     private Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
-
     public static void main(String[] args) {
 
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
        describeEC2Instances(ec2);
        ec2.close();
@@ -53,11 +50,9 @@ public class DescribeInstances {
 
         String nextToken = null;
         try {
-
             do {
                 DescribeInstancesRequest request = DescribeInstancesRequest.builder().maxResults(6).nextToken(nextToken).build();
                 DescribeInstancesResponse response = ec2.describeInstances(request);
-
                 for (Reservation reservation : response.reservations()) {
                     for (Instance instance : reservation.instances()) {
                         System.out.println("Instance Id is " + instance.instanceId());
@@ -67,7 +62,6 @@ public class DescribeInstances {
                         System.out.println("monitoring information is "+ instance.monitoring().state());
                     }
                 }
-
                 nextToken = response.nextToken();
             } while (nextToken != null);
 

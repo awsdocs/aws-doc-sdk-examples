@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetJob.java demonstrates how to get information about a specific AWS Elemental MediaConvert job.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,21 +33,21 @@ public class GetJob {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "  <jobId> \n\n" +
-                "Where:\n" +
-                "  jobId - The job id value.\n\n" ;
+            "  <jobId> \n\n" +
+            "Where:\n" +
+            "  jobId - The job id value.\n\n" ;
 
         if (args.length != 1) {
-              System.out.println(usage);
-              System.exit(1);
-          }
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String jobId = args[0];
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getSpecificJob(mc, jobId);
         mc.close();
@@ -61,8 +58,8 @@ public class GetJob {
 
         try {
             DescribeEndpointsResponse res = mc.describeEndpoints(DescribeEndpointsRequest.builder()
-                        .maxResults(20)
-                        .build());
+                .maxResults(20)
+                .build());
 
             if (res.endpoints().size() <= 0) {
                 System.out.println("Cannot find MediaConvert service endpoint URL!");

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListVaults.java demonstrates how to list all the Amazon Glacier vaults.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,9 +30,9 @@ public class ListVaults {
     public static void main(String[] args) {
 
         GlacierClient glacier = GlacierClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllVault(glacier);
         glacier.close();
@@ -53,15 +50,15 @@ public class ListVaults {
 
             while (!listComplete) {
                 ListVaultsResponse response = null;
-
                 if (newMarker != null) {
                     ListVaultsRequest request = ListVaultsRequest.builder()
-                            .marker(newMarker)
-                            .build();
+                        .marker(newMarker)
+                        .build();
+
                     response = glacier.listVaults(request);
                 } else {
                     ListVaultsRequest request = ListVaultsRequest.builder()
-                            .build();
+                        .build();
                     response = glacier.listVaults(request);
                 }
 
@@ -70,6 +67,7 @@ public class ListVaults {
                     totalVaults += 1;
                     System.out.println("* " + v.vaultName());
                 }
+
                 // Check for further results.
                 newMarker = response.marker();
                 if (newMarker == null) {
@@ -80,6 +78,7 @@ public class ListVaults {
             if (totalVaults == 0) {
                 System.out.println("No vaults found.");
             }
+
         } catch(GlacierException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

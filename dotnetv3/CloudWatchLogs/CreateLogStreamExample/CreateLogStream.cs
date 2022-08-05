@@ -3,6 +3,8 @@
 
 namespace CreateLogStreamExample
 {
+    // snippet-start:[CloudWatchLogs.dotnetv3.CreateLogStreamExample]
+
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -15,7 +17,6 @@ namespace CreateLogStreamExample
     /// </summary>
     public class CreateLogStream
     {
-        // snippet-start:[CloudWatchLogs.dotnetv3.CreateLogStreamExample]
         public static async Task Main()
         {
             // This client object will be associated with the same AWS Region
@@ -43,7 +44,6 @@ namespace CreateLogStreamExample
                 Console.WriteLine("Could not create stream.");
             }
         }
-
-        // snippet-end:[CloudWatchLogs.dotnetv3.CreateLogStreamExample]
     }
+    // snippet-end:[CloudWatchLogs.dotnetv3.CreateLogStreamExample]
 }

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteObject.java demonstrates how to delete an object within an AWS Elemental MediaStore container.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,11 +34,11 @@ public class DeleteObject {
     public static void main(String[] args) throws URISyntaxException {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <completePath> <containerName>\n\n" +
-                "Where:\n" +
-                "   completePath - The path (including the container) of the item to delete.\n"+
-                "   containerName - The name of the container.\n";
+            "Usage: " +
+            "   <completePath> <containerName>\n\n" +
+            "Where:\n" +
+            "   completePath - The path (including the container) of the item to delete.\n"+
+            "   containerName - The name of the container.\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -50,15 +47,14 @@ public class DeleteObject {
 
         String completePath = args[0];
         String containerName = args[1];
-
         Region region = Region.US_EAST_1;
         URI uri = new URI(getEndpoint(containerName));
 
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .endpointOverride(uri)
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteMediaObject(mediaStoreData, completePath);
         mediaStoreData.close();
@@ -69,8 +65,8 @@ public class DeleteObject {
 
         try {
             DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                    .path(completePath)
-                    .build();
+                .path(completePath)
+                .build();
 
             mediaStoreData.deleteObject(deleteObjectRequest);
 
@@ -79,16 +75,17 @@ public class DeleteObject {
             System.exit(1);
         }
     }
-     private static String getEndpoint(String containerName){
+
+    private static String getEndpoint(String containerName){
 
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         DescribeContainerRequest containerRequest = DescribeContainerRequest.builder()
-                .containerName(containerName)
-                .build();
+            .containerName(containerName)
+            .build();
 
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         mediaStoreClient.close();

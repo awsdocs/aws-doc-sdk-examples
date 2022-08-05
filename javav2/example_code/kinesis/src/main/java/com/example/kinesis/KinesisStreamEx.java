@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[KinesisStreamEx.java demonstrates the various ways to consume and process an Amazon Kinesis stream asynchronously.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -49,20 +47,20 @@ public class KinesisStreamEx {
         // snippet-start:[kinesis.java2.stream_example.setup]
         Region region = Region.US_EAST_1;
         KinesisAsyncClient client = KinesisAsyncClient.builder()
-        .region(region)
-        .build();
+            .region(region)
+            .build();
 
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
-                .consumerARN(CONSUMER_ARN)
-                .shardId("arn:aws:kinesis:us-east-1:111122223333:stream/StockTradeStream")
-                .startingPosition(s -> s.type(ShardIteratorType.LATEST)).build();
+            .consumerARN(CONSUMER_ARN)
+            .shardId("arn:aws:kinesis:us-east-1:111122223333:stream/StockTradeStream")
+            .startingPosition(s -> s.type(ShardIteratorType.LATEST)).build();
 
         // snippet-end:[kinesis.java2.stream_example.setup]
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
-                .builder()
-                .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
-                .subscriber(MySubscriber::new)
-                .build();
+            .builder()
+            .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
+            .subscriber(MySubscriber::new)
+            .build();
 
         client.subscribeToShard(request, responseHandler);
         client.close();
@@ -70,13 +68,12 @@ public class KinesisStreamEx {
 
     // snippet-start:[kinesis.java2.stream_example.lifecycle_callback]
     private static CompletableFuture<Void> responseHandlerBuilder(KinesisAsyncClient client, SubscribeToShardRequest request) {
-        SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
-                .builder()
-                .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
-                .onComplete(() -> System.out.println("All records stream successfully"))
-                // Must supply some type of subscriber
-                .subscriber(e -> System.out.println("Received event - " + e))
-                .build();
+        SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler.builder()
+            .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
+            .onComplete(() -> System.out.println("All records stream successfully"))
+            // Must supply some type of subscriber
+            .subscriber(e -> System.out.println("Received event - " + e))
+            .build();
         return client.subscribeToShard(request, responseHandler);
     }
     // snippet-end:[kinesis.java2.stream_example.lifecycle_callback]
@@ -85,11 +82,11 @@ public class KinesisStreamEx {
      * Using the SubscribeToShardResponseHandler.Builder and a simple Consumer of events to subscribe.
      */
     private static CompletableFuture<Void> responseHandlerBuilderConsumer(KinesisAsyncClient client, SubscribeToShardRequest request) {
-        SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
-                .builder()
-                .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
-                .subscriber(e -> System.out.println("Received event - " + e))
-                .build();
+        SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler.builder()
+            .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
+            .subscriber(e -> System.out.println("Received event - " + e))
+            .build();
+
         return client.subscribeToShard(request, responseHandler);
     }
 
@@ -98,12 +95,11 @@ public class KinesisStreamEx {
      */
     // snippet-start:[kinesis.java2.stream_example.publish_transformer]
     private static CompletableFuture<Void> responseHandlerBuilderPublisherTransformer(KinesisAsyncClient client, SubscribeToShardRequest request) {
-        SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
-                .builder()
-                .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
-                .publisherTransformer(p -> p.filter(e -> e instanceof SubscribeToShardEvent).limit(100))
-                .subscriber(e -> System.out.println("Received event - " + e))
-                .build();
+        SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler.builder()
+            .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
+            .publisherTransformer(p -> p.filter(e -> e instanceof SubscribeToShardEvent).limit(100))
+            .subscriber(e -> System.out.println("Received event - " + e))
+            .build();
         return client.subscribeToShard(request, responseHandler);
     }
     // snippet-end:[kinesis.java2.stream_example.publish_transformer]
@@ -115,14 +111,14 @@ public class KinesisStreamEx {
     // snippet-start:[kinesis.java2.stream_example.visitor]
     private static CompletableFuture<Void> responseHandlerBuilderVisitorBuilder(KinesisAsyncClient client, SubscribeToShardRequest request) {
         SubscribeToShardResponseHandler.Visitor visitor = SubscribeToShardResponseHandler.Visitor
-                .builder()
-                .onSubscribeToShardEvent(e -> System.out.println("Received subscribe to shard event " + e))
-                .build();
+            .builder()
+            .onSubscribeToShardEvent(e -> System.out.println("Received subscribe to shard event " + e))
+            .build();
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
-                .builder()
-                .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
-                .subscriber(visitor)
-                .build();
+            .builder()
+            .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
+            .subscriber(visitor)
+            .build();
         return client.subscribeToShard(request, responseHandler);
     }
     // snippet-end:[kinesis.java2.stream_example.visitor]
@@ -138,10 +134,10 @@ public class KinesisStreamEx {
             }
         };
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
-                .builder()
-                .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
-                .subscriber(visitor)
-                .build();
+            .builder()
+            .onError(t -> System.err.println("Error during stream - " + t.getMessage()))
+            .subscriber(visitor)
+            .build();
         return client.subscribeToShard(request, responseHandler);
     }
 

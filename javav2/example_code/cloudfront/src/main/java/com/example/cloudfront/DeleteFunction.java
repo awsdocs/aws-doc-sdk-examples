@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteFunction.java demonstrates how to delete a CloudFront function.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2021]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -46,9 +43,9 @@ public class DeleteFunction {
         String functionName = args[0];
         String ifMatchVal = args[1];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-                .region(Region.AWS_GLOBAL)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.AWS_GLOBAL)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSpecificFunction(cloudFrontClient, functionName, ifMatchVal);
         cloudFrontClient.close();

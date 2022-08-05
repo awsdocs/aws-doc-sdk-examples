@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[LookUpEndpoint.java  demonstrates how to display information about an existing endpoint in Amazon Pinpoint.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,25 +33,24 @@ public class LookUpEndpoint {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "  <appId> <endpoint>\n\n" +
-                "Where:\n" +
-                "  appId - The ID of the application to delete.\n\n"+
-                "  endpoint - The ID of the endpoint. ";
+            "Usage: " +
+            "  <appId> <endpoint>\n\n" +
+            "Where:\n" +
+            "  appId - The ID of the application to delete.\n\n"+
+            "  endpoint - The ID of the endpoint. ";
 
        if (args.length != 2) {
-          System.out.println(usage);
-            System.exit(1);
+           System.out.println(usage);
+           System.exit(1);
         }
 
         String appId = args[0];
         String endpoint = args[1];
         System.out.println("Looking up an endpoint point with ID: " + endpoint);
-
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         lookupPinpointEndpoint(pinpoint, appId, endpoint);
         pinpoint.close();
@@ -66,18 +61,18 @@ public class LookUpEndpoint {
 
         try {
             GetEndpointRequest appRequest = GetEndpointRequest.builder()
-                    .applicationId(appId)
-                    .endpointId(endpoint)
-                    .build();
+                .applicationId(appId)
+                .endpointId(endpoint)
+                .build();
 
             GetEndpointResponse result = pinpoint.getEndpoint(appRequest);
             EndpointResponse endResponse = result.endpointResponse();
 
             // Uses the Google Gson library to pretty print the endpoint JSON.
             Gson gson = new GsonBuilder()
-                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                    .setPrettyPrinting()
-                    .create();
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setPrettyPrinting()
+                .create();
 
             String endpointJson = gson.toJson(endResponse);
             System.out.println(endpointJson);

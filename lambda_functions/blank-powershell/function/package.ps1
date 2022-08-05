@@ -1,1 +1,0 @@
-New-AWSPowerShellLambdaPackage -ScriptPath ./Handler.ps1 -OutputPackage function.zip

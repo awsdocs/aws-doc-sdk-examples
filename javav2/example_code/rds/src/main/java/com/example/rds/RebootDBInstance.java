@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[RebootDBInstance.java demonstrates how to reboot an Amazon Relational Database Service (RDS) instance.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class RebootDBInstance {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <dbInstanceIdentifier> \n\n" +
-                "Where:\n" +
-                "    dbInstanceIdentifier - The database instance identifier \n" ;
+            "Usage:\n" +
+            "    <dbInstanceIdentifier> \n\n" +
+            "Where:\n" +
+            "    dbInstanceIdentifier - The database instance identifier \n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class RebootDBInstance {
         String dbInstanceIdentifier = args[0];
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         rebootInstance(rdsClient, dbInstanceIdentifier) ;
         rdsClient.close();
@@ -58,10 +55,9 @@ public class RebootDBInstance {
     public static void rebootInstance(RdsClient rdsClient, String dbInstanceIdentifier ) {
 
         try {
-            // For a demo - modify the DB instance by modifying the master password.
             RebootDbInstanceRequest rebootDbInstanceRequest = RebootDbInstanceRequest.builder()
-                    .dbInstanceIdentifier(dbInstanceIdentifier)
-                    .build();
+               .dbInstanceIdentifier(dbInstanceIdentifier)
+               .build();
 
             RebootDbInstanceResponse instanceResponse = rdsClient.rebootDBInstance(rebootDbInstanceRequest);
             System.out.print("The database "+ instanceResponse.dbInstance().dbInstanceArn() +" was rebooted");

@@ -1,11 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteHealthCheck.kt demonstrates how to delete a health check.]
-//snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/5/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,10 +17,10 @@ import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.delete_health_check.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
@@ -34,28 +30,28 @@ suspend fun main(args: Array<String>) {
         <id> 
 
     Where:
-        id - the health check id. 
+        id - The health check id. 
     """
 
-      if (args.size != 1) {
-          println(usage)
-          exitProcess(0)
-     }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val id = args[0]
     delHealthCheck(id)
 }
 
 // snippet-start:[route53.kotlin.delete_health_check.main]
- suspend fun delHealthCheck(id: String?) {
+suspend fun delHealthCheck(id: String?) {
 
-           val delRequest = DeleteHealthCheckRequest {
-                healthCheckId = id
-            }
+    val delRequest = DeleteHealthCheckRequest {
+        healthCheckId = id
+    }
 
-            Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
-                route53Client.deleteHealthCheck(delRequest)
-                println("The HealthCheck with id $id was deleted")
-            }
- }
+    Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+        route53Client.deleteHealthCheck(delRequest)
+        println("The HealthCheck with id $id was deleted")
+    }
+}
 // snippet-end:[route53.kotlin.delete_health_check.main]
