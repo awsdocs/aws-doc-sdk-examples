@@ -25,7 +25,7 @@
   6. Describes AWS Auto Scaling groups again to show the current state of the
      group.
   7. Changes the desired capacity of the AWS Auto Scaling group to two.
-  9. Retrieves the details of the group group and shows the number of instances.
+  9. Retrieves the details of the group and shows the number of instances.
  10. Lists the scaling activities that have occurred for the group.
  11. Displays the Amazon CloudWatch metrics that have been collected.
  12. Terminates an instance in the Auto Scaling group.
@@ -43,23 +43,32 @@ var launchTemplateName = "AutoScaleLaunchTemplate";
 var groupName = "AutoScaleExampleGroup";
 
 // the Amazon Resource Name (ARN) of the service linked IAM role.
-var serviceLinkedRoleARN = "<Enter Value>";
+// var serviceLinkedRoleARN = "<Enter Value>";
+var serviceLinkedRoleARN = "arn:aws:iam::704825161248:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_Basics";
 
 // The subnet Id for a virtual service cloud (VPC) where instances in the
 // autoscaling group can be created.
 string vpcZoneId = "autoscale-basics";
 
-var client = new AmazonAutoScalingClient(RegionEndpoint.USEast1);
+var client = new AmazonAutoScalingClient(RegionEndpoint.USEast2);
+
+Console.WriteLine("Auto Scaling Basics");
+DisplayDescription();
 
 // Start by creating the and save launch template Id to use when deleting the launch template at
 // the end of the application.
-var launchTemplateId = await EC2Methods.CreateLaunchTemplateAsync(imageId, instanceType, launchTemplateName);
+// var launchTemplateId = await EC2Methods.CreateLaunchTemplateAsync(imageId, instanceType, launchTemplateName);
+string launchTemplateId = "lt-0d78ae8110ea62f18";
+await EC2Methods.DescribeLaunchTemplateAsync(launchTemplateName);
 
-Console.WriteLine($"--- Create an Auto Scaling group named {groupName}. ---");
+PressEnter();
+
+Console.WriteLine($"--- Creating an Auto Scaling group named {groupName}. ---");
 var success = await AutoScaleMethods.CreateAutoScalingGroup(
     client,
     groupName,
     launchTemplateName,
+    launchTemplateId,
     serviceLinkedRoleARN,
     vpcZoneId);
 
@@ -67,24 +76,24 @@ var success = await AutoScaleMethods.CreateAutoScalingGroup(
 // is "InService"
 Console.WriteLine($"Waiting for the Auto Scaling group to be active.");
 
-List<AutoScalingInstanceDetails> details;
+List<AutoScalingInstanceDetails> instanceDetails;
 
 do
 {
-    details = await AutoScaleMethods.DescribeAutoScalingInstancesAsync(client, groupName);
+    instanceDetails = await AutoScaleMethods.DescribeAutoScalingInstancesAsync(client, groupName);
 }
-while (details[0].LifecycleState != "InService");
+while (instanceDetails[0].LifecycleState != "InService");
 
 Console.WriteLine($"Auto scaling group {groupName} successfully created.");
-Console.WriteLine($"{details.Count} instances were created for the group.");
+Console.WriteLine($"{instanceDetails.Count} instances were created for the group.");
 
 // Display the details of the AWS Auto Scaling group.
-details.ForEach(detail =>
+instanceDetails.ForEach(detail =>
 {
     Console.WriteLine($"Group name: {detail.AutoScalingGroupName}");
 });
 
-Console.WriteLine($"--- Enable metrics collection for {groupName}");
+Console.WriteLine($"\n--- Enable metrics collection for {groupName}");
 await AutoScaleMethods.EnableMetricsCollectionAsync(client, groupName);
 
 // Show the metrics that are collected for the group.
@@ -140,11 +149,36 @@ if (activities is not null)
 }
 
 // Display the Amazon CloudWatch metrics that have been collected.
+var metrics = await CloudWatchMethods.GetCloudWatchMetricsAsync(groupName);
+Console.WriteLine($"Metrics collected for {groupName}:");
+metrics.ForEach(metric =>
+{
+    Console.Write($"Metric name: {metric.MetricName}\t");
+    Console.WriteLine($"Namespace: {metric.Namespace}");
+});
+
+var dataPoints = await CloudWatchMethods.GetMetricStatisticsAsync(groupName);
+Console.WriteLine("Details for the metrics collected:");
+dataPoints.ForEach(detail =>
+{
+    Console.WriteLine(detail);
+});
 
 // Disable metrics collection.
+Console.WriteLine("Disabling the collection of metrics for {groupName}.");
+success = await AutoScaleMethods.DisableMetricsCollectionAsync(client, groupName);
+
+if (success)
+{
+    Console.WriteLine($"Successfully stopped metrics collection for {groupName}.");
+}
+else
+{
+    Console.WriteLine($"Could not stop metrics collection for {groupName}.");
+}
 
 // Terminate all instances in the group.
-Console.WriteLine("--- Terminating all instances in the AWS Auto Scaling group ---");
+Console.WriteLine("--- Now terminating all instances in the AWS Auto Scaling group ---");
 groups.ForEach(group =>
 {
     // Only delete groups in the AWS AutoScaling group we created.
@@ -204,6 +238,13 @@ void DisplayGroupDetails(List<AutoScalingGroup> groups)
         Console.WriteLine($"Maximum number of instances:\t{group.MaxSize}");
         Console.WriteLine($"Desired number of instances:\t{group.DesiredCapacity}");
     });
+}
+
+void PressEnter()
+{
+    Console.WriteLine("Press <Enter> to continue.");
+    _ = Console.ReadLine();
+    Console.WriteLine("\n\n");
 }
 
 // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.main]

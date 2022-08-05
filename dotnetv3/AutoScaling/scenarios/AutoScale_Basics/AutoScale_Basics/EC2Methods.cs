@@ -20,7 +20,7 @@ namespace AutoScale_Basics
             string instanceType,
             string launchTemplateName)
         {
-            AmazonEC2Client client = new AmazonEC2Client();
+            var client = new AmazonEC2Client();
 
             var request = new CreateLaunchTemplateRequest
             {
@@ -40,7 +40,7 @@ namespace AutoScale_Basics
         // Delete an Amazon Elastic Compute Cloud (Amazon EC2) launch template.
         public static async Task<string> DeleteLaunchTemplateAsync(string launchTemplateId)
         {
-            AmazonEC2Client client = new AmazonEC2Client();
+            var client = new AmazonEC2Client();
 
             var request = new DeleteLaunchTemplateRequest
             {
@@ -49,6 +49,28 @@ namespace AutoScale_Basics
 
             var response = await client.DeleteLaunchTemplateAsync(request);
             return response.LaunchTemplate.LaunchTemplateName;
+        }
+
+        // Get the details of an Amazon Elastic Cloud (Amazon EC2) launch template.
+        public static async Task DescribeLaunchTemplateAsync(string launchTemplateName)
+        {
+            var client = new AmazonEC2Client();
+
+            var request = new DescribeLaunchTemplatesRequest
+            {
+                LaunchTemplateNames = new List<string> { launchTemplateName, },
+            };
+
+            var response = await client.DescribeLaunchTemplatesAsync(request);
+
+            if (response.LaunchTemplates != null)
+            {
+                response.LaunchTemplates.ForEach(template =>
+                {
+                    Console.Write($"{template.LaunchTemplateName}\t");
+                    Console.WriteLine(template.LaunchTemplateId);
+                });
+            }
         }
     }
 

@@ -33,20 +33,23 @@ namespace AutoScale_Basics
             return response.Metrics;
         }
 
-        public static async Task<List<Datapoint>> GetMetricStatistics(string groupName)
+        public static async Task<List<Datapoint>> GetMetricStatisticsAsync(string groupName)
         {
             var client = new AmazonCloudWatchClient();
 
-            var filter = new DimensionFilter
+            var metricDimensions = new List<Dimension>
             {
-                Name = "AutoScalingGroupName",
-                Value = $"{groupName}",
+                new Dimension
+                {
+                    Name = "AutoScalingGroupName",
+                    Value = $"{groupName}",
+                },
             };
 
             var request = new GetMetricStatisticsRequest
             {
                 MetricName = "AutoScalingGroupName",
-                Dimensions = new List<DimensionFilter> { filter },
+                Dimensions = metricDimensions,
                 Namespace = "AWS/AutoScaling",
             };
 

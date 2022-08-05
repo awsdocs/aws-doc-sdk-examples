@@ -10,17 +10,18 @@ namespace AutoScale_Basics
             AmazonAutoScalingClient client,
             string groupName,
             string launchTemplateName,
+            string launchTemplateId,
             string serviceLinkedRoleARN,
             string vpcZoneId)
         {
             var templateSpecification = new LaunchTemplateSpecification
             {
-                LaunchTemplateName = launchTemplateName,
+                LaunchTemplateId = launchTemplateId,
             };
 
             var zoneList = new List<string>
             {
-                "us-east-1a",
+                "us-east-2a",
             };
 
             var request = new CreateAutoScalingGroupRequest
@@ -30,7 +31,7 @@ namespace AutoScale_Basics
                 LaunchTemplate = templateSpecification,
                 MaxSize = 1,
                 MinSize = 1,
-                VPCZoneIdentifier = vpcZoneId,
+                /* VPCZoneIdentifier = vpcZoneId,*/
                 ServiceLinkedRoleARN = serviceLinkedRoleARN,
             };
 
@@ -73,22 +74,29 @@ namespace AutoScale_Basics
             AmazonAutoScalingClient client,
             string groupName)
         {
-            var instanceId = string.Empty;
-            var groupList = new List<string>
+            var groups = await DescribeAutoScalingGroupsAsync(client, groupName);
+            var instanceIds = new List<string>();
+            groups.ForEach(group =>
             {
-                groupName,
-            };
+                if (group.AutoScalingGroupName == groupName)
+                {
+                    group.Instances.ForEach(instance =>
+                    {
+                        instanceIds.Add(instance.InstanceId);
+                    });
+                }
+            });
 
             var scalingGroupsRequest = new DescribeAutoScalingInstancesRequest
             {
                 MaxRecords = 10,
-
+                InstanceIds = instanceIds,
             };
 
             var response = await client.DescribeAutoScalingInstancesAsync(scalingGroupsRequest);
-            var instancesDetails = response.AutoScalingInstances;
+            var instanceDetails = response.AutoScalingInstances;
 
-            return instancesDetails;
+            return instanceDetails;
         }
 
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances]
@@ -98,7 +106,6 @@ namespace AutoScale_Basics
             AmazonAutoScalingClient client,
             string groupName)
         {
-            var instanceId = string.Empty;
             var groupList = new List<string>
             {
                 groupName,

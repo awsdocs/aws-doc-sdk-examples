@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.AutoScaling" Version="3.7.10.39" />
-    <PackageReference Include="AWSSDK.CloudWatchLogs" Version="3.7.2.82" />
+    <PackageReference Include="AWSSDK.CloudWatch" Version="3.7.5.4" />
     <PackageReference Include="AWSSDK.Core" Version="3.7.12.16" />
     <PackageReference Include="AWSSDK.EC2" Version="3.7.80" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">

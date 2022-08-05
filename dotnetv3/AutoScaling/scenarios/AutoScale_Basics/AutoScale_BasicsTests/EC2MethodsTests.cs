@@ -1,4 +1,5 @@
-﻿using Amazon.EC2;
+﻿using AutoScale_Basics;
+using Amazon.EC2;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AutoScale_Basics.Tests
@@ -23,6 +24,12 @@ namespace AutoScale_Basics.Tests
         {
             var deletedLaunchTemplateName = await EC2Methods.DeleteLaunchTemplateAsync(launchTemplateId);
             Assert.IsTrue(deletedLaunchTemplateName == launchTemplateName, "Could not delete the launch template.");
+        }
+
+        [TestMethod()]
+        public void DescribeLaunchTemplateAsyncTest()
+        {
+            Assert.Fail();
         }
     }
 }
