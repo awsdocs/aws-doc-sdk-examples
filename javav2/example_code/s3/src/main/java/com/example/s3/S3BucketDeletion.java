@@ -13,12 +13,7 @@ package com.example.s3;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
-import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
-import software.amazon.awssdk.services.s3.model.S3Object;
-import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket.import]
 // snippet-end:[s3.java2.bucket_deletion.import]
 // snippet-start:[s3.java2.bucket_deletion.main]
@@ -70,10 +65,11 @@ public class S3BucketDeletion {
             do {
                 listObjectsV2Response = s3.listObjectsV2(listObjectsV2Request);
                 for (S3Object s3Object : listObjectsV2Response.contents()) {
-                    s3.deleteObject(DeleteObjectRequest.builder()
+                    DeleteObjectRequest request = DeleteObjectRequest.builder()
                             .bucket(bucket)
                             .key(s3Object.key())
-                            .build());
+                            .build();
+                    s3.deleteObject(request);
                 }
             } while (listObjectsV2Response.isTruncated());
             // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
