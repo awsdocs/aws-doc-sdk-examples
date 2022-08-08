@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 // snippet-end:[s3.java2.copy_object.import]
 
+
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -32,7 +33,7 @@ public class CopyObject {
 
     public static void main(String[] args) {
 
-        final String usage = "\n" +
+        final String usage = "\n" + 
             "Usage:\n" +
             "    <objectKey> <fromBucket> <toBucket>\n\n" +
             "Where:\n" +
