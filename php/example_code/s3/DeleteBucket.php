@@ -32,9 +32,7 @@ use Aws\Exception\AwsException;
  *               well as any objects within it!
  */
 
-
-
-$BUCKET_NAME = '<BUCKET-NAME>';   
+$BUCKET_NAME = '<BUCKET-NAME>';
 
 //Create a S3Client 
 //snippet-start:[s3.php.delete_bucket.main]
