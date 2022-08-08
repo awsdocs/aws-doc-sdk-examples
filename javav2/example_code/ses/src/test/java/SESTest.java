@@ -1,8 +1,15 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 import com.example.ses.ListIdentities;
 import com.example.ses.SendMessage;
 import com.example.ses.SendMessageAttachment;
 import com.example.sesv2.ListEmailIdentities;
+import com.example.sesv2.ListTemplates;
 import com.example.sesv2.SendEmail;
+import com.example.sesv2.SendEmailTemplate;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -12,8 +19,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
-
-import javax.mail.MessagingException;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -25,6 +30,7 @@ public class SESTest {
     private static String recipient="";
     private static String subject="";
     private static String fileLocation="";
+    private static String templateName = "";
 
     private static String bodyText = "Hello,\r\n" + "Please see the attached file for a list "
             + "of customers to contact.";
@@ -64,6 +70,7 @@ public class SESTest {
             recipient = prop.getProperty("recipient");
             subject = prop.getProperty("subject");
             fileLocation= prop.getProperty("fileLocation");
+            templateName = prop.getProperty("templateName");
 
 
         } catch (IOException ex) {
@@ -82,61 +89,56 @@ public class SESTest {
     @Test
     @Order(2)
     public void SendMessage() {
-
-        try {
-            SendMessage.send(client, sender,recipient, subject,bodyText,bodyHTML);
-            System.out.println("Test 2 passed");
-
-        } catch (IOException | MessagingException e) {
-            e.getStackTrace();
-        }
+        assertDoesNotThrow(() -> SendMessage.send(client, sender,recipient, subject,bodyText,bodyHTML));
+        System.out.println("Test 2 passed");
     }
 
     @Test
     @Order(3)
     public void SendMessageV2() {
-
-      SendEmail.send(sesv2Client, sender, recipient, subject, bodyHTML);
-      System.out.println("Test 3 passed");
+        assertDoesNotThrow(() -> SendEmail.send(sesv2Client, sender, recipient, subject, bodyHTML));
+        System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void SendMessageAttachment() {
-
-        try {
-            SendMessageAttachment.sendemailAttachment(client, sender,recipient, subject,bodyText,bodyHTML,fileLocation );
-            System.out.println("Test 4 passed");
-
-        } catch (IOException | MessagingException e) {
-            e.getStackTrace();
-        }
+        assertDoesNotThrow(() -> SendMessageAttachment.sendemailAttachment(client, sender, recipient, subject, bodyText, bodyHTML, fileLocation ));
+        System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void SendMessageAttachmentV2() {
-
-        try {
-            com.example.sesv2.SendMessageAttachment.sendEmailAttachment(sesv2Client, sender, recipient, subject, bodyHTML, fileLocation );
-            System.out.println("Test 5 passed");
-
-        } catch (IOException | MessagingException e) {
-            e.getStackTrace();
-        }
+        assertDoesNotThrow(() -> com.example.sesv2.SendMessageAttachment.sendEmailAttachment(sesv2Client, sender, recipient, subject, bodyHTML, fileLocation));
+        System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(6)
-    public void ListIdentities() {
-        ListIdentities.listSESIdentities(client);
+    public void SendMessageTemplateV2() {
+        assertDoesNotThrow(() -> SendEmailTemplate.send(sesv2Client, sender, recipient, templateName));
         System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
+    public void ListIdentities() {
+        assertDoesNotThrow(() -> ListIdentities.listSESIdentities(client));
+        System.out.println("Test 6 passed");
+    }
+
+    @Test
+    @Order(8)
     public void ListEmailIdentities() {
-        ListEmailIdentities.listSESIdentities(sesv2Client);
+        assertDoesNotThrow(() -> ListEmailIdentities.listSESIdentities(sesv2Client));
+        System.out.println("Test 4 passed");
+    }
+
+    @Test
+    @Order(9)
+    public void ListEmailTemplates() {
+        assertDoesNotThrow(() -> ListTemplates.listALlTemplates(sesv2Client));
         System.out.println("Test 4 passed");
     }
 }
