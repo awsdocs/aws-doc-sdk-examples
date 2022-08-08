@@ -41,7 +41,7 @@ public class SendEmailTemplate {
             "Usage:\n" +
             "    <template> <sender> <recipient> \n\n" +
             "Where:\n" +
-            "    template - The name of the email template" +
+            "    template - The name of the email template." +
             "    sender - An email address that represents the sender. \n"+
             "    recipient - An email address that represents the recipient. \n" ;
 
@@ -71,7 +71,7 @@ public class SendEmailTemplate {
 
         /*
          Specify both name and favoriteanimal in your code when defining the Template object.
-         If you DO NOT specify all variables in the template - SES does not send the email.
+         If you don't specify all the variables in the template, Amazon SES doesn't send the email.
         */
         Template myTemplate = Template.builder()
             .templateName(templateName)
@@ -92,7 +92,7 @@ public class SendEmailTemplate {
             .build();
 
         try {
-            System.out.println("Attempting to send an email based on a template using the AWS SDK for Java V2...");
+            System.out.println("Attempting to send an email based on a template using the AWS SDK for Java (v2)...");
             client.sendEmail(emailRequest);
             System.out.println("email based on a template was sent");
 
