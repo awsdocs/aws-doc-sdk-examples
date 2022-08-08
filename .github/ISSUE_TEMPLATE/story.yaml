@@ -1,5 +1,5 @@
-name: Story (Internal Use Only 🔒)
-description: Define a user story.
+name: Story (Internal use only 🔒)
+description: Define a user story
 title: "[Story]: <DESCRIPTIVE TITLE HERE>"
 labels: ["type/user-story"]
 assignees:

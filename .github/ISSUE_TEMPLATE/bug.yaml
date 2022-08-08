@@ -21,7 +21,7 @@ body:
     attributes:
       label: Expected behavior
       description: What did you expect to happen?
-      placeholder: Be specific! Ctrl+Copy screenshots.
+      placeholder: Be specific. Ctrl+Copy screenshots.
     validations:
       required: true
   - type: textarea
@@ -54,7 +54,7 @@ body:
     attributes:
       value: |
         ---
-        # 🌎 Environment Details
+        # 🌎 Environment details
   - type: dropdown
     id: sdk-type
     attributes:
