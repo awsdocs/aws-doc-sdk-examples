@@ -59,7 +59,8 @@ export const run = async () => {
       );
       console.log("Success, permissions added to bucket", response);
     }
-    catch (err) {
+    catch (err)
+      {
         console.log("Error adding policy to S3 bucket.", err);
       }
   } catch (err) {
