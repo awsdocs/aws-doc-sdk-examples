@@ -1,4 +1,4 @@
-name: Feature Request
+name: Feature request
 description: Request a new code example
 title: "[Enhancement]: <DESCRIPTIVE TITLE HERE>"
 labels: ["type/enhancement"]
@@ -9,11 +9,11 @@ body:
     attributes:
       value: |
         ## ⚠️ Warning
-        Issues that do not follow the below template will be marked `status/back-to-author` and assigned back to the creator.
+        Issues that don't use the following template will be marked `status/back-to-author` and assigned back to the creator.
         
         ---
         
-        # ✨ Code Example Details
+        # ✨ Code example details
   - type: textarea
     id: context
     attributes:
@@ -45,11 +45,11 @@ body:
       options:
         - label: All languages
         - label: .NET
-        - label: Go v2
+        - label: Go (v2)
         - label: Java
-        - label: Java v2
+        - label: Java (v2)
         - label: JavaScript
-        - label: JavaScript v3
+        - label: JavaScript (v3)
         - label: Kotlin
         - label: PHP
         - label: Python
@@ -60,7 +60,7 @@ body:
   - type: textarea
     id: which-examples
     attributes:
-      label: Are there any existing code examples could be leveraged?
+      label: Are there existing code examples to leverage?
       description: Are there any [existing code examples](https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html) that might provide a foundation?
       placeholder: Use hyperlinks!
     validations:

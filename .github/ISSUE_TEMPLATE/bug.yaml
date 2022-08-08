@@ -1,4 +1,4 @@
-name: Bug Report
+name: Bug report
 description: File a bug report
 title: "[Bug]: <DESCRIPTIVE TITLE HERE>"
 labels: ["type/bug"]
@@ -9,13 +9,13 @@ body:
     attributes:
       value: |
         ## ⚠️ Warning
-        Issues that do not follow the below template will be marked `status/back-to-author` and assigned back to the creator.
+        Issues that don't use the following template will be marked `status/back-to-author` and assigned back to the creator.
         
         ---
   - type: markdown
     attributes:
       value: |
-        # 🐛 Bug Details
+        # 🐛 Bug details
   - type: textarea
     id: expected-behavior
     attributes:
@@ -61,11 +61,11 @@ body:
       label: Which SDK were you using?
       options:
         - .NET
-        - Go v2
+        - Go (v2)
         - Java
-        - Java v2
+        - Java (v2)
         - JavaScript
-        - JavaScript v3
+        - JavaScript (v3)
         - Kotlin
         - PHP
         - Python

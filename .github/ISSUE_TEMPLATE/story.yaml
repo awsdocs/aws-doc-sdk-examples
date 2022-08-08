@@ -9,11 +9,11 @@ body:
     attributes:
       value: |
         ## ⚠️ Warning
-        Issues that do not follow the below template will be marked `status/back-to-author` and assigned back to the creator.
+        Issues that don't use the following template will be marked `status/back-to-author` and assigned back to the creator.
         
         ---
         
-        # 📚️ Story Details
+        # 📚️ Story details
   - type: textarea
     id: user-stories
     attributes:
@@ -32,6 +32,6 @@ body:
     id: context
     attributes:
       label: Epic link
-      description: Provide the hyperlink of the over-arching epic.
+      description: Provide the hyperlink of the overarching epic.
     validations:
       required: true
