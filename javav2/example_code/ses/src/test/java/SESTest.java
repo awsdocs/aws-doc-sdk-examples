@@ -15,7 +15,7 @@ import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import java.io.*;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.*;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
@@ -39,7 +39,6 @@ public class SESTest {
     private static String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
 
-
     @BeforeAll
     public static void setUp() throws IOException, URISyntaxException {
 
@@ -48,35 +47,27 @@ public class SESTest {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-         sesv2Client =  SesV2Client.builder()
+        sesv2Client =  SesV2Client.builder()
                  .region(Region.US_EAST_1)
                  .credentialsProvider(ProfileCredentialsProvider.create())
                  .build();
 
         try (InputStream input = SESTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-
             Properties prop = new Properties();
-
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
             }
-
-            //load a properties file from class path, inside static method
             prop.load(input);
-
-            // Populate the data members required for all tests
             sender = prop.getProperty("sender");
             recipient = prop.getProperty("recipient");
             subject = prop.getProperty("subject");
             fileLocation= prop.getProperty("fileLocation");
             templateName = prop.getProperty("templateName");
 
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
 
     @Test
