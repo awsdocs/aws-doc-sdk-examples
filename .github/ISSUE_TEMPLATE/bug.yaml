@@ -21,7 +21,7 @@ body:
     attributes:
       label: Expected behavior
       description: What did you expect to happen?
-      placeholder: Be specific! Ctrl+Copy screenshots!
+      placeholder: Be specific! Ctrl+Copy screenshots.
     validations:
       required: true
   - type: textarea
@@ -29,14 +29,14 @@ body:
     attributes:
       label: Actual behavior
       description: What actually happened?
-      placeholder: Be specific! Ctrl+Copy screenshots!
+      placeholder: Be specific. Ctrl+Copy screenshots.
     validations:
       required: true
   - type: textarea
     id: reproduce
     attributes:
       label: Steps to reproduce
-      description: "How do you trigger this bug? Please walk us through it step by step. NOTE: Screenshots welcome! Just Ctrl+Copy them here."
+      description: "How do you trigger this bug? Walk us through it step by step. Ctrl+Copy screenshots here."
       value: |
         1.
         2.
@@ -47,8 +47,8 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: Logs/stacktrace (if applicable)
-      description: This will be automatically formatted into code, so no need for backticks.
+      label: Logs / stacktrace (if applicable)
+      description: This will be automatically formatted into code. No backticks required.
       render: shell
   - type: markdown
     attributes:
@@ -79,24 +79,24 @@ body:
     attributes:
       label: Which OS were you using?
       options:
-        - MacOS
+        - macOS
         - Windows
         - Linux
     validations:
       required: true
   - type: input
     attributes:
-      label: SDK Version
+      label: SDK version
       description: What version of the SDK were you using?
-      placeholder: e.g. 1.24.42
+      placeholder: 1.24.42
       value:
     validations:
       required: false
   - type: input
     attributes:
-      label: OS Version
+      label: OS version
       description: What OS version are you using?
-      placeholder: e.g. Windows 10, macOS Big Sur, Ubuntu 14.2
+      placeholder: Windows 10, macOS Big Sur, Ubuntu 14.2
       value:
     validations:
       required: false

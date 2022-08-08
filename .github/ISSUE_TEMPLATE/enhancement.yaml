@@ -18,8 +18,8 @@ body:
     id: context
     attributes:
       label: Background story
-      description: Take a moment and give us some context! Why is this example important to you?
-      placeholder: Be specific! Ctrl+Copy screenshots!
+      description: Take a moment and give us some context. Why is this example important to you?
+      placeholder: Be specific. Ctrl+Copy screenshots.
     validations:
       required: true
   - type: textarea
@@ -27,15 +27,15 @@ body:
     attributes:
       label: What does this example accomplish?
       description: Provide a clear and brief description of what the code example should do. For example, "I want to upload a file to the cloud."
-      placeholder: Be specific! Ctrl+Copy screenshots!
+      placeholder: Be specific. Ctrl+Copy screenshots.
     validations:
       required: true
   - type: input
     id: which-services
     attributes:
       label: Which AWS service(s)?
-      description: List out the [AWS service(s)](https://aws.amazon.com/products/) this code will engage.
-      placeholder: Be specific!
+      description: List the [AWS services](https://aws.amazon.com/products/) that this code will engage.
+      placeholder: Be specific.
     validations:
       required: true
   - type: checkboxes
@@ -62,14 +62,14 @@ body:
     attributes:
       label: Are there existing code examples to leverage?
       description: Are there any [existing code examples](https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html) that might provide a foundation?
-      placeholder: Use hyperlinks!
+      placeholder: Use hyperlinks.
     validations:
       required: false
   - type: textarea
     id: your-code
     attributes:
       label: Do you have any reference code?
-      description: This will be automatically formatted into code, so no need for backticks.
+      description: This will be automatically formatted into code. No backticks required.
       render: shell
   - type: markdown
     attributes:
