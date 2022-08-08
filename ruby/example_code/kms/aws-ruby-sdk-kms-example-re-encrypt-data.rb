@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-kms-example-re-encrypt-data.rb demonstrates how to
-# re-encrypt data under a new customer master key (CMK)
+# re-encrypt data under a new AWS KMS key
 # using Amazon Key Management Services (AWS KMS) using the AWS SDK for Ruby.
 
 # snippet-start:[kms.ruby.reEncryptData]
@@ -26,6 +26,7 @@ resp = client.re_encrypt({
   destination_key_id: destinationKeyId
 })
 
+# Display a readable version of the resulting re-encrypted blob.
 puts 'Blob:'
 puts resp.ciphertext_blob.unpack('H*')
 # snippet-end:[kms.ruby.reEncryptData]

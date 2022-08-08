@@ -8,7 +8,7 @@
 # snippet-start:[kms.ruby.encryptBlob]
 require 'aws-sdk-kms'  # v2: require 'aws-sdk'
 
-# ARN of the customer master key (CMK).
+# ARN of the AWS KMS key.
 #
 # Replace the fictitious key ARN with a valid key ID
 
@@ -23,6 +23,7 @@ resp = client.encrypt({
   plaintext: text,
 })
 
+# Display a readable version of the resulting encrypted blob.
 puts 'Blob:'
 puts resp.ciphertext_blob.unpack('H*')
 # snippet-end:[kms.ruby.encryptBlob]
