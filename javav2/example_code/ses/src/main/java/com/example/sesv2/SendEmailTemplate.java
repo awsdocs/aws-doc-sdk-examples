@@ -70,7 +70,7 @@ public class SendEmailTemplate {
             .build();
 
         /*
-         Specify both name and favoriteanimal in your code when defining the Template object.
+         Specify both name and favorite animal (favoriteanimal) in your code when defining the Template object.
          If you don't specify all the variables in the template, Amazon SES doesn't send the email.
         */
         Template myTemplate = Template.builder()

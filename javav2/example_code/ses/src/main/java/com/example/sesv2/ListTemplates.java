@@ -28,11 +28,11 @@ public class ListTemplates {
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        listALlTemplates(sesv2Client);
+        listAllTemplates(sesv2Client);
     }
 
     // snippet-start:[ses.java2.list.templates.sesv2.main]
-    public static void listALlTemplates(SesV2Client sesv2Client) {
+    public static void listAllTemplates(SesV2Client sesv2Client) {
 
         try {
             ListEmailTemplatesRequest templatesRequest = ListEmailTemplatesRequest.builder()
