@@ -80,7 +80,7 @@ public class SESTest {
     @Test
     @Order(2)
     public void SendMessage() {
-        assertDoesNotThrow(() -> SendMessage.send(client, sender,recipient, subject,bodyText,bodyHTML));
+        assertDoesNotThrow(() -> SendMessage.send(client, sender,recipient, subject, bodyText, bodyHTML));
         System.out.println("Test 2 passed");
     }
 
@@ -94,7 +94,7 @@ public class SESTest {
     @Test
     @Order(4)
     public void SendMessageAttachment() {
-        assertDoesNotThrow(() -> SendMessageAttachment.sendemailAttachment(client, sender, recipient, subject, bodyText, bodyHTML, fileLocation ));
+        assertDoesNotThrow(() -> SendMessageAttachment.sendemailAttachment(client, sender, recipient, subject, bodyText, bodyHTML, fileLocation));
         System.out.println("Test 4 passed");
     }
 
@@ -129,7 +129,7 @@ public class SESTest {
     @Test
     @Order(9)
     public void ListEmailTemplates() {
-        assertDoesNotThrow(() -> ListTemplates.listALlTemplates(sesv2Client));
+        assertDoesNotThrow(() -> ListTemplates.listAllTemplates(sesv2Client));
         System.out.println("Test 4 passed");
     }
 }
