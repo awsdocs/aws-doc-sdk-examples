@@ -1,49 +1,91 @@
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at
-# http://aws.amazon.com/apache2.0/
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-cmake_minimum_required(VERSION 3.2)
-project(iam-examples)
-set (CMAKE_CXX_STANDARD 11)
+# Set the minimum required version of CMake for this project.
+cmake_minimum_required(VERSION 3.8)
 
-# Locate the aws sdk for c++ package.
-# Note: assume_role.cpp needs to link with the S3 and STS libraries
+# Set this project's name.
+project("iam-examples")
+
+# Set the C++ standard to use to build this target.
+set(CMAKE_CXX_STANDARD 11)
+
+# Build shared libraries by default.
+if(NOT DEFINED BUILD_SHARED_LIBS)
+    set(BUILD_SHARED_LIBS ON)
+endif()
+
+# Enable CTest for testing these code examples.
+if(BUILD_TESTS)
+    include(CTest)
+endif()
+
+set(MSVC_DEBUG TRUE)  # this is for debugging and should not be in the pull request
+
+#Set the location of where Windows can find the installed libraries of the SDK.
+if(MSVC AND NOT MSVC_DEBUG)
+    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
+    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
+endif()
+
+
+# Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS iam s3 sts)
 
-set(EXAMPLES "")
-list(APPEND EXAMPLES "access_key_last_used")
-list(APPEND EXAMPLES "assume_role")
-list(APPEND EXAMPLES "attach_role_policy")
-list(APPEND EXAMPLES "create_account_alias")
-list(APPEND EXAMPLES "create_access_key")
-list(APPEND EXAMPLES "create_policy")
-list(APPEND EXAMPLES "create_role")
-list(APPEND EXAMPLES "create_user")
-list(APPEND EXAMPLES "delete_access_key")
-list(APPEND EXAMPLES "delete_account_alias")
-list(APPEND EXAMPLES "delete_policy")
-list(APPEND EXAMPLES "delete_server_cert")
-list(APPEND EXAMPLES "delete_user")
-list(APPEND EXAMPLES "detach_role_policy")
-list(APPEND EXAMPLES "get_policy")
-list(APPEND EXAMPLES "get_server_cert")
-list(APPEND EXAMPLES "list_access_keys")
-list(APPEND EXAMPLES "list_account_aliases")
-list(APPEND EXAMPLES "list_policies")
-list(APPEND EXAMPLES "list_server_certs")
-list(APPEND EXAMPLES "list_users")
-list(APPEND EXAMPLES "put_role_policy")
-list(APPEND EXAMPLES "update_access_key")
-list(APPEND EXAMPLES "update_server_cert")
-list(APPEND EXAMPLES "update_user")
+# Add the code example-specific header files.
+file(GLOB AWSDOC_S3_HEADERS
+        "include/awsdoc/s3/*.h"
+        )
 
-# The executables to build.
-foreach(EXAMPLE IN LISTS EXAMPLES)
-    add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
-    target_link_libraries(${EXAMPLE} ${AWSSDK_LINK_LIBRARIES})
+# Add the code example-specific source files if the source input is not already defined.
+if(NOT DEFINED AWSDOC_S3_SOURCE)
+    file(GLOB AWSDOC_S3_SOURCE
+            "*.cpp"
+            )
+endif()
+
+
+# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
+# and building as shared libraries, then dynamically link to those shared libraries.
+if(MSVC AND BUILD_SHARED_LIBS AND NOT MSVC_DEBUG)
+    add_definitions(-DUSE_IMPORT_EXPORT)
+    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+    list(APPEND SERVICE_LIST iam s3 sts)
+    #For IDE's like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
+    #  is switched internally, but this is necessary for non-IDE builds.
+    set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type.
+
+    #TODO:Choose which of the following two lines to use to copy to the same folder where your executables are.
+    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
+    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs.
+
+    message(STATUS ">>CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
+    message(STATUS ">>CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+
+    source_group("Header Files\\awsdoc\\s3" FILES ${AWSDOC_S3_HEADERS})
+    source_group("Source Files" FILES ${AWSDOC_S3_SOURCE})
+endif()
+
+
+foreach(file ${AWSDOC_S3_SOURCE})
+    get_filename_component(EXAMPLE ${file} NAME_WE)
+
+    # Build the code example executables.
+    set(EXAMPLE_EXE run_${EXAMPLE})
+
+    add_executable(${EXAMPLE_EXE} ${file})
+
+    if(MSVC AND BUILD_SHARED_LIBS AND NOT MSVC_DEBUG)
+        target_compile_definitions(${EXAMPLE_EXE} PUBLIC "USE_IMPORT_EXPORT")
+        target_compile_definitions(${EXAMPLE_EXE} PRIVATE "AWSDOC_S3_EXPORTS")
+    endif()
+
+    target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
+            ${AWSSDK_PLATFORM_DEPS})
+
 endforeach()
+
+#if(BUILD_TESTS)
+#    add_subdirectory(gtests)
+#endif()
+
