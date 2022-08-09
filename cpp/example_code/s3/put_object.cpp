@@ -18,6 +18,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
+#include "awsdoc/s3/s3_examples.h"
 //snippet-end:[s3.cpp.put_object.inc]
 
 /* 
@@ -35,7 +36,7 @@
 */
 
 // snippet-start:[s3.cpp.put_object.code]
-bool PutObject(const Aws::String& bucketName, 
+bool AwsDoc::S3::PutObject(const Aws::String& bucketName,
     const Aws::String& objectName,
     const Aws::String& region)
 {
@@ -102,7 +103,7 @@ int main()
         //TODO: Set to the AWS Region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
-        if (!PutObject(bucket_name, object_name, region)) {
+        if (!AwsDoc::S3::PutObject(bucket_name, object_name, region)) {
             
             return 1;
         }
