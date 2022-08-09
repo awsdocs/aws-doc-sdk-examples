@@ -11,12 +11,12 @@ The AWS SDK for Swift provides a Swift API for AWS infrastructure services. Usin
 
 * **Cross-service examples** - Sample applications that work across multiple AWS services.
 
+### Finding code examples
 Single-service actions and scenarios are organized by AWS service in the
 [example_code](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift/example_code/)
 directory. A README in each folder lists and describes how to run the examples.
 
-Cross-service examples are located in the [cross_service](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift/cross_service/)
-directory. A README in each folder describes how to run the example.
+There are currently no cross-service examples for the AWS SDK for Swift. To request a cross-service example, create an issue in the [AWS SDK Code Examples](https://github.com/awsdocs/aws-doc-sdk-examples/) repo.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -35,9 +35,6 @@ To run the tests for an example, use the command `swift test` in the example's d
 
 ## Additional resources
 * [AWS SDK for Swift Developer Guide](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide): The documentation for the AWS SDK for Swift
-* [AWS SDK for Swift project on
-  GitHub](https://github.com/awslabs/aws-sdk-swift): Contribute to the AWS SDK
-  for Swift
 * [AWS SDK for Swift project on
   GitHub](https://github.com/awslabs/aws-sdk-swift): Contribute to the AWS SDK
   for Swift
