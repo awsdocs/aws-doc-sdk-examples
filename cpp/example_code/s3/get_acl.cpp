@@ -19,6 +19,7 @@
 #include <aws/s3/model/GetObjectAclRequest.h>
 #include <aws/s3/model/Grant.h>
 #include <aws/s3/model/Permission.h>
+#include "awsdoc/s3/s3_examples.h"
 // snippet-end:[s3.cpp.get_acl.inc]
 
 /* 
@@ -36,8 +37,6 @@
  */
 
 Aws::String GetGranteeTypeString(const Aws::S3::Model::Type& type);
-bool GetBucketAcl(const Aws::String& bucketName, const Aws::String& region);
-bool GetObjectAcl(const Aws::String& bucketName, const Aws::String& objectKey, const Aws::String& region);
 
 
 int main()
@@ -53,12 +52,12 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (!GetBucketAcl(bucket_name, region))
+        if (!AwsDoc::S3::GetBucketAcl(bucket_name, region))
         {
             return 1;
         }
 
-        if (!GetObjectAcl(bucket_name, object_name, region))
+        if (!AwsDoc::S3::GetObjectAcl(bucket_name, object_name, region))
         {
             return 1;
         }
@@ -136,7 +135,7 @@ Aws::String GetPermissionString(const Aws::String& type,
 }
 
 // snippet-start:[s3.cpp.get_acl_bucket.code]
-bool GetBucketAcl(const Aws::String& bucketName, const Aws::String& region)
+bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName, const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
@@ -211,7 +210,7 @@ bool GetBucketAcl(const Aws::String& bucketName, const Aws::String& region)
 // snippet-end:[s3.cpp.get_acl_bucket.code]
 
 // snippet-start:[s3.cpp.get_acl_object.code]
-bool GetObjectAcl(const Aws::String& bucketName, const Aws::String& objectKey, const Aws::String& region)
+bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName, const Aws::String& objectKey, const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
