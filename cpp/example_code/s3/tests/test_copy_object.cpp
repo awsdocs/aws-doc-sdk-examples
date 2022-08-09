@@ -94,14 +94,13 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::S3::Model::BucketLocationConstraint region =
-            Aws::S3::Model::BucketLocationConstraint::us_east_1;
+        Aws::String region = "us-east-1";
 
         Aws::Client::ClientConfiguration config;
-        config.region = "us-east-1";
+        config.region = region;
         Aws::S3::S3Client s3_client(config);
 
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         // 1/8. Create the bucket to copy the object from.
         // Create a unique bucket name to increase the chance of success 
@@ -164,7 +163,7 @@ int main()
 
         // 4/8. Copy the object from the 'from' bucket to the 'to' bucket.
         if (!AwsDoc::S3::CopyObject(Aws::String(file_name), from_bucket_name,
-            to_bucket_name))
+            to_bucket_name, config.region))
         {
             std::cout << "Error: CopyObject test: Copy object '" << file_name << "' from bucket '" << 
                 from_bucket_name << "' to bucket '" << to_bucket_name << "'. To clean up, "
@@ -199,6 +198,9 @@ int main()
             return 1;
         }
     }
+
+    std::cout << "The object was copied." << std::endl;
+
     ShutdownAPI(options);
 
     return 0;
