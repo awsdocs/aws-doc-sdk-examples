@@ -21,7 +21,7 @@ def test_detect_anomalies(make_stubber, monkeypatch, error_code):
     project_name = 'test-project_name'
     model_version = 'test-model'
     photo = 'test.jpeg'
-    content_type = f'image/jpeg'
+    content_type = 'image/jpeg'
     image_contents = b'test-contents'
     anomalous = True
     confidence = .5
@@ -59,110 +59,6 @@ def test_download_from_s3(make_stubber, monkeypatch):
     got_file = Inference.download_from_s3(s3_resource, photo)
     assert got_file == file
 
-
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
-def test_reject_on_classification(make_stubber, error_code):
-
-    photo = 's3://doc-example-bucket/test-photo.jpeg'
-    prediction = {
-        "IsAnomalous": True,
-        "Confidence": 0.9
-    }
-
-    confidence_limit = 0.5
-
-    if error_code is None:
-        Inference.reject_on_classification(photo, prediction, confidence_limit)
-    else:
-        prediction = {
-            "IsAnomalousX": True,
-            "Confidence": 0.9
-        }
-        with pytest.raises(KeyError) as exc_info:
-            Inference.reject_on_classification(
-                photo, prediction, confidence_limit)
-        assert exc_info.typename == "KeyError"
-
-
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
-def test_reject_on_anomaly_types(make_stubber, error_code):
-
-    photo = 's3://doc-example-bucket/test-photo.jpeg'
-    prediction = {
-        "IsAnomalous": True,
-        "Confidence": 0.9,
-        "Anomalies": [
-            {"Name": "broken"},
-            {"Name": "cracked"}
-        ]
-    }
-
-    confidence_limit = 0.5
-    anomaly_types_limit = 1
-
-    if error_code is None:
-        Inference.reject_on_anomaly_types(
-            photo, prediction, confidence_limit, anomaly_types_limit)
-    else:
-        prediction = {
-            "IsAnomalous": True,
-            "Confidence": 0.9,
-            "AnomaliesX": [
-                {"Name": "broken"},
-                {"Name": "cracked"}
-            ]
-        }
-        with pytest.raises(KeyError) as exc_info:
-            Inference.reject_on_anomaly_types(
-                photo, prediction, confidence_limit, anomaly_types_limit)
-        assert exc_info.typename == "KeyError"
-
-
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
-def test_reject_on_coverage(make_stubber, error_code):
-
-    photo = 's3://doc-example-bucket/test-photo.jpeg'
-    prediction = {
-        "IsAnomalous": True,
-        "Confidence": 0.9,
-        "Anomalies": [
-            {
-                "Name": "broken",
-                "PixelAnomaly": {"TotalPercentageArea": 0.10}
-            },
-            {
-                "Name": "broken",
-                "PixelAnomaly": {"TotalPercentageArea": 0.50}
-            }
-        ]
-    }
-
-    confidence_limit = 0.5
-    coverage_limit = 1
-    anomaly_label = "broken"
-
-    if error_code is None:
-        Inference.reject_on_coverage(
-            photo, prediction, confidence_limit, anomaly_label, coverage_limit)
-    else:
-        prediction = {
-            "IsAnomalous": True,
-            "Confidence": 0.9,
-            "Anomalies": [
-                {
-                    "Name": "broken",
-                    "PixelAnomalyX": {"TotalPercentageArea": 0.10}
-                },
-                {
-                    "Name": "broken",
-                    "PixelAnomalyX": {"TotalPercentageArea": 0.50}
-                }
-            ]
-        }
-        with pytest.raises(KeyError) as exc_info:
-            Inference.reject_on_coverage(
-                photo, prediction, confidence_limit, anomaly_label, coverage_limit)
-        assert exc_info.typename == "KeyError"
 
 @pytest.mark.parametrize('error_code', [None, 'TestException'])
 def test_reject_on_classification(make_stubber, error_code):
