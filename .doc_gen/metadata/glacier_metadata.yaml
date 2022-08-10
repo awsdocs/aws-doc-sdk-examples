@@ -451,8 +451,8 @@ glacier_AddTagsToVault:
             - description:
               snippet_tags:
                 - Glacier.dotnetv3.AddTagsToVaultExample
-services:
-  glacier: {AddTagsToVault}
+  services:
+    glacier: {AddTagsToVault}
 glacier_ListTagsForVault:
   title: List the tags associated with an &GLlong; vault using an &AWS; SDK
   title_abbrev: List tags
