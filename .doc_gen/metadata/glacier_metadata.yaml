@@ -471,7 +471,7 @@ glacier_ListTagsForVault:
     glacier: {ListTagsForVault}
 glacier_DownloadArchive:
   title: Download an &GLlong; archive using an &AWS; SDK
-  title_abbrev: Download archive
+  title_abbrev: Download an archive
   synopsis: download an &GLlong; archive.
   languages:
     .NET:
