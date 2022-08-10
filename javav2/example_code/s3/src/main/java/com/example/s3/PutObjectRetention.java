@@ -55,12 +55,12 @@ public class PutObjectRetention {
             .credentialsProvider(credentialsProvider)
             .build();
 
-        setRentionPeriod(s3, key, bucketName) ;
+        setRetentionPeriod(s3, key, bucketName) ;
         s3.close();
     }
 
     // snippet-start:[s3.java2.retention_object.main]
-    public static void setRentionPeriod(S3Client s3, String key, String bucket) {
+    public static void setRetentionPeriod(S3Client s3, String key, String bucket) {
 
         try{
             LocalDate localDate = LocalDate.parse("2020-07-17");
