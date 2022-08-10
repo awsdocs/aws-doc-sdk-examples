@@ -65,45 +65,43 @@ public class MemoryDBTest {
     @Test
     @Order(2)
     public void createCluster() {
-        CreateCluster.createSingleCluster(memoryDbClient, clusterName, nodeType, subnetGroupName, aclName);
+        assertDoesNotThrow(() ->CreateCluster.createSingleCluster(memoryDbClient, clusterName, nodeType, subnetGroupName, aclName));
         System.out.println("Test 2 passed");
     }
 
     @Test
     @Order(2)
     public void describeSpecificCluster() {
-        DescribeSpecificCluster.checkIfAvailable(memoryDbClient, clusterName);
+        assertDoesNotThrow(() ->DescribeSpecificCluster.checkIfAvailable(memoryDbClient, clusterName));
         System.out.println("Test 2 passed");
     }
 
     @Test
     @Order(3)
     public void createSnapshot() {
-        CreateSnapshot.createSpecificSnapshot(memoryDbClient, clusterName, snapShotName);
+        assertDoesNotThrow(() ->CreateSnapshot.createSpecificSnapshot(memoryDbClient, clusterName, snapShotName));
         System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void describeSnapshot() {
-        DescribeSnapshots.describeALlSnapshots(memoryDbClient, clusterName);
+        assertDoesNotThrow(() ->DescribeSnapshots.describeALlSnapshots(memoryDbClient, clusterName));
         System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void describeAllClusters() {
-        DescribeClusters.getClusters(memoryDbClient);
-        DescribeSpecificCluster.checkIfAvailable(memoryDbClient, clusterName);
+        assertDoesNotThrow(() ->DescribeClusters.getClusters(memoryDbClient));
+        assertDoesNotThrow(() ->DescribeSpecificCluster.checkIfAvailable(memoryDbClient, clusterName));
         System.out.println("Test 5 passed");
     }
-
 
     @Test
     @Order(7)
     public void deleteCluster() {
-        DeleteCluster.deleteSpecificCluster(memoryDbClient, clusterName);
+        assertDoesNotThrow(() ->DeleteCluster.deleteSpecificCluster(memoryDbClient, clusterName));
         System.out.println("Test 7 passed");
     }
 }
-
