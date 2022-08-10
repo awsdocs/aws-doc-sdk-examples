@@ -437,7 +437,7 @@ glacier_Usage_RetrieveDelete:
                 - python.example_code.glacier.usage.retrieve_demo
   services:
     glacier: {DeleteArchive, DeleteVault, GetJobOutput, ListJobs}
-glacier_AddTags:
+glacier_AddTagsToVault:
   title: Add tags to an &GLlong; vault using an &AWS; SDK
   title_abbrev: Add tags
   synopsis: add tags to an &GLlong; vault.
@@ -452,8 +452,8 @@ glacier_AddTags:
                 snippet_tags:
                   - Glacier.dotnetv3.AddTagsToVaultExample
   services:
-    glacier: {AddTags}
-glacier_ListTags:
+    glacier: {AddTagsToVault}
+glacier_ListTagsForVault:
   title: List the tags associated with an &GLlong; vault using an &AWS; SDK
   title_abbrev: List tags
   synopsis: list tags of an &GLlong; vault.
@@ -468,7 +468,7 @@ glacier_ListTags:
                 snippet_tags:
                   - Glacier.dotnetv3.ListTagsForVaultExample
   services:
-    glacier: {ListTags}
+    glacier: {ListTagsForVault}
 glacier_DownloadArchive:
   title: Download an &GLlong; archive using an &AWS; SDK
   title_abbrev: Download archive
