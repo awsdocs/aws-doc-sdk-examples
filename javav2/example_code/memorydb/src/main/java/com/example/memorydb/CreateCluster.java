@@ -70,4 +70,5 @@ public class CreateCluster {
             System.exit(1);
         }
     }
+    //snippet-end:[memoryDB.java2.create_cluster.import]
 }
