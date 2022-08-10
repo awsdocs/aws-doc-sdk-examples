@@ -5,14 +5,14 @@ glacier_CreateVault:
   synopsis: create an &GLlong; vault.
   languages:
     .NET:
-        versions:
-          - sdk_version: 3
-            github: dotnetv3/Glacier
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Glacier.dotnetv3.CreateVaultExample
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.CreateVaultExample
     Java:
       versions:
         - sdk_version: 2
@@ -59,14 +59,14 @@ glacier_ListVaults:
   synopsis: list &GLlong; vaults.
   languages:
     .NET:
-        versions:
-          - sdk_version: 3
-            github: dotnetv3/Glacier
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Glacier.dotnetv3.ListVaultExample
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.ListVaultExample
     Java:
       versions:
         - sdk_version: 2
@@ -94,14 +94,14 @@ glacier_UploadArchive:
   synopsis: upload an archive to an &GLlong; vault.
   languages:
     .NET:
-        versions:
-          - sdk_version: 3
-            github: dotnetv3/Glacier
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Glacier.dotnetv3.UploadArchiveHighLevelExample
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.UploadArchiveHighLevelExample
     Java:
       versions:
         - sdk_version: 2
@@ -190,14 +190,14 @@ glacier_ListJobs:
   synopsis: list &GLlong; jobs.
   languages:
     .NET:
-        versions:
-          - sdk_version: 3
-            github: dotnetv3/Glacier
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Glacier.dotnetv3.ListJobsExample
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.ListJobsExample
     Python:
       versions:
         - sdk_version: 3
@@ -285,14 +285,14 @@ glacier_DescribeJob:
   synopsis: describe an &GLlong; job.
   languages:
     .NET:
-        versions:
-          - sdk_version: 3
-            github: dotnetv3/Glacier
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Glacier.dotnetv3.DescribeArchiveExample
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.DescribeArchiveExample
     Python:
       versions:
         - sdk_version: 3
@@ -443,15 +443,15 @@ glacier_AddTagsToVault:
   synopsis: add tags to an &GLlong; vault.
   languages:
     .NET:
-        versions:
-          - sdk_version: 3
-            github: dotnetv3/Glacier
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Glacier.dotnetv3.AddTagsToVaultExample
-  services:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.AddTagsToVaultExample
+services:
     glacier: {AddTagsToVault}
 glacier_ListTagsForVault:
   title: List the tags associated with an &GLlong; vault using an &AWS; SDK
@@ -459,14 +459,14 @@ glacier_ListTagsForVault:
   synopsis: list tags of an &GLlong; vault.
   languages:
     .NET:
-        versions:
-          - sdk_version: 3
-            github: dotnetv3/Glacier
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Glacier.dotnetv3.ListTagsForVaultExample
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.ListTagsForVaultExample
   services:
     glacier: {ListTagsForVault}
 glacier_DownloadArchive:
@@ -475,13 +475,13 @@ glacier_DownloadArchive:
   synopsis: download an &GLlong; archive.
   languages:
     .NET:
-        versions:
-          - sdk_version: 3
-            github: dotnetv3/Glacier
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Glacier.dotnetv3.DownloadArchiveHighLevelExample
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.DownloadArchiveHighLevelExample
   services:
     glacier: {}
