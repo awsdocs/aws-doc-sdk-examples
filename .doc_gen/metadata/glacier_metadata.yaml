@@ -484,4 +484,4 @@ glacier_DownloadArchive:
                 snippet_tags:
                   - Glacier.dotnetv3.DownloadArchiveHighLevelExample
   services:
-    glacier: {DownloadArchive}
+    glacier: {}
