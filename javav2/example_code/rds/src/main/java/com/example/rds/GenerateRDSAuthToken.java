@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateDBInstance.java demonstrates how to generate an authorization token for IAM authentication to an Amazon Relational Database Service (RDS)  database.]
+//snippet-sourcedescription:[CreateDBInstance.java demonstrates how to generate an authorization token for AWS Identity and Access Management (IAM) authentication to an Amazon Relational Database Service (Amazon RDS) database.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon Relational Database Service]
 
