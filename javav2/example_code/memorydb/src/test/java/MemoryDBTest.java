@@ -40,10 +40,10 @@ public class MemoryDBTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
+            // Load a properties file.
             prop.load(input);
 
-            // Populate the data members required for all tests
+            // Populate the data members required for all tests.
             clusterName = prop.getProperty("clusterName");
             nodeType = prop.getProperty("nodeType");
             subnetGroupName = prop.getProperty("subnetGroupName");
@@ -105,3 +105,4 @@ public class MemoryDBTest {
         System.out.println("Test 7 passed");
     }
 }
+
