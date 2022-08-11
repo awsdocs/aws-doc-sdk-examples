@@ -33,6 +33,15 @@ ses_SendTemplatedEmail:
   synopsis: send templated email with &SES;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.sendmessage.template.sesv2.main
     Python:
       versions:
         - sdk_version: 3
@@ -353,6 +362,15 @@ ses_ListTemplates:
   synopsis: list &SES; email templates.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.list.templates.sesv2.main
     Python:
       versions:
         - sdk_version: 3

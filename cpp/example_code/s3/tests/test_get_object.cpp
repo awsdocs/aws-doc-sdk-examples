@@ -26,7 +26,7 @@ int main()
         config.region = "us-east-1";
         Aws::S3::S3Client s3_client(config);
 
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         // 1/5. Create the bucket to upload the object to.
         // Create a unique bucket name to increase the chance of success 
@@ -87,7 +87,7 @@ int main()
         }
 
         // 3/5. Print the beginning contents of the text file.
-        if (!AwsDoc::S3::GetObject((Aws::String)file_name, bucket_name))
+        if (!AwsDoc::S3::GetObject((Aws::String)file_name, bucket_name, config.region))
         {
             std::cout << "Error: GetObject test: Get object '" <<
                 file_name << "' from bucket '" << bucket_name << "'. " <<
