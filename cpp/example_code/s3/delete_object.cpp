@@ -16,6 +16,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteObjectRequest.h>
+#include "awsdoc/s3/s3_examples.h"
 // snippet-end:[s3.cpp.delete_object.inc]
 
 /* 
@@ -33,7 +34,34 @@
  */
 
 // snippet-start:[s3.cpp.delete_object.code]
-using namespace Aws;
+bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey, const Aws::String &fromBucket, const Aws::String &region) {
+    Aws::Client::ClientConfiguration clientConfig;
+    if (!region.empty()) {
+        clientConfig.region = region;
+    }
+
+    Aws::S3::S3Client client(clientConfig);
+    Aws::S3::Model::DeleteObjectRequest request;
+
+    request.WithKey(objectKey)
+            .WithBucket(fromBucket);
+
+    Aws::S3::Model::DeleteObjectOutcome outcome =
+            client.DeleteObject(request);
+
+    if (!outcome.IsSuccess())
+    {
+        auto err = outcome.GetError();
+        std::cout << "Error: DeleteObject: " <<
+                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+        return false;
+    }
+    else
+    {
+        std::cout << "Successfully deleted the object." << std::endl;
+        return true;
+    }
+}
 
 int main()
 {
@@ -47,31 +75,9 @@ int main()
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    {
-        Aws::Client::ClientConfiguration clientConfig;
-        if (!region.empty())
-            clientConfig.region = region;
 
-        S3::S3Client client(clientConfig);
-        Aws::S3::Model::DeleteObjectRequest request;
+    AwsDoc::S3::DeleteObject(objectKey, fromBucket, region);
 
-        request.WithKey(objectKey)
-            .WithBucket(fromBucket);
-
-        Aws::S3::Model::DeleteObjectOutcome outcome =
-            client.DeleteObject(request);
-
-        if (!outcome.IsSuccess())
-        {
-            auto err = outcome.GetError();
-            std::cout << "Error: DeleteObject: " <<
-                err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Successfully deleted the object." << std::endl;
-        }
-    }
     ShutdownAPI(options);
 
     return 0;

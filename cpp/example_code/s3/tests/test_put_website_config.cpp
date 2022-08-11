@@ -52,7 +52,7 @@ int main()
         }
 
         // 2/4. Configure the bucket as a static website.
-        if (!AwsDoc::S3::PutWebsiteConfig(bucket_name, "index.html", "404.html", "us-east-1"))
+        if (!AwsDoc::S3::PutWebsiteConfig(bucket_name, "index.html", "404.html", config.region))
         {
             std::cout << "Error: PutWebsiteConfig test: Put website config." << std::endl;
             std::cout << "To clean up, you must delete bucket '" <<

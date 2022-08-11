@@ -16,6 +16,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteBucketWebsiteRequest.h>
+#include "awsdoc/s3/s3_examples.h"
 // snippet-end:[s3.cpp.delete_website_config.inc]
 
 /* 
@@ -33,7 +34,34 @@
  */
 
 // snippet-start:[s3.cpp.delete_website_config.code]
-using namespace Aws;
+bool AwsDoc::S3::DeleteBucketWebsite(const Aws::String &bucketName, const Aws::String &region) {
+    // Create the bucket.
+    Aws::Client::ClientConfiguration clientConfig;
+    if (!region.empty()) {
+        clientConfig.region = region;
+    }
+
+    Aws::S3::S3Client client(clientConfig);
+    Aws::S3::Model::DeleteBucketWebsiteRequest request;
+    request.SetBucket(bucketName);
+
+    Aws::S3::Model::DeleteBucketWebsiteOutcome outcome =
+            client.DeleteBucketWebsite(request);
+
+    if (!outcome.IsSuccess())
+    {
+        auto err = outcome.GetError();
+        std::cout << "Error: DeleteBucketWebsite: " <<
+                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+        return false;
+    }
+    else
+    {
+        std::cout << "Website configuration was removed." << std::endl;
+        return true;
+    }
+}
+
 int main()
 {
     //TODO: Change bucket_name to the name of a bucket in your account.
@@ -43,30 +71,9 @@ int main()
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    {
-        // Create the bucket.
-        Aws::Client::ClientConfiguration clientConfig;
-        if (!region.empty())
-            clientConfig.region = region;
 
-        S3::S3Client client(clientConfig);
-        Aws::S3::Model::DeleteBucketWebsiteRequest request;
-        request.SetBucket(bucketName);
+    AwsDoc::S3::DeleteBucketWebsite(bucketName, region);
 
-        Aws::S3::Model::DeleteBucketWebsiteOutcome outcome =
-            client.DeleteBucketWebsite(request);
-
-        if (!outcome.IsSuccess())
-        {
-            auto err = outcome.GetError();
-            std::cout << "Error: DeleteBucketWebsite: " <<
-                err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "Website configuration was removed." << std::endl;
-        }
-    }
     ShutdownAPI(options);
 }
 // snippet-end:[s3.cpp.delete_website_config.code]
