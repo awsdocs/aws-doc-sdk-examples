@@ -27,8 +27,8 @@ public class CreateCluster {
             "Where:\n" +
             "    clusterName - The name of the cluster. \n" +
             "    nodeType - The compute and memory capacity of the nodes in the cluster. \n" +
-            "    subnetGroupName - The name of the subnet group to be used for the cluster. \n" +
-            "    aclName - The name of the Access Control List to associate with the cluster. \n" ;
+            "    subnetGroupName - The name of the subnet group to use for the cluster. \n" +
+            "    aclName - The name of the access control list (ACL) to associate with the cluster. \n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
