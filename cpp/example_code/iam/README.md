@@ -58,7 +58,6 @@ Next, see [Getting started with the AWS SDK for C++ code examples](https://docs.
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
    ctest 
-   ./gtests/s3_gtest 
 ```   
 
 ## Additional resources
