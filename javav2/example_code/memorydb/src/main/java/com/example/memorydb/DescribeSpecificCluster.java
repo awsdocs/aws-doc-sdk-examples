@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeSpecificCluster.java demonstrates how to retrieve information about a specific clusters]
+//snippet-sourcedescription:[DescribeSpecificCluster.java demonstrates how to retrieve information about a specific cluster.]
 //snippet-keyword:[SDK for Java v2]
 //snippet-service:[Amazon MemoryDB for Redis]
 
@@ -49,7 +49,7 @@ public class DescribeSpecificCluster {
     public static void checkIfAvailable(MemoryDbClient memoryDbClient, String clusterName) {
 
         try {
-            // Break when cluster is Available
+            // Break loop when cluster is Available.
             String status;
             Cluster myCluster = null;
             boolean clusterAvailable = false;
@@ -72,7 +72,7 @@ public class DescribeSpecificCluster {
         }
     }
 
-    // Returns a Cluster object.
+    // Return a Cluster object.
     private static Cluster getCluster(MemoryDbClient memoryDbClient, String clusterName) {
 
         try {
@@ -83,7 +83,7 @@ public class DescribeSpecificCluster {
             DescribeClustersResponse response = memoryDbClient.describeClusters(request);
             List<Cluster> clusters = response.clusters();
 
-            //Return the only cluster in list
+            // Return the only cluster in the list.
             for (Cluster cluster: clusters) {
                 return cluster;
             }
