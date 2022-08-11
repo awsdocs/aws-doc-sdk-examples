@@ -9,6 +9,8 @@ project("iam-examples")
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_TYPE Debug) 
+
 
 # Build shared libraries by default.
 if(NOT DEFINED BUILD_SHARED_LIBS)
@@ -21,12 +23,6 @@ if(BUILD_TESTS)
 endif()
 
 set(MSVC_DEBUG TRUE)  # this is for debugging and should not be in the pull request
-
-#Set the location of where Windows can find the installed libraries of the SDK.
-if(MSVC AND NOT MSVC_DEBUG)
-    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
-    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
 
 
 # Find the AWS SDK for C++ package.
@@ -47,23 +43,20 @@ endif()
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
-if(MSVC AND BUILD_SHARED_LIBS AND NOT MSVC_DEBUG)
-    add_definitions(-DUSE_IMPORT_EXPORT)
+if(MSVC AND BUILD_SHARED_LIBS)
+  #  add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
     list(APPEND SERVICE_LIST iam s3 sts)
     #For IDE's like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
     #  is switched internally, but this is necessary for non-IDE builds.
-    set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type.
 
-    #TODO:Choose which of the following two lines to use to copy to the same folder where your executables are.
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
-    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs.
 
     message(STATUS ">>CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
     message(STATUS ">>CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
-    source_group("Header Files\\awsdoc\\s3" FILES ${AWSDOC_S3_HEADERS})
-    source_group("Source Files" FILES ${AWSDOC_S3_SOURCE})
+ #   source_group("Header Files\\awsdoc\\s3" FILES ${AWSDOC_S3_HEADERS})
+#/   source_group("Source Files" FILES ${AWSDOC_S3_SOURCE})
 endif()
 
 
@@ -74,11 +67,6 @@ foreach(file ${AWSDOC_S3_SOURCE})
     set(EXAMPLE_EXE run_${EXAMPLE})
 
     add_executable(${EXAMPLE_EXE} ${file})
-
-    if(MSVC AND BUILD_SHARED_LIBS AND NOT MSVC_DEBUG)
-        target_compile_definitions(${EXAMPLE_EXE} PUBLIC "USE_IMPORT_EXPORT")
-        target_compile_definitions(${EXAMPLE_EXE} PRIVATE "AWSDOC_S3_EXPORTS")
-    endif()
 
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})
