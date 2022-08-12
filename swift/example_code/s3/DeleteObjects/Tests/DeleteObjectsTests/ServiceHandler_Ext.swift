@@ -29,7 +29,6 @@ public extension ServiceHandler {
         )
         _ = try await client.createBucket(input: input)
     }
-    // snippet-end:[s3.swift.basics.handler.createbucket]
 
     /// Delete a bucket.
     /// - Parameter name: Name of the bucket to delete.
