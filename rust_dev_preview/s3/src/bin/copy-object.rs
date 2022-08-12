@@ -95,13 +95,7 @@ async fn main() -> Result<(), Error> {
 
     println!();
 
-    let new_name: String;
-
-    if name == None {
-        new_name = key.clone();
-    } else {
-        new_name = name.unwrap();
-    }
+    let new_name: String = name.unwrap_or_else(|| key.clone());
 
     if verbose {
         println!("S3 client version:  {}", PKG_VERSION);
