@@ -17,6 +17,7 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetObjectRequest.h>
 #include <fstream>
+#include "awsdoc/s3/s3_examples.h"
 //snippet-end:[s3.cpp.get_object.inc]
 
 /* 
@@ -34,7 +35,7 @@
 */
 
  // snippet-start:[s3.cpp.get_object.code]
-bool GetObject(const Aws::String& objectKey,
+bool AwsDoc::S3::GetObject(const Aws::String& objectKey,
     const Aws::String& fromBucket, const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -91,7 +92,7 @@ int main()
         //TODO: Set to the AWS Region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
-        if (!GetObject(object_name, bucket_name, region))
+        if (!AwsDoc::S3::GetObject(object_name, bucket_name, region))
         {
             return 1;
         }

@@ -21,9 +21,6 @@ int main()
         // Create a unique bucket name to increase the chance of success 
         // when trying to create the bucket.
         // Format: "my-bucket-" + lowercase UUID.
-        Aws::S3::Model::BucketLocationConstraint region =
-            Aws::S3::Model::BucketLocationConstraint::us_east_1;
-
         Aws::Client::ClientConfiguration config;
         config.region = "us-east-1";
         Aws::S3::S3Client s3_client(config);
@@ -49,12 +46,12 @@ int main()
         }
 
         // 2/4. Add an object to the bucket.
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
         std::ofstream myFile(file_name);
         myFile.close();
 
         if (!AwsDoc::S3::PutObjectBuffer(bucket_name, file_name, 
-            "This is my sample text content.", "us-east-1"))
+            "This is my sample text content.", config.region))
         {
             std::cout << "Error: PutObjectBuffer test. To clean up, you must "
                 "delete the bucket '" << bucket_name <<

@@ -49,7 +49,7 @@ int main()
         }
 
         // 2/5. Add an object to the bucket.
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         std::ofstream myFile(file_name);
         myFile << "My content.";
@@ -80,7 +80,7 @@ int main()
         }
 
         // 3/5. List the object.
-        if (!AwsDoc::S3::ListObjects(bucket_name, "us-east-1"))
+        if (!AwsDoc::S3::ListObjects(bucket_name, config.region))
         {
             return 1;
         }

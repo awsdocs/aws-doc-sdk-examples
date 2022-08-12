@@ -16,6 +16,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/CopyObjectRequest.h>
+#include "awsdoc/s3/s3_examples.h"
 // snippet-end:[s3.cpp.copy_objects.inc]
 
 /* 
@@ -36,44 +37,52 @@
  */
 
  // snippet-start:[s3.cpp.copy_objects.code]
-using namespace Aws;
 
-int main()
-{
+ bool AwsDoc::S3::CopyObject(const Aws::String &objectKey, const Aws::String &fromBucket, const Aws::String &toBucket,
+                             const Aws::String &region) {
+     Aws::Client::ClientConfiguration clientConfig;
+     if (!region.empty()) {
+         clientConfig.region = region;
+     }
+
+     Aws::S3::S3Client client(clientConfig);
+     Aws::S3::Model::CopyObjectRequest request;
+
+     request.WithCopySource(fromBucket + "/" + objectKey)
+             .WithKey(objectKey)
+             .WithBucket(toBucket);
+
+     Aws::S3::Model::CopyObjectOutcome outcome = client.CopyObject(request);
+
+     if (!outcome.IsSuccess())
+     {
+         const auto err = outcome.GetError();
+         std::cout << "Error: CopyObject: " <<
+                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+         return false;
+     }
+
+     return true;
+ }
+
+int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    {
-        //TODO: Name of object already in bucket.
-        Aws::String objectKey = "<enter object key>";
-        
-        //TODO: Change from_bucket to the name of your bucket that already contains "my-file.txt". 
-        Aws::String fromBucket = "<Enter bucket name>";
-        
-        //TODO: Change to the name of another bucket in your account.
-        Aws::String toBucket = "<Enter bucket name>";
-        
-        //TODO: Set to the AWS Region in which the bucket was created.
-        Aws::String region = "us-east-1";
-        Aws::Client::ClientConfiguration clientConfig;
-        if (!region.empty())
-            clientConfig.region = region;
-        
-        S3::S3Client client(clientConfig);
-        S3::Model::CopyObjectRequest request;
 
-        request.WithCopySource(fromBucket + "/" + objectKey)
-            .WithKey(objectKey)
-            .WithBucket(toBucket);
+    //TODO: Name of object already in bucket.
+    Aws::String objectKey = "<enter object key>";
 
-        S3::Model::CopyObjectOutcome outcome = client.CopyObject(request);
+    //TODO: Change from_bucket to the name of your bucket that already contains "my-file.txt".
+    Aws::String fromBucket = "<Enter bucket name>";
 
-        if (!outcome.IsSuccess())
-        {
-            auto err = outcome.GetError();
-            std::cout << "Error: CopyObject: " <<
-               err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-        }
-    }
+    //TODO: Change to the name of another bucket in your account.
+    Aws::String toBucket = "<Enter bucket name>";
+
+    //TODO: Set to the AWS Region in which the bucket was created.
+    Aws::String region = "us-east-1";
+
+    AwsDoc::S3::CopyObject(objectKey, fromBucket, toBucket, region);
+
     ShutdownAPI(options);
     return 0;
 }
