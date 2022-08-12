@@ -13,4 +13,7 @@ Metrics/AbcSize:
 Style/FrozenStringLiteralComment:
   Enabled: false
 Layout/EndOfLine:
-   Enabled: false
+  Enabled: false
+Layout/LineLength:
+  Exclude:
+    - app/models/problematic.rb
