@@ -57,8 +57,10 @@ public class ServiceHandler {
             objectList.append(objId)
         }
 
-        // Next build a `Delete` object with the list of objects.
-        let deleteObjectList: S3ClientTypes.Delete = S3ClientTypes.Delete(objects: objectList)
+        // Next build a `Delete` object with the list of objects and quiet
+        // mode enabled to avoid getting sent unneeded information in the
+        // response.
+        let deleteObjectList: S3ClientTypes.Delete = S3ClientTypes.Delete(objects: objectList, quiet: true)
         let input = DeleteObjectsInput(
             bucket: bucket,
             delete: deleteObjectList

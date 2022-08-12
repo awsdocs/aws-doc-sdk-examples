@@ -1,3 +1,11 @@
+/*
+   Extensions to the `ServiceHandler` class to handle tasks we need
+   for testing that aren't the purpose of this example.
+
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 import Foundation
 import AWSS3
 import AWSClientRuntime
