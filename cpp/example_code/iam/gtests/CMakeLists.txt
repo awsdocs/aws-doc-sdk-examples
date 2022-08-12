@@ -90,6 +90,7 @@ target_sources(
         iam_gtest
         PUBLIC
         ${GTEST_SOURCE}
+        test_main.cpp
 )
 
 target_include_directories(iam_gtest PUBLIC
@@ -101,7 +102,7 @@ target_compile_definitions(iam_gtest PUBLIC
 
 target_link_libraries(
         iam_gtest
-        GTest::gtest_main
+        GTest::gtest
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
 )

@@ -419,7 +419,7 @@ bool AwsDoc::IAM::DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
 }
 // snippet-end:[cpp.example_code.iam.Scenario_CreateUserAssumeRole]
 
-
+#ifndef TESTING_BUILD
 int main(int argc, const char *argv[]) {
     (void) argc;  // suppress unused warning
     (void) argv;  // suppress unused warning
@@ -435,3 +435,4 @@ int main(int argc, const char *argv[]) {
     ShutdownAPI(options);
     return 0;
 }
+#endif // TESTING_BUILD
