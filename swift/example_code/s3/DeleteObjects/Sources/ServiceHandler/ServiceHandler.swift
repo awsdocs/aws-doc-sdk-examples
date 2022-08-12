@@ -55,7 +55,6 @@ public class ServiceHandler {
             )
         )
 
-        // Call the SDK for Swift to delete the objects from Amazon S3.
         do {
             _ = try await client.deleteObjects(input: input)
         } catch {
