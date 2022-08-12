@@ -54,15 +54,17 @@ public class VideoDetectSegment {
             "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
             "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
-        if (args.length != 4) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+      //  if (args.length != 4) {
+      //      System.out.println(usage);
+      //      System.exit(1);
+      //  }
 
-        String bucket = args[0];
-        String video = args[1];
-        String topicArn = args[2];
-        String roleArn = args[3];
+
+
+        String bucket = "buckettestsept";  //args[0];
+        String video = "thor.mp4";  //args[1];
+        String topicArn = "arn:aws:sns:us-east-1:814548047983:video" ; //  args[2];
+        String roleArn = "arn:aws:iam::814548047983:role/video" ; // args[3];
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
@@ -146,10 +148,10 @@ public class VideoDetectSegment {
                     paginationToken = segDetectionResponse.nextToken();
 
                 GetSegmentDetectionRequest recognitionRequest = GetSegmentDetectionRequest.builder()
-                    .jobId(startJobId)
-                    .nextToken(paginationToken)
-                    .maxResults(10)
-                    .build();
+                        .jobId(startJobId)
+                        .nextToken(paginationToken)
+                        .maxResults(10)
+                        .build();
 
                 // Wait until the job succeeds.
                 while (!finished) {
@@ -176,28 +178,30 @@ public class VideoDetectSegment {
                     System.out.println("Job");
                 }
 
-                List<SegmentDetection> detectedSegment = segDetectionResponse.segments();
-                String type = detectedSegment.get(0).type().toString();
-                if (type.contains(SegmentType.TECHNICAL_CUE.toString())) {
-                    System.out.println("Technical Cue");
-                    TechnicalCueSegment segmentCue = detectedSegment.get(0).technicalCueSegment();
-                    System.out.println("\tType: " + segmentCue.type());
-                    System.out.println("\tConfidence: " + segmentCue.confidence().toString());
-                }
+                List<SegmentDetection> detectedSegments = segDetectionResponse.segments();
+                for (SegmentDetection detectedSegment : detectedSegments) {
+                    String type = detectedSegment.type().toString();
+                    if (type.contains(SegmentType.TECHNICAL_CUE.toString())) {
+                        System.out.println("Technical Cue");
+                        TechnicalCueSegment segmentCue = detectedSegment.technicalCueSegment();
+                        System.out.println("\tType: " + segmentCue.type());
+                        System.out.println("\tConfidence: " + segmentCue.confidence().toString());
+                    }
 
-                if (type.contains(SegmentType.SHOT.toString())) {
-                    System.out.println("Shot");
-                    ShotSegment segmentShot = detectedSegment.get(0).shotSegment();
-                    System.out.println("\tIndex " + segmentShot.index());
-                    System.out.println("\tConfidence: " + segmentShot.confidence().toString());
-                }
+                    if (type.contains(SegmentType.SHOT.toString())) {
+                        System.out.println("Shot");
+                        ShotSegment segmentShot = detectedSegment.shotSegment();
+                        System.out.println("\tIndex " + segmentShot.index());
+                        System.out.println("\tConfidence: " + segmentShot.confidence().toString());
+                    }
 
-                long seconds = detectedSegment.get(0).durationMillis();
-                System.out.println("\tDuration : " + seconds + " milliseconds");
-                System.out.println("\tStart time code: " + detectedSegment.get(0).startTimecodeSMPTE());
-                System.out.println("\tEnd time code: " + detectedSegment.get(0).endTimecodeSMPTE());
-                System.out.println("\tDuration time code: " + detectedSegment.get(0).durationSMPTE());
-                System.out.println();
+                    long seconds = detectedSegment.durationMillis();
+                    System.out.println("\tDuration : " + seconds + " milliseconds");
+                    System.out.println("\tStart time code: " + detectedSegment.startTimecodeSMPTE());
+                    System.out.println("\tEnd time code: " + detectedSegment.endTimecodeSMPTE());
+                    System.out.println("\tDuration time code: " + detectedSegment.durationSMPTE());
+                    System.out.println();
+                }
 
             } while (segDetectionResponse !=null && segDetectionResponse.nextToken() != null);
 

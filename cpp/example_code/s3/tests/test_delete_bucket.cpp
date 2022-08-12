@@ -16,9 +16,10 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::S3::Model::BucketLocationConstraint region =
-            Aws::S3::Model::BucketLocationConstraint::us_east_1;
-        Aws::S3::S3Client s3_client;
+        Aws::String region = "us-east-1";
+        Aws::Client::ClientConfiguration config;
+        config.region = region;
+        Aws::S3::S3Client s3_client(config);
 
         // 1/2. Create the bucket to be deleted.
         // Create a unique bucket name to increase the chance of success 
@@ -46,7 +47,7 @@ int main()
         }
 
         // 2/2. Delete the bucket.
-        if (!AwsDoc::S3::DeleteBucket(bucket_name, "us-east-1"))
+        if (!AwsDoc::S3::DeleteBucket(bucket_name, region))
         {
             std::cout << "Error: DeleteBucket test cleanup: Delete bucket '" << 
                 bucket_name << "': To clean up, you "
