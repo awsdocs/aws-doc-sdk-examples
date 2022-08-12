@@ -26,6 +26,8 @@
  */
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include <aws/iam/model/CreateUserRequest.h>
 #include <aws/iam/model/GetUserRequest.h>
 #include <aws/iam/model/CreateRoleRequest.h>
@@ -46,8 +48,6 @@
 #include <aws/core/utils/StringUtils.h>
 #include <aws/core/utils/Document.h>
 #include <aws/core/auth/AWSCredentials.h>
-#include <chrono>
-#include <thread>
 #include "iam_samples.h"
 
 // snippet-start:[cpp.example_code.iam.Scenario_CreateUserAssumeRole]
@@ -72,8 +72,8 @@ namespace AwsDoc {
 
 //! Scenario to create an IAM user, create an IAM role, and apply the role to the use.
 // "IAM access" permissions are needed to run this code.
-// "STS assume role" permissions are need to run this code (note, it may be necessary to
-//    create a custom policy.)
+// "STS assume role" permissions are need to run this code; (note, it may be necessary to
+//    create a custom policy).
 /*!
   \sa IAMCreateUserAssumeRoleScenario
   \param clientConfig Aws client configuration.
@@ -88,7 +88,7 @@ bool AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(const Aws::Client::ClientConfi
     Aws::IAM::Model::Policy policy;
 
     // 1. Create a user.
-    if (!user.UserNameHasBeenSet()) {
+    {
         Aws::IAM::Model::CreateUserRequest request;
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
         Aws::String userName = "iam-demo-user-" +
@@ -414,7 +414,6 @@ bool AwsDoc::IAM::DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
             std::cout << "Successfully deleted the user with name " << user.GetUserName() << std::endl;
         }
     }
-
 
     return result;
 }

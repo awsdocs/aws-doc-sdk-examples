@@ -1,8 +1,7 @@
 #  AWS IAM code examples for the SDK for C++
 
 ## Overview
-The code examples in this directory demonstrate how to work with the Amazon Web Services Identity and Access Management (AWS IAM) using the AWS SDK for C++.
-
+The code examples in this directory demonstrate how to work with the AWS Identity and Access Management (IAM) using the AWS SDK for C++.
 
 AWS IAM is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
 
@@ -42,7 +41,7 @@ AWS IAM is a web service that helps you securely control access to AWS resources
 
 
 ### Scenarios
-- [Create an IAM user, create an IAM role, and apply the role to the user](./iam_create_user_assume_role_scenario.cpp)
+- [Create an IAM user, create an IAM role, and apply the role to the user](./iam_create_user_assume_role_scenario.cpp) (CreateUser, GetUser, CreateRole, CreatePolicy, AssumeRole, ListBuckets, AttachRolePolicy, DetachRolePolicy, DeletePolicy, DeleteRole, DeleteUser)
 
 ## Running the examples
 Before using the code examples, first complete the installation and setup steps of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
