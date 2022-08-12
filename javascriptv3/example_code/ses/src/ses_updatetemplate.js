@@ -44,4 +44,4 @@ const run = async () => {
 run();
 // snippet-end:[ses.JavaScript.templates.updateTemplateV3]
 // For unit tests only.
-// module.exports ={run, params};
+export { run, params }

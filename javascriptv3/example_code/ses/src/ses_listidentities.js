@@ -36,4 +36,4 @@ const run = async () => {
 run();
 // snippet-end:[ses.JavaScript.identities.listIdentitiesV3]
 // For unit tests only.
-// module.exports ={run, params};
+export { run, params }
