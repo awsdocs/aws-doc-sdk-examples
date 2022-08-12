@@ -16,4 +16,4 @@ Layout/EndOfLine:
   Enabled: false
 Layout/LineLength:
   Exclude:
-    - app/models/problematic.rb
+    - ruby/example_code/kms/aws-ruby-sdk-kms-example-decrypt-blob.rb
