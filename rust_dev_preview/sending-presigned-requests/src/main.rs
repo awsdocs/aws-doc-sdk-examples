@@ -121,7 +121,7 @@ fn print_as_curl_request(presigned_req: &PresignedRequest, body: Option<&str>) {
         println!(
             "-H '{}: {}' \\",
             name,
-            value.to_str().unwrap_or_default().to_string()
+            value.to_str().unwrap_or_default()
         )
     }
 

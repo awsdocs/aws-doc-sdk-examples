@@ -74,7 +74,7 @@ async fn enable_config(
         for recorder in recorders {
             println!(
                 "Recorder: {}",
-                recorder.name().as_deref().unwrap_or_default()
+                recorder.name().unwrap_or_default()
             );
         }
 
@@ -95,7 +95,7 @@ async fn enable_config(
         for channel in channels {
             println!(
                 "  Channel: {}",
-                channel.name().as_deref().unwrap_or_default()
+                channel.name().unwrap_or_default()
             );
         }
 

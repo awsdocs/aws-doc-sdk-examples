@@ -33,7 +33,7 @@ async fn show_channels(client: &Client) -> Result<(), Error> {
         for channel in channels {
             println!(
                 "  Channel: {}",
-                channel.name().as_deref().unwrap_or_default()
+                channel.name().unwrap_or_default()
             );
         }
     }

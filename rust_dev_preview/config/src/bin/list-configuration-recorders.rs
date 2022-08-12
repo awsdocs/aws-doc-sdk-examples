@@ -31,7 +31,7 @@ async fn show_recorders(client: &Client) -> Result<(), Error> {
         for recorder in recorders {
             println!(
                 "Recorder: {}",
-                recorder.name().as_deref().unwrap_or_default()
+                recorder.name().unwrap_or_default()
             );
         }
     }
