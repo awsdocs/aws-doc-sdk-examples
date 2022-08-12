@@ -47,15 +47,12 @@ public class ServiceHandler {
     ///
     // snippet-start:[s3.swift.deleteobjects.handler.deleteobjects]
     public func deleteObjects(bucket: String, keys: [String]) async throws {
-        // Build a `Delete` object with the list of objects and quiet mode
-        // enabled to avoid getting sent unneeded information in the response.
-        let deleteObjectList: S3ClientTypes.Delete = S3ClientTypes.Delete(
-            objects: keys.map({ S3ClientTypes.ObjectIdentifier(key: $0) }),
-            quiet: true
-        )
         let input = DeleteObjectsInput(
             bucket: bucket,
-            delete: deleteObjectList
+            delete: S3ClientTypes.Delete(
+                objects: keys.map({ S3ClientTypes.ObjectIdentifier(key: $0) }),
+                quiet: true
+            )
         )
 
         // Call the SDK for Swift to delete the objects from Amazon S3.
