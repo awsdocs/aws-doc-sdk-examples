@@ -1,0 +1,37 @@
+name: Story (Internal use only 🔒)
+description: Define a user story
+title: "[Story]: <DESCRIPTIVE TITLE HERE>"
+labels: ["type/user-story"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Warning
+        Issues that don't use the following template will be marked `status/back-to-author` and assigned back to the creator.
+        
+        ---
+        
+        # 📚️ Story details
+  - type: textarea
+    id: user-stories
+    attributes:
+      label: The user story
+      description: Explain the situation in [user story format](https://www.atlassian.com/agile/project-management/user-stories).
+      value: |
+        As a <PERSONA>, I want <ENHANCEMENT> so that <REASONING>.
+
+        I know this is done when:
+          - <ACCEPTANCE CRITERIA #1>
+          - ...
+      render: bash
+    validations:
+      required: true
+  - type: input
+    id: context
+    attributes:
+      label: Epic link
+      description: Provide the hyperlink of the overarching epic.
+    validations:
+      required: true
