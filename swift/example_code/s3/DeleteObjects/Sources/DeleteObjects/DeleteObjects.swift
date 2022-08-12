@@ -40,9 +40,6 @@ struct ExampleCommand: ParsableCommand {
     func runAsync() async throws {
         let serviceHandler = await ServiceHandler(region: region)
 
-        print("Deleting files from bucket \(bucketName)")
-        print("Files to delete: \(fileNames)")
-
         do {
             _ = try await serviceHandler.deleteObjects(bucket: bucketName, 
                                          keys: fileNames)
