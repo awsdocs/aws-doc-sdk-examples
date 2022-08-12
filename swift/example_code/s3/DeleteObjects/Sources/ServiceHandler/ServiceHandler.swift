@@ -47,15 +47,10 @@ public class ServiceHandler {
     ///
     // snippet-start:[s3.swift.deleteobjects.handler.deleteobjects]
     public func deleteObjects(bucket: String, keys: [String]) async throws {
-        // First build a list of `ObjectIdentifier`s representing each object
-        // we want to delete.
-        var objectList: [S3ClientTypes.ObjectIdentifier] = []
-        for key in keys {
-            let objId = S3ClientTypes.ObjectIdentifier(
-                key: key
-            )
-            objectList.append(objId)
-        }
+        // First build a list of `ObjectIdentifier` objects representing each
+        // object we want to delete.
+        let objectList = 
+                keys.map({ S3ClientTypes.ObjectIdentifier(key: $0) })
 
         // Next build a `Delete` object with the list of objects and quiet
         // mode enabled to avoid getting sent unneeded information in the
