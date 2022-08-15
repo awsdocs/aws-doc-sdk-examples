@@ -44,6 +44,7 @@ export const run = async () => {
   try {
     const data = await s3Client.send(new PutBucketWebsiteCommand(staticHostParams));
     console.log("Success", data);
+    return data;
   } catch (err) {
     console.log("Error", err);
   }
