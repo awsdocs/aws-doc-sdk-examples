@@ -49,13 +49,12 @@ if(MSVC AND BUILD_SHARED_LIBS)
     # For IDE's like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
     #  is switched internally, but this is necessary for non-IDE builds.
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-
+    add_dependencies(iam_gtest GTest::gtest)
     # copy the gtest shared libraries
     add_custom_command(
         TARGET iam_gtest  POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/gtest_main.dll
-                ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/gtest.dll
+                ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
                 ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
  endif()
 

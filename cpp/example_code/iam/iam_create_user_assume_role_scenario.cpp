@@ -321,7 +321,8 @@ bool AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(const Aws::Client::ClientConfi
                 listBucketsOutcome.GetError().GetErrorType() != Aws::S3::S3Errors::ACCESS_DENIED) {
                 std::cerr << "Could not lists buckets. " <<
                           listBucketsOutcome.GetError().GetMessage() << std::endl;
-                break;
+                DeleteCreatedEntities(client, role, user, policy, logProgress);
+                return false;
             }
 
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
