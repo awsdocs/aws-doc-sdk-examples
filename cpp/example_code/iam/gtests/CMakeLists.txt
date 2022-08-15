@@ -21,17 +21,8 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-set(TEMP_MSVC_REMOVE true)
-# Set the location for Windows to find the installed libraries of the SDK.
-if(MSVC AND NOT TEMP_MSVC_REMOVE)
-    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
-    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
-
 # Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
-endif()
+set(BUILD_SHARED_LIBS ON)
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS iam s3 sts)
@@ -49,7 +40,7 @@ if(MSVC AND BUILD_SHARED_LIBS)
     # For IDE's like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
     #  is switched internally, but this is necessary for non-IDE builds.
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-    add_dependencies(iam_gtest GTest::gtest)
+
     # copy the gtest shared libraries
     add_custom_command(
         TARGET iam_gtest  POST_BUILD
@@ -57,16 +48,6 @@ if(MSVC AND BUILD_SHARED_LIBS)
                 ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
                 ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
  endif()
-
-
-# Check whether the target system is Windows, including Win64.
-if(WIN32 AND NOT TEMP_MSVC_REMOVE)
-    # Check whether the compiler is some version of Microsoft Visual C++, or another compiler simulating C++.
-    if(MSVC)
-        source_group("Header Files\\awsdoc\\iam" FILES ${AWSDOC_S3_HEADERS})
-        source_group("Source Files" FILES ${AWSDOC_S3_SOURCE})
-    endif(MSVC)
-endif()
 
 enable_testing()
 

@@ -8,7 +8,7 @@
  *
  * For more information, see the following documentation topic:
  *
- * https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started.html
  *
  * Purpose
  *
@@ -263,6 +263,7 @@ bool AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(const Aws::Client::ClientConfi
         credentials = assumeRoleOutcome.GetResult().GetCredentials();
     }
 
+
     // 5. List objects in the bucket (This should fail).
     {
         Aws::S3::S3Client s3Client(Aws::Auth::AWSCredentials(credentials.GetAccessKeyId(),
@@ -319,13 +320,13 @@ bool AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(const Aws::Client::ClientConfi
         if (!listBucketsOutcome.IsSuccess()) {
             if ((count > 20) ||
                 listBucketsOutcome.GetError().GetErrorType() != Aws::S3::S3Errors::ACCESS_DENIED) {
-                std::cerr << "Could not lists buckets. " <<
+                std::cerr << "Could not lists buckets after 20 seconds. " <<
                           listBucketsOutcome.GetError().GetMessage() << std::endl;
                 DeleteCreatedEntities(client, role, user, policy, logProgress);
                 return false;
             }
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         else {
             if (logProgress) {
