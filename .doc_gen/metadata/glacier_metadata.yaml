@@ -454,9 +454,9 @@ glacier_AddTagsToVault:
   services:
     glacier: {AddTagsToVault}
 glacier_ListTagsForVault:
-  title: List the tags associated with an &GLlong; vault using an &AWS; SDK
+  title: List tags for an &GLlong; vault using an &AWS; SDK
   title_abbrev: List tags
-  synopsis: list tags of an &GLlong; vault.
+  synopsis: list tags for an &GLlong; vault.
   languages:
     .NET:
       versions:

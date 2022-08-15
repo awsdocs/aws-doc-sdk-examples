@@ -16,7 +16,7 @@ S3 Glacier to work with vaults and archives.
 - [AddTagsToVaultExample](AddTagsToVaultExample/) - Add tags to an S3 Glacier vault.
 - [CreateVaultExample](CreateVaultExample/) - Create a new S3 Glacier vault.
 - [DescribeVaultExample](DescribeVaultExample/) - Describe an S3 Glacier vault.
-- [DownloadArchiveHighLevelExample](DownloadArchiveHighLevelExample/) - Shows how to use the S3 Glacier ArchiveTransferManager to download an object using the high level API.
+- [DownloadArchiveHighLevelExample](DownloadArchiveHighLevelExample/) - Shows how to use the S3 Glacier ArchiveTransferManager to download an object by using the high level API.
 - [ListJobsExample](ListJobsExample/) - List information about current S3 Glacier jobs.
 - [ListTagsForVaultExample](ListTagsForVaultExample/) - List the tags that are associated with an S3 Glacier vault.
 - [ListVaultsExample](ListVaultsExample/) - List the S3 Glacier vaults for an AWS Region.
