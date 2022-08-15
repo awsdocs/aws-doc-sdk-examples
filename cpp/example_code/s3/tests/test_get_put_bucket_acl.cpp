@@ -69,15 +69,15 @@ int main()
             owner_id = list_buckets_outcome.GetResult().GetOwner().GetID();
         }
 
-        if (!AwsDoc::S3::PutBucketAcl(bucket_name, 
-            "us-east-1", 
-            owner_id, 
-            "READ", 
-            "Canonical user", 
-            owner_id, 
-            "", 
-            "", 
-            ""))
+        if (!AwsDoc::S3::PutBucketAcl(bucket_name,
+                                      owner_id,
+                                      "READ",
+                                      "Canonical user",
+                                      config.region,
+                                      owner_id,
+                                      "",
+                                      "",
+                                      ""))
         {
             std::cout << "Error: PutBucketAcl test: Set ACL for bucket '" <<
                 bucket_name << "': To clean up, you must delete the bucket '" <<

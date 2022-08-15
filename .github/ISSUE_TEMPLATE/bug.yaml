@@ -1,0 +1,109 @@
+name: Bug report
+description: File a bug report
+title: "[Bug]: <DESCRIPTIVE TITLE HERE>"
+labels: ["type/bug"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Warning
+        Issues that don't use the following template will be marked `status/back-to-author` and assigned back to the creator.
+        
+        ---
+  - type: markdown
+    attributes:
+      value: |
+        # 🐛 Bug details
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+      placeholder: Be specific. Ctrl+Copy screenshots.
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      description: What actually happened?
+      placeholder: Be specific. Ctrl+Copy screenshots.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: "How do you trigger this bug? Walk us through it step by step. Ctrl+Copy screenshots here."
+      value: |
+        1.
+        2.
+        3.
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / stacktrace (if applicable)
+      description: This will be automatically formatted into code. No backticks required.
+      render: shell
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        # 🌎 Environment details
+  - type: dropdown
+    id: sdk-type
+    attributes:
+      label: Which SDK were you using?
+      options:
+        - .NET
+        - Go (v2)
+        - Java
+        - Java (v2)
+        - JavaScript
+        - JavaScript (v3)
+        - Kotlin
+        - PHP
+        - Python
+        - Ruby
+        - Rust
+        - Swift
+    validations:
+      required: true
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Which OS were you using?
+      options:
+        - macOS
+        - Windows
+        - Linux
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: SDK version
+      description: What version of the SDK were you using?
+      placeholder: 1.24.42
+      value:
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: OS version
+      description: What OS version are you using?
+      placeholder: Windows 10, macOS Big Sur, Ubuntu 14.2
+      value:
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## What's next?
+        A member of the AWS SDK Example Code team will review your issue and reply within 10 business days. 🙂
