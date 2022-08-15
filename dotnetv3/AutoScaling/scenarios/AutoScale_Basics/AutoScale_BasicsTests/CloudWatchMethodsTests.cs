@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0 
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AutoScale_Basics;
 using System;
 using System.Collections.Generic;

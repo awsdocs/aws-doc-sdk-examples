@@ -35,20 +35,15 @@
 */
 
 // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.main]
-var imageId = "ami-0ca285d4c2cda3300";
-var instanceType = "t1.micro";
+var imageId = "ami-05803413c51f242b7";
+var instanceType = "t2.micro";
 var launchTemplateName = "AutoScaleLaunchTemplate";
 
 // The name of the Auto Scaling group.
 var groupName = "AutoScaleExampleGroup";
 
 // the Amazon Resource Name (ARN) of the service linked IAM role.
-// var serviceLinkedRoleARN = "<Enter Value>";
-var serviceLinkedRoleARN = "arn:aws:iam::704825161248:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_Basics";
-
-// The subnet Id for a virtual service cloud (VPC) where instances in the
-// autoscaling group can be created.
-string vpcZoneId = "autoscale-basics";
+var serviceLinkedRoleARN = "<Enter Value>";
 
 var client = new AmazonAutoScalingClient(RegionEndpoint.USEast2);
 
@@ -57,8 +52,9 @@ DisplayDescription();
 
 // Start by creating the and save launch template Id to use when deleting the launch template at
 // the end of the application.
-// var launchTemplateId = await EC2Methods.CreateLaunchTemplateAsync(imageId, instanceType, launchTemplateName);
-string launchTemplateId = "lt-0d78ae8110ea62f18";
+var launchTemplateId = await EC2Methods.CreateLaunchTemplateAsync(imageId, instanceType, launchTemplateName);
+
+// Confirm that the template was created by asking for a description of it.
 await EC2Methods.DescribeLaunchTemplateAsync(launchTemplateName);
 
 PressEnter();
@@ -68,9 +64,7 @@ var success = await AutoScaleMethods.CreateAutoScalingGroup(
     client,
     groupName,
     launchTemplateName,
-    launchTemplateId,
-    serviceLinkedRoleARN,
-    vpcZoneId);
+    serviceLinkedRoleARN);
 
 // Keep checking the details of the new group until its lifecycle state
 // is "InService"
@@ -82,7 +76,7 @@ do
 {
     instanceDetails = await AutoScaleMethods.DescribeAutoScalingInstancesAsync(client, groupName);
 }
-while (instanceDetails[0].LifecycleState != "InService");
+while (instanceDetails.Count <= 0);
 
 Console.WriteLine($"Auto scaling group {groupName} successfully created.");
 Console.WriteLine($"{instanceDetails.Count} instances were created for the group.");
@@ -92,6 +86,8 @@ instanceDetails.ForEach(detail =>
 {
     Console.WriteLine($"Group name: {detail.AutoScalingGroupName}");
 });
+
+PressEnter();
 
 Console.WriteLine($"\n--- Enable metrics collection for {groupName}");
 await AutoScaleMethods.EnableMetricsCollectionAsync(client, groupName);
@@ -179,6 +175,7 @@ else
 
 // Terminate all instances in the group.
 Console.WriteLine("--- Now terminating all instances in the AWS Auto Scaling group ---");
+
 groups.ForEach(group =>
 {
     // Only delete groups in the AWS AutoScaling group we created.

@@ -46,11 +46,18 @@ namespace AutoScale_Basics
                 },
             };
 
+            // The start time will be yesterday.
+            var startTime = DateTime.UtcNow.AddDays(-1);
+
             var request = new GetMetricStatisticsRequest
             {
                 MetricName = "AutoScalingGroupName",
                 Dimensions = metricDimensions,
                 Namespace = "AWS/AutoScaling",
+                Period = 60, // 60 seconds
+                Statistics = new List<string>() { "Minimum" },
+                StartTimeUtc = startTime,
+                EndTimeUtc = DateTime.UtcNow,
             };
 
             var response = await client.GetMetricStatisticsAsync(request);

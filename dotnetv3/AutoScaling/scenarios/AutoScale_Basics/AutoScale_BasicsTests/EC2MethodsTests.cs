@@ -1,4 +1,7 @@
-﻿using AutoScale_Basics;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+using AutoScale_Basics;
 using Amazon.EC2;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,9 +30,10 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
-        public void DescribeLaunchTemplateAsyncTest()
+        public async Task DescribeLaunchTemplateAsyncTest()
         {
-            Assert.Fail();
+            var success = await EC2Methods.DescribeLaunchTemplateAsync(launchTemplateName);
+            Assert.IsTrue(success, "Couldn't find any launch templates with the name {templateName}");
         }
     }
 }

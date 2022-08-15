@@ -52,7 +52,7 @@ namespace AutoScale_Basics
         }
 
         // Get the details of an Amazon Elastic Cloud (Amazon EC2) launch template.
-        public static async Task DescribeLaunchTemplateAsync(string launchTemplateName)
+        public static async Task<bool> DescribeLaunchTemplateAsync(string launchTemplateName)
         {
             var client = new AmazonEC2Client();
 
@@ -70,7 +70,11 @@ namespace AutoScale_Basics
                     Console.Write($"{template.LaunchTemplateName}\t");
                     Console.WriteLine(template.LaunchTemplateId);
                 });
+
+                return true;
             }
+
+            return false;
         }
     }
 

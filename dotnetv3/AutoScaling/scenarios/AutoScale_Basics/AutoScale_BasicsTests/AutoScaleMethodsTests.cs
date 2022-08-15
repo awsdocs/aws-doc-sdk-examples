@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AutoScale_Basics;
 using System;
 using System.Collections.Generic;
@@ -15,13 +18,11 @@ namespace AutoScale_Basics.Tests
     {
         private string _GroupName = "test-group-name";
         private AmazonAutoScalingClient _Client = new AmazonAutoScalingClient();
-        // the Amazon Resource Name (ARN) of the service linked IAM role.
-        // var serviceLinkedRoleARN = "<Enter Value>";
-        private string serviceLinkedRoleARN = "arn:aws:iam::704825161248:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_Basics";
 
-        // The subnet Id for a virtual service cloud (VPC) where instances in the
-        // autoscaling group can be created.
-        private string vpcZoneId = "autoscale-basics";
+        // the Amazon Resource Name (ARN) of the service linked IAM role.
+        private readonly string _ServiceLinkedRoleArn = "<Enter Value>";
+
+        private readonly string _LaunchTemplateName = "AutoScaleLaunchTemplateTest";
 
         [TestMethod()]
         public async Task DeleteAutoScalingGroupTest()
@@ -38,7 +39,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
-        public async void TerminateInstanceInAutoScalingGroupTest()
+        public async Task TerminateInstanceInAutoScalingGroupTest()
         {
             var instanceId = string.Empty;
             var success = await AutoScaleMethods.TerminateInstanceInAutoScalingGroupAsync(_Client, instanceId);
@@ -46,7 +47,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
-        public async void TerminateInstanceInAutoScalingGroupNonexistentTest()
+        public async Task TerminateInstanceInAutoScalingGroupNonexistentTest()
         {
             var instanceId = string.Empty;
             var success = await AutoScaleMethods.TerminateInstanceInAutoScalingGroupAsync(_Client, instanceId);
@@ -54,63 +55,51 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
-        public void DescribeScalingActivitiesTest()
+        public async Task DescribeScalingActivitiesTest()
         {
-            Assert.Fail();
+            var activities = await AutoScaleMethods.DescribeAuotoScalingActivitiesAsync(_Client, _GroupName);
+            Assert.IsTrue(activities.Count > 0, "Can't find any auto scaling activities for the group.");
         }
 
         [TestMethod()]
-        public void GetAutoScalingGroupsTest()
+        public async Task SetDesiredCapacityTest()
         {
-            Assert.Fail();
+            var success = await AutoScaleMethods.SetDesiredCapacityAsync(_Client, _GroupName, 3);
+            Assert.IsTrue(success, "Couln't set the desired capacity.");
         }
 
         [TestMethod()]
-        public void SetDesiredCapacityTest()
+        public async Task DescribeAccountLimitsTest()
         {
-            Assert.Fail();
+            await AutoScaleMethods.DescribeAccountLimitsAsync(_Client);
         }
 
         [TestMethod()]
-        public void DescribeAccountLimitsTest()
+        public async Task DescribeAutoScalingGroupsTest()
         {
-            Assert.Fail();
+            var details = await AutoScaleMethods.DescribeAutoScalingGroupsAsync(_Client, _GroupName);
+            Assert.IsTrue(details.Count > 0, "Couldn't find that Auto Scaling group.");
         }
 
         [TestMethod()]
-        public void DescribeAutoScalingGroupsTest()
+        public async Task EnableMetricsCollectionTest()
         {
-            Assert.Fail();
+            var success = await AutoScaleMethods.EnableMetricsCollectionAsync(_Client, _GroupName);
+            Assert.IsTrue(success, $"Couldn't enable metrics collection for {_GroupName}.");
         }
 
         [TestMethod()]
-        public void EnableMetricsCollectionTest()
+        public async Task UpdateAutoScalingGroupTest()
         {
-            Assert.Fail();
+            var success = await AutoScaleMethods.UpdateAutoScalingGroupAsync(_Client, _GroupName, _LaunchTemplateName, _ServiceLinkedRoleArn, 3);
+            Assert.IsTrue(success, "Couldn't update the Auso Scaling group: {_GroupName}.");
         }
 
         [TestMethod()]
-        public void DescribeAutoScalingInstanceTest()
+        public async Task CreateAutoScalingGroupTest()
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetSpecificAutoScalingGroupsTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void UpdateAutoScalingGroupTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateAutoScalingGroupTest()
-        {
-            
+            var success = await AutoScaleMethods.CreateAutoScalingGroup(_Client, _GroupName, _LaunchTemplateName, _ServiceLinkedRoleArn);
+            Assert.IsTrue(success, "Couldn't create the Auto Scaling group.");
         }
     }
 }
