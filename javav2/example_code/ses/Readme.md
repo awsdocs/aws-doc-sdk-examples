@@ -28,7 +28,9 @@ The following examples use the **SesClient** object:
 The following examples use the **SesV2Client** object:
 
 - [Obtains a list of identities for your AWS account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ses/src/main/java/com/example/sesv2/ListIdentities.java) (listEmailIdentities command)
+- [Obtains a list of templates in your AWS account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ses/src/main/java/com/example/sesv2/ListIdentities.java) (ListTemplates command)
 - [Sends an email message](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ses/src/main/java/com/example/sesv2/SendEmail.java) (sendEmail command)
+- [Sends an email message that is based on a template](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ses/src/main/java/com/example/sesv2/SendEmailTemplate.java) (sendEmail command)
 - [Sends an email message with an attachment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ses/src/main/java/com/example/sesv2/SendMessageAttachment.java) (sendEmail command)
 
 **Note**: Both **SesClient** and **SesV2Client** are part of the AWS SDK for Java (v2). 

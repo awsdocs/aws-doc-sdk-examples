@@ -80,7 +80,7 @@ int main()
         }
 
         // 3/4. Get the static website configuration details for the bucket.
-        if (!AwsDoc::S3::GetWebsiteConfig(bucket_name, "us-east-1"))
+        if (!AwsDoc::S3::GetWebsiteConfig(bucket_name, config.region))
         {
             std::cout << "Error: GetWebsiteConfig test: Get website config." << std::endl;
             std::cout << "To clean up, you must delete bucket '" <<

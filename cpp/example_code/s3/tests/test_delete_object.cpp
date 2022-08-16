@@ -17,7 +17,7 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         Aws::Client::ClientConfiguration config;
         config.region = "us-east-1";
@@ -83,7 +83,7 @@ int main()
         }
 
         // 3/4. Delete the object from the bucket.
-        if (!AwsDoc::S3::DeleteObject(Aws::String(file_name), bucket_name))
+        if (!AwsDoc::S3::DeleteObject(Aws::String(file_name), bucket_name, config.region))
         {
             return 1;
         }
