@@ -48,7 +48,7 @@ public class CreateCluster {
         createSingleCluster(memoryDbClient, clusterName, nodeType, subnetGroupName, aclName);
     }
 
-    //snippet-start:[memoryDB.java2.create_cluster.import]
+    //snippet-start:[memoryDB.java2.create_cluster.main]
     public static void createSingleCluster(MemoryDbClient memoryDbClient, String clusterName, String nodeType, String subnetGroupName, String aclName) {
 
         try{
@@ -70,5 +70,5 @@ public class CreateCluster {
             System.exit(1);
         }
     }
-    //snippet-end:[memoryDB.java2.create_cluster.import]
+    //snippet-end:[memoryDB.java2.create_cluster.main]
 }
