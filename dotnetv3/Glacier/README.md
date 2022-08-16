@@ -1,4 +1,4 @@
-# Amazon S3 Glacier code examples for the AWS SDK for .NET
+# Amazon S3 Glacier code examples for the SDK for .NET
 
 ## Overview
 The code examples in this section show how to use the AWS SDK for .NET with Amazon
@@ -22,9 +22,9 @@ Code excerpts that show you how to call individual service functions.
 * [DescribeVaultExample](DescribeVaultExample/) - Describe an Amazon S3 Glacier vault.
 * [DownloadArchiveHighLevelExample](DownloadArchiveHighLevelExample/) - Download an Amazon S3 Glacier archive by using the high level API.
 * [ListJobsExample](ListJobsExample/) - List information about current Amazon S3 Glacier jobs.
-* [ListTagsForVaultExample](ListTagsForVaultExample/) - List the tags that are associated with an Amazon S3 Glacier vault.
+* [ListTagsForVaultExample](ListTagsForVaultExample/) - List tags for an Amazon S3 Glacier vault.
 * [ListVaultsExample](ListVaultsExample/) - List the Amazon S3 Glacier vaults for an AWS Region.
-* [UploadArchiveHighLevelExample](UploadArchiveHighLevelExample/) - Upload an Amazon S3 Glacier archive by using using the high level API.
+* [UploadArchiveHighLevelExample](UploadArchiveHighLevelExample/) - Upload an Amazon S3 Glacier archive by using the high level API.
 
 ## Run the examples
 
