@@ -39,18 +39,10 @@ let DEBUG_SEM = false
 ///
 /// waiter.wait()
 /// ```
-struct TestWaiter {
+public struct TestWaiter {
     let sem: DispatchSemaphore
-    var name: String = "Unnamed"
-    var timeout: Double = 2.0
-
-    /// Initialize a `TestWaiter` named "Unnamed" and a 2 second timeout.
-    init() {
-        sem = DispatchSemaphore(value: 0)
-        if DEBUG_SEM == true {
-            print("Sem init: \(name)")
-        }
-    }
+    var name: String
+    var timeout: Double
 
     /// Initialize a new `TestWaiter` with a custom name and timeout. If you
     /// don't provide a value for `timeout`, the default is 2 seconds.
@@ -58,7 +50,7 @@ struct TestWaiter {
     ///   - name: A name for the `TestWaiter`; used only for debug output.
     ///   - timeout: The number of seconds for `TestWaiter.wait()` to wait
     ///     before timing out. The default is 2 seconds.
-    init(name: String, timeout: Double = 2.0) {
+    public init(name: String = "Unnamed", timeout: Double = 2.0) {
         self.name = name
         self.timeout = timeout
 
