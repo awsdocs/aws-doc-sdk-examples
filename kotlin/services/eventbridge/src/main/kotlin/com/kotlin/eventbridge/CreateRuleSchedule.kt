@@ -26,7 +26,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <ruleName> <cronExpression> <lambdaARN> <json> <targetId>
@@ -55,7 +54,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[eventbridge.kotlin._create_schedule_rule.main]
 suspend fun createScRule(ruleName: String?, cronExpression: String?) {
-
     val ruleRequest = PutRuleRequest {
         name = ruleName
         eventBusName = "default"
@@ -73,7 +71,6 @@ suspend fun createScRule(ruleName: String?, cronExpression: String?) {
 
 // snippet-start:[eventbridge.kotlin._create_schedule_rule_target.main]
 suspend fun putRuleTarget(ruleName: String?, lambdaARN: String, json: String?, targetId: String) {
-
     val lambdaTarget = Target {
         arn = lambdaARN
         id = targetId
