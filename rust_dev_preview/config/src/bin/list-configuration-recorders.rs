@@ -29,10 +29,7 @@ async fn show_recorders(client: &Client) -> Result<(), Error> {
         println!("You have no configuration recorders")
     } else {
         for recorder in recorders {
-            println!(
-                "Recorder: {}",
-                recorder.name().as_deref().unwrap_or_default()
-            );
+            println!("Recorder: {}", recorder.name().unwrap_or_default());
         }
     }
 
