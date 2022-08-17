@@ -37,7 +37,7 @@ if(MSVC AND BUILD_SHARED_LIBS)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
     list(APPEND SERVICE_LIST iam s3 sts)
 
-    # For IDE's like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
+    # For IDEs like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
     #  is switched internally, but this is necessary for non-IDE builds.
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  
 endif()

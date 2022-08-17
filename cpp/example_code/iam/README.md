@@ -3,7 +3,7 @@
 ## Overview
 The code examples in this directory demonstrate how to work with the AWS Identity and Access Management (IAM) using the AWS SDK for C++.
 
-AWS IAM is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
+IAM is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -14,7 +14,7 @@ AWS IAM is a web service that helps you securely control access to AWS resources
 ## Code examples
 
 ### Single actions
-- [Access the last-used key](./access_key_last_used.cpp) (GetAccessKeyLastUsed)
+- [Access the last used key](./access_key_last_used.cpp) (GetAccessKeyLastUsed)
 - [Assume a role](./assume_role.cpp) (AssumeRole)
 - [Attach a role policy](./attach_role_policy.cpp) (AttachRolePolicy)
 - [Create an access key](./create_access_key.cpp) (CreateAccessKey)
@@ -43,11 +43,11 @@ AWS IAM is a web service that helps you securely control access to AWS resources
 ### Scenarios
 - [Create an IAM user, create an IAM role, and apply the role to the user](./iam_create_user_assume_role_scenario.cpp) (CreateUser, GetUser, CreateRole, CreatePolicy, AssumeRole, ListBuckets, AttachRolePolicy, DetachRolePolicy, DeletePolicy, DeleteRole, DeleteUser)
 
-## Running the examples
-Before using the code examples, first complete the installation and setup steps of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
-The Getting Started section covers how to get and build the SDK, and how to build your own code by using the SDK with a sample “Hello World”-style application. 
+## Run the examples
+Before using the code examples, first complete the installation and setup steps of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
+The Getting started section covers how to get and build the SDK, and how to build your own code by using the SDK with a sample “Hello World”-style application. 
 
-Next, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html) for information on the structure of the code examples, building, and running the examples.
+For information on the structure of the code examples and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
