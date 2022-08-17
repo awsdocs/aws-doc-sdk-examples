@@ -141,6 +141,15 @@ ses_ListIdentities:
             - description:
               snippet_tags:
                 - ses.java2.identities.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.identities.listIdentitiesV3
     Python:
       versions:
         - sdk_version: 3
