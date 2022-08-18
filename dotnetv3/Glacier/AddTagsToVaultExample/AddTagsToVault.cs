@@ -14,7 +14,7 @@ namespace AddTagsToVaultExample
     using Amazon.Glacier;
     using Amazon.Glacier.Model;
 
-    public class AddTagsToVaule
+    public class AddTagsToVault
     {
         public static async Task Main(string[] args)
         {

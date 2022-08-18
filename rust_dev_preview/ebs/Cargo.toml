@@ -1,16 +1,19 @@
 [package]
 name = "ebs-code-examples"
 version = "0.1.0"
-authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
+authors = [
+  "Russell Cohen <rcoh@amazon.com>",
+  "Doug Schwartz <dougsch@amazon.com>",
+]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-ebs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-ec2 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-tokio = { version = "1", features = ["full"]}
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-ebs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-ec2 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+tokio = { version = "1", features = ["full"] }
 base64 = "0.13.0"
 sha2 = "0.9.5"
 structopt = { version = "0.3", default-features = false }
