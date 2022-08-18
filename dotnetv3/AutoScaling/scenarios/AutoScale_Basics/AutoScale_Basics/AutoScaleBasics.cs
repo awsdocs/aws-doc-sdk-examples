@@ -43,8 +43,7 @@ var launchTemplateName = "AutoScaleLaunchTemplate";
 var groupName = "AutoScaleExampleGroup";
 
 // The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) service-linked role.
-// var serviceLinkedRoleARN = "<Enter Value>";
-string serviceLinkedRoleARN = "arn:aws:iam::704825161248:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_Basics";
+var serviceLinkedRoleARN = "<Enter Value>";
 
 var client = new AmazonAutoScalingClient(RegionEndpoint.USEast2);
 
