@@ -12,9 +12,9 @@ name = "tls"
 path = "src/lib.rs"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-kms = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-kms = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false }
 webpki-roots = "0.22.2"
 tokio = { version = "1", features = ["full"] }
 rustls = "0.20.2"

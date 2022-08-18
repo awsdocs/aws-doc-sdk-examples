@@ -41,7 +41,7 @@ async fn show_resources(verbose: bool, client: &Client) -> Result<(), Error> {
         for resource in resources {
             println!(
                 "  Resource ID: {}",
-                resource.resource_id().as_deref().unwrap_or_default()
+                resource.resource_id().unwrap_or_default()
             );
         }
     }
