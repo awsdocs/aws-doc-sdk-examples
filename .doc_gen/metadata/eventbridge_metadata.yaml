@@ -39,7 +39,7 @@ eventbridge_PutRule:
           excerpts:
             - description:
               snippet_tags:
-                - eventbridge.kotlin._create_rule.main
+                - eventbridge.kotlin._create_schedule_rule.main
     Java:
       versions:
         - sdk_version: 2
@@ -48,7 +48,7 @@ eventbridge_PutRule:
           excerpts:
             - description:
               snippet_tags:
-                - eventbridge.java2._create_rule.main
+                - eventbridge.java2._create_schedule_rule.main
     C++:
       versions:
         - sdk_version: 1

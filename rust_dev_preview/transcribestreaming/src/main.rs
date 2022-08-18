@@ -93,7 +93,7 @@ async fn main() -> Result<(), Error> {
         match event {
             TranscriptResultStream::TranscriptEvent(transcript_event) => {
                 let transcript = transcript_event.transcript.unwrap();
-                for result in transcript.results.unwrap_or_else(|| Vec::new()) {
+                for result in transcript.results.unwrap_or_default() {
                     if result.is_partial {
                         if verbose {
                             println!("Partial: {:?}", result);
