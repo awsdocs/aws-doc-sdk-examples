@@ -1,9 +1,9 @@
-# AWS Auto Scaling code examples for the AWS SDK for .NET (v3)
+# Amazon EC2 Auto Scaling code examples for the AWS SDK for .NET (v3)
 
 ## Overview
 
-The examples in this directory show how to use AWS Auto Scaling with the AWS
-SDK for .NET (v3)
+The examples in this directory show how to use Amazon EC2 Auto Scaling with the
+AWS SDK for .NET (v3).
 
 Use Amazon EC2 Auto Scaling to automatically scale Amazon EC2 instances, either
 with scaling policies or with scheduled scaling.
@@ -21,26 +21,26 @@ with scaling policies or with scheduled scaling.
 
 ### Single actions
 
-- [Create auto scaling group](scenarios/AutoScale_Basics) (`CreateAutoScalingGroupAsync`)
+- [Create Auto Scaling group](scenarios/AutoScale_Basics) (`CreateAutoScalingGroupAsync`)
 - [Describe account limits](scenarios/AutoScale_Basics) (`DescribeAccountLimitsAsync`)
 - [Describe scaling activities](scenarios/AutoScale_Basics) (`DescribeScalingActivitiesAsync`)
-- [Describe auto scaling instances](scenarios/AutoScale_Basics) (`DescribeAutoScalingInstancesAsync`)
-- [Describe auto scaling groups](scenarios/AutoScale_Basics) (`DescribeAutoScalingGroupsAsync`)
-- [Delete auto scaling group](scenarios/AutoScale_Basics) (`DeleteAutoScalingGroupAsync`)
+- [Describe Auto Scaling instances](scenarios/AutoScale_Basics) (`DescribeAutoScalingInstancesAsync`)
+- [Describe Auto Scaling groups](scenarios/AutoScale_Basics) (`DescribeAutoScalingGroupsAsync`)
+- [Delete Auto Scaling group](scenarios/AutoScale_Basics) (`DeleteAutoScalingGroupAsync`)
 - [Enable metric collection](scenarios/AutoScale_Basics) (`EnableMetricsCollectionAsync`)
 - [Disable metric collection](scenarios/AutoScale_Basics) (`DeleteAutoScalingGroupAsync`)
 - [Set desired capacity](scenarios/AutoScale_Basics) (`SetDesiredCapacityAsync`)
-- [Terminate an instance in an auto scaling group](scenarios/AutoScale_Basics) (`TerminateInstanceInAutoScalingGroupAsync`)
-- [Update an auto scaling group](scenarios/AutoScale_Basics) (`UpdateAutoScalingGroupAsync`)
+- [Terminate an instance in an Auto Scaling group](scenarios/AutoScale_Basics) (`TerminateInstanceInAutoScalingGroupAsync`)
+- [Update an Auto Scaling group](scenarios/AutoScale_Basics) (`UpdateAutoScalingGroupAsync`)
 
 ### Scenario
 
 [Auto Scaling basics](scenarios/AutoScale_Basics)
 
-## Running the Examples
+## Run the Examples
 
 After the example compiles, you can run it from the command line. To do so,
-navigating to the folder that contains the .csproj file, and run the following
+navigate to the folder that contains the .csproj file and run the following
 command:
 
 ```
@@ -51,8 +51,8 @@ Alternatively, you can run the example from within your IDE.
 
 ## Resources and documentation
 
-- [Auto Scaling documentation](https://docs.aws.amazon.com/autoscaling/index.html)
+- [Amazon EC2 Auto Scaling documentation](https://docs.aws.amazon.com/autoscaling/?id=docs_gateway#amazon-ec2-auto-scaling)
 - [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-- [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
+- [AWS SDK for .NET API Reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

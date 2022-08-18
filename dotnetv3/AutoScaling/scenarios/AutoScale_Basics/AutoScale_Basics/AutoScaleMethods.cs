@@ -3,20 +3,28 @@
 
 namespace AutoScale_Basics
 {
+    /// <summary>
+    /// This class contains methods that perform EC2 Auto Scaling operations
+    /// used in the AutoScal_Basics scenario.
+    /// </summary>
     public class AutoScaleMethods
     {
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.CreateAutoScalingGroup]
+
         /// <summary>
-        /// Creates a new Amazon Auto Scaling group.
+        /// Creates a new Amazon EC2 Auto Scaling group.
         /// </summary>
-        /// <param name="client">The  initialized Amazon Auto Scaling client object.</param>
-        /// <param name="groupName">The name to use for the new Amazon Auto
-        /// Scaling group.</param>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name to use for the new Auto Scaling
+        /// group.</param>
         /// <param name="launchTemplateName">The name of the Amazon EC2 launch template
-        /// that will be used to create instances in the group.</param>
-        /// <param name="serviceLinkedRoleARN">The Amazon IAM service-linked role that
-        /// provides the permissions to use with the Amazon Auso Scaling group.</param>
-        /// <returns></returns>
+        /// to use to create instances in the group.</param>
+        /// <param name="serviceLinkedRoleARN">The AWS Identity and Access
+        /// Management (IAM) service-linked role that provides the permissions
+        /// to use with the Auso Scaling group.</param>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the operation.</returns>
         public static async Task<bool> CreateAutoScalingGroup(
             AmazonAutoScalingClient client,
             string groupName,
@@ -25,7 +33,7 @@ namespace AutoScale_Basics
         {
             var templateSpecification = new LaunchTemplateSpecification
             {
-                LaunchTemplateId = launchTemplateName,
+                LaunchTemplateName = launchTemplateName,
             };
 
             var zoneList = new List<string>
@@ -51,6 +59,12 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.CreateAutoScalingGroup]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAccountLimits]
+
+        /// <summary>
+        /// Retrieves information about limits to the active AWS Account.
+        /// </summary>
+        /// <param name="client">The initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
         public static async Task DescribeAccountLimitsAsync(AmazonAutoScalingClient client)
         {
             var response = await client.DescribeAccountLimitsAsync();
@@ -61,6 +75,14 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAccountLimits]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DescribeScalingActivities]
+
+        /// <summary>
+        /// Retrieves a list of the Auto Scaling activities for an Auto Scaling group.
+        /// </summary>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <returns>A list of Auto Scaling activities.</returns>
         public static async Task<List<Activity>> DescribeAuotoScalingActivitiesAsync(
             AmazonAutoScalingClient client,
             string groupName)
@@ -78,6 +100,14 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DescribeScalingActivities]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances]
+
+        /// <summary>
+        /// Gets data about the instances in an Amazon EC2 Auto Scaling group.
+        /// </summary>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <returns>A list of Auto Scaling details.</returns>
         public static async Task<List<AutoScalingInstanceDetails>> DescribeAutoScalingInstancesAsync(
             AmazonAutoScalingClient client,
             string groupName)
@@ -110,6 +140,14 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingGroups]
+
+        /// <summary>
+        /// Retrieves a list of information about EC2 Auto Scaling groups.
+        /// </summary>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <returns>A list of Auto Scaling groups.</returns>
         public static async Task<List<AutoScalingGroup>> DescribeAutoScalingGroupsAsync(
             AmazonAutoScalingClient client,
             string groupName)
@@ -133,6 +171,15 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingGroups]
 
         // snippet-start: [AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
+
+        /// <summary>
+        /// Disables the collection of metric data for an Auto Scaling group.
+        /// </summary>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the operation.</returns>
         public static async Task<bool> DisableMetricsCollectionAsync(AmazonAutoScalingClient client, string groupName)
         {
             var request = new DisableMetricsCollectionRequest
@@ -147,6 +194,15 @@ namespace AutoScale_Basics
         // snippet-end: [AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup]
+
+        /// <summary>
+        /// Deletes an Auto Scaling group.
+        /// </summary>
+        /// <param name="autoScalingClient">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the operation.</returns>
         public static async Task<bool> DeleteAutoScalingGroupAsync(
             AmazonAutoScalingClient autoScalingClient,
             string groupName)
@@ -171,6 +227,15 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.EnableMetricsCollection]
+
+        /// <summary>
+        /// Enables the collection of metric data for an Auto Scaling group.
+        /// </summary>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the operation.</returns>
         public static async Task<bool> EnableMetricsCollectionAsync(AmazonAutoScalingClient client, string groupName)
         {
             var listMetrics = new List<string>
@@ -192,8 +257,19 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.EnableMetricsCollection]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.SetDesiredCapacity]
+
+        /// <summary>
+        /// Sets the desired capacity of an Auto Scaling group.
+        /// </summary>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <param name="desiredCapacity">The desired capacity for the Auto
+        /// Scaling group.</param>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the operation.</returns>
         public static async Task<bool> SetDesiredCapacityAsync(
-            AmazonAutoScalingClient autoScalingClient,
+            AmazonAutoScalingClient client,
             string groupName,
             int desiredCapacity)
         {
@@ -203,7 +279,7 @@ namespace AutoScale_Basics
                 DesiredCapacity = desiredCapacity,
             };
 
-            var response = await autoScalingClient.SetDesiredCapacityAsync(capacityRequest);
+            var response = await client.SetDesiredCapacityAsync(capacityRequest);
             Console.WriteLine($"You have set the DesiredCapacity to {desiredCapacity}.");
 
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
@@ -212,8 +288,18 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.SetDesiredCapacity]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.TerminateInstanceInAutoScalingGroup]
+
+        /// <summary>
+        /// Terminates all instances in the Auto Scaling group in preparation for
+        /// deleting the group.
+        /// </summary>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="instanceId">The instance Id of the instance to terminate.</param>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the operation.</returns>
         public static async Task<bool> TerminateInstanceInAutoScalingGroupAsync(
-            AmazonAutoScalingClient autoScalingClient,
+            AmazonAutoScalingClient client,
             string instanceId)
         {
             var request = new TerminateInstanceInAutoScalingGroupRequest
@@ -222,7 +308,7 @@ namespace AutoScale_Basics
                 ShouldDecrementDesiredCapacity = false,
             };
 
-            var response = await autoScalingClient.TerminateInstanceInAutoScalingGroupAsync(request);
+            var response = await client.TerminateInstanceInAutoScalingGroupAsync(request);
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -237,8 +323,22 @@ namespace AutoScale_Basics
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.TerminateInstanceInAutoScalingGroup]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.UpdateAutoScalingGroup]
+
+        /// <summary>
+        /// Updates the capacity of an Auto Scaling group.
+        /// </summary>
+        /// <param name="client">The  initialized Amazon EC2 Auto Scaling
+        /// client object.</param>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <param name="launchTemplateName">The name of the EC2 launch template.</param>
+        /// <param name="serviceLinkedRoleARN">The Amazon Resource Name (ARN)
+        /// of the AWS Identity and Access Management (IAM) service-linked role.</param>
+        /// <param name="maxSize">The maximum number of instances that can be
+        /// created for the Auto Scaling group.</param>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the update operation.</returns>
         public static async Task<bool> UpdateAutoScalingGroupAsync(
-            AmazonAutoScalingClient autoScalingClient,
+            AmazonAutoScalingClient client,
             string groupName,
             string launchTemplateName,
             string serviceLinkedRoleARN,
@@ -257,17 +357,16 @@ namespace AutoScale_Basics
                 LaunchTemplate = templateSpecification,
             };
 
-            var response = await autoScalingClient.UpdateAutoScalingGroupAsync(groupRequest);
+            var response = await client.UpdateAutoScalingGroupAsync(groupRequest);
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                Console.WriteLine("You successfully updated the auto scaling group  " + groupName);
+                Console.WriteLine($"You successfully updated the Auto Scaling group {groupName}.");
                 return true;
             }
             else
             {
                 return false;
             }
-
         }
 
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.UpdateAutoScalingGroup]

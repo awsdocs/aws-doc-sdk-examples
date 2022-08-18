@@ -9,12 +9,19 @@ namespace AutoScale_Basics
 
     /// <summary>
     /// The methods in this class create and delete an Amazon Elastic Compute
-    /// Cloud (Amazon EC2) launch template for use by the AWS Auto Scaling
-    /// scenario.
+    /// Cloud (Amazon EC2) launch template for use by the Amazon EC2 Auto
+    /// Scaling scenario.
     /// </summary>
     public class EC2Methods
     {
-        // Create a new Amazon Elastic Compute Cloud (Amazon EC2) template.
+        /// <summary>
+        /// Create a new Amazon EC2 launch template.
+        /// </summary>
+        /// <param name="imageId">The image Id to use for instances launched
+        /// using the Amazon EC2 launch template.</param>
+        /// <param name="instanceType">The type of EC2 instances to create.</param>
+        /// <param name="launchTemplateName">The name of the launch template.</param>
+        /// <returns>Returns the TemplaceID of the new launch template.</returns>
         public static async Task<string> CreateLaunchTemplateAsync(
             string imageId,
             string instanceType,
@@ -37,7 +44,12 @@ namespace AutoScale_Basics
             return response.LaunchTemplate.LaunchTemplateId;
         }
 
-        // Delete an Amazon Elastic Compute Cloud (Amazon EC2) launch template.
+        /// <summary>
+        /// Deletes an Amazon EC2 launch template.
+        /// </summary>
+        /// <param name="launchTemplateId">The TemplateId of the launch template to
+        /// delete.</param>
+        /// <returns>The name of the EC2 launch template that was deleted.</returns>
         public static async Task<string> DeleteLaunchTemplateAsync(string launchTemplateId)
         {
             var client = new AmazonEC2Client();
@@ -51,7 +63,12 @@ namespace AutoScale_Basics
             return response.LaunchTemplate.LaunchTemplateName;
         }
 
-        // Get the details of an Amazon Elastic Cloud (Amazon EC2) launch template.
+        /// <summary>
+        /// Retrieves a information about an EC2 launch template.
+        /// </summary>
+        /// <param name="launchTemplateName">The name of the EC2 launch template.</param>
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the operation.</returns>
         public static async Task<bool> DescribeLaunchTemplateAsync(string launchTemplateName)
         {
             var client = new AmazonEC2Client();

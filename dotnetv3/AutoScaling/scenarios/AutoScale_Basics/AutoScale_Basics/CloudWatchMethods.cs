@@ -7,10 +7,17 @@ namespace AutoScale_Basics
     using Amazon.CloudWatch;
     using Amazon.CloudWatch.Model;
 
-    // The single method of this class is used to display the metrics collected
-    // for the AWS Auto Scaling group created by the AWS AutoScaling scenario.
+    /// <summary>
+    /// The method of this class display the metrics collected for the Amazon
+    /// EC2 Auto Scaling group created by the Amazon EC2 Auto Scaling scenario.
+    /// </summary>
     public class CloudWatchMethods
     {
+        /// <summary>
+        /// Retrieves the metrics information collection for the Auto Scaling group.
+        /// </summary>
+        /// <param name="groupName">The name of the Auto Scaling group.</param>
+        /// <returns>A list of Metrics collected for the Auto Scaling group.</returns>
         public static async Task<List<Metric>> GetCloudWatchMetricsAsync(string groupName)
         {
             var client = new AmazonCloudWatchClient();
@@ -33,6 +40,11 @@ namespace AutoScale_Basics
             return response.Metrics;
         }
 
+        /// <summary>
+        /// Retrieves the metric data collected for an Amazon EC2 Auto Scaling group.
+        /// </summary>
+        /// <param name="groupName">The name of the Amazon EC2 Auto Scaling group.</param>
+        /// <returns>A list of data points.</returns>
         public static async Task<List<Datapoint>> GetMetricStatisticsAsync(string groupName)
         {
             var client = new AmazonCloudWatchClient();

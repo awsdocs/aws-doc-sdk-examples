@@ -19,7 +19,7 @@ namespace AutoScale_Basics.Tests
         private string _GroupName = "test-group-name";
         private AmazonAutoScalingClient _Client = new AmazonAutoScalingClient();
 
-        // the Amazon Resource Name (ARN) of the service linked IAM role.
+        // the Amazon Resource Name (ARN) of the IAM service linked role.
         private readonly string _ServiceLinkedRoleArn = "<Enter Value>";
 
         private readonly string _LaunchTemplateName = "AutoScaleLaunchTemplateTest";
@@ -92,7 +92,7 @@ namespace AutoScale_Basics.Tests
         public async Task UpdateAutoScalingGroupTest()
         {
             var success = await AutoScaleMethods.UpdateAutoScalingGroupAsync(_Client, _GroupName, _LaunchTemplateName, _ServiceLinkedRoleArn, 3);
-            Assert.IsTrue(success, "Couldn't update the Auso Scaling group: {_GroupName}.");
+            Assert.IsTrue(success, "Couldn't update the Auto Scaling group: {_GroupName}.");
         }
 
         [TestMethod()]
