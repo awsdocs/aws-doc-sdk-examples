@@ -29,7 +29,7 @@ class Inference:
     @staticmethod
     def detect_anomalies(lookoutvision_client, project_name, model_version, photo):
         """
-        Calls DetectAnomalies using the suplied project, model version, and image.
+        Calls DetectAnomalies using the supplied project, model version, and image.
         :param lookoutvision_client: A Lookout for Vision Boto3 client.
         :param project: The project that contains the model that you want to use.
         :param model_version: The version of the model that you want to use.
@@ -86,7 +86,8 @@ class Inference:
     @staticmethod
     def reject_on_classification(image, prediction, confidence_limit):
         """
-        Returns True if the anomaly confidence is >= than the supplied confidence limit.
+        Returns True if the anomaly confidence is greater than or equal to 
+        the supplied confidence limit.
         :param image: The name of the image file that was analyzed.
         :param prediction: The DetectAnomalyResult object returned from DetectAnomalies
         :param confidence_limit: The minimum acceptable confidence. Float value between 0 and 1.
@@ -110,8 +111,8 @@ class Inference:
     @staticmethod
     def reject_on_anomaly_types(image, prediction, confidence_limit, anomaly_types_limit):
         """
-        Checks if the number of anomaly types > than the anomaly types limit and if
-        the prediction confidence > than the confidence limit.
+        Checks if the number of anomaly types is greater than than the anomaly types
+        limit and if the prediction confidence is greater than the confidence limit.
         :param image: The name of the image file that was analyzed.
         :param prediction: The DetectAnomalyResult object returned from DetectAnomalies
         :param confidence: The minimum acceptable confidence. Float value between 0 and 1.
@@ -121,22 +122,21 @@ class Inference:
 
         logger.info("Checking number of anomaly types for %s",image)
 
-        anomaly_types = set()
         reject = False
 
         if prediction['IsAnomalous'] and prediction['Confidence'] >= confidence_limit:
-            for anomaly in prediction['Anomalies']:
-                anomaly_types.add(anomaly['Name'])
 
-            # Reduce by one to account for 'background' anomaly type.
-            if (len(anomaly_types)-1) > anomaly_types_limit:
-                reject = True
-                reject_info = (f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
-                f"is greater than limit ({confidence_limit:.2%}) and "
-                f"the number of anomaly types ({len(anomaly_types)-1}) is "
-                f"greater than the limit ({anomaly_types_limit})")
+            anomaly_types = {anomaly['Name'] for anomaly in prediction['Anomalies']\
+                if anomaly['Name'] != 'background'}
 
-                logger.info("%s", reject_info)
+            if len (anomaly_types) > anomaly_types_limit:
+                    reject = True
+                    reject_info = (f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
+                    f"is greater than limit ({confidence_limit:.2%}) and "
+                    f"the number of anomaly types ({len(anomaly_types)-1}) is "
+                    f"greater than the limit ({anomaly_types_limit})")
+
+                    logger.info("%s", reject_info)
 
         if not reject:
             logger.info("No anomalies found.")
@@ -145,13 +145,13 @@ class Inference:
     @staticmethod
     def reject_on_coverage(image, prediction, confidence_limit, anomaly_label, coverage_limit):
         """
-        Checks if the coverage area of an anomaly is > than the coverage limit and if
-        the prediction confidence > than the confidence limit.
+        Checks if the coverage area of an anomaly is greater than the coverage limit and if
+        the prediction confidence is greater than the confidence limit.
         :param image: The name of the image file that was analyzed.
         :param prediction: The DetectAnomalyResult object returned from DetectAnomalies
-        :param confidence_limit: The minimum acceptable confidence. Float value between 0 and 1.
+        :param confidence_limit: The minimum acceptable confidence (float 0-1).
         :anomaly_label: The anomaly label for the type of anomaly that you want to check.
-        :coverage_limit: The maximum acceptable percentage coverage of an anomaly (Float 0-1).
+        :coverage_limit: The maximum acceptable percentage coverage of an anomaly (float 0-1).
         :return: True if the error condition indicates an anomaly, otherwise False.
         """
 
@@ -161,13 +161,13 @@ class Inference:
 
         if prediction['IsAnomalous'] and prediction['Confidence'] >= confidence_limit:
             for anomaly in prediction['Anomalies']:
-                if anomaly['Name'] == anomaly_label and \
-                        anomaly['PixelAnomaly']['TotalPercentageArea'] > (coverage_limit/100):
+                if (anomaly['Name'] == anomaly_label and 
+                        anomaly['PixelAnomaly']['TotalPercentageArea'] > (coverage_limit)):
                     reject = True
                     reject_info=(f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
-                    f"is greater than limit ({confidence_limit:.2%}) and {anomaly['Name']} "
-                    f"coverage ({anomaly['PixelAnomaly']['TotalPercentageArea']:.2%}) "
-                    f"is greater than limit ({coverage_limit:.2%})")
+                        f"is greater than limit ({confidence_limit:.2%}) and {anomaly['Name']} "
+                        f"coverage ({anomaly['PixelAnomaly']['TotalPercentageArea']:.2%}) "
+                        f"is greater than limit ({coverage_limit:.2%})")
 
                     logger.info("%s", reject_info)
 

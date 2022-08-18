@@ -191,7 +191,7 @@ model. You can also analyze an image stored in an Amazon S3 bucket.
 The example shows how you can classify images as normal or anomalous. It also shows how to 
 use segmentation information returned from a segmentation model. For more information,
  see [Detecting anomalies in an image](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/inference-detect-anomalies.html).
- To run the example, supply an image file name and a configuration JSON file with following format. 
+ To run the example, supply an image file name and a configuration JSON file with the following format. 
 
     {
         "project":"The Lookout for Vision project name.",
