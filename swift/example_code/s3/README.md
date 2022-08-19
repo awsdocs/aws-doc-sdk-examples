@@ -48,7 +48,7 @@ To build one of these examples in Xcode, navigate to the example's directory
 build and run commands.
 
 ### Prerequisites
-See the [Prequisites](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift#Prerequisites) section in the README for the AWS SDK for Swift examples repository.
+See the [Prerequisites](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift#Prerequisites) section in the README for the AWS SDK for Swift examples repository.
 
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.

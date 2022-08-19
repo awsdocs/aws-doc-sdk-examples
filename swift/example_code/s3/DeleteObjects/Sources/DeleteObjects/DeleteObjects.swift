@@ -18,7 +18,7 @@ import ArgumentParser
 /// example command.
 // snippet-start:[s3.swift.deleteobjects.command]
 struct ExampleCommand: ParsableCommand {
-    @Option(help: "AWS Region the bucket is in")
+    @Option(help: "AWS Region the bucket where the bucket is")
     var region = "us-east-1"
 
     @Argument(help: "Name of the S3 bucket to delete objects in")
@@ -29,7 +29,7 @@ struct ExampleCommand: ParsableCommand {
 
     static var configuration = CommandConfiguration(
         commandName: "deleteobjects",
-        abstract: "Deletes the specified objects from an Amazon S3 bucket.",
+        abstract: "Deletes the specified objects from an S3 bucket.",
         discussion: """
         """
     )

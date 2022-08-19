@@ -18,8 +18,8 @@ enum S3DemoCleanupError: Error {
     case notFound           /// Attempted to access an item that doesn't exist.
 }
 
-/// A structure identifying a file given its Amazon S3 bucket name and the
-/// file's name within the bucket.
+/// A structure identifying a file given its S3 bucket name and the file's
+/// name within the bucket.
 public struct S3DemoFileInfo: Equatable {
     /// The name of the bucket containing the file.
     var bucket: String

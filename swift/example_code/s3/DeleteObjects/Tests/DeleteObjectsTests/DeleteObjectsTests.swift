@@ -25,9 +25,9 @@ final class DeleteObjectsTests: XCTestCase {
     /// This function sets up the following:
     ///
     ///     Configures AWS SDK log system to only log errors.
-    ///     Instantiates the service handler, which is used to call
+    ///     Initializes the service handler, which is used to call
     ///     Amazon S3 functions.
-    ///     Instantiates the demo cleanup handler, which is used to
+    ///     Initializes the demo cleanup handler, which is used to
     ///     track the names of the files and buckets created by the tests
     ///     in order to remove them after testing is complete.
     override class func setUp() {
@@ -118,7 +118,7 @@ final class DeleteObjectsTests: XCTestCase {
 
     func testDeleteObjects() async throws {
         do {
-            // Create a test bucket and some files
+            // Create a test bucket and some files.
 
             let bucketName = try await createTestBucket()
             for _ in 1...10 {
@@ -127,9 +127,9 @@ final class DeleteObjectsTests: XCTestCase {
 
             let fileNames = try await listTestFiles(bucket: bucketName)
 
-            // Delete the files
+            // Delete the files.
             try await DeleteObjectsTests.serviceHandler?.deleteObjects(bucket: bucketName, keys: fileNames)
-            // Remove the files from the demo cleanup handler's list
+            // Remove the files from the demo cleanup handler's list.
             DeleteObjectsTests.demoCleanup?.reset(dropBuckets: false, dropFiles: true)
         } catch {
             throw error
@@ -149,5 +149,9 @@ final class DeleteObjectsTests: XCTestCase {
         } catch {
             XCTFail("An exception occurred trying to delete files that don't exist, but this should fail silently")
         }
+    }
+
+    func testBogusTest() async throws {
+        _ = try await createTestBucket(name: ",35225")
     }
 }
