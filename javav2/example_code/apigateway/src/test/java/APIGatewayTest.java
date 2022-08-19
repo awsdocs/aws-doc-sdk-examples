@@ -14,12 +14,15 @@ public class APIGatewayTest {
 
     private static ApiGatewayClient apiGateway;
     private static String restApiId = "";
+    private static String swaggerFilePath = "";
     private static String resourceId = "";
     private static String httpMethod = "";
     private static String restApiName = "";
     private static String stageName = "";
     private static String newApiId = ""; // Gets dynamically set
     private static String deploymentId = "";  // Gets dynamically set
+    private static String newImportedRestApiId = ""; // Gets dynamically set
+    private static String deploymentIdForImported = "";  // Gets dynamically set
 
 
     @BeforeAll
@@ -42,6 +45,7 @@ public class APIGatewayTest {
 
             // Populate the data members required for all tests
             restApiId = prop.getProperty("restApiId");
+            swaggerFilePath = prop.getProperty("swaggerFilePath");
             resourceId = prop.getProperty("resourceId");
             httpMethod = prop.getProperty("httpMethod");
             restApiName = prop.getProperty("restApiName");
@@ -67,28 +71,41 @@ public class APIGatewayTest {
         assertTrue(!newApiId.isEmpty());
         System.out.println("Test 2 passed");
     }
-
+    
     @Test
     @Order(3)
-    public void CreateDeployment() {
-        deploymentId = CreateDeployment.createNewDeployment(apiGateway, newApiId, stageName);
-        assertTrue(!deploymentId.isEmpty());
+    public void ImportRestApi() {
+
+    	newImportedRestApiId = ImportRestApi.importAPI(apiGateway, swaggerFilePath);
+        assertTrue(!newImportedRestApiId.isEmpty());
         System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
-    public void GetDeployments() {
-        GetDeployments.getAllDeployments(apiGateway, newApiId);
+    public void CreateDeployment() {
+        deploymentId = CreateDeployment.createNewDeployment(apiGateway, newApiId, stageName);
+        assertTrue(!deploymentId.isEmpty());
         System.out.println("Test 4 passed");
     }
+    
+
+    @Test
+    @Order(5)
+    public void GetDeployments() {
+        GetDeployments.getAllDeployments(apiGateway, newApiId);
+        System.out.println("Test 5 passed");
+    }
+    
 
     @Test
     @Order(6)
     public void GetMethod() {
         GetMethod.getSpecificMethod(apiGateway, restApiId, resourceId, httpMethod);
-        System.out.println("Test 5 passed");
+        System.out.println("Test 6 passed");
     }
+    
+    
 
     @Test
     @Order(7)
@@ -97,7 +114,8 @@ public class APIGatewayTest {
         GetStages.getAllStages(apiGateway, newApiId);
         System.out.println("Test 7 passed");
     }
-
+    
+ 
 
     @Test
     @Order(8)
@@ -109,6 +127,19 @@ public class APIGatewayTest {
                 .build();
 
         DeleteRestApi.deleteAPI(apiGateway2, newApiId);
+        System.out.println("Test 8 passed");
+    }
+    
+    @Test
+    @Order(9)
+    public void DeleteImportedRestApi() {
+
+        Region region = Region.US_EAST_1;
+        ApiGatewayClient apiGateway2 = ApiGatewayClient.builder()
+                .region(region)
+                .build();
+
+        DeleteRestApi.deleteAPI(apiGateway2, newImportedRestApiId);
         System.out.println("Test 9 passed");
     }
 }
