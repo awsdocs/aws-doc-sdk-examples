@@ -71,7 +71,8 @@ namespace AutoScale_Basics.Tests
         [TestMethod()]
         public async Task DescribeAccountLimitsTest()
         {
-            await AutoScaleMethods.DescribeAccountLimitsAsync(_Client);
+            var success = await AutoScaleMethods.DescribeAccountLimitsAsync(_Client);
+            Assert.IsTrue(success, "Couldn't retrieve account limits.");
         }
 
         [TestMethod()]
