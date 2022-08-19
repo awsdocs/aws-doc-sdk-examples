@@ -14,17 +14,12 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -40,45 +35,6 @@ public class DynamoDBService {
         return DynamoDbClient.builder()
             .region(region)
             .build();
-    }
-
-    // Retrieves items from the DynamoDB table.
-    public ArrayList<WorkItem> getListItems() {
-        // Create a DynamoDbEnhancedClient.
-        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(getClient())
-            .build();
-
-        try {
-            // Create a DynamoDbTable object.
-            DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
-
-            // Get items in the Work table.
-            Iterator<Work> results = custTable.scan().items().iterator();
-            WorkItem workItem ;
-            ArrayList<WorkItem> itemList = new ArrayList<>();
-
-            while (results.hasNext()) {
-                // Populate a WorkItem.
-                workItem = new WorkItem();
-                Work work = results.next();
-                workItem.setName(work.getName());
-                workItem.setGuide(work.getGuide());
-                workItem.setDescription(work.getDescription());
-                workItem.setStatus(work.getStatus());
-                workItem.setDate(work.getDate());
-                workItem.setId(work.getId());
-
-                //Push the workItem to the list.
-                itemList.add(workItem);
-            }
-            return itemList;
-
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return null ;
     }
 
     // Archives an item based on the key.
@@ -245,12 +201,6 @@ public class DynamoDBService {
         try {
             // Create a DynamoDbTable object.
             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
-
-            // Create an Instant object.
-            LocalDate localDate = LocalDate.parse("2020-04-07");
-            LocalDateTime localDateTime = localDate.atStartOfDay();
-            Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
-
             String myGuid = java.util.UUID.randomUUID().toString();
             Work record = new Work();
             record.setUsername(item.getName());
@@ -260,8 +210,6 @@ public class DynamoDBService {
             record.setStatus(item.getStatus());
             record.setArchive("Open");
             record.setGuide(item.getGuide());
-
-            // Put the data into a DynamoDB table.
             workTable.putItem(record);
 
         } catch (DynamoDbException e) {
