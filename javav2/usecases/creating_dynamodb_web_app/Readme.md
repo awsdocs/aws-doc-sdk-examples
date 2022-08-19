@@ -371,195 +371,234 @@ public class MainController {
     }
 }
 
-
 ```
 
-### RetrieveItems class
 
-The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. 
+### DynamoDBService class
+
+The following Java code represents the **DynamoDBService** class. This class uses the Enchanced Client to perform operations on the Amazon DynamoDB **Work** table. 
 
 ```java
-     package com.aws.rest;
- 
-   package com.aws.rest;
+package com.aws.rest;
 
-   import java.sql.Connection;
-   import java.sql.ResultSet;
-   import java.sql.PreparedStatement;
-   import java.sql.SQLException;
-   import java.util.ArrayList ;
-   import java.util.List;
-   import org.springframework.stereotype.Component;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Expression;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Component;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
-   @Component
-   public class RetrieveItems {
+/*
+ Before running this code example, create an Amazon DynamoDB table named Work with a primary key named id.
+ */
+@Component
+public class DynamoDBService {
 
-    // Set the specified item to archive.
-    public void  flipItemArchive(String id) {
-        Connection c = null;
-        String query;
+    private DynamoDbClient getClient() {
+        Region region = Region.US_EAST_1;
+        return DynamoDbClient.builder()
+            .region(region)
+            .build();
+    }
+
+    // Archives an item based on the key.
+    public void archiveItemEC(String id) {
+
         try {
-            c = ConnectionHelper.getConnection();
-            query = "update work set archive = ? where idwork ='" +id + "' ";
-            PreparedStatement updateForm = c.prepareStatement(query);
-            updateForm.setBoolean(1, true);
-            updateForm.execute();
+            // Create a DynamoDbEnhancedClient.
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(getClient())
+                .build();
 
-        } catch (SQLException e) {
-             e.printStackTrace();
-        } finally {
-             ConnectionHelper.close(c);
+            DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+            //Get the Key object.
+            Key key = Key.builder()
+                .partitionValue(id)
+                .build();
+
+            // Get the item by using the key.
+            Work work = workTable.getItem(r->r.key(key));
+            work.setArchive("Closed");
+
+            workTable.updateItem(r->r.item(work));
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 
-    // Retrieves archive data from the MySQL database
-    public List<WorkItem> getArchiveData(String username) {
-         Connection c = null;
-         List<WorkItem> itemList = new ArrayList<>();
-         String query;
-         WorkItem item;
+    // Get Open items from the DynamoDB table.
+    public List<WorkItem> getOpenItems() {
 
-         try {
-             c = ConnectionHelper.getConnection();
-             ResultSet rs;
-             PreparedStatement pstmt;
-             int arch = 1;
+        // Create a DynamoDbEnhancedClient.
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(getClient())
+            .build();
 
-             // Specify the SQL Statement to query data.
-             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
-             pstmt = c.prepareStatement(query);
-             rs = pstmt.executeQuery();
+        try{
+            // Create a DynamoDbTable object.
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+            AttributeValue attr = AttributeValue.builder()
+                .s("Open")
+                .build();
 
-             while (rs.next()) {
-                 // For each record, create a WorkItem object.
-                 item = new WorkItem();
-                 item.setId(rs.getString(1));
-                 item.setName(rs.getString(2));
-                 item.setDate(rs.getDate(3).toString().trim());
-                 item.setDescription(rs.getString(4));
-                 item.setGuide(rs.getString(5));
-                 item.setStatus(rs.getString(6));
+            Map<String, AttributeValue> myMap = new HashMap<>();
+            myMap.put(":val1",attr);
 
-                 // Push the WorkItem object to the list.
-                 itemList.add(item);
-             }
-             return itemList;
+            Map<String, String> myExMap = new HashMap<>();
+            myExMap.put("#archive", "archive");
 
-         } catch (SQLException e) {
-             e.printStackTrace();
-         } finally {
-             ConnectionHelper.close(c);
-         }
-         return null;
-    }
+            // Set the Expression so only Closed items are queried from the Work table.
+            Expression expression = Expression.builder()
+                .expressionValues(myMap)
+                .expressionNames(myExMap)
+                .expression("#archive = :val1")
+                .build();
 
-    // Get Items data from MySQL.
-    public List<WorkItem> getItemsDataSQLReport(String username) {
-        Connection c = null;
-        List<WorkItem> itemList = new ArrayList<>();
-        String query;
-        WorkItem item;
+            ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                .filterExpression(expression)
+                .limit(15)
+                .build();
 
-        try {
-            c = ConnectionHelper.getConnection();
-            ResultSet rs = null;
-            PreparedStatement pstmt;
-            int arch = 0;
+            // Scan items.
+            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList<>();
 
-            // Specify the SQL Statement to query data.
-            query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
+            while (results.hasNext()) {
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
 
-            while (rs.next()) {
-                item = new WorkItem();
-                item.setId(rs.getString(1));
-                item.setName(rs.getString(2));
-                item.setDate(rs.getDate(3).toString().trim());
-                item.setDescription(rs.getString(4));
-                item.setGuide(rs.getString(5));
-                item.setStatus(rs.getString(6));
-
-                // Push the WorkItem Object to the list.
-                itemList.add(item);
+                // Push the workItem to the list.
+                itemList.add(workItem);
             }
             return itemList;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-           ConnectionHelper.close(c);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
         return null;
     }
-}
-```
 
-### InjectWorkService class
+    // Get Closed Items from the DynamoDB table.
+    public List< WorkItem > getClosedItems() {
 
-The following Java code represents the **InjectWorkService** class. 
+        // Create a DynamoDbEnhancedClient.
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(getClient())
+            .build();
 
-```java
-   package com.aws.rest;
+        try{
+            // Create a DynamoDbTable object.
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.UUID;
-import org.springframework.stereotype.Component;
+            AttributeValue attr = AttributeValue.builder()
+                .s("Closed")
+                .build();
 
-@Component
-public class InjectWorkService {
+            Map<String, AttributeValue> myMap = new HashMap<>();
+            myMap.put(":val1",attr);
+            Map<String, String> myExMap = new HashMap<>();
+            myExMap.put("#archive", "archive");
 
-    // Inject a new submission.
-    public void injestNewSubmission(WorkItem item) {
-        Connection c = null;
-        try {
-            // Create a Connection object.
-            c = ConnectionHelper.getConnection();
+            // Set the Expression so only Closed items are queried from the Work table.
+            Expression expression = Expression.builder()
+                .expressionValues(myMap)
+                .expressionNames(myExMap)
+                .expression("#archive = :val1")
+                .build();
 
-            // Use a prepared statement.
-            PreparedStatement ps;
+            ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                .filterExpression(expression)
+                .limit(15)
+                .build();
 
-            // Convert rev to int.
-            String name = item.getName();
-            String guide = item.getGuide();
-            String description = item.getDescription();
-            String status = item.getStatus();
+            // Get items.
+            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList<>();
 
-            // Generate the work item ID.
-            UUID uuid = UUID.randomUUID();
-            String workId = uuid.toString();
+            while (results.hasNext()) {
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
 
-            // Date conversion.
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            String sDate1 = dtf.format(now);
-            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
-            java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
+                //Push the workItem to the list.
+                itemList.add(workItem);
+            }
+            return itemList;
 
-            // Inject an item into the system.
-            String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
-            ps = c.prepareStatement(insert);
-            ps.setString(1, workId);
-            ps.setString(2, name);
-            ps.setDate(3, sqlDate);
-            ps.setString(4, description);
-            ps.setString(5, guide );
-            ps.setString(6, status );
-            ps.setBoolean(7, false);
-            ps.execute();
-
-        } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
+        return null ;
+    }
+
+    public void setItem(WorkItem item) {
+
+        // Create a DynamoDbEnhancedClient.
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(getClient())
+            .build();
+
+        putRecord(enhancedClient, item) ;
+    }
+
+    // Put an item into a DynamoDB table.
+    public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
+
+        try {
+            // Create a DynamoDbTable object.
+            DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+            String myGuid = java.util.UUID.randomUUID().toString();
+            Work record = new Work();
+            record.setUsername(item.getName());
+            record.setId(myGuid);
+            record.setDescription(item.getDescription());
+            record.setDate(now()) ;
+            record.setStatus(item.getStatus());
+            record.setArchive("Open");
+            record.setGuide(item.getGuide());
+            workTable.putItem(record);
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
+
+    private String now() {
+        String dateFormatNow = "yyyy-MM-dd HH:mm:ss";
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormatNow);
+        return sdf.format(cal.getTime());
     }
 }
 ```
@@ -777,6 +816,93 @@ public class WorkItem {
         }
 }
 ```
+### Work class
+
+The following class represents the **Work** class that uses the **e*8 annotation required for the Enchanced Client.
+
+```java
+ package com.aws.rest;
+
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+
+@DynamoDbBean
+public class Work {
+    private String id;
+    private String date;
+    private String description ;
+    private String guide;
+    private String username ;
+    private String status ;
+    private String archive ;
+
+    @DynamoDbPartitionKey
+    public String getId() {
+        return this.id;
+    };
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @DynamoDbSortKey
+    public String getName() {
+        return this.username;
+    }
+
+    public void setArchive(String archive) {
+        this.archive = archive;
+    }
+
+    public String getArchive() {
+        return this.archive;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setGuide(String guide) {
+        this.guide = guide;
+    }
+
+    public String getGuide() {
+        return this.guide;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+}
+
+```
+
+
 ### WriteExcel class
 
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
