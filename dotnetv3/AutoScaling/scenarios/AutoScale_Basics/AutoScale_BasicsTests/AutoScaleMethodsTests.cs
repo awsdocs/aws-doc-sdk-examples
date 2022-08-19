@@ -16,8 +16,8 @@ namespace AutoScale_Basics.Tests
     [TestClass()]
     public class AutoScaleMethodsTests
     {
-        private string _GroupName = "test-group-name";
-        private AmazonAutoScalingClient _Client = new AmazonAutoScalingClient();
+        private readonly string _GroupName = "test-group-name";
+        private readonly AmazonAutoScalingClient _Client = new AmazonAutoScalingClient();
 
         // the Amazon Resource Name (ARN) of the IAM service linked role.
         private readonly string _ServiceLinkedRoleArn = "<Enter Value>";
@@ -28,14 +28,14 @@ namespace AutoScale_Basics.Tests
         public async Task DeleteAutoScalingGroupTest()
         {
             var success = await AutoScaleMethods.DeleteAutoScalingGroupAsync(_Client, _GroupName);
-            Assert.IsTrue(success, "Could not delete the list.");
+            Assert.IsTrue(success, "Could not delete the group.");
         }
 
         [TestMethod()]
         public async Task DeleteAutoScalingGroupGroupNonexistentTest()
         {
             var success = await AutoScaleMethods.DeleteAutoScalingGroupAsync(_Client, "NonExistentSite");
-            Assert.IsFalse(success, "Could not delete the list.");
+            Assert.IsFalse(success, "Could not find the group to delete.");
         }
 
         [TestMethod()]
@@ -47,17 +47,9 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
-        public async Task TerminateInstanceInAutoScalingGroupNonexistentTest()
-        {
-            var instanceId = string.Empty;
-            var success = await AutoScaleMethods.TerminateInstanceInAutoScalingGroupAsync(_Client, instanceId);
-            Assert.IsFalse(success, "Terminated the instance.");
-        }
-
-        [TestMethod()]
         public async Task DescribeScalingActivitiesTest()
         {
-            var activities = await AutoScaleMethods.DescribeAuotoScalingActivitiesAsync(_Client, _GroupName);
+            var activities = await AutoScaleMethods.DescribeAutoScalingActivitiesAsync(_Client, _GroupName);
             Assert.IsTrue(activities.Count > 0, "Can't find any auto scaling activities for the group.");
         }
 
@@ -65,7 +57,15 @@ namespace AutoScale_Basics.Tests
         public async Task SetDesiredCapacityTest()
         {
             var success = await AutoScaleMethods.SetDesiredCapacityAsync(_Client, _GroupName, 3);
-            Assert.IsTrue(success, "Couln't set the desired capacity.");
+            Assert.IsTrue(success, "Couldn't set the desired capacity.");
+            var groups = await AutoScaleMethods.DescribeAutoScalingGroupsAsync(_Client, _GroupName);
+            groups.ForEach(group =>
+            {
+                if (group.AutoScalingGroupName == _GroupName)
+                {
+                    Assert.AreEqual(3, group.DesiredCapacity, "Capacity was not set properly.");
+                }
+            });
         }
 
         [TestMethod()]

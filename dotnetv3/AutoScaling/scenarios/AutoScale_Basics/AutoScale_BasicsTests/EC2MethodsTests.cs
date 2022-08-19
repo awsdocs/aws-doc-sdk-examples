@@ -10,8 +10,8 @@ namespace AutoScale_Basics.Tests
     [TestClass()]
     public class EC2MethodsTests
     {
-        private static readonly string imageId = "ami-0ca285d4c2cda3300";
-        private static readonly string instanceType = "t1.micro";
+        private static readonly string imageId = "ami-05803413c51f242b7";
+        private static readonly string instanceType = "t2.micro";
         private static readonly string launchTemplateName = "AutoScaleLaunchTemplateTest";
         private static string launchTemplateId = string.Empty;
 

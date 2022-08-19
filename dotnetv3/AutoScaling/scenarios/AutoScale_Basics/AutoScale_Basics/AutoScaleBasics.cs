@@ -137,7 +137,7 @@ if (groups is not null)
 }
 
 Console.WriteLine("**** List the scaling activities that have occurred for the group");
-var activities = await AutoScaleMethods.DescribeAuotoScalingActivitiesAsync(client, groupName);
+var activities = await AutoScaleMethods.DescribeAutoScalingActivitiesAsync(client, groupName);
 if (activities is not null)
 {
     activities.ForEach(activity =>

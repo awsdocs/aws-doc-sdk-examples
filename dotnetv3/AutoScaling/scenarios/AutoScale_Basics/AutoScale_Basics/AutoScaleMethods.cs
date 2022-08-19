@@ -65,11 +65,14 @@ namespace AutoScale_Basics
         /// </summary>
         /// <param name="client">The initialized Amazon EC2 Auto Scaling
         /// client object.</param>
-        public static async Task DescribeAccountLimitsAsync(AmazonAutoScalingClient client)
+        /// <returns>A Boolean value that indicates the success or failure of
+        /// the operation.</returns>
+        public static async Task<bool> DescribeAccountLimitsAsync(AmazonAutoScalingClient client)
         {
             var response = await client.DescribeAccountLimitsAsync();
             Console.WriteLine("The max number of auto scaling groups is " + response.MaxNumberOfAutoScalingGroups);
             Console.WriteLine("The current number of auto scaling groups is " + response.NumberOfAutoScalingGroups);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAccountLimits]
@@ -83,7 +86,7 @@ namespace AutoScale_Basics
         /// client object.</param>
         /// <param name="groupName">The name of the Auto Scaling group.</param>
         /// <returns>A list of Auto Scaling activities.</returns>
-        public static async Task<List<Activity>> DescribeAuotoScalingActivitiesAsync(
+        public static async Task<List<Activity>> DescribeAutoScalingActivitiesAsync(
             AmazonAutoScalingClient client,
             string groupName)
         {
