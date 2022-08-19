@@ -1,19 +1,10 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
-package com.example.services;
+
+package com.aws.rest;
 
 import org.apache.commons.io.IOUtils;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -41,42 +32,40 @@ import software.amazon.awssdk.services.ses.model.SesException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SendMessages {
-
-    private String sender = "scmacdon@amazon.com";
-
-    // The subject line for the email.
-    private String subject = "Status Report";
+public class SendMessage {
 
     // The email body for recipients with non-HTML email clients.
     private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
 
     // The HTML body of the email.
     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
+        + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
 
     public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
-        //Convert the InputStream to a byte[]
+        // Convert the InputStream to a byte[].
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
             send(fileContent,emailAddress);
+
         } catch (MessagingException e) {
             e.getStackTrace();
         }
     }
 
     public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
-
-        MimeMessage message = null;
+        MimeMessage message;
         Session session = Session.getDefaultInstance(new Properties());
 
         // Create a new MimeMessage object.
         message = new MimeMessage(session);
 
         // Add subject, from and to lines.
+        // The subject line for the email.
+        String subject = "Weekly AWS Status Report";
         message.setSubject(subject, "UTF-8");
+        String sender = "scmacdon@amazon.com";
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
@@ -101,7 +90,7 @@ public class SendMessages {
         // Add the child container to the wrapper object.
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container.
+        // Create a multipart/mixed parent containe.r
         MimeMultipart msg = new MimeMultipart("mixed");
 
         // Add the parent container to the message.
@@ -110,7 +99,7 @@ public class SendMessages {
         // Add the multipart/alternative part to the message.
         msg.addBodyPart(wrap);
 
-        // Define the attachment
+        // Define the attachment.
         MimeBodyPart att = new MimeBodyPart();
         DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
@@ -121,32 +110,28 @@ public class SendMessages {
         // Add the attachment to the message.
         msg.addBodyPart(att);
 
-        // Send the email
+        // Send the email.
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-
             Region region = Region.US_WEST_2;
             SesClient client = SesClient.builder()
-                     .region(region)
-                    .build();
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(region)
+                .build();
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             message.writeTo(outputStream);
-
             ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
-
             byte[] arr = new byte[buf.remaining()];
             buf.get(arr);
-
             SdkBytes data = SdkBytes.fromByteArray(arr);
-
             RawMessage rawMessage = RawMessage.builder()
-                    .data(data)
-                    .build();
+                .data(data)
+                .build();
 
             SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                    .rawMessage(rawMessage)
-                    .build();
+                .rawMessage(rawMessage)
+                .build();
 
             client.sendRawEmail(rawEmailRequest);
 

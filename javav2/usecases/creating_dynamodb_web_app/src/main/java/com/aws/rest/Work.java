@@ -1,19 +1,10 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
-package com.example.services;
+
+package com.aws.rest;
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -21,14 +12,13 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 
 @DynamoDbBean
 public class Work {
-
     private String id;
     private String date;
     private String description ;
     private String guide;
     private String username ;
-    private String status  ;
-    private String archive   ;
+    private String status ;
+    private String archive ;
 
     @DynamoDbPartitionKey
     public String getId() {
@@ -36,7 +26,6 @@ public class Work {
     };
 
     public void setId(String id) {
-
         this.id = id;
     }
 
@@ -46,7 +35,6 @@ public class Work {
     }
 
     public void setArchive(String archive) {
-
         this.archive = archive;
     }
 
@@ -55,7 +43,6 @@ public class Work {
     }
 
     public void setStatus(String status) {
-
         this.status = status;
     }
 
@@ -64,7 +51,6 @@ public class Work {
     }
 
     public void setUsername(String username) {
-
         this.username = username;
     }
 
@@ -73,7 +59,6 @@ public class Work {
     }
 
     public void setGuide(String guide) {
-
         this.guide = guide;
     }
 
@@ -86,15 +71,14 @@ public class Work {
     }
 
     public void setDate(String date) {
-
         this.date = date;
     }
 
     public String getDescription() {
         return description;
     }
-    public void setDescription(String description) {
 
+    public void setDescription(String description) {
         this.description = description;
     }
 }
