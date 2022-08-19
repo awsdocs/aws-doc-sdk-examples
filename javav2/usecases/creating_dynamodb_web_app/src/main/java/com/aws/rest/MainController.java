@@ -10,15 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -35,20 +34,19 @@ public class MainController {
     WriteExcel excel;
 
     // Adds a new item to the Amazon DynamoDB database.
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
-    String addItems(HttpServletRequest request, HttpServletResponse response) {
-        String guide = request.getParameter("guide");
-        String description = request.getParameter("description");
-        String status = request.getParameter("status");
+    @PostMapping("add")
+    String addItems(@RequestBody Map<String, Object> payLoad) {
+        String name = "user";
+        String guide = (String)payLoad.get("guide");
+        String description = (String)payLoad.get("description");
+        String status = (String)payLoad.get("status");
 
         // Create a Work Item object.
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
         myWork.setStatus(status);
-        myWork.setName("User");
-
+        myWork.setName(name);
         dbService.setItem(myWork);
         return "Item added";
     }
@@ -56,7 +54,7 @@ public class MainController {
     // Builds and emails a report with all items.
     @PutMapping("report/{email}")
     public String sendReport(@PathVariable String email){
-        List<WorkItem> theList = dbService.getListItems();
+        List<WorkItem> theList = dbService.getOpenItems();
         java.io.InputStream is = excel.exportExcel(theList);
 
         try {
@@ -79,8 +77,8 @@ public class MainController {
     @GetMapping("items/{state}")
     public List< WorkItem > getItems(@PathVariable String state) {
         if (state.compareTo("active") == 0)
-            return dbService.getClosedItems();
-        else
             return dbService.getOpenItems();
+        else
+            return dbService.getClosedItems();
     }
 }
