@@ -818,7 +818,7 @@ public class WorkItem {
 ```
 ### Work class
 
-The following class represents the **Work** class that uses the **e*8 annotation required for the Enchanced Client.
+The following class represents the **Work** class that uses the **@DynamoDbBean** annotation required for the Enchanced Client.
 
 ```java
  package com.aws.rest;
