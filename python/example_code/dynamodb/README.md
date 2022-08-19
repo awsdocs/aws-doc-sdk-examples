@@ -1,6 +1,6 @@
-# Amazon DynamoDB examples
+# Amazon DynamoDB examples for the SDK for Python
 
-## Purpose
+## Overview
 
 Shows how to use the AWS SDK for Python (Boto3) to create Amazon DynamoDB 
 tables and move data in and out of them.
@@ -15,75 +15,77 @@ tables and move data in and out of them.
 *Amazon DynamoDB is a fully managed NoSQL database service that provides fast and 
 predictable performance with seamless scalability.*
 
+## ⚠️ Important
+
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum 
+permissions required to perform the task. For more information, see 
+[Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see 
+[AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
 ## Code examples
 
-**Scenarios**
+### Single actions
 
-* [Getting started with tables, items, and queries](GettingStarted/scenario_getting_started_movies.py)
+Code excerpts that show you how to call individual service functions.
+
+* [Create a table](GettingStarted/scenario_getting_started_movies.py)
+(`create_table`)
+* [Delete a table](GettingStarted/scenario_getting_started_movies.py)
+(`delete_table`)
+* [Delete an item from a table](GettingStarted/scenario_getting_started_movies.py)
+(`delete_item`)
+* [Delete an item from a table if it meets a condition](GettingStarted/update_and_query.py)
+(`delete_item`)
+* [Get an item from a table](GettingStarted/scenario_getting_started_movies.py)
+(`get_item`)
+* [List tables](GettingStarted/scenario_getting_started_movies.py)
+(`list_tables`)
+* [Put an item into a table](GettingStarted/scenario_getting_started_movies.py)
+(`put_item`)
+* [Put items loaded from a JSON file into a table](GettingStarted/scenario_getting_started_movies.py)
+(`put_item`)
+* [Query items and project a subset of data](GettingStarted/update_and_query.py)
+(`query`)
+* [Query items by using a key condition expression](GettingStarted/scenario_getting_started_movies.py)
+(`query`)
+* [Run a PartiQL statement](partiql/scenario_partiql_single.py)
+(`execute_statement`)
+* [Run batches of PartiQL statements](partiql/scenario_partiql_batch.py)
+(`batch_execute_statement`)
+* [Scan a table for items](GettingStarted/scenario_getting_started_movies.py)
+(`scan`)
+* [Update an item by using a conditional expression](GettingStarted/update_and_query.py)
+(`update_item`)
+* [Update an item by using an update expression](GettingStarted/update_and_query.py)
+(`update_item`)
+* [Update an item in a table](GettingStarted/scenario_getting_started_movies.py)
+(`update_item`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple 
+functions within the same service.
+
+* [Get started using tables, items, and queries](GettingStarted/scenario_getting_started_movies.py)
 * [Get, write, and delete batches of items](batching/dynamo_batching.py)
 * [Query a table using PartiQL](partiql/scenario_partiql_single.py)
 * [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.py)
 * [Accelerate reads with DAX](TryDax)
 
-
-**Actions**
-
-* [Creating a table](GettingStarted/scenario_getting_started_movies.py)
-(`create_table`)
-* [Deleting a table](GettingStarted/scenario_getting_started_movies.py)
-(`delete_table`)
-* [Deleting an item from a table](GettingStarted/scenario_getting_started_movies.py)
-(`delete_item`)
-* [Deleting an item from a table if it meets a condition](GettingStarted/update_and_query.py)
-(`delete_item`)
-* [Getting an item from a table](GettingStarted/scenario_getting_started_movies.py)
-(`get_item`)
-* [Putting an item into a table](GettingStarted/scenario_getting_started_movies.py)
-(`put_item`)
-* [Putting items loaded from a JSON file into a table](GettingStarted/scenario_getting_started_movies.py)
-(`put_item`)
-* [Querying items and projecting a subset of data](GettingStarted/update_and_query.py)
-(`query`)
-* [Querying items by using a key condition expression](GettingStarted/scenario_getting_started_movies.py)
-(`query`)
-* [Running a PartiQL statement](partiql/scenario_partiql_single.py)
-(`execute_statement`)
-* [Running batches of PartiQL statements](partiql/scenario_partiql_batch.py)
-(`batch_execute_statement`)
-* [Scanning a table for items](GettingStarted/scenario_getting_started_movies.py)
-(`scan`)
-* [Updating an item by using a conditional expression](GettingStarted/update_and_query.py)
-(`update_item`)
-* [Updating an item by using an update expression](GettingStarted/update_and_query.py)
-(`update_item`)
-* [Updating an item in a table](GettingStarted/scenario_getting_started_movies.py)
-(`update_item`)
-
-## ⚠ Important
-
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
-
-## Running the code
+## Run the examples
 
 ### Prerequisites
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.8 or later
-- Boto 3 1.18.50 or later
+To find prerequisites for running these examples, see the 
+[README](../../README.md#Prerequisites) in the Python folder.
+
+The following additional packages are required to run these examples:
+
 - Requests 2.25.1 or later (to download the movie data JSON file)
 - Amazon DynamoDB Accelerator (DAX) client 1.1.7 or later (to run the DAX example)
-- pytest 5.3.5 or later (to run unit tests)
 
 You can install these prerequisites by running the following command in a
 virtual environment:
@@ -92,7 +94,7 @@ virtual environment:
 python -m pip install -r requirements.txt
 ``` 
 
-### Getting started with tables, items, and queries
+### Get started with tables, items, and queries
 
 This scenario shows you how to create an Amazon DynamoDB table for storing movie data. 
 The scenario loads movies into the table from a JSON-formatted file, walks you 
@@ -156,7 +158,7 @@ DAX is a DynamoDB-compatible caching service that provides fast in-memory perfor
 and high availability for applications that demand microsecond latency. For more
 information, see [In-Memory Acceleration with DynamoDB Accelerator (DAX)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html). 
 
-#### Running on your local computer
+#### Run on your local computer
 
 When run on your local computer, only the Boto3 client works.
 
@@ -167,7 +169,7 @@ table by running the following from a command prompt window.
 python 01-create-table.py
 ```  
 
-#### Running on a DAX cluster
+#### Run on a DAX cluster
 
 To run the scripts with the DAX client, you must run them on an Amazon Elastic Compute 
 Cloud (Amazon EC2) instance within your virtual private cloud (VPC). This process is 
@@ -193,7 +195,7 @@ prompt window.
 python 04-query-test.py YOUR-CLUSTER-NAME.111111.clustercfg.dax.usw2.cache.amazonaws.com:8111
 ```
 
-## Running the tests
+## Tests
 
 All tests use pytest, and you can find them in the `test` folder of each example.
 
@@ -212,7 +214,7 @@ python -m pytest -m "not integ"
 
 ### Integration tests
 
-**Note:** The integration tests in this module make actual requests to AWS, which means 
+⚠️ The integration tests in this module make actual requests to AWS, which means 
 they can create and destroy resources in your account. These tests might also incur 
 charges. Proceed with caution.
 
@@ -224,8 +226,9 @@ python -m pytest -m "integ"
 
 ## Additional information
 
+- [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+- [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
 - [Boto3 Amazon DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
-- [Amazon DynamoDB documentation](https://docs.aws.amazon.com/dynamodb)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
