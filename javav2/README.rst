@@ -61,7 +61,7 @@ The following tutorials use the synchronous Java client:
 
 + `Creating the Amazon Relational Database Service item tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web MVC application that tracks work items.
 
-+ `Creating the Amazon DynamoDB web application item tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.
++ `Creating a React and Spring REST application that queries Amazon DynamoDB data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.
 
 + `Creating a Job Posting Site using Amazon Aurora and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_amazon_aurora_app>`_ - Discusses how to create a web MVC application that uses Amazon Aurora (for Amazon RDS), the Java JDBC API, and Amazon Translate to display job listing data.
 
