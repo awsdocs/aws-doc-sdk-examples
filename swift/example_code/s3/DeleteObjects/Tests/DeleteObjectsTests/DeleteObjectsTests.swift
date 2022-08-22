@@ -150,8 +150,4 @@ final class DeleteObjectsTests: XCTestCase {
             XCTFail("An exception occurred trying to delete files that don't exist, but this should fail silently")
         }
     }
-
-    func testBogusTest() async throws {
-        _ = try await createTestBucket(name: ",35225")
-    }
 }
