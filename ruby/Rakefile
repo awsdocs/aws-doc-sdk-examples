@@ -19,6 +19,6 @@ end
 
 desc 'Run rubocop'
 RuboCop::RakeTask.new(:rubocop) do |t|
-  t.options = ['--config', '../.github/linters/.ruby-lint.yml']
-  t.requires << 'rubocop-rake'
+  t.options = ["--config", "../.github/linters/.ruby-lint.yml"]
+  t.requires << "rubocop-rake"
 end
