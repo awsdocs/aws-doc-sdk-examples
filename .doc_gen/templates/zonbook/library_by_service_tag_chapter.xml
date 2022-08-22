@@ -4,6 +4,10 @@
         %xinclude;
         <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
         %phrases-code-examples;
+{{- if isSnapshot}}
+    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
+    %phrases-prerelease-examples;
+{{- end}}
         <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
         %phrases-shared;
         ]>
