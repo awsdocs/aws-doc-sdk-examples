@@ -93,7 +93,7 @@ namespace AutoScale_Basics.Tests
         public async Task UpdateAutoScalingGroupTest()
         {
             var success = await AutoScaleMethods.UpdateAutoScalingGroupAsync(_Client, _GroupName, _LaunchTemplateName, _ServiceLinkedRoleArn, 3);
-            Assert.IsTrue(success, "Couldn't update the Auto Scaling group: {_GroupName}.");
+            Assert.IsTrue(success, $"Couldn't update the Auto Scaling group: {_GroupName}.");
         }
 
         [TestMethod()]
