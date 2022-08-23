@@ -3,13 +3,16 @@
     <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
     %xinclude;
 ]>
-<!-- zexi 0.2.0 -->
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs = ""}}
+{{- end}}
 <tablist>
     {{- range $language, $example_id := .}}
     <tablistentry>
         <tabname>{{$language}}</tabname>
         <tabcontent>
-            <xi:include href="file://AWSShared/code-samples/docs/{{$example_id}}_{{$language}}.xml"></xi:include>
+            <xi:include href="{{$include_docs}}{{$example_id}}_{{$language}}.xml"></xi:include>
         </tabcontent>
     </tablistentry>
     {{- end}}

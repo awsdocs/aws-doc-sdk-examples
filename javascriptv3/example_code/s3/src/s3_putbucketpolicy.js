@@ -58,6 +58,7 @@ export const run = async () => {
           new PutBucketPolicyCommand(bucketPolicyParams)
       );
       console.log("Success, permissions added to bucket", response);
+      return response;
     }
     catch (err) {
         console.log("Error adding policy to S3 bucket.", err);

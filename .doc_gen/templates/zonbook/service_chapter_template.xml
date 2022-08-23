@@ -4,6 +4,10 @@
     %xinclude;
     <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
     %phrases-code-examples;
+{{- if isSnapshot}}
+    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
+    %phrases-prerelease-examples;
+{{- end}}
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
@@ -13,6 +17,10 @@
 {{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
 {{- $scenarios :=  index .CategorizedExampleSets "Scenarios"}}
 {{- $actions := index .CategorizedExampleSets "Actions"}}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs = ""}}
+{{- end}}
 {{- if .Bundle}}
 {{- $doc_id = printf "service_code_examples_%s" .Model }}
 {{- $title_abbrev = printf "%s examples" .ServiceEntity.Short }}
@@ -105,7 +113,7 @@
                     <para>{{.Title}}</para>
                 </abstract>
             </info>
-            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_desc.xml"></xi:include>
+            <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
             <note buildtype="markdown">
                 <para>The source code for these examples is in the
                     <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; Code Examples GitHub repository</ulink>.
@@ -117,7 +125,7 @@
             {{- if .GuideTopic.Url}}
             <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
             {{- end}}
-            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
+            <xi:include href="{{$include_docs}}{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
             <para>For a complete list of &AWS; SDK developer guides and code examples, see
                 <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
                 This topic also includes information about getting started and details about previous SDK versions.</para>
