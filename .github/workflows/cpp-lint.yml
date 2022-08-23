@@ -9,12 +9,13 @@ on:
     paths:
       - 'cpp/**'
   workflow_dispatch:
-permissions:
-  contents: read
-  pull-requests: write
+
 jobs:
   cpplint:
     name: cpp lint
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
