@@ -194,10 +194,10 @@ use segmentation information returned from a segmentation model. For more inform
  To run the example, supply an image file name and a configuration JSON file with the following format. 
 
     {
-        "project":"The Lookout for Vision project name.",
+        "project" : "The Lookout for Vision project name.",
         "model_version" : "The model version.",
         "confidence_limit" : The minimum acceptable confidence. (Float 0 - 1).,
-        "coverage_limit" : The maximum acceptable percentage coverage of an anomaly (Float 0-1).,
+        "coverage_limit" : The maximum acceptable percentage coverage of an anomaly (Float 0 - 1).,
         "anomaly_types_limit" : The maximum number of allowable anomaly types. (Integer),
         "anomaly_label" : "The anomaly label for the type of anomaly that you want to check."
     }

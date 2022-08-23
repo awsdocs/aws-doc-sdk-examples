@@ -43,12 +43,12 @@ class Inference:
         elif image_type == "png":
             content_type = "image/png"
         else:
-            logger.info("Invalid image type for %s", photo)
+            logger.info("Image type not valid for %s", photo)
             raise ValueError(
-                f"Invalid file format. Supply a jpeg or png format file: {photo}")
+                f"File format not valid. Supply a jpeg or png format file: {photo}")
 
 
-        # Get images bytes for call to detect_anomalies
+        # Get images bytes for call to detect_anomalies.
         with open(photo, "rb") as image:
             response = lookoutvision_client.detect_anomalies(
                 ProjectName=project_name,
@@ -89,8 +89,8 @@ class Inference:
         Returns True if the anomaly confidence is greater than or equal to 
         the supplied confidence limit.
         :param image: The name of the image file that was analyzed.
-        :param prediction: The DetectAnomalyResult object returned from DetectAnomalies
-        :param confidence_limit: The minimum acceptable confidence. Float value between 0 and 1.
+        :param prediction: The DetectAnomalyResult object returned from DetectAnomalies.
+        :param confidence_limit: The minimum acceptable confidence (float 0 - 1).
         :return: True if the error condition indicates an anomaly, otherwise False.
         """
 
@@ -111,12 +111,12 @@ class Inference:
     @staticmethod
     def reject_on_anomaly_types(image, prediction, confidence_limit, anomaly_types_limit):
         """
-        Checks if the number of anomaly types is greater than than the anomaly types
+        Checks if the number of anomaly types is greater than the anomaly types
         limit and if the prediction confidence is greater than the confidence limit.
         :param image: The name of the image file that was analyzed.
-        :param prediction: The DetectAnomalyResult object returned from DetectAnomalies
-        :param confidence: The minimum acceptable confidence. Float value between 0 and 1.
-        :param anomaly_types_limit: The maximum number of allowable anomaly types (Integer).
+        :param prediction: The DetectAnomalyResult object returned from DetectAnomalies.
+        :param confidence: The minimum acceptable confidence (float 0 - 1).
+        :param anomaly_types_limit: The maximum number of allowable anomaly types (int).
         :return: True if the error condition indicates an anomaly, otherwise False.
         """
 
@@ -148,7 +148,7 @@ class Inference:
         Checks if the coverage area of an anomaly is greater than the coverage limit and if
         the prediction confidence is greater than the confidence limit.
         :param image: The name of the image file that was analyzed.
-        :param prediction: The DetectAnomalyResult object returned from DetectAnomalies
+        :param prediction: The DetectAnomalyResult object returned from DetectAnomalies.
         :param confidence_limit: The minimum acceptable confidence (float 0-1).
         :anomaly_label: The anomaly label for the type of anomaly that you want to check.
         :coverage_limit: The maximum acceptable percentage coverage of an anomaly (float 0-1).
