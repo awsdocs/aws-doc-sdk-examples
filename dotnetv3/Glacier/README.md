@@ -1,10 +1,9 @@
 # Amazon S3 Glacier code examples for the SDK for .NET
 
 ## Overview
-The code examples in this section show how to use the AWS SDK for .NET with Amazon
-S3 Glacier to work with vaults and archives.
+The code examples in this section show how to use the AWS SDK for .NET with Amazon Simple Storage Service Glacier (Amazon S3 Glacier) to work with vaults and archives.
 
-Amazon Simple Storage Service Glacier (Amazon S3 Glacier) is a secure and durable service for low-cost data archiving and long-term backup.
+Amazon S3 Glacier is a secure and durable service for low-cost data archiving and long-term backup.
 
 ## ⚠ Important
 * Running this code might result in charges to your AWS account.
@@ -20,11 +19,11 @@ Code excerpts that show you how to call individual service functions.
 * [AddTagsToVaultExample](AddTagsToVaultExample/) - Add tags to an Amazon S3 Glacier vault.
 * [CreateVaultExample](CreateVaultExample/) - Create an Amazon S3 Glacier vault.
 * [DescribeVaultExample](DescribeVaultExample/) - Describe an Amazon S3 Glacier vault.
-* [DownloadArchiveHighLevelExample](DownloadArchiveHighLevelExample/) - Download an Amazon S3 Glacier archive by using the high level API.
+* [DownloadArchiveHighLevelExample](DownloadArchiveHighLevelExample/) - Download an Amazon S3 Glacier archive by using the high-level API.
 * [ListJobsExample](ListJobsExample/) - List information about current Amazon S3 Glacier jobs.
 * [ListTagsForVaultExample](ListTagsForVaultExample/) - List tags for an Amazon S3 Glacier vault.
 * [ListVaultsExample](ListVaultsExample/) - List the Amazon S3 Glacier vaults for an AWS Region.
-* [UploadArchiveHighLevelExample](UploadArchiveHighLevelExample/) - Upload an Amazon S3 Glacier archive by using the high level API.
+* [UploadArchiveHighLevelExample](UploadArchiveHighLevelExample/) - Upload an Amazon S3 Glacier archive by using the high-level API.
 
 ## Run the examples
 
@@ -52,12 +51,12 @@ Or you can execute the example from within your IDE.
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
 * .NET Core 5.0 or later
-* AWS SDK for .NET 3.0 or later
+* AWS SDK for .NET (v3) or later
 
 ## Additional resources
 * [Amazon S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/index.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-* [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
+* [AWS SDK for .NET API Reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
