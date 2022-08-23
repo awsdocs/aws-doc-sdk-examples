@@ -31,10 +31,7 @@ async fn show_channels(client: &Client) -> Result<(), Error> {
         println!("You have no delivery channels")
     } else {
         for channel in channels {
-            println!(
-                "  Channel: {}",
-                channel.name().as_deref().unwrap_or_default()
-            );
+            println!("  Channel: {}", channel.name().unwrap_or_default());
         }
     }
 
