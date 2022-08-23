@@ -22,6 +22,7 @@ Code excerpts that show you how to call individual service functions.
 * [Create a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`CreateBucket`)
 * [Delete a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`DeleteBucket`)
 * [Delete an object](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`DeleteObject`)
+* [Delete multiple objects](./DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift)
 * [Get an object from a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`GetObject`)
 * [List objects in a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`ListObjectsV2`)
 * [Upload an object to a bucket](./basics/Sources/ServiceHandler/ServiceHandler.swift) (`PutObject`)
@@ -42,12 +43,12 @@ $ swift build
 ```
 
 To build one of these examples in Xcode, navigate to the example's directory
-(such as the `FindOrCreateIdentityPool` directory, to build that example), then
-type `xed .` to open the example directory in Xcode. You can then use standard
-Xcode build and run commands.
+(such as the `DeleteObjects` directory, to build that example), then type
+`xed.` to open the example directory in Xcode. You can then use standard Xcode
+build and run commands.
 
 ### Prerequisites
-See the [Prequisites](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift#Prerequisites) section in the README for the AWS SDK for Swift examples repository.
+See the [Prerequisites](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift#Prerequisites) section in the README for the AWS SDK for Swift examples repository.
 
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.

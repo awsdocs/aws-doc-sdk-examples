@@ -154,7 +154,7 @@ async fn run_iam_operations(
     );
     // snippet-end:[rust.example_code.iam.iam_basics.attach_role_policy]
 
-    let inline_policy_name = &format!("{}{}", "iam_demo_inline_policy_", uuid);
+    let inline_policy_name = format!("{}{}", "iam_demo_inline_policy_", uuid);
     let inline_policy_document =
         inline_policy_document.replace("{}", assume_role_role.arn.as_ref().unwrap());
     iam_service::create_user_policy(&client, &user, &inline_policy_name, &inline_policy_document)

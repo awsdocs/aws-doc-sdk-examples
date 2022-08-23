@@ -22,7 +22,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     println!("Buckets:");
     for bucket in buckets {
-        println!("  {}", bucket.name().as_deref().unwrap_or_default());
+        println!("  {}", bucket.name().unwrap_or_default());
     }
 
     println!();
