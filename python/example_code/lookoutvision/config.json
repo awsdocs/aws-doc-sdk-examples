@@ -1,0 +1,8 @@
+{
+    "project":"project name",
+    "model_version" : "model version",
+    "confidence_limit" : 0.5,
+    "coverage_limit" : 0.1,
+    "anomaly_types_limit" :0,
+    "anomaly_label" :"label-name"
+}
