@@ -16,14 +16,14 @@ Amazon S3 Glacier is a secure and durable service for low-cost data archiving an
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [AddTagsToVaultExample](AddTagsToVaultExample/) - Add tags to an Amazon S3 Glacier vault.
-* [CreateVaultExample](CreateVaultExample/) - Create an Amazon S3 Glacier vault.
-* [DescribeVaultExample](DescribeVaultExample/) - Describe an Amazon S3 Glacier vault.
-* [DownloadArchiveHighLevelExample](DownloadArchiveHighLevelExample/) - Download an Amazon S3 Glacier archive by using the high-level API.
-* [ListJobsExample](ListJobsExample/) - List information about current Amazon S3 Glacier jobs.
-* [ListTagsForVaultExample](ListTagsForVaultExample/) - List tags for an Amazon S3 Glacier vault.
-* [ListVaultsExample](ListVaultsExample/) - List the Amazon S3 Glacier vaults for an AWS Region.
-* [UploadArchiveHighLevelExample](UploadArchiveHighLevelExample/) - Upload an Amazon S3 Glacier archive by using the high-level API.
+* [Add tags](AddTagsToVaultExample/AddTagsToVault.cs) (AddTagsToVault)
+* [Create a vault](CreateVaultExample/CreateVault.cs) (CreateVault)
+* [Describe a job](DescribeVaultExample/DescribeVault.cs) (DescribeJob)
+* [Download an archive](DownloadArchiveHighLevelExample/DownloadArchiveHighLevel.cs)
+* [List jobs](ListJobsExample/ListJobs.cs) (ListJobs)
+* [List tags](ListTagsForVaultExample/ListTagsForVault.cs) (ListTagsForVault)
+* [List vaults](ListVaultsExample/ListVaults.cs) (ListVaults)
+* [Upload an archive to a vault](UploadArchiveHighLevelExample/UploadArchiveHighLevel.cs) (UploadArchive)
 
 ## Run the examples
 
@@ -55,8 +55,8 @@ Or you can execute the example from within your IDE.
 
 ## Additional resources
 * [Amazon S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/index.html)
+* [AWS SDK for .NET Amazon S3 Glacier](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glacier/NGlacier.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-* [AWS SDK for .NET API Reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
