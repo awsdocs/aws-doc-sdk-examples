@@ -173,7 +173,7 @@ namespace AutoScale_Basics
 
         // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingGroups]
 
-        // snippet-start: [AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
+        // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
 
         /// <summary>
         /// Disables the collection of metric data for an Auto Scaling group.
@@ -194,7 +194,7 @@ namespace AutoScale_Basics
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-end: [AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
+        // snippet-end:[AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection]
 
         // snippet-start:[AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup]
 
