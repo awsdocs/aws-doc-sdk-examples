@@ -25,7 +25,6 @@ body:
         I know this is done when:
           - <ACCEPTANCE CRITERIA #1>
           - ...
-      render: bash
     validations:
       required: true
   - type: input
