@@ -126,6 +126,7 @@ ALLOW_LIST = {
     'com/amazondynamodb/latest/developerguide',
     'DynamodbRubyExampleCreateUsersTableStack',
     'com/rekognition/latest/dg/considerations',
+    'ListTagsForVaultExample/ListTagsForVault',
     'TerminateInstanceInAutoScalingGroupAsync'
 }
 
