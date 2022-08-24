@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates.All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates.All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
 
 // snippet-start:[general.cpp.starter.main]
@@ -12,6 +12,7 @@ using namespace Aws;
 
 int main()
 {
+    char* error= "this should give a warning";
     //The Aws::SDKOptions struct contains SDK configuration options.
     //An instance of Aws::SDKOptions is passed to the Aws::InitAPI and 
     //Aws::ShutdownAPI methods.  The same instance should be sent to both methods.
