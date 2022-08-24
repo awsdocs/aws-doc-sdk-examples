@@ -441,6 +441,14 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.delete_objects
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/DeleteObjects
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.deleteobjects.handler.deleteobjects
   services:
     s3: {DeleteObjects}
 s3_DeleteBucketWebsite:
