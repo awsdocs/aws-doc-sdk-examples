@@ -1,4 +1,4 @@
-# Amazon DynamoDB examples for the SDK for Python
+# DynamoDB examples for the SDK for Python
 
 ## Overview
 
@@ -214,9 +214,7 @@ python -m pytest -m "not integ"
 
 ### Integration tests
 
-⚠️ The integration tests in this module make actual requests to AWS, which means 
-they can create and destroy resources in your account. These tests might also incur 
-charges. Proceed with caution.
+⚠️Running the integration tests might result in charges to your AWS account.
 
 Run integration tests at a command prompt by including the `"integ"` marker.
 
@@ -224,7 +222,7 @@ Run integration tests at a command prompt by including the `"integ"` marker.
 python -m pytest -m "integ"
 ```
 
-## Additional information
+## Additional resources
 
 - [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 - [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
