@@ -44,7 +44,7 @@ class PullRequest:
         self.repo = repo
         self.pr_number = pr_number
         self.token = token
-
+        print(f"*****token {token}")
         github = Github(token)
         repo_object = github.get_repo(f"{repo}")
         self._pull_request = repo_object.get_pull(pr_number)
