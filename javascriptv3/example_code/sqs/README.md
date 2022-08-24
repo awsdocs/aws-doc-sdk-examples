@@ -14,6 +14,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript v3 S
 - [Receive messages queue using long-polling support](src/sqs_longpolling_receivemessage.js)(ReceiveMessageCommand)
 - [Delete a message](src/sqs_deletemessage.js)(ReceiveMessageCommand / DeleteMessageCommand)
 - [Send messages](src/sqs_sendmessage.js)(SendMessageCommand)
+- [Set Queue Attributes](src/sqs_setqueueattributes.js)(SetQueueAttributesCommand)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
