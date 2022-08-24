@@ -2,14 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AutoScale_Basics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Amazon.AutoScaling;
-using Amazon.AutoScaling.Model;
 
 namespace AutoScale_Basics.Tests
 {
@@ -34,8 +27,8 @@ namespace AutoScale_Basics.Tests
         [TestMethod()]
         public async Task DeleteAutoScalingGroupGroupNonexistentTest()
         {
-            var success = await AutoScaleMethods.DeleteAutoScalingGroupAsync(_Client, "NonExistentSite");
-            Assert.IsFalse(success, "Could not find the group to delete.");
+            var success = await AutoScaleMethods.DeleteAutoScalingGroupAsync(_Client, "NonExistentGroup");
+            Assert.IsFalse(success, "Deleted a non-existent Auto Scaling group.");
         }
 
         [TestMethod()]
