@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[GetLogEvents.kt demonstrates how to get log events from Amazon CloudWatch.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[GetLogEvents.kt demonstrates how to get log events from Amazon CloudWatch.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon CloudWatch]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,8 +15,14 @@ import aws.sdk.kotlin.services.cloudwatchlogs.model.GetLogEventsRequest
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.get_logs.import]
 
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
 
-suspend fun main(args:Array<String>) {
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
 
@@ -28,14 +30,14 @@ suspend fun main(args:Array<String>) {
         <logGroup> <logStreamName> 
 
     Where:
-        logGroup - a log group name (testgroup).
-        logStreamName - the name of the log stream (for example, mystream).
+        logGroup - A log group name (testgroup).
+        logStreamName - The name of the log stream (for example, mystream).
     """
 
     if (args.size != 2) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val logGroup = args[0]
     val logStreamName = args[1]

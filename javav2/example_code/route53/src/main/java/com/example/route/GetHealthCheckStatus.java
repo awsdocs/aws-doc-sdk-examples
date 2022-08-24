@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[DeleteHostedZone.java demonstrates how to get the status of a specific health check.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -35,10 +32,10 @@ public class GetHealthCheckStatus {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <healthCheckId> \n\n" +
-                "Where:\n" +
-                "    healthCheckId - The health check id. \n";
+            "Usage:\n" +
+            "    <healthCheckId> \n\n" +
+            "Where:\n" +
+            "    healthCheckId - The health check id. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,9 +45,9 @@ public class GetHealthCheckStatus {
         String healthCheckId = args[0];
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getHealthStatus(route53Client, healthCheckId);
         route53Client.close();
@@ -61,8 +58,8 @@ public class GetHealthCheckStatus {
 
         try {
             GetHealthCheckStatusRequest statusRequest = GetHealthCheckStatusRequest.builder()
-                    .healthCheckId(healthCheckId)
-                    .build();
+                .healthCheckId(healthCheckId)
+                .build();
 
             GetHealthCheckStatusResponse statusResponse = route53Client.getHealthCheckStatus(statusRequest);
             List<HealthCheckObservation> observations = statusResponse.healthCheckObservations();

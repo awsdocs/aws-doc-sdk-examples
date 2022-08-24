@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[GetRecommendations.java demonstrates how to return a list of recommended items.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,11 +31,11 @@ public class GetRecommendations {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    GetRecommendations <campaignArn> <userId>\n\n" +
-                "Where:\n" +
-                "    campaignArn - The ARN of the campaign.\n\n" +
-                "    userId - The user ID to provide recommendations for\n\n";
+            "Usage:\n" +
+            "    GetRecommendations <campaignArn> <userId>\n\n" +
+            "Where:\n" +
+            "    campaignArn - The ARN of the campaign.\n\n" +
+            "    userId - The user ID to provide recommendations for\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -50,12 +46,13 @@ public class GetRecommendations {
         String userId = args[1];
         Region region = Region.US_EAST_1;
         PersonalizeRuntimeClient personalizeRuntimeClient = PersonalizeRuntimeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         getRecs(personalizeRuntimeClient, campaignArn, userId);
         personalizeRuntimeClient.close();
     }
+
     //snippet-start:[personalize.java2.get_recommendations.main]
     public static void getRecs(PersonalizeRuntimeClient personalizeRuntimeClient, String campaignArn, String userId){
 
@@ -68,11 +65,11 @@ public class GetRecommendations {
 
             GetRecommendationsResponse recommendationsResponse = personalizeRuntimeClient.getRecommendations(recommendationsRequest);
             List<PredictedItem> items = recommendationsResponse.itemList();
-
             for (PredictedItem item: items) {
                 System.out.println("Item Id is : "+item.itemId());
                 System.out.println("Item score is : "+item.score());
             }
+
         } catch (AwsServiceException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

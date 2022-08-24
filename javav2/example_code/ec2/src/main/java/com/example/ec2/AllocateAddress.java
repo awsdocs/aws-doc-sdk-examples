@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[AllocateAddress.java demonstrates how to allocate an elastic IP address for an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +32,10 @@ public class AllocateAddress {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <instanceId>\n\n" +
-                "Where:\n" +
-                "    instanceId - An instance id value that you can obtain from the AWS Console. \n\n" ;
+            "Usage:\n" +
+            "    <instanceId>\n\n" +
+            "Where:\n" +
+            "    instanceId - An instance id value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,9 +45,9 @@ public class AllocateAddress {
         String instanceId = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println(getAllocateAddress(ec2, instanceId));
         ec2.close();
@@ -59,30 +56,26 @@ public class AllocateAddress {
     // snippet-start:[ec2.java2.allocate_address.main]
     public static String getAllocateAddress( Ec2Client ec2, String instanceId) {
 
-       try {
-           AllocateAddressRequest allocateRequest = AllocateAddressRequest.builder()
+        try {
+            AllocateAddressRequest allocateRequest = AllocateAddressRequest.builder()
                 .domain(DomainType.VPC)
                 .build();
 
-           AllocateAddressResponse allocateResponse =
-                ec2.allocateAddress(allocateRequest);
-
-           String allocationId = allocateResponse.allocationId();
-
-           AssociateAddressRequest associateRequest =
-                AssociateAddressRequest.builder()
-                        .instanceId(instanceId)
-                        .allocationId(allocationId)
-                        .build();
+            AllocateAddressResponse allocateResponse = ec2.allocateAddress(allocateRequest);
+            String allocationId = allocateResponse.allocationId();
+            AssociateAddressRequest associateRequest = AssociateAddressRequest.builder()
+               .instanceId(instanceId)
+               .allocationId(allocationId)
+               .build();
 
             AssociateAddressResponse associateResponse = ec2.associateAddress(associateRequest);
             return associateResponse.associationId();
 
-         } catch (Ec2Exception e) {
+        } catch (Ec2Exception e) {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
         }
-       return "";
+        return "";
     }
     // snippet-end:[ec2.java2.allocate_address.main]
 }

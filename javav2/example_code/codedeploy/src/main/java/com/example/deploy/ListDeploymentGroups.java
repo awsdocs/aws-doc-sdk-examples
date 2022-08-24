@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListDeploymentGroups.java demonstrates how to list your deployment groups.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
-
+//snippet-keyword:[AWS CodeDeploy]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,10 +29,10 @@ public class ListDeploymentGroups {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <appName> \n\n" +
-                "Where:\n" +
-                "    appName - The application name. \n";
+            "Usage:\n" +
+            "    <appName> \n\n" +
+            "Where:\n" +
+            "    appName - The application name. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +42,9 @@ public class ListDeploymentGroups {
         String appName = args[0];
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listDeployGroups(deployClient, appName);
         deployClient.close();
@@ -73,5 +69,5 @@ public class ListDeploymentGroups {
             System.exit(1);
         }
    }
-    // snippet-end:[codedeploy.java2._list_groups.main]
+   // snippet-end:[codedeploy.java2._list_groups.main]
 }

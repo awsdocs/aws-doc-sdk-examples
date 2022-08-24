@@ -137,15 +137,40 @@ comprehend_ListDocumentClassificationJobs:
 comprehend_Usage_ComprehendClassifier:
   title: Train a custom &CMP; classifier and classify documents using an &AWS; SDK
   title_abbrev: Train a custom classifier and classify documents
-  synopsis: train a custom &CMP; classifier and classify documents.
+  synopsis_list:
+    - Create an &CMP; multi-label classifier.
+    - Train the classifier on sample data.
+    - Run a classification job on a second set of data.
+    - Extract the job output data from &S3long; (&S3;).
   category: Scenarios
   languages:
     Python:
       versions:
         - sdk_version: 3
-          block_content: usage_ComprehendClassifier_Python_block.xml
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description: Create a wrapper class to call &CMP; document classifier actions.
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendClassifier
+                - python.example_code.comprehend.CreateDocumentClassifier
+                - python.example_code.comprehend.DescribeDocumentClassifier
+                - python.example_code.comprehend.ListDocumentClassifiers
+                - python.example_code.comprehend.DeleteDocumentClassifier
+                - python.example_code.comprehend.StartDocumentClassificationJob
+                - python.example_code.comprehend.DescribeDocumentClassificationJob
+                - python.example_code.comprehend.ListDocumentClassificationJobs
+            - description: Create a class to help run the scenario.
+              snippet_tags:
+                - python.example_code.comprehend.helper.ClassifierDemo_class
+            - description: Train a classifier on a set of GitHub issues with known labels,
+                then send a second set of GitHub issues to the classifier so that they can be labeled.
+              snippet_tags:
+                - python.example_code.comprehend.Scenario_CustomClassifier
   services:
-    comprehend: {}
+    comprehend: {CreateDocumentClassifier, DescribeDocumentClassifier,
+                 ListDocumentClassifiers, DeleteDocumentClassifier, StartDocumentClassificationJob,
+                 DescribeDocumentClassificationJob, ListDocumentClassificationJobs}
 comprehend_DetectDominantLanguage:
   title: Detect the dominant language in a document with &CMP; using an &AWS; SDK
   title_abbrev: Detect the dominant language in a document
@@ -354,9 +379,15 @@ comprehend_DetectSyntax:
   services:
     comprehend: {DetectSyntax}
 comprehend_Usage_DetectApis:
-  title: Use &CMP; detection APIs with an &AWS; SDK
-  title_abbrev: Use detection APIs with a document
-  synopsis: use &CMP; detection APIs with a document.
+  title: Detect document elements with &CMP; and an &AWS; SDK
+  title_abbrev: Detect document elements
+  synopsis_list:
+    - Detect languages in a document.
+    - Detect entities in a document.
+    - Detect key phrases in a document.
+    - Detect personally identifiable information (PII) in a document.
+    - Detect the sentiment of a document.
+    - Detect syntax elements in a document.
   category: Scenarios
   languages:
     Python:
@@ -365,7 +396,7 @@ comprehend_Usage_DetectApis:
           github: python/example_code/comprehend
           sdkguide:
           excerpts:
-            - description: Create a class that wraps &CMPlong; operations.
+            - description: Create a class that wraps &CMPlong; actions.
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect_imports
                 - python.example_code.comprehend.ComprehendDetect
@@ -380,7 +411,8 @@ comprehend_Usage_DetectApis:
               snippet_tags:
                 - python.example_code.comprehend.Usage_DetectApis
   services:
-    comprehend: {}
+    comprehend: {DetectDominantLanguage, DetectEntities, DetectKeyPhrases, DetectPiiEntities,
+                 DetectSentiment, DetectSyntax}
 comprehend_StartTopicsDetectionJob:
   title: Start an &CMP; topic modeling job using an &AWS; SDK
   title_abbrev: Start a topic modeling job
@@ -447,12 +479,27 @@ comprehend_ListTopicsDetectionJobs:
 comprehend_Usage_TopicModeler:
   title: Run an &CMP; topic modeling job on sample data using an &AWS; SDK
   title_abbrev: Run a topic modeling job on sample data
-  synopsis: run an &CMP; topic modeling job on sample data.
+  synopsis_list:
+    - Run an &CMP; topic modeling job on sample data.
+    - Get information about the job.
+    - Extract job output data from &S3long; (&S3;).
   category: Scenarios
   languages:
     Python:
       versions:
         - sdk_version: 3
-          block_content: usage_ComprehendTopicModeler_Python_block.xml
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description: Create a wrapper class to call &CMP; topic modeling actions.
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendTopicModeler
+                - python.example_code.comprehend.StartTopicsDetectionJob
+                - python.example_code.comprehend.DescribeTopicsDetectionJob
+                - python.example_code.comprehend.ListTopicsDetectionJobs
+            - description: Use the wrapper class to run a topic modeling job and get
+                job data.
+              snippet_tags:
+                - python.example_code.comprehend.Scenario_TopicModeler
   services:
-    comprehend: {}
+    comprehend: {StartTopicsDetectionJob, DescribeTopicsDetectionJob, ListTopicsDetectionJobs}

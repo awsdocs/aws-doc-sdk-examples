@@ -3,6 +3,7 @@
 
 namespace ImageOrientationBoundingBoxExample
 {
+    // snippet-start:[Rekognition.dotnetv3.ImageOrientationBoundingBox]
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -18,7 +19,6 @@ namespace ImageOrientationBoundingBoxExample
     /// </summary>
     public class ImageOrientationBoundingBox
     {
-        // snippet-start:[Rekognition.dotnetv3.ImageOrientationBoundingBox]
         public static async Task Main()
         {
             string photo = @"D:\Development\AWS-Examples\Rekognition\target.jpg"; // "photo.jpg";
@@ -131,7 +131,6 @@ namespace ImageOrientationBoundingBoxExample
             Console.WriteLine($"Face Width: {imageWidth * box.Width}");
             Console.WriteLine($"Face Height: {imageHeight * box.Height}");
         }
-
-        // snippet-end:[Rekognition.dotnetv3.ImageOrientationBoundingBox]
     }
+    // snippet-end:[Rekognition.dotnetv3.ImageOrientationBoundingBox]
 }

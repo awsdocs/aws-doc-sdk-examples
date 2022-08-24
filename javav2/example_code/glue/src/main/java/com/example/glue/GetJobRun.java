@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetJobRun.java demonstrates how to get a job run request.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,11 +29,11 @@ public class GetJobRun {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <jobName> <runId>\n\n" +
-                "Where:\n" +
-                "    jobName - The name of the job. \n" +
-                "    runId - The run id value. \n";
+            "Usage:\n" +
+            "    <jobName> <runId>\n\n" +
+            "Where:\n" +
+            "    jobName - The name of the job. \n" +
+            "    runId - The run id value. \n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,12 +42,11 @@ public class GetJobRun {
 
         String jobName = args[0];
         String runId = args[1];
-
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getGlueJobRun(glueClient, jobName, runId);
         glueClient.close();
@@ -60,13 +56,13 @@ public class GetJobRun {
     public static void getGlueJobRun(GlueClient glueClient, String jobName, String runId) {
 
         try {
-              GetJobRunRequest jobRunRequest = GetJobRunRequest.builder()
+            GetJobRunRequest jobRunRequest = GetJobRunRequest.builder()
                 .jobName(jobName)
                 .runId(runId)
                 .build();
 
-              GetJobRunResponse runResponse = glueClient.getJobRun(jobRunRequest);
-              System.out.println("Job status is : "+runResponse.jobRun().jobRunStateAsString());
+            GetJobRunResponse runResponse = glueClient.getJobRun(jobRunRequest);
+            System.out.println("Job status is : "+runResponse.jobRun().jobRunStateAsString());
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

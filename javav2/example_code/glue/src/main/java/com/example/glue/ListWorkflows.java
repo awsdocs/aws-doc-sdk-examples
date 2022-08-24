@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListWorkflows.java demonstrates how to list workflows.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,9 +30,9 @@ public class ListWorkflows {
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllWorkflows(glueClient);
         glueClient.close();
@@ -45,21 +42,20 @@ public class ListWorkflows {
     public static void listAllWorkflows( GlueClient glueClient) {
 
         try {
-             ListWorkflowsRequest workflowsRequest = ListWorkflowsRequest.builder()
+            ListWorkflowsRequest workflowsRequest = ListWorkflowsRequest.builder()
                 .maxResults(10)
                 .build();
 
             ListWorkflowsResponse workflowsResponse = glueClient.listWorkflows(workflowsRequest);
             List<String> workflows = workflowsResponse.workflows();
-
             for (String workflow: workflows) {
                 System.out.println("Workflow name is: "+workflow);
-             }
+            }
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-   }
-    //snippet-end:[glue.java2.list_wfs.main]
+    }
+   //snippet-end:[glue.java2.list_wfs.main]
 }

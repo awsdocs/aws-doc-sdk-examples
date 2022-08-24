@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListThemes.java demonstrates how to list Amazon QuickSight themes.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class ListThemes {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <account>\n\n" +
-                "Where:\n" +
-                "   account - The ID of the AWS account.\n\n";
+            "Usage: " +
+            "   <account>\n\n" +
+            "Where:\n" +
+            "   account - The ID of the AWS account.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class ListThemes {
 
         String account = args[0];
         QuickSightClient qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllThemes(qsClient, account);
         qsClient.close();
@@ -59,8 +56,8 @@ public class ListThemes {
 
         try {
             ListThemesRequest themeRequest = ListThemesRequest.builder()
-                    .awsAccountId(account)
-                    .build();
+                 .awsAccountId(account)
+                 .build();
 
             ListThemesResponse analysisResponse = qsClient.listThemes(themeRequest);
             List<ThemeSummary> themes = analysisResponse.themeSummaryList();

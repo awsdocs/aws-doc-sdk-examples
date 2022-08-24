@@ -3,6 +3,7 @@
 
 namespace DeletePolicyExample
 {
+    // snippet-start:[Organizations.dotnetv3.DeletePolicyExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -43,4 +44,5 @@ namespace DeletePolicyExample
             }
         }
     }
+    // snippet-end:[Organizations.dotnetv3.DeletePolicyExample]
 }

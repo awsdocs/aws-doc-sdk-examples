@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Work items</title>
+  </head>
+  <body>
+    <h1>Work items: {{status}}</h1>
+    <hr/>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">User name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Guide</th>
+        <th scope="col">Created</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for work_item in work_items %}
+      <tr>
+        <td>{{work_item["id"]}}</td>
+        <td>{{work_item["name"]}}</td>
+        <td>{{work_item["description"]}}</td>
+        <td>{{work_item["status"]}}</td>
+        <td>{{work_item["guide"]}}</td>
+        <td>{{work_item["created_date"]}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

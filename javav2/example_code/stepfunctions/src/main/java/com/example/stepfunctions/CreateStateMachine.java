@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateStateMachine.java demonstrates how to creates a state machine for AWS Step Functions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -44,12 +41,12 @@ public class CreateStateMachine {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <jsonFile> <roleARN> <stateMachineName>\n\n" +
-                "Where:\n" +
-                "    jsonFile - A JSON file that represents the Amazon States Language definition of the state machine.\n\n" +
-                "    roleARN - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.\n" +
-                "    stateMachineName - The name of the state machine to create.\n";
+            "Usage:\n" +
+            "    <jsonFile> <roleARN> <stateMachineName>\n\n" +
+            "Where:\n" +
+            "    jsonFile - A JSON file that represents the Amazon States Language definition of the state machine.\n\n" +
+            "    roleARN - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.\n" +
+            "    stateMachineName - The name of the state machine to create.\n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -62,9 +59,9 @@ public class CreateStateMachine {
 
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String arnStateMachine = createMachine(sfnClient, roleARN, stateMachineName, jsonFile);
         System.out.println("The ARN of the new state machine is "+arnStateMachine);
@@ -76,13 +73,12 @@ public class CreateStateMachine {
 
         String json = getJSONString(jsonFile);
         try {
-
            CreateStateMachineRequest machineRequest = CreateStateMachineRequest.builder()
-                   .definition(json)
-                   .name(stateMachineName)
-                   .roleArn(roleARN)
-                   .type(StateMachineType.STANDARD)
-                   .build();
+               .definition(json)
+               .name(stateMachineName)
+               .roleArn(roleARN)
+               .type(StateMachineType.STANDARD)
+               .build();
 
            CreateStateMachineResponse response = sfnClient.createStateMachine(machineRequest);
            return response.stateMachineArn();
@@ -96,11 +92,10 @@ public class CreateStateMachine {
 
     private static String getJSONString(String path) {
         try {
-
             JSONParser parser = new JSONParser();
             JSONObject data = (JSONObject) parser.parse(new FileReader(path));//path to the JSON file.
-            String json = data.toJSONString();
-            return json;
+            return data.toJSONString();
+
         } catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }

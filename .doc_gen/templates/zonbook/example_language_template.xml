@@ -4,10 +4,20 @@
     %xinclude;
     <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
     %phrases-code-examples;
+{{- if isSnapshot}}
+    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
+    %phrases-prerelease-examples;
+{{- end}}
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
 <!-- zexi 0.4.0 -->
+{{- $include_base := "file://AWSShared/"}}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_base = ""}}
+    {{- $include_docs := ""}}
+{{- end}}
 <variablelist role="termdef">
     {{- range $version := .Versions}}
     <varlistentry>
@@ -17,29 +27,32 @@
             <note><para>{{$version.Caveat}}</para></note>
             {{- end}}
             {{- if $version.BlockContent}}
-            <xi:include href="file://AWSShared/code-samples/docs/{{.BlockContent}}"></xi:include>
+            <xi:include href="{{$include_docs}}{{.BlockContent}}"></xi:include>
             <itemizedlist>
                 <title>Services used in this example</title>
                 {{- range $svc_ent := $version.Services}}
                 <listitem><para>{{$svc_ent.Short}}</para></listitem>
                 {{- end}}
             </itemizedlist>
-            {{- else}}{{range $version.Excerpts}}
+            {{- else}}
+            {{- if $version.GitHubUrl}}
+            <tip>
+                <para>
+                    To learn how to set up and run this example, see
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>.
+                </para>
+            </tip>
+            {{- end}}
+            {{- range $version.Excerpts}}
             <block>
                 <para>{{.Description}}</para>
                 <!-- The following line break must be preserved and left-justified exactly as-is, to keep snippets looking good. -->
-                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>
+                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="{{$include_base}}snippets/{{.}}.txt"/>
 {{end}}</programlisting>
             </block>
             {{- end}}
+            {{- if or $version.SdkGuideLink.Url (gt (len $version.ApiRefLinks) 0)}}
             <itemizedlist>
-                {{- if $version.GitHubUrl}}
-                <listitem>
-                    <para>
-                        Find instructions and more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>.
-                    </para>
-                </listitem>
-                {{- end}}
                 {{- if $version.SdkGuideLink.Url}}
                 <listitem>
                     <para>
@@ -68,6 +81,7 @@
                 </listitem>
                 {{- end}}
             </itemizedlist>
+            {{- end}}
             {{- end}}
         </listitem>
     </varlistentry>

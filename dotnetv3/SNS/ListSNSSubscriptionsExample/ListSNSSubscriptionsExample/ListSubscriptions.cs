@@ -3,13 +3,12 @@
 
 namespace ListSNSSubscriptionsExample
 {
+    // snippet-start:[SNS.dotnetv3.ListSNSSubscriptionsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
     using Amazon.SimpleNotificationService.Model;
-
-    // snippet-start:[SNS.dotnetv3.ListSNSSubscriptionsExample]
 
     /// <summary>
     /// This example will retrieve a list of the existing Amazon Simple
@@ -58,6 +57,5 @@ namespace ListSNSSubscriptionsExample
             }
         }
     }
-
     // snippet-end:[SNS.dotnetv3.ListSNSSubscriptionsExample]
 }

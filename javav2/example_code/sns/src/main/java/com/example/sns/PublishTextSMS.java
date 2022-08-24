@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[PublishTextSMS.java demonstrates how to send an Amazon Simple Notification Service (Amazon SNS) text message.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,11 +29,11 @@ public class PublishTextSMS {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <message> <phoneNumber>\n\n" +
-                "Where:\n" +
-                "   message - The message text to send.\n\n" +
-                "   phoneNumber - The mobile phone number to which a message is sent (for example, +1XXX5550100). \n\n";
+            "Usage: " +
+            "   <message> <phoneNumber>\n\n" +
+            "Where:\n" +
+            "   message - The message text to send.\n\n" +
+            "   phoneNumber - The mobile phone number to which a message is sent (for example, +1XXX5550100). \n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,11 +42,10 @@ public class PublishTextSMS {
 
         String message = args[0];
         String phoneNumber = args[1];
-
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         pubTextSMS(snsClient, message, phoneNumber);
         snsClient.close();
     }

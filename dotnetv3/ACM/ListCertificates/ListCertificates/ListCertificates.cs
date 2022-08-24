@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
+// snippet-start:[ACM.dotnetv3.ListCertificates]
+
 using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
@@ -16,6 +18,7 @@ namespace ListCertificates
     class ListCertificates
     {
         // Specify your AWS Region (an example Region is shown).
+
         private static readonly RegionEndpoint ACMRegion = RegionEndpoint.USEast1;
         private static AmazonCertificateManagerClient _client;
 
@@ -49,4 +52,7 @@ namespace ListCertificates
             return response;
         }
     }
+
 }
+
+// snippet-end:[ACM.dotnetv3.ListCertificates]

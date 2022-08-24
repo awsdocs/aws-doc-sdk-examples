@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[CreateEnvironment.kt demonstrates how to create an AWS Elastic Beanstalk environment.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS Elastic Beanstalk ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[CreateEnvironment.kt demonstrates how to create an AWS Elastic Beanstalk environment.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[AWS Elastic Beanstalk]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,12 +9,12 @@
 
 package com.aws.example
 
-//snippet-start:[eb.kotlin.create_env.import]
+// snippet-start:[eb.kotlin.create_env.import]
 import aws.sdk.kotlin.services.elasticbeanstalk.ElasticBeanstalkClient
 import aws.sdk.kotlin.services.elasticbeanstalk.model.ConfigurationOptionSetting
 import aws.sdk.kotlin.services.elasticbeanstalk.model.CreateEnvironmentRequest
 import kotlin.system.exitProcess
-//snippet-end:[eb.kotlin.create_env.import]
+// snippet-end:[eb.kotlin.create_env.import]
 
 /**
 Before running this Kotlin code example, set up your development environment,
@@ -45,32 +41,32 @@ suspend fun main(args: Array<String>) {
 
     val envName = args[0]
     val appName = args[0]
-    val envArn = createEBEnvironment( envName, appName)
+    val envArn = createEBEnvironment(envName, appName)
     println("The environment ARN is $envArn")
 }
 
-//snippet-start:[eb.kotlin.create_env.main]
-suspend fun createEBEnvironment( envName: String?, appName: String?): String {
+// snippet-start:[eb.kotlin.create_env.main]
+suspend fun createEBEnvironment(envName: String?, appName: String?): String {
 
-        val setting1 = ConfigurationOptionSetting {
-            namespace = "aws:autoscaling:launchconfiguration"
-            optionName = "IamInstanceProfile"
-            value = "aws-elasticbeanstalk-ec2-role"
-        }
+    val setting1 = ConfigurationOptionSetting {
+        namespace = "aws:autoscaling:launchconfiguration"
+        optionName = "IamInstanceProfile"
+        value = "aws-elasticbeanstalk-ec2-role"
+    }
 
-        val applicationRequest = CreateEnvironmentRequest {
-            description = "An AWS Elastic Beanstalk environment created using the AWS SDK for Kotlin"
-            environmentName = envName
-            solutionStackName = "64bit Amazon Linux 2 v3.2.12 running Corretto 11"
-            applicationName = appName
-            optionSettings = listOf(setting1)
-        }
+    val applicationRequest = CreateEnvironmentRequest {
+        description = "An AWS Elastic Beanstalk environment created using the AWS SDK for Kotlin"
+        environmentName = envName
+        solutionStackName = "64bit Amazon Linux 2 v3.2.12 running Corretto 11"
+        applicationName = appName
+        optionSettings = listOf(setting1)
+    }
 
-        var envArn: String
-        ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
-            val applicationResponse = beanstalkClient.createEnvironment(applicationRequest)
-            envArn = applicationResponse.environmentArn.toString()
-        }
-        return envArn
+    var envArn: String
+    ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
+        val applicationResponse = beanstalkClient.createEnvironment(applicationRequest)
+        envArn = applicationResponse.environmentArn.toString()
+    }
+    return envArn
 }
-//snippet-end:[eb.kotlin.create_env.main]
+// snippet-end:[eb.kotlin.create_env.main]

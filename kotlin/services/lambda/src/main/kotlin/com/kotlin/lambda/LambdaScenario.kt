@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[LambdaScenario.kt demonstrates how to perform various operations by using the LambdaClient object.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[AWS Lambda]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04/14/2022]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-service:[AWS Lambda]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0

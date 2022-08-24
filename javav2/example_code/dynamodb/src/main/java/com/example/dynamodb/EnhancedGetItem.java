@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[EnhancedGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,13 +40,13 @@ public class EnhancedGetItem {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+            .dynamoDbClient(ddb)
+            .build();
 
         getItem(enhancedClient);
         ddb.close();
@@ -61,8 +58,8 @@ public class EnhancedGetItem {
         try {
             DynamoDbTable<Customer> table = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
-                    .partitionValue("id120")
-                    .build();
+                .partitionValue("id101")
+                .build();
 
             // Get the item by using the key.
             Customer result = table.getItem(r->r.key(key));

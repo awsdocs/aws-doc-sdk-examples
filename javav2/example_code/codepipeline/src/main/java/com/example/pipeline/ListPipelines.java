@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListPipelines.java demonstrates how to retrieve all pipelines.]
 //snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class ListPipelines {
 
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAllPipelines(pipelineClient);
         pipelineClient.close();

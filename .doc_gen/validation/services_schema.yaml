@@ -10,5 +10,7 @@ service:
   caveat: str(required=False, upper_start=True, end_punc=True)
   bundle: service_name(required=False)
   tags: map(key=enum('product_categories'))
+  api_ref: include('doc_url', required=False)
 
 entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$|^&AWS; SDK for Kotlin Developer Guide$', name='valid entity')
+doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")

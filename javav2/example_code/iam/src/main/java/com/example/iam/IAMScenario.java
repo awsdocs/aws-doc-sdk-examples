@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[IAMScenario.java demonstrates how to perform various AWS Identity and Access Management (IAM) operations.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -91,19 +88,19 @@ public class IAMScenario {
     public static void main(String[] args) throws Exception {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <username> <policyName> <roleName> <roleSessionName> <fileLocation> <bucketName> \n\n" +
-                "Where:\n" +
-                "    username - The name of the IAM user to create. \n\n" +
-                "    policyName - The name of the policy to create. \n\n" +
-                "    roleName - The name of the role to create. \n\n" +
-                "    roleSessionName - The name of the session required for the assumeRole operation. \n\n" +
-                "    fileLocation - The file location to the JSON required to create the role (see Readme). \n\n" +
-                "    bucketName - The name of the Amazon S3 bucket from which objects are read. \n\n" ;
+            "Usage:\n" +
+            "    <username> <policyName> <roleName> <roleSessionName> <fileLocation> <bucketName> \n\n" +
+            "Where:\n" +
+            "    username - The name of the IAM user to create. \n\n" +
+            "    policyName - The name of the policy to create. \n\n" +
+            "    roleName - The name of the role to create. \n\n" +
+            "    roleSessionName - The name of the session required for the assumeRole operation. \n\n" +
+            "    fileLocation - The file location to the JSON required to create the role (see Readme). \n\n" +
+            "    bucketName - The name of the Amazon S3 bucket from which objects are read. \n\n" ;
 
         if (args.length != 6) {
             System.out.println(usage);
-           System.exit(1);
+            System.exit(1);
         }
 
         String userName = args[0];
@@ -115,20 +112,17 @@ public class IAMScenario {
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         // Create the IAM user.
-       Boolean createUser = createIAMUser(iam, userName);
-
+        Boolean createUser = createIAMUser(iam, userName);
 
        if (createUser) {
            System.out.println(userName + " was successfully created.");
-
            String polArn = createIAMPolicy(iam, policyName);
            System.out.println("The policy " + polArn + " was successfully created.");
-
            String roleArn = createIAMRole(iam, roleName, fileLocation);
            System.out.println(roleArn + " was successfully created.");
            attachIAMRolePolicy(iam, roleName, polArn);
@@ -137,8 +131,6 @@ public class IAMScenario {
            TimeUnit.MINUTES.sleep(1);
            assumeGivenRole(roleArn, roleSessionName, bucketName);
 
-
-
            System.out.println("*** Getting ready to delete the AWS resources");
            deleteRole(iam, roleName, polArn);
            deleteIAMUser(iam, userName);
@@ -146,7 +138,6 @@ public class IAMScenario {
        } else {
            System.out.println(userName +" was not successfully created.");
        }
-
     }
 
     public static Boolean createIAMUser(IamClient iam, String username ) {
@@ -155,14 +146,14 @@ public class IAMScenario {
             // Create an IamWaiter object
             IamWaiter iamWaiter = iam.waiter();
             CreateUserRequest request = CreateUserRequest.builder()
-                    .userName(username)
-                    .build();
+                .userName(username)
+                .build();
 
             // Wait until the user is created.
             CreateUserResponse response = iam.createUser(request);
             GetUserRequest userRequest = GetUserRequest.builder()
-                    .userName(response.user().userName())
-                    .build();
+                .userName(response.user().userName())
+                .build();
 
             WaiterResponse<GetUserResponse> waitUntilUserExists = iamWaiter.waitUntilUserExists(userRequest);
             waitUntilUserExists.matched().response().ifPresent(System.out::println);
@@ -180,10 +171,10 @@ public class IAMScenario {
         try {
             JSONObject jsonObject = (JSONObject) readJsonSimpleDemo(fileLocation);
             CreateRoleRequest request = CreateRoleRequest.builder()
-                    .roleName(rolename)
-                    .assumeRolePolicyDocument(jsonObject.toJSONString())
-                    .description("Created using the AWS SDK for Java")
-                    .build();
+                .roleName(rolename)
+                .assumeRolePolicyDocument(jsonObject.toJSONString())
+                .description("Created using the AWS SDK for Java")
+                .build();
 
             CreateRoleResponse response = iam.createRole(request);
             System.out.println("The ARN of the role is "+response.role().arn());
@@ -202,15 +193,15 @@ public class IAMScenario {
             // Create an IamWaiter object.
             IamWaiter iamWaiter = iam.waiter();
             CreatePolicyRequest request = CreatePolicyRequest.builder()
-                    .policyName(policyName)
-                    .policyDocument(PolicyDocument).build();
+                .policyName(policyName)
+                .policyDocument(PolicyDocument).build();
 
             CreatePolicyResponse response = iam.createPolicy(request);
 
             // Wait until the policy is created.
             GetPolicyRequest polRequest = GetPolicyRequest.builder()
-                    .policyArn(response.policy().arn())
-                    .build();
+                .policyArn(response.policy().arn())
+                .build();
 
             WaiterResponse<GetPolicyResponse> waitUntilPolicyExists = iamWaiter.waitUntilPolicyExists(polRequest);
             waitUntilPolicyExists.matched().response().ifPresent(System.out::println);
@@ -226,10 +217,9 @@ public class IAMScenario {
     public static void attachIAMRolePolicy(IamClient iam, String roleName, String policyArn ) {
 
         try {
-
             ListAttachedRolePoliciesRequest request = ListAttachedRolePoliciesRequest.builder()
-                    .roleName(roleName)
-                    .build();
+                .roleName(roleName)
+                .build();
 
             ListAttachedRolePoliciesResponse response = iam.listAttachedRolePolicies(request);
             List<AttachedPolicy> attachedPolicies = response.attachedPolicies();
@@ -238,20 +228,18 @@ public class IAMScenario {
             for (AttachedPolicy policy: attachedPolicies) {
                 polArn = policy.policyArn();
                 if (polArn.compareTo(policyArn)==0) {
-                    System.out.println(roleName +
-                            " policy is already attached to this role.");
+                    System.out.println(roleName + " policy is already attached to this role.");
                     return;
                 }
             }
 
             AttachRolePolicyRequest attachRequest = AttachRolePolicyRequest.builder()
-                            .roleName(roleName)
-                            .policyArn(policyArn)
-                            .build();
+                .roleName(roleName)
+                .policyArn(policyArn)
+                .build();
 
             iam.attachRolePolicy(attachRequest);
-            System.out.println("Successfully attached policy " + policyArn +
-                    " to role " + roleName);
+            System.out.println("Successfully attached policy " + policyArn + " to role " + roleName);
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -263,14 +251,14 @@ public class IAMScenario {
     public static void assumeGivenRole(String roleArn, String roleSessionName, String bucketName) {
 
         StsClient stsClient = StsClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         try {
             AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
-                    .roleArn(roleArn)
-                    .roleSessionName(roleSessionName)
-                    .build();
+                .roleArn(roleArn)
+                .roleSessionName(roleSessionName)
+                .build();
 
             AssumeRoleResponse roleResponse = stsClient.assumeRole(roleRequest);
             Credentials myCreds = roleResponse.credentials();
@@ -281,16 +269,15 @@ public class IAMScenario {
             // List all objects in an Amazon S3 bucket using the temp creds.
             Region region = Region.US_EAST_1;
             S3Client s3 = S3Client.builder()
-                    .credentialsProvider(StaticCredentialsProvider.create(AwsSessionCredentials.create(key, secKey, secToken)))
-                    .region(region)
-                    .build();
+                .credentialsProvider(StaticCredentialsProvider.create(AwsSessionCredentials.create(key, secKey, secToken)))
+                .region(region)
+                .build();
 
             System.out.println("Created a S3Client using temp credentials.");
             System.out.println("Listing objects in "+bucketName);
-            ListObjectsRequest listObjects = ListObjectsRequest
-                    .builder()
-                    .bucket(bucketName)
-                    .build();
+            ListObjectsRequest listObjects = ListObjectsRequest.builder()
+                .bucket(bucketName)
+                .build();
 
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
@@ -308,27 +295,27 @@ public class IAMScenario {
     public static void deleteRole(IamClient iam, String roleName, String polArn) {
 
         try {
-
             // First the policy needs to be detached.
             DetachRolePolicyRequest rolePolicyRequest = DetachRolePolicyRequest.builder()
-                    .policyArn(polArn)
-                    .roleName(roleName)
-                    .build();
+                .policyArn(polArn)
+                .roleName(roleName)
+                .build();
 
             iam.detachRolePolicy(rolePolicyRequest);
 
             // Delete the policy.
             DeletePolicyRequest request = DeletePolicyRequest.builder()
-                    .policyArn(polArn)
-                    .build();
+                .policyArn(polArn)
+                .build();
 
             iam.deletePolicy(request);
             System.out.println("*** Successfully deleted "+polArn);
 
             // Delete the role.
             DeleteRoleRequest roleRequest = DeleteRoleRequest.builder()
-                    .roleName(roleName)
-                    .build();
+                .roleName(roleName)
+                .build();
+
             iam.deleteRole(roleRequest);
             System.out.println("*** Successfully deleted " +roleName);
 
@@ -342,11 +329,12 @@ public class IAMScenario {
 
         try {
             DeleteUserRequest request = DeleteUserRequest.builder()
-                    .userName(userName)
-                    .build();
+                .userName(userName)
+                .build();
 
             iam.deleteUser(request);
             System.out.println("*** Successfully deleted " + userName);
+
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

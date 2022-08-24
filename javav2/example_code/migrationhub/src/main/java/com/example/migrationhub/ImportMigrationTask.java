@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[ImportMigrationTask.java demonstrates how to register a new migration task.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS Migration Hub]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class ImportMigrationTask {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <migrationTask> <progressStream> \n\n" +
-                "Where:\n" +
-                "    migrationTask - the name of a migration task. \n"+
-                "    progressStream - the name of a progress stream. \n";
+            "Usage:\n" +
+            "    <migrationTask> <progressStream> \n\n" +
+            "Where:\n" +
+            "    migrationTask - the name of a migration task. \n"+
+            "    progressStream - the name of a progress stream. \n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,9 +45,9 @@ public class ImportMigrationTask {
         String progressStream = args[1];
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         importMigrTask(migrationClient, migrationTask, progressStream);
         migrationClient.close();
@@ -59,25 +56,25 @@ public class ImportMigrationTask {
     // snippet-start:[migration.java2.import_migration.main]
     public static void importMigrTask(MigrationHubClient migrationClient, String migrationTask, String progressStream) {
 
-    try {
-        CreateProgressUpdateStreamRequest progressUpdateStreamRequest = CreateProgressUpdateStreamRequest.builder()
+        try {
+            CreateProgressUpdateStreamRequest progressUpdateStreamRequest = CreateProgressUpdateStreamRequest.builder()
                 .progressUpdateStreamName(progressStream)
                 .dryRun(false)
                 .build();
 
-       migrationClient.createProgressUpdateStream(progressUpdateStreamRequest);
-       ImportMigrationTaskRequest migrationTaskRequest = ImportMigrationTaskRequest.builder()
-                .migrationTaskName(migrationTask)
-                .progressUpdateStream(progressStream)
-                .dryRun(false)
-                .build();
+           migrationClient.createProgressUpdateStream(progressUpdateStreamRequest);
+           ImportMigrationTaskRequest migrationTaskRequest = ImportMigrationTaskRequest.builder()
+               .migrationTaskName(migrationTask)
+               .progressUpdateStream(progressStream)
+               .dryRun(false)
+               .build();
 
-        migrationClient.importMigrationTask(migrationTaskRequest);
+           migrationClient.importMigrationTask(migrationTaskRequest);
 
-    } catch(MigrationHubException e) {
-        System.out.println(e.getMessage());
-        System.exit(1);
+        } catch(MigrationHubException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
     }
-  }
     // snippet-end:[migration.java2.import_migration.main]
 }

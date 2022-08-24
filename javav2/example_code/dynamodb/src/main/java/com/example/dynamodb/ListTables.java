@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListTables.java demonstrates how to list all Amazon DynamoDB tables.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,7 +10,6 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.list_tables.import]
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -77,6 +73,7 @@ public class ListTables {
                 if (lastName == null) {
                     moreTables = false;
                 }
+
             } catch (DynamoDbException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);

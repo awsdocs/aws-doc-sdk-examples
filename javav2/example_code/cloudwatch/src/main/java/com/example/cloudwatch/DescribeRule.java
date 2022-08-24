@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeRule.java demonstrates how to describe an existing rule and determine its schedule.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class DescribeRule {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <ruleName>\n\n" +
-                "Where:\n" +
-                "  ruleName - The name of the rule to describe.\n" ;
+            "Usage:\n" +
+            "  <ruleName>\n\n" +
+            "Where:\n" +
+            "  ruleName - The name of the rule to describe.\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class DescribeRule {
 
         String ruleName = args[0];
         CloudWatchEventsClient cwe = CloudWatchEventsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeSpecificRule(cwe, ruleName);
         cwe.close();
@@ -56,12 +53,11 @@ public class DescribeRule {
 
     // snippet-start:[cloudwatch.javav2.describe_rule.main]
     public static void describeSpecificRule(CloudWatchEventsClient cwe, String ruleName) {
-
         try {
 
             DescribeRuleRequest ruleRequest = DescribeRuleRequest.builder()
-                    .name(ruleName)
-                    .build();
+                .name(ruleName)
+                .build();
 
             DescribeRuleResponse ruleResp = cwe.describeRule(ruleRequest);
             String schedule = ruleResp.scheduleExpression();

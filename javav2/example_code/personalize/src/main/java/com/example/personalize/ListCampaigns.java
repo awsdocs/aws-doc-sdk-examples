@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListCampaigns.java demonstrates how to list Amazon Personalize campaigns.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +30,10 @@ public class ListCampaigns {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    ListCampaigns <solutionArn>\n\n" +
-                "Where:\n" +
-                "    solutionArn - The ARN of the solution.\n\n";
+            "Usage:\n" +
+            "    ListCampaigns <solutionArn>\n\n" +
+            "Where:\n" +
+            "    solutionArn - The ARN of the solution.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -47,8 +43,8 @@ public class ListCampaigns {
         String solutionArn = args[0];
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         listAllCampaigns(personalizeClient, solutionArn);
         personalizeClient.close();
@@ -57,24 +53,23 @@ public class ListCampaigns {
     //snippet-start:[personalize.java2.list_campaigns.main]
     public static void listAllCampaigns(PersonalizeClient personalizeClient, String solutionArn) {
 
-     try{
-        ListCampaignsRequest campaignsRequest = ListCampaignsRequest.builder()
+        try{
+            ListCampaignsRequest campaignsRequest = ListCampaignsRequest.builder()
                 .maxResults(10)
                 .solutionArn(solutionArn)
                 .build();
 
-        ListCampaignsResponse response = personalizeClient.listCampaigns(campaignsRequest);
+            ListCampaignsResponse response = personalizeClient.listCampaigns(campaignsRequest);
+            List<CampaignSummary> campaigns = response.campaigns();
+            for (CampaignSummary campaign: campaigns) {
+                System.out.println("Campaign name is : "+campaign.name());
+                System.out.println("Campaign ARN is : "+campaign.campaignArn());
+            }
 
-        List<CampaignSummary> campaigns = response.campaigns();
-        for (CampaignSummary campaign: campaigns) {
-            System.out.println("Campaign name is : "+campaign.name());
-            System.out.println("Campaign ARN is : "+campaign.campaignArn());
+        } catch (PersonalizeException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-
-    } catch (PersonalizeException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
     }
-  }
-  //snippet-end:[personalize.java2.list_campaigns.main]
+    //snippet-end:[personalize.java2.list_campaigns.main]
 }

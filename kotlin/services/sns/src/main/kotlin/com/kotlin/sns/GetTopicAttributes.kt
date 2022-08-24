@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[GetTopicAttributes.kt demonstrates how to retrieve the defaults for an Amazon Simple Notification Service (Amazon SNS) topic.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon- AWS]
+// snippet-sourcedescription:[GetTopicAttributes.kt demonstrates how to retrieve the defaults for an Amazon Simple Notification Service (Amazon SNS) topic.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Amazon Simple Notification Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,13 +9,20 @@
 
 package com.kotlin.sns
 
-//snippet-start:[sns.kotlin.GetTopicAttributes.import]
+// snippet-start:[sns.kotlin.GetTopicAttributes.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.GetTopicAttributesRequest
 import kotlin.system.exitProcess
-//snippet-end:[sns.kotlin.GetTopicAttributes.import]
+// snippet-end:[sns.kotlin.GetTopicAttributes.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
     
@@ -27,19 +30,19 @@ suspend fun main(args:Array<String>) {
             <topicName> 
 
         Where:
-            topicArn - the ARN of the topic.
+            topicArn - The ARN of the topic.
         """
 
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val topicArn = args[0]
     getSNSTopicAttributes(topicArn)
 }
 
-//snippet-start:[sns.kotlin.GetTopicAttributes.main]
+// snippet-start:[sns.kotlin.GetTopicAttributes.main]
 suspend fun getSNSTopicAttributes(topicArnVal: String) {
 
     val request = GetTopicAttributesRequest {
@@ -50,5 +53,5 @@ suspend fun getSNSTopicAttributes(topicArnVal: String) {
         val result = snsClient.getTopicAttributes(request)
         println("${result.attributes}")
     }
- }
-//snippet-end:[sns.kotlin.GetTopicAttributes.main]
+}
+// snippet-end:[sns.kotlin.GetTopicAttributes.main]

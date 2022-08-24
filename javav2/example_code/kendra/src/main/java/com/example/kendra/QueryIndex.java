@@ -1,15 +1,11 @@
 //snippet-sourcedescription:[QueryIndex.java demonstrates how to query an Amazon Kendra index.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kendra]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 
 package com.example.kendra;
 
@@ -37,11 +33,11 @@ public class QueryIndex {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <indexId> <text> \n\n" +
-                "Where:\n" +
-                "    indexId - The Id value of the index.\n" +
-                "    text - The text to use.\n" ;
+            "Usage:\n" +
+            "    <indexId> <text> \n\n" +
+            "Where:\n" +
+            "    indexId - The Id value of the index.\n" +
+            "    text - The text to use.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -51,9 +47,9 @@ public class QueryIndex {
         String indexId = args[0];
         String text = args[1];
         KendraClient kendra = KendraClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         querySpecificIndex(kendra, indexId, text);
     }
 

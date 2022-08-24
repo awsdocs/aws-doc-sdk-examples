@@ -1,8 +1,6 @@
 //snippet-sourcedescription:[CreateVolume.java demonstrates how to create an EBS volume.]
-//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,13 +36,13 @@ public class CreateVolume {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         try {
             CreateVolumeRequest request = CreateVolumeRequest.builder()
-                 .availabilityZone("us-east-1e")
+                .availabilityZone("us-east-1e")
                 .size(384)
                 .volumeType(VolumeType.GP3)
                 .build();

@@ -8,119 +8,59 @@ Amazon DynamoDB is a key-value and document database that delivers single-digit 
 
 ## ⚠️ Important
 
-- Running this code might result in charges to your AWS account. 
+- Running this code might result in charges to your AWS account.
 - We recommend that you grant your code least privilege, or at most the minimum
   permissions required to perform the task. For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
-- This code is not tested in all AWS Regions. For more information, see 
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in all AWS Regions. For more information, see
   [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 
 ## Code examples
 
 ### Scenario
 
-  [Get started using DynamoDB tables, items, and queries](scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/)
-
-  This application uses the basic features of DynamoDB for creating,
-  updating, and managing data. The application was created using the AWS
-  SDK for .NET version 3.7 and .NET Core 5. The application performs the
-  following tasks:
-
-  1. Creates a table with partition: year and sort:title. (`CreateTableAsync`)
-  2. Adds a single movie to the table. (`PutItemAsync`)
-  3. Adds movies to the table from moviedata.json. (`CreateBatchWrite`, `ExecuteAsync`)
-  4. Updates the rating and plot of the movie that was just added. (`UpdateItemAsync`)
-  5. Gets a movie using its key (partition + sort). (`GetItemAsync`)
-  6. Deletes a movie. (`DeleteItemAsync`)
-  7. Uses QueryAsync to return all movies released in a given year. (`QueryAsync`)
-  8. Uses ScanAsync to return all movies released within a range of years. (`ScanAsync`)
-  9. Finally, it deletes the table that was just created. (`DeleteTableAsync`)
+- [Get started using DynamoDB tables, items, and queries](scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/)
+- [Querying a table using PartiQL](scenarios/PartiQL_Basics/PartiQL_Basics_Scenario)
+- [Querying a table using PartiQL Batch methods](scenarios/PartiQL_Basics/PartiQL_Batch_Scenario)
 
 ### Single action
 
-- [CreateTablesLoadDataExample](CreateTablesLoadDataExample/) - Creates
-  multiple DynamoDB tables and adds items to them. (`CreateTableAsync`,
-  `DescribeTableAsync`, `PutItemAsync`, `DeleteTableAsync`)
-- [AddItemExample](FromSQL/AddItemExample/) - Adds an item to a DynamoDB table.
-  (`PutItemAsync`)
-- [AddItemsExample](FromSQL/AddItemsExample/) - Adds multiple items to a
-  DynamoDB table. (`BatchWriteItemAsync`)
-- [CreateIndexExample](FromSQL/CreateIndexExample/) - Creates a secondary index
-  for a DynamoDB table. (`AddIndexAsync`)
-- [CreateTableExample](FromSQL/CreateTableExample/) - creates a new DynamoDB
-  table. (`CreateTableAsync`)
-- [DeleteItemExample](FromSQL/DeleteItemExample/) - Deletes an item from a
-  DynamoDB table. (`DeleteItemAsync`)
-- [DeleteItemsExample](FromSQL/DeleteItemsExample/) - Uses BatchWriteItemsAsync
-  to delete multiple items from a DynamoDB table. (`BatchWriteItemAsync`)
-- [DeleteTableExample](FromSQL/DeleteTableExample/) - Deletes a DynamoDB table.
-  (`DeleteTableAsync`)
-- [GetLowProductStock](FromSQL/GetLowProductStock/) - Retrieves information
-  about products in a DynamoDB table that fall below a certain level.
-  (`ScanAsync`)
-- [GetLowProductStockGSI](FromSQL/GetLowProductStockGSI/) - Retrieves
-  information about products in a DynamoDB table that fall below a certain lev
-  (`QueryAsync`)
-- [GetOrdersExample](FromSQL/GetOrdersExample/) - Gets a list of orders from a
-  DynamoDB table. (`ScanAsync`)
-- [GetOrdersForProductGSI](FromSQL/GetOrdersForProductGSI/) - Retrieves orders
-  from a DynamoDB table. (`QueryAsync`)
-- [GetOrdersInDateRange](FromSQL/GetOrdersInDateRange/) - Retrieves orders from
-  a DynamoDB table that fall within a date range. (`ScanAsync`)
-- [GetOrdersInDateRangeGSI](FromSQL/GetOrdersInDateRangeGSI/) - Retrieves
-  orders from a DynamoDB table that fall within a date range. (`QueryAsync`)
-- [ListItemsExample](FromSQL/ListItemsExample/) - Lists the items in a DynamoDB
-  table. (`GetItemsAsync`)
-- [ListTablesExample](FromSQL/ListTablesExample/) - Lists the DynamoDB tables
-  associated with an AWS account. (`ListTablesAsync`)
-- [UpdateItemDataModelExample](FromSQL/UpdateItemDataModelExample/) Updates the
-  data model for items in a DynamoDB table. (`UpdateTableItemAsync`, `LoadAsync`)
-- [UpdateItemExample](FromSQL/UpdateItemExample/) - Updates an item in a
-  DynamoDB table. (`UpdateItemAsync`)
-- [HighLevelBatchWriteItemExample](high-level-api/HighLevelBatchWriteItemExample/) -
-  Writes items to a DynamoDB table using batch calls. (`ExecuteAsync`)
-- [HighLevelItemCRUDExample](high-level-api/HighLevelItemCRUDExample/) - 
-  Performs CRUD (Create, Read, Update, and Delete) operations on a DynamoDB table.
-  (`LoadAsync`, `DeleteAsync`, `SaveAsync`)
-- [HighLevelMappingArbitraryDataExample](high-level-api/HighLevelMappingArbitraryDataExample/) - 
-  Shows how to map arbitrary data to an Amazon DynamoDB table. (`SaveAsync`, `LoadAsync`)
-- [HighLevelQueryAndScanExample](high-level-api/HighLevelQueryAndScanExample/) - 
-  Performs high level query and scan operations on a DynamoDB table. 
-  (`LoadAsync<T>`, `QueryAsync<T>`, `ScanAsync<T>`)
-- [LowLevelBatchGet](low-level-api/LowLevelBatchGet/) - Retrieves multiple
-  items from a DynamoDB table. (`BatchGetItemAsync`)
-- [LowLevelBatchWrite](low-level-api/LowLevelBatchWrite/) - Performs a batch
-  write operation on a DynamoDB table. (`BatchWriteItemAsync`)
-- [LowLevelGlobalSecondaryIndexExample](low-level-api/LowLevelSecondaryIndexExample/) - 
-  Creates and uses a DynamoDB table with a secondary index. (`CreateTableAsync`)
-- [LowLevelItemBinaryExample](low-level-api/LowLevelItemBinaryExample/) - 
-  Creates and adds items to a DynamoDB table using low-level API  calls.
-  (`GetItemAsync`, `GetItemAsync`)
-- [LowLevelItemCRUDExample](low-level-api/LowLevelItemCRUDExample/) Performs
-  CRUD (Create, Read, Update, and Delete) perations on a DynamoDB table using
-  the low-level API. (`PutItemAsync`, `GetItemAsync`, `UpdateItemAsync`, `DeleteItemAsync`)
-- [LowLevelLocalSecondaryIndexExample](low-level-api/LowLevelLocalSecondaryIndexExample/) - 
-  Uses low-level API calls to work with a DynamoDB table with a secondary index.
-  (`CreateTableAsync`, `PutItemAsync`, `QueryAsync`, `DeleteTableAsync`, `DescribeTableAsync`)
-- [LowLevelParallelScan](low-level-api/LowLevelParallelScan/) - 
-- [LowLevelQuery](low-level-api/LowLevelQuery/) - Queries a DynamoDB table for
-  information. (`QueryAsync`)
-- [LowLevelScan](low-level-api/LowLevelScan/) - Scans a DynamoDB table for
-  information. (`ScanAsync`, )
-- [LowLevelTableExample](low-level-api/LowLevelTableExample/)- Performs
-  operations on a DynamoDB table using low-level API methods. (`CreateTableAsync`,
-  `ListTablesAsync`, `DescribeTableAsync`, `UpdateTableAsync`, `DeleteTableAsync`)
-- [MidLevelBatchWriteItemExample](mid-level-api/MidLevelBatchWriteItemExample/) - 
-  Adds items to a DynamoDB table in a batch. (`QueryAsync`, `ScanAsync`)
-- [MidlevelItemCRUDExample](mid-level-api/MidlevelItemCRUDExample/) Performs
-  CRUD (Create, Read, Update, and Delete) operations on a DynamoDB table.
-  (`Table.LoadTable`, `PutItemAsync`, `GetItemAsync`, `UpdateItemAsync`, `DeleteItemAsync`)
-- [MidLevelQueryAndScanExample](mid-level-api/MidLevelQueryAndScanExample/) - 
-  Performs query and scan operations on a DynamoDB table using mid-level
-  API commands. (`GetItemAsync`, `Table.Query`, `GetNextSetAsync`)
-- [MidLevelScanOnlyExample](mid-level-api/MidLevelScanOnlyExample/) - Shows two
-  different ways to scan a DynamoDB table. One method uses a configuration
-  object, the other doesn't. (`Table.Scan`)
+- [Creating DynamoDB tables and adding data](CreateTablesLoadDataExample/)
+- [Adding an item to a  DynamoDB table](FromSQL/AddItemExample/)
+- [Adding multiple items to a DynamoDB table](FromSQL/AddItemsExample/)
+- [Creating an index for a  DynamoDB table](FromSQL/CreateIndexExample/)
+- [Creating a  DynamoDB table](FromSQL/CreateTableExample/)
+- [Deleting an item from a  DynamoDB table](FromSQL/DeleteItemExample/)
+- [Deleting items from a  DynamoDB table](FromSQL/DeleteItemsExample/)
+- [Deleting a  DynamoDB table](FromSQL/DeleteTableExample/)
+- [Scanning a  DynamoDB table](FromSQL/GetLowProductStock/)
+- [Querying a  DynamoDB table](FromSQL/GetLowProductStockGSI/)
+- [Scanning a  DynamoDB table for orders](FromSQL/GetOrdersExample/)
+- [Querying a DynamoDB table for product orders](FromSQL/GetOrdersForProductGSI/)
+- [Scanning a  DynamoDB table for orders in a date range](FromSQL/GetOrdersInDateRange/)
+- [Querying a DynamoDB table for orders in a date range](FromSQL/GetOrdersInDateRangeGSI/)
+- [Listing the items in a DynamoDB table](FromSQL/ListItemsExample/)
+- [Listing the  DynamoDB tables for an account](FromSQL/ListTablesExample/)
+- [Updating the data model for a DynamoDB table](FromSQL/UpdateItemDataModelExample/)
+- [Updating an item in a DynamoDB table](FromSQL/UpdateItemExample/)
+- [Adding multiple items to a table using the high-level DynamoDB API](high-level-api/HighLevelBatchWriteItemExample/)
+- [Performing CRUD operations using the high-level DynamoDB API](high-level-api/HighLevelItemCRUDExample/)
+- [Mapping data using the high-level DynamoDB API](high-level-api/HighLevelMappingArbitraryDataExample/)
+- [Performing query and scan operations on a DynamoDB table](high-level-api/HighLevelQueryAndScanExample/)
+- [Using the low-level DynamoDB API to get items](low-level-api/LowLevelBatchGet/)
+- [Performing a low-level batch write to a DynamoDB table](low-level-api/LowLevelBatchWrite/)
+- [Creating a DynamoDB table with a secondary index](low-level-api/LowLevelSecondaryIndexExample/)
+- [LowLevelItemBinaryExample](low-level-api/LowLevelItemBinaryExample/)
+- [Performing CRUD operations using the low-level DynamoDB API](low-level-api/LowLevelItemCRUDExample/)
+- [Using a secondary index](low-level-api/LowLevelLocalSecondaryIndexExample/)
+- [Performing a parallel scan of a DynamoDB table using the low-level API](low-level-api/LowLevelParallelScan/)
+- [Performing a query of a DynamoDB table using the low-level API](low-level-api/LowLevelQuery/)
+- [Performing a scan of a DynamoDB table using the low-level API](low-level-api/LowLevelScan/)
+- [Performing CRUD operations using the low-level API](low-level-api/LowLevelTableExample/)
+- [Using the mid-level DynamoDB API to query and scan a table](mid-level-api/MidLevelBatchWriteItemExample/)
+- [Performing CRUD operations on a DynamoDB table using the mid-level API](mid-level-api/MidlevelItemCRUDExample/)
+- [Querying and scanning a DynamoDB table using the mid-level API](mid-level-api/MidLevelQueryAndScanExample/)
+- [Scanning a DynamoDB table using the mid-level API](mid-level-api/MidLevelScanOnlyExample/)
 
 ## Running the Examples
 
@@ -140,4 +80,3 @@ Alternatively, you can run the example from within your IDE.
 [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
-

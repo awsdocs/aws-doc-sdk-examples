@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ScenarioPartiQ.java demonstrates how to perform various Amazon DynamoDB batch operations using PartiQL.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,7 +10,6 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.scenario.partiql.batch.import]
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -67,9 +63,9 @@ public class ScenarioPartiQLBatch {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         System.out.println("******* Creating an Amazon DynamoDB table named "+tableName +" with a key named year and a sort key named title.");
         createTable(ddb, tableName);
@@ -87,52 +83,52 @@ public class ScenarioPartiQLBatch {
         deleteDynamoDBTable(ddb, tableName);
         ddb.close();
     }
-    public static void createTable(DynamoDbClient ddb, String tableName) {
 
+    public static void createTable(DynamoDbClient ddb, String tableName) {
         DynamoDbWaiter dbWaiter = ddb.waiter();
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<>();
 
         // Define attributes.
         attributeDefinitions.add(AttributeDefinition.builder()
-                .attributeName("year")
-                .attributeType("N")
-                .build());
+            .attributeName("year")
+            .attributeType("N")
+            .build());
 
         attributeDefinitions.add(AttributeDefinition.builder()
-                .attributeName("title")
-                .attributeType("S")
-                .build());
+            .attributeName("title")
+            .attributeType("S")
+            .build());
 
         ArrayList<KeySchemaElement> tableKey = new ArrayList<>();
         KeySchemaElement key = KeySchemaElement.builder()
-                .attributeName("year")
-                .keyType(KeyType.HASH)
-                .build();
+            .attributeName("year")
+            .keyType(KeyType.HASH)
+            .build();
 
         KeySchemaElement key2 = KeySchemaElement.builder()
-                .attributeName("title")
-                .keyType(KeyType.RANGE) // Sort
-                .build();
+            .attributeName("title")
+            .keyType(KeyType.RANGE) // Sort
+            .build();
 
         // Add KeySchemaElement objects to the list.
         tableKey.add(key);
         tableKey.add(key2);
 
         CreateTableRequest request = CreateTableRequest.builder()
-                .keySchema(tableKey)
-                .provisionedThroughput(ProvisionedThroughput.builder()
-                        .readCapacityUnits(new Long(10))
-                        .writeCapacityUnits(new Long(10))
-                        .build())
-                .attributeDefinitions(attributeDefinitions)
-                .tableName(tableName)
-                .build();
+            .keySchema(tableKey)
+            .provisionedThroughput(ProvisionedThroughput.builder()
+                .readCapacityUnits(new Long(10))
+                .writeCapacityUnits(new Long(10))
+                .build())
+            .attributeDefinitions(attributeDefinitions)
+            .tableName(tableName)
+            .build();
 
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                    .tableName(tableName)
-                    .build();
+                .tableName(tableName)
+                .build();
 
             // Wait until the Amazon DynamoDB table is created.
             WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
@@ -147,82 +143,78 @@ public class ScenarioPartiQLBatch {
     }
 
     public static void putRecordBatch(DynamoDbClient ddb) {
-
         String sqlStatement = "INSERT INTO MoviesPartiQBatch VALUE {'year':?, 'title' : ?, 'info' : ?}";
         try {
-
             // Create three movies to add to the Amazon DynamoDB table.
             // Set data for Movie 1.
             List<AttributeValue> parameters = new ArrayList<>();
 
             AttributeValue att1 = AttributeValue.builder()
-                    .n(String.valueOf("2022"))
-                    .build();
+                .n(String.valueOf("2022"))
+                .build();
 
             AttributeValue att2 = AttributeValue.builder()
-                    .s("My Movie 1")
-                    .build();
+                .s("My Movie 1")
+                .build();
 
             AttributeValue att3 = AttributeValue.builder()
-                    .s("No Information")
-                    .build();
+                .s("No Information")
+                .build();
 
             parameters.add(att1);
             parameters.add(att2);
             parameters.add(att3);
 
             BatchStatementRequest statementRequestMovie1 = BatchStatementRequest.builder()
-                    .statement(sqlStatement)
-                    .parameters(parameters)
-                    .build();
+                .statement(sqlStatement)
+                .parameters(parameters)
+                .build();
 
             // Set data for Movie 2.
             List<AttributeValue> parametersMovie2 = new ArrayList<>();
-
             AttributeValue attMovie2 = AttributeValue.builder()
-                    .n(String.valueOf("2022"))
-                    .build();
+                .n(String.valueOf("2022"))
+                .build();
 
             AttributeValue attMovie2A = AttributeValue.builder()
-                    .s("My Movie 2")
-                    .build();
+                .s("My Movie 2")
+                .build();
 
             AttributeValue attMovie2B = AttributeValue.builder()
-                    .s("No Information")
-                    .build();
+                .s("No Information")
+                .build();
 
             parametersMovie2.add(attMovie2);
             parametersMovie2.add(attMovie2A);
             parametersMovie2.add(attMovie2B);
 
             BatchStatementRequest statementRequestMovie2 = BatchStatementRequest.builder()
-                    .statement(sqlStatement)
-                    .parameters(parametersMovie2)
-                    .build();
+                .statement(sqlStatement)
+                .parameters(parametersMovie2)
+                .build();
 
             // Set data for Movie 3.
             List<AttributeValue> parametersMovie3 = new ArrayList<>();
-
             AttributeValue attMovie3 = AttributeValue.builder()
-                    .n(String.valueOf("2022"))
-                    .build();
+                .n(String.valueOf("2022"))
+                .build();
 
             AttributeValue attMovie3A = AttributeValue.builder()
-                    .s("My Movie 3")
-                    .build();
+                .s("My Movie 3")
+                .build();
 
             AttributeValue attMovie3B = AttributeValue.builder()
-                    .s("No Information")
-                    .build();
+                .s("No Information")
+                .build();
 
             parametersMovie3.add(attMovie3);
             parametersMovie3.add(attMovie3A);
             parametersMovie3.add(attMovie3B);
 
             BatchStatementRequest statementRequestMovie3 = BatchStatementRequest.builder()
-                    .statement(sqlStatement)
-                    .parameters(parametersMovie3)
-                    .build();
+                .statement(sqlStatement)
+                .parameters(parametersMovie3)
+                .build();
 
             // Add all three movies to the list.
             List<BatchStatementRequest> myBatchStatementList = new ArrayList<>();
@@ -231,8 +223,8 @@ public class ScenarioPartiQLBatch {
             myBatchStatementList.add(statementRequestMovie3);
 
             BatchExecuteStatementRequest batchRequest = BatchExecuteStatementRequest.builder()
-                    .statements(myBatchStatementList)
-                    .build();
+                .statements(myBatchStatementList)
+                .build();
 
             BatchExecuteStatementResponse response = ddb.batchExecuteStatement(batchRequest);
             System.out.println("ExecuteStatement successful: "+ response.toString());
@@ -245,60 +237,59 @@ public class ScenarioPartiQLBatch {
     }
 
     public static void updateTableItemBatch(DynamoDbClient ddb){
-
         String sqlStatement = "UPDATE MoviesPartiQBatch SET info = 'directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack' where year=? and title=?";
         List<AttributeValue> parametersRec1 = new ArrayList<>();
 
-        // Lets update three records
+        // Update three records.
         AttributeValue att1 = AttributeValue.builder()
-                .n(String.valueOf("2022"))
-                .build();
+            .n(String.valueOf("2022"))
+            .build();
 
         AttributeValue att2 = AttributeValue.builder()
-                .s("My Movie 1")
-                .build();
+            .s("My Movie 1")
+            .build();
 
         parametersRec1.add(att1);
         parametersRec1.add(att2);
 
         BatchStatementRequest statementRequestRec1 = BatchStatementRequest.builder()
-                .statement(sqlStatement)
-                .parameters(parametersRec1)
-                .build();
+            .statement(sqlStatement)
+            .parameters(parametersRec1)
+            .build();
 
         // Update record 2.
         List<AttributeValue> parametersRec2 = new ArrayList<>();
         AttributeValue attRec2 = AttributeValue.builder()
-                .n(String.valueOf("2022"))
-                .build();
+            .n(String.valueOf("2022"))
+            .build();
 
         AttributeValue attRec2a = AttributeValue.builder()
-                .s("My Movie 2")
-                .build();
+            .s("My Movie 2")
+            .build();
 
         parametersRec2.add(attRec2);
         parametersRec2.add(attRec2a);
         BatchStatementRequest statementRequestRec2 = BatchStatementRequest.builder()
-                .statement(sqlStatement)
-                .parameters(parametersRec2)
-                .build();
+            .statement(sqlStatement)
+            .parameters(parametersRec2)
+            .build();
 
         // Update record 3.
         List<AttributeValue> parametersRec3 = new ArrayList<>();
         AttributeValue attRec3 = AttributeValue.builder()
-                .n(String.valueOf("2022"))
-                .build();
+            .n(String.valueOf("2022"))
+            .build();
 
         AttributeValue attRec3a = AttributeValue.builder()
-                .s("My Movie 3")
-                .build();
+            .s("My Movie 3")
+            .build();
 
         parametersRec3.add(attRec3);
         parametersRec3.add(attRec3a);
         BatchStatementRequest statementRequestRec3 = BatchStatementRequest.builder()
-                .statement(sqlStatement)
-                .parameters(parametersRec3)
-                .build();
+            .statement(sqlStatement)
+            .parameters(parametersRec3)
+            .build();
 
         // Add all three movies to the list.
         List<BatchStatementRequest> myBatchStatementList = new ArrayList<>();
@@ -307,8 +298,8 @@ public class ScenarioPartiQLBatch {
         myBatchStatementList.add(statementRequestRec3);
 
         BatchExecuteStatementRequest batchRequest = BatchExecuteStatementRequest.builder()
-                .statements(myBatchStatementList)
-                .build();
+            .statements(myBatchStatementList)
+            .build();
 
         try {
             BatchExecuteStatementResponse response = ddb.batchExecuteStatement(batchRequest);
@@ -323,62 +314,60 @@ public class ScenarioPartiQLBatch {
     }
 
     public static void deleteItemBatch(DynamoDbClient ddb){
-
         String sqlStatement = "DELETE FROM MoviesPartiQBatch WHERE year = ? and title=?";
         List<AttributeValue> parametersRec1 = new ArrayList<>();
 
         // Specify three records to delete.
         AttributeValue att1 = AttributeValue.builder()
-                .n(String.valueOf("2022"))
-                .build();
+            .n(String.valueOf("2022"))
+            .build();
 
         AttributeValue att2 = AttributeValue.builder()
-                .s("My Movie 1")
-                .build();
+            .s("My Movie 1")
+            .build();
 
         parametersRec1.add(att1);
         parametersRec1.add(att2);
 
         BatchStatementRequest statementRequestRec1 = BatchStatementRequest.builder()
-                .statement(sqlStatement)
-                .parameters(parametersRec1)
-                .build();
+            .statement(sqlStatement)
+            .parameters(parametersRec1)
+            .build();
 
         // Specify record 2.
         List<AttributeValue> parametersRec2 = new ArrayList<>();
         AttributeValue attRec2 = AttributeValue.builder()
-                .n(String.valueOf("2022"))
-                .build();
+            .n(String.valueOf("2022"))
+            .build();
 
         AttributeValue attRec2a = AttributeValue.builder()
-                .s("My Movie 2")
-                .build();
+            .s("My Movie 2")
+            .build();
 
         parametersRec2.add(attRec2);
         parametersRec2.add(attRec2a);
-
         BatchStatementRequest statementRequestRec2 = BatchStatementRequest.builder()
-                .statement(sqlStatement)
-                .parameters(parametersRec2)
-                .build();
+            .statement(sqlStatement)
+            .parameters(parametersRec2)
+            .build();
 
         // Specify record 3.
         List<AttributeValue> parametersRec3 = new ArrayList<>();
         AttributeValue attRec3 = AttributeValue.builder()
-                .n(String.valueOf("2022"))
-                .build();
+            .n(String.valueOf("2022"))
+            .build();
 
         AttributeValue attRec3a = AttributeValue.builder()
-                .s("My Movie 3")
-                .build();
+            .s("My Movie 3")
+            .build();
 
         parametersRec3.add(attRec3);
         parametersRec3.add(attRec3a);
 
         BatchStatementRequest statementRequestRec3 = BatchStatementRequest.builder()
-                .statement(sqlStatement)
-                .parameters(parametersRec3)
-                .build();
+            .statement(sqlStatement)
+            .parameters(parametersRec3)
+            .build();
 
         // Add all three movies to the list.
         List<BatchStatementRequest> myBatchStatementList = new ArrayList<>();
@@ -387,8 +376,8 @@ public class ScenarioPartiQLBatch {
         myBatchStatementList.add(statementRequestRec3);
 
         BatchExecuteStatementRequest batchRequest = BatchExecuteStatementRequest.builder()
-                .statements(myBatchStatementList)
-                .build();
+            .statements(myBatchStatementList)
+            .build();
 
         try {
             ddb.batchExecuteStatement(batchRequest);
@@ -401,10 +390,9 @@ public class ScenarioPartiQLBatch {
     }
 
     public static void deleteDynamoDBTable(DynamoDbClient ddb, String tableName) {
-
         DeleteTableRequest request = DeleteTableRequest.builder()
-                .tableName(tableName)
-                .build();
+            .tableName(tableName)
+            .build();
 
         try {
             ddb.deleteTable(request);
@@ -418,13 +406,11 @@ public class ScenarioPartiQLBatch {
 
     private static ExecuteStatementResponse executeStatementRequest(DynamoDbClient ddb, String statement, List<AttributeValue> parameters ) {
         ExecuteStatementRequest request = ExecuteStatementRequest.builder()
-                .statement(statement)
-                .parameters(parameters)
-                .build();
+            .statement(statement)
+            .parameters(parameters)
+            .build();
 
         return ddb.executeStatement(request);
     }
-
-
 }
 // snippet-end:[dynamodb.java2.scenario.partiql.batch.main]

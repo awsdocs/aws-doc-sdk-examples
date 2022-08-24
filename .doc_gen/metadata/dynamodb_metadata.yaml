@@ -49,6 +49,15 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.java2.create_table.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description: Create a table.
+              snippet_tags:
+                - php.example_code.dynamodb.basics.createTable
+                - php.example_code.dynamodb.service.createTable
     Python:
       versions:
         - sdk_version: 3
@@ -244,6 +253,14 @@ dynamodb_BatchWriteItem:
             - description: Inserts many items into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.batchitems.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.batchWriteItem
     Python:
       versions:
         - sdk_version: 3
@@ -285,35 +302,6 @@ dynamodb_BatchWriteItem:
                 - ruby.example_code.dynamodb.BatchWriteItem
   services:
     dynamodb: {BatchWriteItem}
-dynamodb_Usage_BatchGetWriteDelete:
-  title: Get, write, and delete batches of &DDB; items using an &AWS; SDK
-  title_abbrev: Get, write, and delete batches of items
-  synopsis: get, write, and delete batches of &DDB; items.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/dynamodb
-          sdkguide:
-          excerpts:
-            - description: Create functions to wrap &DDB; batch operations.
-              snippet_tags:
-                - python.example_code.dynamodb.Batching_imports
-                - python.example_code.dynamodb.CreateTable
-                - python.example_code.dynamodb.BatchGetItem
-                - python.example_code.dynamodb.PutItem_BatchWriter
-                - python.example_code.dynamodb.BatchGetItem_CallBatchGet
-            - description: Create a function to archive data from one table to another.
-              snippet_tags:
-                - python.example_code.dynamodb.Usage_ArchiveMovies
-            - description:
-                Call your functions to create tables, fill them with movie
-                data from a JSON file, and archive items in another table.
-              snippet_tags:
-                - python.example_code.dynamodb.Usage_BatchFunctions
-  services:
-    dynamodb: {}
 dynamodb_DeleteTable:
   title: Delete a &DDB; table using an &AWS; SDK
   title_abbrev: Delete a table
@@ -364,6 +352,14 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.java2.delete_table.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.deleteTable
     Python:
       versions:
         - sdk_version: 3
@@ -460,6 +456,15 @@ dynamodb_PutItem:
             - description: Puts an item into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.putitem.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.putItem
+                - php.example_code.dynamodb.service.putItem
     Python:
       versions:
         - sdk_version: 3
@@ -557,9 +562,18 @@ dynamodb_GetItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Gets an item from a table by using the enhanced client.
+            - description: Gets an item from a table by using the DynamoDbClient.
               snippet_tags:
-                - dynamodb.java2.mapping.getitem.main
+                - dynamodb.java2.query.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.getItem
+                - php.example_code.dynamodb.service.getItem
     Python:
       versions:
         - sdk_version: 3
@@ -660,6 +674,15 @@ dynamodb_UpdateItem:
             - description: Updates an item located in a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.moditem.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.updateItem
+                - php.example_code.dynamodb.service.updateItem
     Python:
       versions:
         - sdk_version: 3
@@ -750,6 +773,16 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - dynamodb.java2.delete_item.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.key
+                - php.example_code.dynamodb.basics.deleteItem
+                - php.example_code.dynamodb.service.deleteItem
     Python:
       versions:
         - sdk_version: 3
@@ -856,6 +889,14 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.java2.list_tables.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.listTables
     Python:
       versions:
         - sdk_version: 3
@@ -947,6 +988,24 @@ dynamodb_Query:
             - description: Queries a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.query.main
+            - description: Queries a table by using the enhanced client and a secondary index.
+              snippet_tags:
+                - dynamodb.java2.get_item_index.main
+            - description: Queries a table by using the DynamoDbClient.
+              snippet_tags:
+                - dynamodb.java2.query.main
+            - description: Queries a table by using the DynamoDbClient and a secondary index.
+              snippet_tags:
+                - dynamodb.java2.query_items_sec_index.main               
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.query
+                - php.example_code.dynamodb.service.query
     Python:
       versions:
         - sdk_version: 3
@@ -1054,6 +1113,15 @@ dynamodb_Scan:
             - description: Scans an Amazon DynamoDB table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.scan.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.scan
+                - php.example_code.dynamodb.service.scan
     Python:
       versions:
         - sdk_version: 3
@@ -1109,6 +1177,26 @@ dynamodb_ExecuteStatement:
   synopsis: run a PartiQL statement on a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description: Use an INSERT statement to add an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie
+            - description: Use a SELECT statement to get an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie
+            - description: Use a SELECT statement to get a list of items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetMovies
+            - description: Use an UPDATE statement to update an item.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
+            - description: Use a DELETE statement to delete a single movie.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
     Go:
       versions:
         - sdk_version: 2
@@ -1153,6 +1241,17 @@ dynamodb_ExecuteStatement:
             - description: Delete an item using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.deleteItemV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.insertItemByPartiQL
+                - php.example_code.dynamodb.service.getItemByPartiQL
+                - php.example_code.dynamodb.service.updateItemByPartiQL
+                - php.example_code.dynamodb.service.deleteItemByPartiQL
     Python:
       versions:
         - sdk_version: 3
@@ -1171,6 +1270,23 @@ dynamodb_BatchExecuteStatement:
   synopsis: run batches of PartiQL statements on a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description: Use batches of INSERT statements to add items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch
+            - description: Use batches of SELECT statements to get items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies
+            - description: Use batches of UPDATE statements to update items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch
+            - description: Use batches of DELETE statements to delete items.
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch
     Go:
       versions:
         - sdk_version: 2
@@ -1211,6 +1327,17 @@ dynamodb_BatchExecuteStatement:
             - description: Delete a batch of items using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.deleteItemsV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.service.getItemByPartiQLBatch
+                - php.example_code.dynamodb.service.insertItemByPartiQLBatch
+                - php.example_code.dynamodb.service.updateItemByPartiQLBatch
+                - php.example_code.dynamodb.service.deleteItemByPartiQLBatch
     Python:
       versions:
         - sdk_version: 3
@@ -1226,11 +1353,12 @@ dynamodb_BatchExecuteStatement:
 dynamodb_Usage_DaxDemo:
   title: Accelerate &DDB; reads with &DAX; using an &AWS; SDK
   title_abbrev: Accelerate reads with &DAX;
-  synopsis:
-    accelerate &DDB; reads with &DAXlong;. This example requires additional
-    setup. For instructions, see
-    <ulink type='documentation' url='amazondynamodb/latest/developerguide/DAX.client.html'>Developing with the &DAXlong; Client</ulink>
-    in the <emphasis>&guide-ddb-dev;</emphasis>.
+  synopsis_list:
+    - Create and write data to a table with both the &DAX; and SDK clients.
+    - Get, query, and scan the table with both the &DAX; and SDK clients and compare their performance.
+  guide_topic:
+    title: Developing with the &DAXlong; Client
+    url: amazondynamodb/latest/developerguide/DAX.client.html
   category: Scenarios
   languages:
     Python:
@@ -1258,7 +1386,7 @@ dynamodb_Usage_DaxDemo:
               snippet_tags:
                 - dynamodb.Python.TryDax.06-delete-table
   services:
-    dynamodb: {}
+    dynamodb: {CreateTable, PutItem, GetItem, Query, Scan, DeleteTable}
 dynamodb_Scenario_GettingStartedMovies:
   title: Get started using &DDB; tables, items, and queries using an &AWS; SDK
   title_abbrev: Get started using tables, items, and queries
@@ -1357,6 +1485,14 @@ dynamodb_Scenario_GettingStartedMovies:
             - description: Full example.
               snippet_tags:
                 - dynamodb.java2.scenario.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.basics.scenario
     Python:
       versions:
         - sdk_version: 3
@@ -1420,9 +1556,25 @@ dynamodb_Scenario_GettingStartedMovies:
 dynamodb_Scenario_PartiQLSingle:
   title: Query a &DDB; table using PartiQL and an &AWS; SDK
   title_abbrev: Query a table using PartiQL
-  synopsis: query a &DDB; table using PartiQL.
+  synopsis_list:
+    - Get an item by running a SELECT statement.
+    - Add an item by running an INSERT statement.
+    - Update an item by running an UPDATE statement.
+    - Delete an item by running a DELETE statement.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-Complete
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-GetSingleMovie
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-InsertSingleMovie
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-UpdateSingleMovie
+                - PartiQL.dotnetv3.PartiQLBasicsScenario-DeleteSingleMovie
     Go:
       versions:
         - sdk_version: 2
@@ -1472,6 +1624,18 @@ dynamodb_Scenario_PartiQLSingle:
             - description: Query single items.
               snippet_tags:
                 - javascript.dynamodb_scenarios.partiQL_basics
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.partiql_basics.scenario
+                - php.example_code.dynamodb.service.insertItemByPartiQL
+                - php.example_code.dynamodb.service.getItemByPartiQL
+                - php.example_code.dynamodb.service.updateItemByPartiQL
+                - php.example_code.dynamodb.service.deleteItemByPartiQL
     Python:
       versions:
         - sdk_version: 3
@@ -1489,9 +1653,25 @@ dynamodb_Scenario_PartiQLSingle:
 dynamodb_Scenario_PartiQLBatch:
   title: Query a &DDB; table by using batches of PartiQL statements and an &AWS; SDK
   title_abbrev: Query a table by using batches of PartiQL statements
-  synopsis: query a &DDB; table by using batches of PartiQL statements.
+  synopsis_list:
+    - Get a batch of items by running multiple SELECT statements.
+    - Add a batch of items by running multiple INSERT statements.
+    - Update a batch of items by running multiple UPDATE statements.
+    - Delete a batch of items by running multiple DELETE statements.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - PartiQL.dotnetv3.PartiQLBatchScenario
+                - PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch
+                - PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies
+                - PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch
+                - PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch
     Go:
       versions:
         - sdk_version: 2
@@ -1510,6 +1690,24 @@ dynamodb_Scenario_PartiQLBatch:
                 PartiQL queries.
               snippet_tags:
                 - gov2.dynamodb.Scenario_PartiQLBatch
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.scenario.partiql.batch.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.scenario.partiql.batch.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1525,6 +1723,18 @@ dynamodb_Scenario_PartiQLBatch:
             - description: Query items by batch.
               snippet_tags:
                 - javascript.dynamodb_scenarios.partiQL_batch_basics
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.dynamodb.partiql_batch.scenario
+                - php.example_code.dynamodb.service.insertItemByPartiQLBatch
+                - php.example_code.dynamodb.service.getItemByPartiQLBatch
+                - php.example_code.dynamodb.service.updateItemByPartiQLBatch
+                - php.example_code.dynamodb.service.deleteItemByPartiQLBatch
     Python:
       versions:
         - sdk_version: 3

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteCluster.java demonstrates how to delete an Amazon Redshift cluster.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
+//snippet-service:[Amazon Redshift]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class DeleteCluster {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <clusterId> \n\n" +
-                "Where:\n" +
-                "    clusterId - The id of the cluster to delete. \n";
+            "Usage:\n" +
+            "    <clusterId> \n\n" +
+            "Where:\n" +
+            "    clusterId - The id of the cluster to delete. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class DeleteCluster {
         String clusterId = args[0];
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteRedshiftCluster(redshiftClient, clusterId) ;
         redshiftClient.close();
@@ -59,9 +56,9 @@ public class DeleteCluster {
 
         try {
             DeleteClusterRequest deleteClusterRequest = DeleteClusterRequest.builder()
-                    .clusterIdentifier(clusterId)
-                    .skipFinalClusterSnapshot(true)
-                    .build();
+                .clusterIdentifier(clusterId)
+                .skipFinalClusterSnapshot(true)
+                .build();
 
             DeleteClusterResponse response = redshiftClient.deleteCluster(deleteClusterRequest);
             System.out.println("The status is "+response.cluster().clusterStatus());

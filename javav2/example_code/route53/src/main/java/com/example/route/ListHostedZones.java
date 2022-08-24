@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[ListHostedZones.java demonstrates how to list hosted zones.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,9 +31,9 @@ public class ListHostedZones {
 
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listZones(route53Client);
         route53Client.close();
@@ -48,7 +45,6 @@ public class ListHostedZones {
         try {
             ListHostedZonesResponse zonesResponse = route53Client.listHostedZones();
             List<HostedZone> checklist = zonesResponse.hostedZones();
-
             for (HostedZone check: checklist) {
                 System.out.println("The name is : "+check.name());
             }

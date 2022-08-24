@@ -3,6 +3,7 @@
 
 namespace CreatePolicyExample
 {
+    // snippet-start:[Organizations.dotnetv3.CreatePolicyExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -50,4 +51,5 @@ namespace CreatePolicyExample
             }
         }
     }
+    // snippet-end:[Organizations.dotnetv3.CreatePolicyExample]
 }

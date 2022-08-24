@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteCrawler.java demonstrates how to delete an AWS Glue crawler.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +28,10 @@ public class DeleteCrawler {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <crawlerName>\n\n" +
-                "Where:\n" +
-                "    crawlerName - The name of the crawler. \n" ;
+            "Usage:\n" +
+            "    <crawlerName>\n\n" +
+            "Where:\n" +
+            "    crawlerName - The name of the crawler. \n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +41,9 @@ public class DeleteCrawler {
         String crawlerName = args[0] ;
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSpecificCrawler(glueClient, crawlerName);
         glueClient.close();
@@ -57,8 +54,8 @@ public class DeleteCrawler {
 
         try {
             DeleteCrawlerRequest deleteCrawlerRequest = DeleteCrawlerRequest.builder()
-                    .name(crawlerName)
-                    .build();
+                .name(crawlerName)
+                .build();
 
             glueClient.deleteCrawler(deleteCrawlerRequest);
             System.out.println(crawlerName +" was deleted");

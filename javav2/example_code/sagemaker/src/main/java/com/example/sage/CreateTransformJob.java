@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateTransformJob.java demonstrates how to start a transform job that uses a trained model to get inferences on a dataset.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,13 +40,13 @@ public class CreateTransformJob {
 
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <s3Uri> <s3OutputPath> <modelName> <transformJobName>\n\n" +
-                "Where:\n" +
-                "    s3Uri - Identifies the key name of an Amazon S3 object that contains the data (ie, s3://mybucket/churn.txt).\n\n" +
-                "    s3OutputPath - The Amazon S3 location where the results are stored.\n\n" +
-                "    modelName - The name of the model.\n\n" +
-                "    transformJobName - The name of the transform job.\n\n";
+            "Usage:\n" +
+            "    <s3Uri> <s3OutputPath> <modelName> <transformJobName>\n\n" +
+            "Where:\n" +
+            "    s3Uri - Identifies the key name of an Amazon S3 object that contains the data (ie, s3://mybucket/churn.txt).\n\n" +
+            "    s3OutputPath - The Amazon S3 location where the results are stored.\n\n" +
+            "    modelName - The name of the model.\n\n" +
+            "    transformJobName - The name of the transform job.\n\n";
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -63,9 +60,9 @@ public class CreateTransformJob {
 
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         transformJob(sageMakerClient, s3Uri, s3OutputPath, modelName, transformJobName);
         sageMakerClient.close();

@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[UpdateServerCertificate.java demonstrates how to update the name of an AWS Identity and Access Management (IAM) server certificate.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
+//snippet-service:[IAM]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,11 +28,11 @@ public class UpdateServerCertificate {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <curName> <newName> \n\n" +
-                "Where:\n" +
-                "    curName - The current certificate name. \n\n" +
-                "    newName - An updated certificate name. \n\n" ;
+            "Usage:\n" +
+            "    <curName> <newName> \n\n" +
+            "Where:\n" +
+            "    curName - The current certificate name. \n\n" +
+            "    newName - An updated certificate name. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,9 +43,9 @@ public class UpdateServerCertificate {
         String newName = args[1];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         updateCertificate(iam, curName, newName) ;
         System.out.println("Done");
@@ -60,24 +56,19 @@ public class UpdateServerCertificate {
     public static void updateCertificate(IamClient iam, String curName, String newName) {
 
         try {
-            UpdateServerCertificateRequest request =
-                UpdateServerCertificateRequest.builder()
-                        .serverCertificateName(curName)
-                        .newServerCertificateName(newName)
-                        .build();
+            UpdateServerCertificateRequest request = UpdateServerCertificateRequest.builder()
+                .serverCertificateName(curName)
+                .newServerCertificateName(newName)
+                .build();
 
-            UpdateServerCertificateResponse response =
-                iam.updateServerCertificate(request);
-
-
-            System.out.printf("Successfully updated server certificate to name %s",
-                newName);
+            iam.updateServerCertificate(request);
+            System.out.printf("Successfully updated server certificate to name %s", newName);
 
         } catch (IamException e) {
-             System.err.println(e.awsErrorDetails().errorMessage());
-             System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-     }
+    }
     // snippet-end:[iam.java2.update_server_certificate.main]
 }
 // snippet-end:[iam.java2.update_server_certificate.complete]

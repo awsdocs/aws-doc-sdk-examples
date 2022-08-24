@@ -12,8 +12,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sts v1.6.1
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/google/uuid v1.3.0
-	github.com/tidwall/gjson v1.8.1
-	github.com/tidwall/pretty v1.2.0 // indirect
+	github.com/tidwall/gjson v1.9.3
 	go.uber.org/zap v1.18.1
 )
 

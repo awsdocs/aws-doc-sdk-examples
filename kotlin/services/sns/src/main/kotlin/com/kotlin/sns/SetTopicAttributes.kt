@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[SetTopicAttributes.kt demonstrates how to set attributes for an Amazon Simple Notification Service (Amazon SNS) topic.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon- AWS]
+// snippet-sourcedescription:[SetTopicAttributes.kt demonstrates how to set attributes for an Amazon Simple Notification Service (Amazon SNS) topic.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Amazon Simple Notification Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,28 +9,35 @@
 
 package com.kotlin.sns
 
-//snippet-start:[sns.kotlin.SetTopicAttributes.import]
+// snippet-start:[sns.kotlin.SetTopicAttributes.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.SetTopicAttributesRequest
 import kotlin.system.exitProcess
-//snippet-end:[sns.kotlin.SetTopicAttributes.import]
+// snippet-end:[sns.kotlin.SetTopicAttributes.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
       Usage: 
         <attribute> <topicArn> <value>
 
       Where:
-        attribute - the attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .
+        attribute - The attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .
         topicArn - The ARN of the topic. 
-        value - the value for the attribute.
+        value - The value for the attribute.
     """
 
-      if (args.size < 3) {
-          println(usage)
-          exitProcess(0)
-      }
+    if (args.size < 3) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val attribute = args[0]
     val topicArn = args[1]
@@ -42,18 +45,18 @@ suspend fun main(args:Array<String>) {
     setTopAttr(attribute, topicArn, value)
 }
 
-//snippet-start:[sns.kotlin.SetTopicAttributes.main]
+// snippet-start:[sns.kotlin.SetTopicAttributes.main]
 suspend fun setTopAttr(attribute: String?, topicArnVal: String?, value: String?) {
 
-        val request = SetTopicAttributesRequest {
-            attributeName = attribute
-            attributeValue = value
-            topicArn = topicArnVal
-        }
+    val request = SetTopicAttributesRequest {
+        attributeName = attribute
+        attributeValue = value
+        topicArn = topicArnVal
+    }
 
-       SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         snsClient.setTopicAttributes(request)
         println("Topic ${request.topicArn} was updated.")
-       }
+    }
 }
-//snippet-end:[sns.kotlin.SetTopicAttributes.main]
+// snippet-end:[sns.kotlin.SetTopicAttributes.main]

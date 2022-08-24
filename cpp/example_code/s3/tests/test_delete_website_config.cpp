@@ -80,7 +80,7 @@ int main()
         }
 
         // 3/4. Delete the website configuration.
-        if (!AwsDoc::S3::DeleteBucketWebsite(bucket_name, "us-east-1"))
+        if (!AwsDoc::S3::DeleteBucketWebsite(bucket_name, config.region))
         {
             return 1;
         }

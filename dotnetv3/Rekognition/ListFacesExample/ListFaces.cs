@@ -3,6 +3,7 @@
 
 namespace ListFacesExample
 {
+    // snippet-start:[Rekognition.dotnetv3.ListFacesExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace ListFacesExample
     /// </summary>
     public class ListFaces
     {
-        // snippet-start:[Rekognition.dotnetv3.ListFacesExample]
         public static async Task Main()
         {
             string collectionId = "MyCollection2";
@@ -43,7 +43,6 @@ namespace ListFacesExample
             }
             while (!string.IsNullOrEmpty(listFacesResponse.NextToken));
         }
-
-        // snippet-end:[Rekognition.dotnetv3.ListFacesExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.ListFacesExample]
 }

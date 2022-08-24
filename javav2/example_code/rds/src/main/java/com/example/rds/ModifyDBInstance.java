@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ModifyDBInstance.java demonstrates how to modify a RDS instance.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class ModifyDBInstance {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
-                "Where:\n" +
-                "    dbInstanceIdentifier - The database instance identifier. \n" +
-                "    masterUserPassword - The updated password that corresponds to the master user name. \n";
+            "Usage:\n" +
+            "    <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
+            "Where:\n" +
+            "    dbInstanceIdentifier - The database instance identifier. \n" +
+            "    masterUserPassword - The updated password that corresponds to the master user name. \n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,9 +45,9 @@ public class ModifyDBInstance {
         String masterUserPassword = args[1];
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         updateIntance(rdsClient, dbInstanceIdentifier, masterUserPassword);
         rdsClient.close();
@@ -62,10 +59,10 @@ public class ModifyDBInstance {
         try {
             // For a demo - modify the DB instance by modifying the master password.
             ModifyDbInstanceRequest modifyDbInstanceRequest = ModifyDbInstanceRequest.builder()
-                    .dbInstanceIdentifier(dbInstanceIdentifier)
-                    .publiclyAccessible(true)
-                    .masterUserPassword(masterUserPassword)
-                    .build();
+                .dbInstanceIdentifier(dbInstanceIdentifier)
+                .publiclyAccessible(true)
+                .masterUserPassword(masterUserPassword)
+                .build();
 
             ModifyDbInstanceResponse instanceResponse = rdsClient.modifyDBInstance(modifyDbInstanceRequest);
             System.out.print("The ARN of the modified database is: " +instanceResponse.dbInstance().dbInstanceArn());

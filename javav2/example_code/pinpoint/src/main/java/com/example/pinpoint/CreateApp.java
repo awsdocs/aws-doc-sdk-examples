@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateApp.java demonstrates hc in the Amazon Pinpoint dashboard.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,11 +27,12 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
  */
 public class CreateApp {
     public static void main(String[] args) {
+
         final String usage = "\n" +
-                 " Usage: " +
-                 " <appName>\n\n" +
-                 " Where:\n" +
-                 "  appName - The name of the application to create.\n\n";
+            " Usage: " +
+            " <appName>\n\n" +
+            " Where:\n" +
+            "  appName - The name of the application to create.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +42,9 @@ public class CreateApp {
         System.out.println("Creating an application with name: " + appName);
 
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String appID = createApplication(pinpoint, appName);
         System.out.println("App ID is: " + appID);
@@ -58,12 +56,12 @@ public class CreateApp {
 
         try {
             CreateApplicationRequest appRequest = CreateApplicationRequest.builder()
-                    .name(appName)
-                    .build();
+                .name(appName)
+                .build();
 
             CreateAppRequest request = CreateAppRequest.builder()
-                    .createApplicationRequest(appRequest)
-                    .build();
+                .createApplicationRequest(appRequest)
+                .build();
 
             CreateAppResponse result = pinpoint.createApp(request);
             return result.applicationResponse().id();

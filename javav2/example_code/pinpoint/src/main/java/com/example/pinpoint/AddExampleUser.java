@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[AddExampleUser.java demonstrates how to update an existing endpoint.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -39,10 +36,10 @@ public class AddExampleUser {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <appId>\n\n" +
-                "Where:\n" +
-                "   appId - The ID of the application to delete.\n\n";
+            "Usage: " +
+            "   <appId>\n\n" +
+            "Where:\n" +
+            "   appId - The ID of the application to delete.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -52,9 +49,8 @@ public class AddExampleUser {
         String applicationId = args[0];
         String endPointId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         updatePinpointEndpoint(pinpoint, applicationId, endPointId);
         pinpoint.close();
@@ -102,10 +98,10 @@ public class AddExampleUser {
             UpdateEndpointResponse result = pinpoint.updateEndpoint(endpointList);
             System.out.format("Update endpoint result: %s\n", result.messageBody().message());
 
-    } catch (PinpointException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
- }
     //snippet-end:[pinpoint.java2.update_endpoint.main]
 }

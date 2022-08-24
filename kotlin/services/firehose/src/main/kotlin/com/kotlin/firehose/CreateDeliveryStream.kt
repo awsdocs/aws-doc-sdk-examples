@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[CreateDeliveryStream.kt demonstrates how to create a delivery stream.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
+// snippet-sourcedescription:[CreateDeliveryStream.kt demonstrates how to create a delivery stream.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Kinesis Data Firehose]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -15,21 +10,21 @@ package com.kotlin.firehose
 
 // snippet-start:[firehose.kotlin.create_stream.import]
 import aws.sdk.kotlin.services.firehose.FirehoseClient
-import aws.sdk.kotlin.services.firehose.model.ExtendedS3DestinationConfiguration
 import aws.sdk.kotlin.services.firehose.model.CreateDeliveryStreamRequest
 import aws.sdk.kotlin.services.firehose.model.DeliveryStreamType
+import aws.sdk.kotlin.services.firehose.model.ExtendedS3DestinationConfiguration
 import kotlin.system.exitProcess
 // snippet-end:[firehose.kotlin.create_stream.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     
@@ -37,9 +32,9 @@ suspend fun main(args:Array<String>) {
         <bucketARN> <roleARN> <streamName> 
 
     Where:
-        bucketARN - the ARN of the Amazon S3 bucket where the data stream is written. 
-        roleARN - the ARN of the IAM role that has the permissions that Kinesis Data Firehose needs. 
-        streamName - the name of the delivery stream. 
+        bucketARN - The ARN of the Amazon S3 bucket where the data stream is written. 
+        roleARN - The ARN of the IAM role that has the permissions that Kinesis Data Firehose needs. 
+        streamName - The name of the delivery stream. 
     """
 
     if (args.size != 3) {
@@ -56,20 +51,20 @@ suspend fun main(args:Array<String>) {
 // snippet-start:[firehose.kotlin.create_stream.main]
 suspend fun createStream(bucketARNVal: String?, roleARNVal: String?, streamName: String?) {
 
-        val destinationConfiguration = ExtendedS3DestinationConfiguration {
-            bucketArn = bucketARNVal
-            roleArn = roleARNVal
-        }
+    val destinationConfiguration = ExtendedS3DestinationConfiguration {
+        bucketArn = bucketARNVal
+        roleArn = roleARNVal
+    }
 
-       val request = CreateDeliveryStreamRequest {
-           deliveryStreamName = streamName
-           extendedS3DestinationConfiguration = destinationConfiguration
-           deliveryStreamType = DeliveryStreamType.DirectPut
-       }
+    val request = CreateDeliveryStreamRequest {
+        deliveryStreamName = streamName
+        extendedS3DestinationConfiguration = destinationConfiguration
+        deliveryStreamType = DeliveryStreamType.DirectPut
+    }
 
-       FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+    FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
         val streamResponse = firehoseClient.createDeliveryStream(request)
         println("Delivery Stream ARN is ${streamResponse.deliveryStreamArn}")
-       }
+    }
 }
 // snippet-end:[firehose.kotlin.create_stream.main]

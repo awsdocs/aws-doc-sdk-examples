@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeleteGroup.java demonstrates how to delete an AWS XRay group.]
 //snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS X-Ray Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/29/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
