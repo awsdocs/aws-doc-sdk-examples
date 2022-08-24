@@ -126,7 +126,8 @@ ALLOW_LIST = {
     'com/amazondynamodb/latest/developerguide',
     'DynamodbRubyExampleCreateUsersTableStack',
     'com/rekognition/latest/dg/considerations',
-    'ListTagsForVaultExample/ListTagsForVault'
+    'ListTagsForVaultExample/ListTagsForVault',
+    'TerminateInstanceInAutoScalingGroupAsync'
 }
 
 def check_files(root, quiet):
