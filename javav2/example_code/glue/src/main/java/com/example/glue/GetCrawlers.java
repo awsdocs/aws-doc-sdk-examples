@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetCrawlers.java demonstrates how to get AWS Glue crawlers.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -35,9 +32,9 @@ public class GetCrawlers {
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAllCrawlers(glueClient);
         glueClient.close();
@@ -53,7 +50,6 @@ public class GetCrawlers {
 
             GetCrawlersResponse response = glueClient.getCrawlers(crawlersRequest);
             List<Crawler> crawlers = response.crawlers();
-
             for (Crawler crawler: crawlers) {
                 System.out.println("The crawler name is : "+crawler.name());
             }

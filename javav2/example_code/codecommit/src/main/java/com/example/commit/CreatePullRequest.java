@@ -1,11 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreatePullRequest.java demonstrates how to create a pull request.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CodeCommit]
-// snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

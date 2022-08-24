@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteService.java demonstrates how to delete a service for the Amazon Elastic Container Service (Amazon ECS) service.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class DeleteService {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <clusterName> <serviceArn> \n\n" +
-                "Where:\n" +
-                "  clusterName - The name of the ECS cluster.\n" +
-                "  serviceArn - The ARN of the ECS service.\n";
+            "Usage:\n" +
+            "  <clusterName> <serviceArn> \n\n" +
+            "Where:\n" +
+            "  clusterName - The name of the ECS cluster.\n" +
+            "  serviceArn - The ARN of the ECS service.\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,9 +45,9 @@ public class DeleteService {
         String serviceArn = args[1];
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSpecificService(ecsClient, clusterName, serviceArn);
         ecsClient.close();

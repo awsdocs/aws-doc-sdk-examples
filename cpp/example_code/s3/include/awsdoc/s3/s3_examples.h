@@ -16,7 +16,7 @@ namespace AwsDoc
             const Aws::String& fromBucket, const Aws::String& toBucket, 
             const Aws::String& region = "");
         AWSDOC_S3_API bool CreateBucket(const Aws::String& bucketName, 
-            const Aws::S3::Model::BucketLocationConstraint& region);
+            const Aws::String& region);
         AWSDOC_S3_API bool DeleteBucket(const Aws::String& bucketName,
             const Aws::String& region = "");
         AWSDOC_S3_API bool DeleteBucketPolicy(const Aws::String& bucketName, 
@@ -73,5 +73,8 @@ namespace AwsDoc
         AWSDOC_S3_API bool PutWebsiteConfig(const Aws::String& bucketName,
             const Aws::String& indexPage, const Aws::String& errorPage,
             const Aws::String& region = "");
+        bool S3_GettingStartedScenario(const Aws::String& uploadFilePath, const Aws::String& saveFilePath,
+            const Aws::Client::ClientConfiguration &clientConfig,
+            bool logProgress = true);
     }
 }

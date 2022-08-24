@@ -38,6 +38,15 @@ using the AWS SDK for Python.
     * Amazon DynamoDB
     * AWS Lambda
 
+* [Tracking work items in a serverless Aurora database](aurora_item_tracker/README.md)
+
+    Shows how to create a REST service that lets you store work items in a serverless 
+    Amazon Aurora database and use Amazon Simple Email Service (Amazon SES) 
+    to send email reports of work items.
+    
+    * Aurora
+    * Amazon SES
+
 * [Amazon Aurora serverless REST API lending library example](aurora_rest_lending_library/README.md)
 
     Shows how to use the Amazon Relational Database Service (Amazon RDS) API and 
@@ -53,7 +62,7 @@ using the AWS SDK for Python.
 * [Amazon DynamoDB work item tracker web application](dynamodb_item_tracker/README.md)
 
     Shows how to create a web application that tracks work items in DynamoDB and emails 
-    reports by using Amazon Simple Email Service (Amazon SES). This example uses the 
+    reports by using Amazon SES. This example uses the 
     Flask web framework to host a local website and render templated webpages.
 
     * Amazon DynamoDB

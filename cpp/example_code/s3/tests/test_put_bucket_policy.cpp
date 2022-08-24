@@ -18,9 +18,6 @@ int main()
     Aws::InitAPI(options);
     {
         // 1/4. Create the Amazon S3 bucket.
-        Aws::S3::Model::BucketLocationConstraint region =
-            Aws::S3::Model::BucketLocationConstraint::us_east_1;
-
         Aws::Client::ClientConfiguration config;
         config.region = "us-east-1";
         Aws::S3::S3Client s3_client(config);
@@ -81,7 +78,7 @@ int main()
             "   ]\n"
             "}";
 
-        if (!AwsDoc::S3::PutBucketPolicy(bucket_name, policy_string, "us-east-1"))
+        if (!AwsDoc::S3::PutBucketPolicy(bucket_name, policy_string, config.region))
         {
             std::cout << "Error: PutBucketPolicy test." << std::endl;
             std::cout << "To clean up, you must delete the bucket '" << bucket_name <<

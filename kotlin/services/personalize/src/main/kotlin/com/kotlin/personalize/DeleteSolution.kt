@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteSolution.kt demonstrates how to delete an Amazon Personalize solution.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedescription:[DeleteSolution.kt demonstrates how to delete an Amazon Personalize solution.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Personalize]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,50 +9,49 @@
 
 package com.kotlin.personalize
 
-//snippet-start:[personalize.kotlin.delete_solution.import]
+// snippet-start:[personalize.kotlin.delete_solution.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.DeleteSolutionRequest
 import kotlin.system.exitProcess
-//snippet-end:[personalize.kotlin.delete_solution.import]
+// snippet-end:[personalize.kotlin.delete_solution.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
         <solutionArn>
 
     Where:
-         solutionArn - the ARN of the solution to delete.
+         solutionArn - The ARN of the solution to delete.
     """
 
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val solutionArn = args[0]
     deleteGivenSolution(solutionArn)
-    }
+}
 
-//snippet-start:[personalize.kotlin.delete_solution.main]
+// snippet-start:[personalize.kotlin.delete_solution.main]
 suspend fun deleteGivenSolution(solutionArnVal: String?) {
 
-    val request = DeleteSolutionRequest{
-        solutionArn =  solutionArnVal
+    val request = DeleteSolutionRequest {
+        solutionArn = solutionArnVal
     }
 
     PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
-            personalizeClient.deleteSolution(request)
-            println("$solutionArnVal was successfully deleted.")
-
+        personalizeClient.deleteSolution(request)
+        println("$solutionArnVal was successfully deleted.")
     }
 }
-//snippet-end:[personalize.kotlin.delete_solution.main]
+// snippet-end:[personalize.kotlin.delete_solution.main]

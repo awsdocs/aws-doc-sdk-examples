@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[GetAccessKeyInfo.java demonstrates how to return the account identifier for the specified access key ID by using AWS Security Token Service (AWS STS).]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[AWS Security Token Service (AWS STS)]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,22 +31,22 @@ public class GetAccessKeyInfo {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <accessKeyId> \n\n" +
-                "Where:\n" +
-                "    accessKeyId - The identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA). \n";
+            "Usage:\n" +
+            "    <accessKeyId> \n\n" +
+            "Where:\n" +
+            "    accessKeyId - The identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA). \n";
 
         if (args.length != 1) {
-             System.out.println(usage);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String accessKeyId = args[0];
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getKeyInfo(stsClient, accessKeyId );
         stsClient.close();
@@ -60,8 +57,8 @@ public class GetAccessKeyInfo {
 
         try {
             GetAccessKeyInfoRequest accessRequest = GetAccessKeyInfoRequest.builder()
-                    .accessKeyId(accessKeyId)
-                    .build();
+                .accessKeyId(accessKeyId)
+                .build();
 
             GetAccessKeyInfoResponse accessResponse = stsClient.getAccessKeyInfo(accessRequest);
             System.out.println("The account associated with the access key is "+accessResponse.account());

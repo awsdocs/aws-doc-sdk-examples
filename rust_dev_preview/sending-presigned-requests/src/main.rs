@@ -118,11 +118,7 @@ fn print_as_curl_request(presigned_req: &PresignedRequest, body: Option<&str>) {
         // This value conversion method is naïve and will drop values that aren't valid UTF8
         // It's only here for demonstration purposes; Don't use this unless you're confident
         // that your header values are valid UTF-8
-        println!(
-            "-H '{}: {}' \\",
-            name,
-            value.to_str().unwrap_or_default().to_string()
-        )
+        println!("-H '{}: {}' \\", name, value.to_str().unwrap_or_default())
     }
 
     println!("--verbose");

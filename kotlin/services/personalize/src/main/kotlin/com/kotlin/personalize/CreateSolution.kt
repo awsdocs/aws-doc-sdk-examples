@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[CreateSolution.kt demonstrates how to create an Amazon Personalize solution.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
+// snippet-sourcedescription:[CreateSolution.kt demonstrates how to create an Amazon Personalize solution.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Personalize]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,21 +9,21 @@
 
 package com.kotlin.personalize
 
-//snippet-start:[personalize.kotlin.create_solution.import]
+// snippet-start:[personalize.kotlin.create_solution.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.CreateSolutionRequest
 import kotlin.system.exitProcess
-//snippet-end:[personalize.kotlin.create_solution.import]
+// snippet-end:[personalize.kotlin.create_solution.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
@@ -42,7 +38,7 @@ suspend fun main(args:Array<String>){
     if (args.size != 3) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val datasetGroupArn = args[0]
     val solutionName = args[1]
@@ -51,7 +47,7 @@ suspend fun main(args:Array<String>){
     println("The Amazon Personalize solution ARN is $solutionArn")
 }
 
-//snippet-start:[personalize.kotlin.create_solution.main]
+// snippet-start:[personalize.kotlin.create_solution.main]
 suspend fun createPersonalizeSolution(datasetGroupArnVal: String?, solutionName: String?, recipeArnVal: String?): String? {
 
     val request = CreateSolutionRequest {
@@ -65,4 +61,4 @@ suspend fun createPersonalizeSolution(datasetGroupArnVal: String?, solutionName:
         return solutionResponse.solutionArn
     }
 }
-//snippet-end:[personalize.kotlin.create_solution.main]
+// snippet-end:[personalize.kotlin.create_solution.main]

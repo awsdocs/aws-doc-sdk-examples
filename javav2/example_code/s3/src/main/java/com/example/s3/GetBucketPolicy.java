@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[GetBucketPolicy.java demonstrates how to get the bucket policy for an existing Amazon Simple Storage Service (Amazon S3) bucket]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,24 +31,24 @@ public class GetBucketPolicy {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName>\n\n" +
-                "Where:\n" +
-                "    bucketName - The Amazon S3 bucket to get the policy from.\n\n" ;
+            "Usage:\n" +
+            "    <bucketName>\n\n" +
+            "Where:\n" +
+            "    bucketName - The Amazon S3 bucket to get the policy from.\n\n" ;
 
-          if (args.length != 1) {
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-         }
+        }
 
         String bucketName = args[0];
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         String polText = getPolicy(s3, bucketName );
         System.out.println("Policy Text: "+polText);
@@ -62,19 +60,20 @@ public class GetBucketPolicy {
 
         String policyText;
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
-
         GetBucketPolicyRequest policyReq = GetBucketPolicyRequest.builder()
-                .bucket(bucketName)
-                .build();
+            .bucket(bucketName)
+            .build();
 
         try {
             GetBucketPolicyResponse policyRes = s3.getBucketPolicy(policyReq);
             policyText = policyRes.policy();
             return policyText;
+
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+
         return "";
     }
 // snippet-end:[s3.java2.get_bucket_policy.main]

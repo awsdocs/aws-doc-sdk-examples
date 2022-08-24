@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[PollyDemo demonstrates how to convert text into speech.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Polly]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,16 +39,15 @@ import javazoom.jl.player.advanced.PlaybackListener;
 public class PollyDemo {
 
     private static final String SAMPLE = "Congratulations. You have successfully built this working demo "+
-            " of Amazon Polly in Java Version 2. Have fun building voice enabled apps with Amazon Polly (that's me!), and always "+
-            " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS";
+        " of Amazon Polly in Java Version 2. Have fun building voice enabled apps with Amazon Polly (that's me!), and always "+
+        " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS";
 
     public static void main(String args[]) {
 
-
         PollyClient polly = PollyClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         talkPolly(polly);
         polly.close();
@@ -60,10 +56,10 @@ public class PollyDemo {
     // snippet-start:[polly.java2.demo.main]
     public static void talkPolly(PollyClient polly) {
 
-    try {
+        try {
             DescribeVoicesRequest describeVoiceRequest = DescribeVoicesRequest.builder()
-                    .engine("standard")
-                    .build();
+                .engine("standard")
+                .build();
 
             DescribeVoicesResponse describeVoicesResult = polly.describeVoices(describeVoiceRequest);
             Voice voice = describeVoicesResult.voices().get(26);
@@ -83,19 +79,20 @@ public class PollyDemo {
 
             // play it!
             player.play();
-     } catch (PollyException | JavaLayerException | IOException e) {
+
+        } catch (PollyException | JavaLayerException | IOException e) {
           System.err.println(e.getMessage());
           System.exit(1);
-     }
+        }
     }
 
     public static InputStream synthesize(PollyClient polly, String text, Voice voice, OutputFormat format) throws IOException {
 
         SynthesizeSpeechRequest synthReq = SynthesizeSpeechRequest.builder()
-                .text(text)
-                .voiceId(voice.id())
-                .outputFormat(format)
-                .build();
+            .text(text)
+            .voiceId(voice.id())
+            .outputFormat(format)
+            .build();
 
         ResponseInputStream<SynthesizeSpeechResponse> synthRes = polly.synthesizeSpeech(synthReq);
         return synthRes;

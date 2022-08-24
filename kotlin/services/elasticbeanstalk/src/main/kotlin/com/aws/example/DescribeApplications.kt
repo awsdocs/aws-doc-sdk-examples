@@ -1,22 +1,17 @@
-//snippet-sourcedescription:[DescribeApplication.kt demonstrates how to describe an AWS Elastic Beanstalk application.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS Elastic Beanstalk ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
-
+// snippet-sourcedescription:[DescribeApplication.kt demonstrates how to describe an AWS Elastic Beanstalk application.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[AWS Elastic Beanstalk]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 package com.aws.example
 
-//snippet-start:[eb.kotlin.describe_app.import]
+// snippet-start:[eb.kotlin.describe_app.import]
 import aws.sdk.kotlin.services.elasticbeanstalk.ElasticBeanstalkClient
 import aws.sdk.kotlin.services.elasticbeanstalk.model.DescribeApplicationsRequest
 import aws.sdk.kotlin.services.elasticbeanstalk.model.DescribeEnvironmentsRequest
-//snippet-end:[eb.kotlin.describe_app.import]
+// snippet-end:[eb.kotlin.describe_app.import]
 
 /**
 Before running this Kotlin code example, set up your development environment,
@@ -27,10 +22,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-   describeApps()
+    describeApps()
 }
 
-//snippet-start:[eb.kotlin.describe_app.main]
+// snippet-start:[eb.kotlin.describe_app.main]
 suspend fun describeApps() {
 
     ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
@@ -52,4 +47,4 @@ suspend fun describeApps() {
         }
     }
 }
-//snippet-end:[eb.kotlin.describe_app.main]
+// snippet-end:[eb.kotlin.describe_app.main]

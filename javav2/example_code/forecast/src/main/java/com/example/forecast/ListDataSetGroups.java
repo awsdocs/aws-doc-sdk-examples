@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListDataSetGroups.java demonstrates how to list data set groups for the Amazon Forecast service.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,32 +33,32 @@ public class ListDataSetGroups {
 
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listDataGroups(forecast);
         forecast.close();
-}
-
-// snippet-start:[forecast.java2.list_forecast_datasetgroups.main]
-public static void listDataGroups(ForecastClient forecast) {
-
-    try {
-        ListDatasetGroupsRequest group = ListDatasetGroupsRequest.builder()
-            .maxResults(10)
-            .build();
-
-        ListDatasetGroupsResponse response = forecast.listDatasetGroups(group);
-        List<DatasetGroupSummary> groups = response.datasetGroups();
-        for (DatasetGroupSummary myGroup : groups) {
-            System.out.println("The Data Set name is " + myGroup.datasetGroupName());
-        }
-
-    } catch (ForecastException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
     }
-   }
-    // snippet-end:[forecast.java2.list_forecast_datasetgroups.main]
+
+   // snippet-start:[forecast.java2.list_forecast_datasetgroups.main]
+    public static void listDataGroups(ForecastClient forecast) {
+
+        try {
+            ListDatasetGroupsRequest group = ListDatasetGroupsRequest.builder()
+                .maxResults(10)
+                .build();
+
+            ListDatasetGroupsResponse response = forecast.listDatasetGroups(group);
+            List<DatasetGroupSummary> groups = response.datasetGroups();
+            for (DatasetGroupSummary myGroup : groups) {
+                System.out.println("The Data Set name is " + myGroup.datasetGroupName());
+            }
+
+        } catch (ForecastException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+   // snippet-end:[forecast.java2.list_forecast_datasetgroups.main]
 }

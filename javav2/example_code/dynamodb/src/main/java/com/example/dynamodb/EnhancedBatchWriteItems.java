@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[EnhancedBatchWriteItems.java demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -47,13 +44,13 @@ public class EnhancedBatchWriteItems {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+            .dynamoDbClient(ddb)
+            .build();
 
         putBatchRecords(enhancedClient);
         ddb.close();
@@ -80,15 +77,13 @@ public class EnhancedBatchWriteItems {
             record3.setEmail("spink@noserver.com");
             record3.setRegistrationDate(instant) ;
 
-            BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest =
-                    BatchWriteItemEnhancedRequest.builder()
-                            .writeBatches(
-                                    WriteBatch.builder(Customer.class)
-                                            .mappedTableResource(mappedTable)
-                                            .addPutItem(r -> r.item(record2))
-                                            .addPutItem(r -> r.item(record3))
-                                            .build())
-                            .build();
+            BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest = BatchWriteItemEnhancedRequest.builder()
+                .writeBatches(WriteBatch.builder(Customer.class)
+                    .mappedTableResource(mappedTable)
+                    .addPutItem(r -> r.item(record2))
+                    .addPutItem(r -> r.item(record3))
+                    .build())
+                .build();
 
             // Add these two items to the table.
             enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);

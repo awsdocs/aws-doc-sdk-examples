@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[UseMessageFilterPolicy.java demonstrates how to initialize and use the example SNSMessageFilterPolicy class.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class UseMessageFilterPolicy {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <subscriptionArn>\n\n" +
-                "Where:\n" +
-                "   subscriptionArn - The ARN of a subscription.\n\n" ;
+            "Usage: " +
+            "   <subscriptionArn>\n\n" +
+            "Where:\n" +
+            "   subscriptionArn - The ARN of a subscription.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class UseMessageFilterPolicy {
 
         String subscriptionArn = args[0];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         usePolicy(snsClient, subscriptionArn);
         snsClient.close();
@@ -58,7 +55,6 @@ public class UseMessageFilterPolicy {
 
         try {
             SNSMessageFilterPolicy fp = new SNSMessageFilterPolicy();
-
             // Add a filter policy attribute with a single value
             fp.addAttribute("store", "example_corp");
             fp.addAttribute("event", "order_placed");

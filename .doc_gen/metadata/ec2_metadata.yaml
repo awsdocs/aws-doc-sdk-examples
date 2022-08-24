@@ -57,6 +57,15 @@ ec2_RunInstances:
   synopsis: create and run an &EC2; instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.create_instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -394,31 +403,25 @@ ec2_TerminateInstances:
   services:
     ec2: {TerminateInstances}
 ec2_Usage_InstanceCreationAndManagement:
-  title: Create and manage &EC2; instances using an &AWS; SDK
-  title_abbrev: Create and manage instances
-  synopsis: create and manage &EC2; instances.
+  title: Manage &EC2; instances, Elastic IPs, and security groups using an &AWS; SDK
+  title_abbrev: Manage instances, Elastic IPs, and security groups
+  synopsis: manage &EC2; instances, Elastic IPs, and security groups.
   category: Scenarios
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.java2.create_instance.main
     Python:
       versions:
         - sdk_version: 3
           block_content: usage_EC2InstanceManagement_Python_block.xml
   services:
-    ec2: {}
+    ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair, CreateSecurityGroup,
+          DeleteKeyPair, DeleteSecurityGroup, DisassociateAddress, GetConsoleOutput,
+          ModifyNetworkInterfaceAttribute, ReleaseAddress, RunInstances, StartInstances, StopInstances,
+          TerminateInstances}
 ec2_DescribeInstances:
-  title: Describe the specified or all &EC2; instances using an &AWS; SDK
+  title: Describe &EC2; instances using an &AWS; SDK
   title_abbrev: Describe instances
   synopsis: describe &EC2; instances.
-  category: Scenarios
+  category:
   languages:
     Rust:
       versions:
@@ -429,12 +432,12 @@ ec2_DescribeInstances:
               snippet_tags:
                 - ec2.rust.describe-instances
   services:
-    ec2: {}
+    ec2: {DescribeInstances}
 ec2_DescribeRegions:
-  title: Describes the Regions that are enabled for your account, or all Regions, using an &AWS; SDK
+  title: Describes the Regions for your account using an &AWS; SDK
   title_abbrev: Describe Regions
   synopsis: describe &EC2; Regions.
-  category: Scenarios
+  category:
   languages:
     Rust:
       versions:
@@ -445,12 +448,12 @@ ec2_DescribeRegions:
               snippet_tags:
                 - ec2.rust.ec2-helloworld
   services:
-    ec2: {}
+    ec2: {DescribeRegions}
 ec2_DescribeInstanceStatus:
-  title: Describes the status of the specified instances or all of your instances using an &AWS; SDK
-  title_abbrev: Describe status
-  synopsis: describe &EC2; status.
-  category: Scenarios
+  title: Describes the status of &EC2; instances using an &AWS; SDK
+  title_abbrev: Describe instance status
+  synopsis: describe the status of &EC2; instances.
+  category:
   languages:
     Rust:
       versions:
@@ -461,12 +464,12 @@ ec2_DescribeInstanceStatus:
               snippet_tags:
                 - ec2.rust.list-all-instance-events
   services:
-    ec2: {}
+    ec2: {DescribeInstanceStatus}
 ec2_MonitorInstances:
-  title: Enables detailed monitoring for a running instance using an &AWS; SDK
+  title: Enables monitoring for a running &EC2; instance using an &AWS; SDK
   title_abbrev: Enable monitoring
-  synopsis: enable &EC2; monitoring.
-  category: Scenarios
+  synopsis: enable monitoring for a running &EC2; instance.
+  category:
   languages:
     Rust:
       versions:
@@ -477,12 +480,12 @@ ec2_MonitorInstances:
               snippet_tags:
                 - ec2.rust.monitor-instance
   services:
-    ec2: {}
+    ec2: {MonitorInstances}
 ec2_RebootInstances:
-  title: Requests a reboot of the specified instances using an &AWS; SDK
-  title_abbrev: Reboot instances
-  synopsis: reboot &EC2; instance.
-  category: Scenarios
+  title: Reboot an &EC2; instance using an &AWS; SDK
+  title_abbrev: Reboot an instance
+  synopsis: reboot an &EC2; instance.
+  category:
   languages:
     Rust:
       versions:
@@ -493,4 +496,4 @@ ec2_RebootInstances:
               snippet_tags:
                 - ec2.rust.reboot-instance
   services:
-    ec2: {}
+    ec2: {RebootInstances}

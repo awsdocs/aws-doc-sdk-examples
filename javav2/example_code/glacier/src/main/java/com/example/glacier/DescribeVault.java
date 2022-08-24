@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeVault.java demonstrates how to describe an Amazon Glacier vault.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +29,10 @@ public class DescribeVault {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <vaultName>\n\n" +
-                "Where:\n" +
-                "   vaultName - The name of the vault to describe.\n\n";
+            "Usage: " +
+            "   <vaultName>\n\n" +
+            "Where:\n" +
+            "   vaultName - The name of the vault to describe.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +41,9 @@ public class DescribeVault {
 
         String vaultName = args[0];
         GlacierClient glacier = GlacierClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeGlacierVault(glacier, vaultName );
         glacier.close();
@@ -57,18 +54,18 @@ public class DescribeVault {
 
         try {
             DescribeVaultRequest describeVaultRequest = DescribeVaultRequest.builder()
-                    .vaultName(vaultName)
-                    .build();
+                .vaultName(vaultName)
+                .build();
 
             DescribeVaultResponse desVaultResult = glacier.describeVault(describeVaultRequest);
             System.out.println("Describing the vault: " + vaultName);
-            System.out.print(
-                    "CreationDate: " + desVaultResult.creationDate() +
+            System.out.print("CreationDate: " + desVaultResult.creationDate() +
                             "\nLastInventoryDate: " + desVaultResult.lastInventoryDate() +
                             "\nNumberOfArchives: " + desVaultResult.numberOfArchives() +
                             "\nSizeInBytes: " + desVaultResult.sizeInBytes() +
                             "\nVaultARN: " + desVaultResult.vaultARN() +
                             "\nVaultName: " + desVaultResult.vaultName());
+
         } catch(GlacierException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

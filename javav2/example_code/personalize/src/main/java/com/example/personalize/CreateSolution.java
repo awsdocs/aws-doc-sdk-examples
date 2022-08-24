@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateSolution.java demonstrates how to create an Amazon Personalize solution.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,15 +29,15 @@ public class CreateSolution {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    CreateSolution <datasetGroupArn> <solutionName> <recipeArn>\n\n" +
-                "Where:\n" +
-                "    datasetGroupArn - The ARN of the dataset group.\n\n" +
-                "    solutionName - The name of the Amazon Personalization campaign.\n\n" +
-                "    recipeArn - The ARN of the recipe.\n\n" ;
+            "Usage:\n" +
+            "    CreateSolution <datasetGroupArn> <solutionName> <recipeArn>\n\n" +
+            "Where:\n" +
+            "    datasetGroupArn - The ARN of the dataset group.\n\n" +
+            "    solutionName - The name of the Amazon Personalization campaign.\n\n" +
+            "    recipeArn - The ARN of the recipe.\n\n" ;
 
         if (args.length != 3) {
-           System.out.println(USAGE);
+            System.out.println(USAGE);
             System.exit(1);
         }
 
@@ -49,11 +45,10 @@ public class CreateSolution {
         String solutionName = args[1];
         String recipeArn = args[2];
 
-        // Change to the region where your resources are located
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         String solutionArn = createPersonalizeSolution(personalizeClient, datasetGroupArn, solutionName, recipeArn);
         System.out.println("The Amazon Personalize solution ARN is "+solutionArn);
@@ -81,6 +76,6 @@ public class CreateSolution {
             System.exit(1);
         }
         return "";
- }
+    }
     //snippet-end:[personalize.java2.create_solution.main]
 }

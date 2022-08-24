@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListNotebooks.java demonstrates how to list notebooks.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class ListNotebooks {
 
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listBooks(sageMakerClient);
         sageMakerClient.close();
@@ -45,19 +42,17 @@ public class ListNotebooks {
 
     //snippet-start:[sagemaker.java2.list_books.main]
     public static void listBooks(SageMakerClient sageMakerClient) {
-
-       try {
+        try {
             ListNotebookInstancesResponse notebookInstancesResponse = sageMakerClient.listNotebookInstances();
             List<NotebookInstanceSummary> items = notebookInstancesResponse.notebookInstances();
-
             for (NotebookInstanceSummary item: items) {
                 System.out.println("The notebook name is: "+item.notebookInstanceName());
             }
 
-       } catch (SageMakerException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+        } catch (SageMakerException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
     //snippet-end:[sagemaker.java2.list_books.main]
 }

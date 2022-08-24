@@ -1,8 +1,6 @@
 // snippet-sourcedescription:[SendMessageEmail.kt demonstrates how to send an email message by using the Amazon Simple Email Service (Amazon SES).]
 // snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/05/2021]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-keyword:[Amazon Simple Email Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,15 +11,22 @@ package com.kotlin.ses
 
 // snippet-start:[ses.kotlin.sendmessage.import]
 import aws.sdk.kotlin.services.ses.SesClient
-import aws.sdk.kotlin.services.ses.model.Destination
-import aws.sdk.kotlin.services.ses.model.Content
 import aws.sdk.kotlin.services.ses.model.Body
+import aws.sdk.kotlin.services.ses.model.Content
+import aws.sdk.kotlin.services.ses.model.Destination
 import aws.sdk.kotlin.services.ses.model.Message
 import aws.sdk.kotlin.services.ses.model.SendEmailRequest
 import kotlin.system.exitProcess
 // snippet-end:[ses.kotlin.sendmessage.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
     
@@ -29,9 +34,9 @@ suspend fun main(args:Array<String>) {
         <sender> <recipient> <subject> 
 
     Where:
-        sender - an email address that represents the sender. 
-        recipient - an email address that represents the recipient. 
-        subject - the subject line. 
+        sender - An email address that represents the sender. 
+        recipient - An email address that represents the recipient. 
+        subject - The subject line. 
     """
 
     if (args.size != 3) {
@@ -44,8 +49,10 @@ suspend fun main(args:Array<String>) {
     val subject = args[2]
 
     // The HTML body of the email.
-    val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p> See the list of customers.</p>" + "</body>" + "</html>")
+    val bodyHTML = (
+        "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>" +
+            "<p> See the list of customers.</p>" + "</body>" + "</html>"
+        )
 
     send(sender, recipient, subject, bodyHTML)
 }
@@ -66,10 +73,10 @@ suspend fun send(
     }
 
     val subOb = Content {
-         data = subjectVal
+        data = subjectVal
     }
 
-    val bodyOb= Body {
+    val bodyOb = Body {
         html = contentOb
     }
 
@@ -82,7 +89,7 @@ suspend fun send(
         destination = destinationOb
         message = msgOb
         source = sender
-       }
+    }
 
     SesClient { region = "us-east-1" }.use { sesClient ->
         println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")

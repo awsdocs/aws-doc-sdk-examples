@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -56,7 +57,7 @@ func TestRunMovieScenario_Integration(t *testing.T) {
 	)
 
 	log.SetOutput(os.Stderr)
-	if !strings.Contains(buf.String(),"Thanks for watching") {
+	if !strings.Contains(buf.String(), "Thanks for watching") {
 		t.Errorf("didn't run to successful completion. Here's the log:\n%v", buf.String())
 	}
 }

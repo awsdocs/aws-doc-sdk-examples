@@ -188,6 +188,21 @@ to list hosted models. Used by `train_host.py`.
 
 A class that shows how to analyze an image (JPEG/PNG) with a hosted Lookout for Vision 
 model. You can also analyze an image stored in an Amazon S3 bucket.
+The example shows how you can classify images as normal or anomalous. It also shows how to 
+use segmentation information returned from a segmentation model. For more information,
+ see [Detecting anomalies in an image](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/inference-detect-anomalies.html).
+ To run the example, supply an image file name and a configuration JSON file with the following format. 
+
+    {
+        "project" : "The Lookout for Vision project name.",
+        "model_version" : "The model version.",
+        "confidence_limit" : The minimum acceptable confidence. (Float 0 - 1).,
+        "coverage_limit" : The maximum acceptable percentage coverage of an anomaly (Float 0 - 1).,
+        "anomaly_types_limit" : The maximum number of allowable anomaly types. (Integer),
+        "anomaly_label" : "The anomaly label for the type of anomaly that you want to check."
+    }
+
+We provide a template JSON configuration file in config.json.
 
 ### models.py
 

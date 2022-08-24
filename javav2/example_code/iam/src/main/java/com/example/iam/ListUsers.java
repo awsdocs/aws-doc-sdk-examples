@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListUsers.java demonstrates how to list all AWS Identity and Access Management (IAM) users.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,9 +31,9 @@ public class ListUsers {
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllUsers(iam );
         System.out.println("Done");
@@ -48,34 +45,36 @@ public class ListUsers {
 
         try {
 
-             boolean done = false;
-             String newMarker = null;
+            boolean done = false;
+            String newMarker = null;
 
-             while(!done) {
+            while(!done) {
                 ListUsersResponse response;
-
                 if (newMarker == null) {
                     ListUsersRequest request = ListUsersRequest.builder().build();
                     response = iam.listUsers(request);
                 } else {
                     ListUsersRequest request = ListUsersRequest.builder()
-                        .marker(newMarker).build();
+                        .marker(newMarker)
+                        .build();
+
                     response = iam.listUsers(request);
                 }
 
                 for(User user : response.users()) {
-                 System.out.format("\n Retrieved user %s", user.userName());
-                 AttachedPermissionsBoundary permissionsBoundary = user.permissionsBoundary();
-                 if (permissionsBoundary != null)
-                     System.out.format("\n Permissions boundary details %s", permissionsBoundary.permissionsBoundaryTypeAsString());
+                    System.out.format("\n Retrieved user %s", user.userName());
+                    AttachedPermissionsBoundary permissionsBoundary = user.permissionsBoundary();
+                    if (permissionsBoundary != null)
+                        System.out.format("\n Permissions boundary details %s", permissionsBoundary.permissionsBoundaryTypeAsString());
                 }
 
                 if(!response.isTruncated()) {
-                  done = true;
+                    done = true;
                 } else {
                     newMarker = response.marker();
                 }
             }
+
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

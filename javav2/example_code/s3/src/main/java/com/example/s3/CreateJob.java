@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateJob.java demonstrates how to create an Amazon Simple Storage Service (Amazon S3) batch job.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -46,13 +43,13 @@ public class CreateJob {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
+            "Usage:\n" +
                 "    <accountId> <iamRoleArn> <manifestLocation> <reportBucketName>>\n\n" +
-                "Where:\n" +
-                "    accountId - The account id value that owns the Amazon S3 bucket.\n\n" +
-                "    iamRoleArn - The ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +
-                "    manifestLocation - The location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
-                "    reportBucketName - The Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n";
+            "Where:\n" +
+            "    accountId - The account id value that owns the Amazon S3 bucket.\n\n" +
+            "    iamRoleArn - The ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +
+            "    manifestLocation - The location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
+            "    reportBucketName - The Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n";
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -68,31 +65,24 @@ public class CreateJob {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3ControlClient s3ControlClient = S3ControlClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
         createS3Job(s3ControlClient, accountId, iamRoleArn, manifestLocation, reportBucketName, uuid);
         s3ControlClient.close();
     }
 
     // snippet-start:[s3.java2.create_job.main]
-    public static void createS3Job( S3ControlClient s3ControlClient,
-                                    String accountId,
-                                    String iamRoleArn,
-                                    String manifestLocation,
-                                    String reportBucketName,
-                                    String uuid) {
+    public static void createS3Job( S3ControlClient s3ControlClient, String accountId, String iamRoleArn, String manifestLocation, String reportBucketName, String uuid) {
 
-       try {
-           ArrayList<S3Tag> tagSet = new ArrayList<>();
-
-           S3Tag s3Tag = S3Tag.builder()
+        try {
+            ArrayList<S3Tag> tagSet = new ArrayList<>();
+            S3Tag s3Tag = S3Tag.builder()
                 .key("keyOne")
                 .value("ValueOne")
                 .build();
 
             tagSet.add(s3Tag);
-
             S3SetObjectTaggingOperation objectTaggingOperation = S3SetObjectTaggingOperation.builder()
                 .tagSet(s3Tag)
                 .build();

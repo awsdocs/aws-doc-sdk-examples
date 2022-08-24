@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[CreateHostedZone.java demonstrates how to create a hosted zone.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,22 +31,22 @@ public class CreateHostedZone {
     public static void main(String[] args) {
 
        final String usage = "\n" +
-                "Usage:\n" +
-                "    <domainName> \n\n" +
-                "Where:\n" +
-                "    domainName - The fully qualified domain name. \n";
+           "Usage:\n" +
+           "   <domainName> \n\n" +
+           "Where:\n" +
+           "   domainName - The fully qualified domain name. \n";
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       if (args.length != 1) {
+           System.out.println(usage);
+           System.exit(1);
+       }
 
-        String domainName = args[0];
-        Region region = Region.AWS_GLOBAL;
-        Route53Client route53Client = Route53Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+       String domainName = args[0];
+       Region region = Region.AWS_GLOBAL;
+       Route53Client route53Client = Route53Client.builder()
+           .region(region)
+           .credentialsProvider(ProfileCredentialsProvider.create())
+           .build();
 
         String zoneId = createZone(route53Client, domainName);
         System.out.println("The hosted zone id is "+zoneId);
@@ -60,13 +57,13 @@ public class CreateHostedZone {
     public static String createZone(Route53Client route53Client, String domainName) {
 
         try {
-           // You must use a unique CallerReference string every time you submit a CreateHostedZone request.
-          String callerReference = java.util.UUID.randomUUID().toString();
+            // You must use a unique CallerReference string every time you submit a CreateHostedZone request.
+            String callerReference = java.util.UUID.randomUUID().toString();
 
             CreateHostedZoneRequest zoneRequest = CreateHostedZoneRequest.builder()
-                    .callerReference(callerReference)
-                    .name(domainName)
-                    .build();
+                .callerReference(callerReference)
+                .name(domainName)
+                .build();
 
             // Create the Hosted Zone.
             CreateHostedZoneResponse zoneResponse = route53Client.createHostedZone(zoneRequest);

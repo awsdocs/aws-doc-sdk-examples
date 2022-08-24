@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DescribeTrainingJob.java demonstrates how to obtain information about a training job.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,10 +29,10 @@ public class DescribeTrainingJob {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <trainingJobName>\n\n" +
-                "Where:\n" +
-                "    trainingJobName - The name of the training job.\n\n";
+            "Usage:\n" +
+            "    <trainingJobName>\n\n" +
+            "Where:\n" +
+            "    trainingJobName - The name of the training job.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +42,9 @@ public class DescribeTrainingJob {
         String trainingJobName = args[0];
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeTrainJob(sageMakerClient, trainingJobName);
         sageMakerClient.close();
@@ -64,6 +60,7 @@ public class DescribeTrainingJob {
 
             DescribeTrainingJobResponse jobResponse = sageMakerClient.describeTrainingJob(trainingJobRequest);
             System.out.println("The job status is "+ jobResponse.trainingJobStatusAsString());
+
        } catch (SageMakerException e) {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);

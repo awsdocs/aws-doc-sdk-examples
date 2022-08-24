@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[VideoDetectFaces.java demonstrates how to detect faces in a video stored in an Amazon S3 bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,18 +30,18 @@ public class VideoDetectFaces {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <bucket> <video> <topicArn> <roleArn>\n\n" +
-                "Where:\n" +
-                "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
-                "   video - The name of video (for example, people.mp4). \n\n" +
-                "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
-                "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
+            "Usage: " +
+            "   <bucket> <video> <topicArn> <roleArn>\n\n" +
+            "Where:\n" +
+            "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
+            "   video - The name of video (for example, people.mp4). \n\n" +
+            "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
+            "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
-       if (args.length != 4) {
-             System.out.println(usage);
-             System.exit(1);
-       }
+        if (args.length != 4) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String bucket = args[0];
         String video = args[1];
@@ -53,14 +50,14 @@ public class VideoDetectFaces {
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         NotificationChannel channel = NotificationChannel.builder()
-                .snsTopicArn(topicArn)
-                .roleArn(roleArn)
-                .build();
+            .snsTopicArn(topicArn)
+            .roleArn(roleArn)
+            .build();
 
         StartFaceDetection(rekClient, channel, bucket, video);
         GetFaceResults(rekClient);
@@ -76,20 +73,20 @@ public class VideoDetectFaces {
 
         try {
             S3Object s3Obj = S3Object.builder()
-                    .bucket(bucket)
-                    .name(video)
-                    .build();
+                .bucket(bucket)
+                .name(video)
+                .build();
 
             Video vidOb = Video.builder()
-                    .s3Object(s3Obj)
-                    .build();
+                .s3Object(s3Obj)
+                .build();
 
             StartFaceDetectionRequest  faceDetectionRequest = StartFaceDetectionRequest.builder()
-                    .jobTag("Faces")
-                    .faceAttributes(FaceAttributes.ALL)
-                    .notificationChannel(channel)
-                    .video(vidOb)
-                    .build();
+                .jobTag("Faces")
+                .faceAttributes(FaceAttributes.ALL)
+                .notificationChannel(channel)
+                .video(vidOb)
+                .build();
 
             StartFaceDetectionResponse startLabelDetectionResult = rekClient.startFaceDetection(faceDetectionRequest);
             startJobId=startLabelDetectionResult.jobId();
@@ -105,8 +102,8 @@ public class VideoDetectFaces {
         try {
             String paginationToken=null;
             GetFaceDetectionResponse faceDetectionResponse=null;
-            Boolean finished = false;
-            String status="";
+            boolean finished = false;
+            String status;
             int yy=0 ;
 
             do{
@@ -114,10 +111,10 @@ public class VideoDetectFaces {
                     paginationToken = faceDetectionResponse.nextToken();
 
                 GetFaceDetectionRequest recognitionRequest = GetFaceDetectionRequest.builder()
-                        .jobId(startJobId)
-                        .nextToken(paginationToken)
-                       .maxResults(10)
-                        .build();
+                    .jobId(startJobId)
+                    .nextToken(paginationToken)
+                    .maxResults(10)
+                    .build();
 
                 // Wait until the job succeeds
                 while (!finished) {
@@ -138,7 +135,6 @@ public class VideoDetectFaces {
 
                 // Proceed when the job is done - otherwise VideoMetadata is null
                 VideoMetadata videoMetaData=faceDetectionResponse.videoMetadata();
-
                 System.out.println("Format: " + videoMetaData.format());
                 System.out.println("Codec: " + videoMetaData.codec());
                 System.out.println("Duration: " + videoMetaData.durationMillis());
@@ -149,13 +145,11 @@ public class VideoDetectFaces {
                 List<FaceDetection> faces= faceDetectionResponse.faces();
 
                 for (FaceDetection face: faces) {
-
                     String age = face.face().ageRange().toString();
-                    String beard = face.face().beard().toString();
-                    String eyeglasses = face.face().eyeglasses().toString();
-                    String eyesOpen = face.face().eyesOpen().toString();
-                    String mustache = face.face().mustache().toString();
                     String smile = face.face().smile().toString();
+                    System.out.println("The detected face is estimated to be"
+                                + age + " years old.");
+                    System.out.println("There is a smile : "+smile);
                 }
 
             } while (faceDetectionResponse !=null && faceDetectionResponse.nextToken() != null);

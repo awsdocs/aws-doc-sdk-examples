@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[DeleteHealthCheck.java demonstrates how to delete a health check.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class DeleteHealthCheck {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <id> \n\n" +
-                "Where:\n" +
-                "    id - The health check id. \n";
+            "Usage:\n" +
+            "    <id> \n\n" +
+            "Where:\n" +
+            "    id - The health check id. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,9 +43,9 @@ public class DeleteHealthCheck {
         String id = args[0];
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         delHealthCheck(route53Client, id);
         route53Client.close();
@@ -56,12 +53,10 @@ public class DeleteHealthCheck {
 
     // snippet-start:[route53.java2.delete_health_check.main]
     public static void delHealthCheck( Route53Client route53Client, String id) {
-
         try {
-
             DeleteHealthCheckRequest delRequest = DeleteHealthCheckRequest.builder()
-                    .healthCheckId(id)
-                     .build();
+                .healthCheckId(id)
+                .build();
 
             route53Client.deleteHealthCheck(delRequest);
             System.out.println("The hosted zone was deleted");

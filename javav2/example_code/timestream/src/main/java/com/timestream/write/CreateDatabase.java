@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateDatabase.java demonstrates how to create a database.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Timestream]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,10 +30,10 @@ public class CreateDatabase {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <dbName> \n\n" +
-                "Where:\n" +
-                "   dbName - The name of the database.\n\n" ;
+            "Usage: " +
+            "   <dbName> \n\n" +
+            "Where:\n" +
+            "   dbName - The name of the database.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class CreateDatabase {
 
         String dbName = args[0];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createNewDatabase(timestreamWriteClient, dbName);
         timestreamWriteClient.close();
@@ -59,8 +56,8 @@ public class CreateDatabase {
         try {
             System.out.println("Creating database");
             CreateDatabaseRequest request = CreateDatabaseRequest.builder()
-                    .databaseName(dbName)
-                    .build();
+                .databaseName(dbName)
+                .build();
 
             timestreamWriteClient.createDatabase(request);
             System.out.println("Database " + dbName + " created successfully.");

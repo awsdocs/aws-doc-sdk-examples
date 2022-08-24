@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[VideoDetectText.java demonstrates how to detect text in a video stored in an Amazon S3 bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -41,13 +38,13 @@ public class VideoDetectText {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <bucket> <video> <topicArn> <roleArn>\n\n" +
-                "Where:\n" +
-                "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
-                "   video - The name of video (for example, people.mp4). \n\n" +
-                "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
-                "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
+            "Usage: " +
+            "   <bucket> <video> <topicArn> <roleArn>\n\n" +
+            "Where:\n" +
+            "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
+            "   video - The name of video (for example, people.mp4). \n\n" +
+            "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
+            "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -61,14 +58,14 @@ public class VideoDetectText {
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         NotificationChannel channel = NotificationChannel.builder()
-                .snsTopicArn(topicArn)
-                .roleArn(roleArn)
-                .build();
+            .snsTopicArn(topicArn)
+            .roleArn(roleArn)
+            .build();
 
         startTextLabels(rekClient, channel, bucket, video);
         GetTextResults(rekClient);
@@ -83,36 +80,36 @@ public class VideoDetectText {
                                    String video) {
         try {
             S3Object s3Obj = S3Object.builder()
-                    .bucket(bucket)
-                    .name(video)
-                    .build();
+                .bucket(bucket)
+                .name(video)
+                .build();
 
             Video vidOb = Video.builder()
-                    .s3Object(s3Obj)
-                    .build();
+                .s3Object(s3Obj)
+                .build();
 
             StartTextDetectionRequest labelDetectionRequest = StartTextDetectionRequest.builder()
-                    .jobTag("DetectingLabels")
-                    .notificationChannel(channel)
-                    .video(vidOb)
-                    .build();
+                .jobTag("DetectingLabels")
+                .notificationChannel(channel)
+                .video(vidOb)
+                .build();
 
             StartTextDetectionResponse labelDetectionResponse = rekClient.startTextDetection(labelDetectionRequest);
             startJobId = labelDetectionResponse.jobId();
 
-        } catch(RekognitionException e) {
+        } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-      }
+    }
 
     public static void GetTextResults(RekognitionClient rekClient) {
 
         try {
             String paginationToken=null;
             GetTextDetectionResponse textDetectionResponse=null;
-            Boolean finished = false;
-            String status="";
+            boolean finished = false;
+            String status;
             int yy=0 ;
 
             do{
@@ -120,14 +117,13 @@ public class VideoDetectText {
                     paginationToken = textDetectionResponse.nextToken();
 
                 GetTextDetectionRequest recognitionRequest = GetTextDetectionRequest.builder()
-                        .jobId(startJobId)
-                        .nextToken(paginationToken)
-                        .maxResults(10)
-                        .build();
+                    .jobId(startJobId)
+                    .nextToken(paginationToken)
+                    .maxResults(10)
+                    .build();
 
-                // Wait until the job succeeds
+                // Wait until the job succeeds.
                 while (!finished) {
-
                     textDetectionResponse = rekClient.getTextDetection(recognitionRequest);
                     status = textDetectionResponse.jobStatusAsString();
 
@@ -142,9 +138,8 @@ public class VideoDetectText {
 
                 finished = false;
 
-                // Proceed when the job is done - otherwise VideoMetadata is null
+                // Proceed when the job is done - otherwise VideoMetadata is null.
                 VideoMetadata videoMetaData=textDetectionResponse.videoMetadata();
-
                 System.out.println("Format: " + videoMetaData.format());
                 System.out.println("Codec: " + videoMetaData.codec());
                 System.out.println("Duration: " + videoMetaData.durationMillis());

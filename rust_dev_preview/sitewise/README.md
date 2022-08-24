@@ -45,6 +45,40 @@ This example lists AWS IoT SiteWise assets in the Region.
 
 If the example succeeds, it displays the Amazon Resource Name (ARN) of the new role.
 
+### list-asset-models.rs
+
+This example list AWS IoT SiteWise asset models in the Region.
+
+`cargo run --bin list-asset-models -- [-r REGION] [-v]`
+
+- _REGION_ The Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### list-portals.rs
+
+This example list AWS IoT SiteWise portals in the Region.
+
+`cargo run --bin list-portals -- [-r REGION] [-v]`
+
+- _REGION_ The Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### describe-asset.rs
+
+This example describe an AWS IoT SiteWise asset in the Region.
+
+`cargo run --bin describe-asset -- -a ASSET-ID [-r REGION] [-v]`
+
+- _ASSET-ID_ The ID of the asset by which to filter the list of assets.
+- _REGION_ The Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)

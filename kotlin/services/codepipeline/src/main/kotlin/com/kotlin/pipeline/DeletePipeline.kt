@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[DeletePipeline.kt demonstrates how to delete a pipeline.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS CodePipeline]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
+// snippet-sourcedescription:[DeletePipeline.kt demonstrates how to delete a pipeline.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[AWS CodePipeline]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -19,8 +14,7 @@ import aws.sdk.kotlin.services.codepipeline.model.DeletePipelineRequest
 import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.delete_pipeline.import]
 
-
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
@@ -28,14 +22,14 @@ suspend fun main(args:Array<String>) {
         Where:
            name - the name of the pipeline to delete. 
    """
-     if (args.size != 1) {
-         println(usage)
-         exitProcess(1)
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(1)
     }
 
-    val name =  args[0]
+    val name = args[0]
     deleteSpecificPipeline(name)
-   }
+}
 
 // snippet-start:[pipeline.kotlin.delete_pipeline.main]
 suspend fun deleteSpecificPipeline(nameVal: String) {

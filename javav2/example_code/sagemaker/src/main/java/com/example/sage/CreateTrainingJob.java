@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateTrainingJob.java demonstrates how to start a model training job for Amazon SageMaker.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -50,16 +47,16 @@ public class CreateTrainingJob {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <s3UriData> <s3Uri> <trainingJobName> <roleArn> <s3OutputPath> <channelName> <trainingImage>\n\n" +
-                "Where:\n" +
-                "    s3UriData - The location of the training data (for example, s3://trainbucket/train.csv).\n\n" +
-                "    s3Uri - The Amazon S3 path where you want Amazon SageMaker to store checkpoints (for example, s3://trainbucket).\n\n" +
-                "    trainingJobName - The name of the training job. \n\n" +
-                "    roleArn - The Amazon Resource Name (ARN) of the IAM role that SageMaker uses.\n\n" +
-                "    s3OutputPath - The output path located in an Amazon S3 bucket (for example, s3://trainbucket/sagemaker).\n\n" +
-                "    channelName - The channel name (for example, s3://trainbucket/sagemaker).\n\n" +
-                "    trainingImage - The training image (for example, 000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.\n\n";
+            "Usage:\n" +
+            "    <s3UriData> <s3Uri> <trainingJobName> <roleArn> <s3OutputPath> <channelName> <trainingImage>\n\n" +
+            "Where:\n" +
+            "    s3UriData - The location of the training data (for example, s3://trainbucket/train.csv).\n\n" +
+            "    s3Uri - The Amazon S3 path where you want Amazon SageMaker to store checkpoints (for example, s3://trainbucket).\n\n" +
+            "    trainingJobName - The name of the training job. \n\n" +
+            "    roleArn - The Amazon Resource Name (ARN) of the IAM role that SageMaker uses.\n\n" +
+            "    s3OutputPath - The output path located in an Amazon S3 bucket (for example, s3://trainbucket/sagemaker).\n\n" +
+            "    channelName - The channel name (for example, s3://trainbucket/sagemaker).\n\n" +
+            "    trainingImage - The training image (for example, 000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.\n\n";
 
         if (args.length != 7) {
             System.out.println(usage);
@@ -76,9 +73,9 @@ public class CreateTrainingJob {
 
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         trainJob(sageMakerClient, s3UriData, s3Uri, trainingJobName, roleArn, s3OutputPath, channelName, trainingImage);
         sageMakerClient.close();
@@ -96,47 +93,47 @@ public class CreateTrainingJob {
 
         try {
             S3DataSource s3DataSource = S3DataSource.builder()
-                    .s3Uri(s3UriData)
-                    .s3DataType("S3Prefix")
-                    .s3DataDistributionType("FullyReplicated")
-                    .build();
+                .s3Uri(s3UriData)
+                .s3DataType("S3Prefix")
+                .s3DataDistributionType("FullyReplicated")
+                .build();
 
             DataSource dataSource = DataSource.builder()
-                    .s3DataSource(s3DataSource)
-                    .build();
+                .s3DataSource(s3DataSource)
+                .build();
 
             Channel channel = Channel.builder()
-                    .channelName(channelName)
-                    .contentType("csv")
-                    .dataSource(dataSource)
-                    .build();
+                .channelName(channelName)
+                .contentType("csv")
+                .dataSource(dataSource)
+                .build();
 
             // Build a list of channels
             List<Channel> myChannel = new ArrayList<>();
             myChannel.add(channel);
 
             ResourceConfig resourceConfig = ResourceConfig.builder()
-                    .instanceType(TrainingInstanceType.ML_M5_2_XLARGE) // ml.c5.2xlarge
-                     .instanceCount(10)
-                    .volumeSizeInGB(1)
-                    .build();
+                .instanceType(TrainingInstanceType.ML_M5_2_XLARGE) // ml.c5.2xlarge
+                .instanceCount(10)
+                .volumeSizeInGB(1)
+                .build();
 
             CheckpointConfig checkpointConfig = CheckpointConfig.builder()
-                    .s3Uri(s3Uri)
-                    .build();
+                .s3Uri(s3Uri)
+                .build();
 
             OutputDataConfig outputDataConfig = OutputDataConfig.builder()
-                    .s3OutputPath(s3OutputPath)
-                    .build();
+                .s3OutputPath(s3OutputPath)
+                .build();
 
             StoppingCondition stoppingCondition = StoppingCondition.builder()
-                    .maxRuntimeInSeconds(1200)
-                    .build();
+                .maxRuntimeInSeconds(1200)
+                .build();
 
             AlgorithmSpecification algorithmSpecification = AlgorithmSpecification.builder()
-                   .trainingImage(trainingImage)
-                    .trainingInputMode(TrainingInputMode.FILE)
-                    .build();
+                .trainingImage(trainingImage)
+                .trainingInputMode(TrainingInputMode.FILE)
+                .build();
 
             // Set hyper parameters.
             Map<String,String> hyperParameters = new HashMap<>();
@@ -150,16 +147,16 @@ public class CreateTrainingJob {
             hyperParameters.put("subsample", "0.8");
 
             CreateTrainingJobRequest trainingJobRequest = CreateTrainingJobRequest.builder()
-                    .trainingJobName(trainingJobName)
-                    .algorithmSpecification(algorithmSpecification)
-                    .roleArn(roleArn)
-                    .resourceConfig(resourceConfig)
-                    .checkpointConfig(checkpointConfig)
-                    .inputDataConfig(myChannel)
-                    .outputDataConfig(outputDataConfig)
-                    .stoppingCondition(stoppingCondition)
-                    .hyperParameters(hyperParameters)
-                    .build();
+                .trainingJobName(trainingJobName)
+                .algorithmSpecification(algorithmSpecification)
+                .roleArn(roleArn)
+                .resourceConfig(resourceConfig)
+                .checkpointConfig(checkpointConfig)
+                .inputDataConfig(myChannel)
+                .outputDataConfig(outputDataConfig)
+                .stoppingCondition(stoppingCondition)
+                .hyperParameters(hyperParameters)
+                .build();
 
            CreateTrainingJobResponse jobResponse = sageMakerClient.createTrainingJob(trainingJobRequest);
            System.out.println("The Amazon Resource Name (ARN) of the training job is "+ jobResponse.trainingJobArn());

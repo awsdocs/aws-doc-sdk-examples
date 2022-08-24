@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[DownloadUserDoc.java demonstrates how to download a document from Amazon WorkDocs.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -28,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;

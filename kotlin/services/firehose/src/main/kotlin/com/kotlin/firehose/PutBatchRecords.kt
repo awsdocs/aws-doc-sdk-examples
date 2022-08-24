@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[PutBatchRecords.kt demonstrates how to write multiple data records into a delivery stream and check each record using the response object.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[PutBatchRecords.kt demonstrates how to write multiple data records into a delivery stream and check each record using the response object.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Kinesis Data Firehose]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,26 +19,26 @@ import kotlin.system.exitProcess
 // snippet-end:[firehose.kotlin.put_batch_records.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
             <streamName> 
         Where:
-            streamName - the data stream name. 
+            streamName - The data stream name. 
     """
 
-     if (args.size != 1) {
-         println(usage)
-         exitProcess(0)
-     }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val streamName = args[0]
     addStockTradeData(streamName)
@@ -63,7 +59,7 @@ suspend fun addStockTradeData(streamName: String?) {
             val trade = stockTradeGenerator.randomTrade
             val bytes = trade.toJsonAsBytes()
             val myRecord = Record {
-                 data = bytes
+                data = bytes
             }
 
             println("Adding trade: $trade")
@@ -71,15 +67,14 @@ suspend fun addStockTradeData(streamName: String?) {
             delay(100)
         }
         val request = PutRecordBatchRequest {
-             deliveryStreamName = streamName
-             records = recordList
+            deliveryStreamName = streamName
+            records = recordList
         }
 
-       FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
-        val recordResponse = firehoseClient.putRecordBatch(request)
-        println("The number of records added is ${recordResponse.requestResponses?.size}")
-
-       }
+        FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+            val recordResponse = firehoseClient.putRecordBatch(request)
+            println("The number of records added is ${recordResponse.requestResponses?.size}")
+        }
     } catch (e: InterruptedException) {
         println(e.localizedMessage)
         exitProcess(0)

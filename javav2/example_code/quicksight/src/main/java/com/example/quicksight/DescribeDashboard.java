@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeAnalysis.java demonstrates how to obtain information about a dashboard.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,23 +30,23 @@ public class DescribeDashboard {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <account> <dashboardId>\n\n" +
-                "Where:\n" +
-                "  account - The ID of the AWS account.\n\n"+
-                "  dashboardId - The ID of the Amazon QuickSight Dashboard to describe.\n\n";
+            "Usage: " +
+            "   <account> <dashboardId>\n\n" +
+            "Where:\n" +
+            "  account - The ID of the AWS account.\n\n"+
+            "  dashboardId - The ID of the Amazon QuickSight Dashboard to describe.\n\n";
 
-         if (args.length != 2) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String account = args[0];
         String dashboardId = args[1];
         QuickSightClient qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeSpecificDashboard(qsClient, account, dashboardId);
         qsClient.close();
@@ -60,9 +57,9 @@ public class DescribeDashboard {
 
         try {
             DescribeDashboardRequest analysesRequest = DescribeDashboardRequest.builder()
-                    .awsAccountId(account)
-                    .dashboardId(dashboardId)
-                    .build();
+                .awsAccountId(account)
+                .dashboardId(dashboardId)
+                .build();
 
             DescribeDashboardResponse res = qsClient.describeDashboard(analysesRequest);
             System.out.println("The display name is " + res.dashboard().name());

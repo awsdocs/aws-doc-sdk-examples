@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListTopics.java demonstrates how to get a list of existing Amazon Simple Notification Service (Amazon SNS) topics.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,9 +29,9 @@ public class ListTopics {
     public static void main(String[] args) {
 
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listSNSTopics(snsClient);
         snsClient.close();

@@ -1,10 +1,7 @@
 // snippet-sourcedescription:[ListCreatedArtifacts.java demonstrates how to List the created artifacts attached to a given migration task.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS Migration Hub]
 // snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09-27-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,9 +35,9 @@ public class ListCreatedArtifacts {
 
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listArtifacts(migrationClient);
         migrationClient.close();
@@ -51,10 +48,10 @@ public class ListCreatedArtifacts {
 
         try {
             ListCreatedArtifactsRequest listCreatedArtifactsRequest = ListCreatedArtifactsRequest.builder()
-                    .maxResults(10)
-                    .migrationTaskName("SampleApp5")
-                    .progressUpdateStream("ProgressSteamB")
-                    .build();
+                .maxResults(10)
+                .migrationTaskName("SampleApp5")
+                .progressUpdateStream("ProgressSteamB")
+                .build();
 
             ListCreatedArtifactsResponse response = migrationClient.listCreatedArtifacts(listCreatedArtifactsRequest);
             List<CreatedArtifact> apps = response.createdArtifactList();
@@ -63,10 +60,10 @@ public class ListCreatedArtifacts {
                 System.out.println("The name is " + artifact.name());
             }
 
-    } catch(MigrationHubException e) {
-        System.out.println(e.getMessage());
-        System.exit(1);
+        } catch(MigrationHubException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
     }
-  }
     // snippet-end:[migration.java2.list_artifacts.main]
  }

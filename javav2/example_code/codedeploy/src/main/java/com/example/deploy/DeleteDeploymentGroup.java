@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteDeploymentGroup.java demonstrates how to delete a deployment group.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
+//snippet-keyword:[AWS CodeDeploy]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,11 +29,11 @@ public class DeleteDeploymentGroup {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <appName> <deploymentGroupName>\n\n" +
-                "Where:\n" +
-                "    appName - The name of the application. \n"+
-                "    deploymentGroupName - The name of the deployment group. \n";
+            "Usage:\n" +
+            "    <appName> <deploymentGroupName>\n\n" +
+            "Where:\n" +
+            "    appName - The name of the application. \n"+
+            "    deploymentGroupName - The name of the deployment group. \n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,12 +42,11 @@ public class DeleteDeploymentGroup {
 
         String appName = args[0];
         String deploymentGroupName = args[1];
-
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         delDeploymentGroup(deployClient, appName, deploymentGroupName);
         deployClient.close();
@@ -61,7 +57,7 @@ public class DeleteDeploymentGroup {
                                           String appName,
                                           String deploymentGroupName) {
 
-       try {
+        try {
             DeleteDeploymentGroupRequest deleteDeploymentGroupRequest = DeleteDeploymentGroupRequest.builder()
                 .deploymentGroupName(appName)
                 .applicationName(deploymentGroupName)

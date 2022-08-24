@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DeleteTopic.java demonstrates how to delete an Amazon Simple Notification Service (Amazon SNS) topic.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,10 +28,10 @@ public class DeleteTopic {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "    <topicArn>\n\n" +
-                "Where:\n" +
-                "   topicArn - The ARN of the topic to delete.\n\n";
+            "Usage: " +
+            "    <topicArn>\n\n" +
+            "Where:\n" +
+            "   topicArn - The ARN of the topic to delete.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +40,10 @@ public class DeleteTopic {
 
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
+
         System.out.println("Deleting a topic with name: " + topicArn);
         deleteSNSTopic(snsClient, topicArn);
         snsClient.close();

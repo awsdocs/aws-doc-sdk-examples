@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[UpdateItem.java demonstrates how to update a value located in an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -39,16 +37,16 @@ public class UpdateItem {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <tableName> <key> <keyVal> <name> <updateVal>\n\n" +
-                "Where:\n" +
-                "    tableName - The Amazon DynamoDB table (for example, Music3).\n" +
-                "    key - The name of the key in the table (for example, Artist).\n" +
-                "    keyVal - The value of the key (for example, Famous Band).\n" +
-                "    name - The name of the column where the value is updated (for example, Awards).\n" +
-                "    updateVal - The value used to update an item (for example, 14).\n" +
-                " Example:\n" +
-                "    UpdateItem Music3 Artist Famous Band Awards 14\n";
+            "Usage:\n" +
+            "    <tableName> <key> <keyVal> <name> <updateVal>\n\n" +
+            "Where:\n" +
+            "    tableName - The Amazon DynamoDB table (for example, Music3).\n" +
+            "    key - The name of the key in the table (for example, Artist).\n" +
+            "    keyVal - The value of the key (for example, Famous Band).\n" +
+            "    name - The name of the column where the value is updated (for example, Awards).\n" +
+            "    updateVal - The value used to update an item (for example, 14).\n" +
+            " Example:\n" +
+            "    UpdateItem Music3 Artist Famous Band Awards 14\n";
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -64,13 +62,14 @@ public class UpdateItem {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         updateTableItem(ddb, tableName,key, keyVal, name, updateVal);
         ddb.close();
     }
+
     // snippet-start:[dynamodb.java2.update_item.main]
     public static void updateTableItem(DynamoDbClient ddb,
                                        String tableName,
@@ -80,20 +79,21 @@ public class UpdateItem {
                                        String updateVal){
 
         HashMap<String,AttributeValue> itemKey = new HashMap<>();
-        itemKey.put(key, AttributeValue.builder().s(keyVal).build());
+        itemKey.put(key, AttributeValue.builder()
+            .s(keyVal)
+            .build());
+
         HashMap<String,AttributeValueUpdate> updatedValues = new HashMap<>();
-
-
         updatedValues.put(name, AttributeValueUpdate.builder()
-                .value(AttributeValue.builder().s(updateVal).build())
-                .action(AttributeAction.PUT)
-                .build());
+            .value(AttributeValue.builder().s(updateVal).build())
+            .action(AttributeAction.PUT)
+            .build());
 
         UpdateItemRequest request = UpdateItemRequest.builder()
-                .tableName(tableName)
-                .key(itemKey)
-                .attributeUpdates(updatedValues)
-                .build();
+            .tableName(tableName)
+            .key(itemKey)
+            .attributeUpdates(updatedValues)
+            .build();
 
         try {
             ddb.updateItem(request);

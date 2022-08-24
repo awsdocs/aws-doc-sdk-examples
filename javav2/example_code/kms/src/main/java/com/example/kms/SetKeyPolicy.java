@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SetKeyPolicy.java demonstrates how to set an AWS Key Management Service (AWS KMS) key policy.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,11 +29,11 @@ public class SetKeyPolicy {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <keyId> <policyName> \n\n" +
-                "Where:\n" +
-                "    keyId - A unique identifier for the customer master key (CMK) (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
-                "    policyName - The name of the key policy. \n\n" ;
+            "Usage:\n" +
+            "    <keyId> <policyName> \n\n" +
+            "Where:\n" +
+            "    keyId - A unique identifier for the customer master key (CMK) (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
+            "    policyName - The name of the key policy. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class SetKeyPolicy {
         String policyName = args[1];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createPolicy(kmsClient, keyId, policyName );
         kmsClient.close();
@@ -58,15 +55,15 @@ public class SetKeyPolicy {
     // snippet-start:[kms.java2_set_policy.main]
     public static void createPolicy(KmsClient kmsClient, String keyId, String policyName) {
         String policy = "{" +
-                "  \"Version\": \"2012-10-17\"," +
-                "  \"Statement\": [{" +
-                "    \"Effect\": \"Allow\"," +
-                // Replace the following user ARN with one for a real user.
-                "    \"Principal\": {\"AWS\": \"arn:aws:iam::814548047983:root\"}," +
-                "    \"Action\": \"kms:*\"," +
-                "    \"Resource\": \"*\"" +
-                "  }]" +
-                "}";
+            "  \"Version\": \"2012-10-17\"," +
+            "  \"Statement\": [{" +
+            "    \"Effect\": \"Allow\"," +
+            // Replace the following user ARN with one for a real user.
+            "    \"Principal\": {\"AWS\": \"arn:aws:iam::814548047983:root\"}," +
+            "    \"Action\": \"kms:*\"," +
+            "    \"Resource\": \"*\"" +
+            "  }]" +
+            "}";
         try {
 
             PutKeyPolicyRequest keyPolicyRequest = PutKeyPolicyRequest.builder()

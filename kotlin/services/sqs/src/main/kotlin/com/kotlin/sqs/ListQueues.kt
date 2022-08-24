@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[ListQueues.kt demonstrates how to list Amazon Simple Queue Service (Amazon SQS) queues.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[ListQueues.kt demonstrates how to list Amazon Simple Queue Service (Amazon SQS) queues.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Simple Queue Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -18,6 +14,13 @@ import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.ListQueuesRequest
 // snippet-end:[sqs.kotlin.list_queues.import]
 
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
 suspend fun main() {
     listQueues()
 }
@@ -32,9 +35,9 @@ suspend fun listQueues() {
     }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
-      val response = sqsClient.listQueues(listQueuesRequest)
+        val response = sqsClient.listQueues(listQueuesRequest)
         response.queueUrls?.forEach { url ->
-             println(url)
+            println(url)
         }
     }
 }
