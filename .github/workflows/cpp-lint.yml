@@ -23,4 +23,4 @@ jobs:
         uses: ./.github/cpp-linter
         with:
           config_file: ./.github/cpp-linter/clang-tidy-config.txt
-          token: Test_token
+          token: ${{ secrets.GITHUB_TOKEN }}
