@@ -30,10 +30,7 @@ async fn show_cores(client: &Client) -> Result<(), Error> {
             "  Name:  {}",
             core.core_device_thing_name().unwrap_or_default()
         );
-        println!(
-            "  Status:  {:?}",
-            core.status().unwrap()
-        );
+        println!("  Status:  {:?}", core.status().unwrap());
         println!(
             "  Last update:  {:?}",
             core.last_status_update_timestamp().unwrap()
