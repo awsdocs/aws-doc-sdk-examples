@@ -1,6 +1,6 @@
 # aws-doc-sdk-examples Pull Request
 
-Thank you for making a submission to the *aws-doc-sdk-examples* repository. For more information about submitting pull requests to this repository, see [Guidelines for contributing](/CONTRIBUTING.md).
+Thank you for making a submission to the *aws-doc-sdk-examples* repository. For more information about submitting pull requests to this repository, see [Guidelines for contributing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md).
 
 *NOTE:* This PR template contains three sections. Depending on the reason for your pull request, please fill out the section that applies to you and then remove the other two sections.
 
