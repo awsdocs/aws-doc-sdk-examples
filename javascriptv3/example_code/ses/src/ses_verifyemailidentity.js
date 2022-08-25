@@ -8,34 +8,30 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-m
 Purpose:
 ses_verifyemailidentity.js demonstrates how to send an Amazon SES verification email.
 
-Inputs (replace in code):
-- ADDRESS@DOMAIN.EXT
-
 Running the code:
 node ses_verifyemailidentity.js
 
  */
 // snippet-start:[ses.JavaScript.identities.verifyEmailIdentityV3]
 // Import required AWS SDK clients and commands for Node.js
-import {
-    VerifyEmailIdentityCommand
-}  from "@aws-sdk/client-ses";
+import { VerifyEmailIdentityCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
 
-// Set the parameters
-const params = { EmailAddress: "ADDRESS@DOMAIN.EXT" }; //ADDRESS@DOMAIN.EXT; e.g., name@example.com
+const EMAIL_ADDRESS = "name@example.com";
 
+const createVerifyEmailIdentityCommand = (emailAddress) => {
+  return new VerifyEmailIdentityCommand({ EmailAddress: emailAddress });
+};
 
 const run = async () => {
+  const verifyEmailIdentityCommand =
+    createVerifyEmailIdentityCommand(EMAIL_ADDRESS);
   try {
-    const data = await sesClient.send(new VerifyEmailIdentityCommand(params));
-    console.log("Success.", data);
-    return data; // For unit tests.
+    return await sesClient.send(verifyEmailIdentityCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to verify email identity.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.identities.verifyEmailIdentityV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run, EMAIL_ADDRESS };
