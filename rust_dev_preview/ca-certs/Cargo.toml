@@ -12,5 +12,5 @@ aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = 
 # bringing our own HTTPs so no need for the default features
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false }
 tokio = { version = "1.20.1", features = ["full"] }
-rustls = "0.20.2"
+rustls = "0.20.6"
 hyper-rustls = { version = "0.23.0", features = ["http2"] }
