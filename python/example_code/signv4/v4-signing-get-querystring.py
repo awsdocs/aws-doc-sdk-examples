@@ -1,19 +1,17 @@
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-#
-# ABOUT THIS PYTHON SAMPLE: This sample is part of the AWS General Reference 
-# Signing AWS API Requests top available at
-# https://docs.aws.amazon.com/general/latest/gr/sigv4-signed-request-examples.html
-#
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+"""
+Important
+
+The AWS SDKs sign API requests for you using the access key that you specify when you
+configure the SDK. When you use an SDK, you don’t need to learn how to sign API requests.
+We recommend that you use the AWS SDKs to send API requests, instead of writing your own code.
+
+The following example is a reference to help you get started if you have a need to write
+your own code to send and sign requests. The example is for reference only and is not
+maintained as functional code.
+"""
 
 # AWS Version 4 signing example
 
@@ -133,17 +131,3 @@ r = requests.get(request_url)
 print('\nRESPONSE++++++++++++++++++++++++++++++++++++')
 print('Response code: %d\n' % r.status_code)
 print(r.text)
- 
-
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[v4-signing-get-querystring.py shows how to make a request using the IAM query API. The request makes a GET request and passes parameters and signing information using the query string.]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[Amazon IAM]
-# snippet-service:[AWS Signature Version 4 Signing Process]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-09-20]
-# snippet-sourceauthor:[AWS]
-
