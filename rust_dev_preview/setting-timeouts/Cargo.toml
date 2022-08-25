@@ -13,5 +13,5 @@ aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = 
   "rustls",
 ] }
 aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1.20.1", features = ["full"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

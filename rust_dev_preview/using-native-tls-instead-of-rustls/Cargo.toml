@@ -21,5 +21,5 @@ aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main",
 aws-sdk-sts = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false, features = [
   "native-tls",
 ] }
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1.20.1", features = ["full"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

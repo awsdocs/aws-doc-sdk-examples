@@ -11,7 +11,7 @@ aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" 
 aws-sdk-polly = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-transcribe = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1.20.1", features = ["full"] }
 async-stream = "0.3"
 bytes = "1"
 http = "0.1.1"

@@ -10,6 +10,6 @@ edition = "2021"
 aws-config = "0.6.0"
 aws-sdk-iotsitewise = "0.6.0"
 aws-smithy-types-convert = { version = "0.36.0", features = ["convert-chrono"] }
-tokio = { version = "1", features = ["full"] } 
+tokio = { version = "1.20.1", features = ["full"] } 
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
