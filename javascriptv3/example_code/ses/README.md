@@ -1,6 +1,8 @@
-# Amazon SES code examples for the SDK for JavaScript in Node.js
+# Amazon SES code examples for the AWS SDK for JavaScript in Node.js
 
 ## Overview
+Shows how to use the SDK for JavaScript in Node.js with Amazon Simple Email Service (Amazon SES) to send emails and manage
+identities, filters, rules, and templates.
 
 Amazon Simple Email Service (Amazon SES) is a reliable, scalable, and cost-effective email service. Digital marketers and application developers can use Amazon SES to send marketing, notification, and transactional emails.
 
