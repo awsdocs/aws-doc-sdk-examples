@@ -8,29 +8,28 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-c
 Purpose:
 ses_deletetemplate.js demonstrates how to delete an Amazon SES email template.
 
-Inputs (replace in code):
-- TEMPLATE_NAME
-
 Running the code:
-node ses_deletetemplate.st
+node ses_deletetemplate.js
 */
 // snippet-start:[ses.JavaScript.templates.deleteTemplateV3]
-// Import required AWS SDK clients and commands for Node.js
-import { DeleteTemplateCommand }  from "@aws-sdk/client-ses";
+import { DeleteTemplateCommand } from "@aws-sdk/client-ses";
+import { getUniqueName } from "../../libs/index.js";
 import { sesClient } from "./libs/sesClient.js";
-// Set the parameters
-const params = { TemplateName: "TEMPLATE_NAME" };
+
+const TEMPLATE_NAME = getUniqueName("TemplateName");
+
+const createDeleteTemplateCommand = (templateName) =>
+  new DeleteTemplateCommand({ TemplateName: templateName });
 
 const run = async () => {
+  const deleteTemplateCommand = new createDeleteTemplateCommand(TEMPLATE_NAME);
+
   try {
-    const data = await sesClient.send(new DeleteTemplateCommand(params));
-    console.log("Success.", data);
-    return data; // For unit tests.
+    return await sesClient.send(deleteTemplateCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to delete template.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.templates.deleteTemplateV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run, TEMPLATE_NAME };
