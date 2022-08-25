@@ -1,12 +1,22 @@
-const { run, params } = require("../../ses/src/ses_deletetemplate");
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
+import { getUniqueName } from "../../libs/index";
+import { createTemplate, deleteTemplate } from "../../ses/src/libs/sesUtils";
+import { run } from "../../ses/src/ses_listtemplates";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_listemplates", () => {
+  const TEMPLATE_NAME = getUniqueName("TemplateName");
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+  beforeAll(async () => {
+    await createTemplate(TEMPLATE_NAME);
+  });
+
+  afterAll(async () => {
+    await deleteTemplate(TEMPLATE_NAME);
+  });
+
+  it("should successfully list templates", async () => {
+    const result = await run();
+    expect(result.TemplatesMetadata).toContainEqual(
+      expect.objectContaining({ Name: TEMPLATE_NAME })
+    );
   });
 });

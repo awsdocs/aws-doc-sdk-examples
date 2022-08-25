@@ -9,48 +9,57 @@ Purpose:
 ses_sendtemplatedemail.js demonstrates how to compose an Amazon SES templated email and
 queue it for sending.
 
-Inputs (replace in code):
-- RECEIVER_ADDRESS
-- SENDER_ADDRESS
-- TEMPLATE_NAME
-
 Running the code:
 node ses_sendtemplatedemail.js
  */
 // snippet-start:[ses.JavaScript.email.sendTemplatedEmailV3]
-
-// Import required AWS SDK clients and commands for Node.js
-import { SendTemplatedEmailCommand }  from "@aws-sdk/client-ses";
+import { SendTemplatedEmailCommand } from "@aws-sdk/client-ses";
+import { getUniqueName, postfix } from "../../libs/index";
 import { sesClient } from "./libs/sesClient.js";
 
-// Set the parameters
-const params = {
-  Destination: {
-    /* required */
-    CcAddresses: [
-      /* more CC email addresses */
-    ],
-    ToAddresses: [
-      "RECEIVER_ADDRESS", // RECEIVER_ADDRESS
-      /* more To-email addresses */
-    ],
-  },
-  Source: "SENDER_ADDRESS", //SENDER_ADDRESS
-  Template: "TEMPLATE_NAME", // TEMPLATE_NAME
-  TemplateData: '{ "REPLACEMENT_TAG_NAME":"REPLACEMENT_VALUE" }' /* required */,
-  ReplyToAddresses: [],
+/**
+ * Replace this with the name of an existing template.
+ */
+const TEMPLATE_NAME = getUniqueName("ReminderTemplate");
+
+/**
+ * Replace these with existing verified emails.
+ */
+const VERIFIED_EMAIL = postfix(getUniqueName("Bilbo"), "@example.com");
+
+const USER = { firstName: "Bilbo", emailAddress: VERIFIED_EMAIL };
+
+/**
+ *
+ * @param { { emailAddress: string, firstName: string } } user
+ * @param { string } templateName the name of an existing template in SES
+ * @returns { SendTemplatedEmailCommand }
+ */
+const createReminderEmailCommand = (user, templateName) => {
+  return new SendTemplatedEmailCommand({
+    /**
+     * Here's an example of how a template would be replaced with user data:
+     * Template: <h1>Hello {{name}},</h1><p>Don't forget about the party gifts!</p>
+     * Destination: <h1>Hello Bilbo,</h1><p>Don't forget about the party gifts!</p>
+     */
+    Destination: { ToAddresses: [user.emailAddress] },
+    TemplateData: JSON.stringify({ name: user.firstName }),
+    Source: VERIFIED_EMAIL,
+    Template: templateName,
+  });
 };
 
 const run = async () => {
+  const sendReminderEmailCommand = createReminderEmailCommand(
+    USER,
+    TEMPLATE_NAME
+  );
   try {
-    const data = await sesClient.send(new SendTemplatedEmailCommand(params));
-    console.log("Success.", data);
-    return data; // For unit tests.
+    return await sesClient.send(sendReminderEmailCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to send template email", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.email.sendTemplatedEmailV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run, TEMPLATE_NAME, USER };

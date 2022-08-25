@@ -8,40 +8,50 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-i
 Purpose:
 ses_createreceiptfilter.js demonstrates how to create an Amazon SES IP address filter.
 
-Inputs (replace in code):
-- IP_ADDRESS_OR_RANGE
-- POLICY
-- NAME
-
 Running the code:
 node ses_createreceiptfilter.js
  */
 
 // snippet-start:[ses.JavaScript.filters.createReceiptFilterV3]
-// Import required AWS SDK clients and commands for Node.js
-import { CreateReceiptFilterCommand } from "@aws-sdk/client-ses";
+import {
+  CreateReceiptFilterCommand,
+  ReceiptFilterPolicy,
+} from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-// Set the parameters
-const params = {
-  Filter: {
-    IpFilter: {
-      Cidr: "IP_ADDRESS_OR_RANGE", // (in code; either a single IP address (10.0.0.1) or an IP address range in CIDR notation (10.0.0.1/24)),
-      Policy: "POLICY", // 'ALLOW' or 'BLOCK' email traffic from the filtered addressesOptions.
+import { getUniqueName } from "../../libs/index";
+
+const createCreateReceiptFilterCommand = ({ policy, ipOrRange, name }) => {
+  return new CreateReceiptFilterCommand({
+    Filter: {
+      IpFilter: {
+        Cidr: ipOrRange, // string, either a single IP address (10.0.0.1) or an IP address range in CIDR notation (10.0.0.1/24)),
+        Policy: policy, // enum ReceiptFilterPolicy, email traffic from the filtered addressesOptions.
+      },
+      /*
+        The name of the IP address filter. Only ASCII letters, number, underscores, or dashes,
+        < 64 chars, must start and end with a letter or number
+       */
+      Name: name,
     },
-    Name: "NAME" // NAME (the filter name)
-  },
+  });
 };
 
+const FILTER_NAME = getUniqueName("ReceiptFilter");
+
 const run = async () => {
+  const createReceiptFilterCommand = createCreateReceiptFilterCommand({
+    policy: ReceiptFilterPolicy.Allow,
+    ipOrRange: "10.0.0.1",
+    name: FILTER_NAME,
+  });
+
   try {
-    const data = await sesClient.send(new CreateReceiptFilterCommand(params));
-    console.log("Success", data);
-    return data; // For unit tests.
+    return await sesClient.send(createReceiptFilterCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to create filter.", err);
+    return err;
   }
 };
-run();
+
 // snippet-end:[ses.JavaScript.filters.createReceiptFilterV3]
-// For unit tests only.
-// module.exports = { run, params };
+export { run, FILTER_NAME };

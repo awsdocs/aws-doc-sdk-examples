@@ -2,40 +2,36 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' atic
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-receipt-rules.html.
 
 Purpose:
 ses_deletereceiptrule.js demonstrates how to delete an Amazon SES receipt rule.
-
-Inputs (replace in code):
-- RULE_NAME
-- RULE_SET_NAME
 
 Running the code:
 node ses_deletereceiptrule.js
  */
 
 // snippet-start:[ses.JavaScript.rules.deleteReceiptRuleV3]
-// Import required AWS SDK clients and commands for Node.js
 import { DeleteReceiptRuleCommand }  from "@aws-sdk/client-ses";
+import { getUniqueName } from '../../libs/index';
 import { sesClient } from "./libs/sesClient.js";
-// Set the deleteReceiptRule params
-var params = {
-  RuleName: "RULE_NAME", // RULE_NAME
-  RuleSetName: "RULE_SET_NAME", // RULE_SET_NAME
-};
+
+const RULE_NAME = getUniqueName('RuleName');
+const RULE_SET_NAME = getUniqueName('RuleSetName');
+
+const createDeleteReceiptRuleCommand = () => {
+  return new DeleteReceiptRuleCommand({ RuleName: RULE_NAME, RuleSetName: RULE_SET_NAME });
+}
 
 const run = async () => {
+  const deleteReceiptRuleCommand = createDeleteReceiptRuleCommand();
   try {
-    const data = await sesClient.send(new DeleteReceiptRuleCommand(params));
-    console.log("Success.", data);
-    return data; // For unit tests.
+    return await sesClient.send(deleteReceiptRuleCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to delete receipt rule.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.rules.deleteReceiptRuleV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run, RULE_NAME, RULE_SET_NAME }

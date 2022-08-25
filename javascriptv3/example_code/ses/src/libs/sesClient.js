@@ -7,15 +7,12 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples.h
 Purpose:
 sesClient.js is a helper function that creates an Amazon Simple Email Services (Amazon SES) service client.
 
-Inputs (replace in code):
-- REGION
-
 */
 // snippet-start:[ses.JavaScript.createclientv3]
-import  { SESClient }  from  "@aws-sdk/client-ses";
+import { SESClient } from "@aws-sdk/client-ses";
 // Set the AWS Region.
-const REGION = "REGION"; //e.g. "us-east-1"
+const REGION = "us-east-1";
 // Create SES service object.
 const sesClient = new SESClient({ region: REGION });
-export  { sesClient };
+export { sesClient };
 // snippet-end:[ses.JavaScript.createclientv3]
