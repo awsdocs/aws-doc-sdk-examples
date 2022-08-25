@@ -4,26 +4,10 @@ version = "0.1.0"
 authors = ["Aaron Tsui <aaron.tsui@outlook.com>"]
 edition = "2018"
 
-[dependencies.aws-config]
-path = "../../sdk/aws-config"
-version = "0.11.0"
-
-[dependencies.aws-sdk-greengrassv2]
-path = "../../sdk/greengrassv2"
-version = "0.11.0"
-
-[dependencies.aws-types]
-path = "../../sdk/aws-types"
-version = "0.11.0"
-
-[dependencies.tokio]
-version = "1"
-features = ["full"]
-
-[dependencies.structopt]
-version = "0.3"
-default-features = false
-
-[dependencies.tracing-subscriber]
-version = "0.3.5"
-features = ["env-filter"]
+[dependencies]
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-greengrassv2 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+tokio = { version = "1", features = ["full"] }
+structopt = { version = "0.3", default-features = false }
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
