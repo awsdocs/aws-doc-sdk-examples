@@ -9,29 +9,23 @@ Thank you for making a submission to the *aws-doc-sdk-examples* repository. For 
 The submitter has:
 
 - [ ] Added the default copyright notice to all files.
-- [ ] Created unit tests for all paths through the code and they all pass.
+- [ ] Created unit tests for all paths through the code, and confirmed that the all the tests pass.
 - [ ] Run a linter against all code and implemented the resulting suggestions.
 - [ ] Added minimum usage documentation as comments in the code.
-- [ ] Had comments and strings reviewed and incorporated suggested changes.
-- [ ] Had the code reviewed and implemented the reviewer's suggested changes.
 
 ## Existing Example Update
 
+Please describe the changes you have made here.
+
 The submitter has:
 
-- [ ] Confirmed that the correct copyright is included in all files.
-- [ ] Major code changes have been reviewed, and the submitter has incorporated review comments.
-- [ ] Changed or added comments and strings have been reviewed, and the submitter has incorporated any and all suggested edits.
+- [ ] Tested the changed code.
+- [ ] Run a linter against the changed code and implemented the resulting suggestions.
 
 ## Resolve Issue
 
 Issue #
 
-### Description of Changes
-
-Please describe the changes you have made here.
-
-- [ ] I have tested my changes and created unit tests for new code paths.
-- [ ] Changes have been reviewed, and all reviewer comments have been incorporated.
+## License Adherence Confirmation
 
 _By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license._
