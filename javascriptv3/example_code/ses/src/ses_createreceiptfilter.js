@@ -24,12 +24,12 @@ const createCreateReceiptFilterCommand = ({ policy, ipOrRange, name }) => {
   return new CreateReceiptFilterCommand({
     Filter: {
       IpFilter: {
-        Cidr: ipOrRange, // string, either a single IP address (10.0.0.1) or an IP address range in CIDR notation (10.0.0.1/24)),
+        Cidr: ipOrRange, // string, either a single IP address (10.0.0.1) or an IP address range in CIDR notation (10.0.0.1/24)).
         Policy: policy, // enum ReceiptFilterPolicy, email traffic from the filtered addressesOptions.
       },
       /*
-        The name of the IP address filter. Only ASCII letters, number, underscores, or dashes,
-        < 64 chars, must start and end with a letter or number
+        The name of the IP address filter. Only ASCII letters, numbers, underscores, or dashes.
+        Must be less than 64 characters and start and end with a letter or number.
        */
       Name: name,
     },

@@ -2,7 +2,7 @@
 
 ## Overview
 
-_Amazon Simple Email Service (Amazon SES) is a reliable, scalable, and cost-effective email service. Digital marketers and application developers can use Amazon SES to send marketing, notification, and transactional emails._
+Amazon Simple Email Service (Amazon SES) is a reliable, scalable, and cost-effective email service. Digital marketers and application developers can use Amazon SES to send marketing, notification, and transactional emails.
 
 ## ⚠️ Important
 
@@ -37,18 +37,6 @@ Code excerpts that show you how to call individual service functions.
 - [Verify a domain identity](./src/ses_verifydomainidentity.js) (`VerifyDomainIdentity`)
 - [Verify an email identity](./src/ses_verifyemailidentity.js) (`VerifyEmailIdentity`)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
-
-- Coming soon.
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- Coming soon.
-
 ## Run the examples
 
 1. `npm i`
@@ -67,8 +55,8 @@ Sample applications that work across multiple AWS services.
 
 ## Additional resources
 
-- [SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
-- [SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
-- [SES Client - AWS SDK for JavaScript v3](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/index.html)
+- [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
+- [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
+- [Amazon SES Client - AWS SDK for JavaScript (v3)](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

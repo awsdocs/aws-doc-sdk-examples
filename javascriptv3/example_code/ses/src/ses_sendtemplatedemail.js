@@ -32,7 +32,7 @@ const USER = { firstName: "Bilbo", emailAddress: VERIFIED_EMAIL };
 /**
  *
  * @param { { emailAddress: string, firstName: string } } user
- * @param { string } templateName the name of an existing template in SES
+ * @param { string } templateName - The name of an existing template in Amazon SES.
  * @returns { SendTemplatedEmailCommand }
  */
 const createReminderEmailCommand = (user, templateName) => {
