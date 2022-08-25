@@ -25,13 +25,12 @@ body:
         I know this is done when:
           - <ACCEPTANCE CRITERIA #1>
           - ...
-      render: bash
     validations:
       required: true
   - type: input
     id: context
     attributes:
-      label: Epic link
+      label: Epic link (recommended)
       description: Provide the hyperlink of the overarching epic.
     validations:
-      required: true
+      required: false

@@ -905,7 +905,8 @@ dynamodb_ListTables:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.python.codeexample.MoviesListTables
+                - python.example_code.dynamodb.helper.Movies.class_decl
+                - python.example_code.dynamodb.ListTables
     Rust:
       versions:
         - sdk_version: 1
