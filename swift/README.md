@@ -11,7 +11,7 @@ The AWS SDK for Swift provides a Swift API for AWS infrastructure services. Usin
 
 * **Cross-service examples** - Sample applications that work across multiple AWS services.
 
-### Finding code examples
+### Find code examples
 Single-service actions and scenarios are organized by AWS service in the
 [example_code](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/swift/example_code/)
 directory. A README in each folder lists and describes how to run the examples.
@@ -25,8 +25,8 @@ There are currently no cross-service examples for the AWS SDK for Swift. To requ
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ### Prerequisites
-* You must have an AWS account, and have configured your default credentials and AWS Region as described in the [Getting started section](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/getting-started.html) of the _AWS SDK for Swift Developer Guide_.
-* You must have the [Swift](https://www.swift.org/) compiler (version 5.4 or later) and tools installed. If you have the latest version of Xcode installed, you already have the Swift tools. See [Setting up in the AWS SDK for Swift Developer Guide](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/setting-up.html) for  detailed instructions.
+* You must have an AWS account, and have your default credentials and AWS Region configured as described in the [Getting started](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/getting-started.html) section of the _AWS SDK for Swift Developer Guide_.
+* You must have the [Swift](https://www.swift.org/) compiler (version 5.4 or later) and tools installed. If you have the latest version of Xcode installed, you already have the Swift tools. For detailed instructions, see [Setting up](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/setting-up.html) in the _AWS SDK for Swift Developer Guide_.
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.
