@@ -87,7 +87,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.VerifyEmailIdentityAsync]
 
     /// <summary>
-    ///     Starts verification of an email identity. This function causes an email
+    ///     Starts verification of an email identity. This request causes an email
     ///     to be sent to the specified email address from Amazon SES. To complete
     ///     verification, follow the instructions in the email.
     /// </summary>
@@ -198,7 +198,6 @@ public class SESWrapper
                     Source = senderAddress
                 });
             messageId = response.MessageId;
-            return messageId;
         }
         catch (Exception ex)
         {
