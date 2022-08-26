@@ -5,6 +5,14 @@ auto-scaling_CreateAutoScalingGroup:
   synopsis: create an &AS; group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.CreateAutoScalingGroup
     Java:
       versions:
         - sdk_version: 2
@@ -38,6 +46,14 @@ auto-scaling_DeleteAutoScalingGroup:
   synopsis: delete an &AS; group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup
     Java:
       versions:
         - sdk_version: 2
@@ -71,6 +87,14 @@ auto-scaling_DescribeAutoScalingGroups:
   synopsis: get information about &AS; groups.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances
     Java:
       versions:
         - sdk_version: 2
@@ -104,6 +128,14 @@ auto-scaling_UpdateAutoScalingGroup:
   synopsis: update the configuration for an &AS; group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.UpdateAutoScalingGroup
     Python:
       versions:
         - sdk_version: 3
@@ -147,6 +179,15 @@ auto-scaling_SetDesiredCapacity:
   synopsis: set the desired capacity of an &AS; group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.SetDesiredCapacity
     Python:
       versions:
         - sdk_version: 3
@@ -165,6 +206,15 @@ auto-scaling_DescribeAutoScalingInstances:
   synopsis: get information about &AS; instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances
     Python:
       versions:
         - sdk_version: 3
@@ -183,6 +233,15 @@ auto-scaling_DescribeScalingActivities:
   synopsis: get information about &AS; activities.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DescribeScalingActivities
     Python:
       versions:
         - sdk_version: 3
@@ -201,6 +260,15 @@ auto-scaling_EnableMetricsCollection:
   synopsis: enable &CW; metrics collection for an &AS; group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.EnableMetricsCollection
     Python:
       versions:
         - sdk_version: 3
@@ -219,6 +287,15 @@ auto-scaling_DisableMetricsCollection:
   synopsis: disable &CW; metrics collection for an &AS; group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection
     Python:
       versions:
         - sdk_version: 3

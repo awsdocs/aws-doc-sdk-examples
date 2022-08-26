@@ -9,52 +9,59 @@ Purpose:
 ses_createreceiptrule.js demonstrates how to create a receipt rule in Amazon SES to save
 received messages in an Amazon S3 bucket.
 
-Inputs (replace in code):
-- BUCKET_NAME
-- EMAIL_ADDRESS | DOMAIN
-- RULE_NAME
-- RULE_SET_NAME
-
 Running the code:
 node ses_createreceiptrule.js
 */
+
 // snippet-start:[ses.JavaScript.rules.createReceiptRuleV3]
-// Import required AWS SDK clients and commands for Node.js
-import { CreateReceiptRuleCommand }  from "@aws-sdk/client-ses";
+import { CreateReceiptRuleCommand, TlsPolicy } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-// Set the parameters
-const params = {
-  Rule: {
-    Actions: [
-      {
-        S3Action: {
-          BucketName: "BUCKET_NAME", // S3_BUCKET_NAME
-          ObjectKeyPrefix: "email",
+import { getUniqueName } from "../../libs/index.js";
+
+const RULE_SET_NAME = getUniqueName("RuleSetName");
+const RULE_NAME = getUniqueName("RuleName");
+const S3_BUCKET_NAME = getUniqueName("S3BucketName");
+
+const createS3ReceiptRuleCommand = ({
+  bucketName,
+  emailAddresses,
+  name,
+  ruleSet,
+}) => {
+  return new CreateReceiptRuleCommand({
+    Rule: {
+      Actions: [
+        {
+          S3Action: {
+            BucketName: bucketName,
+            ObjectKeyPrefix: "email",
+          },
         },
-      },
-    ],
-    Recipients: [
-      "EMAIL_ADDRESS", // The email addresses, or domain
-      /* more items */
-    ],
-    Enabled: true | false,
-    Name: "RULE_NAME", // RULE_NAME
-    ScanEnabled: true | false,
-    TlsPolicy: "Optional",
-  },
-  RuleSetName: "RULE_SET_NAME", // RULE_SET_NAME
+      ],
+      Recipients: emailAddresses,
+      Enabled: true,
+      Name: name,
+      ScanEnabled: false,
+      TlsPolicy: TlsPolicy.Optional,
+    },
+    RuleSetName: ruleSet, // Required
+  });
 };
 
 const run = async () => {
+  const s3ReceiptRuleCommand = createS3ReceiptRuleCommand({
+    bucketName: S3_BUCKET_NAME,
+    emailAddresses: ["email@example.com"],
+    name: RULE_NAME,
+    ruleSet: RULE_SET_NAME,
+  });
+
   try {
-    const data = await sesClient.send(new CreateReceiptRuleCommand(params));
-    console.log("Rule created", data);
-    return data; // For unit tests.
+    return await sesClient.send(s3ReceiptRuleCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to create S3 receipt rule.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.rules.createReceiptRuleV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run, RULE_SET_NAME, S3_BUCKET_NAME };

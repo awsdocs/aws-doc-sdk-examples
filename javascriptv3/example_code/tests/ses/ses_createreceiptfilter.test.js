@@ -1,12 +1,13 @@
-const { run, params } = require("../../ses/src/ses_createreceiptfilter");
-const { sesClient } = require("../../ses/src/libs/sesClient");
+import { run, FILTER_NAME } from "../../ses/src/ses_createreceiptfilter";
+import { deleteReceiptFilter } from "../../ses/src/libs/sesUtils";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_createreceiptfilter", () => {
+  afterAll(async () => {
+    await deleteReceiptFilter(FILTER_NAME);
+  });
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+  it("should successfully create a filter", async () => {
+    const result = await run();
+    expect(result.$metadata.httpStatusCode).toBe(200);
   });
 });
