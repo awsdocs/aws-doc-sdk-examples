@@ -64,8 +64,8 @@ def run_me
   # If no values are specified at the command prompt, use these default values.
   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
-    instance_id = 'i-123abc'
-    region = 'us-west-2'
+    instance_id = 'i-086db3ad4b96ebea8'
+    region = 'us-east-1'
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]

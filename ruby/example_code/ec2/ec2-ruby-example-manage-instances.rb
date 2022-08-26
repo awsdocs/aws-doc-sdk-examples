@@ -155,7 +155,8 @@ def list_instances_information(ec2_client)
         puts "Image ID:                  #{instance.image_id}"
         puts "Instance type:             #{instance.instance_type}"
         puts "Architecture:              #{instance.architecture}"
-        puts "IAM instance profile ARN:  #{instance.iam_instance_profile.arn}"
+        arn = instance.iam_instance_profile.arn.nil? ? 'foo' : instance.iam_instance_profile.arn
+        puts "IAM instance profile ARN:  #{arn}"
         puts "Key name:                  #{instance.key_name}"
         puts "Launch time:               #{instance.launch_time}"
         puts "Detailed monitoring state: #{instance.monitoring.state}"

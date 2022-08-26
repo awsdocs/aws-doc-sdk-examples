@@ -251,11 +251,12 @@ def run_me
       'my-security-group \'This is my security group.\' vpc-6713dfEX ' \
       'tcp 80 80 \'0.0.0.0/0\' tcp 22 22 \'0.0.0.0/0\' us-west-2'
     exit 1
+
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     group_name = 'my-security-group'
     description = 'This is my security group.'
-    vpc_id = 'vpc-6713dfEX'
+    vpc_id = 'vpc-026603f41400bc209'
     ip_protocol_http = 'tcp'
     from_port_http = '80'
     to_port_http = '80'
@@ -265,7 +266,7 @@ def run_me
     to_port_ssh = '22'
     cidr_ip_range_ssh = '0.0.0.0/0'
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-west-2'
+    region = 'us-east-1'
   # Otherwise, use the values as specified at the command prompt.
   else
     group_name = ARGV[0]
