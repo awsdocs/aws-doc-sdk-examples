@@ -22,11 +22,21 @@ const TEMPLATE_NAME = getUniqueName("TestTemplateName");
 
 const createCreateTemplateCommand = () => {
   return new CreateTemplateCommand({
+    /**
+     * The template feature in Amazon SES is based on the Handlebars template system.
+     */
     Template: {
+      /**
+       * The name of an existing template in Amazon SES.
+       */
       TemplateName: TEMPLATE_NAME,
-      HtmlPart: "HTML_CONTENT",
-      SubjectPart: "SUBJECT",
-      TextPart: "TEXT_CONTENT",
+      HtmlPart: `
+        <h1>Hello, {{contact.firstName}}!</h1>
+        <p>
+        Did you know Amazon has a mascot named Peccy?
+        </p>
+      `,
+      SubjectPart: "Amazon Tip",
     },
   });
 };
