@@ -22,7 +22,7 @@ const createDeleteTemplateCommand = (templateName) =>
   new DeleteTemplateCommand({ TemplateName: templateName });
 
 const run = async () => {
-  const deleteTemplateCommand = new createDeleteTemplateCommand(TEMPLATE_NAME);
+  const deleteTemplateCommand = createDeleteTemplateCommand(TEMPLATE_NAME);
 
   try {
     return await sesClient.send(deleteTemplateCommand);
