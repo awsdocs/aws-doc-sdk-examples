@@ -8,32 +8,26 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-m
 Purpose:
 ses_listidentities.js demonstrates how to list all the identities for an AWS account.
 
-Inputs (replace in code):
-- IDENTITY_TYPE
-
 Running the code:
 node ses_listidentities.js
 */
 // snippet-start:[ses.JavaScript.identities.listIdentitiesV3]
-// Import required AWS SDK clients and commands for Node.js
-import { ListIdentitiesCommand }  from "@aws-sdk/client-ses";
+import { ListIdentitiesCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-// Set the parameters
-var params = {
-  IdentityType: "EmailAddress", // IDENTITY_TYPE: "EmailAddress' or 'Domain'
-  MaxItems: 10,
-};
+
+const createListIdentitiesCommand = () =>
+  new ListIdentitiesCommand({ IdentityType: "EmailAddress", MaxItems: 10 });
 
 const run = async () => {
+  const listIdentitiesCommmand = createListIdentitiesCommand();
+
   try {
-    const data = await sesClient.send(new ListIdentitiesCommand(params));
-    console.log("Success.", data);
-    return data; // For unit tests.
+    return await sesClient.send(listIdentitiesCommmand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to list identities.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.identities.listIdentitiesV3]
-// For unit tests only.
-// module.exports ={run, params};
+
+export { run };

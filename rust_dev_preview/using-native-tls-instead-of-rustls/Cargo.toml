@@ -9,10 +9,17 @@ edition = "2018"
 [dependencies]
 # aws-config pulls in rustls and several other things by default. We have to disable defaults in order to use native-tls
 # and then manually bring the other defaults back
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false, features = ["native-tls", "rt-tokio"] }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false, features = [
+  "native-tls",
+  "rt-tokio",
+] }
 # aws-sdk-s3 brings in rustls by default so we disable that in order to use native-tls only
-aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false, features = ["native-tls"] }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false, features = [
+  "native-tls",
+] }
 # aws-sdk-sts is the same as aws-sdk-s3
-aws-sdk-sts = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false, features = ["native-tls"] }
+aws-sdk-sts = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false, features = [
+  "native-tls",
+] }
 tokio = { version = "1", features = ["full"] }
 tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }

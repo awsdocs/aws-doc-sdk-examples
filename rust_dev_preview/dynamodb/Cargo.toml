@@ -1,18 +1,27 @@
 [package]
 name = "dynamodb-code-examples"
 version = "0.1.0"
-authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
+authors = [
+  "Russell Cohen <rcoh@amazon.com>",
+  "Doug Schwartz <dougsch@amazon.com>",
+]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["client-hyper", "rustls", "rt-tokio"] }
-aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["rt-tokio"] }
-aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+  "client-hyper",
+  "rustls",
+  "rt-tokio",
+] }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+  "rt-tokio",
+] }
+aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 http = "0.2.5"
 rand = "0.8.3"
 serde_json = "1"

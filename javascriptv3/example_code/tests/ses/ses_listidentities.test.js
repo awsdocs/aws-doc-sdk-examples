@@ -1,12 +1,20 @@
-const { run, params } = require("../../ses/src/ses_listreceiptfilters.js");
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
+import { getUniqueName, postfix } from "../../libs/index";
+import { createIdentity, deleteIdentity } from "../../ses/src/libs/sesUtils.js";
+import { run } from "../../ses/src/ses_listidentities";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_listidentities", () => {
+  const IDENTITY_NAME = postfix(getUniqueName("IdentityName"), "@example.com");
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+  beforeAll(async () => {
+    await createIdentity(IDENTITY_NAME);
+  });
+
+  afterAll(async () => {
+    await deleteIdentity(IDENTITY_NAME);
+  });
+
+  it("should successfully list identities", async () => {
+    const result = await run();
+    expect(result.Identities).toContain(IDENTITY_NAME);
   });
 });

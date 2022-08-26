@@ -1,12 +1,8 @@
-const { run, params } = require("../../ses/src/ses_sendemail");
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
+import { run } from "../../ses/src/ses_sendemail";
 
-jest.mock("../../ses/src/libs/sesClient.js");
-
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+describe("ses_sendemail", () => {
+  test("attempting to send an unverified email returns an error", async () => {
+    const result = await run();
+    expect(result.Error.Message).toContain("Email address is not verified.");
   });
 });

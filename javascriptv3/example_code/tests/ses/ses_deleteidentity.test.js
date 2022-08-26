@@ -1,12 +1,16 @@
-const { run, params } = require("../../ses/src/ses_deleteidentity");
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
+import { findIdentity, createIdentity } from "../../ses/src/libs/sesUtils";
+import { run, IDENTITY_EMAIL } from "../../ses/src/ses_deleteidentity";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_deleteidentity", () => {
+  beforeAll(async () => {
+    await createIdentity(IDENTITY_EMAIL);
+  });
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+  it("should successfully delete an email identity", async () => {
+    let identity = await findIdentity(IDENTITY_EMAIL);
+    expect(identity).toBeTruthy();
+    await run();
+    identity = await findIdentity(IDENTITY_EMAIL);
+    expect(identity).toBeFalsy();
   });
 });
