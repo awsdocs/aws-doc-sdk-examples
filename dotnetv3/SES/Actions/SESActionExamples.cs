@@ -67,7 +67,7 @@ public static class SESActionExamples
         Console.WriteLine("List identities.");
         Console.WriteLine("Email identities for the current account:");
 
-        var identities = await sesWrapper.ListIdentities(IdentityType.EmailAddress);
+        var identities = await sesWrapper.ListIdentitiesAsync(IdentityType.EmailAddress);
 
         identities.ForEach(Console.WriteLine);
         Console.WriteLine(sepBar);
@@ -85,7 +85,7 @@ public static class SESActionExamples
         var email = Console.ReadLine()!;
         if (!string.IsNullOrWhiteSpace(email))
         {
-            var identityStatus = await sesWrapper.GetIdentityStatus(email);
+            var identityStatus = await sesWrapper.GetIdentityStatusAsync(email);
             Console.WriteLine($"Identity status for email {email}: {identityStatus}");
         }
 
@@ -104,7 +104,7 @@ public static class SESActionExamples
         var email = Console.ReadLine()!;
         if (!string.IsNullOrWhiteSpace(email))
         {
-            var success = await sesWrapper.VerifyEmailIdentity(email);
+            var success = await sesWrapper.VerifyEmailIdentityAsync(email);
 
             Console.WriteLine(
                 success
@@ -127,7 +127,7 @@ public static class SESActionExamples
         var email = Console.ReadLine()!;
         if (!string.IsNullOrWhiteSpace(email))
         {
-            var success = await sesWrapper.DeleteIdentity(email);
+            var success = await sesWrapper.DeleteIdentityAsync(email);
 
             Console.WriteLine(
                 success
@@ -168,7 +168,7 @@ public static class SESActionExamples
             "This is some plain body text.";
         var subject = "Sample email from Amazon Simple Email Service";
 
-        var messageId = await sesWrapper.SendEmail(toAddresses, ccAddresses,
+        var messageId = await sesWrapper.SendEmailAsync(toAddresses, ccAddresses,
             bccAddresses, bodyHtml, bodyText,
             subject, senderAddress);
 
@@ -185,7 +185,7 @@ public static class SESActionExamples
         Console.WriteLine(sepBar);
         Console.WriteLine("Get Send Quota.");
 
-        var quota = await sesWrapper.GetSendQuota();
+        var quota = await sesWrapper.GetSendQuotaAsync();
 
         Console.WriteLine($"Max 24 Hour Send: {quota.Max24HourSend}");
         Console.WriteLine($"Max Send Rate: {quota.MaxSendRate}");
@@ -202,7 +202,7 @@ public static class SESActionExamples
         Console.WriteLine(sepBar);
         Console.WriteLine("Listing Email Templates.");
 
-        var templates = await sesWrapper.ListEmailTemplates();
+        var templates = await sesWrapper.ListEmailTemplatesAsync();
 
         templates.ForEach(t => Console.WriteLine($"Template {t.Name}, created on " +
                                                  $"{t.CreatedTimestamp.ToShortDateString()} at {t.CreatedTimestamp.ToShortTimeString()}."));
@@ -225,7 +225,7 @@ public static class SESActionExamples
         var templateHtml =
             "<p><i>This</i> is what {{recipient}} will see from {{sender}} if {{recipient}} <b>can</b> display HTML.</p>";
 
-        var success = await sesWrapper.CreateEmailTemplate(templateName, templateSubject,
+        var success = await sesWrapper.CreateEmailTemplateAsync(templateName, templateSubject,
             templateText, templateHtml);
 
         Console.WriteLine(success
@@ -253,7 +253,7 @@ public static class SESActionExamples
 
         var templateDataObject = new { sender = senderEmail, recipient = recipientEmail };
 
-        var messageId = await sesWrapper.SendTemplateEmail(senderEmail,
+        var messageId = await sesWrapper.SendTemplateEmailAsync(senderEmail,
             new List<string> { recipientEmail }, templateName, templateDataObject);
 
         Console.WriteLine($"Message {messageId} sent.");
@@ -271,7 +271,7 @@ public static class SESActionExamples
 
         var templateName = "Example_template_1";
 
-        var success = await sesWrapper.DeleteEmailTemplate(templateName);
+        var success = await sesWrapper.DeleteEmailTemplateAsync(templateName);
 
         Console.WriteLine(success
             ? $"Template {templateName} deleted successfully."

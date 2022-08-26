@@ -18,19 +18,20 @@ public class SESWrapper
     /// <summary>
     ///     Constructor for the wrapper that uses the injected Amazon SES client.
     /// </summary>
-    /// <param name="amazonSimpleEmailService"></param>
+    /// <param name="amazonSimpleEmailService">Amazon Simple Email Service</param>
     public SESWrapper(IAmazonSimpleEmailService amazonSimpleEmailService)
     {
         _amazonSimpleEmailService = amazonSimpleEmailService;
     }
 
-    // snippet-start:[SES.dotnetv3.ListIdentities]
+    // snippet-start:[SES.dotnetv3.ListIdentitiesAsync]
 
     /// <summary>
     ///     Get the identities of a specified type for the current account.
     /// </summary>
+    /// <param name="identityType">IdentityType to list.</param>
     /// <returns>The list of identities.</returns>
-    public async Task<List<string>> ListIdentities(IdentityType identityType)
+    public async Task<List<string>> ListIdentitiesAsync(IdentityType identityType)
     {
         var result = new List<string>();
         try
@@ -44,21 +45,21 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("ListIdentities failed with exception: " + ex.Message);
+            Console.WriteLine("ListIdentitiesAsync failed with exception: " + ex.Message);
         }
 
         return result;
     }
 
-    // snippet-end:[SES.dotnetv3.ListIdentities]
+    // snippet-end:[SES.dotnetv3.ListIdentitiesAsync]
 
-    // snippet-start:[SES.dotnetv3.GetIdentityStatus]
+    // snippet-start:[SES.dotnetv3.GetIdentityStatusAsync]
 
     /// <summary>
     ///     Get identity verification status for an email.
     /// </summary>
     /// <returns>The verification status of the email.</returns>
-    public async Task<VerificationStatus> GetIdentityStatus(string email)
+    public async Task<VerificationStatus> GetIdentityStatusAsync(string email)
     {
         var result = VerificationStatus.TemporaryFailure;
         try
@@ -75,15 +76,15 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("GetIdentityStatus failed with exception: " + ex.Message);
+            Console.WriteLine("GetIdentityStatusAsync failed with exception: " + ex.Message);
         }
 
         return result;
     }
 
-    // snippet-end:[SES.dotnetv3.GetIdentityStatus]
+    // snippet-end:[SES.dotnetv3.GetIdentityStatusAsync]
 
-    // snippet-start:[SES.dotnetv3.VerifyEmailIdentity]
+    // snippet-start:[SES.dotnetv3.VerifyEmailIdentityAsync]
 
     /// <summary>
     ///     Starts verification of an email identity. This function causes an email
@@ -92,7 +93,7 @@ public class SESWrapper
     /// </summary>
     /// <param name="recipientEmailAddress">Email address to verify.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> VerifyEmailIdentity(string recipientEmailAddress)
+    public async Task<bool> VerifyEmailIdentityAsync(string recipientEmailAddress)
     {
         var success = false;
         try
@@ -107,22 +108,22 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("VerifyEmailIdentity failed with exception: " + ex.Message);
+            Console.WriteLine("VerifyEmailIdentityAsync failed with exception: " + ex.Message);
         }
 
         return success;
     }
 
-    // snippet-end:[SES.dotnetv3.VerifyEmailIdentity]
+    // snippet-end:[SES.dotnetv3.VerifyEmailIdentityAsync]
 
-    // snippet-start:[SES.dotnetv3.DeleteIdentity]
+    // snippet-start:[SES.dotnetv3.DeleteIdentityAsync]
 
     /// <summary>
     ///     Delete an email identity.
     /// </summary>
     /// <param name="identityEmail">The identity email to delete.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> DeleteIdentity(string identityEmail)
+    public async Task<bool> DeleteIdentityAsync(string identityEmail)
     {
         var success = false;
         try
@@ -136,15 +137,15 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("DeleteIdentity failed with exception: " + ex.Message);
+            Console.WriteLine("DeleteIdentityAsync failed with exception: " + ex.Message);
         }
 
         return success;
     }
 
-    // snippet-end:[SES.dotnetv3.DeleteIdentity]
+    // snippet-end:[SES.dotnetv3.DeleteIdentityAsync]
 
-    // snippet-start:[SES.dotnetv3.SendEmail]
+    // snippet-start:[SES.dotnetv3.SendEmailAsync]
 
     /// <summary>
     ///     Send an email using Amazon SES.
@@ -157,7 +158,7 @@ public class SESWrapper
     /// <param name="subject">Subject line of the email.</param>
     /// <param name="senderAddress">From address.</param>
     /// <returns>The messageId of the email.</returns>
-    public async Task<string> SendEmail(List<string> toAddresses,
+    public async Task<string> SendEmailAsync(List<string> toAddresses,
         List<string> ccAddresses, List<string> bccAddresses,
         string bodyHtml, string bodyText, string subject, string senderAddress)
     {
@@ -201,21 +202,21 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("SendEmail failed with exception: " + ex.Message);
+            Console.WriteLine("SendEmailAsync failed with exception: " + ex.Message);
         }
 
         return messageId;
     }
 
-    // snippet-end:[SES.dotnetv3.SendEmail]
+    // snippet-end:[SES.dotnetv3.SendEmailAsync]
 
-    // snippet-start:[SES.dotnetv3.GetSendQuota]
+    // snippet-start:[SES.dotnetv3.GetSendQuotaAsync]
 
     /// <summary>
     ///     Get information on the current account's send quota.
     /// </summary>
     /// <returns>The send quota response data.</returns>
-    public async Task<GetSendQuotaResponse> GetSendQuota()
+    public async Task<GetSendQuotaResponse> GetSendQuotaAsync()
     {
         var result = new GetSendQuotaResponse();
         try
@@ -226,21 +227,21 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("GetSendQuota failed with exception: " + ex.Message);
+            Console.WriteLine("GetSendQuotaAsync failed with exception: " + ex.Message);
         }
 
         return result;
     }
 
-    // snippet-end:[SES.dotnetv3.GetSendQuota]
+    // snippet-end:[SES.dotnetv3.GetSendQuotaAsync]
 
-    // snippet-start:[SES.dotnetv3.ListEmailTemplates]
+    // snippet-start:[SES.dotnetv3.ListEmailTemplatesAsync]
 
     /// <summary>
     ///     List email templates for the current account.
     /// </summary>
     /// <returns>A list of template metadata.</returns>
-    public async Task<List<TemplateMetadata>> ListEmailTemplates()
+    public async Task<List<TemplateMetadata>> ListEmailTemplatesAsync()
     {
         var result = new List<TemplateMetadata>();
         try
@@ -251,15 +252,15 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("ListEmailTemplates failed with exception: " + ex.Message);
+            Console.WriteLine("ListEmailTemplatesAsync failed with exception: " + ex.Message);
         }
 
         return result;
     }
 
-    // snippet-end:[SES.dotnetv3.ListEmailTemplates]
+    // snippet-end:[SES.dotnetv3.ListEmailTemplatesAsync]
 
-    // snippet-start:[SES.dotnetv3.CreateEmailTemplate]
+    // snippet-start:[SES.dotnetv3.CreateEmailTemplateAsync]
 
     /// <summary>
     ///     Create an email template.
@@ -269,7 +270,7 @@ public class SESWrapper
     /// <param name="text">Email body text.</param>
     /// <param name="html">Email html body text.</param>
     /// <returns>True if success.</returns>
-    public async Task<bool> CreateEmailTemplate(string name, string subject, string text,
+    public async Task<bool> CreateEmailTemplateAsync(string name, string subject, string text,
         string html)
     {
         var success = false;
@@ -290,15 +291,15 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("CreateEmailTemplate failed with exception: " + ex.Message);
+            Console.WriteLine("CreateEmailTemplateAsync failed with exception: " + ex.Message);
         }
 
         return success;
     }
 
-    // snippet-end:[SES.dotnetv3.CreateEmailTemplate]
+    // snippet-end:[SES.dotnetv3.CreateEmailTemplateAsync]
 
-    // snippet-start:[SES.dotnetv3.SendTemplateEmail]
+    // snippet-start:[SES.dotnetv3.SendTemplateEmailAsync]
 
     /// <summary>
     ///     Send an email using a template.
@@ -308,7 +309,7 @@ public class SESWrapper
     /// <param name="templateName">Name of the email template.</param>
     /// <param name="templateDataObject">Data for the email template.</param>
     /// <returns>The messageId of the email.</returns>
-    public async Task<string> SendTemplateEmail(string sender, List<string> recipients,
+    public async Task<string> SendTemplateEmailAsync(string sender, List<string> recipients,
         string templateName, object templateDataObject)
     {
         var messageId = "";
@@ -332,22 +333,22 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("SendTemplateEmail failed with exception: " + ex.Message);
+            Console.WriteLine("SendTemplateEmailAsync failed with exception: " + ex.Message);
         }
 
         return messageId;
     }
 
-    // snippet-end:[SES.dotnetv3.SendTemplateEmail]
+    // snippet-end:[SES.dotnetv3.SendTemplateEmailAsync]
 
-    // snippet-start:[SES.dotnetv3.DeleteEmailTemplate]
+    // snippet-start:[SES.dotnetv3.DeleteEmailTemplateAsync]
 
     /// <summary>
     ///     Delete an email template.
     /// </summary>
     /// <param name="templateName">Name of the template.</param>
     /// <returns>True if success.</returns>
-    public async Task<bool> DeleteEmailTemplate(string templateName)
+    public async Task<bool> DeleteEmailTemplateAsync(string templateName)
     {
         var success = false;
         try
@@ -361,11 +362,11 @@ public class SESWrapper
         }
         catch (Exception ex)
         {
-            Console.WriteLine("DeleteEmailTemplate failed with exception: " + ex.Message);
+            Console.WriteLine("DeleteEmailTemplateAsync failed with exception: " + ex.Message);
         }
 
         return success;
     }
 
-    // snippet-end:[SES.dotnetv3.DeleteEmailTemplate]
+    // snippet-end:[SES.dotnetv3.DeleteEmailTemplateAsync]
 }

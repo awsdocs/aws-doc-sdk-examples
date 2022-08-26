@@ -36,7 +36,7 @@ public class SesExampleTests
     public async Task VerifyIdentity_ValidEmail_ReturnsTrue()
     {
         var verifyEmail = _configuration["ValidEmailAddress"];
-        var success = await _wrapper.VerifyEmailIdentity(verifyEmail);
+        var success = await _wrapper.VerifyEmailIdentityAsync(verifyEmail);
         Assert.True(success, "Could not validate the email address.");
     }
 
@@ -49,7 +49,7 @@ public class SesExampleTests
     public async Task VerifyIdentity_NotValidEmail_ReturnsFalse()
     {
         var verifyEmail = _configuration["NotValidEmailAddress"];
-        var success = await _wrapper.VerifyEmailIdentity(verifyEmail);
+        var success = await _wrapper.VerifyEmailIdentityAsync(verifyEmail);
         Assert.False(success, "Not valid email did not fail.");
     }
 
@@ -62,7 +62,7 @@ public class SesExampleTests
     public async Task ListIdentity_EmailType_ReturnsWithEmail()
     {
         var verifyEmail = _configuration["ValidEmailAddress"];
-        var identities = await _wrapper.ListIdentities(IdentityType.EmailAddress);
+        var identities = await _wrapper.ListIdentitiesAsync(IdentityType.EmailAddress);
         Assert.Contains(verifyEmail, identities);
         Assert.NotEmpty(identities);
     }
@@ -76,7 +76,7 @@ public class SesExampleTests
     public async Task GetIdentityStatus_ValidEmail_ReturnsStatus()
     {
         var validEmail = _configuration["ValidEmailAddress"];
-        var verificationStatus = await _wrapper.GetIdentityStatus(validEmail);
+        var verificationStatus = await _wrapper.GetIdentityStatusAsync(validEmail);
         Assert.NotEqual(VerificationStatus.TemporaryFailure, verificationStatus);
     }
 
@@ -89,7 +89,7 @@ public class SesExampleTests
     public async Task GetIdentityStatus_NotValidEmail_ReturnsNotStarted()
     {
         var notValidEmail = _configuration["NotValidEmailAddress"];
-        var verificationStatus = await _wrapper.GetIdentityStatus(notValidEmail);
+        var verificationStatus = await _wrapper.GetIdentityStatusAsync(notValidEmail);
         Assert.Equal(VerificationStatus.TemporaryFailure, verificationStatus);
     }
 
@@ -105,7 +105,7 @@ public class SesExampleTests
         var toAddresses = _configuration["SendEmailToAddresses"].Split(',').ToList();
         var ccAddresses = _configuration["SendEmailCcAddresses"].Split(',').ToList();
         var bccAddresses = _configuration["SendEmailBccAddresses"].Split(',').ToList();
-        var messageId = await _wrapper.SendEmail(toAddresses, ccAddresses, bccAddresses,
+        var messageId = await _wrapper.SendEmailAsync(toAddresses, ccAddresses, bccAddresses,
             "test html", "test body", "test subject", senderAddress);
         Assert.NotEqual("", messageId);
     }
@@ -122,7 +122,7 @@ public class SesExampleTests
         var toAddresses = _configuration["SendEmailToAddresses"].Split(',').ToList();
         var ccAddresses = _configuration["SendEmailCcAddresses"].Split(',').ToList();
         var bccAddresses = _configuration["SendEmailBccAddresses"].Split(',').ToList();
-        var messageId = await _wrapper.SendEmail(toAddresses, ccAddresses, bccAddresses,
+        var messageId = await _wrapper.SendEmailAsync(toAddresses, ccAddresses, bccAddresses,
             "test html", "test body", "test subject", senderAddress);
         Assert.Equal("", messageId);
     }
@@ -140,7 +140,7 @@ public class SesExampleTests
             _configuration["SendEmailToNotValidAddresses"].Split(',').ToList();
         var ccAddresses = _configuration["SendEmailCcAddresses"].Split(',').ToList();
         var bccAddresses = _configuration["SendEmailBccAddresses"].Split(',').ToList();
-        var messageId = await _wrapper.SendEmail(toAddresses, ccAddresses, bccAddresses,
+        var messageId = await _wrapper.SendEmailAsync(toAddresses, ccAddresses, bccAddresses,
             "test html", "test body", "test subject", senderAddress);
         Assert.Equal("", messageId);
     }
@@ -158,7 +158,7 @@ public class SesExampleTests
         var templateText = _configuration["TemplateText"];
         var templateHtml = _configuration["TemplateHtml"];
 
-        var success = await _wrapper.CreateEmailTemplate(templateName, templateSubject,
+        var success = await _wrapper.CreateEmailTemplateAsync(templateName, templateSubject,
             templateText, templateHtml);
         Assert.True(success, "Unable to create template.");
     }
@@ -171,7 +171,7 @@ public class SesExampleTests
     [Order(10)]
     public async Task CreateEmailTemplate_NotValidSettings_ReturnsFalse()
     {
-        var success = await _wrapper.CreateEmailTemplate("", "", "", "");
+        var success = await _wrapper.CreateEmailTemplateAsync("", "", "", "");
         Assert.False(success, "Template with not valid settings did not fail.");
     }
 
@@ -188,7 +188,7 @@ public class SesExampleTests
         var toAddresses = _configuration["SendEmailToAddresses"].Split(',').ToList();
         var templateDataObject = new { sender = senderAddress, recipient = toAddresses };
 
-        var messageId = await _wrapper.SendTemplateEmail(senderAddress, toAddresses,
+        var messageId = await _wrapper.SendTemplateEmailAsync(senderAddress, toAddresses,
             templateName, templateDataObject);
         Assert.NotEqual("", messageId);
     }
@@ -205,7 +205,7 @@ public class SesExampleTests
         var toAddresses = _configuration["SendEmailToAddresses"].Split(',').ToList();
         var templateDataObject = new { sender = senderAddress, recipient = toAddresses };
 
-        var messageId = await _wrapper.SendTemplateEmail(senderAddress, toAddresses, "",
+        var messageId = await _wrapper.SendTemplateEmailAsync(senderAddress, toAddresses, "",
             templateDataObject);
         Assert.Equal("", messageId);
     }
@@ -219,7 +219,7 @@ public class SesExampleTests
     public async Task ListEmailTemplates_ReturnsWithTemplate()
     {
         var templateName = _configuration["TemplateName"];
-        var templateList = await _wrapper.ListEmailTemplates();
+        var templateList = await _wrapper.ListEmailTemplatesAsync();
         Assert.Contains(templateName, templateList.Select(t => t.Name));
     }
 
@@ -232,7 +232,7 @@ public class SesExampleTests
     public async Task DeleteEmailTemplate_ValidName_ReturnsTrue()
     {
         var templateName = _configuration["TemplateName"];
-        var success = await _wrapper.DeleteEmailTemplate(templateName);
+        var success = await _wrapper.DeleteEmailTemplateAsync(templateName);
         Assert.True(success, "Unable to delete email template.");
     }
 
@@ -244,7 +244,7 @@ public class SesExampleTests
     [Order(15)]
     public async Task DeleteEmailTemplate_NotValidName_ReturnsFalse()
     {
-        var success = await _wrapper.DeleteEmailTemplate("");
+        var success = await _wrapper.DeleteEmailTemplateAsync("");
         Assert.False(success,
             "Delete template with name that is not valid did not fail.");
     }
@@ -258,7 +258,7 @@ public class SesExampleTests
     public async Task ListEmailTemplates_ReturnsWithoutTemplate()
     {
         var templateName = _configuration["TemplateName"];
-        var templateList = await _wrapper.ListEmailTemplates();
+        var templateList = await _wrapper.ListEmailTemplatesAsync();
         Assert.DoesNotContain(templateName, templateList.Select(t => t.Name));
     }
 
@@ -271,7 +271,7 @@ public class SesExampleTests
     public async Task DeleteIdentity_ValidEmail_ReturnsTrue()
     {
         var identityEmail = _configuration["ValidEmailAddress"];
-        var success = await _wrapper.DeleteIdentity(identityEmail);
+        var success = await _wrapper.DeleteIdentityAsync(identityEmail);
         Assert.True(success, "Unable to delete email identity.");
     }
 
@@ -283,7 +283,7 @@ public class SesExampleTests
     [Order(18)]
     public async Task DeleteIdentity_NotValidEmail_ReturnsFalse()
     {
-        var success = await _wrapper.DeleteIdentity("");
+        var success = await _wrapper.DeleteIdentityAsync("");
         Assert.False(success, "Delete identity without a valid email did not fail.");
     }
 
@@ -295,7 +295,7 @@ public class SesExampleTests
     [Order(19)]
     public async Task GetSendQuota_ReturnsNotNull()
     {
-        var sendQuota = await _wrapper.GetSendQuota();
+        var sendQuota = await _wrapper.GetSendQuotaAsync();
         Assert.NotNull(sendQuota);
     }
 }
