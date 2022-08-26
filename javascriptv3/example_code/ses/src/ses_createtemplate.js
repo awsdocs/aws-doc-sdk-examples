@@ -31,13 +31,12 @@ const createCreateTemplateCommand = () => {
        */
       TemplateName: TEMPLATE_NAME,
       HtmlPart: `
-        <h1>It's a dangerous business, {{contact.firstName}}, going out your door.</h1>
+        <h1>Hello, {{contact.firstName}}!</h1>
         <p>
-        You step onto the road, and if you don't keep your feet, there's no
-        knowing where you might be swept off to.
+        Did you know Amazon has a mascot named Peccy?
         </p>
       `,
-      SubjectPart: "Ever On and On",
+      SubjectPart: "Amazon Tip",
     },
   });
 };
