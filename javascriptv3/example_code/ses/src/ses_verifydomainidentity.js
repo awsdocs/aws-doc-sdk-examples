@@ -8,32 +8,33 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-m
 Purpose:
 ses_verifydomainidentity.js demonstrates how to add a domain to the list of Amazon SES identities and attempts to verify it.
 
-Inputs (replace in code):
-- DOMAIN_NAME
-
 Running the code:
 node ses_verifydomainidentity.js
  */
 // snippet-start:[ses.JavaScript.identities.verifyDomainIdentityV3]
-// Import required AWS SDK clients and commands for Node.js
-import {
-  VerifyDomainIdentityCommand,
-}  from "@aws-sdk/client-ses";
+import { VerifyDomainIdentityCommand } from "@aws-sdk/client-ses";
+import { getUniqueName, postfix } from "../../libs/index.js";
 import { sesClient } from "./libs/sesClient.js";
 
-// Set the parameters
-const params = { Domain: "DOMAIN_NAME" }; //DOMAIN_NAME
+/**
+ * You must have access to the domain's DNS settings to complete the
+ * domain verification process.
+ */
+const DOMAIN_NAME = postfix(getUniqueName("Domain"), ".example.com");
+
+const createVerifyDomainIdentityCommand = () => {
+  return new VerifyDomainIdentityCommand({ Domain: DOMAIN_NAME });
+};
 
 const run = async () => {
+  const VerifyDomainIdentityCommand = createVerifyDomainIdentityCommand();
+
   try {
-    const data = await sesClient.send(new VerifyDomainIdentityCommand(params));
-    console.log("Success", data);
-    return data; // For unit tests.
+    return await sesClient.send(VerifyDomainIdentityCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to verify domain.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.identities.verifyDomainIdentityV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run, DOMAIN_NAME };

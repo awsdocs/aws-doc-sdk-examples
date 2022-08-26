@@ -1,12 +1,19 @@
-const { run, params } = require("../../ses/src/ses_deletereceiptruleset");
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
+import { run, RULE_SET_NAME } from "../../ses/src/ses_deletereceiptruleset";
+import {
+  createReceiptRuleSet,
+  findReceiptRuleSet,
+} from "../../ses/src/libs/sesUtils";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_deletereceiptruleset", () => {
+  beforeAll(async () => {
+    await createReceiptRuleSet(RULE_SET_NAME);
+  });
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+  it("should successfully delete a receipt rule set", async () => {
+    let ruleSet = await findReceiptRuleSet(RULE_SET_NAME);
+    expect(ruleSet).toBeTruthy();
+    await run();
+    ruleSet = await findReceiptRuleSet(RULE_SET_NAME);
+    expect(ruleSet).toBeFalsy();
   });
 });
