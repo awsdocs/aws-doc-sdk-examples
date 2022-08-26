@@ -3,7 +3,7 @@
 Thank you for your interest in contributing to AWS documentation! We greatly value feedback and contributions from our community.
 
 Please read through this document before you submit any pull requests or issues. It will help us work together more effectively.
-
+  
 
 
 ## What to expect when you contribute
