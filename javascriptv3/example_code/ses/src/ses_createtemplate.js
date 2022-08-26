@@ -22,11 +22,22 @@ const TEMPLATE_NAME = getUniqueName("TestTemplateName");
 
 const createCreateTemplateCommand = () => {
   return new CreateTemplateCommand({
+    /**
+     * The template feature in Amazon SES is based on the Handlebars template system.
+     */
     Template: {
+      /**
+       * The name of an existing template in Amazon SES.
+       */
       TemplateName: TEMPLATE_NAME,
-      HtmlPart: "HTML_CONTENT",
-      SubjectPart: "SUBJECT",
-      TextPart: "TEXT_CONTENT",
+      HtmlPart: `
+        <h1>It's a dangerous business, {{contact.firstName}}, going out your door.</h1>
+        <p>
+        You step onto the road, and if you don't keep your feet, there's no
+        knowing where you might be swept off to.
+        </p>
+      `,
+      SubjectPart: "Ever On and On",
     },
   });
 };
