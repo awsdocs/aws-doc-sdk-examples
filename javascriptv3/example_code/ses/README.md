@@ -42,7 +42,7 @@ Code excerpts that show you how to call individual service functions.
 ## Run the examples
 
 1. `npm i`
-1. Add a call to the `run()` function at the bottom of the example you woud like to run.
+1. Add a call to the `run()` function at the bottom of the example you want to run.
 1. Execute `node <path/to/example.js>`
 
 ### Prerequisites
