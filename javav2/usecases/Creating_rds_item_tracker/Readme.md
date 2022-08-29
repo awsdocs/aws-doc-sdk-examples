@@ -49,13 +49,6 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ### Creating the resources
 
-You can use one of the following to create the required AWS resources:
-
-- AWS Management Console
-- AWS Cloud Development Kit (AWS CDK)
-
-#### Using the AWS Management Console
-
 Create an Amazon RDS for MySQL DB instance that has a table named **Work** and a primary key named **idwork** that contains the following fields:
 
 + **idwork** - A VARCHAR(45) value that represents the PK.
@@ -77,10 +70,6 @@ After you create the database, in the **Connectivity & security** section, view 
 ![AWS Tracking Application](images/trackEndpoint2.png)
       
 **Note:** You must set up an inbound rule for the security group to connect to the database from your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up an inbound rule, you can connect to the database from a client such as MySQL Workbench. For more information, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
-
-#### Using the AWS Cloud Development Kit
-
-Using the AWS Cloud Development Kit (AWS CDK), you can set up the resources required for this tutorial. For more information, see [CDK instructions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/cdk/aurora_serverless_app/README.md).
 
 ## Understand the AWS Tracker React application 
 
