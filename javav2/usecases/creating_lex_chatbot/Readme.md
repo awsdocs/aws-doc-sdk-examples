@@ -1,5 +1,14 @@
 # Building an Amazon Lex Chatbot that engages users in multiple languages
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description |  Discusses how to create an Amazon Lex Chatbot by using the AWS SDK for Java v2.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 5/10/2022        |
+| Required skills   | Java, Maven  |
+
 ## Purpose
 You can create an Amazon Lex Chatbot within a web application to engage your web site visitors. An Amazon Lex Chatbot is functionality that performs on-line chat conversation with users without providing direct contact with a person. For example, the following illustration shows an Amazon Lex Chatbot that engages a user about booking a hotel room. 
 
@@ -94,44 +103,44 @@ At this point, you have a new project named **SpringChatbot**.
 Ensure that the pom.xml file resembles the following code.
 
 ```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-      <project xmlns="http://maven.apache.org/POM/4.0.0"
+   <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
-     <groupId>SpringChatbot</groupId>
-     <artifactId>SpringChatbot</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>SpringChatbot</groupId>
+    <artifactId>SpringChatbot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-     </parent>
-     <properties>
+        <version>2.6.1</version>
+        <relativePath/>
+    </parent>
+    <properties>
         <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.54</version>
+                <version>2.17.136</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>lexruntime</artifactId>
          </dependency>
@@ -155,15 +164,15 @@ Ensure that the pom.xml file resembles the following code.
             </exclusions>
         </dependency>
        </dependencies>
-     <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-     </build>
-     </project>
+    </build>
+</project>
 ```     
 
  ## Create the Java classes
@@ -543,6 +552,14 @@ The **index.html** file is the application's home view that displays the Amazon 
      </body>
      </html>
 ```
+
+## Run the application
+
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
+
+![AWS Tracking Application](images/runapp.png)
+
+**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. If you do deploy this application to AWS Elastic Beanstalk, you need to set up an additional inbound rule. For information about deploying a web application, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
 
 ### Next steps
 Congratulations! You have created a Spring Boot application that uses Amazon Lex to create an interactive user experience. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.

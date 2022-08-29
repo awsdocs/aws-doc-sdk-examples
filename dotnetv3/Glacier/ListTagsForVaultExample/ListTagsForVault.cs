@@ -1,16 +1,20 @@
-﻿using Amazon.Glacier;
-using Amazon.Glacier.Model;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// List the Amazon Simple Storage Service Glacier tags that are attached to
-/// a vault. This example was created using the AWS SDK for .NET version 3.7
-/// and .NET Core 5.0.
+/// List the Amazon Simple Storage Service Glacier (Amazon S3 Glacier) tags
+/// that are attached to a vault. This example was created using the AWS SDK
+/// for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace ListTagsForVaultExample
 {
+    // snippet-start:[Glacier.dotnetv3.ListTagsForVaultExample]
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Amazon.Glacier;
+    using Amazon.Glacier.Model;
+
     class ListTagsForVault
     {
         static async Task Main(string[] args)
@@ -42,4 +46,6 @@ namespace ListTagsForVaultExample
             }
         }
     }
+
+    // snippet-end:[Glacier.dotnetv3.ListTagsForVaultExample]
 }

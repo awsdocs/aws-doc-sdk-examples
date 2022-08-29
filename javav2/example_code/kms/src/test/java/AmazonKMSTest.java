@@ -1,8 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 import com.example.kms.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kms.KmsClient;
 import org.junit.jupiter.api.*;
@@ -25,7 +22,6 @@ public class AmazonKMSTest {
     private static String operation="";
     private static String grantId = "";
     private static String aliasName = "";
-    private static String policyRoleArn="";
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -33,6 +29,7 @@ public class AmazonKMSTest {
         region = Region.US_WEST_2;
         kmsClient = KmsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = AmazonKMSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -51,7 +48,6 @@ public class AmazonKMSTest {
             keyDesc = prop.getProperty("keyDesc");
             operation=prop.getProperty("operation");
             aliasName=prop.getProperty("aliasName");
-            policyRoleArn=prop.getProperty("policyRoleArn");
             granteePrincipal=prop.getProperty("granteePrincipal");
 
         } catch (IOException ex) {

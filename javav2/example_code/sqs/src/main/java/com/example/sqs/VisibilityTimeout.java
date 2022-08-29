@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[VisibilityTimeout.java demonstrates how to change the visibility timeout for messages in an Amazon Simple Queue Service (Amazon SQS) queue.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,9 +9,18 @@
 package com.example.sqs;
 
 // snippet-start:[sqs.java2.visibility_timeout.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.*;
+import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequest;
+import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
+import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
+import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
+import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
+import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
+import software.amazon.awssdk.services.sqs.model.SqsException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -23,9 +28,9 @@ import java.util.Date;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,13 +40,14 @@ public class VisibilityTimeout {
     public static void main(String[] args) {
         final String queueName = "testQueue" + new Date().getTime();
         SqsClient sqs = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         // First, create a queue (unless it exists already)
         CreateQueueRequest createRequest = CreateQueueRequest.builder()
-                .queueName(queueName)
-                .build();
+            .queueName(queueName)
+            .build();
         try {
             sqs.createQueue(createRequest);
         } catch (SqsException e) {
@@ -49,16 +55,12 @@ public class VisibilityTimeout {
             System.exit(1);
         }
 
-        GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()
-                .queueName(queueName)
-                .build();
-
         // Send some messages to the queue
         for (int i = 0; i < 20; i++) {
             SendMessageRequest sendRequest = SendMessageRequest.builder()
-                    .queueUrl(queueName)
-                    .messageBody("This is message " + i)
-                    .build();
+                .queueUrl(queueName)
+                .messageBody("This is message " + i)
+                .build();
             sqs.sendMessage(sendRequest);
         }
 
@@ -100,9 +102,7 @@ public class VisibilityTimeout {
     public static void changeMessageVisibilityMultiple(SqsClient sqs, String queue_url, int timeout) {
 
         try {
-            List<ChangeMessageVisibilityBatchRequestEntry> entries =
-                new ArrayList<ChangeMessageVisibilityBatchRequestEntry>();
-
+            List<ChangeMessageVisibilityBatchRequestEntry> entries = new ArrayList<>();
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queue_url)
                 .build();

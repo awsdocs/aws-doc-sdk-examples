@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateEndpoint.java demonstrates how to update an endpoint for an application in Amazon Pinpoint.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.createendpoint.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.EndpointResponse;
@@ -38,30 +35,31 @@ import java.util.Date;
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class UpdateEndpoint {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage: " +
-                "CreateEndpoint <appId>\n\n" +
-                "Where:\n" +
-                "  appId - the ID of the application to create an endpoint for.\n\n";
+        final String usage = "\n" +
+            "Usage: " +
+            " <appId>\n\n" +
+            "Where:\n" +
+            "  appId - The ID of the application to create an endpoint for.\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         EndpointResponse response = createEndpoint(pinpoint, appId);
         System.out.println("Got Endpoint: " + response.id());
@@ -75,24 +73,22 @@ public class UpdateEndpoint {
         System.out.println("Endpoint ID: " + endpointId);
 
         try {
-
             EndpointRequest endpointRequest = createEndpointRequestData();
-
             UpdateEndpointRequest updateEndpointRequest = UpdateEndpointRequest.builder()
-                    .applicationId(appId)
-                    .endpointId(endpointId)
-                    .endpointRequest(endpointRequest)
-                    .build();
+                .applicationId(appId)
+                .endpointId(endpointId)
+                .endpointRequest(endpointRequest)
+                .build();
 
             UpdateEndpointResponse updateEndpointResponse = client.updateEndpoint(updateEndpointRequest);
             System.out.println("Update Endpoint Response: " + updateEndpointResponse.messageBody());
 
             GetEndpointRequest getEndpointRequest = GetEndpointRequest.builder()
-                    .applicationId(appId)
-                    .endpointId(endpointId)
-                    .build();
-            GetEndpointResponse getEndpointResponse = client.getEndpoint(getEndpointRequest);
+                .applicationId(appId)
+                .endpointId(endpointId)
+                .build();
 
+            GetEndpointResponse getEndpointResponse = client.getEndpoint(getEndpointRequest);
             System.out.println(getEndpointResponse.endpointResponse().address());
             System.out.println(getEndpointResponse.endpointResponse().channelType());
             System.out.println(getEndpointResponse.endpointResponse().applicationId());
@@ -119,55 +115,52 @@ public class UpdateEndpoint {
             customAttributes.put("team", favoriteTeams);
 
             EndpointDemographic demographic = EndpointDemographic.builder()
-                    .appVersion("1.0")
-                    .make("apple")
-                    .model("iPhone")
-                    .modelVersion("7")
-                    .platform("ios")
-                    .platformVersion("10.1.1")
-                    .timezone("America/Los_Angeles")
-                    .build();
+                .appVersion("1.0")
+                .make("apple")
+                .model("iPhone")
+                .modelVersion("7")
+                .platform("ios")
+                .platformVersion("10.1.1")
+                .timezone("America/Los_Angeles")
+                .build();
 
             EndpointLocation location = EndpointLocation.builder()
-                    .city("Los Angeles")
-                    .country("US")
-                    .latitude(34.0)
-                    .longitude(-118.2)
-                    .postalCode("90068")
-                    .region("CA")
-                    .build();
+                .city("Los Angeles")
+                .country("US")
+                .latitude(34.0)
+                .longitude(-118.2)
+                .postalCode("90068")
+                .region("CA")
+                .build();
 
             Map<String,Double> metrics = new HashMap<>();
             metrics.put("health", 100.00);
             metrics.put("luck", 75.00);
 
             EndpointUser user = EndpointUser.builder()
-                    .userId(UUID.randomUUID().toString())
-                    .build();
+                .userId(UUID.randomUUID().toString())
+                .build();
 
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
             String nowAsISO = df.format(new Date());
 
-            EndpointRequest endpointRequest = EndpointRequest.builder()
-                    .address(UUID.randomUUID().toString())
-                    .attributes(customAttributes)
-                    .channelType("APNS")
-                    .demographic(demographic)
-                    .effectiveDate(nowAsISO)
-                    .location(location)
-                    .metrics(metrics)
-                    .optOut("NONE")
-                    .requestId(UUID.randomUUID().toString())
-                    .user(user)
-                    .build();
-
-            return endpointRequest;
+            return EndpointRequest.builder()
+                .address(UUID.randomUUID().toString())
+                .attributes(customAttributes)
+                .channelType("APNS")
+                .demographic(demographic)
+                .effectiveDate(nowAsISO)
+                .location(location)
+                .metrics(metrics)
+                .optOut("NONE")
+                .requestId(UUID.randomUUID().toString())
+                .user(user)
+                .build();
 
         } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
         return null;
     }
     //snippet-end:[pinpoint.java2.createendpoint.helper]

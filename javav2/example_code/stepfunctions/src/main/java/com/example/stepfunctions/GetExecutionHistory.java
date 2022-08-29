@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[GetExecutionHistory.java demonstrates how to retrieve the history of the specified execution as a list of events.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.stepfunctions;
 
 // snippet-start:[stepfunctions.java2.get_history.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.GetExecutionHistoryRequest;
@@ -24,9 +21,9 @@ import java.util.List;
 // snippet-end:[stepfunctions.java2.get_history.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,22 +31,23 @@ public class GetExecutionHistory {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <exeARN> \n\n" +
-                "Where:\n" +
-                "    exeARN - The Amazon Resource Name (ARN) of the execution.\n\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <exeARN> \n\n" +
+            "Where:\n" +
+            "    exeARN - The Amazon Resource Name (ARN) of the execution.\n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String exeARN = args[0];
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getExeHistory(sfnClient, exeARN);
         sfnClient.close();
@@ -57,19 +55,16 @@ public class GetExecutionHistory {
 
     // snippet-start:[stepfunctions.java2.get_history.main]
     public static void getExeHistory(SfnClient sfnClient, String exeARN) {
-
         try {
-
             GetExecutionHistoryRequest historyRequest = GetExecutionHistoryRequest.builder()
-                    .executionArn(exeARN)
-                    .maxResults(10)
-                    .build();
+                .executionArn(exeARN)
+                .maxResults(10)
+                .build();
 
             GetExecutionHistoryResponse historyResponse = sfnClient.getExecutionHistory(historyRequest);
             List<HistoryEvent> events = historyResponse.events();
             for (HistoryEvent event: events) {
                 System.out.println("The event type is "+event.type().toString());
-
             }
 
         } catch (SfnException e) {

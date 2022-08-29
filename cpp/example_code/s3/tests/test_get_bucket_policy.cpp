@@ -113,7 +113,7 @@ int main()
         }
 
         // 3/4. Get information about the bucket policy that was added.
-        if (!AwsDoc::S3::GetBucketPolicy(bucket_name, "us-east-1"))
+        if (!AwsDoc::S3::GetBucketPolicy(bucket_name, config.region))
         {
             std::cout << "Error: GetBucketPolicy test. To clean up, you must delete the bucket '" <<
                 bucket_name << "' yourself." << std::endl;

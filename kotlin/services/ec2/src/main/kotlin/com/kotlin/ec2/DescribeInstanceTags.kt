@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DescribeInstanceTags.kt demonstrates how to describe the specified tags for your Amazon Elastic Compute Cloud (Amazon EC2) resource.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DescribeInstanceTags.kt demonstrates how to describe the specified tags for your Amazon Elastic Compute Cloud (Amazon EC2) resource.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon EC2]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,21 +16,21 @@ import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_instances_tags.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
             <resourceIdVal> 
 
         Where:
-            resourceIdVal - the instance ID value that you can obtain from the AWS Management Console (for example, i-xxxxxx0913e05f482).
+            resourceIdVal - The instance ID value that you can obtain from the AWS Management Console (for example, i-xxxxxx0913e05f482).
         """
 
     if (args.size != 1) {
@@ -49,18 +45,18 @@ suspend fun main(args:Array<String>) {
 // snippet-start:[ec2.kotlin.describe_instances_tags.main]
 suspend fun describeEC2Tags(resourceIdVal: String) {
 
-        val filter = Filter {
-            name = "resource-id"
-            values = listOf(resourceIdVal)
-        }
+    val filter = Filter {
+        name = "resource-id"
+        values = listOf(resourceIdVal)
+    }
 
-        val request = DescribeTagsRequest {
-            filters = listOf(filter)
-        }
+    val request = DescribeTagsRequest {
+        filters = listOf(filter)
+    }
 
-        Ec2Client { region = "us-west-2" }.use { ec2 ->
-         val response =  ec2.describeTags(request)
-         response.tags?.forEach { tag ->
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
+        val response = ec2.describeTags(request)
+        response.tags?.forEach { tag ->
             println("Tag key is ${tag.key}")
             println("Tag value is ${tag.value}")
         }

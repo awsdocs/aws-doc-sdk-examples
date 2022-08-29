@@ -2,10 +2,6 @@
 // snippet-sourcedescription:[GetFindings.java demonstrates how to List detector id values for existing Amazon GuardDuty detector resources.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon GuardDuty]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/28/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +11,7 @@
 package com.example.guardduty;
 
 //snippet-start:[guard.java2.get_findings.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.guardduty.GuardDutyClient;
 import software.amazon.awssdk.services.guardduty.model.Finding;
@@ -26,9 +23,9 @@ import java.util.List;
 //snippet-end:[guard.java2.get_findings.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,13 +33,13 @@ public class GetFindings {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "To run this example, supply the findingId value and the detectorId value.  \n" +
                 "\n" +
                 "Ex: GetFindings <findingId> <detectorId>\n";
 
         if (args.length < 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -52,6 +49,7 @@ public class GetFindings {
         Region region = Region.US_EAST_1;
         GuardDutyClient guardDutyClient = GuardDutyClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         getSpecificFinding(guardDutyClient, findingId, detectorId);

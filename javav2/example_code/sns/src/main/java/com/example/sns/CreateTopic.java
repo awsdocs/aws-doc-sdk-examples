@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateTopic.java demonstrates how to create an Amazon Simple Notification Service (Amazon SNS) topic.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon- AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.sns;
 
 //snippet-start:[sns.java2.CreateTopic.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
@@ -22,31 +19,32 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 //snippet-end:[sns.java2.CreateTopic.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateTopic {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "Usage: " +
-                "   <topicName>\n\n" +
-                "Where:\n" +
-                "   topicName - the name of the topic to create (for example, mytopic).\n\n";
+
+        final String usage = "\n" +
+            "Usage: " +
+            "   <topicName>\n\n" +
+            "Where:\n" +
+            "   topicName - The name of the topic to create (for example, mytopic).\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String topicName = args[0];
         System.out.println("Creating a topic with name: " + topicName);
-
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String arnVal = createSNSTopic(snsClient, topicName) ;
         System.out.println("The topic ARN is" +arnVal);
@@ -59,13 +57,13 @@ public class CreateTopic {
         CreateTopicResponse result = null;
         try {
             CreateTopicRequest request = CreateTopicRequest.builder()
-                    .name(topicName)
-                    .build();
+                .name(topicName)
+                .build();
 
             result = snsClient.createTopic(request);
             return result.topicArn();
-        } catch (SnsException e) {
 
+        } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

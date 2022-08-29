@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[SendMessages.kt demonstrates how to send a message to an Amazon Simple Queue Service (Amazon SQS) queue.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[SendMessages.kt demonstrates how to send a message to an Amazon Simple Queue Service (Amazon SQS) queue.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Simple Queue Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,27 +11,34 @@ package com.kotlin.sqs
 
 // snippet-start:[sqs.kotlin.send_messages.import]
 import aws.sdk.kotlin.services.sqs.SqsClient
-import aws.sdk.kotlin.services.sqs.model.SendMessageRequest
-import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequestEntry
 import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequest
+import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequestEntry
+import aws.sdk.kotlin.services.sqs.model.SendMessageRequest
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.send_messages.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage: 
             <queueName> <tagName>
         Where:
-           queueUrl - the URL of the queue to which messages are sent.
-           message - the message to send.
+           queueUrl - The URL of the queue to which messages are sent.
+           message - The message to send.
 
         """
 
-     if (args.size != 2) {
-         println(usage)
-         exitProcess(0)
-     }
+    if (args.size != 2) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val queueUrl = args[0]
     val message = args[1]
@@ -45,14 +48,14 @@ suspend fun main(args:Array<String>) {
 }
 
 // snippet-start:[sqs.kotlin.send_messages.main]
-suspend fun sendMessages(queueUrlVal: String, message : String) {
+suspend fun sendMessages(queueUrlVal: String, message: String) {
     println("Sending multiple messages")
     println("\nSend message")
     val sendRequest = SendMessageRequest {
         queueUrl = queueUrlVal
         messageBody = message
         delaySeconds = 10
-     }
+    }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
         sqsClient.sendMessage(sendRequest)
@@ -64,23 +67,23 @@ suspend fun sendBatchMessages(queueUrlVal: String?) {
     println("Sending multiple messages")
 
     val msg1 = SendMessageBatchRequestEntry {
-         id = "id1"
-         messageBody = "Hello from msg 1"
+        id = "id1"
+        messageBody = "Hello from msg 1"
     }
 
     val msg2 = SendMessageBatchRequestEntry {
-          id = "id2"
-          messageBody = "Hello from msg 2"
+        id = "id2"
+        messageBody = "Hello from msg 2"
     }
 
     val sendMessageBatchRequest = SendMessageBatchRequest {
         queueUrl = queueUrlVal
-         entries = listOf(msg1,msg2)
+        entries = listOf(msg1, msg2)
     }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
-          sqsClient.sendMessageBatch(sendMessageBatchRequest)
-          println("Batch message were successfully sent.")
+        sqsClient.sendMessageBatch(sendMessageBatchRequest)
+        println("Batch message were successfully sent.")
     }
 }
 // snippet-end:[sqs.kotlin.send_messages.main]

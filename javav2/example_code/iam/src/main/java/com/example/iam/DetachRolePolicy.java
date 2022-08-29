@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[DetachRolePolicy.java demonstrates how to detach a policy from an AWS Identity and Access Management (IAM) role.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +8,7 @@
 package com.example.iam;
 
 // snippet-start:[iam.java2.detach_role_policy.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -20,24 +16,24 @@ import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.detach_role_policy.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetachRolePolicy {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <roleName> <policyArn> \n\n" +
-                "Where:\n" +
-                "    roleName - a role name that you can obtain from the AWS Management Console. \n\n" +
-                "    policyArn - a policy ARN that you can obtain from the AWS Management Console. \n\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <roleName> <policyArn> \n\n" +
+            "Where:\n" +
+            "    roleName - A role name that you can obtain from the AWS Management Console. \n\n" +
+            "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -45,9 +41,9 @@ public class DetachRolePolicy {
         String policyArn = args[1];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .build();
-
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         detachPolicy(iam, roleName, policyArn);
         System.out.println("Done");
         iam.close();
@@ -58,9 +54,9 @@ public class DetachRolePolicy {
 
         try {
             DetachRolePolicyRequest request = DetachRolePolicyRequest.builder()
-                    .roleName(roleName)
-                    .policyArn(policyArn)
-                    .build();
+                .roleName(roleName)
+                .policyArn(policyArn)
+                .build();
 
             iam.detachRolePolicy(request);
             System.out.println("Successfully detached policy " + policyArn +

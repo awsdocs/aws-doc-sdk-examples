@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteBot.kt demonstrates how to delete an Amazon Lex conversational bot.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Lex]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[DeleteBot.kt demonstrates how to delete an Amazon Lex conversational bot.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Lex]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,14 +16,14 @@ import kotlin.system.exitProcess
 // snippet-end:[lex.kotlin.delete_bot.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     
@@ -35,13 +31,13 @@ suspend fun main(args:Array<String>) {
             <botName> 
 
         Where:
-          botName - the name of bot (for example, BookHotel).
+          botName - The name of bot (for example, BookHotel).
     """
 
-     if (args.size != 1) {
-         println(usage)
-         exitProcess(0)
-     }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val botName = args[0]
     deleteSpecificBot(botName)

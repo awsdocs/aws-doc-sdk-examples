@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[GetFailedExecutions.java demonstrates how to obtain a list of failed executions for the specified AWS Step Functions state machine.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/28/2021]
-//snippet-sourceauthor:[scmacdon-AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +11,7 @@
 package com.example.stepfunctions;
 
 // snippet-start:[stepfunctions.java2.get_failed_exes.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.ListExecutionsRequest;
@@ -25,9 +22,9 @@ import java.util.List;
 // snippet-end:[stepfunctions.java2.get_failed_exes.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,22 +32,23 @@ public class GetFailedExecutions {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <stateMachineARN>\n\n" +
-                "Where:\n" +
-                "    stateMachineARN - The ARN of the state machine.\n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <stateMachineARN>\n\n" +
+            "Where:\n" +
+            "    stateMachineARN - The ARN of the state machine.\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String stateMachineARN = args[0];
         Region region = Region.US_WEST_2;
         SfnClient sfnClient = SfnClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getFailedExes(sfnClient, stateMachineARN);
         sfnClient.close();
@@ -58,13 +56,11 @@ public class GetFailedExecutions {
 
     // snippet-start:[stepfunctions.java2.get_failed_exes.main]
     public static void getFailedExes(SfnClient sfnClient, String stateMachineARN) {
-
         try {
             ListExecutionsRequest executionsRequest = ListExecutionsRequest.builder()
-                    .maxResults(10)
-                    .stateMachineArn(stateMachineARN)
-                   // .statusFilter(ExecutionStatus.FAILED)
-                    .build();
+                .maxResults(10)
+                .stateMachineArn(stateMachineARN)
+                .build();
 
             ListExecutionsResponse response = sfnClient.listExecutions(executionsRequest);
             List<ExecutionListItem> items = response.executions();

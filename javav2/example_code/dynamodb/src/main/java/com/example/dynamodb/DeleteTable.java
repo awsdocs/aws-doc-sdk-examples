@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[DeleteTable.java demonstrates how to delete an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +9,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.delete_table.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -21,9 +17,9 @@ import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
 // snippet-end:[dynamodb.java2.delete_table.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,27 +27,27 @@ import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
 public class DeleteTable {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <tableName>\n\n" +
-                "Where:\n" +
-                "    tableName - the Amazon DynamoDB table to delete (for example, Music3).\n\n" +
-                "**Warning** This program will delete the table that you specify!\n";
+
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <tableName>\n\n" +
+            "Where:\n" +
+            "    tableName - The Amazon DynamoDB table to delete (for example, Music3).\n\n" +
+            "**Warning** This program will delete the table that you specify!\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
-        // Read the command line argument
         String tableName = args[0];
         System.out.format("Deleting the Amazon DynamoDB table %s...\n", tableName);
-
-        // Create the DynamoDbClient object
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         deleteDynamoDBTable(ddb, tableName);
         ddb.close();
@@ -61,8 +57,8 @@ public class DeleteTable {
     public static void deleteDynamoDBTable(DynamoDbClient ddb, String tableName) {
 
         DeleteTableRequest request = DeleteTableRequest.builder()
-                .tableName(tableName)
-                .build();
+            .tableName(tableName)
+            .build();
 
         try {
             ddb.deleteTable(request);

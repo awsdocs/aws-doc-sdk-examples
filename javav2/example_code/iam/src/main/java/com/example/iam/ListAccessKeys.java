@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[ListAccessKeys.java demonstrates how to list access keys associated with an AWS Identity and Access Management (IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +8,7 @@
 package com.example.iam;
 
 // snippet-start:[iam.java2.list_access_keys.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.AccessKeyMetadata;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.ListAccessKeysRequest;
@@ -22,31 +18,32 @@ import software.amazon.awssdk.services.iam.IamClient;
 // snippet-end:[iam.java2.list_access_keys.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListAccessKeys {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <userName> \n\n" +
-                "Where:\n" +
-                "    userName - the name of the user for which access keys are retrieved. \n\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <userName> \n\n" +
+            "Where:\n" +
+            "    userName - The name of the user for which access keys are retrieved. \n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String userName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listKeys(iam,userName) ;
         System.out.println("Done");
@@ -63,21 +60,24 @@ public class ListAccessKeys {
             while (!done) {
                 ListAccessKeysResponse response;
 
-            if(newMarker == null) {
-                ListAccessKeysRequest request = ListAccessKeysRequest.builder()
-                        .userName(userName).build();
-                response = iam.listAccessKeys(request);
-            } else {
-                ListAccessKeysRequest request = ListAccessKeysRequest.builder()
-                        .userName(userName)
-                        .marker(newMarker).build();
-                response = iam.listAccessKeys(request);
-            }
+                if(newMarker == null) {
+                    ListAccessKeysRequest request = ListAccessKeysRequest.builder()
+                    .userName(userName)
+                    .build();
 
-            for (AccessKeyMetadata metadata :
-                    response.accessKeyMetadata()) {
-                System.out.format("Retrieved access key %s",
-                        metadata.accessKeyId());
+                    response = iam.listAccessKeys(request);
+
+                } else {
+                    ListAccessKeysRequest request = ListAccessKeysRequest.builder()
+                        .userName(userName)
+                        .marker(newMarker)
+                        .build();
+
+                    response = iam.listAccessKeys(request);
+                }
+
+                for (AccessKeyMetadata metadata : response.accessKeyMetadata()) {
+                    System.out.format("Retrieved access key %s", metadata.accessKeyId());
             }
 
             if (!response.isTruncated()) {

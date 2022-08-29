@@ -15,8 +15,7 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::S3::Model::BucketLocationConstraint region =
-            Aws::S3::Model::BucketLocationConstraint::us_east_1;
+        Aws::String region ="us-east-1";
 
         // Create a unique bucket name to increase the chance of success 
         // when trying to create the bucket.
@@ -33,7 +32,7 @@ int main()
 
         // Delete the bucket, leaving the AWS account in its previous state.
         Aws::Client::ClientConfiguration config;
-        config.region = "us-east-1";
+        config.region = region;
 
         Aws::S3::S3Client s3_client(config);
         Aws::S3::Model::DeleteBucketRequest request;

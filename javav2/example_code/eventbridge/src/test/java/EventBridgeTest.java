@@ -21,6 +21,7 @@ public class EventBridgeTest {
         region = Region.US_WEST_2;
         eventBrClient = EventBridgeClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = EventBridgeTest.class.getClassLoader().getResourceAsStream("config.properties")) {

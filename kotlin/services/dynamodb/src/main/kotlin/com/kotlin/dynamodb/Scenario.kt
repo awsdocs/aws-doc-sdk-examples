@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[Scenario.kt demonstrates how to perform various operations.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[02/10/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[Scenario.kt demonstrates how to perform various operations.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon DynamoDB]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,16 +12,16 @@ package com.kotlin.dynamodb
 // snippet-start:[dynamodb.kotlin.scenario.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeDefinition
-import aws.sdk.kotlin.services.dynamodb.model.ScalarAttributeType
-import aws.sdk.kotlin.services.dynamodb.model.KeySchemaElement
-import aws.sdk.kotlin.services.dynamodb.model.ProvisionedThroughput
-import aws.sdk.kotlin.services.dynamodb.model.KeyType
-import aws.sdk.kotlin.services.dynamodb.model.CreateTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
-import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
-import aws.sdk.kotlin.services.dynamodb.model.GetItemRequest
+import aws.sdk.kotlin.services.dynamodb.model.CreateTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.DeleteTableRequest
+import aws.sdk.kotlin.services.dynamodb.model.GetItemRequest
+import aws.sdk.kotlin.services.dynamodb.model.KeySchemaElement
+import aws.sdk.kotlin.services.dynamodb.model.KeyType
+import aws.sdk.kotlin.services.dynamodb.model.ProvisionedThroughput
+import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
 import aws.sdk.kotlin.services.dynamodb.model.QueryRequest
+import aws.sdk.kotlin.services.dynamodb.model.ScalarAttributeType
 import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
 import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
 import com.fasterxml.jackson.core.JsonFactory
@@ -36,6 +32,14 @@ import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scenario.import]
 
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+*/
+
 // snippet-start:[dynamodb.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
 
@@ -44,17 +48,16 @@ suspend fun main(args: Array<String>) {
           <fileName>
 
         Where:
-           fileName - the path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
+           fileName - The path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
     """
 
-   if (args.size != 1) {
-         println(usage)
-         exitProcess(1)
-   }
-
-    val tableName = "Movies"
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(1)
+    }
 
     // Get the moviedata.json from the Amazon DynamoDB Developer Guide.
+    val tableName = "Movies"
     val fileName = args[0]
     val partitionAlias = "#a"
 
@@ -71,27 +74,27 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[dynamodb.kotlin.scenario.create_table.main]
 suspend fun createScenarioTable(tableNameVal: String, key: String) {
 
-    val  attDef = AttributeDefinition {
+    val attDef = AttributeDefinition {
         attributeName = key
         attributeType = ScalarAttributeType.N
     }
 
-    val  attDef1 = AttributeDefinition {
+    val attDef1 = AttributeDefinition {
         attributeName = "title"
         attributeType = ScalarAttributeType.S
     }
 
-    val keySchemaVal =  KeySchemaElement{
+    val keySchemaVal = KeySchemaElement {
         attributeName = key
         keyType = KeyType.Hash
     }
 
-    val keySchemaVal1 =  KeySchemaElement{
+    val keySchemaVal1 = KeySchemaElement {
         attributeName = "title"
         keyType = KeyType.Range
     }
 
-    val provisionedVal =  ProvisionedThroughput {
+    val provisionedVal = ProvisionedThroughput {
         readCapacityUnits = 10
         writeCapacityUnits = 10
     }
@@ -116,7 +119,7 @@ suspend fun createScenarioTable(tableNameVal: String, key: String) {
 
 // snippet-start:[dynamodb.kotlin.scenario.populate_table.main]
 // Load data into the table.
-suspend fun loadData(tableName: String, fileName:String) {
+suspend fun loadData(tableName: String, fileName: String) {
 
     val parser = JsonFactory().createParser(File(fileName))
     val rootNode = ObjectMapper().readTree<JsonNode>(parser)
@@ -124,10 +127,9 @@ suspend fun loadData(tableName: String, fileName:String) {
     var currentNode: ObjectNode
 
     var t = 0
-
     while (iter.hasNext()) {
 
-        if (t == 200)
+        if (t == 50)
             break
 
         currentNode = iter.next() as ObjectNode
@@ -138,6 +140,7 @@ suspend fun loadData(tableName: String, fileName:String) {
         t++
     }
 }
+
 suspend fun putMovie(
     tableNameVal: String,
     year: Int,
@@ -149,11 +152,10 @@ suspend fun putMovie(
     // Add all content to the table.
     itemValues["year"] = AttributeValue.N(strVal)
     itemValues["title"] = AttributeValue.S(title)
-    itemValues["info"] =  AttributeValue.S(info)
-
+    itemValues["info"] = AttributeValue.S(info)
 
     val request = PutItemRequest {
-        tableName=tableNameVal
+        tableName = tableNameVal
         item = itemValues
     }
 
@@ -163,7 +165,6 @@ suspend fun putMovie(
     }
 }
 // snippet-end:[dynamodb.kotlin.scenario.populate_table.main]
-
 
 // snippet-start:[dynamodb.kotlin.scenario.get_item.main]
 suspend fun getMovie(tableNameVal: String, keyName: String, keyVal: String) {

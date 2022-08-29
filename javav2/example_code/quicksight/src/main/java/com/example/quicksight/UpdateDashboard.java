@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[UpdateDashboard.java demonstrates how to update an Amazon QuickSight dashboard.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.quicksight;
 
 // snippet-start:[quicksight.java2.update_dashboard.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import software.amazon.awssdk.services.quicksight.model.DataSetReference;
@@ -37,7 +34,7 @@ import java.util.UUID;
 *    This code example uses resources that you created by following that topic such as the DataSet Arn value.
 *
 *
-*  Also, ensure that you have setup your development environment, including your credentials.
+*  Also, set up your development environment, including your credentials.
 *
 *  For information, see this documentation topic:
 *
@@ -48,17 +45,17 @@ public class UpdateDashboard {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage: " +
-                "   <account> <dashboardId> <dataSetArn> <analysisArn>\n\n" +
-                "Where:\n" +
-                "   account - the account to use.\n\n" +
-                "   dashboardId - the dashboard id value to use.\n\n" +
-                "   dataSetArn - the ARN of the dataset.\n\n" +
-                "   analysisArn - the ARN of an existing analysis";
+        final String usage = "\n" +
+            "Usage: " +
+            "   <account> <dashboardId> <dataSetArn> <analysisArn>\n\n" +
+            "Where:\n" +
+            "   account - The account to use.\n\n" +
+            "   dashboardId - The dashboard id value to use.\n\n" +
+            "   dataSetArn - The ARN of the dataset.\n\n" +
+            "   analysisArn - The ARN of an existing analysis";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -67,41 +64,41 @@ public class UpdateDashboard {
         String dataSetArn = args[2];
         String analysisArn = args[3];
         QuickSightClient qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn);
         qsClient.close();
     }
 
     // snippet-start:[quicksight.java2.update_dashboard.main]
-    public static void updateSpecificDashboard( QuickSightClient qsClient, String account,  String dashboardId, String dataSetArn, String analysisArn) {
+    public static void updateSpecificDashboard( QuickSightClient qsClient, String account, String dashboardId, String dataSetArn, String analysisArn) {
 
         try {
-
             DataSetReference dataSetReference = DataSetReference.builder()
-                    .dataSetArn(dataSetArn)
-                    .dataSetPlaceholder("Dataset placeholder2")
-                    .build();
+                .dataSetArn(dataSetArn)
+                .dataSetPlaceholder("Dataset placeholder2")
+                .build();
 
             // Get a template ARN to use.
             String arn = getTemplateARN(qsClient, account, dataSetArn, analysisArn);
             DashboardSourceTemplate sourceTemplate = DashboardSourceTemplate.builder()
-                    .dataSetReferences(dataSetReference)
-                   .arn(arn)
-                    .build();
+                .dataSetReferences(dataSetReference)
+                .arn(arn)
+                .build();
 
             DashboardSourceEntity sourceEntity = DashboardSourceEntity.builder()
-                    .sourceTemplate(sourceTemplate)
-                    .build();
+                .sourceTemplate(sourceTemplate)
+                .build();
 
             UpdateDashboardRequest dashboardRequest = UpdateDashboardRequest.builder()
-                    .awsAccountId(account)
-                    .dashboardId(dashboardId)
-                    .name("UpdateTest")
-                     .sourceEntity(sourceEntity)
-                    .themeArn("arn:aws:quicksight::aws:theme/MIDNIGHT")
-                    .build();
+                .awsAccountId(account)
+                .dashboardId(dashboardId)
+                .name("UpdateTest")
+                .sourceEntity(sourceEntity)
+                .themeArn("arn:aws:quicksight::aws:theme/MIDNIGHT")
+                .build();
 
             UpdateDashboardResponse response = qsClient.updateDashboard(dashboardRequest);
             System.out.println("Dashboard " + response.dashboardId() + " has been updated");
@@ -114,31 +111,30 @@ public class UpdateDashboard {
 
     private static String getTemplateARN(QuickSightClient qsClient, String account, String dataset, String analysisArn) {
 
-        String arn = "";
+        String arn = null;
         try {
             DataSetReference setReference = DataSetReference.builder()
-                    .dataSetArn(dataset)
-                    .dataSetPlaceholder("Dataset placeholder2")
-                    .build();
+                .dataSetArn(dataset)
+                .dataSetPlaceholder("Dataset placeholder2")
+                .build();
 
             TemplateSourceAnalysis templateSourceAnalysis = TemplateSourceAnalysis.builder()
-                    .dataSetReferences(setReference)
-                    .arn(analysisArn)
-                    .build();
+                .dataSetReferences(setReference)
+                .arn(analysisArn)
+                .build();
 
             TemplateSourceEntity sourceEntity = TemplateSourceEntity.builder()
-                    .sourceAnalysis(templateSourceAnalysis)
-                    .build();
+                .sourceAnalysis(templateSourceAnalysis)
+                .build();
 
             UUID uuid = UUID.randomUUID();
-            String templateGUID =uuid.toString();
-
+            String templateGUID = uuid.toString();
             CreateTemplateRequest createTemplateRequest = CreateTemplateRequest.builder()
-               .awsAccountId(account)
-               .name("NewTemplate")
-               .sourceEntity(sourceEntity)
-               .templateId(templateGUID) // Specify a GUID value
-               .build();
+                .awsAccountId(account)
+                .name("NewTemplate")
+                .sourceEntity(sourceEntity)
+                .templateId(templateGUID) // Specify a GUID value
+                .build();
 
             CreateTemplateResponse response = qsClient.createTemplate(createTemplateRequest);
             arn = response.arn();

@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListTables.java demonstrates how to list all Amazon DynamoDB tables.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,19 +10,19 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.list_tables.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
-import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
+import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import java.util.List;
 // snippet-end:[dynamodb.java2.list_tables.import]
 
-
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,10 +30,13 @@ public class ListTables {
 
     public static void main(String[] args) {
 
-        System.out.println("Your Amazon DynamoDB tables:\n");
-
+        System.out.println("Listing your Amazon DynamoDB tables:\n");
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        DynamoDbClient ddb = DynamoDbClient.builder()
+               .credentialsProvider(credentialsProvider)
+                .region(region)
+                .build();
         listAllTables(ddb);
         ddb.close();
     }
@@ -61,7 +60,6 @@ public class ListTables {
                 }
 
                 List<String> tableNames = response.tableNames();
-
                 if (tableNames.size() > 0) {
                     for (String curName : tableNames) {
                         System.out.format("* %s\n", curName);
@@ -75,6 +73,7 @@ public class ListTables {
                 if (lastName == null) {
                     moreTables = false;
                 }
+
             } catch (DynamoDbException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);

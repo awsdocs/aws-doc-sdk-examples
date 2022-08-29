@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[PutObject.java demonstrates how to upload a MP4 file to an AWS Elemental MediaStore container.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.mediastore;
 
 //snippet-start:[mediastore.java2.put_object.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastoredata.MediaStoreDataClient ;
@@ -29,9 +26,9 @@ import java.net.URISyntaxException;
 //snippet-end:[mediastore.java2.put_object.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -40,13 +37,13 @@ public class PutObject {
     public static void main(String[] args) throws URISyntaxException {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of a container, a file location to use, and path in the container \n" +
-               "\n" +
-                "Ex: <containerName> <filePath> <completePath>\n";
+            "To run this example, supply the name of a container, a file location to use, and path in the container \n" +
+            "\n" +
+            "Ex: <containerName> <filePath> <completePath>\n";
 
-         if (args.length < 3) {
-             System.out.println(USAGE);
-             System.exit(1);
+        if (args.length < 3) {
+            System.out.println(USAGE);
+            System.exit(1);
         }
 
         String containerName = args[0];
@@ -57,9 +54,10 @@ public class PutObject {
         URI uri = new URI(getEndpoint(containerName));
 
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .build();
+            .endpointOverride(uri)
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         putMediaObject(mediaStoreData, filePath, completePath);
         mediaStoreData.close();
@@ -80,26 +78,25 @@ public class PutObject {
             PutObjectResponse response = mediaStoreData.putObject(objectRequest, requestBody );
             System.out.println("The saved object is " +response.storageClass().toString());
 
-    } catch (MediaStoreDataException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+        } catch (MediaStoreDataException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
-  }
 
-
-  public static String getEndpoint(String containerName){
+    public static String getEndpoint(String containerName){
 
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-              .region(region)
-              .build();
+            .region(region)
+            .build();
 
-      DescribeContainerRequest containerRequest = DescribeContainerRequest.builder()
-              .containerName(containerName)
-              .build();
+        DescribeContainerRequest containerRequest = DescribeContainerRequest.builder()
+            .containerName(containerName)
+            .build();
 
-      DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
-      return response.container().endpoint();
+        DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
+        return response.container().endpoint();
     }
     //snippet-end:[mediastore.java2.put_object.main]
 }

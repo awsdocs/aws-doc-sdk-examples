@@ -1,0 +1,47 @@
+name: "Lint Labels"
+
+on: [pull_request_target]
+
+jobs:
+  label-linter:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+
+      # The Add Labels workflow adds a label to pull requests
+      # based on the files included in the proposed change.
+      #
+      # To use this workflow, you must set up and configure 
+      # rules in a .github/label-ruleset.yml file 
+      #
+      # For more information, see:
+      # https://github.com/actions/labeler
+      -
+       name: Add Labels
+       uses: actions/labeler@v4
+       with:
+         repo-token: "${{ secrets.GITHUB_TOKEN }}"
+         configuration-path: .github/label-ruleset.yml
+
+      # The Audit Labels workflow creates, renames, updates
+      # or deletes labels based on a list of allowed labels.
+      #
+      # To use this workflow, you must set up and configure 
+      # labels in a .github/allowed-labels.yml file
+      #
+      # For more information, see:
+      # https://github.com/crazy-max/ghaction-github-labeler
+      -
+        name: Audit Labels
+        if: success()
+        uses: crazy-max/ghaction-github-labeler@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          yaml-file: .github/allowed-labels.yml
+          skip-delete: false
+          dry-run: false

@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[DescribeAlarms.java demonstrates how to get information about Amazon CloudWatch alarms.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +8,7 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.describe_alarms.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
@@ -22,9 +18,9 @@ import software.amazon.awssdk.services.cloudwatch.model.MetricAlarm;
 // snippet-end:[cloudwatch.java2.describe_alarms.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,8 +30,9 @@ public class DescribeAlarms {
 
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-                .region(region)
-                .build();
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .region(region)
+            .build();
 
         desCWAlarms(cw) ;
         cw.close();
@@ -43,7 +40,6 @@ public class DescribeAlarms {
 
     // snippet-start:[cloudwatch.java2.describe_alarms.main]
     public static void desCWAlarms( CloudWatchClient cw) {
-
         try {
 
             boolean done = false;
@@ -51,7 +47,6 @@ public class DescribeAlarms {
 
             while(!done) {
                 DescribeAlarmsResponse response;
-
                 if (newToken == null) {
                     DescribeAlarmsRequest request = DescribeAlarmsRequest.builder().build();
                     response = cw.describeAlarms(request);

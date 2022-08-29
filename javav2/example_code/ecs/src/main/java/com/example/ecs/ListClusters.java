@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListClusters.java demonstrates how to list clusters for the Amazon Elastic Container Service (Amazon ECS) service.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +9,7 @@
 package com.example.ecs;
 
 // snippet-start:[ecs.java2.list_clusters.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.ListClustersResponse;
@@ -21,11 +18,11 @@ import java.util.List;
 // snippet-end:[ecs.java2.list_clusters.import]
 
 /**
- To run this Java V2 code example, ensure that you have setup your development environment,
- including your credentials.
-
- For information, see this documentation topic:
- https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class ListClusters {
@@ -34,8 +31,9 @@ public class ListClusters {
 
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllClusters(ecsClient);
         ecsClient.close();
@@ -45,7 +43,6 @@ public class ListClusters {
     public static void listAllClusters(EcsClient ecsClient) {
 
         try {
-
             ListClustersResponse response = ecsClient.listClusters();
             List<String> clusters = response.clusterArns();
             for (String cluster: clusters) {

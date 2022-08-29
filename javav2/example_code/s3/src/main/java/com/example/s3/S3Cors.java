@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[S3Cors.java demonstrates how to manage cross-origin resource sharing (CORS) for an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.cors.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import java.util.ArrayList;
@@ -28,9 +25,9 @@ import software.amazon.awssdk.services.s3.model.PutBucketCorsRequest;
 // snippet-end:[s3.java2.cors.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -39,20 +36,26 @@ public class S3Cors {
 
     public static void main (String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "  <bucketName> <accountId> \n\n" +
-                "Where:\n" +
-                "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
-                "  accountId - the id of the account that owns the Amazon S3 bucket.\n" ;;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <bucketName> <accountId> \n\n" +
+            "Where:\n" +
+            "    bucketName - The Amazon S3 bucket to upload an object into.\n" +
+            "    accountId - The id of the account that owns the Amazon S3 bucket.\n" ;
+
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String bucketName = args[0];
         String accountId = args[1];
-
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
        setCorsInformation(s3, bucketName, accountId);
        getBucketCorsInformation(s3, bucketName, accountId);
@@ -62,15 +65,14 @@ public class S3Cors {
 
     // snippet-start:[s3.java2.cors.main]
     public static void deleteBucketCorsInformation(S3Client s3, String bucketName, String accountId) {
-
         try {
-
             DeleteBucketCorsRequest bucketCorsRequest = DeleteBucketCorsRequest.builder()
-                    .bucket(bucketName)
-                    .expectedBucketOwner(accountId)
-                    .build();
+                .bucket(bucketName)
+                .expectedBucketOwner(accountId)
+                .build();
 
             s3.deleteBucketCors(bucketCorsRequest) ;
+
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -80,11 +82,10 @@ public class S3Cors {
     public static void getBucketCorsInformation(S3Client s3, String bucketName, String accountId) {
 
         try {
-
             GetBucketCorsRequest bucketCorsRequest = GetBucketCorsRequest.builder()
-                    .bucket(bucketName)
-                    .expectedBucketOwner(accountId)
-                    .build();
+                .bucket(bucketName)
+                .expectedBucketOwner(accountId)
+                .build();
 
             GetBucketCorsResponse corsResponse = s3.getBucketCors(bucketCorsRequest);
             List<CORSRule> corsRules = corsResponse.corsRules();
@@ -94,23 +95,22 @@ public class S3Cors {
             }
 
         } catch (S3Exception e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
 
     public static void setCorsInformation(S3Client s3, String bucketName, String accountId) {
 
-        List<String> allowMethods = new ArrayList();
+        List<String> allowMethods = new ArrayList<>();
         allowMethods.add("PUT");
         allowMethods.add("POST");
         allowMethods.add("DELETE");
 
-        List<String> allowOrigins = new ArrayList();
+        List<String> allowOrigins = new ArrayList<>();
         allowOrigins.add("http://example.com");
-
         try {
-
             // Define CORS rules.
             CORSRule corsRule = CORSRule.builder()
                 .allowedMethods(allowMethods)
@@ -119,7 +119,6 @@ public class S3Cors {
 
             List<CORSRule> corsRules = new ArrayList<>();
             corsRules.add(corsRule);
-
             CORSConfiguration configuration = CORSConfiguration.builder()
                 .corsRules(corsRules)
                 .build();

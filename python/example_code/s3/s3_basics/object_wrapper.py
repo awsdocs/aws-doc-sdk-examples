@@ -118,12 +118,12 @@ class ObjectWrapper:
             dest_object.wait_until_exists()
             logger.info(
                 "Copied object from %s:%s to %s:%s.",
-                self.object.key, self.object.bucket_name,
+                self.object.bucket_name, self.object.key,
                 dest_object.bucket_name, dest_object.key)
         except ClientError:
             logger.exception(
                 "Couldn't copy object from %s/%s to %s/%s.",
-                self.object.key, self.object.bucket_name,
+                self.object.bucket_name, self.object.key,
                 dest_object.bucket_name, dest_object.key)
             raise
 # snippet-end:[python.example_code.s3.CopyObject]

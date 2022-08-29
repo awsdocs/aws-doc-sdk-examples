@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DynamoDBPartiQ.java demonstrates how to work with PartiQL for Amazon DynamoDB.]
-//snippet-keyword:[AWS SDK for Java V2]
-//snippet-keyword:[Code Sample]
+//snippet-keyword:[SDK for Java v2]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[02/02/2022]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.partiql.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -40,25 +37,31 @@ public class DynamoDBPartiQ {
 
     public static void main(String[] args) {
 
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
-         AttributeValue att1 =  AttributeValue.builder()
-                .s("Acme Band")
-                .build();
+        AttributeValue att1 = AttributeValue.builder()
+            .s("Acme Band")
+            .build();
 
-        AttributeValue att2 =  AttributeValue.builder()
-                .s("PartiQL Rocks")
-                .build();
+        AttributeValue att2 = AttributeValue.builder()
+            .s("PartiQL Rocks")
+            .build();
 
-        List<AttributeValue> parameters = new ArrayList<AttributeValue>();
+        List<AttributeValue> parameters = new ArrayList<>();
         parameters.add(att1);
         parameters.add(att2);
+        queryTable(ddb, parameters);
+    }
+
+    public static void queryTable(DynamoDbClient ddb, List<AttributeValue> parameters ) {
 
         // Retrieve an item from the Music table using the SELECT PartiQL statement.
-        ExecuteStatementResponse response = executeStatementRequest(ddb, "SELECT * FROM Music  where Artist=? and SongTitle=?", parameters);
+        ExecuteStatementResponse response = executeStatementRequest(ddb, "SELECT COUNT(SongTitle) FROM Music", parameters);
         processResults(response);
 
         //Update an item in the Music table using the UPDATE PartiQL statement.
@@ -85,20 +88,17 @@ public class DynamoDBPartiQ {
 
         // Update a string set attribute for an item in the Music table.
         processResults(executeStatementRequest(ddb, "UPDATE Music SET BandMembers =set_add(BandMembers, <<'newmember'>>) where Artist=? and SongTitle=?", parameters));
-
         System.out.println("This code example has completed");
-
-        ddb.close();
     }
 
-        private static ExecuteStatementResponse executeStatementRequest(DynamoDbClient ddb, String statement, List<AttributeValue> parameters ) {
-            ExecuteStatementRequest request = ExecuteStatementRequest.builder()
-                    .statement(statement)
-                    .parameters(parameters)
-                    .build();
+    private static ExecuteStatementResponse executeStatementRequest(DynamoDbClient ddb, String statement, List<AttributeValue> parameters ) {
+        ExecuteStatementRequest request = ExecuteStatementRequest.builder()
+            .statement(statement)
+            .parameters(parameters)
+            .build();
 
-            return ddb.executeStatement(request);
-        }
+        return ddb.executeStatement(request);
+    }
 
     private static void processResults(ExecuteStatementResponse executeStatementResult) {
         System.out.println("ExecuteStatement successful: "+ executeStatementResult.toString());

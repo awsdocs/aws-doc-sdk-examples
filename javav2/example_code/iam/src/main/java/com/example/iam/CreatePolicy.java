@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreatePolicy.java demonstrates how to create a policy by using waiters.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-service:[IAM]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +9,7 @@
 package com.example.iam;
 
 // snippet-start:[iam.java2.create_policy.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.services.iam.model.CreatePolicyRequest;
 import software.amazon.awssdk.services.iam.model.CreatePolicyResponse;
@@ -25,9 +22,9 @@ import software.amazon.awssdk.services.iam.waiters.IamWaiter;
 // snippet-end:[iam.java2.create_policy.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -55,44 +52,47 @@ public class CreatePolicy {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    CreatePolicy <policyName> \n\n" +
-                "Where:\n" +
-                "    policyName - a unique policy name. \n\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    CreatePolicy <policyName> \n\n" +
+            "Where:\n" +
+                "    policyName - A unique policy name. \n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
            System.exit(1);
         }
 
         String policyName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String result = createIAMPolicy(iam, policyName);
         System.out.println("Successfully created a policy with this ARN value: " +result);
         iam.close();
     }
+
     // snippet-start:[iam.java2.create_policy.main]
     public static String createIAMPolicy(IamClient iam, String policyName ) {
 
         try {
-            // Create an IamWaiter object
+            // Create an IamWaiter object.
             IamWaiter iamWaiter = iam.waiter();
 
             CreatePolicyRequest request = CreatePolicyRequest.builder()
                 .policyName(policyName)
-                .policyDocument(PolicyDocument).build();
+                .policyDocument(PolicyDocument)
+                .build();
 
             CreatePolicyResponse response = iam.createPolicy(request);
 
-            // Wait until the policy is created
+            // Wait until the policy is created.
             GetPolicyRequest polRequest = GetPolicyRequest.builder()
-                    .policyArn(response.policy().arn())
-                    .build();
+                .policyArn(response.policy().arn())
+                .build();
 
             WaiterResponse<GetPolicyResponse> waitUntilPolicyExists = iamWaiter.waitUntilPolicyExists(polRequest);
             waitUntilPolicyExists.matched().response().ifPresent(System.out::println);

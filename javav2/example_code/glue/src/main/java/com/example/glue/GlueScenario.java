@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[GlueScenario.java demonstrates how to perform multiple AWS Glue operations.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/17/2022]
-//snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +9,7 @@
 package com.example.glue;
 
 //snippet-start:[glue.java2.scenario.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import java.time.Instant;
@@ -88,19 +85,19 @@ public class GlueScenario {
     public static void main(String[] args) throws InterruptedException {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName> \n\n" +
-                "Where:\n" +
-                "    iam - The ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
-                "    s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +
-                "    cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).\n" +
-                "    dbName - The database name. \n" +
-                "    crawlerName - The name of the crawler. \n" +
-                "    jobName - The name you assign to this job definition."+
-                "    scriptLocation - The Amazon S3 path to a script that runs a job." +
-                "    locationUri - The location of the database" ;
+            "Usage:\n" +
+            "    <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName> \n\n" +
+            "Where:\n" +
+            "    iam - The ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
+            "    s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +
+            "    cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).\n" +
+            "    dbName - The database name. \n" +
+            "    crawlerName - The name of the crawler. \n" +
+            "    jobName - The name you assign to this job definition."+
+            "    scriptLocation - The Amazon S3 path to a script that runs a job." +
+            "    locationUri - The location of the database" ;
 
-        if (args.length != 8) {
+       if (args.length != 8) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -113,11 +110,11 @@ public class GlueScenario {
         String jobName = args[5];
         String scriptLocation = args[6];
         String locationUri = args[7];
-
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("About to start the AWS Glue Scenario");
         createDatabase(glueClient, dbName, locationUri);
@@ -142,14 +139,14 @@ public class GlueScenario {
 
         try {
             DatabaseInput input = DatabaseInput.builder()
-                    .description("Built with the AWS SDK for Java V2")
-                    .name(dbName)
-                    .locationUri(locationUri)
-                    .build();
+                .description("Built with the AWS SDK for Java V2")
+                .name(dbName)
+                .locationUri(locationUri)
+                .build();
 
             CreateDatabaseRequest request = CreateDatabaseRequest.builder()
-                    .databaseInput(input)
-                    .build();
+                .databaseInput(input)
+                .build();
 
             glueClient.createDatabase(request);
             System.out.println("The database was successfully created");
@@ -169,24 +166,23 @@ public class GlueScenario {
 
         try {
             S3Target s3Target = S3Target.builder()
-                    .path(s3Path)
-                    .build();
+                .path(s3Path)
+                .build();
 
             List<S3Target> targetList = new ArrayList<>();
             targetList.add(s3Target);
-
             CrawlerTargets targets = CrawlerTargets.builder()
-                    .s3Targets(targetList)
-                    .build();
+                .s3Targets(targetList)
+                .build();
 
             CreateCrawlerRequest crawlerRequest = CreateCrawlerRequest.builder()
-                    .databaseName(dbName)
-                    .name(crawlerName)
-                    .description("Created by the AWS Glue Java API")
-                    .targets(targets)
-                    .role(iam)
-                    .schedule(cron)
-                    .build();
+                .databaseName(dbName)
+                .name(crawlerName)
+                .description("Created by the AWS Glue Java API")
+                .targets(targets)
+                .role(iam)
+                .schedule(cron)
+                .build();
 
             glueClient.createCrawler(crawlerRequest);
             System.out.println(crawlerName +" was successfully created");
@@ -201,15 +197,14 @@ public class GlueScenario {
 
         try {
             GetCrawlerRequest crawlerRequest = GetCrawlerRequest.builder()
-                    .name(crawlerName)
-                    .build();
+                .name(crawlerName)
+                .build();
 
             GetCrawlerResponse response = glueClient.getCrawler(crawlerRequest);
             Instant createDate = response.crawler().creationTime();
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
-                            .withLocale( Locale.US)
-                            .withZone( ZoneId.systemDefault() );
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
+                .withLocale( Locale.US)
+                .withZone( ZoneId.systemDefault() );
 
             formatter.format( createDate );
             System.out.println("The create date of the Crawler is " + createDate );
@@ -224,8 +219,8 @@ public class GlueScenario {
 
         try {
             StartCrawlerRequest crawlerRequest = StartCrawlerRequest.builder()
-                    .name(crawlerName)
-                    .build();
+                .name(crawlerName)
+                .build();
 
             glueClient.startCrawler(crawlerRequest);
             System.out.println(crawlerName +" was successfully started!");
@@ -240,17 +235,16 @@ public class GlueScenario {
 
         try {
             GetDatabaseRequest databasesRequest = GetDatabaseRequest.builder()
-                    .name(databaseName)
-                    .build();
+                .name(databaseName)
+                .build();
 
             GetDatabaseResponse response = glueClient.getDatabase(databasesRequest);
             Instant createDate = response.database().createTime();
 
             // Convert the Instant to readable date.
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
-                            .withLocale( Locale.US)
-                            .withZone( ZoneId.systemDefault() );
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
+                .withLocale( Locale.US)
+                .withZone( ZoneId.systemDefault() );
 
             formatter.format( createDate );
             System.out.println("The create date of the database is " + createDate );
@@ -262,10 +256,11 @@ public class GlueScenario {
     }
 
     public static void getGlueTables(GlueClient glueClient, String dbName){
+
         try {
             GetTablesRequest tableRequest = GetTablesRequest.builder()
-                    .databaseName(dbName)
-                    .build();
+                .databaseName(dbName)
+                .build();
 
             GetTablesResponse response = glueClient.getTables(tableRequest);
             List<Table> tables = response.tableList();
@@ -283,10 +278,10 @@ public class GlueScenario {
 
         try {
             StartJobRunRequest runRequest = StartJobRunRequest.builder()
-                    .workerType(WorkerType.G_1_X)
-                    .numberOfWorkers(10)
-                    .jobName(jobName)
-                    .build();
+                .workerType(WorkerType.G_1_X)
+                .numberOfWorkers(10)
+                .jobName(jobName)
+                .build();
 
             StartJobRunResponse response = glueClient.startJobRun(runRequest);
             System.out.println("The request Id of the job is "+ response.responseMetadata().requestId());
@@ -301,23 +296,23 @@ public class GlueScenario {
 
         try {
             JobCommand command = JobCommand.builder()
-                    .pythonVersion("3")
-                    .name("MyJob1")
-                    .scriptLocation(scriptLocation)
-                    .build();
+                .pythonVersion("3")
+                .name("MyJob1")
+                .scriptLocation(scriptLocation)
+                .build();
 
             CreateJobRequest jobRequest = CreateJobRequest.builder()
-                    .description("A Job created by using the AWS SDK for Java V2")
-                    .glueVersion("2.0")
-                    .workerType(WorkerType.G_1_X)
-                    .numberOfWorkers(10)
-                    .name(jobName)
-                    .role(iam)
-                    .command(command)
-                    .build();
+                .description("A Job created by using the AWS SDK for Java V2")
+                .glueVersion("2.0")
+                .workerType(WorkerType.G_1_X)
+                .numberOfWorkers(10)
+                .name(jobName)
+                .role(iam)
+                .command(command)
+                .build();
 
-           glueClient.createJob(jobRequest);
-           System.out.println(jobName +" was successfully created.");
+            glueClient.createJob(jobRequest);
+            System.out.println(jobName +" was successfully created.");
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -329,12 +324,11 @@ public class GlueScenario {
 
         try {
             GetJobsRequest jobsRequest = GetJobsRequest.builder()
-                    .maxResults(10)
-                    .build();
+                .maxResults(10)
+                .build();
 
             GetJobsResponse jobsResponse = glueClient.getJobs(jobsRequest);
             List<Job> jobs = jobsResponse.jobs();
-
             for (Job job: jobs) {
                 System.out.println("Job name is : "+job.name());
                 System.out.println("The job worker type is : "+job.workerType().name());
@@ -346,17 +340,16 @@ public class GlueScenario {
         }
     }
 
-public static void getJobRuns(GlueClient glueClient, String jobName) {
+    public static void getJobRuns(GlueClient glueClient, String jobName) {
 
         try {
             GetJobRunsRequest runsRequest = GetJobRunsRequest.builder()
-                    .jobName(jobName)
-                    .maxResults(20)
-                    .build();
+                .jobName(jobName)
+                .maxResults(20)
+                .build();
 
             GetJobRunsResponse response = glueClient.getJobRuns(runsRequest);
             List<JobRun> jobRuns = response.jobRuns();
-
             for (JobRun jobRun: jobRuns) {
                 System.out.println("Job run state is "+jobRun.jobRunState().name());
                 System.out.println("Job run Id is "+jobRun.id());
@@ -367,13 +360,14 @@ public static void getJobRuns(GlueClient glueClient, String jobName) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-}
+    }
+
     public static void deleteJob(GlueClient glueClient, String jobName) {
 
         try {
             DeleteJobRequest jobRequest = DeleteJobRequest.builder()
-                    .jobName(jobName)
-                    .build();
+                .jobName(jobName)
+                .build();
 
             glueClient.deleteJob(jobRequest);
             System.out.println(jobName +" was successfully deleted");
@@ -388,8 +382,8 @@ public static void getJobRuns(GlueClient glueClient, String jobName) {
 
         try {
             DeleteDatabaseRequest request = DeleteDatabaseRequest.builder()
-                    .name(databaseName)
-                    .build();
+                .name(databaseName)
+                .build();
 
             glueClient.deleteDatabase(request);
             System.out.println(databaseName +" was successfully deleted");
@@ -404,8 +398,8 @@ public static void getJobRuns(GlueClient glueClient, String jobName) {
 
         try {
             DeleteCrawlerRequest deleteCrawlerRequest = DeleteCrawlerRequest.builder()
-                    .name(crawlerName)
-                    .build();
+                .name(crawlerName)
+                .build();
 
             glueClient.deleteCrawler(deleteCrawlerRequest);
             System.out.println(crawlerName +" was deleted");

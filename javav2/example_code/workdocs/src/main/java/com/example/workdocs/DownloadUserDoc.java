@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[DownloadUserDoc.java demonstrates how to download a document from Amazon WorkDocs.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/29/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -28,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.WorkDocsException;
@@ -44,9 +40,9 @@ import software.amazon.awssdk.services.workdocs.model.DocumentSourceType;
 // snippet-end:[workdocs.java2.download_user_docs.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -54,17 +50,17 @@ public class DownloadUserDoc {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <organizationId> <userEmail> <workdocsName> <saveDocFullName> \n\n" +
                 "Where:\n" +
-                "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n"+
-                "    userEmail - a user email. \n"+
-                "    workdocsName - the name of the document (for example, book.pdf). \n"+
-                "    saveDocFullName - the path to save document (for example, C:/AWS/book2.pdf). \n";
+                "    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console. \n"+
+                "    userEmail - A user email. \n"+
+                "    workdocsName - The name of the document (for example, book.pdf). \n"+
+                "    saveDocFullName - The path to save document (for example, C:/AWS/book2.pdf). \n";
 
         if (args.length != 4) {
-              System.out.println(USAGE);
+              System.out.println(usage);
               System.exit(1);
         }
 
@@ -75,6 +71,7 @@ public class DownloadUserDoc {
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         downloadDoc(workDocs, organizationId, userEmail, workdocsName, saveDocFullName );
@@ -169,7 +166,7 @@ public class DownloadUserDoc {
     private static Map<String, String> getDocInfo(WorkDocsClient workDocs, String orgId, String user, String docName) {
 
         try {
-            Map<String, String> map = new HashMap<String, String>();
+            Map<String, String> map = new HashMap<>();
             String folderId = getUserFolder(workDocs, orgId, user);
 
             if (folderId.equals("")) {
@@ -183,13 +180,12 @@ public class DownloadUserDoc {
                 DescribeFolderContentsResponse response = workDocs.describeFolderContents(dfcRequest);
                 List<DocumentMetadata> userDocs = new ArrayList<>();
                 userDocs.addAll(response.documents());
-
                 for (DocumentMetadata doc: userDocs) {
                     DocumentVersionMetadata md = doc.latestVersionMetadata();
 
-                if (docName.equals(md.name())) {
-                    map.put("doc_id", doc.id());
-                    map.put("version_id", md.id());
+                    if (docName.equals(md.name())) {
+                     map.put("doc_id", doc.id());
+                     map.put("version_id", md.id());
                 }
               }
             }
@@ -214,7 +210,6 @@ public class DownloadUserDoc {
             GetDocumentVersionResponse response = workDocs.getDocumentVersion(request);
             Map<DocumentSourceType,String> sourceDoc = response.metadata().source();
             Map.Entry<DocumentSourceType,String> entry = sourceDoc.entrySet().iterator().next();
-            DocumentSourceType key = entry.getKey();
             return entry.getValue();
 
         } catch(WorkDocsException e) {

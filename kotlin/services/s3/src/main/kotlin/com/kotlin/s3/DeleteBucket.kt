@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteBucket.kt demonstrates how to delete an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DeleteBucket.kt demonstrates how to delete an Amazon Simple Storage Service (Amazon S3) bucket.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon S3]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,10 +16,10 @@ import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.del_bucket.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
@@ -33,27 +29,27 @@ suspend fun main(args: Array<String>) {
         <bucketName> 
 
     Where:
-        bucketName - the name of the Amazon S3 bucket to delete.
+        bucketName - The name of the Amazon S3 bucket to delete.
     """
 
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val bucketName = args[0]
     deleteExistingBucket(bucketName)
 }
 
 // snippet-start:[s3.kotlin.del_bucket.main]
- suspend fun deleteExistingBucket(bucketName: String?) {
+suspend fun deleteExistingBucket(bucketName: String?) {
 
-        val request = DeleteBucketRequest {
-            bucket = bucketName
-        }
-        S3Client { region = "us-east-1" }.use { s3 ->
-            s3.deleteBucket(request)
-            println("The $bucketName was successfully deleted!")
-        }
+    val request = DeleteBucketRequest {
+        bucket = bucketName
     }
+    S3Client { region = "us-east-1" }.use { s3 ->
+        s3.deleteBucket(request)
+        println("The $bucketName was successfully deleted!")
+    }
+}
 // snippet-end:[s3.kotlin.del_bucket.main]

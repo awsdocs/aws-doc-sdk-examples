@@ -1,4 +1,5 @@
 import com.example.secrets.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
@@ -6,6 +7,7 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -23,6 +25,7 @@ public class SecretManagerTest {
         Region region = Region.US_EAST_1;
         secretsClient = SecretsManagerClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = SecretManagerTest.class.getClassLoader().getResourceAsStream("config.properties")) {

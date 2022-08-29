@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateCampaign.java demonstrates how to create an Amazon Personalize campaign.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +29,11 @@ public class CreateCampaign {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    CreateCampaign <solutionVersionArn> <name>\n\n" +
-                "Where:\n" +
-                "    solutionVersionArn - The ARN of the solution version.\n\n" +
-                "    name - The name of the Amazon Personalization campaign.\n\n" ;
+            "Usage:\n" +
+            "    <solutionVersionArn> <name>\n\n" +
+            "Where:\n" +
+            "    solutionVersionArn - The ARN of the solution version.\n\n" +
+            "    name - The name of the Amazon Personalization campaign.\n\n" ;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -46,11 +42,10 @@ public class CreateCampaign {
 
         String solutionVersionArn = args[0];
         String name = args[1];
-
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         createPersonalCompaign(personalizeClient, solutionVersionArn, name);
         personalizeClient.close();

@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[CopyObject.kt demonstrates how to copy an object from one Amazon Simple Storage Service (Amazon S3) bucket to another.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[CopyObject.kt demonstrates how to copy an object from one Amazon Simple Storage Service (Amazon S3) bucket to another.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon S3]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,10 +19,10 @@ import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.copy_object.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
@@ -37,9 +33,9 @@ suspend fun main(args: Array<String>) {
          <objectKey> <fromBucket> <toBucket> 
 
     Where:
-        objectKey - the name of the object (for example, book.pdf).
-        fromBucket - the Amazon S3 bucket name that contains the object (for example, bucket1).
-        toBucket - the Amazon S3 bucket to copy the object to (for example, bucket2).
+        objectKey - The name of the object (for example, book.pdf).
+        fromBucket - The Amazon S3 bucket name that contains the object (for example, bucket1).
+        toBucket - The Amazon S3 bucket to copy the object to (for example, bucket2).
     """
 
     if (args.size != 3) {
@@ -54,26 +50,26 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[s3.kotlin.copy_object.main]
- suspend fun copyBucketObject(
-                         fromBucket: String,
-                         objectKey: String,
-                         toBucket: String) {
+suspend fun copyBucketObject(
+    fromBucket: String,
+    objectKey: String,
+    toBucket: String
+) {
 
-        var encodedUrl=""
-        try {
-            encodedUrl = URLEncoder.encode("$fromBucket/$objectKey", StandardCharsets.UTF_8.toString())
+    var encodedUrl = ""
+    try {
+        encodedUrl = URLEncoder.encode("$fromBucket/$objectKey", StandardCharsets.UTF_8.toString())
+    } catch (e: UnsupportedEncodingException) {
+        println("URL could not be encoded: " + e.message)
+    }
 
-        } catch (e: UnsupportedEncodingException) {
-            println("URL could not be encoded: " + e.message)
-        }
-
-        val request = CopyObjectRequest {
-            copySource = encodedUrl
-            bucket = toBucket
-            key= objectKey
-        }
-        S3Client { region = "us-east-1" }.use { s3 ->
-           s3.copyObject(request)
-        }
-  }
+    val request = CopyObjectRequest {
+        copySource = encodedUrl
+        bucket = toBucket
+        key = objectKey
+    }
+    S3Client { region = "us-east-1" }.use { s3 ->
+        s3.copyObject(request)
+    }
+}
 // snippet-end:[s3.kotlin.copy_object.main]

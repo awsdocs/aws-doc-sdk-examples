@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ClientConfiguration.java demonstrates how to create an Amazon Kinesis asynchronous client.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -17,9 +13,6 @@ import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 // snippet-end:[kinesis.java2.client_configuration.import]
 
-
-
-
 // snippet-start:[kinesis.java2.client_configuration.main]
 public class ClientConfiguration {
 
@@ -28,9 +21,9 @@ public class ClientConfiguration {
         // and it will be shutdown when the client is shut down.
         // snippet-start:[kinesis.java2.client_configuration.client]
         KinesisAsyncClient client = KinesisAsyncClient.builder()
-                .httpClientBuilder(NettyNioAsyncHttpClient.builder()
-                        .maxConcurrency(100)
-                        .maxPendingConnectionAcquires(10_000))
+            .httpClientBuilder(NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(100)
+                .maxPendingConnectionAcquires(10_000))
                 .build();
 
         // snippet-end:[kinesis.java2.client_configuration.client]

@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[CreateApiKey.java demonstrates how to create a unique key.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS AppSync]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04-01-2022]
-// snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +9,7 @@
 package com.example.appsync;
 
 //snippet-start:[appsync.java2.create_key.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.AppSyncException;
@@ -43,9 +40,11 @@ public class CreateApiKey {
         }
 
         String apiId = args[0];
+        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         AppSyncClient appSyncClient = AppSyncClient.builder()
                 .region(region)
+                .credentialsProvider(credentialsProvider)
                 .build();
 
         String id = createKey(appSyncClient, apiId) ;

@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -10,16 +11,17 @@ package scenarios
 import (
 	"bytes"
 	"context"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 	"log"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
+	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
-func TestRunScenario_Integration(t *testing.T) {
+func TestRunMovieScenario_Integration(t *testing.T) {
 	mockQuestioner := &testtools.MockQuestioner{
 		Answers: []string{
 			"Test movie",
@@ -47,7 +49,7 @@ func TestRunScenario_Integration(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	RunScenario(
+	RunMovieScenario(
 		sdkConfig,
 		mockQuestioner,
 		"doc-example-test-movie-table-integ",
@@ -55,7 +57,7 @@ func TestRunScenario_Integration(t *testing.T) {
 	)
 
 	log.SetOutput(os.Stderr)
-	if !strings.Contains(buf.String(),"Thanks for watching") {
+	if !strings.Contains(buf.String(), "Thanks for watching") {
 		t.Errorf("didn't run to successful completion. Here's the log:\n%v", buf.String())
 	}
 }

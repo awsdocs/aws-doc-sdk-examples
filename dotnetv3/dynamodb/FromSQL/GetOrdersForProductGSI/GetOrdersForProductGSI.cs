@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
-// snippet-start:[dynamodb.dotnet35.GetOrdersForProductGSI]
+
+// snippet-start:[dynamodb.dotnetv3.GetOrdersForProductGSIExample]
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,7 +18,7 @@ namespace GetOrdersForProductGSI
         // DynamoDB equivalent of:
         //   select* from Orders where Order_Product = '3'
         public static async Task<QueryResponse> GetProductOrdersAsync(IAmazonDynamoDB client, string table, string index, string productId)
-        {           
+        {
             var response = await client.QueryAsync(new QueryRequest
             {
                 TableName = table,
@@ -124,4 +125,4 @@ namespace GetOrdersForProductGSI
         }
     }
 }
-// snippet-end:[dynamodb.dotnet35.GetOrdersForProductGSI]
+// snippet-end:[dynamodb.dotnetv3.GetOrdersForProductGSIExample]

@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[DetectDocumentText.java demonstrates how to detect text in the input document.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Textract]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/29/2021]
-// snippet-sourceauthor:[scmacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +11,7 @@
 package com.example.textract;
 
 // snippet-start:[textract.java2._detect_doc_text.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.textract.TextractClient;
@@ -33,9 +30,9 @@ import java.util.List;
 // snippet-end:[textract.java2._detect_doc_text.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -43,22 +40,23 @@ public class DetectDocumentText {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <sourceDoc> \n\n" +
-                "Where:\n" +
-                "    sourceDoc - the path where the document is located (must be an image, for example, C:/AWS/book.png). \n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <sourceDoc> \n\n" +
+            "Where:\n" +
+            "    sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png). \n";
 
         if (args.length !=  1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String sourceDoc = args[0];
         Region region = Region.US_EAST_2;
         TextractClient textractClient = TextractClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         detectDocText(textractClient, sourceDoc);
         textractClient.close();
@@ -68,29 +66,23 @@ public class DetectDocumentText {
     public static void detectDocText(TextractClient textractClient,String sourceDoc) {
 
         try {
-
             InputStream sourceStream = new FileInputStream(new File(sourceDoc));
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
             // Get the input Document object as bytes
             Document myDoc = Document.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .bytes(sourceBytes)
+                .build();
 
             DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
-                    .document(myDoc)
-                    .build();
+                .document(myDoc)
+                .build();
 
             // Invoke the Detect operation
             DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
-
             List<Block> docInfo = textResponse.blocks();
-
-            Iterator<Block> blockIterator = docInfo.iterator();
-
-            while(blockIterator.hasNext()) {
-                Block block = blockIterator.next();
-                System.out.println("The block type is " +block.blockType().toString());
+            for (Block block : docInfo) {
+                System.out.println("The block type is " + block.blockType().toString());
             }
 
             DocumentMetadata documentMetadata = textResponse.documentMetadata();

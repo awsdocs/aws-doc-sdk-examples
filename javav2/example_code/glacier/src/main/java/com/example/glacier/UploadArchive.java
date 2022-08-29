@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[UploadArchive.java demonstrates how to upload an archive to an Amazon Glacier vault.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +9,7 @@
 package com.example.glacier;
 
 // snippet-start:[glacier.java2.upload.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glacier.GlacierClient;
 import software.amazon.awssdk.services.glacier.model.UploadArchiveRequest;
@@ -28,27 +25,26 @@ import java.security.NoSuchAlgorithmException;
 // snippet-end:[glacier.java2.upload.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class UploadArchive {
 
     static final int ONE_MB = 1024 * 1024;
-
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                 "Usage:" +
-                "   <strPath> <vaultName> \n\n" +
-                "Where:\n" +
-                "   strPath - the path to the archive to upload (for example, C:\\AWS\\test.pdf).\n" +
-                "   vaultName - the name of the vault.\n\n";
+        final String usage = "\n" +
+            "Usage:" +
+            "   <strPath> <vaultName> \n\n" +
+            "Where:\n" +
+            "   strPath - The path to the archive to upload (for example, C:\\AWS\\test.pdf).\n" +
+            "   vaultName - The name of the vault.\n\n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -56,10 +52,10 @@ public class UploadArchive {
         String vaultName = args[1];
         File myFile = new File(strPath);
         Path path = Paths.get(strPath);
-
         GlacierClient glacier = GlacierClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String archiveId = uploadContent(glacier, path, vaultName, myFile );
         System.out.println("The ID of the archived item is " +archiveId);
@@ -69,15 +65,13 @@ public class UploadArchive {
     // snippet-start:[glacier.java2.upload.main]
     public static String uploadContent(GlacierClient glacier, Path path, String vaultName, File myFile) {
 
-        // Get an SHA-256 tree hash value
+        // Get an SHA-256 tree hash value.
         String checkVal = computeSHA256(myFile);
-
-
         try {
             UploadArchiveRequest uploadRequest = UploadArchiveRequest.builder()
-                    .vaultName(vaultName)
-                    .checksum(checkVal)
-                    .build();
+                .vaultName(vaultName)
+                .checksum(checkVal)
+                .build();
 
             UploadArchiveResponse res = glacier.uploadArchive(uploadRequest, path);
             return res.archiveId();
@@ -97,13 +91,11 @@ public class UploadArchive {
             return toHex(treeHash);
 
         } catch (IOException ioe) {
-            System.err.format("Exception when reading from file %s: %s", inputFile,
-                    ioe.getMessage());
+            System.err.format("Exception when reading from file %s: %s", inputFile, ioe.getMessage());
             System.exit(-1);
 
         } catch (NoSuchAlgorithmException nsae) {
-            System.err.format("Cannot locate MessageDigest algorithm for SHA-256: %s",
-                    nsae.getMessage());
+            System.err.format("Cannot locate MessageDigest algorithm for SHA-256: %s", nsae.getMessage());
             System.exit(-1);
         }
         return "";
@@ -124,7 +116,6 @@ public class UploadArchive {
             NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-
         long numChunks = file.length() / ONE_MB;
         if (file.length() % ONE_MB > 0) {
             numChunks++;
@@ -172,25 +163,21 @@ public class UploadArchive {
             throws NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-
         byte[][] prevLvlHashes = chunkSHA256Hashes;
-
         while (prevLvlHashes.length > 1) {
-
             int len = prevLvlHashes.length / 2;
             if (prevLvlHashes.length % 2 != 0) {
                 len++;
             }
 
             byte[][] currLvlHashes = new byte[len][];
-
             int j = 0;
             for (int i = 0; i < prevLvlHashes.length; i = i + 2, j++) {
 
-                // If there are at least two elements remaining
+                // If there are at least two elements remaining.
                 if (prevLvlHashes.length - i > 1) {
 
-                    // Calculate a digest of the concatenated nodes
+                    // Calculate a digest of the concatenated nodes.
                     md.reset();
                     md.update(prevLvlHashes[i]);
                     md.update(prevLvlHashes[i + 1]);
@@ -212,12 +199,11 @@ public class UploadArchive {
      */
     public static String toHex(byte[] data) {
         StringBuilder sb = new StringBuilder(data.length * 2);
-
-        for (int i = 0; i < data.length; i++) {
-            String hex = Integer.toHexString(data[i] & 0xFF);
+        for (byte datum : data) {
+            String hex = Integer.toHexString(datum & 0xFF);
 
             if (hex.length() == 1) {
-                // Append leading zero
+                // Append leading zero.
                 sb.append("0");
             }
             sb.append(hex);

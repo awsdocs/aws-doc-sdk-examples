@@ -3,6 +3,7 @@
 
 namespace CreateKeyPairExample
 {
+    // snippet-start:[EC2.dotnetv3.CreateKeyPairExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.EC2;
@@ -47,4 +48,6 @@ namespace CreateKeyPairExample
             }
         }
     }
+
+    // snippet-end:[EC2.dotnetv3.CreateKeyPairExample]
 }

@@ -2,10 +2,6 @@
 // snippet-sourcedescription:[DescribeOpsItems.java demonstrates how to describe an OpsItem for Amazon Simple Systems Management (Amazon SSM).]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Systems Management]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/27/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +11,7 @@
 package com.example.ssm;
 
 //snippet-start:[ssm.java2.describe_ops.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.DescribeOpsItemsRequest;
@@ -25,9 +22,9 @@ import java.util.List;
 //snippet-end:[ssm.java2.describe_ops.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,8 +34,9 @@ public class DescribeOpsItems {
 
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeItems(ssmClient);
         ssmClient.close();
@@ -58,10 +56,10 @@ public class DescribeOpsItems {
                 System.out.println("The item title is "+item.title());
             }
 
-         } catch (SsmException e) {
+        } catch (SsmException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-      }
-    //snippet-end:[ssm.java2.describe_ops.main]
     }
+    //snippet-end:[ssm.java2.describe_ops.main]
+}

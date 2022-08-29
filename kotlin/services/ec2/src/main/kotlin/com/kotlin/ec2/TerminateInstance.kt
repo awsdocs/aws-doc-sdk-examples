@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[TerminateInstance.kt demonstrates how to terminate an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[TerminateInstance.kt demonstrates how to terminate an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon EC2]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,14 +15,14 @@ import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.terminate_instance.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
 
@@ -34,7 +30,7 @@ suspend fun main(args:Array<String>) {
         <instanceID> 
 
     Where:
-        instanceID - an instance id value that you can obtain from the AWS Management Console. 
+        instanceID - An instance id value that you can obtain from the AWS Management Console. 
     """
 
     if (args.size != 1) {
@@ -43,7 +39,7 @@ suspend fun main(args:Array<String>) {
     }
 
     val instanceID = args[0]
-     terminateEC2(instanceID)
+    terminateEC2(instanceID)
 }
 
 // snippet-start:[ec2.kotlin.terminate_instance.main]
@@ -56,8 +52,8 @@ suspend fun terminateEC2(instanceID: String) {
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.terminateInstances(request)
         response.terminatingInstances?.forEach { instance ->
-                println("The ID of the terminated instance is ${instance.instanceId}")
-            }
+            println("The ID of the terminated instance is ${instance.instanceId}")
+        }
     }
 }
 // snippet-end:[ec2.kotlin.terminate_instance.main]

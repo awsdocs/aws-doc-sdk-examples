@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[GetIntent.kt demonstrates how to get intent information from an Amazon Lex conversational bot.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Lex]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[GetIntent.kt demonstrates how to get intent information from an Amazon Lex conversational bot.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Lex]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,14 +16,14 @@ import kotlin.system.exitProcess
 // snippet-end:[lex.kotlin.get_intent.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     
@@ -35,20 +31,20 @@ suspend fun main(args:Array<String>) {
         <intentName> <intentVersion> 
 
     Where:
-        intentName - the name of an existing intent (for example, BookHotel).
-        intentVersion - the version of the intent (for example, 1).
+        intentName - The name of an existing intent (for example, BookHotel).
+        intentVersion - The version of the intent (for example, 1).
 
     """
 
     if (args.size != 2) {
-         println(usage)
-         exitProcess(0)
-     }
+        println(usage)
+        exitProcess(0)
+    }
 
     val intentName = args[0]
     val intentVersion = args[1]
-    getSpecificIntent(intentName,intentVersion )
-    }
+    getSpecificIntent(intentName, intentVersion)
+}
 
 // snippet-start:[lex.kotlin.get_intent.main]
 suspend fun getSpecificIntent(intentName: String?, intentVersion: String?) {

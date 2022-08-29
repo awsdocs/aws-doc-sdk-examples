@@ -4,8 +4,9 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_qldb::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_qldb::{Client as QLDBClient, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
+use tokio_stream::StreamExt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
@@ -20,16 +21,13 @@ struct Opt {
 
 // List ledgers.
 // snippet-start:[qldb.rust.list-ledgers]
-async fn show_ledgers(client: &Client) -> Result<(), Error> {
-    let result = client.list_ledgers().send().await?;
+async fn show_ledgers(client: &QLDBClient) -> Result<(), Error> {
+    let mut pages = client.list_ledgers().into_paginator().page_size(2).send();
 
-    if let Some(ledgers) = result.ledgers() {
-        for ledger in ledgers {
-            println!("* {:?}", ledger);
-        }
-
-        if result.next_token().is_some() {
-            todo!("pagination is not yet demonstrated")
+    while let Some(page) = pages.next().await {
+        println!("* {:?}", page); //Prints an entire page of ledgers.
+        for ledger in page.unwrap().ledgers().unwrap() {
+            println!("* {:?}", ledger); //Prints the LedgerSummary of a single ledger.
         }
     }
 
@@ -66,7 +64,7 @@ async fn main() -> Result<(), Error> {
     }
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&shared_config);
+    let client = QLDBClient::new(&shared_config);
 
     show_ledgers(&client).await
 }

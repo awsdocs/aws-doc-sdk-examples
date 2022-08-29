@@ -1,6 +1,12 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 import com.example.sns.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import java.io.*;
@@ -21,12 +27,12 @@ public class AWSSNSTest {
     private static String phone="";
     private static String message="";
 
-
     @BeforeAll
     public static void setUp() throws IOException {
 
         snsClient = SnsClient.builder()
-                .region(Region.US_WEST_2)
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = AWSSNSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -61,7 +67,7 @@ public class AWSSNSTest {
 
     @Test
     @Order(2)
-    public void CreateTopic() {
+    public void createTopicTest() {
 
         topicArn = CreateTopic.createSNSTopic(snsClient, topicName);
         System.out.println("Test 2 passed");
@@ -69,7 +75,7 @@ public class AWSSNSTest {
 
     @Test
     @Order(3)
-    public void ListTopics() {
+    public void listTopicsTest() {
 
        ListTopics.listSNSTopics(snsClient);
        System.out.println("Test 3 passed");
@@ -77,7 +83,7 @@ public class AWSSNSTest {
 
     @Test
     @Order(4)
-    public void SetTopicAttributes() {
+    public void setTopicAttributesTest() {
 
       SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue );
       System.out.println("Test 4 passed");
@@ -85,7 +91,7 @@ public class AWSSNSTest {
 
     @Test
     @Order(5)
-    public void GetTopicAttributes() {
+    public void getTopicAttributesTest() {
 
        GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn);
        System.out.println("Test 5 passed");
@@ -93,7 +99,7 @@ public class AWSSNSTest {
 
     @Test
     @Order(6)
-    public void SubscribeEmail() {
+    public void subscribeEmailTest() {
 
      SubscribeEmail.subEmail(snsClient, topicArn, email);
      System.out.println("Test 6 passed");
@@ -101,7 +107,7 @@ public class AWSSNSTest {
 
     @Test
     @Order(7)
-    public void SubscribeLambda() {
+    public void subscribeLambdaTest() {
 
      subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
      System.out.println("Test 7 passed");
@@ -109,48 +115,78 @@ public class AWSSNSTest {
 
     @Test
     @Order(8)
-    public void Unsubscribe() {
+    public void useMessageFilterPolicyTest() {
 
-        Unsubscribe.unSub(snsClient, subArn);
+        UseMessageFilterPolicy.usePolicy(snsClient, subArn);
         System.out.println("Test 8 passed");
     }
 
     @Test
     @Order(9)
-    public void PublishTopic() {
-
-        PublishTopic.pubTopic(snsClient, message, topicArn);
+    public void addTagsTest() {
+        AddTags.addTopicTags(snsClient,topicArn );
         System.out.println("Test 9 passed");
     }
 
     @Test
     @Order(10)
-    public void SubscribeTextSMS() {
-
-       SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
-       System.out.println("Test 10 passed");
+    public void listTagsTest() {
+        ListTags.listTopicTags(snsClient,topicArn);
+        System.out.println("Test 10 passed");
     }
 
     @Test
     @Order(11)
-    public void PublishTextSMS() {
-        PublishTextSMS.pubTextSMS(snsClient, message, phone);
+    public void deleteTagTest() {
+
+        DeleteTag.removeTag(snsClient,topicArn, "Environment");
         System.out.println("Test 11 passed");
     }
 
     @Test
     @Order(12)
-    public void ListSubscriptions() {
+    public void unsubscribeTest() {
 
-        ListSubscriptions.listSNSSubscriptions(snsClient);
+        Unsubscribe.unSub(snsClient, subArn);
         System.out.println("Test 12 passed");
     }
 
     @Test
     @Order(13)
+    public void publishTopicTest() {
+
+        PublishTopic.pubTopic(snsClient, message, topicArn);
+        System.out.println("Test 13 passed");
+    }
+
+    @Test
+    @Order(14)
+    public void subscribeTextSMSTest() {
+
+       SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
+       System.out.println("Test 14 passed");
+    }
+
+    @Test
+    @Order(15)
+    public void publishTextSMSTest() {
+        PublishTextSMS.pubTextSMS(snsClient, message, phone);
+        System.out.println("Test 15 passed");
+    }
+
+    @Test
+    @Order(16)
+    public void listSubscriptionsTest() {
+
+        ListSubscriptions.listSNSSubscriptions(snsClient);
+        System.out.println("Test 16 passed");
+    }
+
+    @Test
+    @Order(17)
     public void DeleteTopic() {
 
         DeleteTopic.deleteSNSTopic(snsClient, topicArn);
-        System.out.println("Test 13 passed");
+        System.out.println("Test 17 passed");
     }
 }

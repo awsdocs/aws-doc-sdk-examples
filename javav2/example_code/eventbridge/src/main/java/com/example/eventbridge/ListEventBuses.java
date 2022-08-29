@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListEventBuses.java demonstrates how to list your Amazon EventBridge buses.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.eventbridge;
 
 // snippet-start:[eventbridge.java2._list_buses.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.EventBridgeException;
@@ -24,9 +21,9 @@ import java.util.List;
 // snippet-end:[eventbridge.java2._list_buses.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -36,8 +33,9 @@ public class ListEventBuses {
 
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listBuses(eventBrClient) ;
         eventBrClient.close();
@@ -47,13 +45,11 @@ public class ListEventBuses {
     public static void listBuses( EventBridgeClient eventBrClient) {
 
         try {
-
             ListEventBusesRequest busesRequest = ListEventBusesRequest.builder()
                 .limit(10)
                 .build();
 
             ListEventBusesResponse response = eventBrClient.listEventBuses(busesRequest);
-
             List<EventBus> buses = response.eventBuses();
             for (EventBus bus: buses) {
                 System.out.println("The name of the event bus is: "+bus.name());

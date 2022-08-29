@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateAccessKey.java demonstrates how to create an access key for an AWS Identity and Access Management (IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +9,7 @@
 package com.example.iam;
 
 // snippet-start:[iam.java2.create_access_key.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
 import software.amazon.awssdk.regions.Region;
@@ -21,9 +18,9 @@ import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.create_access_key.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,23 +28,23 @@ public class CreateAccessKey {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "   <user> \n\n" +
-                "Where:\n" +
-                "   user - an AWS IAM user that you can obtain from the AWS Management Console.\n\n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "   <user> \n\n" +
+            "Where:\n" +
+            "   user - An AWS IAM user that you can obtain from the AWS Management Console.\n\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String user = args[0];
         Region region = Region.AWS_GLOBAL;
-        IamClient iam = IamClient
-                .builder()
-                .region(region)
-                .build();
+        IamClient iam = IamClient.builder()
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String keyId = createIAMAccessKey(iam, user);
         System.out.println("The Key Id is " +keyId);
@@ -59,11 +56,11 @@ public class CreateAccessKey {
 
         try {
             CreateAccessKeyRequest request = CreateAccessKeyRequest.builder()
-                .userName(user).build();
+                .userName(user)
+                .build();
 
             CreateAccessKeyResponse response = iam.createAccessKey(request);
-           String keyId = response.accessKey().accessKeyId();
-           return keyId;
+            return response.accessKey().accessKeyId();
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

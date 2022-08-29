@@ -9,10 +9,10 @@ of AWS services and in your applications.
 ## Code examples
 
 ### API examples
-- [Create a key](./aws-ruby-sdk-kms-example-create-key.rb)
-- [Decrypt a blob](./aws-ruby-sdk-kms-example-decrypt-blob.rb)
-- [Encrypt data](./aws-ruby-sdk-kms-example-encrypt-data.rb)
-- [Re-encrypt data](./aws-ruby-sdk-kms-example-re-encrypt-data.rb)
+- [Create a key](./create_key.rb)
+- [Decrypt a blob](./decrypt_data.rb)
+- [Encrypt data](./encrypt_data.rb)
+- [Re-encrypt data](./re_encrypt_data.rb)
 
 ## Important
 
@@ -46,7 +46,6 @@ Most of these code example files can be run with very little to no modification.
 ```
 ruby aws-ruby-sdk-kms-example-create-key.rb
 ```
-
 
 ## Additional information
 

@@ -40,6 +40,8 @@ accurately and at scale.*
 (`DeleteProject`)
 * [Describe a dataset](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/datasets.py)
 (`DescribeDataset`)
+* [Update a dataset](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/datasets.py)
+(`UpdateDatasetEntries`)
 * [Describe a model](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/models.py)
 (`DescribeModel`)
 * [Detect anomalies in an image with a trained model](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/lookoutvision/inference.py)
@@ -186,6 +188,21 @@ to list hosted models. Used by `train_host.py`.
 
 A class that shows how to analyze an image (JPEG/PNG) with a hosted Lookout for Vision 
 model. You can also analyze an image stored in an Amazon S3 bucket.
+The example shows how you can classify images as normal or anomalous. It also shows how to 
+use segmentation information returned from a segmentation model. For more information,
+ see [Detecting anomalies in an image](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/inference-detect-anomalies.html).
+ To run the example, supply an image file name and a configuration JSON file with the following format. 
+
+    {
+        "project" : "The Lookout for Vision project name.",
+        "model_version" : "The model version.",
+        "confidence_limit" : The minimum acceptable confidence. (Float 0 - 1).,
+        "coverage_limit" : The maximum acceptable percentage coverage of an anomaly (Float 0 - 1).,
+        "anomaly_types_limit" : The maximum number of allowable anomaly types. (Integer),
+        "anomaly_label" : "The anomaly label for the type of anomaly that you want to check."
+    }
+
+We provide a template JSON configuration file in config.json.
 
 ### models.py
 
@@ -207,6 +224,10 @@ desired, the example shows how to host the model. Used by `train_host.py`.
 You are charged for the amount of time that an Amazon Lookout for Vision model is 
 running (hosted). Use this script to find the running models in the commercial AWS 
 partition. You can stop a model by calling the [StopModel](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/run-stop-model.html) operation. 
+
+### update_dataset.py
+Shows how to add or update images in an Amazon Lookout for Vision dataset.
+
 
 ## Additional information
 

@@ -6,13 +6,8 @@
 package scenarios
 
 import (
-	"bytes"
-	"errors"
 	"fmt"
-	"log"
-	"os"
 	"strconv"
-	"strings"
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
@@ -42,41 +37,24 @@ func (sampler MockSampler) GetSampleMovies() []actions.Movie {
 	return movies
 }
 
-// TestRunScenario runs the scenario multiple times. The first time, it runs with no
+// TestRunMovieScenario runs the scenario multiple times. The first time, it runs with no
 // errors. In subsequent runs, it specifies that each stub in the sequence should
 // raise an error and verifies the results.
-func TestRunScenario(t *testing.T) {
-	done := false
-	stubIndex := -1
-	for !done {
-		scenTest := ScenarioTest{}
-		scenTest.SetupDataAndStubs()
-		if stubIndex == -1 {
-			t.Run("NoErrors", func(t *testing.T) { scenTest.SubTestRunScenario(nil, t) })
-		} else {
-			stub := &scenTest.Stubs[stubIndex]
-			if stub.Error == nil && !stub.SkipErrorTest {
-				errName := fmt.Sprintf("%vError", stub.OperationName)
-				stub.Error = &testtools.StubError{Err: errors.New(errName)}
-				t.Run(errName, func(t *testing.T) { scenTest.SubTestRunScenario(stub.Error, t) })
-			}
-		}
-		stubIndex++
-		done = stubIndex == len(scenTest.Stubs)
-	}
+func TestRunMovieScenario(t *testing.T) {
+	scenTest := MovieScenarioTest{}
+	testtools.RunScenarioTests(&scenTest, t)
 }
 
-// ScenarioTest encapsulates data for a scenario test.
-type ScenarioTest struct {
+// MovieScenarioTest encapsulates data for a scenario test.
+type MovieScenarioTest struct {
 	TableName string
 	Answers   []string
 	Sampler   MockSampler
-	Stubs     []testtools.Stub
 }
 
 // SetupDataAndStubs sets up test data and builds the stubs that are used to return
 // mocked data.
-func (scenTest *ScenarioTest) SetupDataAndStubs() {
+func (scenTest *MovieScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	scenTest.TableName = "doc-example-test-movie-table"
 	title := "Test movie"
 	year := 2002
@@ -134,50 +112,30 @@ func (scenTest *ScenarioTest) SetupDataAndStubs() {
 			types.WriteRequest{PutRequest: &types.PutRequest{Item: item}})
 	}
 
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubDescribeTable(
+	var stubList []testtools.Stub
+	stubList = append(stubList, stubs.StubDescribeTable(
 		scenTest.TableName, &testtools.StubError{Err: &types.ResourceNotFoundException{}, ContinueAfter: true}))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubCreateTable(scenTest.TableName, nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubDescribeTable(scenTest.TableName, nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubAddMovie(scenTest.TableName, addMovieItem, nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubUpdateMovie(scenTest.TableName, updateMovie.GetKey(), updateRatingS, updatePlot, nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubAddMovieBatch(scenTest.TableName, writeReqs, nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubGetMovie(
+	stubList = append(stubList, stubs.StubCreateTable(scenTest.TableName, nil))
+	stubList = append(stubList, stubs.StubDescribeTable(scenTest.TableName, nil))
+	stubList = append(stubList, stubs.StubAddMovie(scenTest.TableName, addMovieItem, nil))
+	stubList = append(stubList, stubs.StubUpdateMovie(scenTest.TableName, updateMovie.GetKey(), updateRatingS, updatePlot, nil))
+	stubList = append(stubList, stubs.StubAddMovieBatch(scenTest.TableName, writeReqs, nil))
+	stubList = append(stubList, stubs.StubGetMovie(
 		scenTest.TableName, sampleMovies[getIndex].GetKey(), sampleMovies[getIndex].Title, strconv.Itoa(sampleMovies[getIndex].Year),
 		strconv.FormatFloat(sampleMovies[getIndex].Info["rating"].(float64), 'f', 1, 64),
 		sampleMovies[getIndex].Info["plot"].(string), nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubQuery(scenTest.TableName, title, queryYear, nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubScan(scenTest.TableName, title, scanStart, scanEnd, nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubListTables(tableNames, nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubDeleteItem(scenTest.TableName, addMovie.GetKey(), nil))
-	scenTest.Stubs = append(scenTest.Stubs, stubs.StubDeleteTable(scenTest.TableName, nil))
+	stubList = append(stubList, stubs.StubQuery(scenTest.TableName, title, queryYear, nil))
+	stubList = append(stubList, stubs.StubScan(scenTest.TableName, title, scanStart, scanEnd, nil))
+	stubList = append(stubList, stubs.StubListTables(tableNames, nil))
+	stubList = append(stubList, stubs.StubDeleteItem(scenTest.TableName, addMovie.GetKey(), nil))
+	stubList = append(stubList, stubs.StubDeleteTable(scenTest.TableName, nil))
+
+	return stubList
 }
 
-// SubTestRunScenario performs a single test run with a set of stubs set up to run with
+// RunSubTest performs a single test run with a set of stubs set up to run with
 // or without errors.
-func (scenTest *ScenarioTest) SubTestRunScenario(stubErr *testtools.StubError, t *testing.T) {
-	stubber := testtools.NewStubber()
-	for _, stub := range scenTest.Stubs {
-		stubber.Add(stub)
-	}
-
+func (scenTest *MovieScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := testtools.MockQuestioner{Answers: scenTest.Answers}
-
-	log.SetFlags(0)
-	var buf bytes.Buffer
-	log.SetOutput(&buf)
-
-	RunScenario(*stubber.SdkConfig, &mockQuestioner, scenTest.TableName, scenTest.Sampler)
-
-	log.SetOutput(os.Stderr)
-	if stubErr == nil {
-		if !strings.Contains(buf.String(), "Thanks for watching") {
-			t.Errorf("didn't run to successful completion")
-			t.Logf("Here's the log: \n%v", buf.String())
-		}
-	} else {
-		if !strings.Contains(buf.String(), stubErr.Error()) {
-			t.Errorf("did not get expected error %v", stubErr)
-			t.Logf("Here's the log: \n%v", buf.String())
-		}
-	}
+	RunMovieScenario(*stubber.SdkConfig, &mockQuestioner, scenTest.TableName, scenTest.Sampler)
 }

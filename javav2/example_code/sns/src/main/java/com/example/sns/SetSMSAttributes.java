@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[SetSMSAttributes.java demonstrates how to set attributes for Amazon Simple Notification Service (Amazon SNS).]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon- AWS]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -14,6 +9,7 @@
 package com.example.sns;
 
 //snippet-start:[sns.java2.SetSMSAttributes.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SetSmsAttributesRequest;
@@ -23,9 +19,9 @@ import java.util.HashMap;
 //snippet-end:[sns.java2.SetSMSAttributes.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,15 +33,15 @@ public class SetSMSAttributes {
         attributes.put("UsageReportS3Bucket", "janbucket" );
 
         SnsClient snsClient = SnsClient.builder()
-                    .region(Region.US_WEST_2)
-                    .build();
-
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         setSNSAttributes(snsClient, attributes);
         snsClient.close();
-        }
+    }
 
     //snippet-start:[sns.java2.SetSMSAttributes.main]
-   public static void setSNSAttributes( SnsClient snsClient, HashMap<String, String> attributes) {
+    public static void setSNSAttributes( SnsClient snsClient, HashMap<String, String> attributes) {
 
         try {
             SetSmsAttributesRequest request = SetSmsAttributesRequest.builder()
@@ -59,6 +55,6 @@ public class SetSMSAttributes {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-     }
+    }
     //snippet-end:[sns.java2.SetSMSAttributes.main]
 }

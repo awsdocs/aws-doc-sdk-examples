@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListEndpointIds.java demonstrates how to retrieve information about all the endpoints that are associated with a specific user ID.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09-27-2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +9,7 @@
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.list_endpoints.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.EndpointResponse;
@@ -23,33 +20,34 @@ import java.util.List;
 //snippet-end:[pinpoint.java2.list_endpoints.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListEndpointIds {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "Usage: " +
-                "   <applicationId> <userId>\n\n" +
 
-                "Where:\n" +
-                "   applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
-                "   userId - The user id applicable to the endpoints";
+        final String usage = "\n" +
+            "Usage: " +
+            "   <applicationId> <userId>\n\n" +
+            "Where:\n" +
+            "   applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
+            "   userId - The user id applicable to the endpoints";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
            System.exit(1);
         }
 
         String applicationId = args[0];
         String userId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllEndpoints(pinpoint, applicationId, userId );
         pinpoint.close();
@@ -58,18 +56,18 @@ public class ListEndpointIds {
     //snippet-start:[pinpoint.java2.list_endpoints.main]
     public static void listAllEndpoints(PinpointClient pinpoint,
                                         String applicationId,
-                                       String userId ) {
+                                       String userId) {
 
         try {
             GetUserEndpointsRequest endpointsRequest = GetUserEndpointsRequest.builder()
-                    .userId(userId)
-                    .applicationId(applicationId)
-                    .build();
+                .userId(userId)
+                .applicationId(applicationId)
+                .build();
 
             GetUserEndpointsResponse response = pinpoint.getUserEndpoints(endpointsRequest);
             List<EndpointResponse> endpoints = response.endpointsResponse().item();
 
-            // Display the results
+            // Display the results.
             for (EndpointResponse endpoint: endpoints) {
                 System.out.println("The channel type is: "+endpoint.channelType());
                 System.out.println("The address is  "+endpoint.address());

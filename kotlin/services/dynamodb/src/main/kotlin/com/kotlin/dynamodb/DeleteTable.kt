@@ -1,9 +1,6 @@
-//snippet-sourcedescription:[DeleteTable.kt demonstrates how to delete an Amazon DynamoDB table.]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[DeleteTable.kt demonstrates how to delete an Amazon DynamoDB table.]
+// snippet-keyword:[Code Sample]
+// snippet-service:[Amazon DynamoDB]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,19 +16,20 @@ import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.delete_table.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+*/
+
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
          <tableName>  
 
     Where:
-        tableName - the Amazon DynamoDB table to delete (for example, Music3).
+        tableName - The Amazon DynamoDB table to delete (for example, Music3).
     """
 
     if (args.size != 1) {
@@ -51,8 +49,8 @@ suspend fun deleteDynamoDBTable(tableNameVal: String) {
     }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.deleteTable(request)
-            println("$tableNameVal was deleted")
-        }
-  }
+        ddb.deleteTable(request)
+        println("$tableNameVal was deleted")
+    }
+}
 // snippet-end:[dynamodb.kotlin.delete_table.main]

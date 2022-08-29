@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[RotateImage.java demonstrates how to to get the estimated orientation of an image and to translate bounding box coordinates.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09-27-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +9,7 @@
 package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.recognize_image_orientation.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -30,9 +27,9 @@ import java.util.List;
 // snippet-end:[rekognition.java2.recognize_image_orientation.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -40,22 +37,23 @@ public class RotateImage {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage: " +
-                "   <sourceImage>\n\n" +
-                "Where:\n" +
-                "   sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+        final String usage = "\n" +
+            "Usage: " +
+            "   <sourceImage>\n\n" +
+            "Where:\n" +
+            "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
        if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
        }
 
         String sourceImage = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Locating celebrities in " + sourceImage);
         recognizeAllCelebrities(rekClient, sourceImage);
@@ -66,7 +64,7 @@ public class RotateImage {
     public static void recognizeAllCelebrities(RekognitionClient rekClient, String sourceImage) {
 
         try {
-            BufferedImage image = null;
+            BufferedImage image;
             InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
@@ -75,18 +73,16 @@ public class RotateImage {
             int width = image.getWidth();
 
             Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .bytes(sourceBytes)
+                .build();
 
             RecognizeCelebritiesRequest request = RecognizeCelebritiesRequest.builder()
-                    .image(souImage)
-                    .build();
+                .image(souImage)
+                .build();
 
             RecognizeCelebritiesResponse result = rekClient.recognizeCelebrities(request) ;
-
             List<Celebrity> celebs=result.celebrityFaces();
             System.out.println(celebs.size() + " celebrity(s) were recognized.\n");
-
             for (Celebrity celebrity: celebs) {
                 System.out.println("Celebrity recognized: " + celebrity.name());
                 System.out.println("Celebrity ID: " + celebrity.id());
@@ -107,13 +103,13 @@ public class RotateImage {
 
     public static void ShowBoundingBoxPositions(int imageHeight, int imageWidth, BoundingBox box, String rotation) {
 
-        float left = 0;
-        float top = 0;
-
-        if(rotation==null){
+        float left;
+        float top;
+        if (rotation==null){
             System.out.println("No estimated estimated orientation.");
             return;
         }
+
         // Calculate face position based on the image orientation
         switch (rotation) {
             case "ROTATE_0":
@@ -142,6 +138,5 @@ public class RotateImage {
         System.out.println("Face Width: " + (int) (imageWidth * box.width()));
         System.out.println("Face Height: " + (int) (imageHeight * box.height()));
     }
-
     // snippet-end:[rekognition.java2.recognize_image_orientation.main]
 }

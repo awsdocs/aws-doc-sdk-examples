@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[EnhancedScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,27 +9,24 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.scan.import]
-import java.time.Instant;
-import java.util.Iterator;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import java.util.Iterator;
 // snippet-end:[dynamodb.java2.mapping.scan.import]
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
+ * Before running this code example, create an Amazon DynamoDB table named Customer with these columns:
  *   - id - the id of the record that is the key
  *   - custName - the customer name
  *   - email - the email value
  *   - registrationDate - an instant value when the item was added to the table
  *
- * Also, ensure that you have setup your development environment, including your credentials.
+ * Also, ensure that you have set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -43,28 +36,27 @@ public class EnhancedScanRecords {
 
    public static void main(String[] args) {
 
-        Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
+       ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+       Region region = Region.US_EAST_1;
+       DynamoDbClient ddb = DynamoDbClient.builder()
+           .credentialsProvider(credentialsProvider)
+           .region(region)
+           .build();
 
        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+           .dynamoDbClient(ddb)
+           .build();
 
-        scan(enhancedClient);
-        ddb.close();
-    }
+       scan(enhancedClient);
+       ddb.close();
+   }
 
     // snippet-start:[dynamodb.java2.mapping.scan.main]
     public static void scan( DynamoDbEnhancedClient enhancedClient) {
-
         try{
-            // Create a DynamoDbTable object
             DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Iterator<Customer> results = custTable.scan().items().iterator();
             while (results.hasNext()) {
-
                 Customer rec = results.next();
                 System.out.println("The record id is "+rec.getId());
                 System.out.println("The name is " +rec.getCustName());

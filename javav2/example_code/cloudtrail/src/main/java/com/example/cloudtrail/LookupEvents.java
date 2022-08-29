@@ -1,12 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[LookupEvents.java demonstrates how to look up Cloud Trail events.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CloudTrail]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/28/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -15,6 +10,7 @@
 package com.example.cloudtrail;
 
 //snippet-start:[cloudtrail.java2.events.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
 import software.amazon.awssdk.services.cloudtrail.model.CloudTrailException;
@@ -25,9 +21,9 @@ import java.util.List;
 //snippet-end:[cloudtrail.java2.events.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -38,8 +34,9 @@ public class LookupEvents {
 
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         lookupAllEvents(cloudTrailClient);
         cloudTrailClient.close();
@@ -47,7 +44,6 @@ public class LookupEvents {
 
     //snippet-start:[cloudtrail.java2.events.main]
     public static void lookupAllEvents(CloudTrailClient cloudTrailClientClient) {
-
         try {
             LookupEventsRequest eventsRequest = LookupEventsRequest.builder()
                 .maxResults(20)
@@ -55,7 +51,6 @@ public class LookupEvents {
 
             LookupEventsResponse response = cloudTrailClientClient.lookupEvents(eventsRequest);
             List<Event> events = response.events();
-
             for (Event event: events) {
                 System.out.println("Event name is : "+event.eventName());
                 System.out.println("The event source is : "+event.eventSource());

@@ -5,6 +5,7 @@
 
 
 import com.example.migrationhub.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,6 +28,7 @@ public class MigrationHubTest {
         Region region = Region.US_WEST_2;
         migrationClient = MigrationHubClient.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         try (InputStream input = MigrationHubTest.class.getClassLoader().getResourceAsStream("config.properties")) {

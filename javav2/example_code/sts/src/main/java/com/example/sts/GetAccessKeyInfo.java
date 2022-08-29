@@ -2,10 +2,6 @@
 // snippet-sourcedescription:[GetAccessKeyInfo.java demonstrates how to return the account identifier for the specified access key ID by using AWS Security Token Service (AWS STS).]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[AWS Security Token Service (AWS STS)]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/29/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +11,7 @@
 package com.example.sts;
 
 // snippet-start:[sts.java2.get_access_key.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.StsException;
@@ -23,9 +20,9 @@ import software.amazon.awssdk.services.sts.model.GetAccessKeyInfoResponse;
 // snippet-end:[sts.java2.get_access_key.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,22 +30,23 @@ public class GetAccessKeyInfo {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <accessKeyId> \n\n" +
-                "Where:\n" +
-                "    accessKeyId - the identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA). \n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <accessKeyId> \n\n" +
+            "Where:\n" +
+            "    accessKeyId - The identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA). \n";
 
         if (args.length != 1) {
-             System.out.println(USAGE);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String accessKeyId = args[0];
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getKeyInfo(stsClient, accessKeyId );
         stsClient.close();
@@ -59,8 +57,8 @@ public class GetAccessKeyInfo {
 
         try {
             GetAccessKeyInfoRequest accessRequest = GetAccessKeyInfoRequest.builder()
-                    .accessKeyId(accessKeyId)
-                    .build();
+                .accessKeyId(accessKeyId)
+                .build();
 
             GetAccessKeyInfoResponse accessResponse = stsClient.getAccessKeyInfo(accessRequest);
             System.out.println("The account associated with the access key is "+accessResponse.account());

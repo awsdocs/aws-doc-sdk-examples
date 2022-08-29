@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateDBInstance.java demonstrates how to create an Amazon Relational Database Service (RDS) instance and wait for it to be in an available state.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.rds;
 
 // snippet-start:[rds.java2.create_instance.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.DescribeDbInstancesRequest;
@@ -26,9 +23,9 @@ import java.util.List;
 // snippet-end:[rds.java2.create_instance.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -37,17 +34,17 @@ public class CreateDBInstance {
 
         public static void main(String[] args) {
 
-            final String USAGE = "\n" +
-                    "Usage:\n" +
-                    "    <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> \n\n" +
-                    "Where:\n" +
-                    "    dbInstanceIdentifier - the database instance identifier. \n" +
-                    "    dbName - the database name. \n" +
-                    "    masterUsername - the master user name. \n" +
-                    "    masterUserPassword - the password that corresponds to the master user name. \n";
+            final String usage = "\n" +
+                "Usage:\n" +
+                "    <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> \n\n" +
+                "Where:\n" +
+                "    dbInstanceIdentifier - The database instance identifier. \n" +
+                "    dbName - The database name. \n" +
+                "    masterUsername - The master user name. \n" +
+                "    masterUserPassword - The password that corresponds to the master user name. \n";
 
             if (args.length != 4) {
-                System.out.println(USAGE);
+                System.out.println(usage);
                 System.exit(1);
             }
 
@@ -58,43 +55,43 @@ public class CreateDBInstance {
 
             Region region = Region.US_WEST_2;
             RdsClient rdsClient = RdsClient.builder()
-                    .region(region)
-                    .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
             createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName, masterUsername, masterUserPassword) ;
             waitForInstanceReady(rdsClient, dbInstanceIdentifier) ;
             rdsClient.close();
         }
 
-        // snippet-start:[rds.java2.create_instance.main]
-        public static void createDatabaseInstance(RdsClient rdsClient,
+    // snippet-start:[rds.java2.create_instance.main]
+    public static void createDatabaseInstance(RdsClient rdsClient,
                                                   String dbInstanceIdentifier,
                                                   String dbName,
                                                   String masterUsername,
                                                   String masterUserPassword) {
 
-            try {
-                CreateDbInstanceRequest instanceRequest = CreateDbInstanceRequest.builder()
-                        .dbInstanceIdentifier(dbInstanceIdentifier)
-                        .allocatedStorage(100)
-                        .dbName(dbName)
-                        .engine("mysql")
-                        .dbInstanceClass("db.m4.large")
-                        .engineVersion("8.0.15")
-                        .storageType("standard")
-                        .masterUsername(masterUsername)
-                        .masterUserPassword(masterUserPassword)
-                        .build();
+        try {
+            CreateDbInstanceRequest instanceRequest = CreateDbInstanceRequest.builder()
+                .dbInstanceIdentifier(dbInstanceIdentifier)
+                .allocatedStorage(100)
+                .dbName(dbName)
+                .engine("mysql")
+                .dbInstanceClass("db.m4.large")
+                .engineVersion("8.0.15")
+                .storageType("standard")
+                .masterUsername(masterUsername)
+                .masterUserPassword(masterUserPassword)
+                .build();
 
-                CreateDbInstanceResponse response = rdsClient.createDBInstance(instanceRequest);
-                System.out.print("The status is " + response.dbInstance().dbInstanceStatus());
+            CreateDbInstanceResponse response = rdsClient.createDBInstance(instanceRequest);
+            System.out.print("The status is " + response.dbInstance().dbInstanceStatus());
 
-            } catch (RdsException e) {
-                System.out.println(e.getLocalizedMessage());
-                System.exit(1);
-            }
-
+        } catch (RdsException e) {
+           System.out.println(e.getLocalizedMessage());
+           System.exit(1);
         }
+    }
 
     // Waits until the database instance is available
     public static void waitForInstanceReady(RdsClient rdsClient, String dbInstanceIdentifier) {
@@ -105,17 +102,15 @@ public class CreateDBInstance {
 
         try {
             DescribeDbInstancesRequest instanceRequest = DescribeDbInstancesRequest.builder()
-            .dbInstanceIdentifier(dbInstanceIdentifier)
-                    .build();
+                .dbInstanceIdentifier(dbInstanceIdentifier)
+                .build();
 
             // Loop until the cluster is ready
             while (!instanceReady) {
 
                 DescribeDbInstancesResponse response = rdsClient.describeDBInstances(instanceRequest);
                 List<DBInstance> instanceList = response.dbInstances();
-
                 for (DBInstance instance : instanceList) {
-
                     instanceReadyStr = instance.dbInstanceStatus();
                     if (instanceReadyStr.contains("available"))
                         instanceReady = true;
@@ -128,11 +123,10 @@ public class CreateDBInstance {
             System.out.println("Database instance is available!");
 
         } catch (RdsException | InterruptedException e) {
-
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
     // snippet-end:[rds.java2.create_instance.main]
-  }
+}
 

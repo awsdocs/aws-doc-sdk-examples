@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[DeployApplication.java demonstrates how to deploy an application revision.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon AWS]
-
+//snippet-keyword:[AWS CodeDeploy]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -14,6 +9,7 @@
 package com.example.deploy;
 
 // snippet-start:[codedeploy.java2._deploy_app.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.S3Location;
@@ -29,8 +25,9 @@ import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
  *
  *  https://docs.aws.amazon.com/codedeploy/latest/userguide/tutorials.html
  *
- * Also, ensure that you have setup your development environment, including your credentials.
- * For information, see this documentation topic:
+ * Also, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
  *
  *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
@@ -40,18 +37,18 @@ public class DeployApplication {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <appName> <bucketName> <bundleType> <key> <deploymentGroup> \n\n" +
-                "Where:\n" +
-                "    appName - the name of the application. \n" +
-                "    bucketName - the name of the Amazon S3 bucket that contains the ZIP to deploy. \n" +
-                "    bundleType - the bundle type (for example, zip). \n" +
-                "    key - the key located in the S3 bucket (for example, mywebapp.zip). \n"+
-                "    deploymentGroup - the name of the deployment group (for example, group1). \n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <appName> <bucketName> <bundleType> <key> <deploymentGroup> \n\n" +
+            "Where:\n" +
+            "    appName - The name of the application. \n" +
+            "    bucketName - The name of the Amazon S3 bucket that contains the ZIP to deploy. \n" +
+            "    bundleType - The bundle type (for example, zip). \n" +
+            "    key - The key located in the S3 bucket (for example, mywebapp.zip). \n"+
+            "    deploymentGroup - The name of the deployment group (for example, group1). \n";
 
         if (args.length != 5) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -63,8 +60,9 @@ public class DeployApplication {
 
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String deploymentId = createAppDeployment(deployClient, appName, bucketName, bundleType, key, deploymentGroup);
         System.out.println("The deployment Id is "+deploymentId);

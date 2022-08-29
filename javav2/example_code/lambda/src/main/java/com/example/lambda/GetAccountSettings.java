@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[GetAccountSettings.java demonstrates how to obtain information about your account.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[AWS Lambda]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/27/2021]
-// snippet-sourceauthor:[AWS-scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.lambda;
 
 // snippet-start:[lambda.java2.account.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.lambda.model.GetAccountSettingsResponse;
@@ -21,9 +18,9 @@ import software.amazon.awssdk.services.lambda.model.LambdaException;
 // snippet-end:[lambda.java2.account.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,8 +30,9 @@ public class GetAccountSettings {
 
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getSettings(awsLambda);
         awsLambda.close();

@@ -16,6 +16,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
+#include "awsdoc/s3/s3_examples.h"
 // snippet-end:[s3.cpp.delete_bucket.inc]
 
 /* 
@@ -34,6 +35,37 @@
 
  // snippet-start:[s3.cpp.delete_bucket.code]
 using namespace Aws;
+
+bool AwsDoc::S3::DeleteBucket(const Aws::String &bucketName, const Aws::String &region)
+{
+    Aws::Client::ClientConfiguration clientConfig;
+    if (!region.empty()) {
+        clientConfig.region = region;
+    }
+
+    Aws::S3::S3Client client(clientConfig);
+
+    Aws::S3::Model::DeleteBucketRequest request;
+    request.SetBucket(bucketName);
+
+    Aws::S3::Model::DeleteBucketOutcome outcome =
+            client.DeleteBucket(request);
+
+    if (!outcome.IsSuccess())
+    {
+        auto err = outcome.GetError();
+        std::cout << "Error: DeleteBucket: " <<
+                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+        return false;
+    }
+    else
+    {
+        std::cout << "The bucket was deleted" << std::endl;
+        return true;
+
+    }
+}
+
 int main()
 {
     //TODO: Change bucket_name to the name of a bucket in your account.
@@ -44,32 +76,9 @@ int main()
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    {
-       
-        Aws::Client::ClientConfiguration clientConfig;
-        if (!region.empty())
-            clientConfig.region = region;
 
-        S3::S3Client client(clientConfig);
+    AwsDoc::S3::DeleteBucket(bucketName, region);
 
-        Aws::S3::Model::DeleteBucketRequest request;
-        request.SetBucket(bucketName);
-
-        Aws::S3::Model::DeleteBucketOutcome outcome =
-            client.DeleteBucket(request);
-
-        if (!outcome.IsSuccess())
-        {
-            auto err = outcome.GetError();
-            std::cout << "Error: DeleteBucket: " <<
-                err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-        }
-        else
-        {
-            std::cout << "The bucket was deleted" << std::endl;
-        }
-    }
     ShutdownAPI(options);
-    
-}
+ }
 // snippet-end:[s3.cpp.delete_bucket.code]

@@ -1,11 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[GetParameter.java demonstrates how to get a parameter value for Amazon Simple Systems Management (Amazon SSM).]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Systems Management]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/27/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,6 +11,7 @@
 package com.example.ssm;
 
 // snippet-start:[ssm.Java2.get_para_value.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.GetParameterRequest;
@@ -23,9 +20,9 @@ import software.amazon.awssdk.services.ssm.model.SsmException;
 // snippet-end:[ssm.Java2.get_para_value.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,22 +30,23 @@ public class GetParameter {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <paraName>\n\n" +
-                "Where:\n" +
-                "    paraName - the name of the parameter.\n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <paraName>\n\n" +
+            "Where:\n" +
+            "    paraName - The name of the parameter.\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String paraName = args[0];
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getParaValue(ssmClient, paraName);
         ssmClient.close();
@@ -66,9 +64,9 @@ public class GetParameter {
             System.out.println("The parameter value is "+parameterResponse.parameter().value());
 
         } catch (SsmException e) {
-        System.err.println(e.getMessage());
-        System.exit(1);
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
    }
-    // snippet-end:[ssm.Java2.get_para_value.main]
+   // snippet-end:[ssm.Java2.get_para_value.main]
 }

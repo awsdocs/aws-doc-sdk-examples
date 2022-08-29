@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) Regions and Zones.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +8,7 @@
 package com.example.ec2;
 // snippet-start:[ec2.java2.describe_region_and_zones.complete]
 // snippet-start:[ec2.java2.describe_region_and_zones.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeRegionsResponse;
 import software.amazon.awssdk.services.ec2.model.Region;
@@ -22,9 +18,9 @@ import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesRespon
 // snippet-end:[ec2.java2.describe_region_and_zones.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -33,9 +29,10 @@ public class DescribeRegionsAndZones {
     public static void main(String[] args) {
 
         // snippet-start:[ec2.java2.describe_region_and_zones.client]
-         software.amazon.awssdk.regions.Region region = software.amazon.awssdk.regions.Region.US_EAST_1;
+        software.amazon.awssdk.regions.Region region = software.amazon.awssdk.regions.Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
         // snippet-end:[ec2.java2.describe_region_and_zones.client]
 
@@ -48,7 +45,6 @@ public class DescribeRegionsAndZones {
         try {
 
             DescribeRegionsResponse regionsResponse = ec2.describeRegions();
-
             for(Region region : regionsResponse.regions()) {
                 System.out.printf(
                         "Found Region %s " +

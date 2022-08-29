@@ -3,8 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,6 +16,8 @@ package com.example.mediastore;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastoredata.MediaStoreDataClient ;
@@ -29,9 +30,9 @@ import software.amazon.awssdk.services.mediastore.model.DescribeContainerRespons
 //snippet-end:[mediastore.java2.list_items.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -39,15 +40,15 @@ public class ListItems {
 
     public static void main(String[] args) throws URISyntaxException {
 
-       final String USAGE = "\n" +
-                "Usage: " +
-                "ListItems <containerName> <completePath>\n\n" +
-                "Where:\n" +
-                "  containerName - the name of the container.\n" +
-                "  completePath - the path in the container where the objects are located (for example, /Videos5).";
+        final String usage = "\n" +
+            "Usage: " +
+            "ListItems <containerName> <completePath>\n\n" +
+            "Where:\n" +
+            "  containerName - The name of the container.\n" +
+            "  completePath - The path in the container where the objects are located (for example, /Videos5).";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -57,9 +58,10 @@ public class ListItems {
         URI uri = new URI(getEndpoint(containerName));
 
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .build();
+            .endpointOverride(uri)
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllItems(mediaStoreData, completePath);
         mediaStoreData.close();
@@ -68,14 +70,13 @@ public class ListItems {
     //snippet-start:[mediastore.java2.list_items.main]
     public static void listAllItems(MediaStoreDataClient mediaStoreData, String completePath) {
 
-       try {
+        try {
             ListItemsRequest itemsRequest = ListItemsRequest.builder()
                 .path(completePath)
                 .build();
 
             ListItemsResponse itemsResponse = mediaStoreData.listItems(itemsRequest);
-
-            Boolean hasItems = itemsResponse.hasItems();
+            boolean hasItems = itemsResponse.hasItems();
             if (hasItems) {
                 List<Item> items = itemsResponse.items();
                 for (Item item : items) {
@@ -85,22 +86,23 @@ public class ListItems {
             } else {
                 System.out.println("There are no items");
             }
-       } catch (MediaStoreDataException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+
+        } catch (MediaStoreDataException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 
     private static String getEndpoint(String containerName){
 
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         DescribeContainerRequest containerRequest = DescribeContainerRequest.builder()
-                .containerName(containerName)
-                .build();
+            .containerName(containerName)
+            .build();
 
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();

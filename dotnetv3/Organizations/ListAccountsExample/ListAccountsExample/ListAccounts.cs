@@ -3,6 +3,7 @@
 
 namespace ListAccountsExample
 {
+    // snippet-start:[Organizations.dotnetv3.ListAccountsExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Organizations;
@@ -60,4 +61,5 @@ namespace ListAccountsExample
             Console.WriteLine(accountInfo);
         }
     }
+    // snippet-end:[Organizations.dotnetv3.ListAccountsExample]
 }

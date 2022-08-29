@@ -1,10 +1,7 @@
 // snippet-sourcedescription:[ListCollections.java demonstrates how to list the available Amazon Rekognition collections.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09-27-2021]
-// snippet-sourceauthor:[scmacdon - AWS]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,6 +10,7 @@
 package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.list_collections.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.ListCollectionsRequest;
@@ -22,9 +20,9 @@ import java.util.List;
 // snippet-end:[rekognition.java2.list_collections.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -34,8 +32,9 @@ public class ListCollections {
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Listing collections");
         listAllCollections(rekClient);
@@ -44,12 +43,10 @@ public class ListCollections {
 
     // snippet-start:[rekognition.java2.list_collections.main]
     public static void listAllCollections(RekognitionClient rekClient) {
-
         try {
-
             ListCollectionsRequest listCollectionsRequest = ListCollectionsRequest.builder()
-                    .maxResults(10)
-                    .build();
+                .maxResults(10)
+                .build();
 
             ListCollectionsResponse response = rekClient.listCollections(listCollectionsRequest);
             List<String> collectionIds = response.collectionIds();

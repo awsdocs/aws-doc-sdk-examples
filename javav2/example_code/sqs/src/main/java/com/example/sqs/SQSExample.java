@@ -1,11 +1,6 @@
 //snippet-sourcedescription:[SQSExample.java demonstrates how to create, list and delete Amazon Simple Queue Service (Amazon SQS) queues.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -14,29 +9,42 @@
 package com.example.sqs;
 
 // snippet-start:[sqs.java2.sqs_example.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.*;
+import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
+import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
+import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
+import software.amazon.awssdk.services.sqs.model.GetQueueUrlResponse;
+import software.amazon.awssdk.services.sqs.model.ListQueuesRequest;
+import software.amazon.awssdk.services.sqs.model.ListQueuesResponse;
+import software.amazon.awssdk.services.sqs.model.Message;
+import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
+import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequest;
+import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequestEntry;
+import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
+import software.amazon.awssdk.services.sqs.model.SqsException;
+
 import java.util.List;
 // snippet-end:[sqs.java2.sqs_example.import]
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SQSExample {
 
-
     public static void main(String[] args) {
         String queueName = "queue" + System.currentTimeMillis();
-
         SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         // Perform various tasks on the Amazon SQS queue
         String queueUrl= createQueue(sqsClient, queueName );
@@ -45,7 +53,7 @@ public class SQSExample {
         List<Message> messages = receiveMessages(sqsClient, queueUrl);
         sendBatchMessages(sqsClient, queueUrl);
         changeMessages(sqsClient, queueUrl, messages);
-        deleteMessages(sqsClient, queueUrl,  messages) ;
+        deleteMessages(sqsClient, queueUrl, messages) ;
         sqsClient.close();
     }
 
@@ -66,10 +74,8 @@ public class SQSExample {
             System.out.println("\nGet queue url");
 
             // snippet-start:[sqs.java2.sqs_example.get_queue]
-            GetQueueUrlResponse getQueueUrlResponse =
-                sqsClient.getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
-            String queueUrl = getQueueUrlResponse.queueUrl();
-            return queueUrl;
+            GetQueueUrlResponse getQueueUrlResponse = sqsClient.getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
+            return getQueueUrlResponse.queueUrl();
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -88,7 +94,6 @@ public class SQSExample {
         try {
             ListQueuesRequest listQueuesRequest = ListQueuesRequest.builder().queueNamePrefix(prefix).build();
             ListQueuesResponse listQueuesResponse = sqsClient.listQueues(listQueuesRequest);
-
             for (String url : listQueuesResponse.queueUrls()) {
                 System.out.println(url);
             }
@@ -104,7 +109,8 @@ public class SQSExample {
         // List queues with filters
         String namePrefix = "queue";
         ListQueuesRequest filterListRequest = ListQueuesRequest.builder()
-                .queueNamePrefix(namePrefix).build();
+            .queueNamePrefix(namePrefix)
+            .build();
 
         ListQueuesResponse listQueuesFilteredResponse = sqsClient.listQueues(filterListRequest);
         System.out.println("Queue URLs with prefix: " + namePrefix);
@@ -113,7 +119,6 @@ public class SQSExample {
         }
 
         System.out.println("\nSend message");
-
         try {
             // snippet-start:[sqs.java2.sqs_example.send_message]
             sqsClient.sendMessage(SendMessageRequest.builder()
@@ -132,7 +137,6 @@ public class SQSExample {
     public static void sendBatchMessages(SqsClient sqsClient, String queueUrl) {
 
         System.out.println("\nSend multiple messages");
-
         try {
             // snippet-start:[sqs.java2.sqs_example.send__multiple_messages]
             SendMessageBatchRequest sendMessageBatchRequest = SendMessageBatchRequest.builder()
@@ -149,18 +153,17 @@ public class SQSExample {
         }
     }
 
-    public static  List<Message> receiveMessages(SqsClient sqsClient, String queueUrl) {
+    public static List<Message> receiveMessages(SqsClient sqsClient, String queueUrl) {
 
         System.out.println("\nReceive messages");
-
         try {
             // snippet-start:[sqs.java2.sqs_example.retrieve_messages]
             ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .maxNumberOfMessages(5)
                 .build();
-            List<Message> messages = sqsClient.receiveMessage(receiveMessageRequest).messages();
-            return messages;
+            return sqsClient.receiveMessage(receiveMessageRequest).messages();
+
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -172,7 +175,6 @@ public class SQSExample {
     public static void changeMessages(SqsClient sqsClient, String queueUrl, List<Message> messages) {
 
         System.out.println("\nChange Message Visibility");
-
         try {
 
             for (Message message : messages) {
@@ -183,13 +185,14 @@ public class SQSExample {
                     .build();
                 sqsClient.changeMessageVisibility(req);
             }
+
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
 
-    public static void deleteMessages(SqsClient sqsClient, String queueUrl,  List<Message> messages) {
+    public static void deleteMessages(SqsClient sqsClient, String queueUrl, List<Message> messages) {
         System.out.println("\nDelete Messages");
         // snippet-start:[sqs.java2.sqs_example.delete_message]
 
@@ -208,6 +211,6 @@ public class SQSExample {
             System.exit(1);
         }
    }
-    // snippet-end:[sqs.java2.sqs_example.main]
+   // snippet-end:[sqs.java2.sqs_example.main]
 }
 

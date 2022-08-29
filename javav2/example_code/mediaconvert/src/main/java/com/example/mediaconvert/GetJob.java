@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[GetJob.java demonstrates how to get information about a specific AWS Elemental MediaConvert job.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[smacdon - AWS ]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.mediaconvert;
 
 // snippet-start:[mediaconvert.java.get_job.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsResponse;
 import software.amazon.awssdk.services.mediaconvert.model.GetJobRequest;
@@ -25,9 +22,9 @@ import java.net.URI;
 // snippet-end:[mediaconvert.java.get_job.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -35,21 +32,22 @@ public class GetJob {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "  <jobId> \n\n" +
-                "Where:\n" +
-                "  jobId - the job id value.\n\n" ;
+        final String usage = "\n" +
+            "  <jobId> \n\n" +
+            "Where:\n" +
+            "  jobId - The job id value.\n\n" ;
 
         if (args.length != 1) {
-              System.out.println(USAGE);
-              System.exit(1);
-          }
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String jobId = args[0];
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getSpecificJob(mc, jobId);
         mc.close();
@@ -60,8 +58,8 @@ public class GetJob {
 
         try {
             DescribeEndpointsResponse res = mc.describeEndpoints(DescribeEndpointsRequest.builder()
-                        .maxResults(20)
-                        .build());
+                .maxResults(20)
+                .build());
 
             if (res.endpoints().size() <= 0) {
                 System.out.println("Cannot find MediaConvert service endpoint URL!");

@@ -563,34 +563,14 @@ sqs_DeleteMessageBatch:
                 - python.example_code.sqs.DeleteMessageBatch
   services:
     sqs: {DeleteMessageBatch}
-sqs_Scenario_ManageQueues:
-  title: Manage &SQS; queues using an &AWS; SDK
-  title_abbrev: Manage queues
-  synopsis: manage &SQS; queues.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description: Create functions to wrap &SQS; queue actions.
-              snippet_tags:
-                - python.example_code.sqs.queue_wrapper_imports
-                - python.example_code.sqs.CreateQueue
-                - python.example_code.sqs.GetQueueUrl
-                - python.example_code.sqs.ListQueues
-                - python.example_code.sqs.DeleteQueue
-            - description: Use the wrapper functions to create and delete queues.
-              snippet_tags:
-                - python.example_code.sqs.Scenario_ManageQueues
-  services:
-    sqs: {}
 sqs_Scenario_SendReceiveBatch:
   title: Send and receive batches of messages with &SQS; using an &AWS; SDK
   title_abbrev: Send and receive batches of messages
-  synopsis: send and receive batches of messages with &SQS;.
+  synopsis_list:
+    - Create an &SQS; queue.
+    - Send batches of messages to the queue.
+    - Receive batches of messages from the queue.
+    - Delete batches of messages from the queue.
   category: Scenarios
   languages:
     Python:
@@ -611,7 +591,7 @@ sqs_Scenario_SendReceiveBatch:
               snippet_tags:
                 - python.example_code.sqs.Scenario_SendReceiveBatch
   services:
-    sqs: {}
+    sqs: {CreateQueue, DeleteQueue, SendMessageBatch, ReceiveMessage, DeleteMessageBatch}
 sqs_AuthorizeS3ToSendMessage:
   title: Authorize an &S3; bucket to send messages to an &SQS; queue
   title_abbrev: Authorize a bucket to send messages to a queue

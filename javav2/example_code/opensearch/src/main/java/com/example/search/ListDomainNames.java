@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListDomainNames.java demonstrates how to list Amazon OpenSearch Service domains.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +9,7 @@
 package com.example.search;
 
 // snippet-start:[opensearch.java2.list_domains.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import software.amazon.awssdk.services.opensearch.model.DomainInfo;
@@ -23,15 +20,22 @@ import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
 
 import java.util.List;
 
-
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListDomainNames {
 
     public static void main(String[] args) {
 
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         listAllDomains(searchClient);
         System.out.println("Done");
     }
@@ -41,8 +45,8 @@ public class ListDomainNames {
 
         try {
             ListDomainNamesRequest namesRequest = ListDomainNamesRequest.builder()
-                    .engineType("OpenSearch")
-                    .build();
+                .engineType("OpenSearch")
+                .build();
 
             ListDomainNamesResponse response = searchClient.listDomainNames(namesRequest) ;
             List<DomainInfo> domainInfoList = response.domainNames();
@@ -54,5 +58,5 @@ public class ListDomainNames {
             System.exit(1);
         }
    }
-    // snippet-end:[opensearch.java2.list_domains.main]
+   // snippet-end:[opensearch.java2.list_domains.main]
 }

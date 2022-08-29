@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListTaskDefinitions.java demonstrates how to list task definitions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +9,7 @@
 package com.example.ecs;
 
 // snippet-start:[ecs.java2.list_tasks.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.DescribeTasksRequest;
@@ -23,22 +20,22 @@ import java.util.List;
 // snippet-end:[ecs.java2.list_tasks.import]
 
 /**
- To run this Java V2 code example, ensure that you have setup your development environment,
- including your credentials.
-
- For information, see this documentation topic:
- https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListTaskDefinitions {
 
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <clusterArn> <taskId> \n\n" +
-                "Where:\n" +
-                "  clusterArn - the ARN of an ECS cluster.\n" +
-                "  taskId - the task Id value.\n" ;
+            "Usage:\n" +
+            "  <clusterArn> <taskId> \n\n" +
+            "Where:\n" +
+            "  clusterArn - The ARN of an ECS cluster.\n" +
+            "  taskId - The task Id value.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -49,22 +46,22 @@ public class ListTaskDefinitions {
         String taskId = args[1];
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAllTasks(ecsClient, clusterArn, taskId);
         ecsClient.close();
     }
 
     // snippet-start:[ecs.java2.list_tasks.main]
-    public static void getAllTasks(EcsClient ecsClient,  String clusterArn, String taskId) {
-
+    public static void getAllTasks(EcsClient ecsClient, String clusterArn, String taskId) {
 
         try {
             DescribeTasksRequest tasksRequest = DescribeTasksRequest.builder()
-                .cluster(clusterArn)
-                .tasks(taskId)
-                .build();
+               .cluster(clusterArn)
+               .tasks(taskId)
+               .build();
 
             DescribeTasksResponse response = ecsClient.describeTasks(tasksRequest);
             List<Task> tasks = response.tasks();

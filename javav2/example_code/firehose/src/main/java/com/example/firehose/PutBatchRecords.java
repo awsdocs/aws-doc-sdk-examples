@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[PutBatchRecords.java demonstrates how to write multiple data records into a delivery stream and check each record using the response object.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.firehose;
 
 // snippet-start:[firehose.java2.put_batch_records.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
 import software.amazon.awssdk.services.firehose.model.Record;
@@ -27,9 +24,9 @@ import java.util.List;
 // snippet-end:[firehose.java2.put_batch_records.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -38,22 +35,23 @@ public class PutBatchRecords {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <streamName> \n\n" +
-                "Where:\n" +
-                "    streamName - the data stream name \n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <streamName> \n\n" +
+            "Where:\n" +
+            "    streamName - The data stream name \n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String streamName = args[0];
         Region region = Region.US_WEST_2;
         FirehoseClient firehoseClient = FirehoseClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         addStockTradeData(firehoseClient, streamName);
         firehoseClient.close();
@@ -63,7 +61,6 @@ public class PutBatchRecords {
     public static void addStockTradeData(FirehoseClient firehoseClient, String streamName) {
 
         List<Record> recordList = new ArrayList<>();
-
         try {
 
             // Repeatedly send stock trades with a 100 milliseconds wait in between
@@ -76,8 +73,8 @@ public class PutBatchRecords {
                 byte[] bytes = trade.toJsonAsBytes();
 
                 Record myRecord = Record.builder()
-                        .data(SdkBytes.fromByteArray(bytes))
-                        .build();
+                    .data(SdkBytes.fromByteArray(bytes))
+                    .build();
 
                 System.out.println("Adding trade: " + trade.toString());
                 recordList.add(myRecord);
@@ -85,9 +82,9 @@ public class PutBatchRecords {
             }
 
             PutRecordBatchRequest recordBatchRequest = PutRecordBatchRequest.builder()
-                    .deliveryStreamName(streamName)
-                    .records(recordList)
-                    .build();
+                .deliveryStreamName(streamName)
+                .records(recordList)
+                .build();
 
             PutRecordBatchResponse recordResponse = firehoseClient.putRecordBatch(recordBatchRequest) ;
             System.out.println("The number of records added is: "+recordResponse.requestResponses().size());
@@ -106,7 +103,7 @@ public class PutBatchRecords {
                     errorMsg = result.errorMessage();
                     System.out.println("Error code for record ID : "+result.recordId() + " is "+errorMsg);
                 }
-        }
+            }
 
         } catch (FirehoseException | InterruptedException e) {
             System.out.println(e.getLocalizedMessage());

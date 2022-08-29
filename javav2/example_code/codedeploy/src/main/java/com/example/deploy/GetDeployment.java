@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[GetDeployment.java demonstrates how to get information about a deployment.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-keyword:[AWS CodeDeploy]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.deploy;
 
 // snippet-start:[codedeploy.java2._get_deployment.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
@@ -22,9 +19,9 @@ import software.amazon.awssdk.services.codedeploy.model.GetDeploymentResponse;
 // snippet-end:[codedeploy.java2._get_deployment.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,25 +29,26 @@ public class GetDeployment {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <deploymentId> \n\n" +
-                "Where:\n" +
-                "    deploymentId - the id of the deployment. \n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <deploymentId> \n\n" +
+            "Where:\n" +
+            "    deploymentId - The id of the deployment. \n";
 
-        if (args.length != 1) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+       if (args.length != 1) {
+           System.out.println(usage);
+           System.exit(1);
+       }
 
-        String deploymentId = args[0];
-        Region region = Region.US_EAST_1;
-        CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .build();
+       String deploymentId = args[0];
+       Region region = Region.US_EAST_1;
+       CodeDeployClient deployClient = CodeDeployClient.builder()
+           .region(region)
+           .credentialsProvider(ProfileCredentialsProvider.create())
+           .build();
 
-        getSpecificDeployment(deployClient, deploymentId);
-        deployClient.close();
+       getSpecificDeployment(deployClient, deploymentId);
+       deployClient.close();
     }
 
     // snippet-start:[codedeploy.java2._get_deployment.main]

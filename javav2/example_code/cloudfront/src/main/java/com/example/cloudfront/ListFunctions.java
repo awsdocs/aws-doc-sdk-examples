@@ -1,29 +1,30 @@
 //snippet-sourcedescription:[ListFunctions.java demonstrates how to list CloudFront functions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
-//snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.list.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
-import software.amazon.awssdk.services.cloudfront.model.*;
+import software.amazon.awssdk.services.cloudfront.model.ListFunctionsRequest;
+import software.amazon.awssdk.services.cloudfront.model.ListFunctionsResponse;
+import software.amazon.awssdk.services.cloudfront.model.FunctionList;
+import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
+import software.amazon.awssdk.services.cloudfront.model.FunctionSummary;
+import software.amazon.awssdk.services.cloudfront.model.FunctionStage;
 import java.util.List;
 // snippet-end:[cloudfront.java2.list.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -32,18 +33,18 @@ public class ListFunctions {
     public static void main(String[] args) {
 
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-                .region(Region.AWS_GLOBAL)
-                .build();
+            .region(Region.AWS_GLOBAL)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllFunctions(cloudFrontClient);
         cloudFrontClient.close();
-
     }
 
     // snippet-start:[cloudfront.java2.list.main]
     public static void listAllFunctions( CloudFrontClient cloudFrontClient) {
 
-       try {
+        try {
             ListFunctionsRequest functionsRequest = ListFunctionsRequest.builder()
                 .stage(FunctionStage.DEVELOPMENT)
                 .maxItems("10")

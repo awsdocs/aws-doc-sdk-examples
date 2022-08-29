@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[PutItem.kt demonstrates how to place an item into an Amazon DynamoDB table.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[PutItem.kt demonstrates how to place an item into an Amazon DynamoDB table.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[Amazon DynamoDB]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,12 +17,13 @@ import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.put_item.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+*/
+
 suspend fun main(args: Array<String>) {
 
     val usage = """
@@ -34,17 +31,17 @@ suspend fun main(args: Array<String>) {
             <tableName> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>
 
         Where:
-            tableName - the Amazon DynamoDB table in which an item is placed (for example, Music3).
-            key - the key used in the Amazon DynamoDB table (for example, Artist).
-            keyval - the key value that represents the item to get (for example, Famous Band).
-            albumTitle - album title (for example, AlbumTitle).
-            AlbumTitleValue - the name of the album (for example, Songs About Life ).
-            Awards - the awards column (for example, Awards).
-            AwardVal - the value of the awards (for example, 10).
-            SongTitle - the song title (for example, SongTitle).
-            SongTitleVal - the value of the song title (for example, Happy Day).
-            
+            tableName - The Amazon DynamoDB table in which an item is placed (for example, Music3).
+            key - The key used in the Amazon DynamoDB table (for example, Artist).
+            keyval - The key value that represents the item to get (for example, Famous Band).
+            albumTitle - The album title (for example, AlbumTitle).
+            AlbumTitleValue - The name of the album (for example, Songs About Life).
+            Awards - The awards column (for example, Awards).
+            AwardVal - The value of the awards (for example, 10).
+            SongTitle - The song title (for example, SongTitle).
+            SongTitleVal - The value of the song title (for example, Happy Day).
             """"
+
     if (args.size != 9) {
         println(usage)
         exitProcess(0)
@@ -65,32 +62,32 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.put_item.main]
 suspend fun putItemInTable(
-        tableNameVal: String,
-        key: String,
-        keyVal: String,
-        albumTitle: String,
-        albumTitleValue: String,
-        awards: String,
-        awardVal: String,
-        songTitle: String,
-        songTitleVal: String
-    ) {
-        val itemValues = mutableMapOf<String, AttributeValue>()
+    tableNameVal: String,
+    key: String,
+    keyVal: String,
+    albumTitle: String,
+    albumTitleValue: String,
+    awards: String,
+    awardVal: String,
+    songTitle: String,
+    songTitleVal: String
+) {
+    val itemValues = mutableMapOf<String, AttributeValue>()
 
-        // Add all content to the table.
-        itemValues[key] = AttributeValue.S(keyVal)
-        itemValues[songTitle] = AttributeValue.S(songTitleVal)
-        itemValues[albumTitle] =  AttributeValue.S(albumTitleValue)
-        itemValues[awards] = AttributeValue.S(awardVal)
+    // Add all content to the table.
+    itemValues[key] = AttributeValue.S(keyVal)
+    itemValues[songTitle] = AttributeValue.S(songTitleVal)
+    itemValues[albumTitle] = AttributeValue.S(albumTitleValue)
+    itemValues[awards] = AttributeValue.S(awardVal)
 
-        val request = PutItemRequest {
-            tableName=tableNameVal
-            item = itemValues
-        }
+    val request = PutItemRequest {
+        tableName = tableNameVal
+        item = itemValues
+    }
 
-       DynamoDbClient { region = "us-east-1" }.use { ddb ->
-            ddb.putItem(request)
-            println(" A new item was placed into $tableNameVal.")
-        }
- }
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+        ddb.putItem(request)
+        println(" A new item was placed into $tableNameVal.")
+    }
+}
 // snippet-end:[dynamodb.kotlin.put_item.main]

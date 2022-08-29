@@ -3,6 +3,8 @@ import com.example.polly.ListLexicons;
 import com.example.polly.PollyDemo;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
 import java.io.*;
@@ -19,6 +21,7 @@ public class AWSPollyTest {
 
         polly = PollyClient.builder()
                 .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
     }
 

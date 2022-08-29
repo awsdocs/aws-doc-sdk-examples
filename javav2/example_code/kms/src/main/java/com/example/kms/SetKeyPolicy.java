@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[SetKeyPolicy.java demonstrates how to set an AWS Key Management Service (AWS KMS) key policy.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/27/2021]
-//snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +10,7 @@
 package com.example.kms;
 
 // snippet-start:[kms.java2_set_policy.import]
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.KmsException;
@@ -21,9 +18,9 @@ import software.amazon.awssdk.services.kms.model.PutKeyPolicyRequest;
 // snippet-end:[kms.java2_set_policy.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -31,24 +28,25 @@ public class SetKeyPolicy {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <keyId> <policyName> \n\n" +
-                "Where:\n" +
-                "    keyId - a unique identifier for the customer master key (CMK) (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
-                "    policyName - the name of the key policy. \n\n" ;
+        final String usage = "\n" +
+            "Usage:\n" +
+            "    <keyId> <policyName> \n\n" +
+            "Where:\n" +
+            "    keyId - A unique identifier for the customer master key (CMK) (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
+            "    policyName - The name of the key policy. \n\n" ;
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
         String keyId = args[0];
-        String policyName =  args[1];
+        String policyName = args[1];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createPolicy(kmsClient, keyId, policyName );
         kmsClient.close();
@@ -57,15 +55,15 @@ public class SetKeyPolicy {
     // snippet-start:[kms.java2_set_policy.main]
     public static void createPolicy(KmsClient kmsClient, String keyId, String policyName) {
         String policy = "{" +
-                "  \"Version\": \"2012-10-17\"," +
-                "  \"Statement\": [{" +
-                "    \"Effect\": \"Allow\"," +
-                // Replace the following user ARN with one for a real user.
-                "    \"Principal\": {\"AWS\": \"arn:aws:iam::814548047983:root\"}," +
-                "    \"Action\": \"kms:*\"," +
-                "    \"Resource\": \"*\"" +
-                "  }]" +
-                "}";
+            "  \"Version\": \"2012-10-17\"," +
+            "  \"Statement\": [{" +
+            "    \"Effect\": \"Allow\"," +
+            // Replace the following user ARN with one for a real user.
+            "    \"Principal\": {\"AWS\": \"arn:aws:iam::814548047983:root\"}," +
+            "    \"Action\": \"kms:*\"," +
+            "    \"Resource\": \"*\"" +
+            "  }]" +
+            "}";
         try {
 
             PutKeyPolicyRequest keyPolicyRequest = PutKeyPolicyRequest.builder()

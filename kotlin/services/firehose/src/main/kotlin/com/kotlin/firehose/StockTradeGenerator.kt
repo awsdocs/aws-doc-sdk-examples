@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[StockTradeGenerator.kt is a helper class]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[StockTradeGenerator.kt is a helper class]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Kinesis Data Firehose]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -13,8 +9,9 @@ package com.example.firehose
 
 import com.kotlin.firehose.StockTrade
 import com.kotlin.firehose.StockTrade.TradeType
-import java.util.*
+import java.util.Random
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.collections.ArrayList
 
 /**
  * Generates random stock trades by picking randomly from a collection of stocks, assigning a
@@ -91,5 +88,4 @@ class StockTradeGenerator {
         }
 
     private class StockPrice(var tickerSymbol: String, var price: Double)
-
 }
