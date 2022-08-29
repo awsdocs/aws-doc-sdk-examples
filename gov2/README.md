@@ -1,31 +1,15 @@
-# AWS SDK for Go (v2) code examples
+# Amazon CloudWatch examples for the AWS SDK for Go (v2).
 
 ## Overview
 
-The code examples in this topic show you how to use the AWS SDK for Go (v2) with AWS. 
+The code examples in this directory show you how to use the AWS SDK for Go (v2)
+with Amazon CloudWatch.
 
-The AWS SDK for Go (v2) provides a Go API for AWS infrastructure services. Using the 
-SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, 
-and more.
-
-## Types of code examples
-
-* **Single-service actions** - Code examples that show you how to call individual 
-  service functions.
-
-* **Single-service scenarios** - Code examples that show you how to accomplish a 
-  specific task by calling multiple functions within the same service.
-
-* **Cross-service examples** - Sample applications that work across multiple AWS 
-  services.
-
-### Finding code examples
-
-Single-service actions and scenarios are organized by AWS service. 
-A README in each folder lists and describes how to run the examples.
-
-Cross-service examples are located in the [cross_service](cross_service) folder. 
-A README in each folder describes how to run the example.
+mazon CloudWatch is a monitoring and observability service built for DevOps
+engineers, developers, site reliability engineers (SREs), IT managers, and
+product owners. CloudWatch provides you with data and actionable insights to
+monitor your applications, respond to system-wide performance changes, and
+optimize resource utilization. 
 
 ## ⚠️ Important
 
@@ -37,6 +21,21 @@ A README in each folder describes how to run the example.
 * This code is not tested in every AWS Region. For more information, 
   see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
+## Code Examples
+
+### Single Actions
+
+- [Create a custom metric](CreateCustomMetric/) (`CreateCustomMetric`)
+- [Create an alarm that watches a metric](CreateEnableMetricAlarm/) (`CreateMetricAlarm`, `EnableAlarmActionsInput`)
+- [Describe alarms](DescribeAlarms/) (`DescribeAlarms`)
+- [Disable alarm actions](DisableAlarm) (`DisableAlarmActions`)
+- [Get metric events](GetLogEvents/) (`GetLogEvents`)
+- [Get metric statistics](GetMetricData/) (`GetMetricData`) 
+- [List metrics](ListMetrics/) (`ListMetrics`)
+- [Send an Amazon CloudWatch event to EventBridge](PutEvent/) (`PurEvents`)
+
+## Run the examples
+
 ### Prerequisites
 
 * You must have an AWS account, and have your default credentials and AWS Region
@@ -47,8 +46,7 @@ A README in each folder describes how to run the example.
 ## Tests
 
 All tests use go test, and you can find them alongside the code in the folder for each 
-example. When an example has additional requirements to run tests, you can find them 
-in the README for that service or cross-service example.
+example.
 
 ### Unit tests
 
@@ -68,11 +66,10 @@ go test ./...
 
 ⚠️ Running the integration tests might result in charges to your AWS account.
 
-The integration tests in this module make actual requests to AWS. This means that when
+The integration tests make actual requests to AWS. This means that when
 the integration tests are run, they can create and destroy resources in your account.
-These tests might also incur charges. Proceed with caution.
 
-Run integration tests in the folder for each service or cross-service example at a
+Run integration tests in the folder for each single action or cross-service example at a
 command prompt by including the `integration` tag.
 
 ```
@@ -80,12 +77,10 @@ go test -tags=integration ./...
 ```
 
 ## Additional resources
-
+* [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
 * [AWS SDK for Go (v2) Developer Guide](https://aws.github.io/aws-sdk-go-v2/docs/)
 * [AWS SDK for Go (v2) package](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2)
 
 ---
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

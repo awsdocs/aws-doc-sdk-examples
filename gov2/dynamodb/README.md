@@ -1,12 +1,11 @@
-# DynamoDB code examples for the SDK for Go
+# DynamoDB code examples for the AWS SDK for Go (v2).
 
 ## Overview
 
 Shows how to use the AWS SDK for Go (v2) to create Amazon DynamoDB
 tables and move data in and out of them.
 
-*Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
-predictable performance with seamless scalability.*
+Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. DynamoDB offers built-in security, continuous backups, automated multi-Region replication, in-memory caching, and data import and export tools. 
 
 ## ⚠️ Important
 
@@ -54,19 +53,10 @@ predictable performance with seamless scalability.*
   
 ## Running the examples
 
-### Get started using tables, items, and queries
+### Prerequisites
 
-This interactive scenario runs at a command prompt and shows you how to use DynamoDB
-to do the following:
-
-- Create a table that can hold movie data.
-- Put, get, and update a single movie in the table.
-- Write movie data to the table from a sample JSON file.
-- Query for movies that were released in a given year.
-- Scan for movies that were released in a range of years.
-- List tables in your account.
-- Delete a movie from the table.
-- Delete the table.
+Prerequisites for running the examples for this service can be found in the
+[README](../README.md#Prerequisites) in the GoV2 folder.
 
 Install all required resources and start the example by running the following in the 
 `dynamodb` folder at a command prompt.
@@ -75,26 +65,6 @@ Install all required resources and start the example by running the following in
 go mod tidy
 go run ./cmd -scenario movieTable
 ```
-
-### Query a table using PartiQL
-
-These two scenarios show you how to run PartiQL statements to query a DynamoDB table of
-movie data. You can do this one at a time or in batches. Both scenarios add, get,
-update, and delete movies in the table.
-
-Install all required resources and start the example by running one of the following in 
-the `dynamodb` folder at a command prompt.
-
-```
-go mod tidy
-go run ./cmd -scenario partiQLSingle
-go run ./cmd -scenario partiQLBatch
-```
-
-### Prerequisites
-
-Prerequisites for running the examples for this service can be found in the
-[README](../README.md#Prerequisites) in the GoV2 folder.
 
 ## Tests
 
@@ -109,6 +79,4 @@ Instructions for running the tests for this service can be found in the
 
 ---
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

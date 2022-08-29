@@ -1,9 +1,0 @@
-files:
-  - path: AssumeRole/AssumeRolev2.go
-    services:
-      - sts
-    operations:
-      - AssumeRole
-  - path: AssumeRole/AssumeRolev2_test.go
-    services:
-      - sts
