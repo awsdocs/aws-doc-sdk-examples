@@ -505,7 +505,7 @@ ses_GetSendQuota:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.GetSendQuota
+                - SES.dotnetv3.GetSendQuotaAsync
   services:
     ses: {GetSendQuota}
 ses_Scenario_GenerateSmtpCredentials:
