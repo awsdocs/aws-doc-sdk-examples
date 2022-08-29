@@ -51,7 +51,7 @@ If you are interested in using the Asynchronous Java client, see one of these tu
 
 + `Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the Spring Framework is used with the AWS SDK for Java asynchronous client for Amazon Simple Notification Service (Amazon SNS).
 
-The following tutorials use the synchronous Java client to build sample Relational & NonRelational database applications:
+The following tutorials use the synchronous Java client to build sample relational & non relational database applications:
 
 + `Creating your first AWS Java web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project>`_ - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk to create a web application.
 
