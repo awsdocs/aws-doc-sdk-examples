@@ -67,6 +67,8 @@ The following tutorials use the synchronous Java client to build sample database
 
 + `Creating a Job Posting Site using Amazon Redshift and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_redshift_application>`_ - Discusses how to create a web MVC application that uses the Amazon Redshift Data API and Amazon Translate to display job listing data. 
 
++ `Creating_mongodb_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_mongoDB_app>`_ - Discusses using Amazon EC2 (which hosts a MongoDB instance) with Amazon Simple Email Service (Amazon SES) and AWS Elastic Beanstalk to create a web application that tracks work items. 
+
 The following tutorials use the synchronous Java client to build sample applications:
 
 + `Creating a dynamic web application that analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app>`_ - Discusses using the AWS SDK for Java and various AWS services, such as Amazon Rekognition, to analyze images. This web MVC applicatio analyzes many images and generate a report that breaks down each image into a series of labels.
@@ -86,8 +88,6 @@ The following tutorials use the synchronous Java client to build sample applicat
 + `Building an Amazon Lex Chatbot that handles multiple languages <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lex_chatbot>`_ - Discusses how to create an Amazon Lex chatbot within a web application to engage your website visitors. In addition, this chatbot supports multiple languages that lets users interact with the chatbot in the languages of their choice (for example, French).
 
 + `Creating an AWS document analyzer application using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_document_analyzer>`_ - Discusses how to use Amazon Textract and Amazon S3 to analyze PDF document images.
-
-+ `Creating_mongodb_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_mongoDB_app>`_ - Discusses using Amazon EC2 (which hosts a MongoDB instance) with Amazon Simple Email Service (Amazon SES) and AWS Elastic Beanstalk to create a web application that tracks work items. 
 
 + `Create an Amazon Personalize app with the AWS SDK for Java V2 <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_amazon_personalize_app>`_ - Discusses how to complete the Amazon Personalize workflow from start to finish with the AWS SDK for Java V2. The project trains two different models with the movie-lens dataset: one with the User-Personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
 
