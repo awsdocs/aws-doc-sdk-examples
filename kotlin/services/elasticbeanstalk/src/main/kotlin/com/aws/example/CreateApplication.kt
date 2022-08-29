@@ -1,24 +1,19 @@
-//snippet-sourcedescription:[CreateApplication.kt demonstrates how to create an AWS Elastic Beanstalk application.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS Elastic Beanstalk ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[CreateApplication.kt demonstrates how to create an AWS Elastic Beanstalk application.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[AWS Elastic Beanstalk]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.aws.example
 
-//snippet-start:[eb.kotlin.create_app.import]
+// snippet-start:[eb.kotlin.create_app.import]
 import aws.sdk.kotlin.services.elasticbeanstalk.ElasticBeanstalkClient
 import aws.sdk.kotlin.services.elasticbeanstalk.model.CreateApplicationRequest
 import kotlin.system.exitProcess
-//snippet-end:[eb.kotlin.create_app.import]
+// snippet-end:[eb.kotlin.create_app.import]
 
 /**
 Before running this Kotlin code example, set up your development environment,
@@ -48,19 +43,19 @@ suspend fun main(args: Array<String>) {
     println("The application ARN is $appArn")
 }
 
-//snippet-start:[eb.kotlin.create_app.main]
-suspend fun createApp( appName: String?): String {
+// snippet-start:[eb.kotlin.create_app.main]
+suspend fun createApp(appName: String?): String {
 
-        val applicationRequest = CreateApplicationRequest {
-            description = "An AWS Elastic Beanstalk app created using the AWS SDK for Kotlin"
-            applicationName = appName
-        }
+    val applicationRequest = CreateApplicationRequest {
+        description = "An AWS Elastic Beanstalk app created using the AWS SDK for Kotlin"
+        applicationName = appName
+    }
 
-        var tableArn: String
-        ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
-            val applicationResponse = beanstalkClient.createApplication(applicationRequest)
-            tableArn = applicationResponse.application?.applicationArn.toString()
-        }
-        return tableArn
+    var tableArn: String
+    ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
+        val applicationResponse = beanstalkClient.createApplication(applicationRequest)
+        tableArn = applicationResponse.application?.applicationArn.toString()
+    }
+    return tableArn
 }
-//snippet-end:[eb.kotlin.create_app.main]
+// snippet-end:[eb.kotlin.create_app.main]

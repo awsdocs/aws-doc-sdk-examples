@@ -4,6 +4,15 @@ glacier_CreateVault:
   title_abbrev: Create a vault
   synopsis: create an &GLlong; vault.
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.CreateVaultExample
     Java:
       versions:
         - sdk_version: 2
@@ -49,6 +58,15 @@ glacier_ListVaults:
   title_abbrev: List vaults
   synopsis: list &GLlong; vaults.
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.ListVaultExample
     Java:
       versions:
         - sdk_version: 2
@@ -75,6 +93,15 @@ glacier_UploadArchive:
   title_abbrev: Upload an archive to a vault
   synopsis: upload an archive to an &GLlong; vault.
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.UploadArchiveHighLevelExample
     Java:
       versions:
         - sdk_version: 2
@@ -162,6 +189,15 @@ glacier_ListJobs:
   title_abbrev: List jobs
   synopsis: list &GLlong; jobs.
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.ListJobsExample
     Python:
       versions:
         - sdk_version: 3
@@ -248,6 +284,15 @@ glacier_DescribeJob:
   title_abbrev: Describe a job
   synopsis: describe an &GLlong; job.
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.DescribeArchiveExample
     Python:
       versions:
         - sdk_version: 3
@@ -392,3 +437,51 @@ glacier_Usage_RetrieveDelete:
                 - python.example_code.glacier.usage.retrieve_demo
   services:
     glacier: {DeleteArchive, DeleteVault, GetJobOutput, ListJobs}
+glacier_AddTagsToVault:
+  title: Add tags to an &GLlong; vault using an &AWS; SDK
+  title_abbrev: Add tags
+  synopsis: add tags to an &GLlong; vault.
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.AddTagsToVaultExample
+  services:
+    glacier: {AddTagsToVault}
+glacier_ListTagsForVault:
+  title: List tags for an &GLlong; vault using an &AWS; SDK
+  title_abbrev: List tags
+  synopsis: list tags for an &GLlong; vault.
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.ListTagsForVaultExample
+  services:
+    glacier: {ListTagsForVault}
+glacier_DownloadArchive:
+  title: Download an &GLlong; archive using an &AWS; SDK
+  title_abbrev: Download an archive
+  synopsis: download an &GLlong; archive.
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.DownloadArchiveHighLevelExample
+  services:
+    glacier: {}

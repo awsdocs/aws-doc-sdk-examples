@@ -2656,6 +2656,14 @@ iam_Scenario_CreateUserAssumeRole:
             - description:
               snippet_tags:
                 - rust.example_code.iam.iam_basics.scenario
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iam.Scenario_CreateUserAssumeRole
   services:
     iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
           PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,

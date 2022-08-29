@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[FindReservedNodeOffer.kt demonstrates how to find additional Amazon Redshift nodes for purchase.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[FindReservedNodeOffer.kt demonstrates how to find additional Amazon Redshift nodes for purchase.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Redshift]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,17 +10,17 @@ package com.kotlin.redshift
 
 // snippet-start:[redshift.kotlin._nodes.import]
 import aws.sdk.kotlin.services.redshift.RedshiftClient
-import aws.sdk.kotlin.services.redshift.model.DescribeReservedNodesRequest
-import aws.sdk.kotlin.services.redshift.model.ReservedNodeOffering
-import aws.sdk.kotlin.services.redshift.model.ReservedNode
 import aws.sdk.kotlin.services.redshift.model.DescribeReservedNodeOfferingsRequest
+import aws.sdk.kotlin.services.redshift.model.DescribeReservedNodesRequest
+import aws.sdk.kotlin.services.redshift.model.ReservedNode
+import aws.sdk.kotlin.services.redshift.model.ReservedNodeOffering
 // snippet-end:[redshift.kotlin._nodes.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
@@ -47,15 +43,15 @@ suspend fun listReservedNodes() {
 
 suspend fun findReservedNodeOffer() {
 
-        val nodeTypeToPurchase = "dc2.large"
-        val fixedPriceLimit = 10000.00
-        val matchingNodes = mutableListOf<ReservedNodeOffering>()
+    val nodeTypeToPurchase = "dc2.large"
+    val fixedPriceLimit = 10000.00
+    val matchingNodes = mutableListOf<ReservedNodeOffering>()
 
-        RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
-          val response = redshiftClient.describeReservedNodeOfferings(DescribeReservedNodeOfferingsRequest{})
-          var count = 0
-          println("Finding nodes to purchase.")
-          response.reservedNodeOfferings?.forEach { offering ->
+    RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
+        val response = redshiftClient.describeReservedNodeOfferings(DescribeReservedNodeOfferingsRequest {})
+        var count = 0
+        println("Finding nodes to purchase.")
+        response.reservedNodeOfferings?.forEach { offering ->
 
             if (offering.nodeType.equals(nodeTypeToPurchase)) {
                 if (offering.fixedPrice < fixedPriceLimit) {
@@ -70,7 +66,6 @@ suspend fun findReservedNodeOffer() {
         } else {
             println("Found $count matches.")
         }
-
     }
 }
 

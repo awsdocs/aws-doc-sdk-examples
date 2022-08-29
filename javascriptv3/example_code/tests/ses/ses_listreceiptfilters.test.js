@@ -1,12 +1,26 @@
-const { run } = require("../../ses/src/ses_listreceiptfilters");
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
+import { getUniqueName } from "../../libs/index";
+import { run } from "../../ses/src/ses_listreceiptfilters";
+import {
+  createReceiptFilter,
+  deleteReceiptFilter,
+} from "../../ses/src/libs/sesUtils";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_listreceiptfilters", () => {
+  const RECEIPT_FILTER_NAME = getUniqueName("ReceiptFilterName");
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run();
-    expect(response.isMock).toEqual(true);
+  beforeAll(async () => {
+    await createReceiptFilter(RECEIPT_FILTER_NAME);
+  });
+
+  afterAll(async () => {
+    await deleteReceiptFilter(RECEIPT_FILTER_NAME);
+  });
+
+  it("should list existing receipt filters", async () => {
+    const result = await run();
+    const filterMatch = result.Filters.find(
+      (f) => f.Name === RECEIPT_FILTER_NAME
+    );
+    expect(filterMatch).toBeTruthy();
   });
 });

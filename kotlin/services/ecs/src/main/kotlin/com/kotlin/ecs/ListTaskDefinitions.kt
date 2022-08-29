@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[ListTaskDefinitions.kt demonstrates how to list task definitions.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Elastic Container Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[ListTaskDefinitions.kt demonstrates how to list task definitions.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Elastic Container Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,14 +16,14 @@ import kotlin.system.exitProcess
 // snippet-end:[ecs.kotlin.list_tasks.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
     
@@ -35,22 +31,22 @@ suspend fun main(args:Array<String>){
         <clusterArn> <taskId>
 
     Where:
-        clusterArn - the ARN of an ECS cluster..
-        taskId - the task Id value.
+        clusterArn - The ARN of an ECS cluster..
+        taskId - The task Id value.
     """
 
     if (args.size != 2) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val clusterArn = args[0]
-    val taskId =   args[1]
+    val taskId = args[1]
     getAllTasks(clusterArn, taskId)
-   }
+}
 
 // snippet-start:[ecs.kotlin.list_tasks.main]
-suspend fun getAllTasks( clusterArn: String, taskId: String) {
+suspend fun getAllTasks(clusterArn: String, taskId: String) {
 
     val request = DescribeTasksRequest {
         cluster = clusterArn

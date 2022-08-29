@@ -90,6 +90,14 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.create_bucket
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.createbucket
     Go:
       versions:
         - sdk_version: 2
@@ -195,6 +203,14 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.copy_object
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.copyfile
   services:
     s3: {CopyObject}
 s3_DeleteBucketPolicy:
@@ -327,6 +343,14 @@ s3_DeleteObject:
             - description: Delete an object.
               snippet_tags:
                 - s3.JavaScript.buckets.deleteobjectV3
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.deletefile
   services:
     s3: {DeleteObject}
 s3_DeleteObjects:
@@ -417,6 +441,14 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.delete_objects
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/DeleteObjects
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.deleteobjects.handler.deleteobjects
   services:
     s3: {DeleteObjects}
 s3_DeleteBucketWebsite:
@@ -690,6 +722,17 @@ s3_GetObject:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.get_object
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description: Download an object from a bucket to a local file.
+              snippet_tags:
+                - s3.swift.basics.handler.downloadfile
+            - description: Read an object into a Swift Data object.
+              snippet_tags:
+                - s3.swift.basics.handler.readfile
   services:
     s3: {GetObject}
 s3_GetBucketLifecycleConfiguration:
@@ -868,6 +911,14 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.ListObjects
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.listbucketfiles
   services:
     s3: {ListObjects}
 s3_ListObjectVersions:
@@ -999,6 +1050,17 @@ s3_PutObject:
             - description: Upload a file using Object.put and add server-side encryption.
               snippet_tags:
                 - s3.ruby.s3_encrypt_file_upload.rb
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description: Upload a file from local storage to a bucket.
+              snippet_tags:
+                - s3.swift.basics.handler.uploadfile
+            - description: Upload the contents of a Swift Data object to a bucket.
+              snippet_tags:
+                - s3.swift.basics.handler.createfile
   services:
     s3: {PutObject}
 s3_RestoreObject:
@@ -1104,6 +1166,14 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.delete_bucket
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.deletebucket
   services:
     s3: {DeleteBucket}
 s3_GetBucketCors:
@@ -1554,6 +1624,30 @@ s3_Scenario_TransferManager:
     title: Uploading an object using multipart upload
     url: AmazonS3/latest/userguide/mpu-upload-object.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/
+          sdkguide:
+          excerpts:
+            - description:
+                Call functions that transfer files to and from an S3 bucket
+                using the &S3; TransferUtility.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.GlobalUsings
+                - S3.dotnetv3.TransferUtilityBasics.Main
+            - description: Upload a single file.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.UploadSingleFileAsync
+            - description: Upload an entire local directory.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.UploadFullDirectoryAsync
+            - description: Download a single file.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.DownloadSingleFileAsync
+            - description: Download contents of an S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync
     Python:
       versions:
         - sdk_version: 3
@@ -1787,5 +1881,26 @@ s3_Scenario_GettingStarted:
             - description: A library crate with common actions called by the binary.
               snippet_tags:
                 - rust.example_code.s3.scenario_getting_started.lib
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.Scenario_GettingStarted
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description: A Swift class that handles calls to the SDK for Swift.
+              snippet_tags:
+                - s3.swift.basics.handler
+            - description: A Swift command-line program to manage the SDK calls.
+              snippet_tags:
+                - s3.swift.basics.example
+
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}

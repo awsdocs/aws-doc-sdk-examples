@@ -1,12 +1,18 @@
-const { run, params } = require("../../ses/src/ses_createtemplate");
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
+const { run, TEMPLATE_NAME } = require("../../ses/src/ses_createtemplate");
+import { deleteTemplate, getTemplate } from "../../ses/src/libs/sesUtils.js";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_createtemplate", () => {
+  afterAll(async () => {
+    try {
+      await deleteTemplate(TEMPLATE_NAME);
+    } catch (e) {
+      console.error(e);
+    }
+  });
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+  it("should successfully create an email template", async () => {
+    await run();
+    const result = await getTemplate(TEMPLATE_NAME);
+    expect(result.Template.TemplateName).toBe(TEMPLATE_NAME);
   });
 });

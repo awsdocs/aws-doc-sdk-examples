@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[CreateAlias.kt demonstrates how to create an AWS Key Management Service (AWS KMS) alias.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[CreateAlias.kt demonstrates how to create an AWS Key Management Service (AWS KMS) alias.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[AWS Key Management Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,21 +16,20 @@ import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_create_alias.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-
 suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage:
             <targetKeyId> <aliasName>  
         Where:
-            targetKeyId - the key ID or the Amazon Resource Name (ARN) of the KMS key.
-            aliasName - an alias name to create (for example, alias/myAlias).
+            targetKeyId - The key ID or the Amazon Resource Name (ARN) of the KMS key.
+            aliasName - An alias name to create (for example, alias/myAlias).
         
          """
 
@@ -49,7 +44,7 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[kms.kotlin_create_alias.main]
- suspend fun createCustomAlias(targetKeyIdVal: String?, aliasNameVal: String?) {
+suspend fun createCustomAlias(targetKeyIdVal: String?, aliasNameVal: String?) {
 
     val request = CreateAliasRequest {
         aliasName = aliasNameVal
@@ -57,8 +52,8 @@ suspend fun main(args: Array<String>) {
     }
 
     KmsClient { region = "us-west-2" }.use { kmsClient ->
-             kmsClient.createAlias(request)
-             println("$aliasNameVal was successfully created")
+        kmsClient.createAlias(request)
+        println("$aliasNameVal was successfully created")
     }
 }
 // snippet-end:[kms.kotlin_create_alias.main]

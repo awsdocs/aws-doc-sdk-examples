@@ -35,7 +35,7 @@ async fn show_buckets(client: &Client) -> Result<(), Error> {
     let num_buckets = buckets.len();
 
     for bucket in buckets {
-        println!("{}", bucket.name().as_deref().unwrap_or_default());
+        println!("{}", bucket.name().unwrap_or_default());
     }
 
     println!();
