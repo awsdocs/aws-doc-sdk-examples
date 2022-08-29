@@ -108,6 +108,7 @@ Examples for SDKs currently in preview
 --------------------------------------
 
 * **.kotlin_alpha** for the alpha version of the AWS SDK for Kotlin
+* **swift** for the preview release of the AWS SDK for Swift
 * **rust_dev_preview** for the developer preview version of the AWS SDK for Rust
 
 Examples for SDKs that have been deprecated

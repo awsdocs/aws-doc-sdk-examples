@@ -8,34 +8,30 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-r
 Purpose:
 ses_createreceiptruleset.js demonstrates how to create an empty Amazon SES rule set.
 
-Inputs (replace in code):
-- RULE_SET_NAME
-
 Running the code:
 node ses_createreceiptruleset.js
 */
 // snippet-start:[ses.JavaScript.rules.createReceiptRuleSetV3]
-// Import required AWS SDK clients and commands for Node.js
-import {
-  CreateReceiptRuleSetCommand
-} from "@aws-sdk/client-ses";
+import { CreateReceiptRuleSetCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-// Set the parameters
-const params = { RuleSetName: "RULE_SET_NAME" }; //RULE_SET_NAME
+import { getUniqueName } from "../../libs/index.js";
+
+const RULE_SET_NAME = getUniqueName("RuleSetName");
+
+const createCreateReceiptRuleSetCommand = (ruleSetName) => {
+  return new CreateReceiptRuleSetCommand({ RuleSetName: ruleSetName });
+};
 
 const run = async () => {
+  const createReceiptRuleSetCommand =
+    createCreateReceiptRuleSetCommand(RULE_SET_NAME);
+
   try {
-    const data = await sesClient.send(new CreateReceiptRuleSetCommand(params));
-    console.log(
-      "Success",
-      data
-    );
-    return data; // For unit tests.
+    return await sesClient.send(createReceiptRuleSetCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to create receipt rule set", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.rules.createReceiptRuleSetV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run, RULE_SET_NAME };

@@ -37,7 +37,7 @@ async fn show_all_events(client: &Client) -> Result<(), Error> {
         for status in resp.unwrap().instance_statuses().unwrap_or_default() {
             println!(
                 "  Events scheduled for instance ID: {}",
-                status.instance_id().as_deref().unwrap_or_default()
+                status.instance_id().unwrap_or_default()
             );
             for event in status.events().unwrap_or_default() {
                 println!("    Event ID:     {}", event.instance_event_id().unwrap());

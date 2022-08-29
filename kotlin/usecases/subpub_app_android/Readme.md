@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a native Android application that has publish-subsciption functionality as well as the ability to translate messages by using the AWS SDK for Kotlin.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/18/2022        |
+| Updated   | 8/9/2022        |
 | Required Skills   | Kotlin, Gradle  |
 
 ## Purpose
@@ -142,8 +142,8 @@ Add the following dependencies to the Gradle build file.
    dependencies {
 
      implementation 'androidx.core:core-ktx:1.6.0'
-     implementation("aws.sdk.kotlin:translate:0.9.4-beta")
-     implementation("aws.sdk.kotlin:sns:0.9.4-beta")  {
+     implementation("aws.sdk.kotlin:translate:0.17.1-beta")
+     implementation("aws.sdk.kotlin:sns:0.17.1-beta")  {
         exclude group: "xmlpull", module: "xmlpull"
      }
      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'

@@ -86,7 +86,7 @@ int main()
         }
 
         // 3/4. Delete the bucket policy from the bucket.
-        if (!AwsDoc::S3::DeleteBucketPolicy(bucket_name))
+        if (!AwsDoc::S3::DeleteBucketPolicy(bucket_name, config.region))
         {
             std::cout << "Error: DeleteBucketPolicy test: Delete bucket policy '" <<
                 "' from bucket '" << bucket_name << "'. To clean up, you must delete " << 
