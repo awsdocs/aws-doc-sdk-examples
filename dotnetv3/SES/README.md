@@ -16,6 +16,8 @@ Amazon SES is a reliable, scalable, and cost-effective email service. Digital ma
 Code excerpts that show you how to call individual service functions.
 * [Create an email template](Actions/SESActionExamples.cs) (CreateTemplate)
 * [Delete an email template](Actions/SESActionExamples.cs) (DeleteTemplate)
+* [Delete an identity](Actions/SESActionExamples.cs) (DeleteIdentity)
+* [Get sending limits](Actions/SESActionExamples.cs) (GetSendQuota)
 * [Get the status of an identity](Actions/SESActionExamples.cs) (GetIdentityVerificationAttributes)
 * [List email templates](Actions/SESActionExamples.cs) (ListTemplates)
 * [List identities](Actions/SESActionExamples.cs) (ListIdentities)

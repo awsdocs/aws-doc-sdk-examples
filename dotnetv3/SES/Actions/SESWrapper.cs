@@ -9,14 +9,14 @@ using Amazon.SimpleEmail.Model;
 namespace SESActions;
 
 /// <summary>
-///     Wrapper with examples of usage for Amazon Simple Email Service (Amazon SES).
+/// Wrapper with examples of usage for Amazon Simple Email Service (Amazon SES).
 /// </summary>
 public class SESWrapper
 {
     private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;
 
     /// <summary>
-    ///     Constructor for the wrapper that uses the injected Amazon SES client.
+    /// Constructor for the wrapper that uses the injected Amazon SES client.
     /// </summary>
     /// <param name="amazonSimpleEmailService">Amazon Simple Email Service</param>
     public SESWrapper(IAmazonSimpleEmailService amazonSimpleEmailService)
@@ -27,7 +27,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.ListIdentitiesAsync]
 
     /// <summary>
-    ///     Get the identities of a specified type for the current account.
+    /// Get the identities of a specified type for the current account.
     /// </summary>
     /// <param name="identityType">IdentityType to list.</param>
     /// <returns>The list of identities.</returns>
@@ -56,7 +56,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.GetIdentityStatusAsync]
 
     /// <summary>
-    ///     Get identity verification status for an email.
+    /// Get identity verification status for an email.
     /// </summary>
     /// <returns>The verification status of the email.</returns>
     public async Task<VerificationStatus> GetIdentityStatusAsync(string email)
@@ -87,9 +87,9 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.VerifyEmailIdentityAsync]
 
     /// <summary>
-    ///     Starts verification of an email identity. This request causes an email
-    ///     to be sent to the specified email address from Amazon SES. To complete
-    ///     verification, follow the instructions in the email.
+    /// Starts verification of an email identity. This request causes an email
+    /// to be sent to the specified email address from Amazon SES. To complete
+    /// verification, follow the instructions in the email.
     /// </summary>
     /// <param name="recipientEmailAddress">Email address to verify.</param>
     /// <returns>True if successful.</returns>
@@ -119,7 +119,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.DeleteIdentityAsync]
 
     /// <summary>
-    ///     Delete an email identity.
+    /// Delete an email identity.
     /// </summary>
     /// <param name="identityEmail">The identity email to delete.</param>
     /// <returns>True if successful.</returns>
@@ -148,7 +148,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.SendEmailAsync]
 
     /// <summary>
-    ///     Send an email using Amazon SES.
+    ///  Send an email using Amazon SES.
     /// </summary>
     /// <param name="toAddresses">List of recipients.</param>
     /// <param name="ccAddresses">List of carbon copy recipients.</param>
@@ -212,7 +212,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.GetSendQuotaAsync]
 
     /// <summary>
-    ///     Get information on the current account's send quota.
+    /// Get information on the current account's send quota.
     /// </summary>
     /// <returns>The send quota response data.</returns>
     public async Task<GetSendQuotaResponse> GetSendQuotaAsync()
@@ -237,7 +237,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.ListEmailTemplatesAsync]
 
     /// <summary>
-    ///     List email templates for the current account.
+    /// List email templates for the current account.
     /// </summary>
     /// <returns>A list of template metadata.</returns>
     public async Task<List<TemplateMetadata>> ListEmailTemplatesAsync()
@@ -262,7 +262,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.CreateEmailTemplateAsync]
 
     /// <summary>
-    ///     Create an email template.
+    /// Create an email template.
     /// </summary>
     /// <param name="name">Name of the template.</param>
     /// <param name="subject">Email subject.</param>
@@ -301,7 +301,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.SendTemplateEmailAsync]
 
     /// <summary>
-    ///     Send an email using a template.
+    /// Send an email using a template.
     /// </summary>
     /// <param name="sender">Address of the sender.</param>
     /// <param name="recipients">Addresses of the recipients.</param>
@@ -343,7 +343,7 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.DeleteEmailTemplateAsync]
 
     /// <summary>
-    ///     Delete an email template.
+    /// Delete an email template.
     /// </summary>
     /// <param name="templateName">Name of the template.</param>
     /// <returns>True if success.</returns>

@@ -17,4 +17,3 @@ Package.resolved
 *.phpunit.cache
 *.phpunit.result.cache
 super-linter.log
-dotnetv3/SES/Tests/testsettings.local.json

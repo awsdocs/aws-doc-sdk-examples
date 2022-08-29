@@ -8,7 +8,7 @@ using SESActions;
 namespace SESTests;
 
 /// <summary>
-///     SES Example integration tests
+/// SES Example integration tests
 /// </summary>
 public class SesExampleTests
 {
@@ -28,7 +28,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Verify a valid email should return true.
+    /// Verify a valid email should return true.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -41,7 +41,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Verify an email that is not valid should not return true.
+    /// Verify an email that is not valid should not return true.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -54,7 +54,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     List identities for email type should include the new identity.
+    /// List identities for email type should include the new identity.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -68,7 +68,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Get identity status for a valid email should return a status.
+    /// Get identity status for a valid email should return a status.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -81,7 +81,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Get identity status for an email that is not valid should return a temporary error.
+    /// Get identity status for an email that is not valid should return a temporary error.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -94,7 +94,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Send an email with all valid settings should return a messageId.
+    /// Send an email with all valid settings should return a messageId.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -111,7 +111,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Send an email with a missing sender should return no messageId.
+    ///  Send an email with a missing sender should return no messageId.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -128,7 +128,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Send an email with a recipient that is not valid should return no messageId.
+    /// Send an email with a recipient that is not valid should return no messageId.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -146,7 +146,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Create an email template email with valid settings should return true.
+    /// Create an email template email with valid settings should return true.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -164,7 +164,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Create an email template email with settings that are not valid should return false.
+    /// Create an email template email with settings that are not valid should return false.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -176,7 +176,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Send a template email with valid settings should return a messageId.
+    /// Send a template email with valid settings should return a messageId.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -194,7 +194,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Send a template email with settings that are not valid should return no messageId.
+    /// Send a template email with settings that are not valid should return no messageId.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -211,7 +211,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     List email templates should return a list including the template.
+    /// List email templates should return a list including the template.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -224,7 +224,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Send a template email with valid settings should return true.
+    /// Send a template email with valid settings should return true.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -237,7 +237,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Send a template email with settings that are not valid should return false.
+    /// Send a template email with settings that are not valid should return false.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -250,7 +250,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     List email templates should not include the template after delete.
+    ///  List email templates should not include the template after delete.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -263,7 +263,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Delete an identity that exists with a valid name should return true.
+    /// Delete an identity that exists with a valid name should return true.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -276,7 +276,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Delete an identity that exists with an name that is not valid should return false.
+    /// Delete an identity that exists with an name that is not valid should return false.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]
@@ -288,7 +288,7 @@ public class SesExampleTests
     }
 
     /// <summary>
-    ///     Get send quota should return not null.
+    /// Get send quota should return not null.
     /// </summary>
     /// <returns>Async Task.</returns>
     [Fact]

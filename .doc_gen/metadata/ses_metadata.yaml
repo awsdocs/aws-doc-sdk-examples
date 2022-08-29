@@ -491,6 +491,23 @@ ses_UpdateTemplate:
                 - python.example_code.ses.UpdateTemplate
   services:
     ses: {UpdateTemplate}
+ses_GetSendQuota:
+  title: Get &SES; sending limits using an &AWS; SDK
+  title_abbrev: Get sending limits
+  synopsis: get &SES; sending limits.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.GetSendQuota
+  services:
+    ses: {GetSendQuota}
 ses_Scenario_GenerateSmtpCredentials:
   title: Generate credentials to connect to an &SES; SMTP endpoint
   title_abbrev: Generate credentials to connect to an SMTP endpoint

@@ -8,9 +8,9 @@ using Microsoft.Extensions.Hosting;
 namespace SESActions;
 
 /// <summary>
-///     Use the AWS SDK for .NET with Amazon Simple Email Service (Amazon SES)
-///     to verify and manage email and domain identities. This example
-///     was created using the AWS SDK for .NET version 3.7 and .NET Core 6.0.
+/// Use the AWS SDK for .NET with Amazon Simple Email Service (Amazon SES)
+/// to verify and manage email and domain identities. This example
+/// was created using the AWS SDK for .NET version 3.7 and .NET Core 6.0.
 /// </summary>
 public static class SESActionExamples
 {
@@ -58,7 +58,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method for listing identities.
+    /// Run the wrapper method for listing identities.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task ListIdentitiesExample()
@@ -74,7 +74,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method to get identity status.
+    /// Run the wrapper method to get identity status.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task GetIdentityStatusExample()
@@ -93,7 +93,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method for verifying email.
+    /// Run the wrapper method for verifying email.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task VerifyEmailExample()
@@ -116,7 +116,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method to delete an identity.
+    /// Run the wrapper method to delete an identity.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task DeleteIdentityExample()
@@ -139,7 +139,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method for sending email.
+    /// Run the wrapper method for sending email.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task SendEmailExample()
@@ -177,7 +177,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method to get the send quota.
+    /// Run the wrapper method to get the send quota.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task GetSendQuotaExample()
@@ -194,7 +194,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method to list email templates
+    /// Run the wrapper method to list email templates
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task ListEmailTemplatesExample()
@@ -210,7 +210,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method to create an email template
+    /// Run the wrapper method to create an email template
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task CreateEmailTemplateExample()
@@ -235,7 +235,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method to send an email using a template
+    /// Run the wrapper method to send an email using a template
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task SendTemplateEmailExample()
@@ -261,7 +261,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    ///     Run the wrapper method to delete an email template
+    /// Run the wrapper method to delete an email template
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task DeleteEmailTemplateExample()
