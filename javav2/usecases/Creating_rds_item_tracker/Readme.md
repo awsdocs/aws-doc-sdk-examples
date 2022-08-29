@@ -392,6 +392,7 @@ public class MainController {
 
 The following class connects to the Amazon RDS for MySQL database. Enter your endpoint, the user name, and the password. Otherwise, your code won't work. Replace the URL endpoint value with the endpoint value you obtained while setting up the Amazon RDS database.
 
+```java
     package com.aws.rest;
 
     import java.sql.Connection;
@@ -432,14 +433,13 @@ The following class connects to the Amazon RDS for MySQL database. Enter your en
         }
     }
 }
-
+```
 
 ### RetrieveItems class
 
 The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. 
 
 ```java
-     package com.aws.rest;
  
    package com.aws.rest;
 
@@ -630,7 +630,7 @@ The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an emai
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
 
 ```java
-    package com.aws.rest;
+package com.aws.rest;
 
 import org.apache.commons.io.IOUtils;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
