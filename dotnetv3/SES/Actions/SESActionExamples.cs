@@ -146,7 +146,7 @@ public static class SESActionExamples
     {
         Console.WriteLine(sepBar);
         Console.WriteLine("Send an email.");
-        // For Sandbox accounts, all addresses must already be verified. For production accounts, only the sender must be verified.
+        // For sandbox accounts, all addresses must already be verified. For production accounts, only the sender must be verified.
         Console.WriteLine("Enter email addresses for recipients:");
         var toAddresses = Console.ReadLine()!
             .Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -194,7 +194,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    /// Run the wrapper method to list email templates
+    /// Run the wrapper method to list email templates.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task ListEmailTemplatesExample()
@@ -210,7 +210,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    /// Run the wrapper method to create an email template
+    /// Run the wrapper method to create an email template.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task CreateEmailTemplateExample()
@@ -221,9 +221,9 @@ public static class SESActionExamples
         var templateName = "Example_template_1";
         var templateSubject = "Example Email using Template";
         var templateText =
-            "This is what {{recipient}} will see from {{sender}} if {{recipient}} can't display HTML.";
+            "This is what {{recipient}} sees from {{sender}} if {{recipient}} can't display HTML.";
         var templateHtml =
-            "<p><i>This</i> is what {{recipient}} will see from {{sender}} if {{recipient}} <b>can</b> display HTML.</p>";
+            "<p><i>This</i> is what {{recipient}} sees from {{sender}} if {{recipient}} <b>can</b> display HTML.</p>";
 
         var success = await sesWrapper.CreateEmailTemplateAsync(templateName, templateSubject,
             templateText, templateHtml);

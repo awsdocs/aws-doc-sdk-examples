@@ -31,21 +31,20 @@ Code excerpts that show you how to call individual service functions.
 * To find prerequisites for running these examples, see the
 [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To
+do this, navigate to the folder that contains the .csproj file, and then
+issue the following command:
 
 ```
 dotnet run
 ```
 
-Or you can run the example from within your IDE.
+Alternatively, you can run the example from within your IDE.
 
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
 
-The scenario includes a test project in the solution. You can run the tests by
-navigating to the folder that contains the test project and then enter:
+The solution includes a test project. To run the tests, navigate to the folder that contains the test project and then enter the following:
 
 ```
 dotnet test
@@ -56,6 +55,7 @@ Test Runner to run the tests.
 
 ## Additional resources
 * [Amazon Simple Email Service Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/index.html)
+* [Amazon Simple Email Service API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
 * [AWS SDK for .NET Amazon SES](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SimpleEmail/NSimpleEmail.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
