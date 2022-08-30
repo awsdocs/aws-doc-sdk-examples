@@ -59,7 +59,7 @@ public class SendMessage {
         // The subject line for the email.
         String subject = "Weekly AWS Status Report";
         message.setSubject(subject, "UTF-8");
-        String sender = "scmacdon@amazon.com";
+        String sender = "<Enter email address>";
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
