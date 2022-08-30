@@ -1,4 +1,4 @@
-# Amazon Simple Email Service code examples for the SDK for .NET
+# Amazon SES code examples for the SDK for .NET
 
 ## Overview
 The examples in this section show to use the AWS SDK for .NET with Amazon Simple Email Service (Amazon SES).

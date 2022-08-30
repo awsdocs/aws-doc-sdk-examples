@@ -87,8 +87,8 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.VerifyEmailIdentityAsync]
 
     /// <summary>
-    /// Starts verification of an email identity. This request causes an email
-    /// to be sent to the specified email address from Amazon SES. To complete
+    /// Starts verification of an email identity. This request sends an email
+    /// from Amazon SES to the specified email address. To complete
     /// verification, follow the instructions in the email.
     /// </summary>
     /// <param name="recipientEmailAddress">Email address to verify.</param>
@@ -148,11 +148,11 @@ public class SESWrapper
     // snippet-start:[SES.dotnetv3.SendEmailAsync]
 
     /// <summary>
-    ///  Send an email using Amazon SES.
+    ///  Send an email by using Amazon SES.
     /// </summary>
     /// <param name="toAddresses">List of recipients.</param>
-    /// <param name="ccAddresses">List of carbon copy recipients.</param>
-    /// <param name="bccAddresses">List of blind carbon copy recipients.</param>
+    /// <param name="ccAddresses">List of cc recipients.</param>
+    /// <param name="bccAddresses">List of bcc recipients.</param>
     /// <param name="bodyHtml">Body of the email in HTML.</param>
     /// <param name="bodyText">Body of the email in plain text.</param>
     /// <param name="subject">Subject line of the email.</param>
@@ -267,8 +267,8 @@ public class SESWrapper
     /// <param name="name">Name of the template.</param>
     /// <param name="subject">Email subject.</param>
     /// <param name="text">Email body text.</param>
-    /// <param name="html">Email html body text.</param>
-    /// <returns>True if success.</returns>
+    /// <param name="html">Email HTML body text.</param>
+    /// <returns>True if successful.</returns>
     public async Task<bool> CreateEmailTemplateAsync(string name, string subject, string text,
         string html)
     {
@@ -346,7 +346,7 @@ public class SESWrapper
     /// Delete an email template.
     /// </summary>
     /// <param name="templateName">Name of the template.</param>
-    /// <returns>True if success.</returns>
+    /// <returns>True if successful.</returns>
     public async Task<bool> DeleteEmailTemplateAsync(string templateName)
     {
         var success = false;

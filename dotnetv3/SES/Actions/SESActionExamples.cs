@@ -235,7 +235,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    /// Run the wrapper method to send an email using a template
+    /// Run the wrapper method to send an email using a template.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task SendTemplateEmailExample()
@@ -261,7 +261,7 @@ public static class SESActionExamples
     }
 
     /// <summary>
-    /// Run the wrapper method to delete an email template
+    /// Run the wrapper method to delete an email template.
     /// </summary>
     /// <returns>Async task.</returns>
     public static async Task DeleteEmailTemplateExample()
