@@ -8,9 +8,8 @@ Thank you for making a submission to the *aws-doc-sdk-examples* repository. For 
 
 Please confirm you have met the following minimum requirements::
 
-- [ ] Added the following copyright notice to the top of each file, which enforces copyright as described in our [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/LICENSE) agreement.
-         
-´Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.´
+- [ ] Added the following copyright notice to the top of each file, which enforces copyright as described in our [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/LICENSE) agreement. 
+>Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 - [ ] Created unit tests for all paths through the code, and confirmed that the all the tests pass. See [How we test code examples](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/Code-quality-guidelines---testing-and-linting#how-we-test-code-examples) for recommendations.
 - [ ] Run a linter against all code and implemented the resulting suggestions.
 - [ ] Added minimum usage documentation as comments in the code.
