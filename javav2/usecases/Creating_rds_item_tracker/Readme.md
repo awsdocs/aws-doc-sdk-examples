@@ -893,7 +893,7 @@ public class WriteExcel {
         workbook.write();
         workbook.close();
 
-        // Get an inputStream that represents the Report.
+        // Get an InputStream that represents the Report.
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
