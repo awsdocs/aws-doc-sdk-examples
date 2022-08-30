@@ -15,7 +15,7 @@ public class ConnectionHelper {
     private String url;
 
     private ConnectionHelper() {
-        url = "jdbc:mysql://formit.crpo45shym6k.us-west-2.rds.amazonaws.com:3306/mydb?useSSL=false";
+        url = "jdbc:mysql://<Enter URL>:3306/mydb?useSSL=false";
     }
 
     public static Connection getConnection() throws SQLException {
