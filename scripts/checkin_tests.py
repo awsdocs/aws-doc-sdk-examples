@@ -127,7 +127,8 @@ ALLOW_LIST = {
     'DynamodbRubyExampleCreateUsersTableStack',
     'com/rekognition/latest/dg/considerations',
     'ListTagsForVaultExample/ListTagsForVault',
-    'TerminateInstanceInAutoScalingGroupAsync'
+    'TerminateInstanceInAutoScalingGroupAsync',
+    'GetIdentityVerificationAttributesRequest'
 }
 
 def check_files(root, quiet):
