@@ -405,7 +405,7 @@ The following class connects to the Amazon RDS for MySQL database. Enter your en
       private static ConnectionHelper instance;
 
       private ConnectionHelper() {
-        url = "jdbc:mysql://<Enter DataBase URL>":3306/mydb?useSSL=false";
+        url = "jdbc:mysql://<Enter DataBase URL>:3306/mydb?useSSL=false";
       }
 
       public static Connection getConnection() throws SQLException {
