@@ -2,13 +2,15 @@
 
 Thank you for making a submission to the *aws-doc-sdk-examples* repository. For more information about submitting pull requests to this repository, see [Guidelines for contributing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md).
 
-*NOTE:* This pull request (PR) template contains three sections. Please remove the two sections that don't apply to your submission.
+*NOTE:* This pull request (PR) template contains two sections. Please remove the section that does not apply to your submission.
 
 ## I am submitting a new SDK code example.
 
 Please confirm you have met the following minimum requirements::
 
-- [ ] Added the default copyright notice to all files.
+- [ ] Added the following copyright notice to the top of each file, which enforces copyright as described in our [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/LICENSE) agreement.
+         
+´Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.´
 - [ ] Created unit tests for all paths through the code, and confirmed that the all the tests pass. See [How we test code examples](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/Code-quality-guidelines---testing-and-linting#how-we-test-code-examples) for recommendations.
 - [ ] Run a linter against all code and implemented the resulting suggestions.
 - [ ] Added minimum usage documentation as comments in the code.
