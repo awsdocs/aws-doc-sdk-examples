@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 9/05/2022        |
+| Updated   | 9/01/2022        |
 | Required skills   | Kotlin, Maven, JavaScript  |
 
 ## Purpose
