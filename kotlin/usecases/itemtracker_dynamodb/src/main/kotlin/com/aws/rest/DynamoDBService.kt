@@ -60,10 +60,11 @@ class DynamoDBService {
         myMap.put("#archive2", "archive")
         val myExMap = mutableMapOf<String, AttributeValue>()
 
-        if (myArc)
+        if (myArc) {
             myExMap.put(":val", AttributeValue.S("Open"))
-        else
+        } else {
             myExMap.put(":val", AttributeValue.S("Closed"))
+        }
 
         val scanRequest = ScanRequest {
             expressionAttributeNames = myMap
@@ -103,7 +104,6 @@ class DynamoDBService {
                             myItem.id = splitMyString(item[key].toString())
                         }
                         else -> {
-
                             myItem.guide = splitMyString(item[key].toString())
                             myList.add(myItem)
                         }
@@ -122,10 +122,11 @@ class DynamoDBService {
         myMap.put("#archive2", "archive")
         val myExMap = mutableMapOf<String, AttributeValue>()
 
-        if (myArc)
+        if (myArc) {
             myExMap.put(":val", AttributeValue.S("Open"))
-        else
+        } else {
             myExMap.put(":val", AttributeValue.S("Closed"))
+        }
 
         val scanRequest = ScanRequest {
             expressionAttributeNames = myMap
@@ -165,7 +166,6 @@ class DynamoDBService {
                             myItem.id = splitMyString(item[key].toString())
                         }
                         else -> {
-
                             myItem.guide = splitMyString(item[key].toString())
                             myList.add(myItem)
                         }
@@ -240,7 +240,6 @@ private fun toXml(itemList: MutableList<WorkItem>): Document? {
 
         // Iterate through the collection.
         for (index in 0 until custCount) {
-
             // Get the WorkItem object from the collection.
             val myItem = itemList[index]
             val item = doc.createElement("Item")
