@@ -56,10 +56,11 @@ class MessageResource {
     fun getItems(@PathVariable state: String): MutableList<WorkItem> = runBlocking {
         val dbService = DynamoDBService()
         val list: MutableList<WorkItem>
-        if (state.compareTo("archive") == 0)
+        if (state.compareTo("archive") == 0) {
             list = dbService.getOpenItems(false)!!
-        else
+        } else {
             list = dbService.getOpenItems(true)!!
+        }
         return@runBlocking list
     }
 
