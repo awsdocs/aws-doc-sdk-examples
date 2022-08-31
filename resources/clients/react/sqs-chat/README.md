@@ -1,11 +1,11 @@
-# Amazon Simple Queue Service (Amazon SQS) Messaging Demo
+# Amazon SQS messaging demo
 
 ## Overview
 
 Shows how to use [React](https://reactjs.org/) to create a web page that connects to a
 REST service that lets you do the following:
 
-- Display a list of messages from an Amazon SQS queue
+- Display a list of messages from an Amazon Simple Queue Service (Amazon SQS) queue
 - Send a message
 - Poll for messages
 - Purge messages
@@ -13,16 +13,15 @@ REST service that lets you do the following:
 ## Sample REST applications
 
 The web client is designed to send requests to one of the following sample applications.
-Each sample application shows you how to use an AWS SDK to manage Amazon
-SQS queues:
+Each sample application shows you how to use an AWS SDK to manage SQS queues:
 
 - Create a React and Spring REST application that handles Amazon SQS messages
 
-## Running the client
+## Run the client
 
 ### Prerequisites
 
-To build and run the web client, you must have [Node.js](https://nodejs.org) installed
+To build and run the web client, you must install [Node.js](https://nodejs.org)
 on your computer. The web client was built and tested by using Node.js 18.7.0.
 
 Install all of the packages needed to run the web client by running the following at the root of this project:
@@ -49,7 +48,7 @@ npm start
 ```
 
 This opens [http://localhost:3000](http://localhost:3000) in your browser. When
-the web client starts, it will begin polling for new messages.
+the web client starts, it begins polling for new messages.
 
 ### REST requests
 
@@ -57,12 +56,12 @@ The web client sends the following REST requests to the REST endpoint:
 
 #### POST /chat/add?user={username}&message={message}
 
-Sends a new message to the Amazon SQS queue configured in the sample application. The _username_ and _message_ fields
+Sends a new message to the SQS queue configured in the sample application. The _username_ and _message_ fields
 are plaintext, and can be any value.
 
 #### GET /chat/purge
 
-Purges your Amazon SQS queue.
+Purges your SQS queue.
 
 ### Run the tests
 
