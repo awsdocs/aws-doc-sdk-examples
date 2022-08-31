@@ -7,9 +7,11 @@ edition = "2021"
 # For more keys and their definitions, see https://doc.rust-lang.org/cargo/reference/manifest.html.
 
 [dependencies]
-aws-config = "0.6.0"
-aws-sdk-iotsitewise = "0.6.0"
-aws-smithy-types-convert = { version = "0.36.0", features = ["convert-chrono"] }
-tokio = { version = "1", features = ["full"] } 
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-iotsitewise = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-types-convert = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+  "convert-chrono",
+] }
+tokio = { version = "1.20.1", features = ["full"] } 
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
+tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
