@@ -31,7 +31,7 @@ fun main(args: Array<String>) {
 @RequestMapping("api/")
 class MessageResource {
 
-    // Adds a new item to the DynamoDB database.
+    // Add a new item to the Amazon DynamoDB database.
     @RequestMapping(value = ["/add"], method = [RequestMethod.POST])
     @ResponseBody
     fun addItems(@RequestBody payLoad: Map<String, Any>): String = runBlocking {
@@ -72,7 +72,7 @@ class MessageResource {
         return@runBlocking id
     }
 
-    // Emails a report.
+    // Send a report through Amazon SES.
     @PutMapping("report/{email}")
     fun sendReport(@PathVariable email: String): String = runBlocking {
         val dbService = DynamoDBService()
