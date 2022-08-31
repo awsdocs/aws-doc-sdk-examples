@@ -54,7 +54,6 @@ class DynamoDBService {
 
     // Get Items.
     suspend fun getOpenItems(myArc: Boolean): MutableList<WorkItem> {
-
         val tableNameVal = "Work"
         val myList = mutableListOf<WorkItem>()
         val myMap = HashMap<String, String>()
@@ -179,7 +178,6 @@ class DynamoDBService {
 
     // Puts an item into an Amazon DynamoDB table.
     suspend fun putItemInTable(itemOb: WorkItem): String {
-
         val tableNameVal = "Work"
 
         // Get all the values to store in the Amazon DynamoDB table.
@@ -219,7 +217,6 @@ class DynamoDBService {
 
 // Splits the item[key] value.
 fun splitMyString(str: String): String {
-
     val del1 = "="
     val del2 = ")"
     val parts = str.split(del1, del2)
