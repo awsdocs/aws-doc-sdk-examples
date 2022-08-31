@@ -1,8 +1,10 @@
-# AWS SDK for Go V2 code examples for IAM
+# AWS IAM examples for the AWS SDK for Go (v2)
 
 ## Purpose
 
-These examples demonstrates how to perform several AWS Identity and Access Management (IAM) operations using version 2 of the AWS SDK for Go.
+These examples demonstrate how to perform AWS Identity and Access Management (IAM) operations using version 2 of the AWS SDK for Go.
+
+With AWS Identity and Access Management (IAM), you can specify who or what can access services and resources in AWS, centrally manage fine-grained permissions, and analyze access to refine permissions across AWS.
 
 ## ⚠️ Important
 
@@ -19,23 +21,23 @@ These examples demonstrates how to perform several AWS Identity and Access Manag
 
 ### Single actions
 
-- [](CreateAccessKey) (`CreateAccessKey`)
-- [](CreateAccountAlias) (`CreateAccountAlias`)
-- [](DeleteAccessKey) (`DeleteAccessKey`)
-- DeleteAccountAlias
-- DeleteServerCert
-- DetachUserPolicy
-- GetServerCert
-- ListAccessKeys
-- ListAccountAliases
-- ListAdmins
-- ListServerCerts
-- UpdateAccessKey
-- UpdateServerCert
-- UpdateUser
+- [Create an access key](CreateAccessKey) (`CreateAccessKey`)
+- [Create an alias for an account](CreateAccountAlias) (`CreateAccountAlias`)
+- [Delete an access key](DeleteAccessKey) (`DeleteAccessKey`)
+- [Delete an account alias](DeleteAccountAlias/) (`DeleteAccountAlias`)
+- [Delete a server certificate](DeleteServerCert/) (`DeleteServerCert`)
+- [Detach a policy from a user](DetachUserPolicy/) (`DetachUserPolicy`)
+- [Get a server certificate](GetServerCert/) (`GetServerCert`)
+- [List a user's access keys](ListAccessKeys/) (`ListAccessKeys`)
+- [List account aliases](ListAccountAliases/) (`ListAccountAliases`)
+- [List users defined as administrators](ListAdmins/) (`ListAdmins`)
+- [List server certificates](ListServerCerts/) (`ListServerCerts`)
+- [Update an access key](UpdateAccessKey/) (`UpdateAccessKey`)
+- [Update a sserver certificate](UpdateServerCert/) (`UpdateServerCert`)
+- [Update a user](UpdateUser/) (`UpdateUser`)
 
 ### Scenarios
-* [`common/`](common/) -- This scenario and its examples demonstrate how to create users, access keys, roles, policies, and service-linked roles. This scenario also demonstrates how to assume a role and take on specific permissions from a policy.
+* [Create a user and assume a role](common/)
 
 ## Run the examples
 
@@ -48,13 +50,10 @@ go run .
 
 ### Prerequisites
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the *AWS SDK for Go Developer Guide*.
+Prerequisites for running the examples for this service can be found in the
+[README](../README.md#Prerequisites) in the GoV2 folder.
 
 You must have Go 1.17 or later installed.
-
 
 ## Tests
 
@@ -66,14 +65,9 @@ go test ./...
 
 This tests all modules in the current folder and any submodules.
 
-## Additional information
+## Additional resources
 
 - [AWS SDK for Go V3 Amazon IAM service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
 - [AWS IAM documentation](https://docs.aws.amazon.com/iam)
 
----
-
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

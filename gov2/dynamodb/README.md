@@ -53,11 +53,6 @@ Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designe
   
 ## Running the examples
 
-### Prerequisites
-
-Prerequisites for running the examples for this service can be found in the
-[README](../README.md#Prerequisites) in the GoV2 folder.
-
 Install all required resources and start the example by running the following in the 
 `dynamodb` folder at a command prompt.
 
@@ -65,6 +60,11 @@ Install all required resources and start the example by running the following in
 go mod tidy
 go run ./cmd -scenario movieTable
 ```
+
+### Prerequisites
+
+Prerequisites for running the examples for this service can be found in the
+[README](../README.md#Prerequisites) in the GoV2 folder.
 
 ## Tests
 

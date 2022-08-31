@@ -1,108 +1,54 @@
-# AWS SDK for Go V2 code examples for Amazon CloudWatch
+# Amazon CloudWatch examples for the AWS SDK for Go (V2)
 
 ## Purpose
 
-These examples demonstrates how to perform several Amazon CloudWatch operations
-using version 2 of the AWS SDK for Go.
+These examples in this directory demonstrate how to perform Amazon CloudWatch
+operations using version 2 of the AWS SDK for Go.
 
-## Prerequisites
+Amazon CloudWatch is a monitoring and observability service built for DevOps
+engineers, developers, site reliability engineers (SREs), IT managers, and
+product owners. CloudWatch provides you with data and actionable insights to
+monitor your applications, respond to system-wide performance changes, and
+optimize resource utilization.
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+## ⚠️ Important
 
-## Running the code
-
-### CreateCustomMetric/CreateCustomMetricv2.go
-
-This example creates a new Amazon CloudWatch metric in a namespace.
-
-`go run CreateCustomMetricv2.go -n NAMESPACE -m METRIC-NAME -s SECONDS -dn DIMENSION-NAME -dv DIMENSION-VALUE`
-
-- _NAMESPACE_ is the namespace for the metric.
-- _METRIC-NAME_ is the name of the metric.
-- _SECONDS_ is the number of seconds for the metric.
-- _DIMENSION-NAME_ is the name of the dimension.
-- _DIMENSION-VALUE_ is the value of the dimension.
-
-The unit test accepts similar values in _config.json_.
-
-### CreateEnableMetricAlarm/CreateEnableMetricAlarmv2.go
-
-This example enables the specified Amazon CloudWatch alarm.
-
-`go run CreateEnableMetricAlarmv2.go -n INSTANCE-NAME -i INSTANCE-ID -a ALARM-NAME`
-
-- _INSTANCE-NAME_ is the name of the Amazon Elastic Compute Cloud (Amazon EC2) instance for which the alarm is enabled.
-- _INSTANCE-ID_ is the ID of the Amazon EC2 instance for which the alarm is enabled.
-- _ALARM-NAME_ is the name of the alarm.
-
-The unit test accepts similar values in _config.json_.
-
-### DescribeAlarms/DescribeAlarmsv2.go
-
-This example displays a list of your Amazon CloudWatch alarms.
-
-`go run DescribeAlarmsv2.go`
-
-### DisableAlarm/DisableAlarmv2.go
-
-This example disables an Amazon CloudWatch alarm.
-
-`go run DisableAlarmv2.go -a ALARM-NAME`
-
-- _ALARM-NAME_ is the name of the alarm to disable.
-
-The unit test accepts a similar value in _config.json_.
-
-### ListMetrics/ListMetricsv2.go
-
-This example displays the name, namespace, and dimension name of your Amazon CloudWatch metrics.
-
-`go run ListMetricsv2.go`
-
-### PutEvent/PutEventv2.go
-
-This example sends an Amazon CloudWatch event to Amazon EventBridge.
-
-`go run PutEventv2.go -l LAMBDA-ARN -f EVENT-FILE`
-
-- _LAMBDA-ARN_ is the ARN of the AWS Lambda function of which the event is concerned.
-- _EVENT-FILE_ is the local file specifying details of the event to send to Amazon EventBridge.
-
-The unit test accepts similar values in _config.json_.
-
-### GetMetricData/GetMetricDatav2.go
-
-This example displays the metric data points for the provided input in the given time-frame.
-
-`go run CreateCustomMetricv2.go -mN METRIC-NAME -n NAMESPACE -dn DIMENSION-NAME -dv DIMENSION-VALUE -id ID -dM DIFFINMINUTES -s STAT -p PERIOD`
-
-- _NAMESPACE_ is the namespace for the metric.
-- _METRIC-NAME_ is the name of the metric.
-- _DIMENSION-NAME_ is the name of the dimension.
-- _DIMENSION-VALUE_ is the value of the dimension.
-- _ID_ is a short name used to tie the object to the results in the response
-- _DIFFINMINUTES_ is the difference in minutes for which the metrics are requested
-- _STAT_ is the Statistic to return i.e. SUM, COUNT, AVERAGE etc
-- _PERIOD_ is the granularity, in seconds, of the returned data points
-
-The unit test accepts similar values in _config.json_
-
-### Notes
-
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) on the AWS website.
 - Running this code might result in charges to your AWS account.
 
-## Running the unit tests
+## Code examples
+
+### Single actions
+
+- [Create a custom metric](CreateCustomMetric/) (`CreateCustomMetric`)
+- [Create an alarm that watches a metric](CreateEnableMetricAlarm/) (`CreateEnableMetricAlarm`)
+- [Describe alarms for a metric](DescribeAlarms/) (`DescribeAlarms`)
+- [Disable alarm actions](DisableAlarm/) (`DisableAlarm`)
+- [Get logged events](GetLogEvents/) (`GetLogEvents`)
+- [Get metric statistics](GetMetricData/) (`GetMetricData`)
+- [List metrics](ListMetrics/) (`ListMetrics`)
+- [Put an event](PutEvent/) (`PutEvent`)
+
+### Run the examples
+
+Go to the directory where you want to run the sample, and do the following:
+
+```
+go mod tidy
+go run .
+```
+### Prerequisites
+
+Prerequisites for running the examples for this service can be found in the
+[README](../README.md#Prerequisites) in the GoV2 folder.
+
+### Tests
 
 Unit tests should delete any resources they create.
 However, they might result in charges to your
@@ -126,5 +72,10 @@ If you want to see any log messages, enter:
 
 You should see some additional log messages.
 The last two lines should be similar to the previous output shown.
+
+## Additional resources
+
+- [AWS SDK for Go V3 Amazon IAM service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
+- [AWS IAM documentation](https://docs.aws.amazon.com/iam)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
