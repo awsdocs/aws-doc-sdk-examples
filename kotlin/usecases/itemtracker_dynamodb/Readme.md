@@ -1,4 +1,4 @@
-# Creating a React and Spring REST application that queries Amazon DynamoDB data
+# Create a React and Spring REST application that queries Amazon DynamoDB data
 
 ## Overview
 
@@ -14,7 +14,7 @@
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
 + Amazon DynamoDB
-+ Amazon Simple Email Service (Amazon SES). 
++ Amazon Simple Email Service (Amazon SES) 
 
 The application you create is a decoupled React application that uses a Spring REST API to return Amazon DynamoDB data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses the Amazon DynamoDB Kotlin API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
@@ -194,7 +194,7 @@ fun main(args: Array<String>) {
 @RequestMapping("api/")
 class MessageResource {
 
-    // Adds a new item to the DynamoDB database.
+    // Add a new item to the DynamoDB database.
     @RequestMapping(value = ["/add"], method = [RequestMethod.POST])
     @ResponseBody
     fun addItems(@RequestBody payLoad: Map<String, Any>): String = runBlocking {
@@ -234,7 +234,7 @@ class MessageResource {
         return@runBlocking id
     }
 
-    // Emails a report.
+    // Send a report using Amazon SES.
     @PutMapping("report/{email}")
     fun sendReport(@PathVariable email: String): String = runBlocking {
         val dbService = DynamoDBService()
@@ -304,7 +304,7 @@ class DynamoDBService {
         }
     }
 
-    // Get Items.
+    // Get items from the Amazon DynamoDB table.
     suspend fun getOpenItems(myArc: Boolean): MutableList<WorkItem> {
 
         val tableNameVal = "Work"
@@ -469,7 +469,7 @@ class DynamoDBService {
     }
 }
 
-// Splits the item[key] value.
+// Split the item[key] value.
 fun splitMyString(str: String): String {
 
     val del1 = "="
