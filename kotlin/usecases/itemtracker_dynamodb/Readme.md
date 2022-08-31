@@ -151,11 +151,7 @@ tasks.withType<Test> {
 
 ## Create the Kotlin classes
 
-Create a new package in the **main/kotlin** folder named **com.aws.rest**.
-
-![AWS Tracking Application](images/kotlinpro.png)
-
-The following Kotlin classes go into this package.
+Create a new package in the **main/kotlin** folder named **com.aws.rest**. The following Kotlin classes go into this package.
 
 + **App** - Used as the base class for the Spring Boot application. 
 + **MessageResource** - Represents the controller used in this application that handles HTTP requests.
