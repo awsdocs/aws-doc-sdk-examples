@@ -79,7 +79,7 @@ The user can enter an email recipient into the **Manager** text field and choose
 
 ![AWS Tracking Application](images/clientReport2.png)
 
-Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
+Active items are queried from the database and used to dynamically create an email report. Then, the application uses Amazon SES to email the data to the selected email recipient. The following image shows an example of a report that contains active items.
 
 ![AWS Tracking Application](images/reportXml.png)
 
