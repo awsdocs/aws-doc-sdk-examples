@@ -73,7 +73,7 @@ public class CopyObject {
         }
         
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
-            .copySource(encodedUrl)
+            .copySourceIfMatch(encodedUrl)
             .destinationBucket(toBucket)
             .destinationKey(objectKey)
             .build();
