@@ -8,44 +8,49 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-c
 Purpose:
 ses_createtemplate.js demonstrates how to create an Amazon SES email template.
 
-Inputs (replace in code):
-- TEMPLATE_NAME
-- HTML_CONTENT (into code; HTML tagged content of email)
-- SUBJECT (into code; the subject of the email)
-- TEXT_CONTENT (into code; text content of the email)
-
 Running the code:
 node ses_createtemplate.js
 */
 
 // snippet-start:[ses.JavaScript.templates.createTemplateV3]
 
-// Import required AWS SDK clients and commands for Node.js
-import { CreateTemplateCommand }  from "@aws-sdk/client-ses";
+import { CreateTemplateCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-// Create createTemplate params
-const params = {
-  Template: {
-    TemplateName: "TEMPLATE_NAME", //TEMPLATE_NAME
-    HtmlPart: "HTML_CONTENT",
-    SubjectPart: "SUBJECT",
-    TextPart: "TEXT_CONTENT",
-  },
+import { getUniqueName } from "../../libs/index.js";
+
+const TEMPLATE_NAME = getUniqueName("TestTemplateName");
+
+const createCreateTemplateCommand = () => {
+  return new CreateTemplateCommand({
+    /**
+     * The template feature in Amazon SES is based on the Handlebars template system.
+     */
+    Template: {
+      /**
+       * The name of an existing template in Amazon SES.
+       */
+      TemplateName: TEMPLATE_NAME,
+      HtmlPart: `
+        <h1>Hello, {{contact.firstName}}!</h1>
+        <p>
+        Did you know Amazon has a mascot named Peccy?
+        </p>
+      `,
+      SubjectPart: "Amazon Tip",
+    },
+  });
 };
 
 const run = async () => {
+  const createTemplateCommand = createCreateTemplateCommand();
+
   try {
-    const data = await sesClient.send(new CreateTemplateCommand(params));
-    console.log(
-      "Success",
-      data
-    );
-    return data; // For unit tests.
+    return await sesClient.send(createTemplateCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to create template.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.templates.createTemplateV3]
-// For unit tests only.
-/// module.exports ={run, params};
+
+export { run, TEMPLATE_NAME };
