@@ -429,7 +429,7 @@ class DynamoDBService {
         }
     }
 
-    // Puts an item into an Amazon DynamoDB table.
+    // Put an item into an Amazon DynamoDB table.
     suspend fun putItemInTable(itemOb: WorkItem): String {
 
         val tableNameVal = "Work"
