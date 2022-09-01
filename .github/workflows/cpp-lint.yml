@@ -1,6 +1,9 @@
 name: "cpp lint check"
 on:
-  [pull_request_target]
+  pull_request_target:
+    paths:
+      - 'cpp/**'
+  workflow_dispatch:
 
 jobs:
   cpplint:
@@ -11,7 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run clang-tidy check
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: "Run clang-tidy check"
         uses: ./.github/cpp-linter
         with:
           config_file: ./.github/cpp-linter/clang-tidy-config.txt
