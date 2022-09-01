@@ -20,7 +20,7 @@ Running the code:
 8. In the Define Auth Challenge pane, choose the Lambda function.
 */
 // snippet-start:[cognito.javascript.lambda-trigger.define-auth-challengeV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
     if (
       event.request.session.length == 1 &&

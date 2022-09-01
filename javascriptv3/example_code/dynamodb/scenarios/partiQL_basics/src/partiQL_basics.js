@@ -115,7 +115,7 @@ export const run = async (tableName, movieYear1, movieTitle1, producer1) => {
               ],
             },
           };
-          const data = ddbDocClient.send(new BatchWriteCommand(params));
+          ddbDocClient.send(new BatchWriteCommand(params));
         }
       }
       wait(20000);
@@ -144,7 +144,7 @@ export const run = async (tableName, movieYear1, movieTitle1, producer1) => {
             Statement: "DELETE FROM " + tableName + " where title=? and year=?",
             Parameters: [{ S: movieTitle1 }, { N: movieYear1 }],
           };
-          const data = await ddbDocClient.send(
+          await ddbDocClient.send(
             new ExecuteStatementCommand(params)
           );
           console.log("Success. Item deleted.");
@@ -154,7 +154,7 @@ export const run = async (tableName, movieYear1, movieTitle1, producer1) => {
                 "INSERT INTO " + tableName + " value  {'title':?, 'year':?}",
               Parameters: [{ S: movieTitle1 }, { N: movieYear1 }],
             };
-            const data = await ddbDocClient.send(
+            await ddbDocClient.send(
               new ExecuteStatementCommand(params)
             );
             console.log("Success. Item added.");
@@ -172,7 +172,7 @@ export const run = async (tableName, movieYear1, movieTitle1, producer1) => {
               };
 
               console.log("Updating a single movie...");
-              const data = await ddbDocClient.send(
+              await ddbDocClient.send(
                 new ExecuteStatementCommand(params)
               );
               console.log("Success. Item updated.");

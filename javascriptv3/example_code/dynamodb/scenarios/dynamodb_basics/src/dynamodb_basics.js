@@ -121,7 +121,7 @@ export const run = async (
         },
       };
       console.log("Adding movie...");
-      const data = await ddbDocClient.send(new PutCommand(params));
+      await ddbDocClient.send(new PutCommand(params));
       console.log("Success - single movie added.");
       try {
         // Before you run this example, download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
@@ -151,7 +151,7 @@ export const run = async (
                 ],
               },
             };
-            const data = ddbDocClient.send(new BatchWriteCommand(params));
+            ddbDocClient.send(new BatchWriteCommand(params));
           }
         }
         wait(20000);
@@ -174,7 +174,7 @@ export const run = async (
             ReturnValues: "ALL_NEW",
           };
           console.log("Updating a single movie...");
-          const data = await ddbClient.send(new UpdateCommand(params));
+          await ddbClient.send(new UpdateCommand(params));
           console.log("Success - movie updated.");
           try {
             console.log("Getting movie....");
@@ -196,7 +196,7 @@ export const run = async (
                   year: newMovieYear,
                 },
               };
-              const data = await ddbDocClient.send(new DeleteCommand(params));
+              await ddbDocClient.send(new DeleteCommand(params));
               console.log("Success - movie deleted.");
               try {
                 console.log("Scanning table....");
@@ -264,7 +264,7 @@ export const run = async (
                         year: existingMovieYear,
                       },
                     };
-                    const data = await ddbDocClient.send(
+                    await ddbDocClient.send(
                       new DeleteCommand(params)
                     );
                     console.log("Success - item deleted");
@@ -273,7 +273,7 @@ export const run = async (
                       const params = {
                         TableName: tableName,
                       };
-                      const data = await ddbDocClient.send(
+                      await ddbDocClient.send(
                         new DeleteTableCommand(params)
                       );
                       console.log("Success, table deleted.");

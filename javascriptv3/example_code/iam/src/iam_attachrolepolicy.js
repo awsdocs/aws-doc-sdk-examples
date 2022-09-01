@@ -35,9 +35,8 @@ export const run = async () => {
     const data = await iamClient.send(
       new ListAttachedRolePoliciesCommand(paramsRoleList)
     );
-    return data;
     const myRolePolicies = data.AttachedPolicies;
-    myRolePolicies.forEach(function (val, index, array) {
+    myRolePolicies.forEach(function (_val, index) {
       if (myRolePolicies[index].PolicyName === "AmazonDynamoDBFullAccess") {
         console.log(
           "AmazonDynamoDBFullAccess is already attached to this role."

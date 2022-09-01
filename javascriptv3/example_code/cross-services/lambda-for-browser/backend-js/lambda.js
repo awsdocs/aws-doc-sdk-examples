@@ -18,7 +18,7 @@ console.log('Loading function');
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { ddbDocClient } from "../libs/ddbDocClient";
 
-exports.handler = async(event, context) => {
+exports.handler = async(event) => {
 
     const params = {
         Item: {
