@@ -14,5 +14,5 @@ http = "0.2.6"
 hyper = "0.14"
 reqwest = "0.11"
 structopt = { version = "0.3", default-features = false }
-tokio = { version = "1", features = ["full"] }
-tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
+tokio = { version = "1.20.1", features = ["full"] }
+tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

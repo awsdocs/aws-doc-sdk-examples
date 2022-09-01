@@ -26,6 +26,7 @@ members = [
     "ecr",
     "ecs",
     "eks",
+    "greengrassv2",
     "globalaccelerator",
     "iam",
     "iot",

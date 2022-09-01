@@ -4,6 +4,7 @@
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code",
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache 2.0",
+  "type": "module",
   "dependencies": {
     "uuid": "^8.3.2"
   }

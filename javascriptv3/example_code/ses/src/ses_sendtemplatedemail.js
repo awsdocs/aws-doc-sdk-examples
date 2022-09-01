@@ -14,7 +14,7 @@ node ses_sendtemplatedemail.js
  */
 // snippet-start:[ses.JavaScript.email.sendTemplatedEmailV3]
 import { SendTemplatedEmailCommand } from "@aws-sdk/client-ses";
-import { getUniqueName, postfix } from "../../libs/index";
+import { getUniqueName, postfix } from "../../libs/index.js";
 import { sesClient } from "./libs/sesClient.js";
 
 /**
@@ -39,11 +39,11 @@ const createReminderEmailCommand = (user, templateName) => {
   return new SendTemplatedEmailCommand({
     /**
      * Here's an example of how a template would be replaced with user data:
-     * Template: <h1>Hello {{name}},</h1><p>Don't forget about the party gifts!</p>
+     * Template: <h1>Hello {{contact.firstName}},</h1><p>Don't forget about the party gifts!</p>
      * Destination: <h1>Hello Bilbo,</h1><p>Don't forget about the party gifts!</p>
      */
     Destination: { ToAddresses: [user.emailAddress] },
-    TemplateData: JSON.stringify({ name: user.firstName }),
+    TemplateData: JSON.stringify({ contact: { firstName: user.firstName } }),
     Source: VERIFIED_EMAIL,
     Template: templateName,
   });
