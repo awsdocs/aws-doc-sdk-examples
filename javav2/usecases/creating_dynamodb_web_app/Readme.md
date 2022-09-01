@@ -49,9 +49,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ### Creating the resources
 
-Create an Amazon DynamoDB table named **Work** with a key named **id**. 
-
-The **Work table contains the following columns. 
+Create an Amazon DynamoDB table named **Work** with a key named **id** using the AWS Management Console. The **Work table contains the following columns. 
 
 + **idwork** - A value that represents the PK.
 + **date** - A value that specifies the date the item was created.
