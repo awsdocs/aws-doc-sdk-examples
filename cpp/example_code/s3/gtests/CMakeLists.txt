@@ -108,4 +108,4 @@ target_link_libraries(
 )
 
 include(GoogleTest)
-gtest_discover_tests(s3_gtest)
+gtest_add_tests(TARGET s3_gtest)
