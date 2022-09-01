@@ -1,10 +1,5 @@
 name: cpp lint check
 on:
-  push:
-    paths:
-      - 'cpp/**'
-    branches:
-      - main
   pull_request:
     paths:
       - 'cpp/**'
