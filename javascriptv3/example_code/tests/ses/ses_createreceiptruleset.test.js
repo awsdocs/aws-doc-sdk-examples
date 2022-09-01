@@ -1,12 +1,21 @@
-const { run, params } = require("../../ses/src/ses_createreceiptruleset");
-const { sesClient } = require("../../ses/src/libs/sesClient");
+import { RULE_SET_NAME, run } from "../../ses/src/ses_createreceiptruleset";
+import {
+  deleteReceiptRuleSet,
+  findReceiptRuleSet,
+} from "../../ses/src/libs/sesUtils";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_createreceiptruleset", () => {
+  afterAll(async () => {
+    try {
+      await deleteReceiptRuleSet(RULE_SET_NAME);
+    } catch (e) {
+      console.error(e);
+    }
+  });
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+  it("should successfully create a ruleset", async () => {
+    await run();
+    const createdRuleSet = await findReceiptRuleSet(RULE_SET_NAME);
+    expect(createdRuleSet).toBeTruthy();
   });
 });

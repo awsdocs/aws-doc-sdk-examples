@@ -8,68 +8,64 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 Purpose:
 ses_sendemail.js demonstrates how to send an email using Amazon SES.
 
-Inputs (replace in code):
-- RECEIVER_ADDRESS
-- SENDER_ADDRESS
-
 Running the code:
 node ses_sendemail.js
 
 */
 // snippet-start:[ses.JavaScript.email.sendEmailV3]
-// Create the promise and SES service object
-
-// Import required AWS SDK clients and commands for Node.js
-import { SendEmailCommand }  from "@aws-sdk/client-ses";
+import { SendEmailCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
 
-// Set the parameters
-const params = {
-  Destination: {
-    /* required */
-    CcAddresses: [
+const createSendEmailCommand = (toAddress, fromAddress) => {
+  return new SendEmailCommand({
+    Destination: {
+      /* required */
+      CcAddresses: [
+        /* more items */
+      ],
+      ToAddresses: [
+        toAddress,
+        /* more To-email addresses */
+      ],
+    },
+    Message: {
+      /* required */
+      Body: {
+        /* required */
+        Html: {
+          Charset: "UTF-8",
+          Data: "HTML_FORMAT_BODY",
+        },
+        Text: {
+          Charset: "UTF-8",
+          Data: "TEXT_FORMAT_BODY",
+        },
+      },
+      Subject: {
+        Charset: "UTF-8",
+        Data: "EMAIL_SUBJECT",
+      },
+    },
+    Source: fromAddress,
+    ReplyToAddresses: [
       /* more items */
     ],
-    ToAddresses: [
-      "RECEIVER_ADDRESS", //RECEIVER_ADDRESS
-      /* more To-email addresses */
-    ],
-  },
-  Message: {
-    /* required */
-    Body: {
-      /* required */
-      Html: {
-        Charset: "UTF-8",
-        Data: "HTML_FORMAT_BODY",
-      },
-      Text: {
-        Charset: "UTF-8",
-        Data: "TEXT_FORMAT_BODY",
-      },
-    },
-    Subject: {
-      Charset: "UTF-8",
-      Data: "EMAIL_SUBJECT",
-    },
-  },
-  Source: "SENDER_ADDRESS", // SENDER_ADDRESS
-  ReplyToAddresses: [
-    /* more items */
-  ],
+  });
 };
-
 
 const run = async () => {
+  const sendEmailCommand = createSendEmailCommand(
+    "recipient@example.com",
+    "sender@example.com"
+  );
+
   try {
-    const data = await sesClient.send(new SendEmailCommand(params));
-    console.log("Success", data);
-    return data; // For unit tests.
-  } catch (err) {
-    console.log("Error", err);
+    return await sesClient.send(sendEmailCommand);
+  } catch (e) {
+    console.error("Failed to send email.");
+    return e;
   }
 };
-run();
+
 // snippet-end:[ses.JavaScript.email.sendEmailV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run };
