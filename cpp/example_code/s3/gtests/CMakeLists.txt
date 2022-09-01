@@ -51,12 +51,11 @@ if(MSVC AND BUILD_SHARED_LIBS)
 	
     #TODO:Choose which of the following two lines to use to copy to the same folder where your executables are.
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
-    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs.
+
     add_custom_command(
         TARGET s3_gtest  POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/gtest_main.dll
-                ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/gtest.dll
+                ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
                 ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
  endif()
 
@@ -91,6 +90,7 @@ target_sources(
         s3_gtest
         PUBLIC
         ${GTEST_SOURCE}
+        test_main.cpp
 )
 
 target_include_directories(s3_gtest PUBLIC
@@ -102,7 +102,7 @@ target_compile_definitions(s3_gtest PUBLIC
 
 target_link_libraries(
         s3_gtest
-        GTest::gtest_main
+        GTest::gtest
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
 )
