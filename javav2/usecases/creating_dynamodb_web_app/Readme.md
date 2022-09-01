@@ -49,7 +49,9 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ### Creating the resources
 
-Create an Amazon DynamoDB table named **Work** with a key named **id**. The **Work table contains the following columns. 
+Create an Amazon DynamoDB table named **Work** with a key named **id**. Add some data to this table; otherwise, the Rest API does not return a data set. 
+
+The **Work table contains the following columns. 
 
 + **idwork** - A value that represents the PK.
 + **date** - A value that specifies the date the item was created.
@@ -61,8 +63,7 @@ Create an Amazon DynamoDB table named **Work** with a key named **id**. The **Wo
 
 The following illustration shows the Work table. 
 
-![AWS Tracking Application](images/worktable.png)
-
+![AWS Tracking Application](images/WorkTable2.png)
 
 For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
