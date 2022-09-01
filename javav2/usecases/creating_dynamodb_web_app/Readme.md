@@ -49,7 +49,22 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ### Creating the resources
 
-Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+Create an Amazon DynamoDB table named **Work** with a key named **id**. The **Work table contains the following columns. 
+
++ **idwork** - A value that represents the PK.
++ **date** - A value that specifies the date the item was created.
++ **description** - A value that describes the item.
++ **guide** - A value that represents the deliverable being worked on.
++ **status** - A value that describes the status.
++ **username** - A value that represents the user who entered the item.
++ **archive** - A value that represents whether this is an active or archive item.
+
+The following illustration shows the Work table. 
+
+![AWS Tracking Application](images/WorkTable.png)
+
+
+For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ## Understand the AWS Tracker React application 
 
