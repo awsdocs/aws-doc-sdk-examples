@@ -1,9 +1,6 @@
-name: cpp lint check
+name: "cpp lint check"
 on:
-  pull_request_target:
-    paths:
-      - 'cpp/**'
-  workflow_dispatch:
+  [pull_request_target]
 
 jobs:
   cpplint:
