@@ -15,7 +15,7 @@ REST service that lets you do the following:
 The web client is designed to send requests to one of the following sample applications.
 Each sample application shows you how to use an AWS SDK to manage SQS queues:
 
-- Create a React and Spring REST application that handles Amazon SQS messages
+- [Create a React and Spring REST application that handles Amazon SQS messages](../../../../javav2/usecases/creating_message_application/README.md)
 
 ## Run the client
 
