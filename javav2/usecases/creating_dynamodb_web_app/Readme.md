@@ -61,7 +61,7 @@ Create an Amazon DynamoDB table named **Work** with a key named **id**. The **Wo
 
 The following illustration shows the Work table. 
 
-![AWS Tracking Application](images/WorkTable.png)
+![AWS Tracking Application](images/worktable.png)
 
 
 For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
