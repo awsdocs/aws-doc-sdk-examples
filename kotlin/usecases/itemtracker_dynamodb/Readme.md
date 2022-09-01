@@ -49,9 +49,23 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon DynamoDB table named **Work** that contains a partition key named **id**. For more information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
+Create an Amazon DynamoDB table named **Work** with a key named **id** using the AWS Management Console. The **Work table contains the following columns. 
 
-In addition, ensure that you have setup your Kotlin developer environment. For more information, see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
++ **idwork** - A value that represents the PK.
++ **date** - A value that specifies the date the item was created.
++ **description** - A value that describes the item.
++ **guide** - A value that represents the deliverable being worked on.
++ **status** - A value that describes the status.
++ **username** - A value that represents the user who entered the item.
++ **archive** - A value that represents whether this is an active or archive item.
+
+The following illustration shows the Work table. 
+
+![AWS Tracking Application](images/WorkTable2.png)
+
+For information about how to create an Amazon DynamoDB table using the AWS Management Console and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
+**Note**: Name your table **Work** and add the columns specified in this section. Add data to this table; otherwise, the Rest API does not return a data set.   
 
 ## Understand the AWS Tracker React application 
 
@@ -656,7 +670,7 @@ The following illustration shows the JSON data returned from the Spring REST API
 
 You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. For more information, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
 
-You must modify the **AWSServices.js** file so that your React requests work with your Java backend. Update this file to include this code.
+You must modify the **RestService.js** file so that your React requests work with your Java backend. Update this file to include this code.
 
 ```javascript
 
