@@ -712,7 +712,264 @@ The following illustration shows the JSON data returned from the Spring REST API
 
 You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
 
-You must modify the **RestService.js** file so that your React requests work with your backend. Update this file to include this code.
+### Update WorkItem.js
+
+You must modify the **WorkItem.js** file so that your React requests work with your Java backend. Update this file to include this code.
+
+```javascript
+import React, {useEffect, useState} from "react";
+import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
+import Modal from "react-bootstrap/Modal";
+
+import * as service from './RestService';
+
+/**
+ * An element that displays an 'Add item' button that lets you add an item to the work
+ * item list. When you click the 'Add item' button, a modal form is displayed that
+ * includes form fields that you can use to define the work item. When you click the
+ * 'Add' button on the form, your new work item is sent to the server so it can be
+ * added to the database.
+ *
+ * @returns {JSX.Element}
+ */
+export const WorkItem = () => {
+  const [user, setUser] = useState('');
+  const [guide, setGuide] = useState('');
+  const [description, setDescription] = useState('');
+  const [status, setStatus] = useState('');
+  const [show, setShow] = useState(false);
+  const [canAdd, setCanAdd] = useState(false);
+
+  useEffect(() => {
+    let can = user.length > 0 && guide.length > 0 && description.length > 0 && status.length > 0;
+    setCanAdd(can);
+  }, [user, guide, description, status]);
+
+  const handleAdd = () => {
+    service.addWorkItem({name: user, guide: guide, description: description, status: status})
+      .catch(console.error);
+    setShow(false);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  return (
+    <>
+      <Button onClick={() => setShow(true)} variant="primary">Add item</Button>
+
+      <Modal show={show} onHide={handleClose} dialogClassName="modal-90w">
+        <Modal.Header closeButton>
+          <Modal.Title>Add a new work item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label htmlFor='userField'>User</Form.Label>
+              <Form.Control id='userField' type="text" placeholder="User name"
+                            onChange={(event) => setUser(event.target.value)}/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor='guideField'>Guide</Form.Label>
+              <Form.Control id='guideField' type="text" placeholder="Developer guide"
+                            onChange={(event) => setGuide(event.target.value)}/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor='descriptionField'>Description</Form.Label>
+              <Form.Control as="textarea" rows={3} id='descriptionField'
+                            onChange={(event) => setDescription(event.target.value)}/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor='statusField'>Status</Form.Label>
+              <Form.Control as="textarea" rows={3} id='statusField'
+                            onChange={(event) => setStatus(event.target.value)}/>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>Close</Button>
+          <Button variant="primary" disabled={!canAdd} onClick={handleAdd}>Add</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
+```
+### Update WorkItems.js
+
+You must modify the **WorkItems.js** file so that your React requests work with your Java backend. Update this file to include this code.
+
+```javascript
+import React, {useEffect, useState} from 'react';
+import * as service from './RestService';
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Placeholder from "react-bootstrap/Placeholder";
+import Row from "react-bootstrap/Row";
+import Table from "react-bootstrap/Table";
+import {WorkItem} from "./WorkItem";
+
+/**
+ * An element that displays a list of work items that are retrieved from a REST service.
+ *
+ * * Select Active or Archived to display work items with the specified state.
+ * * Select the wastebasket icon to archive and active item.
+ * * Select 'Add item' to add a new item.
+ * * Enter a recipient email and select 'Send report' to send a report of work items.
+ *
+ * @returns {JSX.Element}
+ */
+
+export const WorkItems = () => {
+  const [email, setEmail] = useState('');
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('active');
+  const [error, setError] = useState('');
+
+  const getItems = async () => {
+    setError('');
+    setLoading(true);
+    const response = await service.getWorkItems(status).catch((e) => {setError(e.message)});
+    setItems(response ? await response.data : []);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getItems().catch((e) => {setError(e.message)});
+  }, [status]);
+
+  const archiveItem = async (itemId) => {
+    service.archiveItem(itemId).catch((e) => {setError(e.message)});
+    getItems().catch((e) => {setError(e.message)});
+  }
+
+  const sendReport = async () => {
+    service.mailItem(email).catch((e) => {setError(e.message)});
+  }
+
+  const handleStatusChange = (newStatus) => {
+    setStatus(newStatus);
+  }
+
+  return (
+    <>
+      {error !== ''
+        ?
+        <Row>
+          <Col>
+            <Alert variant="danger">{error}</Alert>
+          </Col>
+        </Row>
+        : null
+      }
+      <Row>
+        <Col className="col-3">
+          <FloatingLabel controlId="floatingSelect" label="State">
+            <Form.Select aria-label="Status" onChange={(event) => handleStatusChange(event.target.value)}>
+              <option value="active">Active</option>
+              <option value="archive">Archived</option>
+            </Form.Select>
+          </FloatingLabel>
+        </Col>
+        <Col className="col-5">
+          <InputGroup>
+            <FormControl onChange={(event) => setEmail(event.target.value)}
+              placeholder="Recipient's email"
+              aria-label="Recipient's email"
+              aria-describedby="basic-addon2"
+            />
+            <Button
+              variant="outline-secondary"
+              id="button-addon2"
+              disabled={email === ''}
+              onClick={() => sendReport()}>
+                Send report
+            </Button>
+          </InputGroup>
+          <Form.Text className="text-muted">
+            You must first register the recipient's email with Amazon SES.
+          </Form.Text>
+        </Col>
+      </Row>
+      <hr/>
+      <Row>
+        <h3>Work items</h3>
+        <p>Click the 🗑 icon to Archive an item.</p>
+      </Row>
+      <Row style={{maxHeight: `calc(100vh - 400px)`, overflowY: "auto"}}>
+        <Col>
+          {!loading && items.length === 0
+            ? <Alert variant="info">No work items found.</Alert>
+            : <Table striped>
+              <thead>
+              <tr>
+                <th>Item Id</th>
+                <th>User</th>
+                <th>Guide</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th/>
+              </tr>
+              </thead>
+              {loading
+                ? <tbody>{
+                  [1, 2, 3].map(item =>
+                    <tr key={item}>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                    </tr>
+                  )
+                }
+                </tbody>
+                : <tbody>{
+                  items.map(item =>
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td>{item.name}</td>
+                      <td>{item.guide}</td>
+                      <td>{item.description}</td>
+                      <td>{item.status}</td>
+                      <td>{
+                        status === 'active' ?
+                          <Button variant="outline-secondary" size="sm" onClick={() => archiveItem(item.id)}>🗑</Button>
+                          : null
+                      }
+                      </td>
+                    </tr>
+                  )
+                }
+                </tbody>
+              }
+            </Table>
+          }
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <WorkItem />
+        </Col>
+      </Row>
+    </>
+  )
+};
+```
+
+
+### Update RestService.js
+
+You must modify the **RestService.js** file so that your React requests work with your Java backend. Update this file to include this code.
 
 ```javascript
 
