@@ -271,7 +271,7 @@ class MessageResource {
 
 ### Create the RetrieveItems class
 
-The **RetrieveItems** class uses the AWS SDK for Kotlin API to retrieve data from the **Work** table. For example, in the **getData** method returns a collection of **WorkItem** objects that represent the result set.  
+The **RetrieveItems** class uses the AWS SDK for Kotlin API to retrieve data from the **Work** table. For example, the **getData** method returns a collection of **WorkItem** objects that represent the result set.  
 
 ```kotlin
 package com.aws.rest
