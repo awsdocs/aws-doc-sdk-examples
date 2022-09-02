@@ -45,6 +45,7 @@ class RetrieveItems {
         checkStatement(id)
         return getResultsXML(id)
     }
+
     // Returns items within a collection.
     suspend fun getResults(statementId: String?): MutableList<WorkItem> {
         val records = mutableListOf<WorkItem>()
