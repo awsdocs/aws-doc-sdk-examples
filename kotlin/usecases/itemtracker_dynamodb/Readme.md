@@ -47,25 +47,46 @@ To complete the tutorial, you need the following:
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
-### Creating the resources
+### Creating the DynamoDB table and add some items
 
-Create an Amazon DynamoDB table named **Work** with a key named **id** using the AWS Management Console. The **Work table contains the following columns. 
+Using the AWS Management Console, create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String. 
 
-+ **id** - A value that represents the PK.
-+ **date** - A value that specifies the date the item was created.
-+ **description** - A value that describes the item.
-+ **guide** - A value that represents the deliverable being worked on.
-+ **status** - A value that describes the status.
-+ **username** - A value that represents the user who entered the item.
-+ **archive** - A value that represents whether this is an active or archive item.
+After creating the **Work** table with the **id** partition key, select the table in the Console, then under
+the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with Amazon DynamoDB).
 
-The following illustration shows the Work table. 
+As you are creating an item for the first time, you will both define the attributes in your table as well 
+as add values. Enter the attributes and values as shown in the table below. Enter 'Open' as the
+value for the **archive** attribute. Select **Create item** to create
+your first item (row).
+
+The **Work** table attributes
+
+| Attribute name | What the attribute value represents                                          |
+|----------------|------------------------------------------------------------------------------|
+| id             | the primary key; enter a random string of text no longer than 20 characters  |
+| date           | date the work item was performed                                             |
+| description    | description of the work being done                                           |
+| guide          | name of the guide the work is for                                            |
+| status         | status of the work, e.g., 'started', 'in review'                             |
+ | username       | user name who worked performed the work item                                 |
+| archive        | a value of 'Open' or 'Closed' to indicate if the work item has been archived |
+
+Enter at least two more items (rows). This time, since you have already defined all the attributes
+needed for this example, select the first item you created by activating the item's checkbox, then select
+**Duplicate item** under the **Actions** menu. Select **Create item** when you are finished changing the values.
+
+Duplicate one more item so that you have a total of three items.
+
+The following illustration shows an example of the Work table. 
 
 ![AWS Tracking Application](images/WorkTable2.png)
 
-For information about how to create an Amazon DynamoDB table using the AWS Management Console and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+For additional information about how to create an Amazon DynamoDB table using the AWS Management Console 
+and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+(The table created in that example is different from the one we are using in this example.)
 
-**Note**: Name your table **Work** and add the columns specified in this section. Add data to this table; otherwise, the Rest API does not return a data set.   
+Now that the table is created and populated with some data, when we start up the Spring Boot app for 
+the REST API, there will data to display.  
 
 ## Understand the AWS Tracker React application 
 
