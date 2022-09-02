@@ -4,8 +4,12 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.14)
 
+set(EXAMPLE_SERVICE_NAME "s3")
+set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
+set(CURRENT_TARGET_AWS_DEPENDENCIES s3 sts)
+
 # Set this project's name.
-project("s3-examples-gtests")
+project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
@@ -31,34 +35,41 @@ if(NOT BUILD_SHARED_LIBS)
     set(BUILD_SHARED_LIBS ON)
 endif()
 
+set(CMAKE_BUILD_TYPE Debug)
+
 # Find the AWS SDK for C++ package.
-find_package(AWSSDK REQUIRED COMPONENTS s3 sts)
+find_package(AWSSDK REQUIRED COMPONENTS ${CURRENT_TARGET_AWS_DEPENDENCIES})
 
 add_executable(
-        s3_gtest
+        ${CURRENT_TARGET}
 )
-
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    list(APPEND SERVICE_LIST s3 sts)
+    list(APPEND SERVICE_LIST ${CURRENT_TARGET_AWS_DEPENDENCIES})
     #For IDE's like Xcode and Visual Studio this line will be ignored because Release/Debug 
     #  is switched internally, but this is necessary for non-IDE builds.
-    set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type.
+
 	
     #TODO:Choose which of the following two lines to use to copy to the same folder where your executables are.
-    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
+    AWSSDK_CPY_DYN_LIBS(
+        SERVICE_LIST
+        ""
+        ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+    )  #Choose this line if your executables are in /build/Debug
 
     add_custom_command(
-        TARGET s3_gtest  POST_BUILD
+        TARGET
+        ${CURRENT_TARGET}
+        POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
-                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+    )
  endif()
-
 
 # Check whether the target system is Windows, including Win64.
 if(WIN32)
@@ -71,8 +82,10 @@ endif()
 
 enable_testing()
 
-file(GLOB GTEST_SOURCE_FILES
-        "gtest_*.cpp"
+file(
+     GLOB
+     GTEST_SOURCE_FILES
+    "gtest_*.cpp"
 )
 
 foreach(TEST_FILE ${GTEST_SOURCE_FILES})
@@ -82,30 +95,37 @@ foreach(TEST_FILE ${GTEST_SOURCE_FILES})
     else()
         message("Error: no associated source file found for ${TEST_FILE}")
     endif()
-
 endforeach()
 
-
 target_sources(
-        s3_gtest
+        ${CURRENT_TARGET}
         PUBLIC
         ${GTEST_SOURCE}
         test_main.cpp
 )
 
-target_include_directories(s3_gtest PUBLIC
+target_include_directories(
+        ${CURRENT_TARGET}
+        PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
-        $<INSTALL_INTERFACE:../include>)
+        $<INSTALL_INTERFACE:../include>
+)
 
-target_compile_definitions(s3_gtest PUBLIC
-        TESTING_BUILD)
+target_compile_definitions(
+        ${CURRENT_TARGET}
+        PUBLIC
+        TESTING_BUILD
+)
 
 target_link_libraries(
-        s3_gtest
+        ${CURRENT_TARGET}
         GTest::gtest
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
 )
 
 include(GoogleTest)
-gtest_add_tests(TARGET s3_gtest)
+gtest_add_tests(
+        TARGET
+        ${CURRENT_TARGET}
+)
