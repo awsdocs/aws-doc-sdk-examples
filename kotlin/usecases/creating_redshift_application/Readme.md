@@ -1,46 +1,33 @@
-# Create a Job Posting Site using Amazon Redshift and the AWS SDK for Kotlin
+# Creating a React and Spring REST application that queries Amazon Redshift data
+
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.   |
+| Audience   |  Developer (intermediate)        |
+| Updated   | 9/05/2022        |
+| Required skills   | Kotlin, Maven, JavaScript  |
 
 ## Purpose
-You can create a dynamic web application that stores and queries data by using the Amazon Redshift service and the Amazon Redshift Kotlin API. To interact with an Amazon Redshift table, you can use a **RedshiftDataClient** object. The application created in this AWS tutorial is a job posting web application that lets an employer, an administrator, or human resources staff alert employees or the public about a job opening within a company.
 
-**Note**: Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. You can start with just a few hundred gigabytes of data and scale to a petabyte or more. This enables you to use your data to acquire new insights for your business and customers. For more information, see [What is Amazon Redshift?](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html).
+You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
-The data is stored in a Redshift table named **blog**, as shown in this illustration. 
++ Amazon DynamoDB
++ Amazon Simple Email Service (Amazon SES). 
 
-![AWS Tracking Application](images/Redshift.png)
+The application you create is a decoupled React application that uses a Spring REST API to return Amazon Redshift data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses the Amazon Redshift Kotlin API to perform CRUD operations on the Amazon Redshift database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
-The **blog** table contains these fields: 
-
-- **idblog**- a varchar field that stores a GUID value and represents the PK.
-- **date**- a date field that represents the date when the record was added. 
-- **title**- a varchar field that represents the title. 
-- **body**- a varchar field that represents the body. 
-- **author**-a varchar field that represents the author. 
-
-**Note**: For more information about supported field data types, see [Data types](https://docs.aws.amazon.com/redshift/latest/dg/c_Supported_data_types.html). 
-
-The application you create uses Spring Boot APIs to build a model, different views, and a controller. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
-
-This web application also lets a user submit a new job posting that is then stored into the **blog** table, as shown in this illustration. 
-
-![AWS Tracking Application](images/NewRecorda.png)
-
-This example application lets you view the posts by choosing the **Get Posts** menu item and choosing one of the available buttons. For example, you can view five recent posts by choosing the **Five Posts** button, as shown in the following illustration.
-
-![AWS Tracking Application](images/FiveRecordsa.png)
-
-This application also supports viewing the result set in different languages. For example, if a user wants to view the result set in Spanish, they can choose Spanish from the dropdown field and the data is translated to the given language by using Amazon Translate, as shown in this illustration. 
-
-![AWS Tracking Application](images/Spanisha.png)
+![AWS Tracking Application](images/overviewred.png)
 
 #### Topics
 
-1. Prerequisites
-2. Create an IntelliJ project 
-3. Add the dependencies to your Gradle build file
-4. Create the Kotlin classes
-6. Create the HTML files
-7. Run the application. 
++ Prerequisites
++ Understand the AWS Tracker application
++ Create an IntelliJ project named ItemTrackerDynamoDBRest
++ Add the Spring POM dependencies to your project
++ Create the Java classes
++ Create the React front end
 
 ## Prerequisites
 
@@ -50,7 +37,6 @@ To complete the tutorial, you need the following:
 + A Kotlin IDE (this tutorial uses the IntelliJ IDE)
 + Java 1.8 JDK
 + Gradle 6.8 or higher
-+ Setup your development environment. For information, see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
 **Note**: Make sure that you have installed the Kotlin plug-in for IntelliJ. 
 
@@ -63,339 +49,391 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon Redshift table named **blog** that contains the fields described in this tutorial. For information about creating an Amazon Redshift table, see [Getting started using databases](https://docs.aws.amazon.com/redshift/latest/dg/c_intro_to_admin.html). 
+Create an Amazon Redshift cluster and then create a database named **dev**. Next, create a table named **Work** that contains the following fields:
 
-## Create an IntelliJ project named JobsDemo
++ **idwork** - A VARCHAR(45) value that represents the PK.
++ **date** - A date value that specifies the date the item was created.
++ **description** - A VARCHAR(400) value that describes the item.
++ **guide** - A VARCHAR(45) value that represents the deliverable being worked on.
++ **status** - A VARCHAR(400) value that describes the status.
++ **username** - A VARCHAR(45) value that represents the user who entered the item.
++ **archive** - A TINYINT(4) value that represents whether this is an active or archive item.
 
-The following figure shows the project options.
+The following image shows the Amazon Redshift **Work** table.
 
-![AWS Tracking Application](images/kotlinpro.png)
+![AWS Tracking Application](images/worktable.png)
+
+To use the **RedshiftDataClient** object, you must have the following Amazon Redshift values: 
+
++ The name of the database (for example, dev)
++ The name of the database user that you configured
++ The name of the Amazon Redshift cluster (for example, redshift-cluster-1)
+
+For more information, see [Getting started with Amazon Redshift clusters and data loading](https://docs.aws.amazon.com/redshift/latest/gsg/database-tasks.html).
+
+**Note**: After you create the **Work** table, place some records into it; otherwise, your Rest API returns an empty result set. 
+
+
+## Understand the AWS Tracker React application 
+
+A user can perform the following tasks using the React application:
+
++ View all active items.
++ View archived items that are complete.
++ Add a new item. 
++ Convert an active item into an archived item.
++ Send a report to an email recipient.
+
+The React SPA displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
+
+![AWS Tracking Application](images/client.png)
+
+Likewise, the following illustration shows the React application displaying archived data.
+
+![AWS Tracking Application](images/clientarc.png)
+
+The React SPA also lets a user enter a new item. 
+
+![AWS Tracking Application](images/clientAddItem.png)
+
+The user can enter an email recipient into the **Manager** text field and choose **Send Report**.
+
+![AWS Tracking Application](images/clientReport2.png)
+
+Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
+
+![AWS Tracking Application](images/report.png)
+
+## Create an IntelliJ project named ItemTrackerKotlinDynamoDBRest
 
 Perform these steps. 
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Kotlin**.
-3. Enter the name **JobsDemo**. 
+3. Enter the name **ItemTrackerKotlinDynamoDBRest**. 
 4. Select **Gradle Kotlin** for the Build System.
 5. Select your JVM option and choose **Next**.
 6. Choose **Finish**.
 
-## Add the dependencies to your project
+## Add the dependencies to your Gradle build file
 
-At this point, you have a new project named **JobsDemo** with a Gradle build file.
+At this point, you have a new project named **ItemTrackerKotlinDynamoDBRest**.
 
-![AWS Tracking Application](images/gradle.png)
-
-Ensure that the Gradle build file resembles the following code.
+Ensure that the **build.gradle.kts** file looks like the following.
 
 ```yaml
-    import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+   import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-    plugins {
-     id("org.springframework.boot") version "2.5.2"
-     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-     kotlin("jvm") version "1.5.20"
-     kotlin("plugin.spring") version "1.5.20"
-     }
+plugins {
+    kotlin("jvm") version "1.7.10"
+    application
+}
 
-    group = "com.example"
-    version = "0.0.1-SNAPSHOT"
-    java.sourceCompatibility = JavaVersion.VERSION_1_8
+group = "me.scmacdon"
+version = "1.0-SNAPSHOT"
 
+buildscript {
     repositories {
-     mavenCentral()
-     mavenLocal()
-     }
-
-     dependencies {
-      implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-      implementation("org.springframework.boot:spring-boot-starter-web")
-      implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-      implementation("org.jetbrains.kotlin:kotlin-reflect")
-      implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-      implementation("aws.sdk.kotlin:redshiftdata:0.9.4-beta")
-      implementation("aws.sdk.kotlin:translate:0.9.4-beta")
-      testImplementation("org.springframework.boot:spring-boot-starter-test")
+        maven("https://plugins.gradle.org/m2/")
     }
-   
-    tasks.withType<KotlinCompile> {
-     kotlinOptions {
+    dependencies {
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+apply(plugin = "org.jlleitschuh.gradle.ktlint")
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation ("javax.mail:javax.mail-api:1.6.2")
+    implementation ("com.sun.mail:javax.mail:1.6.2")
+    implementation("aws.sdk.kotlin:dynamodb:0.17.1-beta")
+    implementation("aws.sdk.kotlin:ses:0.17.1-beta")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
-     }
     }
+}
 
-    tasks.withType<Test> {
+tasks.withType<Test> {
     useJUnitPlatform()
-    }
-
+}
 ```
 
- ## Create the Kotlin classes
- 
- Create a package in the main/kotlin folder named **com.aws.job**. The Kotlin classes go into this package. 
- 
- ![AWS Lex](images/kotlinpro2.png)
- 
- Create these classes:
+## Create the Kotlin classes
 
-+ **JobApp** - Used as the base class for the Spring Boot application.
-+ **MessageResource** - Used as the Spring Boot controller that handles HTTP requests. 
-+ **Post** - Used as the applications model that stores application data.
-+ **RedshiftService** - Used as the Spring Service that uses the Amazon Redshift Kotlin API and Amazon Translate Kotlin API.  
+Create a new package in the **main/kotlin** folder named **com.aws.rest**.
 
-### JobApp class
+![AWS Tracking Application](images/kotlinpro.png)
 
-The following Kotlin code represents the **JobApp** and the **MessageResource** classes. Notice that the **JobApp** uses the **@SpringBootApplication** annotation while the **MessageResource** class uses the **@Controller** annotation. In addition, the Spring Controller uses **runBlocking** and **@runBlocking**. Both are required and part of Kotlin Coroutine functionality. For more information, see [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html).  
+The following Kotlin classes go into this package.
+
++ **App** - Used as the base class for the Spring Boot application. 
++ **MessageResource** - Represents the controller used in this application that handles HTTP requests.
++ **InjectWorkService** - Uses the Amazon Redshift Kotlin API to add data to the **Work** table.
++ **RetrieveItems** - Uses the Amazon Redshift Kotlin API to query data from the **Work** table.
++ **SendMessage** - Uses the Amazon SES Kotlin API to send email messages.
++ **WorkItem** - Represents the application model.
+
+**Note:** The **MessageResource** class is located in the **App** file.
+
+### Create the App class
+
+The following Kotlin code represents the **App** and the **MessageResource** classes. Notice that **App** uses the **@SpringBootApplication** annotation while the **MessageResource** class uses the **@RestController** annotation. In addition, the Spring Controller uses **runBlocking**, which is part of Kotlin Coroutine functionality. For more information, see [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html).  
 
 ```kotlin
-     package com.aws.job
+  package com.aws.rest
 
-     import kotlinx.coroutines.runBlocking
-     import org.springframework.beans.factory.annotation.Autowired
-     import org.springframework.boot.autoconfigure.SpringBootApplication
-     import org.springframework.boot.runApplication
-     import org.springframework.stereotype.Controller
-     import org.springframework.web.bind.annotation.*
-     import javax.servlet.http.HttpServletRequest
-     import javax.servlet.http.HttpServletResponse
+import kotlinx.coroutines.runBlocking
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RestController
+import java.io.IOException
 
-     @SpringBootApplication
-     class JobApp
+@SpringBootApplication
+open class App
 
-    fun main(args: Array<String>) {
-        runApplication<JobApp>(*args)
-    }
+fun main(args: Array<String>) {
+    runApplication<App>(*args)
+}
 
-    @Controller
-    class MessageResource {
-
-    @Autowired
-    var rs: RedshiftService? = null
-
-    @GetMapping("/")
-    fun root(): String? {
-        return "index"
-    }
-
-    @GetMapping("/add")
-    fun add(): String? {
-        return "add"
-    }
-
-    @GetMapping("/posts")
-    fun post(): String? {
-        return "post"
-    }
-
-    // Adds a new item to the database.
-    @RequestMapping(value = ["/addPost"], method = [RequestMethod.POST])
+@CrossOrigin(origins = ["*"])
+@RestController
+@RequestMapping("api/")
+class MessageResource {
+    // Add a new item.
+    @RequestMapping(value = ["/add"], method = [RequestMethod.POST])
     @ResponseBody
-    fun addItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
-        val name: String = "user"
-        val title = request.getParameter("title")
-        val body = request.getParameter("body")
-        val myId = rs?.addRecord(name, title, body)
-        return@runBlocking myId
+    fun addItems(@RequestBody payLoad: Map<String, Any>): String = runBlocking {
+        val injectWorkService = InjectWorkService()
+        val nameVal = "user"
+        val guideVal = payLoad.get("guide").toString()
+        val descriptionVal = payLoad.get("description").toString()
+        val statusVal = payLoad.get("status").toString()
+
+        // Create a Work Item object.
+        val myWork = WorkItem()
+        myWork.guide = guideVal
+        myWork.description = descriptionVal
+        myWork.status = statusVal
+        myWork.name = nameVal
+        val id = injectWorkService.injestNewSubmission(myWork)
+        return@runBlocking "Item $id added successfully!"
     }
 
-    // Queries items from the Redshift database.
-    @RequestMapping(value = ["/getPosts"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun getFivePosts(request: HttpServletRequest, response: HttpServletResponse?): String?  = runBlocking{
-        val num = request.getParameter("number")
-        val lang = request.getParameter("lang")
-        return@runBlocking rs!!.getPosts(lang, num.toInt())
-     }
-     }
-```
-
-### Post class
-
-The following Kotlin code represents the **Post** class.
-
-```kotlin
-    package com.aws.job
-
-    class Post {
-     var id: String? = null
-     var title: String? = null
-     var body: String? = null
-     var author: String? = null
-     var date: String? = null
+    // Retrieve items.
+    @GetMapping("items/{state}")
+    fun getItems(@PathVariable state: String): MutableList<WorkItem> = runBlocking {
+        val retrieveItems = RetrieveItems()
+        val list: MutableList<WorkItem>
+        if (state.compareTo("archive") == 0) {
+            list = retrieveItems.getData(1)!!
+        } else {
+            list = retrieveItems.getData(0)!!
+        }
+        return@runBlocking list
     }
+
+    // Flip an item from Active to Archive.
+    @PutMapping("mod/{id}")
+    fun modUser(@PathVariable id: String): String = runBlocking {
+        val retrieveItems = RetrieveItems()
+        retrieveItems.flipItemArchive(id)
+        return@runBlocking id
+    }
+
+    // Send a report through Amazon SES.
+    @PutMapping("report/{email}")
+    fun sendReport(@PathVariable email: String): String = runBlocking {
+        val retrieveItems = RetrieveItems()
+        val sendMsg = SendMessage()
+        val xml= retrieveItems.getDataXML(0)
+        try {
+            sendMsg.send(email, xml)
+        } catch (e: IOException) {
+            e.stackTrace
+        }
+        return@runBlocking "Report was sent"
+    }
+}
 ```
 
-### RedshiftService class
+### Create the RetrieveItems class
 
-The following Kotlin code represents the **RedshiftService** class. This class uses the Amazon Redshift Kotlin API to interact with data located in the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. This class also uses the Amazon Translate Kotlin API to translate the result set if requested by the user. 
+The **RetrieveItems** class uses the AWS SDK for Kotlin API to retrieve data from the **Work** table. For example, in the **getData** method returns a collection of **WorkItem** objects that represent the result set.  
 
 ```kotlin
-    package com.aws.job
+package com.aws.rest
 
-    import org.springframework.stereotype.Component
-    import java.util.*
-    import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
-    import aws.sdk.kotlin.services.redshiftdata.model.*
-    import org.w3c.dom.Document
-    import java.io.StringWriter
-    import javax.xml.parsers.DocumentBuilderFactory
-    import javax.xml.parsers.ParserConfigurationException
-    import javax.xml.transform.TransformerException
-    import javax.xml.transform.TransformerFactory
-    import javax.xml.transform.dom.DOMSource
-    import javax.xml.transform.stream.StreamResult
-    import aws.sdk.kotlin.services.translate.TranslateClient
-    import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
-    import kotlinx.coroutines.delay
-    import java.sql.Date
-    import java.text.SimpleDateFormat
-    import java.time.LocalDateTime
-    import java.time.format.DateTimeFormatter
-    import kotlin.system.exitProcess
+import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
+import aws.sdk.kotlin.services.redshiftdata.model.DescribeStatementRequest
+import aws.sdk.kotlin.services.redshiftdata.model.ExecuteStatementRequest
+import aws.sdk.kotlin.services.redshiftdata.model.Field
+import aws.sdk.kotlin.services.redshiftdata.model.GetStatementResultRequest
+import kotlinx.coroutines.delay
+import org.w3c.dom.Document
+import java.io.StringWriter
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.parsers.ParserConfigurationException
+import javax.xml.transform.TransformerException
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
-    @Component
-    class RedshiftService {
-     val clusterId = "redshift-cluster-1"
-     val databaseVal = "dev"
-     val dbUserVal = "awsuser"
+class RetrieveItems {
 
+    private val databaseVal = "dev"
+    private val dbUserVal = "awsuser"
+    private val clusterId = "redshift-cluster-1"
 
-     // Add a new record to the Amazon Redshift table.
-     suspend fun addRecord(author: String, title: String, body: String): String? {
+    // Return items from the work table.
+    suspend fun getData(arch: Int): MutableList<WorkItem> {
+        val username = "user"
+        val sqlStatement = "Select * FROM work where username = '$username' and archive = $arch"
+        val id = performSQLStatement(sqlStatement)
+        println("The identifier of the statement is $id")
+        checkStatement(id)
+        return getResults(id)
+    }
 
-        val uuid = UUID.randomUUID()
-        val id = uuid.toString()
-
-        // Date conversion.
-        val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
-        val now = LocalDateTime.now()
-        val sDate1 = dtf.format(now)
-        val date1 = SimpleDateFormat("yyyy/MM/dd").parse(sDate1)
-        val sqlDate = Date(date1.time)
-
-        // Inject an item into the system.
-        val sqlStatement = "INSERT INTO blog (idblog, date, title, body, author) VALUES( '$uuid' ,'$sqlDate','$title' , '$body', '$author');"
-        val statementRequest = ExecuteStatementRequest {
-            clusterIdentifier = clusterId
-            database = databaseVal
-            dbUser = dbUserVal
-            sql = sqlStatement
-         }
-
-        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
-            redshiftDataClient.executeStatement(statementRequest)
-            return id
-        }
-     }
-
-     // Returns a collection that returns the latest five posts from the Redshift table.
-     suspend fun getPosts(lang: String, num: Int): String? {
-
-        val sqlStatement = if (num == 5) "SELECT TOP 5 * FROM blog ORDER BY date DESC" else if (num == 10) "SELECT TOP 10 * FROM blog ORDER BY date DESC" else "SELECT * FROM blog ORDER BY date DESC"
-        val statementRequest = ExecuteStatementRequest {
-            clusterIdentifier = clusterId
-            database = databaseVal
-            dbUser = dbUserVal
-            sql = sqlStatement
-        }
-
-        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
-            val response = redshiftDataClient.executeStatement(statementRequest)
-            val myId = response.id
-            checkStatement(redshiftDataClient, myId)
-            val posts = getResults(redshiftDataClient, myId, lang)!!
-            redshiftDataClient.close()
-            return convertToString(toXml(posts))
-        }
-     }
-
-     suspend fun getResults(redshiftDataClient: RedshiftDataClient, statementId: String?, lang: String): List<Post>? {
-
-        val records = mutableListOf<Post>()
+    // Return items from the work table.
+    suspend fun getDataXML(arch: Int): String? {
+        val username = "user"
+        val sqlStatement = "Select * FROM work where username = '$username' and archive = $arch"
+        val id = performSQLStatement(sqlStatement)
+        println("The identifier of the statement is $id")
+        checkStatement(id)
+        return getResultsXML(id)
+    }
+    // Returns items within a collection.
+    suspend fun getResults(statementId: String?): MutableList<WorkItem> {
+        val records = mutableListOf<WorkItem>()
         val resultRequest = GetStatementResultRequest {
             id = statementId
         }
 
-        val response = redshiftDataClient.getStatementResult(resultRequest)
+        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+            val response = redshiftDataClient.getStatementResult(resultRequest)
+            var workItem: WorkItem
+            var index: Int
 
-        // Iterate through the List element where each element is a List object.
-         val dataList = response.records
-         var post: Post
-         var index: Int
+            // Iterate through the List.
+            val dataList: List<List<Field>>? = response.records
 
-         if (dataList != null) {
+            // Get the records.
+            if (dataList != null) {
                 for (list in dataList) {
-
-                    post = Post()
+                    workItem = WorkItem()
                     index = 0
-                    for (myField in list) {
-                        var value = parseValue(myField)
-
-                        if (index == 0)
-                            post.id= value
-                        else if (index == 1)
-                            post.date =value
-                        else if (index == 2) {
-                            if (lang != "English")
-                                value = translateText(value, lang)
-                                post.title = value
+                    for (field in list) {
+                        val value = parseValue(field)
+                        if (index == 0) {
+                            workItem.id = value
+                        } else if (index == 1) {
+                            workItem.date = value
+                        } else if (index == 2) {
+                            workItem.description = value
                         } else if (index == 3) {
-                            if (lang != "English")
-                                value = translateText(value, lang)
-                                post.body = value
-                        } else if (index == 4)
-                            post.author= value
+                            workItem.guide = value
+                        } else if (index == 4) {
+                            workItem.status = value
+                        } else if (index == 5) {
+                            workItem.name = value
+                        }
 
                         // Increment the index.
                         index++
                     }
 
-                    // Push the Post object to the List.
-                    records.add(post)
+                    // Push the object to the List.
+                    records.add(workItem)
                 }
             }
-
             return records
-     }
-
-     // Return the String value of the field.
-     fun parseValue(myField:Field) :String {
-
-        val ss = myField.toString()
-        if ("StringValue" in ss) {
-
-            var str  = ss.substringAfterLast("=")
-            str = str.substring(0, str.length - 1)
-            return str
-
         }
-        return ""
     }
 
-    suspend fun checkStatement(redshiftDataClient: RedshiftDataClient, sqlId: String?) {
+    // Returns open items within XML.
+    suspend fun getResultsXML(statementId: String?): String? {
+        val records: MutableList<WorkItem> = ArrayList()
+        val resultRequest = GetStatementResultRequest {
+            id = statementId
+        }
+        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+            val response = redshiftDataClient.getStatementResult(resultRequest)
+            var workItem: WorkItem
+            var index: Int
 
-        val statementRequest = DescribeStatementRequest {
-            id = sqlId
+            // Iterate through the List element where each element is a List object.
+            val dataList: List<List<Field>>? = response.records
+            if (dataList != null) {
+                for (list in dataList) {
+                    workItem = WorkItem()
+                    index = 0
+                    for (field in list) {
+                        val value = parseValue(field)
+                        if (index == 0)
+                            workItem.id = value
+                        else if (index == 1)
+                            workItem.date = value
+                        else if (index == 2)
+                            workItem.description = value
+                        else if (index == 3)
+                            workItem.guide = value
+                        else if (index == 4)
+                            workItem.status = value
+                        else if (index == 5)
+                            workItem.name = value
+
+                        // Increment the index.
+                        index++
+                    }
+
+                    // Push the object to the List.
+                    records.add(workItem)
+                }
+            }
+            return toXml(records)?.let { convertToString(it) }
+        }
+    }
+
+    // Update the work table.
+    suspend fun flipItemArchive(id: String) {
+        val arc = 1
+        val sqlStatement = "update work set archive = '$arc' where idwork ='$id' "
+
+        val statementRequest = ExecuteStatementRequest {
+            this.clusterIdentifier = clusterId
+            this.database = databaseVal
+            this.dbUser = dbUserVal
+            sql = sqlStatement
         }
 
-        // Wait until the sql statement processing is finished.
-        val finished = false
-        var status: String
-        while (!finished) {
-             val response = redshiftDataClient.describeStatement(statementRequest)
-             status = response.status.toString()
-             println("...$status")
-            if (status.compareTo("FINISHED") == 0) {
-                break
-            }
-               delay(500)
-            }
-            println("The statement is finished!")
-     }
+        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+            redshiftDataClient.executeStatement(statementRequest)
+        }
+    }
 
-     // Convert the list to XML to pass back to the view.
-     private fun toXml(itemsList: List<Post>): Document {
+    // Convert Work item data into XML.
+    private fun toXml(itemList: MutableList<WorkItem>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
@@ -405,44 +443,54 @@ The following Kotlin code represents the **RedshiftService** class. This class u
             val root = doc.createElement("Items")
             doc.appendChild(root)
 
+            // Get the elements from the collection.
+            val custCount = itemList.size
+
             // Iterate through the collection.
-            for (post in itemsList) {
+            for (index in 0 until custCount) {
+                // Get the WorkItem object from the collection.
+                val myItem = itemList[index]
                 val item = doc.createElement("Item")
                 root.appendChild(item)
 
                 // Set Id.
                 val id = doc.createElement("Id")
-                id.appendChild(doc.createTextNode(post.id))
+                id.appendChild(doc.createTextNode(myItem.id))
                 item.appendChild(id)
 
-                // Set Date.
-                val name = doc.createElement("Date")
-                name.appendChild(doc.createTextNode(post.date))
+                // Set Name.
+                val name = doc.createElement("Name")
+                name.appendChild(doc.createTextNode(myItem.name))
                 item.appendChild(name)
 
-                // Set Title.
-                val date = doc.createElement("Title")
-                date.appendChild(doc.createTextNode(post.title))
+                // Set Date.
+                val date = doc.createElement("Date")
+                date.appendChild(doc.createTextNode(myItem.date))
                 item.appendChild(date)
 
-                // Set Content.
-                val desc = doc.createElement("Content")
-                desc.appendChild(doc.createTextNode(post.body))
+                // Set Description.
+                val desc = doc.createElement("Description")
+                desc.appendChild(doc.createTextNode(myItem.description))
                 item.appendChild(desc)
 
-                // Set Author.
-                val guide = doc.createElement("Author")
-                guide.appendChild(doc.createTextNode(post.author))
+                // Set Guide.
+                val guide = doc.createElement("Guide")
+                guide.appendChild(doc.createTextNode(myItem.guide))
                 item.appendChild(guide)
+
+                // Set Status.
+                val status = doc.createElement("Status")
+                status.appendChild(doc.createTextNode(myItem.status))
+                item.appendChild(status)
             }
             return doc
         } catch (e: ParserConfigurationException) {
             e.printStackTrace()
-            exitProcess(1)
         }
-     }
+        return null
+    }
 
-     private fun convertToString(xml: Document): String? {
+    private fun convertToString(xml: Document): String? {
         try {
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
@@ -455,383 +503,287 @@ The following Kotlin code represents the **RedshiftService** class. This class u
         return null
     }
 
-    private suspend fun translateText(textVal: String, lang: String): String {
-
-        val transValue: String
-        if (lang.compareTo("French") == 0) {
-
-                val textRequest = TranslateTextRequest {
-                    sourceLanguageCode = "en"
-                    targetLanguageCode = "fr"
-                    text = textVal
-                }
-
-                TranslateClient { region = "us-east-1" }.use { translateClient ->
-                    val textResponse = translateClient.translateText(textRequest)
-                    transValue = textResponse.translatedText.toString()
-                    return transValue
-                }
-        } else if (lang.compareTo("Russian") == 0) {
-
-                val textRequest = TranslateTextRequest {
-                    sourceLanguageCode = "en"
-                    targetLanguageCode = "ru"
-                    text = textVal
-                }
-
-               TranslateClient { region = "us-east-1" }.use { translateClient ->
-                   val textResponse = translateClient.translateText(textRequest)
-                   transValue = textResponse.translatedText.toString()
-                   return transValue
-               }
-        } else if (lang.compareTo("Japanese") == 0) {
-
-                val textRequest = TranslateTextRequest {
-                    sourceLanguageCode = "en"
-                    targetLanguageCode = "ja"
-                    text = textVal
-                }
-                TranslateClient { region = "us-east-1" }.use { translateClient ->
-                  val textResponse = translateClient.translateText(textRequest)
-                   transValue = textResponse.translatedText.toString()
-                   return transValue
-                }
-        } else if (lang.compareTo("Spanish") == 0) {
-
-                val textRequest = TranslateTextRequest {
-                    sourceLanguageCode = "en"
-                    targetLanguageCode = "es"
-                    text = textVal
-                }
-
-               TranslateClient { region = "us-east-1" }.use { translateClient ->
-                  val textResponse = translateClient.translateText(textRequest)
-                  transValue = textResponse.translatedText.toString()
-                  return transValue
-               }
-
-        } else {
-
-                val textRequest = TranslateTextRequest {
-                    sourceLanguageCode = "en"
-                    targetLanguageCode = "zh"
-                    text = textVal
-                }
-
-               TranslateClient { region = "us-east-1" }.use { translateClient ->
-                val textResponse = translateClient.translateText(textRequest)
-                transValue = textResponse.translatedText.toString()
-                  return transValue
-               }
+    // Return the String value of the field.
+    fun parseValue(myField: Field): String {
+        val ss = myField.toString()
+        if ("StringValue" in ss) {
+            var str = ss.substringAfterLast("=")
+            str = str.substring(0, str.length - 1)
+            return str
         }
-      }
-     }
+        return ""
+    }
+
+    suspend fun performSQLStatement(sqlStatement: String?): String? {
+        val statementRequest = ExecuteStatementRequest {
+            this.clusterIdentifier = clusterId
+            this.database = databaseVal
+            this.dbUser = dbUserVal
+            sql = sqlStatement
+        }
+
+        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+            val response = redshiftDataClient.executeStatement(statementRequest)
+            return response.id
+        }
+    }
+
+    suspend fun checkStatement(sqlId: String?) {
+        val statementRequest = DescribeStatementRequest {
+            id = sqlId
+        }
+
+        // Wait until the sql statement processing is finished.
+        var finished = false
+        var status: String
+        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+            while (!finished) {
+                val response = redshiftDataClient.describeStatement(statementRequest)
+                status = response.status.toString()
+                println("...$status")
+
+                if (status.compareTo("FINISHED") == 0) {
+                    finished = true
+                } else {
+                    delay(500)
+                }
+            }
+        }
+        println("The statement is finished!")
+    }
+}
+
 ```
 
-## Create the HTML file
+### Create InjectWorkService class
 
-At this point, you have created all of the Kotlin files required for this example application. Now create HTML files that are required for the application's view. Under the resource folder, create a **templates** folder, and then create the following HTML files:
+The **InjectWorkService** class uses the AWS SDK for Kotlin API to add data to the **Work** table. It adds new items, updates items, and performs queries. In the following code example, notice the use of an **Expression** object. This object is used to query either Open or Closed items. For example, in the **getOpenItems** method, if the value **true** is passed to this method, then only Open items are retrieved from the Amazon DynamoDB table. 
 
-+ index.html
-+ layout.html
-+ post.html
-+ add.html
+```kotlin
+  package com.aws.rest
 
+import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
+import aws.sdk.kotlin.services.redshiftdata.model.ExecuteStatementRequest
+import java.sql.Date
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.UUID
 
-### index.html
-The **index.html** file is the application's home view. 
+class InjectWorkService {
 
-```html
-    <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org" >
-     <head>
-       <meta charset="utf-8" />
-       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-       <meta name="viewport" content="width=device-width, initial-scale=1" />
-       <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-       <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
-       <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
-       <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
-       <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-       <title>AWS Job Posting Example</title>
-      </head>
+    private val databaseVal = "dev"
+    private val dbUserVal = "awsuser"
+    private val clusterId = "redshift-cluster-1"
 
-     <body>
-      <header th:replace="layout :: site-header"/>
-      <div class="container">
+    // Inject a new submission.
+    suspend fun injestNewSubmission(item: WorkItem): String {
+        val name = item.name
+        val guide = item.guide
+        val description = item.description
+        val status = item.status
+        val arc = 0
 
-      <h3>Welcome to the Amazon Redshift Job Posting example app</h3>
-      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+        // Generate the work item ID.
+        val uuid = UUID.randomUUID()
+        val workId = uuid.toString()
 
-      <h2>Amazon Redshift Job Posting Example</h2>
-      <p>The Amazon Redshift Job Posting Example application uses multiple AWS Services and the Kotlin API. Perform these steps:<p>
-      <ol>
-        <li>Enter work items into the system by choosing the <i>Add Posts</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
-        <li>The sample application stores the data by using the Amazon Redshift Kotlin API.</li>
-        <li>You can view the items by choosing the <i>Get Posts</i> menu item. Next, select a language.</li>
-        <li>You can view the items by chooing either the <b>Five Posts</b>, <b>Ten Posts</b>, or <b>All Posts</b> button. </li>
-        <li>The items appear in the page from newest to oldest.</li>
-      </ol>
-      <div>
-      </body>
-     </html>
-```
-        
-### layout.html
-The following code represents the **layout.html** file that represents the application's menu.
+        // Date conversion.
+        SimpleDateFormat("yyyy-MM-dd")
+        val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
+        val now = LocalDateTime.now()
+        val sDate1 = dtf.format(now)
+        val date1 = SimpleDateFormat("yyyy/MM/dd").parse(sDate1)
+        val sqlDate = Date(date1.time)
 
-```html
-     <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org">
-     <head th:fragment="site-head">
-     <meta charset="UTF-8" />
-     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-     <meta th:include="this :: head" th:remove="tag"/>
-    </head>
-    <body>
-     <!-- th:hef calls a controller method - which returns the view -->
-     <header th:fragment="site-header">
-      <a href="#" style="color: white" th:href="@{/}">Home</a>
-      <a href="#" style="color: white" th:href="@{/add}">Add Post</a>
-      <a href="#"  style="color: white" th:href="@{/posts}">Get Posts</a>
-      <div id="logged-in-info">
-     </div>
-    </header>
-    <h1>Welcome</h1>
-    <body>
-    <p>Welcome to  AWS Jop Board App</p>
-    </body>
-   </html>
-```
-         
-### add.html
-The **add.html** file is the application's view that lets users post new items. 
+        // Inject an item into the system.
+        val sqlStatement = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES('$workId', '$name', '$sqlDate','$description','$guide','$status','$arc');"
 
-```html
-  <!DOCTYPE html>
-  <html xmlns:th="http://www.thymeleaf.org" >
+        val statementRequest = ExecuteStatementRequest {
+            clusterIdentifier = clusterId
+            database = databaseVal
+            dbUser = dbUserVal
+            sql = sqlStatement
+        }
 
-   <head>
-    <meta charset="UTF-8" />
-    <title>Job Board</title>
-    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-    <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
-    <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
-    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-    <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+            redshiftDataClient.executeStatement(statementRequest)
+            return workId
+        }
+    }
+}
 
-    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
-  </head>
-
-  <body>
-  <header th:replace="layout :: site-header"/>
-   <div class="container">
-    <h3>Welcome to the Amazon Redshift Job Posting example app</h3>
-    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-    <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
-
-    <div class="form-group">
-            <label>Title</label>
-            <input class="form-control" id="title" placeholder="Title" required="required" data-validation-required-message="Please enter the AWS Guide.">
-            <p class="help-block text-danger"></p>
-        </div>
-        <div class="form-group">
-            <label>Body</label>
-            <textarea class="form-control" id="body" rows="5" placeholder="Body" required="required" data-validation-required-message="Please enter a description."></textarea>
-            <p class="help-block text-danger"></p>
-        </div>
-        <button id ="SendButton" type="submit" class="btn btn-primary">Submit</button>
-
-    </div>
-    </body>
-    </html>
 ```
 
-### post.html
-The **post.html** file is the application's view that displays the items in the specific language. 
+### Create the SendMessage class
 
-```html
-    <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-     <meta charset="UTF-8" />
-     <title>Job Board</title>
-     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-     <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
-     <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
-     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
-     <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
-     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-    </head>
-    <body>
-    <header th:replace="layout :: site-header"/>
+The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email message that contains the data queried from the Amazon DynamoDB table to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-    <div class="container">
-     <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
-     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+```kotlin
+ package com.aws.rest
 
-    <div  id ="progress"  class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:90%">
-            Retrieving Amazon Redshift Data...
-        </div>
-    </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="col-lg-10">
-                <div class="clearfix mt-40">
-                    <ul class="xsearch-items">
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <label for="lang">Select a Language:</label>
-            <select name="lang" id="lang">
-                <option>English</option>
-                <option>French</option>
-                <option>Spanish</option>
-                <option>Russian</option>
-                <option>Chinese</option>
-                <option>Japanese</option>
-            </select>
-        </div>
-        <div>
-            <button type="button" onclick="getPosts(5)">Five Posts</button>
-            <button type="button" onclick="getPosts(10)">Ten Posts</button>
-            <button type="button" onclick="getPosts(0)">All Posts</button>
-        </div>
-     </div>
-    </div>
-    </div>
-    </body>
-    </html>
+import aws.sdk.kotlin.services.ses.SesClient
+import aws.sdk.kotlin.services.ses.model.Body
+import aws.sdk.kotlin.services.ses.model.Content
+import aws.sdk.kotlin.services.ses.model.Destination
+import aws.sdk.kotlin.services.ses.model.Message
+import aws.sdk.kotlin.services.ses.model.SendEmailRequest
+import org.springframework.stereotype.Component
+
+@Component
+class SendMessage {
+
+    suspend fun send(recipient: String, strValue: String?) {
+        // The HTML body of the email.
+        val bodyHTML = (
+            "<html>" + "<head></head>" + "<body>" + "<h1>Amazon DynamoDB Items!</h1>" +
+                "<textarea>$strValue</textarea>" + "</body>" + "</html>"
+            )
+
+        val destinationOb = Destination {
+            toAddresses = listOf(recipient)
+        }
+
+        val contentOb = Content {
+            data = bodyHTML
+        }
+
+        val subOb = Content {
+            data = "Item Report"
+        }
+
+        val bodyOb = Body {
+            html = contentOb
+        }
+
+        val msgOb = Message {
+            subject = subOb
+            body = bodyOb
+        }
+
+        val emailRequest = SendEmailRequest {
+            destination = destinationOb
+            message = msgOb
+            source = "scmacdon@amazon.com"
+        }
+
+        SesClient { region = "us-east-1" }.use { sesClient ->
+            println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
+            sesClient.sendEmail(emailRequest)
+        }
+    }
+}
+
 ```
-    
-### Create the JS File
 
-This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
+### Create the WorkItem class
+
+The following Kotlin code represents the **WorkItem** class.
+
+```kotlin
+    package com.example.demo
+
+    class WorkItem {
+
+     var id: String? = null
+     var arc: String? = null
+     var name: String? = null
+     var guide: String? = null
+     var date: String? = null
+     var description: String? = null
+     var status: String? = null
+    }
+ ```
+
+## Run the application 
+
+Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs. 
+
+- /api/items/{state} - A GET request that returns all active or archive data items from the **Work** table. 
+- /api/mod/{id} - A PUT request that converts the specified data item to an archived item. 
+- /api/add - A POST request that adds a new item to the database. 
+- /api/report/{email} - A PUT request that creates a report of active items and emails the report. 
+
+**Note**: The React SPA created in the next section consumes all of these URLs. 
+
+Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser. 
+
+http://localhost:8080/api/items/active
+
+The following illustration shows the JSON data returned from the Spring REST API. 
+
+![AWS Tracking Application](images/browser.png)
+
+## Create the React front end
+
+You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following Github repository. Included in this repository are instructions on how to set up the project. For more information, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
+
+You must modify the **RestService.js** file so that your React requests work with your backend. Update this file to include this code.
 
 ```javascript
-      $(function() {
 
-       $('#progress').hide();
-       $("#SendButton" ).click(function($e) {
+/**
+ * Sends REST requests to get work items, add new work items, modify work items,
+ * and send an email report.
+ *
+ * The base URL of the REST service is stored in config.json. If necessary, update this
+ * value to your endpoint.
+ */
 
-        var title = $('#title').val();
-        var body = $('#body').val();
-        
-        if (!$(title).val() ) {
-            alert("Please enter a title value");
-            return;
-        }
+ import axios from 'axios'
+ import configData from './config.json'
+ 
+ /**
+  * Sends a POST request to add a new work item.
+  *
+  * @param item: The work item to add.
+  * @returns {Promise<void>}
+  */
+ export const addWorkItem = async (item) => {
+        let status = item.status;
+        let description = item.description;
+        let guide = item.guide;
+        let payload = { status: item.status, description: item.description , guide: item.guide};
+        await axios.post(`${configData.BASE_URL}/api/add`, payload);
+ };
+ 
+ /**
+  * Sends a GET request to retrieve work items that are in the specified state.
+  *
+  * @param state: The state of work items to retrieve. Can be either 'active' or 'archive'.
+  * @returns {Promise<AxiosResponse<any>>}: The list of work items that have the
+  *                                         specified state.
+  */
+ export const getWorkItems = async (state) => {
+   return await axios.get(`${configData.BASE_URL}/api/items/${state}`);
+ };
+ 
+ /**
+  * Sends a PUT request to archive an active item.
+  *
+  * @param itemId: The ID of the item to archive.
+  * @returns {Promise<void>}
+  */
+ export const archiveItem = async (itemId) => {
+   await axios.put(`${configData.BASE_URL}/api/mod/${itemId}`);
+ }
+ 
+ /**
+  * Sends a POST request to email a report of work items.
+  *
+  * @param email: The report recipient's email address.
+  * @returns {Promise<void>}
+  */
+ export const mailItem = async (email) => {
+   await axios.put(`${configData.BASE_URL}/api/report/${email}`);
+ }
 
-        if (!$(body).val() ) {
-            alert("Please enter a body value");
-            return;
-        }
-
-        $.ajax('/addPost', {
-            type: 'POST',  // http method
-            data: 'title=' + title + '&body=' + body,  // data to submit
-            success: function (data, status, xhr) {
-                var msg = event.target.responseText;
-                alert("You have successfully added item "+msg)
-
-                $('#title').val("");
-                $('#body').val("");
-            },
-            error: function (jqXhr, textStatus, errorMessage) {
-                $('p').append('Error' + errorMessage);
-            }
-        });
-
-     } );// END of the Send button click
-    } );
-
-    function getPosts(num){
-
-     $('.xsearch-items').empty()
-     $('#progress').show();
-     var lang = $('#lang option:selected').text();
-
-     $.ajax('/getPosts', {
-        type: 'POST',  // http method
-        data: 'lang=' + lang +'&number=' + num,
-        success: function (data, status, xhr) {
-
-            var xml = data
-            $(xml).find('Item').each(function ()  {
-
-                    var $field = $(this);
-                    var id = $field.find('Id').text();
-                    var date = $field.find('Date').text();
-                    var title = $field.find('Title').text();
-                    var body = $field.find('Content').text();
-                    var author = $field.find('Author').text();
-
-                    $('#progress').hide();
-
-                    // Append this data to the main list.
-                    $('.xsearch-items').append("<className='search-item'>");
-                    $('.xsearch-items').append("<div class='search-item-content'>");
-                    $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>"+title+"</a></h3>");
-                    $('.xsearch-items').append("<className='search-item-meta mb-15'>");
-                    $('.xsearch-items').append("<className='list-inline'>");
-                    $('.xsearch-items').append("<p><b>"+date+"</b></p>");
-                    $('.xsearch-items').append("<p><b>'Posted by "+author+"</b></p>");
-                    $('.xsearch-items').append("<div>");
-                    $('.xsearch-items').append("<h6>"+body +"</h6>");
-                    $('.xsearch-items').append("</div>");
-            })
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-            $('p').append('Error' + errorMessage);
-        }
-       });
-     }
 ```
-### Create the CSS File
-This application uses a CSS file named **styles.css** file that is used for the menu.
-
-```css 
-  body>header {
-     background: #000;
-     padding: 5px;
-  }
-
-  body>header>a>img, body>header a {
-     display: inline-block;
-     vertical-align: middle;
-     padding: 0px 5px;
-     font-size: 1.2em;
-  }
-
-  body>footer {
-    background: #eee;
-    padding: 5px;
-    margin: 10px 0;
-    text-align: center;
- }
-
- #logged-in-info {
-    float: right;
-    margin-top: 18px;
- }
-
- #logged-in-info form {
-    display: inline-block;
-    margin-right: 10px;
- }
-```
-
-## Run the application
-
-Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration. 
-
-![AWS Tracking Application](images/run.png)
-
+  
 ### Next steps
-Congratulations! You have created a Spring Boot application that uses the Amazon Redshift Data Client to create an example job posting application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+Congratulations, you have created a decoupled React application that consumes data from a Spring REST API. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.
+
+For more AWS multiservice examples, see
+[usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
+
+
