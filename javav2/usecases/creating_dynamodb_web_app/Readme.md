@@ -52,7 +52,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 Using the AWS Management Console, create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String. 
 
 After creating the **Work** table with the **id** partition key, select the table in the Console, then under
-the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with AWS DynamoDB)
+the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with Amazon DynamoDB).
 
 As you are creating an item for the first time, you will both define the attributes in your table as well 
 as add values. Enter the attributes and values as shown in the table below. Enter 'Open' as the
@@ -77,7 +77,7 @@ needed for this example, select the first item you created by activating the ite
 
 Duplicate one more item so that you have a total of three items.
 
-The following illustration shows an example of a Work table. 
+The following illustration shows an example of the Work table. 
 
 ![AWS Tracking Application](images/WorkTable2.png)
 
