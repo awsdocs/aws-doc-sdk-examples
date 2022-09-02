@@ -49,7 +49,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ### Creating the DynamoDB table and add some items
 
-Using the AWS Management Console, Create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String. 
+Using the AWS Management Console, create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String. 
 
 After creating the **Work** table with the **id** partition key, select the table in the Console, then under
 the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with AWS DynamoDB)
