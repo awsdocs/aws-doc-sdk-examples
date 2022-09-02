@@ -73,7 +73,6 @@ For more information, see [Getting started with Amazon Redshift clusters and dat
 
 **Note**: After you create the **Work** table, place some records into it; otherwise, your Rest API returns an empty result set. 
 
-
 ## Understand the AWS Tracker React application 
 
 A user can perform the following tasks using the React application:
@@ -98,11 +97,9 @@ The React SPA also lets a user enter a new item.
 
 The user can enter an email recipient into the **Manager** text field and choose **Send Report**.
 
-![AWS Tracking Application](images/clientReport2.png)
+![AWS Tracking Application](images/clientReport.png)
 
-Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
-
-![AWS Tracking Application](images/report.png)
+Active items are queried from the database and used to dynamically create a report. Then, the application uses Amazon SES to email the report the selected email recipient. 
 
 ## Create an IntelliJ project named ItemTrackerKotlinDynamoDBRest
 
