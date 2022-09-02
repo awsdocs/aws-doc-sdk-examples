@@ -49,7 +49,7 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon Redshift cluster and then create a database named **dev**. Next, create a table named **Work** that contains the following fields:
+Using the AWS Management Console, create an Amazon Redshift cluster and then create a database named **dev**. Next, create a table named **Work** that contains the following fields:
 
 + **idwork** - A VARCHAR(45) value that represents the PK.
 + **date** - A date value that specifies the date the item was created.
