@@ -316,6 +316,7 @@ class RetrieveItems {
         checkStatement(id)
         return getResultsXML(id)
     }
+    
     // Returns items within a collection.
     suspend fun getResults(statementId: String?): MutableList<WorkItem> {
         val records = mutableListOf<WorkItem>()
@@ -553,7 +554,7 @@ class RetrieveItems {
 The **InjectWorkService** class uses the AWS SDK for Kotlin API to add data to the **Work** table. It adds new items, updates items, and performs queries. In the following code example, notice the use of an **Expression** object. This object is used to query either Open or Closed items. For example, in the **getOpenItems** method, if the value **true** is passed to this method, then only Open items are retrieved from the Amazon DynamoDB table. 
 
 ```kotlin
-  package com.aws.rest
+ package com.aws.rest
 
 import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
 import aws.sdk.kotlin.services.redshiftdata.model.ExecuteStatementRequest
