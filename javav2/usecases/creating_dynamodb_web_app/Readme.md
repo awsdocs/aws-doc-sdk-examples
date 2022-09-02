@@ -16,7 +16,7 @@ You can develop a dynamic web application that tracks and reports on work items 
 + Amazon DynamoDB
 + Amazon Simple Email Service (Amazon SES). (The SDK for Java (v2) is used to access Amazon SES.)
 
-The application you create is a decoupled React application that uses a Spring REST API to return Amazon DynamoDB data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses the Amazon DynamoDB Java API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a Spring REST API to work with Amazon DynamoDB data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses the Amazon DynamoDB Java API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
 ![AWS Tracking Application](images/overview.png)
 
@@ -47,25 +47,46 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 + Running this code might result in charges to your AWS account. 
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
-### Creating the resources
+### Creating the DynamoDB table and add some items
 
-Create an Amazon DynamoDB table named **Work** with a key named **id** using the AWS Management Console. The **Work table contains the following columns. 
+Using the AWS Management Console, Create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String. 
 
-+ **id** - A value that represents the PK.
-+ **date** - A value that specifies the date the item was created.
-+ **description** - A value that describes the item.
-+ **guide** - A value that represents the deliverable being worked on.
-+ **status** - A value that describes the status.
-+ **username** - A value that represents the user who entered the item.
-+ **archive** - A value that represents whether this is an active or archive item.
+After creating the **Work** table with the **id** partition key, select the table in the Console, then under
+the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with AWS DynamoDB)
 
-The following illustration shows the Work table. 
+As you are creating an item for the first time, you will both define the attributes in your table as well 
+as add values. Enter the attributes and values as shown in the table below. Enter 'Open' as the
+value for the **archive** attribute. Select **Create item** to create
+your first item (row).
+
+The **Work** table attributes
+
+| Attribute name | What the attribute value represents                                          |
+|----------------|------------------------------------------------------------------------------|
+| id             | the primary key; enter a random string of text no longer than 20 characters  |
+| date           | date the work item was performed                                             |
+| description    | description of the work being done                                           |
+| guide          | name of the guide the work is for                                            |
+| status         | status of the work, e.g., 'started', 'in review'                             |
+ | username       | user name who worked performed the work item                                 |
+| archive        | a value of 'Open' or 'Closed' to indicate if the work item has been archived |
+
+Enter at least two more items (rows). This time, since you have already defined all the attributes
+needed for this example, select the first item you created by activating the item's checkbox, then select
+**Duplicate item** under the **Actions** menu. Select **Create item** when you are finished changing the values.
+
+Duplicate one more item so that you have a total of three items.
+
+The following illustration shows an example of a Work table. 
 
 ![AWS Tracking Application](images/WorkTable2.png)
 
-For information about how to create an Amazon DynamoDB table using the AWS Management Console and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+For additional information about how to create an Amazon DynamoDB table using the AWS Management Console 
+and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+(The table created in that example is different from the one we are using in this example.)
 
-**Note**: Name your table **Work** and add the columns specified in this section. Add data to this table; otherwise, the Rest API does not return a data set.   
+Now that the table is created and populated with some data, when we start up the Spring Boot app for 
+the REST API, there will data to display.
 
 ## Understand the AWS Tracker React application 
 
@@ -74,14 +95,15 @@ A user can perform the following tasks using the React application:
 + View all active items.
 + View archived items that are complete.
 + Add a new item. 
-+ Convert an active item into an archived item.
++ Archive an active item.
 + Send a report to an email recipient.
 
-The React SPA displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
+The React SPA displays *active* and *archive* items. For example, the following illustration shows the React 
+application displaying active items.
 
 ![AWS Tracking Application](images/client.png)
 
-Likewise, the following illustration shows the React application displaying archived data.
+Likewise, the following illustration shows the React application displaying archived items.
 
 ![AWS Tracking Application](images/clientarc.png)
 
@@ -93,14 +115,16 @@ The user can enter an email recipient into the **Manager** text field and choose
 
 ![AWS Tracking Application](images/clientReport2.png)
 
-Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
+Active items are queried from the database and used to dynamically create an Excel document. 
+Then, the application uses Amazon SES to email the document to the selected email recipient. 
+The following image shows an example of a report.
 
 ![AWS Tracking Application](images/report.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDBRest
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+2. In the **New Project** dialog box, name your project 'ItemTracker', choose **Java** and **Maven**, and then choose **Next**.
 3. For **GroupId**, enter **aws-spring**.
 4. For **ArtifactId**, enter **ItemTrackerDynamoDBRest**.
 6. Choose **Next**.
@@ -1102,6 +1126,8 @@ The following illustration shows the JSON data returned from the Spring REST API
 ## Create the React front end
 
 You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following Github repository. Included in this repository are instructions on how to set up the project. For more information, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
+
+********************Scott, the text above reads 'the following GitHub repository', but no URL is given.
 
 You must modify the **RestService.js** file so that your React requests work with your Java backend. Update this file to include this code.
 
