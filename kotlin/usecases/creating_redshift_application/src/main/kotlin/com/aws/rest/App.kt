@@ -56,9 +56,9 @@ class MessageResource {
         val retrieveItems = RetrieveItems()
         val list: MutableList<WorkItem>
         if (state.compareTo("archive") == 0) {
-            list = retrieveItems.getData(1)!!
+            list = retrieveItems.getData(1)
         } else {
-            list = retrieveItems.getData(0)!!
+            list = retrieveItems.getData(0)
         }
         return@runBlocking list
     }
@@ -76,7 +76,7 @@ class MessageResource {
     fun sendReport(@PathVariable email: String): String = runBlocking {
         val retrieveItems = RetrieveItems()
         val sendMsg = SendMessage()
-        val xml= retrieveItems.getDataXML(0)
+        val xml = retrieveItems.getDataXML(0)
         try {
             sendMsg.send(email, xml)
         } catch (e: IOException) {
