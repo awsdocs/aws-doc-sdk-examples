@@ -611,7 +611,7 @@ class InjectWorkService {
 
 ### Create the SendMessage class
 
-The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email message that contains the data queried from the Amazon DynamoDB table to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
+The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email message that contains the data queried from the Amazon Redshift table to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 ```kotlin
  package com.aws.rest
@@ -658,7 +658,7 @@ class SendMessage {
         val emailRequest = SendEmailRequest {
             destination = destinationOb
             message = msgOb
-            source = "scmacdon@amazon.com"
+            source = "<Enter Email Address>"
         }
 
         SesClient { region = "us-east-1" }.use { sesClient ->
