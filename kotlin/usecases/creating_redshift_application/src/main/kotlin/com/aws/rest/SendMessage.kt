@@ -44,7 +44,7 @@ class SendMessage {
         val emailRequest = SendEmailRequest {
             destination = destinationOb
             message = msgOb
-            source = "scmacdon@amazon.com"
+            source = "<Enter Email Address>"
         }
 
         SesClient { region = "us-east-1" }.use { sesClient ->
