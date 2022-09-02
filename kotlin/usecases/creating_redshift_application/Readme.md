@@ -95,7 +95,7 @@ The React SPA also lets a user enter a new item.
 
 ![AWS Tracking Application](images/clientAddItem.png)
 
-The user can enter an email recipient into the **Manager** text field and choose **Send Report**.
+The user can enter an email recipient into the text field and choose **Send report**.
 
 ![AWS Tracking Application](images/clientReport.png)
 
