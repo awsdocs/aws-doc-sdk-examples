@@ -51,7 +51,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 Create an Amazon DynamoDB table named **Work** with a key named **id** using the AWS Management Console. The **Work table contains the following columns. 
 
-+ **idwork** - A value that represents the PK.
++ **id** - A value that represents the PK.
 + **date** - A value that specifies the date the item was created.
 + **description** - A value that describes the item.
 + **guide** - A value that represents the deliverable being worked on.
