@@ -113,18 +113,19 @@ class RetrieveItems {
                     index = 0
                     for (field in list) {
                         val value = parseValue(field)
-                        if (index == 0)
+                        if (index == 0) {
                             workItem.id = value
-                        else if (index == 1)
+                        } else if (index == 1) {
                             workItem.date = value
-                        else if (index == 2)
+                        } else if (index == 2) {
                             workItem.description = value
-                        else if (index == 3)
+                        } else if (index == 3) {
                             workItem.guide = value
-                        else if (index == 4)
+                        } else if (index == 4) {
                             workItem.status = value
-                        else if (index == 5)
+                        } else if (index == 5) {
                             workItem.name = value
+                        }
 
                         // Increment the index.
                         index++
