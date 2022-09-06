@@ -499,8 +499,6 @@ Package up the project into an executable **.jar** (JAR) file by using the follo
 
 The JAR file is located in the target folder.
 
-![AWS Messaging Application](images/jar.png)
-
 The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
 ## Deploy to Elastic Beanstalk
