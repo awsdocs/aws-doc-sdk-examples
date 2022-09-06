@@ -24,7 +24,7 @@ The application you create is a decoupled React application that uses a Spring R
 
 + Prerequisites
 + Understand the AWS Messaging application
-+ Create an IntelliJ project named SpringAWSMessage
++ Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create the Java classes
 + Package the project into a JAR file
