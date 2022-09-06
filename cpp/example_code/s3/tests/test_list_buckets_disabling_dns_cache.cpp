@@ -2,10 +2,20 @@
 // SPDX - License - Identifier: Apache - 2.0 
 
 #include <iostream>
+#include "awsdoc/s3/s3_examples.h"
+#include <aws/core/Aws.h>
 
 int main()
 {
-    std::cout << "Not yet implemented." << std::endl;
+    Aws::SDKOptions options;
+    InitAPI(options);
 
-    return 1;
+    int result = 0;
+    if (!AwsDoc::S3::ListBucketDisablingDnsCache())
+    {
+        result = 1;
+    }
+
+    ShutdownAPI(options);
+    return result;
 }

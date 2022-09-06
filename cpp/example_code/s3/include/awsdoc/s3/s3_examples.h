@@ -36,14 +36,15 @@ namespace AwsDoc
         AWSDOC_S3_API bool GetWebsiteConfig(const Aws::String& bucketName,
             const Aws::String& region = "");
         AWSDOC_S3_API bool ListBuckets();
+        AWSDOC_S3_API bool ListBucketDisablingDnsCache( const Aws::String& region = "");
         AWSDOC_S3_API bool ListObjects(const Aws::String& bucketName, 
             const Aws::String& region = "");
-        AWSDOC_S3_API bool PutBucketAcl(const Aws::String& bucketName, 
-            const Aws::String& ownerID, 
-            const Aws::String& granteePermission, 
+        AWSDOC_S3_API bool PutBucketAcl(const Aws::String& bucketName,
+            const Aws::String& ownerID,
+            const Aws::String& granteePermission,
             const Aws::String& granteeType,
-            const Aws::String& region, 
-            const Aws::String& granteeID = "", 
+            const Aws::String& granteeID,
+            const Aws::String& region,
             const Aws::String& granteeDisplayName = "",
             const Aws::String& granteeEmailAddress = "",
             const Aws::String& granteeURI = "");
