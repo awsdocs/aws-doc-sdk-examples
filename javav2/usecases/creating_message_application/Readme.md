@@ -502,30 +502,28 @@ Deploy the Spring application to Elastic Beanstalk. To learn how, see [Creating 
 
 ## Create the React front end
 
-Create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. For more information, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
+Create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository [Resources](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources).  
 
-You must modify the **AWSServices.js** file so that your React requests work with your Java backend. Update this file to include the following code.
+You must modify the **AwsService.js** file so that your React requests work with your Java backend. Update this file to include the following code.
 
 ```javascript
 
-import axios from "axios";
-import configData from "./config.json";
+import axios from 'axios'
+import configData from './config.json'
 
-export const getMessages = async () => {
-  return await axios.get(`${configData.BASE_URL}/chat/msgs`);
-};
 
-export const postMessage = async (item) => {
-  let user = item.username;
-  let message = item.message;
-  await axios.post(
-    `${configData.BASE_URL}/chat/add?user=` + user + `&message=` + message
-  );
-};
+export const getMessages =  async() => {
+    return await axios.get(`${configData.BASE_URL}/chat/msgs`);
+  };
 
-export const purgeMessages = async () => {
-  await axios.get(`${configData.BASE_URL}/chat/purge`)
-}
+
+
+export const postMessage =  async(item) => {
+
+    let user = item.username;
+    let message = item.message;
+    await axios.post(`${configData.BASE_URL}/chat/add?user=`+ user + `&message=`+ message);
+  };
 ```
 
 ### Next steps
