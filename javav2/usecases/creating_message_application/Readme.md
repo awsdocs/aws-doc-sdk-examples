@@ -308,7 +308,7 @@ public class MainController {
     @Autowired
     SendReceiveMessages msgService;
 
-    // Add a new item to the database.
+    // Add a new message.
     @PostMapping("/add")
     List<MessageData> addItems(HttpServletRequest request, HttpServletResponse response) {
         String user = request.getParameter("user");
@@ -326,7 +326,7 @@ public class MainController {
         return msgService.getMessages();
     }
 
-    //  Purge the queue.
+    // Purge the queue.
     @RequestMapping(value = "/purge", method = RequestMethod.GET)
     @ResponseBody
     String purgeMessages(HttpServletRequest request, HttpServletResponse response) {
