@@ -3,26 +3,22 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-package com.example.demo
+package com.aws.rest
 
-import org.springframework.stereotype.Component
 import aws.sdk.kotlin.services.ses.SesClient
-import aws.sdk.kotlin.services.ses.model.Destination
-import aws.sdk.kotlin.services.ses.model.Content
 import aws.sdk.kotlin.services.ses.model.Body
+import aws.sdk.kotlin.services.ses.model.Content
+import aws.sdk.kotlin.services.ses.model.Destination
 import aws.sdk.kotlin.services.ses.model.Message
 import aws.sdk.kotlin.services.ses.model.SendEmailRequest
 
-@Component
 class SendMessage {
 
-    suspend fun send(
-        recipient: String,
-        strValue: String?
-    ) {
-        // The HTML body of the email.
-        val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Amazon DynamoDB Items!</h1>"
-                + "<textarea>$strValue</textarea>" + "</body>" + "</html>")
+    suspend fun send(recipient: String, strValue: String?) {
+        val bodyHTML = (
+            "<html>" + "<head></head>" + "<body>" + "<h1>Amazon DynamoDB Items!</h1>" +
+                "<textarea>$strValue</textarea>" + "</body>" + "</html>"
+            )
 
         val destinationOb = Destination {
             toAddresses = listOf(recipient)
@@ -36,7 +32,7 @@ class SendMessage {
             data = "Item Report"
         }
 
-        val bodyOb= Body {
+        val bodyOb = Body {
             html = contentOb
         }
 
@@ -48,7 +44,7 @@ class SendMessage {
         val emailRequest = SendEmailRequest {
             destination = destinationOb
             message = msgOb
-            source = "scmacdon@amazon.com"
+            source = "<Enter Email Address>"
         }
 
         SesClient { region = "us-east-1" }.use { sesClient ->
