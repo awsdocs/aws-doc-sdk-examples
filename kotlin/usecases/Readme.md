@@ -2,7 +2,7 @@
 
 In the use_cases folder, find step-by-step development tutorials that use multiple AWS services and the AWS SDK for Kotlin. By following these tutorials, you will gain a deeper understanding of how to create Kotlin applications that use the AWS SDK for Kotlin. These tutorials include:
 
-+ `Create a React and Spring REST application that queries Amazon DynamoDB data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/itemtracker_dynamodb>`_  - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.
++ [Create a React and Spring REST application that queries Amazon DynamoDB data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/itemtracker_dynamodb) - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.
 
 + `Creating a React and Spring REST application that queries Amazon Redshift data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/creating_redshift_application>`_  - Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.
 
