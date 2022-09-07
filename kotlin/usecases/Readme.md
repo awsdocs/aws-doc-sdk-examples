@@ -4,7 +4,7 @@ In the use_cases folder, find step-by-step development tutorials that use multip
 
 + [Create a React and Spring REST application that queries Amazon DynamoDB data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/itemtracker_dynamodb) - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.
 
-+ [Creating a React and Spring REST application that queries Amazon Redshift data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/itemtracker_dynamodb) - Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.
++ [Creating a React and Spring REST application that queries Amazon Redshift data](https://github.com/scmacdon/aws-doc-sdk-examples/tree/main/kotlin/usecases/creating_redshift_application) - Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.
 
 + `Creating a React and Spring REST application that queries Amazon Aurora data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/serverless_rds>`_  - Discusses how to develop a Spring REST API that queries Amazon Aurora data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.
 
