@@ -1,11 +1,10 @@
-# Amazon Polly code examples for .NET
+# AWS Lambda code examples for .NET
 
 ## Overview
 
-The examples in this section show how to use the AWS SDK for .NET with Amazon Polly to create applications
-that convert text to speech using a number of different voices and languages.
+The examples in this section show how to use the AWS SDK for .NET with AWS Lambda to manage and invoke Lambda functions.
 
-Amazon Polly is a service that turns text into lifelike speech, allowing you to create applications that talk, and build entirely new categories of speech-enabled products.
+AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. You can trigger Lambda from over 200 AWS services and software as a service (SaaS) applications, and only pay for what you use.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -18,13 +17,11 @@ Amazon Polly is a service that turns text into lifelike speech, allowing you to 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-- [Delete a lexicon](DeleteLexiconExample/DeleteLexicon.cs) (`DeleteLexiconAsync`)
-- [Get a lexicon](GetLexiconExample/GetLexicon.cs) (`GetLexiconAsync`)
-- [Get voices available for synthesis](DescribeVoicesExample/DescribeVoices.cs) (`DescribeVoicesAsync`)
-- [List pronunciation lexicons](ListLexiconsExample/ListLexicons.cs) (`ListLexiconsAsync`)
-- [Store a pronunciation lexicon](PutLexiconExample/PutLexicon.cs) (`PutLexiconAsync`)
-- [Synthesize speech from text](SynthesizeSpeechExample/SynthesizeSpeech.cs) (`SynthesizeSpeechAsync`)
-- [Synthesize speech from text using marks](SynthesizeSpeechMarksExample/SynthesizeSpeechMarks.cs) (`SynthesizeSpeechAsync`)
+- [Create DynamoDB Table](CreateDynamoDBTableExample/CreateDynamoDBTableExample/Function.cs) (`RunAsync`)
+- [Create an S3 Bucket](CreateDynamoDBTableExample/CreateDynamoDBTableExample/Function.cs) (`RunAsync`)
+- [Invoke a function](InvokeFunctionExample/InvokeFunctionExample/InvokeFunction.cs) (`CreateFunctionAsync`)
+- [List functions](ListFunctionsExample/ListFunctionsExample/ListFunctions.cs) (`ListFunctionsAsync`)
+- [Set up Role](SetuplambdaRoleExample/SetuplambdaRoleExample/SetupLambdaRole.cs)
 
 ## Run the examples
 
@@ -43,9 +40,9 @@ dotnet run
 Alternatively, you can run the example from within your IDE.
 
 ## Additional resources
-* [Amazon Polly Developer Guide](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
-* [Amazon Polly API Reference](https://docs.aws.amazon.com/polly/latest/dg/API_Reference.html)
-* [AWS SDK for .NET Amazon Polly](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Polly/NPolly.html)
+* [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+* [AWS Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
+* [AWS SDK for .NET Lambda](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Lambda/NLambda.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
