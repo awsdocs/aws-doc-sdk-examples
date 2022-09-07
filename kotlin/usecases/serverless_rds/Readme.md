@@ -26,7 +26,7 @@ The application you create is a decoupled React application that uses a Spring R
 
 + Prerequisites
 + Understand the AWS Tracker application
-+ Create an IntelliJ project named ItemTrackerRDS
++ Create an IntelliJ project
 + Add the dependencies to your project
 + Create the Kotlin classes
 + Create the React front end
@@ -289,7 +289,7 @@ class MessageResource {
 The following Kotlin code represents the **RetrieveItems** class that retrieves data from the **Work** table. Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to retrieve data from the **Work** table.
 
 ```java
-     package com.example.demo
+package com.example.demo
 
 import aws.sdk.kotlin.services.rdsdata.RdsDataClient
 import aws.sdk.kotlin.services.rdsdata.model.ExecuteStatementRequest
@@ -307,16 +307,130 @@ import javax.xml.transform.stream.StreamResult
 @Component
 class RetrieveItems {
 
-    private val secretArnVal = "<Enter CValue>"
-    private val resourceArnVal = "<Enter CValue>"
+    private val secretArnVal = "<Enter value>"
+    private val resourceArnVal = "<Enter value>"
 
-    // Return a RdsDataClient object.
-    private fun getClient(): RdsDataClient {
-        val rdsDataClient = RdsDataClient { region = "us-east-1" }
-        return rdsDataClient
+    // Archive the specific item.
+    suspend fun flipItemArchive(id: String): String {
+        val sqlStatement: String
+        val arc = 1
+
+        // Specify the SQL Statement to query data.
+        sqlStatement = "update work set archive = '$arc' where idwork ='$id' "
+        val sqlRequest = ExecuteStatementRequest {
+            secretArn = secretArnVal
+            sql = sqlStatement
+            database = "jobs"
+            resourceArn = resourceArnVal
+        }
+
+        RdsDataClient { region = "us-east-1" }.use { rdsDataClient ->
+            rdsDataClient.executeStatement(sqlRequest)
+        }
+        return id
     }
 
-    // Convert Work data into XML to pass back to the view.
+    // Get Items Data.
+    suspend fun getItemsDataSQL(username: String, arch: Int): MutableList<WorkItem> {
+        val records = mutableListOf<WorkItem>()
+        val sqlStatement = "Select * FROM work where username = '$username ' and archive = $arch"
+        val sqlRequest = ExecuteStatementRequest {
+            secretArn = secretArnVal
+            sql = sqlStatement
+            database = "jobs"
+            resourceArn = resourceArnVal
+        }
+
+        RdsDataClient { region = "us-east-1" }.use { rdsDataClient ->
+            val response = rdsDataClient.executeStatement(sqlRequest)
+            val dataList: List<List<Field>>? = response.records
+            var workItem: WorkItem
+            var index: Int
+
+            // Get the records.
+            if (dataList != null) {
+                for (list in dataList) {
+                    workItem = WorkItem()
+                    index = 0
+                    for (myField in list) {
+                        val field: Field = myField
+                        val result = field.toString()
+                        val value = result.substringAfter("=").substringBefore(')')
+                        if (index == 0) {
+                            workItem.id = value
+                        } else if (index == 1) {
+                            workItem.date = value
+                        } else if (index == 2) {
+                            workItem.description = value
+                        } else if (index == 3) {
+                            workItem.guide = value
+                        } else if (index == 4) {
+                            workItem.status = value
+                        } else if (index == 5) {
+                            workItem.name = value
+                        }
+                        index++
+                    }
+
+                    // Push the object to the list.
+                    records.add(workItem)
+                }
+            }
+        }
+        return records
+    }
+
+    // Get Items data.
+    suspend fun getItemsDataSQLReport(username: String, arch: Int): String? {
+        val records = mutableListOf<WorkItem>()
+        val sqlStatement: String = "Select * FROM work where username = '" + username + "' and archive = " + arch + ""
+        val sqlRequest = ExecuteStatementRequest {
+            secretArn = secretArnVal
+            sql = sqlStatement
+            database = "jobs"
+            resourceArn = resourceArnVal
+        }
+
+        RdsDataClient { region = "us-east-1" }.use { rdsDataClient ->
+            val response = rdsDataClient.executeStatement(sqlRequest)
+            val dataList: List<List<Field>>? = response.records
+            var workItem: WorkItem
+            var index: Int
+
+            // Get the records.
+            if (dataList != null) {
+                for (list in dataList) {
+                    workItem = WorkItem()
+                    index = 0
+                    for (myField in list) {
+                        val field: Field = myField
+                        val result = field.toString()
+                        val value = result.substringAfter("=").substringBefore(')')
+                        if (index == 0) {
+                            workItem.id = value
+                        } else if (index == 1) {
+                            workItem.date = value
+                        } else if (index == 2) {
+                            workItem.description = value
+                        } else if (index == 3) {
+                            workItem.guide = value
+                        } else if (index == 4) {
+                            workItem.status = value
+                        } else if (index == 5) {
+                            workItem.name = value
+                        }
+                        index++
+                    }
+
+                    // Push the object to the list.
+                    records.add(workItem)
+                }
+            }
+        }
+        return convertToString(toXml(records))
+    }
+
+    // Convert Work data into XML to use in the report.
     fun toXml(itemList: List<WorkItem>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
@@ -385,125 +499,8 @@ class RetrieveItems {
         }
         return null
     }
-
-    // Retrieve an item based on the ID.
-    suspend fun flipItemArchive(id: String): String? {
-        val dataClient = getClient()
-        val sqlStatement: String
-        val arc = 1
-
-        // Specify the SQL Statement to query data.
-        sqlStatement = "update work set archive = '$arc' where idwork ='$id' "
-        val sqlRequest = ExecuteStatementRequest {
-            secretArn = secretArnVal
-            sql = sqlStatement
-            database = "jobs"
-            resourceArn = resourceArnVal
-        }
-
-        RdsDataClient { region = "us-east-1" }.use { rdsDataClient ->
-            rdsDataClient.executeStatement(sqlRequest)
-        }
-        return id
-    }
-
-    // Get Items Data.
-    suspend fun getItemsDataSQL(username: String, arch: Int): MutableList<WorkItem> {
-        val dataClient = getClient()
-        val records = mutableListOf<WorkItem>()
-        val sqlStatement: String = "Select * FROM work where username = '$username ' and archive = $arch"
-        val sqlRequest = ExecuteStatementRequest {
-            secretArn = secretArnVal
-            sql = sqlStatement
-            database = "jobs"
-            resourceArn = resourceArnVal
-        }
-
-        val response = dataClient.executeStatement(sqlRequest)
-        val dataList: List<List<Field>>? = response.records
-        var workItem: WorkItem
-        var index: Int
-
-        // Get the records.
-        if (dataList != null) {
-            for (list in dataList) {
-                workItem = WorkItem()
-                index = 0
-                for (myField in list) {
-                    val field: Field = myField
-                    val result = field.toString()
-                    val value = result.substringAfter("=").substringBefore(')')
-                    if (index == 0) {
-                        workItem.id = value
-                    } else if (index == 1) {
-                        workItem.date = value
-                    } else if (index == 2) {
-                        workItem.description = value
-                    } else if (index == 3) {
-                        workItem.guide = value
-                    } else if (index == 4) {
-                        workItem.status = value
-                    } else if (index == 5) {
-                        workItem.name = value
-                    }
-                    index++
-                }
-
-                // Push the object to the list.
-                records.add(workItem)
-            }
-        }
-        return records
-    }
-
-    // Get Items data.
-    suspend fun getItemsDataSQLReport(username: String, arch: Int): String? {
-        val dataClient = getClient()
-        val records = mutableListOf<WorkItem>()
-        val sqlStatement: String = "Select * FROM work where username = '" + username + "' and archive = " + arch + ""
-        val sqlRequest = ExecuteStatementRequest {
-            secretArn = secretArnVal
-            sql = sqlStatement
-            database = "jobs"
-            resourceArn = resourceArnVal
-        }
-
-        val response = dataClient.executeStatement(sqlRequest)
-        val dataList: List<List<Field>>? = response.records
-        var workItem: WorkItem
-        var index: Int
-
-        // Get the records.
-        if (dataList != null) {
-            for (list in dataList) {
-                workItem = WorkItem()
-                index = 0
-                for (myField in list) {
-                    val field: Field = myField
-                    val result = field.toString()
-                    val value = result.substringAfter("=").substringBefore(')')
-
-                    if (index == 0) {
-                        workItem.id = value
-                    } else if (index == 1) {
-                        workItem.date = value
-                    } else if (index == 2) {
-                        workItem.description = value
-                    } else if (index == 3) {
-                        workItem.guide = value
-                    } else if (index == 4) {
-                        workItem.status = value
-                    } else if (index == 5) {
-                        workItem.name = value
-                    }
-                    index++
-                }
-                records.add(workItem)
-            }
-        }
-        return convertToString(toXml(records))
-    }
 }
+
 
 ```
 
@@ -512,7 +509,7 @@ class RetrieveItems {
 The following Kotlin code represents the **InjectWorkService** class. Notice that you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database (as discussed in the *Creating the resources* section). Without both of these values, your code does not work. To use the **DSDataClient**, you need to create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to submit data to the work table.
 
 ```kotlin
-    package com.example.demo
+package com.example.demo
 
 import aws.sdk.kotlin.services.rdsdata.RdsDataClient
 import aws.sdk.kotlin.services.rdsdata.model.ExecuteStatementRequest
@@ -526,19 +523,12 @@ import java.util.UUID
 @Component
 class InjectWorkService {
 
-    private val secretArnVal = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b"
-    private val resourceArnVal = "arn:aws:rds:us-east-1:814548047983:cluster:database-4"
-
-    // Return a RdsDataClient object.
-    private fun getClient(): RdsDataClient {
-        val rdsDataClient = RdsDataClient { region = "us-east-1" }
-        return rdsDataClient
-    }
+    private val secretArnVal = "<Enter value>"
+    private val resourceArnVal = "<Enter value>"
 
     // Inject a new submission.
     suspend fun injestNewSubmission(item: WorkItem): String? {
         val arc = 0
-        val dataClient = getClient()
         val name = item.name
         val guide = item.guide
         val description = item.description
@@ -570,6 +560,7 @@ class InjectWorkService {
         return workId
     }
 }
+
 
 ```
 
