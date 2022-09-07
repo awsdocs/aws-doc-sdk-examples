@@ -567,155 +567,73 @@ class InjectWorkService {
 ```
 
 ### SendMessage class
-The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an email message with an attachment (the Excel document) to an email recipient. Before you can send the email message, the email address that you're sending it to must be verified. For more information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
+The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email message. Before you can send the email message, the email address that you're sending it to must be verified. For more information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
+The following Java code represents the **SendMessage** class. 
 
-```java
-    package com.aws.services;
+```kotlin
+package com.example.demo
 
-    import org.apache.commons.io.IOUtils;
-    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.ses.SesClient;
-    import javax.activation.DataHandler;
-    import javax.activation.DataSource;
-    import javax.mail.Message;
-    import javax.mail.MessagingException;
-    import javax.mail.Session;
-    import javax.mail.internet.InternetAddress;
-    import javax.mail.internet.MimeMessage;
-    import javax.mail.internet.MimeMultipart;
-    import javax.mail.internet.MimeBodyPart;
-    import javax.mail.util.ByteArrayDataSource;
-    import java.io.ByteArrayOutputStream;
-    import java.io.IOException;
-    import java.io.InputStream;
-    import java.nio.ByteBuffer;
-    import java.util.Properties;
-    import software.amazon.awssdk.core.SdkBytes;
-    import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
-    import software.amazon.awssdk.services.ses.model.RawMessage;
-    import software.amazon.awssdk.services.ses.model.SesException;
-    import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component
+import kotlin.system.exitProcess
+import aws.sdk.kotlin.services.ses.SesClient
+import aws.sdk.kotlin.services.ses.model.SesException
+import aws.sdk.kotlin.services.ses.model.Destination
+import aws.sdk.kotlin.services.ses.model.Content
+import aws.sdk.kotlin.services.ses.model.Body
+import aws.sdk.kotlin.services.ses.model.Message
+import aws.sdk.kotlin.services.ses.model.SendEmailRequest
 
-    @Component
-    public class SendMessages {
+@Component
+class SendMessage {
 
-     private String sender = "<ENTER A VALID SEND EMAIL ADDRESS>";
+    suspend fun send(
+        recipient: String,
+        strValue: String?
+    ) {
+        val sesClient = SesClient { region = "us-east-1" }
+        // The HTML body of the email.
+        val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Amazon RDS Items!</h1>"
+                + "<textarea>$strValue</textarea>" + "</body>" + "</html>")
 
-     // The subject line for the email.
-     private String subject = "Weekly AWS Status Report";
+        val destinationOb = Destination {
+            toAddresses = listOf(recipient)
+        }
 
-     // The email body for recipients with non-HTML email clients.
-     private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
+        val contentOb = Content {
+            data = bodyHTML
+        }
 
-     // The HTML body of the email.
-     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
+        val subOb = Content {
+            data = "Item Report"
+        }
 
-     public void sendReport(InputStream is, String emailAddress ) throws IOException {
+        val bodyOb= Body {
+            html = contentOb
+        }
 
-        // Convert the InputStream to a byte[].
-        byte[] fileContent = IOUtils.toByteArray(is);
+        val msgOb = Message {
+            subject = subOb
+            body = bodyOb
+        }
+
+        val emailRequest = SendEmailRequest {
+            destination = destinationOb
+            message = msgOb
+            source = "<Enter email>"
+        }
 
         try {
-            send(fileContent,emailAddress);
-        } catch (MessagingException e) {
-            e.getStackTrace();
+            println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
+            sesClient.sendEmail(emailRequest)
+
+        } catch (e: SesException) {
+            println(e.message)
+            sesClient.close()
+            exitProcess(0)
         }
     }
-
-    public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
-
-        MimeMessage message = null;
-        Session session = Session.getDefaultInstance(new Properties());
-
-        // Create a new MimeMessage object.
-        message = new MimeMessage(session);
-
-        // Add subject and from and to lines.
-        message.setSubject(subject, "UTF-8");
-        message.setFrom(new InternetAddress(sender));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
-
-        // Create a multipart/alternative child container.
-        MimeMultipart msgBody = new MimeMultipart("alternative");
-
-        // Create a wrapper for the HTML and text parts.
-        MimeBodyPart wrap = new MimeBodyPart();
-
-        // Define the text part.
-        MimeBodyPart textPart = new MimeBodyPart();
-        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
-
-        // Define the HTML part.
-        MimeBodyPart htmlPart = new MimeBodyPart();
-        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
-
-        // Add the text and HTML parts to the child container.
-        msgBody.addBodyPart(textPart);
-        msgBody.addBodyPart(htmlPart);
-
-        // Add the child container to the wrapper object.
-        wrap.setContent(msgBody);
-
-        // Create a multipart/mixed parent container.
-        MimeMultipart msg = new MimeMultipart("mixed");
-
-        // Add the parent container to the message.
-        message.setContent(msg);
-
-        // Add the multipart/alternative part to the message.
-        msg.addBodyPart(wrap);
-
-        // Define the attachment.
-        MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        att.setDataHandler(new DataHandler(fds));
-
-        String reportName = "WorkReport.xls";
-        att.setFileName(reportName);
-
-        // Add the attachment to the message.
-        msg.addBodyPart(att);
-
-       // Send the email.
-        try {
-            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-
-            Region region = Region.US_WEST_2;
-            SesClient client = SesClient.builder()
-                    .region(region)
-                    .build();
-
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            message.writeTo(outputStream);
-
-            ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
-
-            byte[] arr = new byte[buf.remaining()];
-            buf.get(arr);
-
-            SdkBytes data = SdkBytes.fromByteArray(arr);
-
-            RawMessage rawMessage = RawMessage.builder()
-                    .data(data)
-                    .build();
-
-            SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                    .rawMessage(rawMessage)
-                    .build();
-
-            client.sendRawEmail(rawEmailRequest);
-
-        } catch (SesException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Email sent with attachment");
-       }
-      }
+}
 ```
 
 **Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
@@ -723,240 +641,20 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 
 ### WorkItem class
 
-The following Java code represents the **WorkItem** class.   
+The following Kotlin code represents the **WorkItem** class.   
 
-```java
-    package com.aws.entities;
+```kotlin
+    package com.example.demo
 
-    public class WorkItem {
-
-     private String id;
-     private String name;
-     private String guide ;
-     private String date;
-     private String description;
-     private String status;
-
-     public void setId (String id) {
-         this.id = id;
-     }
-
-     public String getId() {
-         return this.id;
-     }
-
-     public void setStatus (String status) {
-        this.status = status;
-     }
-
-     public String getStatus() {
-       return this.status;
-     }
-
-     public void setDescription (String description) {
-        this.description = description;
-     }
-
-     public String getDescription() {
-       return this.description;
-     }
-
-     public void setDate (String date) {
-       this.date = date;
-     }
-
-     public String getDate() {
-       return this.date;
-     }
-
-     public void setName (String name) {
-       this.name = name;
-     }
-
-     public String getName() {
-       return this.name;
-     }
-
-     public void setGuide (String guide) {
-      this.guide = guide;
-     }
-
-     public String getGuide() {
-      return this.guide;
-      }
-     }
+class WorkItem {
+    var id: String? = null
+    var name: String? = null
+    var guide: String? = null
+    var date: String? = null
+    var description: String? = null
+    var status: String? = null
+}
 ```
-### WriteExcel class
-
-The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
-
-```java
-   package com.aws.rest;
-
-   import jxl.CellView;
-   import jxl.Workbook;
-   import jxl.WorkbookSettings;
-   import jxl.format.UnderlineStyle;
-   import jxl.write.Label;
-   import jxl.write.Number;
-   import jxl.write.WritableCellFormat;
-   import jxl.write.WritableFont;
-   import jxl.write.WritableSheet;
-   import jxl.write.WritableWorkbook;
-   import jxl.write.WriteException;
-   import org.springframework.stereotype.Component;
-   import java.io.IOException;
-   import java.util.List;
-   import java.util.Locale;
-
-   @Component
-   public class WriteExcel {
-
-    private WritableCellFormat timesBoldUnderline;
-    private WritableCellFormat times;
-
-    // Returns an InputStream that represents the Excel report.
-    public java.io.InputStream exportExcel( List<WorkItem> list) {
-
-        try {
-            java.io.InputStream is = write( list);
-            return is ;
-        } catch(WriteException | IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    // Generates the report and returns an InputStream.
-    public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
-        java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
-        WorkbookSettings wbSettings = new WorkbookSettings();
-
-        wbSettings.setLocale(new Locale("en", "EN"));
-
-        // Creates a Workbook and passes the OutputStream.
-        WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
-        workbook.createSheet("Work Item Report", 0);
-        WritableSheet excelSheet = workbook.getSheet(0);
-        createLabel(excelSheet) ;
-        int size = createContent(excelSheet, list);
-
-        // Closes the workbook.
-        workbook.write();
-        workbook.close();
-
-        // Gets an InputStream that represents the report.
-        java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
-        stream = (java.io.ByteArrayOutputStream)os;
-        byte[] myBytes = stream.toByteArray();
-        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
-
-        return is ;
-    }
-
-    // Creates Headings in the Excel spreadsheet.
-    private void createLabel(WritableSheet sheet)
-            throws WriteException {
-        
-        WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        times = new WritableCellFormat(times10pt);
-        times.setWrap(true);
-
-        // Creates a bold font with underlining.
-        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
-                UnderlineStyle.SINGLE);
-        timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        timesBoldUnderline.setWrap(true);
-
-        CellView cv = new CellView();
-        cv.setFormat(times);
-        cv.setFormat(timesBoldUnderline);
-        cv.setAutosize(true);
-
-        // Writes a few headers.
-        addCaption(sheet, 0, 0, "Writer");
-        addCaption(sheet, 1, 0, "Date");
-        addCaption(sheet, 2, 0, "Guide");
-        addCaption(sheet, 3, 0, "Description");
-        addCaption(sheet, 4, 0, "Status");
-    }
-
-    // Writes the Work Item Data to the Excel report.
-    private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
-
-        int size = list.size() ;
-        for (int i = 0; i < size; i++) {
-
-            WorkItem wi = list.get(i);
-            String name = wi.getName();
-            String guide = wi.getGuide();
-            String date = wi.getDate();
-            String des = wi.getDescription();
-            String status = wi.getStatus();
-
-            // First column.
-            addLabel(sheet, 0, i+2, name);
-            
-            // Second column.
-            addLabel(sheet, 1, i+2, date);
-
-            // Third column.
-            addLabel(sheet, 2, i+2,guide);
-
-            // Forth column.
-            addLabel(sheet, 3, i+2, des);
-
-            // Fifth column.
-            addLabel(sheet, 4, i+2, status);
-        }
-
-       return size;
-    }
-
-    private void addCaption(WritableSheet sheet, int column, int row, String s)
-            throws WriteException {
-        Label label;
-        label = new Label(column, row, s, timesBoldUnderline);
-
-        int cc = countString(s);
-        sheet.setColumnView(column, cc);
-        sheet.addCell(label);
-    }
-
-    private void addNumber(WritableSheet sheet, int column, int row,
-                           Integer integer) throws WriteException {
-        Number number;
-        number = new Number(column, row, integer, times);
-        sheet.addCell(number);
-    }
-
-    private void addLabel(WritableSheet sheet, int column, int row, String s)
-            throws WriteException {
-        Label label;
-        label = new Label(column, row, s, times);
-        int cc = countString(s);
-        if (cc > 200)
-            sheet.setColumnView(column, 150);
-        else
-            sheet.setColumnView(column, cc+6);
-
-        sheet.addCell(label);
-
-    }
-
-    private int countString (String ss) {
-        int count = 0;
-        for(int i = 0; i < ss.length(); i++) {
-            if(ss.charAt(i) != ' ')
-                count++;
-        }
-        return count;
-    }
-    }
-   }
-
-```
-
 
 ## Run the application 
 
