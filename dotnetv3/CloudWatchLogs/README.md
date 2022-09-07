@@ -1,4 +1,4 @@
-# Amazon CloudWatch Logs code examples for the SDK for .NET
+# CloudWatch Logs code examples for the SDK for .NET
 
 ## Overview
 The code examples in this section show how to use the AWS SDK for .NET with Amazon CloudWatch Logs (CloudWatch Logs)

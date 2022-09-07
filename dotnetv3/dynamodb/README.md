@@ -1,4 +1,4 @@
-# Amazon DynamoDB code examples for the SDK for .NET
+# DynamoDB code examples for the SDK for .NET
 
 ## Overview
 The code examples in this section show how to use the AWS SDK for .NET with Amazon DynamoDB (DynamoDB)

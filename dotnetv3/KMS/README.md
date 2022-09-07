@@ -17,15 +17,15 @@ AWS KMS lets you create, manage, and control cryptographic keys across your appl
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-- [Create an alias for a key](CreateAliasExample/CreateAlias.cs)(`CreateAliasAsync`)
-- [Create a grant for a key](CreateGrantExample/CreateGrant.cs)(`CreateGrantAsync`)
-- [Create a key](CreateKeyExample/CreateKey.cs)(`CreateKeyAsync`)
-- [Describe a key](DescribeKeyExample/DescribeKey.cs)(`DescribeKeyAsync`)
-- [Disable a key](DisableKeyExample/DisableKey.cs)(`DisableKeyAsync`)
-- [Enable a key](EnableKeyExample/EnableKey.cs)(`EnableKeyAsync`)
-- [List aliases for a key](ListAliasesExample/ListAliases.cs)(`ListAliasesAsync`)
-- [List grants for a key](ListGrantsExample/ListGrants.cs)(`ListGrantsAsync`)
-- [List keys](ListKeysExample/ListKeys.cs)(`ListKeysAsync`)
+- [Create an alias for a key](CreateAliasExample/CreateAlias.cs) (`CreateAliasAsync`)
+- [Create a grant for a key](CreateGrantExample/CreateGrant.cs) (`CreateGrantAsync`)
+- [Create a key](CreateKeyExample/CreateKey.cs) (`CreateKeyAsync`)
+- [Describe a key](DescribeKeyExample/DescribeKey.cs) (`DescribeKeyAsync`)
+- [Disable a key](DisableKeyExample/DisableKey.cs) (`DisableKeyAsync`)
+- [Enable a key](EnableKeyExample/EnableKey.cs) (`EnableKeyAsync`)
+- [List aliases for a key](ListAliasesExample/ListAliases.cs) (`ListAliasesAsync`)
+- [List grants for a key](ListGrantsExample/ListGrants.cs) (`ListGrantsAsync`)
+- [List keys](ListKeysExample/ListKeys.cs) (`ListKeysAsync`)
 
 ## Run the examples
 

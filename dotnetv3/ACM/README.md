@@ -1,4 +1,4 @@
-# AWS Certificate Manager code examples for the SDK for .NET
+# ACM code examples for the SDK for .NET
 
 ## Overview
 The code examples in this section show how to use the AWS SDK for .NET with AWS Certificate Manager (ACM)
