@@ -48,6 +48,8 @@ To complete the tutorial, you need the following:
 +  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
++ Be sure to set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
+see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
 ### Creating the resources
 
