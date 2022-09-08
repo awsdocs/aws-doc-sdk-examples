@@ -693,8 +693,8 @@ import * as service from './RestService';
 
 /**
  * An element that displays an 'Add item' button that lets you add an item to the work
- * item list. When you click the 'Add item' button, a modal form is displayed that
- * includes form fields that you can use to define the work item. When you click the
+ * item list. When you choose the 'Add item' button, a modal form is displayed that
+ * includes form fields that you can use to define the work item. When you choose the
  * 'Add' button on the form, your new work item is sent to the server so it can be
  * added to the database.
  *
@@ -936,7 +936,7 @@ export const WorkItems = () => {
 
 ### Update RestService.js
 
-You must modify the **RestService.js** file so that your React requests work with your Java backend. Update this file to include this code.
+You must modify the **RestService.js** file so that your React requests work with your Java backend. Update the file to include this code.
 
 ```javascript
 
