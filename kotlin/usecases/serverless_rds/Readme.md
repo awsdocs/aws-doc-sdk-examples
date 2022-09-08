@@ -569,7 +569,7 @@ class InjectWorkService {
 ### SendMessage class
 The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email message. Before you can send the email message, the email address that you're sending it to must be verified. For more information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code represents the **SendMessage** class. 
+The following Kotlin code represents the **SendMessage** class. 
 
 ```kotlin
 package com.example.demo
