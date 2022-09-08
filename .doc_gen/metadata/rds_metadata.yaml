@@ -5,6 +5,15 @@ rds_CreateDBInstance:
   synopsis: create an &RDS; instance and wait for it to be in an available state.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.create_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -22,6 +31,15 @@ rds_DeleteDBInstance:
   synopsis: delete an &RDS; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.delete_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -39,6 +57,15 @@ rds_DescribeAccountAttributes:
   synopsis: retrieve attributes that belong to an &RDS; account.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.describe_account.main
     Java:
       versions:
         - sdk_version: 2
@@ -56,6 +83,15 @@ rds_DescribeDBInstances:
   synopsis: describe an &RDS; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.describe_instances.main
     Java:
       versions:
         - sdk_version: 2
@@ -73,6 +109,15 @@ rds_ModifyDBInstance:
   synopsis: modify an &RDS; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.modify_instance.main
     Java:
       versions:
         - sdk_version: 2
