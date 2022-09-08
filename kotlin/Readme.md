@@ -23,7 +23,7 @@ In the **usecases** folder, find step-by-step development tutorials that use mul
 
 + [Create a React and Spring REST application that queries Amazon Aurora data](https://github.com/scmacdon/aws-doc-sdk-examples/tree/main/kotlin/usecases/serverless_rds) - Discusses how to develop a Spring REST API that queries Amazon Aurora data. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data.
 
-+ [Create an example Photo analyzer application using the AWS SDK for Kotlin](https://github.com/scmacdon/aws-doc-sdk-examples/tree/main/kotlin/usecases/creating_photo_analyzer_app) - Discusses using the AWS SDK for Kotlin and various AWS services, such as the Amazon Rekognition service, to analyze images. This application analyzes many images and generates a report that breaks down each image into a series of labels.
++ [Create an example photo analyzer application using the AWS SDK for Kotlin](https://github.com/scmacdon/aws-doc-sdk-examples/tree/main/kotlin/usecases/creating_photo_analyzer_app) - Discusses using the AWS SDK for Kotlin and various AWS services, such as the Amazon Rekognition service, to analyze images. This application analyzes many images and generates a report that breaks down each image into a series of labels.
 
 + [Create AWS serverless workflows using the AWS SDK for Kotlin](https://github.com/scmacdon/aws-doc-sdk-examples/tree/main/kotlin/usecases/creating_workflows_stepfunctions) - Discusses using the AWS SDK for Kotlin and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 
