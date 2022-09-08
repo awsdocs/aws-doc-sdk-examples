@@ -217,7 +217,7 @@ export const run = async (
                   PolicyArn: assume_policy_arn,
                   UserName: user_name,
                 };
-                const data = await iamClient.send(
+                await iamClient.send(
                     new AttachUserPolicyCommand(attach_policy_to_user_params)
                 );
                 console.log(
@@ -283,7 +283,7 @@ export const run = async (
                       console.log(
                           "Detaching s3 policy from user " + userName + " ... \n"
                       );
-                      const data = await iamClient.send(
+                      await iamClient.send(
                           new DetachUserPolicyCommand({
                             PolicyArn: assume_policy_arn,
                             UserName: userName,
@@ -294,7 +294,7 @@ export const run = async (
                         console.log(
                             "Detaching role policy from " + role_name + " ... \n"
                         );
-                        const data = await iamClient.send(
+                        await iamClient.send(
                             new DetachRolePolicyCommand({
                               PolicyArn: s3_policy_arn,
                               RoleName: role_name,
@@ -305,7 +305,7 @@ export const run = async (
                         );
                         try {
                           console.log("Deleting s3 policy ... \n");
-                          const data = await iamClient.send(
+                          await iamClient.send(
                               new DeletePolicyCommand({
                                 PolicyArn: s3_policy_arn,
                               })
@@ -313,14 +313,14 @@ export const run = async (
                           console.log("Success, S3 policy deleted.");
                           try {
                             console.log("Deleting assume role policy ... \n");
-                            const data = await iamClient.send(
+                            await iamClient.send(
                                 new DeletePolicyCommand({
                                   PolicyArn: assume_policy_arn,
                                 })
                             );
                             try {
                               console.log("Deleting access keys ... \n");
-                              const data = await iamClient.send(
+                              await iamClient.send(
                                   new DeleteAccessKeyCommand({
                                     UserName: userName,
                                     AccessKeyId: myAccessKey,
@@ -330,7 +330,7 @@ export const run = async (
                                 console.log(
                                     "Deleting user " + user_name + " ... \n"
                                 );
-                                const data = await iamClient.send(
+                                await iamClient.send(
                                     new DeleteUserCommand({ UserName: userName })
                                 );
                                 console.log("Success, user deleted.");
@@ -338,7 +338,7 @@ export const run = async (
                                   console.log(
                                       "Deleting role " + role_name + " ... \n"
                                   );
-                                  const data = await iamClient.send(
+                                  await iamClient.send(
                                       new DeleteRoleCommand({
                                         RoleName: role_name,
                                       })

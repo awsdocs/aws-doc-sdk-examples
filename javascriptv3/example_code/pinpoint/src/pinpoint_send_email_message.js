@@ -24,8 +24,6 @@ node pinpoint_send_email_message.js
 import { SendMessagesCommand } from "@aws-sdk/client-pinpoint";
 import { pinClient } from "./libs/pinClient.js";
 
-("use strict");
-
 /* The address on the "To" line. If your Amazon Pinpoint account is in
 the sandbox, this address also has to be verified.
 Note: All recipient addresses in this example are in arrays, which makes it
@@ -39,9 +37,6 @@ const projectId = "PINPOINT_PROJECT_ID"; //e.g., XXXXXXXX66e4e9986478cXXXXXXXXX
 // CC and BCC addresses. If your account is in the sandbox, these addresses have to be verified.
 var ccAddresses = ["cc_recipient1@example.com", "cc_recipient2@example.com"];
 var bccAddresses = ["bcc_recipient@example.com"];
-
-// The configuration set that you want to use to send the email.
-var configuration_set = "ConfigSet";
 
 // The subject line of the email.
 var subject = "Amazon Pinpoint Test (AWS SDK for JavaScript in Node.js)";
@@ -64,10 +59,6 @@ var body_html = `<html>
 </body>
 </html>`;
 
-// The message tags that you want to apply to the email.
-var tag0 = { Name: "key0", Value: "value0" };
-var tag1 = { Name: "key1", Value: "value1" };
-
 // The character encoding for the subject line and message body of the email.
 var charset = "UTF-8";
 
@@ -77,8 +68,8 @@ const params = {
     Addresses: {
       Destination: {
         ToAddresses: toAddress,
-        //  CcAddresses: CC_ADDRESSES,
-        //  BccAddresses: BCC_ADDRESSES
+        CcAddresses: ccAddresses,
+        BccAddresses: bccAddresses,
       },
 
       [toAddress]: {
@@ -110,11 +101,11 @@ const params = {
 const run = async () => {
   try {
     const data = await pinClient.send(new SendMessagesCommand(params));
-    return data; // For unit tests.
     console.log(
       "Email sent! Message ID: ",
       data["MessageResponse"]["Result"][toAddress]["MessageId"]
     );
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }

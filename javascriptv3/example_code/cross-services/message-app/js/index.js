@@ -105,13 +105,14 @@ const pushMessage = async () => {
 
   // Create random deduplication ID.
   var dt = new Date().getTime();
-  var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (
-    c
-  ) {
-    var r = (dt + Math.random() * 16) % 16 | 0;
-    dt = Math.floor(dt / 16);
-    return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-  });
+  var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+    /[xy]/g,
+    function (c) {
+      var r = (dt + Math.random() * 16) % 16 | 0;
+      dt = Math.floor(dt / 16);
+      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+    }
+  );
 
   try {
     // Set the Amazon SQS Queue parameters.
@@ -201,9 +202,7 @@ const purge = async () => {
     const data = await sqsClient.send(new GetQueueUrlCommand(queueParams));
     cons("Success", data.QueueUrl);
     // Delete all the messages in the Amazon SQS Queue.
-    const result = await sqsClient.send(
-      new PurgeQueueCommand({ QueueUrl: data.QueueUrl })
-    );
+    await sqsClient.send(new PurgeQueueCommand({ QueueUrl: data.QueueUrl }));
     // Delete all the messages from the GUI.
     $("#messages").empty();
     console.log("Success. All messages deleted.", data);

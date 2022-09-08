@@ -24,11 +24,9 @@ Running the code:
 
 // Import required AWS SDK clients and commands for Node.js
 const { SES, SendEmailCommand } = require("@aws-sdk/client-ses");
-// Set the AWS Region
-const REGION = "region"; //e.g. "us-east-1"
 const ses = new SES();
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   console.log(event);
   if (event.request.userAttributes.email) {
     await sendTheEmail(
@@ -64,7 +62,7 @@ const sendTheEmail = async (to, body) => {
     Source: "<source_email>",
   };
   try {
-    const email = await ses.send(new SendEmailCommand(eParams));
+    await ses.send(new SendEmailCommand(eParams));
     console.log("===EMAIL SENT===");
   } catch (err) {
     console.log(err);

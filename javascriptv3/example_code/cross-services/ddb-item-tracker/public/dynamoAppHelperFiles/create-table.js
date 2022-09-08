@@ -17,7 +17,7 @@ node create-table.js
  */
 // snippet-start:[cross-service.JavaScript.ddb-item-tracker.createTable]
 // Import required AWS SDK clients and commands for Node.js
-import { CreateTableCommand, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { CreateTableCommand } from "@aws-sdk/client-dynamodb";
 import { dynamoClient } from "../libs/dynamoClient.js";
 
 const TABLE_NAME = "TABLE_NAME"; // For example, "Work".
@@ -44,7 +44,7 @@ export const createTable = async () => {
       },
       TableName: TABLE_NAME,
     };
-    const data = await dynamoClient.send(new CreateTableCommand(tableParams));
+    await dynamoClient.send(new CreateTableCommand(tableParams));
     console.log("Success. Table created.");
   } catch (err) {
     console.error("Error", err);

@@ -22,7 +22,7 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.auth-challenge-verifyV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
     if (
       event.request.privateChallengeParameters.answer ==
