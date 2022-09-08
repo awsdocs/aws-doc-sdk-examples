@@ -45,7 +45,7 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 + Be sure to set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
@@ -55,10 +55,10 @@ see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-fo
 
 You can use one of the following ways to create the required AWS resources:
 
-- Using the AWS Management console
-- Using the AWS Cloud Development Kit
+- Use the AWS Management Console
+- Use the WS Cloud Development Kit (AWS CDK)
 
-#### Using the AWS Management console
+#### Use the AWS Management Console
 
 Create an Aurora Serverless database named **jobs**. Next, create a table named **Work** that contains the following fields:
 
@@ -76,22 +76,22 @@ The following figure shows the **Work** table in the Amazon Relational Database 
 
 For more information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
 
-To successfully connect to the database using the **RdsDataClient** object, set up an AWS Secrets Manager secret to use for authentication. For more information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
+To successfully connect to the database by using the **RdsDataClient** object, set up an AWS Secrets Manager secret to use for authentication. For more information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
 
 To use the **RdsDataClient** object, you must have the following two Amazon Resource Name (ARN) values: 
 
 + The ARN of an Aurora Serverless database.
 + The ARN of a Secrets Manager secret to use for database access.
 
-**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up the inbound rules, you can connect to the database from the REST endpoint. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up the inbound rules, you can connect to the database from the REST endpoint. For information about setting up security group inbound rules, see [Controlling access with security groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
 
-#### Using the AWS Cloud Development Kit
+#### Use the AWS CDK
 
-Using the AWS AWS Cloud Development Kit (AWS CDK), you can set up the resources required for this tutorial. For more information, see [CDK instructions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/cdk/aurora_serverless_app/README.md).
+You can set up the resources required for this tutorial by using the AWS CDK. For more information, see [CDK instructions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/cdk/aurora_serverless_app/README.md).
 
 ## Understand the AWS Tracker React application 
 
-A user can perform the following tasks using the React application:
+A user can perform the following tasks by using the React application:
 
 + View all active items.
 + View archived items that are complete.
