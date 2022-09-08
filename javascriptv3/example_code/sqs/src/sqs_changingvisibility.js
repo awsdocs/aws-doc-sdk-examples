@@ -38,13 +38,13 @@ const run = async () => {
     const data = await sqsClient.send(new ReceiveMessageCommand(params));
     if (data.Messages != null) {
       try {
-        var visibilityParams = {
+        const visibilityParams = {
           QueueUrl: queueURL,
           ReceiptHandle: data.Messages[0].ReceiptHandle,
           VisibilityTimeout: 20, // 20 second timeout
         };
         const results = await sqsClient.send(
-          new ChangeMessageVisibilityCommand(params)
+            new ChangeMessageVisibilityCommand(visibilityParams)
         );
         console.log("Timeout Changed", results);
       } catch (err) {

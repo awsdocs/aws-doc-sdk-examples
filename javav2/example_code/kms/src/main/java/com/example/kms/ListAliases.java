@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListAliases.java demonstrates how to get a list of AWS Key Management Service (AWS KMS) aliases.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class ListAliases {
 
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllAliases(kmsClient);
         kmsClient.close();
@@ -48,14 +45,12 @@ public class ListAliases {
     public static void listAllAliases( KmsClient kmsClient) {
 
         try {
-
             ListAliasesRequest aliasesRequest = ListAliasesRequest.builder()
                 .limit(15)
                 .build();
 
             ListAliasesResponse aliasesResponse = kmsClient.listAliases(aliasesRequest) ;
             List<AliasListEntry> aliases = aliasesResponse.aliases();
-
             for (AliasListEntry alias: aliases) {
                 System.out.println("The alias name is: "+alias.aliasName());
             }

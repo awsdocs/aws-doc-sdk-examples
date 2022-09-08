@@ -15,6 +15,7 @@ Inputs (replace in code):
 - REGION
 - IDENTITY_POOL_ID
 - TABLE_NAME
+- PHONE_NUMBER
 
 Running the code:
 node add_data.js
@@ -61,7 +62,7 @@ export const submitData = async () => {
         // Create the message parameters object.
         const messageParams = {
           Message: "A new item with ID value was added to the DynamoDB",
-          PhoneNumber: "+353861230764", //PHONE_NUMBER, in the E.164 phone number structure.
+          PhoneNumber: "PHONE_NUMBER", //PHONE_NUMBER, in the E.164 phone number structure.
           // For example, ak standard local formatted number, such as (415) 555-2671, is +14155552671 in E.164
           // format, where '1' in the country code.
         };

@@ -3,6 +3,7 @@
 
 namespace RebootInstancesExample
 {
+    // snippet-start:[EC2.dotnetv3.RebootInstancesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -45,4 +46,5 @@ namespace RebootInstancesExample
             }
         }
     }
+    // snippet-end:[EC2.dotnetv3.RebootInstancesExample]
 }

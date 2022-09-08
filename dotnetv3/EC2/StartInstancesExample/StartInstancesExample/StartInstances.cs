@@ -3,6 +3,7 @@
 
 namespace StartInstancesExample
 {
+    // snippet-start:[EC2.dotnetv3.StartInstancesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -45,4 +46,5 @@ namespace StartInstancesExample
             }
         }
     }
+    // snippet-end:[EC2.dotnetv3.StartInstancesExample]
 }

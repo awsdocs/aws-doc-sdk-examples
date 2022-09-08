@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[GetMethod.java demonstrates how to describe an existing method resource..]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/21/2021]
-//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,30 +32,29 @@ public class GetMethod {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    GetMethod <restApiId> <resourceId> <httpMethod> \n\n" +
-                "Where:\n" +
-                "    restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).\n" +
-                "    resourceId - The string identifier of an resource. (for example, xxxx99ewyg).\n" +
-                "    httpMethod - The HTTP method. (for example, GET).\n" ;
+            "Usage:\n" +
+            "    GetMethod <restApiId> <resourceId> <httpMethod> \n\n" +
+            "Where:\n" +
+            "    restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).\n" +
+            "    resourceId - The string identifier of an resource. (for example, xxxx99ewyg).\n" +
+            "    httpMethod - The HTTP method. (for example, GET).\n" ;
 
         if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String restApiId = args[0];
+        String restApiId =  args[0];
         String resourceId = args[1];
         String httpMethod = args[2];
         Region region = Region.US_EAST_1;
         ApiGatewayClient apiGateway = ApiGatewayClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
 
         getSpecificMethod(apiGateway, restApiId, resourceId, httpMethod);
         apiGateway.close();
-
     }
 
     // snippet-start:[apigateway.java2.get_method.main]
@@ -87,6 +82,6 @@ public class GetMethod {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-      }
+    }
     // snippet-end:[apigateway.java2.get_method.main]
-  }
+}

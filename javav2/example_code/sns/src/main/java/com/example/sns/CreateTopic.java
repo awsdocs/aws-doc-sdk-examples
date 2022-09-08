@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateTopic.java demonstrates how to create an Amazon Simple Notification Service (Amazon SNS) topic.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class CreateTopic {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <topicName>\n\n" +
-                "Where:\n" +
-                "   topicName - The name of the topic to create (for example, mytopic).\n\n";
+            "Usage: " +
+            "   <topicName>\n\n" +
+            "Where:\n" +
+            "   topicName - The name of the topic to create (for example, mytopic).\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,11 +41,10 @@ public class CreateTopic {
 
         String topicName = args[0];
         System.out.println("Creating a topic with name: " + topicName);
-
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String arnVal = createSNSTopic(snsClient, topicName) ;
         System.out.println("The topic ARN is" +arnVal);
@@ -61,13 +57,13 @@ public class CreateTopic {
         CreateTopicResponse result = null;
         try {
             CreateTopicRequest request = CreateTopicRequest.builder()
-                    .name(topicName)
-                    .build();
+                .name(topicName)
+                .build();
 
             result = snsClient.createTopic(request);
             return result.topicArn();
-        } catch (SnsException e) {
 
+        } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

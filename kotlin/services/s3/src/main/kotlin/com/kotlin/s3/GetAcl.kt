@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[GetAcl.kt demonstrates how to get the access control list (ACL) of an object located in an Amazon Simple Storage Service (Amazon S3) bucket.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-service:[Amazon S3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/30/2021]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

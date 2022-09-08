@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListActivities.java demonstrates how to List existing activities for AWS Step Functions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class ListActivities {
 
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllActivites(sfnClient);
         sfnClient.close();
@@ -49,8 +46,8 @@ public class ListActivities {
 
         try {
             ListActivitiesRequest activitiesRequest = ListActivitiesRequest.builder()
-                    .maxResults(10)
-                    .build();
+                .maxResults(10)
+                .build();
 
             ListActivitiesResponse response = sfnClient.listActivities(activitiesRequest);
             List<ActivityListItem> items = response.activities();

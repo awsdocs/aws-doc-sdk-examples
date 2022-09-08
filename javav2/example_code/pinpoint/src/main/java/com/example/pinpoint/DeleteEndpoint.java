@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteEndpoint.java demonstrates how to delete an endpoint.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,11 +29,11 @@ public class DeleteEndpoint {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "  <appName> <endpointId >\n\n" +
-                "Where:\n" +
-                "  appId - The id of the application to delete.\n\n" +
-                "  endpointId - The id of the endpoint to delete.\n";
+            "Usage: " +
+            "  <appName> <endpointId >\n\n" +
+            "Where:\n" +
+            "  appId - The id of the application to delete.\n\n" +
+            "  endpointId - The id of the endpoint to delete.\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class DeleteEndpoint {
         String endpointId = args[1];
         System.out.println("Deleting an endpoint with id: " + endpointId);
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deletePinEncpoint(pinpoint, appId, endpointId );
         pinpoint.close();
@@ -59,15 +56,15 @@ public class DeleteEndpoint {
     public static void deletePinEncpoint(PinpointClient pinpoint, String appId, String endpointId ) {
 
         try {
-
             DeleteEndpointRequest appRequest = DeleteEndpointRequest.builder()
-                    .applicationId(appId)
-                    .endpointId(endpointId)
-                    .build();
+                .applicationId(appId)
+                .endpointId(endpointId)
+                .build();
 
             DeleteEndpointResponse result = pinpoint.deleteEndpoint(appRequest);
             String id = result.endpointResponse().id();
             System.out.println("The deleted endpoint id  " + id);
+
         } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

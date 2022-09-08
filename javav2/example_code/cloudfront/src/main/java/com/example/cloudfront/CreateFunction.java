@@ -1,15 +1,11 @@
 //snippet-sourcedescription:[CreateFunction.java demonstrates how to create a CloudFront function.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2021]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 
 package com.example.cloudfront;
 
@@ -54,9 +50,9 @@ public class CreateFunction {
         String functionName = args[0];
         String filePath = args[1] ;
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-                .region(Region.AWS_GLOBAL)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.AWS_GLOBAL)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String funArn = createNewFunction(cloudFrontClient, functionName, filePath);
         System.out.println("The function ARN is "+funArn);
@@ -72,15 +68,15 @@ public class CreateFunction {
             SdkBytes functionCode = SdkBytes.fromInputStream(is);
 
             FunctionConfig config = FunctionConfig.builder()
-                    .comment("Created by using the CloudFront Java API")
-                    .runtime(FunctionRuntime.CLOUDFRONT_JS_1_0)
-                    .build();
+                .comment("Created by using the CloudFront Java API")
+                .runtime(FunctionRuntime.CLOUDFRONT_JS_1_0)
+                .build();
 
             CreateFunctionRequest functionRequest = CreateFunctionRequest.builder()
-                    .name(functionName)
-                    .functionCode(functionCode)
-                    .functionConfig(config)
-                    .build();
+                .name(functionName)
+                .functionCode(functionCode)
+                .functionConfig(config)
+                .build();
 
             CreateFunctionResponse response = cloudFrontClient.createFunction(functionRequest);
             return response.functionSummary().functionMetadata().functionARN();

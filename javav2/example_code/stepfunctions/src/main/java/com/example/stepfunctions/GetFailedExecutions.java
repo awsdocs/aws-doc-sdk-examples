@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetFailedExecutions.java demonstrates how to obtain a list of failed executions for the specified AWS Step Functions state machine.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,10 +33,10 @@ public class GetFailedExecutions {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <stateMachineARN>\n\n" +
-                "Where:\n" +
-                "    stateMachineARN - The ARN of the state machine.\n";
+            "Usage:\n" +
+            "    <stateMachineARN>\n\n" +
+            "Where:\n" +
+            "    stateMachineARN - The ARN of the state machine.\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -49,9 +46,9 @@ public class GetFailedExecutions {
         String stateMachineARN = args[0];
         Region region = Region.US_WEST_2;
         SfnClient sfnClient = SfnClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getFailedExes(sfnClient, stateMachineARN);
         sfnClient.close();
@@ -59,13 +56,11 @@ public class GetFailedExecutions {
 
     // snippet-start:[stepfunctions.java2.get_failed_exes.main]
     public static void getFailedExes(SfnClient sfnClient, String stateMachineARN) {
-
         try {
             ListExecutionsRequest executionsRequest = ListExecutionsRequest.builder()
-                    .maxResults(10)
-                    .stateMachineArn(stateMachineARN)
-                   // .statusFilter(ExecutionStatus.FAILED)
-                    .build();
+                .maxResults(10)
+                .stateMachineArn(stateMachineARN)
+                .build();
 
             ListExecutionsResponse response = sfnClient.listExecutions(executionsRequest);
             List<ExecutionListItem> items = response.executions();

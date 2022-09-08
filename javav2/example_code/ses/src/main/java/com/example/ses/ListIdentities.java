@@ -1,10 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListIdentities.java demonstrates how to obtain a list of identities for your AWS account.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Email Service]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,9 +33,9 @@ public class ListIdentities {
 
         Region region = Region.US_WEST_2;
         SesClient client = SesClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listSESIdentities(client);
     }
@@ -46,17 +43,17 @@ public class ListIdentities {
     // snippet-start:[ses.java2.identities.main]
     public static void listSESIdentities(SesClient client) {
 
-       try {
+        try {
             ListIdentitiesResponse identitiesResponse = client.listIdentities();
             List<String> identities = identitiesResponse.identities();
-
             for (String identity: identities) {
                 System.out.println("The identity is "+identity);
             }
-       } catch (SesException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+
+        } catch (SesException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
     // snippet-end:[ses.java2.identities.main]
 }

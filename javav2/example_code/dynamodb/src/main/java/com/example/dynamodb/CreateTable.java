@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateTable.java demonstrates how to create an Amazon DynamoDB table by using a waiter.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,59 +39,58 @@ public class CreateTable {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <tableName> <key>\n\n" +
-                "Where:\n" +
-                "    tableName - The Amazon DynamoDB table to create (for example, Music3).\n\n" +
-                "    key - The key for the Amazon DynamoDB table (for example, Artist).\n" ;
+            "Usage:\n" +
+            "    <tableName> <key>\n\n" +
+            "Where:\n" +
+            "    tableName - The Amazon DynamoDB table to create (for example, Music3).\n\n" +
+            "    key - The key for the Amazon DynamoDB table (for example, Artist).\n" ;
 
        if (args.length != 2) {
-            System.out.println(usage);
-            System.exit(1);
+           System.out.println(usage);
+           System.exit(1);
        }
 
-        String tableName = args[0];
-        String key = args[1];
-        System.out.println("Creating an Amazon DynamoDB table "+tableName +" with a simple primary key: " +key );
+       String tableName = args[0];
+       String key = args[1];
+       System.out.println("Creating an Amazon DynamoDB table "+tableName +" with a simple primary key: " +key );
 
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-        Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+       ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+       Region region = Region.US_EAST_1;
+       DynamoDbClient ddb = DynamoDbClient.builder()
+           .credentialsProvider(credentialsProvider)
+           .region(region)
+           .build();
 
-        String result = createTable(ddb, tableName, key);
-        System.out.println("New table is "+result);
-        ddb.close();
+       String result = createTable(ddb, tableName, key);
+       System.out.println("New table is "+result);
+       ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.create_table.main]
     public static String createTable(DynamoDbClient ddb, String tableName, String key) {
-
         DynamoDbWaiter dbWaiter = ddb.waiter();
         CreateTableRequest request = CreateTableRequest.builder()
-                .attributeDefinitions(AttributeDefinition.builder()
-                        .attributeName(key)
-                        .attributeType(ScalarAttributeType.S)
-                        .build())
-                .keySchema(KeySchemaElement.builder()
-                        .attributeName(key)
-                        .keyType(KeyType.HASH)
-                        .build())
-                .provisionedThroughput(ProvisionedThroughput.builder()
-                        .readCapacityUnits(new Long(10))
-                        .writeCapacityUnits(new Long(10))
-                        .build())
-                .tableName(tableName)
-                .build();
+            .attributeDefinitions(AttributeDefinition.builder()
+                .attributeName(key)
+                .attributeType(ScalarAttributeType.S)
+                .build())
+            .keySchema(KeySchemaElement.builder()
+                .attributeName(key)
+                .keyType(KeyType.HASH)
+                .build())
+            .provisionedThroughput(ProvisionedThroughput.builder()
+                .readCapacityUnits(new Long(10))
+                .writeCapacityUnits(new Long(10))
+                .build())
+            .tableName(tableName)
+            .build();
 
         String newTable ="";
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                    .tableName(tableName)
-                    .build();
+                .tableName(tableName)
+                .build();
 
             // Wait until the Amazon DynamoDB table is created.
             WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);

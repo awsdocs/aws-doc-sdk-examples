@@ -1,0 +1,36 @@
+lang/cpp:
+  - cpp/**/*
+lang/dotnet-v3:
+  - dotnetv3/**/*
+lang/go-v1:
+  - go/**/*
+lang/go-v2:
+  - gov2/**/*
+lang/java-v1:
+  - java/**/*
+lang/java-v2:
+  - javav2/**/*
+lang/javascript-v2:
+  - javascript/**/*
+lang/javascript-v3:
+  - javascriptv3/**/*
+lang/kotlin:
+  - kotlin/**/*
+lang/php:
+  - php/**/*
+lang/python:
+  - python/**/*
+lang/ruby:
+  - ruby/**/*
+lang/rust:
+  - rust_dev_preview/**/*
+lang/swift:
+  - swift/**/*
+lang/typescript:
+  - typescript/**/*
+tool/cli:
+  - aws-cli/**/*
+tool/cdk:
+  - resources/cdk/**/*
+tool/cloudformation:
+  - cloudformation/**/*

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetPipeline.java demonstrates how to retrieve a specific pipeline.]
 //snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,23 +33,22 @@ public class GetPipeline {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <name> \n\n" +
-                "Where:\n" +
-                "   name - The name of the pipeline to retrieve \n\n" ;
-
+            "Usage: " +
+            "   <name> \n\n" +
+            "Where:\n" +
+            "   name - The name of the pipeline to retrieve \n\n" ;
 
         if (args.length != 1) {
-             System.out.println(usage);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String name = args[0];
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getSpecificPipeline(pipelineClient, name);
         pipelineClient.close();

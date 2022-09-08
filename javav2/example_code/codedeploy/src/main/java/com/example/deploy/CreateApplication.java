@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateApplication.java demonstrates how to create an application.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
+//snippet-keyword:[AWS CodeDeploy]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class CreateApplication {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <appName> \n\n" +
-                "Where:\n" +
-                "    appName - The name of the application. \n";
+            "Usage:\n" +
+            "    <appName> \n\n" +
+            "Where:\n" +
+            "    appName - The name of the application. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class CreateApplication {
         String appName = args[0];
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         createApp(deployClient, appName);
         deployClient.close();
@@ -57,20 +54,20 @@ public class CreateApplication {
 
     // snippet-start:[codedeploy.java2.create_app.main]
     public static void createApp(CodeDeployClient deployClient, String appName) {
-    try {
-        CreateApplicationRequest applicationRequest = CreateApplicationRequest.builder()
+        try {
+            CreateApplicationRequest applicationRequest = CreateApplicationRequest.builder()
                 .applicationName(appName)
                 .computePlatform(ComputePlatform.SERVER)
                 .build();
 
-        CreateApplicationResponse applicationResponse = deployClient.createApplication(applicationRequest);
-        String appId = applicationResponse.applicationId();
-        System.out.println("The application ID is "+appId);
+            CreateApplicationResponse applicationResponse = deployClient.createApplication(applicationRequest);
+            String appId = applicationResponse.applicationId();
+            System.out.println("The application ID is "+appId);
 
-    } catch (CodeDeployException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-    }
-  }
-    // snippet-end:[codedeploy.java2.create_app.main]
+        } catch (CodeDeployException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+   }
+   // snippet-end:[codedeploy.java2.create_app.main]
 }

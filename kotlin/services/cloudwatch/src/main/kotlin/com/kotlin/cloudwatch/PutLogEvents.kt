@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[PutEvents.kt demonstrates how to put a sample CloudWatch event.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2021]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[PutEvents.kt demonstrates how to put a sample CloudWatch event.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon CloudWatch]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -22,7 +18,14 @@ import aws.sdk.kotlin.services.cloudwatchlogs.model.PutLogEventsRequest
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.put_log_events.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
 
@@ -30,47 +33,47 @@ suspend fun main(args:Array<String>) {
         <streamName> <logGroup>
 
     Where:
-        streamName - a stream name.
-        logGroup - a log group name (testgroup).
+        streamName - A stream name.
+        logGroup - A log group name (testgroup).
     """
 
-     if (args.size != 2) {
-         println(usage)
-         exitProcess(0)
-     }
+    if (args.size != 2) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val streamName = args[0]
     val logGroup = args[1]
     putCWLogEvents(logGroup, streamName)
-   }
+}
 
 // snippet-start:[cloudwatch.kotlin.put_log_events.main]
 suspend fun putCWLogEvents(logGroupNameVal: String, streamNameVal: String) {
 
-        lateinit var describeLogStreamsResponse: DescribeLogStreamsResponse
-        val request = DescribeLogStreamsRequest {
-            logGroupName = logGroupNameVal
-            logStreamNamePrefix = streamNameVal
+    lateinit var describeLogStreamsResponse: DescribeLogStreamsResponse
+    val request = DescribeLogStreamsRequest {
+        logGroupName = logGroupNameVal
+        logStreamNamePrefix = streamNameVal
+    }
+
+    CloudWatchLogsClient { region = "us-west-2" }.use { logsClient ->
+        describeLogStreamsResponse = logsClient.describeLogStreams(request)
+        println("Successfully put the CloudWatch log event")
+
+        val sequenceTokenVal = describeLogStreamsResponse.logStreams?.get(0)?.uploadSequenceToken
+        val inputLogEvent = InputLogEvent {
+            message = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
+            timestamp = System.currentTimeMillis()
         }
 
-       CloudWatchLogsClient { region = "us-west-2" }.use { logsClient ->
-            describeLogStreamsResponse =   logsClient.describeLogStreams(request)
-            println("Successfully put the CloudWatch log event")
-
-           val sequenceTokenVal = describeLogStreamsResponse.logStreams?.get(0)?.uploadSequenceToken
-           val inputLogEvent = InputLogEvent {
-              message  = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
-              timestamp =  System.currentTimeMillis()
-           }
-
-           val request2 =  PutLogEventsRequest {
-                logEvents = listOf(inputLogEvent)
-                logGroupName = logGroupNameVal
-                logStreamName = streamNameVal
-                sequenceToken = sequenceTokenVal
-           }
-           logsClient.putLogEvents(request2)
-           println("Successfully put the CloudWatch log event")
-       }
+        val request2 = PutLogEventsRequest {
+            logEvents = listOf(inputLogEvent)
+            logGroupName = logGroupNameVal
+            logStreamName = streamNameVal
+            sequenceToken = sequenceTokenVal
+        }
+        logsClient.putLogEvents(request2)
+        println("Successfully put the CloudWatch log event")
+    }
 }
 // snippet-end:[cloudwatch.kotlin.put_log_events.main]

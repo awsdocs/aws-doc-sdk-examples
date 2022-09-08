@@ -3,6 +3,7 @@
 
 namespace CreateCollectionExample
 {
+    // snippet-start:[Rekognition.dotnetv3.CreateCollectionExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Rekognition;
@@ -15,7 +16,6 @@ namespace CreateCollectionExample
     /// </summary>
     public class CreateCollection
     {
-        // snippet-start:[Rekognition.dotnetv3.CreateCollectionExample]
         public static async Task Main()
         {
             var rekognitionClient = new AmazonRekognitionClient();
@@ -32,7 +32,6 @@ namespace CreateCollectionExample
             Console.WriteLine($"CollectionArn : {createCollectionResponse.CollectionArn}");
             Console.WriteLine($"Status code : {createCollectionResponse.StatusCode}");
         }
-
-        // snippet-end:[Rekognition.dotnetv3.CreateCollectionExample]
     }
+    // snippet-end:[Rekognition.dotnetv3.CreateCollectionExample]
 }

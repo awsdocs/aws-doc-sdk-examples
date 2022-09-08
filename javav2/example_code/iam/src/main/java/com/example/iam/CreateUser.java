@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateUser.java demonstrates how to create an AWS Identity and Access Management (IAM) user by using waiters.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,10 +33,10 @@ public class CreateUser {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <username> \n\n" +
-                "Where:\n" +
-                "    username - The name of the user to create. \n\n" ;
+            "Usage:\n" +
+            "    <username> \n\n" +
+            "Where:\n" +
+            "    username - The name of the user to create. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -49,9 +46,9 @@ public class CreateUser {
         String username = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String result = createIAMUser(iam, username) ;
         System.out.println("Successfully created user: " +result);
@@ -66,15 +63,15 @@ public class CreateUser {
             IamWaiter iamWaiter = iam.waiter();
 
             CreateUserRequest request = CreateUserRequest.builder()
-                    .userName(username)
-                    .build();
+                .userName(username)
+                .build();
 
             CreateUserResponse response = iam.createUser(request);
 
             // Wait until the user is created
             GetUserRequest userRequest = GetUserRequest.builder()
-                    .userName(response.user().userName())
-                    .build();
+                .userName(response.user().userName())
+                .build();
 
             WaiterResponse<GetUserResponse> waitUntilUserExists = iamWaiter.waitUntilUserExists(userRequest);
             waitUntilUserExists.matched().response().ifPresent(System.out::println);

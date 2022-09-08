@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SetAcl.java demonstrates how to set a new access control list (ACL) to an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,7 +11,6 @@ package com.example.s3;
 // snippet-start:[s3.java2.set_acl.import]
 import java.util.ArrayList;
 import java.util.List;
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.model.Permission;
 import software.amazon.awssdk.services.s3.model.Grant;
@@ -37,14 +33,14 @@ public class SetAcl {
 
     public static void main(String[] args) {
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <bucketName> <id> \n\n" +
-                "Where:\n" +
-                 "  bucketName - The Amazon S3 bucket to grant permissions on. \n" +
-                 "  id - The ID of the owner of this bucket (you can get this value from the AWS Management Console).\n" ;
+            "Usage:\n" +
+            "  <bucketName> <id> \n\n" +
+            "Where:\n" +
+            "  bucketName - The Amazon S3 bucket to grant permissions on. \n" +
+            "  id - The ID of the owner of this bucket (you can get this value from the AWS Management Console).\n" ;
 
         if (args.length != 2) {
-             System.out.println(usage);
+            System.out.println(usage);
             System.exit(1);
         }
 
@@ -56,9 +52,9 @@ public class SetAcl {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         setBucketAcl(s3, bucketName, id);
         System.out.println("Done!");
@@ -68,12 +64,10 @@ public class SetAcl {
     // snippet-start:[s3.java2.set_acl.main]
     public static void setBucketAcl(S3Client s3, String bucketName, String id) {
 
-       try {
-             Grant ownerGrant = Grant.builder()
-                    .grantee(builder -> {
-                        builder.id(id)
-                                .type(Type.CANONICAL_USER);
-                    })
+        try {
+            Grant ownerGrant = Grant.builder()
+                .grantee(builder -> builder.id(id)
+                .type(Type.CANONICAL_USER))
                     .permission(Permission.FULL_CONTROL)
                     .build();
 
@@ -81,14 +75,14 @@ public class SetAcl {
             grantList2.add(ownerGrant);
 
             AccessControlPolicy acl = AccessControlPolicy.builder()
-                    .owner(builder -> builder.id(id))
-                    .grants(grantList2)
-                    .build();
+                .owner(builder -> builder.id(id))
+                .grants(grantList2)
+                .build();
 
             PutBucketAclRequest putAclReq = PutBucketAclRequest.builder()
-                    .bucket(bucketName)
-                    .accessControlPolicy(acl)
-                    .build();
+                .bucket(bucketName)
+                .accessControlPolicy(acl)
+                .build();
 
             s3.putBucketAcl(putAclReq);
 

@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteDataSource.kt demonstrates how to delete an Amazon Kendra data source.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Kendra]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[DeleteDataSource.kt demonstrates how to delete an Amazon Kendra data source.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[Amazon Kendra]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,7 +38,7 @@ suspend fun main(args: Array<String>) {
     if (args.size != 2) {
         println(usage)
         exitProcess(1)
-     }
+    }
 
     val dataSourceId = args[0]
     val indexId = args[1]
@@ -52,14 +48,14 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[kendra.kotlin.delete.datasource.main]
 suspend fun deleteSpecificDataSource(indexIdVal: String?, dataSourceId: String) {
 
-        val dataSourceRequest = DeleteDataSourceRequest {
-            id = dataSourceId
-            indexId = indexIdVal
-        }
+    val dataSourceRequest = DeleteDataSourceRequest {
+        id = dataSourceId
+        indexId = indexIdVal
+    }
 
-        KendraClient { region = "us-east-1" }.use { kendra ->
-            kendra.deleteDataSource(dataSourceRequest)
-            println("$dataSourceId was successfully deleted.")
-        }
+    KendraClient { region = "us-east-1" }.use { kendra ->
+        kendra.deleteDataSource(dataSourceRequest)
+        println("$dataSourceId was successfully deleted.")
+    }
 }
 // snippet-end:[kendra.kotlin.delete.datasource.main]

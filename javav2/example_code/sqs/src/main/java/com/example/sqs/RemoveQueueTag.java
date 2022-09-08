@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[RemoveQueueTag.java demonstrates how to remove a tag from an Amazon Simple Queue Service (Amazon SQS) queue.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class RemoveQueueTag {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <queueName> <tagName>\n\n" +
-                "Where:\n" +
-                "   queueName - The name of the queue to which tags are applied.\n\n"+
-                "   tagName - The name of the tag to remove." ;
+            "Usage: " +
+            "   <queueName> <tagName>\n\n" +
+            "Where:\n" +
+            "   queueName - The name of the queue to which tags are applied.\n\n"+
+            "   tagName - The name of the tag to remove." ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class RemoveQueueTag {
         String queueName = args[0];
         String tagName = args[1];
         SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         removeTag(sqsClient, queueName, tagName);
         sqsClient.close();
@@ -59,17 +56,17 @@ public class RemoveQueueTag {
     public static void removeTag(SqsClient sqsClient, String queueName, String tagName) {
 
         try {
-            GetQueueUrlRequest urlRequest =  GetQueueUrlRequest.builder()
-                    .queueName(queueName)
-                    .build();
+            GetQueueUrlRequest urlRequest = GetQueueUrlRequest.builder()
+                .queueName(queueName)
+                .build();
 
             GetQueueUrlResponse getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest);
             String queueUrl = getQueueUrlResponse.queueUrl();
 
             UntagQueueRequest untagQueueRequest = UntagQueueRequest.builder()
-                    .queueUrl(queueUrl)
-                    .tagKeys(tagName)
-                    .build();
+                .queueUrl(queueUrl)
+                .tagKeys(tagName)
+                .build();
 
             sqsClient.untagQueue(untagQueueRequest);
             System.out.println("The "+tagName +" tag was removed from  "+queueName);

@@ -10,6 +10,7 @@
 #include <aws/s3/model/PutBucketPolicyRequest.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
 #include <awsdoc/s3/s3_examples.h>
+#include "test_utils.h"
 
 int main()
 {
@@ -46,6 +47,12 @@ int main()
             return 1;
         }
 
+        Aws::String user_arn = AwsTest::TestUtils::getArnForUser(config);
+        if (user_arn.empty())
+        {
+            return 1;
+        }
+
         // 2/4. Create the bucket policy, and then add the bucket policy 
         // to the bucket.
         Aws::String policy_string =
@@ -55,7 +62,9 @@ int main()
             "   {\n"
             "     \"Sid\": \"1\",\n"
             "     \"Effect\": \"Allow\",\n"
-            "     \"Principal\": {\"AWS\":\"*\"},\n"
+            "     \"Principal\": {\n"
+            "          \"AWS\": \"" + user_arn + "\"\n"
+            "     },\n"
             "     \"Action\": [\"s3:GetObject\"],\n"
             "     \"Resource\": [\"arn:aws:s3:::" + bucket_name + "/*\"]\n"
             "   }]\n"
@@ -77,16 +86,16 @@ int main()
         {
             auto err = create_outcome.GetError();
             std::cout << "Error: DeleteBucketPolicy test setup: Add bucket policy '" <<
-                policy_string << "' to bucket '" << bucket_name << "': " << 
+                policy_string << "' to bucket '" << bucket_name << "': " <<
                 err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-            std::cout << "To clean up, you must delete the bucket '" << 
+            std::cout << "To clean up, you must delete the bucket '" <<
                 bucket_name << "' yourself. " << std::endl;
 
             return 1;
         }
 
         // 3/4. Delete the bucket policy from the bucket.
-        if (!AwsDoc::S3::DeleteBucketPolicy(bucket_name))
+        if (!AwsDoc::S3::DeleteBucketPolicy(bucket_name, config.region))
         {
             std::cout << "Error: DeleteBucketPolicy test: Delete bucket policy '" <<
                 "' from bucket '" << bucket_name << "'. To clean up, you must delete " << 

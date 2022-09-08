@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[RotateImage.java demonstrates how to to get the estimated orientation of an image and to translate bounding box coordinates.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -41,10 +38,10 @@ public class RotateImage {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <sourceImage>\n\n" +
-                "Where:\n" +
-                "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+            "Usage: " +
+            "   <sourceImage>\n\n" +
+            "Where:\n" +
+            "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
        if (args.length != 1) {
             System.out.println(usage);
@@ -54,9 +51,9 @@ public class RotateImage {
         String sourceImage = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Locating celebrities in " + sourceImage);
         recognizeAllCelebrities(rekClient, sourceImage);
@@ -76,18 +73,16 @@ public class RotateImage {
             int width = image.getWidth();
 
             Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .bytes(sourceBytes)
+                .build();
 
             RecognizeCelebritiesRequest request = RecognizeCelebritiesRequest.builder()
-                    .image(souImage)
-                    .build();
+                .image(souImage)
+                .build();
 
             RecognizeCelebritiesResponse result = rekClient.recognizeCelebrities(request) ;
-
             List<Celebrity> celebs=result.celebrityFaces();
             System.out.println(celebs.size() + " celebrity(s) were recognized.\n");
-
             for (Celebrity celebrity: celebs) {
                 System.out.println("Celebrity recognized: " + celebrity.name());
                 System.out.println("Celebrity ID: " + celebrity.id());
@@ -110,11 +105,11 @@ public class RotateImage {
 
         float left;
         float top;
-
-        if(rotation==null){
+        if (rotation==null){
             System.out.println("No estimated estimated orientation.");
             return;
         }
+
         // Calculate face position based on the image orientation
         switch (rotation) {
             case "ROTATE_0":
@@ -143,6 +138,5 @@ public class RotateImage {
         System.out.println("Face Width: " + (int) (imageWidth * box.width()));
         System.out.println("Face Height: " + (int) (imageHeight * box.height()));
     }
-
     // snippet-end:[rekognition.java2.recognize_image_orientation.main]
 }

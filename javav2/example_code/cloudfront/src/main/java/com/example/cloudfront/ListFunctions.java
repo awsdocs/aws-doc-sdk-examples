@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListFunctions.java demonstrates how to list CloudFront functions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2021]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -36,9 +33,9 @@ public class ListFunctions {
     public static void main(String[] args) {
 
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-                .region(Region.AWS_GLOBAL)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.AWS_GLOBAL)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllFunctions(cloudFrontClient);
         cloudFrontClient.close();
@@ -47,7 +44,7 @@ public class ListFunctions {
     // snippet-start:[cloudfront.java2.list.main]
     public static void listAllFunctions( CloudFrontClient cloudFrontClient) {
 
-       try {
+        try {
             ListFunctionsRequest functionsRequest = ListFunctionsRequest.builder()
                 .stage(FunctionStage.DEVELOPMENT)
                 .maxItems("10")

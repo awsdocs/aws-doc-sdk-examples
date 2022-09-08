@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetId.java demonstrates how to retrieve the client ID from an identity provider.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,12 +30,12 @@ public class GetId {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <identityPoolId>\n\n" +
-                "Where:\n" +
-                "    identityPoolId - The GUID value of your identity pool.\n\n" +
-                "Example:\n" +
-                "    GetId us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx\n";
+            "Usage:\n" +
+            "    <identityPoolId>\n\n" +
+            "Where:\n" +
+            "    identityPoolId - The GUID value of your identity pool.\n\n" +
+            "Example:\n" +
+            "    GetId us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class GetId {
 
         String identityPoolId = args[0];
         CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getClientID(cognitoClient, identityPoolId);
         cognitoClient.close();
@@ -58,10 +55,9 @@ public class GetId {
     //snippet-start:[cognito.java2.GetID.main]
     public static void getClientID(CognitoIdentityClient cognitoClient, String identityPoolId){
         try {
-
             GetIdRequest request = GetIdRequest.builder()
-                    .identityPoolId(identityPoolId)
-                    .build();
+                .identityPoolId(identityPoolId)
+                .build();
 
             GetIdResponse response = cognitoClient.getId(request);
             System.out.println("Identity ID " + response.identityId());

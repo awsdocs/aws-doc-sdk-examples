@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteVault.java demonstrates how to delete an Amazon Glacier vault.]
-///snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon Glacier]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,10 +28,10 @@ public class DeleteVault {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <vaultName>\n\n" +
-                "Where:\n" +
-                "   vaultName - The name of the vault to delete. \n\n";
+            "Usage: " +
+            "   <vaultName>\n\n" +
+            "Where:\n" +
+            "   vaultName - The name of the vault to delete. \n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,9 +40,9 @@ public class DeleteVault {
 
         String vaultName = args[0];
         GlacierClient glacier = GlacierClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteGlacierVault(glacier, vaultName);
         glacier.close();
@@ -56,8 +53,8 @@ public class DeleteVault {
 
         try {
             DeleteVaultRequest delVaultRequest = DeleteVaultRequest.builder()
-                    .vaultName(vaultName)
-                    .build();
+                .vaultName(vaultName)
+                .build();
 
             glacier.deleteVault(delVaultRequest);
             System.out.println("The vault was deleted!");
@@ -65,7 +62,6 @@ public class DeleteVault {
         } catch(GlacierException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
-
         }
     }
     // snippet-end:[glacier.java2.delete.main]

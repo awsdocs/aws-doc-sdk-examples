@@ -3,6 +3,7 @@
 
 namespace SNSMessageExample
 {
+    // snippet-start:[SNS.dotnetv3.SendTextMessage]
     using System;
     using System.Threading.Tasks;
     using Amazon;
@@ -13,8 +14,6 @@ namespace SNSMessageExample
     /// </summary>
     public class SNSMessageExample
     {
-        // snippet-start:[SNS.dotnetv3.SendTextMessage]
-
         // Change the endpoint to match your own AWS Region. This is only an example endpoint.
         private static readonly RegionEndpoint RegionEndpoint = RegionEndpoint.USWest2;
 
@@ -28,7 +27,6 @@ namespace SNSMessageExample
             Console.Write($"Sending: \"{message}\" to {phoneNumber}.");
             await snsMessage.SendTextMessageAsync(phoneNumber, message);
         }
-
-        // snippet-end:[SNS.dotnetv3.SendTextMessage]
     }
+    // snippet-end:[SNS.dotnetv3.SendTextMessage]
 }

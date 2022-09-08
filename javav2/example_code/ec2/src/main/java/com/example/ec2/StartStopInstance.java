@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[StartStopInstance.java demonstrates how to start and stop an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,10 +27,10 @@ public class StartStopInstance {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "   <instanceId>\n\n" +
-                "Where:\n" +
-                "   instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
+            "Usage:\n" +
+            "   <instanceId>\n\n" +
+            "Where:\n" +
+            "   instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class StartStopInstance {
 
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         if(args[1].equals("start")) {
             start = true;
@@ -67,8 +64,8 @@ public class StartStopInstance {
     public static void startInstance(Ec2Client ec2, String instanceId) {
 
         StartInstancesRequest request = StartInstancesRequest.builder()
-                .instanceIds(instanceId)
-                .build();
+            .instanceIds(instanceId)
+            .build();
 
         ec2.startInstances(request);
         System.out.printf("Successfully started instance %s", instanceId);
@@ -79,8 +76,8 @@ public class StartStopInstance {
     public static void stopInstance(Ec2Client ec2, String instanceId) {
 
         StopInstancesRequest request = StopInstancesRequest.builder()
-                .instanceIds(instanceId)
-                .build();
+            .instanceIds(instanceId)
+            .build();
 
         ec2.stopInstances(request);
         System.out.printf("Successfully stopped instance %s", instanceId);

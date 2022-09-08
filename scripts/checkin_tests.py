@@ -125,7 +125,10 @@ ALLOW_LIST = {
     'ses/commands/VerifyDomainIdentityCommand',
     'com/amazondynamodb/latest/developerguide',
     'DynamodbRubyExampleCreateUsersTableStack',
-    'com/rekognition/latest/dg/considerations'
+    'com/rekognition/latest/dg/considerations',
+    'ListTagsForVaultExample/ListTagsForVault',
+    'TerminateInstanceInAutoScalingGroupAsync',
+    'GetIdentityVerificationAttributesRequest'
 }
 
 def check_files(root, quiet):

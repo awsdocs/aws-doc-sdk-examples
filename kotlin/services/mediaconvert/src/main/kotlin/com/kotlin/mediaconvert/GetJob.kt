@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[GetJob.kt demonstrates how to get information about a specific AWS Elemental MediaConvert job.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[AWS Elemental MediaConvert]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[smacdon - AWS ]
+// snippet-sourcedescription:[GetJob.kt demonstrates how to get information about a specific AWS Elemental MediaConvert job.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[AWS Elemental MediaConvert]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,21 +10,26 @@
 package com.kotlin.mediaconvert
 
 // snippet-start:[mediaconvert.kotlin.get_job.import]
-import aws.sdk.kotlin.runtime.endpoint.*
+import aws.sdk.kotlin.runtime.endpoint.AwsEndpoint
+import aws.sdk.kotlin.runtime.endpoint.AwsEndpointResolver
+import aws.sdk.kotlin.runtime.endpoint.CredentialScope
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
-import aws.sdk.kotlin.services.mediaconvert.model.*
+import aws.sdk.kotlin.services.mediaconvert.model.DescribeEndpointsRequest
+import aws.sdk.kotlin.services.mediaconvert.model.GetJobRequest
+import aws.sdk.kotlin.services.mediaconvert.model.GetJobResponse
+import aws.sdk.kotlin.services.mediaconvert.model.MediaConvertException
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.get_job.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
         GetJob <jobId> 
@@ -44,7 +45,7 @@ suspend fun main(args:Array<String>) {
     }
 
     val jobId = args[0]
-    val mcClient = MediaConvertClient{region="us-west-2"}
+    val mcClient = MediaConvertClient { region = "us-west-2" }
     getSpecificJob(mcClient, jobId)
 }
 
@@ -77,7 +78,6 @@ suspend fun getSpecificJob(mcClient: MediaConvertClient, jobId: String?) {
 
         val response: GetJobResponse = mediaConvertClient.getJob(jobRequest)
         System.out.println("The ARN of the job is ${response.job?.arn}.")
-
     } catch (ex: MediaConvertException) {
         println(ex.message)
         mcClient.close()

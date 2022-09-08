@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeTemplate.java demonstrates how to obtain information about a template.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,23 +30,23 @@ public class DescribeTemplate {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "  <account> <templateId>\n\n" +
-                "Where:\n" +
-                "  account - The ID of the AWS account.\n\n" +
-                "  templateId - The ID of the Amazon QuickSight template to describe.\n\n";
+            "Usage: " +
+            "  <account> <templateId>\n\n" +
+            "Where:\n" +
+            "  account - The ID of the AWS account.\n\n" +
+            "  templateId - The ID of the Amazon QuickSight template to describe.\n\n";
 
-         if (args.length != 2) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String account = args[0];
         String templateId = args[1];
         QuickSightClient qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         describeSpecificTemplate(qsClient, account, templateId);
         qsClient.close();
@@ -60,9 +57,9 @@ public class DescribeTemplate {
 
         try {
             DescribeTemplateRequest temRequest = DescribeTemplateRequest.builder()
-                    .awsAccountId(account)
-                    .templateId(templateId)
-                    .build();
+                .awsAccountId(account)
+                .templateId(templateId)
+                .build();
 
             DescribeTemplateResponse templateResponse = qsClient.describeTemplate(temRequest);
             System.out.println("The template ARN is " +templateResponse.template().arn());
@@ -70,7 +67,7 @@ public class DescribeTemplate {
         } catch (QuickSightException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
-       }
+        }
     }
     // snippet-end:[quicksight.java2.describe_template.main]
 }

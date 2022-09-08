@@ -5,6 +5,15 @@ ses_SendEmail:
   synopsis: send email with &SES;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.SendEmailAsync
     Java:
       versions:
         - sdk_version: 2
@@ -33,6 +42,24 @@ ses_SendTemplatedEmail:
   synopsis: send templated email with &SES;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.SendTemplateEmailAsync
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.sendmessage.template.sesv2.main
     Python:
       versions:
         - sdk_version: 3
@@ -69,6 +96,15 @@ ses_VerifyEmailIdentity:
   synopsis: verify an email identity with &SES;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.VerifyEmailIdentityAsync
     Python:
       versions:
         - sdk_version: 3
@@ -87,6 +123,15 @@ ses_GetIdentityVerificationAttributes:
   synopsis: get the status of an &SES; identity.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.GetIdentityStatusAsync
     Python:
       versions:
         - sdk_version: 3
@@ -105,6 +150,15 @@ ses_DeleteIdentity:
   synopsis: delete an &SES; identity.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.DeleteIdentityAsync
     Python:
       versions:
         - sdk_version: 3
@@ -123,6 +177,15 @@ ses_ListIdentities:
   synopsis: list &SES; identities.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.ListIdentitiesAsync
     Java:
       versions:
         - sdk_version: 2
@@ -132,6 +195,15 @@ ses_ListIdentities:
             - description:
               snippet_tags:
                 - ses.java2.identities.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.identities.listIdentitiesV3
     Python:
       versions:
         - sdk_version: 3
@@ -299,6 +371,15 @@ ses_CreateTemplate:
   synopsis: create an &SES; email template.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.CreateEmailTemplateAsync
     Python:
       versions:
         - sdk_version: 3
@@ -317,6 +398,15 @@ ses_DeleteTemplate:
   synopsis: delete an &SES; email template.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.DeleteEmailTemplateAsync
     Python:
       versions:
         - sdk_version: 3
@@ -353,6 +443,24 @@ ses_ListTemplates:
   synopsis: list &SES; email templates.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.ListEmailTemplatesAsync
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.list.templates.sesv2.main
     Python:
       versions:
         - sdk_version: 3
@@ -383,6 +491,23 @@ ses_UpdateTemplate:
                 - python.example_code.ses.UpdateTemplate
   services:
     ses: {UpdateTemplate}
+ses_GetSendQuota:
+  title: Get &SES; sending limits using an &AWS; SDK
+  title_abbrev: Get sending limits
+  synopsis: get &SES; sending limits.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.GetSendQuotaAsync
+  services:
+    ses: {GetSendQuota}
 ses_Scenario_GenerateSmtpCredentials:
   title: Generate credentials to connect to an &SES; SMTP endpoint
   title_abbrev: Generate credentials to connect to an SMTP endpoint
@@ -403,7 +528,11 @@ ses_Scenario_GenerateSmtpCredentials:
 ses_Scenario_SendEmail:
   title: Verify an email identity and send messages with &SES;  using an &AWS; SDK
   title_abbrev: Verify an email identity and send messages
-  synopsis: verify an email identity and send messages with &SES;.
+  synopsis_list:
+    - Add and verify an email address with &SES;.
+    - Send a standard email message.
+    - Create a template and send a templated email message.
+    - Send a message by using an &SES; SMTP server.
   category: Scenarios
   languages:
     Python:
@@ -412,50 +541,36 @@ ses_Scenario_SendEmail:
           github: python/example_code/ses
           sdkguide:
           excerpts:
-            - description: Call functions from the API examples section to verify
-                an email address with &SES;. After the email is verified, show how to
-                send standard messages, templated messages, and messages through an
-                &SES; SMTP server.
+            - description: Create functions to wrap &SES; identity actions.
+              snippet_tags:
+                - python.example_code.ses.SesIdentity
+                - python.example_code.ses.VerifyDomainIdentity
+                - python.example_code.ses.VerifyEmailIdentity
+                - python.example_code.ses.helper.wait_until_identity_exists
+                - python.example_code.ses.GetIdentityVerificationAttributes
+                - python.example_code.ses.DeleteIdentity
+                - python.example_code.ses.ListIdentities
+            - description: Create functions to wrap &SES; template actions.
+              snippet_tags:
+                - python.example_code.ses.SesTemplate
+                - python.example_code.ses.CreateTemplate
+                - python.example_code.ses.DeleteTemplate
+                - python.example_code.ses.GetTemplate
+                - python.example_code.ses.ListTemplates
+                - python.example_code.ses.UpdateTemplate
+            - description: Create functions to wrap &SES; email actions.
+              snippet_tags:
+                - python.example_code.ses.SesDestination
+                - python.example_code.ses.SesMailSender
+                - python.example_code.ses.SendEmail
+                - python.example_code.ses.SendTemplatedEmail
+            - description: Verify an email address with &SES; and send messages.
               snippet_tags:
                 - python.example_code.ses.Scenario_SendEmail
   services:
-    ses: {}
-ses_Scenario_EmailIdentity:
-  title: Verify and manage &SES; identities using an &AWS; SDK
-  title_abbrev: Verify and manage identities
-  synopsis: verify and manage &SES; identities.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.Scenario_EmailIdentity
-  services:
-    ses: {}
-ses_Scenario_ReceiptRulesFilters:
-  title: Create and manage rules and filters for &SES;  using an &AWS; SDK
-  title_abbrev: Create and manage rules and filters
-  synopsis: create and manage rules and filters for &SES; that affect how incoming
-    emails are handled.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description: Use functions from the API examples section to create
-                and manage rules and filters.
-              snippet_tags:
-                - python.example_code.ses.Scenario_ReceiptRulesFilters
-  services:
-    ses: {}
+    ses: {VerifyDomainIdentity, VerifyEmailIdentity, GetIdentityVerificationAttributes, DeleteIdentity,
+          ListIdentities, CreateTemplate, DeleteTemplate, GetTemplate, ListTemplates, UpdateTemplate,
+          SendEmail, SendTemplatedEmail}
 ses_Scenario_ReplicateIdentities:
   title: Copy &SES; email and domain identities from one &AWS; Region to another using an &AWS; SDK
   title_abbrev: Copy email and domain identities from one &AWS; Region to another
@@ -474,22 +589,4 @@ ses_Scenario_ReplicateIdentities:
               snippet_tags:
                 - ses.python.ses_replicateidentities.complete
   services:
-    ses: {}
-ses_Scenario_Templates:
-  title: Create and manage &SES; templates using an &AWS; SDK
-  title_abbrev: Create and manage templates
-  synopsis: create and manage &SES; templates.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description: Call functions from the API examples section to create and
-                manage email templates.
-              snippet_tags:
-                - python.example_code.ses.Scenario_Templates
-  services:
-    ses: {}
+    ses: {VerifyDomainIdentity, VerifyEmailIdentity, VerifyDomainDkim, ListIdentities, SetIdentityNotificationTopic}

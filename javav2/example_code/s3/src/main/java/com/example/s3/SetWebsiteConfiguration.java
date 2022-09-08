@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SetWebsiteConfiguration.java demonstrates how to set the website configuration for an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,12 +31,12 @@ public class SetWebsiteConfiguration {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <bucketName> [indexdoc] \n\n" +
-                "Where:\n" +
-                "   bucketName   - The Amazon S3 bucket to set the website configuration on. \n" +
-                "   indexdoc - The index document, ex. 'index.html'\n" +
-                "              If not specified, 'index.html' will be set.\n" ;
+            "Usage: " +
+            "   <bucketName> [indexdoc] \n\n" +
+            "Where:\n" +
+            "   bucketName   - The Amazon S3 bucket to set the website configuration on. \n" +
+            "   indexdoc - The index document, ex. 'index.html'\n" +
+            "              If not specified, 'index.html' will be set.\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -51,18 +48,16 @@ public class SetWebsiteConfiguration {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
 
         setWebsiteConfig(s3, bucketName,indexDoc);
         s3.close();
     }
 
     // snippet-start:[s3.java2.set_website_configuration.main]
-    public static void setWebsiteConfig( S3Client s3,
-                                         String bucketName,
-                                         String indexDoc) {
+    public static void setWebsiteConfig( S3Client s3, String bucketName, String indexDoc) {
 
         try {
             WebsiteConfiguration websiteConfig = WebsiteConfiguration.builder()

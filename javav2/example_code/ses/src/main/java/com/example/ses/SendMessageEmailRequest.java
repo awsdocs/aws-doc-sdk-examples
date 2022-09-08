@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[SendMessage.java demonstrates how to send an email message by using the Amazon Simple Email Service (Amazon SES) and a SendEmailRequest object.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Email Service]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -18,9 +15,13 @@ package com.example.ses;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
-import software.amazon.awssdk.services.ses.model.*;
+import software.amazon.awssdk.services.ses.model.Content;
+import software.amazon.awssdk.services.ses.model.Destination;
 import software.amazon.awssdk.services.ses.model.Message;
 import software.amazon.awssdk.services.ses.model.Body;
+import software.amazon.awssdk.services.ses.model.SendEmailRequest;
+import software.amazon.awssdk.services.ses.model.SesException;
+
 import javax.mail.MessagingException;
 // snippet-end:[ses.java2.sendmessage.request.import]
 
@@ -36,17 +37,17 @@ public class SendMessageEmailRequest {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <sender> <recipient> <subject> \n\n" +
-                "Where:\n" +
-                "    sender - An email address that represents the sender. \n"+
-                "    recipient -  An email address that represents the recipient. \n"+
-                "    subject - The  subject line. \n" ;
+            "Usage:\n" +
+            "    <sender> <recipient> <subject> \n\n" +
+            "Where:\n" +
+            "    sender - An email address that represents the sender. \n"+
+            "    recipient -  An email address that represents the recipient. \n"+
+            "    subject - The  subject line. \n" ;
 
-          if (args.length != 3) {
+        if (args.length != 3) {
             System.out.println(usage);
-             System.exit(1);
-           }
+            System.exit(1);
+        }
 
         String sender = args[0];
         String recipient = args[1];
@@ -54,9 +55,9 @@ public class SendMessageEmailRequest {
 
         Region region = Region.US_EAST_1;
         SesClient client = SesClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         // The HTML body of the email.
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
@@ -81,31 +82,31 @@ public class SendMessageEmailRequest {
     ) throws MessagingException {
 
         Destination destination = Destination.builder()
-                .toAddresses(recipient)
-                .build();
+            .toAddresses(recipient)
+            .build();
 
         Content content = Content.builder()
-                .data(bodyHTML)
-                .build();
+            .data(bodyHTML)
+            .build();
 
         Content sub = Content.builder()
-                .data(subject)
-                .build();
+            .data(subject)
+            .build();
 
         Body body = Body.builder()
-                .html(content)
-                .build();
+            .html(content)
+            .build();
 
         Message msg = Message.builder()
-                .subject(sub)
-                .body(body)
-                .build();
+            .subject(sub)
+            .body(body)
+            .build();
 
         SendEmailRequest emailRequest = SendEmailRequest.builder()
-                .destination(destination)
-                .message(msg)
-                .source(sender)
-                .build();
+            .destination(destination)
+            .message(msg)
+            .source(sender)
+            .build();
 
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");

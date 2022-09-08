@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteDomain.java demonstrates how to delete an Amazon OpenSearch Service domain.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon OpenSearch Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,22 +29,22 @@ public class DeleteDomain {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <domainName>\n\n" +
-                "Where:\n" +
-                "    domainName - The name of the domain to delete.\n\n" ;
+            "Usage:\n" +
+            "    <domainName>\n\n" +
+            "Where:\n" +
+            "    domainName - The name of the domain to delete.\n\n" ;
 
         if (args.length != 1) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String domainName = args[0];
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSpecificDomain(searchClient, domainName);
         System.out.println("Done");
@@ -58,8 +55,8 @@ public class DeleteDomain {
 
         try {
             DeleteDomainRequest domainRequest = DeleteDomainRequest.builder()
-                    .domainName(domainName)
-                    .build();
+                .domainName(domainName)
+                .build();
 
             searchClient.deleteDomain(domainRequest);
             System.out.println(domainName +" was successfully deleted.");

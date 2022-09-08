@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[EnhancedModifyItem.java demonstrates how to modify an item located in an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,10 +37,10 @@ public class EnhancedModifyItem {
 
     public static void main(String[] args) {
         String usage = "Usage:\n" +
-                "    <key> <email> \n\n" +
-                "Where:\n" +
-                "    key - the name of the key in the table (id120).\n" +
-                "    email - the value of the modified email column.\n" ;
+            "    <key> <email> \n\n" +
+            "Where:\n" +
+            "    key - the name of the key in the table (id120).\n" +
+            "    email - the value of the modified email column.\n" ;
 
        if (args.length != 2) {
             System.out.println(usage);
@@ -55,13 +52,13 @@ public class EnhancedModifyItem {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(region)
-                .build();
+            .credentialsProvider(credentialsProvider)
+            .region(region)
+            .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+            .dynamoDbClient(ddb)
+            .build();
 
         String updatedValue = modifyItem(enhancedClient,key,email);
         System.out.println("The updated name value is "+updatedValue);
@@ -75,8 +72,8 @@ public class EnhancedModifyItem {
 
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
-                    .partitionValue(keyVal)
-                    .build();
+                .partitionValue(keyVal)
+                .build();
 
             // Get the item by using the key and update the email value.
             Customer customerRec = mappedTable.getItem(r->r.key(key));

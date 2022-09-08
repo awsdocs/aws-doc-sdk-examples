@@ -1,9 +1,7 @@
 // snippet-sourcedescription:[DetectPPE.java demonstrates how to detect Personal Protective Equipment (PPE) worn by people detected in an image.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -67,9 +65,9 @@ public class DetectPPE {
             .build();
 
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         displayGear(s3, rekClient, sourceImage, bucketName) ;
         s3.close();
@@ -88,23 +86,22 @@ public class DetectPPE {
 
         try {
             ProtectiveEquipmentSummarizationAttributes summarizationAttributes = ProtectiveEquipmentSummarizationAttributes.builder()
-                    .minConfidence(80F)
-                    .requiredEquipmentTypesWithStrings("FACE_COVER", "HAND_COVER", "HEAD_COVER")
-                    .build();
+                .minConfidence(80F)
+                .requiredEquipmentTypesWithStrings("FACE_COVER", "HAND_COVER", "HEAD_COVER")
+                .build();
 
             SdkBytes sourceBytes = SdkBytes.fromInputStream(is);
             software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .bytes(sourceBytes)
+                .build();
 
             DetectProtectiveEquipmentRequest request = DetectProtectiveEquipmentRequest.builder()
-                    .image(souImage)
-                    .summarizationAttributes(summarizationAttributes)
-                    .build();
+                .image(souImage)
+                .summarizationAttributes(summarizationAttributes)
+                .build();
 
             DetectProtectiveEquipmentResponse result = rekClient.detectProtectiveEquipment(request);
             List<ProtectiveEquipmentPerson> persons = result.persons();
-
             for (ProtectiveEquipmentPerson person: persons) {
                 System.out.println("ID: " + person.id());
                 List<ProtectiveEquipmentBodyPart> bodyParts=person.bodyParts();
@@ -151,10 +148,10 @@ public class DetectPPE {
 
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+                .builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();

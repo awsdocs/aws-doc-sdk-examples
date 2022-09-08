@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListAlgorithms.java demonstrates how to list algorithms.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,9 +31,9 @@ public class ListAlgorithms {
 
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAlgs(sageMakerClient);
         sageMakerClient.close();
@@ -48,7 +45,6 @@ public class ListAlgorithms {
         try {
             ListAlgorithmsResponse algorithmsResponse = sageMakerClient.listAlgorithms();
             List<AlgorithmSummary> items = algorithmsResponse.algorithmSummaryList();
-
             for (AlgorithmSummary item : items) {
                 System.out.println("Algorithm name is: " + item.algorithmName());
             }

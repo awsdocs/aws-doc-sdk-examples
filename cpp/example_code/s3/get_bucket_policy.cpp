@@ -16,6 +16,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetBucketPolicyRequest.h>
+#include "awsdoc/s3/s3_examples.h"
 // snippet-end:[s3.cpp.get_bucket_policy.inc]
 
 /* 
@@ -31,7 +32,7 @@
 */
 
 // snippet-start:[s3.cpp.get_bucket_policy.code]
-bool GetBucketPolicy(const Aws::String& bucketName, 
+bool AwsDoc::S3::GetBucketPolicy(const Aws::String& bucketName,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -78,7 +79,7 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (!GetBucketPolicy(bucket_name, region))
+        if (!AwsDoc::S3::GetBucketPolicy(bucket_name, region))
         {
             return 1;
         }
