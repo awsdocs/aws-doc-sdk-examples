@@ -51,7 +51,7 @@ To complete the tutorial, you need the following:
 + Be sure to set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
 see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
-### Creating the resources
+### Create the resources
 
 You can use one of the following ways to create the required AWS resources:
 
@@ -288,7 +288,7 @@ class MessageResource {
 
 ### RetrieveItems class
 
-The following Kotlin code represents the **RetrieveItems** class that retrieves data from the **Work** table. Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to retrieve data from the **Work** table.
+The following Kotlin code represents the **RetrieveItems** class that retrieves data from the **Work** table. Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the *Create the resources* section). You must have both of these values for your code to work. To use the **RDSDataClient**, create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to retrieve data from the **Work** table.
 
 ```java
 package com.example.demo
@@ -508,7 +508,7 @@ class RetrieveItems {
 
 ### InjectWorkService class
 
-The following Kotlin code represents the **InjectWorkService** class. Notice that you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database (as discussed in the *Creating the resources* section). Without both of these values, your code does not work. To use the **DSDataClient**, you need to create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to submit data to the work table.
+The following Kotlin code represents the **InjectWorkService** class. Notice that you need to specify ARN values for Secrets Manager and the Amazon Serverless Aurora database (as discussed in the *Create the resources* section). You must have both of these values for your code to work. To use the **RDSDataClient**, create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to submit data to the work table.
 
 ```kotlin
 package com.example.demo
