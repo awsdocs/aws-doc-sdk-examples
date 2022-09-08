@@ -13,8 +13,8 @@
 
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
-+ Amazon Aurora Serverless database
-+ Amazon Simple Email Service (Amazon SES). (The SDK for Java (v2) is used to access Amazon SES.)
++ Amazon Aurora Serverless database.
++ Amazon Simple Email Service (Amazon SES). 
 
 The application you create is a decoupled React application that uses a Spring REST API to return Amazon Aurora Serverless data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses an **RdsDataClient** object to perform CRUD operations on the Aurora Serverless database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
