@@ -23,8 +23,8 @@ rescue StandardError => e
 
 def run_me
 
-  topic_arn = 'SNS_TOPIC_ARN'
-  region = 'REGION'
+  topic_arn = 'arn:aws:sns:us-east-1:260778392212:test_topic'
+  region = 'us-east-1'
   message = 'MESSAGE' # The text of the message to send.
 
   sns_client = Aws::SNS::Client.new(region: region)

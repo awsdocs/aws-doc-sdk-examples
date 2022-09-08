@@ -9,7 +9,7 @@
 require 'aws-sdk-ses'  # v2: require 'aws-sdk'
 
 # Replace recipient@example.com with a "To" address.
-recipient = "recipient@example.com"
+recipient = "z"
 
 # Create a new SES resource in the us-west-2 region.
 # Replace us-west-2 with the AWS Region you're using for Amazon SES.

@@ -11,7 +11,9 @@ require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
-resp = sqs.receive_message(queue_url: URL, max_number_of_messages: 10, wait_time_seconds: 10)
+url = 'https://sqs.us-west-2.amazonaws.com/260778392212/my-queue'
+
+resp = sqs.receive_message(queue_url: url, max_number_of_messages: 10, wait_time_seconds: 10)
 
 resp.messages.each do |m|
   puts m.body

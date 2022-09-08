@@ -1,30 +1,54 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+require 'aws-sdk-lambda'
+require 'aws-sdk-s3'
+require 'logger'
 
-# Purpose:
-# aws-ruby-sdk-lambda-example-configure-function-for-notification.rb demonstrates how to
-# create an AWS Lambda function using the AWS SDK for Ruby.
+@logger = Logger.new(STDOUT)
+@logger.level = Logger::WARN
+@random_number = rand(10 ** 4)
 
-# snippet-start:[lambda.ruby.createFunctions]
+lambda_client = Aws::Lambda::Client.new(region: 'us-east-1')
 
-require 'aws-sdk-lambda'  # v2: require 'aws-sdk'
-# Replace us-west-2 with the AWS Region you're using for Lambda.
-client = Aws::Lambda::Client.new(region: 'us-west-2')
+# PRE-REQUISITE RESOURCES
+# Role with solitary AWSLambdaExecute policy, including S3 Get/Put Object
+iam_role = 'arn:aws:iam::260778392212:role/lambda-role'
 
+function_name = "lambda-function-#{@random_number}"
+args = { code: {} }
+args[:role] = iam_role
+args[:function_name] = function_name
+args[:handler] = 'function.lambda_handler'
+args[:runtime] = 'ruby2.7'
+args[:code][:zip_file] = File.read('data/function.zip')
+resp = lambda_client.create_function(args)
+function_arn = resp.function_arn
+
+# Add permission for bucket
+bucket_name = "doc-example-bucket-#{@random_number}"
 args = {}
-args[:role] = 'my-resource-arn'
-args[:function_name] = 'my-notification-function'
-args[:handler] = 'my-package.my-class'
+args[:function_name] = function_name
+args[:statement_id] = 'lambda_s3_notification'
+args[:action] = 'lambda:InvokeFunction'
+args[:principal] = 's3.amazonaws.com'
+args[:source_arn] = "arn:aws:s3:::#{bucket_name}"
+lambda_client.add_permission(args)
 
-# Also accepts nodejs, nodejs4.3, and python2.7
-args[:runtime] = 'java8'
+s3_client = Aws::S3::Client.new(region: 'us-east-1')
+s3_client.create_bucket(bucket: bucket_name)
+s3_client.put_bucket_notification_configuration(
+  {
+    bucket: bucket_name,
+    notification_configuration:
+      {
+        lambda_function_configurations: [
+          {
+            events: [
+              "s3:ObjectCreated:*"
+            ],
+            lambda_function_arn: function_arn
+          }
+        ]
+      }
+  }
+)
 
-code = {}
-code[:zip_file] = 'my-zip-file.zip'
-code[:s3_bucket] = 'my-notification-bucket'
-code[:s3_key] = 'my-zip-file'
-
-args[:code] = code
-
-client.create_function(args)
-# snippet-end:[lambda.ruby.createFunctions]
+# yay!

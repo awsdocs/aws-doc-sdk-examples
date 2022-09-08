@@ -46,6 +46,23 @@ Most of these code example files can be run with very little to no modification.
 ruby aws-ruby-sdk-lambda-example-configure-function-for-notification.rb
 ```
 
+## MVP
+# dashboard
+# functions
+# applications
+# code signing config
+# layers
+# replicas
+# create w/ SAM
+
+# what makes sense to me:
+    - create function from zip (are there any default Ruby zips?)
+    - get function
+    - add configuration
+    - add trigger (off S3 event)
+    - add destination (same S3 bucket)
+    - delete function
+
 ## Additional information
 
 - [AWS Lambda Documentation](https://docs.aws.amazon.com/lambda/)
