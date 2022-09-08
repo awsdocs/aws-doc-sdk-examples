@@ -14,27 +14,26 @@ import SwiftUtilities
 
 @testable import ServiceHandler
 
-enum ServiceError: Error {
-    case noSuchUser
-}
-
 public extension ServiceHandler {
 
-    /// Create a new IAM user.
+    /// Get the ID of an IAM user.
     ///
-    /// - Parameter name: The user's name.
-    ///
-    /// - Returns: The ID of the newly created user.
-    func createUser(name: String) async throws -> String? {
-        let input = CreateUserInput(
+    /// - Parameter name: The name of the IAM user whose ID is wanted.
+    /// - Returns: A `String` containing the user's ID.
+    func getUserID(name: String) async throws -> String {
+        let input = GetUserInput(
             userName: name
         )
+
         do {
-            let output = try await client.createUser(input: input)
+            let output = try await client.getUser(input: input)
             guard let user = output.user else {
                 throw ServiceError.noSuchUser
             }
-            return user.userId
+            guard let id = user.userId else {
+                throw ServiceError.noSuchUser
+            }
+            return id
         } catch {
             throw error
         }
