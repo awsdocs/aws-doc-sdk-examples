@@ -130,7 +130,7 @@ Perform these steps.
 
 ## Add the dependencies to your Gradle build file
 
-At this point, you have a new project. Ensure that the **build.gradle.kts** file looks like the following.
+At this point, you have a new project. Confirm that the **build.gradle.kts** file looks like the following.
 
 ```yaml
   import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
