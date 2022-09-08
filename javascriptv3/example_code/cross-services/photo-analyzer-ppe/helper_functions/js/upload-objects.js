@@ -21,7 +21,6 @@ Uploads multiple files to the specified bucket.
 // Import required AWS SDK clients and commands for Node.js.
 const { PutObjectCommand } = require("@aws-sdk/client-s3");
 const { s3Client } = require("../../../ppe/libs/s3Client.js"); // Helper function that creates Amazon S3 service client module.
-const path = require("path");
 const fs = require("fs");
 
 const BUCKET_NAME = "S3_BUCKET_NAME";
@@ -38,7 +37,7 @@ const uploadMultipleObjects = async (uploadParams) => {
 const run = async () => {
   try {
     // Array of relative path and name of object. For example ['images/lam.png', 'image/work', etc.]
-    const files = ["OBJECT_PATH_AND_NAMES"];
+    const files = [IMAGES];
     for (var i = 0; i < files.length; i++) {
       const file = files[i];
       const fileName = file.substring(file.lastIndexOf("/") + 1, file.length);

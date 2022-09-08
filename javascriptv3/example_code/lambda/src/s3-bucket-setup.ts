@@ -22,7 +22,6 @@ const {
   S3Client,
   CreateBucketCommand,
   PutBucketWebsiteCommand,
-  PutBucketPolicyCommand
 } = require("@aws-sdk/client-s3");
 
 // Set the AWS Region
@@ -47,7 +46,7 @@ const staticHostParams = {
   },
 };
 
-var readOnlyAnonUserPolicy = {
+const readOnlyAnonUserPolicy = {
   Version: "2012-10-17",
   Statement: [
     {
@@ -63,12 +62,6 @@ var readOnlyAnonUserPolicy = {
 // create selected bucket resource string for bucket policy
 const bucketResource = "arn:aws:s3:::" + bucketName + "/*"; //BUCKET_NAME
 readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
-
-// convert policy JSON into string and assign into params
-const bucketPolicyParams = {
-  Bucket: bucketName,
-  Policy: JSON.stringify(readOnlyAnonUserPolicy)
-};
 
 // Instantiate an S3 client
 const s3 = new S3Client({ region: REGION });
