@@ -681,7 +681,7 @@ You can create the React SPA that consumes the JSON data returned from the Sprin
 
 ### Update WorkItem.js
 
-You must modify the **WorkItem.js** file so that your React requests work with your Java backend. Update this file to include this code.
+You must modify the **WorkItem.js** file so that your React requests work with your Kotlin backend. Update this file to include this code.
 
 ```javascript
 import React, {useEffect, useState} from "react";
@@ -767,7 +767,7 @@ export const WorkItem = () => {
 ```
 ### Update WorkItems.js
 
-You must modify the **WorkItems.js** file so that your React requests work with your Java backend. Update this file to include this code.
+You must modify the **WorkItems.js** file so that your React requests work with your Kotlin backend. Update this file to include this code.
 
 ```javascript
 import React, {useEffect, useState} from 'react';
@@ -936,7 +936,7 @@ export const WorkItems = () => {
 
 ### Update RestService.js
 
-You must modify the **RestService.js** file so that your React requests work with your Java backend. Update the file to include this code.
+You must modify the **RestService.js** file so that your React requests work with your Kotlin backend. Update the file to include this code.
 
 ```javascript
 
