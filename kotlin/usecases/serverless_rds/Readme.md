@@ -317,7 +317,7 @@ class RetrieveItems {
         val sqlStatement: String
         val arc = 1
 
-        // Specify the SQL Statement to query data.
+        // Specify the SQL statement to query data.
         sqlStatement = "update work set archive = '$arc' where idwork ='$id' "
         val sqlRequest = ExecuteStatementRequest {
             secretArn = secretArnVal
@@ -332,7 +332,7 @@ class RetrieveItems {
         return id
     }
 
-    // Get Items Data.
+    // Get items from the database.
     suspend fun getItemsDataSQL(username: String, arch: Int): MutableList<WorkItem> {
         val records = mutableListOf<WorkItem>()
         val sqlStatement = "Select * FROM work where username = '$username ' and archive = $arch"
