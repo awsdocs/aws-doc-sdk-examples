@@ -1,4 +1,4 @@
-# Creating a React and Spring REST application that queries Amazon Aurora Serverless data
+# Create a React and Spring REST application that queries Amazon Aurora Serverless data
 
 ## Overview
 
