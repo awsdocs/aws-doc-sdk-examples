@@ -1871,6 +1871,14 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_user
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/CreateUser
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.createuser.handler.createuser
     Go:
       versions:
         - sdk_version: 2
@@ -2054,6 +2062,14 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_users
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListUsers
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listusers.handler.listusers
     Go:
       versions:
         - sdk_version: 2
@@ -2470,6 +2486,14 @@ iam_ListGroups:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_groups
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListGroups
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listgroups.handler.listgroups
   services:
     iam: {ListGroups}
 iam_CreateServiceLinkedRole:

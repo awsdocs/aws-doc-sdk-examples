@@ -26,4 +26,4 @@ public struct MyUserRecord: Equatable {
         return id == self.id && name == self.name
     }
 }
-// snippet-end:[secretsmanager.swift.listusers.user-record]
+// snippet-end:[iam.swift.listusers.user-record]

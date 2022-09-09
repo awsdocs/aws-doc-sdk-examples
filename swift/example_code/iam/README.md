@@ -18,7 +18,10 @@ fine-grained permissions, and analyze access to refine permissions across AWS.
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
+* [Create a new IAM user](./CreateUser/Sources/ServiceHandler/ServiceHandler.swift) (`CreateUser`)
 * [List all users on an AWS account](./ListUsers/Sources/ServiceHandler/ServiceHandler.swift) (`ListUsers`)
+* [List all groups on an AWS account](./ListGroups/Sources/ServiceHandler/ServiceHandler.swift) (`ListGroups`)
+
 
 
 <!-- ### Scenarios
