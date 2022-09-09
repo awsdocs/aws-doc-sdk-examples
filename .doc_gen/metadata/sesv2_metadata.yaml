@@ -85,6 +85,14 @@ sesv2_SendEmail:
   synopsis: send an &SESv2; email.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description: Sends a message.
+              snippet_tags:
+                - javav2/example_code/ses
     Rust:
       versions:
         - sdk_version: 1
