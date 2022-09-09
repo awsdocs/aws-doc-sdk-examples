@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform AWS service operations using the beta 0.9.4 version of the AWS SDK for Kotlin.
+These examples demonstrate how to perform AWS service operations using the beta version of the AWS SDK for Kotlin.
 
 ## Prerequisites
 
