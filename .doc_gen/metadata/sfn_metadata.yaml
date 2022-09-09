@@ -5,6 +5,15 @@ sfn_CreateStateMachine:
   synopsis: create a &SFN; state machine.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.create_machine.main
     Python:
       versions:
         - sdk_version: 3
@@ -41,6 +50,15 @@ sfn_DeleteStateMachine:
   synopsis: delete a &SFN; state machine.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.delete_machine.main
     Python:
       versions:
         - sdk_version: 3
@@ -59,6 +77,15 @@ sfn_ListStateMachines:
   synopsis: list &SFN; state machines.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.list_machines.main
     Python:
       versions:
         - sdk_version: 3
@@ -96,6 +123,15 @@ sfn_StartExecution:
   synopsis: start a &SFN; state machine run.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.start_execute.main
     Python:
       versions:
         - sdk_version: 3
@@ -114,6 +150,15 @@ sfn_ListExecutions:
   synopsis: list &SFN; state machine runs.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.get_history.main
     Python:
       versions:
         - sdk_version: 3
