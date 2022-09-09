@@ -92,7 +92,7 @@ sesv2_SendEmail:
           excerpts:
             - description: Sends a message.
               snippet_tags:
-                - javav2/example_code/ses
+                - ses.java2.sendmessage.sesv2.main
     Rust:
       versions:
         - sdk_version: 1
