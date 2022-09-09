@@ -8,6 +8,10 @@ cross_RDSDataTracker:
       versions:
         - sdk_version: 2
           block_content: cross_RDSDataTracker_Java_block.xml
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RDSDataTracker_Kotlin_block.xml
     PHP:
       versions:
         - sdk_version: 3
