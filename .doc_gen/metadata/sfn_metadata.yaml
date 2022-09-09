@@ -5,6 +5,15 @@ sfn_CreateStateMachine:
   synopsis: create a &SFN; state machine.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.create_machine.main
     Java:
       versions:
         - sdk_version: 2
@@ -50,6 +59,15 @@ sfn_DeleteStateMachine:
   synopsis: delete a &SFN; state machine.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.kotlin.delete_machine.main
     Java:
       versions:
         - sdk_version: 2
@@ -77,6 +95,15 @@ sfn_ListStateMachines:
   synopsis: list &SFN; state machines.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.kotlin.list_machines.main
     Java:
       versions:
         - sdk_version: 2
@@ -123,6 +150,15 @@ sfn_StartExecution:
   synopsis: start a &SFN; state machine run.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.kotlin.start_execute.main
     Java:
       versions:
         - sdk_version: 2
@@ -150,6 +186,15 @@ sfn_ListExecutions:
   synopsis: list &SFN; state machine runs.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.kotlin.get_history.main
     Java:
       versions:
         - sdk_version: 2
