@@ -620,6 +620,15 @@ glue_Scenario_GetStartedCrawlersJobs:
             - description:
               snippet_tags:
                 - glue.java2.scenario.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.scenario
+                - php.example_code.glue.service
     Python:
       versions:
         - sdk_version: 3

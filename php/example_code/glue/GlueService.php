@@ -1,5 +1,6 @@
 <?php
 
+#snippet-start:[php.example_code.glue.service]
 namespace Glue;
 
 use Aws\Glue\GlueClient;
@@ -187,3 +188,4 @@ class GlueService extends \AwsUtilities\AWSServiceClass
     }
     #snippet-end:[php.example_code.glue.service.deleteCrawler]
 }
+#snippet-end:[php.example_code.glue.service]
