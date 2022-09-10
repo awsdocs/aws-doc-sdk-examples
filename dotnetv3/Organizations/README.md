@@ -1,10 +1,10 @@
-# AWS Organizations code examples for .NET
+#  Organizations code examples for the SDK for .NET
 
 ## Overview
 
-The examples in this section show how to use the AWS SDK for .NET with AWS Organizations to create and manage AWS Organizations policies.
+The examples in this section show how to use the AWS SDK for .NET with AWS Organizations to create and manage organizations policies.
 
-AWS Organizations helps you centrally manage and govern your environment as you grow and scale your AWS resources. Using AWS Organizations, you can programmatically create new AWS accounts and allocate resources, group accounts to organize your workflows, apply policies to accounts or groups for governance, and simplify billing by using a single payment method for all of your accounts.
+With Organizations, you can consolidate multiple AWS accounts into an organization that you create and centrally manage. You can create member accounts and invite existing accounts to join your organization. You can organize those accounts and manage them as a group.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -36,9 +36,9 @@ Code excerpts that show you how to call individual service functions.
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run

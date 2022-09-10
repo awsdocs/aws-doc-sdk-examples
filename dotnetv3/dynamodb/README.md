@@ -1,7 +1,7 @@
 # DynamoDB code examples for the SDK for .NET
 
 ## Overview
-The code examples in this section show how to use the AWS SDK for .NET with Amazon DynamoDB (DynamoDB)
+The code examples in this section show how to use the AWS SDK for .NET with Amazon DynamoDB.
 to request, import, and manage certificates.
 
 Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. DynamoDB offers built-in security, continuous backups, automated multi-Region replication, in-memory caching, and data import and export tools.
@@ -41,7 +41,7 @@ Code excerpts that show you how to call individual service functions.
 * [Query a table by using the low-level API](low-level-api/LowLevelQuery/LowLevelQuery.cs) (`QueryAsync`)
 * [Query a table for orders](FromSQL/GetOrdersForProductGSI/GetOrdersForProductGSI.cs) (`QueryAsync`)
 * [Query a table for orders in a date range](FromSQL/GetOrdersInDateRangeGSI/GetOrdersInDateRangeGSI.cs) (`QueryAsync`)
-* [Query and scan a table by using mid-level API](mid-level-api/MidLevelBatchWriteItemExample/MidLevelBatchWriteItemExample/MidLevelBatchWriteItem.cs) (`ExecuteAsync`)
+* [Query and scan a table by using the mid-level API](mid-level-api/MidLevelBatchWriteItemExample/MidLevelBatchWriteItemExample/MidLevelBatchWriteItem.cs) (`ExecuteAsync`)
 * [Query and scan a table by using the mid-level API](mid-level-api/MidLevelQueryAndScanExample/MidLevelQueryAndScanExample/MidLevelQueryAndScan.cs) (`GetItemAsync`, `GetNextItemAsync`)
 * [Scan a table](FromSQL/GetLowProductStock/GetLowProductStock.cs) (`ScanAsync`)
 * [Scan a table by using the low-level API](low-level-api/LowLevelScan/LowLevelScan.cs) (`ScanAsync`)

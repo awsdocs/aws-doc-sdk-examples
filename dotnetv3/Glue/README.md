@@ -64,7 +64,7 @@ dotnet test
 
 Alternatively, you can open the example solution and use the Visual Studio Test Runner to run the tests.
 
-## Additional Resources
+## Additional resources
 
 - [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/glue-dg.html)
 - [AWS Glue API in the AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)

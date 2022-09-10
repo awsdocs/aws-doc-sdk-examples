@@ -1,7 +1,7 @@
 # Amazon EC2 code examples for the SDK for .NET
 
 ## Overview
-The code examples in this section show how to use the AWS SDK for .NET with Elastic Compute Cloud (Amazon EC2) to manage custom metrics and alarms.
+The code examples in this section show how to use the AWS SDK for .NET with Amazon Elastic Compute Cloud (Amazon EC2) to manage custom metrics and alarms.
 
 Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems.
 
@@ -32,9 +32,9 @@ Code excerpts that show you how to call individual service functions.
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run
@@ -43,6 +43,8 @@ dotnet run
 Alternatively, you can run the example from within your IDE.
 
 ## Additional resources
+* [Amazon EC2 User Guide for Linux](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+* [Amazon EC2 User Guide for Windows](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/concepts.html)
 * [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
 * [AWS SDK for .NET Amazon EC2](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/NEC2.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)

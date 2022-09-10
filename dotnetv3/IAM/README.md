@@ -1,4 +1,4 @@
-# IAM code examples for .NET
+# IAM code examples for the SDK for .NET
 
 ## Overview
 
@@ -59,8 +59,8 @@ dotnet run
 Alternatively, you can run the example from within your IDE.
 
 ## Additional resources
-* [Amazon Simple Email Service Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/index.html)
-* [IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
+* [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+* [AWS Identity and Access Management API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
 * [AWS SDK for .NET IAM](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/IAM/NIAM.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 

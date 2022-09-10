@@ -1,4 +1,4 @@
-# Amazon Rekognition code examples for .NET
+# Amazon Rekognition code examples for the SDK for .NET
 
 ## Overview
 
@@ -43,17 +43,17 @@ Code excerpts that show you how to call individual service functions.
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
 The examples in this folder use the default user account. The call to
-initialize the Kinesis client does not specify the AWS Region. Supply
-the AWS Region to match your own as a parameter to the client constructor. For
-example:
+initialize the client object does not specify the AWS Region. The following
+example shows how to supply the AWS Region to match your own as a
+parameter to the client constructor:
 
 ```
 var client = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
 ```
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run

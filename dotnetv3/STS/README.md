@@ -1,7 +1,7 @@
 # AWS STS code examples for the SDK for .NET
 
 ## Overview
-The examples in this section show how to use the AWS SDK for .NET with Security Token Service (AWS STS).
+The examples in this section show how to use the AWS SDK for .NET with AWS Security Token Service (AWS STS).
 
 AWS STS is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users you authenticate (federated users).
 
@@ -45,6 +45,7 @@ dotnet test
 Alternatively, you can open the example solution and use the Visual Studio Test Runner to run the tests.
 
 ## Additional resources
+* [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 * [AWS STS API Reference](https://docs.aws.amazon.com/STS/latest/APIReference/index.html)
 * [AWS SDK for .NET AWS STS](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SecurityToken/NSecurityToken.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)

@@ -1,4 +1,4 @@
-# Secrets Manager code examples for .NET
+# Secrets Manager code examples for the SDK for .NET
 
 ## Overview
 
@@ -26,9 +26,9 @@ Code excerpts that show you how to call individual service functions.
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run

@@ -1,7 +1,7 @@
 # CloudWatch code examples for the SDK for .NET
 
 ## Overview
-The code examples in this section show how to use the AWS SDK for .NET with Amazon CloudWatch (CloudWatch) to manage custom metrics and alarms.
+The code examples in this section show how to use the AWS SDK for .NET with Amazon CloudWatch to manage custom metrics and alarms.
 
 Amazon CloudWatch is a monitoring and observability service built for DevOps engineers, developers, site reliability engineers (SREs), IT managers, and product owners. CloudWatch provides you with data and actionable insights to monitor your applications, respond to system-wide performance changes, and optimize resource utilization.
 
@@ -31,17 +31,17 @@ Code excerpts that show you how to call individual service functions.
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
 The examples in this folder use the default user account. The call to
-initialize the Amazon CloudWatch client does not specify the AWS Region. Supply
-the AWS Region to match your own as a parameter to the client constructor. For
-example:
+initialize the client object does not specify the AWS Region. The following
+example shows how to supply the AWS Region to match your own as a
+parameter to the client constructor:
 
 ```
 IAmazonCloudWatch cwClient = new AmazonCloudWatchClient(Amazon.RegionEndpoint.USWest2);
 ```
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run

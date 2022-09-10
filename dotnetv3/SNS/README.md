@@ -3,7 +3,7 @@
 ## Overview
 The examples in this section show how to use the AWS SDK for .NET with Amazon Simple Notification Service (Amazon SNS).
 
-Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
+Amazon SNS is a web service that enables applications, end users, and devices to instantly send and receive notifications from the cloud.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.

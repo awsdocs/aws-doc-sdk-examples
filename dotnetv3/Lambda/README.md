@@ -1,10 +1,10 @@
-# AWS Lambda code examples for .NET
+# Lambda code examples for the SDK for .NET
 
 ## Overview
 
 The examples in this section show how to use the AWS SDK for .NET with AWS Lambda to manage and invoke Lambda functions.
 
-AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. You can trigger Lambda from over 200 AWS services and software as a service (SaaS) applications, and only pay for what you use.
+With AWS Lambda, you can run code without provisioning or managing servers. You pay only for the compute time that you consume—there's no charge when your code isn't running. You can run code for virtually any type of application or backend service—all with zero administration.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -17,11 +17,11 @@ AWS Lambda is a serverless, event-driven compute service that lets you run code 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-- [Create DynamoDB Table](CreateDynamoDBTableExample/CreateDynamoDBTableExample/Function.cs) (`RunAsync`)
-- [Create an S3 Bucket](CreateDynamoDBTableExample/CreateDynamoDBTableExample/Function.cs) (`RunAsync`)
+- [Create a DynamoDB table](CreateDynamoDBTableExample/CreateDynamoDBTableExample/Function.cs) (`RunAsync`)
+- [Create an S3 bucket](CreateDynamoDBTableExample/CreateDynamoDBTableExample/Function.cs) (`RunAsync`)
 - [Invoke a function](InvokeFunctionExample/InvokeFunctionExample/InvokeFunction.cs) (`CreateFunctionAsync`)
 - [List functions](ListFunctionsExample/ListFunctionsExample/ListFunctions.cs) (`ListFunctionsAsync`)
-- [Set up Role](SetuplambdaRoleExample/SetuplambdaRoleExample/SetupLambdaRole.cs)
+- [Set up role](SetuplambdaRoleExample/SetuplambdaRoleExample/SetupLambdaRole.cs)
 
 ## Run the examples
 
@@ -29,9 +29,9 @@ Code excerpts that show you how to call individual service functions.
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run

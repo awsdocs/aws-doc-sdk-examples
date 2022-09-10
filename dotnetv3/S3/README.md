@@ -1,4 +1,4 @@
-# Amazon S3 code examples for .NET
+# Amazon S3 code examples for the SDK for .NET
 
 ## Overview
 The code examples in this section show how to use the AWS SDK for .NET with Amazon Simple Storage Service (Amazon S3) features.
@@ -19,7 +19,7 @@ Code excerpts that show you how to call individual service functions.
 - [Abort multi-part upload](AbortMPUExample/AbortMPU.cs) (`AbortMultipartUploadsAsync`)
 - [Copy an object from one bucket to another](CopyObjectExample/CopyObject.cs) (`CopyObjectAsync`)
 - [Create a bucket](CreateBucketExample/CreateBucket.cs) (`CreateBucketAsync`)
-- [Cross-region replication](CrossRegionReplicationExample/CrossRegionReplication.cs) (`PutBucketReplicationAsync`, `GetBucketReplicationAsync`)
+- [Cross-Region replication](CrossRegionReplicationExample/CrossRegionReplication.cs) (`PutBucketReplicationAsync`, `GetBucketReplicationAsync`)
 - [Delete an empty bucket](DeleteBucketExample/DeleteBucket.cs) (`DeleteBucketAsync`)
 - [Delete an object from a bucket](non-versioned-examples/DeleteObjectExample/DeleteObject.cs) (`DeleteObjectAsync`)
 - [Delete multiple objects](non-versioned-examples/DeleteMultipleObjectsExample/DeleteMultipleObjects.cs) (`DeleteObjectsAsync`)

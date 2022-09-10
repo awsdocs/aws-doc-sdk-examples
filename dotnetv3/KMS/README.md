@@ -1,10 +1,10 @@
-# AWS KMS code examples for .NET
+# AWS KMS code examples for the SDK for .NET
 
 ## Overview
 
 The examples in this section show how to use the AWS SDK for .NET with AWS Key Management Service (AWS KMS) to create and manage keys, grants, and policies.
 
-AWS KMS lets you create, manage, and control cryptographic keys across your applications and more than 100 AWS services.
+AWS KMS is an encryption and key management service scaled for the cloud. AWS KMS keys and functionality are used by other AWS services, and you can use them to protect data in your own applications that use AWS.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -34,17 +34,17 @@ Code excerpts that show you how to call individual service functions.
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
 The examples in this folder use the default user account. The call to
-initialize the Kinesis client does not specify the AWS Region. Supply
-the AWS Region to match your own as a parameter to the client constructor. For
-example:
+initialize the client object does not specify the AWS Region. The following
+example shows how to supply the AWS Region to match your own as a
+parameter to the client constructor:
 
 ```
 var client = new AmazonKeyManagementServicelient(Amazon.RegionEndpoint.USWest2);
 ```
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run
