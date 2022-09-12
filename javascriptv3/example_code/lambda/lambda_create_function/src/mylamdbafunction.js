@@ -52,7 +52,7 @@ const params = {
     },
 };
 
-exports.handler = async(event, context, callback) => {
+exports.handler = async() => {
     try {
         const data = await dynamoClient.send(new CreateTableCommand(params));
         console.log("Table Created", data);

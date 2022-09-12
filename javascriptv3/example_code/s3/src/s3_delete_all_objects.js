@@ -22,11 +22,9 @@ export const bucketParams = { Bucket: "BUCKET_NAME" };
 export const run = async () => {
   try {
     const data = await s3Client.send(new ListObjectsCommand(bucketParams));
-    return data; // For unit tests.
-    let i = 0;
     let noOfObjects = data.Contents;
     for (let i = 0; i < noOfObjects.length; i++) {
-      const data = await s3Client.send(
+      await s3Client.send(
         new DeleteObjectCommand({
           Bucket: bucketParams.Bucket,
           Key: noOfObjects[i].Key,
@@ -34,6 +32,7 @@ export const run = async () => {
       );
     }
     console.log("Success. Objects deleted.");
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }

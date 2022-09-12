@@ -77,7 +77,7 @@ describe("loadImage", () => {
   test("fills modelError when error raised", () => {
     const testError = "test exception";
     const s3 = new S3Client({});
-    s3.send = jest.fn((command) => {
+    s3.send = jest.fn(() => {
       throw new Error(testError);
     });
 
@@ -131,7 +131,7 @@ describe("extractDocument", () => {
   test("modelError contains error message when error thrown", async () => {
     const testError = "test error";
     const textract = new TextractClient({});
-    textract.send = jest.fn((command) => {
+    textract.send = jest.fn(() => {
       throw new Error(testError);
     });
     const tm = new TextractModel({ textract: textract });
@@ -280,7 +280,7 @@ describe("extractDocument", () => {
       .mockImplementationOnce(() => {
         return {};
       })
-      .mockImplementationOnce((command) => {
+      .mockImplementationOnce(() => {
         return {
           Messages: [
             {
