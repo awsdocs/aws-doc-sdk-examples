@@ -29,9 +29,9 @@ const ddb = new DynamoDBClient({ region: REGION });
 // Set the parameters
 const tableName = "TABLE_NAME";
 
-exports.handler = (event, context, callback) => {
+exports.handler = (_event, _context, callback) => {
   // Define the object that will hold the data values returned
-  let slotResults = {
+  const slotResults = {
     isWinner: false,
     leftWheelImage: { file: { S: "" } },
     middleWheelImage: { file: { S: "" } },
@@ -47,7 +47,7 @@ exports.handler = (event, context, callback) => {
   // Call DynamoDB to retrieve the image to use for the left slot result
   const myLeftPromise = ddb.send(new GetItemCommand(leftParams)).then(
     (data) => data.Item.imageFile.S,
-    (err) => {
+    () => {
       console.log("Database read error on left wheel.");
     }
   );
@@ -61,7 +61,7 @@ exports.handler = (event, context, callback) => {
   // Call DynamoDB to retrieve the image to use for the left slot result
   const myMiddlePromise = ddb.send(new GetItemCommand(middleParams)).then(
     (data) => data.Item.imageFile.S,
-    (err) => {
+    () => {
       console.log("Database read error on middle wheel.");
     }
   );
@@ -75,7 +75,7 @@ exports.handler = (event, context, callback) => {
   // Call DynamoDB to retrieve the image to use for the left slot result
   const myRightPromise = ddb.send(new GetItemCommand(rightParams)).then(
     (data) => data.Item.imageFile.S,
-    (err) => {
+    () => {
       console.log("Database read error on right wheel.");
     }
   );

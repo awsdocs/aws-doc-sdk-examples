@@ -47,7 +47,7 @@ export const run = async (
     ],
   };
   try {
-    const data = await ddbDocClient.send(
+    await ddbDocClient.send(
       new BatchExecuteStatementCommand(params)
     );
     console.log("Success. Items added.");

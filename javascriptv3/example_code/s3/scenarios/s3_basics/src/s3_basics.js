@@ -25,7 +25,7 @@ import {
   DeleteBucketCommand,
   GetObjectCommand
 } from "@aws-sdk/client-s3";
-import { s3Client, REGION } from "../libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
+import { s3Client } from "../libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 
 if (process.argv.length < 5) {
   console.log(

@@ -47,14 +47,14 @@ const s3 = new S3Client({ region: REGION });
 const run = async () => {
   // Call S3 to create the bucket
   try {
-    const data = await s3.createBucket(bucketParams);
+    await s3.createBucket(bucketParams);
     console.log("Success, bucket created");
   } catch (err) {
     console.log("Error", err);
   }
   try {
     // Update the displayed policy for the selected bucket
-    const putWebsiteOn = await s3.putBucketWebsite(staticHostParams);
+    await s3.putBucketWebsite(staticHostParams);
     console.log("Success, bucket policy updated");
   } catch (err) {
     console.log(err);
