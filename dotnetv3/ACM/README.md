@@ -1,9 +1,11 @@
-# Amazon S3 Glacier code examples for the SDK for .NET
+# ACM code examples for the SDK for .NET
 
 ## Overview
-The code examples in this section show how to use the AWS SDK for .NET with Amazon Simple Storage Service Glacier (Amazon S3 Glacier) to work with vaults and archives.
+The code examples in this section show how to use the AWS SDK for .NET with AWS Certificate Manager (ACM)
+to request, import, and manage certificates.
 
-Amazon S3 Glacier is a secure and durable service for low-cost data archiving and long-term backup.
+ACM makes it easy to provision, manage, and deploy SSL/TLS certificates on AWS
+managed resources.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -16,14 +18,8 @@ Amazon S3 Glacier is a secure and durable service for low-cost data archiving an
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Add tags](AddTagsToVaultExample/AddTagsToVault.cs) (`AddTagsToVaultAsync`)
-* [Create a vault](CreateVaultExample/CreateVault.cs) (`CreateVaultAsync`)
-* [Describe a job](DescribeVaultExample/DescribeVault.cs) (`DescribeJobAsync`)
-* [Download an archive](DownloadArchiveHighLevelExample/DownloadArchiveHighLevel.cs) (`DownloadAsync`)
-* [List jobs](ListJobsExample/ListJobs.cs) (`ListJobsAsync`)
-* [List tags](ListTagsForVaultExample/ListTagsForVault.cs) (`ListTagsForVaultAsync`)
-* [List vaults](ListVaultsExample/ListVaults.cs) (`ListVaultsAsync`)
-* [Upload an archive to a vault](UploadArchiveHighLevelExample/UploadArchiveHighLevel.cs) (`UploadArchiveAsync`)
+* [Describe a certificate](DescribeCertificates/DescribeCertificate/DescribeCertificate.cs) (`DescribeCertificateAsync`)
+* [List certificates](ListCertificates/ListCertificates/ListCertificates.cs) (`ListCertificatesAsync`)
 
 ## Run the examples
 
@@ -37,7 +33,7 @@ example shows how to supply the AWS Region to match your own as a
 parameter to the client constructor:
 
 ```
-var client = new AmazonGlacierClient(Amazon.RegionEndpoint.USWest2);
+var client = new AmazonCertificateManagerClient(Amazon.RegionEndpoint.USWest2);
 ```
 
 After the example compiles, you can run it from the command line. To do so,
@@ -51,9 +47,9 @@ dotnet run
 Alternatively, you can run the example from within your IDE.
 
 ## Additional resources
-* [Amazon S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/index.html)
-* [Amazon S3 Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
-* [AWS SDK for .NET Amazon S3 Glacier](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glacier/NGlacier.html)
+* [ACM User Guide](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)
+* [ACM API Reference](https://docs.aws.amazon.com/acm/latest/APIReference/Welcome.html)
+* [AWS SDK for .NET ACM](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/CertificateManager/NCertificateManager.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

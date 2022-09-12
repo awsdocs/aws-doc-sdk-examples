@@ -1134,28 +1134,23 @@ sns_UsageSmsTopic:
   languages:
     Java:
       versions:
-        - sdk_version: 1
-          github: java/example_code/sns
+        - sdk_version: 2
+          github: javav2/example_code/sns
           sdkguide:
           excerpts:
             - description: Create a topic and return its ARN.
               snippet_tags:
-                - sns.java.publish_sms_to_topic.create_topic
+                - sns.java2.CreateTopic.main
             - description: Subscribe an endpoint to a topic.
               snippet_tags:
-                - sns.java.publish_sms_to_topic.subscribe
+                - sns.java2.SubscribeTextSMS.main
             - description: |-
                 Set attributes on the message, such as the ID of the sender, the maximum price, and its type.
                 Message attributes are optional.
               snippet_tags:
-                - sns.java.publish_sms_to_topic.set_message_attributes
+                - sns.java2.SetSMSAttributes.main
             - description: Publish a message to a topic. The message is sent to every subscriber.
               snippet_tags:
-                - sns.java.publish_sms_to_topic.publish
-            - description: |-
-                Call the previous functions to create a topic, subscribe a phone number, set message attributes, and
-                publish a message to the topic.
-              snippet_tags:
-                - sns.java.publish_sms_to_topic.main
+                - sns.java2.PublishTextSMS.main
   services:
     sns: {}
