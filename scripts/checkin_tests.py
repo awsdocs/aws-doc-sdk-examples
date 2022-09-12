@@ -128,7 +128,8 @@ ALLOW_LIST = {
     'com/rekognition/latest/dg/considerations',
     'ListTagsForVaultExample/ListTagsForVault',
     'TerminateInstanceInAutoScalingGroupAsync',
-    'GetIdentityVerificationAttributesRequest'
+    'GetIdentityVerificationAttributesRequest',
+    'com/transcribe/latest/APIReference/index'
 }
 
 def check_files(root, quiet):
