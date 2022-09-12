@@ -9,14 +9,14 @@
 
 package com.example.sns;
 
-//snippet-start:[sns.java2.reg.endpoint.main]
+//snippet-start:[sns.java2.reg.endpoint.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreatePlatformEndpointRequest;
 import software.amazon.awssdk.services.sns.model.CreatePlatformEndpointResponse;
 import software.amazon.awssdk.services.sns.model.SnsException;
-//snippet-end:[sns.java2.reg.endpoint.main]
+//snippet-end:[sns.java2.reg.endpoint.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
