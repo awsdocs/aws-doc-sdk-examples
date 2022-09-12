@@ -73,8 +73,8 @@ int main()
                                       owner_id,
                                       "READ",
                                       "Canonical user",
-                                      config.region,
                                       owner_id,
+                                      config.region,
                                       "",
                                       "",
                                       ""))

@@ -55,16 +55,16 @@ export const sendEmail = async () => {
           Html: {
             Charset: "UTF-8",
             Data:
-                "<h1>Hello!</h1>" +
-                "<p> The Amazon DynamoDB table " +
-                TABLE +
-                " has been updated with PPE information <a href='https://" +
-                REGION +
-                ".console.aws.amazon.com/dynamodb/home?region=" +
-                REGION +
-                "#item-explorer?table=" +
-                TABLE +
-                "'>here.</a></p>"
+              "<h1>Hello!</h1>" +
+              "<p> The Amazon DynamoDB table " +
+              TABLE +
+              " has been updated with PPE information <a href='https://" +
+              REGION +
+              ".console.aws.amazon.com/dynamodb/home?region=" +
+              REGION +
+              "#item-explorer?table=" +
+              TABLE +
+              "'>here.</a></p>",
           },
         },
         Subject: {
@@ -77,7 +77,7 @@ export const sendEmail = async () => {
         /* more items */
       ],
     };
-    const data = await sesClient.send(new SendEmailCommand(params));
+    await sesClient.send(new SendEmailCommand(params));
     alert("Success. Email sent.");
   } catch (err) {
     console.log("Error sending email. ", err);
@@ -115,7 +115,7 @@ export const processImages = async () => {
         },
       };
       const ppedata = await rekognitionClient.send(
-          new DetectProtectiveEquipmentCommand(imageParams)
+        new DetectProtectiveEquipmentCommand(imageParams)
       );
 
       // Parse the results using conditional nested loops.
@@ -140,9 +140,7 @@ export const processImages = async () => {
                 image: { S: image },
               },
             };
-            const tableData = await dynamoDBClient.send(
-                new PutItemCommand(ppeParams)
-            );
+            await dynamoDBClient.send(new PutItemCommand(ppeParams));
           }
         } else {
           const noOfBodyParts = ppedata.Persons[i].BodyParts.length;
@@ -150,7 +148,7 @@ export const processImages = async () => {
             const bodypart = ppedata.Persons[i].BodyParts[j].Name;
             const confidence = ppedata.Persons[i].BodyParts[j].Confidence;
             var equipment =
-                ppedata.Persons[i].BodyParts[j].EquipmentDetections[0].Type;
+              ppedata.Persons[i].BodyParts[j].EquipmentDetections[0].Type;
             const val = Math.floor(1000 + Math.random() * 9000);
             const id = val.toString() + "";
             const image = imageParams.Image.S3Object.Name;
@@ -164,9 +162,7 @@ export const processImages = async () => {
                 image: { S: image },
               },
             };
-            const tableData = await dynamoDBClient.send(
-                new PutItemCommand(ppeParams)
-            );
+            await dynamoDBClient.send(new PutItemCommand(ppeParams));
           }
         }
       }

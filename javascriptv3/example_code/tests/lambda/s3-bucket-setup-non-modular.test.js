@@ -5,8 +5,6 @@ jest.mock("@aws-sdk/client-s3", () => ({
   },
 }));
 const {
-  staticHostParams,
-  bucketParams,
   run,
 } = require("../../lambda/tutorial/slotassets/s3-bucket-setup-non-modular");
 

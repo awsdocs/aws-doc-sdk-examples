@@ -50,7 +50,7 @@ export const run = async (tableName) => {
             ],
           },
         };
-        const data = ddbDocClient.send(new BatchWriteCommand(params));
+        await ddbDocClient.send(new BatchWriteCommand(params));
       }
     }
     console.log("Success. Movies written to table.");

@@ -23,6 +23,7 @@
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/core/http/curl/CurlHttpClient.h>  //This example is for Linux only. See top.
 #include <aws/s3/S3Client.h>
+#include "awsdoc/s3/s3_examples.h"
 
 using namespace Aws;
 using namespace Aws::Http;
@@ -83,6 +84,38 @@ class MyHttpClientFactory : public Aws::Http::HttpClientFactory
     }
 };
 
+bool AwsDoc::S3::ListBucketDisablingDnsCache( const Aws::String& region)
+{
+    SetHttpClientFactory(Aws::MakeShared<MyHttpClientFactory>(ALLOCATION_TAG));
+    Aws::Client::ClientConfiguration config;
+    if (!region.empty())
+    {
+        config.region = region;
+    }
+
+    Aws::S3::S3Client s3Client(config);
+    auto listBucketsOutcome = s3Client.ListBuckets();
+    if (listBucketsOutcome.IsSuccess())
+    {
+        std::cout << "Found " << listBucketsOutcome.GetResult().GetBuckets().size() << " buckets" << std::endl;
+        for (auto&& bucket : listBucketsOutcome.GetResult().GetBuckets())
+        {
+            std::cout << "  " << bucket.GetName() << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "Failed to list buckets. Error details:" << std::endl;
+        std::cout << listBucketsOutcome.GetError() << std::endl;
+    }
+
+    // reset the http client factory
+    CleanupHttp();
+    InitHttp();
+
+    return listBucketsOutcome.IsSuccess();
+}
+
 /**
  * With AWS SDK for C++ version 1.8, it's much easier to override the default HTTP client configuration with the virtual functions: OverrideOptionsOn*Handle()
  * In this example, we override the default HTTP client and disable DNS caching with some low level Curl APIs.
@@ -92,26 +125,13 @@ int main(int argc, char *argv[])
     SDKOptions options;
     options.loggingOptions.logLevel = Utils::Logging::LogLevel::Trace;
     InitAPI(options);
-    {
-        SetHttpClientFactory(Aws::MakeShared<MyHttpClientFactory>(ALLOCATION_TAG));
 
-        Aws::S3::S3Client s3Client;
-        auto listBucketsOutcome = s3Client.ListBuckets();
-        if (listBucketsOutcome.IsSuccess())
-        {
-            std::cout << "Found " << listBucketsOutcome.GetResult().GetBuckets().size() << " buckets" << std::endl;
-            for (auto&& bucket : listBucketsOutcome.GetResult().GetBuckets())
-            {
-                std::cout << "  " << bucket.GetName() << std::endl;
-            }
-        }
-        else
-        {
-            std::cout << "Failed to list buckets. Error details:" << std::endl;
-            std::cout << listBucketsOutcome.GetError() << std::endl;
-        }
+    int result = 0;
+    if (!AwsDoc::S3::ListBucketDisablingDnsCache())
+    {
+        result = 1;
     }
 
     ShutdownAPI(options);
-    return 0;
+    return result;
 }
