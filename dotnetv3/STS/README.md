@@ -1,9 +1,9 @@
-# Amazon Translate code examples for the SDK for .NET
+# AWS STS code examples for the SDK for .NET
 
 ## Overview
-The examples in this section show how to use the AWS SDK for .NET with Amazon Translate.
+The examples in this section show how to use the AWS SDK for .NET with AWS Security Token Service (AWS STS).
 
-Amazon Translate is a neural machine translation service for translating text to and from English across a breadth of supported languages.
+AWS STS is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users you authenticate (federated users).
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -15,15 +15,7 @@ Amazon Translate is a neural machine translation service for translating text to
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
-- [Start a translation job](BatchTranslateExample/BatchTranslate.cs) (`StartTextTranslationJobAsync`)
-- [Describe a translation job](DescribeTextTranslationExample/DescribeTextTranslation.cs) (`DescribeTextTranslationJobAsync`)
-- [List translation jobs](ListTranslationJobsExample/ListTranslationJobs.cs) (`ListTextTranslationJobsAsync`)
-- [Stop a translation job](StopTextTranslationJobExample/StopTextTranslationJob.cs) (`StopTextTranslationJobAsync`)
-- [Translate text](TranslateTextExample/TranslateText.cs) (`TranslateTextAsync`)
-
-### Cross-service examples
-Sample applications that work across multiple AWS services.
-- [Build a publish and subscription application that translates messages](../cross-service/SubscribePublishTranslate/SubscribePublishTranslate/Program.cs)
+- [Assume a role](AssumeRole/AssumeRoleExample/AssumeRole.cs) (`AssumeRoleAsync`)
 
 ## Run the examples
 
@@ -41,10 +33,21 @@ dotnet run
 
 Alternatively, you can run the example from within your IDE.
 
+## Tests
+⚠️ Running the tests might result in charges to your AWS account.
+
+The solution includes a test project. To run the tests, navigate to the folder that contains the test project and then issue the following command:
+
+```
+dotnet test
+```
+
+Alternatively, you can open the example solution and use the Visual Studio Test Runner to run the tests.
+
 ## Additional resources
-* [Amazon Translate Developer Guide](https://docs.aws.amazon.com/translate/latest/dg/index.html)
-* [Amazon Translate API Reference](https://docs.aws.amazon.com/translate/latest/APIReference/index.html)
-* [AWS SDK for .NET Amazon Translate](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Translate/NTranslate.html)
+* [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+* [AWS STS API Reference](https://docs.aws.amazon.com/STS/latest/APIReference/index.html)
+* [AWS SDK for .NET AWS STS](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SecurityToken/NSecurityToken.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
