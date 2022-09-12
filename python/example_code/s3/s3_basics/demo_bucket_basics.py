@@ -18,10 +18,26 @@ from botocore.exceptions import ClientError
 
 
 def list_my_buckets(s3_resource):
+    """
+        Iterates through the buckets resources and 
+        prints them to the console.
+        :s3_resource (string): s3 resource which contains all the buckets.
+        """
     print('Buckets:\n\t', *[b.name for b in s3_resource.buckets.all()], sep="\n\t")
 
 
 def create_and_delete_my_bucket(s3_resource, bucket_name, keep_bucket):
+    """
+        Generates bucket resource with specified name
+        and immediately deletes the bucket depending on
+        the keep_bucket Boolean variables.
+        :s3_resource (string): s3 resource which contains all the buckets.
+        :param bucket_name (string): Name of the bucket to generate
+                                     (must be unique).
+        :param keep_bucket (Boolean): Boolean which determines whether
+                                      to delete the generate bucket.
+        """
+
     list_my_buckets(s3_resource)
 
     try:

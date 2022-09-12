@@ -37,6 +37,14 @@ class RepositoryMigration:
     MIGRATION_TAG_PREFIX = "codecommit_migration_"
 
     def migrate_repository_in_parts(self, repo_dir, remote_name, commit_batch_size, clean):
+        """
+        Migrates the files from the local to remote repository.
+        :param repo_dir (string): The repository directory we are working with.
+        :param remote_name (string): Name of the remote repository which we are migrating to.
+        :param commit_batch_size (int): max size of batch for each commit.
+        :param clean (Boolean): boolean to determine whether to delete tag .
+        """
+
         self.next_tag_number = 0
         self.migration_tags = []
         self.walked_commits = set()
@@ -89,6 +97,12 @@ class RepositoryMigration:
         print("Migration to CodeCommit was successful")
 
     def migrate_commit(self, commit):
+
+        """
+        Executes a single commit.
+        :param commit (string): The name of the commit we are dealing with.
+        """
+        
         if commit in self.walked_commits:
             return []
 
@@ -111,6 +125,12 @@ class RepositoryMigration:
         return self.stage_push(commit, commit_count, pending_ancestor_pushes)
 
     def find_next_ancestor_for_push(self, commit):
+        """
+        Traverse the commit history until we find the initial commit or merge commit.
+        Return the merge commit and the number of other commits in between.
+        :param commit (string): The name of the commit we are dealing with.
+        """
+
         commit_count = 0
 
         # Traverse linear history until we reach our commit limit, a merge commit, or an initial commit

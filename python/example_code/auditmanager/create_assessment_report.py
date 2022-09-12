@@ -27,6 +27,13 @@ class AuditReport:
         self.auditmanager_client = auditmanager_client
 
     def get_input(self):
+        """
+        Retrieves desired assessment id and evidence folder from user.
+        Raises exceptions if values are not valid.
+        :return assessment_uuid (int): The id of the assessment.
+        :return evidence_date: The name of the folders we are interested in.
+        """
+
         print('-' * 40)
         try:
             assessment_id = input('Provide assessment id [uuid]: ').lower()
@@ -54,6 +61,9 @@ class AuditReport:
     def clear_staging(self, assessment_uuid, evidence_date):
         """
         Find all the evidence in the report and clear it.
+        Also returns all folders with the specified name.
+        :param assessment_uuid (int): The id of the assessment.
+        :param evidence_date: The name of the folders we are interested in.
         """
         next_token = None
         page = 1
@@ -107,6 +117,12 @@ class AuditReport:
         return interested_folder_id_list
 
     def add_folder_to_staging(self, assessment_uuid, folder_id_list):
+        """
+        Gets the list of evidence folder ids and associates them 
+        to the specified assessment report.
+        :param assessment_uuid (int): The id of the assessment.
+        :param folder_id_list (string): The id of the evidence folder.
+        """ 
         print(f"Adding folders to report : {folder_id_list}")
         for folder in folder_id_list:
             self.auditmanager_client.associate_assessment_report_evidence_folder(
@@ -114,6 +130,13 @@ class AuditReport:
                 evidenceFolderId=folder)
 
     def get_report(self, assessment_uuid):
+        """
+        Retrieves the assessment report with the specified assessment id.
+        If the report is successfully generated, the url of the assessment 
+        report is printed to the console.
+        :param assessment_uuid (int): The id of the assessment.
+        """ 
+
         report = self.auditmanager_client.create_assessment_report(
             name='ReportViaScript',
             description='testing',
@@ -133,6 +156,12 @@ class AuditReport:
                   "the report.")
 
     def _is_report_generated(self, assessment_report_id):
+        """
+        Checks whether an assessment report is successfully generated.
+        Conditional statement checks if the report is compelete, and 
+        the id of the report. Returns true if successfully generated.
+        :param assessment_uuid (int): The id of the assessment.
+        """ 
         max_wait_time = 0
         while max_wait_time < 900:
             print(f"Checking status of the report {assessment_report_id}")
