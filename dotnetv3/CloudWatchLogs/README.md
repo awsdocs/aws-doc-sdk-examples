@@ -1,9 +1,10 @@
-# Amazon S3 Glacier code examples for the SDK for .NET
+# CloudWatch Logs code examples for the SDK for .NET
 
 ## Overview
-The code examples in this section show how to use the AWS SDK for .NET with Amazon Simple Storage Service Glacier (Amazon S3 Glacier) to work with vaults and archives.
+The code examples in this section show how to use the AWS SDK for .NET with Amazon CloudWatch Logs
+to request, import, and manage certificates.
 
-Amazon S3 Glacier is a secure and durable service for low-cost data archiving and long-term backup.
+Use CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS CloudTrail, or other sources.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -16,14 +17,14 @@ Amazon S3 Glacier is a secure and durable service for low-cost data archiving an
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Add tags](AddTagsToVaultExample/AddTagsToVault.cs) (`AddTagsToVaultAsync`)
-* [Create a vault](CreateVaultExample/CreateVault.cs) (`CreateVaultAsync`)
-* [Describe a job](DescribeVaultExample/DescribeVault.cs) (`DescribeJobAsync`)
-* [Download an archive](DownloadArchiveHighLevelExample/DownloadArchiveHighLevel.cs) (`DownloadAsync`)
-* [List jobs](ListJobsExample/ListJobs.cs) (`ListJobsAsync`)
-* [List tags](ListTagsForVaultExample/ListTagsForVault.cs) (`ListTagsForVaultAsync`)
-* [List vaults](ListVaultsExample/ListVaults.cs) (`ListVaultsAsync`)
-* [Upload an archive to a vault](UploadArchiveHighLevelExample/UploadArchiveHighLevel.cs) (`UploadArchiveAsync`)
+* [Associate an AWS KMS key to a log group](AssociateKmsKeyExample/AssociateKmsKey.cs) (`DescribeCertificateAsync`)
+* [Cancel an export task](CancelExportTaskExample/CancelExportTask.cs) (`CancelExportTaskAsync`)
+* [Create a log group](CreateLogGroupExample/CreateLogGroup.cs) (`CreateLogGroupAsync`)
+* [Create a new log stream](CreateLogStreamExample/CreateLogStream.cs) (`CreateLogStreamAsync`)
+* [Create an export task](CreateExportTaskExample/CreateExportTask.cs) (`CreateExportTaskAsync`)
+* [Delete a log group](DeleteLogGroupExample/DeleteLogGroup.cs) (`DeleteLogGroupAsync`)
+* [Describe export tasks](DescribeExportTasksExample/DescribeExportTasks.cs) (`DescribeExportTasksAsync`)
+* [Describe log groups](DescribeLogGroupsExample/DescribeLogGroups.cs) (`DescribeLogGroupsAsync`)
 
 ## Run the examples
 
@@ -37,7 +38,7 @@ example shows how to supply the AWS Region to match your own as a
 parameter to the client constructor:
 
 ```
-var client = new AmazonGlacierClient(Amazon.RegionEndpoint.USWest2);
+var client = new AmazonCloudWatchLogsClient(Amazon.RegionEndpoint.USWest2);
 ```
 
 After the example compiles, you can run it from the command line. To do so,
@@ -51,9 +52,9 @@ dotnet run
 Alternatively, you can run the example from within your IDE.
 
 ## Additional resources
-* [Amazon S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/index.html)
-* [Amazon S3 Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
-* [AWS SDK for .NET Amazon S3 Glacier](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glacier/NGlacier.html)
+* [CloudWatch Logs User Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/CloudWatchLogs/NCloudWatchLogs.html)
+* [CloudWatch Logs API Reference](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/index.html)
+* [AWS SDK for .NET CloudWatch Logs](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/CertificateManager/NCertificateManager.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
