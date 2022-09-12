@@ -84,7 +84,7 @@ public partial class TranscribeWrapper
     /// <param name="nameContains">Optional string the vocabulary name must contain.</param>
     /// <param name="stateEquals">Optional state of the vocabulary.</param>
     /// <returns>List of information about the vocabularies.</returns>
-    public async Task<List<VocabularyInfo>> ListCustomVocabularies(string? nameContains = null, 
+    public async Task<List<VocabularyInfo>> ListCustomVocabularies(string? nameContains = null,
         VocabularyState? stateEquals = null)
     {
         var response = await _amazonTranscribeService.ListVocabulariesAsync(

@@ -35,7 +35,7 @@ public partial class TranscribeWrapper
     /// <param name="languageCode">The language code of the media file, such as en-US.</param>
     /// <param name="vocabularyName">Optional name of a custom vocabulary.</param>
     /// <returns>A TranscriptionJob instance with information on the new job.</returns>
-    public async Task<TranscriptionJob> StartTranscriptionJob(string jobName, string mediaFileUri, 
+    public async Task<TranscriptionJob> StartTranscriptionJob(string jobName, string mediaFileUri,
         MediaFormat mediaFormat, LanguageCode languageCode, string? vocabularyName)
     {
         var response = await _amazonTranscribeService.StartTranscriptionJobAsync(

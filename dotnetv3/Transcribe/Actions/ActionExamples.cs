@@ -31,7 +31,7 @@ public class ActionExamples
 
     // Set this value to the S3 location of a media file.
     // A sample media file is provided in the media folder of this solution.
-    private static readonly string transcriptionMediaLocation = 
+    private static readonly string transcriptionMediaLocation =
         "https://[example-media-bucket].s3.amazonaws.com/Jabberwocky.mp3";
     // Set this value to an S3 folder name where the output can be stored.
     private static readonly string transcriptionMediaOutputLocation = "example-output-bucket";
@@ -94,7 +94,7 @@ public class ActionExamples
     {
         Console.WriteLine(sepBar);
         Console.WriteLine("Start a transcription.");
-        
+
         var transcriptionName = $"ExampleTranscription_{DateTime.Now.Ticks}";
 
         var transcriptionJob = await transcribeWrapper.StartTranscriptionJob(
@@ -159,7 +159,7 @@ public class ActionExamples
 
         var success = await transcribeWrapper.DeleteTranscriptionJob(transcriptionName);
 
-        Console.WriteLine(success ? $"Transcription {transcriptionName} deleted." 
+        Console.WriteLine(success ? $"Transcription {transcriptionName} deleted."
             : $"Unable to delete transcription {transcriptionName}.");
         Console.WriteLine(sepBar);
     }
