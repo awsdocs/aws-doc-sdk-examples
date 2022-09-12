@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 #
-# Integration test runner for Glue files.
+# Integration test runner for AWS Glue files.
 #
 
 namespace Glue;
@@ -140,7 +140,6 @@ class GlueBasicsTests extends TestCase
             ]
         ]);
         $s3Client->deleteBucket(['Bucket' => $bucketName]);
-
     }
 
     private function uploadJobInfo($s3client, $bucketName)

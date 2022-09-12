@@ -1,4 +1,4 @@
-# AWS Glue code examples for the AWS SDK for PHP
+# AWS Glue code examples for the SDK for PHP
 
 ## Overview
 
@@ -18,7 +18,6 @@ Shows how to use the AWS SDK for PHP to manage AWS Glue resources.
 
 ### Single action
 
-# TODO update these links to PHP
 * [Create a crawler](GettingStartedWithGlue.php)
   (`CreateCrawler`)
 * [Create a job definition](GettingStartedWithGlue.php)
@@ -52,7 +51,7 @@ Shows how to use the AWS SDK for PHP to manage AWS Glue resources.
 
 * [Get started running crawlers and jobs](GettingStartedWithGlue.php)
 
-## Running the examples
+## Run the examples
 
 ### Get started running crawlers and jobs scenario
 
@@ -63,7 +62,7 @@ AWS Glue to do the following:
    Service (Amazon S3) bucket and generates a metadata database that describes the
    CSV-formatted data it finds.
 2. List information about databases and tables in your AWS Glue Data Catalog.
-3. Create and run a job that extracts CSV data from the source Amazon S3 bucket,
+3. Create and run a job that extracts CSV data from the source S3 bucket,
    transforms it by removing and renaming fields, and loads JSON-formatted output into
    another S3 bucket.
 4. List information about job runs and view some of the transformed data.
@@ -72,7 +71,7 @@ AWS Glue to do the following:
 This scenario requires the following scaffold resources that are defined in the
 accompanying AWS CloudFormation script `setup_scenario_getting_started.yaml`.
 
-* An Amazon S3 bucket that can contain the Python ETL job script and can receive
+* An S3 bucket that can contain the Python ETL job script and can receive
   output data.
 * An AWS Identity and Access Management (IAM) role that can be assumed by AWS Glue.
   The role must grant read-write access to the S3 bucket and standard rights needed by
@@ -84,8 +83,8 @@ Install dependencies by using Composer:
 composer install
 ```
 
-After your composer dependencies are installed, you can run the interactive getting started file directly with the
-following from the `aws-doc-sdk-examples\php\glue\` directory:
+After your composer dependencies are installed, you can run the interactive getting started file directly by using the
+following command from the `aws-doc-sdk-examples\php\glue\` directory:
 
 ```
 php Runner.php

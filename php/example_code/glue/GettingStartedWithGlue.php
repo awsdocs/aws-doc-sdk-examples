@@ -5,7 +5,16 @@
 
 /**
  * Purpose
- * Shows how to use the AWS SDK for PHP with Glue to
+ * Shows how to use the AWS SDK for PHP with AWS Glue to:
+ * 1. Create and run a crawler that crawls a public Amazon Simple Storage
+ * Service (Amazon S3) bucket and generates a metadata database that describes the
+ * CSV-formatted data it finds.
+ * 2. List information about databases and tables in your AWS Glue Data Catalog.
+ * 3. Create and run a job that extracts CSV data from the source S3 bucket,
+ * transforms it by removing and renaming fields, and loads JSON-formatted output into
+ * another Amazon S3 bucket.
+* 4. List information about job runs and view some of the transformed data.
+* 5. Delete all resources created by the example.
  **/
 
 # snippet-start:[php.example_code.glue.basics.scenario]
