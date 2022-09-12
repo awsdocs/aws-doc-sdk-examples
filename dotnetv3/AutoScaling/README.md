@@ -1,43 +1,45 @@
-# Amazon EC2 Auto Scaling code examples for the AWS SDK for .NET (v3)
+# Amazon EC2 Auto Scaling code examples for the SDK for .NET
 
 ## Overview
+The code examples in this section show how to use the AWS SDK for .NET with Amazon EC2 Auto Scaling to create and manage Amazon EC2
+Auto Scaling groups and instances.
 
-The examples in this directory show how to use Amazon EC2 Auto Scaling with the
-AWS SDK for .NET (v3).
-
-Use Amazon EC2 Auto Scaling to automatically scale Amazon EC2 instances, either
-with scaling policies or with scheduled scaling.
+Amazon EC2 Auto Scaling automatically scales EC2 instances, either with scaling
+policies or with scheduled scaling.
 
 ## ⚠️ Important
-
-- Running this code might result in charges to your AWS account.
-- We recommend that you grant your code least privilege, or at most the minimum
-  permissions required to perform the task. For more information, see
-  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-- This code is not tested in all AWS Regions. For more information, see
-  [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
 ### Single actions
+Code excerpts that show you how to call individual service functions.
 
-- [Create Auto Scaling group](scenarios/AutoScale_Basics) (`CreateAutoScalingGroupAsync`)
-- [Describe account limits](scenarios/AutoScale_Basics) (`DescribeAccountLimitsAsync`)
-- [Describe scaling activities](scenarios/AutoScale_Basics) (`DescribeScalingActivitiesAsync`)
-- [Describe Auto Scaling instances](scenarios/AutoScale_Basics) (`DescribeAutoScalingInstancesAsync`)
-- [Describe Auto Scaling groups](scenarios/AutoScale_Basics) (`DescribeAutoScalingGroupsAsync`)
-- [Delete Auto Scaling group](scenarios/AutoScale_Basics) (`DeleteAutoScalingGroupAsync`)
-- [Enable metric collection](scenarios/AutoScale_Basics) (`EnableMetricsCollectionAsync`)
-- [Disable metric collection](scenarios/AutoScale_Basics) (`DeleteAutoScalingGroupAsync`)
-- [Set desired capacity](scenarios/AutoScale_Basics) (`SetDesiredCapacityAsync`)
-- [Terminate an instance in an Auto Scaling group](scenarios/AutoScale_Basics) (`TerminateInstanceInAutoScalingGroupAsync`)
-- [Update an Auto Scaling group](scenarios/AutoScale_Basics) (`UpdateAutoScalingGroupAsync`)
+* [Create a group](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`CreateAutoScalingGroupAsync`)
+* [Delete a group](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`DeleteAutoScalingGroupAsync`)
+* [Disable metrics collection for a group](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`DisableMetricsCollectionAsync`)
+* [Enable metrics collection for a group](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`EnableMetricsCollectionAsync`)
+* [Get information about account limits](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`DescribeAccountLimitsAsync`)
+* [Get information about scaling activities](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`DescribeScalingActivitiesAsync`)
+* [Get information about instances](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`DescribeAutoScalingInstancesAsync`)
+* [Get information about groups](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`DescribeAutoScalingGroupsAsync`)
+* [Set the desired capacity of a group](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`SetDesiredCapacityAsync`)
+* [Terminate an instance in a group](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`TerminateInstanceInAutoScalingGroupAsync`)
+* [Update a group](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs) (`UpdateAutoScalingGroupAsync`)
 
-### Scenario
+### Scenarios
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-[Auto Scaling basics](scenarios/AutoScale_Basics)
+* [Auto Scaling basics](scenarios/AutoScale_Basics/AutoScale_Basics/AutoScaleMethods.cs)
 
-## Run the Examples
+## Run the examples
+
+### Prerequisites
+* To find prerequisites for running these examples, see the
+  [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
 After the example compiles, you can run it from the command line. To do so,
 navigate to the folder that contains the .csproj file and run the following
@@ -49,10 +51,10 @@ dotnet run
 
 Alternatively, you can run the example from within your IDE.
 
-## Resources and documentation
-
-- [Amazon EC2 Auto Scaling documentation](https://docs.aws.amazon.com/autoscaling/?id=docs_gateway#amazon-ec2-auto-scaling)
-- [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-- [AWS SDK for .NET API Reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
+## Additional resources
+* [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/index.html)
+* [Amazon EC2 Auto Scaling API Reference](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/Welcome.html)
+* [AWS SDK for .NET Amazon EC2 Auto Scaling](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/AutoScaling/NAutoScaling.html)
+* [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
