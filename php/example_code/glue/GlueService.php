@@ -1,5 +1,8 @@
 <?php
 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 #snippet-start:[php.example_code.glue.service]
 namespace Glue;
 
