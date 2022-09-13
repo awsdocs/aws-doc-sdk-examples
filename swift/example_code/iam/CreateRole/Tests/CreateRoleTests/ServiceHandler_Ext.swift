@@ -29,7 +29,7 @@ public extension ServiceHandler {
 
             guard let role = output.role,
                   let id = role.roleId else {
-                throw ServiceError.noSuchRole
+                throw ServiceHandlerError.noSuchRole
             }
 
             return id

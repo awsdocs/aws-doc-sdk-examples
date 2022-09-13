@@ -28,10 +28,10 @@ public extension ServiceHandler {
         do {
             let output = try await client.getUser(input: input)
             guard let user = output.user else {
-                throw ServiceError.noSuchUser
+                throw ServiceHandlerError.noSuchUser
             }
             guard let id = user.userId else {
-                throw ServiceError.noSuchUser
+                throw ServiceHandlerError.noSuchUser
             }
             return id
         } catch {

@@ -16,7 +16,7 @@ import AWSClientRuntime
 // snippet-start:[iam.swift.createuser.enum.service-error]
 
 /// Errors returned by `ServiceHandler` functions.
-enum ServiceError: Error {
+enum ServiceHandlerError: Error {
     case noSuchUser             /// No matching user found, or unable to create the user.
 }
 // snippet-end:[iam.swift.createuser.enum.service-error]
@@ -55,10 +55,10 @@ public class ServiceHandler {
         do {
             let output = try await client.createUser(input: input)
             guard let user = output.user else {
-                throw ServiceError.noSuchUser
+                throw ServiceHandlerError.noSuchUser
             }
             guard let id = user.userId else {
-                throw ServiceError.noSuchUser
+                throw ServiceHandlerError.noSuchUser
             }
             return id
         } catch {

@@ -14,7 +14,7 @@ import SwiftUtilities
 
 @testable import ServiceHandler
 
-enum ServiceError: Error {
+enum ServiceHandlerError: Error {
     case noSuchGroup
 }
 
@@ -32,7 +32,7 @@ public extension ServiceHandler {
         do {
             let output = try await client.createGroup(input: input)
             guard let group = output.group else {
-                throw ServiceError.noSuchGroup
+                throw ServiceHandlerError.noSuchGroup
             }
             return group.groupId
         } catch {

@@ -16,7 +16,7 @@ import AWSClientRuntime
 // snippet-start:[iam.swift.createrole.enum.service-error]
 
 /// Errors returned by `ServiceHandler` functions.
-enum ServiceError: Error {
+enum ServiceHandlerError: Error {
     case noSuchUser            /// No matching user found.
     case noSuchRole            /// No matching role found, or unable to create the role.
 }
@@ -57,10 +57,10 @@ public class ServiceHandler {
         do {
             let output = try await client.createRole(input: input)
             guard let role = output.role else {
-                throw ServiceError.noSuchRole
+                throw ServiceHandlerError.noSuchRole
             }
             guard let id = role.roleId else {
-                throw ServiceError.noSuchRole
+                throw ServiceHandlerError.noSuchRole
             }
             return id
         } catch {
@@ -82,7 +82,7 @@ public class ServiceHandler {
         do {
             let output = try await client.getUser(input: input)
             guard let user = output.user else {
-                throw ServiceError.noSuchUser
+                throw ServiceHandlerError.noSuchUser
             }
             return user
         } catch {

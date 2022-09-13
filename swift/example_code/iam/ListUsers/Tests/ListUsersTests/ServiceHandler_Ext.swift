@@ -14,7 +14,7 @@ import SwiftUtilities
 
 @testable import ServiceHandler
 
-enum ServiceError: Error {
+enum ServiceHandlerError: Error {
     case noSuchUser
 }
 
@@ -32,7 +32,7 @@ public extension ServiceHandler {
         do {
             let output = try await client.createUser(input: input)
             guard let user = output.user else {
-                throw ServiceError.noSuchUser
+                throw ServiceHandlerError.noSuchUser
             }
             return user.userId
         } catch {
