@@ -1054,15 +1054,58 @@ sns_PublishFifoTopic:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
+        - sdk_version: 1
+          github: java/example_code/sns
           sdkguide:
           excerpts:
             - description: Create a FIFO topic and FIFO queues. Subscribe the queues to the topic.
               snippet_tags:
-                - sns.java2.CreateTopicFIFO.main
+                - sns.java.fifo_topics.create_topic
+            - description: |-
+                Set a filter policy on each subscription so that each subscriber application receives only the price
+                updates that it needs.
+              snippet_tags:
+                - sns.java.fifo_topics.filter_policy
+            - description: Compose and publish a message that updates the wholesale price.
+              snippet_tags:
+                - sns.java.fifo_topics.publish
   services:
     sns: {}
+sns_PublishLargeMessage:
+  title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
+  title_abbrev: Publish a large message
+  synopsis: publish a large message to &SNS; using &S3; to store the message payload.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 1
+          github: java/example_code/sns
+          sdkguide:
+          excerpts:
+            - description:
+                To publish a large message, use the &SNS; Extended Client Library for Java.
+                The message that you send references an &S3; object containing the actual message content.
+              snippet_tags:
+                - sns.java.publish_large_file
+  services:
+    sns: {}
+sns_SetSubscriptionAttributesRedrivePolicy:
+  title: Set a dead-letter queue for an &SNS; subscription using an &AWS; SDK
+  title_abbrev: Set a dead-letter queue for a subscription
+  synopsis: set an &SQS; queue as a dead-letter queue for an &SNS; subscription.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 1
+          github: java/example_code/sns
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - sns.java.redrive_policy
+  services:
+    sns: {SetSubscriptionAttributesRedrivePolicy}
 sns_CreatePlatformEndpoint:
   title: Create a platform endpoint for &SNS; push notifications using an &AWS; SDK
   title_abbrev: Create a platform endpoint for push notifications
@@ -1071,13 +1114,13 @@ sns_CreatePlatformEndpoint:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
+        - sdk_version: 1
+          github: java/example_code/sns
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - sns.java2.reg.endpoint.main
+                - sns.java.create_mobile_endpoint
   services:
     sns: {}
 sns_UsageSmsTopic:

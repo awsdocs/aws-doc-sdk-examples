@@ -1,16 +1,4 @@
 # zexi 0.4.0
-cross_SQSMessageApp:
-  title: Create a web application that sends and retrieves messages by using the &SQSlong; API
-  title_abbrev: Create a messaging application
-  synopsis: create a messaging application by using the &SQSlong; API.
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          block_content: cross_SQSMessage_Java_block.xml
-  services:
-    sqs:
-    comprehend:
 cross_RDSDataTracker:
   title: Create an &RDSlong; item tracker
   title_abbrev: Create a web application to track &RDS; data
