@@ -352,7 +352,7 @@ public class MainController {
 
 ### SendReceiveMessages class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue.
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue. In addition, the Amazon Comprehend API is used to detect the main language of the incoming message.
 
 ```java
 /*
