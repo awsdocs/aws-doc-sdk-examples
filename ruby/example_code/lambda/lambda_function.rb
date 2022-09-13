@@ -1,8 +1,18 @@
+# frozen_string_literal: true
+
+require 'logger'
+
 def lambda_handler(event:, context:)
-  # bucket = event["Records"][0]["s3"]["bucket"]["name"]
-  # key = event["Records"][0]["s3"]["object"]["key"]
-  # s3 = Aws::S3::Object.new(bucket, key)
-  # type = s3.content_type
-  # puts "CONTENT TYPE: #{type}"
-  puts "Hello world"
+  logger = Logger.new($stdout)
+  log_level = ENV['LOG_LEVEL']
+  logger.level = case log_level
+                 when 'debug'
+                   Logger::DEBUG
+                 when 'info'
+                   Logger::INFO
+                 else
+                   Logger::ERROR
+                 end
+  logger.debug('This is a debug log message.')
+  logger.info('This is an info log message. Code executed successfully!')
 end

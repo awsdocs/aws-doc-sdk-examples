@@ -14,42 +14,42 @@ require 'logger'
 require 'json'
 require 'zip'
 
-@logger = Logger.new($stdout)
-
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.full]
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.decl]
 class LambdaWrapper
-  attr_accessor :iam_client, :lambda_client, :cloudwatch_client, :source_file, :custom_name
+  attr_accessor :lambda_client, :source_file, :custom_name
 
-  def initialize(lambda_client, iam_client, cloudwatch_client, source_file, custom_name)
+  def initialize(lambda_client, source_file, custom_name)
     @lambda_client = lambda_client
-    @iam_client = iam_client
-    @cloudwatch_client = cloudwatch_client
     @source_file = source_file
     @custom_name = custom_name
+    @logger = Logger.new($stdout)
+    @logger.level = Logger::INFO
   end
 
-  # Creates a Lambda deployment package in .zip format in an in-memory buffer. This
-  # buffer can be passed directly to Lambda when creating the function.
+  # Creates a Lambda deployment package in .zip format
+  # This zip can be passed directly as a string to Lambda when creating the function.
   #
-  # @param source_file: The name of the file that contains the Lambda handler
-  # function.
-  # @param destination_file: The name to give the file when it's deployed to Lambda.
+  # @param source_file: The name of the object without suffix for Lambda file and zip.
   # @return: The deployment package.
-  def create_deployment_package(source_file = 'lambda_function.rb', destination_file = 'lambda_function.zip')
-    if File.exist?(destination_file)
-      system("rm #{destination_file}")
+  def create_deployment_package(source_file)
+    if File.exist?("#{source_file}.zip")
+      system("rm #{source_file}.zip")
+      @logger.debug("Deleting old zip: #{source_file}.zip")
+
     end
-    system("zip #{destination_file} #{source_file}")
-    File.read(destination_file.to_s)
+    system("zip #{source_file}.zip #{source_file}.rb")
+    @logger.debug("Zipping #{source_file}.rb into: #{source_file}.zip.")
+    File.read("#{source_file}.zip").to_s
   end
 
   # Get an AWS Identity and Access Management (IAM) role.
   #
   # @param iam_role_name: The name of the role to retrieve.
+  # @param action: whether to create or destroy the IAM apparatus
   # @return: The IAM role.
-  def create_iam_role(iam_role_name)
-    # Role with solitary AWSLambdaExecute policy, including S3 Get/Put Object & DenyAllExcept
+  def manage_iam(iam_role_name, action)
+    iam_client = Aws::IAM::Client.new(region: 'us-east-1')
     lambda_assume_role_policy = {
       'Version': '2012-10-17',
       'Statement': [
@@ -62,46 +62,74 @@ class LambdaWrapper
         }
       ]
     }
-    role = @iam_client.create_role(
-      role_name: iam_role_name,
-      assume_role_policy_document: lambda_assume_role_policy.to_json
-    )
-    @iam_client.attach_role_policy(
-      {
-        policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
+    case action
+    when 'create'
+      role = iam_client.create_role(
+        role_name: iam_role_name,
+        assume_role_policy_document: lambda_assume_role_policy.to_json
+      )
+      iam_client.attach_role_policy(
+        {
+          policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
+          role_name: iam_role_name
+        }
+      )
+      iam_client.wait_until(:role_exists, { role_name: iam_role_name }) do |w|
+        w.max_attempts = 5
+        w.delay = 5
+      end
+      @logger.debug("Successfully created IAM role: #{role['role']['arn']}")
+      @logger.debug('Enforcing a 10-second sleep to allow IAM role to activate fully.')
+      sleep(10)
+      role['role']['arn']
+    when 'destroy'
+      iam_client.detach_role_policy(
+        {
+          policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
+          role_name: iam_role_name
+        }
+      )
+      iam_client.delete_role(
         role_name: iam_role_name
-      }
-    )
-    puts "Successfully created IAM role: #{role["role"]["arn"]}"
-    sleep(10)
-    role["role"]["arn"]
+      )
+      @logger.debug("Detached policy & deleted IAM role: #{iam_role_name}")
+    else
+      raise "Incorrect action provided. Must provide 'create' or 'destroy'"
+    end
   end
 
-  def delete_iam_role(iam_role_name)
-    @iam_client.detach_role_policy(
-      {
-        policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
-        role_name: iam_role_name
-      }
-    )
-    @iam_client.delete_role(
-      role_name: iam_role_name
-    )
-    puts "Detached policy & deleted IAM role: #{iam_role_name}"
+  # Get function logs from the latest CloudWatch log stream
+  # @param function_name: The name of the function
+  # @param string_match: A string to look for in the logs
+  # @return all_logs: an array of all the log messages found for that stream
+  def get_cloudwatch_logs(function_name, string_match)
+    sleep(10)
+    cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: 'us-east-1')
+    streams = cloudwatch_client.describe_log_streams({ log_group_name: "/aws/lambda/#{function_name}" })
+    streams['log_streams'].each do |x|
+      resp = cloudwatch_client.get_log_events({
+                                                log_group_name: "/aws/lambda/#{function_name}",
+                                                log_stream_name: x['log_stream_name']
+                                              })
+      resp.events.each do |x|
+        puts "Log message discovered: #{x.message}" if "/#{x.message}/".match(string_match)
+      end
+    end
   end
 
   # snippet-start:[ruby.example_code.lambda.GetFunction]
   # Gets data about a Lambda function.
   #
   # @param function_name: The name of the function.
-  # @return response: The function data.
+  # @return response: The function data, or nil if no such function exists
   def get_function(function_name)
     @lambda_client.get_function(
       {
         function_name: function_name
       }
     )
-  rescue Aws::Lambda::Errors::ResourceNotFoundException
+  rescue Aws::Lambda::Errors::ResourceNotFoundException => e
+    @logger.debug("Could not find function: #{function_name}:\n #{e.message}")
     nil
   end
   # snippet-end:[ruby.example_code.lambda.GetFunction]
@@ -117,28 +145,29 @@ class LambdaWrapper
   #                            code in .zip format.
   # @return: The Amazon Resource Name (ARN) of the newly created function.
   def create_function(function_name, handler_name, role_arn, deployment_package)
-    # args = { code: {} }
-    # args[:role] = role_arn # "arn:aws:iam::260778392212:role/lambda-role-#{@random_number}"
-    # args[:function_name] = function_name
-    # args[:handler] = handler_name # 'lambda_function.lambda_handler'
-    # args[:runtime] = 'ruby2.7'
-    # args[:code][:zip_file] = deployment_package # File.read('lambda_function.zip')
-    @lambda_client.create_function(
-      response = {
-        role: role_arn.to_s,
-        function_name: function_name,
-        handler: handler_name,
-        runtime: 'ruby2.7',
-        code: {
-          zip_file: deployment_package
-        }
-      }
-    )
+    response = @lambda_client.create_function({
+                                                role: role_arn.to_s,
+                                                function_name: function_name,
+                                                handler: handler_name,
+                                                runtime: 'ruby2.7',
+                                                code: {
+                                                  zip_file: deployment_package
+                                                },
+                                                environment: {
+                                                  variables: {
+                                                    'LOG_LEVEL' => 'info'
+                                                  }
+                                                }
+                                              })
     @lambda_client.wait_until(:function_active_v2, { function_name: function_name }) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
-    response["function_arn"]
+    response['function_arn']
+  rescue Aws::Lambda::Errors::ServiceException => e
+    puts "There was an error creating #{function_name}:\n #{e.message}"
+  rescue Aws::Waiters::Errors::WaiterFailed => e
+    puts "Failed waiting for #{function_name} to activate:\n #{e.message}"
   end
   # snippet-end:[ruby.example_code.lambda.CreateFunction]
 
@@ -146,10 +175,13 @@ class LambdaWrapper
   # Deletes a Lambda function.
   # @param function_name: The name of the function to delete
   def delete_function(function_name)
+    print "Deleted function: #{function_name}..."
     @lambda_client.delete_function(
       function_name: function_name
     )
-    puts "Deleted function: #{function_name}"
+    print 'Done!'
+  rescue Aws::Lambda::Errors::ServiceException => e
+    puts "There was an error deleting #{function_name}:\n #{e.message}"
   end
   # snippet-end:[ruby.example_code.lambda.DeleteFunction]
 
@@ -186,30 +218,23 @@ class LambdaWrapper
     rescue Aws::Lambda::Errors::ServiceException
       nil
     end
-    # try:
-    #     response = self.lambda_client.update_function_code(
-    #         FunctionName=function_name, ZipFile=deployment_package)
-    # except ClientError as err:
-    #     logger.error(
-    #         "Couldn't update function %s. Here's why: %s: %s", function_name,
-    #         err.response['Error']['Code'], err.response['Error']['Message'])
-    #     raise
-    # else:
-    #     return response
   end
   # snippet-end:[ruby.example_code.lambda.UpdateFunctionCode]
 
   # snippet-start:[ruby.example_code.lambda.UpdateFunctionConfiguration]
   # Updates the environment variables for a Lambda function.
-
   # @param function_name: The name of the function to update.
-  # @param env_vars: A dict of environment variables to update.
+  # @param log_level: The log level of the function
   # @return: Data about the update, including the status.
-  def update_function_configuration(function_name, env_vars)
-    @lambda_client.update_function_configuration(
-      function_name: function_name,
-      env_vars: env_vars
-    )
+  def update_function_configuration(function_name, log_level)
+    @lambda_client.update_function_configuration({
+                                                   function_name: function_name,
+                                                   environment: {
+                                                     variables: {
+                                                       'LOG_LEVEL' => log_level
+                                                     }
+                                                   }
+                                                 })
     @lambda_client.wait_until(:function_updated_v2, { function_name: function_name }) do |w|
       w.max_attempts = 5
       w.delay = 5
