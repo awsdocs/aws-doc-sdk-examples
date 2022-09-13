@@ -1,4 +1,4 @@
-﻿// snippet-start:[Cognitoognito_MVP.Usings]
+﻿// snippet-start:[Cognito_MVP.Usings]
 global using Amazon;
 global using Amazon.CognitoIdentityProvider;
 global using Amazon.CognitoIdentityProvider.Model;
