@@ -83,7 +83,15 @@ namespace Cognito_MVP
             }
         }
 
-        public static async Task<string> GetSecretForAppMFA(AmazonCognitoIdentityProviderClient identityProviderClient, string session)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="identityProviderClient"></param>
+        /// <param name="session">The currently active session.</param>
+        /// <returns></returns>
+        public static async Task<string> GetSecretForAppMFA(
+            AmazonCognitoIdentityProviderClient identityProviderClient,
+            string session)
         {
             var softwareTokenRequest = new AssociateSoftwareTokenRequest
             {
@@ -93,8 +101,7 @@ namespace Cognito_MVP
             var tokenResponse = await identityProviderClient.AssociateSoftwareTokenAsync(softwareTokenRequest);
             var secretCode = tokenResponse.SecretCode;
 
-            Console.WriteLine("Enter the following token into Google Authenticator");
-            Console.WriteLine(secretCode);
+            Console.WriteLine($"Enter the following token into Google Authenticator: {secretCode}");
 
             return tokenResponse.Session;
         }
