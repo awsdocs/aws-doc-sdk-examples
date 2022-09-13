@@ -65,7 +65,7 @@ The following describes how the application handles a message:
 
 1. The message and user values are posted to a Spring REST endpoint.
 2. The Spring controller creates a custom **MessageData** object that stores the message ID value (a GUID), the message text, and the user.
-3. The Spring controller passes the **MessageData** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue.
+3. The Spring controller passes the **MessageData** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue. The **software.amazon.awssdk.services.comprehend.ComprehendClient** client object is also used to detect the language of the message. 
 4. The Spring REST endpoint invokes the message service’s **getMessages** method to read all of the messages in the queue. A list of **MessageData** objects is returned and displayed in the React application. 
 
 
