@@ -4,7 +4,7 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that sends and retrieves messages by using the AWS SDK for Java (v2) and Amazon Simple Queue Service (Amazon SQS). In addition, this application uses Amazon Comprehend to detect the language of the incoming message. The Spring REST API is used by a React application that displays the data.   |
+| Description | Discusses how to develop a Spring REST API that sends and retrieves messages by using the AWS SDK for Java (v2) and Amazon Simple Queue Service (Amazon SQS). The Spring REST API is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
 | Updated   | 8/02/2022        |
 | Required skills   | Java, Maven, JavaScript  |
@@ -65,7 +65,7 @@ The following describes how the application handles a message:
 
 1. The message and user values are posted to a Spring REST endpoint.
 2. The Spring controller creates a custom **MessageData** object that stores the message ID value (a GUID), the message text, and the user.
-3. The Spring controller passes the **MessageData** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue. The **software.amazon.awssdk.services.comprehend.ComprehendClient** client object is also used to detect the language of the message. 
+3. The Spring controller passes the **MessageData** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue.
 4. The Spring REST endpoint invokes the message service’s **getMessages** method to read all of the messages in the queue. A list of **MessageData** objects is returned and displayed in the React application. 
 
 
@@ -144,10 +144,6 @@ The **pom.xml** file looks like the following.
             <artifactId>junit-platform-launcher</artifactId>
             <version>1.8.2</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>comprehend</artifactId>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -352,23 +348,14 @@ public class MainController {
 
 ### SendReceiveMessages class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue. In addition, the Amazon Comprehend API is used to detect the main language of the incoming message.
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue.
 
 ```java
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
 package com.example.sqs;
 
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.comprehend.ComprehendClient;
-import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageRequest;
-import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageResponse;
-import software.amazon.awssdk.services.comprehend.model.DominantLanguage;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.MessageAttributeValue;
@@ -377,6 +364,7 @@ import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.PurgeQueueRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -389,15 +377,6 @@ public class SendReceiveMessages {
 
     private SqsClient getClient() {
         return SqsClient.builder()
-            .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
-    }
-
-    // Get a Comprehend client.
-    private ComprehendClient getComClient() {
-
-        return ComprehendClient.builder()
             .region(Region.US_WEST_2)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
@@ -473,27 +452,11 @@ public class SendReceiveMessages {
                 .queueName(queueName)
                 .build();
 
-            // We will get the language code for the incoming message.
-            ComprehendClient comClient =  getComClient();
-
-            // Specify the Langauge code of the incoming message.
-            String lanCode = "" ;
-            DetectDominantLanguageRequest request = DetectDominantLanguageRequest.builder()
-                .text(msg.getBody())
-                .build();
-
-            DetectDominantLanguageResponse resp = comClient.detectDominantLanguage(request);
-            List<DominantLanguage> allLanList = resp.languages();
-            for (DominantLanguage lang : allLanList) {
-                System.out.println("Language is " + lang.languageCode());
-                lanCode = lang.languageCode();
-            }
-
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
             SendMessageRequest sendMsgRequest = SendMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .messageAttributes(myMap)
-                .messageGroupId("GroupA_"+lanCode)
+                .messageGroupId("GroupA")
                 .messageDeduplicationId(msg.getId())
                 .messageBody(msg.getBody())
                 .build();
@@ -505,7 +468,6 @@ public class SendReceiveMessages {
         }
     }
 }
-
 
 
 ```
