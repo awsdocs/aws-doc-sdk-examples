@@ -8,7 +8,7 @@ using Amazon.TranscribeService.Model;
 namespace TranscribeActions;
 
 /// <summary>
-/// Wrapper methods to use Amazon Transcribe with Medical Transcription jobs.
+/// Wrapper methods to use Amazon Transcribe with medical transcription jobs.
 /// </summary>
 public partial class TranscribeWrapper
 {
@@ -19,9 +19,9 @@ public partial class TranscribeWrapper
     /// as soon as the job is started.
     /// </summary>
     /// <param name="jobName">A unique name for the medical transcription job.</param>
-    /// <param name="mediaFileUri">The URI of the media file, typically an S3 location.</param>
+    /// <param name="mediaFileUri">The URI of the media file, typically an Amazon S3 location.</param>
     /// <param name="mediaFormat">The format of the media file.</param>
-    /// <param name="outputBucketName">Location for the output, typically an S3 location.</param>
+    /// <param name="outputBucketName">Location for the output, typically an Amazon S3 location.</param>
     /// <param name="transcriptionType">Conversation or dictation transcription type.</param>
     /// <returns>A MedicalTransactionJob instance with information on the new job.</returns>
     public async Task<MedicalTranscriptionJob> StartMedicalTranscriptionJob(

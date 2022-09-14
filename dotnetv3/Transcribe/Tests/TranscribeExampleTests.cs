@@ -7,6 +7,9 @@ using TranscribeActions;
 
 namespace TranscribeTests;
 
+/// <summary>
+/// Integration tests for the examples.
+/// </summary>
 public class TranscribeExampleTests
 {
     private readonly IConfiguration _configuration;
@@ -46,12 +49,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// Create an invalid vocabulary. Should throw an exception for a bad request.
+    /// Create a non-valid vocabulary. Should throw an exception for a bad request.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(2)]
-    public async Task VerifyCreateVocabulary_InValidName_ShouldThrowException()
+    public async Task VerifyCreateVocabulary_NonValidName_ShouldThrowException()
     {
         var vocabularyName = " ";
         var phrases = new List<string> { "testPhrase" };
@@ -98,12 +101,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// Update a custom vocabulary.Should succeed.
+    /// Update a custom vocabulary. Should not fail.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(5)]
-    public async Task UpdateVocabulary_Should_Succeed()
+    public async Task UpdateVocabulary_ShouldSucceed()
     {
         var vocabularyName = _configuration["customVocabularyName"];
         var phrases = new List<string> { "testPhraseUpdate" };
@@ -124,7 +127,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(6)]
-    public async Task UpdateVocabulary_WrongName_Should_ThrowException()
+    public async Task UpdateVocabulary_WrongName_ShouldThrowException()
     {
         var phrases = new List<string> { "testPhraseUpdate" };
 
@@ -135,12 +138,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// List vocabularies. Should succeed.
+    /// List vocabularies. Should return results.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(7)]
-    public async Task ListVocabulary_ShouldSucceed()
+    public async Task ListVocabulary_ShouldReturnResults()
     {
         var result = await _wrapper.ListCustomVocabularies();
         Assert.NotEmpty(result);
@@ -152,7 +155,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(8)]
-    public async Task DeleteVocabulary_Should_Succeed()
+    public async Task DeleteVocabulary_ShouldSucceed()
     {
         var vocabularyName = _configuration["customVocabularyName"];
         var result = await _wrapper.DeleteCustomVocabulary(vocabularyName);
@@ -160,12 +163,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// Create a valid transcription job. Should not fail.
+    /// Create a valid transcription job. Should complete.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(9)]
-    public async Task VerifyCreateTranscriptionJob_ValidMedia_ShouldSucceed()
+    public async Task VerifyCreateTranscriptionJob_ValidMedia_ShouldComplete()
     {
         var mediaLocation = _configuration["transcriptionMediaLocation"];
         var transcriptionJobName = _configuration["transcriptionJobName"];
@@ -186,12 +189,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// Create an invalid vocabulary. Should throw an exception for a bad request.
+    /// Create a transcription job without media. Should throw an exception for a bad request.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(10)]
-    public async Task VerifyCreateTranscriptionJob_MissingMedia_ShouldFail()
+    public async Task VerifyCreateTranscriptionJob_MissingMedia_ShouldThrowException()
     {
         var mediaLocation = _configuration["transcriptionMediaLocation"];
         var transcriptionJobName = _configuration["transcriptionJobName"];
@@ -206,12 +209,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// List Transcription jobs. Should succeed.
+    /// List transcription jobs. Should return results.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(11)]
-    public async Task ListTranscriptionJobs_Should_Succeed()
+    public async Task ListTranscriptionJobs_ShouldReturnResults()
     {
         var result = await _wrapper.ListTranscriptionJobs();
         Assert.NotEmpty(result);
@@ -223,7 +226,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(11)]
-    public async Task DeleteTranscriptionJob_Should_Succeed()
+    public async Task DeleteTranscriptionJob_ShouldSucceed()
     {
         var transcriptionJobName = _configuration["transcriptionJobName"];
         var result = await _wrapper.DeleteTranscriptionJob(transcriptionJobName);
@@ -231,12 +234,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// Create a valid medical transcription job. Should not fail.
+    /// Create a valid medical transcription job. Should complete.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(12)]
-    public async Task VerifyCreateMedicalTranscriptionJob_ValidMedia_ShouldSucceed()
+    public async Task VerifyCreateMedicalTranscriptionJob_ValidMedia_ShouldComplete()
     {
         var mediaLocation = _configuration["transcriptionMediaLocation"];
         var medicalTranscriptionJobName = _configuration["medicalTranscriptionJobName"];
@@ -258,12 +261,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// Create an duplicate medical transcription job. Should throw an exception for a conflict.
+    /// Create a duplicate medical transcription job. Should throw an exception for a conflict.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(13)]
-    public async Task VerifyCreateMedicalTranscriptionJob_DuplicateName_ShouldFail()
+    public async Task VerifyCreateMedicalTranscriptionJob_DuplicateName_ShouldThrowException()
     {
         var mediaLocation = _configuration["transcriptionMediaLocation"];
         var medicalTranscriptionJobName = _configuration["medicalTranscriptionJobName"];
@@ -278,12 +281,12 @@ public class TranscribeExampleTests
     }
 
     /// <summary>
-    /// List Medical Transcription jobs. Should succeed.
+    /// List medical transcription jobs. Should return results.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(14)]
-    public async Task ListMedicalTranscriptionJobs_Should_Succeed()
+    public async Task ListMedicalTranscriptionJobs_ShouldReturnResults()
     {
         var result = await _wrapper.ListMedicalTranscriptionJobs();
         Assert.NotEmpty(result);
@@ -295,7 +298,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(15)]
-    public async Task DeleteMedicalTranscriptionJob_Should_Succeed()
+    public async Task DeleteMedicalTranscriptionJob_ShouldSucceed()
     {
         var medicalTranscriptionJobName = _configuration["medicalTranscriptionJobName"];
         var result = await _wrapper.DeleteMedicalTranscriptionJob(medicalTranscriptionJobName);

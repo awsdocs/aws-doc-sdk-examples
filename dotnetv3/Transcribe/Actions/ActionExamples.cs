@@ -29,11 +29,11 @@ public class ActionExamples
     private static TranscribeWrapper transcribeWrapper = null!;
     static readonly HttpClient httpClient = new HttpClient();
 
-    // Set this value to the S3 location of a media file.
+    // Set this value to the Amazon S3 location of a media file.
     // A sample media file is provided in the media folder of this solution.
     private static readonly string transcriptionMediaLocation =
         "https://[example-media-bucket].s3.amazonaws.com/Jabberwocky.mp3";
-    // Set this value to an S3 folder name where the output can be stored.
+    // Set this value to an Amazon S3 folder name where the output can be stored.
     private static readonly string transcriptionMediaOutputLocation = "example-output-bucket";
     private static readonly string customVocabularyName = "Example-jabber-vocabulary";
 
@@ -61,7 +61,7 @@ public class ActionExamples
         try
         {
             Console.WriteLine(sepBar);
-            Console.WriteLine("Welcome to the Amazon Transcribe examples!");
+            Console.WriteLine("Welcome to the Amazon Transcribe examples.");
             Console.WriteLine(sepBar);
 
             await CreateVocabulary();
@@ -194,7 +194,7 @@ public class ActionExamples
 
         Console.WriteLine("Update the vocabulary.");
 
-        // add a phrase to the list
+        // Add a phrase to the list.
         phrases.Add("chortled");
 
         vocabularyState = await transcribeWrapper.UpdateCustomVocabulary(LanguageCode.EnUS,

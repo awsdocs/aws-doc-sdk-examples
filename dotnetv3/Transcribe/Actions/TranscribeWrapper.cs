@@ -30,7 +30,7 @@ public partial class TranscribeWrapper
     /// as soon as the job is started.
     /// </summary>
     /// <param name="jobName">A unique name for the transcription job.</param>
-    /// <param name="mediaFileUri">The Uri of the media file, typically an S3 location.</param>
+    /// <param name="mediaFileUri">The URI of the media file, typically an Amazon S3 location.</param>
     /// <param name="mediaFormat">The format of the media file.</param>
     /// <param name="languageCode">The language code of the media file, such as en-US.</param>
     /// <param name="vocabularyName">Optional name of a custom vocabulary.</param>
@@ -83,7 +83,7 @@ public partial class TranscribeWrapper
     /// List transcription jobs, optionally with a name filter.
     /// </summary>
     /// <param name="jobNameContains">Optional name filter for the transcription jobs.</param>
-    /// <returns>A list of summaries about transcription jobs.</returns>
+    /// <returns>A list of transcription job summaries.</returns>
     public async Task<List<TranscriptionJobSummary>> ListTranscriptionJobs(string? jobNameContains = null)
     {
         var response = await _amazonTranscribeService.ListTranscriptionJobsAsync(
