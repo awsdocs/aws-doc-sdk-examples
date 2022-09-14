@@ -1133,6 +1133,14 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.GetPolicy
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/GetPolicy
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.getpolicy.handler.getpolicy
   services:
     iam: {GetPolicy}
 iam_GetPolicyVersion:

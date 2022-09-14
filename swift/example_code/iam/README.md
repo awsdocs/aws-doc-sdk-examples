@@ -21,6 +21,7 @@ Code excerpts that show you how to call individual service functions.
 * [Create a new IAM user](./CreateUser/Sources/ServiceHandler/ServiceHandler.swift) (`CreateUser`)
 * [Create an IAM role](./CreateRole/Sources/ServiceHandler/ServiceHandler.swift) (`CreateRole`)
 * [Get information about an IAM role](./GetRole/Sources/ServiceHandler/ServiceHandler.swift) (`GetRole`)
+* [Get information about an IAM policy](./GetPolicy/Sources/ServiceHandler/ServiceHandler.swift) (`GetPolicy`)
 * [List all users on an AWS account](./ListUsers/Sources/ServiceHandler/ServiceHandler.swift) (`ListUsers`)
 * [List all groups on an AWS account](./ListGroups/Sources/ServiceHandler/ServiceHandler.swift) (`ListGroups`)
 * [List all AWS policies](./ListPolicies/Sources/ServiceHandler/ServiceHandler.swift) (`ListPolicies`)

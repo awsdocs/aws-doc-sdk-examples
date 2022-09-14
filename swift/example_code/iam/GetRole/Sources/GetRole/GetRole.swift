@@ -57,7 +57,7 @@ struct ExampleCommand: ParsableCommand {
             print("Created:      \(dateFormatter.string(from: createDate))")
             print("Max. session: \(maxSession/(60*60)) hours")
 
-            // Role description, available.
+            // Role description, if available.
 
             let desc = role.description ?? ""
             if (desc != "") {
