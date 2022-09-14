@@ -33,12 +33,13 @@ class LambdaWrapper
   # @param source_file: The name of the object without suffix for Lambda file and zip.
   # @return: The deployment package.
   def create_deployment_package(source_file)
+    Dir.chdir(File.dirname(__FILE__))
     if File.exist?("#{source_file}.zip")
-      system("rm #{source_file}.zip")
+      system("rm #{source_file}.zip > /dev/null")
       @logger.debug("Deleting old zip: #{source_file}.zip")
 
     end
-    system("zip #{source_file}.zip #{source_file}.rb")
+    system("zip #{source_file}.zip #{source_file}.rb > /dev/null")
     @logger.debug("Zipping #{source_file}.rb into: #{source_file}.zip.")
     File.read("#{source_file}.zip").to_s
   end
@@ -81,7 +82,7 @@ class LambdaWrapper
       @logger.debug("Successfully created IAM role: #{role['role']['arn']}")
       @logger.debug('Enforcing a 10-second sleep to allow IAM role to activate fully.')
       sleep(10)
-      role['role']['arn']
+      role
     when 'destroy'
       iam_client.detach_role_policy(
         {
@@ -112,7 +113,10 @@ class LambdaWrapper
                                                 log_stream_name: x['log_stream_name']
                                               })
       resp.events.each do |x|
-        puts "Log message discovered: #{x.message}" if "/#{x.message}/".match(string_match)
+        if "/#{x.message}/".match(string_match)
+          msg = x.message.split(' -- : ')[1].green
+          puts "CloudWatch log stream: #{msg}"
+        end
       end
     end
   end
@@ -163,6 +167,8 @@ class LambdaWrapper
       w.max_attempts = 5
       w.delay = 5
     end
+    print "Done!\n".green
+    puts JSON.pretty_generate(response).green
     response['function_arn']
   rescue Aws::Lambda::Errors::ServiceException => e
     puts "There was an error creating #{function_name}:\n #{e.message}"
