@@ -4,7 +4,7 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that sends and retrieves messages by using the AWS SDK for Java (v2) and Amazon Simple Queue Service (Amazon SQS). The Spring REST API is used by a React application that displays the data.   |
+| Description | Discusses how to develop a Spring REST API that sends and retrieves messages by using the AWS SDK for Java (v2) and Amazon Simple Queue Service (Amazon SQS). This application also detects the language code of the posted message by using Amazon Comprehend. The Spring REST API is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
 | Updated   | 8/02/2022        |
 | Required skills   | Java, Maven, JavaScript  |
@@ -348,7 +348,7 @@ public class MainController {
 
 ### SendReceiveMessages class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue.
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue. Amazon Comprehend is used in the following code example to detect the language code of the new message. 
 
 ```java
 package com.example.sqs;
@@ -356,6 +356,10 @@ package com.example.sqs;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.comprehend.ComprehendClient;
+import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageRequest;
+import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageResponse;
+import software.amazon.awssdk.services.comprehend.model.DominantLanguage;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.MessageAttributeValue;
@@ -364,7 +368,6 @@ import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.PurgeQueueRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -377,6 +380,15 @@ public class SendReceiveMessages {
 
     private SqsClient getClient() {
         return SqsClient.builder()
+            .region(Region.US_WEST_2)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+    }
+
+    // Get a Comprehend client.
+    private ComprehendClient getComClient() {
+
+        return ComprehendClient.builder()
             .region(Region.US_WEST_2)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
@@ -452,11 +464,27 @@ public class SendReceiveMessages {
                 .queueName(queueName)
                 .build();
 
+            // We will get the language code for the incoming message.
+            ComprehendClient comClient =  getComClient();
+
+            // Specify the Langauge code of the incoming message.
+            String lanCode = "" ;
+            DetectDominantLanguageRequest request = DetectDominantLanguageRequest.builder()
+                .text(msg.getBody())
+                .build();
+
+            DetectDominantLanguageResponse resp = comClient.detectDominantLanguage(request);
+            List<DominantLanguage> allLanList = resp.languages();
+            for (DominantLanguage lang : allLanList) {
+                System.out.println("Language is " + lang.languageCode());
+                lanCode = lang.languageCode();
+            }
+
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
             SendMessageRequest sendMsgRequest = SendMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .messageAttributes(myMap)
-                .messageGroupId("GroupA")
+                .messageGroupId("GroupA_"+lanCode)
                 .messageDeduplicationId(msg.getId())
                 .messageBody(msg.getBody())
                 .build();
@@ -468,7 +496,6 @@ public class SendReceiveMessages {
         }
     }
 }
-
 
 ```
 
