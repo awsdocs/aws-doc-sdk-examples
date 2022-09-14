@@ -41,17 +41,6 @@ final class ListPoliciesTests: XCTestCase {
         tdSem.wait()
     }
 
-    /// Called after **each** `testX()` function that follows, in order
-    /// to clean up after each test is run.
-    override func tearDown() async throws {
-        let tdSem = TestWaiter(name: "Teardown")
-
-        Task() {
-            tdSem.signal()
-        }
-        tdSem.wait()
-    }
-
     private func createTestPolicy(name: String? = nil) async throws -> MyPolicyRecord {
         let policyName = name ?? String.uniqueName()
 
@@ -104,7 +93,7 @@ final class ListPoliciesTests: XCTestCase {
             }
 
             // Get the list of policies including the new ones we just created.
-            var policies = try await ListPoliciesTests.serviceHandler!.listPolicies()
+            let policies = try await ListPoliciesTests.serviceHandler!.listPolicies()
             XCTAssertTrue(policies.count == createdPolicies.count + previousPolicies.count, "Incorrect number of policies created. Should be \(createdPolicies.count + previousPolicies.count) but is instead \(policies.count).")
 
             // Remove the created policies.            
