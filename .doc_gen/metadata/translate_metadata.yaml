@@ -1,0 +1,86 @@
+# zexi 0.4.0
+translate_StartTranslationJob:
+  title: Start an &TSL; translation job using an &AWS; SDK
+  title_abbrev: Start a translation job
+  synopsis: start an &TSL; translation job.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Translate.dotnetv3.BatchTranslateExample
+  services:
+    translate: {StartTextTranslationJob}
+translate_DescribeTranslationJob:
+  title: Describe an &TSL; translation job using an &AWS; SDK
+  title_abbrev: Describe a translation job
+  synopsis: describe an &TSL; translation job.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Translate.dotnetv3.DescribeTextTranslationJobExample
+  services:
+    translate: {DescribeTranslationJob}
+translate_ListTranslationJobs:
+  title: List the &TSL; translation jobs using an &AWS; SDK
+  title_abbrev: List translation jobs
+  synopsis: list the &TSL; translation jobs.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Translate.dotnetv3.ListTranslationJobsExample
+  services:
+    translate: {ListTextTranslationJobs}
+translate_StopTranslationJob:
+  title: Stop a &TSL; translation job using an &AWS; SDK
+  title_abbrev: Stop a translation job
+  synopsis: stop a &TSL; translation jobs
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Translate.dotnetv3.StopTextTranslationJobExample
+  services:
+    translate: {StopTextTranslationJob}
+translate_TranslateText:
+  title: Translate text with &TSL; using an &AWS; SDK
+  title_abbrev: Translate text
+  synopsis: translate text with &TSL;
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Translate.dotnetv3.TranslateTextExample
+  services:
+    translate: {TranslateText}

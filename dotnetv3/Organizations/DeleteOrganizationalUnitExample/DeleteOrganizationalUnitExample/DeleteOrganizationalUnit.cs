@@ -10,7 +10,7 @@ namespace DeleteOrganizationalUnitExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Shows how to delete an existing Amazon Organizations Organization Unit.
+    /// Shows how to delete an existing AWS Organizations organization unit.
     /// This example was created using the AWS SDK for .NET version 3.7 and
     /// .NET Core 5.0.
     /// </summary>
@@ -18,7 +18,7 @@ namespace DeleteOrganizationalUnitExample
     {
         /// <summary>
         /// Initializes the Organizations client object and calls
-        /// DeleteOrganizationalUnitAsync to delete the Organizational Unit
+        /// DeleteOrganizationalUnitAsync to delete the organizational unit
         /// with the selected ID.
         /// </summary>
         public static async Task Main()
@@ -26,7 +26,7 @@ namespace DeleteOrganizationalUnitExample
             // Create the client object using the default account.
             IAmazonOrganizations client = new AmazonOrganizationsClient();
 
-            var orgUnitId = "ou-sso8-r0fkibej";
+            var orgUnitId = "ou-0000-00000000";
 
             var request = new DeleteOrganizationalUnitRequest
             {
@@ -37,11 +37,11 @@ namespace DeleteOrganizationalUnitExample
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                Console.WriteLine($"Successfully deleted the Organization Unit with ID: {orgUnitId}.");
+                Console.WriteLine($"Successfully deleted the organization unit with ID: {orgUnitId}.");
             }
             else
             {
-                Console.WriteLine($"Could not delete the Organization Unit with ID: {orgUnitId}.");
+                Console.WriteLine($"Could not delete the organization unit with ID: {orgUnitId}.");
             }
         }
     }

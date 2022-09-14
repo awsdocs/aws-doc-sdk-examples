@@ -35,7 +35,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling
 multiple functions within the same service.
 
-- [Glue basics scenario](scenarios/Glue_Basics_Scenario/)
+- [Get started running crawlers and jobs](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueBasics.cs)
 
 ## Run the examples
 

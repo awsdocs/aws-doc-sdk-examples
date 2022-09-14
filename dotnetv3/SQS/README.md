@@ -17,7 +17,7 @@ Amazon SQS is a fully managed message queuing service that makes it easy to deco
 Code excerpts that show you how to call individual service functions.
 - [Authorize a bucket to send messages to a queue](AuthorizeS3ToSendMessageExample/AuthorizeS3ToSendMessageExample/AuthorizeS3ToSendMessage.cs) (`AuthorizeS3ToSendMessageAsync`)
 - [Create a queue](CreateQueueExample/CreateQueueExample/CreateQueue.cs) (`CreateQueueAsync`)
-- [Create a queue and set a message](CreateSendExample/CreateSendExample/CreateSendExample.cs) (`CreateQueueAsync`, `SendMessageAsync`)
+- [Create a queue and send a message](CreateSendExample/CreateSendExample/CreateSendExample.cs) (`CreateQueueAsync`, `SendMessageAsync`)
 - [Delete a message from a queue](DeleteMessageExample/DeleteMessageExample/DeleteMessage.cs) (`DeleteMessageAsync`)
 - [Delete a queue](DeleteQueueExample/DeleteQueueExample/DeleteQueue.cs) (`DeleteQueueAsync`)
 - [Get attributes for a queue](GetQueueAttributesExample/GetQueueAttributesExample/GetQueueAttributes.cs) (`GetQueueAttributesAsync`)

@@ -10,7 +10,7 @@ namespace AttachPolicyExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Shows how to attach an Amazon Organizations Policy to an Organization,
+    /// Shows how to attach an AWS Organizations Policy to an Organization,
     /// an Organizational Unit, or an Account.
     /// </summary>
     public class AttachPolicy
@@ -23,8 +23,8 @@ namespace AttachPolicyExample
         public static async Task Main()
         {
             IAmazonOrganizations client = new AmazonOrganizationsClient();
-            var policyId = "p-c0hsjgmq";
-            var targetId = "r-sso8";
+            var policyId = "p-00000000";
+            var targetId = "r-0000";
 
             var request = new AttachPolicyRequest
             {

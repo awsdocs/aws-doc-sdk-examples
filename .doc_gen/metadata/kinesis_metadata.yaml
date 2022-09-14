@@ -5,6 +5,15 @@ kinesis_CreateStream:
   synopsis: create a &AK; stream.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Kinesis.dotnetv3.CreateStreamExample
     Java:
       versions:
         - sdk_version: 2
@@ -34,6 +43,23 @@ kinesis_CreateStream:
                 - kinesis.rust.create-stream
   services:
     kinesis: {CreateStream}
+kinesis_DeregisterConsumer:
+  title: Deregister a consumer from a &AK; stream using an &AWS; SDK
+  title_abbrev: Deregister a consumer
+  synopsis: deregister a customer from a &AK; stream.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Kinesis.dotnetv3.DeregisterConsumerExample
+  services:
+    kinesis: {DeregisterConsumer}
 kinesis_DescribeStream:
   title: Describe a &AK; stream using an &AWS; SDK
   title_abbrev: Describe a stream
@@ -60,12 +86,38 @@ kinesis_DescribeStream:
                 - kinesis.rust.describe-stream
   services:
     kinesis: {DescribeStream}
+kinesis_ListConsumers:
+  title: List the consumers of a &AK; stream using an &AWS; SDK
+  title_abbrev: List the consumers of a stream
+  synopsis: list the customers of a &AK; stream.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Kinesis.dotnetv3.ListConsumersExample
+  services:
+    kinesis: {ListConsumers}
 kinesis_ListStreams:
   title: List &AK; streams using an &AWS; SDK
   title_abbrev: List streams
   synopsis: list information about one or more &AK; streams.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Kinesis.dotnetv3.ListStreamsExample
     Rust:
       versions:
         - sdk_version: 1
@@ -76,12 +128,38 @@ kinesis_ListStreams:
                 - kinesis.rust.list-streams
   services:
     kinesis: {ListStreams}
+kinesis_ListTags:
+  title: List the tags associated with a &AK; stream using an &AWS; SDK
+  title_abbrev: List tags
+  synopsis: list the tags associated with a &AK; stream.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Kinesis.dotnetv3.ListTagsExample
+  services:
+    kinesis: {ListTags}
 kinesis_DeleteStream:
   title: Delete a &AK; stream using an &AWS; SDK
   title_abbrev: Delete a stream
   synopsis: delete a &AK; stream.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Kinesis.dotnetv3.DeleteStreamExample
     Java:
       versions:
         - sdk_version: 2
@@ -173,3 +251,37 @@ kinesis_GetRecords:
                 - python.example_code.kinesis.GetRecords
   services:
     kinesis: {GetRecords, GetShardIterator}
+    kinesis_RegisterConsumer:
+      title: Register a consumer to a &AK; stream using an &AWS; SDK
+      title_abbrev: Register a consumer
+      synopsis: register a consumer to a &AK; stream.
+      category:
+      languages:
+        .NET:
+          versions:
+            - sdk_version: 3
+              github: dotnetv3/Kinesis
+              sdkguide:
+              excerpts:
+                - description:
+                  snippet_tags:
+                    - Kinesis.dotnetv3.RegisterConsumerExample
+      services:
+        kinesis: { RegisterConsumer }
+    kinesis_TagStream:
+      title: Add tags to a &AK; stream using an &AWS; SDK
+      title_abbrev: Add tags
+      synopsis: add tags to a &AK; stream.
+      category:
+      languages:
+        .NET:
+          versions:
+            - sdk_version: 3
+              github: dotnetv3/Kinesis
+              sdkguide:
+              excerpts:
+                - description:
+                  snippet_tags:
+                    - Kinesis.dotnetv3.TagStreamExample
+      services:
+        kinesis: { TagStream }

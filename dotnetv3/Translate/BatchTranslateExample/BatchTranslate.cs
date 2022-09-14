@@ -7,10 +7,12 @@
 /// will also be stored in an Amazon S3 bucket. The example was created using
 /// the AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
+
 namespace BatchTranslateExample
 {
     // snippet-start:[Translate.dotnetv3.BatchTranslateExample]
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Amazon.Translate;
     using Amazon.Translate.Model;
@@ -20,8 +22,11 @@ namespace BatchTranslateExample
         public static async Task Main()
         {
             var contentType = "text/plain";
-            var s3InputUri = "http://doc-example-bucket.s3-website-us-west-2.amazonaws.com/";
-            var s3OutputUri = "http://doc-example-bucket.s3-website-us-west-2.amazonaws.com/translated/";
+
+            // Set this variable to an Amazon S3 bucket location with folder."
+            // Input files must be in a folder and not at the bucket root."
+            var s3InputUri = "s3://DOC-EXAMPLE-BUCKET1/FOLDER/";
+            var s3OutputUri = "s3://DOC-EXAMPLE-BUCKET2/";
 
             // This role must have permissions to read the source bucket and to read and
             // write to the destination bucket where the translated text will be stored.
@@ -42,9 +47,12 @@ namespace BatchTranslateExample
 
             var request = new StartTextTranslationJobRequest
             {
+                JobName = "ExampleTranslationJob",
                 DataAccessRoleArn = dataAccessRoleArn,
                 InputDataConfig = inputConfig,
                 OutputDataConfig = outputConfig,
+                SourceLanguageCode = "en",
+                TargetLanguageCodes = new List<string>{"fr"},
             };
 
             var response = await StartTextTranslationAsync(client, request);

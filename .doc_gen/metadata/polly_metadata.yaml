@@ -5,6 +5,15 @@ polly_DescribeVoices:
   synopsis: get &POL; voices available for synthesis.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Polly.dotnetv3.DescribeVoicesExample
     Rust:
       versions:
         - sdk_version: 1
@@ -30,6 +39,15 @@ polly_GetLexicon:
   synopsis: get an &POL; lexicon.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Polly.dotnetv3.GetLexiconExample
     Python:
       versions:
         - sdk_version: 3
@@ -48,6 +66,15 @@ polly_ListLexicons:
   synopsis: list &POL; pronunciation lexicons.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Polly.dotnetv3.ListLexiconsExample
     Python:
       versions:
         - sdk_version: 3
@@ -73,6 +100,15 @@ polly_PutLexicon:
   synopsis: store an &POL; pronunciation lexicon.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Polly.dotnetv3.PutLexiconExample
     Python:
       versions:
         - sdk_version: 3
@@ -99,6 +135,15 @@ polly_SynthesizeSpeech:
   synopsis: synthesize speech from text with &POL;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Polly.dotnetv3.SynthesizeSpeechExample
     Python:
       versions:
         - sdk_version: 3
@@ -154,6 +199,40 @@ polly_StartSpeechSynthesisTask:
                 - python.example_code.polly.StartSpeechSynthesisTask
   services:
     polly: {StartSpeechSynthesisTask}
+polly_DeleteLexicon:
+  title: Delete an &POL; lexicon using an &AWS; SDK
+  title_abbrev: Delete a lexicon
+  synopsis: delete an &POL; lexicon.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Polly.dotnetv3.DeleteLexiconExample
+  services:
+    polly: {DeleteLexicon}
+polly_SynthesizeSpeechMarks:
+  title: Synthesize speech from text using speech marks with &POL; using an &AWS; SDK
+  title_abbrev: Synthesize speech from text using marks
+  synopsis: synthesize speech from text using marks with &POL;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Polly.dotnetv3.SynthesizeSpeechMarksExample
+  services:
+    polly: {SynthesizeSpeech}
 polly_LipSync:
   title: Create a lip-sync application with &POL; using an &AWS; SDK
   title_abbrev: Create a lip-sync application

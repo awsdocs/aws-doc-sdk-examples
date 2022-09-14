@@ -10,13 +10,13 @@ namespace CreatePolicyExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Creates a new Amazon Organizations Policy. The example was created
+    /// Creates a new AWS Organizations Policy. The example was created
     /// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     class CreatePolicy
     {
         /// <summary>
-        /// Initializes the Amazon Organizations client object uses it to
+        /// Initializes the AWS Organizations client object uses it to
         /// create a new Organizations Policy, and then displays information
         /// about the newly created Policy.
         /// </summary>

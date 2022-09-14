@@ -32,12 +32,12 @@ namespace TranslateTextExample
             // You can get a list of the languages supposed by Amazon Translate
             // in the Amazon Translate Developer's Guide here:
             //      https://docs.aws.amazon.com/translate/latest/dg/what-is.html
-            string srcLang = "en"; // English
-            string destLang = "fr"; // Italian
+            string srcLang = "en"; // English.
+            string destLang = "fr"; // French.
 
             // The Amazon Simple Storage Service (Amazon S3) bucket where the
             // source text file is stored.
-            string srcBucket = "doc-example-bucket";
+            string srcBucket = "DOC-EXAMPLE-BUCKET";
             string srcTextFile = "source.txt";
 
             var srcText = await GetSourceTextAsync(srcBucket, srcTextFile);
@@ -60,7 +60,7 @@ namespace TranslateTextExample
         {
             string srcText = string.Empty;
 
-            var s3Client = new AmazonS3Client(Amazon.RegionEndpoint.USWest2);
+            var s3Client = new AmazonS3Client();
             TransferUtility utility = new TransferUtility(s3Client);
 
             using var stream = await utility.OpenStreamAsync(srcBucket, srcTextFile);

@@ -5,6 +5,15 @@ ec2_CreateKeyPair:
   synopsis: create a security key pair for &EC2;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.CreateKeyPairExample
     Java:
       versions:
         - sdk_version: 2
@@ -31,6 +40,15 @@ ec2_CreateSecurityGroup:
   synopsis: create an &EC2; security group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.CreateSecurityGroupExample
     Java:
       versions:
         - sdk_version: 2
@@ -77,12 +95,38 @@ ec2_RunInstances:
                 - python.example_code.ec2.RunInstances
   services:
     ec2: {RunInstances}
+ec2_CreateVpc:
+  title: Create an &EC2; VPC using an &AWS; SDK
+  title_abbrev: Create a VPC
+  synopsis: create a &EC2; VPC.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.CreateVPCExample
+  services:
+    ec2: {CreateVPC}
 ec2_StartInstances:
   title: Start an &EC2; instance using an &AWS; SDK
   title_abbrev: Start an instance
   synopsis: start an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.StartInstancesExample
     Java:
       versions:
         - sdk_version: 2
@@ -117,6 +161,15 @@ ec2_StopInstances:
   synopsis: stop an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.StopInstancesExample
     Java:
       versions:
         - sdk_version: 2
@@ -295,6 +348,15 @@ ec2_DeleteKeyPair:
   synopsis: delete an &EC2; security key pair.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DeleteKeyPairExample
     Java:
       versions:
         - sdk_version: 2
@@ -321,6 +383,15 @@ ec2_DeleteSecurityGroup:
   synopsis: delete an &EC2; security group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DeleteSecurityGroupExample
     Java:
       versions:
         - sdk_version: 2
@@ -423,6 +494,15 @@ ec2_DescribeInstances:
   synopsis: describe &EC2; instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DescribeInstancesExample
     Rust:
       versions:
         - sdk_version: 1
@@ -487,6 +567,15 @@ ec2_RebootInstances:
   synopsis: reboot an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.RebootInstancesExample
     Rust:
       versions:
         - sdk_version: 1
@@ -497,3 +586,20 @@ ec2_RebootInstances:
                 - ec2.rust.reboot-instance
   services:
     ec2: {RebootInstances}
+ec2_DeleteVPC:
+  title: Delete an &EC2; VPC using an &AWS; SDK
+  title_abbrev: Delete VPC
+  synopsis: delete &EC2; VPC.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DeleteVPCExample
+  services:
+    ec2: {DeleteVPC}

@@ -10,7 +10,7 @@ namespace CreateOrganizationalUnitExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Creates a new Amazon Organizations Organizational Unit. The example was
+    /// Creates a new AWS Organizations Organizational Unit. The example was
     /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     public class CreateOrganizationalUnit
@@ -18,7 +18,7 @@ namespace CreateOrganizationalUnitExample
         /// <summary>
         /// Initializes an Organizations client object and then uses it to call
         /// the CreateOrganizationalUnit method. If the call succeeds, it
-        /// displays information about the new Organizational Unit.
+        /// displays information about the new organizational unit.
         /// </summary>
         public static async Task Main()
         {
@@ -30,20 +30,20 @@ namespace CreateOrganizationalUnitExample
             var request = new CreateOrganizationalUnitRequest
             {
                 Name = orgUnitName,
-                ParentId = "r-sso8",
+                ParentId = "r-0000",
             };
 
             var response = await client.CreateOrganizationalUnitAsync(request);
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                Console.WriteLine($"Successfully created Organizational Unit: {orgUnitName}.");
-                Console.WriteLine($"Organizal {orgUnitName} Details");
+                Console.WriteLine($"Successfully created organizational unit: {orgUnitName}.");
+                Console.WriteLine($"Organizational unit {orgUnitName} Details");
                 Console.WriteLine($"ARN: {response.OrganizationalUnit.Arn} Id: {response.OrganizationalUnit.Id}");
             }
             else
             {
-                Console.WriteLine("Could not create new Organizational Unit.");
+                Console.WriteLine("Could not create new organizational unit.");
             }
         }
     }
