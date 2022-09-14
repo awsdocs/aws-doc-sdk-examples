@@ -59,24 +59,4 @@ public extension ServiceHandler {
             throw error
         }
     }
-
-    /// Get information about the specified user
-    ///
-    /// - Parameter name: A `String` giving the name of the user to get. If
-    ///   this parameter is `nil`, the default user's information is returned.
-    /// - Returns: An `IamClientTypes.User` record describing the user.
-    func getUser(name: String?) async throws -> IamClientTypes.User {
-        let input = GetUserInput(
-            userName: name
-        )
-        do {
-            let output = try await client.getUser(input: input)
-            guard let user = output.user else {
-                throw ServiceHandlerError.noSuchUser
-            }
-            return user
-        } catch {
-            throw error
-        }
-    }
 }

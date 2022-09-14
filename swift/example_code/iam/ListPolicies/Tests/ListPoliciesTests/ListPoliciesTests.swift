@@ -55,15 +55,6 @@ final class ListPoliciesTests: XCTestCase {
     private func createTestPolicy(name: String? = nil) async throws -> MyPolicyRecord {
         let policyName = name ?? String.uniqueName()
 
-        // Get information about the user running this example. This user
-        // will be granted the new policy.
-        /*
-        let user = try await ListPoliciesTests.serviceHandler!.getUser(name: nil)
-
-        guard let userARN = user.arn else {
-            throw ServiceHandlerError.noSuchUser 
-        }*/
-
         // The policy document is a JSON string describing the policy. For
         // details, see:
         // https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html.
