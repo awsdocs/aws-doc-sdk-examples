@@ -10,7 +10,8 @@ namespace Cognito_MVP
         /// </summary>
         /// <param name="identityProviderClient">The Amazon Cognito client object.</param>
         /// <param name="userName">The user name of the user to authenticate.</param>
-        /// <param name="clientId">The client Id of the Amazon Cognito user pool.</param>
+        /// <param name="clientId">The client Id of the application associated
+        /// with the user pool.</param>
         /// <param name="mfaCode">The MFA code suppplied by the user.</param>
         /// <param name="session">The session for which the user will be authenticated.</param>
         /// <returns>A Boolean value that indicates the success of the authentication.</returns>
@@ -84,11 +85,14 @@ namespace Cognito_MVP
         }
 
         /// <summary>
-        /// 
+        /// Gets the secret token that will enable MFA (Multi-Factor
+        /// Authentication) for the user.
         /// </summary>
-        /// <param name="identityProviderClient"></param>
+        /// <param name="identityProviderClient">An initialized Identity
+        /// Provider client object.</param>
         /// <param name="session">The currently active session.</param>
-        /// <returns></returns>
+        /// <returns>Returns a string representing the currently active
+        /// session.</returns>
         public static async Task<string> GetSecretForAppMFA(
             AmazonCognitoIdentityProviderClient identityProviderClient,
             string session)
@@ -106,6 +110,17 @@ namespace Cognito_MVP
             return tokenResponse.Session;
         }
 
+        /// <summary>
+        /// Initiates the authorization process.
+        /// </summary>
+        /// <param name="identityProviderClient">An initialized Identity
+        /// Provider client object.</param>
+        /// <param name="clientId">The client Id of the application associated
+        /// with the user pool.</param>
+        /// <param name="userName">The user name to be authorized.</param>
+        /// <param name="password">The password of the user.</param>
+        /// <returns>The responsse from the client from the InitiateAuthAsync
+        /// call.</returns>
         public static async Task<InitiateAuthResponse> InitiateAuth(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string userName, string password)
         {
             var authParameters = new Dictionary<string, string>();
@@ -126,6 +141,18 @@ namespace Cognito_MVP
             return response;
         }
 
+        /// <summary>
+        /// Confirms that a user has been signed up successfully.
+        /// </summary>
+        /// <param name="identityProviderClient">An initialized Identity
+        /// Provider client object.</param>
+        /// <param name="clientId">The client Id of the application associated
+        /// with the user pool.</param>
+        /// <param name="code">The code sent by the authentication provider
+        /// to confirm a user's membership in the pool.</param>
+        /// <param name="userName">The user to confirm.</param>
+        /// <returns>A Boolean value indicating the success of the confirmation
+        /// operation.</returns>
         public static async Task<bool> ConfirmSignUp(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string code, string userName)
         {
             var signUpRequest = new ConfirmSignUpRequest
@@ -147,6 +174,16 @@ namespace Cognito_MVP
             }
         }
 
+        /// <summary>
+        /// Causes the confirmation code for user registration to be sent
+        /// again.
+        /// </summary>
+        /// <param name="identityProviderClient">An initialized Identity
+        /// Provider client object.</param>
+        /// <param name="clientId">The client Id of the application associated
+        /// with the user pool.</param>
+        /// <param name="userName">The user name to be confirmed.</param>
+        /// <returns></returns>
         public static async Task resendConfirmationCode(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string userName)
         {
             var codeRequest = new ResendConfirmationCodeRequest
@@ -160,6 +197,17 @@ namespace Cognito_MVP
             Console.WriteLine($"Method of delivery is {response.CodeDeliveryDetails.DeliveryMedium}");
         }
 
+        /// <summary>
+        /// Checks the status of a user for a paarticular Amazon Cognito user
+        /// pool.
+        /// </summary>
+        /// <param name="identityProviderClient">An initialized Identity
+        /// Provider client object.</param>
+        /// <param name="userName">The user name for which we want to check
+        /// the status.</param>
+        /// <param name="poolId">The user pool for which we want to check the
+        /// user's status.</param>
+        /// <returns></returns>
         public static async Task GetAdminUser(AmazonCognitoIdentityProviderClient identityProviderClient, string userName, string poolId)
         {
             AdminGetUserRequest userRequest = new AdminGetUserRequest
@@ -173,7 +221,23 @@ namespace Cognito_MVP
             Console.WriteLine($"User status {response.UserStatus}");
         }
 
-        public static async Task SignUp(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string userName, string password, String email)
+        /// <summary>
+        /// Add a new user to an Amazon Cognito user pool.
+        /// </summary>
+        /// <param name="identityProviderClient">An initialized Identity
+        /// Provider client object.</param>
+        /// <param name="clientId">The client Id of the application associated
+        /// with the user pool.</param>
+        /// <param name="userName">The user name of the user to sign up.</param>
+        /// <param name="password">The password for the user.</param>
+        /// <param name="email">The user's email address.</param>
+        /// <returns></returns>
+        public static async Task SignUp(
+            AmazonCognitoIdentityProviderClient identityProviderClient,
+            string clientId,
+            string userName,
+            string password,
+            string email)
         {
             var userAttrs = new AttributeType
             {
@@ -190,11 +254,11 @@ namespace Cognito_MVP
                 UserAttributes = userAttrsList,
                 Username = userName,
                 ClientId = clientId,
-                Password = password
+                Password = password,
             };
 
             await identityProviderClient.SignUpAsync(signUpRequest);
-            Console.WriteLine("User has been signed up ");
+            Console.WriteLine("User has been signed up.");
         }
     }
 }

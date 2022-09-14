@@ -39,7 +39,7 @@ var identityProviderClient = new AmazonCognitoIdentityProviderClient(RegionEndpo
 
 do
 {
-    Console.WriteLine("*** Enter your user name");
+    Console.Write("Enter your user name: ");
     userName = Console.ReadLine();
 }
 while (userName == string.Empty);
@@ -48,15 +48,15 @@ Console.WriteLine($"User name: {userName}");
 
 do
 {
-    Console.WriteLine("*** Enter your password");
+    Console.Write("Enter your password: ");
     password = Console.ReadLine();
 }
 while (password == string.Empty);
-Console.WriteLine($"*** Signing up {userName}");
+Console.WriteLine($"Signing up {userName}");
 
 do
 {
-    Console.WriteLine("*** Enter your email");
+    Console.WriteLine("Enter your email");
     email = Console.ReadLine();
 } while (email == string.Empty);
 
