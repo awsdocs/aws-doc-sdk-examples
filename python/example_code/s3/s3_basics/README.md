@@ -1,8 +1,8 @@
-# Amazon S3 code examples for the AWS SDK for Python
+# Amazon S3 code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to get started using bucket and 
+Shows how to use the AWS SDK for Python (Boto3) to get started with bucket and 
 object operations in Amazon Simple Storage Service (Amazon S3). 
 Learn to create, get, remove, and configure buckets and objects.
 
@@ -102,7 +102,7 @@ This example requires the following additional package:
 - Requests 2.24.0 or later
 
 Generates a presigned URL and uses the Requests package to get or 
-put a file in an Amazon S3 bucket. For example, run the following command to get
+put a file into an S3 bucket. For example, run the following command to get
 a file from Amazon S3 at a command prompt.
 
 ```
