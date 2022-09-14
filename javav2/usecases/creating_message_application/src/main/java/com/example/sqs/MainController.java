@@ -27,7 +27,7 @@ public class MainController {
 
     // Adds a new message to the FIFO queue.
     @PostMapping("/add")
-    List<MessageData> addItems(HttpServletRequest request, HttpServletResponse response) {
+    List<MessageData> addItems(HttpServletRequest request) {
         String user = request.getParameter("user");
         String message = request.getParameter("message");
 
@@ -45,7 +45,7 @@ public class MainController {
     //  Purge the queue.
     @RequestMapping(value = "/purge", method = RequestMethod.GET)
     @ResponseBody
-    String purgeMessages(HttpServletRequest request, HttpServletResponse response) {
+    String purgeMessages() {
         msgService.purgeMyQueue();
         return "Queue is purged";
     }
@@ -53,7 +53,7 @@ public class MainController {
     // Get messages from the FIFO queue.
     @RequestMapping(value = "/msgs", method = RequestMethod.GET)
     @ResponseBody
-    List<MessageData> getItems(HttpServletRequest request, HttpServletResponse response) {
+    List<MessageData> getItems() {
         List<MessageData> data =  msgService.getMessages();
         return data;
     }

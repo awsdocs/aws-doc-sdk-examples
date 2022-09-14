@@ -5,6 +5,7 @@
 
 package com.example.sqs;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -20,6 +21,7 @@ import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.PurgeQueueRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +30,10 @@ import java.util.Map;
 @Component
 public class SendReceiveMessages {
 
-    private final String queueName = "Message.fifo";
+    public SendReceiveMessages(@Value("${queueName}")String queueName) {
+        this.queueName = queueName;
+    }
+    private final String queueName;
 
     private SqsClient getClient() {
         return SqsClient.builder()
@@ -96,7 +101,7 @@ public class SendReceiveMessages {
             return allMessages;
 
         } catch (SqsException e) {
-            e.getStackTrace();
+            System.out.println(e.getMessage());
         }
         return null;
     }

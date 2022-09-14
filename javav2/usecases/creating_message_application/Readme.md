@@ -51,6 +51,19 @@ To complete the tutorial, you need the following:
 
 Create a FIFO queue named **Message.fifo**. For more information, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html). 
 
+Add some items to the *Message.fifo* queue in the AWS console. After creating the queue, select the queue, then select 
+**Send and receive messages**. On the **Send and receive messages** page, enter sample data below,
+selecting **Send message** after data is entered for each row.
+
+| Message body               | Message group ID | Message deduplication ID | Message Attributes |
+|----------------------------|------------------|--------------------------|--------------------|
+| "I am going swimming soon" | 1                | 1                        | "Name":"lam"       |
+| "that sounds like fun"     | 2                | 2                        | "Name":"scott"     |
+| "would you like to come?"  | 3                | 3                        | "Name":"lam"       |
+| "sure"                     | 4                | 4                        | "Name":"scott"     |
+
+
+
 ## Understand the AWS Messaging React application
 
 The React application shows you how to work with Amazon SQS messages. The application posts a message to your Amazon SQS queue and it polls the Amazon SQS queue for new messages and displays them. You can enter a message and a user and then click **Send Message**.
@@ -90,6 +103,9 @@ At this point, you have a new project named **AWSMessageRest**. Add the followin
 **Note:** Make sure to use Java 1.8, as shown in the following **pom.xml** file.    
 
 The **pom.xml** file looks like the following.
+
+
+(SM: comprehend was missing from the pom.xml. Also pom.xml has maven-checkstyle-plugin, which you may want to remove, so the screenshot and actual pom.xml file are in sync.)
 
 ```xml
     <?xml version="1.0" encoding="UTF-8"?>
@@ -218,13 +234,15 @@ The **pom.xml** file looks like the following.
 
 Create a Java package in the **main/java** folder named **com.example.sqs**. The Java files must go into this package.
 
+(SM: The repo does not contain a 'test' folder as shown in the screenshot. Recapture screenshot.)
+
 ![AWS Messaging application](images/project.png)
 
 Create the following Java classes:
 
 + **MessageData** - Used as the model for this application.
 + **App** - Used as the base class for the Spring Boot application.
-+ **MessageController** - Used as the Spring Boot controller that handles HTTP requests.
++ **MainController** - Used as the Spring Boot controller that handles HTTP requests.
 + **SendReceiveMessages** - Uses the Amazon SQS API to process messages.  
 
 ### MessageData class
@@ -285,7 +303,7 @@ public class App {
 }
 ```
 
-### MessageController class
+### MainController class
 
 The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.  
 
@@ -510,10 +528,21 @@ public class SendReceiveMessages {
 
 ```
 
-**Note:** The **EnvironmentVariableCredentialsProvider** is used to create an **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
+**Note:** The **EnvironmentVariableCredentialsProvider** is used to create the **SqsClient** because this application will be deployed to Elastic Beanstalk. 
+You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
+
+You also need to add the environment variables when you run locally:
+
+![AWS Messaging application](images/intellj_env_vars.png)
 
 ## Run the application
-Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs:
+Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, 
+choose the run icon (green arrow) in the App class. 
+
+If you are already running a web server on port 8080, add a VM option, change the
+`server.port` property value in **resources/application.properties**.
+
+The Spring API supports the following URLs:
 
 - /chat/msgs - A GET request that returns all messages in the queue. 
 - /chat/add - A POST request that adds a new message to the queue. 
@@ -534,6 +563,8 @@ The following image shows the JSON data returned from the Spring REST API.
 Package up the project into an executable **.jar** (JAR) file by using the following Maven command.
 
      mvn package
+(Scott: When I tried to run mvn package, I got the error "Could not find resource 'checkstyle.xml'."
+so I removed it from the pom file.)
 
 The JAR file is located in the target folder.
 
@@ -541,7 +572,20 @@ The POM file contains the **spring-boot-maven-plugin** that builds an executable
 
 ## Deploy to Elastic Beanstalk
 
-Deploy the Spring application to Elastic Beanstalk. To learn how, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
+Deploy the Spring application to Elastic Beanstalk. To learn how, 
+see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
+The instructions are in the **Deploy the application to Elastic Beanstalk** section.
+
+(Scott: the instructions to deploy to Elastic Beanstalk need a bit of work, I think.
+The screenshots are old and of course the deployment there is for the Greeting app, but we
+are deploying the SQS app, so it's confusing. Rather than adding a link to instructions for another
+deployment, I would add an EB-deployment section to this doc with the
+correct naming etc.
+
+By the way, when I did deploy it didn't work. The logs show that Spring starts up fine,
+but a request just times out eventually. Any ideas?
+
+For that reason, I wasn't able to test out the React frontend part of the app.)
 
 ## Create the React front end
 
