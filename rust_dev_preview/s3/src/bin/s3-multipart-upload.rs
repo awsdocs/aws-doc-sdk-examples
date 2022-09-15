@@ -47,7 +47,8 @@ pub async fn main() -> Result<(), Error> {
 
     //Create a file of random characters for the upload.
     let mut file = File::create(&key).expect("Could not create sample file.");
-    loop {
+    // Loop until the file is 5 chunks.
+    while file.metadata().unwrap().len() <= CHUNK_SIZE * 4 {
         let rand_string: String = thread_rng()
             .sample_iter(&Alphanumeric)
             .take(256)
@@ -58,10 +59,6 @@ pub async fn main() -> Result<(), Error> {
             .expect("Error writing to file.");
         file.write_all(return_string.as_ref())
             .expect("Error writing to file.");
-        if file.metadata().unwrap().len() > CHUNK_SIZE * 4 {
-            // Create a 5 chunk file.
-            break;
-        }
     }
 
     let path = Path::new(&key);
@@ -126,21 +123,14 @@ pub async fn main() -> Result<(), Error> {
     // snippet-end:[rust.example_code.s3.upload_part.CompletedMultipartUpload]
 
     // snippet-start:[rust.example_code.s3.complete_multipart_upload]
-    let _complete_multipart_upload_res = match client
+    let _complete_multipart_upload_res = client
         .complete_multipart_upload()
         .bucket(&bucket_name)
         .key(&key)
         .multipart_upload(completed_multipart_upload)
         .upload_id(upload_id)
         .send()
-        .await
-    {
-        Ok(res) => res,
-        Err(e) => {
-            println!("{:?}", e);
-            panic!();
-        }
-    };
+        .await.unwrap();
     // snippet-end:[rust.example_code.s3.complete_multipart_upload]
 
     let data: GetObjectOutput = s3_service::download_object(&client, &bucket_name, &key).await;
