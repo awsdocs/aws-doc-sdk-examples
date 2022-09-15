@@ -130,7 +130,8 @@ pub async fn main() -> Result<(), Error> {
         .multipart_upload(completed_multipart_upload)
         .upload_id(upload_id)
         .send()
-        .await.unwrap();
+        .await
+        .unwrap();
     // snippet-end:[rust.example_code.s3.complete_multipart_upload]
 
     let data: GetObjectOutput = s3_service::download_object(&client, &bucket_name, &key).await;
