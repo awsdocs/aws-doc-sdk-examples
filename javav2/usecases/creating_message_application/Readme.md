@@ -229,7 +229,7 @@ Create the following Java classes:
 
 + **MessageData** - Used as the model for this application.
 + **App** - Used as the base class for the Spring Boot application.
-+ **MessageController** - Used as the Spring Boot controller that handles HTTP requests.
++ **MainController** - Used as the Spring Boot controller that handles HTTP requests.
 + **SendReceiveMessages** - Uses the Amazon SQS API to process messages.  
 
 ### MessageData class
@@ -290,7 +290,7 @@ public class App {
 }
 ```
 
-### MessageController class
+### MainController class
 
 The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.  
 
