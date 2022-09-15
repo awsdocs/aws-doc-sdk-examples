@@ -22,6 +22,8 @@ using namespace Aws::TranscribeStreamingService::Model;
 
 //TODO(User): Update path to location of local .wav test file.
 static const Aws::String FILE_NAME{"../transcribe-test-file.wav"};
+static const int BUFFER_SIZE = 1024;
+static const int END_OF_STREAM_SLEEP_SECONDS = 10;
 
 int main()
 {
@@ -79,7 +81,7 @@ int main()
 			if (!file.is_open()) {
 				std::cerr << "Failed to open " << FILE_NAME << '\n';
 			}
-			std::array<char,1024> buf;
+			std::array<char,BUFFER_SIZE> buf;
 			int i = 0;
 			while (file)
 			{
@@ -116,7 +118,7 @@ int main()
                 std::cout << "Successfully sent the empty frame" << std::endl;
 			}
 			stream.flush();
-			std::this_thread::sleep_for(std::chrono::seconds (10)); // Workaround to prevent an error at the end of the stream for this contrived example.
+			std::this_thread::sleep_for(std::chrono::seconds (END_OF_STREAM_SLEEP_SECONDS)); // Workaround to prevent an error at the end of the stream for this contrived example.
 			stream.Close();
 		};
 
