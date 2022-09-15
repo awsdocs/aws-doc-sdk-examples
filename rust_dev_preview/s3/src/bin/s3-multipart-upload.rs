@@ -119,7 +119,7 @@ pub async fn main() -> Result<(), Error> {
         );
         // snippet-end:[rust.example_code.s3.upload_part]
     }
-    // snippet-end:[rust.example_code.s3.upload_part.CompletedMultipartUpload]
+    // snippet-start:[rust.example_code.s3.upload_part.CompletedMultipartUpload]
     let completed_multipart_upload: CompletedMultipartUpload = CompletedMultipartUpload::builder()
         .set_parts(Some(upload_parts))
         .build();
