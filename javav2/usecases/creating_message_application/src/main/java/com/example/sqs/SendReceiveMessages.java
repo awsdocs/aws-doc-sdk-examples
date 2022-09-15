@@ -33,7 +33,7 @@ public class SendReceiveMessages {
     private SqsClient getClient() {
         return SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
     }
 
@@ -42,7 +42,7 @@ public class SendReceiveMessages {
 
         return ComprehendClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
     }
 

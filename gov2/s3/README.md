@@ -59,7 +59,7 @@ You must have Go 1.17 or later installed.
 
 ## Additional information
 
-- [AWS SDK for Go V3 Amazon S3 service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
+- [AWS SDK for Go V2 Amazon S3 service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
 - [Amazon S3 documentation](https://docs.aws.amazon.com/s3)
 
 ---
