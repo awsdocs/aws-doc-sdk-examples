@@ -25,6 +25,9 @@ Code excerpts that show you how to call individual service functions.
 * [List all users on an AWS account](./ListUsers/Sources/ServiceHandler/ServiceHandler.swift) (`ListUsers`)
 * [List all groups on an AWS account](./ListGroups/Sources/ServiceHandler/ServiceHandler.swift) (`ListGroups`)
 * [List all AWS policies](./ListPolicies/Sources/ServiceHandler/ServiceHandler.swift) (`ListPolicies`)
+* [List the policies embedded in a
+  role](./ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift).
+ This does _not_ include managed policies attached to the role. (`ListRolePolicies`)
 
 <!-- ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.

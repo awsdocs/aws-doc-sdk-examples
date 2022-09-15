@@ -1813,6 +1813,14 @@ iam_ListRolePolicies:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_role_policies
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListRolePolicies
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listrolepolicies.handler.listrolepolicies
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
