@@ -27,7 +27,7 @@ The application you create is a decoupled React application that uses a Spring R
 + Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create the Java classes
-+ Run the application. 
++ Run the application 
 + Create the React front end
 
 ## Prerequisites
