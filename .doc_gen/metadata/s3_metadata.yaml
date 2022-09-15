@@ -749,9 +749,9 @@ s3_DeleteBucketLifecycle:
   services:
     s3: {DeleteBucketLifecycle}
 s3_CompleteMultipartUpload:
-  title:
-  title_abbrev:
-  synopsis:
+  title: Complete the multipart upload action
+  title_abbrev: Complete multipart upload
+  synopsis: complete the multipart upload action.
   category:
   languages:
     Rust:
@@ -763,9 +763,9 @@ s3_CompleteMultipartUpload:
               snippet_tags:
                 - rust.example_code.s3.complete_multipart_upload
 s3_CreateMultipartUpload:
-  title:
-  title_abbrev:
-  synopsis:
+  title: Create a multipart upload structure
+  title_abbrev: Create multipart upload
+  synopsis: create the structure to build a multipart upload action.
   category:
   languages:
     Rust:
@@ -1568,9 +1568,9 @@ s3_PutObjectAcl:
   services:
     s3: {PutObjectAcl}
 s3_UploadPart:
-  title:
-  title_abbrev:
-  synopsis:
+  title: Upload a single part of a multipart upload action
+  title_abbrev: Upload a single part.
+  synopsis: upload part of a multipart upload.
   category:
   languages:
     Rust:
