@@ -390,7 +390,7 @@ public class SendReceiveMessages {
     private SqsClient getClient() {
         return SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
     }
 
@@ -399,7 +399,7 @@ public class SendReceiveMessages {
 
         return ComprehendClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
     }
 
@@ -507,8 +507,6 @@ public class SendReceiveMessages {
 }
 
 ```
-
-**Note:** The **EnvironmentVariableCredentialsProvider** is used to create an **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
 
 ## Run the application
 Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs:
