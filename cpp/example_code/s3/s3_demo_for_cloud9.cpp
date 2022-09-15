@@ -52,15 +52,13 @@ bool FindTheBucket(const Aws::S3::S3Client &s3Client,
         }
 
         std::cout << "Could not find the bucket." << std::endl << std::endl;
-
-        return true;
     }
     else {
         std::cerr << "ListBuckets error: "
                   << outcome.GetError().GetMessage() << std::endl;
     }
 
-    return false;
+    return outcome.IsSuccess();
 }
 
 // Create an Amazon S3 bucket.
@@ -78,15 +76,13 @@ bool CreateTheBucket(const Aws::S3::S3Client &s3Client,
 
     if (outcome.IsSuccess()) {
         std::cout << "Bucket created." << std::endl << std::endl;
-
-        return true;
     }
     else {
         std::cerr << "CreateBucket error: "
                   << outcome.GetError().GetMessage() << std::endl;
-
-        return false;
     }
+
+    return outcome.IsSuccess();
 }
 
 // Delete an existing Amazon S3 bucket.
@@ -104,15 +100,13 @@ bool DeleteTheBucket(const Aws::S3::S3Client &s3Client,
 
     if (outcome.IsSuccess()) {
         std::cout << "Bucket deleted." << std::endl << std::endl;
-
-        return true;
     }
     else {
         std::cerr << "DeleteBucket error: "
                   << outcome.GetError().GetMessage() << std::endl;
-
-        return false;
     }
+
+    return outcome.IsSuccess();
 }
 
 #ifndef TESTING_BUILD

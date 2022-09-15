@@ -58,7 +58,7 @@ Aws::String AwsDocTest::S3_GTests::GetTestFilePath() {
     if (s_testFilePath.empty()) {
         Aws::String filePath = "SampleGTest_test.file.txt";
         std::ofstream myFile(filePath);
-        if (myFile) { // NOLINT(readability-implicit-bool-conversion)
+        if (myFile) {
             myFile << "This file is part of unit testing";
             myFile.close();
             s_testFilePath = filePath;
@@ -99,7 +99,6 @@ Aws::String AwsDocTest::S3_GTests::PutTestFileInBucket(const Aws::String &bucket
     return filePath;
 }
 
-// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 bool AwsDocTest::S3_GTests::DeleteObjectInBucket(const Aws::String &bucketName, const Aws::String &objectName) {
     Aws::S3::S3Client client(*s_clientConfig);
     Aws::S3::Model::DeleteObjectRequest request;
