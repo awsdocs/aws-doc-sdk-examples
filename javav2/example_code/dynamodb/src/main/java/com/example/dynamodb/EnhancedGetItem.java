@@ -14,6 +14,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.model.GetItemEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -21,10 +22,11 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 /*
  * Before running this code example, create an Amazon DynamoDB table named Customer with these columns:
- *   - id - the id of the record that is the key
+ *   - id - the id of the record that is the key. Be sure one of the id values is `id101`
  *   - custName - the customer name
  *   - email - the email value
- *   - registrationDate - an instant value when the item was added to the table
+ *   - registrationDate - an instant value when the item was added to the table. These values
+ *                        need to be in the form of `YYYY-MM-DDTHH:mm:ssZ`, such as 2022-07-11T00:00:00Z
  *
  * Also, ensure that you have set up your development environment, including your credentials.
  *
@@ -53,7 +55,9 @@ public class EnhancedGetItem {
     }
 
     // snippet-start:[dynamodb.java2.mapping.getitem.main]
-    public static void getItem(DynamoDbEnhancedClient enhancedClient) {
+    public static String getItem(DynamoDbEnhancedClient enhancedClient) {
+
+        Customer result = null;
 
         try {
             DynamoDbTable<Customer> table = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
@@ -62,13 +66,15 @@ public class EnhancedGetItem {
                 .build();
 
             // Get the item by using the key.
-            Customer result = table.getItem(r->r.key(key));
-            System.out.println("******* The description value is "+result.getCustName());
+            result = table.getItem(
+                    (GetItemEnhancedRequest.Builder requestBuilder) -> requestBuilder.key(key));
+            System.out.println("******* The description value is " + result.getCustName());
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+        return result.getCustName();
     }
     // snippet-end:[dynamodb.java2.mapping.getitem.main]
 }
