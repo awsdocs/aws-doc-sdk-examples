@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a Spring REST API that sends and retrieves messages by using the AWS SDK for Java (v2) and Amazon Simple Queue Service (Amazon SQS). This application also detects the language code of the posted message by using Amazon Comprehend. The Spring REST API is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 8/02/2022        |
+| Updated   | 9/15/2022        |
 | Required skills   | Java, Maven, JavaScript  |
 
 
