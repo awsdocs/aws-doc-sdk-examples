@@ -14,7 +14,7 @@ def confirm_begin
 end
 
 def new_step(number, title)
-  puts "=== STEP #{number.to_s} === #{title}".blue
+  puts "\n=== STEP #{number.to_s} === #{title}".blue
 
 
 end

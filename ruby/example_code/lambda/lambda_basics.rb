@@ -17,7 +17,7 @@ require 'zip'
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.full]
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.decl]
 class LambdaWrapper
-  attr_accessor :lambda_client, :source_file, :custom_name
+  attr_accessor :lambda_client, :source_file, :custom_name, :cloudwatch_client, :iam_client
 
   def initialize(lambda_client, source_file, custom_name)
     @lambda_client = lambda_client
@@ -25,6 +25,8 @@ class LambdaWrapper
     @custom_name = custom_name
     @logger = Logger.new($stdout)
     @logger.level = Logger::INFO
+    @cloudwatch_client = Aws::CloudWatchLogs::Client.new
+    @iam_client = Aws::IAM::Client.new
   end
 
   # Creates a Lambda deployment package in .zip format
@@ -35,11 +37,16 @@ class LambdaWrapper
   def create_deployment_package(source_file)
     Dir.chdir(File.dirname(__FILE__))
     if File.exist?("#{source_file}.zip")
-      system("rm #{source_file}.zip > /dev/null")
+      File.delete("#{source_file}.zip")
       @logger.debug("Deleting old zip: #{source_file}.zip")
 
     end
-    system("zip #{source_file}.zip #{source_file}.rb > /dev/null")
+    Zip::File.open("#{source_file}.zip", create: true) {
+      |zipfile|
+      zipfile.add("#{source_file}.rb", "#{source_file}.rb")
+    }
+
+    # system("zip #{source_file}.zip #{source_file}.rb > /dev/null")
     @logger.debug("Zipping #{source_file}.rb into: #{source_file}.zip.")
     File.read("#{source_file}.zip").to_s
   end
@@ -50,8 +57,7 @@ class LambdaWrapper
   # @param action: whether to create or destroy the IAM apparatus
   # @return: The IAM role.
   def manage_iam(iam_role_name, action)
-    iam_client = Aws::IAM::Client.new(region: 'us-east-1')
-    lambda_assume_role_policy = {
+    role_policy = {
       'Version': '2012-10-17',
       'Statement': [
         {
@@ -67,30 +73,30 @@ class LambdaWrapper
     when 'create'
       role = iam_client.create_role(
         role_name: iam_role_name,
-        assume_role_policy_document: lambda_assume_role_policy.to_json
+        assume_role_policy_document: role_policy.to_json
       )
-      iam_client.attach_role_policy(
+      @iam_client.attach_role_policy(
         {
           policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
           role_name: iam_role_name
         }
       )
-      iam_client.wait_until(:role_exists, { role_name: iam_role_name }) do |w|
+      @iam_client.wait_until(:role_exists, { role_name: iam_role_name }) do |w|
         w.max_attempts = 5
         w.delay = 5
       end
       @logger.debug("Successfully created IAM role: #{role['role']['arn']}")
       @logger.debug('Enforcing a 10-second sleep to allow IAM role to activate fully.')
       sleep(10)
-      role
+      return role, role_policy.to_json
     when 'destroy'
-      iam_client.detach_role_policy(
+      @iam_client.detach_role_policy(
         {
           policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
           role_name: iam_role_name
         }
       )
-      iam_client.delete_role(
+      @iam_client.delete_role(
         role_name: iam_role_name
       )
       @logger.debug("Detached policy & deleted IAM role: #{iam_role_name}")
@@ -104,11 +110,11 @@ class LambdaWrapper
   # @param string_match: A string to look for in the logs
   # @return all_logs: an array of all the log messages found for that stream
   def get_cloudwatch_logs(function_name, string_match)
+    @logger.debug("Enforcing a 10 second sleep to allow CloudWatch logs to appear.")
     sleep(10)
-    cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: 'us-east-1')
-    streams = cloudwatch_client.describe_log_streams({ log_group_name: "/aws/lambda/#{function_name}" })
+    streams = @cloudwatch_client.describe_log_streams({ log_group_name: "/aws/lambda/#{function_name}" })
     streams['log_streams'].each do |x|
-      resp = cloudwatch_client.get_log_events({
+      resp = @cloudwatch_client.get_log_events({
                                                 log_group_name: "/aws/lambda/#{function_name}",
                                                 log_stream_name: x['log_stream_name']
                                               })

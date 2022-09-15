@@ -56,10 +56,11 @@ def run_scenario(lambda_client, source_file, custom_name)
 
   new_step(1, 'Create IAM role and policy for Lambda')
   print 'Creating...'
-  response = wrapper.manage_iam("#{custom_name}-role", 'create')
-  role_arn = response["role"]["arn"]
+  role, policy = wrapper.manage_iam("#{custom_name}-role", 'create')
+  role_arn = role["role"]["arn"]
   print "Done!\n".green
-  puts JSON.pretty_generate(response).green
+  puts JSON.pretty_generate(role).green
+  puts JSON.pretty_generate(policy).green
   puts '-' * 88
 
   new_step(2, "Create new Lambda function")
@@ -107,7 +108,7 @@ def run_scenario(lambda_client, source_file, custom_name)
   puts "==========================================================================".yellow
 end
 
-lambda_client = Aws::Lambda::Client.new(region: 'us-east-1')
+lambda_client = Aws::Lambda::Client.new
 source_file = 'lambda_function'
 custom_name = "lambda-function-#{rand(10**4)}"
 
