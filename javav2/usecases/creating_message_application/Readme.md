@@ -529,20 +529,6 @@ The following image shows the JSON data returned from the Spring REST API.
 
 ![AWS Messaging Application](images/messages.png)
 
-## Package the project into an executable JAR file
-
-Package up the project into an executable **.jar** (JAR) file by using the following Maven command.
-
-     mvn package
-
-The JAR file is located in the target folder.
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy to Elastic Beanstalk
-
-Deploy the Spring application to Elastic Beanstalk. To learn how, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
-
 ## Create the React front end
 
 Create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository [Resources](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources).  
