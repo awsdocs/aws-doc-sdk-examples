@@ -53,7 +53,7 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String &bucketName,
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cout << "Error: GetObjectAcl: "
+        std::cerr << "Error: GetObjectAcl: "
                   << err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {

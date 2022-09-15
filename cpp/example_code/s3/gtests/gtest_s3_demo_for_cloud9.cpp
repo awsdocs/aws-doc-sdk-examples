@@ -19,7 +19,7 @@ namespace AwsDocTest {
         bool result = FindTheBucket(*s_clientConfig, bucketName);
         ASSERT_TRUE(result);
 
-        result = CreateTheBucket(*s_clientConfig, bucketName);
+        result = CreateTheBucket(*s_clientConfig, bucketName,s_clientConfig->region);
         ASSERT_TRUE(result);
 
         result = FindTheBucket(*s_clientConfig, bucketName);

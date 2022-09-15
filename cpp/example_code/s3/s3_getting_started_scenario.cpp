@@ -126,7 +126,7 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
                                               std::ios_base::in | std::ios_base::binary);
 
         if (!input_data->is_open()) {
-            std::cout << "Error: unable to open file, '" << uploadFilePath << "'." << std::endl;
+            std::cerr << "Error: unable to open file, '" << uploadFilePath << "'." << std::endl;
             AwsDoc::S3::DeleteBucket(bucketName, client);
             return false;
         }
@@ -137,7 +137,7 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
                 client.PutObject(request);
 
         if (!outcome.IsSuccess()) {
-            std::cout << "Error: PutObject: " <<
+            std::cerr << "Error: PutObject: " <<
                       outcome.GetError().GetMessage() << std::endl;
             AwsDoc::S3::DeleteObjectFromBucket(bucketName, key, client);
             AwsDoc::S3::DeleteBucket(bucketName, client);
@@ -160,7 +160,7 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
 
         if (!outcome.IsSuccess()) {
             const Aws::S3::S3Error &err = outcome.GetError();
-            std::cout << "Error: GetObject: " <<
+            std::cerr << "Error: GetObject: " <<
                       err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
         }
         else {
@@ -192,7 +192,7 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
         Aws::S3::Model::CopyObjectOutcome outcome =
                 client.CopyObject(request);
         if (!outcome.IsSuccess()) {
-            std::cout << "Error: CopyObject: " <<
+            std::cerr << "Error: CopyObject: " <<
                       outcome.GetError().GetMessage() << std::endl;
         }
         else {
@@ -209,7 +209,7 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
         Aws::S3::Model::ListObjectsOutcome outcome = client.ListObjects(request);
 
         if (!outcome.IsSuccess()) {
-            std::cout << "Error: ListObjects: " <<
+            std::cerr << "Error: ListObjects: " <<
                       outcome.GetError().GetMessage() << std::endl;
         }
         else {
@@ -243,7 +243,7 @@ bool AwsDoc::S3::DeleteObjectFromBucket(const Aws::String &bucketName, const Aws
             client.DeleteObject(request);
 
     if (!outcome.IsSuccess()) {
-        std::cout << "Error: DeleteObject: " <<
+        std::cerr << "Error: DeleteObject: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
     else {

@@ -36,7 +36,7 @@ bool AwsDoc::S3::ListBuckets(const Aws::Client::ClientConfiguration &clientConfi
 
     bool result = true;
     if (!outcome.IsSuccess()) {
-        std::cout << "Failed with error: " << outcome.GetError() << std::endl;
+        std::cerr << "Failed with error: " << outcome.GetError() << std::endl;
         result = false;
     }
     else {

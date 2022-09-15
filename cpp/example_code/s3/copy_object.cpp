@@ -44,7 +44,7 @@ bool AwsDoc::S3::CopyObject(const Aws::String &objectKey, const Aws::String &fro
     Aws::S3::Model::CopyObjectOutcome outcome = client.CopyObject(request);
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cout << "Error: CopyObject: " <<
+        std::cerr << "Error: CopyObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
 
     }

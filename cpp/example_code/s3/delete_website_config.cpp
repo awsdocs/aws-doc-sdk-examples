@@ -41,7 +41,7 @@ bool AwsDoc::S3::DeleteBucketWebsite(const Aws::String &bucketName,
 
     if (!outcome.IsSuccess()) {
         auto err = outcome.GetError();
-        std::cout << "Error: DeleteBucketWebsite: " <<
+        std::cerr << "Error: DeleteBucketWebsite: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {

@@ -45,7 +45,7 @@ bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey,
 
     if (!outcome.IsSuccess()) {
         auto err = outcome.GetError();
-        std::cout << "Error: DeleteObject: " <<
+        std::cerr << "Error: DeleteObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {

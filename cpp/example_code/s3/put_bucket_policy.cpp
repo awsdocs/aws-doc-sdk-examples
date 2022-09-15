@@ -53,7 +53,7 @@ bool AwsDoc::S3::PutBucketPolicy(const Aws::String &bucketName,
             s3_client.PutBucketPolicy(request);
 
     if (!outcome.IsSuccess()) {
-        std::cout << "Error: PutBucketPolicy: "
+        std::cerr << "Error: PutBucketPolicy: "
                   << outcome.GetError().GetMessage() << std::endl;
     }
     else {
@@ -115,21 +115,26 @@ int main() {
         //TODO(User): Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "<Enter bucket name>";
 
+        Aws::String userArn;
         // Get the caller's AWS account ID to be used in the bucket policy.
-        Aws::STS::STSClient sts_client;
-        Aws::STS::Model::GetCallerIdentityRequest request;
-        Aws::STS::Model::GetCallerIdentityOutcome outcome =
-                sts_client.GetCallerIdentity(request);
+        {
+            Aws::Client::ClientConfiguration clientConfig;
+            clientConfig.region = "us-east-1";  // ensure valid IAM region
+            Aws::STS::STSClient sts_client(clientConfig);
+            Aws::STS::Model::GetCallerIdentityRequest request;
+            Aws::STS::Model::GetCallerIdentityOutcome outcome =
+                    sts_client.GetCallerIdentity(request);
 
-        if (!outcome.IsSuccess()) {
-            std::cout << "Error: GetBucketPolicy setup: Get identity information: "
-                      << outcome.GetError().GetMessage() << std::endl;
+            if (!outcome.IsSuccess()) {
+                std::cout << "Error: GetBucketPolicy setup: Get identity information: "
+                          << outcome.GetError().GetMessage() << std::endl;
 
-            return 1;
+                return 1;
+            }
+
+            // Extract the caller's AWS account ID from the call to AWS STS.
+            userArn = outcome.GetResult().GetArn();
         }
-
-        // Extract the caller's AWS account ID from the call to AWS STS.
-        Aws::String userArn = outcome.GetResult().GetArn();
 
         // Use the account ID and bucket name to form the bucket policy to be added.
         Aws::String policy_string = GetPolicyString(userArn, bucket_name);

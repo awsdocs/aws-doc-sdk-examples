@@ -58,7 +58,7 @@ Aws::String AwsDocTest::S3_GTests::GetTestFilePath() {
     if (s_testFilePath.empty()) {
         Aws::String filePath = "SampleGTest_test.file.txt";
         std::ofstream myFile(filePath);
-        if (myFile) {
+        if (myFile) { // NOLINT(readability-implicit-bool-conversion)
             myFile << "This file is part of unit testing";
             myFile.close();
             s_testFilePath = filePath;
@@ -99,6 +99,7 @@ Aws::String AwsDocTest::S3_GTests::PutTestFileInBucket(const Aws::String &bucket
     return filePath;
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 bool AwsDocTest::S3_GTests::DeleteObjectInBucket(const Aws::String &bucketName, const Aws::String &objectName) {
     Aws::S3::S3Client client(*s_clientConfig);
     Aws::S3::Model::DeleteObjectRequest request;
@@ -202,7 +203,9 @@ bool AwsDocTest::S3_GTests::CreateBucket(const Aws::String &bucketName) {
 
 Aws::String AwsDocTest::S3_GTests::GetArnForUser() {
     if (s_userArn.empty()) {
-        Aws::IAM::IAMClient client(*s_clientConfig);
+        Aws::Client::ClientConfiguration config(*s_clientConfig);
+        config.region = "us-east-1"; // Ensures a valid IAM region.
+        Aws::IAM::IAMClient client(config);
 
         Aws::IAM::Model::GetUserRequest request;
         Aws::IAM::Model::GetUserOutcome outcome = client.GetUser(request);
@@ -241,7 +244,7 @@ bool AwsDocTest::S3_GTests::AddPolicyToBucket(const Aws::String &bucketName) {
     bool result = true;
     if (!outcome.IsSuccess()) {
         auto err = outcome.GetError();
-        std::cout << "Error: AddPolicyToBucket test setup: Add bucket policy '" <<
+        std::cerr << "Error: AddPolicyToBucket test setup: Add bucket policy '" <<
                   policyString << "' to bucket '" << bucketName << "': " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
         result = false;

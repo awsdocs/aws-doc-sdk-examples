@@ -63,13 +63,22 @@ bool FindTheBucket(const Aws::S3::S3Client &s3Client,
 
 // Create an Amazon S3 bucket.
 bool CreateTheBucket(const Aws::S3::S3Client &s3Client,
-                     const Aws::String &bucketName) {
+                     const Aws::String &bucketName,
+                     const Aws::String& region) {
 
     std::cout << "Creating a bucket named '"
               << bucketName << "'..." << std::endl << std::endl;
 
     Aws::S3::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
+
+     if (region != "us-east-1") {
+        Aws::S3::Model::CreateBucketConfiguration createBucketConfig;
+        createBucketConfig.SetLocationConstraint(
+                Aws::S3::Model::BucketLocationConstraintMapper::GetBucketLocationConstraintForName(
+                        region));
+        request.SetCreateBucketConfiguration(createBucketConfig);
+    }
 
     Aws::S3::Model::CreateBucketOutcome outcome =
             s3Client.CreateBucket(request);
@@ -137,7 +146,7 @@ int main(int argc, char *argv[]) {
             return 1;
         }
 
-        if (!CreateTheBucket(s3_client, bucket_name)) {
+        if (!CreateTheBucket(s3_client, bucket_name, region)) {
             return 1;
         }
 

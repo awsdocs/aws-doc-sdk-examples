@@ -11,6 +11,7 @@
 static const int BUCKETS_NEEDED = 2;
 
 namespace AwsDocTest {
+    // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, copy_object) {
         std::vector<Aws::String> bucketNames = GetCachedS3Buckets(BUCKETS_NEEDED);
         ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED) << "Failed to meet precondition" << std::endl;

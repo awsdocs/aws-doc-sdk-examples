@@ -59,7 +59,7 @@ static Aws::String CreateOneBucket(const Aws::S3::S3Client &s3Client) {
                   "'." << std::endl;
     }
     else {
-        std::cout << "Error. Could not create the bucket: " <<
+        std::cerr << "Error. Could not create the bucket: " <<
                   createBucketOutcome.GetError() << std::endl;
 
         return "";
@@ -102,7 +102,7 @@ static bool ListTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String 
                   std::endl;
     }
     else {
-        std::cout << "Error. Could not count the objects in the bucket: " <<
+        std::cerr << "Error. Could not count the objects in the bucket: " <<
                   listObjectOutcome.GetError() << std::endl;
     }
 
@@ -125,9 +125,9 @@ bool DeleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketN
                   "'." << std::endl;
     }
     else {
-        std::cout << "Error. Could not delete the bucket: " <<
+        std::cerr << "Error. Could not delete the bucket: " <<
                   deleteBucketOutcome.GetError() << std::endl;
-        std::cout << "To clean up, you must delete the bucket named '" <<
+        std::cerr << "To clean up, you must delete the bucket named '" <<
                   bucketName << "' yourself." << std::endl;
     }
 

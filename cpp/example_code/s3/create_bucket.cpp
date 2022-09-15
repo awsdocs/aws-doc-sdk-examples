@@ -39,18 +39,19 @@ bool AwsDoc::S3::CreateBucket(const Aws::String &bucketName,
     Aws::S3::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
 
-
     //TODO(user): Change the bucket location constraint enum to your target Region.
-    Aws::S3::Model::CreateBucketConfiguration createBucketConfig;
-    createBucketConfig.SetLocationConstraint(
-            Aws::S3::Model::BucketLocationConstraintMapper::GetBucketLocationConstraintForName(
-                    clientConfig.region));
-    request.SetCreateBucketConfiguration(createBucketConfig);
+    if (clientConfig.region != "us-east-1") {
+        Aws::S3::Model::CreateBucketConfiguration createBucketConfig;
+        createBucketConfig.SetLocationConstraint(
+                Aws::S3::Model::BucketLocationConstraintMapper::GetBucketLocationConstraintForName(
+                        clientConfig.region));
+        request.SetCreateBucketConfiguration(createBucketConfig);
+    }
 
     Aws::S3::Model::CreateBucketOutcome outcome = client.CreateBucket(request);
     if (!outcome.IsSuccess()) {
         auto err = outcome.GetError();
-        std::cout << "Error: CreateBucket: " <<
+        std::cerr << "Error: CreateBucket: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {

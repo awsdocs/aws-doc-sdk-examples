@@ -57,7 +57,7 @@ bool AwsDoc::S3::PutWebsiteConfig(const Aws::String &bucketName,
             client.PutBucketWebsite(request);
 
     if (!outcome.IsSuccess()) {
-        std::cout << "Error: PutBucketWebsite: "
+        std::cerr << "Error: PutBucketWebsite: "
                   << outcome.GetError().GetMessage() << std::endl;
     }
     else {
