@@ -51,9 +51,9 @@
             <version>1.8.2</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+       <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>ses</artifactId>
+            <artifactId>comprehend</artifactId>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
