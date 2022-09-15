@@ -47,7 +47,7 @@ async fn initialize_variables() -> (Region, Client, String, String, String, Stri
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let bucket_name = format!("{}{}", "doc-example-bucket-", Uuid::new_v4().to_string());
+    let bucket_name = format!("doc-example-bucket-{}", Uuid::new_v4());
     let file_name = "s3/testfile.txt".to_string();
     let key = "test file key name".to_string();
     let target_key = "target_key".to_string();
@@ -67,7 +67,7 @@ async fn run_s3_operations(
 ) -> Result<(), Error> {
     s3_service::create_bucket(&client, &bucket_name, region.as_ref()).await?;
     s3_service::upload_object(&client, &bucket_name, &file_name, &key).await?;
-    s3_service::download_object(&client, &bucket_name, &key).await?;
+    let _object = s3_service::download_object(&client, &bucket_name, &key).await;
     s3_service::copy_object(&client, &bucket_name, &key, &target_key).await?;
     s3_service::list_objects(&client, &bucket_name).await?;
     s3_service::delete_objects(&client, &bucket_name).await?;

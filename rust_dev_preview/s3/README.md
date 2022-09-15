@@ -12,7 +12,8 @@ amount of data at any time, from anywhere on the web.*
 
 ### Scenario examples
 
-* [Getting started with buckets and objects](src/bin/s3-getting-started.rs) 
+* [Get started with buckets and objects](src/bin/s3-getting-started.rs)
+* [Upload and download large files](src/bin/s3-multipart-upload.rs)
 
 ### API examples
 
@@ -30,6 +31,9 @@ amount of data at any time, from anywhere on the web.*
 - [Lists your buckets and uploads a file to a bucket](src/bin/s3-helloworld.rs) (ListBuckets, PutObject)
 - [Lists your buckets at a specified endpoint](src/bin/s3-object-lambda.rs) (ListBuckets)
 - [Uses an SQL expression to retrieve content from an object in a bucket](src/bin/select-object-content.rs) (SelectObjectContent)
+- [Create multipart upload](src/bin/s3-multipart-upload.rs)
+- [Upload part](src/bin/s3-multipart-upload.rs)
+- [Complete multipart upload](src/bin/s3-multipart-upload.rs)
 
 ## ⚠ Important
 
@@ -51,7 +55,7 @@ Instructions for installing Rust and Cargo can be found in the [Official Rust Do
 
 ## Running the code examples
 
-### Getting started with buckets and objects
+### Get started with buckets and objects
 
 Automatically demonstrates how to create a bucket, upload and download objects, and cleans everything up.
 To start, run the following at a command prompt from the Rust root of the project:
@@ -64,6 +68,14 @@ Or, to run the test suite for the associated S3 library, run this command from t
 
 ```
 cargo test -p s3_code_examples --test test-s3-getting-started
+```
+
+### Upload and download large files
+
+This example creates a large file of random characters, splits it into chunks, then upload it to an AWS S3 bucket.
+
+```
+cargo run --bin s3-multipart-upload
 ```
 
 ### client
