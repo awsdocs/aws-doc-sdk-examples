@@ -509,7 +509,11 @@ public class SendReceiveMessages {
 ```
 
 ## Run the application
-Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs:
+Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon (green arrow) in the App class. 
+
+**Note**: If you are already running a web server on port 8080, add a VM option, change the `server.port` property value in **resources/application.properties**.
+
+The Spring API supports the following URLs:
 
 - /chat/msgs - A GET request that returns all messages in the queue. 
 - /chat/add - A POST request that adds a new message to the queue. 
