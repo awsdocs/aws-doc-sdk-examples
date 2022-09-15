@@ -20,7 +20,7 @@ using namespace Aws::TranscribeStreamingService;
 using namespace Aws::TranscribeStreamingService::Model;
 
 //TODO: Update path to location of local .wav test file.
-static const char FILE_NAME[] = "C:\\TODO\\transcribe-test-file.wav";
+static const char FILE_NAME[] = "../transcribe-test-file.wav";
 
 int main()
 {
@@ -34,9 +34,15 @@ int main()
 		Aws::Utils::Threading::Semaphore received(0 /*initialCount*/, 1 /*maxCount*/);
 
 		//Load a profile that has been granted AmazonTranscribeFullAccess AWS managed permission policy.
-		Aws::Client::ClientConfiguration config("TODO");
-		//TODO: Update to location of your .crt file.
-		config.caFile = "C:\\TODO\\curl-ca-bundle.crt";
+		Aws::Client::ClientConfiguration config;
+#ifdef _WIN32
+		// ATTENTION: On Windows, this example only runs if the SDK is built with the curl library.  (9/15/2022)
+		// See the accompanying ReadMe.
+		// See "Building the SDK for Windows with curl".
+		// https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/setup-windows.html
+		//TODO(User): Update to location of your .crt file.
+		config.caFile = "C:/curl/bin/curl-ca-bundle.crt";
+#endif
 		config.region = region;
 
 		TranscribeStreamingServiceClient client(config);
