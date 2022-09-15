@@ -32,18 +32,17 @@ export const params = {
   TableName: "EPISODES_TABLE",
 };
 
-
 export const run = async () => {
   try {
     const data = await ddbClient.send(new ScanCommand(params));
-    return data;
-    data.Items.forEach(function (element, index, array) {
+    data.Items.forEach(function (element) {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");
     });
+    return data;
   } catch (err) {
     console.log("Error", err);
   }
-}
+};
 run();
 // snippet-end:[dynamodb.JavaScript.table.scanV3]
 // For unit tests only.

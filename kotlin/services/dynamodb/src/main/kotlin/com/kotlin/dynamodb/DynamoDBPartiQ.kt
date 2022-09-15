@@ -1,10 +1,6 @@
 // snippet-sourcedescription:[DynamoDBPartiQ.kt demonstrates how to work with PartiQL for Amazon DynamoDB.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-service:[Amazon DynamoDB]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/24/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -31,11 +27,10 @@ import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementResponse
  */
 
 // snippet-start:[dynamodb.kotlin.partiql.main]
-suspend fun main(args: Array<String>) {
+suspend fun main() {
 
     val ddb = DynamoDbClient { region = "us-east-1" }
-
-    val parameters: MutableList<AttributeValue> = ArrayList<AttributeValue>()
+    val parameters = mutableListOf<AttributeValue>()
     parameters.add(AttributeValue.S("Acme Band"))
     parameters.add(AttributeValue.S("PartiQL Rocks"))
 

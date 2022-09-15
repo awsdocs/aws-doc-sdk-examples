@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeLimits.java demonstrates how to display the shard limit and usage for a given account.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -32,9 +29,9 @@ public class DescribeLimits {
         // snippet-start:[kinesis.java2.DescribeLimits.client]
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         // snippet-end:[kinesis.java2.DescribeLimits.client]
 
         describeKinLimits(kinesisClient);
@@ -43,9 +40,8 @@ public class DescribeLimits {
     // snippet-start:[kinesis.java2.DescribeLimits.main]
     public static void describeKinLimits(KinesisClient kinesisClient) {
         try {
-
             DescribeLimitsRequest request = DescribeLimitsRequest.builder()
-                 .build();
+                .build();
 
             DescribeLimitsResponse response = kinesisClient.describeLimits(request);
             System.out.println("Number of open shards: " + response.openShardCount());

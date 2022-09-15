@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListJobs.java demonstrates how to get information about all completed AWS Elemental MediaConvert jobs.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,9 +37,9 @@ public class ListJobs {
 
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listCompleteJobs(mc);
         mc.close();
@@ -62,7 +59,6 @@ public class ListJobs {
             }
 
             String endpointURL = res.endpoints().get(0).url();
-
             MediaConvertClient emc = MediaConvertClient.builder()
                 .region(Region.US_WEST_2)
                 .endpointOverride(URI.create(endpointURL))
@@ -75,10 +71,10 @@ public class ListJobs {
 
             ListJobsResponse jobsResponse = emc.listJobs(jobsRequest);
             List<Job> jobs = jobsResponse.jobs();
-
             for (Job job: jobs) {
                 System.out.println("The JOB ARN is : "+job.arn());
             }
+
         } catch (MediaConvertException e) {
             System.out.println(e.toString());
             System.exit(0);

@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ListApplications.java demonstrates how to information about your applications.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
-
+//snippet-keyword:[AWS CodeDeploy]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,9 +30,9 @@ public class ListApplications {
 
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listApps(deployClient);
         deployClient.close();
@@ -48,7 +44,6 @@ public class ListApplications {
         try {
             ListApplicationsResponse applicationsResponse = deployClient.listApplications();
             List<String> apps = applicationsResponse.applications();
-
             for (String app: apps) {
                 System.out.println("The application name is: "+app);
             }

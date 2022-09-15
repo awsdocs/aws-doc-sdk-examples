@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[ExportEndpoints.java demonstrates how to export endpoints to an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -58,18 +54,18 @@ public class ExportEndpoints {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "This program performs the following steps:\n\n" +
+            "This program performs the following steps:\n\n" +
 
-                "1) Exports the endpoints to an Amazon S3 bucket.\n" +
-                "2) Downloads the exported endpoints files from Amazon S3.\n" +
-                "3) Parses the endpoints files to obtain the endpoint IDs and prints them.\n" +
+            "1. Exports the endpoints to an Amazon S3 bucket.\n" +
+            "2. Downloads the exported endpoints files from Amazon S3.\n" +
+            "3. Parses the endpoints files to obtain the endpoint IDs and prints them.\n" +
 
-                "Usage: ExportEndpoints <applicationId> <s3BucketName> <iamExportRoleArn> <path>\n\n" +
-                "Where:\n" +
-                "  applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
-                "  s3BucketName - The name of the Amazon S3 bucket to export the JSON file to. \n" +
-                "  iamExportRoleArn - The ARN of an IAM role that grants Amazon Pinpoint write permissions to the S3 bucket."+
-                "  path - The path where the files downloaded from the Amazon S3 bucket are written (for example, C:/AWS/).\n" ;
+            "Usage: ExportEndpoints <applicationId> <s3BucketName> <iamExportRoleArn> <path>\n\n" +
+            "Where:\n" +
+            "  applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
+            "  s3BucketName - The name of the Amazon S3 bucket to export the JSON file to. \n" +
+            "  iamExportRoleArn - The ARN of an IAM role that grants Amazon Pinpoint write permissions to the S3 bucket."+
+            "  path - The path where the files downloaded from the Amazon S3 bucket are written (for example, C:/AWS/).\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -84,13 +80,13 @@ public class ExportEndpoints {
 
         Region region = Region.US_EAST_1;
         PinpointClient pinpoint = PinpointClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         S3Client s3Client = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         exportAllEndpoints(pinpoint, s3Client, applicationId, s3BucketName, path, iamExportRoleArn);
         pinpoint.close();
@@ -125,16 +121,16 @@ public class ExportEndpoints {
         String key;
 
         try {
-            // Defines the export job that Amazon Pinpoint runs
+            // Defines the export job that Amazon Pinpoint runs.
             ExportJobRequest jobRequest = ExportJobRequest.builder()
-                    .roleArn(iamExportRoleArn)
-                    .s3UrlPrefix(s3UrlPrefix)
-                    .build();
+                .roleArn(iamExportRoleArn)
+                .s3UrlPrefix(s3UrlPrefix)
+                .build();
 
             CreateExportJobRequest exportJobRequest = CreateExportJobRequest.builder()
-                    .applicationId(applicationId)
-                    .exportJobRequest(jobRequest)
-                    .build();
+                .applicationId(applicationId)
+                .exportJobRequest(jobRequest)
+                .build();
 
             System.out.format("Exporting endpoints from Amazon Pinpoint application %s to Amazon S3 " +
                     "bucket %s . . .\n", applicationId, s3BucketName);
@@ -145,9 +141,9 @@ public class ExportEndpoints {
             printExportJobStatus(pinpoint, applicationId, jobId);
 
             ListObjectsV2Request v2Request = ListObjectsV2Request.builder()
-                    .bucket(s3BucketName)
-                    .prefix(endpointsKeyPrefix)
-                    .build();
+                .bucket(s3BucketName)
+                .prefix(endpointsKeyPrefix)
+                .build();
 
             // Create a list of object keys.
             ListObjectsV2Response v2Response = s3Client.listObjectsV2(v2Request);
@@ -174,11 +170,11 @@ public class ExportEndpoints {
         String status;
 
         try {
-            // Checks the job status until the job completes or fails
+            // Checks the job status until the job completes or fails.
             GetExportJobRequest exportJobRequest = GetExportJobRequest.builder()
-                    .jobId(jobId)
-                    .applicationId(applicationId)
-                    .build();
+                .jobId(jobId)
+                .applicationId(applicationId)
+                .build();
 
             do {
                 getExportJobResult = pinpointClient.getExportJob(exportJobRequest);
@@ -208,9 +204,9 @@ public class ExportEndpoints {
         try {
             for (String key : objectKeys) {
                 GetObjectRequest objectRequest = GetObjectRequest.builder()
-                        .bucket(s3BucketName)
-                        .key(key)
-                        .build();
+                    .bucket(s3BucketName)
+                    .key(key)
+                    .build();
 
                 ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(objectRequest);
                 byte[] data = objectBytes.asByteArray();
@@ -222,8 +218,8 @@ public class ExportEndpoints {
                 OutputStream os = new FileOutputStream(myFile);
                 os.write(data);
             }
-
             System.out.println("Download finished.");
+
         } catch (S3Exception | NullPointerException | IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);

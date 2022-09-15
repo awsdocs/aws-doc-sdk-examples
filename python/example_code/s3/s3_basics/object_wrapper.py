@@ -20,7 +20,12 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.s3.helper.ObjectWrapper]
 class ObjectWrapper:
+    """Encapsulates S3 object actions."""
     def __init__(self, s3_object):
+        """
+        :param s3_object: A Boto3 Object resource. This is a high-level resource in Boto3
+                          that wraps object actions in a class-like structure.
+        """
         self.object = s3_object
         self.key = self.object.key
 # snippet-end:[python.example_code.s3.helper.ObjectWrapper]
@@ -85,7 +90,7 @@ class ObjectWrapper:
         """
         Lists the objects in a bucket, optionally filtered by a prefix.
 
-        :param bucket: The bucket to query.
+        :param bucket: The bucket to query. This is a Boto3 Bucket resource.
         :param prefix: When specified, only objects that start with this prefix are listed.
         :return: The list of objects.
         """
@@ -109,6 +114,7 @@ class ObjectWrapper:
         Copies the object to another bucket.
 
         :param dest_object: The destination object initialized with a bucket and key.
+                            This is a Boto3 Object resource.
         """
         try:
             dest_object.copy_from(CopySource={
@@ -118,12 +124,12 @@ class ObjectWrapper:
             dest_object.wait_until_exists()
             logger.info(
                 "Copied object from %s:%s to %s:%s.",
-                self.object.key, self.object.bucket_name,
+                self.object.bucket_name, self.object.key,
                 dest_object.bucket_name, dest_object.key)
         except ClientError:
             logger.exception(
                 "Couldn't copy object from %s/%s to %s/%s.",
-                self.object.key, self.object.bucket_name,
+                self.object.bucket_name, self.object.key,
                 dest_object.bucket_name, dest_object.key)
             raise
 # snippet-end:[python.example_code.s3.CopyObject]
@@ -153,7 +159,8 @@ class ObjectWrapper:
         Removes a list of objects from a bucket.
         This operation is done as a batch in a single request.
 
-        :param bucket: The bucket that contains the objects.
+        :param bucket: The bucket that contains the objects. This is a Boto3 Bucket
+                       resource.
         :param object_keys: The list of keys that identify the objects to remove.
         :return: The response that contains data about which objects were deleted
                  and any that could not be deleted.
@@ -181,14 +188,13 @@ class ObjectWrapper:
             return response
 # snippet-end:[python.example_code.s3.DeleteObjects_Keys]
 
-
 # snippet-start:[python.example_code.s3.DeleteObjects_All]
     @staticmethod
     def empty_bucket(bucket):
         """
         Remove all objects from a bucket.
 
-        :param bucket: The bucket to empty.
+        :param bucket: The bucket to empty. This is a Boto3 Bucket resource.
         """
         try:
             bucket.objects.delete()

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetObject.java demonstrates how to download a file from an AWS Elemental MediaStore container.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,12 +40,12 @@ public class GetObject {
     public static void main(String[] args) throws URISyntaxException {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <completePath> <containerName> <savePath>\n\n" +
-                "Where:\n" +
-                "   completePath - The path of the object in the container (for example, Videos5/sampleVideo.mp4).\n"+
-                "   containerName - The name of the container.\n"+
-                "   savePath - The path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).\n";
+            "Usage: " +
+            "   <completePath> <containerName> <savePath>\n\n" +
+            "Where:\n" +
+            "   completePath - The path of the object in the container (for example, Videos5/sampleVideo.mp4).\n"+
+            "   containerName - The name of the container.\n"+
+            "   savePath - The path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).\n";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -61,12 +58,11 @@ public class GetObject {
 
         Region region = Region.US_EAST_1;
         URI uri = new URI(getEndpoint(containerName));
-
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .endpointOverride(uri)
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getMediaObject(mediaStoreData, completePath, savePath);
         mediaStoreData.close();
@@ -96,17 +92,15 @@ public class GetObject {
         }
     }
 
-
     private static String getEndpoint(String containerName){
-
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         DescribeContainerRequest containerRequest = DescribeContainerRequest.builder()
-                .containerName(containerName)
-                .build();
+            .containerName(containerName)
+            .build();
 
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();

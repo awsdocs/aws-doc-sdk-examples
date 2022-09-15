@@ -95,6 +95,24 @@ def test_run_scenario(make_stubber, stub_runner, monkeypatch, error_code, stop_o
         assert exc_info.value.response['Error']['Code'] == error_code
 
 
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_list_tables(make_stubber, error_code):
+    dynamodb_resource = boto3.resource('dynamodb')
+    dynamodb_stubber = make_stubber(dynamodb_resource.meta.client)
+    movies = scenario.Movies(dynamodb_resource)
+    test_tables = [f'table-{index}' for index in range(1, 4)]
+
+    dynamodb_stubber.stub_list_tables(test_tables, error_code=error_code)
+
+    if error_code is None:
+        got_tables = movies.list_tables()
+        assert [t.name for t in got_tables] == test_tables
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            movies.list_tables()
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
 @pytest.mark.integ
 def test_run_scenario_integ(monkeypatch):
     dynamodb_resource = boto3.resource('dynamodb')

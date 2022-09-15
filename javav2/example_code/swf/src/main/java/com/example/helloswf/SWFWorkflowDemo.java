@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[SWFWorkflowDemo.java demonstrates how to register a domain, activity type, and a workflow type.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,15 +34,15 @@ public class SWFWorkflowDemo {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <domain> <taskList> <workflow> <workflowVersion> <activity> <activityVersion> \n\n" +
-                "Where:\n" +
-                "    domain - the domain to use (for example, mydomain). \n" +
-                "    taskList - the task list to use (for example, HelloTasklist).  \n" +
-                "    workflow - the name of the workflow (for example, myworkflow).\n" +
-                "    workflowVersion - the workflow version. \n" +
-                "    activity - the activity to use (for example, GrayscaleTransform).  \n" +
-                "    activityVersion - the activity version.\n";
+            "Usage:\n" +
+            "    <domain> <taskList> <workflow> <workflowVersion> <activity> <activityVersion> \n\n" +
+            "Where:\n" +
+            "    domain - the domain to use (for example, mydomain). \n" +
+            "    taskList - the task list to use (for example, HelloTasklist).  \n" +
+            "    workflow - the name of the workflow (for example, myworkflow).\n" +
+            "    workflowVersion - the workflow version. \n" +
+            "    activity - the activity to use (for example, GrayscaleTransform).  \n" +
+            "    activityVersion - the activity version.\n";
 
         if (args.length != 6) {
             System.out.println(USAGE);
@@ -58,12 +55,11 @@ public class SWFWorkflowDemo {
         String workflowVersion = args[3];
         String activity = args[4];
         String activityVersion = args[5];
-
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         registerDomain(swf, domain);
         registerWorkflowType(swf, domain, workflow, workflowVersion, taskList);
@@ -76,8 +72,10 @@ public class SWFWorkflowDemo {
         try {
             System.out.println("** Registering the domain '" + domain + "'.");
             swf.registerDomain(RegisterDomainRequest.builder()
-                    .name(domain)
-                    .workflowExecutionRetentionPeriodInDays("1").build());
+                .name(domain)
+                .workflowExecutionRetentionPeriodInDays("1")
+                .build());
+
         } catch (DomainAlreadyExistsException e) {
             System.out.println("** Domain already exists!");
             System.exit(1);
@@ -93,13 +91,14 @@ public class SWFWorkflowDemo {
             System.out.println("** Registering the workflow type '" + workflow +
                     "-" + workflowVersion + "'.");
             swf.registerWorkflowType(RegisterWorkflowTypeRequest.builder()
-                    .domain(domain)
-                    .name(workflow)
-                    .version(workflowVersion)
-                    .defaultChildPolicy(ChildPolicy.TERMINATE)
-                    .defaultTaskList(TaskList.builder().name(taskList).build())
-                    .defaultTaskStartToCloseTimeout("30")
-                    .build());
+                .domain(domain)
+                .name(workflow)
+                .version(workflowVersion)
+                .defaultChildPolicy(ChildPolicy.TERMINATE)
+                .defaultTaskList(TaskList.builder().name(taskList).build())
+                .defaultTaskStartToCloseTimeout("30")
+                .build());
+
         } catch (TypeAlreadyExistsException e) {
             System.out.println("** Workflow type already exists!");
             System.exit(1);
@@ -115,15 +114,16 @@ public class SWFWorkflowDemo {
             System.out.println("** Registering the activity type '" + activity +
                     "-" + activityVersion + "'.");
             swf.registerActivityType(RegisterActivityTypeRequest.builder()
-                    .domain(domain)
-                    .name(activity)
-                    .version(activityVersion)
-                    .defaultTaskList(TaskList.builder().name(taskList).build())
-                    .defaultTaskScheduleToStartTimeout("30")
-                    .defaultTaskStartToCloseTimeout("600")
-                    .defaultTaskScheduleToCloseTimeout("630")
-                    .defaultTaskHeartbeatTimeout("10")
-                    .build());
+                .domain(domain)
+                .name(activity)
+                .version(activityVersion)
+                .defaultTaskList(TaskList.builder().name(taskList).build())
+                .defaultTaskScheduleToStartTimeout("30")
+                .defaultTaskStartToCloseTimeout("600")
+                .defaultTaskScheduleToCloseTimeout("630")
+                .defaultTaskHeartbeatTimeout("10")
+                .build());
+
         } catch (TypeAlreadyExistsException e) {
             System.out.println("** Activity type already exists!");
             System.exit(1);

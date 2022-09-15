@@ -40,12 +40,12 @@ public class ListItems {
 
     public static void main(String[] args) throws URISyntaxException {
 
-       final String usage = "\n" +
-                "Usage: " +
-                "ListItems <containerName> <completePath>\n\n" +
-                "Where:\n" +
-                "  containerName - The name of the container.\n" +
-                "  completePath - The path in the container where the objects are located (for example, /Videos5).";
+        final String usage = "\n" +
+            "Usage: " +
+            "ListItems <containerName> <completePath>\n\n" +
+            "Where:\n" +
+            "  containerName - The name of the container.\n" +
+            "  completePath - The path in the container where the objects are located (for example, /Videos5).";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -58,10 +58,10 @@ public class ListItems {
         URI uri = new URI(getEndpoint(containerName));
 
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .endpointOverride(uri)
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllItems(mediaStoreData, completePath);
         mediaStoreData.close();
@@ -70,14 +70,13 @@ public class ListItems {
     //snippet-start:[mediastore.java2.list_items.main]
     public static void listAllItems(MediaStoreDataClient mediaStoreData, String completePath) {
 
-       try {
+        try {
             ListItemsRequest itemsRequest = ListItemsRequest.builder()
                 .path(completePath)
                 .build();
 
             ListItemsResponse itemsResponse = mediaStoreData.listItems(itemsRequest);
-
-            Boolean hasItems = itemsResponse.hasItems();
+            boolean hasItems = itemsResponse.hasItems();
             if (hasItems) {
                 List<Item> items = itemsResponse.items();
                 for (Item item : items) {
@@ -87,22 +86,23 @@ public class ListItems {
             } else {
                 System.out.println("There are no items");
             }
-       } catch (MediaStoreDataException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+
+        } catch (MediaStoreDataException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 
     private static String getEndpoint(String containerName){
 
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         DescribeContainerRequest containerRequest = DescribeContainerRequest.builder()
-                .containerName(containerName)
-                .build();
+            .containerName(containerName)
+            .build();
 
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();

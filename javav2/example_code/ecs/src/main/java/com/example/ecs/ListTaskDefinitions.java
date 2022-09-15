@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListTaskDefinitions.java demonstrates how to list task definitions.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,11 +31,11 @@ public class ListTaskDefinitions {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "  <clusterArn> <taskId> \n\n" +
-                "Where:\n" +
-                "  clusterArn - The ARN of an ECS cluster.\n" +
-                "  taskId - The task Id value.\n" ;
+            "Usage:\n" +
+            "  <clusterArn> <taskId> \n\n" +
+            "Where:\n" +
+            "  clusterArn - The ARN of an ECS cluster.\n" +
+            "  taskId - The task Id value.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -49,9 +46,9 @@ public class ListTaskDefinitions {
         String taskId = args[1];
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAllTasks(ecsClient, clusterArn, taskId);
         ecsClient.close();
@@ -62,9 +59,9 @@ public class ListTaskDefinitions {
 
         try {
             DescribeTasksRequest tasksRequest = DescribeTasksRequest.builder()
-                .cluster(clusterArn)
-                .tasks(taskId)
-                .build();
+               .cluster(clusterArn)
+               .tasks(taskId)
+               .build();
 
             DescribeTasksResponse response = ecsClient.describeTasks(tasksRequest);
             List<Task> tasks = response.tasks();

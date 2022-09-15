@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeleteSecret.java demonstrates how to delete a secret.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Secrets Manager]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,11 +28,11 @@ public class DeleteSecret {
 
     public static void main(String[] args) {
 
-       final String usage = "\n" +
-                "Usage:\n" +
-                "     <secretName> \n\n" +
-                "Where:\n" +
-                "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n";
+        final String usage = "\n" +
+            "Usage:\n" +
+            "     <secretName> \n\n" +
+            "Where:\n" +
+            "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class DeleteSecret {
         String secretName = args[0];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         deleteSpecificSecret(secretsClient, secretName);
         secretsClient.close();

@@ -46,7 +46,7 @@ doc-example-aurora-app.SecretArn = arn:aws:secretsmanager:us-west-2:012345678901
 
 ### Deploying with the AWS CLI 
 
-To deploy with the AWS CLI you must first install the 
+To deploy with the AWS CLI, you must first install the 
 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
 1. Deploy AWS resources by running the following at a command prompt in the 

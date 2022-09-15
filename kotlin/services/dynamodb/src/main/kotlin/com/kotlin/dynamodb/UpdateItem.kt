@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[UpdateItem.kt demonstrates how to update a value located in an Amazon DynamoDB table.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-service:[Amazon DynamoDB]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/24/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[CreateCustomerKey.java demonstrates how to create an AWS Key Management Service (AWS KMS) key.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class CreateCustomerKey {
 
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
        String keyDesc = "Created by the AWS KMS API";
        System.out.println("The key id is "+createKey(kmsClient, keyDesc));
@@ -47,24 +44,22 @@ public class CreateCustomerKey {
     // snippet-start:[kms.java2_create_key.main]
     public static String createKey(KmsClient kmsClient, String keyDesc) {
 
-    try {
-        CreateKeyRequest keyRequest = CreateKeyRequest.builder()
+        try {
+            CreateKeyRequest keyRequest = CreateKeyRequest.builder()
                 .description(keyDesc)
                 .customerMasterKeySpec(CustomerMasterKeySpec.SYMMETRIC_DEFAULT)
                 .keyUsage("ENCRYPT_DECRYPT")
                 .build();
 
-        CreateKeyResponse result = kmsClient.createKey(keyRequest);
-        System.out.printf(
-                "Created a customer key with id \"%s\"%n",
-                result.keyMetadata().arn());
+            CreateKeyResponse result = kmsClient.createKey(keyRequest);
+            System.out.printf("Created a customer key with id \"%s\"%n", result.keyMetadata().arn());
+            return result.keyMetadata().keyId();
 
-        return result.keyMetadata().keyId();
-    } catch (KmsException e) {
-        System.err.println(e.getMessage());
-        System.exit(1);
-    }
-    return "";
+        } catch (KmsException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return "";
     }
     // snippet-end:[kms.java2_create_key.main]
 }

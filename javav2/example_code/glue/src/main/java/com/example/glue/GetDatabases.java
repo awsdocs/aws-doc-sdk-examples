@@ -1,9 +1,7 @@
 //snippet-sourcedescription:[GetDatabases.java demonstrates how to get databases.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -35,9 +33,9 @@ public class GetDatabases {
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAllDatabases(glueClient);
         glueClient.close();

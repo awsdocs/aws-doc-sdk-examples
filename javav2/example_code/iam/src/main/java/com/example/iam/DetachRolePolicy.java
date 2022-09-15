@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[DetachRolePolicy.java demonstrates how to detach a policy from an AWS Identity and Access Management (IAM) role.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -30,11 +26,11 @@ public class DetachRolePolicy {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <roleName> <policyArn> \n\n" +
-                "Where:\n" +
-                "    roleName - A role name that you can obtain from the AWS Management Console. \n\n" +
-                "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
+            "Usage:\n" +
+            "    <roleName> <policyArn> \n\n" +
+            "Where:\n" +
+            "    roleName - A role name that you can obtain from the AWS Management Console. \n\n" +
+            "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,9 +41,9 @@ public class DetachRolePolicy {
         String policyArn = args[1];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
         detachPolicy(iam, roleName, policyArn);
         System.out.println("Done");
         iam.close();
@@ -58,9 +54,9 @@ public class DetachRolePolicy {
 
         try {
             DetachRolePolicyRequest request = DetachRolePolicyRequest.builder()
-                    .roleName(roleName)
-                    .policyArn(policyArn)
-                    .build();
+                .roleName(roleName)
+                .policyArn(policyArn)
+                .build();
 
             iam.detachRolePolicy(request);
             System.out.println("Successfully detached policy " + policyArn +

@@ -30,23 +30,25 @@ import { ec2Client } from "./libs/ec2Client";
 const params = { KeyName: "KEY_PAIR_NAME" }; //KEY_PAIR_NAME
 
 // Variable to hold a ID of a VPC
-const vpc = null;
+let vpc = null;
 
 const run = async () => {
   try {
     const data = await ec2Client.send(new DescribeVpcsCommand(params));
+    vpc = data.Vpcs[0].VpcId;
     return data;
-    const vpc = data.Vpcs[0].VpcId;
+  } catch (err) {
+    console.log("Error", err);
+  }
+  try {
     const paramsSecurityGroup = {
       Description: "DESCRIPTION", //DESCRIPTION
       GroupName: "SECURITY_GROUP_NAME", // SECURITY_GROUP_NAME
       VpcId: vpc,
     };
-  } catch (err) {
-    console.log("Error", err);
-  }
-  try {
-    const data = await ec2Client.send(new CreateSecurityGroupCommand(params));
+    const data = await ec2Client.send(
+      new CreateSecurityGroupCommand(paramsSecurityGroup)
+    );
     const SecurityGroupId = data.GroupId;
     console.log("Success", SecurityGroupId);
     return data;

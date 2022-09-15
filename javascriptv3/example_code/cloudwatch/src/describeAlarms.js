@@ -24,11 +24,10 @@ export const run = async () => {
   try {
     const data = await cwClient.send(new DescribeAlarmsCommand(params));
     console.log("Success", data);
-    return data;
-    data.MetricAlarms.forEach(function (item, index, array) {
+    data.MetricAlarms.forEach(function (item) {
       console.log(item.AlarmName);
-      return data;
     });
+    return data;
   } catch (err) {
     console.log("Error", err);
   }
@@ -36,4 +35,3 @@ export const run = async () => {
 // Uncomment this line to run execution within this file.
 // run();
 // snippet-end:[cw.JavaScript.alarms.describeAlarmsV3]
-

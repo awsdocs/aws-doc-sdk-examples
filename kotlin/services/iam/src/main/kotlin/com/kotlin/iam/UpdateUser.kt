@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[UpdateUser.kt demonstrates how to update the name of an AWS Identity and Access Management (IAM) user.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Identity and Access Management (IAM)]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[UpdateUser.kt demonstrates how to update the name of an AWS Identity and Access Management (IAM) user.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Identity and Access Management (IAM)]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,10 +16,10 @@ import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.update_user.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
 
-For information, see this documentation topic:
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
@@ -33,8 +29,8 @@ suspend fun main(args: Array<String>) {
         Usage:
             <curName> <newName>
         Where:
-            curName - the current user name.
-            newName - an updated user name.
+            curName - The current user name.
+            newName - An updated user name.
         """
 
     if (args.size != 2) {
@@ -45,7 +41,7 @@ suspend fun main(args: Array<String>) {
     val curName = args[0]
     val newName = args[1]
     updateIAMUser(curName, newName)
-    }
+}
 
 // snippet-start:[iam.kotlin.update_user.main]
 suspend fun updateIAMUser(curName: String?, newName: String?) {

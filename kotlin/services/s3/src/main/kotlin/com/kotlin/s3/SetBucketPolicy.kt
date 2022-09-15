@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[SetBucketPolicy.kt demonstrates how to add a bucket policy to an existing Amazon Simple Storage Service (Amazon S3) bucket.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-service:[Amazon S3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/30/2021]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

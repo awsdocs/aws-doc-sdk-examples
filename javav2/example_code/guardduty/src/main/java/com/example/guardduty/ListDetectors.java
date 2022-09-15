@@ -1,10 +1,6 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListDetectors.java demonstrates how to List detector id valuess of all the existing Amazon GuardDuty detector resources.]
 //snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon GuardDuty]
-// snippet-keyword:[Code Sample]
-// snippet-sourcedate:[05/18/2022]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0

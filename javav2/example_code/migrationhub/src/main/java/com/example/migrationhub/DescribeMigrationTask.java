@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[DescribeMigrationTask.java demonstrates how to get a list of attributes associated with a migration task.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS Migration Hub]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +30,11 @@ public class DescribeMigrationTask {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    DescribeMigrationTask <migrationTask> <progressStream> \n\n" +
-                "Where:\n" +
-                "    migrationTask - the name of a migration task. \n"+
-                "    progressStream - the name of a progress stream. \n";
+            "Usage:\n" +
+            "    DescribeMigrationTask <migrationTask> <progressStream> \n\n" +
+            "Where:\n" +
+            "    migrationTask - the name of a migration task. \n"+
+            "    progressStream - the name of a progress stream. \n";
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -48,9 +45,9 @@ public class DescribeMigrationTask {
         String progressStream = args[1];
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
        describeMigTask(migrationClient, migrationTask, progressStream);
        migrationClient.close();
@@ -59,11 +56,10 @@ public class DescribeMigrationTask {
     // snippet-start:[migration.java2.describe_migration.main]
     public static void describeMigTask(MigrationHubClient migrationClient, String migrationTask, String progressStream) {
         try {
-
             DescribeMigrationTaskRequest migrationTaskRequestRequest = DescribeMigrationTaskRequest.builder()
-                    .progressUpdateStream(progressStream)
-                    .migrationTaskName(migrationTask)
-                    .build();
+                .progressUpdateStream(progressStream)
+                .migrationTaskName(migrationTask)
+                .build();
 
             DescribeMigrationTaskResponse migrationTaskResponse = migrationClient.describeMigrationTask(migrationTaskRequestRequest);
             System.out.println("The name is "+ migrationTaskResponse.migrationTask().migrationTaskName());

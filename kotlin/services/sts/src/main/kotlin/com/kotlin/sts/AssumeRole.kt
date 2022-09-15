@@ -2,10 +2,6 @@
 // snippet-sourcedescription:[AssumeRole.kt demonstrates how to obtain a set of temporary security credentials by using AWS Security Token Service (AWS STS).]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-keyword:[AWS Security Token Service (AWS STS)]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/05/2021]
-// snippet-sourceauthor:[AWS - scmacdon]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,21 +36,22 @@ import kotlin.system.exitProcess
  */
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+Before running this Kotlin code example, set up your development environment,
 including your credentials.
-For information, see this documentation topic:
+
+For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args:Array<String>) {
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
         <roleArn> <roleSessionName> 
 
     Where:
-        roleArn - the Amazon Resource Name (ARN) of the role to assume (for example, arn:aws:iam::xxxxx8047983:role/s3role). 
-        roleSessionName - an identifier for the assumed role session (for example, mysession). 
+        roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, arn:aws:iam::xxxxx8047983:role/s3role). 
+        roleSessionName - An identifier for the assumed role session (for example, mysession). 
     """
 
     if (args.size != 2) {
@@ -76,7 +73,7 @@ suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?) {
     }
 
     StsClient { region = "us-east-1" }.use { stsClient ->
-      val roleResponse = stsClient.assumeRole(roleRequest)
+        val roleResponse = stsClient.assumeRole(roleRequest)
         val myCreds = roleResponse.credentials
         val exTime = myCreds?.expiration
         val tokenInfo = myCreds?.sessionToken
@@ -84,4 +81,3 @@ suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?) {
     }
 }
 // snippet-end:[sts.kotlin.assume_role.main]
-

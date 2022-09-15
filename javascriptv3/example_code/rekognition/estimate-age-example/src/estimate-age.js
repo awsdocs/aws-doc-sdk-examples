@@ -29,7 +29,6 @@ window.DetectFaces = async (imageData) => {
   };
   try {
     const data = await rekognitionClient.send(new DetectFacesCommand(params));
-    return data; // For unit tests.
     var table = "<table><tr><th>Low</th><th>High</th></tr>";
     // show each face and build out estimated age table
     for (var i = 0; i < data.FaceDetails.length; i++) {
@@ -42,6 +41,7 @@ window.DetectFaces = async (imageData) => {
     }
     table += "</table>";
     document.getElementById("opResult").innerHTML = table;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
@@ -54,7 +54,7 @@ window.ProcessImage = async () => {
 
   // Load base64 encoded image.
   var reader = new FileReader();
-  reader.onload = (function (theFile) {
+  reader.onload = (function () {
     return function (e) {
       var img = document.createElement("img");
       var image = null;

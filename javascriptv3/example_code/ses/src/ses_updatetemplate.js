@@ -8,40 +8,37 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-c
 Purpose:
 ses_updatetemplate.js demonstrates how to update an Amazon SES email template.
 
-Inputs (replace in code):
-- TEMPLATE_NAME
-- HTML_CONTENT
-- SUBJECT_LINE
-- TEXT_CONTENT
-
 Running the code:
 node ses_updatetemplate.js
  */
 // snippet-start:[ses.JavaScript.templates.updateTemplateV3]
-// Import required AWS SDK clients and commands for Node.js
-import { UpdateTemplateCommand }  from "@aws-sdk/client-ses";
+import { UpdateTemplateCommand } from "@aws-sdk/client-ses";
+import { getUniqueName } from "../../libs/index.js";
 import { sesClient } from "./libs/sesClient.js";
 
-// Set the parameters
-const params = {
-  Template: {
-    TemplateName: "TEMPLATE_NAME", //TEMPLATE_NAME
-    HtmlPart: "HTML_CONTENT", //HTML_CONTENT; i.e., HTML content in the email
-    SubjectPart: "SUBJECT_LINE", //SUBJECT_LINE; i.e., email subject line
-    TextPart: "TEXT_CONTENT", //TEXT_CONTENT; i.e., body of email
-  },
+const TEMPLATE_NAME = getUniqueName("TemplateName");
+const HTML_PART = "<h1>Hello, World!</h1>";
+
+const createUpdateTemplateCommand = () => {
+  return new UpdateTemplateCommand({
+    Template: {
+      TemplateName: TEMPLATE_NAME,
+      HtmlPart: HTML_PART,
+      SubjectPart: "Example",
+      TextPart: "Updated template text.",
+    },
+  });
 };
 
 const run = async () => {
+  const updateTemplateCommand = createUpdateTemplateCommand();
+
   try {
-    const data = await sesClient.send(new UpdateTemplateCommand(params));
-    console.log("Success.", data);
-    return data; // For unit tests.
+    return await sesClient.send(updateTemplateCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to update template.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.templates.updateTemplateV3]
-// For unit tests only.
-// module.exports ={run, params};
+export { run, TEMPLATE_NAME, HTML_PART };

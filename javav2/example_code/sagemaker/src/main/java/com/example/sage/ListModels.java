@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListModels.java demonstrates how to retrieve a list of models.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,9 +35,9 @@ public class ListModels {
 
             Region region = Region.US_WEST_2;
             SageMakerClient sageMakerClient = SageMakerClient.builder()
-                    .region(region)
-                    .credentialsProvider(ProfileCredentialsProvider.create())
-                    .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
             listAllModels(sageMakerClient);
             sageMakerClient.close();
@@ -49,21 +46,21 @@ public class ListModels {
     //snippet-start:[sagemaker.java2.list_models.main]
        public static void listAllModels(SageMakerClient sageMakerClient) {
 
-            try {
-                ListModelsRequest modelsRequest = ListModelsRequest.builder()
-                        .maxResults(15)
-                        .build();
+           try {
+               ListModelsRequest modelsRequest = ListModelsRequest.builder()
+                   .maxResults(15)
+                   .build();
 
-                ListModelsResponse modelResponse = sageMakerClient.listModels(modelsRequest);
-                List<ModelSummary> items = modelResponse.models();
-                for (ModelSummary item : items) {
-                    System.out.println("Model name is: " + item.modelName());
-                }
+               ListModelsResponse modelResponse = sageMakerClient.listModels(modelsRequest);
+               List<ModelSummary> items = modelResponse.models();
+               for (ModelSummary item : items) {
+                   System.out.println("Model name is: " + item.modelName());
+               }
 
-            } catch (SageMakerException e) {
-                System.err.println(e.awsErrorDetails().errorMessage());
-                System.exit(1);
-            }
-        }
+           } catch (SageMakerException e) {
+               System.err.println(e.awsErrorDetails().errorMessage());
+               System.exit(1);
+           }
+       }
       //snippet-end:[sagemaker.java2.list_models.main]
     }

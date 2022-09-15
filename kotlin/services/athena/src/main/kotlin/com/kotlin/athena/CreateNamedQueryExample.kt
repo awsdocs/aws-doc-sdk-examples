@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[CreateNamedQueryExample.kt demonstrates how to create a named query.]
 // snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
 // snippet-keyword:[Amazon Athena]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/25/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -28,7 +25,6 @@ suspend fun main(args: Array<String>) {
         queryString - The query string to use (for example, "SELECT * FROM mydatabase"; ).
         namedQuery - The name of the query to create. 
         database - The name of the database to use (for example, mydatabase).
-        
     """
 
     if (args.size != 3) {

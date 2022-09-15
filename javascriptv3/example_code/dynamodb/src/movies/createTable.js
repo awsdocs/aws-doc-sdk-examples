@@ -43,7 +43,7 @@ export const createTable = async () => {
         KeyType: "RANGE",
       },
     ],
-    TableName: "TABLE_NAME",
+    TableName: tableName,
     ProvisionedThroughput: {
       ReadCapacityUnits: 5,
       WriteCapacityUnits: 5,

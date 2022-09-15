@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DeadLetterQueues.java demonstrates how to set a queue as a dead letter queue for Amazon Simple Queue Service (Amazon SQS).]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,11 +11,17 @@ package com.example.sqs;
 
 // snippet-start:[sqs.java2.delete_letter_queues.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.services.sqs.model.*;
 import java.util.Date;
 import java.util.HashMap;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
+import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.GetQueueAttributesRequest;
+import software.amazon.awssdk.services.sqs.model.GetQueueAttributesResponse;
+import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
+import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
+import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
+import software.amazon.awssdk.services.sqs.model.SqsException;
 // snippet-end:[sqs.java2.delete_letter_queues.import]
 
 /**
@@ -35,9 +38,9 @@ public class DeadLetterQueues {
     public static void main(String[] args) {
 
         SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         setDeadLetterQueue(sqsClient);
         sqsClient.close();
@@ -48,25 +51,25 @@ public class DeadLetterQueues {
 
         try {
             CreateQueueRequest request = CreateQueueRequest.builder()
-                .queueName(QueueName).build();
+                .queueName(QueueName)
+                .build();
 
-             CreateQueueRequest dlrequest = CreateQueueRequest.builder()
-                .queueName(DLQueueName).build();
+            CreateQueueRequest dlrequest = CreateQueueRequest.builder()
+                .queueName(DLQueueName)
+                .build();
 
             sqs.createQueue(dlrequest);
-
             GetQueueUrlRequest getRequest = GetQueueUrlRequest.builder()
                 .queueName(DLQueueName)
                 .build();
 
             // Get dead-letter queue ARN
-            String dlQueueUrl = sqs.getQueueUrl(getRequest)
-                .queueUrl();
-
+            String dlQueueUrl = sqs.getQueueUrl(getRequest).queueUrl();
             GetQueueAttributesResponse queueAttrs = sqs.getQueueAttributes(
                 GetQueueAttributesRequest.builder()
-                        .queueUrl(dlQueueUrl)
-                        .attributeNames(QueueAttributeName.QUEUE_ARN).build());
+                    .queueUrl(dlQueueUrl)
+                    .attributeNames(QueueAttributeName.QUEUE_ARN)
+                        .build());
 
             String dlQueueArn = queueAttrs.attributes().get(QueueAttributeName.QUEUE_ARN);
 
@@ -75,9 +78,7 @@ public class DeadLetterQueues {
                 .queueName(DLQueueName)
                 .build();
 
-            String srcQueueUrl = sqs.getQueueUrl(getRequestSource)
-                .queueUrl();
-
+            String srcQueueUrl = sqs.getQueueUrl(getRequestSource).queueUrl();
             HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
             attributes.put(QueueAttributeName.REDRIVE_POLICY, "{\"maxReceiveCount\":\"5\", \"deadLetterTargetArn\":\""
                 + dlQueueArn + "\"}");
@@ -87,7 +88,7 @@ public class DeadLetterQueues {
                 .attributes(attributes)
                 .build();
 
-            SetQueueAttributesResponse setAttrResponse = sqs.setQueueAttributes(setAttrRequest);
+            sqs.setQueueAttributes(setAttrRequest);
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

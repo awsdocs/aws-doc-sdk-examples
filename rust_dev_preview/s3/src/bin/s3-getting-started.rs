@@ -48,6 +48,7 @@ async fn initialize_variables() -> (Region, Client, String, String, String, Stri
     let client = Client::new(&shared_config);
 
     let bucket_name = format!("doc-example-bucket-{}", Uuid::new_v4());
+
     let file_name = "s3/testfile.txt".to_string();
     let key = "test file key name".to_string();
     let target_key = "target_key".to_string();

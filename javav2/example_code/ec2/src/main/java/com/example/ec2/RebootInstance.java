@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[RebootInstance.java demonstrates how to reboot an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,10 +29,10 @@ public class RebootInstance {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "   <instanceId> \n\n" +
-                "Where:\n" +
-                "   instanceId - An instance id value that you can obtain from the AWS Console. \n\n";
+            "Usage:\n" +
+            "   <instanceId> \n\n" +
+            "Where:\n" +
+            "   instanceId - An instance id value that you can obtain from the AWS Console. \n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,9 +42,9 @@ public class RebootInstance {
         String instanceId = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         rebootEC2Instance(ec2, instanceId);
         ec2.close();
@@ -56,19 +53,19 @@ public class RebootInstance {
     // snippet-start:[ec2.java2.reboot_instance.main]
     public static void rebootEC2Instance(Ec2Client ec2, String instanceId) {
 
-      try {
+        try {
             RebootInstancesRequest request = RebootInstancesRequest.builder()
                 .instanceIds(instanceId)
-                    .build();
+                .build();
 
             ec2.rebootInstances(request);
             System.out.printf("Successfully rebooted instance %s", instanceId);
 
-    } catch (Ec2Exception e) {
-          System.err.println(e.awsErrorDetails().errorMessage());
-          System.exit(1);
-     }
-  }
+        } catch (Ec2Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
     // snippet-end:[ec2.java2.reboot_instance.main]
 }
 

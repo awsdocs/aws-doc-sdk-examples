@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[UploadArchive.java demonstrates how to upload an archive to an Amazon Glacier vault.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -37,15 +34,14 @@ import java.security.NoSuchAlgorithmException;
 public class UploadArchive {
 
     static final int ONE_MB = 1024 * 1024;
-
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                 "Usage:" +
-                "   <strPath> <vaultName> \n\n" +
-                "Where:\n" +
-                "   strPath - The path to the archive to upload (for example, C:\\AWS\\test.pdf).\n" +
-                "   vaultName - The name of the vault.\n\n";
+            "Usage:" +
+            "   <strPath> <vaultName> \n\n" +
+            "Where:\n" +
+            "   strPath - The path to the archive to upload (for example, C:\\AWS\\test.pdf).\n" +
+            "   vaultName - The name of the vault.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -56,11 +52,10 @@ public class UploadArchive {
         String vaultName = args[1];
         File myFile = new File(strPath);
         Path path = Paths.get(strPath);
-
         GlacierClient glacier = GlacierClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String archiveId = uploadContent(glacier, path, vaultName, myFile );
         System.out.println("The ID of the archived item is " +archiveId);
@@ -74,9 +69,9 @@ public class UploadArchive {
         String checkVal = computeSHA256(myFile);
         try {
             UploadArchiveRequest uploadRequest = UploadArchiveRequest.builder()
-                    .vaultName(vaultName)
-                    .checksum(checkVal)
-                    .build();
+                .vaultName(vaultName)
+                .checksum(checkVal)
+                .build();
 
             UploadArchiveResponse res = glacier.uploadArchive(uploadRequest, path);
             return res.archiveId();
@@ -96,13 +91,11 @@ public class UploadArchive {
             return toHex(treeHash);
 
         } catch (IOException ioe) {
-            System.err.format("Exception when reading from file %s: %s", inputFile,
-                    ioe.getMessage());
+            System.err.format("Exception when reading from file %s: %s", inputFile, ioe.getMessage());
             System.exit(-1);
 
         } catch (NoSuchAlgorithmException nsae) {
-            System.err.format("Cannot locate MessageDigest algorithm for SHA-256: %s",
-                    nsae.getMessage());
+            System.err.format("Cannot locate MessageDigest algorithm for SHA-256: %s", nsae.getMessage());
             System.exit(-1);
         }
         return "";
@@ -170,18 +163,14 @@ public class UploadArchive {
             throws NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-
         byte[][] prevLvlHashes = chunkSHA256Hashes;
-
         while (prevLvlHashes.length > 1) {
-
             int len = prevLvlHashes.length / 2;
             if (prevLvlHashes.length % 2 != 0) {
                 len++;
             }
 
             byte[][] currLvlHashes = new byte[len][];
-
             int j = 0;
             for (int i = 0; i < prevLvlHashes.length; i = i + 2, j++) {
 

@@ -2,9 +2,6 @@
 // snippet-sourcedescription:[UpdateHealthCheck.java demonstrates how to update a health check.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,10 +31,10 @@ public class UpdateHealthCheck {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <id> \n\n" +
-                "Where:\n" +
-                "    id - The health check id. \n";
+            "Usage:\n" +
+            "    <id> \n\n" +
+            "Where:\n" +
+            "    id - The health check id. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,9 +44,9 @@ public class UpdateHealthCheck {
         String id = args[0];
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         updateSpecificHealthCheck(route53Client, id);
         route53Client.close();
@@ -60,9 +57,9 @@ public class UpdateHealthCheck {
 
         try {
             UpdateHealthCheckRequest checkRequest = UpdateHealthCheckRequest.builder()
-                    .healthCheckId(id)
-                    .disabled(true)
-                    .build();
+                .healthCheckId(id)
+                .disabled(true)
+                .build();
 
             UpdateHealthCheckResponse healthResponse = route53Client.updateHealthCheck(checkRequest);
             System.out.println("The health check with id "+ healthResponse.healthCheck().id() +" was updated!");

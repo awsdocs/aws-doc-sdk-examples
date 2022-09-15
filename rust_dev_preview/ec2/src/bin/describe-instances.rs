@@ -85,16 +85,7 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let mut ids: Vec<String> = Vec::new();
-    let id_opt: std::option::Option<std::vec::Vec<std::string::String>>;
+    let ids: Option<Vec<String>> = instance_id.map(|id| vec![id]);
 
-    match instance_id {
-        None => id_opt = None,
-        Some(i) => {
-            ids.push(i);
-            id_opt = Some(ids);
-        }
-    }
-
-    show_state(&client, id_opt).await
+    show_state(&client, ids).await
 }

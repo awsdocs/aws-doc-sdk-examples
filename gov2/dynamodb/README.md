@@ -104,7 +104,7 @@ Instructions for running the tests for this service can be found in the
 ## Additional resources
 
 * [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-* [Amazon DyamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
+* [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
 * [AWS SDK for Go DynamoDB Client](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb)
 
 ---

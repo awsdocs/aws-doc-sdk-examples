@@ -21,7 +21,7 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.post-authenticationV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
     // Send post authentication data to Amazon CloudWatch logs
     console.log("Authentication successful");

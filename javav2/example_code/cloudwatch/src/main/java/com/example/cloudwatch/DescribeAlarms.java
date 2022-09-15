@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[DescribeAlarms.java demonstrates how to get information about Amazon CloudWatch alarms.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -33,9 +30,9 @@ public class DescribeAlarms {
 
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .region(region)
-                .build();
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .region(region)
+            .build();
 
         desCWAlarms(cw) ;
         cw.close();
@@ -43,7 +40,6 @@ public class DescribeAlarms {
 
     // snippet-start:[cloudwatch.java2.describe_alarms.main]
     public static void desCWAlarms( CloudWatchClient cw) {
-
         try {
 
             boolean done = false;
@@ -51,7 +47,6 @@ public class DescribeAlarms {
 
             while(!done) {
                 DescribeAlarmsResponse response;
-
                 if (newToken == null) {
                     DescribeAlarmsRequest request = DescribeAlarmsRequest.builder().build();
                     response = cw.describeAlarms(request);
