@@ -798,9 +798,9 @@ s3_DeleteBucketLifecycle:
   services:
     s3: {DeleteBucketLifecycle}
 s3_CompleteMultipartUpload:
-  title: Complete the multipart upload action
-  title_abbrev: Complete multipart upload
-  synopsis: complete the multipart upload action.
+  title: Complete the multipart upload action using an &AWS; SDK
+  title_abbrev: Complete a multipart upload
+  synopsis: complete a multipart upload action.
   category:
   languages:
     Rust:
@@ -812,10 +812,10 @@ s3_CompleteMultipartUpload:
               snippet_tags:
                 - rust.example_code.s3.complete_multipart_upload
   services:
-    s3: {DeleteBucketLifecycle}
+    s3: {CompleteMultipartUpload}
 s3_CreateMultipartUpload:
-  title: Create a multipart upload structure
-  title_abbrev: Create multipart upload
+  title: Create a multipart upload structure using an &AWS; SDK
+  title_abbrev: Create a multipart upload
   synopsis: create the structure to build a multipart upload action.
   category:
   languages:
@@ -828,7 +828,7 @@ s3_CreateMultipartUpload:
               snippet_tags:
                 - rust.example_code.s3.create_multipart_upload
   services:
-    s3: {DeleteBucketLifecycle}
+    s3: {CreateMultipartUpload}
 s3_ListMultipartUploads:
   title: List in-progress multipart uploads to an &S3; bucket using an &AWS; SDK
   title_abbrev: List in-progress multipart uploads
@@ -1648,9 +1648,9 @@ s3_PutObjectAcl:
   services:
     s3: {PutObjectAcl}
 s3_UploadPart:
-  title: Upload a single part of a multipart upload action
-  title_abbrev: Upload a single part
-  synopsis: upload part of a multipart upload.
+  title: Upload a single part of a multipart upload using an &AWS; SDK
+  title_abbrev: Upload a single part of a multipart upload
+  synopsis: upload a single part of a multipart upload.
   category:
   languages:
     Rust:
@@ -1663,7 +1663,7 @@ s3_UploadPart:
                 - rust.example_code.s3.upload_part
                 - rust.example_code.s3.upload_part.CompletedMultipartUpload
   services:
-    s3: {DeleteBucketLifecycle}
+    s3: {UploadPart}
 s3_Scenario_UsingLargeFiles:
   title: Upload or download large files to and from &S3; using an &AWS; SDK
   title_abbrev: Upload or download large files
