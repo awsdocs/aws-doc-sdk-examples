@@ -94,12 +94,7 @@ The following describes how the application handles a message:
 
 At this point, you have a new project named **AWSMessageRest**. Add the following dependency for the Amazon SQS API (AWS SDK for Java (v2)).
 
-    <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>sqs</artifactId>
-    </dependency>
-
-**Note:** Make sure to use Java 1.8, as shown in the following **pom.xml** file.    
+ **Note:** Make sure to use Java 1.8, as shown in the following **pom.xml** file.    
 
 The **pom.xml** file looks like the following.
 
