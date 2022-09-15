@@ -62,7 +62,7 @@ do
 
 await CognitoMethods.SignUp(identityProviderClient, clientId, userName, password, email);
 
-Console.WriteLine($"*** Getting {userName} in the user pool");
+Console.WriteLine($"Getting {userName} status from the user pool");
 await CognitoMethods.GetAdminUser(identityProviderClient, userName, poolId);
 
 Console.WriteLine($"*** Conformation code sent to { userName}. Would you like to send a new code? (Yes/No)");
@@ -70,7 +70,7 @@ var ans = Console.ReadLine();
 
 if (ans.ToUpper() == "YES")
 {
-    await CognitoMethods.resendConfirmationCode(identityProviderClient, clientId, userName);
+    await CognitoMethods.ResendConfirmationCode(identityProviderClient, clientId, userName);
     Console.WriteLine("*** Sending a new confirmation code");
 }
 

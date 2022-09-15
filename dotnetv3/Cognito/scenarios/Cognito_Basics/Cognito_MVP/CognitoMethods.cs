@@ -184,7 +184,7 @@ namespace Cognito_MVP
         /// with the user pool.</param>
         /// <param name="userName">The user name to be confirmed.</param>
         /// <returns></returns>
-        public static async Task resendConfirmationCode(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string userName)
+        public static async Task ResendConfirmationCode(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string userName)
         {
             var codeRequest = new ResendConfirmationCodeRequest
             {

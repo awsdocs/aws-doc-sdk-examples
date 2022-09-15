@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="3.7.4.12" />
-    <PackageReference Include="AWSSDK.Core" Version="3.7.12.7" />
+    <PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="3.7.6.4" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.13.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
