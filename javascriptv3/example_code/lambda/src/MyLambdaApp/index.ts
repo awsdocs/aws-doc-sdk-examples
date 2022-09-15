@@ -35,7 +35,7 @@ const lambda = new LambdaClient({
 
 /* CLIENT UI CODE */
 // Application global variables
-var isSpinning = false;
+let isSpinning = false;
 const pullHandle = () => {
   if (isSpinning == false) {
     // Show the handle pulled down

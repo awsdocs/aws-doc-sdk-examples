@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[GetAccountSettings.java demonstrates how to obtain information about your account.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[AWS Lambda]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,9 +30,9 @@ public class GetAccountSettings {
 
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getSettings(awsLambda);
         awsLambda.close();

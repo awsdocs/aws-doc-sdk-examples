@@ -36,7 +36,7 @@ abstract class AWSServiceClass
                 }
                 ++$attempts;
                 if ($attempts > static::$maxWaitAttempts) {
-                    return false;
+                    throw $exception;
                 }
                 sleep(static::$waitTime);
             }

@@ -1,12 +1,14 @@
-const { run, params } = require("../../ses/src/ses_verifydomainidentity");
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
+import { run, DOMAIN_NAME } from "../../ses/src/ses_verifydomainidentity";
+import { deleteIdentity, findIdentity } from "../../ses/src/libs/sesUtils";
 
-jest.mock("../../ses/src/libs/sesClient.js");
+describe("ses_verifydomainidentity", () => {
+  afterAll(async () => {
+    await deleteIdentity(DOMAIN_NAME);
+  });
 
-describe("@aws-sdk/client-ses mock", () => {
-  it("should successfully mock SES client", async () => {
-    sesClient.send.mockResolvedValue({ isMock: true });
-    const response = await run(params);
-    expect(response.isMock).toEqual(true);
+  it("should successfully create a new domain identity", async () => {
+    await run();
+    const result = await findIdentity(DOMAIN_NAME);
+    expect(result).toBeTruthy();
   });
 });

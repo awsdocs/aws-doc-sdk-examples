@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListMultipartUploads.java demonstrates how to retrieve a list of in-progress multipart uploads.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/16/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +32,10 @@ public class ListMultipartUploads {
 
     public static void main(String[] args) {
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName> \n\n" +
-                "Where:\n" +
-                "    bucketName - The name of the Amazon S3 bucket where an in-progress multipart upload is occurring.\n\n" ;
+            "Usage:\n" +
+            "    <bucketName> \n\n" +
+            "Where:\n" +
+            "    bucketName - The name of the Amazon S3 bucket where an in-progress multipart upload is occurring.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -49,9 +46,9 @@ public class ListMultipartUploads {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .credentialsProvider(credentialsProvider)
+            .build();
         listUploads(s3, bucketName);
         s3.close();
     }
@@ -66,7 +63,6 @@ public class ListMultipartUploads {
 
             ListMultipartUploadsResponse response = s3.listMultipartUploads(listMultipartUploadsRequest);
             List<MultipartUpload> uploads = response.uploads();
-
             for (MultipartUpload upload: uploads) {
                 System.out.println("Upload in progress: Key = \"" + upload.key() + "\", id = " + upload.uploadId());
             }

@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetSlotTypes.java demonstrates how to returns slot type information.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
-//snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,9 +32,9 @@ public class GetSlotTypes {
 
         Region region = Region.US_EAST_1;
         LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getSlotsInfo(lexClient);
         lexClient.close();

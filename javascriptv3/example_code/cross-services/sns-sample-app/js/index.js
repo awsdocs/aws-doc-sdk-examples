@@ -54,11 +54,6 @@ const subEmail = async () => {
 // Expose the function to the browser.
 window.subEmail = subEmail;
 
-function loadItems(event) {
-  var subNum = event.target.responseText;
-  alert("Subscription validation is " + subNum);
-}
-
 // Helper function to validate email addresses.
 function validateEmail(email) {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -67,8 +62,6 @@ function validateEmail(email) {
 
 // Helper function to validate email addresses.
 function validate(email) {
-  const $result = $("#result");
-
   if (validateEmail(email)) {
     return true;
   } else {
@@ -116,7 +109,6 @@ const delSub = async () => {
   try {
     const data = await snsClient.send(new ListSubscriptionsCommand({}));
     console.log("Success.", data.Subscriptions[0].Endpoint);
-    var alertBody = "";
     for (let i = 0; i < data.Subscriptions.length; i++) {
       if (data.Subscriptions[i].Endpoint == userEmail) {
         try {
@@ -149,7 +141,7 @@ const sendMessage = async () => {
     TopicArn: TOPIC_ARN,
   };
   try {
-    const data = await snsClient.send(new PublishCommand(params));
+    await snsClient.send(new PublishCommand(params));
     alert("Message published.");
   } catch (err) {
     console.log("Error", err.stack);

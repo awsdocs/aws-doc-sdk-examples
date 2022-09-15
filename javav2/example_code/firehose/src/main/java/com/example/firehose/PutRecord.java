@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[PutRecord.java demonstrates how to write a data record into a delivery stream.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,11 +32,11 @@ public class PutRecord {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <textValue> <streamName> \n\n" +
-                "Where:\n" +
-                "    textValue - The text used as the data to write to the data stream. \n\n" +
-                "    streamName - The data stream name. \n" ;
+            "Usage:\n" +
+            "    <textValue> <streamName> \n\n" +
+            "Where:\n" +
+            "    textValue - The text used as the data to write to the data stream. \n\n" +
+            "    streamName - The data stream name. \n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,12 +45,11 @@ public class PutRecord {
 
         String textValue = args[0];
         String streamName = args[1];
-
         Region region = Region.US_WEST_2;
         FirehoseClient firehoseClient = FirehoseClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         putSingleRecord(firehoseClient, textValue, streamName) ;
         firehoseClient.close();
@@ -62,24 +58,24 @@ public class PutRecord {
     // snippet-start:[firehose.java2.put_record.main]
     public static void putSingleRecord( FirehoseClient firehoseClient, String textValue, String streamName) {
 
-      try {
-        SdkBytes sdkBytes = SdkBytes.fromByteArray(textValue.getBytes());
-        Record record = Record.builder()
+        try {
+            SdkBytes sdkBytes = SdkBytes.fromByteArray(textValue.getBytes());
+            Record record = Record.builder()
                 .data(sdkBytes)
                 .build();
 
-        PutRecordRequest recordRequest = PutRecordRequest.builder()
+            PutRecordRequest recordRequest = PutRecordRequest.builder()
                 .deliveryStreamName(streamName)
                 .record(record)
                 .build();
 
-        PutRecordResponse recordResponse = firehoseClient.putRecord(recordRequest) ;
-        System.out.println("The record ID is "+recordResponse.recordId());
+            PutRecordResponse recordResponse = firehoseClient.putRecord(recordRequest) ;
+            System.out.println("The record ID is "+recordResponse.recordId());
 
-    } catch (FirehoseException e) {
-        System.out.println(e.getLocalizedMessage());
-        System.exit(1);
+        } catch (FirehoseException e) {
+            System.out.println(e.getLocalizedMessage());
+            System.exit(1);
+        }
     }
-  }
     // snippet-end:[firehose.java2.put_record.main]
 }

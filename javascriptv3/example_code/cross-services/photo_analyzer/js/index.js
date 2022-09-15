@@ -18,8 +18,6 @@ Running the code:
 To run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/photo-analyzer.html.
  */
-<!-- snippet-start:[rekognition.Javascript.photo-analyzer.complete]-->
-<!-- snippet-start:[rekognition.Javascript.photo-analyzer.config]-->
 import { DetectLabelsCommand } from "@aws-sdk/client-rekognition";
 import { rekognitionClient } from "../libs/rekognitionClient.js";
 import { ListObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
@@ -28,49 +26,43 @@ import { sesClient } from "../libs/sesClient.js";
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 
 // Set global parameters.
-const BUCKET_IMAGES =
-    "BUCKET_IMAGES";
-const BUCKET_REPORTS =
-    "BUCKET_REPORTs";
+const BUCKET_IMAGES = "BUCKET_IMAGES";
+const BUCKET_REPORTS = "BUCKET_REPORTs";
 const EMAIL_SENDER_ADDRESS = "EMAIL_SENDER_ADDRESS"; // A verified Amazon SES email address.
 
-<!-- snippet-end:[rekognition.Javascript.photo-analyzer.config]-->
-
-<!-- snippet-start:[rekognition.Javascript.photo-analyzer.table-functions]-->
-
 // Load table parameters.
-$(function() {
-  $('#myTable').DataTable( {
-    scrollY:        "500px",
-    scrollX:        true,
+$(function () {
+  $("#myTable").DataTable({
+    scrollY: "500px",
+    scrollX: true,
     scrollCollapse: true,
-    paging:         true,
-    columnDefs: [
-      { width: 200, targets: 0 }
-    ],
-    fixedColumns: true
-  } );
-} );
+    paging: true,
+    columnDefs: [{ width: 200, targets: 0 }],
+    fixedColumns: true,
+  });
+});
 
 // Load images from Amazon S3 bucket to the table.
 const loadTable = async () => {
-  window.alert = function() {};
+  window.alert = function () {};
   try {
     const listVideoParams = {
-      Bucket: BUCKET_IMAGES
+      Bucket: BUCKET_IMAGES,
     };
     const data = await s3Client.send(new ListObjectsCommand(listVideoParams));
     console.log("Success", data);
     for (let i = 0; i < data.Contents.length; i++) {
-      console.log('checking')
-      var t = $('#myTable').DataTable();
-      t.row.add([
-        data.Contents[i].Key,
-        data.Contents[i].Owner,
-        data.Contents[i].LastModified,
-        data.Contents[i].Size
-      ]).draw(false);
-    };
+      console.log("checking");
+      var t = $("#myTable").DataTable();
+      t.row
+        .add([
+          data.Contents[i].Key,
+          data.Contents[i].Owner,
+          data.Contents[i].LastModified,
+          data.Contents[i].Size,
+        ])
+        .draw(false);
+    }
   } catch (err) {
     console.log("Error", err);
   }
@@ -83,22 +75,20 @@ const getImages = async () => {
 };
 window.getImages = getImages;
 
-<!-- snippet-end:[rekognition.Javascript.photo-analyzer.table-functions]-->
-<!-- snippet-start:[rekognition.Javascript.photo-analyzer.process-images]-->
 // Add images to the Amazon S3 bucket.
 const addToBucket = async () => {
-  try{
+  try {
     // Create the parameters for uploading the video.
     const files = document.getElementById("imageupload").files;
     const file = files[0];
-    const key = document.getElementById("imageupload").files[0].name
+    const key = document.getElementById("imageupload").files[0].name;
     const uploadParams = {
       Bucket: BUCKET_IMAGES,
       Body: file,
-      Key: key
+      Key: key,
     };
 
-    const data = await s3Client.send(new PutObjectCommand(uploadParams));
+    await s3Client.send(new PutObjectCommand(uploadParams));
     console.log("Success - image uploaded");
   } catch (err) {
     console.log("Error", err);
@@ -106,7 +96,6 @@ const addToBucket = async () => {
 };
 // Expose function to browser.
 window.addToBucket = addToBucket;
-
 
 const ProcessImages = async () => {
   try {
@@ -137,7 +126,6 @@ const ProcessImages = async () => {
       console.log("Success, labels detected.", lastdata);
       var objectsArray = [];
       // Parse results into CVS format.
-      const noOfLabels = lastdata.Labels.length;
       var j;
       for (j = 0; j < lastdata.Labels.length; j++) {
         var name = JSON.stringify(lastdata.Labels[j].Name);
@@ -181,7 +169,7 @@ const uploadFile = async (csv, key) => {
     Key: key + ".csv",
   };
   try {
-    const data = await s3Client.send(new PutObjectCommand(uploadParams));
+    await s3Client.send(new PutObjectCommand(uploadParams));
     const linkToCSV =
       "https://s3.console.aws.amazon.com/s3/object/" +
       uploadParams.Bucket +
@@ -252,5 +240,3 @@ const sendEmail = async (bucket, key, linkToCSV) => {
     console.log("Error", err);
   }
 };
-<!-- snippet-end:[rekognition.Javascript.photo-analyzer.process-images]-->
-<!-- snippet-end:[rekognition.Javascript.photo-analyzer.complete]-->

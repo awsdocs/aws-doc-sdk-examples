@@ -2,7 +2,8 @@
   "require": {
     "aws/aws-sdk-php": "^3.209",
     "phpunit/phpunit": "^9.5",
-    "guzzlehttp/guzzle": "^7.0"
+    "guzzlehttp/guzzle": "^7.0",
+    "ext-zip": "*"
   },
   "autoload": {
     "psr-0": {
@@ -11,8 +12,14 @@
     "psr-4": {
       "DynamoDb\\": "dynamodb/",
       "DynamoDb\\Basics\\": "dynamodb/dynamodb_basics",
-      "AwsUtilities\\": "aws_utilities"
+      "DynamoDb\\PartiQL_Basics\\": "dynamodb/partiql_basics",
+      "AwsUtilities\\": "aws_utilities",
+      "Glue\\": "glue/",
+      "Iam\\": "iam/"
     },
-    "files": ["aws_utilities/TestableReadline.php"]
+    "files": [
+      "aws_utilities/TestableReadline.php",
+      "aws_utilities/LoadMovieData.php"
+    ]
   }
 }

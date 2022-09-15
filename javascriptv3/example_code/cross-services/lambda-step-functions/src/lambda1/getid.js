@@ -19,6 +19,7 @@ exports.handler = async (event) => {
     const myCaseID = event.inputCaseID;
     var myMessage = "Case " + myCaseID + ": opened...";
     var result = { Case: myCaseID, Message: myMessage };
+    console.log(result);
   } catch (err) {
     console.log("Error", err);
   }

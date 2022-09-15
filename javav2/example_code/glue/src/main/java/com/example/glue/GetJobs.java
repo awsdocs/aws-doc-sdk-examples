@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[GetJobs.java demonstrates how to list all AWS Glue jobs.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -35,9 +32,9 @@ public class GetJobs {
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getAllJobs(glueClient);
         glueClient.close();
@@ -45,8 +42,8 @@ public class GetJobs {
 
     //snippet-start:[glue.java2.get_jobs.main]
     public static void getAllJobs(GlueClient glueClient) {
-        try {
 
+        try {
             GetJobsRequest jobsRequest = GetJobsRequest.builder()
                 .maxResults(10)
                 .build();

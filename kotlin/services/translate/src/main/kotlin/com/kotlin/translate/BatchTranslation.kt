@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[BatchTranslation.kt demonstrates how to translate multiple text documents located in an Amazon S3 bucket.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Translate]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon-aws]
+// snippet-sourcedescription:[BatchTranslation.kt demonstrates how to translate multiple text documents located in an Amazon S3 bucket.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-service:[Amazon Translate]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,23 +19,30 @@ import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[translate.kotlin._batch.import]
 
-suspend fun main(args: Array<String>){
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
         <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn>
 
     Where:
-        s3Uri - the URI of the Amazon S3 bucket where the documents to translate are located.
-        s3UriOut - the URI of the Amazon S3 bucket where the translated documents are saved to.
-        jobName - the job name.
-        dataAccessRoleArn - the Amazon Resource Name (ARN) value of the role required for translation jobs.
+        s3Uri - The URI of the Amazon S3 bucket where the documents to translate are located.
+        s3UriOut - The URI of the Amazon S3 bucket where the translated documents are saved to.
+        jobName - The job name.
+        dataAccessRoleArn - The Amazon Resource Name (ARN) value of the role required for translation jobs.
     """
 
-      if (args.size != 4) {
-           println(usage)
-           exitProcess(0)
-      }
+    if (args.size != 4) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val s3Uri = args[0]
     val s3UriOut = args[1]
@@ -49,63 +52,63 @@ suspend fun main(args: Array<String>){
 }
 
 // snippet-start:[translate.kotlin._batch.main]
-    suspend fun translateDocuments(
-        s3UriVal: String?,
-        s3UriOutVal: String?,
-        jobNameVal: String?,
-        dataAccessRoleArnVal: String?
-    ): String? {
+suspend fun translateDocuments(
+    s3UriVal: String?,
+    s3UriOutVal: String?,
+    jobNameVal: String?,
+    dataAccessRoleArnVal: String?
+): String? {
 
-        val sleepTime: Long = 5
-        val dataConfig = InputDataConfig {
-            s3Uri = s3UriVal
-            contentType = "text/plain"
-        }
-
-        val outputDataConfigVal = OutputDataConfig {
-            s3Uri = s3UriOutVal
-        }
-
-        val myList = mutableListOf<String>()
-        myList.add("fr")
-
-        val textTranslationJobRequest = StartTextTranslationJobRequest {
-            jobName = jobNameVal
-            dataAccessRoleArn = dataAccessRoleArnVal
-            inputDataConfig = dataConfig
-            outputDataConfig = outputDataConfigVal
-            sourceLanguageCode = "en"
-            targetLanguageCodes = myList
-        }
-
-         TranslateClient { region = "us-west-2" }.use { translateClient ->
-             val textTranslationJobResponse =  translateClient.startTextTranslationJob(textTranslationJobRequest)
-
-             // Keep checking until job is done.
-             val jobDone = false
-             var jobStatus: String
-             val jobIdVal: String? = textTranslationJobResponse.jobId
-
-             val jobRequest = DescribeTextTranslationJobRequest {
-                jobId = jobIdVal
-             }
-
-            while (!jobDone) {
-
-                //Check status on each loop.
-                val response =  translateClient.describeTextTranslationJob(jobRequest)
-                jobStatus = response.textTranslationJobProperties?.jobStatus.toString()
-                println(jobStatus)
-
-                if (jobStatus.contains("COMPLETED"))
-                    break
-                else {
-                    print(".")
-
-                    delay(sleepTime * 1000)
-                }
-            }
-            return textTranslationJobResponse.jobId
-        }
+    val sleepTime: Long = 5
+    val dataConfig = InputDataConfig {
+        s3Uri = s3UriVal
+        contentType = "text/plain"
     }
+
+    val outputDataConfigVal = OutputDataConfig {
+        s3Uri = s3UriOutVal
+    }
+
+    val myList = mutableListOf<String>()
+    myList.add("fr")
+
+    val textTranslationJobRequest = StartTextTranslationJobRequest {
+        jobName = jobNameVal
+        dataAccessRoleArn = dataAccessRoleArnVal
+        inputDataConfig = dataConfig
+        outputDataConfig = outputDataConfigVal
+        sourceLanguageCode = "en"
+        targetLanguageCodes = myList
+    }
+
+    TranslateClient { region = "us-west-2" }.use { translateClient ->
+        val textTranslationJobResponse = translateClient.startTextTranslationJob(textTranslationJobRequest)
+
+        // Keep checking until job is done.
+        val jobDone = false
+        var jobStatus: String
+        val jobIdVal: String? = textTranslationJobResponse.jobId
+
+        val jobRequest = DescribeTextTranslationJobRequest {
+            jobId = jobIdVal
+        }
+
+        while (!jobDone) {
+
+            // Check status on each loop.
+            val response = translateClient.describeTextTranslationJob(jobRequest)
+            jobStatus = response.textTranslationJobProperties?.jobStatus.toString()
+            println(jobStatus)
+
+            if (jobStatus.contains("COMPLETED"))
+                break
+            else {
+                print(".")
+
+                delay(sleepTime * 1000)
+            }
+        }
+        return textTranslationJobResponse.jobId
+    }
+}
 // snippet-end:[translate.kotlin._batch.main]

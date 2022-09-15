@@ -31,11 +31,11 @@ async fn show_snapshots(client: &Client) -> Result<(), Error> {
     for snapshot in snapshots {
         println!(
             "ID:          {}",
-            snapshot.snapshot_id().as_deref().unwrap_or_default()
+            snapshot.snapshot_id().unwrap_or_default()
         );
         println!(
             "Description: {}",
-            snapshot.description().as_deref().unwrap_or_default()
+            snapshot.description().unwrap_or_default()
         );
         println!("State:       {}", snapshot.state().unwrap().as_ref());
         println!();

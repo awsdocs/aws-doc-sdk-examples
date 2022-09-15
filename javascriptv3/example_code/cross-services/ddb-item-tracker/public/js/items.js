@@ -20,7 +20,7 @@ $(function () {
 function GetItems() {
   $.ajax("/request", {
     type: "POST",
-    success: function (data, status, xhr) {
+    success: function (data) {
       console.log("it works");
       console.log("data.Items", data.Items);
 
@@ -56,22 +56,24 @@ function GetItems() {
       });
       document.getElementById("info3").innerHTML = "Active Items";
     },
-    error: function (jqXhr, textStatus, errorMessage) {
+    error: function (_jqXhr, _textStatus, errorMessage) {
       $("p").append("Error" + errorMessage);
     },
   });
 }
 
+/**
+ * Used in ../items.html
+ */
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Report() {
   // Get the email address.
   const e = document.getElementById("manager");
-  const value = e.options[e.selectedIndex].value; // get selected option value
   const email = e.options[e.selectedIndex].text;
 
   $.ajax("/request", {
     type: "POST",
-    success: function (data, status, xhr) {
-      const tableArray = [];
+    success: function (data) {
       const noOfItems = data.Items.length;
       var csv = "Item, Guide, Date Created, Description, Status,\n";
       var i;
@@ -91,7 +93,7 @@ function Report() {
       $.ajax("/uploadCSV", {
         type: "POST",
         data: { csv: csv, email: email },
-        success: function (data, status, xhr) {
+        success: function () {
           alert("Email message sent.");
         },
       });
@@ -102,6 +104,10 @@ function Report() {
   });
 }
 
+/**
+ * Used in ../items.html
+ */
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function UpdateItem() {
   $("#modform").show();
   const id = document.getElementById("id").value;
@@ -126,8 +132,7 @@ function UpdateItem() {
   $.ajax("/changewi", {
     type: "POST",
     data: "id=" + id + "&description=" + description + "&status=" + status,
-    success: function (data, status, xhr) {
-      var msg = event.target.responseText;
+    success: function (data) {
       alert("You have successfully modified the item.");
       console.log("modified", data.id);
 
@@ -139,12 +144,15 @@ function UpdateItem() {
       GetItems();
       $("#modform").hide();
     },
-    error: function (jqXhr, textStatus, errorMessage) {
+    error: function (_jqXhr, _textStatus, errorMessage) {
       $("p").append("Error" + errorMessage);
     },
   });
 }
-
+/**
+ * Used in ../items.html
+ */
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function GetSingleItem() {
   if (!document.getElementsByClassName("selected").length) {
     alert("Please select an item from the table");
@@ -162,6 +170,10 @@ function GetSingleItem() {
   $("#modform").show();
 }
 
+/**
+ * Used in ../items.html
+ */
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addItem() {
   const guide = document.getElementById("guide").value;
   const description = document.getElementById("description").value;
@@ -194,12 +206,12 @@ function addItem() {
     type: "POST", // http GET method
     data:
       "guide=" + guide + "&description=" + description + "&status=" + status,
-    success: function (data) {
+    success: function () {
       alert("You have successfully added the item.");
       console.log("You have successfully added the item.");
       location.reload();
     },
-    error: function (jqXhr, textStatus, errorMessage) {
+    error: function (_jqXhr, _textStatus, errorMessage) {
       console.log("An error!");
       $("p").append("Error" + errorMessage);
     },

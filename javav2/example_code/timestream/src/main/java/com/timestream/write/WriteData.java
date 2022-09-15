@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[WriteData.java demonstrates how to write data into a table.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Timestream]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -39,11 +36,11 @@ public class WriteData {
     public static void main(String[] args){
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <dbName> <newTable>\n\n" +
-                "Where:\n" +
-                "   dbName - The name of the database.\n\n"+
-                "   newTable - The name of the table.\n\n";
+            "Usage: " +
+            "   <dbName> <newTable>\n\n" +
+            "Where:\n" +
+            "   dbName - The name of the database.\n\n"+
+            "   newTable - The name of the table.\n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,9 +50,9 @@ public class WriteData {
         String dbName = args[0];
         String tableName =  args[1];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         writeRecords(timestreamWriteClient, dbName, tableName);
     }
@@ -64,67 +61,65 @@ public class WriteData {
     public static void writeRecords(TimestreamWriteClient timestreamWriteClient,  String dbName,  String tableName) {
 
         System.out.println("Writing records");
-
-        // Specify repeated values for all records.
         List<Record> records = new ArrayList<>();
         final long time = System.currentTimeMillis();
 
         List<Dimension> dimensions = new ArrayList<>();
-        final Dimension region = Dimension.builder()
-                .name("region")
-                .value("us-east-1")
-                .build();
+        Dimension region = Dimension.builder()
+            .name("region")
+            .value("us-east-1")
+            .build();
 
-        final Dimension az = Dimension.builder()
-                .name("az")
-                .value("az1").build();
+       Dimension az = Dimension.builder()
+            .name("az")
+            .value("az1").build();
 
-        final Dimension hostname = Dimension.builder()
-                .name("hostname")
-                .value("host1")
-                .build();
+       Dimension hostname = Dimension.builder()
+            .name("hostname")
+            .value("host1")
+            .build();
 
-        dimensions.add(region);
-        dimensions.add(az);
-        dimensions.add(hostname);
+       dimensions.add(region);
+       dimensions.add(az);
+       dimensions.add(hostname);
 
-        Record cpuUtilization = Record.builder()
-                .dimensions(dimensions)
-                .measureValueType(MeasureValueType.DOUBLE)
-                .measureName("cpu_utilization")
-                .measureValue("13.5")
-                .time(String.valueOf(time)).build();
+       Record cpuUtilization = Record.builder()
+           .dimensions(dimensions)
+           .measureValueType(MeasureValueType.DOUBLE)
+           .measureName("cpu_utilization")
+           .measureValue("13.5")
+           .time(String.valueOf(time))
+           .build();
 
-        Record memoryUtilization = Record.builder()
-                .dimensions(dimensions)
-                .measureValueType(MeasureValueType.DOUBLE)
-                .measureName("memory_utilization")
-                .measureValue("40")
-                .time(String.valueOf(time)).build();
+       Record memoryUtilization = Record.builder()
+           .dimensions(dimensions)
+           .measureValueType(MeasureValueType.DOUBLE)
+           .measureName("memory_utilization")
+           .measureValue("40")
+           .time(String.valueOf(time))
+           .build();
 
         records.add(cpuUtilization);
         records.add(memoryUtilization);
 
         WriteRecordsRequest writeRecordsRequest = WriteRecordsRequest.builder()
-                .databaseName(dbName)
-                .tableName(tableName)
-                .records(records)
-                .build();
+           .databaseName(dbName)
+           .tableName(tableName)
+           .records(records)
+           .build();
 
-        try {
-            WriteRecordsResponse writeRecordsResponse = timestreamWriteClient.writeRecords(writeRecordsRequest);
-            System.out.println("WriteRecords Status: " + writeRecordsResponse.sdkHttpResponse().statusCode());
+       try {
+           WriteRecordsResponse writeRecordsResponse = timestreamWriteClient.writeRecords(writeRecordsRequest);
+           System.out.println("WriteRecords Status: " + writeRecordsResponse.sdkHttpResponse().statusCode());
 
-        } catch (RejectedRecordsException e) {
-            System.out.println("RejectedRecords: " + e);
-            for (RejectedRecord rejectedRecord : e.rejectedRecords()) {
-                System.out.println("Rejected Index " + rejectedRecord.recordIndex() + ": "
-                        + rejectedRecord.reason());
-            }
-            System.out.println("Other records were written successfully.");
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
+       } catch (RejectedRecordsException e) {
+           System.out.println("RejectedRecords: " + e);
+           for (RejectedRecord rejectedRecord : e.rejectedRecords()) {
+               System.out.println("Rejected Index " + rejectedRecord.recordIndex() + ": "
+                       + rejectedRecord.reason());
+           }
+       }
+       System.out.println("Other records were written successfully.");
     }
     //snippet-end:[timestream.java2.write_table.main]
 }

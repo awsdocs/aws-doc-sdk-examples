@@ -20,7 +20,7 @@ amount of data at any time, from anywhere on the web.*
 
 ### Scenario examples
 
-* [Manage versioned objects in batches with a &LAM; function](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_versioning/batch_versioning.py)
+* [Manage versioned objects in batches with a Lambda function](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_versioning/batch_versioning.py)
 * [Permanently delete a versioned object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_versioning/versioning.py)
 * [Remove delete markers from versioned objects](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_versioning/remove_delete_marker.py)
 * [Revive a deleted object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/s3/s3_versioning/versioning.py)

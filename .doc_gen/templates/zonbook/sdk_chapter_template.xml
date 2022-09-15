@@ -4,10 +4,13 @@
     %xinclude;
     <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
     %phrases-code-examples;
+{{- if isSnapshot}}
+    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
+    %phrases-prerelease-examples;
+{{- end}}
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
-<!-- zexi 0.2.0 -->
 {{- $chapter_title := print .SdkEntity.Short " code examples" }}
 {{- $chapter_title_abbrev := "Code examples" }}
 {{- if .TitleOverride.Title }}
@@ -16,6 +19,10 @@
 {{- if .TitleOverride.TitleAbbrev }}
     {{- $chapter_title_abbrev = .TitleOverride.TitleAbbrev }}
 {{- end }}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs = ""}}
+{{- end}}
 {{- if eq .OutputType "section" }}
 <section id="{{.LanguageSlug}}_code_examples" role="topic">
 {{- else }}
@@ -113,7 +120,7 @@
                         {{- if .GuideTopic.Url}}
                         <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
                         {{- end}}
-                        <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
+                        <xi:include href="{{$include_docs}}{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
                     </section>
                     {{- end}}
                 </collapsible>
@@ -145,7 +152,7 @@
                 <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.title">{{.Title}}</title>
                 <titleabbrev id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
             </info>
-            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
+            <xi:include href="{{$include_docs}}{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
             {{- if .GuideTopic.Url}}
             <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
             {{- end}}

@@ -91,6 +91,8 @@ public class AmazonCognitoTest {
             clientId =  prop.getProperty("clientId");
             secretkey =  prop.getProperty("secretkey");
             password = prop.getProperty("password");
+            confirmationCode = prop.getProperty("confirmationCode");
+            authFlow = prop.getProperty("authFlow");
             poolIdMVP = prop.getProperty("poolIdMVP");
             clientIdMVP = prop.getProperty("clientIdMVP");
             userNameMVP = prop.getProperty("userNameMVP");
@@ -254,5 +256,12 @@ public class AmazonCognitoTest {
         assertNotNull(authResponse1);
         String session2 = authResponse1.session();
         assertDoesNotThrow(() ->CognitoMVP.adminRespondToAuthChallenge(cognitoIdentityProviderClient, userNameMVP, clientIdMVP, mfaCode, session2));
+    }
+
+    @Test
+    @Order(18)
+    public void AdminInitiateAuth() {
+        AdminInitiateAuth.adminInitiateAuth(cognitoIdentityProviderClient, authFlow, clientId, userPoolId);
+        System.out.println("Test 18 passed");
     }
 }

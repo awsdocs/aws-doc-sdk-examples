@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[ListDataSourceSyncJobs.kt demonstrates how to get statistics about synchronizing Amazon Kendra with a data source.]
-//snippet-keyword:[SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Kendra]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/10/2022]
-//snippet-sourceauthor:[scmacdon - aws]
+// snippet-sourcedescription:[ListDataSourceSyncJobs.kt demonstrates how to get statistics about synchronizing Amazon Kendra with a data source.]
+// snippet-keyword:[SDK for Kotlin]
+// snippet-service:[Amazon Kendra]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,7 +15,6 @@ import aws.sdk.kotlin.services.kendra.model.ListDataSourceSyncJobsRequest
 import kotlin.system.exitProcess
 // snippet-end:[kendra.kotlin.list.sync.import]
 
-
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -27,7 +22,6 @@ including your credentials.
 For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-
 
 suspend fun main(args: Array<String>) {
 
@@ -52,18 +46,18 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[kendra.kotlin.list.sync.main]
 suspend fun listSyncJobs(indexIdVal: String?, dataSourceId: String?) {
 
-        val jobsRequest = ListDataSourceSyncJobsRequest {
-            indexId = indexIdVal
-            maxResults = 10
-            id = dataSourceId
-        }
+    val jobsRequest = ListDataSourceSyncJobsRequest {
+        indexId = indexIdVal
+        maxResults = 10
+        id = dataSourceId
+    }
 
-        KendraClient { region = "us-east-1" }.use { kendra ->
-            val response = kendra.listDataSourceSyncJobs(jobsRequest)
-            response.history?.forEach { job ->
-                println("Execution id is ${job.executionId}")
-                println("Job status ${job.status}")
-            }
+    KendraClient { region = "us-east-1" }.use { kendra ->
+        val response = kendra.listDataSourceSyncJobs(jobsRequest)
+        response.history?.forEach { job ->
+            println("Execution id is ${job.executionId}")
+            println("Job status ${job.status}")
         }
+    }
 }
 // snippet-end:[kendra.kotlin.list.sync.main]

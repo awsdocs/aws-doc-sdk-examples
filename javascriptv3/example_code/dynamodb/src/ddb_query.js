@@ -33,10 +33,10 @@ export const params = {
 export const run = async () => {
   try {
     const data = await ddbClient.send(new QueryCommand(params));
-    return data;
-    data.Items.forEach(function (element, index, array) {
+    data.Items.forEach(function (element) {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");
     });
+    return data;
   } catch (err) {
     console.error(err);
   }

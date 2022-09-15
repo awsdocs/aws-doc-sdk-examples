@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListNamedQueryExample.java demonstrates how to obtain a list of named query Id values.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,9 +34,9 @@ public class ListNamedQueryExample {
     public static void main(String[] args) {
 
         AthenaClient athenaClient = AthenaClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listNamedQueries(athenaClient) ;
         athenaClient.close();
@@ -47,10 +44,9 @@ public class ListNamedQueryExample {
 
     //snippet-start:[athena.java2.ListNamedQueryExample.main]
     public static void listNamedQueries(AthenaClient athenaClient) {
-
-       try{
+        try{
             ListNamedQueriesRequest listNamedQueriesRequest = ListNamedQueriesRequest.builder()
-                    .build();
+                .build();
 
             ListNamedQueriesIterable listNamedQueriesResponses = athenaClient.listNamedQueriesPaginator(listNamedQueriesRequest);
             for (ListNamedQueriesResponse listNamedQueriesResponse : listNamedQueriesResponses) {
@@ -58,10 +54,10 @@ public class ListNamedQueryExample {
                 System.out.println(namedQueryIds);
             }
 
-       } catch (AthenaException e) {
+        } catch (AthenaException e) {
            e.printStackTrace();
            System.exit(1);
-       }
+        }
     }
     //snippet-end:[athena.java2.ListNamedQueryExample.main]
 }

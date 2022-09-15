@@ -1,9 +1,6 @@
 //snippet-sourcedescription:[ListRules.java demonstrates how to list your Amazon EventBridge rules.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/18/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

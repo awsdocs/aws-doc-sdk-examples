@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[AddTags.kt demonstrates how to add tags to an Amazon Simple Notification Service (Amazon SNS) topic.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[scmacdon- AWS]
+// snippet-sourcedescription:[AddTags.kt demonstrates how to add tags to an Amazon Simple Notification Service (Amazon SNS) topic.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Amazon Simple Notification Service]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,37 +9,45 @@
 
 package com.kotlin.sns
 
-//snippet-start:[sns.kotlin.add_tags.import]
+// snippet-start:[sns.kotlin.add_tags.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.Tag
 import aws.sdk.kotlin.services.sns.model.TagResourceRequest
 import kotlin.system.exitProcess
-//snippet-end:[sns.kotlin.add_tags.import]
+// snippet-end:[sns.kotlin.add_tags.import]
 
-suspend fun main(args:Array<String>) {
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+
+suspend fun main(args: Array<String>) {
 
     val usage = """
         Usage: 
             <topicArn>
 
         Where:
-            topicArn - the ARN of the topic to which tags are added.
+            topicArn - The ARN of the topic to which tags are added.
         """
 
-     if (args.size != 1) {
-         println(usage)
-         exitProcess(0)
-     }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val topicArn = args[0]
     addTopicTags(topicArn)
-    }
+}
 
-//snippet-start:[sns.kotlin.add_tags.main]
+// snippet-start:[sns.kotlin.add_tags.main]
 suspend fun addTopicTags(topicArn: String) {
 
     val tag = Tag {
-        key ="Team"
+        key = "Team"
         value = "Development"
     }
 
@@ -53,11 +57,11 @@ suspend fun addTopicTags(topicArn: String) {
     }
 
     val tagList = mutableListOf<Tag>()
-        tagList.add(tag)
-        tagList.add(tag2)
+    tagList.add(tag)
+    tagList.add(tag2)
 
     val request = TagResourceRequest {
-        resourceArn=topicArn
+        resourceArn = topicArn
         tags = tagList
     }
 
@@ -66,4 +70,4 @@ suspend fun addTopicTags(topicArn: String) {
         println("Tags have been added to $topicArn")
     }
 }
-//snippet-end:[sns.kotlin.add_tags.main]
+// snippet-end:[sns.kotlin.add_tags.main]

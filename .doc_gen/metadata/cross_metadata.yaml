@@ -1,4 +1,16 @@
 # zexi 0.4.0
+cross_SQSMessageApp:
+  title: Create a web application that sends and retrieves messages by using the &SQSlong; API
+  title_abbrev: Create a messaging application
+  synopsis: create a messaging application by using the &SQSlong; API.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_SQSMessage_Java_block.xml
+  services:
+    sqs:
+    comprehend:
 cross_RDSDataTracker:
   title: Create an &RDSlong; item tracker
   title_abbrev: Create a web application to track &RDS; data
@@ -8,6 +20,10 @@ cross_RDSDataTracker:
       versions:
         - sdk_version: 2
           block_content: cross_RDSDataTracker_Java_block.xml
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RDSDataTracker_Kotlin_block.xml
     PHP:
       versions:
         - sdk_version: 3
@@ -436,3 +452,32 @@ cross_LambdaForBrowser:
   services:
     lambda:
     dynamodb:
+cross_ShortLivedEmrCluster:
+  title: Create a short-lived &EMR; cluster and run a step using an &AWS; SDK
+  title_abbrev: Create a short-lived &EMR; cluster and run a step
+  synopsis: create a short-lived &EMR; cluster that runs a step and automatically
+    terminates after the step completes.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_EmrShortLivedCluster_Python_block.xml
+  services:
+    ec2:
+    emr:
+    iam:
+    s3:
+cross_LongLivedEmrCluster:
+  title: Create a long-lived &EMR; cluster and run several steps using an &AWS; SDK
+  title_abbrev: Create a long-lived &EMR; cluster and run several steps
+  synopsis: create a long-lived &EMR; cluster and run several steps.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_EmrLongLivedCluster_Python_block.xml
+  services:
+    ec2:
+    emr:
+    iam:
+    s3:

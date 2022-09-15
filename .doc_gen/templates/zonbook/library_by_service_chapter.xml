@@ -4,11 +4,18 @@
     %xinclude;
     <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
     %phrases-code-examples;
+{{- if isSnapshot}}
+    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
+    %phrases-prerelease-examples;
+{{- end}}
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
-<!-- zexi 0.4.1  -->
 {{- $chapter_id := "code_example_library_by_service"}}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs = ""}}
+{{- end}}
 <chapter id="{{$chapter_id}}" role="topic">
     <info>
         <title id="{{$chapter_id}}.title">Code examples by service using &AWS; SDKs</title>
@@ -73,11 +80,11 @@
                             <keyword>{{.Title}}</keyword>
                         </keywordset>
                     </info>
-                    <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_desc.xml"></xi:include>
+                    <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
                     {{- if .GuideTopic.Url}}
                     <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
                     {{- end}}
-                    <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
+                    <xi:include href="{{$include_docs}}{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
                 </section>
                 {{- end}}
             </section>

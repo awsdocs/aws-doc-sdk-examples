@@ -2,7 +2,7 @@
 s3_CreateBucket:
   title: Create an &S3; bucket using an &AWS; SDK
   title_abbrev: Create a bucket
-  synopsis: create an &S3; bucket.
+  synopsis: create an S3 bucket.
   category:
   languages:
     .NET:
@@ -90,6 +90,14 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.create_bucket
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.createbucket
     Go:
       versions:
         - sdk_version: 2
@@ -102,7 +110,7 @@ s3_CreateBucket:
 s3_CopyObject:
   title: Copy an object from one &S3; bucket to another using an &AWS; SDK
   title_abbrev: Copy an object from one bucket to another
-  synopsis: copy an &S3; object from one bucket to another.
+  synopsis: copy an S3 object from one bucket to another.
   category:
   languages:
     .NET:
@@ -195,12 +203,20 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.copy_object
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.copyfile
   services:
     s3: {CopyObject}
 s3_DeleteBucketPolicy:
   title: Delete a policy from an &S3; bucket using an &AWS; SDK
   title_abbrev: Delete a policy from a bucket
-  synopsis: delete a policy from an &S3; bucket.
+  synopsis: delete a policy from an S3 bucket.
   category:
   languages:
     C++:
@@ -266,7 +282,7 @@ s3_DeleteBucketPolicy:
 s3_DeleteObject:
   title: Delete an &S3; object using an &AWS; SDK
   title_abbrev: Delete an object
-  synopsis: delete an &S3; object.
+  synopsis: delete an S3 object.
   category:
   languages:
     C++:
@@ -295,6 +311,12 @@ s3_DeleteObject:
             - description: Revive a deleted object by removing the object's active delete marker.
               snippet_tags:
                 - s3.python.versioning.revive_object
+            - description:
+                Create a &LAM; handler that removes a delete marker from
+                an S3 object. This handler can be used to efficiently clean up
+                extraneous delete markers in a versioned bucket.
+              snippet_tags:
+                - s3.python.lambda.remove_delete_marker
     Rust:
       versions:
         - sdk_version: 1
@@ -321,12 +343,20 @@ s3_DeleteObject:
             - description: Delete an object.
               snippet_tags:
                 - s3.JavaScript.buckets.deleteobjectV3
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.deletefile
   services:
     s3: {DeleteObject}
 s3_DeleteObjects:
   title: Delete multiple objects from an &S3; bucket using an &AWS; SDK
   title_abbrev: Delete multiple objects
-  synopsis: delete multiple objects from an &S3; bucket.
+  synopsis: delete multiple objects from an S3 bucket.
   category:
   languages:
     .NET:
@@ -335,7 +365,7 @@ s3_DeleteObjects:
           github: dotnetv3/S3
           sdkguide:
           excerpts:
-            - description: Delete all objects in an &S3; bucket.
+            - description: Delete all objects in an S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-DeleteBucketContents
     Kotlin:
@@ -411,12 +441,20 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.delete_objects
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/DeleteObjects
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.deleteobjects.handler.deleteobjects
   services:
     s3: {DeleteObjects}
 s3_DeleteBucketWebsite:
   title: Delete the website configuration from an &S3; bucket using an &AWS; SDK
   title_abbrev: Delete the website configuration from a bucket
-  synopsis: delete the website configuration from an &S3; bucket.
+  synopsis: delete the website configuration from an S3 bucket.
   category:
   languages:
     C++:
@@ -454,7 +492,7 @@ s3_DeleteBucketWebsite:
 s3_GetObjectAcl:
   title: Get the ACL of an &S3; object using an &AWS; SDK
   title_abbrev: Get the ACL of an object
-  synopsis: get the access control list (ACL) of an &S3; object.
+  synopsis: get the access control list (ACL) of an S3 object.
   category:
   languages:
     C++:
@@ -496,7 +534,7 @@ s3_GetObjectAcl:
 s3_GetBucketPolicy:
   title: Get the policy for an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the policy for a bucket
-  synopsis: get the policy for an &S3; bucket.
+  synopsis: get the policy for an S3 bucket.
   category:
   languages:
     C++:
@@ -562,7 +600,7 @@ s3_GetBucketPolicy:
 s3_HeadObject:
   title: Determine the existence and content type of an object in an &S3; bucket using an &AWS; SDK
   title_abbrev: Determine the existence and content type of an object
-  synopsis: determine the existence and content type of an object in an &S3; bucket.
+  synopsis: determine the existence and content type of an object in an S3 bucket.
   category:
   languages:
     Java:
@@ -587,7 +625,7 @@ s3_HeadObject:
 s3_GetObject:
   title: Get an object from an &S3; bucket using an &AWS; SDK
   title_abbrev: Get an object from a bucket
-  synopsis: read data from an object in an &S3; bucket.
+  synopsis: read data from an object in an S3 bucket.
   category:
   languages:
     .NET:
@@ -684,12 +722,23 @@ s3_GetObject:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.get_object
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description: Download an object from a bucket to a local file.
+              snippet_tags:
+                - s3.swift.basics.handler.downloadfile
+            - description: Read an object into a Swift Data object.
+              snippet_tags:
+                - s3.swift.basics.handler.readfile
   services:
     s3: {GetObject}
 s3_GetBucketLifecycleConfiguration:
   title: Get the lifecycle configuration of an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the lifecycle configuration of a bucket
-  synopsis: get the lifecycle configuration of an &S3; bucket.
+  synopsis: get the lifecycle configuration of an S3 bucket.
   category:
   languages:
     Python:
@@ -707,7 +756,7 @@ s3_GetBucketLifecycleConfiguration:
 s3_PutBucketLifecycleConfiguration:
   title: Add a lifecycle configuration to an &S3; bucket using an &AWS; SDK
   title_abbrev: Add a lifecycle configuration to a bucket
-  synopsis: add a lifecycle configuration to an &S3; bucket.
+  synopsis: add a lifecycle configuration to an S3 bucket.
   category:
   languages:
     Java:
@@ -733,7 +782,7 @@ s3_PutBucketLifecycleConfiguration:
 s3_DeleteBucketLifecycle:
   title: Delete the lifecycle configuration of an &S3; bucket using an &AWS; SDK
   title_abbrev: Delete the lifecycle configuration of a bucket
-  synopsis: delete the lifecycle configuration of an &S3; bucket.
+  synopsis: delete the lifecycle configuration of an S3 bucket.
   category:
   languages:
     Python:
@@ -779,7 +828,7 @@ s3_CreateMultipartUpload:
 s3_ListMultipartUploads:
   title: List in-progress multipart uploads to an &S3; bucket using an &AWS; SDK
   title_abbrev: List in-progress multipart uploads
-  synopsis: list in-progress multipart uploads to an &S3; bucket.
+  synopsis: list in-progress multipart uploads to an S3 bucket.
   category:
   languages:
     Java:
@@ -796,7 +845,7 @@ s3_ListMultipartUploads:
 s3_ListObjects:
   title: List objects in an &S3; bucket using an &AWS; SDK
   title_abbrev: List objects in a bucket
-  synopsis: list objects in an &S3; bucket.
+  synopsis: list objects in an S3 bucket.
   category:
   languages:
     .NET:
@@ -890,12 +939,20 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.ListObjects
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.listbucketfiles
   services:
     s3: {ListObjects}
 s3_ListObjectVersions:
   title: List the version of objects in an &S3; bucket using an &AWS; SDK
   title_abbrev: List object versions in a bucket
-  synopsis: list object versions in an &S3; bucket.
+  synopsis: list object versions in an S3 bucket.
   category:
   languages:
     Rust:
@@ -911,7 +968,7 @@ s3_ListObjectVersions:
 s3_PutObject:
   title: Upload an object to an &S3; bucket using an &AWS; SDK
   title_abbrev: Upload an object to a bucket
-  synopsis: upload an object to an &S3; bucket.
+  synopsis: upload an object to an S3 bucket.
   category:
   languages:
     .NET:
@@ -1021,12 +1078,23 @@ s3_PutObject:
             - description: Upload a file using Object.put and add server-side encryption.
               snippet_tags:
                 - s3.ruby.s3_encrypt_file_upload.rb
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description: Upload a file from local storage to a bucket.
+              snippet_tags:
+                - s3.swift.basics.handler.uploadfile
+            - description: Upload the contents of a Swift Data object to a bucket.
+              snippet_tags:
+                - s3.swift.basics.handler.createfile
   services:
     s3: {PutObject}
 s3_RestoreObject:
   title: Restore an archived copy of an object back into an &S3; bucket using an &AWS; SDK
   title_abbrev: Restore an archived copy of an object
-  synopsis: restore an archived copy of an object back into an &S3; bucket.
+  synopsis: restore an archived copy of an object back into an S3 bucket.
   category:
   languages:
     Java:
@@ -1043,7 +1111,7 @@ s3_RestoreObject:
 s3_DeleteBucket:
   title: Delete an empty &S3; bucket using an &AWS; SDK
   title_abbrev: Delete an empty bucket
-  synopsis: delete an empty &S3; bucket.
+  synopsis: delete an empty S3 bucket.
   category:
   languages:
     .NET:
@@ -1126,12 +1194,20 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.delete_bucket
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.basics.handler.deletebucket
   services:
     s3: {DeleteBucket}
 s3_GetBucketCors:
   title: Get CORS rules for an &S3; bucket using an &AWS; SDK
   title_abbrev: Get CORS rules for a bucket
-  synopsis: get cross-origin resource sharing (CORS) rules for an &S3; bucket.
+  synopsis: get cross-origin resource sharing (CORS) rules for an S3 bucket.
   category:
   languages:
     Python:
@@ -1171,7 +1247,7 @@ s3_GetBucketCors:
 s3_PutBucketCors:
   title: Add CORS rules to an &S3; bucket using an &AWS; SDK
   title_abbrev: Add CORS rules to a bucket
-  synopsis: add cross-origin resource sharing (CORS) rules to an &S3; bucket.
+  synopsis: add cross-origin resource sharing (CORS) rules to an S3 bucket.
   category:
   languages:
     Java:
@@ -1219,7 +1295,7 @@ s3_PutBucketCors:
 s3_DeleteBucketCors:
   title: Delete CORS rules from an &S3; bucket using an &AWS; SDK
   title_abbrev: Delete CORS rules from a bucket
-  synopsis: delete CORS rules from an &S3; bucket.
+  synopsis: delete CORS rules from an S3 bucket.
   category:
   languages:
     Python:
@@ -1247,7 +1323,7 @@ s3_DeleteBucketCors:
 s3_GetBucketAcl:
   title: Get the ACL of an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the ACL of a bucket
-  synopsis: get the access control list (ACL) of an &S3; bucket.
+  synopsis: get the access control list (ACL) of an S3 bucket.
   category:
   languages:
     Java:
@@ -1293,7 +1369,7 @@ s3_GetBucketAcl:
 s3_PutBucketAcl:
   title: Set a new ACL for an &S3; bucket using an &AWS; SDK
   title_abbrev: Set a new ACL for a bucket
-  synopsis: set a new access control list (ACL) for an &S3; bucket.
+  synopsis: set a new access control list (ACL) for an S3 bucket.
   category:
   languages:
     Kotlin:
@@ -1340,7 +1416,7 @@ s3_PutBucketAcl:
 s3_PutBucketPolicy:
   title: Add a policy to an &S3; bucket using an &AWS; SDK
   title_abbrev: Add a policy to a bucket
-  synopsis: add a policy to an &S3; bucket.
+  synopsis: add a policy to an S3 bucket.
   category:
   languages:
     C++:
@@ -1397,7 +1473,7 @@ s3_PutBucketPolicy:
 s3_PutBucketWebsite:
   title: Set the website configuration for an &S3; bucket using an &AWS; SDK
   title_abbrev: Set the website configuration for a bucket
-  synopsis: set the website configuration for an &S3; bucket.
+  synopsis: set the website configuration for an S3 bucket.
   category:
   languages:
     C++:
@@ -1443,7 +1519,7 @@ s3_PutBucketWebsite:
 s3_GetBucketWebsite:
   title: Get the website configuration for an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the website configuration for a bucket
-  synopsis: get the website configuration for an &S3; bucket.
+  synopsis: get the website configuration for an S3 bucket.
   category:
   languages:
     C++:
@@ -1472,7 +1548,7 @@ s3_GetBucketWebsite:
 s3_HeadBucket:
   title: Determine the existence of an &S3; bucket using an &AWS; SDK
   title_abbrev: Determine the existence of a bucket
-  synopsis: determine the existence of an &S3; bucket.
+  synopsis: determine the existence of an S3 bucket.
   category:
   languages:
     Python:
@@ -1490,7 +1566,7 @@ s3_HeadBucket:
 s3_ListBuckets:
   title: List &S3; buckets using an &AWS; SDK
   title_abbrev: List buckets
-  synopsis: list &S3; buckets.
+  synopsis: list S3 buckets.
   category:
   languages:
     C++:
@@ -1552,7 +1628,7 @@ s3_ListBuckets:
 s3_PutObjectAcl:
   title: Set the ACL of an &S3; object using an &AWS; SDK
   title_abbrev: Set the ACL of an object
-  synopsis: set the access control list (ACL) of an &S3; object.
+  synopsis: set the access control list (ACL) of an S3 object.
   category:
   languages:
     Python:
@@ -1591,6 +1667,30 @@ s3_Scenario_UsingLargeFiles:
     title: Uploading an object using multipart upload
     url: AmazonS3/latest/userguide/mpu-upload-object.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/
+          sdkguide:
+          excerpts:
+            - description:
+                Call functions that transfer files to and from an S3 bucket
+                using the &S3; TransferUtility.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.GlobalUsings
+                - S3.dotnetv3.TransferUtilityBasics.Main
+            - description: Upload a single file.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.UploadSingleFileAsync
+            - description: Upload an entire local directory.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.UploadFullDirectoryAsync
+            - description: Download a single file.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.DownloadSingleFileAsync
+            - description: Download contents of an S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync
     Python:
       versions:
         - sdk_version: 3
@@ -1617,30 +1717,10 @@ s3_Scenario_UsingLargeFiles:
                 - rust.example_code.s3.large_files.scenario
   services:
     s3: {}
-s3_Scenario_RemoveDeleteMarkers:
-  title: Remove delete markers from versioned &S3; objects using an &AWS; SDK
-  title_abbrev: Remove delete markers from versioned objects
-  synopsis: remove delete markers from versioned &S3; objects.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_versioning
-          sdkguide:
-          excerpts:
-            - description:
-                Create a &LAM; handler that removes a delete marker from
-                an &S3; object. This handler can be used to efficiently clean up
-                extraneous delete markers in a versioned bucket.
-              snippet_tags:
-                - s3.python.lambda.remove_delete_marker
-  services:
-    s3: {}
 s3_Scenario_BatchObjectVersioning:
   title: Manage versioned &S3; objects in batches with a &LAM; function using an &AWS; SDK
   title_abbrev: Manage versioned objects in batches with a &LAM; function
-  synopsis: manage versioned &S3; objects in batches with a &LAM; function.
+  synopsis: manage versioned S3 objects in batches with a &LAM; function.
   category: Scenarios
   languages:
     Python:
@@ -1652,7 +1732,7 @@ s3_Scenario_BatchObjectVersioning:
 s3_Scenario_PresignedUrl:
   title: Create a presigned URL for &S3; using an &AWS; SDK
   title_abbrev: Create a presigned URL
-  synopsis: create a presigned URL for &S3; and upload an object.
+  synopsis: create a presigned URL for S3 and upload an object.
   category: Scenarios
   languages:
     Java:
@@ -1671,7 +1751,7 @@ s3_Scenario_PresignedUrl:
           sdkguide:
           excerpts:
             - description:
-                Generate a presigned URL that can perform an &S3; action
+                Generate a presigned URL that can perform an S3 action
                 for a limited time. Use the Requests package to make a request with
                 the URL.
               snippet_tags:
@@ -1715,7 +1795,12 @@ s3_Scenario_PresignedUrl:
 s3_Scenario_ObjectVersioningUsage:
   title: Work with &S3; versioned objects using an &AWS; SDK
   title_abbrev: Work with versioned objects
-  synopsis: work with &S3; versioned objects.
+  synopsis_list:
+    - Create a versioned S3 bucket.
+    - Get all versions of an object.
+    - Roll an object back to a previous version.
+    - Delete and restore a versioned object.
+    - Permanently delete all versions of an object.
   category: Scenarios
   languages:
     Python:
@@ -1724,18 +1809,23 @@ s3_Scenario_ObjectVersioningUsage:
           github: python/example_code/s3/s3_versioning
           sdkguide:
           excerpts:
+            - description: Create functions that wrap S3 actions.
+              snippet_tags:
+                - s3.python.versioning.create_versioned_bucket
+                - s3.python.versioning.rollback_object
+                - s3.python.versioning.revive_object
+                - s3.python.versioning.permanently_delete_object
             - description:
-                Call some of the functions defined in the API examples
-                section to upload the stanza of a poem to a versioned object and
+                Upload the stanza of a poem to a versioned object and
                 perform a series of actions on it.
               snippet_tags:
                 - python.example_code.s3.Scenario_ObjectVersions
   services:
-    s3: {}
+    s3: {CreateBucket, PutBucketLifecycleConfiguration, ListObjectVersions, DeleteObject}
 s3_GetBucketLocation:
   title: Get the Region where the &S3; bucket resides using an &AWS; SDK
   title_abbrev: Get the Region location for a bucket
-  synopsis: get the Region location for an &S3; bucket.
+  synopsis: get the Region location for an S3 bucket.
   category:
   languages:
     Rust:
@@ -1842,5 +1932,26 @@ s3_Scenario_GettingStarted:
             - description: A library crate with common actions called by the binary.
               snippet_tags:
                 - rust.example_code.s3.scenario_getting_started.lib
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.Scenario_GettingStarted
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/basics
+          excerpts:
+            - description: A Swift class that handles calls to the SDK for Swift.
+              snippet_tags:
+                - s3.swift.basics.handler
+            - description: A Swift command-line program to manage the SDK calls.
+              snippet_tags:
+                - s3.swift.basics.example
+
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}

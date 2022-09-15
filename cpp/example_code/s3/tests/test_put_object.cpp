@@ -49,13 +49,13 @@ int main()
         }
 
         // 2/4. Add an object to the bucket.
-        char* file_name = "my-file.txt";
+        const char* file_name = "my-file.txt";
 
         std::ofstream myFile(file_name);
         myFile << "My content.";
         myFile.close();
 
-        if (!AwsDoc::S3::PutObject(bucket_name, file_name, "us-east-1"))
+        if (!AwsDoc::S3::PutObject(bucket_name, file_name, config.region))
         {
             std::cout << "Error: PutObject test. To clean up, you must "
                 "delete the bucket '" << bucket_name <<

@@ -2,8 +2,6 @@
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/19/2022]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,21 +33,21 @@ public class ListAnalyses {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <account>\n\n" +
-                "Where:\n" +
-                "   account - The ID of the AWS account.\n\n";
+            "Usage: " +
+            "   <account>\n\n" +
+            "Where:\n" +
+            "   account - The ID of the AWS account.\n\n";
 
-         if (args.length != 1) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String account = args[0];
         QuickSightClient qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         listAllAnAnalyses(qsClient, account );
         qsClient.close();
@@ -60,9 +58,9 @@ public class ListAnalyses {
 
         try {
             ListAnalysesRequest analysesRequest = ListAnalysesRequest.builder()
-                    .awsAccountId(account)
-                    .maxResults(20)
-                    .build();
+                .awsAccountId(account)
+                .maxResults(20)
+                .build();
 
             ListAnalysesResponse res = qsClient.listAnalyses(analysesRequest);
             List<AnalysisSummary> analysisList = res.analysisSummaryList();
@@ -70,7 +68,7 @@ public class ListAnalyses {
                 System.out.println("Analysis name: "+analysis.name());
                 System.out.println("Analysis status: "+analysis.status());
                 System.out.println("Analysis status: "+analysis.analysisId());
-              }
+            }
 
         } catch (QuickSightException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

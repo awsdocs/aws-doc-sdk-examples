@@ -1,9 +1,6 @@
 // snippet-sourcedescription:[SearchFaceMatchingIdCollection.java demonstrates how to display information about a face that matches a face identified by its ID value.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/19/2022]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -34,11 +31,11 @@ public class SearchFaceMatchingIdCollection {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage: " +
-                "   <collectionId> <sourceImage>\n\n" +
-                "Where:\n" +
-                "   collectionId - The id of the collection.  \n" +
-                "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+            "Usage: " +
+            "   <collectionId> <sourceImage>\n\n" +
+            "Where:\n" +
+            "   collectionId - The id of the collection.  \n" +
+            "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -49,9 +46,9 @@ public class SearchFaceMatchingIdCollection {
         String faceId = args[1];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         System.out.println("Searching for a face in a collections");
         searchFacebyId(rekClient, collectionId, faceId ) ;
@@ -63,11 +60,11 @@ public class SearchFaceMatchingIdCollection {
 
         try {
             SearchFacesRequest searchFacesRequest = SearchFacesRequest.builder()
-                    .collectionId(collectionId)
-                    .faceId(faceId)
-                    .faceMatchThreshold(70F)
-                    .maxFaces(2)
-                    .build();
+                .collectionId(collectionId)
+                .faceId(faceId)
+                .faceMatchThreshold(70F)
+                .maxFaces(2)
+                .build();
 
             SearchFacesResponse imageResponse = rekClient.searchFaces(searchFacesRequest) ;
             System.out.println("Faces matching in the collection");
@@ -76,6 +73,7 @@ public class SearchFaceMatchingIdCollection {
                 System.out.println("The similarity level is  "+face.similarity());
                 System.out.println();
             }
+
         } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);

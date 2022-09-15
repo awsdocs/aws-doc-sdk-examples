@@ -1,10 +1,6 @@
 //snippet-sourcedescription:[CreateDeploymentGroup.java demonstrates how to create a deployment group.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeDeploy
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/17/2022]
-
+//snippet-keyword:[AWS CodeDeploy]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -38,20 +34,19 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class CreateDeploymentGroup {
 
     public static void main(String[] args) {
 
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <deploymentGroupName> <appName> <serviceRoleArn> <tagKey> <tagValue> \n\n" +
-                "Where:\n" +
-                "    deploymentGroupName - The name of the deployment group. \n" +
-                "    appName - The name of the application. \n" +
-                "    serviceRoleArn - A service role Amazon Resource Name (ARN) that allows AWS CodeDeploy to act on the user's behalf.  \n" +
-                "    tagKey - The tag filter key (ie, AppName). \n"+
-                "    tagValue - The tag filter value (ie, mywebapp).\n";
+            "Usage:\n" +
+            "    <deploymentGroupName> <appName> <serviceRoleArn> <tagKey> <tagValue> \n\n" +
+            "Where:\n" +
+            "    deploymentGroupName - The name of the deployment group. \n" +
+            "    appName - The name of the application. \n" +
+            "    serviceRoleArn - A service role Amazon Resource Name (ARN) that allows AWS CodeDeploy to act on the user's behalf.  \n" +
+            "    tagKey - The tag filter key (ie, AppName). \n"+
+            "    tagValue - The tag filter value (ie, mywebapp).\n";
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -66,9 +61,9 @@ public class CreateDeploymentGroup {
 
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         String groupId = createNewDeploymentGroup(deployClient, deploymentGroupName, appName, serviceRoleArn, tagKey, tagValue );
         System.out.println("The group deployment ID is "+groupId);

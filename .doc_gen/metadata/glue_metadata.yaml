@@ -5,6 +5,15 @@ glue_GetCrawler:
   synopsis: get an &GLU; crawler.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetSpecificCrawlerAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -23,6 +32,15 @@ glue_GetCrawler:
             - description:
               snippet_tags:
                 - glue.java2.get_crawler.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.getCrawler
+                - php.example_code.glue.service.getCrawler
     Python:
       versions:
         - sdk_version: 3
@@ -41,6 +59,15 @@ glue_CreateCrawler:
   synopsis: create an &GLU; crawler.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.CreateGlueCrawlerAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -59,6 +86,17 @@ glue_CreateCrawler:
             - description:
               snippet_tags:
                 - glue.java2.create_crawler.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.crawlerName
+                - php.example_code.glue.basics.getRole
+                - php.example_code.glue.basics.createCrawler
+                - php.example_code.glue.service.createCrawler
     Python:
       versions:
         - sdk_version: 3
@@ -77,6 +115,15 @@ glue_StartCrawler:
   synopsis: start an &GLU; crawler.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.StartSpecificCrawlerAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -95,6 +142,17 @@ glue_StartCrawler:
             - description:
               snippet_tags:
                 - glue.java2.start_crawler.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.crawlerName
+                - php.example_code.glue.basics.databaseName
+                - php.example_code.glue.basics.startCrawler
+                - php.example_code.glue.service.startCrawler
     Python:
       versions:
         - sdk_version: 3
@@ -113,6 +171,15 @@ glue_GetDatabase:
   synopsis: get a database from the &GLUDCLong;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetSpecificDatabaseAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -131,6 +198,16 @@ glue_GetDatabase:
             - description:
               snippet_tags:
                 - glue.java2.get_database.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.databaseName
+                - php.example_code.glue.basics.getDatabase
+                - php.example_code.glue.service.getDatabase
     Python:
       versions:
         - sdk_version: 3
@@ -149,6 +226,15 @@ glue_GetTables:
   synopsis: get tables from a database in the &GLUDCLong;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetGlueTablesAsync
     Java:
       versions:
         - sdk_version: 2
@@ -158,6 +244,16 @@ glue_GetTables:
             - description:
               snippet_tags:
                 - glue.java2.get_table.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.databaseName
+                - php.example_code.glue.basics.getTables
+                - php.example_code.glue.service.getTables
     Python:
       versions:
         - sdk_version: 3
@@ -176,6 +272,26 @@ glue_CreateJob:
   synopsis: create an &GLU; job definition.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.CreateJobAsync
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.getRole
+                - php.example_code.glue.basics.jobName
+                - php.example_code.glue.basics.createJob
+                - php.example_code.glue.service.createJob
     Python:
       versions:
         - sdk_version: 3
@@ -194,6 +310,27 @@ glue_StartJobRun:
   synopsis: start an &GLU; job run.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.StartJobAsync
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.jobName
+                - php.example_code.glue.basics.databaseName
+                - php.example_code.glue.basics.getTables
+                - php.example_code.glue.basics.startJobRun
+                - php.example_code.glue.service.startJobRun
     Python:
       versions:
         - sdk_version: 3
@@ -212,6 +349,15 @@ glue_ListJobs:
   synopsis: list &GLU; job definitions.
   category:
   languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.listJobs
+                - php.example_code.glue.service.listJobs
     Python:
       versions:
         - sdk_version: 3
@@ -230,6 +376,25 @@ glue_GetJobRuns:
   synopsis: get runs of an &GLU; job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GetJobRunsAsync
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.jobName
+                - php.example_code.glue.basics.getJobRuns
+                - php.example_code.glue.service.getJobRuns
     Python:
       versions:
         - sdk_version: 3
@@ -248,6 +413,17 @@ glue_GetJobRun:
   synopsis: get an &GLU; job run.
   category:
   languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.jobName
+                - php.example_code.glue.basics.startJobRun
+                - php.example_code.glue.basics.getJobRun
+                - php.example_code.glue.service.getJobRun
     Python:
       versions:
         - sdk_version: 3
@@ -266,6 +442,24 @@ glue_DeleteJob:
   synopsis: delete an &GLU; job definition and all associated runs.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.DeleteJobAsync
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.deleteJob
+                - php.example_code.glue.service.deleteJob
     Python:
       versions:
         - sdk_version: 3
@@ -284,6 +478,15 @@ glue_DeleteTable:
   synopsis: delete a table from an &GLUDCLong; database.
   category:
   languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.deleteTable
+                - php.example_code.glue.service.deleteTable
     Python:
       versions:
         - sdk_version: 3
@@ -302,6 +505,24 @@ glue_DeleteDatabase:
   synopsis: delete a database from the &GLUDCLong;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.DeleteDatabaseAsync
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.deleteDatabase
+                - php.example_code.glue.service.deleteDatabase
     Python:
       versions:
         - sdk_version: 3
@@ -320,6 +541,24 @@ glue_DeleteCrawler:
   synopsis: delete an &GLU; crawler.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.DeleteSpecificCrawlerAsync
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.deleteCrawler
+                - php.example_code.glue.service.deleteCrawler
     Python:
       versions:
         - sdk_version: 3
@@ -349,6 +588,20 @@ glue_Scenario_GetStartedCrawlersJobs:
     title: "Tutorial: Getting started with &GLU; Studio"
     url: glue/latest/ug/tutorial-create-job.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &GLU; functions that are
+                used in the scenario.
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GlueMethods
+            - description: Create a class that runs the scenario.
+              snippet_tags:
+                - Glue.dotnetv3.GlueBasicsScenario.GlobalUsings
+                - Glue.dotnetv3.GlueBasicsScenario.Main
     Kotlin:
       versions:
         - sdk_version: 1
@@ -367,6 +620,15 @@ glue_Scenario_GetStartedCrawlersJobs:
             - description:
               snippet_tags:
                 - glue.java2.scenario.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.glue.basics.scenario
+                - php.example_code.glue.service
     Python:
       versions:
         - sdk_version: 3
