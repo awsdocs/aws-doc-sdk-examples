@@ -230,8 +230,6 @@ The **pom.xml** file looks like the following.
 
 Create a Java package in the **main/java** folder named **com.example.sqs**. The Java files must go into this package.
 
-![AWS Messaging application](images/project.png)
-
 Create the following Java classes:
 
 + **MessageData** - Used as the model for this application.
