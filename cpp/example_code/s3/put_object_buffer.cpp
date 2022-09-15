@@ -1,23 +1,8 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Adds content to an object and then adds the object to a bucket 
- * in Amazon S3.
- *
- * Prerequisites: An Amazon S3 bucket and content to be added to the bucket 
- * as an object.
- *
- * Inputs:
- * - bucketName: The name of the bucket.
- * - objectName: The name of the object to be added to the bucket.
- * - objectContent: The content to be added to the object.
- * - region: The AWS Region for the bucket.
- *
- * Outputs: true if the object was added to the bucket; otherwise, false.
- * ///////////////////////////////////////////////////////////////////////// */
-
-// snippet-start:[s3.cpp.objects.put_string_into_object_bucket]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
@@ -25,66 +10,90 @@
 #include <fstream>
 #include <awsdoc/s3/s3_examples.h>
 
-bool AwsDoc::S3::PutObjectBuffer(const Aws::String& bucketName,
-    const Aws::String& objectName,
-    const std::string& objectContent,
-    const Aws::String& region)
-{
-    Aws::Client::ClientConfiguration config;
-    
-    if (!region.empty())
-    {
-        config.region = region;
-    }
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+ *
+ * Purpose
+ *
+ * Demonstrates using the AWS SDK for C++ to put a string as an object in an S3 bucket.
+  *
+ */
 
-    Aws::S3::S3Client s3_client(config);
+//! Routine which demonstrates putting a string as an object in an S3 bucket.
+/*!
+  \fn PutObject()
+  \param bucketName Name of the bucket.
+  \param objectName Name for the object in the bucket.
+  \param objectContent String as content for object.
+  \param clientConfig Aws client configuration.
+*/
+
+// snippet-start:[s3.cpp.objects.put_string_into_object_bucket]
+bool AwsDoc::S3::PutObjectBuffer(const Aws::String &bucketName,
+                                 const Aws::String &objectName,
+                                 const std::string &objectContent,
+                                 const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::S3::S3Client s3_client(clientConfig);
 
     Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucketName);
     request.SetKey(objectName);
 
-    const std::shared_ptr<Aws::IOStream> input_data =
-        Aws::MakeShared<Aws::StringStream>("");
-    *input_data << objectContent.c_str();
+    const std::shared_ptr<Aws::IOStream> inputData =
+            Aws::MakeShared<Aws::StringStream>("");
+    *inputData << objectContent.c_str();
 
-    request.SetBody(input_data);
+    request.SetBody(inputData);
 
     Aws::S3::Model::PutObjectOutcome outcome = s3_client.PutObject(request);
 
     if (!outcome.IsSuccess()) {
-        std::cout << "Error: PutObjectBuffer: " << 
-            outcome.GetError().GetMessage() << std::endl;
-
-        return false;
+        std::cerr << "Error: PutObjectBuffer: " <<
+                  outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Success: Object '" << objectName << "' with content '"
-            << objectContent << "' uploaded to bucket '" << bucketName << "'.";
-
-        return true;
+                  << objectContent << "' uploaded to bucket '" << bucketName << "'.";
     }
-}
 
-int main()
-{
+    return outcome.IsSuccess();
+}
+// snippet-end:[s3.cpp.objects.put_string_into_object_bucket]
+
+/**
+*
+* main function
+*
+* TODO(User) items: Set the following variables
+* - bucketName: The name of the bucket.
+*
+*/
+
+#ifndef TESTING_BUILD
+
+int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // TODO: Change bucket_name to the name of a bucket in your account.
-        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
-        const Aws::String object_name = "my-file.txt";
-        const std::string object_content = "This is my sample text content.";
-        //TODO: Set to the AWS Region in which the bucket was created.
-        const Aws::String region = "us-east-1";
+        // TODO(User): Change bucketName to the name of a bucket in your account.
+        const Aws::String bucketName = "<Enter bucket Name>";
+        const Aws::String objectName = "sample_text.txt";
+        const std::string objectContent = "This is my sample text content.";
 
-        if (!AwsDoc::S3::PutObjectBuffer(bucket_name, object_name, object_content, region)) 
-        {
-            return 1;
-        }
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::S3::PutObjectBuffer(bucketName, objectName, objectContent, clientConfig);
     }
+
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-// snippet-end:[s3.cpp.objects.put_string_into_object_bucket]
+
+#endif  // TESTING_BUILD

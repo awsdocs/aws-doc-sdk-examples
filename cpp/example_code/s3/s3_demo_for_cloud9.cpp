@@ -1,17 +1,25 @@
-//snippet-sourcedescription:[s3-demo.cpp demonstrates how to perform various operations for Amazon Simple Storage Service (Amazon S3).]
-//snippet-keyword:[AWS SDK for C++]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/15/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-#include <awsdoc/s3/s3-demo.h>
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+ *
+ * Purpose
+ *
+ * This demo is referenced in the AWS Cloud9 user guide
+ * It is used to demonstrate running C++ code in a Cloud9 development environment.
+ *
+ * https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-cplusplus.html
+ *
+ */
+
+#include "awsdoc/s3/s3_demo_for_cloud9.h"
 // snippet-start:[s3.cpp.bucket_operations.list_create_delete]
 #include <iostream>
 #include <aws/core/Aws.h>
@@ -48,7 +56,7 @@ bool FindTheBucket(const Aws::S3::S3Client &s3Client,
         return true;
     }
     else {
-        std::cout << "ListBuckets error: "
+        std::cerr << "ListBuckets error: "
                   << outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -74,7 +82,7 @@ bool CreateTheBucket(const Aws::S3::S3Client &s3Client,
         return true;
     }
     else {
-        std::cout << "CreateBucket error: "
+        std::cerr << "CreateBucket error: "
                   << outcome.GetError().GetMessage() << std::endl;
 
         return false;
@@ -100,13 +108,14 @@ bool DeleteTheBucket(const Aws::S3::S3Client &s3Client,
         return true;
     }
     else {
-        std::cout << "DeleteBucket error: "
+        std::cerr << "DeleteBucket error: "
                   << outcome.GetError().GetMessage() << std::endl;
 
         return false;
     }
 }
 
+#ifndef TESTING_BUILD
 // Create an Amazon S3 bucket and then delete it. 
 // Before and after creating the bucket, and then after deleting the bucket, 
 // try to determine whether that bucket still exists. 
@@ -154,4 +163,5 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+#endif  // TESTING_BUILD
 // snippet-end:[s3.cpp.bucket_operations.list_create_delete]

@@ -107,8 +107,7 @@
  * otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
-Aws::S3::Model::Permission SetGranteePermission(const Aws::String& access)
-{
+Aws::S3::Model::Permission SetGranteePermission(const Aws::String &access) {
     if (access == "FULL_CONTROL")
         return Aws::S3::Model::Permission::FULL_CONTROL;
     if (access == "WRITE")
@@ -122,8 +121,7 @@ Aws::S3::Model::Permission SetGranteePermission(const Aws::String& access)
     return Aws::S3::Model::Permission::NOT_SET;
 }
 
-Aws::String GetGranteeType(const Aws::S3::Model::Type& type)
-{
+Aws::String GetGranteeType(const Aws::S3::Model::Type &type) {
     if (type == Aws::S3::Model::Type::AmazonCustomerByEmail)
         return "Amazon customer by email";
     if (type == Aws::S3::Model::Type::CanonicalUser)
@@ -133,8 +131,7 @@ Aws::String GetGranteeType(const Aws::S3::Model::Type& type)
     return "Not set";
 }
 
-Aws::S3::Model::Type SetGranteeType(const Aws::String& type)
-{
+Aws::S3::Model::Type SetGranteeType(const Aws::String &type) {
     if (type == "Amazon customer by email")
         return Aws::S3::Model::Type::AmazonCustomerByEmail;
     if (type == "Canonical user")
@@ -143,18 +140,18 @@ Aws::S3::Model::Type SetGranteeType(const Aws::String& type)
         return Aws::S3::Model::Type::Group;
     return Aws::S3::Model::Type::NOT_SET;
 }
+
 // snippet-start:[s3.cpp.put_object_acl.code]
-bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
-    const Aws::String& objectKey, 
-    const Aws::String& region, 
-    const Aws::String& ownerID, 
-    const Aws::String& granteePermission, 
-    const Aws::String& granteeType, 
-    const Aws::String& granteeID, 
-    const Aws::String& granteeDisplayName, 
-    const Aws::String& granteeEmailAddress, 
-    const Aws::String& granteeURI)
-{
+bool AwsDoc::S3::PutObjectAcl(const Aws::String &bucketName,
+                              const Aws::String &objectKey,
+                              const Aws::String &region,
+                              const Aws::String &ownerID,
+                              const Aws::String &granteePermission,
+                              const Aws::String &granteeType,
+                              const Aws::String &granteeID,
+                              const Aws::String &granteeDisplayName,
+                              const Aws::String &granteeEmailAddress,
+                              const Aws::String &granteeURI) {
     Aws::Client::ClientConfiguration config;
     config.region = region;
 
@@ -166,23 +163,19 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
     Aws::S3::Model::Grantee grantee;
     grantee.SetType(SetGranteeType(granteeType));
 
-    if (granteeEmailAddress != "")
-    {
+    if (granteeEmailAddress != "") {
         grantee.SetEmailAddress(granteeEmailAddress);
     }
 
-    if (granteeID != "")
-    {
+    if (granteeID != "") {
         grantee.SetID(granteeID);
     }
 
-    if (granteeDisplayName != "")
-    {
+    if (granteeDisplayName != "") {
         grantee.SetDisplayName(granteeDisplayName);
     }
 
-    if (granteeURI != "")
-    {
+    if (granteeURI != "") {
         grantee.SetURI(granteeURI);
     }
 
@@ -203,17 +196,15 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
     request.SetKey(objectKey);
 
     Aws::S3::Model::PutObjectAclOutcome outcome =
-        s3_client.PutObjectAcl(request);
+            s3_client.PutObjectAcl(request);
 
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         return true;
     }
-    else
-    {
+    else {
         auto error = outcome.GetError();
         std::cout << "Error: PutObjectAcl: " << error.GetExceptionName()
-            << " - " << error.GetMessage() << std::endl;
+                  << " - " << error.GetMessage() << std::endl;
 
         return false;
     }
@@ -221,10 +212,9 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
 // snippet-end:[s3.cpp.put_object_acl.code]
 
 // snippet-start:[s3.cpp.get_object_acl.code]
-bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
-    const Aws::String& objectKey, 
-    const Aws::String& region)
-{
+bool AwsDoc::S3::GetObjectAcl(const Aws::String &bucketName,
+                              const Aws::String &objectKey,
+                              const Aws::String &region) {
     Aws::Client::ClientConfiguration config;
     config.region = region;
 
@@ -235,53 +225,50 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
     request.SetKey(objectKey);
 
     Aws::S3::Model::GetObjectAclOutcome outcome =
-        s3_client.GetObjectAcl(request);
+            s3_client.GetObjectAcl(request);
 
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         Aws::S3::Model::Owner owner = outcome.GetResult().GetOwner();
         Aws::Vector<Aws::S3::Model::Grant> grants =
-            outcome.GetResult().GetGrants();
+                outcome.GetResult().GetGrants();
 
         std::cout << "Object ACL information for object '" << objectKey <<
-            "' in bucket '" << bucketName << "':" << std::endl << std::endl;
+                  "' in bucket '" << bucketName << "':" << std::endl << std::endl;
 
         std::cout << "Owner:" << std::endl << std::endl;
         std::cout << "Display name:  " << owner.GetDisplayName() << std::endl;
         std::cout << "ID:            " << owner.GetID() << std::endl <<
-            std::endl;
+                  std::endl;
 
         std::cout << "Grantees:" << std::endl << std::endl;
 
         for (auto it = std::begin(grants); it != end(grants); ++it) {
             auto grantee = it->GetGrantee();
             std::cout << "Display name:  " << grantee.GetDisplayName() <<
-                std::endl;
+                      std::endl;
             std::cout << "Email address: " << grantee.GetEmailAddress() <<
-                std::endl;
+                      std::endl;
             std::cout << "ID:            " << grantee.GetID() << std::endl;
             std::cout << "Type:          " << GetGranteeType(
-                grantee.GetType()) <<
-                std::endl;
+                    grantee.GetType()) <<
+                      std::endl;
             std::cout << "URI:           " << grantee.GetURI() << std::endl <<
-                std::endl;
+                      std::endl;
         }
 
         return true;
     }
-    else
-    {
+    else {
         auto error = outcome.GetError();
         std::cout << "Error: GetObjectAcl: " << error.GetExceptionName()
-            << " - " << error.GetMessage() << std::endl;
+                  << " - " << error.GetMessage() << std::endl;
 
         return false;
     }
 }
 // snippet-end:[s3.cpp.get_object_acl.code]
 
-int main()
-{
+int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
@@ -297,8 +284,8 @@ int main()
         //See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
         //You can also find it by running the executable run_get_acl.exe of this project. 
 
-        const Aws::String owner_id = 
-            "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
+        const Aws::String owner_id =
+                "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
 
         // Set the ACL's grantee information.
         const Aws::String grantee_permission = "READ"; //Give the grantee Read permissions.
@@ -308,8 +295,8 @@ int main()
         // If the grantee is by canonical user, then you must specify either the user's ID or 
         // grantee_display_name:
         const Aws::String grantee_type = "Canonical user";
-        const Aws::String grantee_id = 
-            "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772EXAMPLE";
+        const Aws::String grantee_id =
+                "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772EXAMPLE";
         // const Aws::String grantee_display_name = "janedoe";
 
         // If the grantee is by Amazon customer by email, then you must specify the email 
@@ -329,12 +316,12 @@ int main()
         //uncomment the additional parameters so that you are supplying the information necessary for the 
         //grantee type you selected (e.g. the name, email address, etc).
         if (!AwsDoc::S3::PutObjectAcl(bucket_name,
-            object_name, 
-            region,
-            owner_id, 
-            grantee_permission, 
-            grantee_type,
-            grantee_id))
+                                      object_name,
+                                      region,
+                                      owner_id,
+                                      grantee_permission,
+                                      grantee_type,
+                                      grantee_id))
             // grantee_display_name, 
             // grantee_email_address, 
             // grantee_uri))
@@ -343,8 +330,7 @@ int main()
         }
 
         // Get the object's ACL information that was just set.
-        if (!AwsDoc::S3::GetObjectAcl(bucket_name, object_name, region))
-        {
+        if (!AwsDoc::S3::GetObjectAcl(bucket_name, object_name, region)) {
             return 1;
         }
     }

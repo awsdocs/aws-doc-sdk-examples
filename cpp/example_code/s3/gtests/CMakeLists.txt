@@ -35,8 +35,6 @@ if(NOT BUILD_SHARED_LIBS)
     set(BUILD_SHARED_LIBS ON)
 endif()
 
-set(CMAKE_BUILD_TYPE Debug)
-
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${CURRENT_TARGET_AWS_DEPENDENCIES})
 
@@ -71,8 +69,19 @@ if(MSVC AND BUILD_SHARED_LIBS)
     )
  endif()
 
+# GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build, for example to one action.
+if (NOT DEFINED GTEST_SOURCE_FILES)
+    file(
+            GLOB
+            GTEST_SOURCE_FILES
+            "gtest_*.cpp"
+    )
+endif()
+
 # Check whether the target system is Windows, including Win64.
 if(WIN32)
+    list(FILTER AWSDOC_S3_SOURCE EXCLUDE REGEX "/gtest_list_buckets_disabling_dns_cache.cpp$") # Not supported in windows, see file for details
+
     # Check whether the compiler is some version of Microsoft Visual C++, or another compiler simulating C++.
     if(MSVC)
         source_group("Header Files\\awsdoc\\s3" FILES ${AWSDOC_S3_HEADERS})
@@ -82,11 +91,6 @@ endif()
 
 enable_testing()
 
-file(
-     GLOB
-     GTEST_SOURCE_FILES
-    "gtest_*.cpp"
-)
 
 foreach(TEST_FILE ${GTEST_SOURCE_FILES})
     string(REPLACE "gtest_" "../" SOURCE_FILE ${TEST_FILE})
@@ -102,6 +106,7 @@ target_sources(
         PUBLIC
         ${GTEST_SOURCE}
         test_main.cpp
+        S3_GTests.cpp
 )
 
 target_include_directories(

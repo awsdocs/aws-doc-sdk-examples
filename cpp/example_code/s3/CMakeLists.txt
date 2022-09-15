@@ -34,17 +34,12 @@ find_package(AWSSDK REQUIRED COMPONENTS s3 sts iam)
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+
+    set(CMAKE_BUILD_TYPE Debug) #Explicitly setting CMAKE_BUILD_TYPE is necessary in windows to copy dlls.
+
     list(APPEND SERVICE_LIST s3 sts iam)
-    #For IDE's like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
-    #  is switched internally, but this is necessary for non-IDE builds.
-    set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type.
-	
-    #TODO:Choose which of the following two lines to use to copy to the same folder where your executables are.
-    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
-    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs.
-    
-    message(STATUS ">>CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
-    message(STATUS ">>CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+
+     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
 endif()
 
 # Add the code example-specific header files.
@@ -52,7 +47,7 @@ file(GLOB AWSDOC_S3_HEADERS
     "include/awsdoc/s3/*.h"
 )
 
-# Add the code example-specific source files if the source input is not already defined.
+# AWSDOC_S3_SOURCE can be defined in the command line to limit the files in a build, for example to one action.
 if(NOT DEFINED AWSDOC_S3_SOURCE)
     file(GLOB AWSDOC_S3_SOURCE
         "*.cpp"
@@ -78,53 +73,13 @@ foreach(file ${AWSDOC_S3_SOURCE})
 
     add_executable(${EXAMPLE_EXE} ${AWSDOC_S3_HEADERS} ${file})
 
-    if(MSVC AND BUILD_SHARED_LIBS)
-        target_compile_definitions(${EXAMPLE_EXE} PUBLIC "USE_IMPORT_EXPORT")
-        target_compile_definitions(${EXAMPLE_EXE} PRIVATE "AWSDOC_S3_EXPORTS")
-    endif()
-
     target_include_directories(${EXAMPLE_EXE} PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
         ${AWSSDK_PLATFORM_DEPS})
 
-    if(BUILD_TESTS)
-        # Enable testing for this directory and below.
-        enable_testing()
-
-        # Build the code example libraries.
-        set(EXAMPLE_LIB ${EXAMPLE}) 
-
-        add_library(${EXAMPLE_LIB} ${AWSDOC_S3_HEADERS} ${file} )
-
-        if(MSVC AND BUILD_SHARED_LIBS)
-            target_compile_definitions(${EXAMPLE_LIB} PUBLIC "USE_IMPORT_EXPORT")
-            target_compile_definitions(${EXAMPLE_LIB} PRIVATE "AWSDOC_S3_EXPORTS")
-        endif()
-
-        target_include_directories(${EXAMPLE_LIB} PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-            $<INSTALL_INTERFACE:include>)
-        target_link_libraries(${EXAMPLE_LIB} ${AWSSDK_LINK_LIBRARIES} 
-            ${AWSSDK_PLATFORM_DEPS})
-
-        # Build the code example unit tests.
-        set(EXAMPLE_TEST test_${EXAMPLE})
-        set(EXAMPLE_TEST_FILE ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_${EXAMPLE}.cpp)
-
-        if(EXISTS ${EXAMPLE_TEST_FILE})
-            add_executable(${EXAMPLE_TEST} ${EXAMPLE_TEST_FILE} tests/test_utils.cpp)
-
-            target_include_directories(${EXAMPLE_TEST} PUBLIC
-                $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                $<INSTALL_INTERFACE:include>)
-            target_link_libraries(${EXAMPLE_TEST}
-                    ${EXAMPLE_LIB})
-            add_test(${EXAMPLE_TEST} ${EXAMPLE_TEST})
-        endif()
-    endif()
-endforeach()
+ endforeach()
 
 if(BUILD_TESTS)
     add_subdirectory(gtests)

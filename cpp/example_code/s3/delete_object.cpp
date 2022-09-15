@@ -1,45 +1,39 @@
-//snippet-sourcedescription:[delete_object.cpp demonstrates how to delete an object from an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for C++]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/15/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-// snippet-start:[s3.cpp.delete_object.inc]
 #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteObjectRequest.h>
 #include "awsdoc/s3/s3_examples.h"
-// snippet-end:[s3.cpp.delete_object.inc]
 
-/* 
- * 
- * Prerequisites: The bucket containing the object to delete.
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
  *
- * Inputs:
- * - objectKey: The name of the object to delete.
- * - fromBucket: The name of the bucket to delete the object from.
- * - region: The AWS Region to create the bucket in.
+ * For more information, see the following documentation topic:
  *
- *  To run this C++ code example, ensure that you have setup your development environment, including your credentials.
- *  For information, see this documentation topic:
- *  https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ * https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+ *
+ * Purpose
+ *
+ * Demonstrates using the AWS SDK for C++ to delete an object in an S3 bucket.
+ *
  */
 
-// snippet-start:[s3.cpp.delete_object.code]
-bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey, const Aws::String &fromBucket, const Aws::String &region) {
-    Aws::Client::ClientConfiguration clientConfig;
-    if (!region.empty()) {
-        clientConfig.region = region;
-    }
+//! Routine which demonstrates deleting an object in an S3 bucket.
+/*!
+  \sa DeleteObject()
+  \param objectKey Name of an object.
+  \param fromBucket Name of a bucket with an object to delete.
+  \param clientConfig Aws client configuration.
+*/
 
+// snippet-start:[s3.cpp.delete_object.code]
+bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey,
+                              const Aws::String &fromBucket,
+                              const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
     Aws::S3::Model::DeleteObjectRequest request;
 
@@ -49,37 +43,52 @@ bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey, const Aws::String &f
     Aws::S3::Model::DeleteObjectOutcome outcome =
             client.DeleteObject(request);
 
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         auto err = outcome.GetError();
         std::cout << "Error: DeleteObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-        return false;
     }
-    else
-    {
+    else {
         std::cout << "Successfully deleted the object." << std::endl;
-        return true;
     }
-}
 
-int main()
-{
-    //TODO: The object_key is the unique identifier for the object in the bucket. In this example set,
+    return outcome.IsSuccess();
+}
+// snippet-end:[s3.cpp.delete_object.code]
+
+/*
+ *
+ * main function
+ *
+ * Prerequisites: The bucket containing the object to delete.
+ *
+ * TODO(User) items: Set the following variable
+ * - objectKey: The name of the object to delete.
+ * - fromBucket: The name of the bucket to delete the object from.
+ *
+ */
+
+#ifndef TESTING_BUILD
+
+int main() {
+    //TODO(User): The object_key is the unique identifier for the object in the bucket. In this example set,
     //it is the filename you added in put_object.cpp.
     Aws::String objectKey = "<Enter object key>";
-    //TODO: Change from_bucket to the name of a bucket in your account.
+    //TODO(User): Change from_bucket to the name of a bucket in your account.
     Aws::String fromBucket = "<Enter bucket name>";
-    //TODO: Set to the AWS Region in which the bucket was created.
-    Aws::String region = "us-east-1";
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
-    AwsDoc::S3::DeleteObject(objectKey, fromBucket, region);
+    {
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+        AwsDoc::S3::DeleteObject(objectKey, fromBucket, clientConfig);
+    }
 
     ShutdownAPI(options);
 
     return 0;
 }
-// snippet-end:[s3.cpp.delete_object.code]
+
+#endif // TESTING_BUILD
