@@ -173,6 +173,10 @@ The **pom.xml** file looks like the following.
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
+            <artifactId>comprehend</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
             <artifactId>protocol-core</artifactId>
         </dependency>
         <dependency>
