@@ -1,4 +1,21 @@
 # zexi 0.4.0
+s3_Hello:
+  title: Hello &S3;
+  title_abbrev: Hello &S3;
+  synopsis: get started using &S3long; (&S3;).
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.Hello
+  services:
+    s3: {ListBuckets}
 s3_CreateBucket:
   title: Create an &S3; bucket using an &AWS; SDK
   title_abbrev: Create a bucket
@@ -1845,8 +1862,8 @@ s3_GetBucketLocation:
   services:
     s3: {GetBucketLocation}
 s3_Scenario_GettingStarted:
-  title: Getting started with &S3; buckets and objects using an &AWS; SDK
-  title_abbrev: Getting started with buckets and objects
+  title: Get started with &S3; buckets and objects using an &AWS; SDK
+  title_abbrev: Get started with buckets and objects
   synopsis_list:
     - Create a bucket.
     - Upload a file to the bucket.

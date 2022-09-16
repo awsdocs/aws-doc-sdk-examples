@@ -7,7 +7,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Create Redshift cluster](src/redshift-create-cluster.js)
 - [Delete a Redshift cluster](src/redshift-delete-cluster.js)
 - [Describe Redshift clusters](src/redshift-describe-clusters.js)
-- [Modify Redshift clusters](src/redshift-modify-cluster.js)
+- [Modify a Redshift cluster](src/redshift-modify-cluster.js)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
