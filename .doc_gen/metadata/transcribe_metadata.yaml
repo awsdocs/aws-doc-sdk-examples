@@ -345,3 +345,4 @@ transcribe_StartStreamTranscription:
                 - transcribe.cpp.stream_transcription_async.code
   services:
     transcribe: {StartStreamTranscription}
+
