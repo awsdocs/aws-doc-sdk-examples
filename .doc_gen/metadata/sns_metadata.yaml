@@ -1054,21 +1054,13 @@ sns_PublishFifoTopic:
   languages:
     Java:
       versions:
-        - sdk_version: 1
-          github: java/example_code/sns
+        - sdk_version: 2
+          github: javav2/example_code/sns
           sdkguide:
           excerpts:
             - description: Create a FIFO topic and FIFO queues. Subscribe the queues to the topic.
               snippet_tags:
-                - sns.java.fifo_topics.create_topic
-            - description: |-
-                Set a filter policy on each subscription so that each subscriber application receives only the price
-                updates that it needs.
-              snippet_tags:
-                - sns.java.fifo_topics.filter_policy
-            - description: Compose and publish a message that updates the wholesale price.
-              snippet_tags:
-                - sns.java.fifo_topics.publish
+                - sns.java2.CreateTopicFIFO.main
   services:
     sns: {}
 sns_PublishLargeMessage:
@@ -1114,13 +1106,13 @@ sns_CreatePlatformEndpoint:
   languages:
     Java:
       versions:
-        - sdk_version: 1
-          github: java/example_code/sns
+        - sdk_version: 2
+          github: javav2/example_code/sns
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - sns.java.create_mobile_endpoint
+                - sns.java2.reg.endpoint.main
   services:
     sns: {}
 sns_UsageSmsTopic:
