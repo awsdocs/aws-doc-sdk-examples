@@ -251,37 +251,37 @@ kinesis_GetRecords:
                 - python.example_code.kinesis.GetRecords
   services:
     kinesis: {GetRecords, GetShardIterator}
-    kinesis_RegisterConsumer:
-      title: Register a consumer to a &AK; stream using an &AWS; SDK
-      title_abbrev: Register a consumer
-      synopsis: register a consumer to a &AK; stream.
-      category:
-      languages:
-        .NET:
-          versions:
-            - sdk_version: 3
-              github: dotnetv3/Kinesis
-              sdkguide:
-              excerpts:
-                - description:
-                  snippet_tags:
-                    - Kinesis.dotnetv3.RegisterConsumerExample
-      services:
-        kinesis: { RegisterConsumer }
-    kinesis_TagStream:
-      title: Add tags to a &AK; stream using an &AWS; SDK
-      title_abbrev: Add tags
-      synopsis: add tags to a &AK; stream.
-      category:
-      languages:
-        .NET:
-          versions:
-            - sdk_version: 3
-              github: dotnetv3/Kinesis
-              sdkguide:
-              excerpts:
-                - description:
-                  snippet_tags:
-                    - Kinesis.dotnetv3.TagStreamExample
-      services:
-        kinesis: { TagStream }
+kinesis_RegisterConsumer:
+  title: Register a consumer to a &AK; stream using an &AWS; SDK
+  title_abbrev: Register a consumer
+  synopsis: register a consumer to a &AK; stream.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Kinesis.dotnetv3.RegisterConsumerExample
+  services:
+    kinesis: { RegisterConsumer }
+kinesis_TagStream:
+  title: Add tags to a &AK; stream using an &AWS; SDK
+  title_abbrev: Add tags
+  synopsis: add tags to a &AK; stream.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Kinesis.dotnetv3.TagStreamExample
+  services:
+    kinesis: { TagStream }
