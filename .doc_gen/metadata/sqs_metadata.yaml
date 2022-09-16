@@ -179,7 +179,7 @@ sqs_ListQueues:
         - sdk_version: 1
           github: rust_dev_preview/sqs
           excerpts:
-            - description: List and retrieve first &SQS; queue.
+            - description: Retrieve the first &SQS; queue in the region's list.
               snippet_tags:
                 - sqs.rust.sqs-list-first
     JavaScript:
