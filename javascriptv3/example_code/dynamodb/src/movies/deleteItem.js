@@ -33,7 +33,7 @@ export const params = {
 
 export const deleteItem = async () => {
   try {
-    const data = await ddbDocClient.send(new DeleteCommand(params));
+    await ddbDocClient.send(new DeleteCommand(params));
     console.log("Success - item deleted");
   } catch (err) {
     console.log("Error", err);

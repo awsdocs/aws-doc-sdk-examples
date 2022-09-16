@@ -20,7 +20,7 @@ export const ImageDisplay = (props) => {
   const canvasRef = useRef();
 
   useLayoutEffect(() => {
-    const positionCanvas = (event) => {
+    const positionCanvas = () => {
       const canvas = canvasRef.current;
       const img = imgRef.current;
       if (img) {

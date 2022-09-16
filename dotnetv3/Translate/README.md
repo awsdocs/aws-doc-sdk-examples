@@ -1,57 +1,50 @@
-# Amazon Translate code examples for .NET
+# Amazon Translate code examples for the SDK for .NET
 
-## Purpose
+## Overview
+The examples in this section show how to use the AWS SDK for .NET with Amazon Translate.
 
-The following examples show how to use the Amazon Translate service to build real-time and batch translation capabilities in your applications.
+Amazon Translate is a neural machine translation service for translating text to and from English across a breadth of supported languages.
+
+## ⚠️ Important
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
-- [BatchTranslateExample](BatchTranslateExample/) (`StartTextTranslationJobAsync`)
-- [DescribeTextTranslationExample](DescribeTextTranslationExample/) (`DescribeTextTranslationJobAsync`)
-- [ListTranslationJobsExample](ListTranslationJobsExample/) (`ListTextTranslationJobsAsync`)
-- [StopTextTranslationJobExample](StopTextTranslationJobExample/) (`StopTextTranslationJobAsync`)
-- [TranslateTextExample](TranslateTextExample/) (`TranslateTextAsync`)
+### Single actions
+Code excerpts that show you how to call individual service functions.
+- [Start a translation job](BatchTranslateExample/BatchTranslate.cs) (`StartTextTranslationJobAsync`)
+- [Describe a translation job](DescribeTextTranslationExample/DescribeTextTranslation.cs) (`DescribeTextTranslationJobAsync`)
+- [List translation jobs](ListTranslationJobsExample/ListTranslationJobs.cs) (`ListTextTranslationJobsAsync`)
+- [Stop a translation job](StopTextTranslationJobExample/StopTextTranslationJob.cs) (`StopTextTranslationJobAsync`)
+- [Translate text](TranslateTextExample/TranslateText.cs) (`TranslateTextAsync`)
 
+### Cross-service examples
+Sample applications that work across multiple AWS services.
+- [Build a publish and subscription application that translates messages](../cross-service/SubscribePublishTranslate/SubscribePublishTranslate/Program.cs)
 
-## ⚠️ Important
+## Run the examples
 
-- We recommend that grant your code least privilege, or at most the minimum
-  permissions required to perform the task. For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide. 
-- This code has not been tested in all AWS Regions. Some AWS services are
-  available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
-- Running this code might result in charges to your AWS account. 
-- Running the unit tests might result in charges to your AWS account. [optional]
+### Prerequisites
+* To find prerequisites for running these examples, see the
+  [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-## Running the Examples
-
-The examples in this folder use the default user account. The call to
-initialize the Amazon SQS client supplies the region. Change the region to
-match your own before running the example.
-
-Once the example has been compiled, you can run it from the commandline by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To
+do this, navigate to the folder that contains the .csproj file, and then
+issue the following command:
 
 ```
 dotnet run
 ```
 
-Or you can execute the example from within your IDE.
+Alternatively, you can run the example from within your IDE.
 
-## Resources and documentation
-
-[AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-
-[AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
-
-## Contributing
-
-To propose a new code example to the AWS documentation team, see the
-[CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md).
-The team prefers to create code examples that show broad scenarios rather than
-individual API calls. 
+## Additional resources
+* [Amazon Translate Developer Guide](https://docs.aws.amazon.com/translate/latest/dg/index.html)
+* [Amazon Translate API Reference](https://docs.aws.amazon.com/translate/latest/APIReference/index.html)
+* [AWS SDK for .NET Amazon Translate](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Translate/NTranslate.html)
+* [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
-

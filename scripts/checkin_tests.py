@@ -127,7 +127,15 @@ ALLOW_LIST = {
     'DynamodbRubyExampleCreateUsersTableStack',
     'com/rekognition/latest/dg/considerations',
     'ListTagsForVaultExample/ListTagsForVault',
-    'TerminateInstanceInAutoScalingGroupAsync'
+    'TerminateInstanceInAutoScalingGroupAsync',
+    'GetIdentityVerificationAttributesRequest',
+    'CancelExportTaskExample/CancelExportTask',
+    'CreateExportTaskExample/CreateExportTask',
+    'ListTagsExample/ListTagsExample/ListTags',
+    'SynthesizeSpeechExample/SynthesizeSpeech',
+    'com/autoscaling/ec2/APIReference/Welcome',
+    'CreateCollectionExample/CreateCollection',
+    'DeleteCollectionExample/DeleteCollection'
 }
 
 def check_files(root, quiet):

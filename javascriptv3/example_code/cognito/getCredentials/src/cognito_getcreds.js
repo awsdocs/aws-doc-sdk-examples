@@ -56,7 +56,7 @@ const showId = async () => {
     document.getElementById("results").innerHTML = results;
   } catch (err) {
     const errorResults = "Error" + err;
-    document.getElementById("results").innerHTML = results;
+    document.getElementById("results").innerHTML = errorResults;
   }
 };
 
