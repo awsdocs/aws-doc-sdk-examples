@@ -11,7 +11,6 @@
 #include <aws/transcribestreaming/model/StartStreamTranscriptionRequest.h>
 #include <aws/core/platform/FileSystem.h>
 #include <fstream>
-#include <cstdio>
 #include <chrono>
 #include <thread>
 #include <array>
@@ -39,7 +38,8 @@ int main()
 		//Load a profile that has been granted AmazonTranscribeFullAccess AWS managed permission policy.
 		Aws::Client::ClientConfiguration config;
 #ifdef _WIN32
-		// ATTENTION: On Windows, this example only runs if the SDK is built with the curl library.  (9/15/2022)
+		// ATTENTION: On Windows with AWS SDK version 1.9, this example only runs if the SDK is built
+        // with the curl library.  (9/15/2022)
 		// See the accompanying ReadMe.
 		// See "Building the SDK for Windows with curl".
 		// https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/setup-windows.html
@@ -139,5 +139,4 @@ int main()
 	Aws::ShutdownAPI(options);
 
 	return 0;
-
 }
