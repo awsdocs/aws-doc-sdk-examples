@@ -98,8 +98,8 @@ At this point, you have a new project named **AWSMessageRest**. Add the followin
 The **pom.xml** file looks like the following.
 
 ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <project xmlns="http://maven.apache.org/POM/4.0.0"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -153,7 +153,7 @@ The **pom.xml** file looks like the following.
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>ses</artifactId>
+            <artifactId>comprehend</artifactId>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -164,10 +164,6 @@ The **pom.xml** file looks like the following.
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>sqs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>comprehend</artifactId>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -183,7 +179,7 @@ The **pom.xml** file looks like the following.
             <artifactId>jakarta.mail</artifactId>
             <version>1.6.5</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
             <version>2.6.10</version>
@@ -208,8 +204,8 @@ The **pom.xml** file looks like the following.
                 </exclusion>
             </exclusions>
         </dependency>
-      </dependencies>
-      <build>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -217,7 +213,7 @@ The **pom.xml** file looks like the following.
             </plugin>
         </plugins>
     </build>
-   </project>
+</project>
 ```
 
 ## Create the Java classes
@@ -510,7 +506,9 @@ public class SendReceiveMessages {
 ## Run the application
 Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon (green arrow) in the App class. 
 
-**Note**: If you are already running a web server on port 8080, add a VM option, change the `server.port` property value in **resources/application.properties**.
+**Note**: If you are already running a web server on port 8080, add a VM option
+to your IntellJ IDEA run configuration. For example, add `-Dserver.port=8082`, to
+set Spring's embedded web server to listen on port 8082.
 
 The Spring API supports the following URLs:
 
@@ -518,9 +516,10 @@ The Spring API supports the following URLs:
 - /chat/add - A POST request that adds a new message to the queue. 
 - /api/purge - A GET request that deletes messages from the queue. 
 
-Note: The React SPA created in a following section consumes all of these URLs.
+Note: The React SPA that is created in the following section consumes all of these URLs.
 
-Confirm that the Spring REST API works by viewing the messages. Enter the following URL into a browser.
+Confirm that the Spring REST API works by viewing the messages. 
+Enter the following URL into a browser (change the port value as needed):
 
 http://localhost:8080/chat/msgs
 
@@ -530,7 +529,16 @@ The following image shows the JSON data returned from the Spring REST API.
 
 ## Create the React front end
 
-Create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository [Resources](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources).  
+Create the React SPA that consumes the JSON data returned from the 
+Spring REST API. To start, download files from the 
+following GitHub repository. Included in this repository are instructions 
+on how to set up the project. Click the following link to access the 
+GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/clients/react/sqs-chat/README.md).
+
+In the instructions for the React app, you'll see directions to replace the `BASE_URL` value.
+The React app uses the `BASE_URL` value to communicate with the Spring app.
+Be sure you use the same port you used to start the Spring app above. For example, use `http://localhost:8082/`
+for the `BASE_URL` value, if that is the port you used.
 
 You must modify the **AwsService.js** file so that your React requests work with your Java backend. Update this file to include the following code.
 
