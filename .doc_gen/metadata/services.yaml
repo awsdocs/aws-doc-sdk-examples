@@ -364,6 +364,14 @@ rds-data:
     product_categories: {'Database'}
   version: rds-data-2018-08-01
   api_ref: rdsdataservice/latest/APIReference/Welcome.html
+redshift:
+  long: '&RSlong;'
+  short: '&RS;'
+  sort: Redshift
+  tags:
+    product_categories: {'Database'}
+  version: redshift-2012-12-01
+  api_ref: redshift/latest/APIReference/Welcome.html
 rekognition:
   caveat: The code examples in this chapter are intended to supplement the code examples
     found throughout the rest of this guide.
