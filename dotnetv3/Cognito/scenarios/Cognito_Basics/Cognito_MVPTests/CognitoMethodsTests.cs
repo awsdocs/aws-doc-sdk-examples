@@ -73,7 +73,6 @@ namespace Cognito_MVP.Tests
         public static async Task ResendConfirmationCodeTest()
         {
             await CognitoMethods.ResendConfirmationCode(_Client, _ClientId, _UserName);
-            // What do I test here?
         }
 
         [Fact]
