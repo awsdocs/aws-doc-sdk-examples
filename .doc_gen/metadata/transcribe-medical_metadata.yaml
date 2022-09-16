@@ -5,6 +5,15 @@ transcribe_StartMedicalTranscriptionJob:
   synopsis: start an &TSCM; transcription job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.StartMedicalTranscriptionJob
     JavaScript:
       versions:
         - sdk_version: 3
@@ -25,6 +34,15 @@ transcribe_DeleteMedicalTranscriptionJob:
   synopsis: delete an &TSCM; transcription job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.DeleteMedicalTranscriptionJob
     JavaScript:
       versions:
         - sdk_version: 3
@@ -45,6 +63,15 @@ transcribe_ListMedicalTranscriptionJobs:
   synopsis: list &TSCM; transcription jobs.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.ListMedicalTranscriptionJobs
     JavaScript:
       versions:
         - sdk_version: 3
