@@ -18,7 +18,7 @@ redshift_CreateCluster:
               snippet_tags:
                 - redshift.javascript.redshift-create-clusterV3
   services:
-    rds: {CreateCluster}
+    redshift: {CreateCluster}
 redshift_DeleteCluster:
   title: Delete an &RS; cluster using an &AWS; SDK
   title_abbrev: Delete a cluster
@@ -38,7 +38,7 @@ redshift_DeleteCluster:
               snippet_tags:
                 - redshift.javascript.redshift-delete-clusterV3
   services:
-    rds: {DeleteCluster}
+    redshift: {DeleteCluster}
 redshift_DescribeClusters:
   title: Describe an &RS; cluster using an &AWS; SDK
   title_abbrev: Describe your clusters
@@ -58,7 +58,7 @@ redshift_DescribeClusters:
               snippet_tags:
                 - redshift.javascript.redshift-describe-clustersV3
   services:
-    rds: {DescribeClusters}
+    redshift: {DescribeClusters}
 redshift_ModifyCluster:
   title: Modify an &RS; cluster using an &AWS; SDK
   title_abbrev: Modify a cluster
@@ -78,4 +78,4 @@ redshift_ModifyCluster:
               snippet_tags:
                 - redshift.javascript.redshift-modify-clustersV3
   services:
-    rds: {DescribeClusters}
+    redshift: {DescribeClusters}
