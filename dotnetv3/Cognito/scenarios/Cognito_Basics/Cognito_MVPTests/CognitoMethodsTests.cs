@@ -6,17 +6,16 @@ namespace Cognito_MVP.Tests
     public class CognitoMethodsTests
     {
         private static AmazonCognitoIdentityProviderClient _Client = new AmazonCognitoIdentityProviderClient();
-        private static readonly _UserName = "test-user";
+        private static readonly string _UserName = "test-user";
+        private static readonly string _ClientId = "some-client-id";
+        private static string _Session = "";
+        private static string _MfaCode = "";
 
         [Fact]
         [Order(1)]
         public static async Task AdminRespondToAuthChallengeTest()
         {
-            var userName = "test-user";
-            var clientId = "some-client-id";
-            var mfaCode = "abcdefg-etc";
-            var session = "not a session";
-            var success = await CognitoMethods.AdminRespondToAuthChallenge(_Client, userName, clientId, mfaCode, session);
+            var success = await CognitoMethods.AdminRespondToAuthChallenge(_Client, _UserName, _ClientId, _MfaCode, _Session);
             Assert.True(success, "Challenge failed to authenticate user.");
         }
 
@@ -36,9 +35,8 @@ namespace Cognito_MVP.Tests
         [Order(7)]
         public static async Task VerifyTOTPTest()
         {
-            var session = "";
             var code = "";
-            var success = await CognitoMethods.VerifyTOTP(_Client, session, code);
+            var success = await CognitoMethods.VerifyTOTP(_Client, _Session, code);
             Assert.True(success, "Could not verify the one-time password.");
         }
 

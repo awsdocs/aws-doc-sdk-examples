@@ -9,7 +9,7 @@
 * https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html
 *
 * TIP: To set up the required user pool, run the AWS CDK script provided in this GitHub repo at:
-*      resources/cdk/cognito_scenario_user_pool_with_mfa.
+* resources/cdk/cognito_scenario_user_pool_with_mfa.
 *
 * This code example performs the following operations:
 *
@@ -75,7 +75,7 @@ if (ans.ToUpper() == "YES")
 }
 
 Console.WriteLine("*** Enter confirmation code that was emailed");
-String code = Console.ReadLine();
+string code = Console.ReadLine();
 await CognitoMethods.ConfirmSignUp(identityProviderClient, clientId, code, userName);
 
 Console.WriteLine($"*** Rechecking the status of {userName} in the user pool");
@@ -87,12 +87,12 @@ var mySession = authResponse.Session;
 var newSession = await CognitoMethods.GetSecretForAppMFA(identityProviderClient, mySession);
 
 Console.WriteLine("*** Enter the 6-digit code displayed in Google Authenticator");
-String myCode = Console.ReadLine();
+string myCode = Console.ReadLine();
 
 // Verify the TOTP and register for MFA.
 await CognitoMethods.VerifyTOTP(identityProviderClient, newSession, myCode);
 Console.WriteLine("*** Re-enter a 6-digit code displayed in Google Authenticator");
-String mfaCode = Console.ReadLine();
+string mfaCode = Console.ReadLine();
 
 var authResponse1 = await CognitoMethods.InitiateAuth(identityProviderClient, clientId, userName, password);
 var session2 = authResponse1.Session;

@@ -153,7 +153,11 @@ namespace Cognito_MVP
         /// <param name="userName">The user to confirm.</param>
         /// <returns>A Boolean value indicating the success of the confirmation
         /// operation.</returns>
-        public static async Task<bool> ConfirmSignUp(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string code, string userName)
+        public static async Task<bool> ConfirmSignUp(
+            AmazonCognitoIdentityProviderClient identityProviderClient,
+            string clientId,
+            string code,
+            string userName)
         {
             var signUpRequest = new ConfirmSignUpRequest
             {
