@@ -3,6 +3,9 @@
 
 namespace Cognito_MVP
 {
+    /// <summary>
+    /// Class whose members perform Amazon Cognit methods for the scenario.
+    /// </summary>
     public class CognitoMethods
     {
         /// <summary>
@@ -24,9 +27,11 @@ namespace Cognito_MVP
         {
             Console.WriteLine("SOFTWARE_TOKEN_MFA challenge is generated");
 
-            var challengeResponses = new Dictionary<string, string>();
-            challengeResponses.Add("USERNAME", userName);
-            challengeResponses.Add("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
+            var challengeResponses = new Dictionary<string, string>
+            {
+                { "USERNAME", userName },
+                { "SOFTWARE_TOKEN_MFA_CODE", mfaCode },
+            };
 
             var respondToAuthChallengeRequest = new RespondToAuthChallengeRequest
             {
@@ -123,12 +128,13 @@ namespace Cognito_MVP
         /// call.</returns>
         public static async Task<InitiateAuthResponse> InitiateAuth(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string userName, string password)
         {
-            var authParameters = new Dictionary<string, string>();
-            authParameters.Add("USERNAME", userName);
-            authParameters.Add("PASSWORD", password);
+            var authParameters = new Dictionary<string, string>
+            {
+                { "USERNAME", userName },
+                { "PASSWORD", password },
+            };
 
             var authRequest = new InitiateAuthRequest
-
             {
                 ClientId = clientId,
                 AuthParameters = authParameters,
@@ -214,7 +220,7 @@ namespace Cognito_MVP
         /// <returns></returns>
         public static async Task GetAdminUser(AmazonCognitoIdentityProviderClient identityProviderClient, string userName, string poolId)
         {
-            AdminGetUserRequest userRequest = new AdminGetUserRequest
+            var userRequest = new AdminGetUserRequest
             {
                 Username = userName,
                 UserPoolId = poolId,
@@ -249,9 +255,10 @@ namespace Cognito_MVP
                 Value = email,
             };
 
-            var userAttrsList = new List<AttributeType>();
-
-            userAttrsList.Add(userAttrs);
+            var userAttrsList = new List<AttributeType>
+            {
+                userAttrs,
+            };
 
             var signUpRequest = new SignUpRequest
             {
