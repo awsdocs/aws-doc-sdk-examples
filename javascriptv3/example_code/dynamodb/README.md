@@ -17,20 +17,20 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 
 ### API Examples - DynamoDB
 
-- [Create a DyanamoDB table](src/ddb_createtable.js) (CreateTableCommand)
-- [Create a DyanamoDB table - TV example](src/QueryExample/ddb_createtable_tv.js)
-- [Describe DyanamoDB tables](src/ddb_describetable.js) (DescribeTableCommand)
-- [Delete a DyanamoDB table](src/ddb_deletetable.js) (DeleteTableCommand)
+- [Create a DynamoDB table](src/ddb_createtable.js) (CreateTableCommand)
+- [Create a DynamoDB table - TV example](src/QueryExample/ddb_createtable_tv.js)
+- [Describe DynamoDB tables](src/ddb_describetable.js) (DescribeTableCommand)
+- [Delete a DynamoDB table](src/ddb_deletetable.js) (DeleteTableCommand)
 - [Delete an item](src/ddb_deleteitem.js) (DeleteItemCommand)
 - [Delete items using Document Client](src/ddbdoc_delete_item.js) (DeleteCommand)
 - [Get items](src/ddb_getitem.js) (GetItemCommand)
 - [Get batch items](src/ddb_batchgetitem.js) (BatchGetItemCommand)
 - [Get items using Document Client](src/movies/getItem.js) (GetCommand)
-- [List DyanamoDB tables](src/ddb_listtables.js) (ListTablesCommand)
+- [List DynamoDB tables](src/ddb_listtables.js) (ListTablesCommand)
 - [Put items using Document Client](src/movies/putItem.js) {(PutCommand)
-- [Query a DyanamoDB table using Document Client](src/movies/queryTable.js) (QueryCommand)
-- [Scan a DyanamoDB table using Document Client](src/movies/scanTable.js) (ScanCommand)
-- [Update a DyanamoDB table using Document Client](src/movies/updateItem.js) (UpdateCommand)
+- [Query a DynamoDB table using Document Client](src/movies/queryTable.js) (QueryCommand)
+- [Scan a DynamoDB table using Document Client](src/movies/scanTable.js) (ScanCommand)
+- [Update a DynamoDB table using Document Client](src/movies/updateItem.js) (UpdateCommand)
 - [Write batch items using Document Client](src/movies/writeData.js) (BatchGetWriteCommand)
 - [Write batch items - TV example](src/QueryExample/ddb_batchwriteitem_tv.js)
 
