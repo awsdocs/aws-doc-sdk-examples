@@ -52,6 +52,18 @@ To complete the tutorial, you need the following:
 
 Create a FIFO queue named **Message.fifo**. For more information, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html). 
 
+Add some items to the *Message.fifo* queue in the AWS console. After creating the queue, select the queue, then select 
+**Send and receive messages**. On the **Send and receive messages** page, enter sample data below,
+selecting **Send message** after data is entered for each row.
+
+| Message body               | Message group ID | Message deduplication ID | Message Attributes |
+|----------------------------|------------------|--------------------------|--------------------|
+| "I am going swimming soon" | 1                | 1                        | "Name":"lam"       |
+| "that sounds like fun"     | 2                | 2                        | "Name":"scott"     |
+| "would you like to come?"  | 3                | 3                        | "Name":"lam"       |
+| "sure"                     | 4                | 4                        | "Name":"scott"     |
+
+
 ## Understand the AWS Messaging React application
 
 The React application shows you how to work with Amazon SQS messages. The application posts a message to your Amazon SQS queue and it polls the Amazon SQS queue for new messages and displays them. You can enter a message and a user and then choose **Send Message**.
