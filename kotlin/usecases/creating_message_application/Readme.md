@@ -382,27 +382,20 @@ The following image shows the JSON data that is returned from the Spring REST AP
 
 ![AWS Messaging Application](images/messages.png)
 
-## Package the project into an executable JAR file
-
-Package up the project into an executable **.jar** (JAR) file by using the following Maven command.
-
-     mvn package
-
-The JAR file is located in the target folder.
-
-![AWS Messaging Application](images/jar.png)
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on AWS Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy to Elastic Beanstalk
-
-Deploy the Spring application to Elastic Beanstalk. To learn how, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
-
 ## Create the React front end
 
-Create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. For more information, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
+Create the React SPA that consumes the JSON data returned from the 
+Spring REST API. To start, download files from the 
+following GitHub repository. Included in this repository are instructions 
+on how to set up the project. Click the following link to access the 
+GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/clients/react/sqs-chat/README.md).
 
-You must modify the **AWSServices.js** file so that your React requests work with your Java backend. Update this file to include the following code.
+In the instructions for the React app, you'll see directions to replace the `BASE_URL` value.
+The React app uses the `BASE_URL` value to communicate with the Spring app.
+Be sure you use the same port you used to start the Spring app above. For example, use `http://localhost:8082/`
+for the `BASE_URL` value, if that is the port you used.
+
+You must modify the **AwsService.js** file so that your React requests work with your Java backend. Update this file to include the following code.
 
 ```javascript
 
