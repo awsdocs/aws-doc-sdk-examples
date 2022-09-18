@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# snippet-start:[ruby.example_code.lambda.handler.increment]
+# snippet-start:[ruby.example_code.lambda.handler.multiply]
 require 'logger'
 
-# A function that increments a whole number by one (1) and logs the result.
-# Requires a manually-provided runtime parameter, 'number', which must be Int
+# A function that multiplies two whole numbers and logs the result.
+# Requires two whole numbers provided at runtime: 'first_number' and 'second_number'
 #
 # @param event [Hash] contains parameters sent when the function is invoked
 # @param context [Hash] contains methods and properties that provide information
@@ -20,10 +20,10 @@ def lambda_handler(event:, context:)
                  else
                    Logger::ERROR
                  end
-  logger.debug('This is a debug log message.')
-  logger.info('This is an info log message. Code executed successfully!')
-  number = event["number"].to_i
-  incremented_number = number + 1
-  logger.info("You provided #{number.round} and it was incremented to #{incremented_number.round}")
+
+  first_number = event["first_number"].to_f
+  second_number = event["second_number"].to_f
+  product = first_number.round * second_number.round
+  logger.info("The product of #{first_number} and #{second_number} is #{product} ")
 end
-# snippet-end:[ruby.example_code.lambda.handler.increment]
+# snippet-end:[ruby.example_code.lambda.handler.multiply]
