@@ -6,14 +6,23 @@ namespace Lambda_Basics
     public class LambdaMethods
     {
         // snippet-start:[lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction]
-        public static async Task<bool> DeleteLambdaFunction(AmazonLambdaClient awsLambda, string functionName)
+
+        /// <summary>
+        /// Deletes a Lambda function.
+        /// </summary>
+        /// <param name="client">An initialized Lambda client object.</param>
+        /// <param name="functionName">The name of the Lambda function to
+        /// delete.</param>
+        /// <returns>A Boolean value that indicates where the function was
+        /// successfully deleted.</returns>
+        public static async Task<bool> DeleteLambdaFunction(AmazonLambdaClient client, string functionName)
         {
             var request = new DeleteFunctionRequest
             {
                 FunctionName = functionName,
             };
 
-            var response = await awsLambda.DeleteFunctionAsync(request);
+            var response = await client.DeleteFunctionAsync(request);
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
                 Console.WriteLine($"The {functionName} function was deleted.");
@@ -29,7 +38,17 @@ namespace Lambda_Basics
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction]
 
         // snippet-start:[lambda.dotnetv3.Lambda_Basics.UpdateFunctionCode]
-        public static async Task UpdateFunctionCode(AmazonLambdaClient awsLambda, string functionName, string bucketName, string key)
+
+        /// <summary>
+        /// Updates an existing Lambda function.
+        /// </summary>
+        /// <param name="client">An initialized Lambda client object.</param>
+        /// <param name="functionName">The name of the Lambda function to update.</param>
+        /// <param name="bucketName">The bucket where the zip file containing
+        /// the Lambda function code is stored.</param>
+        /// <param name="key">The key name of the source code file.</param>
+        /// <returns>A System Threading Task.</returns>
+        public static async Task UpdateFunctionCode(AmazonLambdaClient client, string functionName, string bucketName, string key)
         {
             var functionCodeRequest = new UpdateFunctionCodeRequest
             {
@@ -39,14 +58,22 @@ namespace Lambda_Basics
                 S3Key = key,
             };
 
-            var response = await awsLambda.UpdateFunctionCodeAsync(functionCodeRequest);
+            var response = await client.UpdateFunctionCodeAsync(functionCodeRequest);
             Console.WriteLine($"The Function was last modified at {response.LastModified}.");
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.UpdateFunctionCode]
 
         // snippet-start:[lambda.dotnetv3.Lambda_Basics.InvokeFunction]
-        public static async Task InvokeFunction(AmazonLambdaClient awsLambda, string functionName)
+
+        /// <summary>
+        /// Invokes a Lambda function.
+        /// </summary>
+        /// <param name="client">An initialized Lambda client object.</param>
+        /// <param name="functionName">The name of the Lambda function to
+        /// invoke.</param>
+        /// <returns>A System Threading Task.</returns>
+        public static async Task InvokeFunction(AmazonLambdaClient client, string functionName)
         {
             var payload = "{\"inputValue\":\"2000\"}";
             var request = new InvokeRequest
@@ -55,7 +82,7 @@ namespace Lambda_Basics
                 Payload = payload,
             };
 
-            var response = await awsLambda.InvokeAsync(request);
+            var response = await client.InvokeAsync(request);
             MemoryStream stream = response.Payload;
             string result = System.Text.Encoding.UTF8.GetString(stream.ToArray());
             Console.WriteLine(result);
@@ -64,21 +91,35 @@ namespace Lambda_Basics
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.InvokeFunction]
 
         // snippet-start:[lambda.dotnetv3.Lambda_Basics.ListFunctions]
-        public static async Task<List<FunctionConfiguration>> ListFunctions(AmazonLambdaClient awsLambda)
-        {
-            var functionResult = await awsLambda.ListFunctionsAsync();
-            var list = functionResult.Functions;
-            foreach (FunctionConfiguration config in list)
-            {
-                Console.WriteLine($"The function name is {config.FunctionName}");
-            }
 
-            return list;
+        /// <summary>
+        /// Gets a list of Lambda functions.
+        /// </summary>
+        /// <param name="client">The initialized Lambda client object.</param>
+        /// <returns>A list of FunctionConfiguration objects.</returns>
+        public static async Task<List<FunctionConfiguration>> ListFunctions(AmazonLambdaClient client)
+        {
+            var functionResult = await client.ListFunctionsAsync();
+            var functionList = functionResult.Functions;
+            functionList.ForEach(config =>
+            {
+                Console.WriteLine($"The function name is {config.FunctionName}.");
+            });
+
+            return functionList;
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.ListFunctions]
 
         // snippet-start:[lambda.dotnetv3.Lambda_Basics.GetFunction]
+
+        /// <summary>
+        /// Gets information about a Lambda function.
+        /// </summary>
+        /// <param name="awsLambda">The initialized Lambda client object.</param>
+        /// <param name="functionName">The name of the Lambda function for
+        /// which to retrieve information.</param>
+        /// <returns>A System Threading Task</returns>
         public static async Task GetFunction(AmazonLambdaClient awsLambda, string functionName)
         {
             var functionRequest = new GetFunctionRequest
@@ -93,6 +134,20 @@ namespace Lambda_Basics
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.GetFunction]
 
         // snippet-start:[lambda.dotnetv3.Lambda_Basics.CreateLambdaFunction]
+
+        /// <summary>
+        /// Creates a new Lambda function.
+        /// </summary>
+        /// <param name="awsLambda">The initialized Lambda client object.</param>
+        /// <param name="functionName">The name of the function.</param>
+        /// <param name="s3Bucket">The S3 bucket where the zip file containing
+        /// the code is located.</param>
+        /// <param name="s3Key">The S3 key of the zip file.</param>
+        /// <param name="role">A role with the appropriate Amazon Lambda
+        /// permissions.</param>
+        /// <param name="handler">The name of the handler function.</param>
+        /// <returns>The Amazon Resource Name (ARN) of the newly created
+        /// Amazon Lambda function.</returns>
         public static async Task<string> CreateLambdaFunction(
             AmazonLambdaClient awsLambda,
             string functionName,
