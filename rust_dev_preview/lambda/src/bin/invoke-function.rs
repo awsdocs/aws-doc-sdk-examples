@@ -32,7 +32,7 @@ async fn main() -> Result<(), Error> {
 
     let ArnOpt { arn, base } = ArnOpt::from_args();
 
-    let (client, _) = make_client(base).await;
+    let client = make_client(base).await;
 
     run_function(&client, &arn).await
 }

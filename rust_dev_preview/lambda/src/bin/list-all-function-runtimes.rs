@@ -4,7 +4,7 @@
  */
 
 use aws_sdk_lambda::Error;
-use lambda_code_examples::{make_client, Opt as BaseOpt};
+use lambda_code_examples::{make_client, make_config, Opt as BaseOpt};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -21,9 +21,10 @@ struct Opt {
 /// Lists the ARNs and runtimes of all Lambda functions in all Regions.
 // snippet-start:[lambda.rust.list-all-function-runtimes]
 async fn show_lambdas(language: &str, region: &str, verbose: bool) -> Result<(), Error> {
-    let (client, _) = make_client(BaseOpt {
+    let language = language.to_ascii_lowercase();
+    let client = make_client(BaseOpt {
         region: Some(region.to_string()),
-        verbose,
+        verbose: false,
     })
     .await;
     let resp = client.list_functions().send().await?;
@@ -40,11 +41,8 @@ async fn show_lambdas(language: &str, region: &str, verbose: bool) -> Result<(),
                     .unwrap_or_else(|| String::from("Unknown")),
             )
         })
-        .filter(|(_, runtime_str)| {
-            language.is_empty()
-                || runtime_str
-                    .to_ascii_lowercase()
-                    .contains(&language.to_ascii_lowercase())
+        .filter(|(_, runtime)| {
+            language.is_empty() || runtime.to_ascii_lowercase().contains(&language)
         });
 
     for (func, rt_str) in functions {
@@ -81,7 +79,7 @@ async fn main() -> Result<(), Error> {
     let language = language.as_deref().unwrap_or_default();
     let verbose = base.verbose;
 
-    let (_, sdk_config) = make_client(base).await;
+    let sdk_config = make_config(base).await;
 
     let ec2_client = aws_sdk_ec2::Client::new(&sdk_config);
 

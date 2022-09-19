@@ -34,7 +34,7 @@ pub fn make_region_provider(opt: Option<String>) -> RegionProviderChain {
         .or_else(Region::new("us-west-2"))
 }
 
-pub async fn make_client(opt: Opt) -> (Client, SdkConfig) {
+pub async fn make_config(opt: Opt) -> SdkConfig {
     let region_provider = make_region_provider(opt.region);
     println!();
 
@@ -48,6 +48,9 @@ pub async fn make_client(opt: Opt) -> (Client, SdkConfig) {
         println!();
     }
 
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
-    (Client::new(&shared_config), shared_config)
+    aws_config::from_env().region(region_provider).load().await
+}
+
+pub async fn make_client(opt: Opt) -> Client {
+    Client::new(&make_config(opt).await)
 }
