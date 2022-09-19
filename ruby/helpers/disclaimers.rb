@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require 'cli/ui'
-require_relative('colorizer')
+require "cli/ui"
+require_relative("colorizer")
 
 def billing
   puts "\e[H\e[2J"
@@ -15,7 +15,7 @@ def billing
   puts "    https://aws.amazon.com/pricing/?aws-products-pricing"
   puts ""
   puts "==========================================================================".yellow
-  reply = CLI::UI::Prompt.confirm('Do you understand the above BILLING DISCLAIMER and wish to continue?')
+  reply = CLI::UI::Prompt.confirm("Do you understand the above BILLING DISCLAIMER and wish to continue?")
   exit unless reply
 end
 
@@ -31,6 +31,6 @@ def security
   puts "    https://aws.amazon.com/compliance/shared-responsibility-model/"
   puts ""
   puts "==========================================================================".yellow
-  reply = CLI::UI::Prompt.confirm('Do you understand the above SECURITY DISCLAIMER and wish to continue?')
+  reply = CLI::UI::Prompt.confirm("Do you understand the above SECURITY DISCLAIMER and wish to continue?")
   exit unless reply
 end
