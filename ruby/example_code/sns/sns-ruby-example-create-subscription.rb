@@ -26,9 +26,9 @@ end
 def run_me
 
 protocol = 'email'
-endpoint = 'EMAIL_ADDRESS'
-topic_arn = 'TOPIC_ARN'
-region = 'REGION'
+endpoint = 'priorww@gmail.com'
+topic_arn = 'arn:aws:sns:us-east-1:260778392212:test_topic'
+region = 'us-east-1'
 
 sns_client = Aws::SNS::Client.new(region: region)
 

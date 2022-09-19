@@ -22,7 +22,7 @@ rescue StandardError => e
 
 def run_me
 
-  region = 'REGION'
+  region = 'us-east-1'
   sns_client = Aws::SNS::Resource.new(region: region)
 
   puts "Listing the topics."

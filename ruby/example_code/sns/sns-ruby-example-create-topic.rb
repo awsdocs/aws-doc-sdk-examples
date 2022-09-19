@@ -22,8 +22,8 @@ end
 
 # Full example call:
 def run_me
-  topic_name = 'TOPIC_NAME'
-  region = 'REGION'
+  topic_name = 'test_topic'
+  region = 'us-east-1'
 
   sns_client = Aws::SNS::Client.new(region: region)
 

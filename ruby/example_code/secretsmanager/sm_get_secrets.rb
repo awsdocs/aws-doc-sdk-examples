@@ -13,7 +13,7 @@ require 'aws-sdk-secretsmanager'
 
 # Gets all secrets in us-west-2
 # Replace us-west-2 with the AWS Region you're using for Amazon Secrets Manager.
-sm = Aws::SecretsManager::Client.new(region: 'us-west-2')
+sm = Aws::SecretsManager::Client.new(region: 'us-east-1')
 
 resp = sm.list_secrets
 

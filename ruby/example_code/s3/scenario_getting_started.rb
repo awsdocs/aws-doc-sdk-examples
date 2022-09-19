@@ -21,6 +21,7 @@ class ScenarioGettingStarted
   # @param s3_resource [Aws::S3::Resource] An Amazon S3 resource.
   def initialize(s3_resource)
     @s3_resource = s3_resource
+    @s3_resource.client.config.region = 'us-west-2'
   end
 
   # Creates a bucket with a random name in the currently configured account and

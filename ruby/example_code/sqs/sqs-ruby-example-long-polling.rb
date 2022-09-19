@@ -10,7 +10,10 @@ require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 Aws.config.update({region: 'us-west-2'})
 
-poller = Aws::SQS::QueuePoller.new(URL)
+url = 'https://sqs.us-west-2.amazonaws.com/260778392212/my-queue'
+duration = 10
+
+poller = Aws::SQS::QueuePoller.new(url)
 
 poller.poll(wait_time_seconds: duration, idle_timeout: duration + 1) do |msg|
   puts msg.body
