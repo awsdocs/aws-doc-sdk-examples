@@ -100,6 +100,21 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String& tableName,
     return result.IsSuccess();
 }
 
+Aws::String AwsDoc::DynamoDB::askQuestion(const Aws::String& string)
+{
+    Aws::String result;
+    do {
+        std::cout << string << std::endl;
+        std::cin >> result;
+        if (result.empty())
+        {
+            std::cout << "Please enter some text." << std::endl;
+        }
+    } while (result.empty());
+
+    return result;
+}
+
 #ifndef TESTING_BUILD
 int main(int argc, char** argv)
 {
