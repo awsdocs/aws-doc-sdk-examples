@@ -1,3 +1,7 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 import { v4 as uuidv4 } from "uuid";
 
 export const getUniqueName = (name) => `${uuidv4()}-${name.toLowerCase()}`;

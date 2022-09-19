@@ -1,26 +1,22 @@
 {
-  "name": "slotassets",
+  "name": "scenario-lambda",
   "version": "1.0.0",
-  "description": "A simulated browser-based slot machine game demonstrating the AWS SDK for JavaScript V3.",
+  "description": "An interactive example demonstrating basic usage of AWS Lambda for the AWS SDK for JavaScript (v3)",
   "main": "index.js",
-  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
-  "author": "Doug-AWS, AllanFly120",
-  "license": "Apache 2.0",
+  "author": "Corey Pyle (corepyle@amazon.com)",
+  "license": "Apache-2.0",
+  "type": "module",
   "scripts": {
-    "build:frontend": "webpack MyLambdaApp/index.ts --mode development --target web --devtool false -o MyLambdaApp/main.ts",
-    "build:backend": "webpack slotpull.ts --mode development --target node --devtool false --output-library-target umd -o index.ts",
-    "test": "exit 0"
+    "install": "yarn --cwd ./scenarios/basic/functions/func-math && yarn --cwd ./scenarios/basic/functions/func-update && yarn --cwd ../iam",
+    "start": "node ./index.js",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^1.0.0-gamma.1",
-    "@aws-sdk/client-dynamodb": "^1.0.0-gamma.2",
-    "@aws-sdk/client-iam": "^1.0.0-gamma.2",
-    "@aws-sdk/client-lambda": "^1.0.0-gamma.2",
-    "@aws-sdk/client-s3": "^1.0.0-gamma.1",
-    "@aws-sdk/credential-provider-cognito-identity": "^1.0.0-gamma.2"
+    "@aws-sdk/client-lambda": "^3.163.0",
+    "ramda": "^0.28.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.23",
-    "typescript": "^4.0.2"
+    "@types/ramda": "^0.28.15",
+    "jest": "^29.0.3"
   }
 }
