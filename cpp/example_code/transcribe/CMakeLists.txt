@@ -39,7 +39,12 @@ if(MSVC AND BUILD_SHARED_LIBS)
     message(STATUS ">>EXECUTABLE_OUTPUT_PATH : ${EXECUTABLE_OUTPUT_PATH}")
 endif()
 
+
 add_executable(${PROJECT_NAME} "get_transcript.cpp" )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${AWSSDK_LINK_LIBRARIES})
+
+target_compile_definitions(${PROJECT_NAME}
+        PRIVATE
+        MEDIA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/media" )
 
