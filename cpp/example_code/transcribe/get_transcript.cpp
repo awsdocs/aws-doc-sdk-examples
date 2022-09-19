@@ -20,7 +20,7 @@ using namespace Aws::TranscribeStreamingService;
 using namespace Aws::TranscribeStreamingService::Model;
 
 //TODO(User): Update path to location of local .wav test file.
-static const Aws::String FILE_NAME{"../transcribe-test-file.wav"};
+static const Aws::String FILE_NAME{"../media/transcribe-test-file.wav"};
 static const int BUFFER_SIZE = 1024;
 static const int END_OF_STREAM_SLEEP_SECONDS = 10;
 
