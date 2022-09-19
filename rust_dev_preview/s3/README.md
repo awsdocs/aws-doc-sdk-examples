@@ -69,8 +69,10 @@ cargo test -p s3_code_examples -- --include-ignored --nocapture
 
 ## Additional resources
 
-- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+- [S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Type_API_Reference.html)
 - [AWS SDK for Rust API Reference for Amazon S3](https://docs.rs/aws-sdk-s3)
 - [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg) 
+- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
