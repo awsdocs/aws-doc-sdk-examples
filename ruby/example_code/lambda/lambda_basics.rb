@@ -286,5 +286,5 @@ class LambdaWrapper
     @logger.error("There was an error deleting #{function_name}:\n #{e.message}")
   end
   # snippet-end:[ruby.example_code.lambda.DeleteFunction]
-  # snippet-end:[ruby.example_code.python.LambdaWrapper.full]
+  # snippet-end:[ruby.example_code.ruby.LambdaWrapper.full]
 end

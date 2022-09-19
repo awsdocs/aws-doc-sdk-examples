@@ -116,4 +116,6 @@ def run_scenario
   puts "==========================================================================".yellow
 end
 
+# snippet-end:[ruby.example_code.lambda.Scenario_GettingStartedFunctions]
+
 run_scenario if __FILE__ == $PROGRAM_NAME
