@@ -22,6 +22,7 @@ import { invoke } from "../actions/invoke.js";
 import { listFunctions } from "../actions/list-functions.js";
 import { updateFunctionCode } from "../actions/update-function-code.js";
 import { updateFunctionConfiguration } from "../actions/update-function-configuration.js";
+import { parseString } from "../../libs/ext-ramda.js";
 
 jest.setTimeout(120000);
 

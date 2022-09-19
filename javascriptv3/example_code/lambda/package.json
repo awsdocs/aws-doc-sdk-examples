@@ -1,14 +1,13 @@
 {
-  "name": "scenario-lambda",
+  "name": "example-javascriptv3-lambda",
   "version": "1.0.0",
-  "description": "An interactive example demonstrating basic usage of AWS Lambda for the AWS SDK for JavaScript (v3)",
+  "description": "Code samples for interacting with Lambda via the AWS SDK for JavaScript (v3)",
   "main": "index.js",
   "author": "Corey Pyle (corepyle@amazon.com)",
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "install": "yarn --cwd ./scenarios/basic/functions/func-math && yarn --cwd ./scenarios/basic/functions/func-update && yarn --cwd ../iam",
-    "start": "node ./index.js",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "dependencies": {
