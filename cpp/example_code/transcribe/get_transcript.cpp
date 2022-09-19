@@ -86,12 +86,12 @@ int main()
 			int i = 0;
 			while (file)
 			{
-				file.read(buf.begin(), buf.size());
+				file.read(&buf[0], buf.size());
 
 				if (!file)
 					std::cout << "File: only " << file.gcount() << " could be read" << std::endl;
 
-				Aws::Vector<unsigned char> bits{ buf.begin(), buf.begin() + file.gcount() };
+				Aws::Vector<unsigned char> bits{ buf.begin(), buf.end()};
 				AudioEvent event(std::move(bits));
 				if (!stream)
 				{
