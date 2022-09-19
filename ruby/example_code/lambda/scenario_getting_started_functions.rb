@@ -15,8 +15,8 @@ require "json"
 require "zip"
 require "cli/ui"
 require "pry"
-require_relative("../../../../../aws-doc-sdk-examples/ruby/helpers/disclaimers")
-require_relative("../../../../../aws-doc-sdk-examples/ruby/helpers/decorators")
+require_relative("../../helpers/disclaimers")
+require_relative("../../helpers/decorators")
 require_relative("lambda_basics")
 require_relative("lambda_function")
 
@@ -110,6 +110,7 @@ def run_scenario
   new_step(7, "Delete function code")
   print "That's a wrap! Destroying IAM role and function..."
   wrapper.manage_iam("#{custom_name}-role", "destroy")
+  print "Done!\n".green
   wrapper.delete_function(custom_name)
   print "Done!\n".green
   puts "==========================================================================".yellow

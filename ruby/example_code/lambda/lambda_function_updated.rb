@@ -27,6 +27,6 @@ def lambda_handler(event:, context:)
   first_number = event["first_number"].to_f
   second_number = event["second_number"].to_f
   product = first_number.round * second_number.round
-  logger.info("The product of #{first_number} and #{second_number} is #{product} ")
+  logger.info("The product of #{first_number.round} and #{second_number.round} is #{product} ")
 end
 # snippet-end:[ruby.example_code.lambda.handler.multiply]
