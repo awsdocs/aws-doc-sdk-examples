@@ -304,10 +304,6 @@ lambda_Scenario_GettingStartedFunctions:
           github: javascriptv3/example_code/lambda
           sdkguide:
           excerpts:
-            - description:
-                This is an interactive example. The steps below show some basic functionality,
-                but for the best experience visit the GitHub repository.
-              snippet_tags:
             - description: Create an &IAMlong; (&IAM;) role that grants Lambda permission to write to logs.
               snippet_tags:
                 - javascript.v3.lambda.scenarios.basic.CreateRole

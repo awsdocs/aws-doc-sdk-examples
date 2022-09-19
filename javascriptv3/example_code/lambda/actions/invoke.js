@@ -5,8 +5,8 @@
 import { InvokeCommand, LambdaClient, LogType } from "@aws-sdk/client-lambda";
 import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
 
+/** snippet-start:[javascript.v3.lambda.actions.Invoke] */
 const invoke = async (funcName, payload) => {
-  /** snippet-start:[javascript.v3.lambda.actions.Invoke] */
   const client = createClientForDefaultRegion(LambdaClient);
   const command = new InvokeCommand({
     FunctionName: funcName,
@@ -18,7 +18,7 @@ const invoke = async (funcName, payload) => {
   const result = Buffer.from(Payload).toString();
   const logs = Buffer.from(LogResult, "base64").toString();
   return { logs, result };
-  /** snippet-end:[javascript.v3.lambda.actions.Invoke] */
 };
+/** snippet-end:[javascript.v3.lambda.actions.Invoke] */
 
 export { invoke };

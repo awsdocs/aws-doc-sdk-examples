@@ -14,9 +14,8 @@ import { zip, dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 
+/** snippet-start:[javascript.v3.lambda.actions.UpdateFunctionCode] */
 const updateFunctionCode = async (funcName, newFunc) => {
-  /** snippet-start:[javascript.v3.lambda.actions.UpdateFunctionCode] */
-
   const client = createClientForDefaultRegion(LambdaClient);
   const code = await zip(`${dirname}../functions/${newFunc}`);
   const command = new UpdateFunctionCodeCommand({
@@ -29,7 +28,7 @@ const updateFunctionCode = async (funcName, newFunc) => {
   });
 
   return client.send(command);
-  /** snippet-end:[javascript.v3.lambda.actions.UpdateFunctionCode] */
 };
+/** snippet-end:[javascript.v3.lambda.actions.UpdateFunctionCode] */
 
 export { updateFunctionCode };

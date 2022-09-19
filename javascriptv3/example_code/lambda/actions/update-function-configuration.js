@@ -12,16 +12,18 @@ import { dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 
+/** snippet-start:[javascript.v3.lambda.actions.UpdateFunctionConfiguration] */
 const updateFunctionConfiguration = async (funcName) => {
-  /** snippet-start:[javascript.v3.lambda.actions.UpdateFunctionConfiguration] */
   const client = createClientForDefaultRegion(LambdaClient);
-  const config = readFileSync(`${dirname}../functions/${funcName}/config.json`).toString();
+  const config = readFileSync(
+    `${dirname}../functions/${funcName}/config.json`
+  ).toString();
   const command = new UpdateFunctionConfigurationCommand({
     ...JSON.parse(config),
     FunctionName: funcName,
   });
   return client.send(command);
-  /** snippet-end:[javascript.v3.lambda.actions.UpdateFunctionConfiguration] */
 };
+/** snippet-end:[javascript.v3.lambda.actions.UpdateFunctionConfiguration] */
 
 export { updateFunctionConfiguration };
