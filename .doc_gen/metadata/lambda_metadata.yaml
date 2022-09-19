@@ -339,4 +339,4 @@ lambda_Scenario_GettingStartedFunctions:
                 - ruby.example_code.lambda.DeleteFunction
   services:
     lambda: {CreateFunction, DeleteFunction, Invoke, GetFunction, ListFunctions,
-              UpdateFunctionCode, UpdateFunctionConfiguration}
+             UpdateFunctionCode, UpdateFunctionConfiguration}
