@@ -301,7 +301,7 @@ lambda_Scenario_GettingStartedFunctions:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/lambda
+          github: javascriptv3/example_code/lambda/scenarios/basic
           sdkguide:
           excerpts:
             - description: Create an &IAMlong; (&IAM;) role that grants Lambda permission to write to logs.
