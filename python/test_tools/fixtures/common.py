@@ -7,10 +7,13 @@ code examples.
 """
 
 import contextlib
+import logging
 import time
 import pytest
 
 from test_tools.stubber_factory import stubber_factory
+
+logger = logging.getLogger(__name__)
 
 
 def pytest_configure(config):
@@ -157,11 +160,17 @@ class StubRunner:
         In this way, flexible tests can be written that both run successfully through
         all stubbed calls or raise errors and exit early.
         """
-        for stub in self.stubs:
-            if self.stop_on_method == stub['func'].__name__ and not stub['keep_going']:
+        for index, stub in enumerate(self.stubs):
+            match = False
+            if isinstance(self.stop_on_method, int):
+                match = self.stop_on_method == index
+            elif isinstance(self.stop_on_method, str):
+                match = self.stop_on_method == stub['func'].__name__
+
+            if match and not stub['keep_going']:
                 stub['func_kwargs']['error_code'] = self.error_code
             stub['func'](*stub['func_args'], **stub['func_kwargs'])
-            if (self.stop_on_method == stub['func'].__name__ and not stub['keep_going']
+            if (match and not stub['keep_going']
                     and not stub['raise_and_continue']):
                 break
 
@@ -178,3 +187,30 @@ def stub_runner():
         yield runner
         runner.run()
     return _runner
+
+
+class InputMocker:
+    def __init__(self, monkeypatch):
+        self.answers = None
+        self.index = 0
+        self.monkeypatch = monkeypatch
+
+    def mock_answers(self, answers):
+        self.answers = answers
+        self.index = 0
+        self.monkeypatch.setattr('builtins.input', self._handle_input)
+
+    # To see input logs during test, turn on live logging:
+    #   py -m pytest -o log_cli=true --log-cli-level=INFO
+    def _handle_input(self, question):
+        if self.index >= len(self.answers):
+            raise IndexError(f"Got question '{question}' but have no more answers.")
+        val = self.answers[self.index]
+        self.index += 1
+        logger.info("Input Q: %s A: %s", question, val)
+        return val
+
+
+@pytest.fixture
+def input_mocker(monkeypatch):
+    return InputMocker(monkeypatch)

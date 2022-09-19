@@ -1,0 +1,300 @@
+aurora_DescribeDBClusterParameterGroups:
+  title: Describe &AUR; cluster parameter groups using an &AWS; SDK
+  title_abbrev: Describe cluster parameter groups
+  synopsis: describe &AUR; cluster parameter groups.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DescribeDBClusterParameterGroups
+  services:
+    aurora: {DescribeDBClusterParameterGroups}
+aurora_CreateDBClusterParameterGroup:
+  title: Create an &AUR; cluster parameter group using an &AWS; SDK
+  title_abbrev: Create a cluster parameter group
+  synopsis: create an &AUR; cluster parameter group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.CreateDBClusterParameterGroup
+  services:
+    aurora: {CreateDBClusterParameterGroup}
+aurora_DeleteDBClusterParameterGroup:
+  title: Delete an &AUR; cluster parameter group using an &AWS; SDK
+  title_abbrev: Delete a cluster parameter group
+  synopsis: delete an &AUR; cluster parameter group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DeleteDBClusterParameterGroup
+  services:
+    aurora: {DeleteDBClusterParameterGroup}
+aurora_DescribeDBClusterParameters:
+  title: Describe parameters from an &AUR; cluster parameter group using an &AWS; SDK
+  title_abbrev: Describe parameters from a cluster parameter group
+  synopsis: describe parameters from an &AUR; cluster parameter group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DescribeDBClusterParameters
+  services:
+    aurora: {DescribeDBClusterParameters}
+aurora_ModifyDBClusterParameterGroup:
+  title: Update parameters in an &AUR; cluster parameter group using an &AWS; SDK
+  title_abbrev: Update parameters in a cluster parameter group
+  synopsis: update parameters in an &AUR; cluster parameter group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.ModifyDBClusterParameterGroup
+  services:
+    aurora: {ModifyDBClusterParameterGroup}
+aurora_DescribeDBClusters:
+  title: Describe &AUR; clusters using an &AWS; SDK
+  title_abbrev: Describe clusters
+  synopsis: describe &AUR; clusters.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DescribeDBClusters
+  services:
+    aurora: {DescribeDBClusters}
+aurora_CreateDBCluster:
+  title: Create an &AUR; cluster using an &AWS; SDK
+  title_abbrev: Create a cluster
+  synopsis: create an &AUR; cluster.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.CreateDBCluster
+  services:
+    aurora: {CreateDBCluster}
+aurora_DeleteDBCluster:
+  title: Delete an &AUR; cluster using an &AWS; SDK
+  title_abbrev: Delete a cluster
+  synopsis: delete an &AUR; cluster.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DeleteDBCluster
+  services:
+    aurora: {DeleteDBCluster}
+aurora_CreateDBClusterSnapshot:
+  title: Create an &AUR; cluster snapshot using an &AWS; SDK
+  title_abbrev: Create a cluster snapshot
+  synopsis: create an &AUR; cluster snapshot.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.CreateDBClusterSnapshot
+  services:
+    aurora: {CreateDBClusterSnapshot}
+aurora_DescribeDBClusterSnapshots:
+  title: Describe &AUR; cluster snapshots using an &AWS; SDK
+  title_abbrev: Describe cluster snapshots
+  synopsis: describe &AUR; cluster snapshots.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DescribeDBClusterSnapshots
+  services:
+    aurora: {DescribeDBClusterSnapshots}
+aurora_CreateDBInstance:
+  title: Create a DB instance in an &AUR; cluster using an &AWS; SDK
+  title_abbrev: Create a DB instance in a cluster
+  synopsis: create a DB instance in an &AUR; cluster.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.CreateDBInstance_InCluster
+  services:
+    aurora: {CreateDBInstance}
+aurora_DescribeDBEngineVersions:
+  title: Describe &AUR; database engine versions using an &AWS; SDK
+  title_abbrev: Describe database engine versions
+  synopsis: describe &AUR; database engine versions.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DescribeDBEngineVersions
+  services:
+    aurora: {DescribeDBEngineVersions}
+aurora_DescribeOrderableDBInstanceOptions:
+  title: Describe options for &AUR; DB instances using an &AWS; SDK
+  title_abbrev: Describe options for DB instances
+  synopsis: describe options for &AUR; DB instances.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DescribeOrderableDBInstanceOptions
+  services:
+    aurora: {DescribeOrderableDBInstanceOptions}
+aurora_DescribeDBInstances:
+  title: Describe &AUR; DB instances using an &AWS; SDK
+  title_abbrev: Describe DB instances
+  synopsis: describe &AUR; DB instances.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DescribeDBInstances
+  services:
+    aurora: {DescribeDBInstances}
+aurora_DeleteDBInstance:
+  title: Delete an &AUR; DB instance using an &AWS; SDK
+  title_abbrev: Delete a DB instance
+  synopsis: delete an &AUR; DB instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_decl
+                - python.example_code.aurora.DeleteDBInstance
+  services:
+    aurora: {DeleteDBInstance}
+aurora_Scenario_GetStartedClusters:
+  title: Get started with &AUR; clusters using an &AWS; SDK
+  title_abbrev: Get started with clusters
+  synopsis_list:
+    - Create a custom &AUR; cluster parameter group and set parameter values.
+    - Create a cluster that is configured to use the parameter group.
+    - Create a DB instance in the cluster that contains a database.
+    - Take a snapshot of the cluster.
+    - Delete the instance, cluster, and parameter group.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.aurora.Scenario_GetStartedClusters
+            - description: Define functions that are called by the scenario to
+                manage &AUR; actions.
+              snippet_tags:
+                - python.example_code.aurora.helper.AuroraWrapper_full
+  services:
+    aurora: {CreateDBCluster, CreateDBClusterParameterGroup, CreateDBClusterSnapshot,
+             CreateDBInstance, DeleteDBCluster, DeleteDBClusterParameterGroup, DeleteDBInstance,
+             DescribeDBClusterParameterGroups, DescribeDBClusterSnapshots, DescribeDBClusters,
+             DescribeDBEngineVersions, DescribeDBInstances, DescribeOrderableDBInstanceOptions,
+             DescribeDBClusterParameters, ModifyDBClusterParameterGroup}
