@@ -1,5 +1,5 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0 gg
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
