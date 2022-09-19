@@ -56,6 +56,8 @@ namespace ListFunctionsExample
             return response.Functions;
         }
 
+        // snippet-start:[Lambda.dotnetv3.ListFunctionsExample.Paginator]
+
         /// <summary>
         /// Uses a Lambda paginator to retrieve the list of functions in the
         /// AWS Region with which the Lambda client was initialized.
@@ -82,6 +84,8 @@ namespace ListFunctionsExample
 
             return functions;
         }
+
+        // snippet-end:[Lambda.dotnetv3.ListFunctionsExample.Paginator]
 
         /// <summary>
         /// Displays the details of each function in the list of functions

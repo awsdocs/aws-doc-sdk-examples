@@ -5,6 +5,15 @@ lambda_CreateFunction:
   synopsis: create a &LAM; function.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_versions: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.CreateLambdaFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -41,6 +50,15 @@ lambda_DeleteFunction:
   synopsis: delete a &LAM; function.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -77,6 +95,14 @@ lambda_Invoke:
   synopsis: invoke a &LAM; function.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.InvokeFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -113,6 +139,15 @@ lambda_GetFunction:
   synopsis: get a &LAM; function.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.GetFunction
     Python:
       versions:
         - sdk_version: 3
@@ -131,6 +166,15 @@ lambda_UpdateFunctionCode:
   synopsis: update &LAM; function code.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.UpdateFunctionCode
     Python:
       versions:
         - sdk_version: 3
@@ -167,6 +211,18 @@ lambda_ListFunctions:
   synopsis: list &LAM; functions.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.ListFunctions
+            - Listfunctions using a paginator
+              snippet_tags:
+                - Lambda.dotnetv3.ListFunctionsExample.Paginator
     Python:
       versions:
         - sdk_version: 3
@@ -197,6 +253,16 @@ lambda_Scenario_GettingStartedFunctions:
     title: "Create a &LAM; function with the console"
     url: lambda/latest/dg/getting-started-create-function.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.globalusings
+                - lambda.dotnetv3.Lambda_Basics.main
     Kotlin:
       versions:
         - sdk_version: 1

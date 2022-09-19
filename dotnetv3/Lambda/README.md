@@ -24,10 +24,14 @@ backend service—all with zero administration.
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
+- [Create a function](scenarios/Lambda_Basics/Lambda_Basics/LambdaMethods.cs) (`CreateFunctionAsync`)
 - [Create a DynamoDB table](CreateDynamoDBTableExample/CreateDynamoDBTableExample/Function.cs) (`RunAsync`)
 - [Create an S3 bucket](CreateDynamoDBTableExample/CreateDynamoDBTableExample/Function.cs) (`RunAsync`)
-- [Invoke a function](InvokeFunctionExample/InvokeFunctionExample/InvokeFunction.cs) (`CreateFunctionAsync`)
-- [List functions](ListFunctionsExample/ListFunctionsExample/ListFunctions.cs) (`ListFunctionsAsync`)
+- [Delete a function](scenarios/Lambda_Basics/Lambda_Basics/LambdaMethods.cs) (`DeleteFunctionAsync`)
+- [Get a function](scenarios/Lambda_Basics/Lambda_Basics/LambdaMethods.cs) (`GetFunctionAsync`)
+- [Invoke a function](InvokeFunctionExample/InvokeFunctionExample/InvokeFunction.cs) (`InvokeAsync`)
+- [List functions](ListFunctionsExample/ListFunctionsExample/ListFunctions.cs) (`ListFunctionsAsync`, `Paginators.ListFunctions`)
+- [Update a function](scenarios/Lambda_Basics/Lambda_Basics/LambdaMethods.cs) (`UpdateFunctionCodeAsync`)
 - [Set up role](SetuplambdaRoleExample/SetuplambdaRoleExample/SetupLambdaRole.cs)
 
 ### Scenarios
