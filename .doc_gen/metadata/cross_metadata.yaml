@@ -4,6 +4,10 @@ cross_SQSMessageApp:
   title_abbrev: Create a messaging application
   synopsis: create a messaging application by using the &SQSlong; API.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_SQSMessage_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2
