@@ -1,12 +1,13 @@
-﻿using Amazon;
-using Amazon.Lambda;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
 
 namespace Lambda_Basics.Tests
 {
     public class LambdaMethodsTests
     {
-        private static string _FunctionName = "test-function";
+        private static readonly string _FunctionName = "test-function";
         private static readonly AmazonLambdaClient _Client;
+        private static string _FunctionArn;
 
         static LambdaMethodsTests()
         {
@@ -53,9 +54,9 @@ namespace Lambda_Basics.Tests
         }
 
         [Fact()]
-        public void CreateLambdaFunctionTest()
+        public async static Task CreateLambdaFunctionTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            
         }
     }
 }
