@@ -46,5 +46,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${AWSSDK_LINK_LIBRARIES})
 
 target_compile_definitions(${PROJECT_NAME}
         PRIVATE
-        MEDIA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/media" )
+        MEDIA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/.media" )
 
