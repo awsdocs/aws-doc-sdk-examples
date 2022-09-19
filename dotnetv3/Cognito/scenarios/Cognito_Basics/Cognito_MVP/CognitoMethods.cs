@@ -193,7 +193,7 @@ namespace Cognito_MVP
         /// <param name="clientId">The client Id of the application associated
         /// with the user pool.</param>
         /// <param name="userName">The user name to be confirmed.</param>
-        /// <returns></returns>
+        /// <returns>A System Threading Task.</returns>
         public static async Task ResendConfirmationCode(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string userName)
         {
             var codeRequest = new ResendConfirmationCodeRequest
@@ -217,7 +217,7 @@ namespace Cognito_MVP
         /// the status.</param>
         /// <param name="poolId">The user pool for which we want to check the
         /// user's status.</param>
-        /// <returns></returns>
+        /// <returns>A System Threading Task.</returns>
         public static async Task GetAdminUser(AmazonCognitoIdentityProviderClient identityProviderClient, string userName, string poolId)
         {
             var userRequest = new AdminGetUserRequest
@@ -241,7 +241,7 @@ namespace Cognito_MVP
         /// <param name="userName">The user name of the user to sign up.</param>
         /// <param name="password">The password for the user.</param>
         /// <param name="email">The user's email address.</param>
-        /// <returns></returns>
+        /// <returns>A System Threading Task.</returns>
         public static async Task SignUp(
             AmazonCognitoIdentityProviderClient identityProviderClient,
             string clientId,

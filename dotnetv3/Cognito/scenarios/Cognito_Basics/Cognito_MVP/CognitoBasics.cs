@@ -35,6 +35,7 @@ var userName = string.Empty;
 var password = string.Empty;
 var email = string.Empty;
 
+string sepBar = new string('-', 80);
 var identityProviderClient = new AmazonCognitoIdentityProviderClient(RegionEndpoint.USWest2);
 
 do
@@ -62,23 +63,27 @@ do
 
 await CognitoMethods.SignUp(identityProviderClient, clientId, userName, password, email);
 
+Console.WriteLine(sepBar);
 Console.WriteLine($"Getting {userName} status from the user pool");
 await CognitoMethods.GetAdminUser(identityProviderClient, userName, poolId);
 
-Console.WriteLine($"*** Conformation code sent to { userName}. Would you like to send a new code? (Yes/No)");
+Console.WriteLine(sepBar);
+Console.WriteLine($"Conformation code sent to { userName}. Would you like to send a new code? (Yes/No)");
 var ans = Console.ReadLine();
 
 if (ans.ToUpper() == "YES")
 {
     await CognitoMethods.ResendConfirmationCode(identityProviderClient, clientId, userName);
-    Console.WriteLine("*** Sending a new confirmation code");
+    Console.WriteLine("Sending a new confirmation code");
 }
 
+Console.WriteLine(sepBar);
 Console.WriteLine("*** Enter confirmation code that was emailed");
 string code = Console.ReadLine();
+
 await CognitoMethods.ConfirmSignUp(identityProviderClient, clientId, code, userName);
 
-Console.WriteLine($"*** Rechecking the status of {userName} in the user pool");
+Console.WriteLine($"Rechecking the status of {userName} in the user pool");
 await CognitoMethods.GetAdminUser(identityProviderClient, userName, poolId);
 
 var authResponse = await CognitoMethods.InitiateAuth(identityProviderClient, clientId, userName, password);
@@ -86,14 +91,15 @@ var mySession = authResponse.Session;
 
 var newSession = await CognitoMethods.GetSecretForAppMFA(identityProviderClient, mySession);
 
-Console.WriteLine("*** Enter the 6-digit code displayed in Google Authenticator");
+Console.WriteLine("Enter the 6-digit code displayed in Google Authenticator");
 string myCode = Console.ReadLine();
 
 // Verify the TOTP and register for MFA.
 await CognitoMethods.VerifyTOTP(identityProviderClient, newSession, myCode);
-Console.WriteLine("*** Re-enter a 6-digit code displayed in Google Authenticator");
+Console.WriteLine("Re-enter a 6-digit code displayed in Google Authenticator");
 string mfaCode = Console.ReadLine();
 
+Console.WriteLine(sepBar);
 var authResponse1 = await CognitoMethods.InitiateAuth(identityProviderClient, clientId, userName, password);
 var session2 = authResponse1.Session;
 await CognitoMethods.AdminRespondToAuthChallenge(identityProviderClient, userName, clientId, mfaCode, session2);

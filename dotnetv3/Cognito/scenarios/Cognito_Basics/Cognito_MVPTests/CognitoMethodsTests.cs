@@ -11,7 +11,7 @@ namespace Cognito_MVP.Tests
         private static readonly string _UserEmail = "someone@example.com";
         private static readonly string _ClientId = "some-client-id";
 
-        private static readonly string _PoolId = "";
+        private static readonly string _PoolId = "us-west-2_uBJIO18xA";
         private static string _Session = string.Empty;
         private static string _MfaCode = string.Empty;
 
@@ -19,7 +19,12 @@ namespace Cognito_MVP.Tests
         [Order(1)]
         public static async Task AdminRespondToAuthChallengeTest()
         {
-            var success = await CognitoMethods.AdminRespondToAuthChallenge(_Client, _UserName, _ClientId, _MfaCode, _Session);
+            var success = await CognitoMethods.AdminRespondToAuthChallenge(
+                _Client,
+                _UserName,
+                _ClientId,
+                _MfaCode,
+                _Session);
             Assert.True(success, "Challenge failed to authenticate user.");
         }
 
@@ -31,17 +36,22 @@ namespace Cognito_MVP.Tests
             var clientId = "some-client-id";
             var mfaCode = "abcdefg-etc";
             var session = "not a session";
-            var success = await CognitoMethods.AdminRespondToAuthChallenge(_Client, userName, clientId, mfaCode, session);
+            var success = await CognitoMethods.AdminRespondToAuthChallenge(
+                _Client,
+                userName,
+                clientId,
+                mfaCode,
+                session);
             Assert.False(success, "Challenge should fail with bad information.");
         }
 
         [Fact]
         [Order(7)]
-        public static async Task VerifyTOTPTest()
+        public static async Task VerifyTOTPTest_Nonsense_ShouldFail()
         {
-            var code = "";
+            var code = "so-much-nonsense";
             var success = await CognitoMethods.VerifyTOTP(_Client, _Session, code);
-            Assert.True(success, "Could not verify the one-time password.");
+            Assert.False(success, "Should fail with an invalid one-time password.");
         }
 
         [Fact]
@@ -54,25 +64,26 @@ namespace Cognito_MVP.Tests
 
         [Fact]
         [Order(5)]
-        public static async Task InitiateAuthTest()
+        public static async Task InitiateAuthTest_MadeUpValues_ShouldFail()
         {
-            var response = await CognitoMethods.InitiateAuth(_Client, _ClientId, _UserName, _Password);
-            Assert.NotNull(response.Session);
+            var response = await CognitoMethods.InitiateAuth(
+                _Client,
+                _ClientId,
+                _UserName,
+                _Password);
+            Assert.Null(response.Session);
         }
 
         [Fact]
         [Order(4)]
         public static async Task ConfirmSignUpTest()
         {
-            var success = await CognitoMethods.ConfirmSignUp(_Client, _ClientId, _UserName, _Password);
+            var success = await CognitoMethods.ConfirmSignUp(
+                _Client,
+                _ClientId,
+                _UserName,
+                _Password);
             Assert.True(success, "Couldn't confirm the user's signup status.");
-        }
-
-        [Fact]
-        [Order(3)]
-        public static async Task ResendConfirmationCodeTest()
-        {
-            await CognitoMethods.ResendConfirmationCode(_Client, _ClientId, _UserName);
         }
 
         [Fact]
