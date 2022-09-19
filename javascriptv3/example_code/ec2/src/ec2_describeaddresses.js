@@ -15,7 +15,7 @@ node ec2_describeaddresses.js
 // snippet-start:[ec2.JavaScript.Addresses.describeAddressesV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { EC2Client, DescribeAddressesCommand } from "@aws-sdk/client-ec2";
+import { DescribeAddressesCommand } from "@aws-sdk/client-ec2";
 import { ec2Client } from "./libs/ec2Client";
 // Set the parameters
 const params = {

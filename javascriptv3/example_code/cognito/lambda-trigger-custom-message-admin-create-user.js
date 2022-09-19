@@ -22,7 +22,7 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.custom-message-admin-create-userV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
     if (event.userPoolId === "theSpecialUserPool") {
       // Identify this function was invoked

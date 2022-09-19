@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SESActions", "Actions\SESActions.csproj", "{D82DA76B-F02F-4043-9BF9-17F46723CFD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SESTests", "Tests\SESTests.csproj", "{4AD8196D-B13D-4FA5-9EF9-79EEF202E2E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D82DA76B-F02F-4043-9BF9-17F46723CFD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D82DA76B-F02F-4043-9BF9-17F46723CFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D82DA76B-F02F-4043-9BF9-17F46723CFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D82DA76B-F02F-4043-9BF9-17F46723CFD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AD8196D-B13D-4FA5-9EF9-79EEF202E2E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD8196D-B13D-4FA5-9EF9-79EEF202E2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AD8196D-B13D-4FA5-9EF9-79EEF202E2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AD8196D-B13D-4FA5-9EF9-79EEF202E2E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D9347B4-E436-4C22-8B3C-2FEBAF697B0A}
+	EndGlobalSection
+EndGlobal

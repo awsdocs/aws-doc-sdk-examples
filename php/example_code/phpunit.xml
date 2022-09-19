@@ -11,11 +11,18 @@
          failOnWarning="true"
          verbose="true">
     <testsuites>
-        <testsuite name="dynamodb-basics">
-            <file>dynamodb/dynamodb_basics/DynamoDBBasicsTests.php</file>
-        </testsuite>
-        <testsuite name="partiql-basics">
-            <file>dynamodb/partiql_basics/PartiQLBasicsTests.php</file>
+<!--        <testsuite name="dynamodb-basics">-->
+<!--            <file>dynamodb/dynamodb_basics/DynamoDBBasicsTests.php</file>-->
+<!--        </testsuite>-->
+<!--        <testsuite name="partiql-basics">-->
+<!--            <file>dynamodb/partiql_basics/PartiQLBasicsTests.php</file>-->
+<!--        </testsuite>-->
+<!--        <testsuite name="iam-basics">-->
+<!--            <file>iam/iam_basics/tests/IamBasicsTests.php</file>-->
+<!--            <file>iam/tests/IamServiceTest.php</file>-->
+<!--        </testsuite>-->
+        <testsuite name="glue-basics">
+            <file>glue/GlueBasicsTests.php</file>
         </testsuite>
     </testsuites>
 
@@ -23,6 +30,8 @@
               processUncoveredFiles="false">
         <include>
             <directory suffix=".php">dynamodb</directory>
+            <directory suffix=".php">glue</directory>
+            <directory suffix=".php">iam</directory>
         </include>
     </coverage>
 </phpunit>

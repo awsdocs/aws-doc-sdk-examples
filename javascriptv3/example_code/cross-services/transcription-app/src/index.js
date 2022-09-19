@@ -26,29 +26,27 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 // Import the required AWS SDK clients and commands for Node.js
 import "./helper.js";
 import "./recorder.js";
-import { CognitoIdentityClient } from"@aws-sdk/client-cognito-identity";
-import {
-  fromCognitoIdentityPool,
-} from"@aws-sdk/credential-provider-cognito-identity";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import {
   CognitoIdentityProviderClient,
   GetUserCommand,
-} from"@aws-sdk/client-cognito-identity-provider";
-import { S3RequestPresigner } from"@aws-sdk/s3-request-presigner";
-import { createRequest } from"@aws-sdk/util-create-request";
-import { formatUrl } from"@aws-sdk/util-format-url";
+} from "@aws-sdk/client-cognito-identity-provider";
+import { S3RequestPresigner } from "@aws-sdk/s3-request-presigner";
+import { createRequest } from "@aws-sdk/util-create-request";
+import { formatUrl } from "@aws-sdk/util-format-url";
 import {
   TranscribeClient,
   StartTranscriptionJobCommand,
-} from"@aws-sdk/client-transcribe";
+} from "@aws-sdk/client-transcribe";
 import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
   ListObjectsCommand,
   DeleteObjectCommand,
-} from"@aws-sdk/client-s3";
-import  fetch from "node-fetch";
+} from "@aws-sdk/client-s3";
+import fetch from "node-fetch";
 
 // Set the parameters.
 // 'COGINTO_ID' has the format 'cognito-idp.eu-west-1.amazonaws.com/COGNITO_ID'.
@@ -86,8 +84,7 @@ const s3Client = new S3Client({
 });
 // snippet-end:[transcribe.JavaScript.recording-app.config]
 // snippet-start:[transcribe.JavaScript.recording-app.onload]
-let updateUserInterface;
-window.onload = updateUserInterface = async () => {
+window.onload = async () => {
   // Set the parameters.
   const userParams = {
     // Get the access token. 'GetAccessToken()' is in 'helper.js'.
@@ -132,15 +129,15 @@ window.onload = updateUserInterface = async () => {
           const result = data.Body;
           // Create a variable for the string version of the readable stream.
           let stringResult = "";
-          // Use 'yeidlUnit8Chunks' to convert the readable streams into JSON.
+          // Use 'yieldUnit8Chunks' to convert the readable streams into JSON.
           for await (let chunk of yieldUint8Chunks(result)) {
             stringResult += String.fromCharCode.apply(null, chunk);
           }
           // The setTimeout function waits while readable stream is converted into JSON.
           setTimeout(function () {
             // Parse JSON into human readable transcript, which will be displayed on user interface (UI).
-            const outputJSON = JSON.parse(stringResult).results.transcripts[0]
-              .transcript;
+            const outputJSON =
+              JSON.parse(stringResult).results.transcripts[0].transcript;
             // Create name for transcript, which will be displayed.
             const outputJSONTime = JSON.parse(stringResult)
               .jobName.split("/")[0]
@@ -188,6 +185,7 @@ async function* yieldUint8Chunks(data) {
 window.upload = async function (blob, userName) {
   // Set the parameters for the recording recording.
   const Key = `${userName}/test-object-${Math.ceil(Math.random() * 10 ** 10)}`;
+  let signedUrl;
 
   // Create a presigned URL to upload the transcription to the Amazon S3 bucket when it is ready.
   try {
@@ -201,7 +199,6 @@ window.upload = async function (blob, userName) {
     // Define the duration until expiration of the presigned URL.
     const expiration = new Date(Date.now() + 60 * 60 * 1000);
     // Create and format the presigned URL.
-    let signedUrl;
     signedUrl = formatUrl(await signer.presign(request, expiration));
     console.log(`\nPutting "${Key}"`);
   } catch (err) {
@@ -265,7 +262,7 @@ const createTranscriptionJob = async (recording, jobName, bucket, key) => {
 // Delete a transcription from the Amazon S3 bucket.
 window.deleteJSON = async (jsonFileName) => {
   try {
-    const data = await s3Client.send(
+    await s3Client.send(
       new DeleteObjectCommand({
         Bucket: params.Bucket,
         Key: jsonFileName,

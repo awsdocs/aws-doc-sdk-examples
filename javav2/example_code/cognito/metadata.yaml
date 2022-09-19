@@ -3,6 +3,12 @@ files:
   - path: src/main/java/com/example/cognito/AddLoginProvider.java
     services:
       - cognito
+  - path: src/main/java/com/example/cognito/AdminInitiateAuth.java
+    services:
+      - cognito
+  - path: src/main/java/com/example/cognito/ConfirmSignUp.java
+    services:
+      - cognito
   - path: src/main/java/com/example/cognito/CreateAdminUser.java
     services:
       - cognito

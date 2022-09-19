@@ -25,7 +25,7 @@ const paramsReleaseAddress = { AllocationId: "ALLOCATION_ID" }; //ALLOCATION_ID
 
 const run = async () => {
   try {
-    const data = await ec2Client.send(new ReleaseAddressCommand({}));
+    const data = await ec2Client.send(new ReleaseAddressCommand(paramsReleaseAddress));
     console.log("Address released");
     return data;
   } catch (err) {

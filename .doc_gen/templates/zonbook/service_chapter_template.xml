@@ -17,6 +17,7 @@
 {{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
 {{- $scenarios :=  index .CategorizedExampleSets "Scenarios"}}
 {{- $actions := index .CategorizedExampleSets "Actions"}}
+{{- $hello := index .CategorizedExampleSets "Hello"}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
     {{- $include_docs = ""}}
@@ -62,8 +63,28 @@
     <para>For a complete list of &AWS; SDK developer guides and code examples, see
         <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
         This topic also includes information about getting started and details about previous SDK versions.</para>
+    {{- if $hello.Examples}}
+    <block>
+        <collapsible expand-section="_collapse_all_">
+            {{- range $hello.Examples}}
+            <section id="example_{{.ExampleId}}_section">
+                <info>
+                    <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                    <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                    <abstract>
+                        <para>{{.Title}}</para>
+                    </abstract>
+                </info>
+                <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
+                <xi:include href="{{$include_docs}}{{.ExampleId}}_tablist.xml"></xi:include>
+            </section>
+            {{- end}}
+        </collapsible>
+    </block>
+    {{- end}}
     <para role="contents-abbrev">Code examples</para>
     {{- range $category := .CategoryNamesSorted}}
+    {{- if ne $category "Hello"}}
     {{- with $cat_examples := index $.CategorizedExampleSets $category}}
     <section id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}" role="topic">
         <info>
@@ -132,6 +153,7 @@
         </section>
         {{- end}}
     </section>
+    {{- end}}
     {{- end}}
     {{- end}}
 {{- if .Bundle}}
