@@ -3,24 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_lambda::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_lambda::{Client, Error};
+use lambda_code_examples::{make_client, ArnOpt};
 use structopt::StructOpt;
-
-#[derive(Debug, StructOpt)]
-struct Opt {
-    /// The AWS Region.
-    #[structopt(short, long)]
-    region: Option<String>,
-
-    /// The AWS Lambda function's Amazon Resource Name (ARN).
-    #[structopt(short, long)]
-    arn: String,
-
-    /// Whether to display additional runtime information.
-    #[structopt(short, long)]
-    verbose: bool,
-}
 
 // Runs a Lambda function.
 // snippet-start:[lambda.rust.invoke-function]
@@ -43,29 +28,11 @@ async fn run_function(client: &Client, arn: &str) -> Result<(), Error> {
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let Opt {
-        arn,
-        region,
-        verbose,
-    } = Opt::from_args();
+    tracing_subscriber::fmt::init();
 
-    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
-        .or_default_provider()
-        .or_else(Region::new("us-west-2"));
-    println!();
+    let ArnOpt { arn, base } = ArnOpt::from_args();
 
-    if verbose {
-        println!("Lambda client version: {}", PKG_VERSION);
-        println!(
-            "Region:                {}",
-            region_provider.region().await.unwrap().as_ref()
-        );
-        println!("Lambda function ARN:   {}", arn);
-        println!();
-    }
-
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&shared_config);
+    let (client, _) = make_client(base).await;
 
     run_function(&client, &arn).await
 }

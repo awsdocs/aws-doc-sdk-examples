@@ -3,20 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_lambda::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_lambda::{Client, Error};
+use lambda_code_examples::{make_client, Opt};
 use structopt::StructOpt;
-
-#[derive(Debug, StructOpt)]
-struct Opt {
-    /// The AWS Region.
-    #[structopt(short, long)]
-    region: Option<String>,
-
-    /// Whether to display additional runtime information.
-    #[structopt(short, long)]
-    verbose: bool,
-}
 
 // Lists the ARNs of your Lambda functions.
 // snippet-start:[lambda.rust.list-functions]
@@ -50,24 +39,7 @@ async fn show_arns(client: &Client) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { region, verbose } = Opt::from_args();
-
-    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
-        .or_default_provider()
-        .or_else(Region::new("us-west-2"));
-    println!();
-
-    if verbose {
-        println!("Lambda client version: {}", PKG_VERSION);
-        println!(
-            "Region:                {}",
-            region_provider.region().await.unwrap().as_ref()
-        );
-        println!();
-    }
-
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&shared_config);
+    let (client, _) = make_client(Opt::from_args()).await;
 
     show_arns(&client).await
 }
