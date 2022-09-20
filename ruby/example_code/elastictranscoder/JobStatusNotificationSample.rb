@@ -10,19 +10,34 @@
 require 'aws-sdk-elastictranscoder'
 require 'openssl'
 require_relative 'SqsQueueNotificationWorker'
+require 'aws-sdk-s3'
+require 'aws-sdk-sqs'
 
-# This is the ID of the Elastic Transcoder pipeline that was created when
-# setting up your AWS environment:
-# https://w.amazon.com/index.php/User:Ramsdenj/Samples/Environment_Setup/Create_Elastic_Transcoder_Pipeline#Create_the_Pipeline
-pipeline_id = 'Enter your pipeline id here.'
+# set clients required
+transcoder_client = Aws::ElasticTranscoder::Client.new
+sqs_client = Aws::SQS::Client.new
+s3_resource = Aws::S3::Resource.new
 
-# This is the URL of the SQS queue that was created when setting up your
-# AWS environment.
-# https://w.amazon.com/index.php/User:Ramsdenj/Samples/Environment_Setup/Create_SQS_Queue#Create_an_SQS_Queue
-sqs_queue_url = 'Enter your queue url here.'
+# set custom names
+transcoder_pipeline = "transcoder-pipeline-#{rand(10**4)}"
+bucket_name = "transcoder-bucket-#{rand(10**4)}"
+sqs_queue_name = "transcoder-sqs-#{rand(10**4)}"
 
-# This is the name of the input key that you would like to transcode.
-input_key = 'Enter your input key here.'
+
+s3_resource.create_bucket(bucket: bucket_name)
+resp = sqs_client.create_queue({queue_name: sqs_queue_name})
+sqs_queue_url = resp.queue_url
+
+resp = transcoder_client.create_pipeline({
+                                           name: transcoder_pipeline, # required
+                                           input_bucket: bucket_name, # required
+                                           output_bucket: bucket_name,
+                                           role: "arn:aws:iam::260778392212:role/Elastic_Transcoder_Default_Role" # required
+                                         })
+
+pipeline_id = resp["pipeline"]["id"]
+
+input_key = 'Jabberwocky.mp3'
 
 # This will generate a 480p 16:9 mp4 output.
 preset_id = '1351620000001-000020'
@@ -30,19 +45,16 @@ preset_id = '1351620000001-000020'
 # All outputs will have this prefix prepended to their output key.
 output_key_prefix = 'elastic-transcoder-samples/output/'
 
-# Replace us-west-2 with the AWS Region you're using for Elastic Transcoder.
-region = 'us-west-2'
-
-def create_elastic_transcoder_job(region, pipeline_id, input_key, preset_id, output_key_prefix)
+def create_elastic_transcoder_job(pipeline_id, input_key, preset_id, output_key_prefix)
   # Create the client for Elastic Transcoder.
-  transcoder_client = Aws::ElasticTranscoder::Client.new(region: region)
+  transcoder_client = Aws::ElasticTranscoder::Client.new
 
   # Setup the job input using the provided input key.
   input = { key: input_key }
 
   # Setup the job input using the provided input key.
   output = {
-    key: OpenSSL::Digest::SHA256.new(input_key.encode('UTF-8')),
+    key: OpenSSL::Digest::SHA256.new(input_key.encode('UTF-8')).to_s,
     preset_id: preset_id
   }
 
@@ -55,12 +67,12 @@ def create_elastic_transcoder_job(region, pipeline_id, input_key, preset_id, out
   )[:job][:id]
 end
 
-job_id = create_elastic_transcoder_job(region, pipeline_id, input_key, preset_id, output_key_prefix)
+job_id = create_elastic_transcoder_job(pipeline_id, input_key, preset_id, output_key_prefix)
 puts 'Waiting for job to complete: ' + job_id
 
 # Create SQS notification worker which polls for notifications.  Register a
 # handler which will stop the worker when the job we just created completes.
-notification_worker = SqsQueueNotificationWorker.new(region, sqs_queue_url)
+notification_worker = SqsQueueNotificationWorker.new(sqs_queue_url)
 completion_handler = lambda { |notification| notification_worker.stop if (notification['jobId'] == job_id && ['COMPLETED', 'ERROR'].include?(notification['state'])) }
 notification_worker.add_handler(completion_handler)
 notification_worker.start

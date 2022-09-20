@@ -14,7 +14,7 @@ require 'aws-sdk-sqs'
 # server, then a better implementation would be to subscribe your server
 # directly to the notification topic and process the SNS messages directly.
 class SqsQueueNotificationWorker
-  def initialize(region, queue_url, options = {})
+  def initialize(queue_url, options = {})
     options = { max_messages: 5, visibility_timeout: 15, wait_time_seconds: 5 }.merge(options)
     @queue_url = queue_url
     @max_messages = options[:max_messages]
