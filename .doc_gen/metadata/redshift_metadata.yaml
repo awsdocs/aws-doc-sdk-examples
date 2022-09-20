@@ -5,6 +5,15 @@ redshift_CreateCluster:
   synopsis: create an &RS; cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.kotlin.create_cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -34,6 +43,15 @@ redshift_DeleteCluster:
   synopsis: delete an &RS; cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.kotlin.delete_cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -63,6 +81,15 @@ redshift_DescribeClusters:
   synopsis: describe your &RS; clusters.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.kotlin.describe_cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -92,6 +119,15 @@ redshift_ModifyCluster:
   synopsis: modify an &RS; cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.kotlin.create_cluster.main
     Java:
       versions:
         - sdk_version: 2
