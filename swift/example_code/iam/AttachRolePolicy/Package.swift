@@ -9,14 +9,14 @@
 import PackageDescription
 
 let package = Package(
-// snippet-start:[iam.swift.listpolicies.package.attributes]
-    name: "listpolicies",
+// snippet-start:[iam.swift.attachrolepolicy.package.attributes]
+    name: "attachrolepolicy",
     platforms: [
         .macOS(.v11),
         .iOS(.v13)
     ],
-// snippet-end:[iam.swift.listpolicies.package.attributes]
-// snippet-start:[iam.swift.listpolicies.package.dependencies]
+// snippet-end:[iam.swift.attachrolepolicy.package.attributes]
+// snippet-start:[iam.swift.attachrolepolicy.package.dependencies]
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(
@@ -26,7 +26,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
-            .branch("main")
+            from: "1.1.4"
         ),
         .package(
             name: "SwiftUtilities",
@@ -37,24 +37,24 @@ let package = Package(
             from: "0.9.0"
         ),
     ],
-// snippet-end:[iam.swift.listpolicies.package.dependencies]
-// snippet-start:[iam.swift.listpolicies.package.targets]
+// snippet-end:[iam.swift.attachrolepolicy.package.dependencies]
+// snippet-start:[iam.swift.attachrolepolicy.package.targets]
     targets: [
         // A target defines a module or a test suite. A target can depend on
         // other targets in this package. They can also depend on products in
         // other packages that this package depends on.
-// snippet-start:[iam.swift.listpolicies.package.target.executable]
+// snippet-start:[iam.swift.attachrolepolicy.package.target.executable]
         .executableTarget(
-            name: "listpolicies",
+            name: "attachrolepolicy",
             dependencies: [
                 "ServiceHandler",
                 "SwiftyTextTable",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "./Sources/ListPolicies"
+            path: "./Sources/AttachRolePolicy"
         ),
-// snippet-end:[iam.swift.listpolicies.package.target.executable]
-// snippet-start:[iam.swift.listpolicies.package.target.handler]
+// snippet-end:[iam.swift.attachrolepolicy.package.target.executable]
+// snippet-start:[iam.swift.attachrolepolicy.package.target.handler]
         .target(
             name: "ServiceHandler",
             dependencies: [
@@ -62,21 +62,21 @@ let package = Package(
             ],
             path: "./Sources/ServiceHandler"
         ),
-// snippet-end:[iam.swift.listpolicies.package.target.handler]
-// snippet-start:[iam.swift.listpolicies.package.target.tests]
+// snippet-end:[iam.swift.attachrolepolicy.package.target.handler]
+// snippet-start:[iam.swift.attachrolepolicy.package.target.tests]
         .testTarget(
-            name: "listpolicies-tests",
+            name: "attachrolepolicy-tests",
             dependencies: [
-                "listpolicies",
+                "attachrolepolicy",
                 "SwiftUtilities",
                 "SwiftyTextTable",
             ],
-            path: "./Tests/ListPoliciesTests",
+            path: "./Tests/AttachRolePolicyTests",
             linkerSettings: [
                 .linkedLibrary("rt")    // Include librt for Dispatch to work
             ]
         )
-// snippet-end:[iam.swift.listpolicies.package.target.tests]
+// snippet-end:[iam.swift.attachrolepolicy.package.target.tests]
     ]
-// snippet-end:[iam.swift.listpolicies.package.targets]
+// snippet-end:[iam.swift.attachrolepolicy.package.targets]
 )

@@ -18,6 +18,9 @@ fine-grained permissions, and analyze access to refine permissions across AWS.
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
+* [Attach an IAM policy to a
+  role](./AttachRolePolicy/Sources/ServiceHandler/ServiceHandler.swift).
+  (`AttachRolePolicy`)
 * [Create a new IAM user](./CreateUser/Sources/ServiceHandler/ServiceHandler.swift) (`CreateUser`)
 * [Create an IAM role](./CreateRole/Sources/ServiceHandler/ServiceHandler.swift) (`CreateRole`)
 * [Get information about an IAM role](./GetRole/Sources/ServiceHandler/ServiceHandler.swift) (`GetRole`)

@@ -65,7 +65,10 @@ let package = Package(
                 "getrole",
                 "SwiftUtilities"
             ],
-            path: "./Tests/GetRoleTests"
+            path: "./Tests/GetRoleTests",
+            linkerSettings: [
+                .linkedLibrary("rt")    // Include librt for Dispatch to work
+            ]
         )
 // snippet-end:[iam.swift.getrole.package.target.tests]
     ]

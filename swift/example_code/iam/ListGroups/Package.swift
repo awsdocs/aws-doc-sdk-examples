@@ -65,7 +65,10 @@ let package = Package(
                 "listgroups",
                 "SwiftUtilities"
             ],
-            path: "./Tests/ListGroupsTests"
+            path: "./Tests/ListGroupsTests",
+            linkerSettings: [
+                .linkedLibrary("rt")    // Include librt for Dispatch to work
+            ]
         )
 // snippet-end:[iam.swift.listgroups.package.target.tests]
     ]

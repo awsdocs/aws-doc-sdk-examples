@@ -65,7 +65,10 @@ let package = Package(
                 "getpolicy",
                 "SwiftUtilities",
             ],
-            path: "./Tests/GetPolicyTests"
+            path: "./Tests/GetPolicyTests",
+            linkerSettings: [
+                .linkedLibrary("rt")    // Include librt for Dispatch to work
+            ]
         )
 // snippet-end:[iam.swift.getpolicy.package.target.tests]
     ]

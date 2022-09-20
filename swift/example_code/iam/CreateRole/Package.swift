@@ -65,7 +65,10 @@ let package = Package(
                 "createrole",
                 "SwiftUtilities"
             ],
-            path: "./Tests/CreateRoleTests"
+            path: "./Tests/CreateRoleTests",
+            linkerSettings: [
+                .linkedLibrary("rt")    // Include librt for Dispatch to work
+            ]
         )
 // snippet-end:[iam.swift.createrole.package.target.tests]
     ]

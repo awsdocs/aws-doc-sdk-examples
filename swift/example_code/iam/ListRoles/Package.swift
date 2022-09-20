@@ -65,7 +65,10 @@ let package = Package(
                 "listroles",
                 "SwiftUtilities"
             ],
-            path: "./Tests/ListRolesTests"
+            path: "./Tests/ListRolesTests",
+            linkerSettings: [
+                .linkedLibrary("rt")    // Include librt for Dispatch to work
+            ]
         )
 // snippet-end:[iam.swift.listroles.package.target.tests]
     ]

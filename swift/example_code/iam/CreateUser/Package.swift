@@ -65,7 +65,10 @@ let package = Package(
                 "createuser",
                 "SwiftUtilities"
             ],
-            path: "./Tests/CreateUserTests"
+            path: "./Tests/CreateUserTests",
+            linkerSettings: [
+                .linkedLibrary("rt")    // Include librt for Dispatch to work
+            ]
         )
 // snippet-end:[iam.swift.createuser.package.target.tests]
     ]
