@@ -328,21 +328,3 @@ transcribe_Scenario_CustomVocabulary:
   services:
     transcribe: {StartTranscriptionJob, GetTranscriptionJob, DeleteTranscriptionJob, CreateVocabulary,
                  GetVocabulary, UpdateVocabulary, ListVocabularies, DeleteVocabulary}
-transcribe_StartStreamTranscription:
-  title: Start a &TSC; streaming transcription using an &AWS; SDK
-  title_abbrev: Start a streaming transcription
-  synopsis: start a &TSC; streaming transcription.
-  category:
-  languages:
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/transcribe
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - transcribe.cpp.stream_transcription_async.code
-  services:
-    transcribe: {StartStreamTranscription}
-
