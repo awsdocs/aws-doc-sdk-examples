@@ -90,7 +90,7 @@ string myCode = Console.ReadLine();
 
 // Verify the TOTP and register for MFA.
 await CognitoMethods.VerifyTOTP(identityProviderClient, newSession, myCode);
-Console.WriteLine("Re-enter a 6-digit code displayed in Google Authenticator");
+Console.WriteLine("Enter the new 6-digit code displayed in Google Authenticator");
 string mfaCode = Console.ReadLine();
 
 Console.WriteLine(sepBar);
@@ -98,6 +98,6 @@ var authResponse1 = await CognitoMethods.InitiateAuth(identityProviderClient, cl
 var session2 = authResponse1.Session;
 await CognitoMethods.AdminRespondToAuthChallenge(identityProviderClient, userName, clientId, mfaCode, session2);
 
-Console.WriteLine("The Cognito MVP application has compleed.");
+Console.WriteLine("The Cognito MVP application has completed.");
 
 // snippet-end:[cognito.dotnetv3.CognitoBasics.Main]

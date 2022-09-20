@@ -117,7 +117,7 @@ cognito-identity-provider_ResendConfirmationCode:
           github: dotnetv3/Cognito
           sdkguide:
           excerpts:
-            - description
+            - description:
               snippet_tags:
                 - cognito.dotnetv3.CognitoBasics.ResendConfirmationCode
     Kotlin:

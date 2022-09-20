@@ -4,7 +4,7 @@
 namespace Cognito_MVP
 {
     /// <summary>
-    /// Class whose members perform Amazon Cognit methods for the scenario.
+    /// Class whose members perform Amazon Cognito methods for the scenario.
     /// </summary>
     public class CognitoMethods
     {
@@ -17,7 +17,7 @@ namespace Cognito_MVP
         /// <param name="userName">The user name of the user to authenticate.</param>
         /// <param name="clientId">The client Id of the application associated
         /// with the user pool.</param>
-        /// <param name="mfaCode">The MFA code suppplied by the user.</param>
+        /// <param name="mfaCode">The MFA code supplied by the user.</param>
         /// <param name="session">The session for which the user will be authenticated.</param>
         /// <returns>A Boolean value that indicates the success of the authentication.</returns>
         public static async Task<bool> AdminRespondToAuthChallenge(
@@ -66,7 +66,7 @@ namespace Cognito_MVP
         /// </summary>
         /// <param name="identityProviderClient">The name of the identity
         /// provider used to authenticate the user.</param>
-        /// <param name="session">The ssession for which the user will be
+        /// <param name="session">The session for which the user will be
         /// authenticated.</param>
         /// <param name="code">The code provided by the user.</param>
         /// <returns>A Boolean value that indicates the success of the authentication.</returns>
@@ -138,7 +138,7 @@ namespace Cognito_MVP
         /// with the user pool.</param>
         /// <param name="userName">The user name to be authorized.</param>
         /// <param name="password">The password of the user.</param>
-        /// <returns>The responsse from the client from the InitiateAuthAsync
+        /// <returns>The response from the client from the InitiateAuthAsync
         /// call.</returns>
         public static async Task<InitiateAuthResponse> InitiateAuth(AmazonCognitoIdentityProviderClient identityProviderClient, string clientId, string userName, string password)
         {
@@ -234,7 +234,7 @@ namespace Cognito_MVP
         // snippet-start:[cognito.dotnetv3.CognitoBasics.GetAdminUser]
 
         /// <summary>
-        /// Checks the status of a user for a paarticular Amazon Cognito user
+        /// Checks the status of a user for a particular Amazon Cognito user
         /// pool.
         /// </summary>
         /// <param name="identityProviderClient">An initialized Identity
