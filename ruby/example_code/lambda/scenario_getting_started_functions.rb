@@ -74,7 +74,7 @@ def run_scenario
     puts JSON.pretty_generate(response).green
   end
 
-  new_step(3, "List all funtions")
+  new_step(3, "List all functions")
   print "Let's do a quick list of all functions in our account..."
   response = wrapper.list_functions
   print "Done!\n".green
