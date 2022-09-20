@@ -12,7 +12,7 @@ namespace DescribeInstancesExample
 
     /// <summary>
     /// This example shows how to list your Amazon Elastic Compute Cloud
-    /// (Amazon EC2) Instances. It was created using the AWS SDK for .NET
+    /// (Amazon EC2) instances. It was created using the AWS SDK for .NET
     /// version 3.7 and .NET Core 5.0.
     /// </summary>
     public class DescribeInstances
@@ -25,13 +25,13 @@ namespace DescribeInstancesExample
         /// </summary>
         public static async Task Main()
         {
-            // If the region of the EC2 Instances you want to list is different
-            // from the default user's region, you need to specify the rgion
+            // If the region of the EC2 instances you want to list is different
+            // from the default user's region, you need to specify the region
             // when you create the client object.
             // For example: RegionEndpoint.USWest1.
             var eC2Client = new AmazonEC2Client();
 
-            // List all EC2 Instances.
+            // List all EC2 instances.
             await GetInstanceDescriptions(eC2Client);
 
             string tagName = "IncludeInList";
@@ -40,7 +40,7 @@ namespace DescribeInstancesExample
         }
 
         /// <summary>
-        /// This method uses a Paginator to list all of the EC2 Instances
+        /// This method uses a paginator to list all of the EC2 Instances
         /// attached to the default account.
         /// </summary>
         /// <param name="client">The Amazon EC2 client object used to call
@@ -76,7 +76,8 @@ namespace DescribeInstancesExample
         /// filter on.</param>
         /// <param name="tagValue">A string representing the value of the tag
         /// to filter on.</param>
-        public static async Task GetInstanceDescriptionsFiltered(AmazonEC2Client client, string tagName, string tagValue)
+        public static async Task GetInstanceDescriptionsFiltered(AmazonEC2Client client, 
+            string tagName, string tagValue)
         {
             // This is the tag we want to use to filter
             // the results of our list of instances.

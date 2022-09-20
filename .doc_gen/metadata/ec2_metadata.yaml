@@ -111,7 +111,7 @@ ec2_CreateVpc:
               snippet_tags:
                 - EC2.dotnetv3.CreateVPCExample
   services:
-    ec2: {CreateVPC}
+    ec2: {CreateVpc}
 ec2_StartInstances:
   title: Start an &EC2; instance using an &AWS; SDK
   title_abbrev: Start an instance
@@ -602,4 +602,4 @@ ec2_DeleteVPC:
               snippet_tags:
                 - EC2.dotnetv3.DeleteVPCExample
   services:
-    ec2: {DeleteVPC}
+    ec2: {DeleteVpc}

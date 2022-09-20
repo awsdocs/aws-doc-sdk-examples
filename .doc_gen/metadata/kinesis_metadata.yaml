@@ -59,7 +59,7 @@ kinesis_DeregisterConsumer:
               snippet_tags:
                 - Kinesis.dotnetv3.DeregisterConsumerExample
   services:
-    kinesis: {DeregisterConsumer}
+    kinesis: {DeregisterStreamConsumer}
 kinesis_DescribeStream:
   title: Describe a &AK; stream using an &AWS; SDK
   title_abbrev: Describe a stream
@@ -102,7 +102,7 @@ kinesis_ListConsumers:
               snippet_tags:
                 - Kinesis.dotnetv3.ListConsumersExample
   services:
-    kinesis: {ListConsumers}
+    kinesis: {ListStreamConsumers}
 kinesis_ListStreams:
   title: List &AK; streams using an &AWS; SDK
   title_abbrev: List streams
@@ -144,7 +144,7 @@ kinesis_ListTags:
               snippet_tags:
                 - Kinesis.dotnetv3.ListTagsExample
   services:
-    kinesis: {ListTags}
+    kinesis: {ListTagsForStream}
 kinesis_DeleteStream:
   title: Delete a &AK; stream using an &AWS; SDK
   title_abbrev: Delete a stream
@@ -267,7 +267,7 @@ kinesis_RegisterConsumer:
               snippet_tags:
                 - Kinesis.dotnetv3.RegisterConsumerExample
   services:
-    kinesis: { RegisterConsumer }
+    kinesis: { RegisterStreamConsumer }
 kinesis_TagStream:
   title: Add tags to a &AK; stream using an &AWS; SDK
   title_abbrev: Add tags

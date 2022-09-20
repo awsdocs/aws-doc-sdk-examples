@@ -16,7 +16,7 @@ namespace CreatePolicyExample
     class CreatePolicy
     {
         /// <summary>
-        /// Initializes the AWS Organizations client object uses it to
+        /// Initializes the AWS Organizations client object, uses it to
         /// create a new Organizations Policy, and then displays information
         /// about the newly created Policy.
         /// </summary>
@@ -37,7 +37,7 @@ namespace CreatePolicyExample
                 var response = await client.CreatePolicyAsync(new CreatePolicyRequest
                 {
                     Content = policyContent,
-                    Description = "Enables admins of attached accounts to delegate all S3 permissions",
+                    Description = "Enables admins of attached accounts to delegate all Amazon S3 permissions",
                     Name = "AllowAllS3Actions",
                     Type = "SERVICE_CONTROL_POLICY",
                 });

@@ -32,7 +32,7 @@ translate_DescribeTranslationJob:
               snippet_tags:
                 - Translate.dotnetv3.DescribeTextTranslationJobExample
   services:
-    translate: {DescribeTranslationJob}
+    translate: {DescribeTextTranslationJob}
 translate_ListTranslationJobs:
   title: List the &TSL; translation jobs using an &AWS; SDK
   title_abbrev: List translation jobs

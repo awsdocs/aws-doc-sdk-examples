@@ -10,8 +10,8 @@ namespace AttachPolicyExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Shows how to attach an AWS Organizations Policy to an Organization,
-    /// an Organizational Unit, or an Account.
+    /// Shows how to attach an AWS Organizations policy to an organization,
+    /// an organizational unit, or an account.
     /// </summary>
     public class AttachPolicy
     {

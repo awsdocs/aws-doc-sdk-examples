@@ -10,7 +10,7 @@ namespace CreateOrganizationExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Creates an AWS Organizations organization. The example was created
+    /// Creates an organization in AWS Organizations. The example was created
     /// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     public class CreateOrganization

@@ -10,7 +10,7 @@ namespace CreateOrganizationalUnitExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Creates a new AWS Organizations Organizational Unit. The example was
+    /// Creates a new organizational unit in AWS Organizations. The example was
     /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     public class CreateOrganizationalUnit
