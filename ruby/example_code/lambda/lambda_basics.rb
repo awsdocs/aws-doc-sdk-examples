@@ -5,7 +5,7 @@
 
 # Purpose
 #
-# Shows how to use the AWS SDK for Python (Boto3) to manage and invoke AWS Lambda
+# Shows how to use the AWS SDK for Ruby v3 to manage and invoke AWS Lambda
 # functions.
 
 require "aws-sdk-lambda"

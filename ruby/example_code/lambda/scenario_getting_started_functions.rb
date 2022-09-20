@@ -14,7 +14,6 @@ require "logger"
 require "json"
 require "zip"
 require "cli/ui"
-require "pry"
 require_relative("../../helpers/disclaimers")
 require_relative("../../helpers/decorators")
 require_relative("lambda_basics")
@@ -37,12 +36,12 @@ def run_scenario
   puts "######################################################################################################".yellow
   puts ""
   puts "You have launched a demo of AWS Lambda using the AWS for Ruby v3 SDK. Over the next 60 seconds, it will:"
-  puts "    1. create a basic IAM role and policy for Lambda invocation."
-  puts "    2. create a new Lambda function"
-  puts "    3. invoke the Lambda function"
-  puts "    4. update the Lambda function code"
-  puts "    5. update the Lambda function configuration"
-  puts "    6. destroy the Lambda function and associated IAM role"
+  puts "    1. Create a basic IAM role and policy for Lambda invocation."
+  puts "    2. Create a new Lambda function."
+  puts "    3. Invoke the Lambda function."
+  puts "    4. Update the Lambda function code."
+  puts "    5. Update the Lambda function configuration."
+  puts "    6. Destroy the Lambda function and associated IAM role."
   puts ""
 
   confirm_begin

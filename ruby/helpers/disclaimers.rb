@@ -22,12 +22,12 @@ end
 def security
   puts "\e[H\e[2J"
   puts "========================== SECURITY DISCLAIMER =============================".yellow
-  puts "Per Amazon Web Service's Shared Responsibility Mode, you, the customer,"
+  puts "Per Amazon Web Service's Shared Responsibility Model, you, the customer,"
   puts "assume a certain level of responsibility and should carefully consider"
   puts "the security impact of the services used in this demo, the integration"
   puts "of these services into your IT environment, and applicable laws and regulations."
   puts ""
-  puts "For more information on he Shared Repsonsibility Model, please see:      "
+  puts "For more information on the Shared Repsonsibility Model, please see:      "
   puts "    https://aws.amazon.com/compliance/shared-responsibility-model/"
   puts ""
   puts "==========================================================================".yellow
