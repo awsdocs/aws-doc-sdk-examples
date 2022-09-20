@@ -27,7 +27,7 @@ resp = client.create_pipeline({
 pipeline_id = resp["pipeline"]["id"]
 
 # This is the name of the input key that you would like to transcode.
-input_key = 'Enter your input key here.'
+input_key = 'movie.mp4'
 
 # HLS Presets that will be used to create an adaptive bitrate playlist.
 hls_64k_audio_preset_id = '1351620000001-200071'

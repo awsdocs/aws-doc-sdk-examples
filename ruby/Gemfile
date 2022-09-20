@@ -11,3 +11,4 @@ gem 'json'
 gem 'pp'
 gem "open-uri"
 gem "zip"
+gem 'openssl'
