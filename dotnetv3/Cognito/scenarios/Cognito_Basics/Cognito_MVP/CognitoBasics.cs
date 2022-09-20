@@ -1,7 +1,7 @@
-﻿// snippet-start:[cognito.dotnetv3.CognitoBasics.Main]
-
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+// snippet-start:[cognito.dotnetv3.CognitoBasics.Main]
 
 // Before running this SDK for .NET (v3) code example, set up your development environment, including your credentials.
 // For more information, see the following documentation:
