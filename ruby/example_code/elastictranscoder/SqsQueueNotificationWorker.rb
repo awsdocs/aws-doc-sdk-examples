@@ -16,7 +16,6 @@ require 'aws-sdk-sqs'
 class SqsQueueNotificationWorker
   def initialize(region, queue_url, options = {})
     options = { max_messages: 5, visibility_timeout: 15, wait_time_seconds: 5 }.merge(options)
-    @region = region
     @queue_url = queue_url
     @max_messages = options[:max_messages]
     @visibility_timeout = options[:visibility_timeout]
@@ -42,8 +41,7 @@ class SqsQueueNotificationWorker
   end
 
   def poll_and_handle_messages
-    sqs_client = Aws::SQS::Client.new(region: @region)
-
+    sqs_client = Aws::SQS::Client.new
     until @shutdown
       sqs_messages = sqs_client.receive_message(
         queue_url: @queue_url,
