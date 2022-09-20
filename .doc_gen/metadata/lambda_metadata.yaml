@@ -43,7 +43,7 @@ lambda_CreateFunction:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.CreateFunction
   services:
-    lambda: { CreateFunction }
+    lambda: {CreateFunction}
 lambda_DeleteFunction:
   title: Delete a &LAM; function using an &AWS; SDK
   title_abbrev: Delete a function
@@ -88,7 +88,7 @@ lambda_DeleteFunction:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.DeleteFunction
   services:
-    lambda: { DeleteFunction }
+    lambda: {DeleteFunction}
 lambda_Invoke:
   title: Invoke a &LAM; function using an &AWS; SDK
   title_abbrev: Invoke a function
@@ -133,7 +133,7 @@ lambda_Invoke:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.Invoke
   services:
-    lambda: { Invoke }
+    lambda: {Invoke}
 lambda_GetFunction:
   title: Get a &LAM; function using an &AWS; SDK
   title_abbrev: Get a function
@@ -160,7 +160,7 @@ lambda_GetFunction:
               snippet_tags:
                 - javascript.v3.lambda.actions.GetFunction
   services:
-    lambda: { GetFunction }
+    lambda: {GetFunction}
 lambda_UpdateFunctionCode:
   title: Update &LAM; function code using an &AWS; SDK
   title_abbrev: Update function code
@@ -187,7 +187,7 @@ lambda_UpdateFunctionCode:
               snippet_tags:
                 - javascript.v3.lambda.actions.UpdateFunctionCode
   services:
-    lambda: { UpdateFunctionCode }
+    lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
   title: Update &LAM; function configuration using an &AWS; SDK
   title_abbrev: Update function configuration
@@ -214,7 +214,7 @@ lambda_UpdateFunctionConfiguration:
               snippet_tags:
                 - javascript.v3.lambda.actions.UpdateFunctionConfiguration
   services:
-    lambda: { UpdateFunctionConfiguration }
+    lambda: {UpdateFunctionConfiguration}
 lambda_ListFunctions:
   title: List &LAM; functions using an &AWS; SDK
   title_abbrev: List functions
@@ -241,7 +241,7 @@ lambda_ListFunctions:
               snippet_tags:
                 - javascript.v3.lambda.actions.ListFunctions
   services:
-    lambda: { ListFunctions }
+    lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
   title: Get started creating and invoking &LAM; functions using an &AWS; SDK
   title_abbrev: Get started with functions
