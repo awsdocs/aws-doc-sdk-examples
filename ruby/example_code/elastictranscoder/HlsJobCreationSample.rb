@@ -7,18 +7,27 @@
 
 # snippet-start:[elastictranscoder.ruby.create_hls_job.import]
 require 'aws-sdk-elastictranscoder'
-require 'openssl'
 
-# This is the ID of the Elastic Transcoder pipeline that was created when
-# setting up your AWS environment:
-# http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/sample-code.html#ruby-pipeline
-pipeline_id = 'Enter your pipeline id here.'
+client = Aws::ElasticTranscoder::Client.new
+
+# resp = client.test_role({
+#                           role: "arn:aws:iam:260778392212::role/Elastic_Transcoder_Default_Role", # required
+#                           input_bucket: "example-code-bucket-171", # required
+#                           output_bucket: "example-code-bucket-171", # required
+#                           topics: ["arn:aws:sns:260778392212::aws-doc-sdk-examples-topic"] # required
+#                         })
+
+resp = client.create_pipeline({
+                                name: "test1", # required
+                                input_bucket: "example-code-bucket-171", # required
+                                output_bucket: "example-code-bucket-171",
+                                role: "arn:aws:iam::260778392212:role/Elastic_Transcoder_Default_Role" # required
+                              })
+
+pipeline_id = resp["pipeline"]["id"]
 
 # This is the name of the input key that you would like to transcode.
 input_key = 'Enter your input key here.'
-
-# Replace us-west-2 with the AWS Region you're using for Elastic Transcoder.
-region = 'us-west-2'
 
 # HLS Presets that will be used to create an adaptive bitrate playlist.
 hls_64k_audio_preset_id = '1351620000001-200071'
@@ -35,7 +44,7 @@ segment_duration = '2'
 output_key_prefix = 'elastic-transcoder-samples/output/hls/'
 
 # Create the client for Elastic Transcoder.
-transcoder_client = Aws::ElasticTranscoder::Client.new(region: region)
+transcoder_client = Aws::ElasticTranscoder::Client.new
 
 # Setup the job input using the provided input key.
 input = { key: input_key }
