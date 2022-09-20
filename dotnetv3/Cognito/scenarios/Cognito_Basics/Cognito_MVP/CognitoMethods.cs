@@ -8,6 +8,8 @@ namespace Cognito_MVP
     /// </summary>
     public class CognitoMethods
     {
+        // snippet-start:[cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge]
+
         /// <summary>
         /// Responds to an authentication challenge for an Amazon Cognito user.
         /// </summary>
@@ -54,6 +56,10 @@ namespace Cognito_MVP
             }
         }
 
+        // snippet-end:[cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge]
+
+        // snippet-start:[cognito.dotnetv3.CognitoBasics.VerifyTOTP]
+
         /// <summary>
         /// Verifies that the user has supplied the correct one-time password
         /// and registers for multi-factor authentication (MFA).
@@ -89,6 +95,10 @@ namespace Cognito_MVP
             }
         }
 
+        // snippet-end:[cognito.dotnetv3.CognitoBasics.VerifyTOTP]
+
+        // snippet-start:[cognito.dotnetv3.CognitoBasics.GetSecretForAppMFA]
+
         /// <summary>
         /// Gets the secret token that will enable MFA (Multi-Factor
         /// Authentication) for the user.
@@ -114,6 +124,10 @@ namespace Cognito_MVP
 
             return tokenResponse.Session;
         }
+
+        // snippet-end:[cognito.dotnetv3.CognitoBasics.GetSecretForAppMFA]
+
+        // snippet-start:[cognito.dotnetv3.CognitoBasics.InitiateAuth]
 
         /// <summary>
         /// Initiates the authorization process.
@@ -146,6 +160,10 @@ namespace Cognito_MVP
 
             return response;
         }
+
+        // snippet-end:[cognito.dotnetv3.CognitoBasics.InitiateAuth]
+
+        // snippet-start:[cognito.dotnetv3.CognitoBasics.ConfirmSignUp]
 
         /// <summary>
         /// Confirms that a user has been signed up successfully.
@@ -184,6 +202,10 @@ namespace Cognito_MVP
             }
         }
 
+        // snippet-end:[cognito.dotnetv3.CognitoBasics.ConfirmSignUp]
+
+        // snippet-start:[cognito.dotnetv3.CognitoBasics.ResendConfirmationCode]
+
         /// <summary>
         /// Causes the confirmation code for user registration to be sent
         /// again.
@@ -206,6 +228,10 @@ namespace Cognito_MVP
 
             Console.WriteLine($"Method of delivery is {response.CodeDeliveryDetails.DeliveryMedium}");
         }
+
+        // snippet-end:[cognito.dotnetv3.CognitoBasics.ResendConfirmationCode]
+
+        // snippet-start:[cognito.dotnetv3.CognitoBasics.GetAdminUser]
 
         /// <summary>
         /// Checks the status of a user for a paarticular Amazon Cognito user
@@ -230,6 +256,10 @@ namespace Cognito_MVP
 
             Console.WriteLine($"User status {response.UserStatus}");
         }
+
+        // snippet-end:[cognito.dotnetv3.CognitoBasics.GetAdminUser]
+
+        // snippet-start:[cognito.dotnetv3.CognitoBasics.SignUp]
 
         /// <summary>
         /// Add a new user to an Amazon Cognito user pool.
@@ -271,5 +301,7 @@ namespace Cognito_MVP
             await identityProviderClient.SignUpAsync(signUpRequest);
             Console.WriteLine("User has been signed up.");
         }
+
+        // snippet-end:[cognito.dotnetv3.CognitoBasics.SignUp]
     }
 }

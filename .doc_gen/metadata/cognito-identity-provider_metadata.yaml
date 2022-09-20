@@ -21,6 +21,15 @@ cognito-identity-provider_SignUp:
   synopsis: sign up a user with &COG;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.SignUp
     Kotlin:
       versions:
         - sdk_version: 1
@@ -57,6 +66,15 @@ cognito-identity-provider_AdminGetUser:
   synopsis: get information about an &COG; user.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.GetAdminUser
     Kotlin:
       versions:
         - sdk_version: 1
@@ -93,6 +111,15 @@ cognito-identity-provider_ResendConfirmationCode:
   synopsis: resend an &COG; confirmation code.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.ResendConfirmationCode
     Kotlin:
       versions:
         - sdk_version: 1
@@ -129,6 +156,15 @@ cognito-identity-provider_ConfirmSignUp:
   synopsis: confirm an &COG; user.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.ConfirmSignUp
     Kotlin:
       versions:
         - sdk_version: 1
@@ -237,6 +273,15 @@ cognito-identity-provider_AssociateSoftwareToken:
   synopsis: get a token to associate an MFA application with an &COG; user.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.GetSecretForAppMFA
     Kotlin:
       versions:
         - sdk_version: 1
@@ -273,6 +318,15 @@ cognito-identity-provider_VerifySoftwareToken:
   synopsis: verify an MFA application with an &COG; user.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.VerifyTOTP
     Kotlin:
       versions:
         - sdk_version: 1
@@ -309,6 +363,15 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
   synopsis: respond to an &COG; authentication challenge.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge
     Kotlin:
       versions:
         - sdk_version: 1
@@ -364,6 +427,15 @@ cognito-identity-provider_InitiateAuth:
   synopsis: start authentication with a device tracked by &COG;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.InitiateAuth
     Python:
       versions:
         - sdk_version: 3
@@ -384,6 +456,15 @@ cognito-identity-provider_RespondToAuthChallenge:
   synopsis: respond to &COG; SRP authentication challenges.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge
     Python:
       versions:
         - sdk_version: 3
@@ -408,6 +489,16 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
     - Sign in by using a password and an MFA code.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.dotnetv3.CognitoBasics.Usings
+                - cognito.dotnetv3.CognitoBasics.Main
     Kotlin:
       versions:
         - sdk_version: 1
