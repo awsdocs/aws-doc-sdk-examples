@@ -13,7 +13,7 @@ cross_RedshiftDataTracker:
         - sdk_version: 1
           block_content: cross_RedshiftDataTracker_Kotlin_block.xml
   services:
-    rds:
+    redshift:
     ses:
 cross_SQSMessageApp:
   title: Create a web application that sends and retrieves messages by using the &SQSlong; API
