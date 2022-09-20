@@ -30,7 +30,11 @@ Code excerpts that show you how to call individual service functions.
 * [List all AWS policies](./ListPolicies/Sources/ServiceHandler/ServiceHandler.swift) (`ListPolicies`)
 * [List the policies embedded in a
   role](./ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift).
- This does _not_ include managed policies attached to the role. (`ListRolePolicies`)
+ This does _not_ include managed policies attached to the role.
+ (`ListRolePolicies`)
+ * [List the managed policies attached to a
+   role](./ListAttachedRolePolicies/Sources/ServiceHandler/ServiceHandler.swift).
+   (`ListAttachedRolePolicies`)
 
 <!-- ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.

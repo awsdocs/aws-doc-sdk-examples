@@ -1261,7 +1261,8 @@ iam_AttachRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.attachrolepolicy.handler.attachrolepolicy    JavaScript:
+                - iam.swift.attachrolepolicy.handler.attachrolepolicy
+    JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/iam
@@ -1357,6 +1358,14 @@ iam_ListAttachedRolePolicies:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_attached_role_policies
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListAttachedRolePolicies
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listattachedrolepolicies.handler.listattachedrolepolicies
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
