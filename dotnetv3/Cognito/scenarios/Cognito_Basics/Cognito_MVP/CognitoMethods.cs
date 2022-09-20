@@ -46,14 +46,7 @@ namespace Cognito_MVP
             var response = await identityProviderClient.RespondToAuthChallengeAsync(respondToAuthChallengeRequest);
             Console.WriteLine($"response.getAuthenticationResult() {response.AuthenticationResult}");
 
-            if (response.AuthenticationResult is not null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return response.AuthenticationResult is not null;
         }
 
         // snippet-end:[cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge]
