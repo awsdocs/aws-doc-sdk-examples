@@ -68,6 +68,7 @@ suspend fun createCluster(clusterId: String?, masterUsernameVal: String?, master
         println("Created cluster ${clusterResponse.cluster?.clusterIdentifier}")
     }
 }
+// snippet-end:[redshift.kotlin.create_cluster.main]
 
 // Waits until the cluster is available.
 suspend fun waitForClusterReady(clusterId: String?) {
@@ -102,6 +103,7 @@ suspend fun waitForClusterReady(clusterId: String?) {
     }
 }
 
+// snippet-start:[redshift.kotlin.mod_cluster.main]
 suspend fun modifyCluster(clusterId: String?) {
     val modifyClusterRequest = ModifyClusterRequest {
         clusterIdentifier = clusterId
@@ -113,4 +115,4 @@ suspend fun modifyCluster(clusterId: String?) {
         println("The modified cluster was successfully modified and has ${clusterResponse.cluster?.preferredMaintenanceWindow} as the maintenance window")
     }
 }
-// snippet-end:[redshift.kotlin.create_cluster.main]
+// snippet-end:[redshift.kotlin.mod_cluster.main]
