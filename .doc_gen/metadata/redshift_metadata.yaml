@@ -13,7 +13,7 @@ redshift_CreateCluster:
           excerpts:
             - description: Create the cluster.
               snippet_tags:
-                - redshift.kotlin.mod_cluster.main
+                - redshift.kotlin.create_cluster.main
     Java:
       versions:
         - sdk_version: 2
