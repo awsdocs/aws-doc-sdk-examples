@@ -53,7 +53,7 @@ translate_ListTranslationJobs:
 translate_StopTranslationJob:
   title: Stop a &TSL; translation job using an &AWS; SDK
   title_abbrev: Stop a translation job
-  synopsis: stop a &TSL; translation jobs
+  synopsis: stop a &TSL; translation job.
   category:
   languages:
     .NET:
@@ -70,7 +70,7 @@ translate_StopTranslationJob:
 translate_TranslateText:
   title: Translate text with &TSL; using an &AWS; SDK
   title_abbrev: Translate text
-  synopsis: translate text with &TSL;
+  synopsis: translate text with &TSL;.
   category:
   languages:
     .NET:
