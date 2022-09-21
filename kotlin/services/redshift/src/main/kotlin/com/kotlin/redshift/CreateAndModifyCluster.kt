@@ -26,7 +26,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <clusterId> <masterUsername> <masterUserPassword> 
@@ -53,7 +52,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[redshift.kotlin.create_cluster.main]
 suspend fun createCluster(clusterId: String?, masterUsernameVal: String?, masterUserPasswordVal: String?) {
-
     val clusterRequest = CreateClusterRequest {
         clusterIdentifier = clusterId
         masterUsername = masterUsernameVal // set the user name here
