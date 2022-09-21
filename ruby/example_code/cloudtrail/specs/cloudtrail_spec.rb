@@ -17,18 +17,18 @@ describe "TestTrail" do
   let(:bucket_name) { "example-code-bucket-#{rand(10**4)}" }
 
   it "create" do
-    response = create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, bucket_name)
+    create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, bucket_name)
   end
 
   it "describe" do
-    response = describe_trails_example(cloudtrail_client)
+    describe_trails_example(cloudtrail_client)
   end
 
   it "lookup" do
-    response = lookup_events_example(cloudtrail_client)
+    lookup_events_example(cloudtrail_client)
   end
 
   it "delete" do
-    response = delete_trail_example(cloudtrail_client, trail_name)
+    delete_trail_example(cloudtrail_client, trail_name)
   end
 end
