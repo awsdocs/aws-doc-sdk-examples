@@ -2,7 +2,7 @@
 cross_RedshiftDataTracker:
   title: Create an &RSlong; item tracker
   title_abbrev: Create a web application to track &RS; data
-  synopsis: create a web application that tracks and reports on work items using an &RSlong; (&RS;) database.
+  synopsis: create a web application that tracks and reports on work items using an &RSlong; database.
   languages:
     Java:
       versions:
