@@ -37,7 +37,7 @@ usage: <command> [<args>]
     <function_name>                      configuration with the provided config.json
     
 
-  list-functions                         list all lambda functions for the configured account
+  list-functions                         list all Lambda functions for the configured account
 
   invoke <function_name> [<args>]        invokes the provided function with arguments
 
