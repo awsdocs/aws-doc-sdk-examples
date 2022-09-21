@@ -24,8 +24,8 @@ the included Lambda functions, and a few IAM commands.
 
 ### Service usage warning
 
-Running the below commands may cause charges to your AWS account.
-Make sure you understand billing model for the services used here.
+- Running this code might result in charges to your AWS account.
+- Make sure you understand the pricing model for the services used here. See https://aws.amazon.com/pricing
 
 ### Run the interactive command prompt
 
