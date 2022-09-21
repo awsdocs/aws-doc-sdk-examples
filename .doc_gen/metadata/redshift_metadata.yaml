@@ -125,7 +125,7 @@ redshift_ModifyCluster:
           github: kotlin/services/redshift
           sdkguide:
           excerpts:
-            - description: Create the cluster.
+            - description: Modify a cluster.
               snippet_tags:
                 - redshift.kotlin.mod_cluster.main
     Java:
