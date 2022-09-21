@@ -31,7 +31,7 @@ class ScenarioGettingStarted
     bucket = @s3_resource.create_bucket(
       bucket: "doc-example-bucket-#{Random.uuid}",
       create_bucket_configuration: {
-        location_constraint: 'us-east-2' # Note: only certain regions permitted
+        location_constraint: "us-east-2" # Note: only certain regions permitted
       }
     )
     puts("Created demo bucket named #{bucket.name}.")
@@ -48,7 +48,7 @@ class ScenarioGettingStarted
   #
   # @return The name of the file.
   def create_file
-    File.open("demo.txt", w) {|f| f.write("This is a demo file.") }
+    File.open("demo.txt", w) { |f| f.write("This is a demo file.") }
   end
 
   # Uploads the top-level README from this repo to an Amazon S3 bucket.
@@ -56,7 +56,7 @@ class ScenarioGettingStarted
   # @param bucket [Aws::S3::Bucket] The bucket object representing the upload destination
   # @return [Aws::S3::Object] The Amazon S3 object that contains the uploaded file.
   def upload_file(bucket)
-    File.open("demo.txt", "w+") {|f| f.write("This is a demo file.") }
+    File.open("demo.txt", "w+") { |f| f.write("This is a demo file.") }
     s3_object = bucket.object(File.basename("demo.txt"))
     s3_object.upload_file("demo.txt")
     puts("Uploaded file demo.txt into bucket #{bucket.name} with key #{s3_object.key}.")
