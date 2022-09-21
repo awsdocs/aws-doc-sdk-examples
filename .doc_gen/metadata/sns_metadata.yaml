@@ -808,7 +808,7 @@ sns_ManageTopicSubscription:
                 - SNS.dotnetv3.TopicSubscribe
                 - SNS.dotnetv3.UnsubscribeTopic
   services:
-    sns: { Subscribe, Unsubscribe }
+    sns: {Subscribe,Unsubscribe}
 sns_SetSmsAttributes:
   title: Set the default settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Set the default settings for sending SMS messages

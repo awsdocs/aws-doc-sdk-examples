@@ -267,7 +267,7 @@ kinesis_RegisterConsumer:
               snippet_tags:
                 - Kinesis.dotnetv3.RegisterConsumerExample
   services:
-    kinesis: { RegisterStreamConsumer }
+    kinesis: {RegisterStreamConsumer}
 kinesis_TagStream:
   title: Add tags to a &AK; stream using an &AWS; SDK
   title_abbrev: Add tags
@@ -284,4 +284,4 @@ kinesis_TagStream:
               snippet_tags:
                 - Kinesis.dotnetv3.TagStreamExample
   services:
-    kinesis: { TagStream }
+    kinesis: {TagStream}
