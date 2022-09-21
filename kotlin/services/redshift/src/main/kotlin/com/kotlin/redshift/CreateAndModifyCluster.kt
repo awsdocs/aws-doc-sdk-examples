@@ -86,11 +86,10 @@ suspend fun waitForClusterReady(clusterId: String?) {
 
             if (clusterList != null) {
                 for (cluster in clusterList) {
-
                     clusterReadyStr = cluster.clusterStatus.toString()
-                    if (clusterReadyStr.contains("available"))
+                    if (clusterReadyStr.contains("available")) {
                         clusterReady = true
-                    else {
+                    } else {
                         print(".")
                         delay(sleepTime * 1000)
                     }
