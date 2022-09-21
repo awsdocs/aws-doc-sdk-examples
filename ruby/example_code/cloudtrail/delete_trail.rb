@@ -3,15 +3,10 @@
 
 # Demonstrates how to delete an AWS CloudTrail trail
 
-# snippet-start:[cloudtrail.Ruby.deleteTrail]
-
 require "aws-sdk-cloudtrail"  # v2: require 'aws-sdk'
 
-client = Aws::CloudTrail::Client.new
-
-trail_name = "example-code-trail-9830"
-
-begin
+def delete_trail_example(client, trail_name)
+  # snippet-start:[cloudtrail.Ruby.deleteTrail]
   client.delete_trail({
                         name: trail_name # required
                       })
@@ -22,3 +17,9 @@ rescue StandardError => err
   exit 1
 end
 # snippet-end:[cloudtrail.Ruby.deleteTrail]
+
+if __FILE__ == $0
+  client = Aws::CloudTrail::Client.new
+  trail_name = "example-code-trail-9830"
+  delete_trail_example(client, trail_name)
+end

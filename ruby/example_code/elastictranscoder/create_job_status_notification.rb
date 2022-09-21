@@ -2,14 +2,14 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# JobStatusNotificationSample.rb demonstrates how to create a notification handler for an
+# create_job_status_notification.rb demonstrates how to create a notification handler for an
 # Amazon Elastic Transcoder job using the AWS SDK for Ruby.
 
 
 # snippet-start:[elastictranscoder.ruby.create_job_status_notification.import]
 require "aws-sdk-elastictranscoder"
 require "openssl"
-require_relative "SqsQueueNotificationWorker"
+require_relative "sqs_queue_notification_worker"
 require "aws-sdk-s3"
 require "aws-sdk-sqs"
 
