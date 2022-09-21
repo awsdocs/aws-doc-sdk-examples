@@ -76,8 +76,8 @@ namespace DescribeInstancesExample
         /// filter on.</param>
         /// <param name="tagValue">A string representing the value of the tag
         /// to filter on.</param>
-        public static async Task GetInstanceDescriptionsFiltered(AmazonEC2Client client, 
-            string tagName, string tagValue)
+        public static async Task GetInstanceDescriptionsFiltered(AmazonEC2Client client,
+           string tagName, string tagValue)
         {
             // This is the tag we want to use to filter
             // the results of our list of instances.

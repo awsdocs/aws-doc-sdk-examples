@@ -27,11 +27,9 @@ namespace DescribeCertificate
             var describeCertificateReq = new DescribeCertificateRequest();
             // The ARN used here is just an example. Replace it with the ARN of
             // a certificate that exists on your account.
-            describeCertificateReq.CertificateArn = 
-                "arn:aws:acm:us-east-1:123456789012:certificate/8cfd7dae-9b6a-2d07-92bc-1c309EXAMPLE";
+            describeCertificateReq.CertificateArn =  "arn:aws:acm:us-east-1:123456789012:certificate/8cfd7dae-9b6a-2d07-92bc-1c309EXAMPLE";
 
-            var certificateDetailResp = 
-                DescribeCertificateResponseAsync(client: _client, request: describeCertificateReq);
+            var certificateDetailResp =  DescribeCertificateResponseAsync(client: _client, request: describeCertificateReq);
             var certificateDetail = certificateDetailResp.Result.Certificate;
 
             if (certificateDetail is not null)

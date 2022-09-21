@@ -52,7 +52,7 @@ namespace BatchTranslateExample
                 InputDataConfig = inputConfig,
                 OutputDataConfig = outputConfig,
                 SourceLanguageCode = "en",
-                TargetLanguageCodes = new List<string>{"fr"},
+                TargetLanguageCodes = new List<string>{"fr"}
             };
 
             var response = await StartTextTranslationAsync(client, request);
