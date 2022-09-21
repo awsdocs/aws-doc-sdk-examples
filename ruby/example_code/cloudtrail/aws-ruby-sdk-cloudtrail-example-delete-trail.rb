@@ -1,9 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# Purpose:
-# aws-ruby-sdk-cloudtrail-example-delete-trail.rb demonstrates how to delete
-# an AWS CloudTrail trail using the AWS SDK for Ruby.
+# Demonstrates how to delete an AWS CloudTrail trail
 
 # snippet-start:[cloudtrail.Ruby.deleteTrail]
 

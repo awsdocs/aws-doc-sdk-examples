@@ -3,12 +3,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# Purpose:
-# aws-ruby-sdk-cloudtrail-example-create-trail.rb demonstrates how to create
-# an AWS CloudTrail trail using the AWS SDK for Ruby.
-
-# Inputs:
-# - REGION
+# Demonstrates how to create an AWS CloudTrail trail
 
 # snippet-start:[cloudtrail.Ruby.createTrail]
 require "aws-sdk-cloudtrail" # v2: require 'aws-sdk'
@@ -22,13 +17,10 @@ require "aws-sdk-sts"
 trail_name = "example-code-trail-#{rand(10**4)}"
 bucket_name = "example-code-bucket-#{rand(10**4)}"
 
-# Attach IAM policy to bucket
-# Get account ID using STS
 resp = @sts_client.get_caller_identity({})
 account_id = resp.account
 
 # Attach policy to an Amazon Simple Storage Service (S3) bucket.
-# Replace us-west-2 with the AWS Region you're using for AWS CloudTrail.
 @s3_client.create_bucket(bucket: bucket_name)
 begin
   policy = {

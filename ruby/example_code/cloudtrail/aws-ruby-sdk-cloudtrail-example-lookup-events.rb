@@ -1,13 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# Purpose:
-# aws-ruby-sdk-cloudtrail-example-lookup-events.rb demonstrates how to look up
-#  AWS CloudTrail trail events using the AWS SDK for Ruby.
-
+# Demonstrates how to look up AWS CloudTrail trail events
 
 # snippet-start:[cloudtrail.Ruby.lookupEvents]
-
 require "aws-sdk-cloudtrail"  # v2: require 'aws-sdk'
 
 def show_event(event)
