@@ -8,7 +8,7 @@
 use aws_sdk_s3::model::{
     BucketLocationConstraint, CreateBucketConfiguration, Delete, ObjectIdentifier,
 };
-use aws_sdk_s3::output::ListObjectsV2Output;
+use aws_sdk_s3::output::{GetObjectOutput, ListObjectsV2Output};
 use aws_sdk_s3::types::ByteStream;
 use aws_sdk_s3::{Client, Error};
 use std::path::Path;
@@ -17,7 +17,7 @@ use std::str;
 // snippet-start:[rust.example_code.s3.basics.delete_bucket]
 pub async fn delete_bucket(client: &Client, bucket_name: &str) -> Result<(), Error> {
     client.delete_bucket().bucket(bucket_name).send().await?;
-    println!("bucket deleted");
+    println!("Bucket deleted");
     Ok(())
 }
 // snippet-end:[rust.example_code.s3.basics.delete_bucket]
@@ -88,20 +88,14 @@ pub async fn copy_object(
 
 // snippet-start:[rust.example_code.s3.basics.download_object]
 // snippet-start:[rust.example_code.s3.basics.get_object]
-pub async fn download_object(client: &Client, bucket_name: &str, key: &str) -> Result<(), Error> {
+pub async fn download_object(client: &Client, bucket_name: &str, key: &str) -> GetObjectOutput {
     let resp = client
         .get_object()
         .bucket(bucket_name)
         .key(key)
         .send()
-        .await?;
-    let data = resp.body.collect().await;
-    println!(
-        "Data from downloaded object: {:?}",
-        data.unwrap().into_bytes().slice(0..20)
-    );
-
-    Ok(())
+        .await;
+    resp.unwrap()
 }
 // snippet-end:[rust.example_code.s3.basics.get_object]
 // snippet-end:[rust.example_code.s3.basics.download_object]
@@ -141,7 +135,7 @@ pub async fn create_bucket(client: &Client, bucket_name: &str, region: &str) -> 
         .bucket(bucket_name)
         .send()
         .await?;
-    println!("{}", bucket_name);
+    println!("Creating bucket named: {bucket_name}");
     Ok(())
 }
 // snippet-end:[rust.example_code.s3.basics.create_bucket]
