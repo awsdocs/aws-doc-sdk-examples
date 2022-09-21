@@ -23,7 +23,7 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.create-auth-challengeV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
     if (event.request.challengeName == "CUSTOM_CHALLENGE") {
       event.response.publicChallengeParameters = {};

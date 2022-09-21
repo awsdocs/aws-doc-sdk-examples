@@ -17,10 +17,7 @@ Running the code:
 node polly_synthesize_to_s3.js
 */
 // snippet-start:[Polly.JavaScript.general-examples.synthesizetos3_V3]
-const {
-  Polly,
-  StartSpeechSynthesisTaskCommand,
-} = require("@aws-sdk/client-polly");
+const { StartSpeechSynthesisTaskCommand } = require("@aws-sdk/client-polly");
 const { pollyClient } = require("./libs/pollyClient.js");
 
 // Create the parameters
@@ -35,9 +32,7 @@ var params = {
 
 const run = async () => {
   try {
-    const data = await pollyClient.send(
-      new StartSpeechSynthesisTaskCommand(params)
-    );
+    await pollyClient.send(new StartSpeechSynthesisTaskCommand(params));
     console.log("Success, audio file added to " + params.OutputS3BucketName);
   } catch (err) {
     console.log("Error putting object", err);

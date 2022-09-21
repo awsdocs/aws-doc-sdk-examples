@@ -28,7 +28,7 @@ var g_text = "";
 // Set the focus to the input box.
 document.getElementById("wisdom").focus();
 
-function showRequest(daText) {
+function showRequest() {
   var conversationDiv = document.getElementById("conversation");
   var requestPara = document.createElement("P");
   requestPara.className = "userRequest";
@@ -59,8 +59,7 @@ function handletext(text) {
   xhr.send("text=" + text);
 }
 
-function loadNewItems(event) {
-  var msg = event.target.responseText;
+function loadNewItems() {
   showRequest();
 
   // Re-enable input.
@@ -100,13 +99,12 @@ const createResponse = async () => {
         const data = await translateClient.send(
           new TranslateTextCommand(translateParams)
         );
-        var daText= data.TranslatedText
         console.log("Success. Translated text: ", data.TranslatedText);
         const lexParams = {
           botName: "BookTrip",
           botAlias: "mynewalias",
           inputText: data.TranslatedText,
-          userId: "chatbot" // For example, 'chatbot-demo'.
+          userId: "chatbot", // For example, 'chatbot-demo'.
         };
         try {
           const data = await lexClient.send(new PostTextCommand(lexParams));

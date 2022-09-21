@@ -20,20 +20,10 @@ public class EnhancedClientTest {
     private static DynamoDbEnhancedClient enhancedClient;
     private static String enhancedTableName = "";
     private static String enhancedTableKey  = "";
+    private static String enhancedTestRegion = "";
 
     @BeforeAll
-    public static void setUp() throws IOException {
-
-        //Create a DynamoDbClient object
-        Region region = Region.US_EAST_1;
-        ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
-
-        // Create a DynamoDbEnhancedClient object
-        enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+    public static void setUp() {
 
         try (InputStream input = EnhancedClientTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -47,9 +37,21 @@ public class EnhancedClientTest {
             prop.load(input);
             enhancedTableName = prop.getProperty("enhancedTableName");
             enhancedTableKey = prop.getProperty("enhancedTableKey");
+            enhancedTestRegion = prop.getProperty("enhancedTestRegion");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        //Create a DynamoDbClient object
+        Region region = Region.of(enhancedTestRegion);
+        ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
+
+        // Create a DynamoDbEnhancedClient object
+        enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(ddb)
+                .build();
     }
 
     @Test

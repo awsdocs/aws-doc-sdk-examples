@@ -8,26 +8,25 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples-i
 Purpose:
 ses_listreceiptfilters.js demonstrates how to list the Amazon SES IP filters for an AWS account.
 
-Inputs (replace in code):
-
 Running the code:
 node ses_listreceiptfilters.js
 */
 // snippet-start:[ses.JavaScript.filters.listReceiptFiltersV3]
-// Import required AWS SDK clients and commands for Node.js
-import { ListReceiptFiltersCommand }  from "@aws-sdk/client-ses";
+import { ListReceiptFiltersCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
 
+const createListReceiptFiltersCommand = () => new ListReceiptFiltersCommand({});
+
 const run = async () => {
+  const listReceiptFiltersCommand = createListReceiptFiltersCommand();
+
   try {
-    const data = await sesClient.send(new ListReceiptFiltersCommand({}));
-    console.log("Success.", data);
-    return data; // For unit tests.
+    return await sesClient.send(listReceiptFiltersCommand);
   } catch (err) {
-    console.log("Error", err.stack);
+    console.log("Failed to list receipt filters.", err);
+    return err;
   }
 };
-run();
 // snippet-end:[ses.JavaScript.filters.listReceiptFiltersV3]
-// For unit tests only.
-// module.exports ={run};
+
+export { run };

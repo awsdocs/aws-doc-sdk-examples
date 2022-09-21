@@ -216,20 +216,19 @@ export default class TextractModel {
     const { JobId: jobId } = await this.textract.send(command);
     console.log(`JobId: ${jobId}`);
 
-    const model = this;
     let waitTime = 0;
-    async function getJob() {
-      const { Messages } = await model.sqs.send(
+    const getJob = async () =>  {
+      const { Messages } = await this.sqs.send(
         new ReceiveMessageCommand({
-          QueueUrl: model.queueUrl,
+          QueueUrl: this.queueUrl,
           MaxNumberOfMessages: 1,
         })
       );
       if (Messages) {
         console.log(`Message[0]: ${Messages[0].Body}`);
-        await model.sqs.send(
+        await this.sqs.send(
           new DeleteMessageCommand({
-            QueueUrl: model.queueUrl,
+            QueueUrl: this.queueUrl,
             ReceiptHandle: Messages[0].ReceiptHandle,
           })
         );
@@ -243,13 +242,13 @@ export default class TextractModel {
           } else {
             getCommand = new GetDocumentAnalysisCommand({ JobId: jobId });
           }
-          const { Blocks } = await model.textract.send(getCommand);
-          model.extraction = {
-            Name: model.imageData.objectKey,
+          const { Blocks } = await this.textract.send(getCommand);
+          this.extraction = {
+            Name: this.imageData.objectKey,
             ExtractType: extractType,
-            Children: model._make_page_hierarchy(Blocks),
+            Children: this._make_page_hierarchy(Blocks),
           };
-          model.inform();
+          this.inform();
         }
       } else {
         const tick = 5000;

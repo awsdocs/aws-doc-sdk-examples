@@ -27,14 +27,14 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 
 # Find the AWS SDK for C++ package.
-find_package(AWSSDK REQUIRED COMPONENTS s3 sts)
+find_package(AWSSDK REQUIRED COMPONENTS s3 sts iam)
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    list(APPEND SERVICE_LIST s3 sts)
+    list(APPEND SERVICE_LIST s3 sts iam)
     #For IDE's like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
     #  is switched internally, but this is necessary for non-IDE builds.
     set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type.
@@ -114,7 +114,7 @@ foreach(file ${AWSDOC_S3_SOURCE})
         set(EXAMPLE_TEST_FILE ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_${EXAMPLE}.cpp)
 
         if(EXISTS ${EXAMPLE_TEST_FILE})
-            add_executable(${EXAMPLE_TEST} ${EXAMPLE_TEST_FILE} )
+            add_executable(${EXAMPLE_TEST} ${EXAMPLE_TEST_FILE} tests/test_utils.cpp)
 
             target_include_directories(${EXAMPLE_TEST} PUBLIC
                 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

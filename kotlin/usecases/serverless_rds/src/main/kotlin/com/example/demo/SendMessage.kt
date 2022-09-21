@@ -4,15 +4,15 @@
 */
 
 package com.example.demo
-import org.springframework.stereotype.Component
-import kotlin.system.exitProcess
 import aws.sdk.kotlin.services.ses.SesClient
-import aws.sdk.kotlin.services.ses.model.SesException
-import aws.sdk.kotlin.services.ses.model.Destination
-import aws.sdk.kotlin.services.ses.model.Content
 import aws.sdk.kotlin.services.ses.model.Body
+import aws.sdk.kotlin.services.ses.model.Content
+import aws.sdk.kotlin.services.ses.model.Destination
 import aws.sdk.kotlin.services.ses.model.Message
 import aws.sdk.kotlin.services.ses.model.SendEmailRequest
+import aws.sdk.kotlin.services.ses.model.SesException
+import org.springframework.stereotype.Component
+import kotlin.system.exitProcess
 
 @Component
 class SendMessage {
@@ -23,8 +23,10 @@ class SendMessage {
     ) {
         val sesClient = SesClient { region = "us-east-1" }
         // The HTML body of the email.
-        val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Amazon RDS Items!</h1>"
-                + "<textarea>$strValue</textarea>" + "</body>" + "</html>")
+        val bodyHTML = (
+            "<html>" + "<head></head>" + "<body>" + "<h1>Amazon RDS Items!</h1>" +
+                "<textarea>$strValue</textarea>" + "</body>" + "</html>"
+            )
 
         val destinationOb = Destination {
             toAddresses = listOf(recipient)
@@ -38,7 +40,7 @@ class SendMessage {
             data = "Item Report"
         }
 
-        val bodyOb= Body {
+        val bodyOb = Body {
             html = contentOb
         }
 
@@ -56,7 +58,6 @@ class SendMessage {
         try {
             println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
             sesClient.sendEmail(emailRequest)
-
         } catch (e: SesException) {
             println(e.message)
             sesClient.close()

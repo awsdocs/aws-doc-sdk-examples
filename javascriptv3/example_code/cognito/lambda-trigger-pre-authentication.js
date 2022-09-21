@@ -21,18 +21,13 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-authenticationV3]
-exports.handler = async (event, context) => {
-  try {
-    if (
-      event.callerContext.clientId === "user-pool-app-client-id-to-be-blocked"
-    ) {
-      const error = new Error(
-        "Cannot authenticate users from this user pool app client"
-      );
-    }
-  } catch (err) {
-    // Return to Amazon Cognito
-    return err;
+exports.handler = async (event) => {
+  if (
+    event.callerContext.clientId === "user-pool-app-client-id-to-be-blocked"
+  ) {
+    return new Error(
+      "Cannot authenticate users from this user pool app client"
+    );
   }
 };
 // snippet-end:[cognito.javascript.lambda-trigger.pre-authenticationV3]
