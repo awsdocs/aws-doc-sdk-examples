@@ -127,7 +127,7 @@ redshift_ModifyCluster:
           excerpts:
             - description: Create the cluster.
               snippet_tags:
-                - redshift.kotlin.create_cluster.main
+                - redshift.kotlin.mod_cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -136,7 +136,7 @@ redshift_ModifyCluster:
           excerpts:
             - description: Modify a cluster.
               snippet_tags:
-                - redshift.java2.create_cluster.main
+                - redshift.java2.mod_cluster.main
     JavaScript:
       versions:
         - sdk_version: 3
