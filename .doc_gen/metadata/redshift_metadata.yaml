@@ -150,4 +150,4 @@ redshift_ModifyCluster:
               snippet_tags:
                 - redshift.javascript.redshift-modify-clustersV3
   services:
-    redshift: {DescribeClusters}
+    redshift: {ModifyCluster}
