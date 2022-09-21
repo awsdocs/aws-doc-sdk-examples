@@ -82,7 +82,7 @@ namespace DescribeCertificate
             }
             catch (ResourceNotFoundException ex)
             {
-                Console.WriteLine($"Error: The specified certificate cound not be found.");
+                Console.WriteLine($"Error: The specified certificate could not be found.");
             }
 
             return response;
