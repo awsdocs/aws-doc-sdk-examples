@@ -49,7 +49,7 @@ redshift_DeleteCluster:
           github: kotlin/services/redshift
           sdkguide:
           excerpts:
-            - description: Create the cluster.
+            - description: Delete the cluster.
               snippet_tags:
                 - redshift.kotlin.delete_cluster.main
     Java:
@@ -87,7 +87,7 @@ redshift_DescribeClusters:
           github: kotlin/services/redshift
           sdkguide:
           excerpts:
-            - description: Create the cluster.
+            - description: Describe the cluster.
               snippet_tags:
                 - redshift.kotlin.describe_cluster.main
     Java:
