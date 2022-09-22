@@ -27,7 +27,7 @@ async fn run_s3_operations(
 ) -> Result<(), Error> {
     s3_service::create_bucket(&client, &bucket_name, region.as_ref()).await?;
     s3_service::upload_object(&client, &bucket_name, &file_name, &key).await?;
-    s3_service::download_object(&client, &bucket_name, &key).await?;
+    s3_service::download_object(&client, &bucket_name, &key).await;
     s3_service::copy_object(&client, &bucket_name, &key, &target_key).await?;
     s3_service::list_objects(&client, &bucket_name).await?;
     s3_service::delete_objects(&client, &bucket_name).await?;
