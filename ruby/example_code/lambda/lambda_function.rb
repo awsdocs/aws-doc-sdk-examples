@@ -12,6 +12,7 @@ require "logger"
 # @param event [Hash] contains parameters sent when the function is invoked
 # @param context [Hash] contains methods and properties that provide information
 # about the invocation, function, and execution environment.
+# @return incremented_number [String] the incremented number
 def lambda_handler(event:, context:)
   logger = Logger.new($stdout)
   log_level = ENV["LOG_LEVEL"]
@@ -28,5 +29,6 @@ def lambda_handler(event:, context:)
   number = event["number"].to_i
   incremented_number = number + 1
   logger.info("You provided #{number.round} and it was incremented to #{incremented_number.round}")
+  incremented_number.round.to_s
 end
 # snippet-end:[ruby.example_code.lambda.handler.increment]

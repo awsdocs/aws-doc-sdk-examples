@@ -12,6 +12,7 @@ require "logger"
 # @param event [Hash] contains parameters sent when the function is invoked
 # @param context [Hash] contains methods and properties that provide information
 # about the invocation, function, and execution environment.
+# @ return product [String] the product of the two numbers
 def lambda_handler(event:, context:)
   logger = Logger.new($stdout)
   log_level = ENV["LOG_LEVEL"]
@@ -28,5 +29,6 @@ def lambda_handler(event:, context:)
   second_number = event["second_number"].to_f
   product = first_number.round * second_number.round
   logger.info("The product of #{first_number.round} and #{second_number.round} is #{product} ")
+  product.to_s
 end
 # snippet-end:[ruby.example_code.lambda.handler.multiply]
