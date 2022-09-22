@@ -26,7 +26,7 @@ if(MSVC AND BUILD_SHARED_LIBS)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
     list(APPEND SERVICE_LIST transcribe;transcribestreaming)
     
-    #For IDE's like Xcode and Visual Studio this line will be ignored because Release/Debug 
+    #For IDEs like Xcode and Visual Studio this line will be ignored because Release/Debug
     #  is switched internally, but this is necessary for non-IDE builds.
     set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type
 	
