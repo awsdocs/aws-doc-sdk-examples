@@ -2,16 +2,27 @@
 
 This README discusses how to run and test the Java code examples for Amazon Relational Database Service (Amazon RDS).
 
-## Running the Amazon RDS Java files
+Amazon RDS is a collection of managed services that makes it simple to set up, operate, and scale databases in the cloud.
 
-**IMPORTANT**
+## ⚠️ Important
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+## Code examples
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a cluster by running the **DeleteDBInstance** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+
+### Single action
+
+You will find these examples that use the **RdsClient** object: 
+
+- [Create an Amazon RDS instance and wait for it to be in an available state.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBInstance.java) (createDBInstance command)
+
 
 
  ## Testing the Amazon RDS Java files
