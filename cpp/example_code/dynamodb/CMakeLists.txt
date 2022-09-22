@@ -32,6 +32,8 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
+find_package(ZLIB)
+
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
@@ -73,9 +75,11 @@ foreach(file ${AWSDOC_SOURCE})
 
     target_include_directories(${EXAMPLE_EXE} PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>)
+        $<INSTALL_INTERFACE:include>
+            ${ZLIB_INCLUDE_DIRS})
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
-        ${AWSSDK_PLATFORM_DEPS})
+        ${AWSSDK_PLATFORM_DEPS}
+            ${ZLIB_LIBRARIES})
 
  endforeach()
 
