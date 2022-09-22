@@ -23,7 +23,7 @@ You will find these examples that use the **RdsClient** object:
 
 - [Create an Amazon RDS instance and wait for it to be in an available state.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBInstance.java) (createDBInstance command)
 
-
+- [Create an Amazon RDS snapshot.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBSnapshot.java) (createDBSnapshot command)
 
  ## Testing the Amazon RDS Java files
 
