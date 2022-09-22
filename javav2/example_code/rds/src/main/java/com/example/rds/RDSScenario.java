@@ -33,7 +33,6 @@ import software.amazon.awssdk.services.rds.model.DescribeDbParametersResponse;
 import software.amazon.awssdk.services.rds.model.DescribeDbSnapshotsRequest;
 import software.amazon.awssdk.services.rds.model.DescribeDbSnapshotsResponse;
 import software.amazon.awssdk.services.rds.model.DescribeOrderableDbInstanceOptionsResponse;
-import software.amazon.awssdk.services.rds.model.Filter;
 import software.amazon.awssdk.services.rds.model.ModifyDbParameterGroupResponse;
 import software.amazon.awssdk.services.rds.model.OrderableDBInstanceOption;
 import software.amazon.awssdk.services.rds.model.Parameter;
@@ -135,7 +134,6 @@ public class RDSScenario {
         String dbARN = createDatabaseInstance(rdsClient, dbGroupName, dbInstanceIdentifier, dbName, masterUsername, masterUserPassword);
         System.out.println("The ARN of the new database is "+dbARN);
 
-
         System.out.println("10. Wait for DB instance to be ready" );
         waitForInstanceReady(rdsClient, dbInstanceIdentifier);
 
@@ -160,7 +158,6 @@ public class RDSScenario {
     // An exception is thrown if you attempt to delete the para group while database exists.
     public static void deleteParaGroup( RdsClient rdsClient, String dbGroupName, String dbARN) throws InterruptedException {
         try {
-
             boolean isDataDel  = false;
             boolean didFind;
             String instanceARN ;
@@ -183,6 +180,7 @@ public class RDSScenario {
                         // Went through the entire list and did not find the database ARN.
                         isDataDel = true;
                     }
+                    Thread.sleep(sleepTime * 1000);
                     index ++;
                 }
             }
@@ -267,7 +265,7 @@ public class RDSScenario {
                 .build();
 
             CreateDbSnapshotResponse response = rdsClient.createDBSnapshot(snapshotRequest);
-            System.out.print("The Snapshot id is " + response.dbSnapshot().dbiResourceId());
+            System.out.println("The Snapshot id is " + response.dbSnapshot().dbiResourceId());
 
         } catch (RdsException e) {
             System.out.println(e.getLocalizedMessage());
@@ -405,7 +403,6 @@ public class RDSScenario {
 
             List<Parameter> paraList = new ArrayList<>();
             paraList.add(parameter1);
-
             ModifyDbParameterGroupRequest groupRequest = ModifyDbParameterGroupRequest.builder()
                 .dbParameterGroupName(dbGroupName)
                 .parameters(paraList)
