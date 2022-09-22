@@ -1,4 +1,20 @@
 # zexi 0.4.0
+cross_RedshiftDataTracker:
+  title: Create an &RSlong; item tracker
+  title_abbrev: Create a web application to track &RS; data
+  synopsis: create a web application that tracks and reports on work items using an &RSlong; database.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RedshiftDataTracker_Java_block.xml
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RedshiftDataTracker_Kotlin_block.xml
+  services:
+    redshift:
+    ses:
 cross_SQSMessageApp:
   title: Create a web application that sends and retrieves messages by using the &SQSlong; API
   title_abbrev: Create a messaging application
