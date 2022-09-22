@@ -33,6 +33,16 @@ lambda_CreateFunction:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.CreateFunction
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ruby.LambdaWrapper.decl
+                - ruby.example_code.lambda.CreateFunction
   services:
     lambda: {CreateFunction}
 lambda_DeleteFunction:
@@ -69,6 +79,16 @@ lambda_DeleteFunction:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.DeleteFunction
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ruby.LambdaWrapper.decl
+                - ruby.example_code.lambda.DeleteFunction
   services:
     lambda: {DeleteFunction}
 lambda_Invoke:
@@ -105,6 +125,16 @@ lambda_Invoke:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.Invoke
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ruby.LambdaWrapper.decl
+                - ruby.example_code.lambda.InvokeFunction
   services:
     lambda: {Invoke}
 lambda_GetFunction:
@@ -123,6 +153,16 @@ lambda_GetFunction:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.GetFunction
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ruby.LambdaWrapper.decl
+                - ruby.example_code.lambda.GetFunction
   services:
     lambda: {GetFunction}
 lambda_UpdateFunctionCode:
@@ -141,6 +181,16 @@ lambda_UpdateFunctionCode:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.UpdateFunctionCode
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ruby.LambdaWrapper.decl
+                - ruby.example_code.lambda.UpdateFunctionCode
   services:
     lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
@@ -159,6 +209,16 @@ lambda_UpdateFunctionConfiguration:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.UpdateFunctionConfiguration
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ruby.LambdaWrapper.decl
+                - ruby.example_code.lambda.UpdateFunctionConfiguration
   services:
     lambda: {UpdateFunctionConfiguration}
 lambda_ListFunctions:
@@ -177,6 +237,16 @@ lambda_ListFunctions:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.ListFunctions
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ruby.LambdaWrapper.decl
+                - ruby.example_code.lambda.ListFunctions
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
@@ -234,6 +304,39 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Create a function that runs the scenario.
               snippet_tags:
                 - python.example_code.lambda.Scenario_GettingStartedFunctions
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description: Set up pre-requisite IAM permissions for a Lambda function capable of writing logs.
+              snippet_tags:
+                - ruby.example_code.lambda.setup_iam
+            - description: Define a &LAM; handler that increments a number provided as an invocation parameter.
+              snippet_tags:
+                - ruby.example_code.lambda.handler.increment
+            - description: Zip your &LAM; function into a deployment package.
+              snippet_tags:
+                - ruby.example_code.lambda.create_deployment_package
+            - description: Create a new &LAM; function.
+              snippet_tags:
+                - ruby.example_code.lambda.CreateFunction
+            - description: Invoke your &LAM; function with optional runtime parameters.
+              snippet_tags:
+                - ruby.example_code.lambda.Invoke
+            - description: Update your &LAM; function's configuration to inject a new environment variable.
+              snippet_tags:
+                - ruby.example_code.lambda.UpdateFunctionConfiguration
+            - description: Update your &LAM; function's code with a different deployment package containing different code.
+              snippet_tags:
+                - ruby.example_code.lambda.UpdateFunctionCode
+            - description: List all existing &LAM; functions using the built-in paginator.
+              snippet_tags:
+                - ruby.example_code.lambda.ListFunctions
+            - description: Delete a specific &LAM; function.
+              snippet_tags:
+                - ruby.example_code.lambda.DeleteFunction
   services:
     lambda: {CreateFunction, DeleteFunction, Invoke, GetFunction, ListFunctions,
              UpdateFunctionCode, UpdateFunctionConfiguration}
