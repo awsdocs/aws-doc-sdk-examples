@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::fmt::Display;
-
 use aws_sdk_dynamodb::{Client, Error};
 use dynamodb_code_examples::{
     make_config,
-    scenario::create::{add_item, Item},
+    scenario::add::{add_item, Item},
     Opt as BaseOpt,
 };
+use std::fmt;
 use structopt::StructOpt;
 
 #[derive(Debug)]
@@ -19,9 +18,15 @@ struct PermissionError {
 }
 
 impl std::error::Error for PermissionError {}
-impl Display for PermissionError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "\n{} is not a valid permission type.\nYou must specify a permission type value of 'admin' or 'standard_user':\n-p PERMISSION-TYPE\n", self.p_type)
+impl fmt::Display for PermissionError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "{} is not a valid permission type.\n\
+        You must specify a permission type value of 'admin' or 'standard_user':\n\
+        -p PERMISSION-TYPE\n",
+            self.p_type
+        )
     }
 }
 
