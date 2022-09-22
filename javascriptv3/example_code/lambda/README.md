@@ -2,10 +2,10 @@
 
 ## Overview
 
-Shows how to use the SDK for JavaScript in Node.js with AWS Lambda (Lambda) to manage and invoke
+Shows how to use the SDK for JavaScript in Node.js with AWS Lambda to manage and invoke
 functions.
 
-AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. You can trigger Lambda from over 200 AWS services and software as a service (SaaS) applications, and only pay for what you use.
+AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers.
 
 ## ⚠️ Important
 
@@ -20,18 +20,18 @@ AWS Lambda is a serverless, event-driven compute service that lets you run code 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a Lambda function](./actions/create-function.js)(`CreateFunction`)
-- [Delete a Lambda function](./actions/delete-function.js)(`DeleteFunction`)
-- [Get a Lambda function](./actions/get-function.js)(`GetFunction`)
-- [Invoke a Lambda function](./actions/invoke.js)(`Invoke`)
-- [Update Lambda function code](./actions/update-function-code.js)(`UpdateFunctionCode`)
-- [Update Lambda function configuration](./actions/update-function-configuration.js)(`CreateFunction`)
+- [Create a function](./actions/create-function.js)(`CreateFunction`)
+- [Delete a function](./actions/delete-function.js)(`DeleteFunction`)
+- [Get a function](./actions/get-function.js)(`GetFunction`)
+- [Invoke a function](./actions/invoke.js)(`Invoke`)
+- [Update function code](./actions/update-function-code.js)(`UpdateFunctionCode`)
+- [Update function configuration](./actions/update-function-configuration.js)(`CreateFunction`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Interactive Lambda command line tool](./scenarios/basic)
+- [Get started with functions](./scenarios/basic)
 
 ## Run the examples
 
