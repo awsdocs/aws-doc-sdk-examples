@@ -98,7 +98,7 @@ ec2_RunInstances:
 ec2_CreateVpc:
   title: Create an &EC2; VPC using an &AWS; SDK
   title_abbrev: Create a VPC
-  synopsis: create a &EC2; VPC.
+  synopsis: create an &EC2; VPC.
   category:
   languages:
     .NET:
@@ -588,8 +588,8 @@ ec2_RebootInstances:
     ec2: {RebootInstances}
 ec2_DeleteVPC:
   title: Delete an &EC2; VPC using an &AWS; SDK
-  title_abbrev: Delete VPC
-  synopsis: delete &EC2; VPC.
+  title_abbrev: Delete a VPC
+  synopsis: delete an &EC2; VPC.
   category:
   languages:
     .NET:

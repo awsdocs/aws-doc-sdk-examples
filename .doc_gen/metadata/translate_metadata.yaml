@@ -51,9 +51,9 @@ translate_ListTranslationJobs:
   services:
     translate: {ListTextTranslationJobs}
 translate_StopTranslationJob:
-  title: Stop a &TSL; translation job using an &AWS; SDK
+  title: Stop an &TSL; translation job using an &AWS; SDK
   title_abbrev: Stop a translation job
-  synopsis: stop a &TSL; translation job.
+  synopsis: stop an &TSL; translation job.
   category:
   languages:
     .NET:

@@ -793,22 +793,6 @@ sns_Publish:
                 - sns.rust.sns-hello-world
   services:
     sns: {Publish}
-sns_ManageTopicSubscription:
-  title: Manage &SNS; topic subscription using an &AWS; SDK
-  title_abbrev: Manage topic subscription
-  synopsis: manage topic subscription using &SNS;.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.TopicSubscribe
-                - SNS.dotnetv3.UnsubscribeTopic
-  services:
-    sns: {Subscribe, Unsubscribe}
 sns_SetSmsAttributes:
   title: Set the default settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Set the default settings for sending SMS messages
@@ -936,6 +920,13 @@ sns_Subscribe:
   synopsis: subscribe an email address to an &SNS; topic.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SNS
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.TopicSubscribe
     C++:
       versions:
         - sdk_version: 1
@@ -1015,6 +1006,13 @@ sns_Unsubscribe:
   synopsis: delete an &SNS; subscription.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SNS
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.UnsubscribeTopic
     C++:
       versions:
         - sdk_version: 1

@@ -16,7 +16,7 @@ namespace CreateOrganizationExample
     public class CreateOrganization
     {
         /// <summary>
-        /// Create an Organizations client object and then uses it to create
+        /// Creates an Organizations client object and then uses it to create
         /// a new organization with the default user as the administrator, and
         /// then displays information about the new organization.
         /// </summary>

@@ -46,7 +46,7 @@ kinesis_CreateStream:
 kinesis_DeregisterConsumer:
   title: Deregister a consumer from a &AK; stream using an &AWS; SDK
   title_abbrev: Deregister a consumer
-  synopsis: deregister a customer from a &AK; stream.
+  synopsis: deregister a consumer from a &AK; stream.
   category:
   languages:
     .NET:
@@ -89,7 +89,7 @@ kinesis_DescribeStream:
 kinesis_ListConsumers:
   title: List the consumers of a &AK; stream using an &AWS; SDK
   title_abbrev: List the consumers of a stream
-  synopsis: list the customers of a &AK; stream.
+  synopsis: list the consumers of a &AK; stream.
   category:
   languages:
     .NET:
@@ -284,4 +284,4 @@ kinesis_TagStream:
               snippet_tags:
                 - Kinesis.dotnetv3.TagStreamExample
   services:
-    kinesis: {TagStream}
+    kinesis: {AddTagsToStream}

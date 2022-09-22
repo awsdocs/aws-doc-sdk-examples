@@ -234,7 +234,7 @@ organizations_DeleteOrganization:
 organizations_ListAccounts:
   title: List accounts for an &AO; organization using an &AWS; SDK
   title_abbrev: List accounts
-  synopsis: list account for an &AO; organization.
+  synopsis: list accounts for an &AO; organization.
   category:
   languages:
     .NET:

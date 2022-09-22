@@ -144,6 +144,9 @@ polly_SynthesizeSpeech:
             - description:
               snippet_tags:
                 - Polly.dotnetv3.SynthesizeSpeechExample
+            - description: Synthesize speech from text using speech marks with &POL; using an &AWS; SDK.
+              snippet_tags:
+                - Polly.dotnetv3.SynthesizeSpeechMarksExample
     Python:
       versions:
         - sdk_version: 3
@@ -216,23 +219,6 @@ polly_DeleteLexicon:
                 - Polly.dotnetv3.DeleteLexiconExample
   services:
     polly: {DeleteLexicon}
-polly_SynthesizeSpeechMarks:
-  title: Synthesize speech from text using speech marks with &POL; using an &AWS; SDK
-  title_abbrev: Synthesize speech from text using marks
-  synopsis: synthesize speech from text using marks with &POL;.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Polly
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - Polly.dotnetv3.SynthesizeSpeechMarksExample
-  services:
-    polly: {SynthesizeSpeech}
 polly_LipSync:
   title: Create a lip-sync application with &POL; using an &AWS; SDK
   title_abbrev: Create a lip-sync application

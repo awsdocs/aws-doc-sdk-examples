@@ -23,7 +23,7 @@ namespace BatchTranslateExample
         {
             var contentType = "text/plain";
 
-            // Set this variable to an Amazon S3 bucket location with folder."
+            // Set this variable to an Amazon S3 bucket location with a folder."
             // Input files must be in a folder and not at the bucket root."
             var s3InputUri = "s3://DOC-EXAMPLE-BUCKET1/FOLDER/";
             var s3OutputUri = "s3://DOC-EXAMPLE-BUCKET2/";
