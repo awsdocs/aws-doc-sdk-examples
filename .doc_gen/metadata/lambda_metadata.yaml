@@ -134,7 +134,7 @@ lambda_Invoke:
             - description:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
-                - ruby.example_code.lambda.InvokeFunction
+                - ruby.example_code.lambda.Invoke
   services:
     lambda: {Invoke}
 lambda_GetFunction:
