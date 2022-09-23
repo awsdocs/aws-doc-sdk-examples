@@ -158,7 +158,7 @@ public class RDSScenario {
     // An exception is thrown if you attempt to delete the para group while database exists.
     public static void deleteParaGroup( RdsClient rdsClient, String dbGroupName, String dbARN) throws InterruptedException {
         try {
-            boolean isDataDel  = false;
+            boolean isDataDel = false;
             boolean didFind;
             String instanceARN ;
 
@@ -335,7 +335,7 @@ public class RDSScenario {
 
             CreateDbInstanceResponse response = rdsClient.createDBInstance(instanceRequest);
             System.out.print("The status is " + response.dbInstance().dbInstanceStatus());
-            return  response.dbInstance().dbInstanceArn();
+            return response.dbInstance().dbInstanceArn();
 
         } catch (RdsException e) {
             System.out.println(e.getLocalizedMessage());
