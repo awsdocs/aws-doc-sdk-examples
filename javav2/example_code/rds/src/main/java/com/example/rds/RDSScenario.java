@@ -81,7 +81,7 @@ public class RDSScenario {
             "    <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> <dbSnapshotIdentifier>\n\n" +
             "Where:\n" +
             "    dbGroupName - The database group name. \n"+
-            "    dbParameterGroupFamily - The database parameter group name.\n"+
+            "    dbParameterGroupFamily - The database parameter group name (for example, mysql8.0).\n"+
             "    dbInstanceIdentifier - The database instance identifier \n"+
             "    dbName -  The database name. \n"+
             "    masterUsername - The master user name. \n"+
