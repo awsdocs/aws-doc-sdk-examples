@@ -22,7 +22,7 @@ def create_elastictranscoder_job(transcoder_client, s3_resource, pipeline_name)
   pipeline_id = resp["pipeline"]["id"]
 
   # This is the name of the input key that you would like to transcode.
-  input_key = "Jabberwocky.mp3"
+  input_key = ".Jabberwocky.mp3"
 
   # HLS Presets that will be used to create an adaptive bitrate playlist.
   hls_64k_audio_preset_id = "1351620000001-200071"
@@ -43,37 +43,37 @@ def create_elastictranscoder_job(transcoder_client, s3_resource, pipeline_name)
   hls_audio = {
     key: "hlsAudio/" + output_key,
     preset_id: hls_64k_audio_preset_id,
-    segment_duration:
+    segment_duration: segment_duration
   }
 
   hls_400k = {
     key: "hls0400k/" + output_key,
     preset_id: hls_0400k_preset_id,
-    segment_duration:
+    segment_duration: segment_duration
   }
 
   hls_600k = {
     key: "hls0600k/" + output_key,
     preset_id: hls_0600k_preset_id,
-    segment_duration:
+    segment_duration: segment_duration
   }
 
   hls_1000k = {
     key: "hls1000k/" + output_key,
     preset_id: hls_1000k_preset_id,
-    segment_duration:
+    segment_duration: segment_duration
   }
 
   hls_1500k = {
     key: "hls1500k/" + output_key,
     preset_id: hls_1500k_preset_id,
-    segment_duration:
+    segment_duration: segment_duration
   }
 
   hls_2000k = {
     key: "hls2000k/" + output_key,
     preset_id: hls_2000k_preset_id,
-    segment_duration:
+    segment_duration: segment_duration
   }
 
   outputs = [hls_audio, hls_400k, hls_600k, hls_1000k, hls_1500k, hls_2000k]
@@ -84,10 +84,10 @@ def create_elastictranscoder_job(transcoder_client, s3_resource, pipeline_name)
   }
 
   job = transcoder_client.create_job(
-    pipeline_id:,
-    input:,
+    pipeline_id: pipeline_id,
+    input: input,
     output_key_prefix: output_key_prefix + output_key + "/",
-    outputs:,
+    outputs: outputs,
     playlists: [playlist]
   )[:job]
 

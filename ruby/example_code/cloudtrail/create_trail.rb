@@ -61,10 +61,10 @@ def create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, b
                                     })
 
     puts "Successfully created trail: #{trail_name}."
-  # rescue StandardError => e
-  #   puts "Got error trying to create trail #{trail_name}:\n #{e}"
-  #   puts e
-  #   exit 1
+  rescue StandardError => e
+    puts "Got error trying to create trail #{trail_name}:\n #{e}"
+    puts e
+    exit 1
   end
   # snippet-end:[cloudtrail.Ruby.createTrail]
   "test"

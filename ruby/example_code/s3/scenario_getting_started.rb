@@ -51,7 +51,7 @@ class ScenarioGettingStarted
     File.open("demo.txt", w) { |f| f.write("This is a demo file.") }
   end
 
-  # Uploads the top-level README from this repo to an Amazon S3 bucket.
+  # Uploads a file to an Amazon S3 bucket.
   #
   # @param bucket [Aws::S3::Bucket] The bucket object representing the upload destination
   # @return [Aws::S3::Object] The Amazon S3 object that contains the uploaded file.

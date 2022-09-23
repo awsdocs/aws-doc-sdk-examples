@@ -37,7 +37,7 @@ resp = transcoder_client.create_pipeline({
 
 pipeline_id = resp["pipeline"]["id"]
 
-input_key = "Jabberwocky.mp3"
+input_key = ".Jabberwocky.mp3"
 
 # This will generate a 480p 16:9 mp4 output.
 preset_id = "1351620000001-000020"
@@ -55,14 +55,14 @@ def create_elastic_transcoder_job(pipeline_id, input_key, preset_id, output_key_
   # Setup the job input using the provided input key.
   output = {
     key: OpenSSL::Digest::SHA256.new(input_key.encode("UTF-8")).to_s,
-    preset_id:
+    preset_id: preset_id
   }
 
   # Create a job on the specified pipeline and return the job ID.
   transcoder_client.create_job(
-    pipeline_id:,
-    input:,
-    output_key_prefix:,
+    pipeline_id: pipeline_id,
+    input: input,
+    output_key_prefix: output_key_prefix,
     outputs: [output]
   )[:job][:id]
 end
