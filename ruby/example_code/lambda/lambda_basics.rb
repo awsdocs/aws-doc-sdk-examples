@@ -231,6 +231,10 @@ class LambdaWrapper
       w.max_attempts = 5
       w.delay = 5
     end
+  rescue Aws::Lambda::Errors::ServiceException => e
+    @logger.error("There was an error updating configurations for #{function_name}:\n #{e.message}")
+  rescue Aws::Waiters::Errors::WaiterFailed => e
+    @logger.error("Failed waiting for #{function_name} to activate:\n #{e.message}")
   end
   # snippet-end:[ruby.example_code.lambda.UpdateFunctionConfiguration]
 
