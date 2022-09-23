@@ -10,10 +10,12 @@
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/CreateTableRequest.h>
 #include <aws/dynamodb/model/DeleteTableRequest.h>
+#include <aws/dynamodb/model/DeleteItemRequest.h>
 #include <aws/dynamodb/model/DescribeTableRequest.h>
 #include <aws/dynamodb/model/GetItemRequest.h>
 #include <aws/dynamodb/model/PutItemRequest.h>
 #include <aws/dynamodb/model/QueryRequest.h>
+#include <aws/dynamodb/model/ScanRequest.h>
 #include <aws/dynamodb/model/UpdateItemRequest.h>
 #include <aws/dynamodb/model/BatchWriteItemRequest.h>
 #include <aws/core/http/HttpClientFactory.h>
@@ -42,7 +44,8 @@ namespace AwsDoc {
 
         int askQuestionForInt(const Aws::String &string);
 
-        float askQuestionForFloatRange(const Aws::String &string, float low, float high);
+        float
+        askQuestionForFloatRange(const Aws::String &string, float low, float high);
 
         static bool waitTableActive(const Aws::String &tableName,
                                     const Aws::Client::ClientConfiguration &clientConfiguration);
@@ -52,7 +55,8 @@ namespace AwsDoc {
         Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>
         movieJsonViewToAttributeMap(const Aws::Utils::Json::JsonView &jsonView);
 
-        void printMovieInfo(const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& movieMap);
+        void printMovieInfo(
+                const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &movieMap);
 
         static int inflateZip(FILE *source, FILE *dest);
 
@@ -72,13 +76,14 @@ namespace AwsDoc {
  * 9.Delete the table. (DeleteTable)
  */
 
-bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
     std::cout << std::setfill('*') << std::setw(88) << " " << std::endl;
     std::cout << "Welcome to the Amazon DynamoDB getting started demo." << std::endl;
     std::cout << std::setfill('*') << std::setw(88) << " " << std::endl;
 
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
-#if 0
+
     bool movieTableAlreadyExisted = false;
 
     // 1. Create a table with partition: year (N) and sort: title (S) (CreateTable)
@@ -87,83 +92,99 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(const Aws::Client::ClientC
 
         Aws::DynamoDB::Model::AttributeDefinition yearAttributeDefinition;
         yearAttributeDefinition.SetAttributeName(YEAR_KEY);
-        yearAttributeDefinition.SetAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::N);
+        yearAttributeDefinition.SetAttributeType(
+                Aws::DynamoDB::Model::ScalarAttributeType::N);
         request.AddAttributeDefinitions(yearAttributeDefinition);
 
         Aws::DynamoDB::Model::AttributeDefinition titleAttributeDefinition;
         yearAttributeDefinition.SetAttributeName(TITLE_KEY);
-        yearAttributeDefinition.SetAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
+        yearAttributeDefinition.SetAttributeType(
+                Aws::DynamoDB::Model::ScalarAttributeType::S);
         request.AddAttributeDefinitions(yearAttributeDefinition);
 
         Aws::DynamoDB::Model::KeySchemaElement yearKeySchema;
-        yearKeySchema.WithAttributeName(YEAR_KEY).WithKeyType(Aws::DynamoDB::Model::KeyType::HASH);
+        yearKeySchema.WithAttributeName(YEAR_KEY).WithKeyType(
+                Aws::DynamoDB::Model::KeyType::HASH);
         request.AddKeySchema(yearKeySchema);
 
         Aws::DynamoDB::Model::KeySchemaElement titleKeySchema;
-        yearKeySchema.WithAttributeName(TITLE_KEY).WithKeyType(Aws::DynamoDB::Model::KeyType::RANGE);
+        yearKeySchema.WithAttributeName(TITLE_KEY).WithKeyType(
+                Aws::DynamoDB::Model::KeyType::RANGE);
         request.AddKeySchema(yearKeySchema);
 
         Aws::DynamoDB::Model::ProvisionedThroughput throughput;
-        throughput.WithReadCapacityUnits(PROVISIONED_THROUGHPUT_UNITS).WithWriteCapacityUnits(
+        throughput.WithReadCapacityUnits(
+                PROVISIONED_THROUGHPUT_UNITS).WithWriteCapacityUnits(
                 PROVISIONED_THROUGHPUT_UNITS);
         request.SetProvisionedThroughput(throughput);
         request.SetTableName(MOVIE_TABLE_NAME);
 
         std::cout << "Creating table '" << MOVIE_TABLE_NAME << "'..." << std::endl;
-        const Aws::DynamoDB::Model::CreateTableOutcome &result = dynamoClient.CreateTable(request);
+        const Aws::DynamoDB::Model::CreateTableOutcome &result = dynamoClient.CreateTable(
+                request);
         if (!result.IsSuccess()) {
-            if (result.GetError().GetErrorType() == Aws::DynamoDB::DynamoDBErrors::RESOURCE_IN_USE) {
+            if (result.GetError().GetErrorType() ==
+                Aws::DynamoDB::DynamoDBErrors::RESOURCE_IN_USE) {
                 std::cout << "Table already exists." << std::endl;
                 movieTableAlreadyExisted = true;
             }
             else {
-                std::cerr << "Failed to create table: " << result.GetError().GetMessage();
+                std::cerr << "Failed to create table: "
+                          << result.GetError().GetMessage();
                 return false;
             }
         }
     }
 
     if (!movieTableAlreadyExisted) {
-        std::cout << "Waiting for table '" << MOVIE_TABLE_NAME << "' to become active...." << std::endl;
+        std::cout << "Waiting for table '" << MOVIE_TABLE_NAME
+                  << "' to become active...." << std::endl;
         if (!AwsDoc::DynamoDB::waitTableActive(MOVIE_TABLE_NAME, clientConfiguration)) {
             deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
             return false;
         }
-        std::cout << "Table '" << MOVIE_TABLE_NAME << "' created and active." << std::endl;
+        std::cout << "Table '" << MOVIE_TABLE_NAME << "' created and active."
+                  << std::endl;
     }
 
-#if 0
     // 2. Add a new movie. (PutItem)
     Aws::String title;
     float rating;
     int year;
     Aws::String plot;
     {
-        title = askQuestion("Enter the title of a movie you want to add to the table: ");
+        title = askQuestion(
+                "Enter the title of a movie you want to add to the table: ");
         year = askQuestionForInt("What year was it released? ");
-        rating = askQuestionForFloatRange("On a scale of 1 - 10, how do you rate it? ", 1, 10);
+        rating = askQuestionForFloatRange("On a scale of 1 - 10, how do you rate it? ",
+                                          1, 10);
         plot = askQuestion("Summarize the plot for me: ");
 
         Aws::DynamoDB::Model::PutItemRequest putItemRequest;
         putItemRequest.SetTableName(MOVIE_TABLE_NAME);
 
-        putItemRequest.AddItem(YEAR_KEY, Aws::DynamoDB::Model::AttributeValue().SetN(year));
-        putItemRequest.AddItem(TITLE_KEY, Aws::DynamoDB::Model::AttributeValue().SetS(title));
+        putItemRequest.AddItem(YEAR_KEY,
+                               Aws::DynamoDB::Model::AttributeValue().SetN(year));
+        putItemRequest.AddItem(TITLE_KEY,
+                               Aws::DynamoDB::Model::AttributeValue().SetS(title));
 
         // Create attribute for the info map.
         Aws::DynamoDB::Model::AttributeValue infoMapAttribute;
 
-        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> ratingAttribute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(ALLOCATION_TAG.c_str());
+        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> ratingAttribute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(
+                ALLOCATION_TAG.c_str());
         ratingAttribute->SetN(rating);
         infoMapAttribute.AddMEntry(RATING_KEY, ratingAttribute);
 
-        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> plotAttibute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(ALLOCATION_TAG.c_str());
+        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> plotAttibute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(
+                ALLOCATION_TAG.c_str());
         plotAttibute->SetS(plot);
         infoMapAttribute.AddMEntry(PLOT_KEY, plotAttibute);
 
         putItemRequest.AddItem(INFO_KEY, infoMapAttribute);
 
-        Aws::DynamoDB::Model::PutItemOutcome outcome = dynamoClient.PutItem(putItemRequest);
+        Aws::DynamoDB::Model::PutItemOutcome outcome = dynamoClient.PutItem(
+                putItemRequest);
         if (!outcome.IsSuccess()) {
             std::cerr << "Failed to add an item: " << outcome.GetError().GetMessage();
             deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
@@ -171,34 +192,41 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(const Aws::Client::ClientC
         }
     }
 
-    std::cout << "\nAdded '" << title << "' to '" << MOVIE_TABLE_NAME << "'." << std::endl;
+    std::cout << "\nAdded '" << title << "' to '" << MOVIE_TABLE_NAME << "'."
+              << std::endl;
 
     // 3. Update the rating and plot of the movie by using an update expression.
     // (UpdateItem with UpdateExpression + ExpressionAttributeValues args)
     {
-        rating = askQuestionForFloatRange(Aws::String("\nLet's update your movie.\nYou rated it  ") + std::to_string(rating)
+        rating = askQuestionForFloatRange(
+                Aws::String("\nLet's update your movie.\nYou rated it  ") +
+                std::to_string(rating)
                 + ", what new would you give it? ", 1, 10);
-        plot = askQuestion(Aws::String("You summarized the plot as '") + plot + "'.\nWhat would you say now? ");
+        plot = askQuestion(Aws::String("You summarized the plot as '") + plot +
+                           "'.\nWhat would you say now? ");
 
         Aws::DynamoDB::Model::UpdateItemRequest request;
         request.SetTableName(MOVIE_TABLE_NAME);
         request.AddKey(TITLE_KEY, Aws::DynamoDB::Model::AttributeValue().SetS(title));
         request.AddKey(YEAR_KEY, Aws::DynamoDB::Model::AttributeValue().SetN(year));
-        std::stringstream  expressionStream;
+        std::stringstream expressionStream;
         expressionStream << "set " << INFO_KEY << "." << RATING_KEY << " =:r, "
-            << INFO_KEY << "." << PLOT_KEY << " =:p";
+                         << INFO_KEY << "." << PLOT_KEY << " =:p";
         request.SetUpdateExpression(expressionStream.str());
         request.SetExpressionAttributeValues({
-                                                     {":r", Aws::DynamoDB::Model::AttributeValue().SetN(rating)},
-                                                     {":p", Aws::DynamoDB::Model::AttributeValue().SetS(plot)}
+                                                     {":r", Aws::DynamoDB::Model::AttributeValue().SetN(
+                                                             rating)},
+                                                     {":p", Aws::DynamoDB::Model::AttributeValue().SetS(
+                                                             plot)}
                                              });
 
         request.SetReturnValues(Aws::DynamoDB::Model::ReturnValue::UPDATED_NEW);
 
-        const Aws::DynamoDB::Model::UpdateItemOutcome& result = dynamoClient.UpdateItem(request);
-        if (!result.IsSuccess())
-        {
-            std::cerr << "Error updating movie " + result.GetError().GetMessage() << std::endl;
+        const Aws::DynamoDB::Model::UpdateItemOutcome &result = dynamoClient.UpdateItem(
+                request);
+        if (!result.IsSuccess()) {
+            std::cerr << "Error updating movie " + result.GetError().GetMessage()
+                      << std::endl;
             deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
             return false;
         }
@@ -206,9 +234,8 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(const Aws::Client::ClientC
 
     std::cout << "\nUpdated '" << title << "' with new attributes:" << std::endl;
 
-#endif
     if (!movieTableAlreadyExisted) {
-       // 4. Put 250 movies in the table from moviedata.json (BatchWriteItem)
+        // 4. Put 250 movies in the table from moviedata.json (BatchWriteItem)
         const size_t MAX_SIZE_FOR_BATCH_WRITE = 25;
         const size_t MOVIES_TO_WRITE = 10 * MAX_SIZE_FOR_BATCH_WRITE;
         Aws::String jsonString = getMovieJSON();
@@ -217,26 +244,31 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(const Aws::Client::ClientC
             Aws::Utils::Array<Aws::Utils::Json::JsonView> movieJsons = json.View().AsArray();
             Aws::Vector<Aws::DynamoDB::Model::WriteRequest> writeRequests;
 
-            for (size_t i = 0; i < MOVIES_TO_WRITE && i < movieJsons.GetLength(); ++i) {
+            // Movies are grouped by year. To get a cross-section of years, get every
+            // "increment" movie.
+            size_t increment = movieJsons.GetLength() / MOVIES_TO_WRITE;
+            for (size_t i = 0; i < movieJsons.GetLength(); i += increment) {
                 writeRequests.push_back(Aws::DynamoDB::Model::WriteRequest());
                 Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> putItems = movieJsonViewToAttributeMap(
                         movieJsons[i]);
                 Aws::DynamoDB::Model::PutRequest putRequest;
                 putRequest.SetItem(putItems);
                 writeRequests.back().SetPutRequest(putRequest);
-                if (writeRequests.size() == MAX_SIZE_FOR_BATCH_WRITE)
-                {
+                if (writeRequests.size() == MAX_SIZE_FOR_BATCH_WRITE) {
                     Aws::DynamoDB::Model::BatchWriteItemRequest request;
                     request.AddRequestItems(MOVIE_TABLE_NAME, writeRequests);
-                    const Aws::DynamoDB::Model::BatchWriteItemOutcome &outcome = dynamoClient.BatchWriteItem(request);
+                    const Aws::DynamoDB::Model::BatchWriteItemOutcome &outcome = dynamoClient.BatchWriteItem(
+                            request);
                     if (!outcome.IsSuccess()) {
-                        std::cerr << "Unable to batch write movie data: " << outcome.GetError().GetMessage()
+                        std::cerr << "Unable to batch write movie data: "
+                                  << outcome.GetError().GetMessage()
                                   << std::endl;
                         writeRequests.clear();
                         break;
                     }
                     else {
-                        std::cout << "Added batch of " << writeRequests.size() << " movies to the database."
+                        std::cout << "Added batch of " << writeRequests.size()
+                                  << " movies to the database."
                                   << std::endl;
                     }
                     writeRequests.clear();
@@ -244,112 +276,179 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(const Aws::Client::ClientC
             }
         }
     }
-#endif
+
     std::cout << std::setfill('*') << std::setw(88) << " " << std::endl;
 
-    // 5. Get a movie by Key (partition + sort) (GetItem)
+    // 5. Get a movie by Key (partition + sort)
+    //    (GetItem)
     {
-        Aws::String titleToGet("World War Z");
-   //     Aws::String answer = askQuestion(Aws::String("Let's move on...do you want to get info about '" + titleToGet + "'? (y/n) "));
+        Aws::String titleToGet("Star Trek: First Contact");
+        //     Aws::String answer = askQuestion(Aws::String("Let's move on...do you want to get info about '" + titleToGet + "'? (y/n) "));
         if (false) //(answer == "y")
         {
             Aws::DynamoDB::Model::GetItemRequest request;
             request.SetTableName(MOVIE_TABLE_NAME);
-            request.AddKey(TITLE_KEY, Aws::DynamoDB::Model::AttributeValue().SetS(titleToGet));
+            request.AddKey(TITLE_KEY,
+                           Aws::DynamoDB::Model::AttributeValue().SetS(titleToGet));
             request.AddKey(YEAR_KEY, Aws::DynamoDB::Model::AttributeValue().SetN(2013));
 
-             const Aws::DynamoDB::Model::GetItemOutcome& result = dynamoClient.GetItem(request);
-            if (!result.IsSuccess())
-            {
+            const Aws::DynamoDB::Model::GetItemOutcome &result = dynamoClient.GetItem(
+                    request);
+            if (!result.IsSuccess()) {
                 std::cout << "Error " << result.GetError().GetMessage();
                 deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
                 return false;
             }
-            else
-            {
-                const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& item = result.GetResult().GetItem();
-                if (item.size() > 0)
-                {
+            else {
+                const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item = result.GetResult().GetItem();
+                if (item.size() > 0) {
                     std::cout << "\nHere's what I found:" << std::endl;
                     printMovieInfo(item);
                 }
-                else
-                {
-                    std::cout << "The movie was not found in the database." << std::endl;
+                else {
+                    std::cout << "The movie was not found in the database."
+                              << std::endl;
                 }
             }
         }
     }
 
-    // Use Query with a key condition expression to return all movies released in a given year. (Query + KeyConditionExpression arg)
+    // 6. Use Query with a key condition expression to return all movies released in a given year.
+    //    (Query + KeyConditionExpression arg)
     {
         Aws::DynamoDB::Model::QueryRequest req;
 
         req.SetTableName(MOVIE_TABLE_NAME);
 
-        // "year" is a reserved keyword and must be replaced with an
+        // "year" is a dynamodb reserved keyword and must be replaced with an
         // expression attribute name
-        req.SetKeyConditionExpression( "#dynobase_year = :valueToMatch");
+        req.SetKeyConditionExpression("#dynobase_year = :valueToMatch");
         req.SetExpressionAttributeNames({{"#dynobase_year", YEAR_KEY}});
 
         // Set Expression AttributeValues
         Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> attributeValues;
-        attributeValues.emplace(":valueToMatch", Aws::DynamoDB::Model::AttributeValue().SetN(2013));
-
+        attributeValues.emplace(":valueToMatch",
+                                Aws::DynamoDB::Model::AttributeValue().SetN(2013));
         req.SetExpressionAttributeValues(attributeValues);
 
         // Perform Query operation
-        const Aws::DynamoDB::Model::QueryOutcome& result = dynamoClient.Query(req);
-        if (result.IsSuccess())
-        {
+        const Aws::DynamoDB::Model::QueryOutcome &result = dynamoClient.Query(req);
+        if (result.IsSuccess()) {
             // Reference the retrieved items
-            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& items = result.GetResult().GetItems();
-            if(items.size() > 0)
-            {
-                std::cout << "Number of items retrieved from Query: " << items.size() << std::endl;
+            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = result.GetResult().GetItems();
+            if (items.size() > 0) {
+                std::cout << "Number of items retrieved from Query: " << items.size()
+                          << std::endl;
                 //Iterate each item and print
-                for(const auto &item: items)
-                {
-                    std::cout << "******************************************************" << std::endl;
+                for (const auto &item: items) {
+                    std::cout
+                            << "******************************************************"
+                            << std::endl;
                     // Output each retrieved field and its value
-                    for (const auto& i : item)
+                    for (const auto &i: item)
                         std::cout << i.first << ": " << i.second.GetS() << std::endl;
                 }
             }
-            else
-            {
-                std::cout << "No item found in table: " << MOVIE_TABLE_NAME << std::endl;
+            else {
+                std::cout << "No item found in table: " << MOVIE_TABLE_NAME
+                          << std::endl;
             }
         }
-        else
-        {
+        else {
             std::cout << "Failed to Query items: " << result.GetError().GetMessage();
         }
     }
 
+    //  7. Use Scan to return movies released within a range of years.
+    //     Show how to paginate data using ExclusiveStartKey. (Scan + FilterExpression)
+
+    {
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> exclusiveStartKey;
+        do {
+            Aws::DynamoDB::Model::ScanRequest scanRequest;
+            scanRequest.SetTableName(MOVIE_TABLE_NAME);
+            scanRequest.SetFilterExpression(
+                    "#dynobase_year >= :startYear AND #dynobase_year <= :endYear");
+            scanRequest.SetExpressionAttributeNames({{"#dynobase_year", YEAR_KEY}});
+
+            Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> attributeValues;
+            attributeValues.emplace(":startYear",
+                                    Aws::DynamoDB::Model::AttributeValue().SetN(2009));
+            attributeValues.emplace(":endYear",
+                                    Aws::DynamoDB::Model::AttributeValue().SetN(2011));
+            scanRequest.SetExpressionAttributeValues(attributeValues);
+
+            if (!exclusiveStartKey.empty()) {
+                scanRequest.SetExclusiveStartKey(exclusiveStartKey);
+            }
+
+            const Aws::DynamoDB::Model::ScanOutcome &result = dynamoClient.Scan(
+                    scanRequest);
+            if (result.IsSuccess()) {
+                const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = result.GetResult().GetItems();
+                if (items.size() > 0) {
+                    std::cout << "Number of movies retrieved from scan: "
+                              << items.size() << std::endl;
+                    for (const auto &item: items) {
+                        printMovieInfo(item);
+                    }
+                }
+                else {
+                    std::cout << "No item found in table: " << MOVIE_TABLE_NAME
+                              << std::endl;
+                }
+
+                exclusiveStartKey = result.GetResult().GetLastEvaluatedKey();
+            }
+            else {
+                std::cout << "Failed to Scan movies: "
+                          << result.GetError().GetMessage();
+            }
+        } while (!exclusiveStartKey.empty());
+    }
+
+    // 8. Delete a movie. (DeleteItem)
+    {
+        Aws::DynamoDB::Model::DeleteItemRequest request;
+        request.AddKey(YEAR_KEY, Aws::DynamoDB::Model::AttributeValue().SetN(year));
+        request.AddKey(TITLE_KEY, Aws::DynamoDB::Model::AttributeValue().SetS(title));
+        request.SetTableName(MOVIE_TABLE_NAME);
+
+        const Aws::DynamoDB::Model::DeleteItemOutcome &result = dynamoClient.DeleteItem(
+                request);
+        if (result.IsSuccess()) {
+            std::cout << "The movie \"" << title << "\" was deleted." << std::endl;
+        }
+        else {
+            std::cout << "Failed to delete the  movie: "
+                      << result.GetError().GetMessage()
+                      << std::endl;
+        }
+    }
+
+    // 9.Delete the table. (DeleteTable)
     return deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
 }
 
 bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
                                          const Aws::Client::ClientConfiguration &clientConfiguration) {
-#if 0
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::DeleteTableRequest request;
     request.SetTableName(tableName);
 
-    const Aws::DynamoDB::Model::DeleteTableOutcome &result = dynamoClient.DeleteTable(request);
+    const Aws::DynamoDB::Model::DeleteTableOutcome &result = dynamoClient.DeleteTable(
+            request);
     if (result.IsSuccess()) {
-        std::cout << "Your Table \"" << result.GetResult().GetTableDescription().GetTableName() << " was deleted!\n";
+        std::cout << "Your Table \""
+                  << result.GetResult().GetTableDescription().GetTableName()
+                  << " was deleted!\n";
     }
     else {
         std::cerr << "Failed to delete table: " << result.GetError().GetMessage();
     }
 
     return result.IsSuccess();
-#else
-    return true;
-#endif
 }
 
 
@@ -362,7 +461,8 @@ bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
 
     int count = 0;
     while (count < 20) {
-        const Aws::DynamoDB::Model::DescribeTableOutcome &result = client.DescribeTable(request);
+        const Aws::DynamoDB::Model::DescribeTableOutcome &result = client.DescribeTable(
+                request);
         if (!result.IsSuccess()) {
             std::cerr << "Error DynamoDB::waitTableActiveconst "
                       << result.GetError().GetMessage() << std::endl;
@@ -384,7 +484,8 @@ bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
 }
 
 Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>
-AwsDoc::DynamoDB::movieJsonViewToAttributeMap(const Aws::Utils::Json::JsonView &jsonView) {
+AwsDoc::DynamoDB::movieJsonViewToAttributeMap(
+        const Aws::Utils::Json::JsonView &jsonView) {
     Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> result;
 
     if (jsonView.KeyExists(YEAR_KEY)) {
@@ -397,10 +498,10 @@ AwsDoc::DynamoDB::movieJsonViewToAttributeMap(const Aws::Utils::Json::JsonView &
         Aws::Map<Aws::String, const std::shared_ptr<Aws::DynamoDB::Model::AttributeValue>> infoMap;
         Aws::Utils::Json::JsonView infoView = jsonView.GetObject(INFO_KEY);
         if (infoView.KeyExists(RATING_KEY)) {
-            std::shared_ptr<Aws::DynamoDB::Model::AttributeValue>  attributeValue = std::make_shared<Aws::DynamoDB::Model::AttributeValue>();
+            std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> attributeValue = std::make_shared<Aws::DynamoDB::Model::AttributeValue>();
             attributeValue->SetN(infoView.GetDouble(RATING_KEY));
             infoMap.emplace(std::make_pair(RATING_KEY, attributeValue));
-         }
+        }
         if (infoView.KeyExists(PLOT_KEY)) {
             std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> attributeValue = std::make_shared<Aws::DynamoDB::Model::AttributeValue>();
             attributeValue->SetS(infoView.GetString(PLOT_KEY));
@@ -432,15 +533,16 @@ Aws::String AwsDoc::DynamoDB::askQuestion(const Aws::String &string,
 }
 
 int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
-    Aws::String resultString = askQuestion(string, [](const Aws::String &string1) -> bool {
-        try {
-            std::atoi(string1.c_str());
-            return true;
-        }
-        catch (std::invalid_argument) {
-            return false;
-        }
-    });
+    Aws::String resultString = askQuestion(string,
+                                           [](const Aws::String &string1) -> bool {
+                                                   try {
+                                                       std::atoi(string1.c_str());
+                                                       return true;
+                                                   }
+                                                   catch (std::invalid_argument) {
+                                                       return false;
+                                                   }
+                                           });
 
     int result = 0;
     try {
@@ -453,15 +555,17 @@ int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
     return result;
 }
 
-float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, float low, float high) {
-    Aws::String resultString = askQuestion(string, [low, high](const Aws::String &string1) -> bool {
-        try {
-            float number = std::atof(string1.c_str());
-            return number >= low && number <= high;
-        }
-        catch (std::invalid_argument) {
-            return false;
-        }
+float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, float low,
+                                                 float high) {
+    Aws::String resultString = askQuestion(string, [low, high](
+            const Aws::String &string1) -> bool {
+            try {
+                float number = std::atof(string1.c_str());
+                return number >= low && number <= high;
+            }
+            catch (std::invalid_argument) {
+                return false;
+            }
     });
     float result = 0;
     try {
@@ -475,8 +579,8 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
     return result;
 }
 
-void AwsDoc::DynamoDB::printMovieInfo(const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& movieMap)
-{
+void AwsDoc::DynamoDB::printMovieInfo(
+        const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &movieMap) {
     {
         auto const &iter = movieMap.find(TITLE_KEY);
         if (iter != movieMap.end()) {
@@ -498,21 +602,19 @@ void AwsDoc::DynamoDB::printMovieInfo(const Aws::Map<Aws::String, Aws::DynamoDB:
                     iter->second.GetM();
 
             auto const &ratingIter = infoMap.find(RATING_KEY);
-            if (ratingIter != infoMap.end())
-            {
-                std::cout << "    Rating: " + ratingIter->second->GetN() << "." << std::endl;
+            if (ratingIter != infoMap.end()) {
+                std::cout << "    Rating: " + ratingIter->second->GetN() << "."
+                          << std::endl;
             }
 
             auto const &plotIter = infoMap.find(PLOT_KEY);
-            if (plotIter != infoMap.end())
-            {
-                std::cout << "    Synopsis: " + plotIter->second->GetS() << "." << std::endl;
+            if (plotIter != infoMap.end()) {
+                std::cout << "    Synopsis: " + plotIter->second->GetS() << "."
+                          << std::endl;
             }
         }
     }
 }
-
-
 
 
 #ifndef TESTING_BUILD
@@ -535,41 +637,37 @@ static void zerr(int ret);
 
 Aws::String AwsDoc::DynamoDB::getMovieJSON() {
     const Aws::String JSON_FILE_NAME("moviedata.json");
-    Aws::String result;
-#if 0
+    const Aws::String ZIP_FILE_NAME("movie.zip");
+
     Aws::Client::ClientConfiguration config;
 
     auto httpClient = Aws::Http::CreateHttpClient(config);
-    auto request = Aws::Http::CreateHttpRequest(Aws::String("https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip"),
-                                                Aws::Http::HttpMethod::HTTP_GET, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+    auto request = Aws::Http::CreateHttpRequest(Aws::String(
+                                                        "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip"),
+                                                Aws::Http::HttpMethod::HTTP_GET,
+                                                Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
     request->SetUserAgent("curl/7.79.1");
     auto response = httpClient->MakeRequest(request);
     Aws::String result;
 
-    const Aws::String ZIP_FILE_NAME("movie.zip");
-     if (Aws::Http::HttpResponseCode::OK == response->GetResponseCode())
-    {
-        {
-            std::ofstream outStream(ZIP_FILE_NAME);
-            outStream << response->GetResponseBody().rdbuf();
-        }
-        FILE* src = fopen(ZIP_FILE_NAME.c_str(), "r");
-        FILE* dst = fopen(JSON_FILE_NAME.c_str(), "w");
+    if (Aws::Http::HttpResponseCode::OK == response->GetResponseCode()) {
+        FILE *src = fopen(ZIP_FILE_NAME.c_str(), "r");
+        FILE *dst = fopen(JSON_FILE_NAME.c_str(), "w");
 
         int zipResult = inflateZip(src, dst);
-        if(zipResult == Z_OK)
-        {
+        if (zipResult == Z_OK) {
             std::cout << "Successful deflate" << std::endl;
         }
-        else
-        {
+        else {
             zerr(zipResult);
         }
+        fclose(src);
+        fclose(dst);
     }
-    else{
+    else {
         std::cout << response->GetClientErrorMessage() << std::endl;
     }
-#endif
+
     std::ifstream movieData(JSON_FILE_NAME);
     std::array<char, 1024> buffer;
     while (movieData) {
@@ -589,26 +687,42 @@ Aws::String AwsDoc::DynamoDB::getMovieJSON() {
    the version of the library linked do not match, or Z_ERRNO if there
    is an error reading or writing the files. */
 int AwsDoc::DynamoDB::inflateZip(FILE *source, FILE *dest) {
-    const int CHUNK = 16384;
+    const int IN_CHUNK = 32767;
+    const int OUT_CHUNK = 65535;
     int ret;
     unsigned have;
-    z_stream strm;
-    unsigned char in[CHUNK];
-    unsigned char out[CHUNK];
+    z_stream strm = {};
+    unsigned char in[IN_CHUNK];
+    unsigned char out[OUT_CHUNK];
+
+    // Read to the end of the local file header
+    struct __attribute__((__packed__)) ZipHeader {
+        uint16_t ignored[13];
+        uint16_t fileNameLength;
+        uint16_t extraFieldLength;
+    };
+    ZipHeader header;
+
+    int read = fread(&header, 1, sizeof(header), source);
+    read = fread(in, 1, header.fileNameLength + header.extraFieldLength, source);
+    // local file header read
 
     /* allocate inflate state */
+
+    strm.data_type = Z_BINARY;
     strm.zalloc = Z_NULL;
     strm.zfree = Z_NULL;
     strm.opaque = Z_NULL;
     strm.avail_in = 0;
     strm.next_in = Z_NULL;
-    ret = inflateInit(&strm);
+    int windowBits = -MAX_WBITS;
+    ret = inflateInit2(&strm, windowBits);
     if (ret != Z_OK)
         return ret;
 
     /* decompress until deflate stream ends or end of file */
     do {
-        strm.avail_in = fread(in, 1, CHUNK, source);
+        strm.avail_in = fread(in, 1, IN_CHUNK, source);
         if (ferror(source)) {
             (void) inflateEnd(&strm);
             return Z_ERRNO;
@@ -619,9 +733,9 @@ int AwsDoc::DynamoDB::inflateZip(FILE *source, FILE *dest) {
 
         /* run inflate() on input until output buffer not full */
         do {
-            strm.avail_out = CHUNK;
+            strm.avail_out = OUT_CHUNK;
             strm.next_out = out;
-            ret = inflate(&strm, Z_NO_FLUSH);
+            ret = inflate(&strm, Z_SYNC_FLUSH);
             assert(ret != Z_STREAM_ERROR);  /* state not clobbered */
             switch (ret) {
                 case Z_NEED_DICT:
@@ -631,7 +745,7 @@ int AwsDoc::DynamoDB::inflateZip(FILE *source, FILE *dest) {
                     (void) inflateEnd(&strm);
                     return ret;
             }
-            have = CHUNK - strm.avail_out;
+            have = OUT_CHUNK - strm.avail_out;
             if (fwrite(out, 1, have, dest) != have || ferror(dest)) {
                 (void) inflateEnd(&strm);
                 return Z_ERRNO;
