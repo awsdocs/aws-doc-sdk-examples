@@ -258,6 +258,8 @@ class LambdaWrapper
   rescue Aws::Lambda::Errors::ServiceException => e
     @logger.error("There was an error updating function code for: #{function_name}:\n #{e.message}")
     nil
+  rescue Aws::Waiters::Errors::WaiterFailed => e
+    @logger.error("Failed waiting for #{function_name} to update:\n #{e.message}")
   end
   # snippet-end:[ruby.example_code.lambda.UpdateFunctionCode]
 
