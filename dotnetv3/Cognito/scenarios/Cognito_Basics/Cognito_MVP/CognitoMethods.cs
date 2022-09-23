@@ -77,14 +77,7 @@ namespace Cognito_MVP
 
             Console.WriteLine($"The status of the token is {response.Status}");
 
-            if (response.Status == VerifySoftwareTokenResponseType.SUCCESS)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return response.Status == VerifySoftwareTokenResponseType.SUCCESS;
         }
 
         // snippet-end:[cognito.dotnetv3.CognitoBasics.VerifyTOTP]
@@ -235,7 +228,7 @@ namespace Cognito_MVP
         /// the status.</param>
         /// <param name="poolId">The user pool for which we want to check the
         /// user's status.</param>
-        /// <returns>A System Threading Task.</returns>
+        /// <returns>The UserStatusType object indicating the user's status.</returns>
         public static async Task<UserStatusType> GetAdminUser(AmazonCognitoIdentityProviderClient identityProviderClient, string userName, string poolId)
         {
             var userRequest = new AdminGetUserRequest
