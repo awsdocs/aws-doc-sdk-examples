@@ -64,7 +64,7 @@ Define these values to successfully run the JUnit tests:
 - **masterUserPassword** - The password that corresponds to the master user name.
 - **newMasterUserPassword** - The updated password that corresponds to the master user name.
 - **dbGroupNameSc** - The database group name used in the scenaio test.
-- **dbParameterGroupFamilySc** - The database parameter group name used in the scenaio test.
+- **dbParameterGroupFamilySc** - The database parameter group name used in the scenaio test (ie, mysql8.0).
 - **dbInstanceIdentifierSc** - The database instance identifier used in the scenaio test.
 - **dbNameSc** - The database name used in the scenaio test.
 - **masterUsernameSc** -  The master user name used in the scenaio test.
