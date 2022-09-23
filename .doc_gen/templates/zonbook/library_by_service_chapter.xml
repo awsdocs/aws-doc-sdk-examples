@@ -31,6 +31,7 @@
         {{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
         {{- $scenarios :=  index $service.CategorizedExampleSets "Scenarios"}}
         {{- $actions := index $service.CategorizedExampleSets "Actions"}}
+        {{- $hello := index $service.CategorizedExampleSets "Hello"}}
         <section id="{{$section_id}}" role="topic">
             <info>
                 <title id="{{$section_id}}.title">Code examples for {{$service.ServiceEntity.Short}} using &AWS; SDKs</title>
@@ -40,8 +41,28 @@
                 </abstract>
             </info>
             <para>The following code examples show how to use {{$service.ServiceEntity.Long}} with an &AWS; software development kit (SDK).</para>
+            {{- if $hello.Examples}}
+            <block>
+                <collapsible expand-section="_collapse_all_">
+                    {{- range $hello.Examples}}
+                    <section id="example_{{.ExampleId}}_section">
+                        <info>
+                            <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                            <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                            <abstract>
+                                <para>{{.Title}}</para>
+                            </abstract>
+                        </info>
+                        <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
+                        <xi:include href="{{$include_docs}}{{.ExampleId}}_tablist.xml"></xi:include>
+                    </section>
+                    {{- end}}
+                </collapsible>
+            </block>
+            {{- end}}
             <para role="contents-abbrev">Code examples</para>
             {{- range $category := $service.CategoryNamesSorted}}
+            {{- if ne $category "Hello"}}
             {{- with $cat_examples := index $service.CategorizedExampleSets $category}}
             <section id="{{$section_id}}_{{$cat_examples.CategoryIdSuffix}}" role="topic">
                 <info>
@@ -88,6 +109,7 @@
                 </section>
                 {{- end}}
             </section>
+            {{- end}}
             {{- end}}
             {{- end}}
         </section>
