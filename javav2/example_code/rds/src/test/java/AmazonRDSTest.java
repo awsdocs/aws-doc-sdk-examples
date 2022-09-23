@@ -27,7 +27,7 @@ public class AmazonRDSTest {
     private static String masterUserPassword = "" ;
     private static String newMasterUserPassword = "" ;
 
-    // Set data members required for the Scenario test
+    // Set data members required for the Scenario test.
     private static String  dbGroupNameSc = "" ;
     private static String  dbParameterGroupFamilySc = "" ;
     private static String  dbInstanceIdentifierSc = "" ;
@@ -51,10 +51,7 @@ public class AmazonRDSTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
             prop.load(input);
-
-            // Populate the data members required for all tests
             dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier");
             dbSnapshotIdentifier = prop.getProperty("dbSnapshotIdentifier");
             dbName = prop.getProperty("dbName");
@@ -133,50 +130,21 @@ public class AmazonRDSTest {
     @Test
     @Order(8)
     public void TestRDSScenario() throws InterruptedException {
-        System.out.println("1. Return a list of the available DB engines");
         assertDoesNotThrow(() ->RDSScenario.describeDBEngines(rdsClient));
-
-        System.out.println("2. Create a custom arameter group");
         assertDoesNotThrow(() ->RDSScenario.createDBParameterGroup(rdsClient, dbGroupNameSc, dbParameterGroupFamilySc));
-
-        System.out.println("3. Get the parameter groups");
         assertDoesNotThrow(() ->RDSScenario.describeDbParameterGroups(rdsClient, dbGroupNameSc));
-
-        System.out.println("4. Get the parameters in the group");
         assertDoesNotThrow(() ->RDSScenario.describeDbParameters(rdsClient, dbGroupNameSc, 0));
-
-        System.out.println("5. Modify both the auto_increment_offset parameter");
         assertDoesNotThrow(() ->RDSScenario.modifyDBParas(rdsClient, dbGroupNameSc));
-
-        System.out.println("6. Modify both the auto_increment_offset parameter");
         assertDoesNotThrow(() ->RDSScenario.describeDbParameters(rdsClient, dbGroupNameSc, -1));
-
-        System.out.println("7. Get a list of allowed engine versions");
         assertDoesNotThrow(() ->RDSScenario.getAllowedEngines(rdsClient, dbParameterGroupFamilySc));
-
-        System.out.println("8. Get a list of micro instance classes available for the selected engine") ;
         assertDoesNotThrow(() ->RDSScenario.getMicroInstances(rdsClient));
-
-        System.out.println("9. Create an RDS database instance that contains a MySql database and uses the parameter group");
         String dbARN = RDSScenario.createDatabaseInstance(rdsClient, dbGroupNameSc, dbInstanceIdentifierSc, dbNameSc, masterUsernameSc, masterUserPasswordSc);
         assertFalse(dbARN.isEmpty());
-
-        System.out.println("10. Wait for DB instance to be ready" );
         assertDoesNotThrow(() ->RDSScenario.waitForInstanceReady(rdsClient, dbInstanceIdentifierSc));
-
-        System.out.println("11. Create a snapshot of the DB instance");
         assertDoesNotThrow(() ->RDSScenario.createSnapshot(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
-
-        System.out.println("12. Wait for DB snapshot to be ready" );
         assertDoesNotThrow(() ->RDSScenario.waitForSnapshotReady(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
-
-        System.out.println("13. Delete the DB instance" );
         assertDoesNotThrow(() ->RDSScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifierSc));
-
-        System.out.println("14. Delete the parameter group" );
         assertDoesNotThrow(() ->RDSScenario.deleteParaGroup(rdsClient, dbGroupNameSc, dbARN));
-
-        System.out.println("The Scenario has successfully completed." );
     }
 }
 
