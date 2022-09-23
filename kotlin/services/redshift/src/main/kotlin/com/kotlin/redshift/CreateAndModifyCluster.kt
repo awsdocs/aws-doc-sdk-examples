@@ -26,7 +26,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <clusterId> <masterUsername> <masterUserPassword> 
@@ -53,7 +52,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[redshift.kotlin.create_cluster.main]
 suspend fun createCluster(clusterId: String?, masterUsernameVal: String?, masterUserPasswordVal: String?) {
-
     val clusterRequest = CreateClusterRequest {
         clusterIdentifier = clusterId
         masterUsername = masterUsernameVal // set the user name here
@@ -68,6 +66,7 @@ suspend fun createCluster(clusterId: String?, masterUsernameVal: String?, master
         println("Created cluster ${clusterResponse.cluster?.clusterIdentifier}")
     }
 }
+// snippet-end:[redshift.kotlin.create_cluster.main]
 
 // Waits until the cluster is available.
 suspend fun waitForClusterReady(clusterId: String?) {
@@ -87,11 +86,10 @@ suspend fun waitForClusterReady(clusterId: String?) {
 
             if (clusterList != null) {
                 for (cluster in clusterList) {
-
                     clusterReadyStr = cluster.clusterStatus.toString()
-                    if (clusterReadyStr.contains("available"))
+                    if (clusterReadyStr.contains("available")) {
                         clusterReady = true
-                    else {
+                    } else {
                         print(".")
                         delay(sleepTime * 1000)
                     }
@@ -102,6 +100,7 @@ suspend fun waitForClusterReady(clusterId: String?) {
     }
 }
 
+// snippet-start:[redshift.kotlin.mod_cluster.main]
 suspend fun modifyCluster(clusterId: String?) {
     val modifyClusterRequest = ModifyClusterRequest {
         clusterIdentifier = clusterId
@@ -113,4 +112,4 @@ suspend fun modifyCluster(clusterId: String?) {
         println("The modified cluster was successfully modified and has ${clusterResponse.cluster?.preferredMaintenanceWindow} as the maintenance window")
     }
 }
-// snippet-end:[redshift.kotlin.create_cluster.main]
+// snippet-end:[redshift.kotlin.mod_cluster.main]
