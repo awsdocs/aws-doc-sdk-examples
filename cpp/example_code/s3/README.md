@@ -2,7 +2,7 @@
 
 ## Overview
 
-The code examples in this directory demonstrate how to work with the Amazon Simple Storage Service (Amazon S3) using the
+The code examples in this directory demonstrate how to work with Amazon Simple Storage Service (Amazon S3) using the
 AWS SDK for C++.
 
 Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and
@@ -26,6 +26,7 @@ folder [s3-crt](../s3-crt) and example folder [transfer-manager](../transfer-man
 ## Code examples
 
 ### Single actions
+Code excerpts that show you how to call individual service functions.
 
 - [Copy an object](./copy_object.cpp) (CopyObject)
 - [Create an S3 bucket](./create_bucket.cpp) (CreateBucket)
@@ -55,20 +56,19 @@ folder [s3-crt](../s3-crt) and example folder [transfer-manager](../transfer-man
 - [Configure an S3 bucket for static website hosting](./put_website_config.cpp) (PutBucketWebsite)
 
 ### Scenarios
-
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 - [Create, list, and delete S3 buckets](./s3_getting_started_scenario.cpp)
 - [Find, create, and delete an S3 bucket in a sequence](./s3_demo_for_cloud9.cpp)
 
-## Running the examples
+## Run the examples
 
 Before using the code examples, first complete the installation and setup steps
 of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
-The Getting Started section covers how to get and build the SDK, and how to build your own code by using the SDK with a
-sample “Hello World”-style application.
+This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
+sample Hello World-style application.
 
-Next,
-see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html)
+Next, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html)
 for information on the structure of the code examples, building, and running the examples.
 
 ## Tests

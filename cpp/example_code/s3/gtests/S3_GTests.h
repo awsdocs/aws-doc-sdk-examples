@@ -25,7 +25,7 @@ namespace AwsDocTest {
 
         static void TearDownTestSuite();
 
-        // returns a vector of buckets that are maintained by this class.
+        // Returns a vector of buckets that are maintained by this class.
         static std::vector<Aws::String> GetCachedS3Buckets(size_t count);
 
         static Aws::String GetTestFilePath();
@@ -50,7 +50,7 @@ namespace AwsDocTest {
 
         static Aws::String GetCanonicalUserID();
 
-        // s_clientConfig must be a pointer because the client config must be initialized after InitAPI
+        // s_clientConfig must be a pointer because the client config must be initialized after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
     private:
@@ -62,7 +62,7 @@ namespace AwsDocTest {
         static Aws::String s_canonicalUserID;
         static Aws::String s_userArn;
 
-        std::stringbuf m_coutBuffer;  // used just to silence cout
+        std::stringbuf m_coutBuffer;  // used just to silence cout.
         std::streambuf *m_savedBuffer = nullptr;
     };
 } // AwsDocTest

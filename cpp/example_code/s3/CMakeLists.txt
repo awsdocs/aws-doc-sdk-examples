@@ -47,7 +47,8 @@ file(GLOB AWSDOC_S3_HEADERS
     "include/awsdoc/s3/*.h"
 )
 
-# AWSDOC_S3_SOURCE can be defined in the command line to limit the files in a build, for example to one action.
+# AWSDOC_S3_SOURCE can be defined in the command line to limit the files in a build. For example,
+# you can limit files to one action.
 if(NOT DEFINED AWSDOC_S3_SOURCE)
     file(GLOB AWSDOC_S3_SOURCE
         "*.cpp"

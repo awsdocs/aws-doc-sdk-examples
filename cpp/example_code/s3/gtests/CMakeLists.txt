@@ -69,7 +69,8 @@ if(MSVC AND BUILD_SHARED_LIBS)
     )
  endif()
 
-# GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build, for example to one action.
+# GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build. For example,
+# you can limit files to one action.
 if (NOT DEFINED GTEST_SOURCE_FILES)
     file(
             GLOB

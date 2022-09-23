@@ -16,7 +16,7 @@ namespace AwsDocTest {
         bool result = AwsDoc::S3::ListBucketDisablingDnsCache(*s_clientConfig);
         EXPECT_TRUE(result);
 
-        // reset the http client factory
+        // Reset the http client factory.
         Aws::Http::CleanupHttp();
         Aws::Http::InitHttp();
     }

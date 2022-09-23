@@ -91,7 +91,7 @@ int main() {
     //TODO(User): Change bucketName to the name of a bucket in your account.
     const Aws::String bucketName = "<Enter bucket name>";
 
-    //TODO(User): Create these two files to serve as your website
+    //TODO(User): Create these two files to serve as your website.
     const Aws::String indexPage = "index.html";
     const Aws::String errorPage = "404.html";
 
