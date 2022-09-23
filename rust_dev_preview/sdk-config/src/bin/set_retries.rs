@@ -76,7 +76,7 @@ async fn main() -> Result<(), Error> {
         config::Builder::from(&shared_config)
             // Set max attempts.
             // If tries is 1, there are no retries.
-            .retry_config(RetryConfig::default().with_max_attempts(tries))
+            .retry_config(RetryConfig::standard().with_max_attempts(tries))
             .build(),
     );
     // snippet-end:[custom_retries.rust.set_retries]
