@@ -90,7 +90,7 @@ pub async fn list_tables_iterative(client: &Client) -> Result<(), Error> {
 }
 // snippet-end:[dynamodb.rust.list-more-tables]
 
-// List up to 10 tables and indicates whether there are more.
+// Lists up to 10 tables and indicates whether there are more.
 // snippet-start:[dynamodb.rust.are-more-tables]
 pub async fn list_tables_are_more(client: &Client) -> Result<(), Error> {
     // snippet-start:[dynamodb.rust.are-more-tables-limit]
