@@ -2,17 +2,14 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
-
 import com.example.rds.*;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.rds.RdsClient;
 import org.junit.jupiter.api.*;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import software.amazon.awssdk.regions.Region;
 import java.io.*;
 import java.util.*;
@@ -39,22 +36,16 @@ public class AmazonRDSTest {
     private static String  dbSnapshotIdentifierSc = "" ;
     private static String  dbNameSc = "" ;
 
-
-
     @BeforeAll
     public static void setUp() throws IOException {
-
-        // Run tests on Real AWS Resources
         region = Region.US_WEST_2;
         rdsClient = RdsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         try (InputStream input = AmazonRDSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-
             Properties prop = new Properties();
-
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
@@ -100,7 +91,6 @@ public class AmazonRDSTest {
     @Test
     @Order(3)
     public void waitForInstanceReady() {
-
         assertDoesNotThrow(() ->CreateDBInstance.waitForInstanceReady(rdsClient, dbInstanceIdentifier));
         System.out.println("Test 3 passed");
     }
@@ -136,7 +126,6 @@ public class AmazonRDSTest {
     @Test
     @Order(8)
     public void DeleteDBInstance() {
-
         assertDoesNotThrow(() ->DeleteDBInstance.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
         System.out.println("Test 8 passed");
     }
@@ -170,7 +159,7 @@ public class AmazonRDSTest {
 
         System.out.println("9. Create an RDS database instance that contains a MySql database and uses the parameter group");
         String dbARN = RDSScenario.createDatabaseInstance(rdsClient, dbGroupNameSc, dbInstanceIdentifierSc, dbNameSc, masterUsernameSc, masterUserPasswordSc);
-        assertTrue(!dbARN.isEmpty());
+        assertFalse(dbARN.isEmpty());
 
         System.out.println("10. Wait for DB instance to be ready" );
         assertDoesNotThrow(() ->RDSScenario.waitForInstanceReady(rdsClient, dbInstanceIdentifierSc));
@@ -189,8 +178,7 @@ public class AmazonRDSTest {
 
         System.out.println("The Scenario has successfully completed." );
     }
-
- }
+}
 
 
 
