@@ -36,39 +36,67 @@ string keyUpdate = "<Enter Value>";
 
 string sepBar = new ('-', 80);
 
-var lambdaClient = new AmazonLambdaClient(RegionEndpoint.USWest2);
-var lambdaARN = await LambdaMethods.CreateLambdaFunction(lambdaClient, functionName, bucketName, key, role, handler);
+var lambdaClient = new AmazonLambdaClient();
+var lambdaMethods = new LambdaMethods();
+
+ShowOverview();
+
+Console.WriteLine($"Creating the AWS Lambda function: {functionName}.");
+var lambdaARN = await lambdaMethods.CreateLambdaFunction(lambdaClient, functionName, bucketName, key, role, handler);
 Console.WriteLine(sepBar);
 Console.WriteLine($"The AWS Lambda ARN is {lambdaARN}");
 
 // Get the Lambda function.
 Console.WriteLine($"Getting the {functionName} AWS Lambda function.");
-await LambdaMethods.GetFunction(lambdaClient, functionName);
+await lambdaMethods.GetFunction(lambdaClient, functionName);
 Console.WriteLine(sepBar);
 
 // List the Lambda functions.
 Console.WriteLine("Listing all functions.");
-await LambdaMethods.ListFunctions(lambdaClient);
+await lambdaMethods.ListFunctions(lambdaClient);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("*** Sleep for 1 min to get Lambda function ready.");
 System.Threading.Thread.Sleep(60000);
 
 Console.WriteLine("*** Invoke the Lambda function.");
-await LambdaMethods.InvokeFunction(lambdaClient, functionName);
+await lambdaMethods.InvokeFunction(lambdaClient, functionName);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("*** Update the Lambda function code.");
-await LambdaMethods.UpdateFunctionCode(lambdaClient, functionName, bucketName, keyUpdate);
+await lambdaMethods.UpdateFunctionCode(lambdaClient, functionName, bucketName, keyUpdate);
 
 Console.WriteLine("*** Sleep for 1 min to get Lambda function ready.");
 System.Threading.Thread.Sleep(60000);
 
 Console.WriteLine("*** Invoke the Lambda function again with the updated code.");
-await LambdaMethods.InvokeFunction(lambdaClient, functionName);
+await lambdaMethods.InvokeFunction(lambdaClient, functionName);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Delete the AWS Lambda function.");
-await LambdaMethods.DeleteLambdaFunction(lambdaClient, functionName);
+await lambdaMethods.DeleteLambdaFunction(lambdaClient, functionName);
+
+void ShowOverview()
+{
+    Console.WriteLine("Welcome to the AWS Lambda Basics Example");
+    Console.WriteLine("Getting started with functions");
+    Console.WriteLine(sepBar);
+    Console.WriteLine("This scenario performs the following operations:");
+    Console.WriteLine("\t1. Creates an AWS Lambda function.");
+    Console.WriteLine("\t2. Gets a specific AWS Lambda function.");
+    Console.WriteLine("\t3. Lists all Lambda functions.");
+    Console.WriteLine("\t4. Invokes a Lambda function.");
+    Console.WriteLine("\t5. Updates a Lambda function's code.");
+    Console.WriteLine("\t6. Updates a Lambda function's configuration value.");
+    Console.WriteLine("\t7. Deletes a Lambda function.");
+    PressEnter();
+}
+
+void PressEnter()
+{
+    Console.Write("Press <Enter> to continue.");
+    _ = Console.ReadLine();
+    Console.WriteLine();
+}
 
 // snippet-end:[lambda.dotnetv3.Lambda_Basics.main]

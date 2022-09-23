@@ -5,24 +5,24 @@ namespace Lambda_Basics.Tests
 {
     public class LambdaMethodsTests
     {
-        private static readonly string _FunctionName = "test-function";
-        private static readonly AmazonLambdaClient _Client;
-        private static string _FunctionArn;
+        private readonly string _FunctionName = "test-function";
+        private readonly AmazonLambdaClient _Client;
+        private string _FunctionArn;
 
-        static LambdaMethodsTests()
+        public LambdaMethodsTests()
         {
-            _Client = new AmazonLambdaClient(RegionEndpoint.USWest2);
+            _Client = new AmazonLambdaClient();
         }
 
         [Fact()]
-        public static async Task DeleteLambdaFunctionTest()
+        public async Task DeleteLambdaFunctionTest()
         {
             var success = await LambdaMethods.DeleteLambdaFunction(_Client, _FunctionName);
             Assert.True(success, "Could not delete the function.");
         }
 
         [Fact()]
-        public static async Task DeleteLambdaFunctionTest_DoesntExist_ShouldFail()
+        public async Task DeleteLambdaFunctionTest_DoesntExist_ShouldFail()
         {
             var functionName = "nonexistent_function";
             var success = await LambdaMethods.DeleteLambdaFunction(_Client, functionName);
@@ -30,25 +30,25 @@ namespace Lambda_Basics.Tests
         }
 
         [Fact()]
-        public void UpdateFunctionCodeTest()
+        public async Task UpdateFunctionCodeTest()
         {
             Assert.True(false, "This test needs an implementation");
         }
 
         [Fact()]
-        public void InvokeFunctionTest()
+        public async Task InvokeFunctionTest()
         {
             Assert.True(false, "This test needs an implementation");
         }
 
         [Fact()]
-        public void ListFunctionsTest()
+        public async Task ListFunctionsTest()
         {
             Assert.True(false, "This test needs an implementation");
         }
 
         [Fact()]
-        public void GetFunctionTest()
+        public async Task GetFunctionTest()
         {
             Assert.True(false, "This test needs an implementation");
         }
@@ -56,7 +56,7 @@ namespace Lambda_Basics.Tests
         [Fact()]
         public async static Task CreateLambdaFunctionTest()
         {
-            
+            Assert.True(false, "This test needs an implementation.");
         }
     }
 }
