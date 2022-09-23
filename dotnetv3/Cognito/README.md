@@ -7,7 +7,7 @@ and sign in to get access tokens.
 
 Amazon Cognito provides authentication, authorization, and user management for
 your web and mobile apps. Your users can sign in directly with a user name and
-password, or through a third party such as Facebook, Amazon, Google or Apple.
+password, or through a third party such as Facebook, Amazon, Google, or Apple.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.

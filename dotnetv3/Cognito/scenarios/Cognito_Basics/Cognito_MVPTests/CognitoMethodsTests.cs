@@ -5,99 +5,122 @@ namespace Cognito_MVP.Tests
 {
     public class CognitoMethodsTests
     {
-        private static readonly AmazonCognitoIdentityProviderClient _Client = new AmazonCognitoIdentityProviderClient();
-        private static readonly string _UserName = "test-user";
-        private static readonly string _Password = "really-bad-password";
-        private static readonly string _UserEmail = "someone@example.com";
-        private static readonly string _ClientId = "some-client-id";
+        private readonly IConfiguration _configuration;
+        private readonly CognitoMethods _methods;
+        private static readonly AmazonCognitoIdentityProviderClient _client = new AmazonCognitoIdentityProviderClient(RegionEndpoint.USWest2);
 
-        private static readonly string _PoolId = "us-west-2_uBJIO18xA";
-        private static string _Session = string.Empty;
-        private static string _MfaCode = string.Empty;
-
-        [Fact]
-        [Order(1)]
-        public static async Task AdminRespondToAuthChallengeTest()
+        public CognitoMethodsTests()
         {
-            var success = await CognitoMethods.AdminRespondToAuthChallenge(
-                _Client,
-                _UserName,
-                _ClientId,
-                _MfaCode,
-                _Session);
-            Assert.True(success, "Challenge failed to authenticate user.");
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("testsettings.json") // Load test settings from JSON file.
+                .AddJsonFile("testsettings.local.json",
+                true) // Optionally load local settings.
+            .Build();
+
+            _methods = new CognitoMethods();
         }
 
         [Fact]
-        [Order(1)]
-        public static async Task AdminRespondToAuthChallengeTest_WithNonsense_ShouldFail()
+        public async Task AdminRespondToAuthChallengeTest_BasMFA_ShouldRaiseError()
         {
-            var userName = "test-user";
-            var clientId = "some-client-id";
-            var mfaCode = "abcdefg-etc";
-            var session = "not a session";
-            var success = await CognitoMethods.AdminRespondToAuthChallenge(
-                _Client,
+            var userName = _configuration["UserName"];
+            var clientId = _configuration["ClientId"];
+            var mfaCode = "abcdef0123"; // Incorrect MFA code.
+            var session = _configuration["Session"];
+
+            await Assert.ThrowsAsync<InvalidParameterException>(async () =>
+            {
+                var success = await CognitoMethods.AdminRespondToAuthChallenge(
+                    _client,
+                    userName,
+                    clientId,
+                    mfaCode,
+                    session);
+            });
+        }
+
+        [Fact]
+        public async Task VerifyTOTPTest_Nonsense_ShouldRaiseError()
+        {
+            await Assert.ThrowsAsync<NotAuthorizedException>(async () =>
+            {
+                var session = _configuration["Session"];
+                var code = "081394"; // Incorrect one-time password.
+                var success = await CognitoMethods.VerifyTOTP(_client, session, code);
+            });
+        }
+
+        [Fact]
+        public async Task GetSecretForAppMFATest()
+        {
+            await Assert.ThrowsAsync<NotAuthorizedException>(async () =>
+            {
+                var session = await CognitoMethods.GetSecretForAppMFA(
+                    _client,
+                    _configuration["Session"]);
+            });
+        }
+
+        [Fact]
+        public async Task InitiateAuthTest_MadeUpValues_ShouldFail()
+        {
+            await Assert.ThrowsAsync<UserNotConfirmedException>(async () =>
+            {
+                var response = await CognitoMethods.InitiateAuth(
+                    _client,
+                    _configuration["ClientId"],
+                    _configuration["UserName"],
+                    _configuration["Password"]);
+            });
+        }
+
+        [Fact]
+        public async Task ConfirmSignUpTest_NonExistentUserName_ShouldRaiseError()
+        {
+            await Assert.ThrowsAsync<CodeMismatchException>(async () =>
+            {
+                var success = await CognitoMethods.ConfirmSignUp(
+                    _client,
+                    _configuration["ClientId"],
+                    "abcde813", // incorrect confirmation code
+                    _configuration["UserName"]);
+            });
+        }
+
+        [Fact]
+        public async Task GetAdminUserTest_ValidUser_ShouldSucceed()
+        {
+            var status = await CognitoMethods.GetAdminUser(_client,
+                _configuration["UserName"],
+                _configuration["PoolId"]);
+            Assert.NotNull(status);
+
+        }
+
+        [Fact]
+        public async Task GetAdminUserTest_UnknownUser_ShouldRaiseError()
+        {
+            await Assert.ThrowsAsync<UserNotFoundException>(async () =>
+            {
+                var status = await CognitoMethods.GetAdminUser(_client,
+                    _configuration["UserName"],
+                    _configuration["PoolId"]);
+            });
+        }
+
+        [Fact]
+        public async Task SignUpTest()
+        {
+            // Adding the millisecond value for the current time
+            // to ensure that the user does not already exist.
+            var userName = $"{_configuration["userName"]}{DateTime.Now.Millisecond}";
+            await CognitoMethods.SignUp(
+                _client,
+                _configuration["ClientId"],
                 userName,
-                clientId,
-                mfaCode,
-                session);
-            Assert.False(success, "Challenge should fail with bad information.");
-        }
-
-        [Fact]
-        [Order(7)]
-        public static async Task VerifyTOTPTest_Nonsense_ShouldFail()
-        {
-            var code = "so-much-nonsense";
-            var success = await CognitoMethods.VerifyTOTP(_Client, _Session, code);
-            Assert.False(success, "Should fail with an invalid one-time password.");
-        }
-
-        [Fact]
-        [Order(6)]
-        public static async Task GetSecretForAppMFATest()
-        {
-            var session = await CognitoMethods.GetSecretForAppMFA(_Client, _Session);
-            Assert.Equal(_Session, session, true);
-        }
-
-        [Fact]
-        [Order(5)]
-        public static async Task InitiateAuthTest_MadeUpValues_ShouldFail()
-        {
-            var response = await CognitoMethods.InitiateAuth(
-                _Client,
-                _ClientId,
-                _UserName,
-                _Password);
-            Assert.Null(response.Session);
-        }
-
-        [Fact]
-        [Order(4)]
-        public static async Task ConfirmSignUpTest()
-        {
-            var success = await CognitoMethods.ConfirmSignUp(
-                _Client,
-                _ClientId,
-                _UserName,
-                _Password);
-            Assert.True(success, "Couldn't confirm the user's signup status.");
-        }
-
-        [Fact]
-        [Order(2)]
-        public static async Task GetAdminUserTest()
-        {
-            await CognitoMethods.GetAdminUser(_Client, _UserName, _PoolId);
-        }
-
-        [Fact]
-        [Order(1)]
-        public static async Task SignUpTest()
-        {
-            await CognitoMethods.SignUp(_Client, _ClientId, _UserName, _Password, _UserEmail);
+                _configuration["Password"],
+                _configuration["UserEmail"]);
         }
     }
 }

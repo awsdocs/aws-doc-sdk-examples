@@ -3,10 +3,11 @@
 
 // snippet-start:[cognito.dotnetv3.CognitoBasics.Main]
 
-// Before running this SDK for .NET (v3) code example, set up your development environment, including your credentials.
+// Before running this AWS SDK for .NET (v3) code example, set up your development environment, including your credentials.
 // For more information, see the following documentation:
 // https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html
-// TIP: To set up the required user pool, run the AWS CDK script provided in this GitHub repo at:
+// TIP: To set up the required user pool, run the AWS Cloud Development Kit (AWS CDK)
+// script provided in this GitHub repo at:
 // resources/cdk/cognito_scenario_user_pool_with_mfa.
 // This code example performs the following operations:
 // 1. Invokes the signUp method to sign up a user.

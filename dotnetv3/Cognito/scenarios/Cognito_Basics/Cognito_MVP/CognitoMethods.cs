@@ -93,8 +93,8 @@ namespace Cognito_MVP
         // snippet-start:[cognito.dotnetv3.CognitoBasics.GetSecretForAppMFA]
 
         /// <summary>
-        /// Gets the secret token that will enable MFA (Multi-Factor
-        /// Authentication) for the user.
+        /// Gets the secret token that will enable multi-factor
+        /// authentication (MFA) for the user.
         /// </summary>
         /// <param name="identityProviderClient">An initialized Identity
         /// Provider client object.</param>
@@ -237,7 +237,7 @@ namespace Cognito_MVP
         /// <param name="poolId">The user pool for which we want to check the
         /// user's status.</param>
         /// <returns>A System Threading Task.</returns>
-        public static async Task GetAdminUser(AmazonCognitoIdentityProviderClient identityProviderClient, string userName, string poolId)
+        public static async Task<UserStatusType> GetAdminUser(AmazonCognitoIdentityProviderClient identityProviderClient, string userName, string poolId)
         {
             var userRequest = new AdminGetUserRequest
             {
@@ -248,6 +248,7 @@ namespace Cognito_MVP
             var response = await identityProviderClient.AdminGetUserAsync(userRequest);
 
             Console.WriteLine($"User status {response.UserStatus}");
+            return response.UserStatus;
         }
 
         // snippet-end:[cognito.dotnetv3.CognitoBasics.GetAdminUser]
