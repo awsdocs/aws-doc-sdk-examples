@@ -7,7 +7,7 @@ namespace Cognito_MVP.Tests
     {
         private readonly IConfiguration _configuration;
         private readonly CognitoMethods _methods;
-        private static readonly AmazonCognitoIdentityProviderClient _client = new AmazonCognitoIdentityProviderClient(RegionEndpoint.USWest2);
+        private static readonly AmazonCognitoIdentityProviderClient _client = new AmazonCognitoIdentityProviderClient();
 
         public CognitoMethodsTests()
         {
@@ -22,7 +22,7 @@ namespace Cognito_MVP.Tests
         }
 
         [Fact]
-        public async Task AdminRespondToAuthChallengeTest_BasMFA_ShouldRaiseError()
+        public async Task AdminRespondToAuthChallengeTest_BadMFA_ShouldRaiseError()
         {
             var userName = _configuration["UserName"];
             var clientId = _configuration["ClientId"];
@@ -110,17 +110,18 @@ namespace Cognito_MVP.Tests
         }
 
         [Fact]
-        public async Task SignUpTest()
+        public async Task SignUpTest_NewUser_ShouldSucceed()
         {
             // Adding the millisecond value for the current time
             // to ensure that the user does not already exist.
             var userName = $"{_configuration["userName"]}{DateTime.Now.Millisecond}";
-            await CognitoMethods.SignUp(
+            var userSub = await CognitoMethods.SignUp(
                 _client,
                 _configuration["ClientId"],
                 userName,
                 _configuration["Password"],
                 _configuration["UserEmail"]);
+            Assert.NotNull(userSub);
         }
     }
 }

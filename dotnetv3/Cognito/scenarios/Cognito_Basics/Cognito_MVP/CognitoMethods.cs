@@ -57,8 +57,7 @@ namespace Cognito_MVP
         /// Verifies that the user has supplied the correct one-time password
         /// and registers for multi-factor authentication (MFA).
         /// </summary>
-        /// <param name="identityProviderClient">The name of the identity
-        /// provider used to authenticate the user.</param>
+        /// <param name="identityProviderClient">The Amazon Cognito client object.</param>
         /// <param name="session">The session for which the user will be
         /// authenticated.</param>
         /// <param name="code">The code provided by the user.</param>
@@ -266,7 +265,7 @@ namespace Cognito_MVP
         /// <param name="password">The password for the user.</param>
         /// <param name="email">The user's email address.</param>
         /// <returns>A System Threading Task.</returns>
-        public static async Task SignUp(
+        public static async Task<string> SignUp(
             AmazonCognitoIdentityProviderClient identityProviderClient,
             string clientId,
             string userName,
@@ -292,8 +291,9 @@ namespace Cognito_MVP
                 Password = password,
             };
 
-            await identityProviderClient.SignUpAsync(signUpRequest);
+            var response = await identityProviderClient.SignUpAsync(signUpRequest);
             Console.WriteLine("User has been signed up.");
+            return response.UserSub;
         }
 
         // snippet-end:[cognito.dotnetv3.CognitoBasics.SignUp]

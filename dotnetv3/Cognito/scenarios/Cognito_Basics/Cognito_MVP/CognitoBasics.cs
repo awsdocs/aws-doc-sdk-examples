@@ -21,17 +21,17 @@
 // 9. Invokes the AdminRespondToAuthChallenge to get back a token.
 
 // Set the following variables:
-// clientId - The app client Id value that you can get from the AWS CDK script.
-string clientId = "1rq6e6s148h8loarorm5abmlr";
+// clientId - Fill in the app client Id value from the AWS CDK script.
+string clientId = "";
 
-// poolId - The pool Id that you can get from the AWS CDK script.
-string poolId = "us-west-2_uBJIO18xA";
+// poolId - Fill in the pool Id that you can get from the AWS CDK script.
+string poolId = "";
 var userName = string.Empty;
 var password = string.Empty;
 var email = string.Empty;
 
 string sepBar = new string('-', 80);
-var identityProviderClient = new AmazonCognitoIdentityProviderClient(RegionEndpoint.USWest2);
+var identityProviderClient = new AmazonCognitoIdentityProviderClient();
 
 do
 {
@@ -52,7 +52,7 @@ Console.WriteLine($"Signing up {userName}");
 
 do
 {
-    Console.WriteLine("Enter your email");
+    Console.Write("Enter your email: ");
     email = Console.ReadLine();
 } while (email == string.Empty);
 

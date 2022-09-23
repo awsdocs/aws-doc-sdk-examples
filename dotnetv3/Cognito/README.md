@@ -22,13 +22,13 @@ the minimum permissions required to perform the task. For more information, see
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
-* [Get information about a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`AdminGetUserAsync`)
-* [Get a token to associate an MFA application with a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`AssociateSoftwareTokenAsync`)
 * [Confirm a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`ConfirmSignUpAsync`)
-* [Start authentication with a tracked device](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`InitiateAuthAsync`)
+* [Get a token to associate an MFA application with a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`AssociateSoftwareTokenAsync`)
+* [Get information about a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`AdminGetUserAsync`)
 * [Resend a confirmation code](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`ResendConfirmationCodeAsync`)
 * [Respond to an authentication challenge](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`RespondToAuthChallengeAsync`)
 * [Sign up a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`SignUpAsync`)
+* [Start authentication with a tracked device](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`InitiateAuthAsync`)
 * [Verify an MFA application with a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`VerifySoftwareTokenAsync`)
 
 ### Scenarios
