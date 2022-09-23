@@ -40,10 +40,10 @@ int main() {
 #ifdef _WIN32
         // ATTENTION: On Windows with AWS SDK version 1.9, this example only runs if the SDK is built
         // with the curl library.  (9/15/2022)
-        // See the accompanying ReadMe.
-        // See "Building the SDK for Windows with curl".
+        // For more information, see the accompanying ReadMe.
+        // For more information, see "Building the SDK for Windows with curl".
         // https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/setup-windows.html
-        //TODO(User): Update to location of your .crt file.
+        //TODO(User): Update to the location of your .crt file.
         config.caFile = "C:/curl/bin/curl-ca-bundle.crt";
 #endif
         config.region = region;
@@ -75,7 +75,7 @@ int main() {
         request.SetMediaSampleRateHertz(8000);
         request.SetLanguageCode(LanguageCode::en_US);
         request.SetMediaEncoding(
-                MediaEncoding::pcm); //wav and aiff files are PCM formats
+                MediaEncoding::pcm); // wav and aiff files are PCM formats.
         request.SetEventStreamHandler(handler);
 
         auto OnStreamReady = [](AudioStream &stream) {
@@ -110,11 +110,11 @@ int main() {
                         break;
                     }
                     std::this_thread::sleep_for(std::chrono::milliseconds(
-                            25)); // Slow down since we are streaming from a file.
+                            25)); // Slow down because we are streaming from a file.
                 }
                 if (!stream.WriteAudioEvent(
                         AudioEvent())) {
-                    // Per the spec, we have to send an empty event (i.e. without a payload) at the end.
+                    // Per the spec, we have to send an empty event (an event without a payload) at the end.
                     std::cerr << "Failed to send an empty frame" << std::endl;
                 }
                 else {

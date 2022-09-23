@@ -27,13 +27,13 @@ if(MSVC AND BUILD_SHARED_LIBS)
     list(APPEND SERVICE_LIST transcribe;transcribestreaming)
     
     #For IDEs like Xcode and Visual Studio this line will be ignored because Release/Debug
-    #  is switched internally, but this is necessary for non-IDE builds.
+    #  is switched internally, but this is only necessary for non-IDE builds.
     set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type
-	
-    #TODO:Choose appropriate one of the following two lines, you want to copy to the same folder where your executables are.
-    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
-    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs
-    
+
+    #TODO:Select and use one of the following lines. Select the line that copies to the same folder where your executables are.
+    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug.
+    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs.
+
     message(STATUS ">>CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
     message(STATUS ">>CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
     message(STATUS ">>EXECUTABLE_OUTPUT_PATH : ${EXECUTABLE_OUTPUT_PATH}")
