@@ -1,0 +1,8 @@
+{
+    "project" : "The project that you want to use.",
+    "model_version" : "The version of the model that you want to use.",
+    "confidence_limit" : The confidence limit (float 0-1),
+    "coverage_limit" : The coverage limit (float 0-1),
+    "anomaly_labels_limit" : The anomaly labels limit (integer),
+    "anomaly_label" : "The anomaly label to find."
+}
