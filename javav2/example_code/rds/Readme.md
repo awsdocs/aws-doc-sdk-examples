@@ -22,10 +22,27 @@ see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-
 You will find these examples that use the **RdsClient** object: 
 
 - [Create an Amazon RDS instance and wait for it to be in an available state.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBInstance.java) (createDBInstance command)
-
 - [Create an Amazon RDS snapshot.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBSnapshot.java) (createDBSnapshot command)
+- [Delete an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DeleteDBInstance.java) (deleteDBInstance command)
+- [Retrieve attributes that belongs to an Amazon RDS account.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DescribeAccountAttributes.java) (describeAccountAttributes command)
+- [Describe an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DescribeDBInstances.java) (describeDBInstances command)
+- [Modify an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/ModifyDBInstance.java) (modifyDBInstance command)
+- [Generate an authorization token for AWS Identity and Access Management (IAM) authentication to an Amazon RDS database.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/GenerateRDSAuthToken.java) (generateAuthenticationToken command)
+- [Reboot an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/RebootDBInstance.java) (rebootDBInstance command)
+- [Start an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/startDatabase.java) (startDatabase command)
+- [Stop an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/stopDatabase.java) (stopDatabase command)
 
- ## Testing the Amazon RDS Java files
+### Scenario
+
+- [Performing various Amazon RDS operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/RDSScenario.java) (multiple commands)
+
+## Running the examples
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon RDS instance. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
+
+## Testing the Amazon RDS Java files
 
 You can test the Java code examples for Amazon RDS by running a test file named **AmazonRDSTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
@@ -46,6 +63,13 @@ Define these values to successfully run the JUnit tests:
 - **masterUsername** - The master user name .
 - **masterUserPassword** - The password that corresponds to the master user name.
 - **newMasterUserPassword** - The updated password that corresponds to the master user name.
+- **dbGroupNameSc** - The database group name used in the scenaio test.
+- **dbParameterGroupFamilySc** - The database parameter group name used in the scenaio test.
+- **dbInstanceIdentifierSc** - The database instance identifier used in the scenaio test.
+- **dbNameSc** - The database name used in the scenaio test.
+- **masterUsernameSc** -  The master user name used in the scenaio test.
+- **masterUserPasswordSc** - The password that corresponds to the master user name used in the scenaio test.
+- **dbSnapshotIdentifierSc** - The snapshot identifier used in the scenaio test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -86,3 +110,11 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project AmazonRedshiftServiceIntegrationTest:  There are test failures.
 	[ERROR];
+	
+## Additional resources
+* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html).
+* [Interface RdsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsClient.html).
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0	
+	
