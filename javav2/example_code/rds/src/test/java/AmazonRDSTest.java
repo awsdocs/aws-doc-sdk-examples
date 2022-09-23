@@ -128,7 +128,7 @@ public class AmazonRDSTest {
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     public void TestRDSScenario() throws InterruptedException {
         assertDoesNotThrow(() ->RDSScenario.describeDBEngines(rdsClient));
         assertDoesNotThrow(() ->RDSScenario.createDBParameterGroup(rdsClient, dbGroupNameSc, dbParameterGroupFamilySc));
@@ -145,6 +145,7 @@ public class AmazonRDSTest {
         assertDoesNotThrow(() ->RDSScenario.waitForSnapshotReady(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
         assertDoesNotThrow(() ->RDSScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifierSc));
         assertDoesNotThrow(() ->RDSScenario.deleteParaGroup(rdsClient, dbGroupNameSc, dbARN));
+        System.out.println("Test 9 passed");
     }
 }
 
