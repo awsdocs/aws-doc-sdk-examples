@@ -10,9 +10,9 @@ from their source format into versions that will playback on devices like smartp
 ## Code examples
 
 ### API examples
-- [Create a job](./HlsJobCreationSample.rb)
-- [Create a job, with SQS notification when complete](./JobStatusNotificationSample.rb)
-- [SQS notification (Batch)](./SqsQueueNotificationWorker.rb)
+- [Create a job](./create_job.rb)
+- [Create a job, with SQS notification when complete](./create_job_status_notification.rb)
+- [SQS notification (Batch)](./sqs_queue_notification_worker.rb)
 
 ### Important
 
