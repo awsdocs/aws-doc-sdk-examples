@@ -34,7 +34,7 @@ async fn find_first_queue(client: &Client) -> Result<String, Error> {
     let queue_urls = queues.queue_urls().unwrap_or_default();
     Ok(queue_urls
         .first()
-        .expect("No queues in this account and region. Please create a queue to proceed")
+        .expect("No queues in this account and Region. Create a queue to proceed.")
         .to_string())
 }
 // snippet-end:[sqs.rust.sqs-list-first]
@@ -49,7 +49,7 @@ async fn send(client: &Client, queue_url: &String, message: &SQSMessage) -> Resu
         .queue_url(queue_url)
         .message_body(&message.body)
         .message_group_id(&message.group)
-        // If the queue is FIFO, you will need to set .message_deduplication_id
+        // If the queue is FIFO, you need to set .message_deduplication_id
         // or configure the queue for ContentBasedDeduplication.
         .send()
         .await?;
@@ -60,7 +60,7 @@ async fn send(client: &Client, queue_url: &String, message: &SQSMessage) -> Resu
 }
 // snippet-end:[sqs.rust.sqs-send]
 
-// Pump a queue for up to 10 outstanding messages
+// Pump a queue for up to 10 outstanding messages.
 // snippet-start:[sqs.rust.sqs-receive]
 async fn receive(client: &Client, queue_url: &String) -> Result<(), Error> {
     let rcv_message_output = client.receive_message().queue_url(queue_url).send().await?;
