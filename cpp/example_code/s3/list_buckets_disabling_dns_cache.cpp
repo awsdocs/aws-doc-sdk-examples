@@ -1,4 +1,4 @@
-//NOTE!! This example only works on Linux and Mac.  It does not work on Windows.
+//NOTE!! This example only works on Linux and Mac. It does not work on Windows.
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

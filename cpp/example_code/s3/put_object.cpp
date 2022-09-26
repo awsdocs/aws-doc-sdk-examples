@@ -76,7 +76,7 @@ bool AwsDoc::S3::PutObject(const Aws::String &bucketName,
  *
  * main function
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables:
  * - bucketName: The name of the bucket.
  * - fileName: The name of the file to add.
  *
@@ -88,9 +88,9 @@ int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO(User): Change bucket_name to the name of a bucket in your account.
+        //TODO(user): Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "<Enter bucket name>";
-        //TODO(User): Create a file called "my-file.txt" in the local folder where your executables are built to.
+        //TODO(user): Create a file called "my-file.txt" in the local folder where your executables are built to.
         const Aws::String object_name = "<Enter file>";
 
         Aws::Client::ClientConfiguration clientConfig;

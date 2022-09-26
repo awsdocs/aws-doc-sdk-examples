@@ -59,7 +59,7 @@ bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String &bucketName,
  *
  * Prerequisites: The bucket with a policy to be deleted.
  *
- * TODO(User) items: Set the following variable
+ * TODO(user): items: Set the following variable
  * - bucketName: The name of the bucket with a policy to delete.
  *
 */
@@ -67,7 +67,7 @@ bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String &bucketName,
 #ifndef TESTING_BUILD
 
 int main() {
-    //TODO(User): Change bucket_name to the name of a bucket in your account.
+    //TODO(user): Change bucket_name to the name of a bucket in your account.
     const Aws::String bucketName = "<Enter bucket name>";
 
     Aws::SDKOptions options;

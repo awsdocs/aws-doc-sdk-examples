@@ -61,9 +61,9 @@ bool AwsDoc::S3::ListObjects(const Aws::String &bucketName,
  *
  *   main function
  *
- * Prerequisites: A bucket containing at least one object.
+ * Prerequisites: Create a bucket containing at least one object.
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables.
  * - bucketName: The name of the bucket containing the objects.
  *
  */
@@ -75,7 +75,7 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO(User): Name of a bucket in your account.
+        //TODO(user): Name of a bucket in your account.
         //The bucket must have at least one object in it.  One way to achieve
         //this is to configure and run put_object.cpp's executable first.
         const Aws::String bucket_name = "my-bucket-2f2730dd-0f5d-4dfa-b55d-8d36a3bfea39";

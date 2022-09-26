@@ -16,7 +16,8 @@
 #include "awsdoc/s3/s3_examples.h"
 
 /**
- * Before running this C++ code example, set up your development environment, including your credentials.
+ * Before running this C++ code example, set up your development environment,
+ * including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -24,7 +25,8 @@
  *
  * Purpose
  *
- * Demonstrates using the AWS SDK for C++ to list objects specifying "aws-global" as the region.
+ * Demonstrates using the AWS SDK for C++ to list objects specifying
+ * "aws-global" as the Region.
  *
  * Starting with the AWS SDK for C++ version 1.8, you can make requests to
  * Amazon S3 across AWS Regions by specifying aws-global as the AWS Region
@@ -34,7 +36,7 @@
 
  */
 
-//! Helper routine to create a unique S3 bucket in us-west-2 region.
+//! Helper routine to create a unique S3 bucket in us-west-2 Region.
 /*!
   \fn CreateOneBucket()
   \param s3Client An Aws S3 client.

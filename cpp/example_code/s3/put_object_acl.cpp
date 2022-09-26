@@ -25,7 +25,7 @@
  *
  * Purpose
  *
- * Demonstrates using the AWS SDK for C++ to setting the access control list (ACL) for an object
+ * Demonstrates using the AWS SDK for C++ to set the access control list (ACL) for an object
  * in an S3 bucket.
  *
  */
@@ -40,7 +40,7 @@ static Aws::S3::Model::Type SetGranteeType(const Aws::String &type);
   \param bucketName Name of from bucket.
   \param objectKey Name of object in the bucket.
   \param ownerID The canonical ID of the bucket owner.
-   See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
+   For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html.
   \param granteePermission The access level to enable for the grantee.
   \param granteeType The type of grantee.
   \param granteeID The canonical ID of the grantee.
@@ -117,7 +117,7 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String &bucketName,
     return outcome.IsSuccess();
 }
 
-//! Routine which converts a human-readable string to a built-in type enumeration
+//! Routine which converts a human-readable string to a built-in type enumeration.
 /*!
  \sa SetGranteePermission()
  \param access Human readable string.
@@ -137,7 +137,7 @@ Aws::S3::Model::Permission SetGranteePermission(const Aws::String &access) {
     return Aws::S3::Model::Permission::NOT_SET;
 }
 
-//! Routine which converts a human-readable string to a built-in type enumeration
+//! Routine which converts a human-readable string to a built-in type enumeration.
 /*!
  \sa SetGranteeType()
  \param type Human readable string.
@@ -159,16 +159,16 @@ Aws::S3::Model::Type SetGranteeType(const Aws::String &type) {
  *
  * main function
  *
- * Prerequisites: An existing bucket that contains the object you want to get
- * information about the ACL for.
+ * Prerequisites: An existing S3 bucket that contains the object for which to get
+ * ACL information.
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables:
  * - bucketName: The name of the bucket. For example,
  *   "DOC-EXAMPLE-BUCKET".
  * - objectKey: The name of the object to get ACL information
  *   about. For example, "my-file.txt".
  * - owner_id: Canonical ID for owner.
- * - Select Which form of grantee you want to specify, and update the corresponding data
+ * - Select which form of grantee you want to specify, and update the corresponding data.
  * - Uncomment additional parameters if necessary.
 *
  */
@@ -179,22 +179,22 @@ int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO(User): Change bucket_name to the name of a bucket in your account.
+        //TODO(user): Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "<Enter a bucket name>";
-        //TODO(User): Name of object in bucket.
+        //TODO(user): Name of object in bucket.
         const Aws::String object_name = "<Enter object name>";
 
 
-        //TODO(User): Set owner_id to your canonical id.  It is your bucket so you are the ACL owner.
-        //See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
+        //TODO(user): Set owner_id to your canonical id. It is your bucket so you are the ACL owner.
+        //For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html.
         const Aws::String owner_id =
                 "<Enter owner canonical id>";
 
         // Set the ACL's grantee information.
         const Aws::String grantee_permission = "READ"; //Give the grantee Read permissions.
 
-        //TODO(User): Select which form of grantee (grantee_type) you want, then you must update the data
-        // corresponding to that selected type.
+        //TODO(User): Select which form of grantee (grantee_type) you want. Then, you must update the data
+        // that corresponds to the selected type.
 
         // If the grantee is by canonical user, then you must specify either the user's ID or 
         // grantee_display_name:
@@ -210,15 +210,16 @@ int main() {
 
         // If the grantee is by group, then you must specify the predefined group URI:
         //const Aws::String grantee_type = "Group";
-        //// This example uses one of Amazon S3 predefined groups: Authenticated Users group (Access permission to this group allows any AWS account to access the resource. )
-        //// See https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#specifying-grantee for more information.
+        // This example uses one of the Amazon S3 predefined groups: Authenticated Users group
+        // (Access permission to this group allows any AWS account to access the resource).
+        // For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#specifying-grantee.
         // const Aws::String grantee_uri = 
         //     "http://acs.amazonaws.com/groups/global/AllUsers";
 
         // Set the object's ACL.
-        //TODO(User): If you elected to use a grantee type other than canonical user above, update this method to
-        // uncomment the additional parameters so that you are supplying the information necessary for the
-        // grantee type you selected (e.g. the name, email address, etc).
+        //TODO(User): If you previously chose to use a grantee type other than canonical user,
+        // update this method to uncomment the additional parameters. This supplies the
+        // information necessary for the grantee type you selected (such as name and email address).
 
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).

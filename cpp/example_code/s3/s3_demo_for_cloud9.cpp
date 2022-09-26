@@ -12,7 +12,7 @@
  *
  * Purpose
  *
- * This demo is referenced in the AWS Cloud9 user guide
+ * This demo is referenced in the AWS Cloud9 User Guide.
  * It is used to demonstrate running C++ code in a Cloud9 development environment.
  *
  * https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-cplusplus.html
@@ -119,8 +119,8 @@ bool DeleteTheBucket(const Aws::S3::S3Client &s3Client,
 }
 
 #ifndef TESTING_BUILD
-// Create an Amazon S3 bucket and then delete it. 
-// Before and after creating the bucket, and then after deleting the bucket, 
+// Create an S3 bucket and then delete it.
+// Before and after creating the bucket, and again after deleting the bucket,
 // try to determine whether that bucket still exists. 
 int main(int argc, char *argv[]) {
 

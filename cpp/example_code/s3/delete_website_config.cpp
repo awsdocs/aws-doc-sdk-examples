@@ -59,7 +59,7 @@ bool AwsDoc::S3::DeleteBucketWebsite(const Aws::String &bucketName,
  * Prerequisites: The bucket containing the website configuration to
  * be removed.
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables
  * - bucketName: The name of the bucket containing the website configuration to
  *   be removed.
  *
@@ -68,7 +68,7 @@ bool AwsDoc::S3::DeleteBucketWebsite(const Aws::String &bucketName,
 #ifndef TESTING_BUILD
 
 int main() {
-    //TODO(User): Change bucketName to the name of a bucket in your account.
+    //TODO(user): Change bucketName to the name of a bucket in your account.
     const Aws::String bucketName = "<Enter bucket name>";
 
     Aws::SDKOptions options;

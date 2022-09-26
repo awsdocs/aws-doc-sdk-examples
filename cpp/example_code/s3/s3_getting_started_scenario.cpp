@@ -71,7 +71,7 @@ namespace AwsDoc {
 //! Scenario to create, copy, and delete S3 buckets and objects.
 /*!
   \sa S3_GettingStartedScenario()
-  \param uploadFilePath Path to file to upload to an S3 bucket.
+  \param uploadFilePath Path to file to upload to an Amazon S3 bucket.
   \param saveFilePath Path for saving a downloaded S3 object.
   \param clientConfig Aws client configuration.
  */

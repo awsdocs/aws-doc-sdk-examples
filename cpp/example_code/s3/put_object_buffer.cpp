@@ -68,7 +68,7 @@ bool AwsDoc::S3::PutObjectBuffer(const Aws::String &bucketName,
 *
 * main function
 *
-* TODO(User) items: Set the following variables
+* TODO(user): items: Set the following variables:
 * - bucketName: The name of the bucket.
 *
 */
@@ -79,7 +79,7 @@ int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // TODO(User): Change bucketName to the name of a bucket in your account.
+        // TODO(user): Change bucketName to the name of a bucket in your account.
         const Aws::String bucketName = "<Enter bucket Name>";
         const Aws::String objectName = "sample_text.txt";
         const std::string objectContent = "This is my sample text content.";

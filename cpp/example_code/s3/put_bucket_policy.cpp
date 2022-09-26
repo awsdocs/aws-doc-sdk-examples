@@ -31,7 +31,7 @@ static Aws::String GetPolicyString(const Aws::String &userArn,
 /*!
   \sa PutBucketPolicy()
   \param bucketName: Name of a bucket.
-  \param  policyBody: The bucket policy to add..
+  \param  policyBody: The bucket policy to add.
   \param clientConfig: Aws client configuration.
 */
 
@@ -68,8 +68,8 @@ bool AwsDoc::S3::PutBucketPolicy(const Aws::String &bucketName,
 //! Build a policy JSON string.
 /*!
   \sa GetPolicyString()
-  \param userArn Aws user ARN.
-      See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns.
+  \param userArn Aws user Amazon Resource Name (ARN).
+      For more information, see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns.
   \param bucketName Name of a bucket.
 */
 
@@ -99,9 +99,9 @@ Aws::String GetPolicyString(const Aws::String &userArn,
 /*
  *
  * main function
- * Prerequisites: The bucket to set a bucket policy.
+ * Prerequisites: Create an S3 bucket to set a bucket policy on it
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables:
  * - bucketName: The name of the bucket to put the bucket policy information in.
  *
 */
@@ -112,11 +112,11 @@ int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO(User): Change bucket_name to the name of a bucket in your account.
+        //TODO(user): Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "<Enter bucket name>";
 
         Aws::String userArn;
-        // Get the caller's AWS account ID to be used in the bucket policy.
+        // Get the caller's AWS ARN to be used in the bucket policy.
         {
             Aws::Client::ClientConfiguration clientConfig;
             clientConfig.region = "us-east-1";  // ensure valid IAM region
@@ -132,7 +132,6 @@ int main() {
                 return 1;
             }
 
-            // Extract the caller's AWS account ID from the call to AWS STS.
             userArn = outcome.GetResult().GetArn();
         }
 

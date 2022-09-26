@@ -153,9 +153,9 @@ Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission) {
  *
  * main function
  *
- * Prerequisites: The bucket and the object to get the ACL information about.
+ * Prerequisites: Create an S3 bucket and object to get the ACL information about them.
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables
  * - bucketName: The name of the bucket to get the ACL information about.
  * - object_name: Name of object already in bucket.
  *
@@ -164,10 +164,10 @@ Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission) {
 #ifndef TESTING_BUILD
 
 int main() {
-    //TODO(User): Name of your bucket that already contains an object.
+    //TODO(user): Name of your bucket that already contains an object.
     //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
     Aws::String bucket_name = "<Enter a bucket name>";
-    //TODO(User) Name of object already in bucket.
+    //TODO(user): Name of object already in bucket.
     Aws::String object_name = "<Enter object name>";
 
     Aws::SDKOptions options;

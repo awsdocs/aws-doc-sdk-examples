@@ -62,7 +62,7 @@ bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey,
  *
  * Prerequisites: The bucket containing the object to delete.
  *
- * TODO(User) items: Set the following variable
+ * TODO(user): items: Set the following variable
  * - objectKey: The name of the object to delete.
  * - fromBucket: The name of the bucket to delete the object from.
  *
@@ -71,10 +71,10 @@ bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey,
 #ifndef TESTING_BUILD
 
 int main() {
-    //TODO(User): The object_key is the unique identifier for the object in the bucket. In this example set,
+    //TODO(user): The object_key is the unique identifier for the object in the bucket. In this example set,
     //it is the filename you added in put_object.cpp.
     Aws::String objectKey = "<Enter object key>";
-    //TODO(User): Change from_bucket to the name of a bucket in your account.
+    //TODO(user): Change from_bucket to the name of a bucket in your account.
     Aws::String fromBucket = "<Enter bucket name>";
 
     Aws::SDKOptions options;

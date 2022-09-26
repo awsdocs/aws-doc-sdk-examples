@@ -64,9 +64,9 @@ bool AwsDoc::S3::GetBucketPolicy(const Aws::String &bucketName,
 /*
  *
  * main function
- * Prerequisites: The bucket to get bucket policy information about.
+ * Prerequisites: Create an S3 bucket to get the bucket policy information about it.
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables
  * - bucketName: The name of the bucket to get bucket policy information about.
  *
 */
@@ -74,7 +74,7 @@ bool AwsDoc::S3::GetBucketPolicy(const Aws::String &bucketName,
 #ifndef TESTING_BUILD
 
 int main() {
-    //TODO(User): Change bucket_name to the name of a bucket in your account.
+    //TODO(user): Change bucket_name to the name of a bucket in your account.
     const Aws::String bucket_name = "<Enter bucket name>";
 
     Aws::SDKOptions options;

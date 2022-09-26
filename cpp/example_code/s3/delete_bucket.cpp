@@ -60,7 +60,7 @@ bool AwsDoc::S3::DeleteBucket(const Aws::String &bucketName,
  *
  * Prerequisites: The bucket to be deleted.
  *
- * TODO(User) items: Set the following variable
+ * TODO(user): items: Set the following variable
  * - bucketName: The name of the bucket to delete.
  *
 */

@@ -62,9 +62,9 @@ bool AwsDoc::S3::GetObject(const Aws::String &objectKey,
  *
  * main function
  *
- * Prerequisites: The bucket with a policy to be deleted.
+ * Prerequisites: The bucket with an object to be retrieved.
  *
- * TODO(User) items: Set the following variable
+ * TODO(user): items: Set the following variable
  * - bucketName: The name of the bucket.
  * - objectName: The name of an object in the bucket.
 *
@@ -79,7 +79,7 @@ int main() {
         //TODO(user): Change bucketName to the name of a bucket in your account.
         const Aws::String bucketName = "<Enter bucket name>";
 
-        //TODO(User): Change objectName to the name of an object in the bucket`.
+        //TODO(user): Change objectName to the name of an object in the bucket.
         //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
         const Aws::String objectName = "<Enter object name>";
 

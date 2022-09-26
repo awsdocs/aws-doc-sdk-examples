@@ -71,8 +71,8 @@ bool AwsDoc::S3::GetWebsiteConfig(const Aws::String &bucketName,
  *
  * Prerequisites: The bucket containing the website configuration.
  *
- * TODO(User) items: Set the following variables
- * - bucketName: The name of the bucket containing the website configuration.
+ * TODO(user): items: Set the following variables.
+ * - bucketName: The name of the bucket that contains the website configuration.
  *
  */
 

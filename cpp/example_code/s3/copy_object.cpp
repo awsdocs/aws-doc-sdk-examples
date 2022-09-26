@@ -18,11 +18,11 @@
  *
  * Purpose
  *
- * Demonstrates using the AWS SDK for C++ to copy an object between 2 S3 buckets.
+ * Demonstrates using the AWS SDK for C++ to copy an object between two S3 buckets.
  *
  */
 
-//! Routine which demonstrates copying an object between 2 S3 buckets.
+//! Routine which demonstrates copying an object between two S3 buckets.
 /*!
   \sa CopyObject()
   \param objectKey Key of object in from bucket.
@@ -64,7 +64,7 @@ bool AwsDoc::S3::CopyObject(const Aws::String &objectKey, const Aws::String &fro
  * Prerequisites: Two buckets. One of the buckets must contain the object to
  * be copied to the other bucket.
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables
  * - objectKey: The name of the object to copy.
  * - fromBucket: The name of the bucket to copy the object from.
  * - toBucket: The name of the bucket to copy the object to.

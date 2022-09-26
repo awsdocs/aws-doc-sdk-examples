@@ -27,9 +27,9 @@
 //! Routine which demonstrates configuring a website for an S3 bucket.
 /*!
   \sa PutWebsiteConfig()
-  \param bucketName name of S3 bucket.
-  \param indexPage name of index page.
-  \param errorPage name of error page.
+  \param bucketName Name of S3 bucket.
+  \param indexPage Name of index page.
+  \param errorPage Name of error page.
   \param clientConfig Aws client configuration.
 */
 
@@ -73,9 +73,9 @@ bool AwsDoc::S3::PutWebsiteConfig(const Aws::String &bucketName,
  *
  *  main function
  *
- * Prerequisites: One S3 bucket containing an index page and an error page.
+ * Prerequisites: Create one S3 bucket that contains an index page and an error page.
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables:
  * - bucketName: Change bucketName to the name of a bucket in your account.
  * - indexPage: Upload file to bucket for the index page.
  * - errorPage: Upload file to bucket for the error page.
@@ -88,10 +88,10 @@ int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    //TODO(User): Change bucketName to the name of a bucket in your account.
+    //TODO(user): Change bucketName to the name of a bucket in your account.
     const Aws::String bucketName = "<Enter bucket name>";
 
-    //TODO(User): Create these two files to serve as your website.
+    //TODO(user): Create these two files to serve as your website.
     const Aws::String indexPage = "index.html";
     const Aws::String errorPage = "404.html";
 

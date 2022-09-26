@@ -33,9 +33,9 @@
 std::mutex AwsDoc::S3::upload_mutex;
 
 // A condition_variable is a synchronization primitive that can be used to
-// block a thread, or multiple threads at the same time, until another
-// thread both modifies a shared variable (the condition) and
-// notifies the condition_variable.
+// block a thread, or to block multiple threads at the same time.
+// The thread is blocked until another thread both modifies a shared
+// variable (the condition) and notifies the condition_variable.
 std::condition_variable AwsDoc::S3::upload_variable;
 // snippet-end:[s3.cpp.put_object_async.mutex_vars]
 
@@ -68,10 +68,10 @@ void PutObjectAsyncFinished(const Aws::S3::S3Client *s3Client,
 // snippet-end:[s3.cpp.put_object_async_finished.code]
 
 
-//! Routine which demonstrates adding an object to an Amazon S3 bucket, asynchronously..
+//! Routine which demonstrates adding an object to an Amazon S3 bucket, asynchronously.
 /*!
   \fn GetObjectAcl()
-  \param s3Client Instance of the S3Client.
+  \param s3Client Instance of the S3 Client.
   \param bucketName Name of the bucket.
   \param fileName Name of the file to put in the bucket.
 */
@@ -115,9 +115,9 @@ bool AwsDoc::S3::PutObjectAsync(const Aws::S3::S3Client &s3Client,
  *
  * main function
  *
- * Prerequisites: The bucket and the object to get the ACL information about.
+ * Prerequisites: The bucket and the object to get the ACL information about:
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables
  * - bucketName: The name of the bucket to get the ACL information about.
  * - object_name: Name of object already in bucket.
  *
@@ -130,9 +130,9 @@ int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // TODO(User): Change bucket_name to the name of a bucket in your account.
+        // TODO(user): Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "<Enter a bucket name>";
-        //TODO(User): Create a file called "my-file.txt" in the local folder where your executables are built to.
+        //TODO(user): Create a file called "my-file.txt" in the local folder where your executables are built to.
         const Aws::String object_name = "my-file.txt";
 
         // A unique_lock is a general-purpose mutex ownership wrapper allowing

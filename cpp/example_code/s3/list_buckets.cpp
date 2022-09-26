@@ -61,7 +61,7 @@ bool AwsDoc::S3::ListBuckets(const Aws::Client::ClientConfiguration &clientConfi
 int main() {
     //The Aws::SDKOptions struct contains SDK configuration options.
     //An instance of Aws::SDKOptions is passed to the Aws::InitAPI and 
-    //Aws::ShutdownAPI methods.  The same instance should be sent to both methods.
+    //Aws::ShutdownAPI methods. The same instance should be sent to both methods.
     Aws::SDKOptions options;
     options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
 

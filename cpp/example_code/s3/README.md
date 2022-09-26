@@ -63,13 +63,12 @@ Code examples that show you how to accomplish a specific task by calling multipl
 ## Run the examples
 
 Before using the code examples, first complete the installation and setup steps
-of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
+of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
 This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
 sample Hello World-style application.
 
-Next, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html)
-for information on the structure of the code examples, building, and running the examples.
+Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
 ## Tests
 

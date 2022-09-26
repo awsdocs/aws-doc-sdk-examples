@@ -32,7 +32,7 @@ static Aws::String GetPermissionString(const Aws::S3::Model::Permission &permiss
 //! Routine which demonstrates getting the ACL for an S3 bucket.
 /*!
   \sa GetBucketAcl()
-  \param bucketName Name of the s3 bucket.
+  \param bucketName Name of the S3 bucket.
   \param clientConfig Aws client configuration.
 */
 
@@ -153,9 +153,9 @@ Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission) {
  *
  * main function
  *
- * Prerequisites: The bucket to get the ACL information about.
+ * Prerequisites: Create an S3 bucket to get the ACL information about it.
  *
- * TODO(User) items: Set the following variables
+ * TODO(user): items: Set the following variables
  * - bucketName: The name of the bucket to get the ACL information about.
  *
  */
@@ -163,7 +163,7 @@ Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission) {
 #ifndef TESTING_BUILD
 
 int main() {
-    //TODO(User): Name of your bucket.
+    //TODO(user): Name of your bucket.
     Aws::String bucket_name = "<Enter bucket name>";
 
     Aws::SDKOptions options;
