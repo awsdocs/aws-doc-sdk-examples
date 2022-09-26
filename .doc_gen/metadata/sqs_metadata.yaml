@@ -74,8 +74,9 @@ sqs_CreateQueue:
         - sdk_version: 2
           github: gov2/sqs
           excerpts:
-            - description: ''
-              snippet_tags: ['sqs.go-v2.CreateQueue']
+            - description:
+              snippet_tags:
+                - sqs.go-v2.CreateQueue
   services:
     sqs: {CreateQueue}
 sqs_GetQueueUrl:
@@ -178,9 +179,9 @@ sqs_ListQueues:
         - sdk_version: 1
           github: rust_dev_preview/sqs
           excerpts:
-            - description:
+            - description: Retrieve the first &SQS; queue listed in the Region.
               snippet_tags:
-                - sqs.rust.sqs-hello-world
+                - sqs.rust.sqs-list-first
     JavaScript:
       versions:
         - sdk_version: 3
@@ -334,7 +335,7 @@ sqs_SendMessage:
           excerpts:
             - description:
               snippet_tags:
-                - sqs.rust.sqs-hello-world
+                - sqs.rust.sqs-send
     JavaScript:
       versions:
         - sdk_version: 3
@@ -442,7 +443,7 @@ sqs_ReceiveMessage:
           excerpts:
             - description:
               snippet_tags:
-                - sqs.rust.sqs-hello-world
+                - sqs.rust.sqs-receive
     JavaScript:
       versions:
         - sdk_version: 3
@@ -591,7 +592,14 @@ sqs_Scenario_SendReceiveBatch:
               snippet_tags:
                 - python.example_code.sqs.Scenario_SendReceiveBatch
   services:
-    sqs: {CreateQueue, DeleteQueue, SendMessageBatch, ReceiveMessage, DeleteMessageBatch}
+    sqs:
+      {
+        CreateQueue,
+        DeleteQueue,
+        SendMessageBatch,
+        ReceiveMessage,
+        DeleteMessageBatch,
+      }
 sqs_AuthorizeS3ToSendMessage:
   title: Authorize an &S3; bucket to send messages to an &SQS; queue
   title_abbrev: Authorize a bucket to send messages to a queue
