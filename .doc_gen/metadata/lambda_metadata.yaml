@@ -262,7 +262,7 @@ lambda_Scenario_GettingStartedFunctions:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.globalusings
+                - lambda.dotnetv3.Lambda_Basics.GlobalUsings
                 - lambda.dotnetv3.Lambda_Basics.main
     Kotlin:
       versions:
