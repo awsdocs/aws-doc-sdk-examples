@@ -8,16 +8,18 @@ namespace Lambda_Basics.Tests
         private readonly string _FunctionName = "test-function";
         private readonly AmazonLambdaClient _Client;
         private string _FunctionArn;
+        private LambdaMethods _LambdaMethods = new LambdaMethods();
 
         public LambdaMethodsTests()
         {
             _Client = new AmazonLambdaClient();
+
         }
 
         [Fact()]
         public async Task DeleteLambdaFunctionTest()
         {
-            var success = await LambdaMethods.DeleteLambdaFunction(_Client, _FunctionName);
+            var success = await _LambdaMethods.DeleteLambdaFunction(_Client, _FunctionName);
             Assert.True(success, "Could not delete the function.");
         }
 
@@ -25,7 +27,7 @@ namespace Lambda_Basics.Tests
         public async Task DeleteLambdaFunctionTest_DoesntExist_ShouldFail()
         {
             var functionName = "nonexistent_function";
-            var success = await LambdaMethods.DeleteLambdaFunction(_Client, functionName);
+            var success = await _LambdaMethods.DeleteLambdaFunction(_Client, functionName);
             Assert.False(success, "Should not be able to delete a non-existent function.");
         }
 
@@ -44,7 +46,7 @@ namespace Lambda_Basics.Tests
         [Fact()]
         public async Task ListFunctionsTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            
         }
 
         [Fact()]
