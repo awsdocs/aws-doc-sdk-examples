@@ -52,7 +52,7 @@ public class SendMessageBatch {
 
         final String usage = "\n" +
             "Usage: " +
-            "  <message> <appId> <originationNumber> <destinationNumber> \n\n" +
+            "  <message> <appId> <originationNumber> <destinationNumber> <destinationNumber1> \n\n" +
             "Where:\n" +
             "  message - The body of the message to send.\n\n"+
             "  appId - The Amazon Pinpoint project/application ID to use when you send this message.\n\n" +
