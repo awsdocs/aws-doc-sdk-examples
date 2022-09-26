@@ -6,18 +6,24 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include "dynamodb_gtests.h"
+#include "dyanamodb_samples.h"
 
 namespace AwsDocTest {
     TEST_F(DynamoDB_GTests, getting_started_scenario) {
-        printf("test printf\n");
+        AddCommandLineResponses({"Jaws",
+                                 "1972",
+                                 "8",
+                                 "Sharks",
+                                 "7",
+                                 "Sharks and Dude",
+                                 "y",
+                                 "2011",
+                                 "2011",
+                                 "2018",
+                                 "30",
+                                 "y"});
 
-        std::cout << "some text" << std::endl;
-        Aws::String string;
-        std::cin >> string;
-        std::cout <<string << std::endl;
-        std::cin >> string;
-        std::cout <<string << std::endl;
-        std::cin >> string;
-        std::cout <<string << std::endl;
+        bool result = AwsDoc::DynamoDB::dynamodbGettingStartedScenario(*s_clientConfig);
+        ASSERT_TRUE(result);
     }
 } // AwsDocTest

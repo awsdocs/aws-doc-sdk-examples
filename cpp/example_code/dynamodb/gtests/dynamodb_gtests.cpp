@@ -42,3 +42,14 @@ void AwsDocTest::DynamoDB_GTests::TearDown() {
     }
 }
 
+void AwsDocTest::DynamoDB_GTests::AddCommandLineResponses(
+        const std::vector<std::string> &responses) {
+
+    std::stringstream stringStream;
+    for (auto& response : responses)
+    {
+        stringStream << response << "\n";
+    }
+    m_cinBuffer.str(stringStream.str());
+}
+

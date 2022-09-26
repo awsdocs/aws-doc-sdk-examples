@@ -28,6 +28,8 @@ namespace AwsDocTest {
         // s_clientConfig must be a pointer because the client config must be initialized after InitAPI
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
+        void AddCommandLineResponses(const std::vector<std::string>& responses);
+
     private:
         static Aws::SDKOptions s_options;
 

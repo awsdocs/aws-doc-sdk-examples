@@ -47,17 +47,11 @@ add_executable(
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    list(APPEND SERVICE_LIST ${CURRENT_TARGET_AWS_DEPENDENCIES})
-    #For IDE's like Xcode and Visual Studio this line will be ignored because Release/Debug 
-    #  is switched internally, but this is necessary for non-IDE builds.
-
-	
-    #TODO:Choose which of the following two lines to use to copy to the same folder where your executables are.
     AWSSDK_CPY_DYN_LIBS(
-        SERVICE_LIST
+            CURRENT_TARGET_AWS_DEPENDENCIES
         ""
         ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
-    )  #Choose this line if your executables are in /build/Debug
+    )
 
     add_custom_command(
         TARGET
@@ -111,8 +105,8 @@ target_sources(
 target_include_directories(
         ${CURRENT_TARGET}
         PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
-        $<INSTALL_INTERFACE:../include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+        ${ZLIB_INCLUDE_DIRS}
 )
 
 target_compile_definitions(
@@ -126,6 +120,7 @@ target_link_libraries(
         GTest::gtest
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
+        ${ZLIB_LIBRARIES}
 )
 
 include(GoogleTest)
