@@ -27,7 +27,7 @@ static const char ALLOCATION_TAG[] = "OverrideDefaultHttpClient";
  *
  * For more information, see the following documentation topic:
  *
- * https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
  * Purpose
  *
