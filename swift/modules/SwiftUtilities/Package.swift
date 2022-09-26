@@ -28,6 +28,9 @@ let package = Package(
             name: "SwiftUtilities",
             dependencies: [
                 "Fakery"
+            ],
+            linkerSettings: [
+                .linkedLibrary("rt")    // Include librt for Dispatch to work
             ]
         ),
         .testTarget(
@@ -35,6 +38,10 @@ let package = Package(
             dependencies: [
                 "SwiftUtilities",
                 "Fakery"
-            ]),
+            ],
+            linkerSettings: [
+                .linkedLibrary("rt")    // Include librt for Dispatch to work
+            ]
+        ),
     ]
 )
