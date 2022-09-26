@@ -4,7 +4,7 @@
 
 These examples demonstrate how to perform several AWS Lambda (Lambda) operations using the alpha version of the AWS SDK for Rust.
 
-Use Lambda to run code without provisioning or managing servers. 
+Use Lambda to run code without provisioning or managing servers.
 
 ## Code examples
 
@@ -15,7 +15,7 @@ Use Lambda to run code without provisioning or managing servers.
 
 ## ⚠ Important
 
-- We recommend that you grant this code least privilege, 
+- We recommend that you grant this code least privilege,
   or at most the minimum permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
@@ -39,9 +39,9 @@ If a Lambda function uses a Java runtime, this example sets its runtime to Corre
 
 - _ARN_ is the ARN of the function.
 - _REGION_ is the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
+  If the environment variable is not set, defaults to **us-west-2**.
+- **-v** displays additional information.
 
 ### invoke-function
 
@@ -51,9 +51,9 @@ This example invokes a Lambda function.
 
 - _ARN_ is the ARN of the function to invoke.
 - _REGION_ is the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
+  If the environment variable is not set, defaults to **us-west-2**.
+- **-v** displays additional information.
 
 ### list-all-function-runtimes
 
@@ -62,9 +62,9 @@ This example lists the ARNs and runtimes of all Lambda functions in all Regions.
 `cargo run --bin list-all-function-runtimes -- [-r REGION] [-v]`
 
 - _REGION_ is the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
+  If the environment variable is not set, defaults to **us-west-2**.
+- **-v** displays additional information.
 
 ### list-functions
 
@@ -73,19 +73,19 @@ This example lists your AWS Lambda functions.
 `cargo run --bin list-functions -- [-r REGION] [-v]`
 
 - _REGION_ is the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
+  If the environment variable is not set, defaults to **us-west-2**.
+- **-v** displays additional information.
 
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
+- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html)
 
 ## Contributing
 
-To propose a new code example to the AWS documentation team, 
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+To propose a new code example to the AWS documentation team,
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
 The team prefers to create code examples that show broad scenarios rather than individual API calls.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
