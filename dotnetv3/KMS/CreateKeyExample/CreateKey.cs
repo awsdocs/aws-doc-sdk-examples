@@ -15,8 +15,8 @@ namespace CreateKeyExample
 
     public class CreateKey
     {
-         public static async Task Main()
-         {
+        public static async Task Main()
+        {
             // Note that if you need to create a Key in an AWS Region
             // other than the Region defined for the default user, you need to
             // pass the Region to the client constructor.
