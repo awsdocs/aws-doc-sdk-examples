@@ -73,7 +73,7 @@ namespace Lambda_Basics
         /// <param name="functionName">The name of the Lambda function to
         /// invoke.</param>
         /// <returns>A System Threading Task.</returns>
-        public async Task InvokeFunction(AmazonLambdaClient client, string functionName)
+        public async Task InvokeFunctionAsync(AmazonLambdaClient client, string functionName)
         {
             var payload = "{\"inputValue\":\"2000\"}";
             var request = new InvokeRequest

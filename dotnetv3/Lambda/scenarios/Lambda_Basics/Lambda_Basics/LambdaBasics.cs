@@ -60,7 +60,7 @@ Console.WriteLine("*** Sleep for 1 min to get Lambda function ready.");
 System.Threading.Thread.Sleep(60000);
 
 Console.WriteLine("*** Invoke the Lambda function.");
-await lambdaMethods.InvokeFunction(lambdaClient, functionName);
+await lambdaMethods.InvokeFunctionAsync(lambdaClient, functionName);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("*** Update the Lambda function code.");
@@ -70,7 +70,7 @@ Console.WriteLine("*** Sleep for 1 min to get Lambda function ready.");
 System.Threading.Thread.Sleep(60000);
 
 Console.WriteLine("*** Invoke the Lambda function again with the updated code.");
-await lambdaMethods.InvokeFunction(lambdaClient, functionName);
+await lambdaMethods.InvokeFunctionAsync(lambdaClient, functionName);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Delete the AWS Lambda function.");
