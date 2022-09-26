@@ -44,12 +44,6 @@ describe "getting started scenario" do
       expect { run_scenario(scenario) }.to output(/TestError: stubbed-response-error-message/).to_stdout
     end
 
-    it "outputs correct error when download_file fails" do
-      s3_resource.client.stub_responses(:get_object, "TestError")
-      allow(scenario).to receive(:gets).and_return(*inputs)
-      expect { run_scenario(scenario) }.to output(/TestError: stubbed-response-error-message/).to_stdout
-    end
-
     it "outputs correct error when copy_object fails" do
       s3_resource.client.stub_responses(:copy_object, "TestError")
       allow(scenario).to receive(:gets).and_return(*inputs)
