@@ -1,23 +1,12 @@
-//NOTE!! This example only currently works on Linux.  If you are on a Windows environment, delete this .cpp file to build your solution.
+//NOTE!! This example only works on Linux and Mac. It does not work on Windows.
 
-//snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build list_buckets_disabling_dns_cache.cpp. This example demonstrates how to replace the default HTTP client and override the default HTTP client configurations.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 #include <iostream>
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
 #include <aws/core/utils/logging/LogLevel.h>
 #include <aws/core/http/standard/StandardHttpRequest.h>
 #include <aws/core/client/ClientConfiguration.h>
@@ -34,16 +23,34 @@ using namespace Aws::S3::Model;
 static const char ALLOCATION_TAG[] = "OverrideDefaultHttpClient";
 
 /**
- * Extending Default CurlHttpClient, and override OverrideOptionsOnConnectionHandle() to disable DNS caching with CURLOPT_DNS_CACHE_TIMEOUT setting to 0.
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Demonstrates subclassing CurlHttpClient and HttpClientFactory to disable the DNS cache.
+ *
+ * With AWS SDK for C++ version 1.8, it's much easier to override the default HTTP client configuration with the virtual functions: OverrideOptionsOn*Handle()
+ * In this example, we override the default HTTP client and disable DNS caching with some low level Curl APIs.
+ *
+*/
+
+/**
+ * Extending Default CurlHttpClient, and override OverrideOptionsOnConnectionHandle() to
+ * disable DNS caching with CURLOPT_DNS_CACHE_TIMEOUT setting to 0.
  */
-class MyCurlHttpClient : public Aws::Http::CurlHttpClient
-{
+
+class MyCurlHttpClient : public Aws::Http::CurlHttpClient {
 public:
-    MyCurlHttpClient(const Aws::Client::ClientConfiguration& clientConfig) : Aws::Http::CurlHttpClient(clientConfig) {}
+    explicit MyCurlHttpClient(const Aws::Client::ClientConfiguration &clientConfig) : Aws::Http::CurlHttpClient(
+            clientConfig) {}
 
 protected:
-    void OverrideOptionsOnConnectionHandle(CURL* connectionHandle) const override
-    {
+    // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+    void OverrideOptionsOnConnectionHandle(CURL *connectionHandle) const override {
         std::cout << "Disable DNS caching completely." << std::endl;
         curl_easy_setopt(connectionHandle, CURLOPT_DNS_CACHE_TIMEOUT, 0L);
     }
@@ -52,86 +59,84 @@ protected:
 /**
  * Extending the default HttpClientFactory to return the custom HttpClient we just created.
  */
-class MyHttpClientFactory : public Aws::Http::HttpClientFactory
-{
-    std::shared_ptr<Aws::Http::HttpClient> CreateHttpClient(const Aws::Client::ClientConfiguration& clientConfiguration) const override
-    {
+
+class MyHttpClientFactory : public Aws::Http::HttpClientFactory {
+    std::shared_ptr<Aws::Http::HttpClient>
+    CreateHttpClient(const Aws::Client::ClientConfiguration &clientConfiguration) const override {
         return Aws::MakeShared<MyCurlHttpClient>(ALLOCATION_TAG, clientConfiguration);
     }
 
     std::shared_ptr<Aws::Http::HttpRequest> CreateHttpRequest(const Aws::String &uri, Aws::Http::HttpMethod method,
-                                                    const Aws::IOStreamFactory &streamFactory) const override
-    {
+                                                              const Aws::IOStreamFactory &streamFactory) const override {
         return CreateHttpRequest(Aws::Http::URI(uri), method, streamFactory);
     }
 
-    std::shared_ptr<Aws::Http::HttpRequest> CreateHttpRequest(const Aws::Http::URI& uri, Aws::Http::HttpMethod method, const Aws::IOStreamFactory& streamFactory) const override
-    {
+    std::shared_ptr<Aws::Http::HttpRequest> CreateHttpRequest(const Aws::Http::URI &uri, Aws::Http::HttpMethod method,
+                                                              const Aws::IOStreamFactory &streamFactory) const override {
         auto request = Aws::MakeShared<Aws::Http::Standard::StandardHttpRequest>(ALLOCATION_TAG, uri, method);
         request->SetResponseStreamFactory(streamFactory);
 
         return request;
     }
 
-    void InitStaticState() override
-    {
+    void InitStaticState() override {
         MyCurlHttpClient::InitGlobalState();
     }
 
-    void CleanupStaticState() override
-    {
+    void CleanupStaticState() override {
         MyCurlHttpClient::CleanupGlobalState();
     }
 };
 
-bool AwsDoc::S3::ListBucketDisablingDnsCache( const Aws::String& region)
-{
-    SetHttpClientFactory(Aws::MakeShared<MyHttpClientFactory>(ALLOCATION_TAG));
-    Aws::Client::ClientConfiguration config;
-    if (!region.empty())
-    {
-        config.region = region;
-    }
+//! Routine which demonstrates configuring a website for an S3 bucket.
+/*!
+  \sa ListBucketDisablingDnsCache()
+  \param clientConfig Aws client configuration.
+*/
 
-    Aws::S3::S3Client s3Client(config);
+bool AwsDoc::S3::ListBucketDisablingDnsCache(const Aws::Client::ClientConfiguration &clientConfig) {
+    SetHttpClientFactory(Aws::MakeShared<MyHttpClientFactory>(ALLOCATION_TAG));
+
+    Aws::S3::S3Client s3Client(clientConfig);
     auto listBucketsOutcome = s3Client.ListBuckets();
-    if (listBucketsOutcome.IsSuccess())
-    {
+    if (!listBucketsOutcome.IsSuccess()) {
+        std::cerr << "Failed to list buckets. Error details:" << std::endl;
+        std::cerr << listBucketsOutcome.GetError() << std::endl;
+    }
+    else {
         std::cout << "Found " << listBucketsOutcome.GetResult().GetBuckets().size() << " buckets" << std::endl;
-        for (auto&& bucket : listBucketsOutcome.GetResult().GetBuckets())
-        {
+        for (auto &&bucket: listBucketsOutcome.GetResult().GetBuckets()) {
             std::cout << "  " << bucket.GetName() << std::endl;
         }
     }
-    else
-    {
-        std::cout << "Failed to list buckets. Error details:" << std::endl;
-        std::cout << listBucketsOutcome.GetError() << std::endl;
-    }
 
-    // reset the http client factory
     CleanupHttp();
-    InitHttp();
 
     return listBucketsOutcome.IsSuccess();
 }
 
-/**
- * With AWS SDK for C++ version 1.8, it's much easier to override the default HTTP client configuration with the virtual functions: OverrideOptionsOn*Handle()
- * In this example, we override the default HTTP client and disable DNS caching with some low level Curl APIs.
- */
-int main(int argc, char *argv[])
-{
+/*
+ *
+ *  main function
+ *
+*/
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char *argv[]) {
     SDKOptions options;
-    options.loggingOptions.logLevel = Utils::Logging::LogLevel::Trace;
     InitAPI(options);
 
-    int result = 0;
-    if (!AwsDoc::S3::ListBucketDisablingDnsCache())
     {
-        result = 1;
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::S3::ListBucketDisablingDnsCache(clientConfig);
     }
 
     ShutdownAPI(options);
-    return result;
+    return 0;
 }
+
+#endif // TESTING_BUILD

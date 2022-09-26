@@ -5,7 +5,6 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_sqs::{Client, Error, Region, PKG_VERSION};
-use std::process::exit;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -14,40 +13,59 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
+    /// Which queue to use. If not provided, uses the first queue found.
+    #[structopt(short, long)]
+    queue: Option<String>,
+
     /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-// Send a message to and receive a message from a queue.
-// snippet-start:[sqs.rust.sqs-hello-world]
-async fn send_receive(client: &Client) -> Result<(), Error> {
+#[derive(Debug)]
+struct SQSMessage {
+    body: String,
+    group: String,
+}
+
+// snippet-start:[sqs.rust.sqs-list-first]
+async fn find_first_queue(client: &Client) -> Result<String, Error> {
     let queues = client.list_queues().send().await?;
     let queue_urls = queues.queue_urls().unwrap_or_default();
-    let queue_url = match queue_urls.first() {
-        Some(url) => url,
-        None => {
-            eprintln!("No queues in this account. Please create a queue to proceed");
-            exit(1);
-        }
-    };
+    Ok(queue_urls
+        .first()
+        .expect("No queues in this account and Region. Create a queue to proceed.")
+        .to_string())
+}
+// snippet-end:[sqs.rust.sqs-list-first]
 
-    println!(
-        "Sending and receiving messages on with URL: `{}`",
-        queue_url
-    );
+// Send a message to a queue.
+// snippet-start:[sqs.rust.sqs-send]
+async fn send(client: &Client, queue_url: &String, message: &SQSMessage) -> Result<(), Error> {
+    println!("Sending message to queue with URL: {}", queue_url);
 
     let rsp = client
         .send_message()
         .queue_url(queue_url)
-        .message_body("hello from my queue")
-        .message_group_id("MyGroup")
+        .message_body(&message.body)
+        .message_group_id(&message.group)
+        // If the queue is FIFO, you need to set .message_deduplication_id
+        // or configure the queue for ContentBasedDeduplication.
         .send()
         .await?;
 
-    println!("Response from sending a message: {:#?}", rsp);
+    println!("Send message to the queue: {:#?}", rsp);
 
+    Ok(())
+}
+// snippet-end:[sqs.rust.sqs-send]
+
+// Pump a queue for up to 10 outstanding messages.
+// snippet-start:[sqs.rust.sqs-receive]
+async fn receive(client: &Client, queue_url: &String) -> Result<(), Error> {
     let rcv_message_output = client.receive_message().queue_url(queue_url).send().await?;
+
+    println!("Messages from queue with url: {}", queue_url);
 
     for message in rcv_message_output.messages.unwrap_or_default() {
         println!("Got the message: {:#?}", message);
@@ -55,7 +73,7 @@ async fn send_receive(client: &Client) -> Result<(), Error> {
 
     Ok(())
 }
-// snippet-end:[sqs.rust.sqs-hello-world]
+// snippet-end:[sqs.rust.sqs-receive]
 
 /// Sends a message to and receives the message from a queue in the Region.
 /// /// # Arguments
@@ -68,7 +86,11 @@ async fn send_receive(client: &Client) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt {
+        region,
+        queue,
+        verbose,
+    } = Opt::from_args();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
@@ -86,6 +108,16 @@ async fn main() -> Result<(), Error> {
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
+    let first_queue_url = find_first_queue(&client).await?;
+    let queue_url = queue.unwrap_or(first_queue_url);
 
-    send_receive(&client).await
+    let message = SQSMessage {
+        body: "hello from my queue".to_owned(),
+        group: "MyGroup".to_owned(),
+    };
+
+    send(&client, &queue_url, &message).await?;
+    receive(&client, &queue_url).await?;
+
+    Ok(())
 }

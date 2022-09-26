@@ -5,6 +5,24 @@ redshift_CreateCluster:
   synopsis: create an &RS; cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.kotlin.create_cluster.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.java2.create_cluster.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -25,6 +43,24 @@ redshift_DeleteCluster:
   synopsis: delete an &RS; cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Delete the cluster.
+              snippet_tags:
+                - redshift.kotlin.delete_cluster.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Delete the cluster.
+              snippet_tags:
+                - redshift.java2.delete_cluster.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -45,6 +81,24 @@ redshift_DescribeClusters:
   synopsis: describe your &RS; clusters.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Describe the cluster.
+              snippet_tags:
+                - redshift.kotlin.describe_cluster.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Describe the cluster.
+              snippet_tags:
+                - redshift.java2.describe_cluster.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -65,6 +119,24 @@ redshift_ModifyCluster:
   synopsis: modify an &RS; cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Modify a cluster.
+              snippet_tags:
+                - redshift.kotlin.mod_cluster.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Modify a cluster.
+              snippet_tags:
+                - redshift.java2.mod_cluster.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -78,4 +150,4 @@ redshift_ModifyCluster:
               snippet_tags:
                 - redshift.javascript.redshift-modify-clustersV3
   services:
-    redshift: {DescribeClusters}
+    redshift: {ModifyCluster}
