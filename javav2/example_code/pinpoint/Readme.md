@@ -33,7 +33,7 @@ You will find these examples that use the **PinpointClient** object:
 - [List Amazon Pinpoint segments.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ListSegments.java) (getSegments command)
 - [Display information about an existing endpoint.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/LookUpEndpoint.java) (getEndpoint command)
 - [Send an email message.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendEmailMessage.java) (sendMessages command)
-- [Send batch SMS messages.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendMessageBatch.java) (sendMessages command)
+- [Send an SMS message.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendMessage.java) (sendMessages command)
 - [Send batch SMS messages.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendMessageBatch.java) (sendMessages command)
 - [Send a voice message using the PinpointSmsVoiceClient.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendVoiceMessage.java) (sendVoiceMessage command)
 - [Update a channel for an Amazon Pinpoint application.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/UpdateChannel.java) (getSmsChannel command)
