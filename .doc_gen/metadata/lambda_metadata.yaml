@@ -220,7 +220,7 @@ lambda_ListFunctions:
             - description:
               snippet_tags:
                 - lambda.dotnetv3.Lambda_Basics.ListFunctions
-            - Listfunctions using a paginator
+                - Listfunctions using a paginator
               snippet_tags:
                 - Lambda.dotnetv3.ListFunctionsExample.Paginator
     Python:
