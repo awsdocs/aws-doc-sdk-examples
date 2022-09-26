@@ -54,7 +54,7 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
 
-You can test the Java code examples for Amazon DynamoDB by running a test file named **DynamoDBTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon Pinpoint by running a test file named **AmazonPinpointTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -63,22 +63,72 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon DynamoDB resources and might incur charges on your account._
 
  ### Properties file
-Before running the Amazon DynamoDB JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a table name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Pinpoint JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a table name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **tableName** - The name of an Amazon DynamoDB table. For example, **Music3**.
-- **fileName** - The path to the JSON document that contains movie data that you can download from the Amazon DynamoDB Developer Guide.
-- **enhancedTableName** - the name of the DynamoDB table used with the enhanced client. For example, **Customer**.
-- **key** – The name of a key to use. For example, **Artist**.
-- **enhancedTableKey** the  name of a key to use for the enhanced client tests. For example, **Id**.
-- **keyValue** – The key value. For example, **Famous Band**.
-- **albumTitle** – An album title to use. For example, **AlbumTitle**.
-- **AlbumTitleValue** – An album title value. For example, **Songs About Life**.
-- **Awards** – A value for a column. For example, **Awards**.
-- **AwardVal** – The value for the Awards column. For example, **10**.
-- **SongTitle** – A value for another column. For example, **SongTitle**.
-- **SongTitleVal** – The value for the SongTitle column. For example, **Happy Summer Day**.
+- **appName** - The name of the Amazon Pinpoint application. For example, **TestApp2**.
+- **bucket** – The name of an Amazon S3 bucket to use for the **ImportSegments** test.
+- **path** – The path where the JSON file is located in the bucket for the **ImportSegments** test. For example, **imports/myjson.json**.
+- **roleArn** - The Amazon Resource Name (ARN) of the role for the **ImportSegments** test.
+- **existingApplicationId** - An existing application Id value used in various tests.
+- **userId** - An existing user Id value used in various tests.
+- **s3BucketName** - An Amazon S3 bucket that is used in the **ExportEndpoints** test.
+- **iamExportRoleArn** - The ARN of an IAM role that grants Amazon Pinpoint write permissions to the S3 bucket and used in the **ExportEndpoints** test.
+- **filePath** - The path where the files downloaded from the Amazon S3 bucket are written (for example, C:/AWS/).
+- **subject** - The email subject to use in the **SendEmailMessage** test.
+- **senderAddress** - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email .
+- **senderAddress** - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email .
+- **originationNumber** - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
+- **destinationNumber** - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
+- **message** - The message to use in the **SendMessage** test. 
+
+
+###  Sample policy text
+
+For the purpose of the JUnit tests, the **ImportSegments** test uses a JSON file to import segments. You must place this JSON file in the S3 bucket specified in the **bucket** value. Also, this JSON file must be located in the **path** location. The following represents an example myjson.json file that you can use for the **ImportSegments** test.   
+
+	{
+   	"ChannelType":"SMS",
+   	"Address":"2065550182",
+   	"Location":{
+      		"Country":"CAN"
+   	},
+   	"Demographic":{
+      	"Platform":"Android",
+      	"Make":"LG"
+   	},
+   	"User":{
+      	 "UserId":"example-user-id-1"
+   	}
+	}{
+   	 "ChannelType":"APNS",
+   	 "Address":"1a2b3c4d5e6f7g8h9i0j1a2b3c4d5e6f",
+   	 "Location":{
+      	"Country":"USA"
+   	 },
+   	 "Demographic":{
+      	"Platform":"iOS",
+      	"Make":"Apple"
+   	 },
+   	 "User":{
+        "UserId":"example-user-id-2"
+   	}
+	}{
+   	 "ChannelType":"EMAIL",
+   	 "Address":"john.stiles@example.com",
+   	 "Location":{
+      	 "Country":"USA"
+   	  },
+   	 "Demographic":{
+      	 "Platform":"iOS",
+      	 "Make":"Apple"
+   	 },
+   	 "User":{
+      	"UserId":"example-user-id-2"
+   	 }
+	 }
+
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
