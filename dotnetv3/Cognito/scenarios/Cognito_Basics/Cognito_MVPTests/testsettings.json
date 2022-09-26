@@ -1,0 +1,7 @@
+{
+    "UserName": "test-user",
+    "Password": "Really-bad-password",
+    "UserEmail": "someone@example.com",
+    "ClientId": "some-client-id-from-CDK",
+    "PoolId": "pool-id-from-CDK",
+}
