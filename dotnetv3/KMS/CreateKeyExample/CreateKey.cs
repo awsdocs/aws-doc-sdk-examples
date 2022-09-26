@@ -18,8 +18,8 @@ namespace CreateKeyExample
          public static async Task Main()
         {
             // Note that if you need to create a Key in an AWS Region
-            // other than the region defined for the default user, you need to
-            // pass the region to the client constructor.
+            // other than the Region defined for the default user, you need to
+            // pass the Region to the client constructor.
             var client = new AmazonKeyManagementServiceClient();
 
             // The call to CreateKeyAsync will create a symmetrical AWS KMS

@@ -4,8 +4,8 @@
 /// <summary>
 /// Uses Amazon Simple Storage Service Glacier to retrieve a list of the vaults
 /// that belong to the default user. As it was written, it shows the vaults
-/// that ar in the same AWS Regioin as the default user. If you want to show
-/// the vaults in another region, pass the region endpoint to the Amazon
+/// that ar in the same AWS Region as the default user. If you want to show
+/// the vaults in another Region, pass the region endpoint to the Amazon
 /// Glacier client constructor.
 ///
 /// This example uses the AWS SDK for .NET version 3.7 and .NET Core 5.0.

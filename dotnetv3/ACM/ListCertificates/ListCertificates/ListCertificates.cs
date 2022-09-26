@@ -38,7 +38,7 @@ namespace ListCertificates
         }
 
         /// <summary>
-        /// Retrieves a list of the certificates defined in this region.
+        /// Retrieves a list of the certificates defined in this Region.
         /// </summary>
         /// <param name="client">The ACM client object passed to the
         /// ListCertificateResAsync method call.</param>

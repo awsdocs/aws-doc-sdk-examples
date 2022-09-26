@@ -48,12 +48,12 @@ namespace TranslateTextExample
 
         /// <summary>
         /// Use the Amazon S3 TransferUtility to retrieve the text to translate
-        /// from an object in an Amazon S3 bucket.
+        /// from an object in an S3 bucket.
         /// </summary>
-        /// <param name="srcBucket">The name of the Amazon S3 bucket where the
+        /// <param name="srcBucket">The name of the S3 bucket where the
         /// text is stored.
         /// </param>
-        /// <param name="srcTextFile">The key of the Amazon S3 object that
+        /// <param name="srcTextFile">The key of the S3 object that
         /// contains the text to translate.</param>
         /// <returns>A string representing the source text.</returns>
         public static async Task<string> GetSourceTextAsync(string srcBucket, string srcTextFile)

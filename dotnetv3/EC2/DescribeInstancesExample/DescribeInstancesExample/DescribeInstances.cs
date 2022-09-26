@@ -25,8 +25,8 @@ namespace DescribeInstancesExample
         /// </summary>
         public static async Task Main()
         {
-            // If the region of the EC2 instances you want to list is different
-            // from the default user's region, you need to specify the region
+            // If the Region of the EC2 instances you want to list is different
+            // from the default user's Region, you need to specify the Region
             // when you create the client object.
             // For example: RegionEndpoint.USWest1.
             var eC2Client = new AmazonEC2Client();

@@ -10,7 +10,7 @@ namespace DeleteOrganizationalUnitExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Shows how to delete an existing AWS Organizations organization unit.
+    /// Shows how to delete an existing AWS Organizations organizational unit.
     /// This example was created using the AWS SDK for .NET version 3.7 and
     /// .NET Core 5.0.
     /// </summary>
@@ -37,11 +37,11 @@ namespace DeleteOrganizationalUnitExample
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                Console.WriteLine($"Successfully deleted the organization unit with ID: {orgUnitId}.");
+                Console.WriteLine($"Successfully deleted the organizational unit with ID: {orgUnitId}.");
             }
             else
             {
-                Console.WriteLine($"Could not delete the organization unit with ID: {orgUnitId}.");
+                Console.WriteLine($"Could not delete the organizational unit with ID: {orgUnitId}.");
             }
         }
     }
