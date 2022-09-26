@@ -81,6 +81,7 @@ Define these values to successfully run the JUnit tests:
 - **senderAddress** - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email .
 - **originationNumber** - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
 - **destinationNumber** - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
+- **destinationNumber1** - A second phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654). 
 - **message** - The message to use in the **SendMessage** test. 
 
 
@@ -173,7 +174,7 @@ If you do not define the correct values in the properties file, your JUnit tests
 
 ## Additional resources
 * [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
-* [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html).
-* [Interface DynamoDbClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html).
+* [Amazon Pinpoint Developer Guide](https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html).
+* [Interface PinpointClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/pinpoint/PinpointClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
