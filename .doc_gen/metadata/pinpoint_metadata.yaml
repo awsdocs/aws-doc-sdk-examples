@@ -25,6 +25,9 @@ pinpoint_SendMessages:
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.java2.sendmsg.main
+            - description: Send batch SMS messages.
+              snippet_tags:
+                - pinpoint.java2.sendmsg.batch.main  
     Python:
       versions:
         - sdk_version: 3
