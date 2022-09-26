@@ -2,7 +2,7 @@
 rds_CreateDBInstance:
   title: Create an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Create a DB instance
-  synopsis: create an &RDS; DB instance and wait for it to be in an available state.
+  synopsis: create an &RDS; DB instance and wait for it to become available.
   category:
   languages:
     Kotlin:
@@ -340,8 +340,8 @@ rds_Scenario_GetStartedInstances:
   title_abbrev: Get started with DB instances
   synopsis_list:
     - Create a custom DB parameter group and set parameter values.
-    - Create a DB instance that is configured to use the parameter group and contains a
-      database.
+    - Create a DB instance that's configured to use the parameter group. The DB instance
+      also contains a database.
     - Take a snapshot of the instance.
     - Delete the instance and parameter group.
   category: Scenarios

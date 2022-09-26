@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) to create and manage Amazon Aurora
-database clusters.
+DB clusters.
 """
 
 import logging
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.aurora.helper.AuroraWrapper_full]
 # snippet-start:[python.example_code.aurora.helper.AuroraWrapper_decl]
 class AuroraWrapper:
-    """Encapsulates Aurora cluster actions."""
+    """Encapsulates Aurora DB cluster actions."""
     def __init__(self, rds_client):
         """
         :param rds_client: A Boto3 Amazon Relational Database Service (Amazon RDS) client.
@@ -36,7 +36,7 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.DescribeDBClusterParameterGroups]
     def get_parameter_group(self, parameter_group_name):
         """
-        Gets a cluster parameter group.
+        Gets a DB cluster parameter group.
 
         :param parameter_group_name: The name of the parameter group to retrieve.
         :return: The requested parameter group.
@@ -60,7 +60,7 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.CreateDBClusterParameterGroup]
     def create_parameter_group(self, parameter_group_name, parameter_group_family, description):
         """
-        Creates a cluster parameter group that is based on the specified parameter group
+        Creates a DB cluster parameter group that is based on the specified parameter group
         family.
 
         :param parameter_group_name: The name of the newly created parameter group.
@@ -86,7 +86,7 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.DeleteDBClusterParameterGroup]
     def delete_parameter_group(self, parameter_group_name):
         """
-        Deletes a cluster parameter group.
+        Deletes a DB cluster parameter group.
 
         :param parameter_group_name: The name of the parameter group to delete.
         :return: Data about the parameter group.
@@ -106,7 +106,7 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.DescribeDBClusterParameters]
     def get_parameters(self, parameter_group_name, name_prefix='', source=None):
         """
-        Gets the parameters that are contained in a cluster parameter group.
+        Gets the parameters that are contained in a DB cluster parameter group.
 
         :param parameter_group_name: The name of the parameter group to query.
         :param name_prefix: When specified, the retrieved list of parameters is filtered
@@ -137,7 +137,7 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.ModifyDBClusterParameterGroup]
     def update_parameters(self, parameter_group_name, update_parameters):
         """
-        Updates parameters in a custom cluster parameter group.
+        Updates parameters in a custom DB cluster parameter group.
 
         :param parameter_group_name: The name of the parameter group to update.
         :param update_parameters: The parameters to update in the group.
@@ -158,10 +158,10 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.DescribeDBClusters]
     def get_db_cluster(self, cluster_name):
         """
-        Gets data about an Aurora cluster.
+        Gets data about an Aurora DB cluster.
 
-        :param cluster_name: The name of the cluster to retrieve.
-        :return: The retrieved cluster.
+        :param cluster_name: The name of the DB cluster to retrieve.
+        :return: The retrieved DB cluster.
         """
         try:
             response = self.rds_client.describe_db_clusters(
@@ -172,7 +172,7 @@ class AuroraWrapper:
                 logger.info("Cluster %s does not exist.", cluster_name)
             else:
                 logger.error(
-                    "Couldn't verify the existence of cluster %s. Here's why: %s: %s", cluster_name,
+                    "Couldn't verify the existence of DB cluster %s. Here's why: %s: %s", cluster_name,
                     err.response['Error']['Code'], err.response['Error']['Message'])
                 raise
         else:
@@ -184,19 +184,19 @@ class AuroraWrapper:
             self, cluster_name, parameter_group_name, db_name, db_engine,
             db_engine_version, admin_name, admin_password):
         """
-        Creates a cluster that is configured to use the specified parameter group.
-        The newly created cluster contains a database that uses the specified engine and
+        Creates a DB cluster that is configured to use the specified parameter group.
+        The newly created DB cluster contains a database that uses the specified engine and
         engine version.
 
-        :param cluster_name: The name of the cluster to create.
+        :param cluster_name: The name of the DB cluster to create.
         :param parameter_group_name: The name of the parameter group to associate with
-                                     the cluster.
+                                     the DB cluster.
         :param db_name: The name of the database to create.
         :param db_engine: The database engine of the database that is created, such as MySql.
         :param db_engine_version: The version of the database engine.
-        :param admin_name: The username of the database administrator.
+        :param admin_name: The user name of the database administrator.
         :param admin_password: The password of the database administrator.
-        :return: The newly created cluster.
+        :return: The newly created DB cluster.
         """
         try:
             response = self.rds_client.create_db_cluster(
@@ -220,26 +220,26 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.DeleteDBCluster]
     def delete_db_cluster(self, cluster_name):
         """
-        Deletes a cluster.
+        Deletes a DB cluster.
 
-        :param cluster_name: The name of the cluster to delete.
+        :param cluster_name: The name of the DB cluster to delete.
         """
         try:
             self.rds_client.delete_db_cluster(
                 DBClusterIdentifier=cluster_name, SkipFinalSnapshot=True)
-            logger.info("Deleted cluster %s.", cluster_name)
+            logger.info("Deleted DB cluster %s.", cluster_name)
         except ClientError:
-            logger.exception("Couldn't delete cluster %s.", cluster_name)
+            logger.exception("Couldn't delete DB cluster %s.", cluster_name)
             raise
     # snippet-end:[python.example_code.aurora.DeleteDBCluster]
     
     # snippet-start:[python.example_code.aurora.CreateDBClusterSnapshot]
     def create_cluster_snapshot(self, snapshot_id, cluster_id):
         """
-        Creates a snapshot of a cluster.
+        Creates a snapshot of a DB cluster.
 
         :param snapshot_id: The ID to give the created snapshot.
-        :param cluster_id: The cluster to snapshot.
+        :param cluster_id: The DB cluster to snapshot.
         :return: Data about the newly created snapshot.
         """
         try:
@@ -258,7 +258,7 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.DescribeDBClusterSnapshots]
     def get_cluster_snapshot(self, snapshot_id):
         """
-        Gets a cluster snapshot.
+        Gets a DB cluster snapshot.
 
         :param snapshot_id: The ID of the snapshot to retrieve.
         :return: The retrieved snapshot.
@@ -269,7 +269,7 @@ class AuroraWrapper:
             snapshot = response['DBClusterSnapshots'][0]
         except ClientError as err:
             logger.error(
-                "Couldn't get cluster snapshot %s. Here's why: %s: %s", snapshot_id,
+                "Couldn't get DB cluster snapshot %s. Here's why: %s: %s", snapshot_id,
                 err.response['Error']['Code'], err.response['Error']['Message'])
             raise
         else:
@@ -279,16 +279,16 @@ class AuroraWrapper:
     # snippet-start:[python.example_code.aurora.CreateDBInstance_InCluster]
     def create_instance_in_cluster(self, instance_id, cluster_id, db_engine, instance_class):
         """
-        Creates a database instance in an existing cluster. The first database that is
-        created defaults to a read-write instance.
+        Creates a database instance in an existing DB cluster. The first database that is
+        created defaults to a read-write DB instance.
 
-        :param instance_id: The ID to give the newly created instance.
-        :param cluster_id: The ID of the cluster where the instance is created.
-        :param db_engine: The database engine of a database to create in the instance.
+        :param instance_id: The ID to give the newly created DB instance.
+        :param cluster_id: The ID of the DB cluster where the DB instance is created.
+        :param db_engine: The database engine of a database to create in the DB instance.
                           This must be compatible with the configured parameter group
-                          of the cluster.
-        :param instance_class: The instance class for the newly created instance.
-        :return: Data about the newly created instance.
+                          of the DB cluster.
+        :param instance_class: The DB instance class for the newly created DB instance.
+        :return: Data about the newly created DB instance.
         """
         try:
             response = self.rds_client.create_db_instance(
@@ -297,7 +297,7 @@ class AuroraWrapper:
             db_inst = response['DBInstance']
         except ClientError as err:
             logger.error(
-                "Couldn't create db instance %s. Here's why: %s: %s", instance_id,
+                "Couldn't create DB instance %s. Here's why: %s: %s", instance_id,
                 err.response['Error']['Code'], err.response['Error']['Message'])
             raise
         else:
@@ -337,9 +337,9 @@ class AuroraWrapper:
         Gets DB instance options that can be used to create DB instances that are
         compatible with a set of specifications.
 
-        :param db_engine: The database engine that must be supported by the instance.
-        :param db_engine_version: The engine version that must be supported by the instance.
-        :return: The list of instance options that can be used to create a compatible instance.
+        :param db_engine: The database engine that must be supported by the DB instance.
+        :param db_engine_version: The engine version that must be supported by the DB instance.
+        :return: The list of DB instance options that can be used to create a compatible DB instance.
         """
         try:
             inst_opts = []
@@ -348,7 +348,7 @@ class AuroraWrapper:
                 inst_opts += page['OrderableDBInstanceOptions']
         except ClientError as err:
             logger.error(
-                "Couldn't get orderable instances. Here's why: %s: %s",
+                "Couldn't get orderable DB instances. Here's why: %s: %s",
                 err.response['Error']['Code'], err.response['Error']['Message'])
             raise
         else:
@@ -360,7 +360,7 @@ class AuroraWrapper:
         """
         Gets data about a DB instance.
 
-        :param instance_id: The ID of the instance to retrieve.
+        :param instance_id: The ID of the DB instance to retrieve.
         :return: The retrieved DB instance.
         """
         try:
@@ -372,7 +372,7 @@ class AuroraWrapper:
                 logger.info("Instance %s does not exist.", instance_id)
             else:
                 logger.error(
-                    "Couldn't get db instance %s. Here's why: %s: %s", instance_id,
+                    "Couldn't get DB instance %s. Here's why: %s: %s", instance_id,
                     err.response['Error']['Code'], err.response['Error']['Message'])
                 raise
         else:
@@ -384,8 +384,8 @@ class AuroraWrapper:
         """
         Deletes a DB instance.
 
-        :param instance_id: The ID of the instance to delete.
-        :return: Data about the deleted instance.
+        :param instance_id: The ID of the DB instance to delete.
+        :return: Data about the deleted DB instance.
         """
         try:
             response = self.rds_client.delete_db_instance(
@@ -394,7 +394,7 @@ class AuroraWrapper:
             db_inst = response['DBInstance']
         except ClientError as err:
             logger.error(
-                "Couldn't delete db instance %s. Here's why: %s: %s", instance_id,
+                "Couldn't delete DB instance %s. Here's why: %s: %s", instance_id,
                 err.response['Error']['Code'], err.response['Error']['Message'])
             raise
         else:

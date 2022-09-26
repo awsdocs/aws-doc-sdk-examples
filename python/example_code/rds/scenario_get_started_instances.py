@@ -8,10 +8,10 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Relation Database Se
 (Amazon RDS) to do the following:
 
 * Create a custom DB parameter group and set parameter values.
-* Create a DB instance that is configured to use the parameter group and contains a
-  database.
-* Take a snapshot of the instance.
-* Delete the instance and parameter group.
+* Create a DB instance that is configured to use the parameter group. The DB instance
+  also contains a database.
+* Take a snapshot of the DB instance.
+* Delete the DB instance and parameter group.
 """
 
 import logging
@@ -30,10 +30,10 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.rds.Scenario_GetStartedInstances]
 class RdsInstanceScenario:
-    """Runs a scenario that shows how to get started using Amazon RDS instances."""
+    """Runs a scenario that shows how to get started using Amazon RDS DB instances."""
     def __init__(self, instance_wrapper):
         """
-        :param instance_wrapper: An object that wraps Amazon RDS instance actions.
+        :param instance_wrapper: An object that wraps Amazon RDS DB instance actions.
         """
         self.instance_wrapper = instance_wrapper
 
@@ -46,7 +46,7 @@ class RdsInstanceScenario:
         :param db_engine: The database engine to use as a basis.
         :return: The newly created parameter group.
         """
-        print(f"Checking for an existing instance parameter group named {parameter_group_name}.")
+        print(f"Checking for an existing DB instance parameter group named {parameter_group_name}.")
         parameter_group = self.instance_wrapper.get_parameter_group(parameter_group_name)
         if parameter_group is None:
             print(f"Getting available database engine versions for {db_engine}.")
@@ -93,17 +93,17 @@ class RdsInstanceScenario:
         Shows how to create a DB instance that contains a database of a specified
         type and is configured to use a custom DB parameter group.
 
-        :param instance_name: The name given to the newly created instance.
+        :param instance_name: The name given to the newly created DB instance.
         :param db_name: The name given to the created database.
         :param db_engine: The engine of the created database.
-        :param parameter_group: The parameter group that is associated with the instance.
-        :return: The newly created instance.
+        :param parameter_group: The parameter group that is associated with the DB instance.
+        :return: The newly created DB instance.
         """
-        print("Checking for an existing database instance.")
+        print("Checking for an existing DB instance.")
         db_inst = self.instance_wrapper.get_db_instance(instance_name)
         if db_inst is None:
-            print("Let's create a database instance.")
-            admin_username = q.ask("Enter an administrator username for the database: ", q.non_empty)
+            print("Let's create a DB instance.")
+            admin_username = q.ask("Enter an administrator user name for the database: ", q.non_empty)
             admin_password = q.ask(
                 "Enter a password for the administrator (at least 8 characters): ", q.non_empty)
             engine_versions = self.instance_wrapper.get_engine_versions(
@@ -112,18 +112,18 @@ class RdsInstanceScenario:
             print("The available engines for your parameter group are:")
             engine_index = q.choose("Which engine do you want to use? ", engine_choices)
             engine_selection = engine_versions[engine_index]
-            print("The available micro instance classes for your database engine are:")
+            print("The available micro DB instance classes for your database engine are:")
             inst_opts = self.instance_wrapper.get_orderable_instances(
                 engine_selection['Engine'], engine_selection['EngineVersion'])
             inst_choices = list({opt['DBInstanceClass'] for opt in inst_opts if 'micro' in opt['DBInstanceClass']})
-            inst_index = q.choose("Which micro instance class do you want to use? ", inst_choices)
+            inst_index = q.choose("Which micro DB instance class do you want to use? ", inst_choices)
             group_name = parameter_group['DBParameterGroupName']
             storage_type = 'standard'
             allocated_storage = 5
-            print(f"Creating a database instance named {instance_name} and database {db_name}.\n"
-                  f"The instance is configured to use your custom parameter group {group_name},\n"
+            print(f"Creating a DB instance named {instance_name} and database {db_name}.\n"
+                  f"The DB instance is configured to use your custom parameter group {group_name},\n"
                   f"selected engine {engine_selection['EngineVersion']},\n"
-                  f"selected instance class {inst_choices[inst_index]},"
+                  f"selected DB instance class {inst_choices[inst_index]},"
                   f"and {allocated_storage} GiB of {storage_type} storage.\n"
                   f"This typically takes several minutes.")
             db_inst = self.instance_wrapper.create_db_instance(
@@ -144,11 +144,11 @@ class RdsInstanceScenario:
         Displays connection information about a DB instance and tips on how to
         connect to it.
 
-        :param db_inst: The instance to display.
+        :param db_inst: The DB instance to display.
         """
         print("You can now connect to your database using your favorite MySql client.\n"
               "One way to connect is by using the 'mysql' shell on an Amazon EC2 instance\n"
-              "that is running in the same VPC as your database cluster. Pass the endpoint,\n"
+              "that is running in the same VPC as your DB instance. Pass the endpoint,\n"
               "port, and administrator user name to 'mysql' and enter your password\n"
               "when prompted:\n")
         print(f"\n\tmysql -h {db_inst['Endpoint']['Address']} -P {db_inst['Endpoint']['Port']} "
@@ -159,11 +159,11 @@ class RdsInstanceScenario:
 
     def create_snapshot(self, instance_name):
         """
-        Shows how to create an instance snapshot and wait until it's available.
+        Shows how to create a DB instance snapshot and wait until it's available.
 
-        :param instance_name: The name of an instance to snapshot.
+        :param instance_name: The name of a DB instance to snapshot.
         """
-        if q.ask("Do you want to create a snapshot of your database instance (y/n)? ", q.is_yesno):
+        if q.ask("Do you want to create a snapshot of your DB instance (y/n)? ", q.is_yesno):
             snapshot_id = f"{instance_name}-{uuid.uuid4()}"
             print(f"Creating a snapshot named {snapshot_id}. This typically takes a few minutes.")
             snapshot = self.instance_wrapper.create_snapshot(snapshot_id, instance_name)
@@ -176,18 +176,18 @@ class RdsInstanceScenario:
     def cleanup(self, db_inst, parameter_group_name):
         """
         Shows how to clean up a DB instance and parameter group.
-        Before the parameter group can be deleted, all associated instances must first
+        Before the parameter group can be deleted, all associated DB instances must first
         be deleted.
 
         :param db_inst: The DB instance to delete.
         :param parameter_group_name: The DB parameter group to delete.
         """
         if q.ask(
-                "\nDo you want to delete the database instance and parameter group (y/n)? ",
+                "\nDo you want to delete the DB instance and parameter group (y/n)? ",
                 q.is_yesno):
-            print(f"Deleting database instance {db_inst['DBInstanceIdentifier']}.")
+            print(f"Deleting DB instance {db_inst['DBInstanceIdentifier']}.")
             self.instance_wrapper.delete_db_instance(db_inst['DBInstanceIdentifier'])
-            print("Waiting for the instance to delete. This typically takes several minutes.")
+            print("Waiting for the DB instance to delete. This typically takes several minutes.")
             while db_inst is not None:
                 wait(10)
                 db_inst = self.instance_wrapper.get_db_instance(db_inst['DBInstanceIdentifier'])

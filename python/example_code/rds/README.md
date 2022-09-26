@@ -5,8 +5,8 @@
 Shows how to use the AWS SDK for Python (Boto3) to create and manage Amazon Relational
 Database Service (Amazon RDS) DB instances and custom parameter groups.
 
-*Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier 
-to set up, operate, and scale a relational database in the cloud.*
+*Amazon RDS is a web service that makes it easier to set up, operate, and scale a 
+relational database in the cloud.*
 
 ## ⚠️ Important
 

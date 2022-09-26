@@ -1,7 +1,7 @@
 aurora_DescribeDBClusterParameterGroups:
-  title: Describe &AUR; cluster parameter groups using an &AWS; SDK
-  title_abbrev: Describe cluster parameter groups
-  synopsis: describe &AUR; cluster parameter groups.
+  title: Describe &AUR; DB cluster parameter groups using an &AWS; SDK
+  title_abbrev: Describe DB cluster parameter groups
+  synopsis: describe &AUR; DB cluster parameter groups.
   category:
   languages:
     Python:
@@ -17,9 +17,9 @@ aurora_DescribeDBClusterParameterGroups:
   services:
     aurora: {DescribeDBClusterParameterGroups}
 aurora_CreateDBClusterParameterGroup:
-  title: Create an &AUR; cluster parameter group using an &AWS; SDK
-  title_abbrev: Create a cluster parameter group
-  synopsis: create an &AUR; cluster parameter group.
+  title: Create an &AUR; DB cluster parameter group using an &AWS; SDK
+  title_abbrev: Create a DB cluster parameter group
+  synopsis: create an &AUR; DB cluster parameter group.
   category:
   languages:
     Python:
@@ -35,9 +35,9 @@ aurora_CreateDBClusterParameterGroup:
   services:
     aurora: {CreateDBClusterParameterGroup}
 aurora_DeleteDBClusterParameterGroup:
-  title: Delete an &AUR; cluster parameter group using an &AWS; SDK
-  title_abbrev: Delete a cluster parameter group
-  synopsis: delete an &AUR; cluster parameter group.
+  title: Delete an &AUR; DB cluster parameter group using an &AWS; SDK
+  title_abbrev: Delete a DB cluster parameter group
+  synopsis: delete an &AUR; DB cluster parameter group.
   category:
   languages:
     Python:
@@ -53,9 +53,9 @@ aurora_DeleteDBClusterParameterGroup:
   services:
     aurora: {DeleteDBClusterParameterGroup}
 aurora_DescribeDBClusterParameters:
-  title: Describe parameters from an &AUR; cluster parameter group using an &AWS; SDK
-  title_abbrev: Describe parameters from a cluster parameter group
-  synopsis: describe parameters from an &AUR; cluster parameter group.
+  title: Describe parameters from an &AUR; DB cluster parameter group using an &AWS; SDK
+  title_abbrev: Describe parameters from a DB cluster parameter group
+  synopsis: describe parameters from an &AUR; DB cluster parameter group.
   category:
   languages:
     Python:
@@ -71,9 +71,9 @@ aurora_DescribeDBClusterParameters:
   services:
     aurora: {DescribeDBClusterParameters}
 aurora_ModifyDBClusterParameterGroup:
-  title: Update parameters in an &AUR; cluster parameter group using an &AWS; SDK
-  title_abbrev: Update parameters in a cluster parameter group
-  synopsis: update parameters in an &AUR; cluster parameter group.
+  title: Update parameters in an &AUR; DB cluster parameter group using an &AWS; SDK
+  title_abbrev: Update parameters in a DB cluster parameter group
+  synopsis: update parameters in an &AUR; DB cluster parameter group.
   category:
   languages:
     Python:
@@ -89,9 +89,9 @@ aurora_ModifyDBClusterParameterGroup:
   services:
     aurora: {ModifyDBClusterParameterGroup}
 aurora_DescribeDBClusters:
-  title: Describe &AUR; clusters using an &AWS; SDK
-  title_abbrev: Describe clusters
-  synopsis: describe &AUR; clusters.
+  title: Describe &AUR; DB clusters using an &AWS; SDK
+  title_abbrev: Describe DB clusters
+  synopsis: describe &AUR; DB clusters.
   category:
   languages:
     Python:
@@ -107,9 +107,9 @@ aurora_DescribeDBClusters:
   services:
     aurora: {DescribeDBClusters}
 aurora_CreateDBCluster:
-  title: Create an &AUR; cluster using an &AWS; SDK
-  title_abbrev: Create a cluster
-  synopsis: create an &AUR; cluster.
+  title: Create an &AUR; DB cluster using an &AWS; SDK
+  title_abbrev: Create a DB cluster
+  synopsis: create an &AUR; DB cluster.
   category:
   languages:
     Python:
@@ -125,9 +125,9 @@ aurora_CreateDBCluster:
   services:
     aurora: {CreateDBCluster}
 aurora_DeleteDBCluster:
-  title: Delete an &AUR; cluster using an &AWS; SDK
-  title_abbrev: Delete a cluster
-  synopsis: delete an &AUR; cluster.
+  title: Delete an &AUR; DB cluster using an &AWS; SDK
+  title_abbrev: Delete a DB cluster
+  synopsis: delete an &AUR; DB cluster.
   category:
   languages:
     Python:
@@ -143,9 +143,9 @@ aurora_DeleteDBCluster:
   services:
     aurora: {DeleteDBCluster}
 aurora_CreateDBClusterSnapshot:
-  title: Create an &AUR; cluster snapshot using an &AWS; SDK
-  title_abbrev: Create a cluster snapshot
-  synopsis: create an &AUR; cluster snapshot.
+  title: Create an &AUR; DB cluster snapshot using an &AWS; SDK
+  title_abbrev: Create a DB cluster snapshot
+  synopsis: create an &AUR; DB cluster snapshot.
   category:
   languages:
     Python:
@@ -161,9 +161,9 @@ aurora_CreateDBClusterSnapshot:
   services:
     aurora: {CreateDBClusterSnapshot}
 aurora_DescribeDBClusterSnapshots:
-  title: Describe &AUR; cluster snapshots using an &AWS; SDK
-  title_abbrev: Describe cluster snapshots
-  synopsis: describe &AUR; cluster snapshots.
+  title: Describe &AUR; DB cluster snapshots using an &AWS; SDK
+  title_abbrev: Describe DB cluster snapshots
+  synopsis: describe &AUR; DB cluster snapshots.
   category:
   languages:
     Python:
@@ -179,9 +179,9 @@ aurora_DescribeDBClusterSnapshots:
   services:
     aurora: {DescribeDBClusterSnapshots}
 aurora_CreateDBInstance:
-  title: Create a DB instance in an &AUR; cluster using an &AWS; SDK
-  title_abbrev: Create a DB instance in a cluster
-  synopsis: create a DB instance in an &AUR; cluster.
+  title: Create a DB instance in an &AUR; DB cluster using an &AWS; SDK
+  title_abbrev: Create a DB instance in a DB cluster
+  synopsis: create a DB instance in an &AUR; DB cluster.
   category:
   languages:
     Python:
@@ -269,14 +269,14 @@ aurora_DeleteDBInstance:
   services:
     aurora: {DeleteDBInstance}
 aurora_Scenario_GetStartedClusters:
-  title: Get started with &AUR; clusters using an &AWS; SDK
-  title_abbrev: Get started with clusters
+  title: Get started with &AUR; DB clusters using an &AWS; SDK
+  title_abbrev: Get started with DB clusters
   synopsis_list:
-    - Create a custom &AUR; cluster parameter group and set parameter values.
-    - Create a cluster that is configured to use the parameter group.
-    - Create a DB instance in the cluster that contains a database.
-    - Take a snapshot of the cluster.
-    - Delete the instance, cluster, and parameter group.
+    - Create a custom &AUR; DB cluster parameter group and set parameter values.
+    - Create a DB cluster that is configured to use the parameter group.
+    - Create a DB instance in the DB cluster that contains a database.
+    - Take a snapshot of the DB cluster.
+    - Delete the instance, DB cluster, and parameter group.
   category: Scenarios
   languages:
     Python:

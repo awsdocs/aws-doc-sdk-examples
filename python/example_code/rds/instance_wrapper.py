@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) to create and manage Amazon Relational
-Database Service (Amazon RDS) instances.
+Database Service (Amazon RDS) DB instances.
 """
 
 import json
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.rds.helper.InstanceWrapper_full]
 # snippet-start:[python.example_code.rds.helper.InstanceWrapper_decl]
 class InstanceWrapper:
-    """Encapsulates Amazon RDS instance actions."""
+    """Encapsulates Amazon RDS DB instance actions."""
     def __init__(self, rds_client):
         """
         :param rds_client: A Boto3 Amazon RDS client.
@@ -161,7 +161,7 @@ class InstanceWrapper:
         Creates a snapshot of a DB instance.
 
         :param snapshot_id: The ID to give the created snapshot.
-        :param instance_id: The ID of the instance to snapshot.
+        :param instance_id: The ID of the DB instance to snapshot.
         :return: Data about the newly created snapshot.
         """
         try:
@@ -231,9 +231,9 @@ class InstanceWrapper:
         Gets DB instance options that can be used to create DB instances that are
         compatible with a set of specifications.
 
-        :param db_engine: The database engine that must be supported by the instance.
-        :param db_engine_version: The engine version that must be supported by the instance.
-        :return: The list of instance options that can be used to create a compatible instance.
+        :param db_engine: The database engine that must be supported by the DB instance.
+        :param db_engine_version: The engine version that must be supported by the DB instance.
+        :return: The list of DB instance options that can be used to create a compatible DB instance.
         """
         try:
             inst_opts = []
@@ -242,7 +242,7 @@ class InstanceWrapper:
                 inst_opts += page['OrderableDBInstanceOptions']
         except ClientError as err:
             logger.error(
-                "Couldn't get orderable instances. Here's why: %s: %s",
+                "Couldn't get orderable DB instances. Here's why: %s: %s",
                 err.response['Error']['Code'], err.response['Error']['Message'])
             raise
         else:
@@ -254,7 +254,7 @@ class InstanceWrapper:
         """
         Gets data about a DB instance.
 
-        :param instance_id: The ID of the instance to retrieve.
+        :param instance_id: The ID of the DB instance to retrieve.
         :return: The retrieved DB instance.
         """
         try:
@@ -266,7 +266,7 @@ class InstanceWrapper:
                 logger.info("Instance %s does not exist.", instance_id)
             else:
                 logger.error(
-                    "Couldn't get db instance %s. Here's why: %s: %s", instance_id,
+                    "Couldn't get DB instance %s. Here's why: %s: %s", instance_id,
                     err.response['Error']['Code'], err.response['Error']['Message'])
                 raise
         else:
@@ -280,17 +280,17 @@ class InstanceWrapper:
         """
         Creates a DB instance.
 
-        :param db_name: The name of the database that is created in the instance.
-        :param instance_id: The ID to give the newly created instance.
-        :param parameter_group_name: A parameter group to associate with the instance.
-        :param db_engine: The database engine of a database to create in the instance.
+        :param db_name: The name of the database that is created in the DB instance.
+        :param instance_id: The ID to give the newly created DB instance.
+        :param parameter_group_name: A parameter group to associate with the DB instance.
+        :param db_engine: The database engine of a database to create in the DB instance.
         :param db_engine_version: The engine version for the created database.
-        :param instance_class: The instance class for the newly created instance.
-        :param storage_type: The storage type of the instance.
-        :param allocated_storage: The amount of storage allocated on the instance, in GiBs.
+        :param instance_class: The DB instance class for the newly created DB instance.
+        :param storage_type: The storage type of the DB instance.
+        :param allocated_storage: The amount of storage allocated on the DB instance, in GiBs.
         :param admin_name: The name of the admin user for the created database.
         :param admin_password: The admin password for the created database.
-        :return: Data about the newly created instance.
+        :return: Data about the newly created DB instance.
         """
         try:
             response = self.rds_client.create_db_instance(
@@ -307,7 +307,7 @@ class InstanceWrapper:
             db_inst = response['DBInstance']
         except ClientError as err:
             logger.error(
-                "Couldn't create db instance %s. Here's why: %s: %s", instance_id,
+                "Couldn't create DB instance %s. Here's why: %s: %s", instance_id,
                 err.response['Error']['Code'], err.response['Error']['Message'])
             raise
         else:
@@ -319,8 +319,8 @@ class InstanceWrapper:
         """
         Deletes a DB instance.
 
-        :param instance_id: The ID of the instance to delete.
-        :return: Data about the deleted instance.
+        :param instance_id: The ID of the DB instance to delete.
+        :return: Data about the deleted DB instance.
         """
         try:
             response = self.rds_client.delete_db_instance(
@@ -329,7 +329,7 @@ class InstanceWrapper:
             db_inst = response['DBInstance']
         except ClientError as err:
             logger.error(
-                "Couldn't delete db instance %s. Here's why: %s: %s", instance_id,
+                "Couldn't delete DB instance %s. Here's why: %s: %s", instance_id,
                 err.response['Error']['Code'], err.response['Error']['Message'])
             raise
         else:
