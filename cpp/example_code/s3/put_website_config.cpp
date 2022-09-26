@@ -1,7 +1,8 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
-//snippet-start:[s3.cpp.put_website_config.inc]
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/IndexDocument.h>
@@ -9,95 +10,102 @@
 #include <aws/s3/model/WebsiteConfiguration.h>
 #include <aws/s3/model/PutBucketWebsiteRequest.h>
 #include <awsdoc/s3/s3_examples.h>
-//snippet-end:[s3.cpp.put_website_config.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Configures a bucket in Amazon S3 for static website hosting.
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
  *
- * Prerequisites: An Amazon S3 bucket.
+ * For more information, see the following documentation topic:
  *
- * Inputs:
- * - bucketName: The name of the bucket.
- * - indexPage: The document to be used as the website's index page.
- * - errorPage: The document to be used as the website's error page.
- * - region: The AWS Region where the bucket is hosted.
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
- * Outputs: true if static website hosting was configured for the
- * bucket; otherwise, false.
- * ///////////////////////////////////////////////////////////////////////// */
+ * Purpose
+ *
+ * Demonstrates using the AWS SDK for C++ to configure a website for an S3 bucket.
+ *
+ */
+
+//! Routine which demonstrates configuring a website for an S3 bucket.
+/*!
+  \sa PutWebsiteConfig()
+  \param bucketName Name of S3 bucket.
+  \param indexPage Name of index page.
+  \param errorPage Name of error page.
+  \param clientConfig Aws client configuration.
+*/
 
 // snippet-start:[s3.cpp.put_website_config.code]
-bool AwsDoc::S3::PutWebsiteConfig(const Aws::String& bucketName, 
-    const Aws::String& indexPage, const Aws::String& errorPage, 
-    const Aws::String& region)
-{
-    Aws::Client::ClientConfiguration config;
+bool AwsDoc::S3::PutWebsiteConfig(const Aws::String &bucketName,
+                                  const Aws::String &indexPage, const Aws::String &errorPage,
+                                  const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::S3::S3Client client(clientConfig);
 
-    if (!region.empty())
-    {
-        config.region = region;
+    Aws::S3::Model::IndexDocument indexDocument;
+    indexDocument.SetSuffix(indexPage);
 
-    }
+    Aws::S3::Model::ErrorDocument errorDocument;
+    errorDocument.SetKey(errorPage);
 
-    Aws::S3::S3Client s3_client(config);
-        
-    Aws::S3::Model::IndexDocument index_doc;
-    index_doc.SetSuffix(indexPage);
-
-    Aws::S3::Model::ErrorDocument error_doc;
-    error_doc.SetKey(errorPage);
-
-    Aws::S3::Model::WebsiteConfiguration website_config;
-    website_config.SetIndexDocument(index_doc);
-    website_config.SetErrorDocument(error_doc);
+    Aws::S3::Model::WebsiteConfiguration websiteConfiguration;
+    websiteConfiguration.SetIndexDocument(indexDocument);
+    websiteConfiguration.SetErrorDocument(errorDocument);
 
     Aws::S3::Model::PutBucketWebsiteRequest request;
     request.SetBucket(bucketName);
-    request.SetWebsiteConfiguration(website_config);
+    request.SetWebsiteConfiguration(websiteConfiguration);
 
-    Aws::S3::Model::PutBucketWebsiteOutcome outcome = 
-        s3_client.PutBucketWebsite(request);
+    Aws::S3::Model::PutBucketWebsiteOutcome outcome =
+            client.PutBucketWebsite(request);
 
-    if (outcome.IsSuccess())
-    {
-        std::cout << "Success: Set website configuration for bucket '" 
-            << bucketName << "'." << std::endl;
-
-        return true;
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Error: PutBucketWebsite: "
+                  << outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
-        std::cout << "Error: PutBucketWebsite: "
-            << outcome.GetError().GetMessage() << std::endl;
-
-        return false;
+    else {
+        std::cout << "Success: Set website configuration for bucket '"
+                  << bucketName << "'." << std::endl;
     }
-    
-    return 1;
+
+    return outcome.IsSuccess();
 }
+// snippet-end:[s3.cpp.put_website_config.code]
 
-int main()
-{
+/*
+ *
+ *  main function
+ *
+ * Prerequisites: Create one S3 bucket that contains an index page and an error page.
+ *
+ * TODO(user): items: Set the following variables:
+ * - bucketName: Change bucketName to the name of a bucket in your account.
+ * - indexPage: Upload file to bucket for the index page.
+ * - errorPage: Upload file to bucket for the error page.
+ *
+ */
+
+#ifndef TESTING_BUILD
+
+int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
+
+    //TODO(user): Change bucketName to the name of a bucket in your account.
+    const Aws::String bucketName = "<Enter bucket name>";
+
+    //TODO(user): Create these two files to serve as your website.
+    const Aws::String indexPage = "index.html";
+    const Aws::String errorPage = "404.html";
+
     {
-        //TODO: Change bucket_name to the name of a bucket in your account.
-        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
-        //TODO: Set to the AWS Region in which the bucket was created.
-        const Aws::String region = "us-east-1";
-        //TODO: Create these two files to serve as your website
-        const Aws::String index_page = "index.html";
-        const Aws::String error_page = "404.html";
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
 
-
-        if (!AwsDoc::S3::PutWebsiteConfig(bucket_name, index_page, error_page, region))
-        {
-            return 1;
-        }
-        
+        AwsDoc::S3::PutWebsiteConfig(bucketName, indexPage, errorPage, clientConfig);
     }
+
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-// snippet-end:[s3.cpp.put_website_config.code]
+
+#endif // TESTING_BUILD
