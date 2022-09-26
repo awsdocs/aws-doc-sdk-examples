@@ -34,7 +34,7 @@ namespace ListVaultsExample
 
             List<DescribeVaultOutput> vaultList = response.VaultList;
 
-            vaultList.ForEach(v => { Console.WriteLine($"{v.VaultName} ARN: {v.VaultARN}");  });
+            vaultList.ForEach(v => { Console.WriteLine($"{v.VaultName} ARN: {v.VaultARN}"); });
         }
     }
 
