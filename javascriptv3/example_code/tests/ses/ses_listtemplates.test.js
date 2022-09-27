@@ -1,4 +1,4 @@
-import { getUniqueName } from "../../libs/index";
+import { getUniqueName } from "../../libs/utils/util-string.js";
 import { createTemplate, deleteTemplate } from "../../ses/src/libs/sesUtils";
 import { run } from "../../ses/src/ses_listtemplates";
 
