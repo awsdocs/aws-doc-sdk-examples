@@ -5,6 +5,15 @@ rds_CreateDBInstance:
   synopsis: create an &RDS; DB instance and wait for it to become available.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.CreateDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -40,6 +49,15 @@ rds_DeleteDBInstance:
   synopsis: delete an &RDS; DB instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DeleteDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -101,6 +119,15 @@ rds_DescribeDBInstances:
   synopsis: describe &RDS; DB instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDbInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -179,6 +206,15 @@ rds_DescribeDBParameterGroups:
   synopsis: describe &RDS; DB parameter groups.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDBParameterGroups
     Python:
       versions:
         - sdk_version: 3
@@ -197,6 +233,15 @@ rds_CreateDBParameterGroup:
   synopsis: create an &RDS; DB parameter group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.CreateDBParameterGroup
     Python:
       versions:
         - sdk_version: 3
@@ -215,6 +260,15 @@ rds_DeleteDBParameterGroup:
   synopsis: delete an &RDS; DB parameter group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DeleteDBParameterGroup
     Python:
       versions:
         - sdk_version: 3
@@ -233,6 +287,15 @@ rds_DescribeDBParameters:
   synopsis: describe parameters in an &RDS; DB parameter group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDBParameters
     Python:
       versions:
         - sdk_version: 3
@@ -251,6 +314,15 @@ rds_ModifyDBParameterGroup:
   synopsis: update parameters in an &RDS; DB parameter group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.ModifyDBParameterGroup
     Python:
       versions:
         - sdk_version: 3
@@ -269,6 +341,15 @@ rds_CreateDBSnapshot:
   synopsis: create a snapshot of an &RDS; DB instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.CreateDBSnapshot
     Python:
       versions:
         - sdk_version: 3
@@ -287,6 +368,15 @@ rds_DescribeDBSnapshots:
   synopsis: describe snapshots of &RDS; DB instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDBSnapshots
     Python:
       versions:
         - sdk_version: 3
@@ -305,6 +395,15 @@ rds_DescribeDBEngineVersions:
   synopsis: describe &RDS; database engine versions.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDBEngineVersions
     Python:
       versions:
         - sdk_version: 3
@@ -323,6 +422,15 @@ rds_DescribeOrderableDBInstanceOptions:
   synopsis: describe options for &RDS; DB instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeOrderableDBInstanceOptions
     Python:
       versions:
         - sdk_version: 3
@@ -346,6 +454,24 @@ rds_Scenario_GetStartedInstances:
     - Delete the instance and parameter group.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceScenario
+            - description: Wrapper methods used by the scenario for DB instance operations.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceWrapper
+            - description: Wrapper methods used by the scenario for DB parameter groups.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceWrapperParameterGroups
+            - description: Wrapper methods used by the scenario for DB snapshot operations.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceWrapperSnapshots
     Python:
       versions:
         - sdk_version: 3
