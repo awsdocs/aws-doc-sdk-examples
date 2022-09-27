@@ -1,104 +1,97 @@
-//snippet-sourcedescription:[get_object.cpp demonstrates how to print the beginning content of a text file in an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for C++]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/15/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 /*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[s3.cpp.get_object.inc]
 #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetObjectRequest.h>
 #include <fstream>
 #include "awsdoc/s3/s3_examples.h"
-//snippet-end:[s3.cpp.get_object.inc]
 
-/* 
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
  *
- * Prerequisites: The bucket that contains the text file.
+ * For more information, see the following documentation topic:
  *
- * Inputs:
- * - objectKey: The name of the text file.
- * - fromBucket: The name of the bucket that contains the text file.
- * - region: The AWS Region for the bucket.
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
- *  To run this C++ code example, ensure that you have setup your development environment, including your credentials.
- *  For information, see this documentation topic:
- *  https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ * Purpose
+ *
+ * Demonstrates using the AWS SDK for C++ to getting an object in an S3 bucket.
+ *
+ */
+
+//! Routine which demonstrates getting an object in an S3 bucket.
+/*!
+  \sa GetObject()
+  \param objectKey Name of an object in a bucket.
+  \param toBucket: Name of a bucket.
+  \param clientConfig: Aws client configuration.
 */
 
- // snippet-start:[s3.cpp.get_object.code]
-bool AwsDoc::S3::GetObject(const Aws::String& objectKey,
-    const Aws::String& fromBucket, const Aws::String& region)
-{
-    Aws::Client::ClientConfiguration config;
+// snippet-start:[s3.cpp.get_object.code]
+bool AwsDoc::S3::GetObject(const Aws::String &objectKey,
+                           const Aws::String &fromBucket,
+                           const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::S3::S3Client client(clientConfig);
 
-    if (!region.empty())
-    {
-        config.region = region;
+    Aws::S3::Model::GetObjectRequest request;
+    request.SetBucket(fromBucket);
+    request.SetKey(objectKey);
+
+    Aws::S3::Model::GetObjectOutcome outcome =
+            client.GetObject(request);
+
+    if (!outcome.IsSuccess()) {
+        const Aws::S3::S3Error &err = outcome.GetError();
+        std::cerr << "Error: GetObject: " <<
+                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+    }
+    else {
+        std::cout << "Successfully retrieved '" << objectKey << "' from '"
+                  << fromBucket << "'." << std::endl;
     }
 
-    Aws::S3::S3Client s3_client(config);
-
-    Aws::S3::Model::GetObjectRequest object_request;
-    object_request.SetBucket(fromBucket);
-    object_request.SetKey(objectKey);
-
-    Aws::S3::Model::GetObjectOutcome get_object_outcome = 
-        s3_client.GetObject(object_request);
-
-    if (get_object_outcome.IsSuccess())
-    {
-        auto& retrieved_file = get_object_outcome.GetResultWithOwnership().
-            GetBody();
-
-        // Print a beginning portion of the text file.
-        std::cout << "Beginning of file contents:\n";
-        char file_data[255] = { 0 };
-        retrieved_file.getline(file_data, 254);
-        std::cout << file_data << std::endl;
-
-        return true;
-    }
-    else
-    {
-        auto err = get_object_outcome.GetError();
-        std::cout << "Error: GetObject: " <<
-            err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-
-        return false;
-    }
+    return outcome.IsSuccess();
 }
+// snippet-end:[s3.cpp.get_object.code]
 
-int main()
-{
+/*
+ *
+ * main function
+ *
+ * Prerequisites: The bucket with an object to be retrieved.
+ *
+ * TODO(user): items: Set the following variable
+ * - bucketName: The name of the bucket.
+ * - objectName: The name of an object in the bucket.
+*
+*/
+
+#ifndef TESTING_BUILD
+
+int main() {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Change bucket_name to the name of a bucket in your account.
-        const Aws::String bucket_name = "<Enter bucket name>";
-        
-        //TODO: The bucket "DOC-EXAMPLE-BUCKET" must have been created and previously loaded with "my-file.txt". 
-        //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
-        const Aws::String object_name = "<Enter object name>";
-       
-        //TODO: Set to the AWS Region in which the bucket was created.
-        const Aws::String region = "us-east-1";
+        //TODO(user): Change bucketName to the name of a bucket in your account.
+        const Aws::String bucketName = "<Enter bucket name>";
 
-        if (!AwsDoc::S3::GetObject(object_name, bucket_name, region))
-        {
-            return 1;
-        }
+        //TODO(user): Change objectName to the name of an object in the bucket.
+        //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
+        const Aws::String objectName = "<Enter object name>";
+
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::S3::GetObject(objectName, bucketName, clientConfig);
     }
     Aws::ShutdownAPI(options);
 
     return 0;
 }
-// snippet-end:[s3.cpp.get_object.code]
+
+#endif // TESTING_BUILD

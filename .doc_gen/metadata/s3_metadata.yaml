@@ -1449,6 +1449,7 @@ s3_PutBucketPolicy:
             - description:
               snippet_tags:
                 - s3.cpp.put_bucket_policy02.code
+                - s3.cpp.put_bucket_policy01.code
     Java:
       versions:
         - sdk_version: 2
