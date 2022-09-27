@@ -95,7 +95,7 @@ public partial class RDSWrapper
         return results;
     }
 
-    // snippet-end:[RDS.dotnetv3.DescribeOrderableDBInstanceOptions]
+    // snippet-end:[RDS.dotnetv3.DescribeDbInstances]
 
     // snippet-start:[RDS.dotnetv3.CreateDBInstance]
 
