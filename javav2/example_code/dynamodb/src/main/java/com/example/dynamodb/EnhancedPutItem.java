@@ -57,7 +57,6 @@ public class EnhancedPutItem {
 
     // snippet-start:[dynamodb.java2.mapping.putitem.main]
     public static void putRecord(DynamoDbEnhancedClient enhancedClient) {
-
         try {
             DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
@@ -69,7 +68,7 @@ public class EnhancedPutItem {
             // Populate the Table.
             Customer custRecord = new Customer();
             custRecord.setCustName("Tom red");
-            custRecord.setId("id119");
+            custRecord.setId("id101");
             custRecord.setEmail("tred@noserver.com");
             custRecord.setRegistrationDate(instant) ;
 
@@ -80,7 +79,7 @@ public class EnhancedPutItem {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Customer data added to the table.");
+        System.out.println("Customer data added to the table with id id101");
     }
     // snippet-end:[dynamodb.java2.mapping.putitem.main]
 }

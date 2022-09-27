@@ -23,6 +23,15 @@ lambda_CreateFunction:
             - description:
               snippet_tags:
                 - lambda.java2.create.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.lambda.actions.CreateFunction
     Python:
       versions:
         - sdk_version: 3
@@ -50,6 +59,15 @@ lambda_DeleteFunction:
             - description:
               snippet_tags:
                 - lambda.kotlin.delete.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.lambda.actions.DeleteFunction
     Java:
       versions:
         - sdk_version: 2
@@ -104,6 +122,15 @@ lambda_Invoke:
             - description:
               snippet_tags:
                 - lambda.java2.invoke.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.lambda.actions.Invoke
     Python:
       versions:
         - sdk_version: 3
@@ -132,6 +159,15 @@ lambda_GetFunction:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.GetFunction
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.lambda.actions.GetFunction
   services:
     lambda: {GetFunction}
 lambda_UpdateFunctionCode:
@@ -150,6 +186,15 @@ lambda_UpdateFunctionCode:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.UpdateFunctionCode
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.lambda.actions.UpdateFunctionCode
   services:
     lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
@@ -168,6 +213,15 @@ lambda_UpdateFunctionConfiguration:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.UpdateFunctionConfiguration
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.lambda.actions.UpdateFunctionConfiguration
   services:
     lambda: {UpdateFunctionConfiguration}
 lambda_ListFunctions:
@@ -195,6 +249,15 @@ lambda_ListFunctions:
               snippet_tags:
                 - python.example_code.python.LambdaWrapper.decl
                 - python.example_code.lambda.ListFunctions
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.lambda.actions.ListFunctions
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
@@ -242,7 +305,8 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - python.example_code.lambda.handler.increment
-            - description: Define a second &LAM; handler that performs arithmetic
+            - description:
+                Define a second &LAM; handler that performs arithmetic
                 operations.
               snippet_tags:
                 - python.example_code.lambda.handler.arithmetic
@@ -252,6 +316,41 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Create a function that runs the scenario.
               snippet_tags:
                 - python.example_code.lambda.Scenario_GettingStartedFunctions
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/lambda/scenarios/basic
+          sdkguide:
+          excerpts:
+            - description: Create an &IAMlong; (&IAM;) role that grants Lambda permission to write to logs.
+              snippet_tags:
+                - javascript.v3.lambda.scenarios.basic.CreateRole
+                - javascript.v3.iam.actions.AttachRolePolicy
+            - description: Create a &LAM; function and upload handler code.
+              snippet_tags:
+                - javascript.v3.lambda.actions.CreateFunction
+            - description: Invoke the function with a single parameter and get results.
+              snippet_tags:
+                - javascript.v3.lambda.actions.Invoke
+            - description: Update the function code and configure its &LAM; environment with an environment variable.
+              snippet_tags:
+                - javascript.v3.lambda.actions.UpdateFunctionCode
+                - javascript.v3.lambda.actions.UpdateFunctionConfiguration
+            - description: List the functions for your account.
+              snippet_tags:
+                - javascript.v3.lambda.actions.ListFunctions
+            - description: Delete the &IAM; role and the &LAM; function.
+              snippet_tags:
+                - javascript.v3.iam.actions.DeleteRole
+                - javascript.v3.lambda.actions.DeleteFunction
   services:
-    lambda: {CreateFunction, DeleteFunction, Invoke, GetFunction, ListFunctions,
-             UpdateFunctionCode, UpdateFunctionConfiguration}
+    lambda:
+      {
+        CreateFunction,
+        DeleteFunction,
+        Invoke,
+        GetFunction,
+        ListFunctions,
+        UpdateFunctionCode,
+        UpdateFunctionConfiguration,
+      }

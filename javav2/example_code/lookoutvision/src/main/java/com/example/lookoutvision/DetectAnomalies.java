@@ -10,6 +10,7 @@ package com.example.lookoutvision;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.lookoutvision.LookoutVisionClient;
+import software.amazon.awssdk.services.lookoutvision.model.Anomaly;
 import software.amazon.awssdk.services.lookoutvision.model.DetectAnomaliesRequest;
 import software.amazon.awssdk.services.lookoutvision.model.DetectAnomaliesResponse;
 import software.amazon.awssdk.services.lookoutvision.model.DetectAnomalyResult;
@@ -23,43 +24,52 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
-import java.awt.*;
-import java.awt.font.LineMetrics;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Finds anomalies on a supplied image.
-public class DetectAnomalies extends JPanel {
+import org.json.JSONObject;
 
-    private static final long serialVersionUID = 1L;
-    private transient BufferedImage image;
-    private transient Dimension dimension;
+// Finds anomalies on a supplied image.
+public class DetectAnomalies {
+
     public static final Logger logger = Logger.getLogger(DetectAnomalies.class.getName());
 
-    // Constructor. Finds anomalies in a local image file.
-    public DetectAnomalies(LookoutVisionClient lfvClient, String projectName, String modelVersion,
+    public static DetectAnomalyResult detectAnomalies(LookoutVisionClient lfvClient, String projectName,
+            String modelVersion,
             String photo) throws IOException, LookoutVisionException {
+        /**
+         * Creates an Amazon Lookout for Vision dataset from a manifest file.
+         * Returns after Lookout for Vision creates the dataset.
+         * 
+         * @param lfvClient    An Amazon Lookout for Vision client.
+         * @param projectName  The name of the project in which you want to create a
+         *                     dataset.
+         * @param modelVersion The version of the model that you want to use.
+         *
+         * @param photo        The photo that you want to analyze.
+         * 
+         * @return DetectAnomalyResult The analysis result from DetectAnomalies.
+         */
 
         logger.log(Level.INFO, "Processing local file: {0}", photo);
 
-        // Get image bytes and buffered image.
+        // Get image bytes.
+
         InputStream sourceStream = new FileInputStream(new File(photo));
         SdkBytes imageSDKBytes = SdkBytes.fromInputStream(sourceStream);
         byte[] imageBytes = imageSDKBytes.asByteArray();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(imageSDKBytes.asByteArray());
-        image = ImageIO.read(inputStream);
 
         // Get the image type. Can be image/jpeg or image/png.
         String contentType = getImageType(imageBytes);
-
-        // Set the size of the window that shows the image.
-        setWindowDimensions();
 
         // Detect anomalies in the supplied image.
         DetectAnomaliesRequest request = DetectAnomaliesRequest.builder().projectName(projectName)
@@ -78,93 +88,25 @@ public class DetectAnomalies extends JPanel {
         String prediction = "Prediction: Normal";
 
         if (Boolean.TRUE.equals(result.isAnomalous())) {
-            prediction = "Prediction: Abnormal";
+            prediction = "Prediction: Anomalous";
         }
 
-        // Convert prediction to percentage.
+        // Convert confidence to percentage.
         NumberFormat defaultFormat = NumberFormat.getPercentInstance();
         defaultFormat.setMinimumFractionDigits(1);
         String confidence = String.format("Confidence: %s", defaultFormat.format(result.confidence()));
 
-        // Draw file name, prediction, and confidence on image.
+        // Log classification result.
         String photoPath = "File: " + photo;
         String[] imageLines = { photoPath, prediction, confidence };
-        drawImageInfo(imageLines);
-
         logger.log(Level.INFO, "Image: {0}\nAnomalous: {1}\nConfidence {2}", imageLines);
 
-    }
-
-    // Sets window dimensions to 1/2 screen size, unless image is smaller.
-    public void setWindowDimensions() {
-        dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-
-        dimension.width = (int) dimension.getWidth() / 2;
-        if (image.getWidth() < dimension.width) {
-            dimension.width = image.getWidth();
-        }
-        dimension.height = (int) dimension.getHeight() / 2;
-
-        if (image.getHeight() < dimension.height) {
-            dimension.height = image.getHeight();
-        }
-
-        setPreferredSize(dimension);
-
-    }
-
-    // Draws the file name, prediction, and confidence on the image.
-    public void drawImageInfo(String[] imageLines) {
-
-        int indent = 10;
-
-        // Set up drawing.
-        Graphics2D g2d = image.createGraphics();
-        g2d.setColor(Color.GREEN);
-        g2d.setFont(new Font("Tahoma", Font.PLAIN, 80));
-        Font font = g2d.getFont();
-        FontMetrics metrics = g2d.getFontMetrics(font);
-
-        int y1 = 0;
-
-        for (int i = 0; i < imageLines.length; i++) {
-
-            // Get text height, width, and descent.
-            int textWidth = metrics.stringWidth(imageLines[i]);
-            LineMetrics lm = metrics.getLineMetrics(imageLines[i], g2d);
-            int textHeight = (int) lm.getHeight();
-            int descent = (int) lm.getDescent();
-
-            int y2 = (y1 + textHeight) - descent;
-
-            // Draw black rectangle.
-            g2d.setColor(Color.BLACK);
-            g2d.fillRect(indent, y1, textWidth, textHeight);
-
-            // Draw text.
-            g2d.setColor(Color.GREEN);
-            g2d.drawString(imageLines[i], indent, y2);
-
-            y1 += textHeight;
-
-        }
-        g2d.dispose();
-
-    }
-
-    // Draws the image containing the bounding boxes and labels.
-    @Override
-    public void paintComponent(Graphics g) {
-
-        Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g.
-
-        // Draw the image.
-        g2d.drawImage(image, 0, 0, dimension.width, dimension.height, this);
+        return result;
 
     }
 
     // Gets the image mime type. Supported formats are image/jpeg and image/png.
-    private String getImageType(byte[] image) throws IOException {
+    private static String getImageType(byte[] image) throws IOException {
 
         InputStream is = new BufferedInputStream(new ByteArrayInputStream(image));
         String mimeType = URLConnection.guessContentTypeFromStream(is);
@@ -179,52 +121,223 @@ public class DetectAnomalies extends JPanel {
         throw new IOException(String.format("Wrong image type. %s format isn't supported.", mimeType));
     }
 
-    public static void main(String[] args) throws Exception {
+    public static boolean rejectOnClassification(String image, DetectAnomalyResult prediction, float minConfidence) {
+        /**
+         * Rejects an image based on its anomaly classification and prediction
+         * confidence
+         * 
+         * @param image         The file name of the analyzed image.
+         * @param prediction    The prediction for an image analyzed with
+         *                      DetectAnomalies.
+         * @param minConfidence The minimum acceptable confidence for the prediction
+         *                      (0-1).
+         * 
+         * @return boolean True if the image is anomalous, otherwise False.
+         */
 
-        String photo = null;
+        Boolean reject = false;
+
+        logger.log(Level.INFO, "Checking classification for {0}", image);
+
+        String[] logParameters = { prediction.confidence().toString(), String.valueOf(minConfidence) };
+
+        if (Boolean.TRUE.equals(prediction.isAnomalous()) && prediction.confidence() >= minConfidence) {
+            logger.log(Level.INFO, "Rejected: Anomaly confidence {0} is greater than confidence limit {1}",
+                    logParameters);
+            reject = true;
+        }
+        if (Boolean.FALSE.equals(reject))
+            logger.log(Level.INFO, ": No anomalies found.");
+
+        return reject;
+
+    }
+
+    public static Boolean rejectOnCoverage(String image, DetectAnomalyResult prediction, float minConfidence,
+            String anomalyLabel, float maxCoverage) {
+        /**
+         * Rejects an image based on a maximum allowable coverage area for an anomaly
+         * type.
+         * 
+         * @param image         The file name of the analyzed image.
+         * @param prediction    The prediction for an image analyzed with
+         *                      DetectAnomalies.
+         * @param minConfidence The minimum acceptable confidence for the prediction
+         *                      (0-1).
+         * @param anomalyLabel  The anomaly type (label) to check.
+         * @param maxCoverage   The maximum allowable coverage area of the anomaly type.
+         *                      (0-1).
+         * 
+         * @return boolean True if the coverage area of the anomaly type exceeds the
+         *         maximum allowed, otherwise False.
+         */
+
+        Boolean reject = false;
+
+        logger.log(Level.INFO, "Checking coverage for {0}", image);
+
+        if (Boolean.TRUE.equals(prediction.isAnomalous()) && prediction.confidence() >= minConfidence) {
+            for (Anomaly anomaly : prediction.anomalies()) {
+
+                if (Objects.equals(anomaly.name(), anomalyLabel)
+                        && anomaly.pixelAnomaly().totalPercentageArea() >= maxCoverage) {
+
+                    String[] logParameters = { prediction.confidence().toString(),
+                            String.valueOf(minConfidence),
+                            String.valueOf(anomaly.pixelAnomaly().totalPercentageArea()),
+                            String.valueOf(maxCoverage) };
+                    logger.log(Level.INFO,
+                            "Rejected: Anomaly confidence {0} is greater than confidence limit {1} and " +
+                                    "{2} anomaly type coverage is higher than coverage limit {3}\n",
+                            logParameters);
+                    reject = true;
+
+                }
+            }
+        }
+
+        if (Boolean.FALSE.equals(reject))
+            logger.log(Level.INFO, ": No anomalies found.");
+
+        return reject;
+    }
+
+    public static Boolean rejectOnAnomalyTypeCount(String image, DetectAnomalyResult prediction,
+            float minConfidence, Integer maxAnomalyLabels) {
+
+        /**
+         * Rejects an image based on a maximum allowable number of anomaly types.
+         *
+         * @param image           The file name of the analyzed image.
+         * @param prediction      The prediction for an image analyzed with
+         *                        DetectAnomalies.
+         * @param minConfidence   The minimum acceptable confidence for the predictio
+         *                        (0-1).
+         * @param maxAnomalyLabels The maximum allowable number of anomaly labels (types).
+         * 
+         * @return boolean True if the image contains more than the maximum allowed
+         *         anomaly types, otherwise False.
+         */
+
+        Boolean reject = false;
+
+        logger.log(Level.INFO, "Checking coverage for {0}", image);
+
+        Set<String> defectTypes = new HashSet<>();
+
+        if (Boolean.TRUE.equals(prediction.isAnomalous()) && prediction.confidence() >= minConfidence) {
+            for (Anomaly anomaly : prediction.anomalies()) {
+                defectTypes.add(anomaly.name());
+            }
+            // Reduce defect types by one to account for 'background' anomaly type.
+            if ((defectTypes.size() - 1) > maxAnomalyLabels) {
+                String[] logParameters = { prediction.confidence().toString(),
+                        String.valueOf(minConfidence),
+                        String.valueOf(defectTypes.size()),
+                        String.valueOf(maxAnomalyLabels) };
+                logger.log(Level.INFO, "Rejected: Anomaly confidence {0} is >= minimum confidence {1} and " +
+                        "the number of anomaly types {2} > the allowable number of anomaly types {3}\n", logParameters);
+                reject = true;
+            }
+
+        }
+
+        if (Boolean.FALSE.equals(reject))
+            logger.log(Level.INFO, ": No anomalies found.");
+
+        return reject;
+    }
+
+    public static void analyzeImage(LookoutVisionClient lfvClient, String image, String projectName,
+            String modelVersion,
+            Float confidenceLimit, Float coverageLimit, int anomalyLabelsLimit, String anomalyLabel)
+            throws IOException, LookoutVisionException {
+
+        List<String> anomalies = new ArrayList<>();
+
+        Boolean reject = false;
+
+        System.out.println(String.format("Analyzing image: %s", image));
+
+        DetectAnomalyResult prediction = DetectAnomalies.detectAnomalies(lfvClient, projectName, modelVersion, image);
+
+        reject = DetectAnomalies.rejectOnClassification(image, prediction, confidenceLimit);
+
+        if (Boolean.TRUE.equals(reject)) {
+            anomalies.add("Classification: An anomaly was found.");
+        }
+
+        reject = DetectAnomalies.rejectOnCoverage(image, prediction, confidenceLimit, anomalyLabel, coverageLimit);
+
+        if (Boolean.TRUE.equals(reject)) {
+            anomalies.add("Coverage: Anomaly coverage too high.");
+        }
+
+        reject = DetectAnomalies.rejectOnAnomalyTypeCount(image, prediction, confidenceLimit, anomalyLabelsLimit);
+
+        if (Boolean.TRUE.equals(reject)) {
+            anomalies.add("Anomaly type count: Too many anomaly types found.");
+        }
+
+        if (anomalies.isEmpty()) {
+            System.out.println(String.format("No anomalies found in %s.", image));
+        } else {
+            System.out.println(String.format("Anomalies found in %s", image));
+            anomalies.forEach(System.out::println);
+
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        String image = null;
+        String configFile = null;
         String projectName = null;
         String modelVersion = null;
+        Float confidenceLimit = null;
+        Float coverageLimit = null;
+        Integer anomalyLabelsLimit = null;
+        String anomalyType = null;
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DetectAnomalies <project> <version> <image> \n\n" +
+                "    DetectAnomalies <image> <config> \n\n" +
                 "Where:\n" +
-                "    project - The Lookout for Vision project.\n\n" +
-                "    version - The version of the model within the project.\n\n" +
-                "    image - The path and filename of a local image. \n\n";
+                "    image - The image file to analyze.\n\n" +
+                "    config - The configuration JSON file to use. See resources/analysis-config.json\n\n";
+               
 
         try {
 
-            if (args.length != 3) {
+            if (args.length != 2) {
                 System.out.println(USAGE);
                 System.exit(1);
             }
 
-            projectName = args[0];
-            modelVersion = args[1];
-            photo = args[2];
-            DetectAnomalies panel = null;
+            image = args[0];
+            configFile = args[1];
+
+            // Get the configuration information.
+            JSONObject config = new JSONObject(new String(Files.readAllBytes(Paths.get(configFile))));
+            projectName = config.getString("project");
+            modelVersion = config.getString("model_version");
+            confidenceLimit = config.getFloat("confidence_limit");
+            coverageLimit = config.getFloat("coverage_limit");
+            anomalyLabelsLimit = config.getInt("anomaly_labels_limit");
+            anomalyType = config.getString("anomaly_label");
+
 
             // Get the Lookout for Vision client.
             LookoutVisionClient lfvClient = LookoutVisionClient.builder().build();
 
-            // Create frame and panel.
-            JFrame frame = new JFrame("Anomaly Detection");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            panel = new DetectAnomalies(lfvClient, projectName, modelVersion, photo);
-
-            frame.setContentPane(panel);
-            frame.pack();
-            frame.setVisible(true);
-            // Keep window live for 10 seconds.
-            Thread.sleep(10000);
-            System.exit(0);
+            DetectAnomalies.analyzeImage(lfvClient, image, projectName, modelVersion, confidenceLimit, coverageLimit,
+                    anomalyLabelsLimit, anomalyType);
 
         } catch (LookoutVisionException lfvError) {
             logger.log(Level.SEVERE, "Lookout for Vision client error: {0}: {1}",
                     new Object[] { lfvError.awsErrorDetails().errorCode(),
-                    lfvError.awsErrorDetails().errorMessage() });
+                            lfvError.awsErrorDetails().errorMessage() });
             System.out.println(String.format("lookout for vision client error: %s", lfvError.getMessage()));
             System.exit(1);
 

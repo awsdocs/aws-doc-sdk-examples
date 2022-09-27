@@ -13,7 +13,7 @@ node ses_updatetemplate.js
  */
 // snippet-start:[ses.JavaScript.templates.updateTemplateV3]
 import { UpdateTemplateCommand } from "@aws-sdk/client-ses";
-import { getUniqueName } from "../../libs/index.js";
+import { getUniqueName } from "../../libs/utils/util-string.js";
 import { sesClient } from "./libs/sesClient.js";
 
 const TEMPLATE_NAME = getUniqueName("TemplateName");

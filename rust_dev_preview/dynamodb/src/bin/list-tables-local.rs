@@ -5,13 +5,14 @@
 
 // snippet-start:[dynamodb.rust.list-tables-local]
 use aws_sdk_dynamodb::{Client, Endpoint, Error};
+use dynamodb_code_examples::{make_config, scenario::list::list_tables, Opt};
 use http::Uri;
+use structopt::StructOpt;
 
-/// Lists your tables in DynamDB local.
+/// Lists your tables in DynamoDB local.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    // Select a profile by setting the `AWS_PROFILE` environment variable.
-    let config = aws_config::load_from_env().await;
+    let config = make_config(Opt::from_args()).await?;
     let dynamodb_local_config = aws_sdk_dynamodb::config::Builder::from(&config)
         .endpoint_resolver(
             // 8000 is the default dynamodb port
@@ -20,20 +21,6 @@ async fn main() -> Result<(), Error> {
         .build();
 
     let client = Client::from_conf(dynamodb_local_config);
-
-    let resp = client.list_tables().send().await?;
-
-    println!("Tables:");
-
-    let names = resp.table_names().unwrap_or_default();
-
-    for name in names {
-        println!("  {}", name);
-    }
-
-    println!();
-    println!("Found {} tables", names.len());
-
-    Ok(())
+    list_tables(&client).await
 }
 // snippet-end:[dynamodb.rust.list-tables-local]
