@@ -4,18 +4,21 @@
 # snippet-start:[rds.ruby.listSubnetGroups]
 require "aws-sdk-rds"  # v2: require 'aws-sdk'
 
-# List all subnet groups for an Amazon Relational Database Service (Amazon RDS) cluster
+# List all Amazon Relational Database Service (Amazon RDS) subnet groups.
 #
 # @param rds_resource [Aws::RDS::Resource]: The resource containing SDK logic
-# @return [Array] All the groups discovered
+# @return [Array, nil] All the groups discovered or nil if error
 def list_subnet_groups(rds_resource)
   db_subnet_groups = []
   rds_resource.db_subnet_groups.each do |s|
-    db_subnet_groups.append({"name": s.name, "status": s.subnet_group_status})
+    db_subnet_groups.append({
+                              "name": s.name,
+                              "status": s.subnet_group_status
+                            })
   end
   db_subnet_groups
 rescue Aws::Errors::ServiceError => e
-  puts "Couldn't create cluster snapshot: #{id}. Here's why: #{e.message}"
+  puts "Couldn't list subnet groups:\n#{e.message}"
 end
 # snippet-end:[rds.ruby.listSubnetGroups]
 

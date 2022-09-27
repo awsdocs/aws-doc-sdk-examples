@@ -36,7 +36,7 @@ describe "RDS example code" do
   end
 
   it "lists all cluster snapshots" do
-    cluster_snapshots = list_cluster_snapshots(rds_resource, multi_az_cluster)
+    cluster_snapshots = list_multi_az_db_cluster_snapshots(rds_resource, multi_az_cluster)
     expect(cluster_snapshots).not_to be_empty
   end
 

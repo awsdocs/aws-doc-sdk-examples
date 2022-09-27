@@ -4,10 +4,10 @@
 # snippet-start:[rds.ruby.listSecurityGroups]
 require "aws-sdk-rds"  # v2: require 'aws-sdk'
 
-# List all security groups for an Amazon Relational Database Service (Amazon RDS) cluster
+# List all Amazon Relational Database Service (Amazon RDS) security groups.
 #
 # @param rds_resource [Aws::RDS::Resource]: The resource containing SDK logic
-# @return security_groups [List]: A list of security groups found on the resource
+# @return security_groups [List, nil] A list of security groups or nil if error
 def list_security_groups(rds_resource)
   security_groups = []
   rds_resource.db_instances.each do |i|
@@ -30,7 +30,7 @@ def list_security_groups(rds_resource)
   end
   security_groups
 rescue Aws::Errors::ServiceError => e
-  puts "Couldn't list security group: #{id}. Here's why: #{e.message}"
+  puts "Couldn't list security groups:\n#{e.message}"
 end
 # snippet-end:[rds.ruby.listSecurityGroups]
 
