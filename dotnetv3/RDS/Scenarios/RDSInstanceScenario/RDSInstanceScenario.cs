@@ -102,7 +102,7 @@ public class RDSInstanceScenario
 
                 await CreateSnapshot(newInstance);
 
-                await DeleteRdsInstance(newInstance);
+               await DeleteRdsInstance(newInstance);
             }
 
             await DeleteParameterGroup(parameterGroup);
@@ -131,7 +131,7 @@ public class RDSInstanceScenario
         var parameterGroupFamilies = engines.GroupBy(e => e.DBParameterGroupFamily).ToList();
         foreach (var parameterGroupFamily in parameterGroupFamilies)
         {
-            // List the available parameter group families
+            // List the available parameter group families.
             Console.WriteLine(
                 $"\t{i}. Family: {parameterGroupFamily.Key}");
             i++;
@@ -242,7 +242,7 @@ public class RDSInstanceScenario
     /// Describe the user source parameters in the group.
     /// </summary>
     /// <param name="parameterGroupName">Name of the DBParameterGroup.</param>
-    /// <returns></returns>
+    /// <returns>Async task.</returns>
     public static async Task DescribeUserSourceParameters(string parameterGroupName)
     {
         Console.WriteLine(sepBar);
@@ -267,11 +267,11 @@ public class RDSInstanceScenario
     /// Choose a DB engine version.
     /// </summary>
     /// <param name="dbParameterGroupFamily">DB parameter group family for engine choice.</param>
-    /// <returns></returns>
+    /// <returns>The selected engine version.</returns>
     public static async Task<DBEngineVersion> ChooseDbEngineVersion(string dbParameterGroupFamily)
     {
         Console.WriteLine(sepBar);
-        // get list of allowed engines
+        // Get a list of allowed engines.
         var allowedEngines =
             await rdsWrapper.DescribeDBEngineVersions(engine, dbParameterGroupFamily);
 
@@ -345,7 +345,7 @@ public class RDSInstanceScenario
     /// <param name="engineVersion">Engine version to use for the instance.</param>
     /// <param name="instanceClass">Instance class to use for the instance.</param>
     /// <param name="instanceIdentifier">Instance identifier to use for the instance.</param>
-    /// <returns></returns>
+    /// <returns>The new Db instance.</returns>
     public static async Task<DBInstance?> CreateRdsNewInstance(DBParameterGroup parameterGroup,
         string engineName, string engineVersion, string instanceClass, string instanceIdentifier)
     {
@@ -404,7 +404,7 @@ public class RDSInstanceScenario
     public static void DisplayConnectionString(DBInstance instance)
     {
         Console.WriteLine(sepBar);
-        // Display the connection string
+        // Display the connection string.
         Console.WriteLine("12. New instance connection string: ");
         Console.WriteLine(
             $"\n{engine} -h {instance.Endpoint.Address} -P {instance.Endpoint.Port} "

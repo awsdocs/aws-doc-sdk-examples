@@ -51,7 +51,7 @@ public partial class RDSWrapper
     /// </summary>
     /// <param name="engine">Name of the engine.</param>
     /// <param name="engineVersion">Version of the engine.</param>
-    /// <returns>List of OrderableDbInstanceOptions.</returns>
+    /// <returns>List of OrderableDBInstanceOptions.</returns>
     public async Task<List<OrderableDBInstanceOption>> DescribeOrderableDBInstanceOptions(string engine, string engineVersion)
     {
         // Use a paginator to get a list of instance options.
@@ -75,7 +75,7 @@ public partial class RDSWrapper
     // snippet-start:[RDS.dotnetv3.DescribeDbInstances]
 
     /// <summary>
-    /// Returns a list of DB instances..
+    /// Returns a list of DB instances.
     /// </summary>
     /// <param name="dbInstanceIdentifier">Optional name of a specific instance.</param>
     /// <returns>List of DB instances.</returns>
@@ -139,8 +139,7 @@ public partial class RDSWrapper
     // snippet-start:[RDS.dotnetv3.DeleteDBInstance]
 
     /// <summary>
-    /// Create an RDS DB instance with a particular set of properties. Use the action DescribeDBInstancesAsync
-    /// to determine when the instance is ready to use.
+    /// Delete a particular DB instance.
     /// </summary>
     /// <param name="dbInstanceIdentifier">DB instance identifier.</param>
     /// <returns>DB instance object.</returns>

@@ -346,13 +346,13 @@ rds_Scenario_GetStartedInstances:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - RDS.dotnetv3.RdsInstanceScenario
-            - description: Wrapper functions used by the scenario for DB parameter groups.
-              snippet_tags:
-                - RDS.dotnetv3.RdsInstanceWrapperParameterGroups
-            - description: Wrapper functions used by the scenario for DB instance operations.
+            - description: Wrapper methods used by the scenario for DB instance operations.
               snippet_tags:
                 - RDS.dotnetv3.RdsInstanceWrapper
-            - description: Wrapper functions used by the scenario for DB snapshot operations.
+            - description: Wrapper methods used by the scenario for DB parameter groups.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceWrapperParameterGroups
+            - description: Wrapper methods used by the scenario for DB snapshot operations.
               snippet_tags:
                 - RDS.dotnetv3.RdsInstanceWrapperSnapshots
   services:
