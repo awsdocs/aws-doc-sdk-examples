@@ -674,7 +674,7 @@ int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
     Aws::String resultString = askQuestion(string,
                                            [](const Aws::String &string1) -> bool {
                                                    try {
-                                                       std::stoi(string1);
+                                                       (void)std::stoi(string1);
                                                        return true;
                                                    }
                                                    catch (const std::invalid_argument &) {
