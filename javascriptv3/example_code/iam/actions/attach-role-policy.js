@@ -5,8 +5,8 @@ import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
 const attachRolePolicy = async (roleName, policyArn) => {
   const client = createClientForDefaultRegion(IAMClient);
   const command = new AttachRolePolicyCommand({
-    PolicyArn: policyArn, // e.g. arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-    RoleName: roleName, // e.g. lambda-basic-execution-role
+    PolicyArn: policyArn, // For example, arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    RoleName: roleName, // For example, lambda-basic-execution-role
   });
 
   return client.send(command);

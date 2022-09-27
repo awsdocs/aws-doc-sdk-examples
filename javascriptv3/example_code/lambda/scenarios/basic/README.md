@@ -1,19 +1,19 @@
-# Scenario - AWS Lambda for AWS SDK for JavaScript (v3)
+# Scenario - Lambda for the SDK for JavaScript (v3)
 
-This is an interactive command prompt that showcases how the JavaScript SDK can be
-used for interacting with Lambda.
+This interactive command prompt shows you how to use the AWS SDK for JavaScript
+with AWS Lambda.
 
-For the purpose of this example `root` refers to the same directory as this readme.
+For the purpose of this example, `root` refers to the same directory as this readme.
 
 ## Prerequisites
 
-- create an AWS account
-- setup a [credentials file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
-- configure your account (or IAM user) with access to Lambda and IAM
-- install `nodejs` version 18.7.0
-- install `yarn`
+- Create an AWS account.
+- Set up a [credentials file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
+- Configure your account (or AWS Identity and Access Management (IAM) user) with access to Lambda and IAM.
+- Install `nodejs` version 18.7.0.
+- Install `yarn`.
 
-## Running the example
+## Run the example
 
 ### Install dependencies for this example
 
@@ -22,10 +22,10 @@ the included Lambda functions, and a few IAM commands.
 
 1. Run `yarn`
 
-### Service usage warning
+### ⚠️ Important
 
 - Running this code might result in charges to your AWS account.
-- Make sure you understand the pricing model for the services used here. See https://aws.amazon.com/pricing
+- Make sure you understand the pricing model for the AWS services in this example. See https://aws.amazon.com/pricing.
 
 ### Run the interactive command prompt
 

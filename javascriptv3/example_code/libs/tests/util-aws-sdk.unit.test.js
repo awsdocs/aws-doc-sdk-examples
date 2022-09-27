@@ -14,7 +14,7 @@ import { testEqual } from "../utils/util-test.js";
 
 describe("service-aws-sdk", () => {
   describe("createClientForRegion", () => {
-    it("should return a client with provided region", async () => {
+    it("should return a client with provided Region", async () => {
       const client = createClientForRegion("us-west-1", LambdaClient);
       const region = await client.config.region();
       expect(region).toEqual("us-west-1");
@@ -22,7 +22,7 @@ describe("service-aws-sdk", () => {
   });
 
   describe("createClientForDefaultRegion", () => {
-    it("should return a client with a default region", async () => {
+    it("should return a client with a default Region", async () => {
       const client = createClientForDefaultRegion(LambdaClient);
       const region = await client.config.region();
       expect(region).toEqual(DEFAULT_REGION);

@@ -1,8 +1,8 @@
-# AWS Lambda code examples for the AWS SDK for JavaScript in Node.js
+# Lambda code examples for the SDK for JavaScript in Node.js
 
 ## Overview
 
-Shows how to use the SDK for JavaScript in Node.js with AWS Lambda to manage and invoke
+Shows how to use the AWS SDK for JavaScript in Node.js with AWS Lambda to manage and invoke
 functions.
 
 AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers.
@@ -35,17 +35,17 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ## Run the examples
 
-### Single action
-
-1. Run `yarn`
-1. Create a new file in this directory and `import { functionName } from "./actions/action-name.js"`
-   where `action-name` is the filename of the action you want to run, and `function-name` is the name of
-   the exported function in that file.
-1. Call the imported function with its required parameters and log the result.
-
 ### Prerequisites
 
 - [Set up AWS SDK for JavaScript](../README.rst)
+
+### Run a single action
+
+1. Run `yarn`
+1. Create a new file in this directory and `import { functionName } from "./actions/action-name.js"`
+   where `action-name` is the file name of the action you want to run, and `function-name` is the name of
+   the exported function in that file.
+1. Call the imported function with its required parameters and log the result.
 
 ## Tests
 

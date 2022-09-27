@@ -24,29 +24,30 @@ usage: <command> [<args>]
 
   Commands:
 
-  initialize                             creates an IAM role with the necessary permissions
+  initialize                             Creates an AWS Identity and Access Management
+                                         (IAM) role with the necessary permissions.
 
-  create-function <function_name>        if a project under '../../functions/' exists with the
-                                         provided name, this will zip that project and upload
-                                         it to Lambda
+  create-function <function_name>        If a project under '../../functions/' exists with the
+                                         provided name, this zips the project and uploads it to
+                                         AWS Lambda.
 
-  update-function-code <function_name>   updates 'function-name' with the code from 'new-function',
-    <new_function>                       'new-function' will be zipped similar to create-function
+  update-function-code <function_name>   Updates 'function-name' with the code from 'new-function'.
+    <new_function>                       'new-function' is zipped similar to create-function.
 
-  update-function-configuration          takes the name of a function and updates the function's
-    <function_name>                      configuration with the provided config.json
+  update-function-configuration          Takes the name of a function and updates the function's
+    <function_name>                      configuration with the provided config.json.
     
 
-  list-functions                         list all Lambda functions for the configured account
+  list-functions                         Lists all Lambda functions for the configured account.
 
-  invoke <function_name> [<args>]        invokes the provided function with arguments
+  invoke <function_name> [<args>]        Invokes the provided function with arguments.
 
-  clean-up                               removes all created functions and roles (note: Any tampering
-                                         with .zip files, .tmp files, or directory structure may cause
-                                         this to fail. Always double check your environment in the
-                                         console to verify services have been torn down correctly)
+  clean-up                               Removes all created functions and roles. (Note: Tampering with
+                                         .zip files, .tmp files, or directory structure might cause this
+                                         to fail. Always double-check your environment in the console to
+                                         verify that AWS services have been cleaned up correctly.)
 
-  quit                                   quits the current interactive session
+  quit                                   Quits the current interactive session.
 `;
 
 const handlers = [
@@ -63,5 +64,5 @@ const handlers = [
   [startsWith(["clean-up"]), cleanUpHandler],
 ];
 
-cmdInterface.write('Welcome to Lambda! Type "help" for more info.\n');
+cmdInterface.write('Welcome to Lambda. Type "help" for more info.\n');
 readCommands({ reader: cmdInterface, handlers });

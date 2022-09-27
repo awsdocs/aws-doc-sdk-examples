@@ -20,7 +20,7 @@ const createFunctionHandler = async (commands) => {
   try {
     log(`Asking Lambda to create ${funcName}...`);
     await createFunction(funcName, roleArn);
-    log(`Lambda is creating ${funcName}. Check the AWS Console.`);
+    log(`Lambda is creating ${funcName}. Check the AWS Management Console.`);
   } catch (err) {
     log(err);
   }

@@ -47,7 +47,7 @@ const cleanUpHandler = async () => {
   try {
     log("Tidying up 🧹");
 
-    log("Deleting lambda functions.");
+    log("Deleting Lambda functions.");
     await cleanUpFunctions(funcNames);
 
     log("Deleting local zipped versions of functions.");

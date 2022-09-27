@@ -25,9 +25,9 @@ const createFunction = async (funcName, roleArn) => {
     FunctionName: funcName,
     Role: roleArn,
     Architectures: [Architecture.arm64],
-    Handler: "index.handler", // Required when sending a Zip
-    PackageType: PackageType.Zip, // Required when sending a Zip
-    Runtime: Runtime.nodejs16x, // Required when sending a Zip
+    Handler: "index.handler", // Required when sending a .zip file
+    PackageType: PackageType.Zip, // Required when sending a .zip file
+    Runtime: Runtime.nodejs16x, // Required when sending a .zip file
   });
 
   return client.send(command);
