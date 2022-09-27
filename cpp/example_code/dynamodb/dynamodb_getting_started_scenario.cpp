@@ -46,13 +46,17 @@
 #include <aws/core/http/HttpClientFactory.h>
 #include <aws/core/http/HttpClient.h>
 #include <fstream>
+
+#ifdef _HAS_ZLIB_
 #include <zlib.h>
+#endif // _HAS_ZLIB_
+
 #include <array>
 
 namespace AwsDoc {
     namespace DynamoDB {
         /**
-         * Constants used for DynamoDB table creation
+         * Constants used for DynamoDB table creation.
          */
         static const Aws::String MOVIE_TABLE_NAME("doc-example-table-movies");
         static const Aws::String YEAR_KEY("year");
@@ -63,7 +67,7 @@ namespace AwsDoc {
         static const int PROVISIONED_THROUGHPUT_UNITS = 10;
         static const Aws::String ALLOCATION_TAG("dynamodb_scenario");
 
-        //! Delete an DynamoDB table.
+        //! Delete a DynamoDB table.
         /*!
           \sa DeleteBucket()
           \param tableName: The DynamoDB table's name.
@@ -83,7 +87,7 @@ namespace AwsDoc {
         static bool waitTableActive(const Aws::String &tableName,
                                     const Aws::DynamoDB::DynamoDBClient &dynamoClient);
 
-        //! Convert a Aws JsonView object to a map of DynamoDB attribute values.
+        //! Convert an Aws JsonView object to a map of DynamoDB attribute values.
         /*!
           \sa movieJsonViewToAttributeMap()
           \param jsonView: An Aws JsonView.
@@ -100,7 +104,8 @@ namespace AwsDoc {
          \return Aws::String: User's response.
          */
         static Aws::String askQuestion(const Aws::String &string,
-                                       const std::function<bool(Aws::String)> &test = [](
+                                       const std::function<bool(
+                                               Aws::String)> &test = [](
                                                const Aws::String &) -> bool { return true; });
 
         //! Command line prompt/response utility function for integer result.
@@ -320,7 +325,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
 
     std::cout << "\nUpdated '" << title << "' with new attributes:" << std::endl;
 
-    // 4. Put 250 movies in the table from moviedata.json
+    // 4. Put 250 movies in the table from moviedata.json.
     if (!movieTableAlreadyExisted) {
         std::cout << "Adding movies from a json file to the database." << std::endl;
         const size_t MAX_SIZE_FOR_BATCH_WRITE = 25;
@@ -331,9 +336,8 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
             Aws::Utils::Array<Aws::Utils::Json::JsonView> movieJsons = json.View().AsArray();
             Aws::Vector<Aws::DynamoDB::Model::WriteRequest> writeRequests;
 
-            // Movies are grouped by year in the json file. To add movies with a
-            // cross-section of years, use an appropriate increment value for iterating
-            // through the database.
+            // To add movies with a cross-section of years, use an appropriate increment
+            // value for iterating through the database.
             size_t increment = movieJsons.GetLength() / MOVIES_TO_WRITE;
             for (size_t i = 0; i < movieJsons.GetLength(); i += increment) {
                 writeRequests.push_back(Aws::DynamoDB::Model::WriteRequest());
@@ -371,7 +375,8 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
     {
         Aws::String titleToGet("King Kong");
         Aws::String answer = askQuestion(Aws::String(
-                "Let's move on...Wou to get info about '" + titleToGet + "'? (y/n) "));
+                "Let's move on...Would you like to get info about '" + titleToGet +
+                "'? (y/n) "));
         if (answer == "y") {
             Aws::DynamoDB::Model::GetItemRequest request;
             request.SetTableName(MOVIE_TABLE_NAME);
@@ -400,15 +405,16 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         }
     }
 
-    // 6. Use Query with a key condition expression to return all movies released in a given year.
+    // 6. Use Query with a key condition expression to return all movies
+    //    released in a given year.
     Aws::String doAgain = "n";
     do {
         Aws::DynamoDB::Model::QueryRequest req;
 
         req.SetTableName(MOVIE_TABLE_NAME);
 
-        // "year" is a dynamodb reserved keyword and must be replaced with an
-        // expression attribute name
+        // "year" is a DynamoDB reserved keyword and must be replaced with an
+        // expression attribute name.
         req.SetKeyConditionExpression("#dynobase_year = :valueToMatch");
         req.SetExpressionAttributeNames({{"#dynobase_year", YEAR_KEY}});
 
@@ -422,16 +428,16 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
                                         yearToMatch));
         req.SetExpressionAttributeValues(attributeValues);
 
-        // Perform Query operation
+        // Perform Query operation.
         const Aws::DynamoDB::Model::QueryOutcome &result = dynamoClient.Query(req);
         if (result.IsSuccess()) {
-            // Reference the retrieved items
+            // Reference the retrieved items.
             const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = result.GetResult().GetItems();
             if (!items.empty()) {
                 std::cout << "\nThere were " << items.size()
                           << " movies in the database from "
                           << yearToMatch << "." << std::endl;
-                //Iterate each item and print
+                //Iterate each item and print.
                 for (const auto &item: items) {
                     printMovieInfo(item);
                 }
@@ -567,7 +573,7 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
 
 bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
                                        const Aws::DynamoDB::DynamoDBClient &dynamoClient) {
-    // Repeatedly call DescribeTable until table is ACTIVE
+    // Repeatedly call DescribeTable until table is ACTIVE.
     Aws::DynamoDB::Model::DescribeTableRequest request;
     request.SetTableName(tableName);
 
@@ -631,8 +637,8 @@ AwsDoc::DynamoDB::movieJsonViewToAttributeMap(
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    (void)argc; // suppress unused warning
-    (void)argv; // suppress unused warning
+    (void) argc; // suppress unused warning
+    (void) argv; // suppress unused warning
     Aws::SDKOptions options;
     InitAPI(options);
 
@@ -647,7 +653,8 @@ int main(int argc, char **argv) {
 #endif // TESTING_BUILD
 
 Aws::String AwsDoc::DynamoDB::askQuestion(const Aws::String &string,
-                                          const std::function<bool(Aws::String)> &test) {
+                                          const std::function<bool(
+                                                  Aws::String)> &test) {
     Aws::String result;
     do {
         std::cout << string;
@@ -670,7 +677,7 @@ int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
                                                        std::stoi(string1);
                                                        return true;
                                                    }
-                                                   catch (const std::invalid_argument&) {
+                                                   catch (const std::invalid_argument &) {
                                                        return false;
                                                    }
                                            });
@@ -694,7 +701,7 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
                 float number = std::stof(string1);
                 return number >= low && number <= high;
             }
-            catch (const std::invalid_argument&) {
+            catch (const std::invalid_argument &) {
                 return false;
             }
     });
@@ -702,7 +709,7 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
     try {
         result = std::stof(resultString);
     }
-    catch (const std::invalid_argument&) {
+    catch (const std::invalid_argument &) {
         std::cerr << "DynamoDB::askQuestionForFloatRange string not an int "
                   << resultString << std::endl;
     }
@@ -718,7 +725,7 @@ int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
                 int number = std::stoi(string1);
                 return number >= low && number <= high;
             }
-            catch (const std::invalid_argument&) {
+            catch (const std::invalid_argument &) {
                 return false;
             }
     });
@@ -733,7 +740,6 @@ int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
 
     return result;
 }
-
 
 void AwsDoc::DynamoDB::printMovieInfo(
         const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &movieMap) {
@@ -776,6 +782,9 @@ static int deflateZip(FILE *source, FILE *dest);
 
 Aws::String AwsDoc::DynamoDB::getMovieJSON() {
     const Aws::String JSON_FILE_NAME("moviedata.json");
+    Aws::String result;
+
+#ifdef _HAS_ZLIB_
     const Aws::String ZIP_FILE_NAME("movie.zip");
 
     Aws::Client::ClientConfiguration config;
@@ -788,7 +797,6 @@ Aws::String AwsDoc::DynamoDB::getMovieJSON() {
     request->SetUserAgent("curl/7.79.1");
     std::cout << "Downloading the json file." << std::endl;
     auto response = httpClient->MakeRequest(request);
-    Aws::String result;
 
     if (Aws::Http::HttpResponseCode::OK == response->GetResponseCode()) {
         {
@@ -810,25 +818,33 @@ Aws::String AwsDoc::DynamoDB::getMovieJSON() {
         std::cerr << "Could not download json File "
                   << response->GetClientErrorMessage() << std::endl;
     }
-
+#endif //_HAS_ZLIB_
     std::ifstream movieData(JSON_FILE_NAME);
-    std::array<char, 1024> buffer{};
-    while (movieData) {
-        movieData.read(&buffer[0], buffer.size() - 2);
-        buffer[movieData.gcount()] = 0;
-        result += &buffer[0];
+    if (movieData) {
+        std::array<char, 1024> buffer{};
+        while (movieData) {
+            movieData.read(&buffer[0], buffer.size() - 2);
+            buffer[movieData.gcount()] = 0;
+            result += &buffer[0];
+        }
+    }
+    else {
+        std::cerr << "Could not open '" << JSON_FILE_NAME << "'." << std::endl;
+#ifndef _HAS_ZLIB_
+        std::cerr << "This app was built without zlib." << std::endl;
+        std::cerr << "To run the complete scenario, install zlib or" << std::endl;
+        std::cerr << "download and unzip the following file to your run directory."
+                  << std::endl;
+        std::cerr
+                << "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip"
+                << std::endl;
+#endif //_HAS_ZLIB_
     }
 
     return result;
 }
 
-
-/* Decompress from file source to file dest until stream ends or EOF.
-   inf() returns Z_OK on success, Z_MEM_ERROR if memory could not be
-   allocated for processing, Z_DATA_ERROR if the deflate data is
-   invalid or incomplete, Z_VERSION_ERROR if the version of zlib.h and
-   the version of the library linked do not match, or Z_ERRNO if there
-   is an error reading or writing the files. */
+#ifdef _HAS_ZLIB_
 int deflateZip(FILE *source, FILE *dest) {
     const int IN_CHUNK = 32767;
     const int OUT_CHUNK = 65535;
@@ -838,7 +854,7 @@ int deflateZip(FILE *source, FILE *dest) {
     unsigned char in[IN_CHUNK];
     unsigned char out[OUT_CHUNK];
 
-    // Read to the end of the local file header
+    // Read to the end of the local file header.
     struct __attribute__((__packed__)) ZipHeader {
         uint16_t ignored[13];
         uint16_t fileNameLength;
@@ -848,9 +864,7 @@ int deflateZip(FILE *source, FILE *dest) {
 
     fread(&header, 1, sizeof(header), source);
     fread(in, 1, header.fileNameLength + header.extraFieldLength, source);
-    // local file header read
-
-    /* allocate inflate state */
+    // Local file header read.
 
     strm.data_type = Z_BINARY;
     strm.zalloc = Z_NULL;
@@ -863,8 +877,7 @@ int deflateZip(FILE *source, FILE *dest) {
     if (ret != Z_OK)
         return ret;
 
-    /* decompress until deflate stream ends or end of file */
-    do {
+     do {
         strm.avail_in = fread(in, 1, IN_CHUNK, source);
         if (ferror(source)) {
             (void) inflateEnd(&strm);
@@ -874,15 +887,14 @@ int deflateZip(FILE *source, FILE *dest) {
             break;
         strm.next_in = in;
 
-        /* run inflate() on input until output buffer not full */
-        do {
+         do {
             strm.avail_out = OUT_CHUNK;
             strm.next_out = out;
             ret = inflate(&strm, Z_SYNC_FLUSH);
-            assert(ret != Z_STREAM_ERROR);  /* state not clobbered */
+            assert(ret != Z_STREAM_ERROR);  // State not clobbered.
             switch (ret) {
                 case Z_NEED_DICT:
-                    ret = Z_DATA_ERROR;     /* and fall through */
+                    ret = Z_DATA_ERROR;     // And fall through.
                 case Z_DATA_ERROR:
                 case Z_MEM_ERROR:
                     (void) inflateEnd(&strm);
@@ -897,10 +909,9 @@ int deflateZip(FILE *source, FILE *dest) {
             }
         } while (strm.avail_out == 0);
 
-        /* done when inflate() says it's done */
-    } while (ret != Z_STREAM_END);
+     } while (ret != Z_STREAM_END);
 
-    /* clean up and return */
     (void) inflateEnd(&strm);
     return ret == Z_STREAM_END ? Z_OK : Z_DATA_ERROR;
 }
+#endif

@@ -33,7 +33,15 @@ endif()
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
 find_package(ZLIB)
+set(ADDITIONAL_LIBS )
+set(ADDITIONAL_INCLUDE_DIR)
+set(ADDITIONAL_DEFINES)
 
+if (ZLIB_FOUND)
+    set(ADDITIONAL_LIBS ${ZLIB_LIBRARIES})
+    set(ADDITIONAL_INCLUDE_DIR ${ZLIB_INCLUDE_DIRS})
+    set(ADDITIONAL_DEFINES _HAS_ZLIB_)
+endif()
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
@@ -76,10 +84,13 @@ foreach(file ${AWSDOC_SOURCE})
     target_include_directories(${EXAMPLE_EXE} PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
-            ${ZLIB_INCLUDE_DIRS})
+            ${ADDITIONAL_INCLUDE_DIR})
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
         ${AWSSDK_PLATFORM_DEPS}
-            ${ZLIB_LIBRARIES})
+            ${ADDITIONAL_LIBS})
+    target_compile_definitions(${EXAMPLE_EXE}
+            PRIVATE
+            ${ADDITIONAL_DEFINES})
 
  endforeach()
 

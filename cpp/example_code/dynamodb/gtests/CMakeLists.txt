@@ -106,13 +106,14 @@ target_include_directories(
         ${CURRENT_TARGET}
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-        ${ZLIB_INCLUDE_DIRS}
+        ${ADDITIONAL_INCLUDE_DIR}
 )
 
 target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
+        ${ADDITIONAL_DEFINES}
 )
 
 target_link_libraries(
@@ -120,7 +121,7 @@ target_link_libraries(
         GTest::gtest
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
-        ${ZLIB_LIBRARIES}
+        ${ADDITIONAL_LIBS}
 )
 
 include(GoogleTest)
