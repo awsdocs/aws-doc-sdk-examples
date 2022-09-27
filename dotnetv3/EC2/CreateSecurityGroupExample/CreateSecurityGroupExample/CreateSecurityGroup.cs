@@ -23,7 +23,7 @@ namespace CreateSecurityGroupExample
         /// </summary>
         public static async Task Main()
         {
-            string vpcId = "vpc-0e304cc1627062b88";
+            string vpcId = "vpc-1234567890abcdefa";
             string vpcDescription = "Sample security group";
             string groupName = "sample-security-group";
 

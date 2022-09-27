@@ -16,7 +16,7 @@ node ses_createtemplate.js
 
 import { CreateTemplateCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-import { getUniqueName } from "../../libs/index.js";
+import { getUniqueName } from "../../libs/utils/util-string.js";
 
 const TEMPLATE_NAME = getUniqueName("TestTemplateName");
 
