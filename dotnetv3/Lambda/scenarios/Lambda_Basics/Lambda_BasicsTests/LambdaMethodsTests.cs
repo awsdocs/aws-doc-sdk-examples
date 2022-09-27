@@ -1,64 +1,95 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using Xunit.Extensions.Ordering;
+
 namespace Lambda_Basics.Tests
 {
     public class LambdaMethodsTests
     {
-        private readonly string _FunctionName = "test-function";
-        private readonly AmazonLambdaClient _Client;
-        private string _FunctionArn;
-        private LambdaMethods _LambdaMethods = new LambdaMethods();
+        private readonly IConfiguration _configuration;
+        private readonly AmazonLambdaClient _client;
+        private readonly LambdaMethods _LambdaMethods;
 
         public LambdaMethodsTests()
         {
-            _Client = new AmazonLambdaClient();
+            _client = new AmazonLambdaClient();
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("testsettings.json") // Load test settings from JSON file.
+                .AddJsonFile("testsettings.local.json",
+                true) // Optionally load local settings.
+            .Build();
 
+            _LambdaMethods = new LambdaMethods();
         }
 
         [Fact()]
+        [Order(1)]
+        public async Task CreateLambdaFunctionTest()
+        {
+            var functionArn = await _LambdaMethods.CreateLambdaFunction(
+                _client,
+                _configuration["FunctionName"],
+                _configuration["BucketName"],
+                _configuration["Key"],
+                _configuration["Role"],
+                _configuration["Handler"]);
+            Assert.NotNull(functionArn);
+        }
+
+        [Fact()]
+        [Order(6)]
         public async Task DeleteLambdaFunctionTest()
         {
-            var success = await _LambdaMethods.DeleteLambdaFunction(_Client, _FunctionName);
+            var success = await _LambdaMethods.DeleteLambdaFunction(
+                _client,
+                _configuration["FunctionName"]);
             Assert.True(success, "Could not delete the function.");
         }
 
         [Fact()]
+        [Order(7)]
         public async Task DeleteLambdaFunctionTest_DoesntExist_ShouldFail()
         {
             var functionName = "nonexistent_function";
-            var success = await _LambdaMethods.DeleteLambdaFunction(_Client, functionName);
+            var success = await _LambdaMethods.DeleteLambdaFunction(_client, functionName);
             Assert.False(success, "Should not be able to delete a non-existent function.");
         }
 
         [Fact()]
-        public async Task UpdateFunctionCodeTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public async Task InvokeFunctionTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public async Task ListFunctionsTest()
-        {
-            
-        }
-
-        [Fact()]
+        [Order(2)]
         public async Task GetFunctionTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            var functionConfig = await _LambdaMethods.GetFunction(_client, _configuration["FunctionName"]);
+            Assert.Equal(functionConfig.FunctionName, _configuration["FunctionName"]);
         }
 
         [Fact()]
-        public async static Task CreateLambdaFunctionTest()
+        [Order(4)]
+        public async Task InvokeFunctionTest()
         {
-            Assert.True(false, "This test needs an implementation.");
+            var result = await _LambdaMethods.InvokeFunctionAsync(_client, _configuration["FunctionName"]);
+            Assert.NotEmpty(result);
+        }
+
+        [Fact()]
+        [Order(3)]
+        public async Task ListFunctionsTest()
+        {
+            var functions = await _LambdaMethods.ListFunctions(_client);
+            Assert.True(functions.Count > 0, "Couldn't find any functions to list.");
+        }
+
+        [Fact()]
+        [Order(5)]
+        public async Task UpdateFunctionCodeTest()
+        {
+            await _LambdaMethods.UpdateFunctionCode(
+                _client,
+                _configuration["FunctionName"],
+                _configuration["bucketName"],
+                _configuration["key"]);
         }
     }
 }

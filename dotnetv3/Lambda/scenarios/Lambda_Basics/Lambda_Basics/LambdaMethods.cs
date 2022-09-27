@@ -23,16 +23,7 @@ namespace Lambda_Basics
             };
 
             var response = await client.DeleteFunctionAsync(request);
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-            {
-                Console.WriteLine($"The {functionName} function was deleted.");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine($"Could not remove the function {functionName}");
-                return false;
-            }
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction]
@@ -48,7 +39,11 @@ namespace Lambda_Basics
         /// the Lambda function code is stored.</param>
         /// <param name="key">The key name of the source code file.</param>
         /// <returns>A System Threading Task.</returns>
-        public async Task UpdateFunctionCode(AmazonLambdaClient client, string functionName, string bucketName, string key)
+        public async Task UpdateFunctionCode(
+            AmazonLambdaClient client,
+            string functionName,
+            string bucketName,
+            string key)
         {
             var functionCodeRequest = new UpdateFunctionCodeRequest
             {
@@ -73,7 +68,7 @@ namespace Lambda_Basics
         /// <param name="functionName">The name of the Lambda function to
         /// invoke.</param>
         /// <returns>A System Threading Task.</returns>
-        public async Task InvokeFunctionAsync(AmazonLambdaClient client, string functionName)
+        public async Task<string> InvokeFunctionAsync(AmazonLambdaClient client, string functionName)
         {
             var payload = "{\"inputValue\":\"2000\"}";
             var request = new InvokeRequest
@@ -86,6 +81,7 @@ namespace Lambda_Basics
             MemoryStream stream = response.Payload;
             string result = System.Text.Encoding.UTF8.GetString(stream.ToArray());
             Console.WriteLine(result);
+            return result;
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.InvokeFunction]
@@ -99,8 +95,8 @@ namespace Lambda_Basics
         /// <returns>A list of FunctionConfiguration objects.</returns>
         public async Task<List<FunctionConfiguration>> ListFunctions(AmazonLambdaClient client)
         {
-            var functionResult = await client.ListFunctionsAsync();
-            var functionList = functionResult.Functions;
+            var reponse = await client.ListFunctionsAsync();
+            var functionList = reponse.Functions;
             functionList.ForEach(config =>
             {
                 Console.WriteLine($"The function name is {config.FunctionName}.");
@@ -119,8 +115,8 @@ namespace Lambda_Basics
         /// <param name="client">The initialized Lambda client object.</param>
         /// <param name="functionName">The name of the Lambda function for
         /// which to retrieve information.</param>
-        /// <returns>A System Threading Task</returns>
-        public async Task GetFunction(AmazonLambdaClient client, string functionName)
+        /// <returns>A System Threading Task.</returns>
+        public async Task<FunctionConfiguration> GetFunction(AmazonLambdaClient client, string functionName)
         {
             var functionRequest = new GetFunctionRequest
             {
@@ -129,6 +125,7 @@ namespace Lambda_Basics
 
             var response = await client.GetFunctionAsync(functionRequest);
             Console.WriteLine("The runtime of this Lambda function is " + response.Configuration.Runtime);
+            return response.Configuration;
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.GetFunction]

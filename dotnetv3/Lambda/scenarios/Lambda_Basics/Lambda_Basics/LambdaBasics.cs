@@ -30,7 +30,7 @@
 string functionName = "CreateS3Bucket";
 string role = "lambda-support";
 string handler = "FunctionHandler";
-string bucketName = "";
+string bucketName = "<Enter Value>";
 string key = "<Enter Value>";
 string keyUpdate = "<Enter Value>";
 
@@ -74,7 +74,15 @@ await lambdaMethods.InvokeFunctionAsync(lambdaClient, functionName);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Delete the AWS Lambda function.");
-await lambdaMethods.DeleteLambdaFunction(lambdaClient, functionName);
+var success = await lambdaMethods.DeleteLambdaFunction(lambdaClient, functionName);
+if (success)
+{
+    Console.WriteLine($"The {functionName} function was deleted.");
+}
+else
+{
+    Console.WriteLine($"Could not remove the function {functionName}");
+}
 
 void ShowOverview()
 {
