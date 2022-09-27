@@ -268,11 +268,11 @@ lambda_UpdateFunctionConfiguration:
         - sdk_version: 3
           github: ruby/example_code/lambda
           sdkguide:
-              excerpts:
-                - description:
-                  snippet_tags:
-                    - ruby.example_code.ruby.LambdaWrapper.decl
-                    - ruby.example_code.lambda.UpdateFunctionConfiguration
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ruby.LambdaWrapper.decl
+                - ruby.example_code.lambda.UpdateFunctionConfiguration
     JavaScript:
       versions:
         - sdk_version: 3
