@@ -10,7 +10,7 @@ Amazon Cognito identity pools (federated identities) enable you to create unique
 
 - [Describe an identity pool](src/bin/describe-identity-pool.rs) (DescribeIdentityPool)
 - [List your identity pools](src/bin/list-identity-pools.rs) (ListIdentityPools)
-- [List the identities in an identity pool](src/bin/list-pool-identities) (ListIdentities)
+- [List the identities in an identity pool](src/bin/list-pool-identities.rs) (ListIdentities)
 
 ## ⚠ Important
 

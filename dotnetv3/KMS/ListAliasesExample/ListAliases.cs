@@ -4,7 +4,7 @@
 /// <summary>
 /// List the AWS Key Management Service (AWS KMS) aliases that have been defined for
 /// the keys in the same AWS Region as the default user. If you want to list
-/// the aliases in a different region, pass the region to the client
+/// the aliases in a different Region, pass the Region to the client
 /// constructor. This example was created using the AWS SDK for .NET version
 /// 3.7 and .NET Core 5.0.
 /// </summary>

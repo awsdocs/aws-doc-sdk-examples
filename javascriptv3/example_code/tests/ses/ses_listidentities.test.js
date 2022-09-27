@@ -1,4 +1,4 @@
-import { getUniqueName, postfix } from "../../libs/index";
+import { getUniqueName, postfix } from "../../libs/utils/util-string.js";
 import { createIdentity, deleteIdentity } from "../../ses/src/libs/sesUtils.js";
 import { run } from "../../ses/src/ses_listidentities";
 

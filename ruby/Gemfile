@@ -7,7 +7,9 @@ gem "rubyzip"
 gem "rake"
 gem "rubocop"
 gem "rubocop-rake"
+gem "rubocop-github"
 gem 'json'
 gem 'pp'
 gem "open-uri"
 gem "zip"
+gem 'openssl'

@@ -3,7 +3,6 @@
 
 namespace ManageTopicSubscriptionExample
 {
-    // snippet-start:[SNS.dotnetv3.TopicSubscribe]
     using System;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
@@ -37,6 +36,8 @@ namespace ManageTopicSubscriptionExample
             Console.WriteLine("\nUnscribed from topic.");
         }
 
+        // snippet-start:[SNS.dotnetv3.TopicSubscribe]
+
         /// <summary>
         /// Creates a new subscription to a topic.
         /// </summary>
@@ -53,6 +54,8 @@ namespace ManageTopicSubscriptionExample
             {
                 TopicArn = topicArn,
                 ReturnSubscriptionArn = true,
+                Protocol = "email",
+                Endpoint = "recipient@example.com",
             };
 
             var response = await client.SubscribeAsync(request);

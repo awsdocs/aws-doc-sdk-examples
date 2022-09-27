@@ -1,5 +1,5 @@
 ---
-Checks:          'clang-analyzer-*,cppcoreguidelines-*,modernize-*,readability-*,google-*,-modernize-use-trailing-return-type,-cppcoreguidelines-pro-bounds-pointer-arithmetic'
+Checks:          'clang-analyzer-*,cppcoreguidelines-*,modernize-*,readability-*,google-*,-modernize-use-trailing-return-type,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-readability-convert-member-functions-to-static,-readability-implicit-bool-conversion,-readability-named-parameter'
 WarningsAsErrors: true
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false

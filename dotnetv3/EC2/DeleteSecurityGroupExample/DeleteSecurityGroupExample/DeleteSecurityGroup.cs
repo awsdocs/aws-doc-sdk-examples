@@ -22,7 +22,7 @@ namespace DeleteSecurityGroupExample
         /// </summary>
         public static async Task Main()
         {
-            string secGroupId = "sg-05c1b890f35c2c89e";
+            string secGroupId = "sg-1234567890abcd";
             string groupName = "sample-security-group";
 
             // If your Amazon EC2 security grup is not defined in the same AWS
