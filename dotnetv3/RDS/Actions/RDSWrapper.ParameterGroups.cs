@@ -114,7 +114,7 @@ public partial class RDSWrapper
     public async Task<List<Parameter>> DescribeDBParameters(string dbParameterGroupName, string source = null)
     {
         var results = new List<Parameter>();
-        var paginateParameters =  _amazonRDS.Paginators.DescribeDBParameters(
+        var paginateParameters = _amazonRDS.Paginators.DescribeDBParameters(
             new DescribeDBParametersRequest()
             {
                 DBParameterGroupName = dbParameterGroupName,

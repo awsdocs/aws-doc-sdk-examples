@@ -80,7 +80,7 @@ public class RDSInstanceScenario
 
             var parameterGroup = await CreateDbParameterGroup(parameterGroupFamily);
 
-            var parameters = await DescribeParametersInGroup(parameterGroup.DBParameterGroupName, 
+            var parameters = await DescribeParametersInGroup(parameterGroup.DBParameterGroupName,
                 new List<string>{ "auto_increment_offset", "auto_increment_increment" });
 
             await ModifyParameters(parameterGroup.DBParameterGroupName, parameters);
@@ -89,11 +89,11 @@ public class RDSInstanceScenario
 
             var engineVersionChoice = await ChooseDbEngineVersion(parameterGroupFamily);
 
-            var instanceChoice = await ChooseDbInstanceClass(engine, engineVersionChoice.EngineVersion );
+            var instanceChoice = await ChooseDbInstanceClass(engine, engineVersionChoice.EngineVersion);
 
             var newInstanceIdentifier = "Example-Instance-" + DateTime.Now.Ticks;
 
-            var newInstance = await CreateRdsNewInstance(parameterGroup, engine, 
+            var newInstance = await CreateRdsNewInstance(parameterGroup, engine,
                 engineVersionChoice.EngineVersion, instanceChoice.DBInstanceClass, newInstanceIdentifier);
             
             if (newInstance != null)
@@ -102,7 +102,7 @@ public class RDSInstanceScenario
 
                 await CreateSnapshot(newInstance);
 
-               await DeleteRdsInstance(newInstance);
+                await DeleteRdsInstance(newInstance);
             }
 
             await DeleteParameterGroup(parameterGroup);
@@ -354,7 +354,7 @@ public class RDSInstanceScenario
         bool isInstanceReady = false;
         DBInstance newInstance;
         var instances = await rdsWrapper.DescribeDBInstances();
-        isInstanceReady = instances.FirstOrDefault(i => 
+        isInstanceReady = instances.FirstOrDefault(i =>
             i.DBInstanceIdentifier == instanceIdentifier)?.DBInstanceStatus == "available";
 
         if (isInstanceReady)
