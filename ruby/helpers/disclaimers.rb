@@ -7,11 +7,11 @@ require_relative("colorizer")
 def billing
   puts "\e[H\e[2J"
   puts "========================== BILLING DISCLAIMER =============================".yellow
-  puts "Please note that running this code will create actual resources that may"
-  puts "incur charges. While the code attempts to destroy all resources it creates,"
-  puts "unexpected errors may leave orphaned resources that must be manually deleted."
+  puts "Running this code will create actual resources that may incur charges."
+  puts "While the code attempts to destroy all resources it creates, unexpected "
+  puts "errors may leave orphaned resources that must be manually deleted."
   puts ""
-  puts "For more information on how AWS pricing works, please see:"
+  puts "For more information on how AWS pricing works, see:"
   puts "    https://aws.amazon.com/pricing/?aws-products-pricing"
   puts ""
   puts "==========================================================================".yellow
