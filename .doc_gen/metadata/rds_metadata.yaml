@@ -32,15 +32,6 @@ rds_CreateDBInstance:
             - description:
               snippet_tags:
                 - rds.java2.create_instance.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.CreateDBInstance
   services:
     rds: {CreateDBInstance}
 rds_DeleteDBInstance:
@@ -76,15 +67,6 @@ rds_DeleteDBInstance:
             - description:
               snippet_tags:
                 - rds.java2.delete_instance.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.DeleteDBInstance
   services:
     rds: {DeleteDBInstance}
 rds_DescribeAccountAttributes:
@@ -146,15 +128,6 @@ rds_DescribeDBInstances:
             - description:
               snippet_tags:
                 - rds.java2.describe_instances.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.DescribeDBInstances
   services:
     rds: {DescribeDBInstances}
 rds_ModifyDBInstance:
@@ -215,16 +188,6 @@ rds_DescribeDBParameterGroups:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBParameterGroups
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.DescribeDBParameterGroups
   services:
     rds: {DescribeDBParameterGroups}
 rds_CreateDBParameterGroup:
@@ -242,16 +205,6 @@ rds_CreateDBParameterGroup:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.CreateDBParameterGroup
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.CreateDBParameterGroup
   services:
     rds: {CreateDBParameterGroup}
 rds_DeleteDBParameterGroup:
@@ -269,16 +222,6 @@ rds_DeleteDBParameterGroup:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DeleteDBParameterGroup
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.DeleteDBParameterGroup
   services:
     rds: {DeleteDBParameterGroup}
 rds_DescribeDBParameters:
@@ -296,16 +239,6 @@ rds_DescribeDBParameters:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBParameters
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.DescribeDBParameters
   services:
     rds: {DescribeDBParameters}
 rds_ModifyDBParameterGroup:
@@ -323,16 +256,6 @@ rds_ModifyDBParameterGroup:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.ModifyDBParameterGroup
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.ModifyDBParameterGroup
   services:
     rds: {ModifyDBParameterGroup}
 rds_CreateDBSnapshot:
@@ -350,16 +273,6 @@ rds_CreateDBSnapshot:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.CreateDBSnapshot
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.CreateDBSnapshot
   services:
     rds: {CreateDBSnapshot}
 rds_DescribeDBSnapshots:
@@ -377,16 +290,6 @@ rds_DescribeDBSnapshots:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBSnapshots
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.DescribeDBSnapshots
   services:
     rds: {DescribeDBSnapshots}
 rds_DescribeDBEngineVersions:
@@ -404,16 +307,6 @@ rds_DescribeDBEngineVersions:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBEngineVersions
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.DescribeDBEngineVersions
   services:
     rds: {DescribeDBEngineVersions}
 rds_DescribeOrderableDBInstanceOptions:
@@ -431,16 +324,6 @@ rds_DescribeOrderableDBInstanceOptions:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeOrderableDBInstanceOptions
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_decl
-                - python.example_code.rds.DescribeOrderableDBInstanceOptions
   services:
     rds: {DescribeOrderableDBInstanceOptions}
 rds_Scenario_GetStartedInstances:
@@ -472,19 +355,6 @@ rds_Scenario_GetStartedInstances:
             - description: Wrapper functions used by the scenario for DB snapshot operations.
               snippet_tags:
                 - RDS.dotnetv3.RdsInstanceWrapperSnapshots
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/rds
-          sdkguide:
-          excerpts:
-            - description: Run an interactive scenario at a command prompt.
-              snippet_tags:
-                - python.example_code.rds.Scenario_GetStartedInstances
-            - description: Define functions that are called by the scenario to
-                manage &RDS; actions.
-              snippet_tags:
-                - python.example_code.rds.helper.InstanceWrapper_full
   services:
     rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance,
            DeleteDBParameterGroup, DescribeDBInstances, DescribeDBEngineVersions, DescribeDBParameterGroups,
