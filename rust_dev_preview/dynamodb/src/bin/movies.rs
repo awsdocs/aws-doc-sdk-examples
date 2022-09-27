@@ -18,10 +18,6 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
-    #[structopt(short, long)]
-    region: Option<String>,
-
     /// The name of the table.
     #[structopt(short, long)]
     table: String,
@@ -43,36 +39,15 @@ struct Opt {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt {
-        region,
-        table,
-        verbose,
-    } = Opt::from_args();
+    let Opt { table, verbose } = Opt::from_args();
 
-    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
-        .or_default_provider()
-        .or_else(Region::new("us-west-2"));
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let config = aws_config::from_env().load().await;
 
-    println!();
-
-    if verbose {
-        println!("DynamoDB client version: {}", PKG_VERSION);
-        println!(
-            "Region:                  {}",
-            shared_config.region().unwrap()
-        );
-        println!("Table:                   {}", &table);
-        println!();
-    }
-
-    let client = Client::new(&shared_config);
+    let client = Client::new(&config);
 
     let table_exists = does_table_exist(&client, &table).await?;
 
     if !table_exists {
-        println!("Creating table.");
-
         create_table(&client, &table.to_string())
             .send()
             .await
@@ -88,13 +63,9 @@ async fn main() -> Result<(), Error> {
         data => panic!("data must be an array, got: {:?}", data),
     };
 
-    println!("Adding items to table.");
-
     for value in data {
         add_item(&client, &table, value).await?;
     }
-
-    println!("Making sure table has items.");
 
     let films_2222 = movies_in_year(&client, &table.to_string(), 2222)
         .send()
