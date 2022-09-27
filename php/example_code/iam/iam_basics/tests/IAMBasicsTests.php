@@ -32,7 +32,7 @@ class IAMBasicsTests extends TestCase
 
     public function testItRunsWithoutThrowingAnException()
     {
-        include "GettingStartedWithIAM.php";
+        include "iam/iam_basics/GettingStartedWithIAM.php";
         self::assertTrue(true); // Asserts that we made it to this line with no exceptions.
     }
 

@@ -16,6 +16,7 @@
       "AwsUtilities\\": "aws_utilities",
       "Glue\\": "glue/",
       "Iam\\": "iam/",
+      "Lambda\\": "lambda/",
       "S3\\": "s3/"
     },
     "files": [
