@@ -1,12 +1,6 @@
 # Amazon DynamoDb code examples for the SDK for C++ using the DynamoDBClient
 ## Overview
-Shows how to use the AWS SDK for C++ to create Amazon DynamoDB
-tables and move data in and out of them.
-
-* Create a table for storing movies.
-* Load movies into the table from a JSON-formatted file.
-* Update and query movies in the table.
-* Get, write, and delete items in batches.
+Sample code which demonstrates creation, deletion, modification, and querying of DynamoDB databases.
 
 *Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 predictable performance with seamless scalability.*
@@ -48,13 +42,14 @@ Next, for information on code examples structures and how to build and run the e
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
 
+
 ```sh
    cd <BUILD_DIR>
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
    ctest 
-   ./gtests/dynamodb_gtest 
-```   
+ ```   
+
 
 ## Additional resources
 * [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)

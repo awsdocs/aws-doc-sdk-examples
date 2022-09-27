@@ -2,6 +2,31 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Demonstrates using the AWS SDK for C++ to create a Amazon DynamoDB database and
+ *  and perform a series of operations on the database.
+ *
+ * 1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
+ * 2. Add a new movie. (PutItem)
+ * 3. Update the rating and plot of the movie by using an update expression.
+ *    (UpdateItem with UpdateExpression + ExpressionAttributeValues args)
+ * 4. Put movies in the table from moviedata.json--download it from the DynamoDB guide. (BatchWriteItem)
+ * 5. Get a movie by Key. (partition + sort) (GetItem)
+ * 6. Use Query with a key condition expression to return all movies released in a given
+ *    year. (Query + KeyConditionExpression arg)
+ * 7. Use Scan to return movies released within a range of years. Show how to
+ *    paginate data using ExclusiveStartKey. (Scan + FilterExpression)
+ * 8. Delete a movie. (DeleteItem)
+ * 9. Delete the table. (DeleteTable)
+ */
 
 #include "dyanamodb_samples.h"
 #include <iostream>
@@ -26,6 +51,9 @@
 
 namespace AwsDoc {
     namespace DynamoDB {
+        /**
+         * Constants used for DynamoDB table creation
+         */
         static const Aws::String MOVIE_TABLE_NAME("doc-example-table-movies");
         static const Aws::String YEAR_KEY("year");
         static const Aws::String TITLE_KEY("title");
@@ -35,53 +63,105 @@ namespace AwsDoc {
         static const int PROVISIONED_THROUGHPUT_UNITS = 10;
         static const Aws::String ALLOCATION_TAG("dynamodb_scenario");
 
+        //! Delete an DynamoDB table.
+        /*!
+          \sa DeleteBucket()
+          \param tableName: The DynamoDB table's name.
+          \param dynamoClient: A DynamoDB client.
+          \return bool: Function succeeded.
+        */
         static bool deleteDynamoTable(const Aws::String &tableName,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration);
+                                      const Aws::DynamoDB::DynamoDBClient &dynamoClient);
 
+        //! Query a newly created DynamoDB table until it is active.
+        /*!
+          \sa DeleteBucket()
+          \param waitTableActive: The DynamoDB table's name.
+          \param dynamoClient: A DynamoDB client.
+          \return bool: Function succeeded.
+        */
+        static bool waitTableActive(const Aws::String &tableName,
+                                    const Aws::DynamoDB::DynamoDBClient &dynamoClient);
+
+        //! Convert a Aws JsonView object to a map of DynamoDB attribute values.
+        /*!
+          \sa movieJsonViewToAttributeMap()
+          \param jsonView: An Aws JsonView.
+          \return Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>.
+        */
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>
+        movieJsonViewToAttributeMap(const Aws::Utils::Json::JsonView &jsonView);
+
+        //! Command line prompt/response utility function.
+        /*!
+         \\sa askQuestion()
+         \param string: A question prompt.
+         \param test: Test function for response.
+         \return Aws::String: User's response.
+         */
         static Aws::String askQuestion(const Aws::String &string,
                                        std::function<bool(Aws::String)> test = [](
                                                const Aws::String &) -> bool { return true; });
 
+        //! Command line prompt/response utility function for integer result.
+        /*!
+         \sa askQuestionForInt()
+         \param string: A question prompt.
+         \return int: User's response.
+         */
         int askQuestionForInt(const std::string &string);
 
+        //! Command line prompt/response utility function for float result confined to
+        //! a range.
+        /*!
+         \sa askQuestionForFloatRange()
+         \param string: A question prompt.
+         \param low: Valid response low inclusive.
+         \param high: Valid response high inclusive.
+         \return float: User's response.
+         */
         float
         askQuestionForFloatRange(const Aws::String &string, float low, float high);
 
+        //! Command line prompt/response utility function for int result confined to
+        //! a range.
+        /*!
+         \sa askQuestionForIntRange()
+         \param string: A question prompt.
+         \param low: Low valid response inclusive.
+         \param high: High valid response inclusive.
+         \return int: User's response.
+         */
         int askQuestionForIntRange(const Aws::String &string, int low,
                                                      int high);
 
-        static bool waitTableActive(const Aws::String &tableName,
-                                    const Aws::Client::ClientConfiguration &clientConfiguration);
-
-        static Aws::String getMovieJSON();
-
-        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>
-        movieJsonViewToAttributeMap(const Aws::Utils::Json::JsonView &jsonView);
-
-        void printMovieInfo(
+        //! Utility function to log movie attributes to std::cout.
+        /*!
+         \sa printMovieInfo()
+         \param movieMap: Map of DynamoDB attribute values.
+         \return void
+         */
+         void printMovieInfo(
                 const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &movieMap);
 
-        static int deflateZip(FILE *source, FILE *dest);
+        //! Download a JSON movie database file from the web and unzip the file.
+        /*!
+         \sa getMovieJSON()
+         \return Aws::String: Movie database as JSON string.
+         */
+        static Aws::String getMovieJSON();
 
     } //  namespace DynamoDB
 } // namespace AwsDoc
 
-/*
- *
- * 1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
- * 2. Add a new movie. (PutItem)
- * 3. Update the rating and plot of the movie by using an update expression.
- *    (UpdateItem with UpdateExpression + ExpressionAttributeValues args)
- * 4. Put movies in the table from moviedata.json--download it from the DynamoDB guide. (BatchWriteItem)
- * 5. Get a movie by Key. (partition + sort) (GetItem)
- * 6. Use Query with a key condition expression to return all movies released in a given
- *    year. (Query + KeyConditionExpression arg)
- * 7. Use Scan to return movies released within a range of years. Show how to
- *    paginate data using ExclusiveStartKey. (Scan + FilterExpression)
- * 8. Delete a movie. (DeleteItem)
- * 9. Delete the table. (DeleteTable)
+//! Scenario to create, modify, query, and delete a DynamoDB table.
+/*!
+  \sa dynamodbGettingStartedScenario()
+  \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
  */
 
+// snippet-start:[cpp.example_code.dynamodb.Scenario_GettingStarted]
 bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     std::cout << std::setfill('*') << std::setw(88) << " " << std::endl;
@@ -146,8 +226,8 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
     if (!movieTableAlreadyExisted) {
         std::cout << "Waiting for table '" << MOVIE_TABLE_NAME
                   << "' to become active...." << std::endl;
-        if (!AwsDoc::DynamoDB::waitTableActive(MOVIE_TABLE_NAME, clientConfiguration)) {
-            deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
+        if (!AwsDoc::DynamoDB::waitTableActive(MOVIE_TABLE_NAME, dynamoClient)) {
+            deleteDynamoTable(MOVIE_TABLE_NAME, dynamoClient);
             return false;
         }
         std::cout << "Table '" << MOVIE_TABLE_NAME << "' created and active."
@@ -194,7 +274,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
                 putItemRequest);
         if (!outcome.IsSuccess()) {
             std::cerr << "Failed to add an item: " << outcome.GetError().GetMessage();
-            deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
+            deleteDynamoTable(MOVIE_TABLE_NAME, dynamoClient);
             return false;
         }
     }
@@ -233,7 +313,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         if (!result.IsSuccess()) {
             std::cerr << "Error updating movie " + result.GetError().GetMessage()
                       << std::endl;
-            deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
+            deleteDynamoTable(MOVIE_TABLE_NAME, dynamoClient);
             return false;
         }
     }
@@ -303,7 +383,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
                     request);
             if (!result.IsSuccess()) {
                 std::cerr << "Error " << result.GetError().GetMessage();
-                deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
+                deleteDynamoTable(MOVIE_TABLE_NAME, dynamoClient);
                 return false;
             }
             else {
@@ -456,14 +536,12 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
     }
 
     // 9.Delete the table. (DeleteTable)
-    return deleteDynamoTable(MOVIE_TABLE_NAME, clientConfiguration);
+    return deleteDynamoTable(MOVIE_TABLE_NAME, dynamoClient);
 }
 
 bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
-                                         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
-
-    Aws::DynamoDB::Model::DeleteTableRequest request;
+                                         const Aws::DynamoDB::DynamoDBClient &dynamoClient) {
+     Aws::DynamoDB::Model::DeleteTableRequest request;
     request.SetTableName(tableName);
 
     const Aws::DynamoDB::Model::DeleteTableOutcome &result = dynamoClient.DeleteTable(
@@ -481,15 +559,14 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
 }
 
 bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
-                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
-    Aws::DynamoDB::DynamoDBClient client(clientConfiguration);
+                                       const Aws::DynamoDB::DynamoDBClient &dynamoClient) {
     // Repeatedly call DescribeTable until table is ACTIVE
     Aws::DynamoDB::Model::DescribeTableRequest request;
     request.SetTableName(tableName);
 
     int count = 0;
     while (count < 20) {
-        const Aws::DynamoDB::Model::DescribeTableOutcome &result = client.DescribeTable(
+        const Aws::DynamoDB::Model::DescribeTableOutcome &result = dynamoClient.DescribeTable(
                 request);
         if (!result.IsSuccess()) {
             std::cerr << "Error DynamoDB::waitTableActiveconst "
@@ -541,7 +618,22 @@ AwsDoc::DynamoDB::movieJsonViewToAttributeMap(
 
     return result;
 }
+// snippet-end:[cpp.example_code.dynamodb.Scenario_GettingStarted]
 
+
+#ifndef TESTING_BUILD
+int main(int argc, char **argv) {
+    Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
+    InitAPI(options);
+
+    {
+        Aws::Client::ClientConfiguration clientConfig;
+        AwsDoc::DynamoDB::dynamodbGettingStartedScenario(clientConfig);
+    }
+    return 0;
+}
+#endif // TESTING_BUILD
 
 Aws::String AwsDoc::DynamoDB::askQuestion(const Aws::String &string,
                                           std::function<bool(Aws::String)> test) {
@@ -608,7 +700,7 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
 }
 
 int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
-                                                 int high) {
+                                             int high) {
     Aws::String resultString = askQuestion(string, [low, high](
             const Aws::String &string1) -> bool {
             try {
@@ -669,22 +761,7 @@ void AwsDoc::DynamoDB::printMovieInfo(
     }
 }
 
-
-#ifndef TESTING_BUILD
-
-int main(int argc, char **argv) {
-    Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
-    InitAPI(options);
-
-    {
-        Aws::Client::ClientConfiguration clientConfig;
-        AwsDoc::DynamoDB::dynamodbGettingStartedScenario(clientConfig);
-    }
-    return 0;
-}
-
-#endif // TESTING_BUILD
+static int deflateZip(FILE *source, FILE *dest);
 
 Aws::String AwsDoc::DynamoDB::getMovieJSON() {
     const Aws::String JSON_FILE_NAME("moviedata.json");
@@ -697,12 +774,16 @@ Aws::String AwsDoc::DynamoDB::getMovieJSON() {
                                                         "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip"),
                                                 Aws::Http::HttpMethod::HTTP_GET,
                                                 Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
-   // request->SetUserAgent("curl/7.79.1");
+    request->SetUserAgent("curl/7.79.1");
     std::cout << "Downloading the json file." << std::endl;
     auto response = httpClient->MakeRequest(request);
     Aws::String result;
 
     if (Aws::Http::HttpResponseCode::OK == response->GetResponseCode()) {
+        {
+            std::ofstream outStream(ZIP_FILE_NAME);
+            outStream << response->GetResponseBody().rdbuf();
+        }
         FILE *src = fopen(ZIP_FILE_NAME.c_str(), "r");
         FILE *dst = fopen(JSON_FILE_NAME.c_str(), "w");
 
@@ -715,7 +796,7 @@ Aws::String AwsDoc::DynamoDB::getMovieJSON() {
         fclose(dst);
     }
     else {
-        std::cout << response->GetClientErrorMessage() << std::endl;
+        std::cerr << "Could not download json File " << response->GetClientErrorMessage() << std::endl;
     }
 
     std::ifstream movieData(JSON_FILE_NAME);
@@ -736,7 +817,7 @@ Aws::String AwsDoc::DynamoDB::getMovieJSON() {
    invalid or incomplete, Z_VERSION_ERROR if the version of zlib.h and
    the version of the library linked do not match, or Z_ERRNO if there
    is an error reading or writing the files. */
-int AwsDoc::DynamoDB::deflateZip(FILE *source, FILE *dest) {
+int deflateZip(FILE *source, FILE *dest) {
     const int IN_CHUNK = 32767;
     const int OUT_CHUNK = 65535;
     int ret;
