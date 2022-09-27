@@ -48,7 +48,6 @@ public class RDSInstanceScenario
     private static RDSWrapper rdsWrapper = null!;
     private static ILogger logger = null!;
     private static readonly string engine = "mysql";
-
     static async Task Main(string[] args)
     {
         // Set up dependency injection for the Amazon RDS service.
@@ -121,7 +120,7 @@ public class RDSInstanceScenario
     /// Choose the RDS DB parameter group family from a list of available options.
     /// </summary>
     /// <returns>The selected parameter group family.</returns>
-    private static async Task<string> ChooseParameterGroupFamily()
+    public static async Task<string> ChooseParameterGroupFamily()
     {
         Console.WriteLine(sepBar);
         // 1. Get a list of available engines.
@@ -155,7 +154,7 @@ public class RDSInstanceScenario
     /// </summary>
     /// <param name="dbParameterGroupFamily">The DBParameterGroupFamily for the new DB parameter group.</param>
     /// <returns>The new DBParameterGroup.</returns>
-    private static async Task<DBParameterGroup> CreateDbParameterGroup(string dbParameterGroupFamily)
+    public static async Task<DBParameterGroup> CreateDbParameterGroup(string dbParameterGroupFamily)
     {
         Console.WriteLine(sepBar);
         Console.WriteLine($"2. Create new DB parameter group with family {dbParameterGroupFamily}:");
@@ -180,7 +179,7 @@ public class RDSInstanceScenario
     /// <param name="parameterGroupName">Name of the DBParameterGroup.</param>
     /// <param name="parameterNames">Optional specific names of parameters to describe.</param>
     /// <returns>The list of requested parameters.</returns>
-    private static async Task<List<Parameter>> DescribeParametersInGroup(string parameterGroupName, List<string>? parameterNames = null)
+    public static async Task<List<Parameter>> DescribeParametersInGroup(string parameterGroupName, List<string>? parameterNames = null)
     {
         Console.WriteLine(sepBar);
         Console.WriteLine("4. Get some parameters from the group.");
@@ -211,7 +210,7 @@ public class RDSInstanceScenario
     /// <param name="parameterGroupName">Name of the DBParameterGroup.</param>
     /// <param name="parameters">The parameters to modify.</param>
     /// <returns>Async task.</returns>
-    private static async Task ModifyParameters(string parameterGroupName, List<Parameter> parameters)
+    public static async Task ModifyParameters(string parameterGroupName, List<Parameter> parameters)
     {
         Console.WriteLine(sepBar);
         Console.WriteLine("6. Modify some parameters in the group.");
@@ -244,7 +243,7 @@ public class RDSInstanceScenario
     /// </summary>
     /// <param name="parameterGroupName">Name of the DBParameterGroup.</param>
     /// <returns></returns>
-    private static async Task DescribeUserSourceParameters(string parameterGroupName)
+    public static async Task DescribeUserSourceParameters(string parameterGroupName)
     {
         Console.WriteLine(sepBar);
         Console.WriteLine("7. Describe user source parameters in the group.");
@@ -269,7 +268,7 @@ public class RDSInstanceScenario
     /// </summary>
     /// <param name="dbParameterGroupFamily">DB parameter group family for engine choice.</param>
     /// <returns></returns>
-    private static async Task<DBEngineVersion> ChooseDbEngineVersion(string dbParameterGroupFamily)
+    public static async Task<DBEngineVersion> ChooseDbEngineVersion(string dbParameterGroupFamily)
     {
         Console.WriteLine(sepBar);
         // get list of allowed engines
@@ -304,7 +303,7 @@ public class RDSInstanceScenario
     /// <param name="engine">DB engine for instance choice.</param>
     /// <param name="engineVersion">DB engine version for instance choice.</param>
     /// <returns>The selected orderable DB instance option.</returns>
-    private static async Task<OrderableDBInstanceOption> ChooseDbInstanceClass(string engine, string engineVersion)
+    public static async Task<OrderableDBInstanceOption> ChooseDbInstanceClass(string engine, string engineVersion)
     {
         Console.WriteLine(sepBar);
         // Get a list of allowed instance classes.
@@ -347,7 +346,7 @@ public class RDSInstanceScenario
     /// <param name="instanceClass">Instance class to use for the instance.</param>
     /// <param name="instanceIdentifier">Instance identifier to use for the instance.</param>
     /// <returns></returns>
-    private static async Task<DBInstance?> CreateRdsNewInstance(DBParameterGroup parameterGroup,
+    public static async Task<DBInstance?> CreateRdsNewInstance(DBParameterGroup parameterGroup,
         string engineName, string engineVersion, string instanceClass, string instanceIdentifier)
     {
         Console.WriteLine(sepBar);
@@ -402,7 +401,7 @@ public class RDSInstanceScenario
     /// Display a connection string for an RDS instance.
     /// </summary>
     /// <param name="instance">The DB instance to use to get a connection string.</param>
-    private static void DisplayConnectionString(DBInstance instance)
+    public static void DisplayConnectionString(DBInstance instance)
     {
         Console.WriteLine(sepBar);
         // Display the connection string
@@ -419,7 +418,7 @@ public class RDSInstanceScenario
     /// </summary>
     /// <param name="instance">Instance to use when creating a snapshot.</param>
     /// <returns>The snapshot object.</returns>
-    private static async Task<DBSnapshot> CreateSnapshot(DBInstance instance)
+    public static async Task<DBSnapshot> CreateSnapshot(DBInstance instance)
     {
         Console.WriteLine(sepBar);
         // Create a snapshot.
@@ -448,7 +447,7 @@ public class RDSInstanceScenario
     /// </summary>
     /// <param name="instance">The instance to delete.</param>
     /// <returns>Async task.</returns>
-    private static async Task DeleteRdsInstance(DBInstance newInstance)
+    public static async Task DeleteRdsInstance(DBInstance newInstance)
     {
         Console.WriteLine(sepBar);
         // Delete the DB instance.
@@ -474,7 +473,7 @@ public class RDSInstanceScenario
     /// </summary>
     /// <param name="parameterGroup">The parameter group to delete.</param>
     /// <returns>Async task.</returns>
-    private static async Task DeleteParameterGroup(DBParameterGroup parameterGroup)
+    public static async Task DeleteParameterGroup(DBParameterGroup parameterGroup)
     {
         Console.WriteLine(sepBar);
         // Delete the parameter group.
