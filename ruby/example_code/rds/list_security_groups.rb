@@ -6,7 +6,7 @@ require "aws-sdk-rds"  # v2: require 'aws-sdk'
 
 # List all Amazon Relational Database Service (Amazon RDS) security groups.
 #
-# @param rds_resource [Aws::RDS::Resource]: The resource containing SDK logic
+# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource
 # @return security_groups [List, nil] A list of security groups or nil if error
 def list_security_groups(rds_resource)
   security_groups = []

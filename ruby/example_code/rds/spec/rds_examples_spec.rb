@@ -25,11 +25,6 @@ describe "RDS example code" do
     expect(snapshot).to be_an_instance_of(Aws::RDS::DBSnapshot)
   end
 
-  it "lists all instance snapshots" do
-    snapshots = list_instance_snapshots(rds_resource)
-    expect(snapshots).not_to be_empty
-  end
-
   it "creates a cluster snapshot" do
     db_cluster_snapshot = create_cluster_snapshot(rds_resource, multi_az_cluster)
     expect(db_cluster_snapshot).to be_an_instance_of(Aws::RDS::DBClusterSnapshot)

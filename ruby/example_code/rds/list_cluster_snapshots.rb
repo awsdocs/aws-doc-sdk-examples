@@ -7,7 +7,7 @@ require "aws-sdk-rds"  # v2: require 'aws-sdk'
 # List all snapshots for an Amazon Relational Database Service (Amazon RDS)
 # Multi-AZ DB cluster.
 #
-# @param rds_resource [Aws::RDS::Resource] The resource containing SDK logic
+# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource
 # @return [Array, nil] A list of snapshots or nil if error
 def list_multi_az_db_cluster_snapshots(rds_resource)
   cluster_snapshots = []
