@@ -21,7 +21,7 @@ namespace DeregisterConsumerExample
 
             string streamARN = "arn:aws:kinesis:us-west-2:000000000000:stream/AmazonKinesisStream";
             string consumerName = "CONSUMER_NAME";
-            string consumerARN = "arn:aws:kinesis:us-west-2:000000000000:stream/AmazonKinesisStream/consumer/CONSUMER_NAME:1630119706";
+            string consumerARN = "arn:aws:kinesis:us-west-2:000000000000:stream/AmazonKinesisStream/consumer/CONSUMER_NAME:000000000000";
 
             var success = await DeregisterConsumerAsync(client, streamARN, consumerARN, consumerName);
 
