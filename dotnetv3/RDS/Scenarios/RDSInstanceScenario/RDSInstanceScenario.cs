@@ -81,7 +81,7 @@ public class RDSInstanceScenario
             var parameterGroup = await CreateDbParameterGroup(parameterGroupFamily);
 
             var parameters = await DescribeParametersInGroup(parameterGroup.DBParameterGroupName,
-                new List<string>{"auto_increment_offset", "auto_increment_increment"});
+                new List<string> { "auto_increment_offset", "auto_increment_increment" });
 
             await ModifyParameters(parameterGroup.DBParameterGroupName, parameters);
 
