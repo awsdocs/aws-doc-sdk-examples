@@ -3,8 +3,8 @@
 
 # frozen_string_literal: true
 
-# To run this demo, you will need Ruby 2.6 or later, plus dependencies.
-# For more info, see:
+# To run this demo, you need Ruby 2.6 or later, plus dependencies.
+# For more information, see:
 # https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md
 
 require "aws-sdk-lambda"
@@ -35,7 +35,8 @@ def run_scenario
   puts "#                                                                                                    #".yellow
   puts "######################################################################################################".yellow
   puts ""
-  puts "You have launched a demo of AWS Lambda using the AWS for Ruby v3 SDK. Over the next 60 seconds, it will:"
+  puts "You have launched a demo of AWS Lambda using the AWS for Ruby v3 SDK. Over the next 60 seconds, it will"
+  puts "do the following:"
   puts "    1. Create a basic IAM role and policy for Lambda invocation."
   puts "    2. Create a new Lambda function."
   puts "    3. Invoke the Lambda function."

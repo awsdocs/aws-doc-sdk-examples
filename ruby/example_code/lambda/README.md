@@ -1,19 +1,26 @@
-# Lambda code examples for the AWS SDK for Ruby
+# Lambda code examples for the SDK for Ruby
 
 ## Overview
 
 These code examples demonstrate how to use the AWS SDK for Ruby (v3) to manage and invoke
 AWS Lambda functions.
 
+With AWS Lambda, you can run code without provisioning or managing servers. You pay only
+for the compute time that you consume—there's no charge when your code isn't running.
+
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+* We recommend that you grant your code least privilege. At most, grant only the minimum 
+permissions required to perform the task. For more information, see 
+[Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see
+[AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
 ### Single action
+Code excerpts that show you how to call individual service functions.
 
 * [Create a function](lambda_basics.rb)
   (`CreateFunction`)
@@ -31,10 +38,11 @@ AWS Lambda functions.
   (`UpdateFunctionConfiguration`)
 
 ### Scenario
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
 * [Get started with functions](scenario_getting_started_functions.rb)
 
-## Running the examples
+## Run the examples
 
 ### Prerequisites
 

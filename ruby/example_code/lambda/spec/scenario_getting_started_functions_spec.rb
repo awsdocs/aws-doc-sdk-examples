@@ -3,10 +3,6 @@
 
 # frozen_string_literal: true
 
-# To run this demo, you will need Ruby 2.6 or later, plus dependencies.
-# For more info, see:
-# https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md
-
 require "json"
 require "rspec"
 require_relative("../../../../../../aws-doc-sdk-examples/ruby/helpers/disclaimers")
