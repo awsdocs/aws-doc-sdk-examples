@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[rds.ruby.listInstanceSnapshots]
-require 'aws-sdk-rds' # v2: require 'aws-sdk'
+require "aws-sdk-rds" # v2: require 'aws-sdk'
 
 # List all Amazon Relational Database Service (Amazon RDS) DB instance
 # snapshots.
