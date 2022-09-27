@@ -43,7 +43,7 @@ class LambdaService extends \AwsUtilities\AWSServiceClass
             ]);
         });
     }
-    #snippet-end:[php.example_code.lambda.service.createdFunction]
+    #snippet-end:[php.example_code.lambda.service.createFunction]
 
     #snippet-start:[php.example_code.lambda.service.getFunction]
     public function getFunction($functionName)
