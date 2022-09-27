@@ -32,14 +32,6 @@ struct ExampleCommand: ParsableCommand {
         let serviceHandler = await ServiceHandler()
 
         do {
-            let testOutput = ValueOutput(header: "Test output for the table generator")
-            testOutput.addRow(title: "Number of wonderful things", value: 42)
-            testOutput.addRow(title: "User name", value: "BobDole1998")
-            testOutput.addRow(title: "Height of mountain in Imperial feet", value: 29444)
-
-            testOutput.output()
-            return
-
             let policy = try await serviceHandler.getAccountPasswordPolicy()
 
             let allowPasswordChanges: Bool = policy.allowUsersToChangePassword
@@ -53,19 +45,19 @@ struct ExampleCommand: ParsableCommand {
             let requireNumbers: Bool = policy.requireNumbers
             let requireSymbols: Bool = policy.requireSymbols
 
-            let output = ValueOutput(header: "AWS account IAM password policy settings")
-            output.addRow(title: "Password changes allowed", value: allowPasswordChanges)
-            output.addRow(title: "Passwords expire", value: passwordsExpire)
-            output.addRow(title: "Admin must reset expired passwords", value: passwordsExpireHard)
-            output.addRow(title: "Days passwords are valid for", value: maxPasswordAge)
-            output.addRow(title: "Minimum password length", value: minPasswordLength)
-            output.addRow(title: "Days passwords can't be reused for", value: passwordReuseDistance)
-            output.addRow(title: "At least 1 lowercase letter required", value: requireLowercase)
-            output.addRow(title: "At least 1 UPPERCASE letter required", value: requireUppercase)
-            output.addRow(title: "At least 1 digit required", value: requireNumbers)
-            output.addRow(title: "At least 1 symbol required", value: requireSymbols)
+            let output = ValueList(header: "AWS account IAM password policy settings")
+            output.addItem(title: "Password changes allowed", value: allowPasswordChanges)
+            output.addItem(title: "Passwords expire", value: passwordsExpire)
+            output.addItem(title: "Admin must reset expired passwords", value: passwordsExpireHard)
+            output.addItem(title: "Days passwords are valid for", value: maxPasswordAge)
+            output.addItem(title: "Minimum password length", value: minPasswordLength)
+            output.addItem(title: "Days passwords can't be reused for", value: passwordReuseDistance)
+            output.addItem(title: "At least 1 lowercase letter required", value: requireLowercase)
+            output.addItem(title: "At least 1 UPPERCASE letter required", value: requireUppercase)
+            output.addItem(title: "At least 1 digit required", value: requireNumbers)
+            output.addItem(title: "At least 1 symbol required", value: requireSymbols)
 
-            output.output()
+            print(output.getFormattedOutput())
         } catch {
             throw error
         }
