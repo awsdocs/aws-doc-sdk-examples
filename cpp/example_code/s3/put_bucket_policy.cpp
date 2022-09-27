@@ -65,6 +65,9 @@ bool AwsDoc::S3::PutBucketPolicy(const Aws::String &bucketName,
     return outcome.IsSuccess();
 }
 
+// snippet-end:[s3.cpp.put_bucket_policy02.code]
+
+// snippet-start:[s3.cpp.put_bucket_policy01.code]
 //! Build a policy JSON string.
 /*!
   \sa GetPolicyString()
@@ -94,7 +97,7 @@ Aws::String GetPolicyString(const Aws::String &userArn,
             "   ]\n"
             "}";
 }
-// snippet-end:[s3.cpp.put_bucket_policy02.code]
+// snippet-end:[s3.cpp.put_bucket_policy01.code]
 
 /*
  *
