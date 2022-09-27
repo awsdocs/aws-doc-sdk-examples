@@ -95,6 +95,15 @@ lambda_Invoke:
   synopsis: invoke a &LAM; function.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Lambda.dotnetv3.InvokeFunctionExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -221,6 +230,15 @@ lambda_ListFunctions:
   synopsis: list &LAM; functions.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Lambda.dotnetv3.ListFunctionsExample
     Python:
       versions:
         - sdk_version: 3

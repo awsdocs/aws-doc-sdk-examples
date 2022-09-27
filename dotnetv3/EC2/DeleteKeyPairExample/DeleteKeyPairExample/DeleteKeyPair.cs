@@ -11,7 +11,7 @@ namespace DeleteKeyPairExample
 
     /// <summary>
     /// Shows how to delete an existing Amazon Elastic Compute Cloud
-    /// (Amazon EC2) key pair. The example was uses the AWS SDK for .NET
+    /// (Amazon EC2) key pair. The example uses the AWS SDK for .NET
     /// version 3.7 and .NET Core 5.0.
     /// </summary>
     public class DeleteKeyPair

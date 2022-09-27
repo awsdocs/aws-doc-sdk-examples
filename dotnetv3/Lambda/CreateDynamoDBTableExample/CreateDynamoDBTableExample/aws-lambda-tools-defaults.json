@@ -18,7 +18,7 @@
     "function-name"        : "CreateDDBTable",
     "function-description" : "Creates a DynamoDB table to track uploads to an S3 bucket",
     "package-type"         : "Zip",
-    "function-role"        : "arn:aws:iam::704825161248:role/lambda-support",
+    "function-role"        : "arn:aws:iam::000000000000:role/lambda-support",
     "tracing-mode"         : "PassThrough",
     "environment-variables" : "",
     "image-tag"             : ""

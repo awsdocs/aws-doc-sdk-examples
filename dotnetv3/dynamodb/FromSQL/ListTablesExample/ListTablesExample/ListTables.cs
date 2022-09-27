@@ -21,7 +21,7 @@ namespace ListTables
     {
         /// <summary>
         /// Retrieves the Amazon DynamoDB configuration, calls for a list
-        /// of tables in the region specified in the configuration, and then
+        /// of tables in the Region specified in the configuration, and then
         /// displays the list on the console.
         /// </summary>
         public static async Task Main()
