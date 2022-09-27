@@ -34,7 +34,7 @@ string bucketName = "<Enter Value>";
 string key = "<Enter Value>";
 string keyUpdate = "<Enter Value>";
 
-string sepBar = new ('-', 80);
+string sepBar = new('-', 80);
 
 var lambdaClient = new AmazonLambdaClient();
 var lambdaMethods = new LambdaMethods();
