@@ -11,8 +11,8 @@
  *
  * Purpose
  *
- * Demonstrates using the AWS SDK for C++ to create a Amazon DynamoDB database and
- *  and perform a series of operations on the database.
+ * Demonstrates using the AWS SDK for C++ to create an Amazon DynamoDB table and
+ *  and perform a series of operations on the table.
  *
  * 1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
  * 2. Add a new movie. (PutItem)
@@ -70,7 +70,7 @@ namespace AwsDoc {
 
         //! Delete a DynamoDB table.
         /*!
-          \sa DeleteBucket()
+          \sa deleteDynamoTable()
           \param tableName: The DynamoDB table's name.
           \param dynamoClient: A DynamoDB client.
           \return bool: Function succeeded.
@@ -80,7 +80,7 @@ namespace AwsDoc {
 
         //! Query a newly created DynamoDB table until it is active.
         /*!
-          \sa DeleteBucket()
+          \sa waitTableActive()
           \param waitTableActive: The DynamoDB table's name.
           \param dynamoClient: A DynamoDB client.
           \return bool: Function succeeded.
@@ -109,7 +109,7 @@ namespace AwsDoc {
                                                Aws::String)> &test = [](
                                                const Aws::String &) -> bool { return true; });
 
-        //! Command line prompt/response utility function for integer result.
+        //! Command line prompt/response utility function for an integer result.
         /*!
          \sa askQuestionForInt()
          \param string: A question prompt.
@@ -117,25 +117,25 @@ namespace AwsDoc {
          */
         int askQuestionForInt(const std::string &string);
 
-        //! Command line prompt/response utility function for float result confined to
+        //! Command line prompt/response utility function for a float result confined to
         //! a range.
         /*!
          \sa askQuestionForFloatRange()
          \param string: A question prompt.
-         \param low: Valid response low inclusive.
-         \param high: Valid response high inclusive.
+         \param low: Low inclusive.
+         \param high: High inclusive.
          \return float: User's response.
          */
         float
         askQuestionForFloatRange(const Aws::String &string, float low, float high);
 
-        //! Command line prompt/response utility function for int result confined to
+        //! Command line prompt/response utility function for an int result confined to
         //! a range.
         /*!
          \sa askQuestionForIntRange()
          \param string: A question prompt.
-         \param low: Low valid response inclusive.
-         \param high: High valid response inclusive.
+         \param low: Low inclusive.
+         \param high: High inclusive.
          \return int: User's response.
          */
         int askQuestionForIntRange(const Aws::String &string, int low,
@@ -427,16 +427,13 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
                                         yearToMatch));
         req.SetExpressionAttributeValues(attributeValues);
 
-        // Perform Query operation.
         const Aws::DynamoDB::Model::QueryOutcome &result = dynamoClient.Query(req);
         if (result.IsSuccess()) {
-            // Reference the retrieved items.
             const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = result.GetResult().GetItems();
             if (!items.empty()) {
                 std::cout << "\nThere were " << items.size()
                           << " movies in the database from "
                           << yearToMatch << "." << std::endl;
-                //Iterate each item and print.
                 for (const auto &item: items) {
                     printMovieInfo(item);
                 }
@@ -452,8 +449,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         else {
             std::cerr << "Failed to Query items: " << result.GetError().GetMessage();
         }
-
-
+        
     } while (doAgain == "y");
 
     //  7. Use Scan to return movies released within a range of years.
@@ -573,11 +569,12 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
 bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
                                        const Aws::DynamoDB::DynamoDBClient &dynamoClient) {
     // Repeatedly call DescribeTable until table is ACTIVE.
+    const int MAX_QUERIES = 20;
     Aws::DynamoDB::Model::DescribeTableRequest request;
     request.SetTableName(tableName);
 
     int count = 0;
-    while (count < 20) {
+    while (count < MAX_QUERIES) {
         const Aws::DynamoDB::Model::DescribeTableOutcome &result = dynamoClient.DescribeTable(
                 request);
         if (result.IsSuccess()) {
