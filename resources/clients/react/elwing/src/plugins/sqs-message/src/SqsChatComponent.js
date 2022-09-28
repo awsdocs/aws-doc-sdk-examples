@@ -50,29 +50,25 @@ function App() {
         Sending a message here posts a message to your SQS queue. This app is
         polling the SQS queue for new messages and displaying them below.
       </Box>
-      <Box variant="p">
-        <Header variant="h2">Services Used</Header>
-        <ul>
-          <li>
-            <Link external href="https://aws.amazon.com/sqs/">
-              Amazon Simple Queue Service
-            </Link>
-          </li>
-        </ul>
-      </Box>
-      <Box variant="p">
-        <Header variant="h2">Available Backends</Header>
-        <ul>
-          <li>
-            <Link
-              external
-              href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application"
-            >
-              Java
-            </Link>
-          </li>
-        </ul>
-      </Box>
+      <Header variant="h2">Services Used</Header>
+      <ul>
+        <li>
+          <Link external href="https://aws.amazon.com/sqs/">
+            Amazon Simple Queue Service
+          </Link>
+        </li>
+      </ul>
+      <Header variant="h2">Available Backends</Header>
+      <ul>
+        <li>
+          <Link
+            external
+            href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application"
+          >
+            Java
+          </Link>
+        </li>
+      </ul>
       <Container header={<Header variant="h2">Messages</Header>}>
         <ChatItems chatItems={chats} />
         <MessageForm purgeHandler={purgeChats} />

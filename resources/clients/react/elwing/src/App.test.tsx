@@ -6,7 +6,7 @@ test("renders learn react link", async () => {
   render(<App />);
 
   await waitFor(async () => {
-    const linkElement = await screen.findByText("Get Started");
+    const linkElement = await screen.findByText("Get started");
     expect(linkElement).toBeInTheDocument();
   });
 });
