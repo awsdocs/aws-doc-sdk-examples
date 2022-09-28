@@ -84,7 +84,9 @@ foreach(file ${AWSDOC_SOURCE})
     target_include_directories(${EXAMPLE_EXE} PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
-            ${ADDITIONAL_INCLUDE_DIR})
+            ${ADDITIONAL_INCLUDE_DIR}
+            ${AWSSDK_INCLUDE_DIR}/aws
+            )
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
         ${AWSSDK_PLATFORM_DEPS}
             ${ADDITIONAL_LIBS})

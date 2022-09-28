@@ -42,7 +42,7 @@
 #include <aws/dynamodb/model/QueryRequest.h>
 #include <aws/dynamodb/model/ScanRequest.h>
 #include <aws/dynamodb/model/UpdateItemRequest.h>
-#include <aws/dynamodb/model/BatchWriteItemRequest.h>
+#include <dynamodb/model/BatchWriteItemRequest.h>
 #include <aws/core/http/HttpClientFactory.h>
 #include <aws/core/http/HttpClient.h>
 #include <fstream>
@@ -66,6 +66,7 @@ namespace AwsDoc {
         static const Aws::String PLOT_KEY("plot");
         static const int PROVISIONED_THROUGHPUT_UNITS = 10;
         static const Aws::String ALLOCATION_TAG("dynamodb_scenario");
+        static const int ASTERIX_FILL_WIDTH = 88;
 
         //! Delete a DynamoDB table.
         /*!
@@ -169,9 +170,9 @@ namespace AwsDoc {
 // snippet-start:[cpp.example_code.dynamodb.Scenario_GettingStarted]
 bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    std::cout << std::setfill('*') << std::setw(88) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
     std::cout << "Welcome to the Amazon DynamoDB getting started demo." << std::endl;
-    std::cout << std::setfill('*') << std::setw(88) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
 
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
@@ -369,7 +370,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         }
     }
 
-    std::cout << std::setfill('*') << std::setw(88) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
 
     // 5. Get a movie by Key (partition + sort).
     {
@@ -388,9 +389,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
                     request);
             if (!result.IsSuccess()) {
                 std::cerr << "Error " << result.GetError().GetMessage();
-                deleteDynamoTable(MOVIE_TABLE_NAME, dynamoClient);
-                return false;
-            }
+             }
             else {
                 const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item = result.GetResult().GetItem();
                 if (!item.empty()) {
@@ -581,21 +580,21 @@ bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
     while (count < 20) {
         const Aws::DynamoDB::Model::DescribeTableOutcome &result = dynamoClient.DescribeTable(
                 request);
-        if (!result.IsSuccess()) {
-            std::cerr << "Error DynamoDB::waitTableActiveconst "
-                      << result.GetError().GetMessage() << std::endl;
-            return false;
-        }
-        else {
+        if (result.IsSuccess()) {
             Aws::DynamoDB::Model::TableStatus status = result.GetResult().GetTable().GetTableStatus();
 
-            if (Aws::DynamoDB::Model::TableStatus::ACTIVE == status) {
-                return true;
-            }
-            else {
+            if (Aws::DynamoDB::Model::TableStatus::ACTIVE != status) {
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
+            else {
+                return true;
+            }
         }
+        else {
+            std::cerr << "Error DynamoDB::waitTableActive "
+                      << result.GetError().GetMessage() << std::endl;
+            return false;
+         }
         count++;
     }
     return false;
@@ -781,6 +780,7 @@ void AwsDoc::DynamoDB::printMovieInfo(
 static int deflateZip(FILE *source, FILE *dest);
 
 Aws::String AwsDoc::DynamoDB::getMovieJSON() {
+    const int BUFFER_SIZE = 1024;
     const Aws::String JSON_FILE_NAME("moviedata.json");
     Aws::String result;
 
@@ -820,9 +820,9 @@ Aws::String AwsDoc::DynamoDB::getMovieJSON() {
     }
 #endif //_HAS_ZLIB_
     std::ifstream movieData(JSON_FILE_NAME);
-    if (movieData) {
-        std::array<char, 1024> buffer{};
-        while (movieData) {
+    if (movieData) { // NOLINT (readability-implicit-bool-conversion)
+        std::array<char, BUFFER_SIZE> buffer{};
+        while (movieData) { // NOLINT (readability-implicit-bool-conversion)
             movieData.read(&buffer[0], buffer.size() - 2);
             buffer[movieData.gcount()] = 0;
             result += &buffer[0];

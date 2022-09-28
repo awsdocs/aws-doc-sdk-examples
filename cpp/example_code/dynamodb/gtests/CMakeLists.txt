@@ -107,6 +107,7 @@ target_include_directories(
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
         ${ADDITIONAL_INCLUDE_DIR}
+        ${AWSSDK_INCLUDE_DIR}/aws
 )
 
 target_compile_definitions(
