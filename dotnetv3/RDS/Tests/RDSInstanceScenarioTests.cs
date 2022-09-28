@@ -9,7 +9,7 @@ using RDSActions;
 namespace RDSTests;
 
 /// <summary>
-/// Integration tests for the RDS DB instance examples.
+/// Integration tests for the Amazon RDS DB instance examples.
 /// </summary>
 public class RDSInstanceScenarioTests
 {
@@ -25,7 +25,7 @@ public class RDSInstanceScenarioTests
     {
         _configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("testsettings.json") // Load test settings from json file.
+            .AddJsonFile("testsettings.json") // Load test settings from .json file.
             .AddJsonFile("testsettings.local.json",
                 true) // Optionally load local settings.
             .Build();
@@ -64,6 +64,7 @@ public class RDSInstanceScenarioTests
         {
             var parameterGroups = await _wrapper.DescribeDBParameterGroups();
             isParameterGroupReady = parameterGroups.Any(g => g.DBParameterGroupName == _parameterGroupName);
+            Thread.Sleep(30000);
         }
 
         Assert.NotNull(parameterGroup);
@@ -176,6 +177,7 @@ public class RDSInstanceScenarioTests
             var instances = await _wrapper.DescribeDBInstances(instanceIdentifier);
             isInstanceReady = instances.FirstOrDefault()?.DBInstanceStatus == "available";
             newInstance = instances.First();
+            Thread.Sleep(30000);
         }
 
         Assert.NotNull(newInstance);
@@ -194,7 +196,7 @@ public class RDSInstanceScenarioTests
         var snapshot = await _wrapper.CreateDBSnapshot(
             instanceIdentifier, "ExampleSnapshot-" + DateTime.Now.Ticks);
 
-        // Wait for the snapshot to be available
+        // Wait for the snapshot to be available.
         bool isSnapshotReady = false;
 
         while (!isSnapshotReady)
@@ -202,6 +204,7 @@ public class RDSInstanceScenarioTests
             var snapshots = await _wrapper.DescribeDBSnapshots(instanceIdentifier);
             isSnapshotReady = snapshots.FirstOrDefault()?.Status == "available";
             snapshot = snapshots.First();
+            Thread.Sleep(30000);
         }
 
         Assert.NotNull(snapshot);
@@ -226,6 +229,7 @@ public class RDSInstanceScenarioTests
         {
             var instance = await _wrapper.DescribeDBInstances();
             isInstanceDeleted = instance.All(i => i.DBInstanceIdentifier != instanceIdentifier);
+            Thread.Sleep(30000);
         }
 
         Assert.True(isInstanceDeleted);

@@ -22,26 +22,26 @@ public class RDSInstanceScenario
     /*
     Before running this .NET code example, set up your development environment, including your credentials.
 
-    This .NET example performs these tasks:
-    1.  Return a list of the available DB engine families using the DescribeDBEngineVersionsAsync method.
-    2.  Select an engine family and create a custom DB parameter group using the CreateDBParameterGroupAsync method.
-    3.  Get the parameter groups using the DescribeDBParameterGroupsAsync method.
-    4.  Get parameters in the group using the DescribeDBParameters method.
-    5.  Parse and display parameters in the group.
-    6.  Modify both the auto_increment_offset and auto_increment_increment parameters
+    This .NET example performs the following tasks:
+    1.  Returns a list of the available DB engine families using the DescribeDBEngineVersionsAsync method.
+    2.  Selects an engine family and creates a custom DB parameter group using the CreateDBParameterGroupAsync method.
+    3.  Gets the parameter groups using the DescribeDBParameterGroupsAsync method.
+    4.  Gets parameters in the group using the DescribeDBParameters method.
+    5.  Parses and displays parameters in the group.
+    6.  Modifies both the auto_increment_offset and auto_increment_increment parameters
         using the ModifyDBParameterGroupAsync method.
-    7.  Get and display the updated parameters using the DescribeDBParameters method with a source of "user".
-    8.  Get a list of allowed engine versions using the DescribeDBEngineVersionsAsync method.
-    9.  Display and select from a list of micro instance classes available for the selected engine and version.
-    10. Create an RDS DB instance that contains a MySql database and uses the parameter group 
+    7.  Gets and displays the updated parameters using the DescribeDBParameters method with a source of "user".
+    8.  Gets a list of allowed engine versions using the DescribeDBEngineVersionsAsync method.
+    9.  Displays and selects from a list of micro instance classes available for the selected engine and version.
+    10. Creates an RDS DB instance that contains a MySql database and uses the parameter group 
         using the CreateDBInstanceAsync method.
-    11. Wait for DB instance to be ready using the DescribeDBInstancesAsync method.
-    12. Print out the connection endpoint string for the new DB instance.
-    13. Create a snapshot of the DB instance using the CreateDBSnapshotAsync method.
-    14. Wait for DB snapshot to be ready using the DescribeDBSnapshots method.
-    15. Delete the DB instance using the DeleteDBInstanceAsync method.
-    16. Wait for DB instance to be deleted using the DescribeDbInstances method.
-    17. Delete the parameter group using the DeleteDBParameterGroupAsync.
+    11. Waits for DB instance to be ready using the DescribeDBInstancesAsync method.
+    12. Prints out the connection endpoint string for the new DB instance.
+    13. Creates a snapshot of the DB instance using the CreateDBSnapshotAsync method.
+    14. Waits for DB snapshot to be ready using the DescribeDBSnapshots method.
+    15. Deletes the DB instance using the DeleteDBInstanceAsync method.
+    16. Waits for DB instance to be deleted using the DescribeDbInstances method.
+    17. Deletes the parameter group using the DeleteDBParameterGroupAsync.
     */
 
     private static readonly string sepBar = new('-', 80);
@@ -389,6 +389,7 @@ public class RDSInstanceScenario
                 instances = await rdsWrapper.DescribeDBInstances(instanceIdentifier);
                 isInstanceReady = instances.FirstOrDefault()?.DBInstanceStatus == "available";
                 newInstance = instances.First();
+                Thread.Sleep(30000);
             }
         }
 
@@ -433,6 +434,7 @@ public class RDSInstanceScenario
             var snapshots = await rdsWrapper.DescribeDBSnapshots(instance.DBInstanceIdentifier);
             isSnapshotReady = snapshots.FirstOrDefault()?.Status == "available";
             snapshot = snapshots.First();
+            Thread.Sleep(30000);
         }
 
         Console.WriteLine(
@@ -461,6 +463,7 @@ public class RDSInstanceScenario
         {
             var instance = await rdsWrapper.DescribeDBInstances();
             isInstanceDeleted = instance.All(i => i.DBInstanceIdentifier != newInstance.DBInstanceIdentifier);
+            Thread.Sleep(30000);
         }
 
         Console.WriteLine("DB instance deleted.");
