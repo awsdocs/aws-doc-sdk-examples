@@ -73,7 +73,7 @@ final class ValueListTests: XCTestCase {
         XCTAssertEqual(output.count, 0, "Length of empty value list should be zero")
     }
 
-    /// Test that a list with a header but no data is generated correctly.
+    /// Test that a list with a header, but no data, is generated correctly.
     func testEmptyWithHeader() {
         let vl = ValueList(header: self.testHeader)
         let expectedOutput = concatStrings(self.testHeader, self.dividerNoContent)
@@ -83,7 +83,7 @@ final class ValueListTests: XCTestCase {
         XCTAssertEqual(output, expectedOutput, "Empty table with header doesn't match expected string")
     }
 
-    /// Test that a list with content but no header is generated correctly.
+    /// Test that a list with content, but no header, is generated correctly.
     func testOutputNoHeader() {
         let vl = ValueList()
         let expectedOutput = concatArrayStrings(self.textRows)

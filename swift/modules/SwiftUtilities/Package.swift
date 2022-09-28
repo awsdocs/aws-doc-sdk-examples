@@ -30,7 +30,7 @@ let package = Package(
                 "Fakery"
             ],
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
         .testTarget(
@@ -40,7 +40,7 @@ let package = Package(
                 "Fakery"
             ],
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
     ]
