@@ -18,13 +18,13 @@ With Organizations, you can consolidate multiple AWS accounts into an organizati
 Code excerpts that show you how to call individual service functions.
 
 - [Attach a policy to a target](AttachPolicyExample/AttachPolicyExample/AttachPolicy.cs) (`AttachPolicyAsync`)
+- [Create a policy](CreatePolicyExample/CreatePolicyExample/CreatePolicy.cs) (`CreatePolicyAsync`)
 - [Create an account](CreateAccountExample/CreateAccountExample/CreateAccount.cs) (`CreateAccountAsync`)
 - [Create an organization](CreateOrganizationExample/CreateOrganizationExample/CreateOrganization.cs) (`CreateOrganizationAsync`)
 - [Create an organizational unit](CreateOrganizationalUnitExample/CreateOrganizationalUnitExample/CreateOrganizationalUnit.cs) (`CreateOrganizationalUnitAsync`)
-- [Create a policy](CreatePolicyExample/CreatePolicyExample/CreatePolicy.cs) (`CreatePolicyAsync`)
+- [Delete a policy](DeletePolicyExample/DeletePolicyExample/DeletePolicy.cs) (`DeletePolicyAsync`)
 - [Delete an organization](DeleteOrganizationExample/DeleteOrganizationExample/DeleteOrganization.cs) (`DeleteOrganizationAsync`)
 - [Delete an organizational unit](DeleteOrganizationalUnitExample/DeleteOrganizationalUnitExample/DeleteOrganizationalUnit.cs) (`DeleteOrganizationalUnitAsync`)
-- [Delete a policy](DeletePolicyExample/DeletePolicyExample/DeletePolicy.cs) (`DeletePolicyAsync`)
 - [Detach a policy from a target](DetachPolicyExample/DetachPolicyExample/DetachPolicy.cs) (`DetachPolicyAsync`)
 - [List accounts](ListAccountsExample/ListAccountsExample/ListAccounts.cs) (`ListAccountsAsync`)
 - [List organizational units for parent](ListOrganizationalUnitsForParentExample/ListOrganizationalUnitsForParentExample/ListOrganizationalUnitsForParent.cs) (`ListOrganizationalUnitsAsync`)

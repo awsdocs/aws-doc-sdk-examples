@@ -129,6 +129,7 @@ ALLOW_LIST = {
     'ListTagsForVaultExample/ListTagsForVault',
     'TerminateInstanceInAutoScalingGroupAsync',
     'GetIdentityVerificationAttributesRequest',
+    'com/transcribe/latest/APIReference/index',
     'CancelExportTaskExample/CancelExportTask',
     'CreateExportTaskExample/CreateExportTask',
     'ListTagsExample/ListTagsExample/ListTags',

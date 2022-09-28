@@ -30,10 +30,10 @@ namespace StopInstancesExample
             var client = new AmazonEC2Client();
 
             // In addition to the list of instance Ids, the
-            // request can als include the following properties:
+            // request can also include the following properties:
             //     Force      When true forces the instances to
             //                stop but you have to check the integrity
-            //                of the file system. (Not recommended on
+            //                of the file system. Not recommended on
             //                Windows instances.
             //     Hibernate  When true, hibernates the instance if the
             //                instance was enabled for hibernation when
@@ -50,7 +50,8 @@ namespace StopInstancesExample
                 var instances = response.StoppingInstances;
                 instances.ForEach(i =>
                 {
-                    Console.WriteLine($"Successfully stopped the EC2 Instance with InstanceID: {i.InstanceId}.");
+                    Console.WriteLine($"Successfully stopped the EC2 Instance " +
+                                      $"with InstanceID: {i.InstanceId}.");
                 });
             }
         }

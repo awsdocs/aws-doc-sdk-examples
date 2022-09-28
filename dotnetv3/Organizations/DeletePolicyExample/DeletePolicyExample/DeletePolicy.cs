@@ -10,22 +10,21 @@ namespace DeletePolicyExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Deletes an existing Amazon Orgranizations Policy. This example was
+    /// Deletes an existing AWS Organizations policy. This example was
     /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     public class DeletePolicy
     {
         /// <summary>
         /// Initializes the Organizations client object and then uses it to
-        /// delete the Policy with the specified Policy Id.
+        /// delete the policy with the specified policyId.
         /// </summary>
-        /// <returns></returns>
         public static async Task Main()
         {
             // Create the client object using the default account.
             IAmazonOrganizations client = new AmazonOrganizationsClient();
 
-            var policyId = "p-c0hsjgmq";
+            var policyId = "p-00000000";
 
             var request = new DeletePolicyRequest
             {

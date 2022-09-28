@@ -5,6 +5,15 @@ organizations_CreatePolicy:
   synopsis: create an &AO; policy.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.CreatePolicyExample
     Python:
       versions:
         - sdk_version: 3
@@ -16,12 +25,72 @@ organizations_CreatePolicy:
                 - python.example_code.organizations.CreatePolicy
   services:
     organizations: {CreatePolicy}
+organizations_CreateAccount:
+  title: Create an &AO; account using an &AWS; SDK
+  title_abbrev: Create an account
+  synopsis: create an &AO; account.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.CreateAccountExample
+  services:
+    organizations: {CreateAccount}
+organizations_CreateOrganization:
+  title: Create an &AO; organization using an &AWS; SDK
+  title_abbrev: Create an organization
+  synopsis: create an &AO; organization.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.CreateOrganizationExample
+  services:
+    organizations: {CreateOrganization}
+organizations_CreateOrganizationalUnit:
+  title: Create an &AO; organizational unit using an &AWS; SDK
+  title_abbrev: Create an organizational unit
+  synopsis: create an &AO; organizational unit.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.CreateOrganizationalUnitExample
+  services:
+    organizations: {CreateOrganizationalUnit}
 organizations_ListPolicies:
   title: List &AO; policies using an &AWS; SDK
   title_abbrev: List policies
   synopsis: list &AO; policies.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.ListPoliciesExample
     Python:
       versions:
         - sdk_version: 3
@@ -56,6 +125,15 @@ organizations_AttachPolicy:
   synopsis: attach an &AO; policy to a target.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.AttachPolicyExample
     Python:
       versions:
         - sdk_version: 3
@@ -73,6 +151,15 @@ organizations_DetachPolicy:
   synopsis: detach an &AO; policy from a target.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.DetachPolicyExample
     Python:
       versions:
         - sdk_version: 3
@@ -90,6 +177,15 @@ organizations_DeletePolicy:
   synopsis: delete an &AO; policy.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.DeletePolicyExample
     Python:
       versions:
         - sdk_version: 3
@@ -101,3 +197,71 @@ organizations_DeletePolicy:
                 - python.example_code.organizations.DeletePolicy
   services:
     organizations: {DeletePolicy}
+organizations_DeleteOrganizationalUnit:
+  title: Delete an &AO; organizational unit using an &AWS; SDK
+  title_abbrev: Delete an organizational unit
+  synopsis: delete an &AO; organizational unit.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.DeleteOrganizationalUnitExample
+  services:
+    organizations: {DeleteOrganizationalUnit}
+organizations_DeleteOrganization:
+  title: Delete an &AO; organization using an &AWS; SDK
+  title_abbrev: Delete an organization
+  synopsis: delete an &AO; organization.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.DeleteOrganizationExample
+  services:
+    organizations: {DeleteOrganization}
+organizations_ListAccounts:
+  title: List accounts for an &AO; organization using an &AWS; SDK
+  title_abbrev: List accounts
+  synopsis: list accounts for an &AO; organization.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.ListAccountsExample
+  services:
+    organizations: {ListAccounts}
+organizations_ListOrganizationalUnits:
+  title: List &AO; organizational units using an &AWS; SDK
+  title_abbrev: List organizational units
+  synopsis: list &AO; organizational units.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Organizations.dotnetv3.ListOrganizationalUnitsForParentExample
+  services:
+    organizations: {ListOrganizationalUnitsForParent}

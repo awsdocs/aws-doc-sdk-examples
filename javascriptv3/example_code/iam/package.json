@@ -1,0 +1,15 @@
+{
+  "name": "iam",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "corepyle@amazon.com",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-iam": "^3.168.0",
+    "ramda": "^0.28.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.28.15"
+  }
+}

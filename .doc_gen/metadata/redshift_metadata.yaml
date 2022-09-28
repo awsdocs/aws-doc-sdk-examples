@@ -1,0 +1,153 @@
+# zexi 0.4.0
+redshift_CreateCluster:
+  title: Create an &RS; cluster using an &AWS; SDK
+  title_abbrev: Create a cluster
+  synopsis: create an &RS; cluster.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.kotlin.create_cluster.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.java2.create_cluster.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - redshift.JavaScript.createclientv3
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.javascript.redshift-create-clusterV3
+  services:
+    redshift: {CreateCluster}
+redshift_DeleteCluster:
+  title: Delete an &RS; cluster using an &AWS; SDK
+  title_abbrev: Delete a cluster
+  synopsis: delete an &RS; cluster.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Delete the cluster.
+              snippet_tags:
+                - redshift.kotlin.delete_cluster.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Delete the cluster.
+              snippet_tags:
+                - redshift.java2.delete_cluster.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - redshift.JavaScript.createclientv3
+            - description: Create the cluster.
+              snippet_tags:
+                - redshift.javascript.redshift-delete-clusterV3
+  services:
+    redshift: {DeleteCluster}
+redshift_DescribeClusters:
+  title: Describe an &RS; cluster using an &AWS; SDK
+  title_abbrev: Describe your clusters
+  synopsis: describe your &RS; clusters.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Describe the cluster.
+              snippet_tags:
+                - redshift.kotlin.describe_cluster.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Describe the cluster.
+              snippet_tags:
+                - redshift.java2.describe_cluster.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - redshift.JavaScript.createclientv3
+            - description: Describe your clusters.
+              snippet_tags:
+                - redshift.javascript.redshift-describe-clustersV3
+  services:
+    redshift: {DescribeClusters}
+redshift_ModifyCluster:
+  title: Modify an &RS; cluster using an &AWS; SDK
+  title_abbrev: Modify a cluster
+  synopsis: modify an &RS; cluster.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/redshift
+          sdkguide:
+          excerpts:
+            - description: Modify a cluster.
+              snippet_tags:
+                - redshift.kotlin.mod_cluster.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Modify a cluster.
+              snippet_tags:
+                - redshift.java2.mod_cluster.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - redshift.JavaScript.createclientv3
+            - description: Modify a cluster.
+              snippet_tags:
+                - redshift.javascript.redshift-modify-clustersV3
+  services:
+    redshift: {ModifyCluster}

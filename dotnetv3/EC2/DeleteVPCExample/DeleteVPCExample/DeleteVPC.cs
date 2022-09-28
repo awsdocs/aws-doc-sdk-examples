@@ -22,7 +22,7 @@ namespace DeleteVPCExample
         /// </summary>
         public static async Task Main()
         {
-            string vpcId = "vpc-0e304cc1627062b88";
+            string vpcId = "vpc-0123456789abc";
 
             // If your Amazon EC2 VPC is not defined in the same AWS Region as
             // the default AWS user on your system, you need to supply the AWS

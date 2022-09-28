@@ -88,6 +88,8 @@ public class CreateAndModifyCluster {
            System.exit(1);
        }
     }
+    // snippet-end:[redshift.java2.create_cluster.main]
+
 
     // Waits until the cluster is available
     public static void waitForClusterReady(RedshiftClient redshiftClient, String clusterId) {
@@ -124,7 +126,8 @@ public class CreateAndModifyCluster {
     }
   }
 
-    public static void modifyCluster(RedshiftClient redshiftClient, String clusterId) {
+    // snippet-start:[redshift.java2.mod_cluster.main]
+     public static void modifyCluster(RedshiftClient redshiftClient, String clusterId) {
 
         try {
             ModifyClusterRequest modifyClusterRequest = ModifyClusterRequest.builder()
@@ -140,5 +143,6 @@ public class CreateAndModifyCluster {
             System.exit(1);
         }
     }
-    // snippet-end:[redshift.java2.create_cluster.main]
+    // snippet-end:[redshift.java2.mod_cluster.main]
+
 }
