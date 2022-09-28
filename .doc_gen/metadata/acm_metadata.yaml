@@ -5,6 +5,15 @@ acm_DescribeCertificate:
   synopsis: describe &ACM; certificates.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ACM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ACM.dotnetv3.DescribeCertificate
     Python:
       versions:
         - sdk_version: 3
@@ -39,6 +48,15 @@ acm_ListCertificates:
   synopsis: list &ACM; certificates.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ACM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ACM.dotnetv3.ListCertificates
     Python:
       versions:
         - sdk_version: 3

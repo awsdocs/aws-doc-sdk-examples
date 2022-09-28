@@ -15,7 +15,7 @@ node ses_deletereceiptfilter.js
 // snippet-start:[ses.JavaScript.filters.deleteReceiptFilterV3]
 import { DeleteReceiptFilterCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-import { getUniqueName } from "../../libs/index";
+import { getUniqueName } from "../../libs/utils/util-string.js";
 
 const RECEIPT_FILTER_NAME = getUniqueName("ReceiptFilterName");
 

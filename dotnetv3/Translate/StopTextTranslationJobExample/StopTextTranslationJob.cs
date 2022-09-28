@@ -19,12 +19,14 @@ namespace StopTextTranslationJobExample
         public static async Task Main()
         {
             var client = new AmazonTranslateClient();
-            var jobId = "sample-job-id";
+            var jobId = "1234567890abcdef01234567890abcde";
 
             var request = new StopTextTranslationJobRequest
             {
                 JobId = jobId,
             };
+
+            await StopTranslationJobAsync(client, request);
         }
 
         /// <summary>
