@@ -83,7 +83,7 @@ public partial class RDSWrapper
     {
         var results = new List<DBInstance>();
         var instancesPaginator = _amazonRDS.Paginators.DescribeDBInstances(
-            new DescribeDBInstancesRequest()
+            new DescribeDBInstancesRequest
             {
                 DBInstanceIdentifier = dbInstanceIdentifier
             });

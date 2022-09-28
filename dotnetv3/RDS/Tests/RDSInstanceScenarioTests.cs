@@ -70,7 +70,7 @@ public class RDSInstanceScenarioTests
     }
 
     /// <summary>
-    /// Describe DB parameters within a parameter group. Should return a list that is not empty.
+    /// Describe the DB parameters within a parameter group. Should return a list that is not empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -84,7 +84,7 @@ public class RDSInstanceScenarioTests
     }
 
     /// <summary>
-    /// Modify DB parameters within a parameter group. Should return the group name.
+    /// Modify the DB parameters within a parameter group. Should return the group name.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -111,7 +111,7 @@ public class RDSInstanceScenarioTests
     }
 
     /// <summary>
-    /// Describe user parameters within a group. Should return the modified parameter.
+    /// Describe the user parameters within a group. Should return the modified parameter.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -127,7 +127,7 @@ public class RDSInstanceScenarioTests
     }
 
     /// <summary>
-    /// Describe orderable DB instance options. Should return a list that is not empty.
+    /// Describe the orderable DB instance options. Should return a list that is not empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -143,7 +143,7 @@ public class RDSInstanceScenarioTests
     }
 
     /// <summary>
-    /// Describe orderable DB instance options. Should return a list that is not empty.
+    /// Create the DB instance. Should return the new instance.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -182,7 +182,7 @@ public class RDSInstanceScenarioTests
     }
 
     /// <summary>
-    /// Create DB snapshot. Should return a snapshot instance.
+    /// Create a DB snapshot. Should return a snapshot instance.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
