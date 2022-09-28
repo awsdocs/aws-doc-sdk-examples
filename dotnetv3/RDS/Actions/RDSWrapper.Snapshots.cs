@@ -39,7 +39,7 @@ public partial class RDSWrapper
     // snippet-start:[RDS.dotnetv3.DescribeDBSnapshots]
 
     /// <summary>
-    /// Return a list of DB snapshots for a particular instance.
+    /// Return a list of DB snapshots for a particular DB instance.
     /// </summary>
     /// <param name="dbInstanceIdentifier">DB instance identifier.</param>
     /// <returns>List of DB snapshots.</returns>

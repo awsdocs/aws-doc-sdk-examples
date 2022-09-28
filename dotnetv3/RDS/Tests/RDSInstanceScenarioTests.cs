@@ -9,7 +9,7 @@ using RDSActions;
 namespace RDSTests;
 
 /// <summary>
-/// Integration tests for the RDS instance examples.
+/// Integration tests for the RDS DB instance examples.
 /// </summary>
 public class RDSInstanceScenarioTests
 {
@@ -127,7 +127,7 @@ public class RDSInstanceScenarioTests
     }
 
     /// <summary>
-    /// Describe orderable instance options. Should return a list that is not empty.
+    /// Describe orderable DB instance options. Should return a list that is not empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -143,7 +143,7 @@ public class RDSInstanceScenarioTests
     }
 
     /// <summary>
-    /// Describe orderable instance options. Should return a list that is not empty.
+    /// Describe orderable DB instance options. Should return a list that is not empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -219,7 +219,7 @@ public class RDSInstanceScenarioTests
 
         await _wrapper.DeleteDBInstance(instanceIdentifier);
 
-        // Wait for the instance to delete.
+        // Wait for the DB instance to delete.
         bool isInstanceDeleted = false;
 
         while (!isInstanceDeleted)

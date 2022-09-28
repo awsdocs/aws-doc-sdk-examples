@@ -15,7 +15,7 @@ namespace RDSInstanceScenario;
 // snippet-start:[RDS.dotnetv3.RdsInstanceScenario]
 
 /// <summary>
-/// Scenario for RDS Instance example.
+/// Scenario for RDS DB instance example.
 /// </summary>
 public class RDSInstanceScenario
 {
@@ -33,10 +33,10 @@ public class RDSInstanceScenario
     7.  Get and display the updated parameters using the DescribeDBParameters method with a source of "user".
     8.  Get a list of allowed engine versions using the DescribeDBEngineVersionsAsync method.
     9.  Display and select from a list of micro instance classes available for the selected engine and version.
-    10. Create an RDS database instance that contains a MySql database and uses the parameter group 
+    10. Create an RDS DB instance that contains a MySql database and uses the parameter group 
         using the CreateDBInstanceAsync method.
     11. Wait for DB instance to be ready using the DescribeDBInstancesAsync method.
-    12. Print out the connection endpoint string for the new instance.
+    12. Print out the connection endpoint string for the new DB instance.
     13. Create a snapshot of the DB instance using the CreateDBSnapshotAsync method.
     14. Wait for DB snapshot to be ready using the DescribeDBSnapshots method.
     15. Delete the DB instance using the DeleteDBInstanceAsync method.
@@ -71,7 +71,7 @@ public class RDSInstanceScenario
 
         Console.WriteLine(sepBar);
         Console.WriteLine(
-            "Welcome to the Amazon Relational Database Service (Amazon RDS) instance scenario example.");
+            "Welcome to the Amazon Relational Database Service (Amazon RDS) DB instance scenario example.");
         Console.WriteLine(sepBar);
 
         try
@@ -81,7 +81,7 @@ public class RDSInstanceScenario
             var parameterGroup = await CreateDbParameterGroup(parameterGroupFamily);
 
             var parameters = await DescribeParametersInGroup(parameterGroup.DBParameterGroupName,
-                new List<string> { "auto_increment_offset", "auto_increment_increment" });
+                new List<string>(){ "auto_increment_offset", "auto_increment_increment" });
 
             await ModifyParameters(parameterGroup.DBParameterGroupName, parameters);
 
@@ -95,6 +95,7 @@ public class RDSInstanceScenario
 
             var newInstance = await CreateRdsNewInstance(parameterGroup, engine, engineVersionChoice.EngineVersion,
                 instanceChoice.DBInstanceClass, newInstanceIdentifier);
+            
             if (newInstance != null)
             {
                 DisplayConnectionString(newInstance);
@@ -299,13 +300,13 @@ public class RDSInstanceScenario
     /// <summary>
     /// Choose a DB instance class for a particular engine and engine version.
     /// </summary>
-    /// <param name="engine">DB engine for instance choice.</param>
-    /// <param name="engineVersion">DB engine version for instance choice.</param>
+    /// <param name="engine">DB engine for DB instance choice.</param>
+    /// <param name="engineVersion">DB engine version for DB instance choice.</param>
     /// <returns>The selected orderable DB instance option.</returns>
     public static async Task<OrderableDBInstanceOption> ChooseDbInstanceClass(string engine, string engineVersion)
     {
         Console.WriteLine(sepBar);
-        // Get a list of allowed instance classes.
+        // Get a list of allowed DB instance classes.
         var allowedInstances =
             await rdsWrapper.DescribeOrderableDBInstanceOptions(engine, engineVersion);
 
@@ -326,7 +327,7 @@ public class RDSInstanceScenario
         var choiceNumber = 0;
         while (choiceNumber < 1 || choiceNumber > allowedInstances.Count)
         {
-            Console.WriteLine("9. Select an available instance class by entering a number from the list above:");
+            Console.WriteLine("9. Select an available DB instance class by entering a number from the list above:");
             var choice = Console.ReadLine();
             Int32.TryParse(choice, out choiceNumber);
         }
@@ -339,12 +340,12 @@ public class RDSInstanceScenario
     /// <summary>
     /// Create a new RDS DB instance.
     /// </summary>
-    /// <param name="parameterGroup">Parameter group to use for the instance.</param>
-    /// <param name="engineName">Engine to use for the instance.</param>
-    /// <param name="engineVersion">Engine version to use for the instance.</param>
-    /// <param name="instanceClass">Instance class to use for the instance.</param>
-    /// <param name="instanceIdentifier">Instance identifier to use for the instance.</param>
-    /// <returns>The new Db instance.</returns>
+    /// <param name="parameterGroup">Parameter group to use for the DB instance.</param>
+    /// <param name="engineName">Engine to use for the DB instance.</param>
+    /// <param name="engineVersion">Engine version to use for the DB instance.</param>
+    /// <param name="instanceClass">Instance class to use for the DB instance.</param>
+    /// <param name="instanceIdentifier">Instance identifier to use for the DB instance.</param>
+    /// <returns>The new DB instance.</returns>
     public static async Task<DBInstance?> CreateRdsNewInstance(DBParameterGroup parameterGroup,
         string engineName, string engineVersion, string instanceClass, string instanceIdentifier)
     {
@@ -397,14 +398,14 @@ public class RDSInstanceScenario
     }
 
     /// <summary>
-    /// Display a connection string for an RDS instance.
+    /// Display a connection string for an RDS DB instance.
     /// </summary>
     /// <param name="instance">The DB instance to use to get a connection string.</param>
     public static void DisplayConnectionString(DBInstance instance)
     {
         Console.WriteLine(sepBar);
         // Display the connection string.
-        Console.WriteLine("12. New instance connection string: ");
+        Console.WriteLine("12. New DB instance connection string: ");
         Console.WriteLine(
             $"\n{engine} -h {instance.Endpoint.Address} -P {instance.Endpoint.Port} "
             + $"-u {instance.MasterUsername} -p [YOUR PASSWORD]\n");
@@ -415,13 +416,13 @@ public class RDSInstanceScenario
     /// <summary>
     /// Create a snapshot from an RDS DB instance.
     /// </summary>
-    /// <param name="instance">Instance to use when creating a snapshot.</param>
+    /// <param name="instance">DB instance to use when creating a snapshot.</param>
     /// <returns>The snapshot object.</returns>
     public static async Task<DBSnapshot> CreateSnapshot(DBInstance instance)
     {
         Console.WriteLine(sepBar);
         // Create a snapshot.
-        Console.WriteLine($"13. Creating snapshot from instance {instance.DBInstanceIdentifier}.");
+        Console.WriteLine($"13. Creating snapshot from DB instance {instance.DBInstanceIdentifier}.");
         var snapshot = await rdsWrapper.CreateDBSnapshot(instance.DBInstanceIdentifier, "ExampleSnapshot-" + DateTime.Now.Ticks);
 
         // Wait for the snapshot to be available
@@ -444,7 +445,7 @@ public class RDSInstanceScenario
     /// <summary>
     /// Delete an RDS DB instance.
     /// </summary>
-    /// <param name="instance">The instance to delete.</param>
+    /// <param name="instance">The DB instance to delete.</param>
     /// <returns>Async task.</returns>
     public static async Task DeleteRdsInstance(DBInstance newInstance)
     {
@@ -453,8 +454,8 @@ public class RDSInstanceScenario
         Console.WriteLine($"15. Delete the DB instance {newInstance.DBInstanceIdentifier}.");
         await rdsWrapper.DeleteDBInstance(newInstance.DBInstanceIdentifier);
 
-        // Wait for the instance to delete.
-        Console.WriteLine($"16. Waiting for the instance to delete...");
+        // Wait for the DB instance to delete.
+        Console.WriteLine($"16. Waiting for the DB instance to delete...");
         bool isInstanceDeleted = false;
 
         while (!isInstanceDeleted)
@@ -463,7 +464,7 @@ public class RDSInstanceScenario
             isInstanceDeleted = instance.All(i => i.DBInstanceIdentifier != newInstance.DBInstanceIdentifier);
         }
 
-        Console.WriteLine("Instance deleted.");
+        Console.WriteLine("DB instance deleted.");
         Console.WriteLine(sepBar);
     }
 

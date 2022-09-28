@@ -11,7 +11,7 @@ namespace RDSActions;
 // snippet-start:[RDS.dotnetv3.RdsInstanceWrapper]
 
 /// <summary>
-/// Wrapper methods to use Amazon Relational Database Service (Amazon RDS) with instance operations.
+/// Wrapper methods to use Amazon Relational Database Service (Amazon RDS) with DB instance operations.
 /// </summary>
 public partial class RDSWrapper
 {
@@ -54,7 +54,7 @@ public partial class RDSWrapper
     /// <returns>List of OrderableDBInstanceOptions.</returns>
     public async Task<List<OrderableDBInstanceOption>> DescribeOrderableDBInstanceOptions(string engine, string engineVersion)
     {
-        // Use a paginator to get a list of instance options.
+        // Use a paginator to get a list of DB instance options.
         var results = new List<OrderableDBInstanceOption>();
         var paginateInstanceOptions = _amazonRDS.Paginators.DescribeOrderableDBInstanceOptions(
             new DescribeOrderableDBInstanceOptionsRequest()
@@ -77,7 +77,7 @@ public partial class RDSWrapper
     /// <summary>
     /// Returns a list of DB instances.
     /// </summary>
-    /// <param name="dbInstanceIdentifier">Optional name of a specific instance.</param>
+    /// <param name="dbInstanceIdentifier">Optional name of a specific DB instance.</param>
     /// <returns>List of DB instances.</returns>
     public async Task<List<DBInstance>> DescribeDBInstances(string dbInstanceIdentifier = null)
     {
@@ -101,15 +101,15 @@ public partial class RDSWrapper
 
     /// <summary>
     /// Create an RDS DB instance with a particular set of properties. Use the action DescribeDBInstancesAsync
-    /// to determine when the instance is ready to use.
+    /// to determine when the DB instance is ready to use.
     /// </summary>
-    /// <param name="dbName">Name for the instance.</param>
+    /// <param name="dbName">Name for the DB instance.</param>
     /// <param name="dbInstanceIdentifier">DB instance identifier.</param>
     /// <param name="parameterGroupName">DB parameter group to associate with the instance.</param>
-    /// <param name="dbEngine">The engine for the instance</param>
-    /// <param name="dbEngineVersion">Version for the instance.</param>
-    /// <param name="instanceClass">Class for the instance</param>
-    /// <param name="allocatedStorage">The amount of storage in gibibytes (GiB) to allocate to the instance.</param>
+    /// <param name="dbEngine">The engine for the DB instance.</param>
+    /// <param name="dbEngineVersion">Version for the DB instance.</param>
+    /// <param name="instanceClass">Class for the DB instance.</param>
+    /// <param name="allocatedStorage">The amount of storage in gibibytes (GiB) to allocate to the DB instance.</param>
     /// <param name="adminName">Admin user name.</param>
     /// <param name="adminPassword">Admin user password.</param>
     /// <returns>DB instance object.</returns>
