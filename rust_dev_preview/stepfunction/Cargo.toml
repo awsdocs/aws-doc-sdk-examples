@@ -2,7 +2,7 @@
 name = "step-function-code-examples"
 version = "0.1.0"
 authors = ["Daniele Frasca <https://github.com/ymwjbxxq/>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }

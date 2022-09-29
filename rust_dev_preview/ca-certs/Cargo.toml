@@ -2,7 +2,7 @@
 name = "custom-root-certs"
 version = "0.1.0"
 authors = ["rcoh@amazon.com>"]
-edition = "2018"
+edition = "2021"
 
 description = "An example demonstrating setting a custom root certificate with rustls"
 
