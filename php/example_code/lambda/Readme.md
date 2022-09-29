@@ -1,13 +1,16 @@
-# AWS Lambda code examples for the SDK for PHP
+# Lambda code examples for the SDK for PHP
 
 ## Overview
 
 Shows how to use the AWS SDK for PHP to create, deploy, and invoke
 AWS Lambda functions. Learn to accomplish the following tasks
 
-*Lambda lets you run code without provisioning or managing servers. Upload your code
-and Lambda takes care of everything required to run and scale your code with high
-availability.*
+* Create, deploy, and invoke Lambda function.
+* Update function code or configuration options.
+* List all existing functions.
+
+*With AWS Lambda, you can run code without provisioning or managing servers. You pay only for the compute time that 
+you consume—there's no charge when your code isn't running.*
 
 ## ⚠️ Important
 
@@ -18,7 +21,9 @@ availability.*
 
 ## Code examples
 
-### Single action
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
 
 * [Create a function](LambdaService.php)
   (`CreateFunction`)
@@ -37,7 +42,9 @@ availability.*
 
 ### Scenarios
 
-* [Get started with functions](scenario_getting_started_functions.py)
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
+* [Get started with functions](GettingStartedWithLambda.php)
 
 ## Run the examples
 
@@ -46,7 +53,7 @@ availability.*
 This interactive scenario runs at a command prompt and shows you how to use
 AWS Lambda to do the following:
 
-1. Create an AWS Identity and Access Management (IAM) role role that grants Lambda
+1. Create an AWS Identity and Access Management (IAM) role that grants Lambda
    permission to write to logs.
 1. Create a Lambda function and upload handler code.
 1. Invoke the function with a single parameter and get results.
@@ -80,8 +87,7 @@ following:
 ### Prerequisites
 
 - You must have an AWS account, and have your default credentials and AWS Region configured as described in
-  the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide]
-  (https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+  the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
 - PHP 7.1 or later.
 - Composer installed.
 

@@ -35,7 +35,7 @@ lambda_CreateFunction:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/glue
+          github: php/example_code/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -88,7 +88,7 @@ lambda_DeleteFunction:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/glue
+          github: php/example_code/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -150,7 +150,7 @@ lambda_Invoke:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/glue
+          github: php/example_code/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -176,7 +176,7 @@ lambda_GetFunction:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/glue
+          github: php/example_code/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -211,7 +211,7 @@ lambda_UpdateFunctionCode:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/glue
+          github: php/example_code/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -246,7 +246,7 @@ lambda_UpdateFunctionConfiguration:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/glue
+          github: php/example_code/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -290,7 +290,7 @@ lambda_ListFunctions:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/glue
+          github: php/example_code/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -355,7 +355,7 @@ lambda_Scenario_GettingStartedFunctions:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/glue
+          github: php/example_code/lambda
           excerpts:
             - description:
               snippet_tags:

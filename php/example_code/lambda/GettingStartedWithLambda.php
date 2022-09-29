@@ -1,5 +1,8 @@
 <?php
 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # snippet-start:[php.example_code.lambda.basics.scenario]
 namespace Lambda;
 
@@ -12,7 +15,7 @@ class GettingStartedWithLambda
     public function run()
     {
         echo("--------------------------------------\n");
-        print("Welcome to the Amazon Lambda getting started demo using PHP!\n");
+        print("Welcome to the AWS Lambda getting started demo using PHP!\n");
         echo("--------------------------------------\n");
 
         $clientArgs = [
@@ -73,6 +76,8 @@ class GettingStartedWithLambda
             $getLambdaFunction = $lambdaService->getFunction($createLambdaFunction['FunctionName']);
         } while ($getLambdaFunction['Configuration']['State'] == "Pending");
         echo "Created Lambda function {$getLambdaFunction['Configuration']['FunctionName']}.\n";
+
+        sleep(1);
 
         echo "\nOk, let's invoke that Lambda code.\n";
         $basicParams = [
@@ -136,7 +141,7 @@ class GettingStartedWithLambda
         echo "And an error message: ";
         echo base64_decode($invokeFunction['LogResult']) . "\n";
 
-        echo "\nHere's all the Lambda functions you have in this region:\n";
+        echo "\nHere's all the Lambda functions you have in this Region:\n";
         $listLambdaFunctions = $lambdaService->listFunctions(5);
         $allLambdaFunctions = $listLambdaFunctions['Functions'];
         $next = $listLambdaFunctions->get('NextMarker');
@@ -164,7 +169,7 @@ class GettingStartedWithLambda
                 'Objects' => $deleteObjects['Contents'],
             ]
         ]);
-        echo "Deleted all objects from the S3 Bucket.\n";
+        echo "Deleted all objects from the S3 bucket.\n";
         $s3client->deleteBucket(['Bucket' => $bucketName]);
         echo "Deleted the bucket.\n";
     }
