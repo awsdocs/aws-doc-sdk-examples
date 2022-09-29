@@ -10,8 +10,8 @@ namespace DetachPolicyExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Shows how to detach a policy from an Amazon Organations Organization,
-    /// Organizational Unit, or Account. The example was creating using the
+    /// Shows how to detach a policy from an AWS Organizations organization,
+    /// organizational unit, or account. The example was creating using the
     /// AWS SDK for .NET 3.7 and .NET Core 5.0.
     /// </summary>
     public class DetachPolicy
@@ -25,8 +25,8 @@ namespace DetachPolicyExample
             // Create the client object using the default account.
             IAmazonOrganizations client = new AmazonOrganizationsClient();
 
-            var policyId = "p-c0hsjgmq";
-            var targetId = "r-sso8";
+            var policyId = "p-00000000";
+            var targetId = "r-0000";
 
             var request = new DetachPolicyRequest
             {

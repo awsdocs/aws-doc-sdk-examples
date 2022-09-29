@@ -18,7 +18,7 @@ namespace RebootInstancesExample
     {
         /// <summary>
         /// Initializes the Amazon EC2 client object and then calls
-        /// RebootInstancesAsync to reboot the instance(s) in the ectInstanceId
+        /// RebootInstancesAsync to reboot the instance(s) in the ec2InstanceId
         /// list.
         /// </summary>
         public static async Task Main()
