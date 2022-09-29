@@ -9,6 +9,7 @@
 
 using namespace Aws;
 
+// snippet-start:[cpp.example_code.secrets_manager.create_secret_with_string]
 int main()
 {
 
@@ -45,3 +46,4 @@ int main()
     ShutdownAPI(options);
     return 0;
 }
+// snippet-end:[cpp.example_code.secrets_manager.create_secret_with_string]

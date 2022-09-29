@@ -8,7 +8,7 @@
 #include <aws/secretsmanager/model/GetSecretValueRequest.h>
 
 using namespace Aws;
-
+// snippet-start:[cpp.example_code.secrets_manager.get_secret_value]
 int main()
 {
 
@@ -43,3 +43,5 @@ int main()
     ShutdownAPI(options);
     return 0;
 }
+// snippet-end:[cpp.example_code.secrets_manager.get_secret_value]
+
