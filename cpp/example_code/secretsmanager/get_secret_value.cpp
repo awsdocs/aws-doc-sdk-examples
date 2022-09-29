@@ -9,8 +9,16 @@
 
 using namespace Aws;
 // snippet-start:[cpp.example_code.secrets_manager.get_secret_value]
-int main()
+int main(int argc, const char *argv[])
 {
+    if (argc != 2) {
+        std::cout << "Usage:\n" <<
+                  "    <secretName> \n\n" <<
+                  "Where:\n" <<
+                  "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n"
+                  << std::endl;
+        return 0;
+    }
 
     SDKOptions options;
     options.loggingOptions.logLevel = Utils::Logging::LogLevel::Debug;
@@ -27,8 +35,7 @@ int main()
         }
         SecretsManager::SecretsManagerClient sm_client(config);
 
-        //TODO(user): Enter your secret name shown on the Secrets Manager console.
-        String secretId = "<EXAMPLE_SECRET_NAME>";
+        String secretId = argv[1];
         SecretsManager::Model::GetSecretValueRequest request;
         request.SetSecretId(secretId);
 
