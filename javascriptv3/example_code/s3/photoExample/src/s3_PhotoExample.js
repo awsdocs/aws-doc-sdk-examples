@@ -114,7 +114,7 @@ const createAlbum = async (albumName) => {
   try {
     const key = albumKey + "/";
     const params = { Bucket: albumBucketName, Key: key };
-    const data = await s3.send(new PutObjectCommand(params));
+    await s3.send(new PutObjectCommand(params));
     alert("Successfully created album.");
     viewAlbum(albumName);
   } catch (err) {
@@ -216,7 +216,7 @@ const addPhoto = async (albumName) => {
   const files = document.getElementById("photoupload").files;
   try {
     const albumPhotosKey = encodeURIComponent(albumName) + "/";
-    const data = await s3.send(
+    await s3.send(
         new ListObjectsCommand({
           Prefix: albumPhotosKey,
           Bucket: albumBucketName
@@ -231,7 +231,7 @@ const addPhoto = async (albumName) => {
       Body: file
     };
     try {
-      const data = await s3.send(new PutObjectCommand(uploadParams));
+      await s3.send(new PutObjectCommand(uploadParams));
       alert("Successfully uploaded photo.");
       viewAlbum(albumName);
     } catch (err) {
@@ -254,7 +254,7 @@ const deletePhoto = async (albumName, photoKey) => {
   try {
     console.log(photoKey);
     const params = { Key: photoKey, Bucket: albumBucketName };
-    const data = await s3.send(new DeleteObjectCommand(params));
+    await s3.send(new DeleteObjectCommand(params));
     console.log("Successfully deleted photo.");
     viewAlbum(albumName);
   } catch (err) {
@@ -282,7 +282,7 @@ const deleteAlbum = async (albumName) => {
         Delete: { Objects: objects },
         Quiet: true,
       };
-      const data = await s3.send(new DeleteObjectsCommand(params));
+      await s3.send(new DeleteObjectsCommand(params));
       listAlbums();
       return alert("Successfully deleted album.");
     } catch (err) {

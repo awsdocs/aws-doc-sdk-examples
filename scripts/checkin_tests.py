@@ -128,7 +128,15 @@ ALLOW_LIST = {
     'com/rekognition/latest/dg/considerations',
     'ListTagsForVaultExample/ListTagsForVault',
     'TerminateInstanceInAutoScalingGroupAsync',
-    'GetIdentityVerificationAttributesRequest'
+    'GetIdentityVerificationAttributesRequest',
+    'com/transcribe/latest/APIReference/index',
+    'CancelExportTaskExample/CancelExportTask',
+    'CreateExportTaskExample/CreateExportTask',
+    'ListTagsExample/ListTagsExample/ListTags',
+    'SynthesizeSpeechExample/SynthesizeSpeech',
+    'com/autoscaling/ec2/APIReference/Welcome',
+    'CreateCollectionExample/CreateCollection',
+    'DeleteCollectionExample/DeleteCollection'
 }
 
 def check_files(root, quiet):

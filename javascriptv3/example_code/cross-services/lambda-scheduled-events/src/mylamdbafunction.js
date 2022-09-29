@@ -21,10 +21,8 @@ Inputs (replace in code):
 "use strict";
 const { ScanCommand } = require("@aws-sdk/client-dynamodb");
 const { PublishCommand } = require("@aws-sdk/client-sns");
-const {snsClient} = require ( "./libs/snsClient" );
-const {dynamoClient} = require ( "./libs/dynamoClient" );
-
-const REGION = "REGION"; //e.g. "us-east-1"
+const { snsClient } = require("./libs/snsClient");
+const { dynamoClient } = require("./libs/dynamoClient");
 
 // Get today's date.
 const today = new Date();
@@ -48,11 +46,11 @@ const params = {
 
 // snippet-end:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.config]
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.scanAndPublishV3.handler]
-exports.handler = async (event, context, callback) => {
+exports.handler = async () => {
   // Helper function to send message using Amazon SNS.
   async function sendText(textParams) {
     try {
-      const data = await snsclient.send(new PublishCommand(textParams));
+      await snsClient.send(new PublishCommand(textParams));
       console.log("Message sent");
     } catch (err) {
       console.log("Error, message not sent ", err);
@@ -61,7 +59,7 @@ exports.handler = async (event, context, callback) => {
   try {
     // Scan the table to identify employees with work anniversary today.
     const data = await dynamoClient.send(new ScanCommand(params));
-    data.Items.forEach(function (element, index, array) {
+    data.Items.forEach(function (element) {
       const textParams = {
         PhoneNumber: element.phone.N,
         Message:

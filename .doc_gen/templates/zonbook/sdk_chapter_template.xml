@@ -87,8 +87,29 @@
                 by calling multiple {{$svc_examples.ServiceEntity.Short}} functions.</para>
             <para>Each example includes a link to GitHub, where you can find
                 instructions on how to set up and run the code in context.</para>
+            {{- $hello := index $svc_examples.CategorizedExampleSets "Hello"}}
+            {{- if $hello.Examples}}
+            <block>
+                <collapsible expand-section="_collapse_all_">
+                    {{- range $hello.Examples}}
+                    <section id="example_{{.ExampleId}}_section">
+                        <info>
+                            <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                            <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                            <abstract>
+                                <para>{{.Title}}</para>
+                            </abstract>
+                        </info>
+                        <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
+                        <xi:include href="{{$include_docs}}{{.ExampleId}}_tablist.xml"></xi:include>
+                    </section>
+                    {{- end}}
+                </collapsible>
+            </block>
+            {{- end}}
             <para role="topiclist-abbrev"/>
             {{- range $category := $svc_examples.CategoryNamesSorted}}
+            {{- if ne $category "Hello"}}
             {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
             <section>
                 <info>
@@ -125,6 +146,7 @@
                     {{- end}}
                 </collapsible>
             </section>
+            {{- end}}
             {{- end}}
             {{- end}}
         </section>

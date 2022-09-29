@@ -1,0 +1,11 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "corepyle@amazon.com",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "ramda": "^0.28.0"
+  }
+}

@@ -13,19 +13,22 @@ Inputs:
 - IAM_ROLE_ARN
 
  */
-<!-- snippet-start:[rekognition.Javascript.video-analyzer.complete]-->
-<!-- snippet-start:[rekognition.Javascript.video-analyzer.config]-->
 import { rekognitionClient } from "../libs/rekognitionClient.js";
 import { s3Client } from "../libs/s3Client.js";
 import { sesClient } from "../libs/sesClient.js";
 import { SendEmailCommand } from "@aws-sdk/client-ses";
-import { ListObjectsCommand } from "@aws-sdk/client-s3";
-import { StartFaceDetectionCommand, GetFaceDetectionCommand } from "@aws-sdk/client-rekognition";
+import {
+  ListObjectsCommand,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
+import {
+  StartFaceDetectionCommand,
+  GetFaceDetectionCommand,
+} from "@aws-sdk/client-rekognition";
 const BUCKET = "BUCKET_NAME";
 const IAM_ROLE_ARN = "IAM_ROLE_ARN";
 
-<!-- snippet-end:[rekognition.Javascript.video-analyzer.config]-->
-<!-- snippet-start:[rekognition.Javascript.video-analyzer.upload]-->
 $(function () {
   $("#myTable").DataTable({
     scrollY: "500px",
@@ -45,24 +48,23 @@ const uploadVideo = async () => {
       new ListObjectsCommand({ Bucket: BUCKET })
     );
     console.log("Object in bucket: ", listObjects);
-    console.log("listObjects.Contents ", listObjects.Contents );
+    console.log("listObjects.Contents ", listObjects.Contents);
 
     const noOfObjects = listObjects.Contents;
     // If the Amazon S3 bucket is not empty, delete the existing content.
-    if(noOfObjects != null) {
+    if (noOfObjects != null) {
       for (let i = 0; i < noOfObjects.length; i++) {
-        const data = await s3Client.send(
-            new DeleteObjectCommand({
-              Bucket: BUCKET,
-              Key: listObjects.Contents[i].Key
-            })
+        await s3Client.send(
+          new DeleteObjectCommand({
+            Bucket: BUCKET,
+            Key: listObjects.Contents[i].Key,
+          })
         );
       }
     }
     console.log("Success - bucket empty.");
 
     // Create the parameters for uploading the video.
-    const videoName = document.getElementById("videoname").innerHTML + ".mp4";
     const files = document.getElementById("videoupload").files;
     const file = files[0];
     const uploadParams = {
@@ -70,20 +72,17 @@ const uploadVideo = async () => {
       Body: file,
     };
     uploadParams.Key = path.basename(file.name);
-    const data = await s3Client.send(new PutObjectCommand(uploadParams));
+    await s3Client.send(new PutObjectCommand(uploadParams));
     console.log("Success - video uploaded");
   } catch (err) {
     console.log("Error", err);
   }
 };
 window.uploadVideo = uploadVideo;
-<!-- snippet-end:[rekognition.Javascript.video-analyzer.upload]-->
-<!-- snippet-start:[rekognition.Javascript.video-analyzer.getvideo]-->
-//
 const getVideo = async () => {
   try {
     const listVideoParams = {
-      Bucket: BUCKET
+      Bucket: BUCKET,
     };
     const data = await s3Client.send(new ListObjectsCommand(listVideoParams));
     console.log("Success - video deleted", data);
@@ -100,8 +99,7 @@ const getVideo = async () => {
   }
 };
 window.getVideo = getVideo;
-<!-- snippet-end:[rekognition.Javascript.video-analyzer.getvideo]-->
-<!-- snippet-start:[rekognition.Javascript.video-analyzer.processimages]-->
+
 const ProcessImages = async () => {
   try {
     // Create the parameters required to start face detection.
@@ -110,12 +108,12 @@ const ProcessImages = async () => {
       Video: {
         S3Object: {
           Bucket: BUCKET,
-          Name: videoName
+          Name: videoName,
         },
       },
       notificationChannel: {
         roleARN: IAM_ROLE_ARN,
-        SNSTopicArn: SNSTOPIC
+        SNSTopicArn: SNSTOPIC,
       },
     };
     // Start the Amazon Rekognition face detection process.
@@ -141,7 +139,6 @@ const ProcessImages = async () => {
       }
       finished = false;
       // Parse results into CVS format.
-      const noOfFaces = results.Faces.length;
       var i;
       for (i = 0; i < results.Faces.length; i++) {
         var boundingbox = JSON.stringify(results.Faces[i].Face.BoundingBox);
@@ -191,10 +188,10 @@ const uploadFile = async (csv) => {
   const uploadParams = {
     Bucket: BUCKET,
     Body: csv,
-    Key: "Face.csv"
+    Key: "Face.csv",
   };
   try {
-    const data = await s3Client.send(new PutObjectCommand(uploadParams));
+    await s3Client.send(new PutObjectCommand(uploadParams));
     const linkToCSV =
       "https://s3.console.aws.amazon.com/s3/object/" +
       uploadParams.Bucket +
@@ -213,7 +210,7 @@ const uploadFile = async (csv) => {
 // Helper function to send an email to user.
 const sendEmail = async (bucket, key) => {
   const toEmail = document.getElementById("email").value;
-  const fromEmail = "SENDER_ADDRESS";//
+  const fromEmail = "SENDER_ADDRESS"; //
   try {
     const linkToCSV =
       "https://s3.console.aws.amazon.com/s3/object/" +
@@ -224,7 +221,8 @@ const sendEmail = async (bucket, key) => {
       key;
     // Set the parameters
     const params = {
-      Destination: {   /* required */
+      Destination: {
+        /* required */
         CcAddresses: [
           /* more items */
         ],
@@ -233,8 +231,10 @@ const sendEmail = async (bucket, key) => {
           /* more To-email addresses */
         ],
       },
-      Message: {   /* required */
-        Body: {   /* required */
+      Message: {
+        /* required */
+        Body: {
+          /* required */
           Html: {
             Charset: "UTF-8",
             Data:
@@ -269,5 +269,3 @@ const sendEmail = async (bucket, key) => {
     console.log("Error", err);
   }
 };
-<!-- snippet-end:[rekognition.Javascript.video-analyzer.processimages]-->
-<!-- snippet-end:[rekognition.Javascript.video-analyzer.complete]-->

@@ -28,7 +28,7 @@ export const run = async (tableName, movieTitle1, movieYear1) => {
     Parameters: [{ S: movieTitle1 }, { N: movieYear1 }],
   };
   try {
-    const data = await ddbDocClient.send(new ExecuteStatementCommand(params));
+    await ddbDocClient.send(new ExecuteStatementCommand(params));
     console.log("Success. Item added.");
     return "Run successfully"; // For unit tests.
   } catch (err) {

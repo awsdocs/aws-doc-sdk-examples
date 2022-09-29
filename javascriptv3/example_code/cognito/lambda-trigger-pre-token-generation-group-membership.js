@@ -21,7 +21,7 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-token-generation-group-membershipV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
     event.response = {
       claimsOverrideDetails: {

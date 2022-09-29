@@ -4,9 +4,9 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that sends and retrieves messages by using the AWS SDK for Java (v2) and Amazon Simple Queue Service (Amazon SQS). The Spring REST API is used by a React application that displays the data.   |
+| Description | Discusses how to develop a Spring REST API that sends and retrieves messages by using the AWS SDK for Java (v2) and Amazon Simple Queue Service (Amazon SQS). This application also detects the language code of the posted message by using Amazon Comprehend. The Spring REST API is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 8/02/2022        |
+| Updated   | 9/15/2022        |
 | Required skills   | Java, Maven, JavaScript  |
 
 
@@ -27,8 +27,7 @@ The application you create is a decoupled React application that uses a Spring R
 + Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create the Java classes
-+ Package the project into a JAR file
-+ Deploy the application to AWS Elastic Beanstalk
++ Run the application 
 + Create the React front end
 
 ## Prerequisites
@@ -50,6 +49,18 @@ To complete the tutorial, you need the following:
 ### Create the resources
 
 Create a FIFO queue named **Message.fifo**. For more information, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html). 
+
+Add some items to the *Message.fifo* queue in the AWS console. After creating the queue, select the queue, then select 
+**Send and receive messages**. On the **Send and receive messages** page, enter sample data below,
+selecting **Send message** after data is entered for each row.
+
+| Message body               | Message group ID | Message deduplication ID | Message Attributes |
+|----------------------------|------------------|--------------------------|--------------------|
+| "I am going swimming soon" | 1                | 1                        | "Name":"lam"       |
+| "that sounds like fun"     | 2                | 2                        | "Name":"scott"     |
+| "would you like to come?"  | 3                | 3                        | "Name":"lam"       |
+| "sure"                     | 4                | 4                        | "Name":"scott"     |
+
 
 ## Understand the AWS Messaging React application
 
@@ -82,18 +93,13 @@ The following describes how the application handles a message:
 
 At this point, you have a new project named **AWSMessageRest**. Add the following dependency for the Amazon SQS API (AWS SDK for Java (v2)).
 
-    <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>sqs</artifactId>
-    </dependency>
-
-**Note:** Make sure to use Java 1.8, as shown in the following **pom.xml** file.    
+ **Note:** Make sure to use Java 1.8, as shown in the following **pom.xml** file.    
 
 The **pom.xml** file looks like the following.
 
 ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <project xmlns="http://maven.apache.org/POM/4.0.0"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -147,7 +153,7 @@ The **pom.xml** file looks like the following.
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>ses</artifactId>
+            <artifactId>comprehend</artifactId>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -173,7 +179,7 @@ The **pom.xml** file looks like the following.
             <artifactId>jakarta.mail</artifactId>
             <version>1.6.5</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
             <version>2.6.10</version>
@@ -198,8 +204,8 @@ The **pom.xml** file looks like the following.
                 </exclusion>
             </exclusions>
         </dependency>
-      </dependencies>
-      <build>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -207,20 +213,18 @@ The **pom.xml** file looks like the following.
             </plugin>
         </plugins>
     </build>
-   </project>
+</project>
 ```
 
 ## Create the Java classes
 
 Create a Java package in the **main/java** folder named **com.example.sqs**. The Java files must go into this package.
 
-![AWS Messaging application](images/project.png)
-
 Create the following Java classes:
 
 + **MessageData** - Used as the model for this application.
 + **App** - Used as the base class for the Spring Boot application.
-+ **MessageController** - Used as the Spring Boot controller that handles HTTP requests.
++ **MainController** - Used as the Spring Boot controller that handles HTTP requests.
 + **SendReceiveMessages** - Uses the Amazon SQS API to process messages.  
 
 ### MessageData class
@@ -281,7 +285,7 @@ public class App {
 }
 ```
 
-### MessageController class
+### MainController class
 
 The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.  
 
@@ -348,7 +352,7 @@ public class MainController {
 
 ### SendReceiveMessages class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue.
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue. Amazon Comprehend is used in the following code example to detect the language code of the new message. 
 
 ```java
 package com.example.sqs;
@@ -356,6 +360,10 @@ package com.example.sqs;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.comprehend.ComprehendClient;
+import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageRequest;
+import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageResponse;
+import software.amazon.awssdk.services.comprehend.model.DominantLanguage;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.MessageAttributeValue;
@@ -364,7 +372,6 @@ import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.PurgeQueueRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -378,7 +385,16 @@ public class SendReceiveMessages {
     private SqsClient getClient() {
         return SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
+    }
+
+    // Get a Comprehend client.
+    private ComprehendClient getComClient() {
+
+        return ComprehendClient.builder()
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
     }
 
@@ -452,11 +468,27 @@ public class SendReceiveMessages {
                 .queueName(queueName)
                 .build();
 
+            // We will get the language code for the incoming message.
+            ComprehendClient comClient =  getComClient();
+
+            // Specify the Langauge code of the incoming message.
+            String lanCode = "" ;
+            DetectDominantLanguageRequest request = DetectDominantLanguageRequest.builder()
+                .text(msg.getBody())
+                .build();
+
+            DetectDominantLanguageResponse resp = comClient.detectDominantLanguage(request);
+            List<DominantLanguage> allLanList = resp.languages();
+            for (DominantLanguage lang : allLanList) {
+                System.out.println("Language is " + lang.languageCode());
+                lanCode = lang.languageCode();
+            }
+
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
             SendMessageRequest sendMsgRequest = SendMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .messageAttributes(myMap)
-                .messageGroupId("GroupA")
+                .messageGroupId("GroupA_"+lanCode)
                 .messageDeduplicationId(msg.getId())
                 .messageBody(msg.getBody())
                 .build();
@@ -469,21 +501,25 @@ public class SendReceiveMessages {
     }
 }
 
-
 ```
 
-**Note:** The **EnvironmentVariableCredentialsProvider** is used to create an **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
-
 ## Run the application
-Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs:
+Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon (green arrow) in the App class. 
+
+**Note**: If you are already running a web server on port 8080, add a VM option
+to your IntellJ IDEA run configuration. For example, add `-Dserver.port=8082`, to
+set Spring's embedded web server to listen on port 8082.
+
+The Spring API supports the following URLs:
 
 - /chat/msgs - A GET request that returns all messages in the queue. 
 - /chat/add - A POST request that adds a new message to the queue. 
 - /api/purge - A GET request that deletes messages from the queue. 
 
-Note: The React SPA created in a following section consumes all of these URLs.
+Note: The React SPA that is created in the following section consumes all of these URLs.
 
-Confirm that the Spring REST API works by viewing the messages. Enter the following URL into a browser.
+Confirm that the Spring REST API works by viewing the messages. 
+Enter the following URL into a browser (change the port value as needed):
 
 http://localhost:8080/chat/msgs
 
@@ -491,44 +527,41 @@ The following image shows the JSON data returned from the Spring REST API.
 
 ![AWS Messaging Application](images/messages.png)
 
-## Package the project into an executable JAR file
-
-Package up the project into an executable **.jar** (JAR) file by using the following Maven command.
-
-     mvn package
-
-The JAR file is located in the target folder.
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy to Elastic Beanstalk
-
-Deploy the Spring application to Elastic Beanstalk. To learn how, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
-
 ## Create the React front end
 
-Create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository [Resources](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources).  
+Create the React SPA that consumes the JSON data returned from the 
+Spring REST API. To start, download files from the 
+following GitHub repository. Included in this repository are instructions 
+on how to set up the project. Click the following link to access the 
+GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/clients/react/sqs-chat/README.md).
+
+In the instructions for the React app, you'll see directions to replace the `BASE_URL` value.
+The React app uses the `BASE_URL` value to communicate with the Spring app.
+Be sure you use the same port you used to start the Spring app above. For example, use `http://localhost:8082/`
+for the `BASE_URL` value, if that is the port you used.
 
 You must modify the **AwsService.js** file so that your React requests work with your Java backend. Update this file to include the following code.
 
 ```javascript
 
-import axios from 'axios'
-import configData from './config.json'
+import axios from "axios";
+import configData from "./config.json";
 
+export const getMessages = async () => {
+  return await axios.get(`${configData.BASE_URL}/chat/msgs`);
+};
 
-export const getMessages =  async() => {
-    return await axios.get(`${configData.BASE_URL}/chat/msgs`);
-  };
+export const postMessage = async (item) => {
+  let user = item.username;
+  let message = item.message;
+  await axios.post(
+    `${configData.BASE_URL}/chat/add?user=` + user + `&message=` + message
+  );
+};
 
-
-
-export const postMessage =  async(item) => {
-
-    let user = item.username;
-    let message = item.message;
-    await axios.post(`${configData.BASE_URL}/chat/add?user=`+ user + `&message=`+ message);
-  };
+export const purgeMessages = async () => {
+  await axios.get(`${configData.BASE_URL}/chat/purge`)
+}
 ```
 
 ### Next steps
