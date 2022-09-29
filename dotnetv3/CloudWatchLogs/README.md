@@ -17,7 +17,7 @@ Use CloudWatch Logs to monitor, store, and access your log files from Amazon Ela
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Associate an AWS KMS key to a log group](AssociateKmsKeyExample/AssociateKmsKey.cs) (`DescribeCertificateAsync`)
+* [Associate a key with a log group](AssociateKmsKeyExample/AssociateKmsKey.cs) (`DescribeCertificateAsync`)
 * [Cancel an export task](CancelExportTaskExample/CancelExportTask.cs) (`CancelExportTaskAsync`)
 * [Create a log group](CreateLogGroupExample/CreateLogGroup.cs) (`CreateLogGroupAsync`)
 * [Create a new log stream](CreateLogStreamExample/CreateLogStream.cs) (`CreateLogStreamAsync`)

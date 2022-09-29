@@ -17,9 +17,9 @@ namespace SNSMessageExample
         /// <summary>
         /// Constructs a new SNSMessage object initializing the Amazon Simple
         /// Notification Service (Amazon SNS) client using the supplied
-        /// region endpoint.
+        /// Region endpoint.
         /// </summary>
-        /// <param name="regionEndpoint">The Amazon region endpoint to use in
+        /// <param name="regionEndpoint">The Amazon Region endpoint to use in
         /// sending test messages with this object.</param>
         public SNSMessage(RegionEndpoint regionEndpoint)
         {

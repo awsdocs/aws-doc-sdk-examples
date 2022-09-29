@@ -16,11 +16,11 @@ Amazon Comprehend is a monitoring and observability service built for DevOps eng
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Detect the dominant language in a document](DetectDominantLanguageExample/DetectDominantLanguageExample/DetectDominantLanguage.cs) (`DetectDominantLanguageAsync`)
 * [Detect entities in a document](DetectEntitiesExample/DetectEntitiesExample/DetectEntities.cs) (`DetectEntitiesAsync`)
+* [Detect key phrases in a document](DetectKeyPhraseExample/DetectKeyPhraseExample/DetectKeyPhrase.cs) (`DetectKeyPhrasesAsync`)
 * [Detect personally identifiable information in a document](DetectingPIIExample/DetectingPIIExample/DetectingPII.cs) (`DetectPiiEntitiesAsync`)
 * [Detect syntactical elements of a document](DetectingSyntaxExample/DetectingSyntaxExample/DetectingSyntax.cs) (`DetectSyntaxAsync`)
-* [Detect key phrases in a document](DetectKeyPhraseExample/DetectKeyPhraseExample/DetectKeyPhrase.cs) (`DetectKeyPhrasesAsync`)
+* [Detect the dominant language in a document](DetectDominantLanguageExample/DetectDominantLanguageExample/DetectDominantLanguage.cs) (`DetectDominantLanguageAsync`)
 * [Detect the sentiment of a document](DetectSentimentExample/DetectSentimentExample/DetectSentiment.cs) (`DetectSentimentAsync`)
 * [Start a topic modeling job](TopicModelingExample/TopicModelingExample/TopicModeling.cs) (`StartTopicsDetectionJobAsync`)
 

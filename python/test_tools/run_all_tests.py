@@ -14,6 +14,13 @@ import os
 import sys
 import pytest
 
+IGNORE_FOLDERS = {
+    'venv',
+    '__pycache__',
+    '.pytest_cache',
+    'node_modules',
+}
+
 
 def main():
     """
@@ -23,6 +30,7 @@ def main():
     """
     test_dirs = []
     for root, dirs, files in os.walk('python'):
+        dirs[:] = [d for d in dirs if d not in IGNORE_FOLDERS]
         if 'test' in dirs:
             test_dirs.append(root)
 

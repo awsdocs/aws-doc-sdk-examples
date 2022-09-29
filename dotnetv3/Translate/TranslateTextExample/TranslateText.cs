@@ -32,12 +32,12 @@ namespace TranslateTextExample
             // You can get a list of the languages supposed by Amazon Translate
             // in the Amazon Translate Developer's Guide here:
             //      https://docs.aws.amazon.com/translate/latest/dg/what-is.html
-            string srcLang = "en"; // English
-            string destLang = "fr"; // Italian
+            string srcLang = "en"; // English.
+            string destLang = "fr"; // French.
 
             // The Amazon Simple Storage Service (Amazon S3) bucket where the
             // source text file is stored.
-            string srcBucket = "doc-example-bucket";
+            string srcBucket = "DOC-EXAMPLE-BUCKET";
             string srcTextFile = "source.txt";
 
             var srcText = await GetSourceTextAsync(srcBucket, srcTextFile);
@@ -48,19 +48,19 @@ namespace TranslateTextExample
 
         /// <summary>
         /// Use the Amazon S3 TransferUtility to retrieve the text to translate
-        /// from an object in an Amazon S3 bucket.
+        /// from an object in an S3 bucket.
         /// </summary>
-        /// <param name="srcBucket">The name of the Amazon S3 bucket where the
+        /// <param name="srcBucket">The name of the S3 bucket where the
         /// text is stored.
         /// </param>
-        /// <param name="srcTextFile">The key of the Amazon S3 object that
+        /// <param name="srcTextFile">The key of the S3 object that
         /// contains the text to translate.</param>
         /// <returns>A string representing the source text.</returns>
         public static async Task<string> GetSourceTextAsync(string srcBucket, string srcTextFile)
         {
             string srcText = string.Empty;
 
-            var s3Client = new AmazonS3Client(Amazon.RegionEndpoint.USWest2);
+            var s3Client = new AmazonS3Client();
             TransferUtility utility = new TransferUtility(s3Client);
 
             using var stream = await utility.OpenStreamAsync(srcBucket, srcTextFile);
