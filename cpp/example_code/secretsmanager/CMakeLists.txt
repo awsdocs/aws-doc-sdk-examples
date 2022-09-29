@@ -13,7 +13,7 @@ cmake_minimum_required(VERSION 3.3)
 set(CMAKE_CXX_STANDARD 11)
 project(secretsmanager-example LANGUAGES CXX)
 
-# Use shared libraries
+# Use shared libraries.
 set(BUILD_SHARED_LIBS ON CACHE STRING "Link to shared libraries by default.")
 
 find_package(AWSSDK REQUIRED COMPONENTS secretsmanager)
@@ -23,7 +23,7 @@ set(EXAMPLES "")
 list(APPEND EXAMPLES "get_secret_value")
 list(APPEND EXAMPLES "create_secret_with_string")
 
-#build and link executable
+# Build and link executable.
 foreach(EXAMPLE IN LISTS EXAMPLES)
     add_executable(${EXAMPLE} ${EXAMPLE}.cpp)
     set_compiler_warnings(${EXAMPLE})

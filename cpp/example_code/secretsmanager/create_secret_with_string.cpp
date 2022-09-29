@@ -19,7 +19,7 @@ int main()
     {
         Aws::Client::ClientConfiguration config;
 
-        //TODO(user): Enter the region you create the secret
+        //TODO(user): Enter the region you create the secret.
         String region = "us-east-1";
         if (!region.empty())
         {
@@ -27,7 +27,7 @@ int main()
         }
         SecretsManager::SecretsManagerClient sm_client(config);
 
-        //TODO(user): Enter your secret name and content
+        //TODO(user): Enter your secret name and content.
         String secretName = "<EXAMPLE_SECRET_NAME>";
         String secretString = "<EXAMPLE_SECRET_CONTENT>";
         SecretsManager::Model::CreateSecretRequest request;

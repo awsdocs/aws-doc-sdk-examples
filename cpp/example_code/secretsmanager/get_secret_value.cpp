@@ -19,7 +19,7 @@ int main()
     {
         Aws::Client::ClientConfiguration config;
 
-        //TODO(user): Enter the region you create the secret
+        //TODO(user): Enter the region you create the secret.
         String region = "us-east-1";
         if (!region.empty())
         {
@@ -27,7 +27,7 @@ int main()
         }
         SecretsManager::SecretsManagerClient sm_client(config);
 
-        //TODO(user): Enter your secret name shown on the Secrets Manager console
+        //TODO(user): Enter your secret name shown on the Secrets Manager console.
         String secretId = "<EXAMPLE_SECRET_NAME>";
         SecretsManager::Model::GetSecretValueRequest request;
         request.SetSecretId(secretId);
