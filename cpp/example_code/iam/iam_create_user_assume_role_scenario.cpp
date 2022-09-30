@@ -75,11 +75,11 @@ namespace AwsDoc {
 // "STS assume role" permissions are need to run this code; (note, it may be necessary to
 //    create a custom policy).
 /*!
-  \sa IAMCreateUserAssumeRoleScenario
+  \sa iamCreateUserAssumeRoleScenario
   \param clientConfig Aws client configuration.
   \param logProgress enables verbose logging.
 */
-bool AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(const Aws::Client::ClientConfiguration &clientConfig,
+bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(const Aws::Client::ClientConfiguration &clientConfig,
                                                   bool logProgress) {
 
     Aws::IAM::IAMClient client(clientConfig);
@@ -431,7 +431,7 @@ int main(int argc, const char *argv[]) {
 
     {
         Aws::Client::ClientConfiguration clientConfig;
-        AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(clientConfig, true);
+        AwsDoc::IAM::iamCreateUserAssumeRoleScenario(clientConfig, true);
     }
 
     ShutdownAPI(options);

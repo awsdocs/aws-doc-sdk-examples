@@ -13,8 +13,16 @@
 
 namespace AwsDoc {
     namespace IAM {
-        bool IAMCreateUserAssumeRoleScenario(const Aws::Client::ClientConfiguration &clientConfig,
-                                             bool logProgress);
+        bool iamCreateUserAssumeRoleScenario(
+                const Aws::Client::ClientConfiguration &clientConfig,
+                bool logProgress);
+
+        bool accessKeyLastUsed(const Aws::String &secretKeyID,
+                               const Aws::Client::ClientConfiguration &clientConfig);
+
+        bool attachRolePolicy(const Aws::String &roleName,
+                         const Aws::String &policyArn,
+                         const Aws::Client::ClientConfiguration &clientConfig);
     }
 }
 

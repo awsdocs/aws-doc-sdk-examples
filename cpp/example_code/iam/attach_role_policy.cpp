@@ -1,30 +1,8 @@
-
-//snippet-sourcedescription:[attach_role_policy.cpp demonstrates how to attach a managed policy to an IAM role.]
-//snippet-service:[iam]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-2-8]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.attach_role_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/AttachRolePolicyRequest.h>
@@ -32,39 +10,58 @@
 #include <aws/iam/model/ListAttachedRolePoliciesResult.h>
 #include <iostream>
 #include <iomanip>
-//snippet-end:[iam.cpp.attach_role_policy.inc]
+#include "iam_samples.h"
 
-void AttachRolePolicy(
-    const Aws::String& role_name, const Aws::String& policy_arn)
-{
-    // snippet-start:[iam.cpp.attach_role_policy.code]
+
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Demonstrates attaching a policy to a role.
+ *
+ */
+
+// snippet-start:[iam.cpp.attach_role_policy.code]
+//! Demonstrates attaching a policy to a role.
+/*!
+  \sa attachRolePolicy()
+  \param roleName: The name of the role.
+  \param policyArn The policy Amazon Resource Name (ARN) to attach.
+  \param clientConfig Aws client configuration.
+  \return bool: Successful completion.
+*/
+
+bool AwsDoc::IAM::attachRolePolicy(const Aws::String &roleName,
+                                   const Aws::String &policyArn,
+                                   const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam;
 
     Aws::IAM::Model::ListAttachedRolePoliciesRequest list_request;
-    list_request.SetRoleName(role_name);
+    list_request.SetRoleName(roleName);
 
     bool done = false;
-    while (!done)
-    {
+    while (!done) {
         auto list_outcome = iam.ListAttachedRolePolicies(list_request);
-        if (!list_outcome.IsSuccess())
-        {
-            std::cout << "Failed to list attached policies of role " <<
-                role_name << ": " << list_outcome.GetError().GetMessage() <<
-                std::endl;
-            return;
+        if (!list_outcome.IsSuccess()) {
+            std::cerr << "Failed to list attached policies of role " <<
+                      roleName << ": " << list_outcome.GetError().GetMessage() <<
+                      std::endl;
+            return false;
         }
 
-        const auto& policies = list_outcome.GetResult().GetAttachedPolicies();
+        const auto &policies = list_outcome.GetResult().GetAttachedPolicies();
         if (std::any_of(policies.cbegin(), policies.cend(),
-            [=](const Aws::IAM::Model::AttachedPolicy& policy)
-        {
-            return policy.GetPolicyArn() == policy_arn;
-        }))
-        {
-            std::cout << "Policy " << policy_arn <<
-                " is already attached to role " << role_name << std::endl;
-            return;
+                        [=](const Aws::IAM::Model::AttachedPolicy &policy) {
+                                return policy.GetPolicyArn() == policyArn;
+                        })) {
+            std::cout << "Policy " << policyArn <<
+                      " is already attached to role " << roleName << std::endl;
+            return true;
         }
 
         done = !list_outcome.GetResult().GetIsTruncated();
@@ -72,34 +69,32 @@ void AttachRolePolicy(
     }
 
     Aws::IAM::Model::AttachRolePolicyRequest request;
-    request.SetRoleName(role_name);
-    request.SetPolicyArn(policy_arn);
+    request.SetRoleName(roleName);
+    request.SetPolicyArn(policyArn);
 
     auto outcome = iam.AttachRolePolicy(request);
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "Failed to attach policy " << policy_arn << " to role " <<
-            role_name << ": " << outcome.GetError().GetMessage() << std::endl;
-        return;
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Failed to attach policy " << policyArn << " to role " <<
+                  roleName << ": " << outcome.GetError().GetMessage() << std::endl;
+    }
+    else {
+        std::cout << "Successfully attached policy " << policyArn << " to role " <<
+                  roleName << std::endl;
     }
 
-    std::cout << "Successfully attached policy " << policy_arn << " to role " <<
-        role_name << std::endl;
-    // snippet-end:[iam.cpp.attach_role_policy.code]
+    return outcome.IsSuccess();
 }
 
-static const char* SAMPLE_POLICY_ARN =
-"arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess";
+static const char *SAMPLE_POLICY_ARN =
+        "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess";
 
 /**
  * Attaches a policy to a role, based on command line input
  */
-int main(int argc, char** argv)
-{
-    if (argc < 2 || argc >= 4)
-    {
+int main(int argc, char **argv) {
+    if (argc < 2 || argc >= 4) {
         std::cout << "Usage: attach_role_policy <role_name> [policy_arn]" <<
-            std::endl;
+                  std::endl;
         return 1;
     }
 
@@ -108,16 +103,17 @@ int main(int argc, char** argv)
     {
         Aws::String role_name(argv[1]);
         Aws::String policy_arn;
-        if (argc == 3)
-        {
+        if (argc == 3) {
             policy_arn = argv[2];
         }
-        else
-        {
+        else {
             policy_arn = SAMPLE_POLICY_ARN;
         }
 
-        AttachRolePolicy(role_name, policy_arn);
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+        AwsDoc::IAM::attachRolePolicy(role_name, policy_arn, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

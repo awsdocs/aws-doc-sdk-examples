@@ -12,7 +12,7 @@ TEST(IAMScenarioTest, Test_valid_arguments) {
     InitAPI(options);
     Aws::Client::ClientConfiguration clientConfig;
 
-    EXPECT_TRUE(AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(clientConfig, false));
+    EXPECT_TRUE(AwsDoc::IAM::iamCreateUserAssumeRoleScenario(clientConfig, false));
 
     ShutdownAPI(options);
 }
