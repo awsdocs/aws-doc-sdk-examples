@@ -84,13 +84,22 @@ bool AwsDoc::IAM::attachRolePolicy(const Aws::String &roleName,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[iam.cpp.attach_role_policy.code]
 
 static const char *SAMPLE_POLICY_ARN =
         "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess";
 
-/**
- * Attaches a policy to a role, based on command line input
+/*
+ *
+ *  main function
+ *
+ * Prerequisites: Existing key in Secrets Manager.
+ *
+ * Usage: 'run_attach_role_policy <role_name> [policy_arn]'
+ *
  */
+
+#ifndef TESTING_BUILD
 int main(int argc, char **argv) {
     if (argc < 2 || argc >= 4) {
         std::cout << "Usage: attach_role_policy <role_name> [policy_arn]" <<
@@ -118,3 +127,4 @@ int main(int argc, char **argv) {
     Aws::ShutdownAPI(options);
     return 0;
 }
+#endif TESTING_BUILD

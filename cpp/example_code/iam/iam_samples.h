@@ -23,6 +23,11 @@ namespace AwsDoc {
         bool attachRolePolicy(const Aws::String &roleName,
                          const Aws::String &policyArn,
                          const Aws::Client::ClientConfiguration &clientConfig);
+        bool createAccessKey(const Aws::String &userName,
+                             const Aws::Client::ClientConfiguration &clientConfig);
+
+        bool createAccountAlias(const Aws::String& aliasName,
+                                             const Aws::Client::ClientConfiguration &clientConfig);
     }
 }
 

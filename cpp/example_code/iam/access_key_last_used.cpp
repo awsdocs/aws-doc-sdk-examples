@@ -62,6 +62,17 @@ bool AwsDoc::IAM::accessKeyLastUsed(const Aws::String& secretKeyID,
 }
 // snippet-end:[iam.cpp.access_key_last_used.code]
 
+/*
+ *
+ *  main function
+ *
+ * Prerequisites: Existing key in Secrets Manager.
+ *
+ * Usage: 'run_access_key_last_used <access_key_id>'
+ *
+ */
+
+#ifndef TESTING_BUILD
 int main(int argc, char** argv)
 {
     if (argc != 2)
@@ -84,4 +95,4 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
-
+#endif // TESTING_BUILD

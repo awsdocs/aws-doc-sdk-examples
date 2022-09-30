@@ -18,21 +18,25 @@ Code excerpts that show you how to call individual service functions.
 
 ### Prerequisites
 Before using the code examples, first complete the installation and setup steps
-of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
+of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
 This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
 sample Hello World-style application.
 
-Next, for information on code examples structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
+Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
 
-*Minimum instructions required to run tests.* **<-- Delete this sentence from template**
-
+```sh
+   cd <BUILD_DIR>
+   cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
+   make
+   ctest 
+```   
 ## Additional resources
-* [*Service developer guide*](*link to developer guide*)
-* [*Service API reference guide*](*link to developer guide*)
-* [*SDK API reference guide*](*link to API reference guide*) 
+* [AWS Identity and Access Management Documentation](https://docs.aws.amazon.com/iam/index.html)
+* [AWS STS API Reference](https://docs.aws.amazon.com/STS/latest/APIReference/index.html)
+* [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

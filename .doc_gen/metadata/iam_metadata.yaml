@@ -504,6 +504,14 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_access_key
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.create_access_key.code
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -652,7 +660,16 @@ iam_GetAccessKeyLastUsed:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.getAccessKeyLastUsed
-  services:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.access_key_last_used.code
+
+GetAccessKeyLastUsed  services:
     iam: {GetAccessKeyLastUsed}
 iam_ListAccessKeys:
   title: List a user's &IAM; access keys using an &AWS; SDK
@@ -1264,6 +1281,14 @@ iam_AttachRolePolicy:
           excerpts:
             - snippet_tags: ['iam.go-v2.AttachRolePolicy']
               description: ''
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.attach_role_policy.code
   services:
     iam: {AttachRolePolicy}
 iam_ListAttachedRolePolicies:

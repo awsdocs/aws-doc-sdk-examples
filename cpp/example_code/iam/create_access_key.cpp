@@ -1,39 +1,74 @@
- 
-//snippet-sourcedescription:[create_access_key.cpp demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-service:[iam]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
-//snippet-start:[iam.cpp.create_access_key.inc]
+
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateAccessKeyRequest.h>
 #include <aws/iam/model/CreateAccessKeyResult.h>
 #include <iostream>
-//snippet-end:[iam.cpp.create_access_key.inc]
+#include "iam_samples.h"
 
 /**
- * Creates an access key for an iam user based on command line input
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Creates an access key for an IAM user.
+ *
  */
+
+// snippet-start:[iam.cpp.create_access_key.code]
+//! Creates an access key for an IAM user.
+/*!
+  \sa createAccessKey()
+  \param userName: User name for the access key.
+  \param clientConfig Aws client configuration.
+  \return bool: Successful completion.
+*/
+
+bool AwsDoc::IAM::createAccessKey(const Aws::String &userName,
+                     const Aws::Client::ClientConfiguration &clientConfig)
+{
+    Aws::IAM::IAMClient iam(clientConfig);
+
+    Aws::IAM::Model::CreateAccessKeyRequest request;
+    request.SetUserName(userName);
+
+    auto outcome = iam.CreateAccessKey(request);
+    if (!outcome.IsSuccess())
+    {
+        std::cerr << "Error creating access key for IAM user " << userName
+                  << ":" << outcome.GetError().GetMessage() << std::endl;
+    }
+    else
+    {
+        const auto &accessKey = outcome.GetResult().GetAccessKey();
+        std::cout << "Successfully created access key for IAM user " <<
+                                                                     userName << std::endl << "  aws_access_key_id = " <<
+                  accessKey.GetAccessKeyId() << std::endl <<
+                  " aws_secret_access_key = " << accessKey.GetSecretAccessKey() <<
+                  std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+// snippet-end:[iam.cpp.create_access_key.code]
+
+/*
+ *
+ *  main function
+ *
+ * Usage: create_access_key <user_name>'
+ *
+ */
+
+#ifndef TESTING_BUILD
 int main(int argc, char** argv)
 {
     if (argc != 2)
@@ -45,32 +80,14 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
         Aws::String user_name(argv[1]);
-
-        // snippet-start:[iam.cpp.create_access_key.code]
-        Aws::IAM::IAMClient iam;
-
-        Aws::IAM::Model::CreateAccessKeyRequest request;
-        request.SetUserName(user_name);
-
-        auto outcome = iam.CreateAccessKey(request);
-        if (!outcome.IsSuccess())
-        {
-            std::cout << "Error creating access key for IAM user " << user_name
-                << ":" << outcome.GetError().GetMessage() << std::endl;
-        }
-        else
-        {
-            const auto &accessKey = outcome.GetResult().GetAccessKey();
-            std::cout << "Successfully created access key for IAM user " <<
-                user_name << std::endl << "  aws_access_key_id = " <<
-                accessKey.GetAccessKeyId() << std::endl <<
-                " aws_secret_access_key = " << accessKey.GetSecretAccessKey() <<
-                std::endl;
-        }
-        // snippet-end:[iam.cpp.create_access_key.code]
-    }
+        AwsDoc::IAM::createAccessKey(user_name, clientConfig);
+     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+#endif // TESTING_BUILD
 
