@@ -1,17 +1,17 @@
 use std::{collections::HashMap, time::Duration};
 
 use aws_sdk_dynamodb::{
-    client::fluent_builders::{CreateTable, PutItem},
+    client::fluent_builders::CreateTable,
     model::{
-        AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, PutRequest,
-        ScalarAttributeType, TableStatus, WriteRequest,
+        AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
+        TableStatus, WriteRequest,
     },
     Client, Error,
 };
+use futures::future::join_all;
 use log::info;
-use serde_json::Value;
 
-use super::TABLE_NAME;
+use super::Movie;
 
 #[derive(Debug)]
 pub struct TableNotReadyError {
@@ -30,13 +30,21 @@ impl std::fmt::Display for TableNotReadyError {
 
 impl std::error::Error for TableNotReadyError {}
 
-pub async fn initialize(client: &Client) -> Result<(), Error> {
-    if !table_exists(client, TABLE_NAME).await? {
-        create_table(client, TABLE_NAME, "title", "year", 10)
+const CAPACITY: i64 = 10;
+
+pub async fn initialize(client: &Client, table_name: &str) -> Result<(), Error> {
+    eprintln!("Initializing Movies DynamoDB with {client:?}");
+
+    if table_exists(client, table_name).await? {
+        eprintln!("Found existing table {table_name}");
+    } else {
+        eprintln!("Table does not exist, creating {table_name}");
+        create_table(client, table_name, "year", "title", CAPACITY)
             .send()
             .await?;
+        await_table(client, table_name).await?;
+        load_data(client, table_name).await?;
     }
-    await_table(client, TABLE_NAME).await?;
 
     Ok(())
 }
@@ -62,7 +70,7 @@ pub fn create_table(
     sort_key: &str,
     capacity: i64,
 ) -> CreateTable {
-    info!("Creating table: {table_name} with capacity {capacity} and key structure {primary_key}:{sort_key}");
+    eprintln!("Creating table: {table_name} with capacity {capacity} and key structure {primary_key}:{sort_key}");
     client
         .create_table()
         .table_name(table_name)
@@ -99,10 +107,12 @@ pub fn create_table(
 }
 // snippet-end:[dynamodb.rust.movies-create_table_request]
 
+const TABLE_WAIT_POLLS: u64 = 6;
+const TABLE_WAIT_TIMEOUT: u64 = 5; // Takes about 30 seconds in my experience
 pub async fn await_table(client: &Client, table_name: &str) -> Result<(), Error> {
     // TODO: Use an adaptive backoff retry, rather than a sleeping loop.
-    for _ in 0..3 {
-        info!("Checking if table is ready: {table_name}");
+    for _ in 0..TABLE_WAIT_POLLS {
+        eprintln!("Checking if table is ready: {table_name}");
         if let Some(table) = client
             .describe_table()
             .table_name(table_name)
@@ -110,51 +120,66 @@ pub async fn await_table(client: &Client, table_name: &str) -> Result<(), Error>
             .await?
             .table()
         {
-            if !matches!(table.table_status, Some(TableStatus::Creating)) {
-                info!("Table is ready: {table_name}");
+            if matches!(table.table_status, Some(TableStatus::Active)) {
+                eprintln!("Table is ready");
                 return Ok(());
+            } else {
+                eprintln!("Table is NOT ready")
             }
         }
-        tokio::time::sleep(Duration::from_secs(1)).await;
+        tokio::time::sleep(Duration::from_secs(TABLE_WAIT_TIMEOUT)).await;
     }
+
     Err(Error::Unhandled(Box::new(TableNotReadyError {
         name: table_name.to_string(),
     })))
 }
 
-pub async fn load_data(client: &Client) -> Result<(), Error> {
-    let data = match serde_json::from_str(include_str!("../../../../../resources/data/movies.json"))
-        .expect("loading large movies dataset")
-    {
-        Value::Array(inner) => inner,
-        data => panic!("data must be an array, got: {:?}", data),
-    };
+// Must be less than 26
+const CHUNK_SIZE: usize = 25;
+
+pub async fn load_data(client: &Client, table_name: &str) -> Result<(), Error> {
+    eprintln!("Loading data into table {table_name}");
+    let data: Vec<Movie> =
+        serde_json::from_str(include_str!("../../../../../resources/data/movies.json"))
+            .expect("loading large movies dataset");
+
+    let data_size = data.len();
+    eprintln!("Loading {data_size} items in batches of {CHUNK_SIZE}");
 
     let ops = data
         .iter()
-        .map(|value| WriteRequest::builder().set_item().build());
-    // .collect::<Vec<WriteRequest>>();
+        .map(|v| {
+            WriteRequest::builder()
+                .set_put_request(Some(v.into()))
+                .build()
+        })
+        .collect::<Vec<WriteRequest>>();
 
-    let mut batches = Vec::with_capacity(ops.len() / 25);
-    while let batch = ops.take(25) {
-        batches.push(write_batch(client, batch.collect::<Vec<WriteRequest>>()));
-    }
+    let batches = ops
+        .chunks(CHUNK_SIZE)
+        .map(|chunk| write_batch(client, table_name, chunk));
+    let batches_count = batches.len();
+
+    eprintln!("Awaiting batches, count: {batches_count}");
+    join_all(batches).await;
 
     Ok(())
 }
 
-pub async fn write_batch(client: &Client, ops: Vec<WriteRequest>) -> Result<(), Error> {
+pub async fn write_batch(
+    client: &Client,
+    table_name: &str,
+    ops: &[WriteRequest],
+) -> Result<(), Error> {
     assert!(
         ops.len() <= 25,
         "Cannot write more than 25 items in a batch"
     );
-    let mut unprocessed = Some(HashMap::from([(TABLE_NAME.to_string(), ops)]));
-    while unprocessed
-        .as_ref()
-        .map(|m| m.get(TABLE_NAME).map(|v| v.len()).unwrap_or_default())
-        .unwrap_or_default()
-        > 0
-    {
+    let mut unprocessed = Some(HashMap::from([(table_name.to_string(), ops.to_vec())]));
+    while unprocessed_count(unprocessed.as_ref(), table_name) > 0 {
+        let count = unprocessed_count(unprocessed.as_ref(), table_name);
+        eprintln!("Adding {count} unprocessed items");
         unprocessed = client
             .batch_write_item()
             .set_request_items(unprocessed)
@@ -164,4 +189,13 @@ pub async fn write_batch(client: &Client, ops: Vec<WriteRequest>) -> Result<(), 
     }
 
     Ok(())
+}
+
+fn unprocessed_count(
+    unprocessed: Option<&HashMap<String, Vec<WriteRequest>>>,
+    table_name: &str,
+) -> usize {
+    unprocessed
+        .map(|m| m.get(table_name).map(|v| v.len()).unwrap_or_default())
+        .unwrap_or_default()
 }

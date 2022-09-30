@@ -22,11 +22,15 @@ aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "m
   "rt-tokio",
 ] }
 aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+axum = "0.5.16"
 http = "0.2.5"
+futures = "0.3"
 log = "0.4.17"
 rand = "0.8.3"
+serde = {version = "1.0", features = ["derive"]}
 serde_json = "1"
 structopt = { version = "0.3", default-features = false }
+thiserror = "1.0"
 tokio = { version = "1.20.1", features = ["full"] }
 tokio-stream = "0.1.8"
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
