@@ -1551,6 +1551,16 @@ dynamodb_Scenario_GettingStartedMovies:
             - description: Run the scenario.
               snippet_tags:
                 - javascript.dynamodb_scenarios.dynamodb_basics
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.dynamodb.Scenario_GettingStarted
+
   services:
     dynamodb: {DescribeTable, CreateTable, BatchWriteItem, PutItem, GetItem, UpdateItem,
                DeleteItem, Query, Scan, DeleteTable}
