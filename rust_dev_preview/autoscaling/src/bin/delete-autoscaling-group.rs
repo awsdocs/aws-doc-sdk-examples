@@ -32,7 +32,7 @@ async fn delete_group(client: &Client, name: &str, force: bool) -> Result<(), Er
     client
         .delete_auto_scaling_group()
         .auto_scaling_group_name(name)
-        .set_force_delete(force.then(|| true))
+        .set_force_delete(force.then_some(true))
         .send()
         .await?;
 
