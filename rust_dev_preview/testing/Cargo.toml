@@ -5,7 +5,7 @@ authors = [
   "John Disanti <jdisanti@amazon.com>",
   "Doug Schwartz <dougsch@amazon.com>",
 ]
-edition = "2018"
+edition = "2021"
 
 # snippet-start:[testing.rust.Cargo.toml]
 [dependencies]
