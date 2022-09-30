@@ -12,7 +12,8 @@ std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::DynamoDB_GTests::s
 void AwsDocTest::DynamoDB_GTests::SetUpTestSuite() {
     InitAPI(s_options);
 
-    // s_clientConfig must be a pointer because the client config must be initialized after InitAPI
+    // s_clientConfig must be a pointer because the client config must be initialized
+    // after InitAPI.
     s_clientConfig = std::make_unique<Aws::Client::ClientConfiguration>();
 }
 

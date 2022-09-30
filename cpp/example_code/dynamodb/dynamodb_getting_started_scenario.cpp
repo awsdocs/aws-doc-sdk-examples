@@ -18,7 +18,8 @@
  * 2. Add a new movie. (PutItem)
  * 3. Update the rating and plot of the movie by using an update expression.
  *    (UpdateItem with UpdateExpression + ExpressionAttributeValues args)
- * 4. Put movies in the table from moviedata.json--download it from the DynamoDB guide. (BatchWriteItem)
+ * 4. Put movies in the table from moviedata.json, downloaded from the
+ *    Amazon DynamoDB Developer Guide. (BatchWriteItem)
  * 5. Get a movie by Key. (partition + sort) (GetItem)
  * 6. Use Query with a key condition expression to return all movies released in a given
  *    year. (Query + KeyConditionExpression arg)

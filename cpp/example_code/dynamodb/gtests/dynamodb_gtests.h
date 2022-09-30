@@ -25,7 +25,8 @@ namespace AwsDocTest {
 
         static void TearDownTestSuite();
 
-        // s_clientConfig must be a pointer because the client config must be initialized after InitAPI
+        // s_clientConfig must be a pointer because the client config must be initialized
+        // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
         void AddCommandLineResponses(const std::vector<std::string>& responses);
@@ -33,7 +34,7 @@ namespace AwsDocTest {
     private:
         static Aws::SDKOptions s_options;
 
-        std::stringbuf m_coutBuffer;  // used just to silence cout
+        std::stringbuf m_coutBuffer;  // Use just to silence cout.
         std::streambuf *m_savedOutBuffer = nullptr;
 
         std::stringbuf  m_cinBuffer;
