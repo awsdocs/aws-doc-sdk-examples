@@ -1,6 +1,6 @@
 # Developer guide
 
-Elwing is a bootstrapped companion app to the Cloudscape design system. It's opinionated
+Elwing is a bootstrapped companion app to the Cloudscape design system. Its opinionated
 layout accelerates development time by exposing a simple plugin API allowing a developer
 to focus on defining pages and content rather than app structure.
 
