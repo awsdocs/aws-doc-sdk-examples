@@ -32,6 +32,14 @@ lambda_CreateFunction:
             - description:
               snippet_tags:
                 - javascript.v3.lambda.actions.CreateFunction
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.lambda.service.createFunction
     Python:
       versions:
         - sdk_version: 3
@@ -77,6 +85,14 @@ lambda_DeleteFunction:
             - description:
               snippet_tags:
                 - lambda.java2.delete.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.lambda.service.deleteFunction
     Python:
       versions:
         - sdk_version: 3
@@ -131,6 +147,14 @@ lambda_Invoke:
             - description:
               snippet_tags:
                 - javascript.v3.lambda.actions.Invoke
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.lambda.service.invoke
     Python:
       versions:
         - sdk_version: 3
@@ -149,6 +173,14 @@ lambda_GetFunction:
   synopsis: get a &LAM; function.
   category:
   languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.lambda.service.getFunction
     Python:
       versions:
         - sdk_version: 3
@@ -176,6 +208,14 @@ lambda_UpdateFunctionCode:
   synopsis: update &LAM; function code.
   category:
   languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.lambda.service.updateFunctionCode
     Python:
       versions:
         - sdk_version: 3
@@ -203,6 +243,14 @@ lambda_UpdateFunctionConfiguration:
   synopsis: update &LAM; function configuration.
   category:
   languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.lambda.service.updateFunctionConfiguration
     Python:
       versions:
         - sdk_version: 3
@@ -239,6 +287,14 @@ lambda_ListFunctions:
             - description:
               snippet_tags:
                 - Lambda.dotnetv3.ListFunctionsExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.lambda.service.listFunctions
     Python:
       versions:
         - sdk_version: 3
@@ -296,6 +352,14 @@ lambda_Scenario_GettingStartedFunctions:
             - description:
               snippet_tags:
                 - lambda.javav2.scenario.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.lambda.basics.scenario
     Python:
       versions:
         - sdk_version: 3
