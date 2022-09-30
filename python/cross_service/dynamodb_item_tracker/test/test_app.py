@@ -39,11 +39,19 @@ def report_set(app, report):
         yield
 
 
-def test_no_table():
+def test_no_table(make_stubber):
+    ddb_resource = boto3.resource('dynamodb')
+    ddb_stubber = make_stubber(ddb_resource.meta.client)
+    table = ddb_resource.Table(_TABLE_NAME)
+    storage = Storage(table, ddb_resource)
     app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
-    with app.test_client() as client:
-        rv = client.get('/')
-        assert b"Couldn't get items from table" in rv.data
+
+    ddb_stubber.stub_scan(_TABLE_NAME, [], error_code='TestException')
+
+    with storage_set(app, storage):
+        with app.test_client() as client:
+            rv = client.get('/')
+            assert b"Couldn't get items from table" in rv.data
 
 
 @pytest.mark.parametrize('item_count, status_filter, error_code', [
