@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file aws-doc-sdk-examples/ruby/Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file ruby/Dockerfile --tag my-image-name:$(date +%s)
