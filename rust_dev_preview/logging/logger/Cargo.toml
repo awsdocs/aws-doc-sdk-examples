@@ -4,7 +4,7 @@ authors = [
   "Russell Cohen <rcoh@amazon.com>",
   "Doug Schwartz <dougsch@amazon.com>",
 ]
-edition = "2018"
+edition = "2021"
 name = "logging-example"
 version = "0.1.0"
 
