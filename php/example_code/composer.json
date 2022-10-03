@@ -15,7 +15,9 @@
       "DynamoDb\\PartiQL_Basics\\": "dynamodb/partiql_basics",
       "AwsUtilities\\": "aws_utilities",
       "Glue\\": "glue/",
-      "Iam\\": "iam/"
+      "Iam\\": "iam/",
+      "Lambda\\": "lambda/",
+      "S3\\": "s3/"
     },
     "files": [
       "aws_utilities/TestableReadline.php",

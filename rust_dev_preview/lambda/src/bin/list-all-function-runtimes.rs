@@ -86,13 +86,10 @@ async fn main() -> Result<(), Error> {
     match ec2_client.describe_regions().send().await {
         Ok(resp) => {
             for region in resp.regions.unwrap_or_default() {
-                match region.region_name() {
-                    Some(region) => {
-                        show_lambdas(language, region, verbose)
-                            .await
-                            .unwrap_or_else(|err| eprintln!("{:?}", err));
-                    }
-                    None => {}
+                if let Some(region) = region.region_name() {
+                    show_lambdas(language, region, verbose)
+                        .await
+                        .unwrap_or_else(|err| eprintln!("{:?}", err));
                 }
             }
         }
