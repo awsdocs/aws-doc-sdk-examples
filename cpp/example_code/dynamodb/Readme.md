@@ -1,59 +1,30 @@
-# Amazon DynamoDb code examples for the SDK for C++
-## Overview
-Sample code which demonstrates creation, deletion, modification, and querying of Amazon DynamoDB databases.
+# Amazon DynamoDB C++ code examples
 
-*Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
-predictable performance with seamless scalability.*
-## ⚠️ Important
-* Running this code might result in charges to your AWS account.
-* Running the tests might result in charges to your AWS account
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-## Code examples
-### Single actions
-Code excerpts that show you how to call individual service functions.
-* [Get items in a batch](./batch_get_item.cpp) (BatchGetItem)
-* [Create a table](./create_table.cpp) (CreateTable)
-* [Create a table with composite key](./create_table_composite_key.cpp) (CreateTable)
-* [Delete an item](./delete_item.cpp) (DeleteItem)
-* [Delete a table](./delete_table.cpp) (DeleteTable)
-* [Describe a table](./describe_table.cpp) (DescribeTable)
-* [Get an item](./get_item.cpp) (GetItem)
-* [List tables](./list_tables.cpp) (ListTables)
-* [Put an item](./put_item.cpp) (PutItem)
-* [Query items](./query_items.cpp) (Query)
-* [Scan a table](./scan_table.cpp) (Scan)
-* [Update an item](./update_item.cpp) (UpdateItem)
-* [Update a table](./update_table.cpp) (UpdateTable)
-### Scenarios
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
-* [Getting started scenario for DynamoDB](./dynamodb_getting_started_scenario.cpp) (CreateTable, PutItem, UpdateItem, BatchWriteItem, GetItem, Query, Scan, DeleteItem, DeleteTable)
-## Run the examples
+This README discusses how to run the C++ code examples for Amazon DynamoDB.
 
-### Prerequisites
-Before using the code examples, first complete the installation and setup steps
-of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
-C++ Developer Guide.
-This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
-sample Hello World-style application.
+## Running the Amazon DynamoDB C++ files
 
-Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
+**IMPORTANT**
 
-## Tests
-⚠️ Running the tests might result in charges to your AWS account.
+The C++ code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a table. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-```sh
-   cd <BUILD_DIR>
-   cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
-   make
-   ctest 
- ```   
+You will find these examples: 
 
+- **batch_get_item.cpp** - Get batch items from different Amazon DynamoDB tables.
+- **create_table.cpp** - Create an Amazon DynamoDB table.
+- **create_table_composite_key.cpp** - Create an Amazon DynamoDB table that has a composite key.
+- **delete_item.cpp** - Delete an item from an Amazon DynamoDB table.
+- **delete_table.cpp** - Delete an Amazon DynamoDB table.
+- **describe_table.cpp** - Retrieve information about an Amazon DynamoDB table.
+- **get_item.cpp** - Retrieve an item from an Amazon DynamoDB table.
+- **list_tables.cpp** - List all Amazon DynamoDB tables.
+- **put_item.cpp** - Place an item into an Amazon DynamoDB table.
+- **query_items.cpp** - Query an Amazon DynamoDB table.
+- **scan_table.cpp** - Scan an Amazon DynamoDB table.
+- **update_item.cpp** - Update an item in an Amazon DynamoDB table.
+- **update_table.cpp** - Update information about an Amazon DynamoDB table.
 
-## Additional resources
-* [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-* [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-* [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html)
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+To run these examples, you can setup your development environment. For more information, 
+see [Getting started using the AWS SDK for C++](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html). 
