@@ -28,7 +28,18 @@ namespace AwsDoc {
 
         bool createAccountAlias(const Aws::String& aliasName,
                                              const Aws::Client::ClientConfiguration &clientConfig);
-    }
-}
+
+        bool createPolicy(const Aws::String& policyName,
+                          const Aws::String& rsrcArn,
+                          const Aws::Client::ClientConfiguration &clientConfig);
+        bool createIamRole(
+                const Aws::String& roleName,
+                const Aws::String& policy,
+                const Aws::Client::ClientConfiguration &clientConfig);
+
+        bool createUser(const Aws::String& user_name,
+                        const Aws::Client::ClientConfiguration &clientConfig);
+    } // IAM
+} // AwsDoc
 
 #endif //IAM_EXAMPLES_IAM_SAMPLES_H

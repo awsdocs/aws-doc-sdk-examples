@@ -1,41 +1,40 @@
- 
-//snippet-sourcedescription:[create_user.cpp demonstrates how to create an IAM user for an AWS account.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-service:[iam]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 //snippet-start:[iam.cpp.create_user.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateUserRequest.h>
-#include <aws/iam/model/CreateUserResult.h>
-//snippet-end:[iam.cpp.create_user.inc]
-//snippet-start:[iam.cpp.get_user.inc]
 #include <aws/iam/model/GetUserRequest.h>
 #include <aws/iam/model/GetUserResult.h>
-//snippet-end:[iam.cpp.get_user.inc]
 #include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.create_user.inc]
 
-void CreateUser(const Aws::String& user_name)
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Demonstrates creating an IAM user.
+ *
+ */
+
+//! Creates an IAM user.
+/*!
+  \sa createUser()
+  \param roleName: The name of the user.
+  \param clientConfig Aws client configuration.
+  \return bool: Successful completion.
+*/
+
+bool AwsDoc::IAM::createUser(const Aws::String& user_name,
+                             const Aws::Client::ClientConfiguration &clientConfig)
 {
     // snippet-start:[iam.cpp.create_user01.code]
     Aws::IAM::IAMClient iam;
@@ -48,14 +47,14 @@ void CreateUser(const Aws::String& user_name)
     if (get_outcome.IsSuccess())
     {
         std::cout << "IAM user " << user_name << " already exists" << std::endl;
-        return;
+        return true;
     }
     else if (get_outcome.GetError().GetErrorType() !=
         Aws::IAM::IAMErrors::NO_SUCH_ENTITY)
     {
-        std::cout << "Error checking existence of IAM user " << user_name << ":"
+        std::cerr << "Error checking existence of IAM user " << user_name << ":"
             << get_outcome.GetError().GetMessage() << std::endl;
-        return;
+        return false;
     }
     // snippet-end:[iam.cpp.get_user.code]
 
@@ -66,17 +65,26 @@ void CreateUser(const Aws::String& user_name)
     auto create_outcome = iam.CreateUser(create_request);
     if (!create_outcome.IsSuccess())
     {
-        std::cout << "Error creating IAM user " << user_name << ":" <<
+        std::cerr << "Error creating IAM user " << user_name << ":" <<
             create_outcome.GetError().GetMessage() << std::endl;
-        return;
     }
-    std::cout << "Successfully created IAM user " << user_name << std::endl;
+    else{
+        std::cout << "Successfully created IAM user " << user_name << std::endl;
+    }
+
+    return create_outcome.IsSuccess();
     // snippet-end:[iam.cpp.create_user02.code]
 }
 
-/**
- * Creates an iam user based on command line input
+/*
+ *
+ *  main function
+ *
+ * Usage: 'run_create_user <user_name>'
+ *
  */
+
+#ifndef TESTING_BUILD
 int main(int argc, char** argv)
 {
     if (argc != 2)
@@ -90,8 +98,11 @@ int main(int argc, char** argv)
     {
         Aws::String user_name(argv[1]);
 
-        CreateUser(user_name);
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+        AwsDoc::IAM::createUser(user_name, clientConfig);
     }Aws::ShutdownAPI(options);
     return 0;
 }
-
+#endif  // TESTING_BUILD

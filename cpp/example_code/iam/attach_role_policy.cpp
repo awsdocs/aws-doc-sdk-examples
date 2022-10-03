@@ -127,4 +127,4 @@ int main(int argc, char **argv) {
     Aws::ShutdownAPI(options);
     return 0;
 }
-#endif TESTING_BUILD
+#endif  // TESTING_BUILD

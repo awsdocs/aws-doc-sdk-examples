@@ -28,7 +28,7 @@
 /*!
   \sa accessKeyLastUsed()
   \param secretKeyID: The secret key ID.
-  \param clientConfig Aws client configuration.
+  \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
 

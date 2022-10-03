@@ -58,6 +58,14 @@ iam_CreateAccountAlias:
             - description:
               snippet_tags:
                 - iam.JavaScript.alias.createAccountAlias
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.create_account_alias.code
   services:
     iam: {CreateAccountAlias}
 iam_DeleteAccountAlias:
@@ -916,6 +924,15 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_policy
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.create_policy.code
+                - iam.cpp.build_policy.code
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -1552,6 +1569,14 @@ iam_CreateRole:
           excerpts:
             - snippet_tags: ['iam.go-v2.CreateRole']
               description: ''
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.create_iam_role.code
   services:
     iam: {CreateRole}
 iam_ListRoles:
