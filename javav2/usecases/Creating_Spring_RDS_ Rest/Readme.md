@@ -518,7 +518,7 @@ The following Java code represents the **RetrieveItems** class that retrieves da
 The following Java code represents the **InjectWorkService** class. Notice that you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database (as discussed in the *Creating the resources* section). Without both of these values, your code does not work. To use the **DSDataClient**, you need to create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to submit data to the work table.
 
 ```java
-     package com.aws.rest;
+ package com.aws.rest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -622,7 +622,7 @@ The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an emai
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
 
 ```java
-    package com.aws.services;
+    package com.aws.rest;
 
     import org.apache.commons.io.IOUtils;
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -776,7 +776,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 The following Java code represents the **WorkItem** class.   
 
 ```java
-    package com.aws.entities;
+    package com.aws.rest;
 
     public class WorkItem {
 
