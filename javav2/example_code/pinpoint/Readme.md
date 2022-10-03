@@ -14,7 +14,7 @@ Amazon Pinpoint is a flexible, scalable marketing communications service that co
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
-### Single action
+### Single actions
 
 Code excerpts that show you how to call individual service functions using the **PinpointClient** object: 
 
@@ -40,7 +40,9 @@ Code excerpts that show you how to call individual service functions using the *
 - [Update a single Amazon Pinpoint endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/AddExampleUser.java) (updateEndpoint command)
 
 
-### Cross-service
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
 
 - [Using AWS Step Functions and the AWS SDK for Java to build workflows that send notifications over multiple channels](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels)
 
