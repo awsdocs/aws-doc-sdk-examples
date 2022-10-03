@@ -48,28 +48,28 @@ import java.util.List;
 // snippet-end:[rds.java2.scenario.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java (v2) code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * This Java example performs these tasks:
+ * This Java example performs the following tasks:
  *
  * 1. Returns a list of the available DB engines by invoking the DescribeDbEngineVersions method.
- * 2. Select an engine family and create a custom DB parameter group by invoking the createDBParameterGroup method.
- * 3. Get the parameter groups by invoking the DescribeDbParameterGroups methods.
- * 4. Get parameters in the group by invoking the DescribeDbParameters method.
- * 5. Modify both the auto_increment_offset parameters by invoking the modifyDbParameterGroup method.
- * 6. Get and display the updated parameters.
- * 7. Get a list of allowed engine versions by invoking the describeDbEngineVersions method.
- * 8. Get a list of micro instance classes available for the selected engine
- * 9. Create an RDS database instance that contains a MySql database and uses the parameter group
- * 10. Wait for DB instance to be ready and print out the connection endpoint value.
- * 11. Create a snapshot of the DB instance.
- * 12. Wait for DB snapshot to be ready.
- * 13. Delete the DB instance. rds.DeleteDbInstance.
- * 14. Delete the parameter group.
+ * 2. Selects an engine family and create a custom DB parameter group by invoking the createDBParameterGroup method.
+ * 3. Gets the parameter groups by invoking the DescribeDbParameterGroups methods.
+ * 4. Gets parameters in the group by invoking the DescribeDbParameters method.
+ * 5. Modifies both the auto_increment_offset parameters by invoking the modifyDbParameterGroup method.
+ * 6. Gets and displays the updated parameters.
+ * 7. Gets a list of allowed engine versions by invoking the describeDbEngineVersions method.
+ * 8. Gets a list of micro instance classes available for the selected engine.
+ * 9. Creates an RDS database instance that contains a MySql database and uses the parameter group.
+ * 10. Waits for the DB instance to be ready and prints out the connection endpoint value.
+ * 11. Creates a snapshot of the DB instance.
+ * 12. Waits for an RDS DB snapshot to be ready.
+ * 13. Deletes the  RDS DB instance.
+ * 14. Deletes the parameter group.
  */
 public class RDSScenario {
 
@@ -167,8 +167,8 @@ public class RDSScenario {
                 DescribeDbInstancesResponse response = rdsClient.describeDBInstances();
                 List<DBInstance> instanceList = response.dbInstances();
                 int listSize = instanceList.size();
-                isDataDel = false ; // reset this value
-                didFind = false; // reset this value
+                isDataDel = false ;
+                didFind = false; 
                 int index = 1;
                 for (DBInstance instance: instanceList) {
                     instanceARN = instance.dbInstanceArn();
