@@ -46,7 +46,6 @@ Sample applications that work across multiple AWS services.
 
 - [Using AWS Step Functions and the AWS SDK for Java to build workflows that send notifications over multiple channels](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels)
 
-
 ## Run the examples
 To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
@@ -143,9 +142,9 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running DynamoDBTest
-	Running Amazon DynamoDB   Test 1
-	Running Amazon DynamoDB  Test 2
+	[INFO] Running Tests
+	Running Test 1
+	Running Test 2
 	...
 	Done!
 	[INFO] Results:
