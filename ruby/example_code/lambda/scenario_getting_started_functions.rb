@@ -13,7 +13,7 @@ require "aws-sdk-iam"
 require "logger"
 require "json"
 require "zip"
-require "cli/ui"
+require 'cli/ui'
 require_relative("../../helpers/disclaimers")
 require_relative("../../helpers/decorators")
 require_relative("lambda_basics")
