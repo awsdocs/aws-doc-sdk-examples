@@ -7,12 +7,12 @@
 require "logger"
 
 # A function that multiplies two whole numbers and logs the result.
-# Requires two whole numbers provided at runtime: 'first_number' and 'second_number'
+# Requires two whole numbers provided at runtime: 'first_number' and 'second_number'.
 #
-# @param event [Hash] contains parameters sent when the function is invoked
-# @param context [Hash] contains methods and properties that provide information
+# @param event [Hash] Parameters sent when the function is invoked.
+# @param context [Hash] Methods and properties that provide information.
 # about the invocation, function, and execution environment.
-# @ return product [String] the product of the two numbers
+# @ return product [String] The product of the two numbers.
 def lambda_handler(event:, context:)
   logger = Logger.new($stdout)
   log_level = ENV["LOG_LEVEL"]

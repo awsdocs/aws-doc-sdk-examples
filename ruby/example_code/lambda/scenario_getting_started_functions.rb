@@ -3,7 +3,7 @@
 
 # frozen_string_literal: true
 
-# To run this demo, you need Ruby 2.6 or later, plus dependencies.
+# To run this demo, you will need Ruby 2.6 or later, plus dependencies.
 # For more information, see:
 # https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md
 
@@ -13,7 +13,7 @@ require "aws-sdk-iam"
 require "logger"
 require "json"
 require "zip"
-require 'cli/ui'
+require "cli/ui"
 require_relative("../../helpers/disclaimers")
 require_relative("../../helpers/decorators")
 require_relative("lambda_basics")

@@ -9,10 +9,10 @@ require "logger"
 # A function that increments a whole number by one (1) and logs the result.
 # Requires a manually-provided runtime parameter, 'number', which must be Int
 #
-# @param event [Hash] contains parameters sent when the function is invoked
-# @param context [Hash] contains methods and properties that provide information
+# @param event [Hash] Parameters sent when the function is invoked
+# @param context [Hash] Methods and properties that provide information
 # about the invocation, function, and execution environment.
-# @return incremented_number [String] the incremented number
+# @return incremented_number [String] The incremented number.
 def lambda_handler(event:, context:)
   logger = Logger.new($stdout)
   log_level = ENV["LOG_LEVEL"]

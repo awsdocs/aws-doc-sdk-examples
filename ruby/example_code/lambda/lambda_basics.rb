@@ -3,11 +3,6 @@
 
 # frozen_string_literal: true
 
-# Purpose
-#
-# Shows how to use the AWS SDK for Ruby v3 to manage and invoke AWS Lambda
-# functions.
-
 require "aws-sdk-lambda"
 require "aws-sdk-s3"
 require "aws-sdk-iam"
@@ -34,7 +29,7 @@ class LambdaWrapper
   # Get an AWS Identity and Access Management (IAM) role.
   #
   # @param iam_role_name: The name of the role to retrieve.
-  # @param action: whether to create or destroy the IAM apparatus
+  # @param action: Whether to create or destroy the IAM apparatus.
   # @return: The IAM role.
   def manage_iam(iam_role_name, action)
     role_policy = {
@@ -89,10 +84,10 @@ class LambdaWrapper
   # snippet-end:[ruby.example_code.lambda.setup_iam]
 
   # snippet-start:[ruby.example_code.lambda.create_deployment_package]
-  # Creates a Lambda deployment package in .zip format
+  # Creates a Lambda deployment package in .zip format.
   # This zip can be passed directly as a string to Lambda when creating the function.
   #
-  # @param source_file: The name of the object without suffix for Lambda file and zip.
+  # @param source_file: The name of the object, without suffix, for the Lambda file and zip.
   # @return: The deployment package.
   def create_deployment_package(source_file)
     Dir.chdir(File.dirname(__FILE__))
@@ -115,11 +110,11 @@ class LambdaWrapper
   # Gets data about a Lambda function.
   #
   # @param function_name: The name of the function.
-  # @return response: The function data, or nil if no such function exists
+  # @return response: The function data, or nil if no such function exists.
   def get_function(function_name)
     @lambda_client.get_function(
       {
-        function_name: function_name
+        function_name:
       }
     )
   rescue Aws::Lambda::Errors::ResourceNotFoundException => e
@@ -141,7 +136,7 @@ class LambdaWrapper
   def create_function(function_name, handler_name, role_arn, deployment_package)
     response = @lambda_client.create_function({
                                                 role: role_arn.to_s,
-                                                function_name: function_name,
+                                                function_name:,
                                                 handler: handler_name,
                                                 runtime: "ruby2.7",
                                                 code: {
@@ -153,7 +148,7 @@ class LambdaWrapper
                                                   }
                                                 }
                                               })
-    @lambda_client.wait_until(:function_active_v2, { function_name: function_name }) do |w|
+    @lambda_client.wait_until(:function_active_v2, { function_name: }) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -167,11 +162,11 @@ class LambdaWrapper
 
   # snippet-start:[ruby.example_code.lambda.Invoke]
   # Invokes a Lambda function.
-  # @param function_name: The name of the function to invoke.
-  # @return: The response from the function invocation.
-  # @param [nil] payload
+  # @param function_name [String] The name of the function to invoke.
+  # @param payload [nil] Payload containing runtime parameters.
+  # @return [Object] The response from the function invocation.
   def invoke_function(function_name, payload = nil)
-    params = { function_name: function_name }
+    params = { function_name: }
     params[:payload] = payload unless payload.nil?
     @lambda_client.invoke(params)
   rescue Aws::Lambda::Errors::ServiceException => e
@@ -179,10 +174,10 @@ class LambdaWrapper
   end
   # snippet-end:[ruby.example_code.lambda.Invoke]
 
-  # Get function logs from the latest CloudWatch log stream
-  # @param function_name: The name of the function
-  # @param string_match: A string to look for in the logs
-  # @return all_logs: an array of all the log messages found for that stream
+  # Get function logs from the latest Amazon CloudWatch log stream.
+  # @param function_name [String] The name of the function.
+  # @param string_match [String] A string to look for in the logs.
+  # @return all_logs [Array] An array of all the log messages found for that stream.
   def get_cloudwatch_logs(function_name, string_match)
     @logger.debug("Enforcing a 10 second sleep to allow CloudWatch logs to appear.")
     sleep(10)
@@ -216,18 +211,18 @@ class LambdaWrapper
   # snippet-start:[ruby.example_code.lambda.UpdateFunctionConfiguration]
   # Updates the environment variables for a Lambda function.
   # @param function_name: The name of the function to update.
-  # @param log_level: The log level of the function
+  # @param log_level: The log level of the function.
   # @return: Data about the update, including the status.
   def update_function_configuration(function_name, log_level)
     @lambda_client.update_function_configuration({
-                                                   function_name: function_name,
+                                                   function_name:,
                                                    environment: {
                                                      variables: {
                                                        "LOG_LEVEL" => log_level
                                                      }
                                                    }
                                                  })
-    @lambda_client.wait_until(:function_updated_v2, { function_name: function_name }) do |w|
+    @lambda_client.wait_until(:function_updated_v2, { function_name: }) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -248,10 +243,10 @@ class LambdaWrapper
   # @return: Data about the update, including the status.
   def update_function_code(function_name, deployment_package)
     @lambda_client.update_function_code(
-      function_name: function_name,
+      function_name:,
       zip_file: deployment_package
     )
-    @lambda_client.wait_until(:function_updated_v2, { function_name: function_name }) do |w|
+    @lambda_client.wait_until(:function_updated_v2, { function_name: }) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -280,11 +275,11 @@ class LambdaWrapper
 
   # snippet-start:[ruby.example_code.lambda.DeleteFunction]
   # Deletes a Lambda function.
-  # @param function_name: The name of the function to delete
+  # @param function_name: The name of the function to delete.
   def delete_function(function_name)
     print "Deleting function: #{function_name}..."
     @lambda_client.delete_function(
-      function_name: function_name
+      function_name:
     )
     print "Done!".green
   rescue Aws::Lambda::Errors::ServiceException => e
