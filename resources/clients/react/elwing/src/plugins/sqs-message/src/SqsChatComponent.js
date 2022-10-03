@@ -54,7 +54,7 @@ function App() {
       <ul>
         <li>
           <Link external href="https://aws.amazon.com/sqs/">
-            Amazon Simple Queue Service
+            Amazon Simple Queue Service (Amazon SQS)
           </Link>
         </li>
       </ul>

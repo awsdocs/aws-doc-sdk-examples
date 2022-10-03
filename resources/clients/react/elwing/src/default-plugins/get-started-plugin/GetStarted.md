@@ -21,11 +21,11 @@ run correctly.
 ### Find an example
 Examples are listed in the navigation bar by name. The services used by the example are listed
 in parentheses next to the name. For example, `Message (SQS)` would use Amazon Simple Queue Service
-to simulate a messaging application.
+(Amazon SQS) to simulate a messaging application.
 
-Click on an example in the navigation bar for instructions on its use.
+To see example instructions, choose one of the examples in the navigation bar.
 
 ### Run a backend service
 Each example is supported by one or more backend services created with the AWS SDK. The
 available backend services for a given example are listed on the example's page.
-Click on one of the services and follow its installation instructions.
+Choose one of the services and follow its installation instructions.

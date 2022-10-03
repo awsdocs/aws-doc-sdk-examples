@@ -1,8 +1,8 @@
 # Developer guide
 
 Elwing is a bootstrapped companion app to the Cloudscape design system. Its opinionated
-layout accelerates development time by exposing a simple plugin API allowing a developer
-to focus on defining pages and content rather than app structure.
+layout accelerates development time by exposing a simple plugin API. Developers can use
+the plugin API to focus on defining pages and content instead of app structure.
 
 ## Prerequisites
 
@@ -15,21 +15,21 @@ to focus on defining pages and content rather than app structure.
 
 ### What is a plugin?
 
-A plugin is just a JavaScript Object containing the following properties:
+A plugin is a JavaScript Object that contains the following properties:
 
 - `navigationItem` - A Cloudscape `SideNavigationProps` object.
-- `component` - The component that will display when the link in the sidebar is clicked.
+- `component` - The component that displays when choosing the link in the sidebar.
 
 ## Add a plugin
 
 ### ⚠️ Important
 
-The automated steps will overwrite the `manifest.ts` file with the latest
+The automated steps overwrite the `manifest.ts` file with the latest
 plugins from the `plugins` directory.
 
 ### Add a plugin automatically
 
-A convenience script has been added to support the quick creation of a plugin.
+A convenience script is included to support quick plugin creation.
 
 1. Run `npm run create-plugin <plugin-name>`.
 1. Find your plugin in the `plugins` directory.
@@ -37,10 +37,10 @@ A convenience script has been added to support the quick creation of a plugin.
 
 ### Add a plugin manually
 
-If you want to create a plugin manually instead of using the script, you can do so.
+You can choose to create a plugin manually instead of using the script.
 
 1. Create a new folder in the plugins directory. For example, `my-plugin`.
-2. Add an `index.ts` file to the folder and populate it using the below as an example.
+2. Add an `index.ts` file to the folder. Refer to the following example to populate the file.
 
 ```javascript
 const MyPlugin = {
