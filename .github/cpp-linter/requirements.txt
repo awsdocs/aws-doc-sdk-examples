@@ -1,4 +1,0 @@
-PyGithub~=1.51
-unidiff~=0.6.0
-requests~=2.23
-pyyaml~=5.4
