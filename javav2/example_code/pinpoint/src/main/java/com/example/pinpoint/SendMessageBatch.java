@@ -109,7 +109,7 @@ public class SendMessageBatch {
                 .messageConfiguration(direct)
                 .build();
 
-            // Create a SendMessagesRequest object
+            // Create a SendMessagesRequest object.
             SendMessagesRequest request = SendMessagesRequest.builder()
                 .applicationId(appId)
                 .messageRequest(msgReq)
