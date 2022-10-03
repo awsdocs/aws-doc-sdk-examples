@@ -121,7 +121,7 @@ Active items are queried from the database and used to dynamically create an Exc
 ## Create an IntelliJ project named ItemTrackerRDSRest
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
-2. In the Project SDK, select **11**. 
+2. In the **Project SDK**, choose **11**. 
 3. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
 4. For **GroupId**, enter **aws-spring**.
 5. For **ArtifactId**, enter **ItemTrackerRDSRest**.
@@ -302,8 +302,8 @@ The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles REST requests.
-+ **RetrieveItems** -  Uses the **RDSDataClient** to retrieve a dataset from the **Work** table. 
-+ **InjectWorkService** - Uses the **RDSDataClient** to inject a new item into the **Work** table. 
++ **RetrieveItems** -  Retrieves a dataset from the **Work** table. 
++ **InjectWorkService** - Injects a new item into the **Work** table. 
 + **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object to send email messages.
 + **WorkItem** - Represents the application's data model.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
@@ -313,7 +313,7 @@ The following Java files go into this package:
 The following Java code represents the **App** class. This is the entry point into a Spring boot application. Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to retrieve data from the **Work** table. 
 
 ```java
-   package com.aws.rest;
+package com.aws.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -451,7 +451,7 @@ public class MainController {
 The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. 
 
 ```java
-     package com.aws.rest;
+package com.aws.rest;
 
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
@@ -501,7 +501,7 @@ public class RetrieveItems {
 The following Java code represents the **InjectWorkService** class that adds a new record to the database.
 
 ```java
- package com.aws.rest;
+package com.aws.rest;
 
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementResponse;
@@ -734,10 +734,9 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 The following Java code represents the **WorkItem** class.   
 
 ```java
-    package com.aws.rest;
+package com.aws.rest;
 
 import software.amazon.awssdk.services.rdsdata.model.Field;
-
 import java.util.List;
 
 public class WorkItem {
