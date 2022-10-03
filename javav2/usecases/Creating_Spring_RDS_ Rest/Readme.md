@@ -37,7 +37,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Java IDE to build the Spring REST API. This tutorial uses the IntelliJ IDE.
-+ Java JDK 1.8.
++ Java JDK 11. (The code in this example uses APIs that are available in JDK 11). 
 + Maven 3.6 or later.
 + Set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
