@@ -27,7 +27,7 @@ jobs:
        with:
          repo-token: "${{ secrets.GITHUB_TOKEN }}"
          configuration-path: .github/label-ruleset.yml
-         snyc-labels: ''
+         snyc-labels: ""
 
       # The Audit Labels workflow creates, renames, updates
       # or deletes labels based on a list of allowed labels.
