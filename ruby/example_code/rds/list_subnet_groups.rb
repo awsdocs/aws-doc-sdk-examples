@@ -6,8 +6,8 @@ require "aws-sdk-rds"  # v2: require 'aws-sdk'
 
 # List all Amazon Relational Database Service (Amazon RDS) subnet groups.
 #
-# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource
-# @return [Array, nil] All the groups discovered or nil if error
+# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource.
+# @return [Array, nil] All the groups discovered, or nil if error.
 def list_subnet_groups(rds_resource)
   db_subnet_groups = []
   rds_resource.db_subnet_groups.each do |s|

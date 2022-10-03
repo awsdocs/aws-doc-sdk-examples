@@ -9,8 +9,8 @@ require "aws-sdk-rds" # v2: require 'aws-sdk'
 # List all Amazon Relational Database Service (Amazon RDS) DB instance
 # snapshots.
 #
-# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource
-# @return instance_snapshots [Array, nil] All instance snapshots or nil if error
+# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource.
+# @return instance_snapshots [Array, nil] All instance snapshots, or nil if error.
 def list_instance_snapshots(rds_resource)
   instance_snapshots = []
   rds_resource.db_snapshots.each do |s|

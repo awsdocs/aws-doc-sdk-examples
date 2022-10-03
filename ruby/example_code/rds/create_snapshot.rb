@@ -7,9 +7,9 @@ require "aws-sdk-rds"  # v2: require 'aws-sdk'
 # Create a snapshot for an Amazon Relational Database Service (Amazon RDS)
 # DB instance.
 #
-# @param rds_resource [Aws::RDS::Resource] The resource containing SDK logic
-# @param db_instance_name [String] The name of the Amazon RDS DB instance
-# @return [Aws::RDS::DBSnapshot, nil] The snapshot created or nil if error
+# @param rds_resource [Aws::RDS::Resource] The resource containing SDK logic.
+# @param db_instance_name [String] The name of the Amazon RDS DB instance.
+# @return [Aws::RDS::DBSnapshot, nil] The snapshot created, or nil if error.
 def create_snapshot(rds_resource, db_instance_name)
   id = "snapshot-#{rand(10**6)}"
   db_instance = rds_resource.db_instance(db_instance_name)

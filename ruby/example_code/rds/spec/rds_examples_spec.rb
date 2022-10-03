@@ -40,17 +40,17 @@ describe "RDS example code" do
     expect(snapshots).not_to be_empty
   end
 
-  it "list parameter groups" do
+  it "lists parameter groups" do
     parameter_groups = list_parameter_groups(rds_resource)
     expect(parameter_groups).not_to be_empty
   end
 
-  it "list security groups" do
+  it "lists security groups" do
     security_groups = list_security_groups(rds_resource)
     expect(security_groups).not_to be_empty
   end
 
-  it "list subnet groups" do
+  it "lists subnet groups" do
     subnet_groups = list_subnet_groups(rds_resource)
     expect(subnet_groups).not_to be_nil
   end

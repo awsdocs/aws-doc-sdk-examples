@@ -7,9 +7,9 @@ require "aws-sdk-rds"  # v2: require 'aws-sdk'
 # Create a snapshot of an Amazon Relational Database Service (Amazon RDS)
 # Multi-AZ DB cluster.
 #
-# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource
-# @param multi_az_db_cluster [String] The Multi-AZ DB cluster to snapshot
-# @return [DBClusterSnapshot, nil] The snapshot created or nil if error
+# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource.
+# @param multi_az_db_cluster [String] The Multi-AZ DB cluster to snapshot.
+# @return [DBClusterSnapshot, nil] The snapshot created, or nil if error.
 def create_cluster_snapshot(rds_resource, multi_az_db_cluster)
   cluster = rds_resource.db_cluster(multi_az_db_cluster)
   id = "snapshot-#{rand(10**6)}"

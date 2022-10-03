@@ -6,8 +6,8 @@ require "aws-sdk-rds"  # v2: require 'aws-sdk'
 
 # List all Amazon Relational Database Service (Amazon RDS) parameter groups.
 #
-# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource
-# @return [Array, nil] List of all parameter groups or nil if error
+# @param rds_resource [Aws::RDS::Resource] An SDK for Ruby Amazon RDS resource.
+# @return [Array, nil] List of all parameter groups, or nil if error.
 def list_parameter_groups(rds_resource)
   parameter_groups = []
   rds_resource.db_parameter_groups.each do |p|
