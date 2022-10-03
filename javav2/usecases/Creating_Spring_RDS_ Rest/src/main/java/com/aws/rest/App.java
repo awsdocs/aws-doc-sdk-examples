@@ -21,8 +21,8 @@ public class App {
     static final String username = "User";
     static final String archived = "1";
     public static final Region region = Region.US_EAST_1;
-    private static String secretArn = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b" ;
-    private static String resourceArn = "arn:aws:rds:us-east-1:814548047983:cluster:database-4" ;
+    private static String secretArn = "<Enter value>" ;
+    private static String resourceArn =  "<Enter value>";
     static RdsDataClient getClient() {
         return RdsDataClient.builder().region(App.region).build();
     }
