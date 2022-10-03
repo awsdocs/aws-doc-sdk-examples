@@ -16,28 +16,28 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 ### Single action
 
-You will find these examples that use the **PinpointClient** object: 
+Code excerpts that show you how to call individual service functions using the **PinpointClient** object: 
 
-- [Update Amazon Pinpoint endpoints](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/AddExampleEndpoints.java) (updateEndpointsBatch command)
-- [Update a single Amazon Pinpoint endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/AddExampleUser.java) (updateEndpoint command)
 - [Create an Amazon Pinpoint application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/CreateApp.java) (createApp command)
 - [Create a campaign for an application in Amazon Pinpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/CreateCampaign.java) (createCampaign command)
-- [Create a segment for a campaign in Amazon Pinpoint.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/CreateSegment.java) (createSegment command)
-- [Delete an Amazon Pinpoint application.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/DeleteApp.java) (deleteApp command)
-- [Delete an Amazon Pinpoint endpoint.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/DeleteEndpoint.java) (deleteEndpoint command)
-- [Export endpoints to an Amazon Simple Storage Service (Amazon S3) bucket.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ExportEndpoints.java) (createExportJob command)
-- [Get a segment using its id value.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/GetSegmentById.java) (getSegment command)
-- [Get an Amazon Pinpoint template.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/GetTemplateByName.java) (getEmailTemplate command)
-- [Import a segment into Amazon Pinpoint.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ImportSegment.java) (createImportJob command)
-- [Retrieve information about all the endpoints.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ListEndpointIds.java) (getUserEndpoints command)
-- [List Amazon Pinpoint segments.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ListSegments.java) (getSegments command)
-- [Display information about an existing endpoint.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/LookUpEndpoint.java) (getEndpoint command)
-- [Send an email message.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendEmailMessage.java) (sendMessages command)
-- [Send an SMS message.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendMessage.java) (sendMessages command)
-- [Send batch SMS messages.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendMessageBatch.java) (sendMessages command)
-- [Send a voice message using the PinpointSmsVoiceClient.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendVoiceMessage.java) (sendVoiceMessage command)
-- [Update a channel for an Amazon Pinpoint application.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/UpdateChannel.java) (getSmsChannel command)
-- [Update a channel for an Amazon Pinpoint application.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/UpdateChannel.java) (getSmsChannel command)
+- [Create a segment for a campaign in Amazon Pinpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/CreateSegment.java) (createSegment command)
+- [Delete an Amazon Pinpoint application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/DeleteApp.java) (deleteApp command)
+- [Delete an Amazon Pinpoint endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/DeleteEndpoint.java) (deleteEndpoint command)
+- [Export endpoints to an Amazon Simple Storage Service (Amazon S3) bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ExportEndpoints.java) (createExportJob command)
+- [Get a segment using its Id value](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/GetSegmentById.java) (getSegment command)
+- [Get an Amazon Pinpoint template](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/GetTemplateByName.java) (getEmailTemplate command)
+- [Import a segment into Amazon Pinpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ImportSegment.java) (createImportJob command)
+- [Retrieve information about all the endpoints](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ListEndpointIds.java) (getUserEndpoints command)
+- [List Amazon Pinpoint segments](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/ListSegments.java) (getSegments command)
+- [Display information about an existing endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/LookUpEndpoint.java) (getEndpoint command)
+- [Send an email message](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendEmailMessage.java) (sendMessages command)
+- [Send an SMS message](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendMessage.java) (sendMessages command)
+- [Send batch SMS messages](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendMessageBatch.java) (sendMessages command)
+- [Send a voice message using the PinpointSmsVoiceClient](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/SendVoiceMessage.java) (sendVoiceMessage command)
+- [Update a channel for an Amazon Pinpoint application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/UpdateChannel.java) (getSmsChannel command)
+- [Update a channel for an Amazon Pinpoint application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/UpdateChannel.java) (getSmsChannel command)
+- [Update Amazon Pinpoint endpoints](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/AddExampleEndpoints.java) (updateEndpointsBatch command)
+- [Update a single Amazon Pinpoint endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/pinpoint/src/main/java/com/example/pinpoint/AddExampleUser.java) (updateEndpoint command)
 
 
 ### Cross-service
@@ -45,8 +45,8 @@ You will find these examples that use the **PinpointClient** object:
 - [Using AWS Step Functions and the AWS SDK for Java to build workflows that send notifications over multiple channels](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels)
 
 
-## Running the examples
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+## Run the examples
+To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon Pinpoint application. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
@@ -60,7 +60,7 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon DynamoDB resources and might incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account._
 
  ### Properties file
 Before running the Amazon Pinpoint JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a table name used for various tests. If you do not define all values, the JUnit tests fail.
@@ -173,7 +173,7 @@ If you do not define the correct values in the properties file, your JUnit tests
 
 
 ## Additional resources
-* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [Amazon Pinpoint Developer Guide](https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html).
 * [Interface PinpointClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/pinpoint/PinpointClient.html).
 
