@@ -1,6 +1,6 @@
-# Amazon RDS Java code examples
+# Amazon RDS code examples for the SDK for Java
 
-This README discusses how to run and test the Java code examples for Amazon Relational Database Service (Amazon RDS).
+This README discusses how to run and test the AWS SDK for Java code examples for Amazon Relational Database Service (Amazon RDS).
 
 Amazon RDS is a collection of managed services that makes it simple to set up, operate, and scale databases in the cloud.
 
@@ -14,43 +14,43 @@ Amazon RDS is a collection of managed services that makes it simple to set up, o
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
-To run these examples, setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
-### Single action
+### Single actions
 
-You will find these examples that use the **RdsClient** object: 
+Code excerpts that show you how to call individual service functions using the **RdsClient** object: 
 
-- [Create an Amazon RDS instance and wait for it to be in an available state.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBInstance.java) (createDBInstance command)
-- [Create an Amazon RDS snapshot.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBSnapshot.java) (createDBSnapshot command)
-- [Delete an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DeleteDBInstance.java) (deleteDBInstance command)
-- [Retrieve attributes that belongs to an Amazon RDS account.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DescribeAccountAttributes.java) (describeAccountAttributes command)
-- [Describe an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DescribeDBInstances.java) (describeDBInstances command)
-- [Modify an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/ModifyDBInstance.java) (modifyDBInstance command)
-- [Generate an authorization token for AWS Identity and Access Management (IAM) authentication to an Amazon RDS database.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/GenerateRDSAuthToken.java) (generateAuthenticationToken command)
+- [Create an Amazon RDS instance and wait for it to be in an available state](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBInstance.java) (createDBInstance command)
+- [Create an Amazon RDS snapshot](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/CreateDBSnapshot.java) (createDBSnapshot command)
+- [Delete an Amazon RDS instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DeleteDBInstance.java) (deleteDBInstance command)
+- [Retrieve attributes that belong to an Amazon RDS account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DescribeAccountAttributes.java) (describeAccountAttributes command)
+- [Describe an Amazon RDS instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/DescribeDBInstances.java) (describeDBInstances command)
+- [Modify an Amazon RDS instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/ModifyDBInstance.java) (modifyDBInstance command)
+- [Generate an authorization token for AWS Identity and Access Management (IAM) authentication to an Amazon RDS database](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/GenerateRDSAuthToken.java) (generateAuthenticationToken command)
 - [Reboot an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/RebootDBInstance.java) (rebootDBInstance command)
-- [Start an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/startDatabase.java) (startDatabase command)
-- [Stop an Amazon RDS instance.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/stopDatabase.java) (stopDatabase command)
+- [Start an Amazon RDS instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/startDatabase.java) (startDatabase command)
+- [Stop an Amazon RDS instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/stopDatabase.java) (stopDatabase command)
 
 ### Scenario
 
 - [Performing various Amazon RDS operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/RDSScenario.java) (multiple commands)
 
-## Running the examples
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+## Run the examples
+To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon RDS instance. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
-## Testing the Amazon RDS Java files
+## Test the Amazon RDS Java files
+
+⚠️ Running the tests might result in charges to your AWS account.
 
 You can test the Java code examples for Amazon RDS by running a test file named **AmazonRDSTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
-
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
 Before running the Amazon RDS JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a **dbInstance** identifier value used in the tests. If you do not define all values, the JUnit tests fail.
@@ -60,16 +60,16 @@ Define these values to successfully run the JUnit tests:
 - **dbInstanceIdentifier** - The database instance identifier.   
 - **dbSnapshotIdentifier** - The snapshot identifier.
 - **dbName** - The database name.
-- **masterUsername** - The master user name .
-- **masterUserPassword** - The password that corresponds to the master user name.
-- **newMasterUserPassword** - The updated password that corresponds to the master user name.
-- **dbGroupNameSc** - The database group name used in the scenaio test.
-- **dbParameterGroupFamilySc** - The database parameter group name used in the scenaio test (ie, mysql8.0).
-- **dbInstanceIdentifierSc** - The database instance identifier used in the scenaio test.
-- **dbNameSc** - The database name used in the scenaio test.
-- **masterUsernameSc** -  The master user name used in the scenaio test.
-- **masterUserPasswordSc** - The password that corresponds to the master user name used in the scenaio test.
-- **dbSnapshotIdentifierSc** - The snapshot identifier used in the scenaio test.
+- **masterUsername** - The user name.
+- **masterUserPassword** - The password that corresponds to the user name.
+- **newMasterUserPassword** - The updated password that corresponds to the user name.
+- **dbGroupNameSc** - The database group name used in the scenario test.
+- **dbParameterGroupFamilySc** - The database parameter group name used in the scenario test (such as mysql8.0).
+- **dbInstanceIdentifierSc** - The database instance identifier used in the scenario test.
+- **dbNameSc** - The database name used in the scenario test.
+- **masterUsernameSc** - The user name used in the scenario test.
+- **masterUserPasswordSc** - The password that corresponds to the user name used in the scenario test.
+- **dbSnapshotIdentifierSc** - The snapshot identifier used in the scenario test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -112,7 +112,7 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[ERROR];
 	
 ## Additional resources
-* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html).
 * [Interface RdsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsClient.html).
 
