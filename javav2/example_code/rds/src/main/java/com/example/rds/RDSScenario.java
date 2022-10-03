@@ -83,9 +83,9 @@ public class RDSScenario {
             "    dbGroupName - The database group name. \n"+
             "    dbParameterGroupFamily - The database parameter group name (for example, mysql8.0).\n"+
             "    dbInstanceIdentifier - The database instance identifier \n"+
-            "    dbName -  The database name. \n"+
-            "    masterUsername - The master user name. \n"+
-            "    masterUserPassword - The password that corresponds to the master user name. \n"+
+            "    dbName - The database name. \n"+
+            "    masterUsername - The user name. \n"+
+            "    masterUserPassword - The password that corresponds to the user name. \n"+
             "    dbSnapshotIdentifier - The snapshot identifier. \n" ;
 
         if (args.length != 7) {
