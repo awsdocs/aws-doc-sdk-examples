@@ -47,6 +47,8 @@ import java.util.ArrayList;
 import java.util.List;
 // snippet-end:[rds.java2.scenario.import]
 
+
+// snippet-start:[rds.java2.scenario.main]
 /**
  * Before running this Java (v2) code example, set up your development environment, including your credentials.
  *
@@ -83,9 +85,9 @@ public class RDSScenario {
             "    dbGroupName - The database group name. \n"+
             "    dbParameterGroupFamily - The database parameter group name (for example, mysql8.0).\n"+
             "    dbInstanceIdentifier - The database instance identifier \n"+
-            "    dbName - The database name. \n"+
-            "    masterUsername - The user name. \n"+
-            "    masterUserPassword - The password that corresponds to the user name. \n"+
+            "    dbName -  The database name. \n"+
+            "    masterUsername - The master user name. \n"+
+            "    masterUserPassword - The password that corresponds to the master user name. \n"+
             "    dbSnapshotIdentifier - The snapshot identifier. \n" ;
 
         if (args.length != 7) {
@@ -168,7 +170,7 @@ public class RDSScenario {
                 List<DBInstance> instanceList = response.dbInstances();
                 int listSize = instanceList.size();
                 isDataDel = false ;
-                didFind = false; 
+                didFind = false;
                 int index = 1;
                 for (DBInstance instance: instanceList) {
                     instanceARN = instance.dbInstanceArn();
@@ -524,3 +526,4 @@ public class RDSScenario {
     }
     // snippet-end:[rds.java2.scenario_desc_engine.main]
 }
+// snippet-end:[rds.java2.scenario.main]
