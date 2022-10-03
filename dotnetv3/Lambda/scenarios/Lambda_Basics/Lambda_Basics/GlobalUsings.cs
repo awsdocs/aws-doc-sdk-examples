@@ -5,6 +5,9 @@
 global using Amazon;
 global using Amazon.Lambda;
 global using Amazon.Lambda.Model;
+global using Amazon.IdentityManagement;
+global using Amazon.IdentityManagement.Model;
 global using Lambda_Basics;
+global using Microsoft.Extensions.Configuration;
 
 // snippet-end:[lambda.dotnetv3.Lambda_Basics.GlobalUsings]

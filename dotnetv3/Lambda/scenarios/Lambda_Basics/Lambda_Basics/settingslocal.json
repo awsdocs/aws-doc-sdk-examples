@@ -1,0 +1,9 @@
+{
+  "FunctionName": "LambdaIncrement",
+  "Handler": "LambdaIncrement::LambdaIncrement.Function::FunctionHandler",
+  "BucketName": "igsmith-functions",
+  "Key": "LambdaIncrement-26e839d2-9632-40dc-add4-b2703fa3aa82.zip",
+  "UpdateKey": "LambdaCalculator.zip",
+  "RoleName":  "lambda-support"
+  "RoleArn": "arn:aws:iam::704825161248:role/lambda-support"
+}

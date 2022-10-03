@@ -68,7 +68,9 @@ namespace Lambda_Basics
         /// <param name="functionName">The name of the Lambda function to
         /// invoke.</param>
         /// <returns>A System Threading Task.</returns>
-        public async Task<string> InvokeFunctionAsync(AmazonLambdaClient client, string functionName)
+        public async Task<string> InvokeFunctionAsync(
+            AmazonLambdaClient client,
+            string functionName)
         {
             var payload = "{\"inputValue\":\"2000\"}";
             var request = new InvokeRequest
@@ -124,7 +126,6 @@ namespace Lambda_Basics
             };
 
             var response = await client.GetFunctionAsync(functionRequest);
-            Console.WriteLine("The runtime of this Lambda function is " + response.Configuration.Runtime);
             return response.Configuration;
         }
 
@@ -165,7 +166,7 @@ namespace Lambda_Basics
                 Description = "Created by the Lambda .NET API",
                 Code = functionCode,
                 Handler = handler,
-                Runtime = Runtime.Java8,
+                Runtime = Runtime.Dotnet6,
                 Role = role,
             };
 

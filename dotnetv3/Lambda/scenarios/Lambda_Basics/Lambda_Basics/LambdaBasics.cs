@@ -5,61 +5,107 @@
 // For more information, see the following documentation:
 // https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html
 // This code example performs the following operations:
-// 1. Creates an AWS Lambda function.
-// 2. Gets a specific AWS Lambda function.
-// 3. Lists all Lambda functions.
-// 4. Invokes a Lambda function.
-// 5. Updates a Lambda function's code.
-// 6. Updates a Lambda function's configuration value.
-// 7. Deletes a Lambda function.
+// 1. Creates an IAM policy that will be used by AWS Lambda.
+// 2. Attaches the policy to a new IAM role.
+// 3. Creates an AWS Lambda function.
+// 4. Gets a specific AWS Lambda function.
+// 5. Lists all Lambda functions.
+// 6. Invokes a Lambda function.
+// 7. Updates a Lambda function's code.
+// 8. Updates a Lambda function's configuration value.
+// 9. Deletes the Lambda function.
+// 10. Deletes the role.
 
 // snippet-start:[lambda.dotnetv3.Lambda_Basics.main]
 // Set the following variables:
 //
 //   functionName - The name of the Lambda function.
-//   role - The AWS Identity and Access Management (IAM) service role that has
-//       Lambda permissions.
+//   roleArn - The AWS Identity and Access Management (IAM) service role that
+//       has Lambda permissions.
 //   handler - The fully qualified method name (for example,
 //       example.Handler::handleRequest).
 //   bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name
 //       that contains the .zip or .jar used to update the Lambda function's code.
 //   key - The Amazon S3 key name that represents the .zip or .jar (for
 //       example, LambdaHello-1.0-SNAPSHOT.jar).
-//   keyUpdate - The Amazon S3 key name that represents the updated .zip or
-//       .jar (for example, LambdaHello-1.0-SNAPSHOT.jar).
-string functionName = "CreateS3Bucket";
-string role = "lambda-support";
-string handler = "FunctionHandler";
-string bucketName = "<Enter Value>";
-string key = "<Enter Value>";
-string keyUpdate = "<Enter Value>";
+//   keyUpdate - The Amazon S3 key name that represents the updated .zip (for
+//      example, "updated-function.zip").
+var _configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("settings.json") // Load test settings from JSON file.
+    .AddJsonFile("settings.local.json",
+    true) // Optionally load local settings.
+.Build();
 
-string sepBar = new('-', 80);
+string functionName = _configuration["FunctionName"];
+string roleName = _configuration["RoleName"];
+string policyDocument = @"{
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "lambda.amazonaws.com"
+                },
+                    "Action": "sts:AssumeRole"
+                }
+            ]
+        }";
+
+string handler = _configuration["Handler"];
+string bucketName = _configuration["BucketName"];
+string key = _configuration["Key"];
+string keyUpdate = _configuration["KeyUpdate"];
+
+string sepBar = new ('-', 80);
 
 var lambdaClient = new AmazonLambdaClient();
 var lambdaMethods = new LambdaMethods();
+var lambdaRoleMethods = new LambdaRoleMethods();
 
 ShowOverview();
 
+// Create the role to use with the Lambda functions and attach the appropriate
+// policy to the role.
+var roleArn = await lambdaRoleMethods.CreateLambdaRole(roleName, AttachRolePolicyRequest)
+
+// Create the Lambda function using a zip file stored in an Amazon S3 bucket.
 Console.WriteLine($"Creating the AWS Lambda function: {functionName}.");
-var lambdaARN = await lambdaMethods.CreateLambdaFunction(lambdaClient, functionName, bucketName, key, role, handler);
+var lambdaARN = await lambdaMethods.CreateLambdaFunction(
+    lambdaClient,
+    functionName,
+    bucketName,
+    key,
+    roleArn,
+    handler);
+
 Console.WriteLine(sepBar);
 Console.WriteLine($"The AWS Lambda ARN is {lambdaARN}");
 
 // Get the Lambda function.
 Console.WriteLine($"Getting the {functionName} AWS Lambda function.");
-await lambdaMethods.GetFunction(lambdaClient, functionName);
-Console.WriteLine(sepBar);
+FunctionConfiguration config;
+do
+{
+    config = await lambdaMethods.GetFunction(lambdaClient, functionName);
+    Console.Write(".");
+}
+while (config.State != State.Active);
+Console.WriteLine($"\nThe function, {functionName} has been created.");
+Console.WriteLine($"The runtime of this Lambda function is {config.Runtime}.");
+
+PressEnter();
 
 // List the Lambda functions.
-Console.WriteLine("Listing all functions.");
+Console.WriteLine(sepBar);
+Console.WriteLine("Listing all Lambda functions.");
 await lambdaMethods.ListFunctions(lambdaClient);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("*** Sleep for 1 min to get Lambda function ready.");
 System.Threading.Thread.Sleep(60000);
 
-Console.WriteLine("*** Invoke the Lambda function.");
+Console.WriteLine("*** Invoke the Lambda increment function.");
 await lambdaMethods.InvokeFunctionAsync(lambdaClient, functionName);
 
 Console.WriteLine(sepBar);
