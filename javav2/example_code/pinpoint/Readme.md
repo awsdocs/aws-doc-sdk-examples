@@ -1,6 +1,6 @@
-# Amazon Pinpoint Java code examples
+# Amazon Pinpoint code examples for the SDK for Java
 
-This README discusses how to run and test the Java (v2) code examples for Amazon Pinpoint.
+This README discusses how to run and test the AWS SDK for Java (v2) code examples for Amazon Pinpoint.
 
 Amazon Pinpoint is a flexible, scalable marketing communications service that connects you with customers over email, SMS, push notifications, or voice.
 
