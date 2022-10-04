@@ -100,7 +100,6 @@ target_sources(
         ${GTEST_SOURCE}
         test_main.cpp
         ${EXAMPLE_SERVICE_NAME}_gtests.cpp
-        ../utilities/dynamodb_utilities.cpp
 )
 
 target_include_directories(
