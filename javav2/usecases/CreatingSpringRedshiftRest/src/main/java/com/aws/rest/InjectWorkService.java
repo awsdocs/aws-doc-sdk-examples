@@ -61,22 +61,4 @@ public class InjectWorkService {
     SqlParameter param(String name, String value) {
         return SqlParameter.builder().name(name).value(value).build();
     }
-
-    public String modifySubmission(String id, String desc, String status) {
-        try {
-            App.execute(
-                "UPDATE Work SET description = :description, status = :status WHERE idwork = :idwork;",
-                List.of(
-                   param("idwork", id),
-                   param("description", desc),
-                   param("status", status)
-                )
-            );
-            return id;
-
-        } catch (RedshiftDataException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 }
