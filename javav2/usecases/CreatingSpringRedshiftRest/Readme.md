@@ -473,7 +473,7 @@ public class MainController {
 
 ### RetrieveItems class
 
-The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. In this example, notice the use of parameters used with the SQL statement Parameters is a list of [SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) objects.
+The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. In this example, notice the use of parameters used with the SQL statement. Parameters is a list of [SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) objects.
 
 ```java
 package com.aws.rest;
@@ -526,7 +526,7 @@ public class RetrieveItems {
 
 ### InjectWorkService class
 
-The following Java code represents the **InjectWorkService** class. In this example, notice the use of parameters used with the SQL statement Parameters is a list of [SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) objects.
+The following Java code represents the **InjectWorkService** class. In this example, notice the use of parameters used with the SQL statement. Parameters is a list of [SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) objects.
 
 ```java
 package com.aws.rest;
