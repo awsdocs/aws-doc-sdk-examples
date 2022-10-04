@@ -49,13 +49,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ### Creating the resources
 
-To create the required resources, you can use one of the following methods:
-
-- The AWS Management Console
-
-#### Using the AWS Management Console
-
-Create an Amazon Redshift cluster and then create a database named **dev**. Next, create a table named **Work** that contains the following fields:
+To create the required resources, create an Amazon Redshift cluster and then create a database named **dev**. Next, create a table named **Work** that contains the following fields:
 
 + **idwork** - A VARCHAR(45) value that represents the PK.
 + **date** - A date value that specifies the date the item was created.
