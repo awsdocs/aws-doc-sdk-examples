@@ -1,0 +1,15 @@
+{
+  "name": "cognito",
+  "packageManager": "yarn@3.2.3",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ses": "^3.183.0",
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.3",
+    "aws-amplify": "^4.3.37",
+    "babel-jest": "^29.1.2",
+    "jest": "^29.1.2"
+  }
+}
