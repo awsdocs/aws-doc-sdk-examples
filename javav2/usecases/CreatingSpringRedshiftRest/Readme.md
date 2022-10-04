@@ -267,7 +267,7 @@ Create a Java package in the **main/java** folder named **com.aws.rest**. The fo
 The following Java code represents the **App** class. This is the entry point into a Spring boot application. Notice that you are required to specify three values (database, database user, and clusterId value) to use the **RedshiftDataClient** object (as discussed in the Creating the resources section). Without all of these values, your code won't work. To use the **RedshiftDataClient**, you must create an **ExecuteStatementRequest** object and specify these values.  
 
 ```java
-  package com.aws.rest;
+ package com.aws.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -324,10 +324,6 @@ public class App {
 
     // Update the work table.
     static void flipItemArchive(String sqlStatement,  List<SqlParameter> parameters ) {
-
-        RedshiftDataClient redshiftDataClient = getClient();
-        String arc = "1";
-
         try {
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
                 .clusterIdentifier(clusterId)
