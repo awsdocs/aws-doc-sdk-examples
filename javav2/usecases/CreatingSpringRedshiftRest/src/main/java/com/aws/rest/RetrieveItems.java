@@ -13,7 +13,6 @@ import software.amazon.awssdk.services.redshiftdata.model.SqlParameter;
 @Component
 public class RetrieveItems {
 
-    // Specify the database name, the database user, and the cluster Id value.
     static final String username = "user";
 
     SqlParameter param(String name, String value) {
