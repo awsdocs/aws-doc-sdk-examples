@@ -526,7 +526,7 @@ public class RetrieveItems {
 
 ### InjectWorkService class
 
-The following Java code represents the **InjectWorkService** class. Notice that you are required to specify three values (database, database user, and clusterId value) to use the **RedshiftDataClient** object. If you don't include all of these values, your code doesn't work. 
+The following Java code represents the **InjectWorkService** class. 
 
 ```java
 package com.aws.rest;
