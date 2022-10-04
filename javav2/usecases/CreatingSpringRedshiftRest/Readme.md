@@ -252,16 +252,12 @@ Confirm that the **pom.xml** file looks like the following example.
 
 ## Creating the Java classes
 
-Create a Java package in the **main/java** folder named **com.aws.rest**. 
-
-![AWS Tracking Application](images/package.png)
-
-The following Java files go into this package:
+Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles REST requests.
-+ **RetrieveItems** - Uses the **RedshiftDataClient** to retrieve a dataset from the **Work** table. 
-+ **InjectWorkService** - Uses the **RedshiftDataClient** to inject a new item into the **Work** table. 
++ **RetrieveItems** - Retrieves a dataset from the **Work** table. 
++ **InjectWorkService** - Injects a new item into the **Work** table. 
 + **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object to send email messages.
 + **WorkItem** - Represents the application's data model.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
