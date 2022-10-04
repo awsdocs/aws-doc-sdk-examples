@@ -3,7 +3,7 @@ FROM ruby:3.0
 
 # copy in files
 RUN mkdir /src
-COPY /ruby/* /src
+COPY /ruby/* /src/
 ADD .github/linters/.ruby-lint.yml /src/.ruby-lint.yml
 
 # resolve dependencies
