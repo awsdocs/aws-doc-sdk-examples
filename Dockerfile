@@ -13,7 +13,7 @@ RUN bundle config --delete frozen
 
 # configure AWS credentials
 RUN mkdir .aws
-COPY ./ruby/aws_configure.sh /
+COPY ./aws_configure.sh /
 RUN chmod 755 /aws_configure.sh
 
 # ENTRYPOINT ["/aws_configure.sh"]
