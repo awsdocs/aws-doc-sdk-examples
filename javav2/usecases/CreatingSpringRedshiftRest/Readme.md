@@ -84,7 +84,7 @@ A user can perform the following tasks by using the React application:
 
 The React SPA displays *active* and *archive* items. For example, the following image shows the React application displaying active data.
 
-![AWS Tracking Application](images/activeItems.png)
+![AWS Tracking Application](images/activeItems2.png)
 
 Likewise, the following image shows the React application displaying archived data.
 
