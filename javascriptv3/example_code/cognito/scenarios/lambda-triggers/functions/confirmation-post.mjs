@@ -9,10 +9,10 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-post-
 // Import required AWS SDK clients and commands for Node.js. Note that this requires
 // the `@aws-sdk/client-ses` module to be either bundled with this code or included
 // as a Lambda layer.
-const { SES, SendEmailCommand } = require("@aws-sdk/client-ses");
+import { SES, SendEmailCommand } from "@aws-sdk/client-ses";
 const ses = new SES();
 
-exports.handler = async (event) => {
+const handler = async (event) => {
   if (event.request.userAttributes.email) {
     await sendTheEmail(
       event.request.userAttributes.email,
@@ -46,4 +46,6 @@ const sendTheEmail = async (to, body) => {
     console.log(err);
   }
 };
+
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.PostConfirmation]

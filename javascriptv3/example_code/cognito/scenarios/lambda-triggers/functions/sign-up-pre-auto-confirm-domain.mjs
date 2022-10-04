@@ -6,7 +6,7 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-s
 */
 
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.PreSignUpAutoConfirmDomain]
-exports.handler = async (event) => {
+const handler = async (event) => {
   const validDomain = "example.com";
   const [_, userDomain] = event.request.userAttributes.email.split("@");
 
@@ -14,4 +14,6 @@ exports.handler = async (event) => {
 
   return event;
 };
+
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.PreSignUpAutoConfirmDomain]

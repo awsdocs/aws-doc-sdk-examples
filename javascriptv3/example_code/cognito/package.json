@@ -1,8 +1,13 @@
 {
-  "name": "cognito",
-  "packageManager": "yarn@3.2.3",
+  "name": "example-javascriptv3-cognito",
+  "version": "1.0.0",
+  "description": "Code samples for interacting with Cognito via the AWS SDK for JavaScript (v3)",
+  "main": "index.js",
+  "author": "Corey Pyle (corepyle@amazon.com)",
+  "license": "Apache-2.0",
+  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.183.0",

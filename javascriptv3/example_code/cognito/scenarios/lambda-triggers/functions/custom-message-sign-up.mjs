@@ -6,7 +6,7 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-custo
 */
 
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.CustomMessageSignUp]
-exports.handler = async (event) => {
+const handler = async (event) => {
   if (event.triggerSource === "CustomMessage_SignUp") {
     const message = `Thank you for signing up. Your confirmation code is ${event.request.codeParameter}.`;
     event.response.smsMessage = message;
@@ -15,4 +15,6 @@ exports.handler = async (event) => {
   }
   return event;
 };
+
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.CustomMessageSignUp]

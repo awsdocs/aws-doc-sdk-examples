@@ -11,7 +11,7 @@ Define auth challenge Lambda trigger | auth-challenge-define
 Verify auth challenge Lambda trigger | auth-challenge-verify
 Pre sign-up Lambda trigger           | sign-up-pre-auto-confirm-verify
 */
-const { Auth } = require("aws-amplify");
+import { Auth } from "aws-amplify";
 
 Auth.configure({
   authenticationFlowType: "CUSTOM_AUTH",

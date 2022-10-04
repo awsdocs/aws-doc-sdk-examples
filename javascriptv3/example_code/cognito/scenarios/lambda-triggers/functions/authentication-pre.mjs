@@ -6,7 +6,7 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-a
 */
 
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.PreAuthentication]
-exports.handler = async (event) => {
+const handler = async (event) => {
   if (
     event.callerContext.clientId === "user-pool-app-client-id-to-be-blocked"
   ) {
@@ -15,4 +15,6 @@ exports.handler = async (event) => {
 
   return event;
 };
+
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.PreAuthentication]

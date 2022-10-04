@@ -1,7 +1,5 @@
-const { testEqual } = require("../../libs/utils/util-test.js");
-const {
-  handler,
-} = require("../scenarios/lambda-triggers/functions/migrate-user.js");
+import { testEqual } from "../../libs/utils/util-test.js";
+import { handler } from "../scenarios/lambda-triggers/functions/migrate-user.mjs";
 
 describe("migrate-user", () => {
   it(
@@ -19,7 +17,10 @@ describe("migrate-user", () => {
         response: {
           finalUserStatus: "CONFIRMED",
           messageAction: "SUPPRESS",
-          userAttributes: { email_verified: "true", email: "bella@example.com" },
+          userAttributes: {
+            email_verified: "true",
+            email: "bella@example.com",
+          },
         },
       },
       handler({
@@ -39,7 +40,10 @@ describe("migrate-user", () => {
         triggerSource: "UserMigration_ForgotPassword",
         response: {
           messageAction: "SUPPRESS",
-          userAttributes: { email_verified: "true", email: "bella@example.com" },
+          userAttributes: {
+            email_verified: "true",
+            email: "bella@example.com",
+          },
         },
       },
       handler({

@@ -1,7 +1,7 @@
-const { testEqual } = require("../../libs/utils/util-test");
-const {
+import { testEqual } from "../../libs/utils/util-test.js";
+import {
   handler,
-} = require("../scenarios/lambda-triggers/functions/auth-challenge-verify.js");
+} from "../scenarios/lambda-triggers/functions/auth-challenge-verify.mjs";
 
 describe("auth-challenge-verify", () => {
   it(

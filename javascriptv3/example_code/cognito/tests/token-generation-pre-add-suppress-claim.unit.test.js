@@ -1,7 +1,5 @@
-const { testEqual } = require("../../libs/utils/util-test.js");
-const {
-  handler,
-} = require("../scenarios/lambda-triggers/functions/token-generation-pre-add-suppress-claim.js");
+import { testEqual } from "../../libs/utils/util-test.js";
+import { handler } from "../scenarios/lambda-triggers/functions/token-generation-pre-add-suppress-claim.mjs";
 
 describe("token-generation-pre-add-suppress-claim", () => {
   it(

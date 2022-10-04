@@ -1,6 +1,4 @@
-const {
-  handler,
-} = require("../scenarios/lambda-triggers/functions/authentication-pre.js");
+import { handler } from "../scenarios/lambda-triggers/functions/authentication-pre.mjs";
 
 describe("authentication-pre", () => {
   it("should throw an error if the declared client id matches", () => {

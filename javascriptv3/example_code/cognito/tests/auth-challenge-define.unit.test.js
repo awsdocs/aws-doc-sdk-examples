@@ -1,5 +1,5 @@
-const { testEqual } = require("../../libs/utils/util-test");
-const { handler } = require( "../scenarios/lambda-triggers/functions/auth-challenge-define.js");
+import { testEqual } from "../../libs/utils/util-test.js";
+import { handler } from "../scenarios/lambda-triggers/functions/auth-challenge-define.mjs";
 
 describe("auth-challenge-define", () => {
   it(

@@ -7,7 +7,7 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-t
 */
 
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.PreTokenGenerationModifyGroup]
-exports.handler = async (event) => {
+const handler = async (event) => {
   event.response = {
     claimsOverrideDetails: {
       groupOverrideDetails: {
@@ -24,4 +24,6 @@ exports.handler = async (event) => {
 
   return event;
 };
+
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.PreTokenGenerationModifyGroup]

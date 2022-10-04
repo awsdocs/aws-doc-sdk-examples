@@ -8,7 +8,7 @@ Guidance on implementing this example is in the 'Amplify Docs' at https://docs.a
 */
 
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.VerifyAuthChallenge]
-exports.handler = async (event) => {
+const handler = async (event) => {
   if (
     event.request.privateChallengeParameters.answer ==
     event.request.challengeAnswer
@@ -20,4 +20,6 @@ exports.handler = async (event) => {
 
   return event;
 };
+
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.VerifyAuthChallenge]

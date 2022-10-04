@@ -6,7 +6,7 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-s
 */
 
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.PreSignUpAutoConfirmAndVerify]
-exports.handler = async (event) => {
+const handler = async (event) => {
   // Confirm the user
   event.response.autoConfirmUser = true;
   // Set the email as verified if it is in the request
@@ -21,4 +21,6 @@ exports.handler = async (event) => {
 
   return event;
 };
+
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.PreSignUpAutoConfirmAndVerify]

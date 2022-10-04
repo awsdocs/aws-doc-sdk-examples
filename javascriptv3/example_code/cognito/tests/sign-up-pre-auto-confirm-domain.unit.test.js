@@ -1,7 +1,5 @@
-const { testEqual } = require("../../libs/utils/util-test.js");
-const {
-  handler,
-} = require("../scenarios/lambda-triggers/functions/sign-up-pre-auto-confirm-domain.js");
+import { testEqual } from "../../libs/utils/util-test.js";
+import { handler } from "../scenarios/lambda-triggers/functions/sign-up-pre-auto-confirm-domain.mjs";
 
 describe("sign-up-pre-auto-confirm-domain", () => {
   it(

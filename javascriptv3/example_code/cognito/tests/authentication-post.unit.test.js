@@ -1,7 +1,5 @@
-const { testEqual } = require("../../libs/utils/util-test");
-const {
-  handler,
-} = require("../scenarios/lambda-triggers/functions/authentication-post.js");
+import { testEqual } from "../../libs/utils/util-test.js";
+import { handler } from "../scenarios/lambda-triggers/functions/authentication-post.mjs";
 
 describe("authentication-post", () => {
   it(

@@ -29,7 +29,7 @@ const lookupUser = (username) => {
 };
 
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.MigrateUser]
-exports.handler = async (event) => {
+const handler = async (event) => {
   if (event.triggerSource == "UserMigration_Authentication") {
     // Authenticate the user with your existing user directory service
     const user = authenticateUser(event.userName, event.request.password);
@@ -53,7 +53,9 @@ exports.handler = async (event) => {
       event.response.messageAction = "SUPPRESS";
     }
   }
-  
+
   return event;
 };
+
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.MigrateUser]

@@ -1,7 +1,5 @@
-const { testEqual } = require("../../libs/utils/util-test.js");
-const {
-  handler,
-} = require("../scenarios/lambda-triggers/functions/sign-up-pre-auto-confirm-verify.js");
+import { testEqual } from "../../libs/utils/util-test.js";
+import { handler } from "../scenarios/lambda-triggers/functions/sign-up-pre-auto-confirm-verify.mjs";
 
 describe("sign-up-pre-auto-confirm-verify", () => {
   it(
@@ -9,7 +7,10 @@ describe("sign-up-pre-auto-confirm-verify", () => {
     testEqual(
       {
         request: {
-          userAttributes: { email: "test@example.com", phone_number: "555-555-5555" },
+          userAttributes: {
+            email: "test@example.com",
+            phone_number: "555-555-5555",
+          },
         },
         response: {
           autoConfirmUser: true,
@@ -19,7 +20,10 @@ describe("sign-up-pre-auto-confirm-verify", () => {
       },
       handler({
         request: {
-          userAttributes: { email: "test@example.com", phone_number: "555-555-5555" },
+          userAttributes: {
+            email: "test@example.com",
+            phone_number: "555-555-5555",
+          },
         },
         response: {},
       })

@@ -6,7 +6,7 @@ https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-post-
 */
 
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.PostAuthentication]
-exports.handler = async (event) => {
+const handler = async (event) => {
   // Send post authentication data to Amazon CloudWatch logs
   console.log("Authentication successful");
   console.log("Trigger function =", event.triggerSource);
@@ -16,4 +16,6 @@ exports.handler = async (event) => {
 
   return event;
 };
+
+export { handler }
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.PostAuthentication]
