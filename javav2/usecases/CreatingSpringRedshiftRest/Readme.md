@@ -267,7 +267,7 @@ Create a Java package in the **main/java** folder named **com.aws.rest**. The fo
 The following Java code represents the **App** class. This is the entry point into a Spring boot application. Notice that you are required to specify three values (database, database user, and clusterId value) to use the **RedshiftDataClient** object (as discussed in the Creating the resources section). Without all of these values, your code won't work. To use the **RedshiftDataClient**, you must create an **ExecuteStatementRequest** object and specify these values.  
 
 ```java
- package com.aws.rest;
+package com.aws.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -529,7 +529,7 @@ public class RetrieveItems {
 The following Java code represents the **InjectWorkService** class. Notice that you are required to specify three values (database, database user, and clusterId value) to use the **RedshiftDataClient** object. If you don't include all of these values, your code doesn't work. 
 
 ```java
- package com.aws.rest;
+package com.aws.rest;
 
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementResponse;
@@ -598,7 +598,7 @@ The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an emai
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
 
 ```java
- package com.aws.rest;
+package com.aws.rest;
 
 import org.apache.commons.io.IOUtils;
 import software.amazon.awssdk.regions.Region;
@@ -750,7 +750,7 @@ public class SendMessage {
 The following Java code represents the **WorkItem** class.   
 
 ```java
-    package com.aws.rest;
+package com.aws.rest;
 
 import software.amazon.awssdk.services.redshiftdata.model.Field;
 import java.util.List;
