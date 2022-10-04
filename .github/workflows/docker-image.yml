@@ -5,7 +5,10 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
 
   build:
@@ -20,6 +23,7 @@ jobs:
       with:
         role-to-assume: arn:aws:iam::260778392212:role/test-Role-127HRBA0X7PLY
         aws-region: us-east-1
+        
 
     - name: Login to Amazon ECR Private
       id: login-ecr
