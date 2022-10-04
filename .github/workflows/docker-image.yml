@@ -14,10 +14,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Login to Amazon ECR
-      id: AWS
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::260778392212:role/test-Role-127HRBA0X7PLY
+        aws-region: us-east-1
+    - name: Login to Amazon ECR Private
+      id: admin/fprior-Isengard
       uses: aws-actions/amazon-ecr-login@v1
-
     - name: Build, tag, and push docker image to Amazon ECR
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
