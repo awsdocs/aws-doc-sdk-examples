@@ -60,10 +60,6 @@ public class App {
 
     // Update the work table.
     static void flipItemArchive(String sqlStatement,  List<SqlParameter> parameters ) {
-
-        RedshiftDataClient redshiftDataClient = getClient();
-        String arc = "1";
-
         try {
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
                 .clusterIdentifier(clusterId)
