@@ -114,7 +114,7 @@ public class App {
         return App.getClient().executeStatement(sqlRequest);
     }
 
-   public static void main(String[] args) throws Throwable {
+   public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
 }
