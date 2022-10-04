@@ -845,26 +845,26 @@ public class WorkItem {
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
 
 ```java
-   package com.aws.rest;
+ package com.aws.rest;
 
-   import jxl.CellView;
-   import jxl.Workbook;
-   import jxl.WorkbookSettings;
-   import jxl.format.UnderlineStyle;
-   import jxl.write.Label;
-   import jxl.write.Number;
-   import jxl.write.WritableCellFormat;
-   import jxl.write.WritableFont;
-   import jxl.write.WritableSheet;
-   import jxl.write.WritableWorkbook;
-   import jxl.write.WriteException;
-   import org.springframework.stereotype.Component;
-   import java.io.IOException;
-   import java.util.List;
-   import java.util.Locale;
+import jxl.CellView;
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.format.UnderlineStyle;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import org.springframework.stereotype.Component;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
-   @Component
-   public class WriteExcel {
+@Component
+public class WriteExcel {
 
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
@@ -873,8 +873,8 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
     public java.io.InputStream exportExcel( List<WorkItem> list) {
 
         try {
-            java.io.InputStream is = write( list);
-            return is ;
+            return write(list);
+
         } catch(WriteException | IOException e) {
             e.printStackTrace();
         }
@@ -883,51 +883,54 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
     // Generates the report and returns an InputStream.
     public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
-        java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
-        WorkbookSettings wbSettings = new WorkbookSettings();
 
+        ByteArrayOutputStream os = new java.io.ByteArrayOutputStream() ;
+        WorkbookSettings wbSettings = new WorkbookSettings();
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Creates a Workbook and passes the OutputStream.
+        // Create a Workbook - pass the OutputStream.
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         workbook.createSheet("Work Item Report", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
         createLabel(excelSheet) ;
-        int size = createContent(excelSheet, list);
+        createContent(excelSheet, list);
 
-        // Closes the workbook.
+        // Close the workbook.
         workbook.write();
         workbook.close();
 
-        // Gets an InputStream that represents the report.
-        java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
-        stream = (java.io.ByteArrayOutputStream)os;
+        // Get an inputStream that represents the report.
+        new ByteArrayOutputStream();
+        java.io.ByteArrayOutputStream stream;
+        stream = os;
         byte[] myBytes = stream.toByteArray();
-        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
-
-        return is ;
+        return new java.io.ByteArrayInputStream(myBytes);
     }
 
-    // Creates Headings in the Excel spreadsheet.
-    private void createLabel(WritableSheet sheet)
-            throws WriteException {
-        
+    // Create headings in the Excel spreadsheet.
+    private void createLabel(WritableSheet sheet) throws WriteException {
+
+        // Create a times font.
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
+
+        // Define the cell format.
         times = new WritableCellFormat(times10pt);
+
+        // Lets automatically wrap the cells.
         times.setWrap(true);
 
-        // Creates a bold font with underlining.
-        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
-                UnderlineStyle.SINGLE);
+        // Create a bold font with underlining.
+        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false, UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        timesBoldUnderline.setWrap(true);
 
+        // Automatically wrap the cells.
+        timesBoldUnderline.setWrap(true);
         CellView cv = new CellView();
         cv.setFormat(times);
         cv.setFormat(timesBoldUnderline);
         cv.setAutosize(true);
 
-        // Writes a few headers.
+        // Write a few headers.
         addCaption(sheet, 0, 0, "Writer");
         addCaption(sheet, 1, 0, "Date");
         addCaption(sheet, 2, 0, "Guide");
@@ -935,13 +938,17 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         addCaption(sheet, 4, 0, "Status");
     }
 
-    // Writes the WorkItem data to the Excel report.
+    // Write the Work Item Data to the Excel report.
     private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
+
+        // Add customer data to the Excel report.
         for (int i = 0; i < size; i++) {
 
             WorkItem wi = list.get(i);
+
+            // Get tne work item values.
             String name = wi.getName();
             String guide = wi.getGuide();
             String date = wi.getDate();
@@ -950,25 +957,24 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
             // First column.
             addLabel(sheet, 0, i+2, name);
-            
+
             // Second column.
             addLabel(sheet, 1, i+2, date);
 
             // Third column.
             addLabel(sheet, 2, i+2,guide);
 
-            // Fourth column.
+            // Forth column.
             addLabel(sheet, 3, i+2, des);
 
             // Fifth column.
             addLabel(sheet, 4, i+2, status);
         }
 
-       return size;
+        return size;
     }
 
-    private void addCaption(WritableSheet sheet, int column, int row, String s)
-            throws WriteException {
+    private void addCaption(WritableSheet sheet, int column, int row, String s) throws WriteException {
         Label label;
         label = new Label(column, row, s, timesBoldUnderline);
 
@@ -977,15 +983,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         sheet.addCell(label);
     }
 
-    private void addNumber(WritableSheet sheet, int column, int row,
-                           Integer integer) throws WriteException {
-        Number number;
-        number = new Number(column, row, integer, times);
-        sheet.addCell(number);
-    }
-
-    private void addLabel(WritableSheet sheet, int column, int row, String s)
-            throws WriteException {
+    private void addLabel(WritableSheet sheet, int column, int row, String s) throws WriteException {
         Label label;
         label = new Label(column, row, s, times);
         int cc = countString(s);
@@ -995,7 +993,6 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
             sheet.setColumnView(column, cc+6);
 
         sheet.addCell(label);
-
     }
 
     private int countString (String ss) {
@@ -1006,8 +1003,8 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         }
         return count;
     }
-    }
-   }
+}
+
 
 ```
 
