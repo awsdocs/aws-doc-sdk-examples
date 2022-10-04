@@ -17,12 +17,12 @@ name = "iam_getting_started"
 path = "src/bin/iam-getting-started.rs"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-iam = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-sts = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-iam = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-sts = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [
   "hardcoded-credentials",
 ] }
 tokio = { version = "1.20.1", features = ["full"] }

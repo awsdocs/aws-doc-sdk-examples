@@ -10,9 +10,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-qldb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-qldbsession = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-qldb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-qldbsession = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1.20.1", features = ["full"] }
 tokio-stream = { version = "0.1.9", features = ["default"] }
 structopt = { version = "0.3", default-features = false }
