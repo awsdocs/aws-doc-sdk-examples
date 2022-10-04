@@ -35,7 +35,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Java IDE to build the Spring REST API. This tutorial uses the IntelliJ IDE.
-+ Java JDK 1.8.
++ Java JDK 11. (The code in this example uses APIs that are available in JDK 11).
 + Maven 3.6 or later.
 + Set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
@@ -111,9 +111,10 @@ Active items are queried from the database and used to dynamically create an Exc
 ## Creating an IntelliJ project named ItemTrackerRedshiftRest
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
-3. For **GroupId**, enter **aws-spring**.
-4. For **ArtifactId**, enter **ItemTrackerRedshiftRest**.
+2. In the Project SDK, choose 11.
+3. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+4. For **GroupId**, enter **aws-spring**.
+5. For **ArtifactId**, enter **ItemTrackerRedshiftRest**.
 6. Choose **Next**.
 7. Choose **Finish**.
 
@@ -123,12 +124,12 @@ At this point, you have a new project named **ItemTrackerRedshiftRest**.
 
 ![AWS Tracking Application](images/projectRedshift.png)
 
-**Note:** Make sure to use Java 1.8 (as shown in the following example).
+**Note:** Make sure to use Java 11 (as shown in the following example).
 
 Confirm that the **pom.xml** file looks like the following example.
 
 ```xml
-  <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -144,7 +145,7 @@ Confirm that the **pom.xml** file looks like the following example.
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -161,24 +162,24 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-commons</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -188,7 +189,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
+            <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -206,12 +207,12 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
-            <version>2.0.1</version>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
-            <version>1.6.5</version>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -221,7 +222,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
