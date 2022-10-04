@@ -1,10 +1,28 @@
-use aws_sdk_dynamodb::{model::AttributeValue, Client, Error};
-use axum::{routing::get, Router};
+use aws_sdk_dynamodb::{model::AttributeValue, Client};
+use axum::{extract::Path, routing::get, Extension, Router};
+use tower_http::cors::{Any, CorsLayer};
 
-use super::Movie;
+use super::{Movie, MovieError, TABLE_NAME};
 
-pub fn make_app(client: &Client, table_name: &str) -> Router {
-    Router::new().route("/", get(|| async { "Hello, world!" }))
+pub fn make_app() -> Router {
+    let cors = CorsLayer::new().allow_origin(Any);
+    Router::new()
+        .route("/", get(|| async { "Hello, world!" }))
+        .route(
+            "/:year",
+            get(
+                |Path(year): Path<u16>, Extension(client): Extension<Client>| async move {
+                    match movies_in_year(&client, TABLE_NAME, year).await {
+                        Ok(movies) => axum::Json(movies),
+                        Err(err) => {
+                            tracing::warn!("{err:?}");
+                            axum::Json(Vec::new())
+                        }
+                    }
+                },
+            ),
+        )
+        .layer(cors)
 }
 
 // snippet-start:[dynamodb.rust.movies-movies_in_year]
@@ -12,7 +30,7 @@ pub async fn movies_in_year(
     client: &Client,
     table_name: &str,
     year: u16,
-) -> Result<Vec<Movie>, Error> {
+) -> Result<Vec<Movie>, MovieError> {
     let results = client
         .query()
         .table_name(table_name)
@@ -22,18 +40,11 @@ pub async fn movies_in_year(
         .send()
         .await?;
 
-    let movies = results
-        .items()
-        .unwrap_or_default()
-        .iter()
-        .map(|v| {
-            Movie::new(
-                v.get("year").unwrap().as_n().unwrap().parse().unwrap(),
-                v.get("title").unwrap().as_s().unwrap().parse().unwrap(),
-            )
-        })
-        .collect();
-
-    Ok(movies)
+    if let Some(items) = results.items {
+        let movies = items.iter().map(|v| v.into()).collect();
+        Ok(movies)
+    } else {
+        Ok(vec![])
+    }
 }
 // snippet-end:[dynamodb.rust.movies-movies_in_year]

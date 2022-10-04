@@ -3,13 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_dynamodb::client::fluent_builders::Query;
-use aws_sdk_dynamodb::model::AttributeValue;
+use std::net::SocketAddr;
+
 use aws_sdk_dynamodb::{Client, Error};
+use axum::extract::Extension;
 use dynamodb_code_examples::scenario::movies::server::{make_app, movies_in_year};
 use dynamodb_code_examples::scenario::movies::{
     shutdown::remove_table, startup::initialize, TABLE_NAME,
 };
+use tracing_subscriber::layer::SubscriberExt;
+
+struct Server<'a> {
+    client: &'a Client,
+}
+
+impl<'a> Drop for Server<'a> {
+    fn drop(&mut self) {
+        remove_table(self.client, TABLE_NAME).await?;
+    }
+}
 
 /// A partial reimplementation of
 /// <https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/GettingStarted.Ruby.html>
@@ -21,7 +33,11 @@ use dynamodb_code_examples::scenario::movies::{
 /// - Query for those rows
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    tracing_subscriber::fmt::init();
+    tracing_subscriber::registry()
+        .with(tracing_subscriber::EnvFilter::new(
+            std::env::var("RUST_LOG").unwrap_or_else(|_| "axum_api=debug".into()),
+        ))
+        .with(tracing_subscriber::fmt::layer());
 
     let config = aws_config::from_env().load().await;
     let client = Client::new(&config);
@@ -41,9 +57,15 @@ async fn main() -> Result<(), Error> {
 
     assert!(films_2013.len() > 0, "should get movies back");
 
-    println!("Deleting table.");
-
-    remove_table(&client, TABLE_NAME).await?;
+    let app = make_app()
+        .layer(Extension(client))
+        .layer(Extension(TABLE_NAME));
+    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    tracing::debug!("Listening on {addr}");
+    axum::Server::bind(&addr)
+        .serve(app.into_make_service())
+        .await
+        .unwrap();
 
     Ok(())
 }
