@@ -195,9 +195,19 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
                 Aws::DynamoDB::Model::ScalarAttributeType::S);
         request.AddAttributeDefinitions(yearAttributeDefinition);
 
-     }
+        Aws::DynamoDB::Model::KeySchemaElement yearKeySchema;
+        yearKeySchema.WithAttributeName(YEAR_KEY).WithKeyType(
+                Aws::DynamoDB::Model::KeyType::HASH);
+        request.AddKeySchema(yearKeySchema);
 
-    return false;
+        Aws::DynamoDB::Model::KeySchemaElement titleKeySchema;
+        yearKeySchema.WithAttributeName(TITLE_KEY).WithKeyType(
+                Aws::DynamoDB::Model::KeyType::RANGE);
+        request.AddKeySchema(yearKeySchema);
+    }
+
+    // 9.Delete the table. (DeleteTable)
+    return deleteDynamoTable(MOVIE_TABLE_NAME, dynamoClient);
 }
 
 bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
