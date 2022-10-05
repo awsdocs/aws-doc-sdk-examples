@@ -9,7 +9,7 @@ use aws_sdk_dynamodb::{
     Client, Error,
 };
 use futures::future::join_all;
-use log::info;
+use tracing::{debug, info, trace};
 
 use super::Movie;
 
@@ -32,13 +32,14 @@ impl std::error::Error for TableNotReadyError {}
 
 const CAPACITY: i64 = 10;
 
+#[tracing::instrument(level = "trace")]
 pub async fn initialize(client: &Client, table_name: &str) -> Result<(), Error> {
-    eprintln!("Initializing Movies DynamoDB with {client:?}");
+    info!("Initializing Movies DynamoDB in {table_name}");
 
     if table_exists(client, table_name).await? {
-        eprintln!("Found existing table {table_name}");
+        debug!("Found existing table {table_name}");
     } else {
-        eprintln!("Table does not exist, creating {table_name}");
+        debug!("Table does not exist, creating {table_name}");
         create_table(client, table_name, "year", "title", CAPACITY)
             .send()
             .await?;
@@ -49,10 +50,11 @@ pub async fn initialize(client: &Client, table_name: &str) -> Result<(), Error> 
     Ok(())
 }
 
+#[tracing::instrument(level = "trace")]
 // Does table exist?
 // snippet-start:[dynamodb.rust.movies-table_exists]
 pub async fn table_exists(client: &Client, table: &str) -> Result<bool, Error> {
-    info!("Checking for table: {table}");
+    debug!("Checking for table: {table}");
     let table_list = client.list_tables().send().await;
 
     match table_list {
@@ -62,6 +64,7 @@ pub async fn table_exists(client: &Client, table: &str) -> Result<bool, Error> {
 }
 // snippet-end:[dynamodb.rust.movies-table_exists]
 
+#[tracing::instrument(level = "trace")]
 // snippet-start:[dynamodb.rust.movies-create_table_request]
 pub fn create_table(
     client: &Client,
@@ -70,7 +73,7 @@ pub fn create_table(
     sort_key: &str,
     capacity: i64,
 ) -> CreateTable {
-    eprintln!("Creating table: {table_name} with capacity {capacity} and key structure {primary_key}:{sort_key}");
+    info!("Creating table: {table_name} with capacity {capacity} and key structure {primary_key}:{sort_key}");
     client
         .create_table()
         .table_name(table_name)
@@ -112,7 +115,7 @@ const TABLE_WAIT_TIMEOUT: u64 = 5; // Takes about 30 seconds in my experience
 pub async fn await_table(client: &Client, table_name: &str) -> Result<(), Error> {
     // TODO: Use an adaptive backoff retry, rather than a sleeping loop.
     for _ in 0..TABLE_WAIT_POLLS {
-        eprintln!("Checking if table is ready: {table_name}");
+        debug!("Checking if table is ready: {table_name}");
         if let Some(table) = client
             .describe_table()
             .table_name(table_name)
@@ -121,10 +124,10 @@ pub async fn await_table(client: &Client, table_name: &str) -> Result<(), Error>
             .table()
         {
             if matches!(table.table_status, Some(TableStatus::Active)) {
-                eprintln!("Table is ready");
+                debug!("Table is ready");
                 return Ok(());
             } else {
-                eprintln!("Table is NOT ready")
+                debug!("Table is NOT ready")
             }
         }
         tokio::time::sleep(Duration::from_secs(TABLE_WAIT_TIMEOUT)).await;
@@ -139,13 +142,13 @@ pub async fn await_table(client: &Client, table_name: &str) -> Result<(), Error>
 const CHUNK_SIZE: usize = 25;
 
 pub async fn load_data(client: &Client, table_name: &str) -> Result<(), Error> {
-    eprintln!("Loading data into table {table_name}");
+    debug!("Loading data into table {table_name}");
     let data: Vec<Movie> =
         serde_json::from_str(include_str!("../../../../../resources/data/movies.json"))
             .expect("loading large movies dataset");
 
     let data_size = data.len();
-    eprintln!("Loading {data_size} items in batches of {CHUNK_SIZE}");
+    trace!("Loading {data_size} items in batches of {CHUNK_SIZE}");
 
     let ops = data
         .iter()
@@ -161,7 +164,7 @@ pub async fn load_data(client: &Client, table_name: &str) -> Result<(), Error> {
         .map(|chunk| write_batch(client, table_name, chunk));
     let batches_count = batches.len();
 
-    eprintln!("Awaiting batches, count: {batches_count}");
+    trace!("Awaiting batches, count: {batches_count}");
     join_all(batches).await;
 
     Ok(())
@@ -179,7 +182,7 @@ pub async fn write_batch(
     let mut unprocessed = Some(HashMap::from([(table_name.to_string(), ops.to_vec())]));
     while unprocessed_count(unprocessed.as_ref(), table_name) > 0 {
         let count = unprocessed_count(unprocessed.as_ref(), table_name);
-        eprintln!("Adding {count} unprocessed items");
+        trace!("Adding {count} unprocessed items");
         unprocessed = client
             .batch_write_item()
             .set_request_items(unprocessed)
