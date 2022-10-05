@@ -10,13 +10,13 @@ import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.UnderlineStyle;
 import jxl.write.Label;
-import jxl.write.Number;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import org.springframework.stereotype.Component;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -42,7 +42,7 @@ public class WriteExcel {
     // Generates the report and returns an InputStream.
     public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
 
-        java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
+        ByteArrayOutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
         wbSettings.setLocale(new Locale("en", "EN"));
 
@@ -58,12 +58,11 @@ public class WriteExcel {
         workbook.close();
 
         // Get an inputStream that represents the report.
-        java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
-        stream = (java.io.ByteArrayOutputStream)os;
+        new ByteArrayOutputStream();
+        java.io.ByteArrayOutputStream stream;
+        stream = os;
         byte[] myBytes = stream.toByteArray();
-        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
-
-        return is ;
+        return new java.io.ByteArrayInputStream(myBytes);
     }
 
     // Create headings in the Excel spreadsheet.
@@ -140,12 +139,6 @@ public class WriteExcel {
         int cc = countString(s);
         sheet.setColumnView(column, cc);
         sheet.addCell(label);
-    }
-
-    private void addNumber(WritableSheet sheet, int column, int row, Integer integer) throws WriteException {
-        Number number;
-        number = new Number(column, row, integer, times);
-        sheet.addCell(number);
     }
 
     private void addLabel(WritableSheet sheet, int column, int row, String s) throws WriteException {
