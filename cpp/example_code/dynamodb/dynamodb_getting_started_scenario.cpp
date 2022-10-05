@@ -169,6 +169,7 @@ namespace AwsDoc {
  */
 
 // snippet-start:[cpp.example_code.dynamodb.Scenario_GettingStarted]
+// This is debugging code, not a full implementation
 bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
@@ -179,7 +180,6 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
 
     bool movieTableAlreadyExisted = false;
 
-    // 1. Create a table with partition: year (N) and sort: title (S).
     {
         Aws::DynamoDB::Model::CreateTableRequest request;
 
@@ -195,42 +195,9 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
                 Aws::DynamoDB::Model::ScalarAttributeType::S);
         request.AddAttributeDefinitions(yearAttributeDefinition);
 
-        Aws::DynamoDB::Model::KeySchemaElement yearKeySchema;
-        yearKeySchema.WithAttributeName(YEAR_KEY).WithKeyType(
-                Aws::DynamoDB::Model::KeyType::HASH);
-        request.AddKeySchema(yearKeySchema);
+     }
 
-        Aws::DynamoDB::Model::KeySchemaElement titleKeySchema;
-        yearKeySchema.WithAttributeName(TITLE_KEY).WithKeyType(
-                Aws::DynamoDB::Model::KeyType::RANGE);
-        request.AddKeySchema(yearKeySchema);
-
-        Aws::DynamoDB::Model::ProvisionedThroughput throughput;
-        throughput.WithReadCapacityUnits(
-                PROVISIONED_THROUGHPUT_UNITS).WithWriteCapacityUnits(
-                PROVISIONED_THROUGHPUT_UNITS);
-        request.SetProvisionedThroughput(throughput);
-        request.SetTableName(MOVIE_TABLE_NAME);
-
-        std::cout << "Creating table '" << MOVIE_TABLE_NAME << "'..." << std::endl;
-        const Aws::DynamoDB::Model::CreateTableOutcome &result = dynamoClient.CreateTable(
-                request);
-        if (!result.IsSuccess()) {
-            if (result.GetError().GetErrorType() ==
-                Aws::DynamoDB::DynamoDBErrors::RESOURCE_IN_USE) {
-                std::cout << "Table already exists." << std::endl;
-                movieTableAlreadyExisted = true;
-            }
-            else {
-                std::cerr << "Failed to create table: "
-                          << result.GetError().GetMessage();
-                return false;
-            }
-        }
-    }
-
-    // 9.Delete the table. (DeleteTable)
-    return deleteDynamoTable(MOVIE_TABLE_NAME, dynamoClient);
+    return false;
 }
 
 bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
