@@ -1,10 +1,19 @@
 # zexi 0.4.0
 rds_CreateDBInstance:
-  title: Create an &RDS; instance using an &AWS; SDK
-  title_abbrev: Create an instance
-  synopsis: create an &RDS; instance and wait for it to be in an available state.
+  title: Create an &RDS; DB instance using an &AWS; SDK
+  title_abbrev: Create a DB instance
+  synopsis: create an &RDS; DB instance and wait for it to become available.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.CreateDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -23,14 +32,32 @@ rds_CreateDBInstance:
             - description:
               snippet_tags:
                 - rds.java2.create_instance.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.CreateDBInstance
   services:
     rds: {CreateDBInstance}
 rds_DeleteDBInstance:
-  title: Delete an &RDS; instance using an &AWS; SDK
-  title_abbrev: Delete an instance
-  synopsis: delete an &RDS; instance.
+  title: Delete an &RDS; DB instance using an &AWS; SDK
+  title_abbrev: Delete a DB instance
+  synopsis: delete an &RDS; DB instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DeleteDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -49,6 +76,15 @@ rds_DeleteDBInstance:
             - description:
               snippet_tags:
                 - rds.java2.delete_instance.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.DeleteDBInstance
   services:
     rds: {DeleteDBInstance} 
 rds_DescribeAccountAttributes:
@@ -78,11 +114,20 @@ rds_DescribeAccountAttributes:
   services:
     rds: {DescribeAccountAttributes}     
 rds_DescribeDBInstances:
-  title: Describe an &RDS; instance using an &AWS; SDK
-  title_abbrev: Describe an instance
-  synopsis: describe an &RDS; instance.
+  title: Describe &RDS; DB instances using an &AWS; SDK
+  title_abbrev: Describe DB instances
+  synopsis: describe &RDS; DB instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDbInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -101,12 +146,21 @@ rds_DescribeDBInstances:
             - description:
               snippet_tags:
                 - rds.java2.describe_instances.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.DescribeDBInstances
   services:
     rds: {DescribeDBInstances}         
 rds_ModifyDBInstance:
-  title: Modify an &RDS; instance using an &AWS; SDK
-  title_abbrev: Modify an instance
-  synopsis: modify an &RDS; instance.
+  title: Modify an &RDS; DB instance using an &AWS; SDK
+  title_abbrev: Modify a DB instance
+  synopsis: modify an &RDS; DB instance.
   category:
   languages:
     Kotlin:
@@ -130,9 +184,9 @@ rds_ModifyDBInstance:
   services:
     rds: {ModifyDBInstance}             
 rds_RebootDBInstance:
-  title: Reboot an &RDS; instance using an &AWS; SDK
-  title_abbrev: Reboot an instance
-  synopsis: reboot an &RDS; instance.
+  title: Reboot an &RDS; DB instance using an &AWS; SDK
+  title_abbrev: Reboot a DB instance
+  synopsis: reboot an &RDS; DB instance.
   category:
   languages:
     Java:
@@ -146,3 +200,293 @@ rds_RebootDBInstance:
                 - rds.java2.describe_instances.main
   services:
     rds: {RebootDBInstance}
+rds_DescribeDBParameterGroups:
+  title: Describe &RDS; DB parameter groups using an &AWS; SDK
+  title_abbrev: Describe DB parameter groups
+  synopsis: describe &RDS; DB parameter groups.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDBParameterGroups
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.DescribeDBParameterGroups
+  services:
+    rds: {DescribeDBParameterGroups}
+rds_CreateDBParameterGroup:
+  title: Create an &RDS; DB parameter group using an &AWS; SDK
+  title_abbrev: Create a DB parameter group
+  synopsis: create an &RDS; DB parameter group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.CreateDBParameterGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.CreateDBParameterGroup
+  services:
+    rds: {CreateDBParameterGroup}
+rds_DeleteDBParameterGroup:
+  title: Delete an &RDS; DB parameter group using an &AWS; SDK
+  title_abbrev: Delete a DB parameter group
+  synopsis: delete an &RDS; DB parameter group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DeleteDBParameterGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.DeleteDBParameterGroup
+  services:
+    rds: {DeleteDBParameterGroup}
+rds_DescribeDBParameters:
+  title: Describe parameters in an &RDS; DB parameter group using an &AWS; SDK
+  title_abbrev: Describe parameters in a DB parameter group
+  synopsis: describe parameters in an &RDS; DB parameter group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDBParameters
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.DescribeDBParameters
+  services:
+    rds: {DescribeDBParameters}
+rds_ModifyDBParameterGroup:
+  title: Update parameters in an &RDS; DB parameter group using an &AWS; SDK
+  title_abbrev: Update parameters in a DB parameter group
+  synopsis: update parameters in an &RDS; DB parameter group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.ModifyDBParameterGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.ModifyDBParameterGroup
+  services:
+    rds: {ModifyDBParameterGroup}
+rds_CreateDBSnapshot:
+  title: Create a snapshot of an &RDS; DB instance using an &AWS; SDK
+  title_abbrev: Create a snapshot of a DB instance
+  synopsis: create a snapshot of an &RDS; DB instance.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.CreateDBSnapshot
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.CreateDBSnapshot
+  services:
+    rds: {CreateDBSnapshot}
+rds_DescribeDBSnapshots:
+  title: Describe snapshots of &RDS; DB instances using an &AWS; SDK
+  title_abbrev: Describe snapshots of DB instances
+  synopsis: describe snapshots of &RDS; DB instances.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDBSnapshots
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.DescribeDBSnapshots
+  services:
+    rds: {DescribeDBSnapshots}
+rds_DescribeDBEngineVersions:
+  title: Describe &RDS; database engine versions using an &AWS; SDK
+  title_abbrev: Describe database engine versions
+  synopsis: describe &RDS; database engine versions.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeDBEngineVersions
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.DescribeDBEngineVersions
+  services:
+    rds: {DescribeDBEngineVersions}
+rds_DescribeOrderableDBInstanceOptions:
+  title: Describe options for &RDS; DB instances using an &AWS; SDK
+  title_abbrev: Describe options for DB instances
+  synopsis: describe options for &RDS; DB instances.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.DescribeOrderableDBInstanceOptions
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_decl
+                - python.example_code.rds.DescribeOrderableDBInstanceOptions
+  services:
+    rds: {DescribeOrderableDBInstanceOptions}
+rds_Scenario_GetStartedInstances:
+  title: Get started with &RDS; DB instances using an &AWS; SDK
+  title_abbrev: Get started with DB instances
+  synopsis_list:
+    - Create a custom DB parameter group and set parameter values.
+    - Create a DB instance that's configured to use the parameter group. The DB instance
+      also contains a database.
+    - Take a snapshot of the instance.
+    - Delete the instance and parameter group.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceScenario
+            - description: Wrapper methods used by the scenario for DB instance actions.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceWrapper
+            - description: Wrapper methods used by the scenario for DB parameter groups.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceWrapperParameterGroups
+            - description: Wrapper methods used by the scenario for DB snapshot actions.
+              snippet_tags:
+                - RDS.dotnetv3.RdsInstanceWrapperSnapshots
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.rds.Scenario_GetStartedInstances
+            - description: Define functions that are called by the scenario to
+                manage &RDS; actions.
+              snippet_tags:
+                - python.example_code.rds.helper.InstanceWrapper_full
+  services:
+    rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance,
+          DeleteDBParameterGroup, DescribeDBInstances, DescribeDBEngineVersions, DescribeDBParameterGroups,
+          DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
+          ModifyDBParameterGroup}

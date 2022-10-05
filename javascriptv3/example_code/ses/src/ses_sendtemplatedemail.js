@@ -14,7 +14,7 @@ node ses_sendtemplatedemail.js
  */
 // snippet-start:[ses.JavaScript.email.sendTemplatedEmailV3]
 import { SendTemplatedEmailCommand } from "@aws-sdk/client-ses";
-import { getUniqueName, postfix } from "../../libs/index.js";
+import { getUniqueName, postfix } from "../../libs/utils/util-string.js";
 import { sesClient } from "./libs/sesClient.js";
 
 /**

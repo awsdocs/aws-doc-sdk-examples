@@ -8,7 +8,6 @@ import org.junit.jupiter.api.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -81,8 +80,18 @@ public class EnhancedClientTest {
     @Order(4)
     public void PutBatchItems() {
 
+        // create and seed the Music table to demonstrate that batching calls
+        // works with multiple tables
+        DynamoDBTest.setUp(); // load properties for Music table
+        DynamoDBTest ddbTest = new DynamoDBTest();
+        ddbTest.CreateTable();  // create Music table
+        ddbTest.PutItem();  // add one item to Music table
+
+
        EnhancedBatchWriteItems.putBatchRecords(enhancedClient);
        System.out.println("\n Test 4 passed");
+
+       ddbTest.DeleteTable();
     }
 
     @Test

@@ -33,6 +33,14 @@ auditmanager:
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: auditmanager-2017-07-25
+aurora:
+  long: '&AURlong;'
+  short: '&AUR;'
+  sort: Aurora
+  tags:
+    product_categories: {'Database'}
+  version: rds-2014-10-31
+  api_ref: AmazonRDS/latest/APIReference/Welcome.html
 auto-scaling:
   long: '&ASlong;'
   short: '&ASlong;'

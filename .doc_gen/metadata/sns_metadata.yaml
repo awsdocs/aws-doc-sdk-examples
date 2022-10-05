@@ -375,6 +375,13 @@ sns_PublishTextSMS:
   synopsis: publish SMS messages using &SNS;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SNS
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.SNSMessageExample
     C++:
       versions:
         - sdk_version: 1
@@ -913,6 +920,13 @@ sns_Subscribe:
   synopsis: subscribe an email address to an &SNS; topic.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SNS
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.TopicSubscribe
     C++:
       versions:
         - sdk_version: 1
@@ -992,6 +1006,13 @@ sns_Unsubscribe:
   synopsis: delete an &SNS; subscription.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SNS
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.UnsubscribeTopic
     C++:
       versions:
         - sdk_version: 1

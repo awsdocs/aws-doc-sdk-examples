@@ -1,7 +1,7 @@
 # zexi 0.2.0
 cloudwatch-logs_AssociateKmsKey:
-  title: Associate an &KMS; key to a &CWL; log group using an &AWS; SDK
-  title_abbrev: Associate an &KMS; key to log group
+  title: Associate an &KMS; key with a &CWL; log group using an &AWS; SDK
+  title_abbrev: Associate a key with a log group
   synopsis: associate an &KMS; key with an existing &CWL; log group.
   category:
   languages:
@@ -31,6 +31,22 @@ cloudwatch-logs_CancelExportTask:
                 - CloudWatchLogs.dotnetv3.CancelExportTaskExample
   services:
     cloudwatch-logs: {CancelExportTask}
+cloudwatch-logs_CreateExportTask:
+  title: Create a &CWL; export task using an &AWS; SDK
+  title_abbrev: Create an export task
+  synopsis: create a new &CWL; export task.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.CreateExportTaskExample
+  services:
+    cloudwatch-logs: {CreateExportTask}
 cloudwatch-logs_CreateLogGroup:
   title: Create a &CWL; log group using an &AWS; SDK
   title_abbrev: Create a log group

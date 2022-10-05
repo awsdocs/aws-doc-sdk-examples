@@ -13,16 +13,19 @@ node ses_deletereceiptrule.js
  */
 
 // snippet-start:[ses.JavaScript.rules.deleteReceiptRuleV3]
-import { DeleteReceiptRuleCommand }  from "@aws-sdk/client-ses";
-import { getUniqueName } from '../../libs/index';
+import { DeleteReceiptRuleCommand } from "@aws-sdk/client-ses";
+import { getUniqueName } from "../../libs/utils/util-string.js";
 import { sesClient } from "./libs/sesClient.js";
 
-const RULE_NAME = getUniqueName('RuleName');
-const RULE_SET_NAME = getUniqueName('RuleSetName');
+const RULE_NAME = getUniqueName("RuleName");
+const RULE_SET_NAME = getUniqueName("RuleSetName");
 
 const createDeleteReceiptRuleCommand = () => {
-  return new DeleteReceiptRuleCommand({ RuleName: RULE_NAME, RuleSetName: RULE_SET_NAME });
-}
+  return new DeleteReceiptRuleCommand({
+    RuleName: RULE_NAME,
+    RuleSetName: RULE_SET_NAME,
+  });
+};
 
 const run = async () => {
   const deleteReceiptRuleCommand = createDeleteReceiptRuleCommand();
@@ -34,4 +37,4 @@ const run = async () => {
   }
 };
 // snippet-end:[ses.JavaScript.rules.deleteReceiptRuleV3]
-export { run, RULE_NAME, RULE_SET_NAME }
+export { run, RULE_NAME, RULE_SET_NAME };

@@ -10,8 +10,8 @@ namespace ListOrganizationalUnitsForParentExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Lists the Amazon Organizations Orgizational Units that belong to an
-    /// Organization. The example was created using the AWS SDK for .NET
+    /// Lists the AWS Organizations organizational units that belong to an
+    /// organization. The example was created using the AWS SDK for .NET
     /// version 3.7 and .NET Core 5.0.
     /// </summary>
     public class ListOrganizationalUnitsForParent
@@ -19,14 +19,14 @@ namespace ListOrganizationalUnitsForParentExample
         /// <summary>
         /// Initializes the Organizations client object and then uses it to
         /// call the ListOrganizationalUnitsForParentAsync method to retrieve
-        /// the list of Organizational Units.
+        /// the list of organizational units.
         /// </summary>
         public static async Task Main()
         {
             // Create the client object using the default account.
             IAmazonOrganizations client = new AmazonOrganizationsClient();
 
-            var parentId = "r-sso8";
+            var parentId = "r-0000";
 
             var request = new ListOrganizationalUnitsForParentRequest
             {
@@ -55,7 +55,7 @@ namespace ListOrganizationalUnitsForParentExample
         }
 
         /// <summary>
-        /// Displays information about an Organizations Organizational Unit.
+        /// Displays information about an Organizations organizational unit.
         /// </summary>
         /// <param name="unit">The OrganizationalUnit for which to display
         /// information.</param>

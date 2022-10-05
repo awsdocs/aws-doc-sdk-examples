@@ -17,14 +17,14 @@ Amazon Kinesis makes it easy to collect, process, and analyze video and data str
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
+- [Add tags](TagStreamExample/TagStreamExample/TagStream.cs) (`AddTagsAsync`)
 - [Create a stream](CreateStreamExample/CreateStreamExample/CreateStream.cs) (`CreateStreamAsync`)
 - [Delete a stream](DeleteStreamExample/DeleteStreamExample/DeleteStream.cs) (`DeleteStreamAsync`)
 - [Deregister a consumer](DeregisterConsumerExample/DeregisterConsumerExample/DeregisterConsumer.cs) (`DeregisterConsumerAsync`)
-- [List the consumers of a stream](ListConsumersExample/ListConsumersExample/ListConsumers.cs) (`ListConsumersAsync`)
 - [List streams](ListStreamsExample/ListStreamsExample/ListStreams.cs) (`ListStreamsAsync`)
 - [List tags](ListTagsExample/ListTagsExample/ListTags.cs) (`ListTagsAsync`)
+- [List the consumers of a stream](ListConsumersExample/ListConsumersExample/ListConsumers.cs) (`ListConsumersAsync`)
 - [Register a consumer](RegisterConsumerExample/RegisterConsumerExample/RegisterConsumer.cs) (`RegisterConsumerAsync`)
-- [Add tags](TagStreamExample/TagStreamExample/TagStream.cs) (`AddTagsAsync`)
 
 ## Run the examples
 
