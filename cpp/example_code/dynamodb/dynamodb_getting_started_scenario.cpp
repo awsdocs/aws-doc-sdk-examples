@@ -204,6 +204,29 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         yearKeySchema.WithAttributeName(TITLE_KEY).WithKeyType(
                 Aws::DynamoDB::Model::KeyType::RANGE);
         request.AddKeySchema(yearKeySchema);
+
+        Aws::DynamoDB::Model::ProvisionedThroughput throughput;
+        throughput.WithReadCapacityUnits(
+                PROVISIONED_THROUGHPUT_UNITS).WithWriteCapacityUnits(
+                PROVISIONED_THROUGHPUT_UNITS);
+        request.SetProvisionedThroughput(throughput);
+        request.SetTableName(MOVIE_TABLE_NAME);
+
+        std::cout << "Creating table '" << MOVIE_TABLE_NAME << "'..." << std::endl;
+        const Aws::DynamoDB::Model::CreateTableOutcome &result = dynamoClient.CreateTable(
+                request);
+        if (!result.IsSuccess()) {
+            if (result.GetError().GetErrorType() ==
+                Aws::DynamoDB::DynamoDBErrors::RESOURCE_IN_USE) {
+                std::cout << "Table already exists." << std::endl;
+                movieTableAlreadyExisted = true;
+            }
+            else {
+                std::cerr << "Failed to create table: "
+                          << result.GetError().GetMessage();
+                return false;
+            }
+        }
     }
 
     // 9.Delete the table. (DeleteTable)
