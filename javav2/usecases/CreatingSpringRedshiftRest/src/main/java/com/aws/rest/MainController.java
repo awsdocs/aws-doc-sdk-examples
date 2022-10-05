@@ -32,15 +32,15 @@ public class MainController {
     @Autowired
     SendMessage sm;
 
-    @Autowired
-    InjectWorkService iw;
+   @Autowired
+   InjectWorkService iw;
 
     @GetMapping("items/{state}")
     public List< WorkItem > getItems(@PathVariable String state) {
         if (state.compareTo("active") == 0)
-               return ri.getData(0) ;
+            return ri.getData("0") ;
         else
-               return ri.getData(1) ;
+            return ri.getData("1") ;
     }
 
     // Flip an item from Active to Archive.
@@ -64,20 +64,20 @@ public class MainController {
         myWork.setDescription(description);
         myWork.setStatus(status);
         myWork.setName(name);
-        iw.injestNewSubmission(myWork);
+        iw.injectNewSubmission(myWork);
         return "Item added";
     }
 
     @PutMapping("report/{email}")
     public String sendReport(@PathVariable String email){
-        List<WorkItem> theList = ri.getData(0);
-        java.io.InputStream is = writeExcel.exportExcel(theList);
-
+       List<WorkItem> theList = ri.getData("0");
+       java.io.InputStream is = writeExcel.exportExcel(theList);
         try {
-            sm.sendReport(is, email);
+           sm.sendReport(is, email);
         }catch (IOException e) {
             e.getStackTrace();
         }
         return "Report is created";
     }
 }
+

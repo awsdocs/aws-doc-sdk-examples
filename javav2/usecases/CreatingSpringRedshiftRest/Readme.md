@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 8/02/2022        |
+| Updated   | 10/04/2022        |
 | Required skills   | Java, Maven, JavaScript  |
 
 ## Purpose
@@ -35,7 +35,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Java IDE to build the Spring REST API. This tutorial uses the IntelliJ IDE.
-+ Java JDK 1.8.
++ Java JDK 11. (The code in this example uses APIs that are available in JDK 11).
 + Maven 3.6 or later.
 + Set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
@@ -49,13 +49,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 ### Creating the resources
 
-To create the required resources, you can use one of the following methods:
-
-- The AWS Management Console
-
-#### Using the AWS Management Console
-
-Create an Amazon Redshift cluster and then create a database named **dev**. Next, create a table named **Work** that contains the following fields:
+To create the required resources, create an Amazon Redshift cluster and then create a database named **dev**. Next, create a table named **Work** that contains the following fields:
 
 + **idwork** - A VARCHAR(45) value that represents the PK.
 + **date** - A date value that specifies the date the item was created.
@@ -90,7 +84,7 @@ A user can perform the following tasks by using the React application:
 
 The React SPA displays *active* and *archive* items. For example, the following image shows the React application displaying active data.
 
-![AWS Tracking Application](images/activeItems.png)
+![AWS Tracking Application](images/activeItems2.png)
 
 Likewise, the following image shows the React application displaying archived data.
 
@@ -111,9 +105,10 @@ Active items are queried from the database and used to dynamically create an Exc
 ## Creating an IntelliJ project named ItemTrackerRedshiftRest
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
-3. For **GroupId**, enter **aws-spring**.
-4. For **ArtifactId**, enter **ItemTrackerRedshiftRest**.
+2. In the Project SDK, choose 11.
+3. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+4. For **GroupId**, enter **aws-spring**.
+5. For **ArtifactId**, enter **ItemTrackerRedshiftRest**.
 6. Choose **Next**.
 7. Choose **Finish**.
 
@@ -123,12 +118,12 @@ At this point, you have a new project named **ItemTrackerRedshiftRest**.
 
 ![AWS Tracking Application](images/projectRedshift.png)
 
-**Note:** Make sure to use Java 1.8 (as shown in the following example).
+**Note:** Make sure to use Java 11 (as shown in the following example).
 
 Confirm that the **pom.xml** file looks like the following example.
 
 ```xml
-  <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -144,7 +139,7 @@ Confirm that the **pom.xml** file looks like the following example.
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -161,24 +156,24 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-commons</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -188,7 +183,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
+            <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -206,12 +201,12 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
-            <version>2.0.1</version>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
-            <version>1.6.5</version>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -221,7 +216,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -257,36 +252,136 @@ Confirm that the **pom.xml** file looks like the following example.
 
 ## Creating the Java classes
 
-Create a Java package in the **main/java** folder named **com.aws.rest**. 
-
-![AWS Tracking Application](images/package.png)
-
-The following Java files go into this package:
+Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles REST requests.
-+ **RetrieveItems** - Uses the **RedshiftDataClient** to retrieve a dataset from the **Work** table. 
-+ **InjectWorkService** - Uses the **RedshiftDataClient** to inject a new item into the **Work** table. 
++ **RetrieveItems** - Retrieves a dataset from the **Work** table. 
++ **InjectWorkService** - Injects a new item into the **Work** table. 
 + **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object to send email messages.
 + **WorkItem** - Represents the application's data model.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
 
 ### App class 
 
-The following Java code represents the **App** class. This is the entry point into a Spring boot application.  
+The following Java code represents the **App** class. This is the entry point into a Spring boot application. Notice that you are required to specify three values (database, database user, and clusterId value) to use the **RedshiftDataClient** object (as discussed in the Creating the resources section). Without all of these values, your code won't work. To use the **RedshiftDataClient**, you must create an **ExecuteStatementRequest** object and specify these values.  
 
 ```java
-   package com.aws.rest;
+package com.aws.rest;
 
-   import org.springframework.boot.SpringApplication;
-   import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.redshiftdata.model.DescribeStatementRequest;
+import software.amazon.awssdk.services.redshiftdata.model.DescribeStatementResponse;
+import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementRequest;
+import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementResponse;
+import software.amazon.awssdk.services.redshiftdata.model.GetStatementResultRequest;
+import software.amazon.awssdk.services.redshiftdata.model.GetStatementResultResponse;
+import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
+import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
+import software.amazon.awssdk.services.redshiftdata.model.SqlParameter;
+import java.util.List;
+import java.util.stream.Collectors;
 
-   @SpringBootApplication
-   public class App {
-     public static void main(String[] args) throws Throwable {
+@SpringBootApplication
+public class App {
+
+    // Specify the database name, the database user, and the cluster Id value.
+    private static final String database = "dev";
+    private static final String dbUser ="awsuser";
+    private static final String clusterId = "redshift-cluster-1";
+
+    static RedshiftDataClient getClient() {
+
+        Region region = Region.US_WEST_2;
+        return RedshiftDataClient.builder()
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
+    }
+
+    static List<WorkItem> getResults(String statementId) {
+        try {
+            GetStatementResultRequest resultRequest = GetStatementResultRequest.builder()
+                .id(statementId)
+                .build();
+
+            GetStatementResultResponse response = App.getClient().getStatementResult(resultRequest);
+            return response
+                .records()
+                .stream()
+                .map(WorkItem::from)
+                .collect(Collectors.toUnmodifiableList());
+
+        } catch (RedshiftDataException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return null;
+    }
+
+    // Update the work table.
+    static void flipItemArchive(String sqlStatement,  List<SqlParameter> parameters ) {
+        try {
+            ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
+                .clusterIdentifier(clusterId)
+                .database(database)
+                .dbUser(dbUser)
+                .sql(sqlStatement)
+                .parameters(parameters)
+                .build();
+
+            App.getClient().executeStatement(statementRequest);
+
+        } catch (RedshiftDataException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
+
+    static void checkStatement(String sqlId ) {
+        try {
+            DescribeStatementRequest statementRequest = DescribeStatementRequest.builder()
+                .id(sqlId)
+                .build() ;
+
+            // Wait until the sql statement processing is finished.
+            String status;
+            while (true) {
+                DescribeStatementResponse response = App.getClient().describeStatement(statementRequest);
+                status = response.statusAsString();
+                System.out.println("..."+status);
+
+                if (status.compareTo("FINISHED") == 0) {
+                    break;
+                }
+                Thread.sleep(500);
+            }
+            System.out.println("The statement is finished!");
+
+        } catch (RedshiftDataException | InterruptedException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
+
+    static ExecuteStatementResponse execute(String sqlStatement, List<SqlParameter> parameters) {
+        ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+            .clusterIdentifier(clusterId)
+            .database(database)
+            .dbUser(dbUser)
+            .sql(sqlStatement)
+            .parameters(parameters)
+            .build();
+        return App.getClient().executeStatement(sqlRequest);
+    }
+
+   public static void main(String[] args) {
         SpringApplication.run(App.class, args);
-     }
-   }
+    }
+}
 ```    
 
 ### MainController class
@@ -323,15 +418,15 @@ public class MainController {
     @Autowired
     SendMessage sm;
 
-    @Autowired
-    InjectWorkService iw;
+   @Autowired
+   InjectWorkService iw;
 
     @GetMapping("items/{state}")
     public List< WorkItem > getItems(@PathVariable String state) {
         if (state.compareTo("active") == 0)
-               return ri.getData(0) ;
+            return ri.getData("0") ;
         else
-               return ri.getData(1) ;
+            return ri.getData("1") ;
     }
 
     // Flip an item from Active to Archive.
@@ -341,7 +436,7 @@ public class MainController {
         return id +" was archived";
     }
 
-    // Add a new item to the database.
+    // Adds a new item to the database.
     @PostMapping("add")
     String addItems(@RequestBody Map<String, Object> payLoad) {
         String name = "user";
@@ -349,23 +444,22 @@ public class MainController {
         String description = (String)payLoad.get("description");
         String status = (String)payLoad.get("status");
 
-        // Create a WorkItem object to pass to the injestNewSubmission method.
+        // Create a Work Item object to pass to the injestNewSubmission method.
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
         myWork.setStatus(status);
         myWork.setName(name);
-        iw.injestNewSubmission(myWork);
+        iw.injectNewSubmission(myWork);
         return "Item added";
     }
 
     @PutMapping("report/{email}")
     public String sendReport(@PathVariable String email){
-        List<WorkItem> theList = ri.getData(0);
-        java.io.InputStream is = writeExcel.exportExcel(theList);
-
+       List<WorkItem> theList = ri.getData("0");
+       java.io.InputStream is = writeExcel.exportExcel(theList);
         try {
-            sm.sendReport(is, email);
+           sm.sendReport(is, email);
         }catch (IOException e) {
             e.getStackTrace();
         }
@@ -374,268 +468,125 @@ public class MainController {
 }
 
 
+
 ```
 
 ### RetrieveItems class
 
-The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. Notice that you are required to specify three values (database, database user, and clusterId value) to use the **RedshiftDataClient** object (as discussed in the Creating the resources section). Without all of these values, your code won't work. To use the **RedshiftDataClient**, you must create an **ExecuteStatementRequest** object and specify these values.
+The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. In this example, notice the use of parameters used with the SQL statement. Parameters is a list of [SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) objects.
 
 ```java
 package com.aws.rest;
 
-import java.util.ArrayList ;
 import java.util.List;
 import org.springframework.stereotype.Component;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.redshiftdata.model.DescribeStatementResponse;
-import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementRequest;
 import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementResponse;
-import software.amazon.awssdk.services.redshiftdata.model.Field;
-import software.amazon.awssdk.services.redshiftdata.model.GetStatementResultRequest;
-import software.amazon.awssdk.services.redshiftdata.model.GetStatementResultResponse;
-import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
-import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
-import software.amazon.awssdk.services.redshiftdata.model.DescribeStatementRequest;
+import software.amazon.awssdk.services.redshiftdata.model.SqlParameter;
 
 @Component
 public class RetrieveItems {
+   
+    static final String username = "user";
 
-    // Specify the database name, database user, and cluster Id value.
-    private final String database = "<Enter Value>";
-    private final String dbUser ="<Enter Value>";
-    private final String clusterId = "<Enter Value>";
-
-    private RedshiftDataClient getClient() {
-
-        Region region = Region.US_WEST_2;
-        return RedshiftDataClient.builder()
-                  .region(region)
-                  .credentialsProvider(ProfileCredentialsProvider.create())
-                  .build();
+    SqlParameter param(String name, String value) {
+        return SqlParameter.builder().name(name).value(value).build();
     }
 
     // Update the work table.
     public void flipItemArchive(String id ) {
+        String arc = "1";
+        String sqlStatement = "update work set archive = :arc where idwork =:id ";
+        List<SqlParameter> parameters = List.of(
+                param("arc", arc),
+                param("id", id)
+        );
 
-        RedshiftDataClient redshiftDataClient = getClient();
-        int arc = 1;
-
-        try {
-            String sqlStatement = "update work set archive = '" + arc + "' where idwork ='" + id + "' ";
-            ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
-                        .clusterIdentifier(clusterId)
-                        .database(database)
-                        .dbUser(dbUser)
-                        .sql(sqlStatement)
-                        .build();
-
-            redshiftDataClient.executeStatement(statementRequest);
-
-        } catch (RedshiftDataException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+        App.flipItemArchive(sqlStatement,parameters);
     }
 
     // Return items from the work table.
-    public List<WorkItem> getData(int arch) {
+    public List<WorkItem> getData(String arch) {
+        String sqlStatement = "SELECT idwork, date, description, guide, status, username "+
+            "FROM work WHERE username = :username and archive = :arch ;";
 
-        String username = "user";
-        String sqlStatement = "Select * FROM work where username = '" +username +"' and archive = " + arch +"";
-        RedshiftDataClient redshiftDataClient = getClient() ;
-        String id = performSQLStatement(redshiftDataClient, database, dbUser, sqlStatement, clusterId);
+        List<SqlParameter> parameters = List.of(
+            param("username", username),
+            param("arch", arch)
+        );
+
+        ExecuteStatementResponse response = App.execute(sqlStatement,parameters);
+        String id = response.id();
         System.out.println("The identifier of the statement is "+id);
-        checkStatement(redshiftDataClient,id );
-        return getResults(redshiftDataClient, id);
-    }
-
-    public String performSQLStatement(RedshiftDataClient redshiftDataClient,
-                                                 String database,
-                                                 String dbUser,
-                                                 String sqlStatement,
-                                                 String clusterId) {
-
-        try {
-            ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
-                        .clusterIdentifier(clusterId)
-                        .database(database)
-                        .dbUser(dbUser)
-                        .sql(sqlStatement)
-                        .build();
-
-            ExecuteStatementResponse response = redshiftDataClient.executeStatement(statementRequest);
-            return response.id();
-
-        } catch (RedshiftDataException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return "";
-    }
-
-    public void checkStatement(RedshiftDataClient redshiftDataClient,String sqlId ) {
-
-        try {
-            DescribeStatementRequest statementRequest = DescribeStatementRequest.builder()
-                                .id(sqlId)
-                                .build() ;
-
-            // Wait until the sql statement processing is finished.
-            String status;
-            while (true) {
-                DescribeStatementResponse response = redshiftDataClient.describeStatement(statementRequest);
-                status = response.statusAsString();
-                System.out.println("..."+status);
-
-                if (status.compareTo("FINISHED") == 0) {
-                    break;
-                }
-                Thread.sleep(500);
-            }
-
-            System.out.println("The statement is finished!");
-
-        } catch (RedshiftDataException | InterruptedException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-
-    public List<WorkItem> getResults(RedshiftDataClient redshiftDataClient, String statementId) {
-
-        try {
-
-            List<WorkItem>records = new ArrayList<>();
-            GetStatementResultRequest resultRequest = GetStatementResultRequest.builder()
-                        .id(statementId)
-                        .build();
-
-            GetStatementResultResponse response = redshiftDataClient.getStatementResult(resultRequest);
-            WorkItem workItem ;
-            int index;
-
-            // Iterate through the List element where each element is a List object.
-            List<List<Field>> dataList = response.records();
-
-            // Get the records.
-            for (List<Field> list: dataList) {
-
-                // New WorkItem object.
-                workItem = new WorkItem();
-                index = 0;
-                for (Field field:list) {
-                    String value = field.stringValue();
-                    if (index == 0)
-                        workItem.setId(value);
-
-                    else if (index == 1)
-                        workItem.setDate(value);
-
-                    else if (index == 2)
-                        workItem.setDescription(value);
-
-                    else if (index == 3)
-                        workItem.setGuide(value);
-
-                    else if (index == 4)
-                        workItem.setStatus(value);
-
-                    else if (index == 5)
-                        workItem.setName(value);
-
-                    // Increment the index.
-                    index++;
-                }
-
-                // Push the object to the List.
-                records.add(workItem);
-            }
-            return records;
-
-        } catch (RedshiftDataException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return null;
+        App.checkStatement(id);
+        return App.getResults(id);
     }
 }
-
 
 ```
 
 ### InjectWorkService class
 
-The following Java code represents the **InjectWorkService** class. Notice that you are required to specify three values (database, database user, and clusterId value) to use the **RedshiftDataClient** object. If you don't include all of these values, your code doesn't work. 
+The following Java code represents the **InjectWorkService** class. In this example, notice the use of parameters used with the SQL statement. Parameters is a list of [SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) objects.
 
 ```java
- package com.aws.rest;
+package com.aws.rest;
 
 import org.springframework.stereotype.Component;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
-import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementRequest;
+import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementResponse;
 import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
+import software.amazon.awssdk.services.redshiftdata.model.SqlParameter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Component
 public class InjectWorkService {
 
-    private String database = "<Enter Value>";
-    private String dbUser ="<Enter Value>";
-    private String clusterId = "<Enter Value>";
 
-    // Inject a new submission.
-    public String injestNewSubmission(WorkItem item) {
-
-        Region region = Region.US_WEST_2;
-        RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
-                        .region(region)
-                        .credentialsProvider(ProfileCredentialsProvider.create())
-                        .build();
+    public String injectNewSubmission(WorkItem item) {
         try {
-
             String name = item.getName();
             String guide = item.getGuide();
             String description = item.getDescription();
             String status = item.getStatus();
-            int arc = 0;
+            String archived = "0";
 
-            // Generate the work item ID.
             UUID uuid = UUID.randomUUID();
             String workId = uuid.toString();
 
-            // Date conversion.
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             String sDate1 = dtf.format(now);
             Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
             java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
 
-            // Inject an item into the system.
-            String sqlStatement = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES('" + workId + "', '" + name + "', '" + sqlDate + "','" + description + "','" + guide + "','" + status + "','" + arc + "');";
-            ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
-                          .clusterIdentifier(clusterId)
-                          .database(database)
-                          .dbUser(dbUser)
-                          .sql(sqlStatement)
-                          .build();
+            String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
+                "(:idwork, :username, :date, :description, :guide, :status, :archive);";
+            List<SqlParameter> paremeters = List.of(
+                param("idwork", workId),
+                param("username", name),
+                param("date", sqlDate.toString()),
+                param("description", description),
+                param("guide", guide),
+                param("status", status),
+                param("archive", archived)
+            );
 
-            redshiftDataClient.executeStatement(statementRequest);
+            ExecuteStatementResponse result = App.execute(sql, paremeters);
+            System.out.println(result.toString());
             return workId;
-
-        } catch (RedshiftDataException | ParseException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        return null;
+        return "";
+    }
+
+    SqlParameter param(String name, String value) {
+        return SqlParameter.builder().name(name).value(value).build();
     }
 }
 
@@ -647,7 +598,7 @@ The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an emai
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
 
 ```java
-   package com.aws.rest;
+package com.aws.rest;
 
 import org.apache.commons.io.IOUtils;
 import software.amazon.awssdk.regions.Region;
@@ -799,91 +750,121 @@ public class SendMessage {
 The following Java code represents the **WorkItem** class.   
 
 ```java
-    package com.aws.entities;
+package com.aws.rest;
 
-    public class WorkItem {
+import software.amazon.awssdk.services.redshiftdata.model.Field;
+import java.util.List;
 
-     private String id;
-     private String name;
-     private String guide ;
-     private String date;
-     private String description;
-     private String status;
+public class WorkItem {
+    private String id;
+    private String name;
+    private String guide;
+    private String date;
+    private String description;
+    private String status;
 
-     public void setId (String id) {
-         this.id = id;
-     }
+    public static WorkItem from(List<Field> fields) {
+        WorkItem item = new WorkItem();
+        for (int i = 0; i <= 5; i++) {
+            String value = fields.get(i).stringValue();
+            switch (i) {
+                case 0:
+                    item.setId(value);
+                    break;
+                case 1:
+                    item.setDate(value);
+                    break;
+                case 2:
+                    item.setDescription(value);
+                    break;
+                case 3:
+                    item.setGuide(value);
+                    break;
+                case 4:
+                    item.setStatus(value);
+                    break;
+                case 5:
+                    item.setName(value);
+                    break;
+            }
+        }
+        return item;
+    }
 
-     public String getId() {
-         return this.id;
-     }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-     public void setStatus (String status) {
+    public String getId() {
+        return this.id;
+    }
+
+    public void setStatus(String status) {
         this.status = status;
-     }
+    }
 
-     public String getStatus() {
-       return this.status;
-     }
+    public String getStatus() {
+        return this.status;
+    }
 
-     public void setDescription (String description) {
+    public void setDescription(String description) {
         this.description = description;
-     }
+    }
 
-     public String getDescription() {
-       return this.description;
-     }
+    public String getDescription() {
+        return this.description;
+    }
 
-     public void setDate (String date) {
-       this.date = date;
-     }
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-     public String getDate() {
-       return this.date;
-     }
+    public String getDate() {
+        return this.date;
+    }
 
-     public void setName (String name) {
-       this.name = name;
-     }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-     public String getName() {
-       return this.name;
-     }
+    public String getName() {
+        return this.name;
+    }
 
-     public void setGuide (String guide) {
-      this.guide = guide;
-     }
+    public void setGuide(String guide) {
+        this.guide = guide;
+    }
 
-     public String getGuide() {
-      return this.guide;
-      }
-     }
+    public String getGuide() {
+        return this.guide;
+    }
+}
 ```
 ### WriteExcel class
 
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
 
 ```java
-   package com.aws.rest;
+ package com.aws.rest;
 
-   import jxl.CellView;
-   import jxl.Workbook;
-   import jxl.WorkbookSettings;
-   import jxl.format.UnderlineStyle;
-   import jxl.write.Label;
-   import jxl.write.Number;
-   import jxl.write.WritableCellFormat;
-   import jxl.write.WritableFont;
-   import jxl.write.WritableSheet;
-   import jxl.write.WritableWorkbook;
-   import jxl.write.WriteException;
-   import org.springframework.stereotype.Component;
-   import java.io.IOException;
-   import java.util.List;
-   import java.util.Locale;
+import jxl.CellView;
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.format.UnderlineStyle;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import org.springframework.stereotype.Component;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
-   @Component
-   public class WriteExcel {
+@Component
+public class WriteExcel {
 
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
@@ -892,8 +873,8 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
     public java.io.InputStream exportExcel( List<WorkItem> list) {
 
         try {
-            java.io.InputStream is = write( list);
-            return is ;
+            return write(list);
+
         } catch(WriteException | IOException e) {
             e.printStackTrace();
         }
@@ -902,51 +883,54 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
     // Generates the report and returns an InputStream.
     public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
-        java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
-        WorkbookSettings wbSettings = new WorkbookSettings();
 
+        ByteArrayOutputStream os = new java.io.ByteArrayOutputStream() ;
+        WorkbookSettings wbSettings = new WorkbookSettings();
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Creates a Workbook and passes the OutputStream.
+        // Create a Workbook - pass the OutputStream.
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         workbook.createSheet("Work Item Report", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
         createLabel(excelSheet) ;
-        int size = createContent(excelSheet, list);
+        createContent(excelSheet, list);
 
-        // Closes the workbook.
+        // Close the workbook.
         workbook.write();
         workbook.close();
 
-        // Gets an InputStream that represents the report.
-        java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
-        stream = (java.io.ByteArrayOutputStream)os;
+        // Get an inputStream that represents the report.
+        new ByteArrayOutputStream();
+        java.io.ByteArrayOutputStream stream;
+        stream = os;
         byte[] myBytes = stream.toByteArray();
-        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
-
-        return is ;
+        return new java.io.ByteArrayInputStream(myBytes);
     }
 
-    // Creates Headings in the Excel spreadsheet.
-    private void createLabel(WritableSheet sheet)
-            throws WriteException {
-        
+    // Create headings in the Excel spreadsheet.
+    private void createLabel(WritableSheet sheet) throws WriteException {
+
+        // Create a times font.
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
+
+        // Define the cell format.
         times = new WritableCellFormat(times10pt);
+
+        // Lets automatically wrap the cells.
         times.setWrap(true);
 
-        // Creates a bold font with underlining.
-        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
-                UnderlineStyle.SINGLE);
+        // Create a bold font with underlining.
+        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false, UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        timesBoldUnderline.setWrap(true);
 
+        // Automatically wrap the cells.
+        timesBoldUnderline.setWrap(true);
         CellView cv = new CellView();
         cv.setFormat(times);
         cv.setFormat(timesBoldUnderline);
         cv.setAutosize(true);
 
-        // Writes a few headers.
+        // Write a few headers.
         addCaption(sheet, 0, 0, "Writer");
         addCaption(sheet, 1, 0, "Date");
         addCaption(sheet, 2, 0, "Guide");
@@ -954,13 +938,17 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         addCaption(sheet, 4, 0, "Status");
     }
 
-    // Writes the WorkItem data to the Excel report.
+    // Write the Work Item Data to the Excel report.
     private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
+
+        // Add customer data to the Excel report.
         for (int i = 0; i < size; i++) {
 
             WorkItem wi = list.get(i);
+
+            // Get tne work item values.
             String name = wi.getName();
             String guide = wi.getGuide();
             String date = wi.getDate();
@@ -969,25 +957,24 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
             // First column.
             addLabel(sheet, 0, i+2, name);
-            
+
             // Second column.
             addLabel(sheet, 1, i+2, date);
 
             // Third column.
             addLabel(sheet, 2, i+2,guide);
 
-            // Fourth column.
+            // Forth column.
             addLabel(sheet, 3, i+2, des);
 
             // Fifth column.
             addLabel(sheet, 4, i+2, status);
         }
 
-       return size;
+        return size;
     }
 
-    private void addCaption(WritableSheet sheet, int column, int row, String s)
-            throws WriteException {
+    private void addCaption(WritableSheet sheet, int column, int row, String s) throws WriteException {
         Label label;
         label = new Label(column, row, s, timesBoldUnderline);
 
@@ -996,15 +983,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         sheet.addCell(label);
     }
 
-    private void addNumber(WritableSheet sheet, int column, int row,
-                           Integer integer) throws WriteException {
-        Number number;
-        number = new Number(column, row, integer, times);
-        sheet.addCell(number);
-    }
-
-    private void addLabel(WritableSheet sheet, int column, int row, String s)
-            throws WriteException {
+    private void addLabel(WritableSheet sheet, int column, int row, String s) throws WriteException {
         Label label;
         label = new Label(column, row, s, times);
         int cc = countString(s);
@@ -1014,7 +993,6 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
             sheet.setColumnView(column, cc+6);
 
         sheet.addCell(label);
-
     }
 
     private int countString (String ss) {
@@ -1025,8 +1003,8 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         }
         return count;
     }
-    }
-   }
+}
+
 
 ```
 
