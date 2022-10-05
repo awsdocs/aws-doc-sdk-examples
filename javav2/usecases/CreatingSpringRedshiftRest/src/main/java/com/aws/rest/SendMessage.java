@@ -42,7 +42,7 @@ public class SendMessage {
 
     // The HTML body of the email.
     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-                + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
+        + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
 
     public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
@@ -117,8 +117,8 @@ public class SendMessage {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
             Region region = Region.US_WEST_2;
             SesClient client = SesClient.builder()
-                     .region(region)
-                     .build();
+                .region(region)
+                .build();
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             message.writeTo(outputStream);
@@ -129,12 +129,12 @@ public class SendMessage {
 
             SdkBytes data = SdkBytes.fromByteArray(arr);
             RawMessage rawMessage = RawMessage.builder()
-                     .data(data)
-                     .build();
+                .data(data)
+                .build();
 
             SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                     .rawMessage(rawMessage)
-                     .build();
+                .rawMessage(rawMessage)
+                .build();
 
             client.sendRawEmail(rawEmailRequest);
 
