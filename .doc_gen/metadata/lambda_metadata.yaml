@@ -138,15 +138,7 @@ lambda_Invoke:
             - description:
               snippet_tags:
                 - Lambda.dotnetv3.InvokeFunctionExample
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Lambda
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.GetFunction
+                - lambda.dotnetv3.Lambda_Basics.InvokeFunction
     Kotlin:
       versions:
         - sdk_version: 1
