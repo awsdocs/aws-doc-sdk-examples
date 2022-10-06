@@ -39,8 +39,6 @@ Sample applications that work across multiple AWS services.
 - [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/serverless_rds)
 
 ## Run the examples
-To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon RDS instance. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
@@ -48,7 +46,7 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 
 ⚠️ Running the tests might result in charges to your AWS account.
 
-You can test the Java code examples for Amazon RDS by running a test file named **AmazonRDSTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Kotlin code examples for Amazon RDS by running a test file named **RDSTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/kotlin** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -83,7 +81,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AmazonRDSTest
+	[INFO] Running Tests
 	Test 1 passed
 	Test 2 passed
 	...
@@ -114,8 +112,8 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[ERROR];
 	
 ## Additional resources
-* [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 * [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html).
-* [Interface RdsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsClient.html).
+* [Interface RdsClient](https://d2n44ts0t4nz5v.cloudfront.net/api/latest/services/rds/aws.sdk.kotlin.services.rds/-rds-client/index.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0	
