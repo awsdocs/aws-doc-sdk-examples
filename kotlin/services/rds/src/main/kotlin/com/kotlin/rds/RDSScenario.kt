@@ -172,7 +172,7 @@ suspend fun main(args: Array<String>) {
             println("$dbGroupName was deleted.")
         }
    }
-   // snippet-start:[rds.kotlin.scenario.del_paragroup.main]
+   // snippet-end:[rds.kotlin.scenario.del_paragroup.main]
 
     // snippet-start:[rds.kotlin.scenario.del_db.main]
     suspend fun deleteDbInstance(dbInstanceIdentifierVal: String) {
@@ -390,7 +390,7 @@ suspend fun main(args: Array<String>) {
             }
         }
     }
-// snippet-start:[rds.kotlin.scenario.get_paras.main]
+// snippet-end:[rds.kotlin.scenario.get_paras.main]
 
 
     // snippet-start:[rds.kotlin.scenario.desc_para_groups.main]
