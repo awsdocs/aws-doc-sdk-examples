@@ -9,12 +9,7 @@ ADD .github/linters/.ruby-lint.yml /src/.ruby-lint.yml
 # resolve dependencies
 WORKDIR /src
 RUN bundle config --delete frozen
-# RUN bundle install
-
-# configure AWS credentials
-RUN mkdir .aws
-COPY ./aws_configure.sh /
-RUN chmod 755 /aws_configure.sh
+RUN bundle install
 
 # ENTRYPOINT ["/aws_configure.sh"]
 CMD ["bash"]
