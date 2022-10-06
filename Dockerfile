@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM ruby:3.0
+FROM ruby:latest
 
 # copy in files
 RUN mkdir /src
