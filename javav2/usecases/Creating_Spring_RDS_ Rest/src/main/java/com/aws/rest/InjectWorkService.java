@@ -4,75 +4,72 @@
 */
 package com.aws.rest;
 
+import org.springframework.stereotype.Component;
+import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementResponse;
+import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
+import software.amazon.awssdk.services.rdsdata.model.SqlParameter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
-import org.springframework.stereotype.Component;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.rdsdata.RdsDataClient;
-import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementRequest;
-import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
 
 @Component
 public class InjectWorkService {
-
-    private String secretArn = "<Enter value>" ;
-    private String resourceArn = "<Enter value> ;
-
-    // Returns a RdsDataClient object.
-    private RdsDataClient getClient() {
-
-        Region region = Region.US_EAST_1;
-        RdsDataClient dataClient = RdsDataClient.builder()
-               .region(region)
-               .build();
-
-        return dataClient;
-    }
-
-    // Inject a new submission.
-    public String injestNewSubmission(WorkItem item) {
-
-        RdsDataClient dataClient = getClient();
+    public String injectNewSubmission(WorkItem item) {
         try {
-
-            // Convert rev to int.
             String name = item.getName();
             String guide = item.getGuide();
             String description = item.getDescription();
             String status = item.getStatus();
-            int arc = 0;
+            String archived = "0";
 
-            // Generate the work item ID.
             UUID uuid = UUID.randomUUID();
             String workId = uuid.toString();
 
-            // Date conversion.
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             String sDate1 = dtf.format(now);
             Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
             java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
 
-            // Inject an item into the system.
-            String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES('" + workId + "', '" + name + "', '" + sqlDate + "','" + description + "','" + guide + "','" + status + "','" + arc + "');";
-            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
-                    .secretArn(secretArn)
-                    .sql(insert)
-                    .database("jobs")
-                    .resourceArn(resourceArn)
-                    .build();
+            String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
+                "(:idwork, :username, :date, :description, :guide, :status, :archive);";
+            List<SqlParameter> paremeters = List.of(
+                App.param("idwork", workId),
+                App.param("username", name),
+                App.param("date", sqlDate.toString()),
+                App.param("description", description),
+                App.param("guide", guide),
+                App.param("status", status),
+                App.param("archive", archived)
+            );
 
-            dataClient.executeStatement(sqlRequest);
+            ExecuteStatementResponse result = App.execute(sql, paremeters);
+            System.out.println(result.toString());
             return workId;
-
-        } catch (RdsDataException | ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
+    }
+
+    public String modifySubmission(String id, String desc, String status) {
+        try {
+            App.execute(
+                "UPDATE Work SET description = :description, status = :status WHERE idwork = :idwork;",
+                List.of(
+                    App.param("idwork", id),
+                    App.param("description", desc),
+                    App.param("status", status)
+                )
+            );
+            return id;
+        } catch (RdsDataException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

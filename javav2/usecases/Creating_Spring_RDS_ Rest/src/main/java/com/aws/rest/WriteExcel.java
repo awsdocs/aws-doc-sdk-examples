@@ -159,7 +159,6 @@ public class WriteExcel {
             sheet.setColumnView(column, cc+6);
 
         sheet.addCell(label);
-
     }
 
     private int countString (String ss) {

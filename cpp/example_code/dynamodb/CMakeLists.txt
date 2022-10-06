@@ -79,10 +79,7 @@ foreach(file ${AWSDOC_SOURCE})
     # Build the code example executables.
     set(EXAMPLE_EXE run_${EXAMPLE})
 
-    add_executable(${EXAMPLE_EXE}
-            ${file}
-            utilities/dynamodb_utilities.cpp
-            )
+    add_executable(${EXAMPLE_EXE} ${file})
 
     target_include_directories(${EXAMPLE_EXE} PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
