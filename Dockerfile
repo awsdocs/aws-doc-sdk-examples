@@ -11,5 +11,4 @@ WORKDIR /src
 RUN bundle config --delete frozen
 RUN bundle install
 
-# ENTRYPOINT ["/aws_configure.sh"]
-CMD ["bash"]
+CMD ["/bin/bash"]
