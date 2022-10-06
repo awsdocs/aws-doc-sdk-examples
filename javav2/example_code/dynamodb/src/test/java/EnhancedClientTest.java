@@ -11,6 +11,8 @@ import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+
+
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EnhancedClientTest {
@@ -51,6 +53,7 @@ public class EnhancedClientTest {
         enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
                 .build();
+
     }
 
     @Test
@@ -63,8 +66,8 @@ public class EnhancedClientTest {
     @Test
     @Order(2)
     public void CreateTable() {
-       CreateTable.createTable(ddb, enhancedTableName, enhancedTableKey);
-       System.out.println("\n Test 2 passed");
+        EnhancedCreateTable.createTable(enhancedClient);
+        System.out.println("\n Test 2 passed");
     }
 
     @Test
@@ -96,35 +99,44 @@ public class EnhancedClientTest {
 
     @Test
     @Order(5)
+    public void queryWithFilter(){
+        Integer customerCount = EnhancedQueryRecordsWithFilter.queryTableFilter(enhancedClient);
+        Assertions.assertEquals(1, customerCount);
+        System.out.println("\n Test 5 passed");
+    }
+
+
+    @Test
+    @Order(6)
     public void GetItem() {
 
       String result = EnhancedGetItem.getItem(enhancedClient);
       assertTrue(!result.isEmpty());
-      System.out.println("\n Test 5 passed");
-    }
-
-    @Test
-    @Order(6)
-    public void QueryRecords() {
-
-        String result = EnhancedQueryRecords.queryTable(enhancedClient);
-        assertTrue(!result.isEmpty());
-        System.out.println("\n Test 6 passed");
+      System.out.println("\n Test 6 passed");
     }
 
     @Test
     @Order(7)
-    public void ScanRecords() {
+    public void QueryRecords() {
 
-       EnhancedScanRecords.scan(enhancedClient);
-       System.out.println("\n Test 7 passed");
+        String result = EnhancedQueryRecords.queryTable(enhancedClient);
+        assertTrue(!result.isEmpty());
+        System.out.println("\n Test 7passed");
     }
 
     @Test
     @Order(8)
+    public void ScanRecords() {
+
+       EnhancedScanRecords.scan(enhancedClient);
+       System.out.println("\n Test 8 passed");
+    }
+
+    @Test
+    @Order(9)
     public void DeleteTable() {
 
        DeleteTable.deleteDynamoDBTable(ddb,enhancedTableName);
-       System.out.println("\n Test 8 passed");
+       System.out.println("\n Test 9 passed");
     }
 }

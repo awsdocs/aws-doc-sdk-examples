@@ -62,7 +62,7 @@ public class EnhancedGetItem {
         try {
             DynamoDbTable<Customer> table = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
-                .partitionValue("id101")
+                .partitionValue("id101").sortValue("tred@noserver.com")
                 .build();
 
             // Get the item by using the key.

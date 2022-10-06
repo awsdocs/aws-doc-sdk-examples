@@ -1560,7 +1560,6 @@ dynamodb_Scenario_GettingStartedMovies:
             - description:
               snippet_tags:
                 - cpp.example_code.dynamodb.Scenario_GettingStarted
-
   services:
     dynamodb: {DescribeTable, CreateTable, BatchWriteItem, PutItem, GetItem, UpdateItem,
                DeleteItem, Query, Scan, DeleteTable}
