@@ -57,7 +57,6 @@ import kotlin.system.exitProcess
 
 var sleepTime: Long = 20
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> <dbSnapshotIdentifier>
