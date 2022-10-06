@@ -1,3 +1,8 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import axios from "axios";
 import configData from "./config.json";
 
