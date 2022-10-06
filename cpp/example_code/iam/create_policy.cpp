@@ -3,12 +3,14 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+//snippet-start:[iam.cpp.create_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreatePolicyRequest.h>
 #include <aws/iam/model/CreatePolicyResult.h>
 #include <iostream>
 #include "iam_samples.h"
+//snippet-end:[iam.cpp.create_policy.inc]
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -112,7 +114,7 @@ int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        std::cout << "Usage: create_policy <policy_name> <resource_arn>" <<
+        std::cout << "Usage: run_create_policy <policy_name> <resource_arn>" <<
             std::endl;
         return 1;
     }

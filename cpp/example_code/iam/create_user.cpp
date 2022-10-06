@@ -2,6 +2,7 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+
 //snippet-start:[iam.cpp.create_user.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
@@ -28,12 +29,12 @@
 //! Creates an IAM user.
 /*!
   \sa createUser()
-  \param roleName: The name of the user.
-  \param clientConfig Aws client configuration.
+  \param userName: The user name.
+  \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
 
-bool AwsDoc::IAM::createUser(const Aws::String& user_name,
+bool AwsDoc::IAM::createUser(const Aws::String& userName,
                              const Aws::Client::ClientConfiguration &clientConfig)
 {
     // snippet-start:[iam.cpp.create_user01.code]
@@ -41,18 +42,18 @@ bool AwsDoc::IAM::createUser(const Aws::String& user_name,
     // snippet-end:[iam.cpp.create_user01.code]
     // snippet-start:[iam.cpp.get_user.code]
     Aws::IAM::Model::GetUserRequest get_request;
-    get_request.SetUserName(user_name);
+    get_request.SetUserName(userName);
 
     auto get_outcome = iam.GetUser(get_request);
     if (get_outcome.IsSuccess())
     {
-        std::cout << "IAM user " << user_name << " already exists" << std::endl;
+        std::cout << "IAM user " << userName << " already exists" << std::endl;
         return true;
     }
     else if (get_outcome.GetError().GetErrorType() !=
         Aws::IAM::IAMErrors::NO_SUCH_ENTITY)
     {
-        std::cerr << "Error checking existence of IAM user " << user_name << ":"
+        std::cerr << "Error checking existence of IAM user " << userName << ":"
             << get_outcome.GetError().GetMessage() << std::endl;
         return false;
     }
@@ -60,16 +61,16 @@ bool AwsDoc::IAM::createUser(const Aws::String& user_name,
 
     // snippet-start:[iam.cpp.create_user02.code]
     Aws::IAM::Model::CreateUserRequest create_request;
-    create_request.SetUserName(user_name);
+    create_request.SetUserName(userName);
 
     auto create_outcome = iam.CreateUser(create_request);
     if (!create_outcome.IsSuccess())
     {
-        std::cerr << "Error creating IAM user " << user_name << ":" <<
-            create_outcome.GetError().GetMessage() << std::endl;
+        std::cerr << "Error creating IAM user " << userName << ":" <<
+                  create_outcome.GetError().GetMessage() << std::endl;
     }
     else{
-        std::cout << "Successfully created IAM user " << user_name << std::endl;
+        std::cout << "Successfully created IAM user " << userName << std::endl;
     }
 
     return create_outcome.IsSuccess();
@@ -89,20 +90,22 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: create_user <user_name>" << std::endl;
+        std::cout << "Usage: run_create_user <user_name>" << std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String user_name(argv[1]);
+        Aws::String userName(argv[1]);
 
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::IAM::createUser(user_name, clientConfig);
-    }Aws::ShutdownAPI(options);
+        AwsDoc::IAM::createUser(userName, clientConfig);
+    }
+
+    Aws::ShutdownAPI(options);
     return 0;
 }
 #endif  // TESTING_BUILD

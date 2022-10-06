@@ -1,28 +1,8 @@
- 
-//snippet-sourcedescription:[delete_user.cpp demonstrates how to delete an IAM user from an AWS account.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-service:[iam]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+
 //snippet-start:[iam.cpp.delete_user.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
@@ -31,6 +11,31 @@
 #include <aws/iam/model/GetUserRequest.h>
 #include <aws/iam/model/GetUserResult.h>
 #include <iostream>
+
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Demonstrates deleting an IAM user.
+ * This api only works for users with noassociated resources, for example groups and policies.
+ * To delete a user in the non-trivial case, use the DeleteUser operation within the
+ * aws-cpp-sdk-access-management high level sdk.
+ *
+ */
+
+//! Creates an IAM user.
+/*!
+  \sa createUser()
+  \param roleName: The user name.
+  \param clientConfig: Aws client configuration.
+  \return bool: Successful completion.
+*/
+
 
 void DeleteUser(const Aws::String& user_name)
 {

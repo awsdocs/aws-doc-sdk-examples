@@ -3,6 +3,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+//snippet-start:[iam.cpp.attach_role_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/AttachRolePolicyRequest.h>
@@ -11,7 +12,7 @@
 #include <iostream>
 #include <iomanip>
 #include "iam_samples.h"
-
+//snippet-end:[iam.cpp.attach_role_policy.inc]
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -102,7 +103,7 @@ static const char *SAMPLE_POLICY_ARN =
 #ifndef TESTING_BUILD
 int main(int argc, char **argv) {
     if (argc < 2 || argc >= 4) {
-        std::cout << "Usage: attach_role_policy <role_name> [policy_arn]" <<
+        std::cout << "Usage: run_attach_role_policy <role_name> [policy_arn]" <<
                   std::endl;
         return 1;
     }

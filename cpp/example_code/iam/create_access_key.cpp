@@ -3,12 +3,14 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+//snippet-start:[iam.cpp.create_access_key.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateAccessKeyRequest.h>
 #include <aws/iam/model/CreateAccessKeyResult.h>
 #include <iostream>
 #include "iam_samples.h"
+//snippet-end:[iam.cpp.create_access_key.inc]
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -73,7 +75,7 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: create_access_key <user_name>" << std::endl;
+        std::cout << "Usage: run_create_access_key <user_name>" << std::endl;
         return 1;
     }
 

@@ -3,12 +3,13 @@
   SPDX-License-Identifier: Apache-2.0
 */
 
+//snippet-start:[iam.cpp.create_account_alias.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateAccountAliasRequest.h>
 #include <iostream>
 #include "iam_samples.h"
-
+//snippet-end:[iam.cpp.create_account_alias.inc]
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -67,7 +68,7 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: create_account_alias <alias_name>" <<
+        std::cout << "Usage: run_create_account_alias <alias_name>" <<
             std::endl;
         return 1;
     }

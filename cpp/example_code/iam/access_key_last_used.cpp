@@ -3,12 +3,14 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+//snippet-start:[iam.cpp.access_key_last_used.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/GetAccessKeyLastUsedRequest.h>
 #include <aws/iam/model/GetAccessKeyLastUsedResult.h>
 #include <iostream>
 #include "iam_samples.h"
+//snippet-end:[iam.cpp.access_key_last_used.inc]
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -77,7 +79,7 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "Usage: access_key_last_used <access_key_id>" <<
+        std::cout << "Usage: run_access_key_last_used <access_key_id>" <<
             std::endl;
         return 1;
     }
