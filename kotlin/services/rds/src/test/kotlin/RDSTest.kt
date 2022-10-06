@@ -34,9 +34,7 @@ import java.util.Properties
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
-
 class RDSTest {
-
     private var dbInstanceIdentifier = ""
     private var dbSnapshotIdentifier = ""
     private var dbName = ""
@@ -55,7 +53,6 @@ class RDSTest {
 
     @BeforeAll
     fun setup() {
-
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
 
@@ -184,7 +181,6 @@ class RDSTest {
         if (dbARN != null) {
             deleteParaGroup(dbGroupNameSc, dbARN)
         }
-
         println("The Scenario has successfully completed.")
     }
 }
