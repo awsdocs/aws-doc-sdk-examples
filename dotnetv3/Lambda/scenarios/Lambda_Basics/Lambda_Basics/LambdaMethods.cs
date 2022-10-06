@@ -160,7 +160,7 @@ namespace Lambda_Basics
                 S3Key = s3Key,
             };
 
-            var functionRequest = new CreateFunctionRequest
+            var createFunctionRequest = new CreateFunctionRequest
             {
                 FunctionName = functionName,
                 Description = "Created by the Lambda .NET API",
@@ -170,7 +170,7 @@ namespace Lambda_Basics
                 Role = role,
             };
 
-            var reponse = await client.CreateFunctionAsync(functionRequest);
+            var reponse = await client.CreateFunctionAsync(createFunctionRequest);
             return reponse.FunctionArn;
         }
 

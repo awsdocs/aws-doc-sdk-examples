@@ -3,5 +3,6 @@
   "Handler": "LambdaIncrement::LambdaIncrement.Function::FunctionHandler",
   "BucketName": "doc-example-bucket",
   "Key": "LambdaIncrement.zip",
-  "UpdateKey": "LambdaCalculator.zip"
+  "UpdateKey": "LambdaCalculator.zip",
+  "RoleName":  "lambda-support"
 }

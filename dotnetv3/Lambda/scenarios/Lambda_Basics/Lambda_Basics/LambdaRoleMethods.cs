@@ -46,7 +46,7 @@ namespace Lambda_Basics
             };
 
             var response = await _client.DeleteRoleAsync(request);
-            return (response.HttpStatusCode == System.Net.HttpStatusCode.OK);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
     }
 }

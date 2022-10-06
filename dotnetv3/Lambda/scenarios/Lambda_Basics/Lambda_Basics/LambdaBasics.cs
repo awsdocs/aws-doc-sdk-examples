@@ -39,25 +39,25 @@ var _configuration = new ConfigurationBuilder()
 
 string functionName = _configuration["FunctionName"];
 string roleName = _configuration["RoleName"];
-string policyDocument = @"{
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Allow",
-                    "Principal": {
-                        "Service": "lambda.amazonaws.com"
-                },
-                    "Action": "sts:AssumeRole"
-                }
-            ]
-        }";
+string policyDocument = "{" +
+            " \"Version\": \"2012-10-17\"," +
+            " \"Statement\": [ " +
+            "    {" +
+            "        \"Effect\": \"Allow\"," +
+            "        \"Principal\": {" +
+            "            \"Service\": \"lambda.amazonaws.com\" " +
+            "    }," +
+            "        \"Action\": \"sts:AssumeRole\" " +
+            "    }" +
+            "]" +
+        "}";
 
 string handler = _configuration["Handler"];
 string bucketName = _configuration["BucketName"];
 string key = _configuration["Key"];
 string keyUpdate = _configuration["KeyUpdate"];
 
-string sepBar = new ('-', 80);
+string sepBar = new('-', 80);
 
 var lambdaClient = new AmazonLambdaClient();
 var lambdaMethods = new LambdaMethods();
@@ -67,7 +67,7 @@ ShowOverview();
 
 // Create the role to use with the Lambda functions and attach the appropriate
 // policy to the role.
-var roleArn = await lambdaRoleMethods.CreateLambdaRole(roleName, AttachRolePolicyRequest)
+var roleArn = await lambdaRoleMethods.CreateLambdaRole(roleName, policyDocument);
 
 // Create the Lambda function using a zip file stored in an Amazon S3 bucket.
 Console.WriteLine($"Creating the AWS Lambda function: {functionName}.");
@@ -91,6 +91,7 @@ do
     Console.Write(".");
 }
 while (config.State != State.Active);
+
 Console.WriteLine($"\nThe function, {functionName} has been created.");
 Console.WriteLine($"The runtime of this Lambda function is {config.Runtime}.");
 
@@ -99,13 +100,14 @@ PressEnter();
 // List the Lambda functions.
 Console.WriteLine(sepBar);
 Console.WriteLine("Listing all Lambda functions.");
-await lambdaMethods.ListFunctions(lambdaClient);
+var functions = await lambdaMethods.ListFunctions(lambdaClient);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("*** Sleep for 1 min to get Lambda function ready.");
 System.Threading.Thread.Sleep(60000);
 
-Console.WriteLine("*** Invoke the Lambda increment function.");
+Console.WriteLine(sepBar);
+Console.WriteLine("Invoke the Lambda increment function.");
 await lambdaMethods.InvokeFunctionAsync(lambdaClient, functionName);
 
 Console.WriteLine(sepBar);
@@ -130,19 +132,35 @@ else
     Console.WriteLine($"Could not remove the function {functionName}");
 }
 
+// Now delete the IAM role.
+success = await lambdaRoleMethods.DeleteLambdaRole(roleName);
+if (success)
+{
+    Console.WriteLine("The role has been successfully removed.");
+}
+else
+{
+    Console.WriteLine("Couldn't delete the role.");
+}
+
+Console.WriteLine("The Lambda Scenario is now complete.");
+
 void ShowOverview()
 {
     Console.WriteLine("Welcome to the AWS Lambda Basics Example");
     Console.WriteLine("Getting started with functions");
     Console.WriteLine(sepBar);
     Console.WriteLine("This scenario performs the following operations:");
-    Console.WriteLine("\t1. Creates an AWS Lambda function.");
-    Console.WriteLine("\t2. Gets a specific AWS Lambda function.");
-    Console.WriteLine("\t3. Lists all Lambda functions.");
-    Console.WriteLine("\t4. Invokes a Lambda function.");
-    Console.WriteLine("\t5. Updates a Lambda function's code.");
-    Console.WriteLine("\t6. Updates a Lambda function's configuration value.");
-    Console.WriteLine("\t7. Deletes a Lambda function.");
+    Console.WriteLine("\t 1. Creates an IAM policy that will be used by AWS Lambda.");
+    Console.WriteLine("\t 2. Attaches the policy to a new IAM role.");
+    Console.WriteLine("\t 3. Creates an AWS Lambda function.");
+    Console.WriteLine("\t 4. Gets a specific AWS Lambda function.");
+    Console.WriteLine("\t 5. Lists all Lambda functions.");
+    Console.WriteLine("\t 6. Invokes the Lambda function.");
+    Console.WriteLine("\t 7. Updates the Lambda function's code.");
+    Console.WriteLine("\t 8. Updates the Lambda function's configuration value.");
+    Console.WriteLine("\t 9. Deletes the Lambda function.");
+    Console.WriteLine("\t10. Deletes the IAM role.");
     PressEnter();
 }
 
