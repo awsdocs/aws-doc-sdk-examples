@@ -36,7 +36,7 @@ Code excerpts that show you how to call individual service functions using the *
 
 Sample applications that work across multiple AWS services.
 
-- [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest)
+- [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/serverless_rds)
 
 ## Run the examples
 To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
