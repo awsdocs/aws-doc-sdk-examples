@@ -10,4 +10,4 @@ WORKDIR /src
 RUN bundle config --delete frozen
 RUN bundle install
 
-CMD ["/bin/bash"]
+CMD ["./entrypoint.sh"]
