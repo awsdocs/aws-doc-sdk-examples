@@ -14,7 +14,7 @@ node ses_deletereceiptruleset.js
  */
 // snippet-start:[ses.JavaScript.rules.deleteReceiptRuleSetV3]
 import { DeleteReceiptRuleSetCommand } from "@aws-sdk/client-ses";
-import { getUniqueName } from "../../libs/index";
+import { getUniqueName } from "../../libs/utils/util-string.js";
 import { sesClient } from "./libs/sesClient.js";
 
 const RULE_SET_NAME = getUniqueName("RuleSetName");

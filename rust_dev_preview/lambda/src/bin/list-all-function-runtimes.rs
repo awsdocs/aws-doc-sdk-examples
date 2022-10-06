@@ -3,60 +3,64 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_lambda::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_lambda::Error;
+use lambda_code_examples::{make_client, make_config, Opt as BaseOpt};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region in which the client is created.
-    #[structopt(short, long)]
-    region: Option<String>,
+    #[structopt(flatten)]
+    base: BaseOpt,
 
     /// Just show runtimes for indicated language.
     /// dotnet, go, node, java, etc.
     #[structopt(short, long)]
     language: Option<String>,
-
-    /// Whether to display additional runtime information.
-    #[structopt(short, long)]
-    verbose: bool,
 }
 
 /// Lists the ARNs and runtimes of all Lambda functions in all Regions.
 // snippet-start:[lambda.rust.list-all-function-runtimes]
-async fn show_lambdas(verbose: bool, language: &str, reg: &'static str) {
-    let region_provider = RegionProviderChain::default_provider().or_else(reg);
-    let config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&config);
+async fn show_lambdas(language: &str, region: &str, verbose: bool) -> Result<(), Error> {
+    let language = language.to_ascii_lowercase();
+    let client = make_client(BaseOpt {
+        region: Some(region.to_string()),
+        verbose: false,
+    })
+    .await;
+    let resp = client.list_functions().send().await?;
+    let resp_functions = resp.functions.unwrap_or_default();
+    let total_functions = resp_functions.len();
 
-    let resp = client.list_functions().send().await;
-    let functions = resp.unwrap().functions.unwrap_or_default();
-    let max_functions = functions.len();
-    let mut num_functions = 0;
+    let functions = resp_functions
+        .iter()
+        .map(|func| {
+            (
+                func,
+                func.runtime()
+                    .map(|rt| String::from(rt.as_ref()))
+                    .unwrap_or_else(|| String::from("Unknown")),
+            )
+        })
+        .filter(|(_, runtime)| {
+            language.is_empty() || runtime.to_ascii_lowercase().contains(&language)
+        });
 
-    for function in functions {
-        let rt_str: String = String::from(function.runtime().unwrap().as_ref());
-        // If language is set (!= ""), show only those with that runtime.
-        let ok = rt_str
-            .to_ascii_lowercase()
-            .contains(&language.to_ascii_lowercase());
-        if ok || language.is_empty() {
-            println!("  ARN:     {}", function.function_arn().unwrap());
-            println!("  Runtime: {}", rt_str);
-            println!();
-
-            num_functions += 1;
-        }
+    for (func, rt_str) in functions {
+        println!("  ARN:     {}", func.function_arn().unwrap());
+        println!("  Runtime: {}", rt_str);
+        println!();
     }
 
+    let num_functions = resp_functions.len();
     if num_functions > 0 || verbose {
         println!(
             "Found {} function(s) (out of {}) in {} region.",
-            num_functions, max_functions, reg
+            num_functions, total_functions, region,
         );
         println!();
     }
+
+    Ok(())
 }
 // snippet-end:[lambda.rust.list-all-function-runtimes]
 
@@ -71,37 +75,25 @@ async fn show_lambdas(verbose: bool, language: &str, reg: &'static str) {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt {
-        language,
-        region,
-        verbose,
-    } = Opt::from_args();
+    let Opt { language, base } = Opt::from_args();
+    let language = language.as_deref().unwrap_or_default();
+    let verbose = base.verbose;
 
-    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
-        .or_default_provider()
-        .or_else(Region::new("us-west-2"));
-    println!();
+    let sdk_config = make_config(base).await;
 
-    if verbose {
-        println!("EC2 client version:    {}", aws_sdk_ec2::PKG_VERSION);
-        println!("Lambda client version: {}", PKG_VERSION);
-        println!(
-            "Region:                {}",
-            region_provider.region().await.unwrap().as_ref()
-        );
-        println!();
-    }
+    let ec2_client = aws_sdk_ec2::Client::new(&sdk_config);
 
-    // Get list of available regions.
-
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
-    let ec2_client = aws_sdk_ec2::Client::new(&shared_config);
-
-    let resp = ec2_client.describe_regions().send().await;
-
-    for region in resp.unwrap().regions.unwrap_or_default() {
-        let reg: &'static str = Box::leak(region.region_name.unwrap().into_boxed_str());
-        show_lambdas(verbose, language.as_deref().unwrap_or_default(), reg).await;
+    match ec2_client.describe_regions().send().await {
+        Ok(resp) => {
+            for region in resp.regions.unwrap_or_default() {
+                if let Some(region) = region.region_name() {
+                    show_lambdas(language, region, verbose)
+                        .await
+                        .unwrap_or_else(|err| eprintln!("{:?}", err));
+                }
+            }
+        }
+        Err(err) => eprintln!("Failed to describe ec2 regions: {}", err),
     }
 
     Ok(())

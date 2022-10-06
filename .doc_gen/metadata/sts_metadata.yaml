@@ -5,6 +5,15 @@ sts_AssumeRole:
   synopsis: assume a role with &STS;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/STS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - STS.dotnetv3.AssumeRoleMessage
     Python:
       versions:
         - sdk_version: 3

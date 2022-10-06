@@ -5,7 +5,7 @@ authors = [
   "Russell Cohen <rcoh@amazon.com>",
   "Doug Schwartz <dougsch@amazon.com",
 ]
-edition = "2018"
+edition = "2021"
 description = "Example usage of the IAM service"
 
 [lib]

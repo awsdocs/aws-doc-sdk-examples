@@ -17,12 +17,25 @@
         <testsuite name="partiql-basics">
             <file>dynamodb/partiql_basics/PartiQLBasicsTests.php</file>
         </testsuite>
+        <testsuite name="iam-basics">
+            <file>iam/iam_basics/tests/IamBasicsTests.php</file>
+            <file>iam/tests/IamServiceTest.php</file>
+        </testsuite>
+        <testsuite name="glue-basics">
+            <file>glue/GlueBasicsTests.php</file>
+        </testsuite>
+        <testsuite name="lambda-basics">
+            <file>lambda/LambdaTests.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
               processUncoveredFiles="false">
         <include>
             <directory suffix=".php">dynamodb</directory>
+            <directory suffix=".php">glue</directory>
+            <directory suffix=".php">iam</directory>
+            <directory suffix=".php">lambda</directory>
         </include>
     </coverage>
 </phpunit>

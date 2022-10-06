@@ -1,30 +1,63 @@
-# AWS Lambda JavaScript SDK v3 code examples
-AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume.
+# Lambda code examples for the SDK for JavaScript in Node.js
+
+## Overview
+
+Shows how to use the AWS SDK for JavaScript in Node.js with AWS Lambda to manage and invoke
+functions.
+
+AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers.
+
+## ⚠️ Important
+
+- Running this code might result in charges to your AWS account.
+- Running the tests might result in charges to your AWS account.
+- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript v3 AWS Lambda examples. 
-- Create a table using Lambda function. See [documentation](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html).
 
-**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
-[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
+### Single actions
 
-## Getting started
+Code excerpts that show you how to call individual service functions.
 
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
+- [Create a function](./actions/create-function.js)(`CreateFunction`)
+- [Delete a function](./actions/delete-function.js)(`DeleteFunction`)
+- [Get a function](./actions/get-function.js)(`GetFunction`)
+- [Invoke a function](./actions/invoke.js)(`Invoke`)
+- [Update function code](./actions/update-function-code.js)(`UpdateFunctionCode`)
+- [Update function configuration](./actions/update-function-configuration.js)(`CreateFunction`)
 
-2. Install the dependencies listed in the package.json.
+### Scenarios
 
-**Note**: These dependencies include the client modules for the AWS services that this example requires, 
-which are *@aws-sdk/client-dynamodb*, *@aws-sdk/client-lambda*, *@aws-sdk/client-iam*, 
-*@aws-sdk/client-s3*, *@aws-sdk/client-dynamoDB*, *@aws-sdk/client-cognito-identity*, 
-*@aws-sdk/credential-provider-cognito-identity*, and *@aws-sdk/client-lambda*.
-```
-npm install node -g
-cd javascriptv3/example_code/lambda
-npm install
-```
-## Resources
-- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)  
-- [AWS documentation for this tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html) 
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-lambda/index.html) 
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
+- [Get started with functions](./scenarios/basic)
+
+## Run the examples
+
+### Prerequisites
+
+- [Set up AWS SDK for JavaScript](../README.rst)
+
+### Run a single action
+
+1. Run `yarn`
+1. Create a new file in this directory and `import { functionName } from "./actions/action-name.js"`
+   where `action-name` is the file name of the action you want to run, and `function-name` is the name of
+   the exported function in that file.
+1. Call the imported function with its required parameters and log the result.
+
+## Tests
+
+⚠️ Running the tests might result in charges to your AWS account.
+
+1. Run `yarn`
+1. Run `yarn test`
+
+## Additional resources
+
+- [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+- [AWS Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
+- [AWS Lambda client - AWS SDK for JavaScript (v3)](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-lambda/index.html)
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

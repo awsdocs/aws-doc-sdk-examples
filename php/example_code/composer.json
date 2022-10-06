@@ -13,7 +13,11 @@
       "DynamoDb\\": "dynamodb/",
       "DynamoDb\\Basics\\": "dynamodb/dynamodb_basics",
       "DynamoDb\\PartiQL_Basics\\": "dynamodb/partiql_basics",
-      "AwsUtilities\\": "aws_utilities"
+      "AwsUtilities\\": "aws_utilities",
+      "Glue\\": "glue/",
+      "Iam\\": "iam/",
+      "Lambda\\": "lambda/",
+      "S3\\": "s3/"
     },
     "files": [
       "aws_utilities/TestableReadline.php",

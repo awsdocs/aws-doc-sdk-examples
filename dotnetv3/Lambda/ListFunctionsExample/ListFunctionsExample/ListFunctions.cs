@@ -50,7 +50,7 @@ namespace ListFunctionsExample
         {
             // Get the list of functions. The response will have a property
             // called Functions, a list of information about the Lambda
-            // functions defined on your account in the specified region.
+            // functions defined on your account in the specified Region.
             var response = await client.ListFunctionsAsync();
 
             return response.Functions;

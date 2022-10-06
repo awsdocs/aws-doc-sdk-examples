@@ -16,7 +16,7 @@ node ses_createreceiptrule.js
 // snippet-start:[ses.JavaScript.rules.createReceiptRuleV3]
 import { CreateReceiptRuleCommand, TlsPolicy } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-import { getUniqueName } from "../../libs/index.js";
+import { getUniqueName } from "../../libs/utils/util-string.js";
 
 const RULE_SET_NAME = getUniqueName("RuleSetName");
 const RULE_NAME = getUniqueName("RuleName");
