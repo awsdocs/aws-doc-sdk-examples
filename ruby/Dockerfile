@@ -4,7 +4,6 @@ FROM ruby:3.1.2-buster
 # copy in files
 RUN mkdir /src
 COPY /ruby/* /src/
-ADD .github/linters/.ruby-lint.yml /src/.ruby-lint.yml
 
 # resolve dependencies
 WORKDIR /src
