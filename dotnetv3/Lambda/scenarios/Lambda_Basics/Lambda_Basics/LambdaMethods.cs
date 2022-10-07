@@ -70,9 +70,10 @@ namespace Lambda_Basics
         /// <returns>A System Threading Task.</returns>
         public async Task<string> InvokeFunctionAsync(
             AmazonLambdaClient client,
-            string functionName)
+            string functionName,
+            string parameters)
         {
-            var payload = "{\"inputValue\":\"2000\"}";
+            var payload = parameters;
             var request = new InvokeRequest
             {
                 FunctionName = functionName,
@@ -81,9 +82,9 @@ namespace Lambda_Basics
 
             var response = await client.InvokeAsync(request);
             MemoryStream stream = response.Payload;
-            string result = System.Text.Encoding.UTF8.GetString(stream.ToArray());
-            Console.WriteLine(result);
-            return result;
+            string returnValue = System.Text.Encoding.UTF8.GetString(stream.ToArray());
+            Console.WriteLine(returnValue);
+            return returnValue;
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.InvokeFunction]
@@ -99,11 +100,6 @@ namespace Lambda_Basics
         {
             var reponse = await client.ListFunctionsAsync();
             var functionList = reponse.Functions;
-            functionList.ForEach(config =>
-            {
-                Console.WriteLine($"The function name is {config.FunctionName}.");
-            });
-
             return functionList;
         }
 
