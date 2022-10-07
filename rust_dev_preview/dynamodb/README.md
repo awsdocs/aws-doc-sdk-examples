@@ -23,7 +23,7 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 - [Lists your local tables](src/bin/list-tables-local.rs) (ListTables)
 - [Minimal version of listing tables](src/bin/list-tables-main.rs) (ListTables)
 - [Create a table, adds some items from a file to the table, queries the table, and deletes the table](src/bin/movies.rs) (CreateTable, DeleteTable, ListTables, PutItem, Query)
-  - To run this example, you must download and extract the [DynamoDB Movies](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip) zip database.
+  - To run this example, you should replace the `moviedata.json` file with the [DynamoDB Movies](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip) zip database.
   - On a \*nix environment with bash, you can use this command (be sure to run it from the same directory as this README):
     `curl https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip > moviedata.zip ; unzip moviedata.zip ; rm moviedata.zip `
 
