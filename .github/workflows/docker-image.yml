@@ -26,10 +26,42 @@ jobs:
         with:
           images: fordataws/aws-sdk-code-examples
       
-      - name: Build and push Docker image
+      - name: Build and push Docker image - Ruby
         uses: docker/build-push-action@master
         with:
           context: ruby
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: Build and push Docker image - Python
+        uses: docker/build-push-action@master
+        with:
+          context: python
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+    
+      - name: Build and push Docker image - JavaScript
+        uses: docker/build-push-action@master
+        with:
+          context: javascriptv3
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      
+      - name: Build and push Docker image - GoLang
+        uses: docker/build-push-action@master
+        with:
+          context: gov2
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      
+      - name: Build and push Docker image - .NET
+        uses: docker/build-push-action@master
+        with:
+          context: dotnet
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
