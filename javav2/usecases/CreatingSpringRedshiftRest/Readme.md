@@ -1011,26 +1011,26 @@ public class WriteExcel {
 
 ## Running the application 
 
-Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs: 
+Using the IntelliJ IDE, you can run your Spring application. The first time you run it, choose the run icon in the main class. The Spring application supports the following URLs: 
 
 - /api/items/{state} - A GET request that returns all active or archived data items from the **Work** table. 
 - /api/mod/{id} - A PUT request that converts the specified data item to an archived item. 
 - /api/add - A POST request that adds a new item to the database. 
 - /api/report/{email} - A PUT request that creates a report of active items and emails the report. 
 
-**Note**: The React SPA created in the next section consumes all of these URLs. 
+**Note**: The React application created in the next section consumes all of these URLs. 
 
-Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser. 
+Confirm that the Spring application works by viewing the Active items. Enter the following URL into a browser. 
 
 http://localhost:8080/api/items/active
 
-The following image shows the JSON data returned from the Spring REST API. 
+The following image shows JSON data. 
 
 ![AWS Tracking Application](images/browser.png)
 
 ## Create the React front end
 
-You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
+You can create the React SPA that consumes the JSON data returned from the Spring application. To create the React application, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
 
 ### Update WorkItem.js
 
