@@ -18,7 +18,7 @@ You can develop a dynamic web application that tracks and reports on work items 
 
 The application you create is a decoupled React application that uses Spring Boot and the Amazon Redshift Java API to return Amazon Redshift data. That is, the React application interacts with a Spring Boot application by making HTTP requests. The Spring Boot application uses a [RedshiftDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/RedshiftDataClient.html) object to perform CRUD operations on the Amazon Redshift database. Then, the Spring application returns JSON data in an HTTP response, as shown in the following illustration. 
 
-![AWS Tracking Application](images/overviewred.png)
+![AWS Tracking Application](images/overviewred2.png)
 
 #### Topics
 
