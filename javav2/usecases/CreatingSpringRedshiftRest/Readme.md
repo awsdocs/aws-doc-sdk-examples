@@ -1,10 +1,10 @@
-# Creating a React and Spring REST application that queries Amazon Redshift data
+# Building an Amazon Redshift Web Application with Spring Boot
 
 ## Overview
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
+| Description | Discusses how to develop a web application using Spring Boot that queries Amazon Redshift data. This application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
 | Updated   | 10/04/2022        |
 | Required skills   | Java, Maven, JavaScript  |
@@ -16,7 +16,7 @@ You can develop a dynamic web application that tracks and reports on work items 
 + Amazon Redshift
 + Amazon Simple Email Service (Amazon SES). (The SDK for Java (v2) is used to access Amazon SES.)
 
-The application you create is a decoupled React application that uses a Spring REST API to return Amazon Redshift  data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses a [RedshiftDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/RedshiftDataClient.html) object to perform CRUD operations on the Amazon Redshift database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses Spring Boot and the Amazon Redshift Java API to return Amazon Redshift data. That is, the React application interacts with a Spring Boot application by making HTTP requests. The Spring Boot application uses a [RedshiftDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/RedshiftDataClient.html) object to perform CRUD operations on the Amazon Redshift database. Then, the Spring application returns JSON data in an HTTP response, as shown in the following illustration. 
 
 ![AWS Tracking Application](images/overviewred.png)
 
@@ -82,7 +82,7 @@ A user can perform the following tasks by using the React application:
 + Convert an active item into an archived item.
 + Send a report to an email recipient.
 
-The React SPA displays *active* and *archive* items. For example, the following image shows the React application displaying active data.
+The React application displays *active* and *archive* items. For example, the following image shows the React application displaying active data.
 
 ![AWS Tracking Application](images/activeItems2.png)
 
@@ -90,7 +90,7 @@ Likewise, the following image shows the React application displaying archived da
 
 ![AWS Tracking Application](images/arcItems.png)
 
-The React SPA also lets a user enter a new item. 
+The React application also lets a user enter a new item. 
 
 ![AWS Tracking Application](images/newitem.png)
 
@@ -255,7 +255,7 @@ Confirm that the **pom.xml** file looks like the following example.
 Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
-+ **MainController** - Represents the Spring Controller that handles REST requests.
++ **MainController** - Represents the Spring Controller that handles HTTP requests.
 + **RetrieveItems** - Retrieves a dataset from the **Work** table. 
 + **InjectWorkService** - Injects a new item into the **Work** table. 
 + **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object to send email messages.
@@ -386,7 +386,7 @@ public class App {
 
 ### MainController class
 
-The following Java code represents the **MainController** class, which handles HTTP requests for the application. Notice the use of the **CrossOrigin** annotation. This annotation lets the controller accept requests from different domains. 
+The following Java code represents the **MainController** class, which handles HTTP requests for the application. Notice the use of the **CrossOrigin** annotation. This annotation lets the controller accept requests from different domains. In addition, notice the use of annotations, such as **@GetMapping**, that maps HTTP requests onto specific handler method.
 
 ```java
 package com.aws.rest;
