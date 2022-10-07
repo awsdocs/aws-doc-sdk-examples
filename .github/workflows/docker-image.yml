@@ -31,7 +31,9 @@ jobs:
         with:
           context: ruby
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            type=ruby
           labels: ${{ steps.meta.outputs.labels }}
           
       - name: Build and push Docker image - Python
@@ -39,7 +41,9 @@ jobs:
         with:
           context: python
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            type=python
           labels: ${{ steps.meta.outputs.labels }}
     
       - name: Build and push Docker image - JavaScript
@@ -47,21 +51,27 @@ jobs:
         with:
           context: javascriptv3
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            type=javascriptv3
           labels: ${{ steps.meta.outputs.labels }}
       
-      - name: Build and push Docker image - GoLang
+      - name: Build and push Docker image - gov2
         uses: docker/build-push-action@master
         with:
           context: gov2
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            type=gov2
           labels: ${{ steps.meta.outputs.labels }}
       
-      - name: Build and push Docker image - .NET
+      - name: Build and push Docker image - dotnet
         uses: docker/build-push-action@master
         with:
           context: dotnet
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            type=dotnet
           labels: ${{ steps.meta.outputs.labels }}
