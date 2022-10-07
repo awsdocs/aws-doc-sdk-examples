@@ -11,16 +11,16 @@ import {
   Link,
   SpaceBetween,
 } from "@cloudscape-design/components";
-import { useMemo } from "react";
-import { useItemTrackerState } from "./item-tracker-store";
-import { AddWorkItem } from "./work-item/add-work-item-component";
-import { WorkItemControls } from "./work-item/work-item-list-component";
-import { workItemService as service } from "./work-item/work-item-service";
+import { useCallback } from "react";
+import { useItemTrackerAction } from "./ItemTrackerStore";
+import { AddWorkItem } from "./work-item/AddWorkItemComponent";
+import { WorkItemControls } from "./work-item/WorkItemListComponent";
+import { workItemService as service } from "./work-item/WorkItemService";
 
 const Component = () => {
-  const { setError } = useItemTrackerState();
-  const sendReport = useMemo(
-    () => async (email: string) => {
+  const { setError } = useItemTrackerAction();
+  const sendReport = useCallback(
+    async (email: string) => {
       try {
         service.mailItem(email);
       } catch (e) {

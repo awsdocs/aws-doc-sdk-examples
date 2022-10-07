@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { RestService } from "../rest-service";
+import { RestService } from "../RestService";
 
 /**
  * Sends REST requests to get work items, add new work items, modify work items,

@@ -7,9 +7,9 @@
  * - Enter a recipient email and select 'Send report' to send a report of work items.
  */
 
-import { useCallback, useEffect, useState } from "react";
-import { WorkItem as IWorkItem, WorkItemStatus } from "./work-item-service";
-import { workItemService as service } from "./work-item-service";
+import { useEffect, useState } from "react";
+import { WorkItem as IWorkItem, WorkItemStatus } from "./WorkItemService";
+import { workItemService as service } from "./WorkItemService";
 import {
   Alert,
   Button,
@@ -19,7 +19,7 @@ import {
   SpaceBetween,
 } from "@cloudscape-design/components";
 import { OptionDefinition } from "@cloudscape-design/components/internal/components/option/interfaces";
-import { useItemTrackerState } from "../item-tracker-store";
+import { useItemTrackerAction, useItemTrackerState } from "../ItemTrackerStore";
 
 export const WorkItem = ({
   item,
@@ -75,7 +75,7 @@ export const WorkItemControls = ({
 }) => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(STATUS_OPTIONS[0]);
-  const { setStatus: handleStatusChange } = useItemTrackerState();
+  const { setStatus: handleStatusChange } = useItemTrackerAction();
 
   useEffect(() => {
     handleStatusChange((status.value as WorkItemStatus) ?? "");
@@ -108,30 +108,19 @@ export const WorkItemControls = ({
 };
 
 export const WorkItems = () => {
-  const [items, setItems] = useState<IWorkItem[]>([]);
-  const [loading, setLoading] = useState(false);
-  const { status, setError, clearError } = useItemTrackerState();
-
-  const getItems = useCallback(async () => {
-    clearError();
-    setLoading(true);
-    try {
-      setItems(await service.list({ status }));
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  }, [setError, clearError, setLoading, setItems, status]);
+  const { loadItems, setError } = useItemTrackerAction();
+  const status = useItemTrackerState(({ status }) => status);
+  const items = useItemTrackerState(({ items }) => items);
+  const loading = useItemTrackerState(({ loading }) => loading);
 
   useEffect(() => {
-    getItems();
-  }, [getItems]);
+    loadItems();
+  }, [loadItems]);
 
   const archiveItem = async (itemId: string) => {
     try {
       await service.archiveItem(itemId);
-      await getItems();
+      await loadItems();
     } catch (e) {
       setError((e as Error).message);
     }

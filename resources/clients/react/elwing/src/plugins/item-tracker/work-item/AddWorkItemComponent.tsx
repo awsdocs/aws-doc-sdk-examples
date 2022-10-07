@@ -9,7 +9,7 @@ import {
 } from "@cloudscape-design/components";
 import { OptionDefinition } from "@cloudscape-design/components/internal/components/option/interfaces";
 import { useEffect, useState } from "react";
-import { workItemService as service } from "./work-item-service";
+import { workItemService as service } from "./WorkItemService";
 
 const GUIDE_OPTIONS: OptionDefinition[] = [
   { value: "dotnet", label: ".NET" },
