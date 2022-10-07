@@ -386,7 +386,7 @@ public class App {
 
 ### MainController class
 
-The following Java code represents the **MainController** class, which handles HTTP requests for the application. Notice the use of the **CrossOrigin** annotation. This annotation lets the controller accept requests from different domains. In addition, notice the use of annotations, such as **@GetMapping**, that maps HTTP requests onto specific handler method.
+The following Java code represents the **MainController** class, which handles HTTP requests for the application. Notice the use of the **CrossOrigin** annotation. This annotation lets the controller accept requests from different domains. In addition, notice the use of annotations, such as **@GetMapping**, that maps HTTP requests to handler methods.
 
 ```java
 package com.aws.rest;
