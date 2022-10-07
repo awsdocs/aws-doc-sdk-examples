@@ -179,7 +179,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
 
     bool movieTableAlreadyExisted = false;
 
-    // 1. Create a table with partition: year (N) and sort: title (S).
+    // 1. Create a table.
     {
         Aws::DynamoDB::Model::CreateTableRequest request;
 
