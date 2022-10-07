@@ -59,7 +59,7 @@ string bucketName = _configuration["BucketName"];
 string key = _configuration["Key"];
 string keyUpdate = _configuration["KeyUpdate"];
 
-string sepBar = new ('-', 80);
+string sepBar = new('-', 80);
 
 var lambdaClient = new AmazonLambdaClient();
 var lambdaMethods = new LambdaMethods();
@@ -156,7 +156,7 @@ do
 }
 while (value2 == string.Empty);
 
-var operation = string.Empty;
+var opSelected = string.Empty;
 
 Console.WriteLine("Select the operation to perform:");
 Console.WriteLine("\t1. add");
@@ -167,9 +167,18 @@ Console.WriteLine("Enter the number (1, 2, 3, or 4) of the operation you want to
 do
 {
     Console.Write("Your choice? ");
-    operation = Console.ReadLine();
+    opSelected = Console.ReadLine();
 }
-while (operation == string.Empty);
+while (opSelected == string.Empty);
+
+var operation = (opSelected) switch
+{
+    ("1") => "add",
+    ("2") => "subtract",
+    ("3") => "multiply",
+    ("4") => "divide",
+    _ => "add",
+};
 
 functionParameters = "{" +
     "\"action\": \"" + operation + "\", " +
