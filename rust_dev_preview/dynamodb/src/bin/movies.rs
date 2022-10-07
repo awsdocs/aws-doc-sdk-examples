@@ -3,22 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::net::SocketAddr;
+use std::net::{Ipv4Addr, SocketAddr};
 
 use aws_sdk_dynamodb::{Client, Error};
 use axum::extract::Extension;
 use dynamodb_code_examples::scenario::movies::server::{make_app, movies_in_year};
+use dynamodb_code_examples::scenario::movies::shutdown::{remove_table, shutdown_signal};
 use dynamodb_code_examples::scenario::movies::{startup::initialize, TABLE_NAME};
 
 async fn run(client: Client) {
     let app = make_app()
-        .layer(Extension(client))
+        .layer(Extension(client.clone()))
         .layer(Extension(TABLE_NAME));
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let addr = SocketAddr::from((Ipv4Addr::LOCALHOST, 3000));
     eprintln!("Listening on {addr}");
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
+        .with_graceful_shutdown(shutdown_signal(&client))
         .await
         .expect("Server crashed");
 }
@@ -56,7 +58,10 @@ async fn main() -> Result<(), Error> {
 
     initialize(&client, TABLE_NAME).await?;
 
-    verify(&client).await?;
+    if let Err(e) = verify(&client).await {
+        remove_table(&client).await?;
+        return Err(e);
+    }
 
     run(client).await;
 

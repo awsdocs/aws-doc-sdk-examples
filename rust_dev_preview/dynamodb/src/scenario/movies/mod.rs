@@ -52,7 +52,14 @@ where
 pub struct Movie {
     year: i32,
     title: String,
+    info: MovieInfo,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct MovieInfo {
+    #[serde(default = "Vec::new")]
     genres: Vec<String>,
+    #[serde(alias = "actors", default = "Vec::new")]
     cast: Vec<String>,
 }
 
@@ -61,17 +68,19 @@ impl Movie {
         Movie {
             year,
             title,
-            genres: Vec::new(),
-            cast: Vec::new(),
+            info: MovieInfo {
+                genres: Vec::new(),
+                cast: Vec::new(),
+            },
         }
     }
 
     pub fn cast_mut(&mut self) -> &mut Vec<String> {
-        &mut self.cast
+        &mut self.info.cast
     }
 
     pub fn genres_mut(&mut self) -> &mut Vec<String> {
-        &mut self.genres
+        &mut self.info.genres
     }
 }
 
@@ -139,7 +148,8 @@ impl Into<PutRequest> for &Movie {
             .item(
                 "cast",
                 AttributeValue::L(
-                    self.cast
+                    self.info
+                        .cast
                         .iter()
                         .map(|v| AttributeValue::S(v.clone()))
                         .collect(),
@@ -148,7 +158,8 @@ impl Into<PutRequest> for &Movie {
             .item(
                 "genre",
                 AttributeValue::L(
-                    self.genres
+                    self.info
+                        .genres
                         .iter()
                         .map(|v| AttributeValue::S(v.clone()))
                         .collect(),

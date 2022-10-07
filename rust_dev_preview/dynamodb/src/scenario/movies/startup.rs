@@ -37,9 +37,9 @@ pub async fn initialize(client: &Client, table_name: &str) -> Result<(), Error> 
     info!("Initializing Movies DynamoDB in {table_name}");
 
     if table_exists(client, table_name).await? {
-        debug!("Found existing table {table_name}");
+        info!("Found existing table {table_name}");
     } else {
-        debug!("Table does not exist, creating {table_name}");
+        info!("Table does not exist, creating {table_name}");
         create_table(client, table_name, "year", "title", CAPACITY)
             .send()
             .await?;
@@ -143,9 +143,8 @@ const CHUNK_SIZE: usize = 25;
 
 pub async fn load_data(client: &Client, table_name: &str) -> Result<(), Error> {
     debug!("Loading data into table {table_name}");
-    let data: Vec<Movie> =
-        serde_json::from_str(include_str!("../../../../../resources/data/movies.json"))
-            .expect("loading large movies dataset");
+    let data: Vec<Movie> = serde_json::from_str(include_str!("../../../moviedata.json"))
+        .expect("loading large movies dataset");
 
     let data_size = data.len();
     trace!("Loading {data_size} items in batches of {CHUNK_SIZE}");
