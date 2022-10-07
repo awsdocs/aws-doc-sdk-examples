@@ -595,7 +595,7 @@ public class InjectWorkService {
 ### SendMessage class
 The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an email message with an attachment (the Excel document) to an email recipient. Before you can send the email message, the email address that you're sending it to must be verified. For more information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
+The following Java code represents the **SendMessage** class.
 
 ```java
 package com.aws.rest;
