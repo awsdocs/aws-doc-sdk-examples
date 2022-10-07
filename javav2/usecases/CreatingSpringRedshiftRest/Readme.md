@@ -1352,7 +1352,7 @@ You must modify the **RestService.js** file so that your React requests work wit
 ```
   
 ### Next steps
-Congratulations, you have created a decoupled React application that consumes data from a Spring REST API. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.
+Congratulations, you have created a decoupled React application that consumes data from a Spring Boot application. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
