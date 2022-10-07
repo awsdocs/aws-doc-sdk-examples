@@ -3,17 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.attach_role_policy.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/AttachRolePolicyRequest.h>
-#include <aws/iam/model/ListAttachedRolePoliciesRequest.h>
-#include <aws/iam/model/ListAttachedRolePoliciesResult.h>
-#include <iostream>
-#include <iomanip>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.attach_role_policy.inc]
-
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -27,6 +16,17 @@
  *
  */
 
+//snippet-start:[iam.cpp.attach_role_policy.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/AttachRolePolicyRequest.h>
+#include <aws/iam/model/ListAttachedRolePoliciesRequest.h>
+#include <aws/iam/model/ListAttachedRolePoliciesResult.h>
+#include <iostream>
+#include <iomanip>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.attach_role_policy.inc]
+
 // snippet-start:[iam.cpp.attach_role_policy.code]
 //! Demonstrates attaching a policy to a role.
 /*!
@@ -36,11 +36,10 @@
   \param clientConfig Aws client configuration.
   \return bool: Successful completion.
 */
-
 bool AwsDoc::IAM::attachRolePolicy(const Aws::String &roleName,
                                    const Aws::String &policyArn,
                                    const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::IAM::IAMClient iam;
+    Aws::IAM::IAMClient iam(clientConfig);
 
     Aws::IAM::Model::ListAttachedRolePoliciesRequest list_request;
     list_request.SetRoleName(roleName);
@@ -94,13 +93,14 @@ static const char *SAMPLE_POLICY_ARN =
  *
  *  main function
  *
- * Prerequisites: Existing key in Secrets Manager.
+ * Prerequisites: An existing IAM role.
  *
  * Usage: 'run_attach_role_policy <role_name> [policy_arn]'
  *
  */
 
 #ifndef TESTING_BUILD
+
 int main(int argc, char **argv) {
     if (argc < 2 || argc >= 4) {
         std::cout << "Usage: run_attach_role_policy <role_name> [policy_arn]" <<
@@ -128,4 +128,5 @@ int main(int argc, char **argv) {
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif  // TESTING_BUILD

@@ -1,56 +1,88 @@
-//snippet-sourcedescription:[put_role_policy.cpp demonstrates how to put a role policy on an Amazon IAM role.]
-//snippet-service:[iam]
-//snippet-keyword:[Amazon Identity and Access Management (IAM)]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-2-8]
-//snippet-sourceauthor:[AWS]
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Demonstrates putting an inline permissions policy on an IAM role.
+ *
+ */
 
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/PutRolePolicyRequest.h>
 #include <iostream>
+#include "iam_samples.h"
 
-/**
- * Put an inline permissions policy on an IAM role
- */
-bool PutRolePolicy(
+//! Puts an inline permissions policy on an IAM role.
+/*!
+  \sa listServerCertificates()
+  \param roleName: The IAM role name.
+  \param policyName: The policy name.
+  \param policyDocument: The policy document JSON string.
+  \param clientConfig: Aws client configuration.
+  \return bool: Successful completion.
+*/
+
+bool AwsDoc::IAM::putRolePolicy(
     const Aws::String& roleName,
     const Aws::String& policyName,
-    const Aws::String& policyDocument)
+    const Aws::String& policyDocument,
+    const Aws::Client::ClientConfiguration &clientConfig)
 {
-    Aws::IAM::IAMClient iam_client;
-    Aws::IAM::Model::PutRolePolicyRequest iam_req;
+    Aws::IAM::IAMClient iamClient(clientConfig);
+    Aws::IAM::Model::PutRolePolicyRequest request;
 
-    // Initialize the request
-    iam_req.SetRoleName(roleName);
-    iam_req.SetPolicyName(policyName);
-    iam_req.SetPolicyDocument(policyDocument);
+    request.SetRoleName(roleName);
+    request.SetPolicyName(policyName);
+    request.SetPolicyDocument(policyDocument);
 
-    // Put the permissions policy on the role
-    auto outcome = iam_client.PutRolePolicy(iam_req);
+    Aws::IAM::Model::PutRolePolicyOutcome outcome = iamClient.PutRolePolicy(request);
     if (!outcome.IsSuccess())
     {
         std::cerr << "Error putting policy on role. " << 
             outcome.GetError().GetMessage() << std::endl;
-        return false;
     }
-    return true;
+    else
+    {
+        std::cout << "Successfully put the role policy." << std::endl;
+    }
+
+    return outcome.IsSuccess();
 }
 
-/**
- * Exercise PutRolePolicy()
+/*
+ *
+ *  main function
+ *
+ * Prerequisites: An existing IAM role.
+ *
+ * Usage: 'run_put_role_policy <roleName> <policyName>'
+ *
  */
-int main()
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char** argv)
 {
+    if (argc != 4) {
+        std::cout << "Usage: run_put_role_policy <roleName> <policyName>" << std::endl;
+        return 1;
+    }
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
         // Set these configuration values before running the program
-        Aws::String roleName = "RoleToAccessS3";	// An existing IAM role
-        Aws::String policyName = "MyS3PermPolicy";
+        Aws::String roleName = argv[1];	// An existing IAM role
+        Aws::String policyName = argv[2];
 
         // Define a permissions policy that enables S3 ReadOnly access
         Aws::String permissionsPolicy = R"({
@@ -67,8 +99,10 @@ int main()
             ]
         })";
 
-        // Create the IAM role
-        if (PutRolePolicy(roleName, policyName, permissionsPolicy))
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+        if (AwsDoc::IAM::putRolePolicy(roleName, policyName, permissionsPolicy, clientConfig))
         {
             std::cout << "Successfully put permissions policy on " << 
                 roleName << std::endl;
@@ -77,3 +111,5 @@ int main()
     Aws::ShutdownAPI(options);
     return 0;
 }
+
+#endif  // TESTING_BUILD

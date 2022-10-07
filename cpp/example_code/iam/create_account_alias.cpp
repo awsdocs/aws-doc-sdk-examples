@@ -3,16 +3,9 @@
   SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.create_account_alias.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/CreateAccountAliasRequest.h>
-#include <iostream>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.create_account_alias.inc]
-
 /**
- * Before running this C++ code example, set up your development environment, including your credentials.
+ * Before running this C++ code example, set up your development environment,
+ * including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -24,6 +17,14 @@
  *
  */
 
+//snippet-start:[iam.cpp.create_account_alias.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/CreateAccountAliasRequest.h>
+#include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.create_account_alias.inc]
+
 // snippet-start:[iam.cpp.create_account_alias.code]
 //! Creates an alias for an AWS account.
 /*!
@@ -32,21 +33,18 @@
   \param clientConfig Aws client configuration.
   \return bool: Successful completion.
 */
-bool AwsDoc::IAM::createAccountAlias(const Aws::String& aliasName,
-                                    const Aws::Client::ClientConfiguration &clientConfig)
-{
-    Aws::IAM::IAMClient iam;
+bool AwsDoc::IAM::createAccountAlias(const Aws::String &aliasName,
+                                     const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::IAM::IAMClient iam(clientConfig);
     Aws::IAM::Model::CreateAccountAliasRequest request;
     request.SetAccountAlias(aliasName);
 
     auto outcome = iam.CreateAccountAlias(request);
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error creating account alias " << aliasName << ": "
                   << outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Successfully created account alias " << aliasName <<
                   std::endl;
     }
@@ -59,30 +57,31 @@ bool AwsDoc::IAM::createAccountAlias(const Aws::String& aliasName,
  *
  *  main function
  *
- * Usage: 'Usage: run_create_account_alias <alias_name>'
+ * Usage: 'run_create_account_alias <alias_name>'
  *
  */
 
 #ifndef TESTING_BUILD
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
         std::cout << "Usage: run_create_account_alias <alias_name>" <<
-            std::endl;
+                  std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String aliasName(argv[1]);
+
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        Aws::String aliasName(argv[1]);
         AwsDoc::IAM::createAccountAlias(aliasName, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif // TESTING_BUILD

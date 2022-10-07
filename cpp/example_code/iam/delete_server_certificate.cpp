@@ -3,14 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.delete_server_cert.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/DeleteServerCertificateRequest.h>
-#include <iostream>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.delete_server_cert.inc]
-
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -24,6 +16,14 @@
  *
  */
 
+//snippet-start:[iam.cpp.delete_server_cert.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/DeleteServerCertificateRequest.h>
+#include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.delete_server_cert.inc]
+
 // snippet-start:[iam.cpp.delete_server_cert.code]
 //! Deletes an IAM server certificate.
 /*!
@@ -33,21 +33,18 @@
   \return bool: Successful completion.
 */
 
-bool AwsDoc::IAM::deleteServerCertificate(const Aws::String& certificateName,
-                             const Aws::Client::ClientConfiguration &clientConfig)
-{
-    Aws::IAM::IAMClient iam;
+bool AwsDoc::IAM::deleteServerCertificate(const Aws::String &certificateName,
+                                          const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::IAM::IAMClient iam(clientConfig);
     Aws::IAM::Model::DeleteServerCertificateRequest request;
     request.SetServerCertificateName(certificateName);
 
     const auto outcome = iam.DeleteServerCertificate(request);
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error deleting server certificate " << certificateName <<
                   ": " << outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Successfully deleted server certificate " << certificateName
                   << std::endl;
     }
@@ -60,16 +57,17 @@ bool AwsDoc::IAM::deleteServerCertificate(const Aws::String& certificateName,
  *
  *  main function
  *
- * Usage: 'run_delete_server_cert <cert_name>'
+ * Prerequisites: Existing server certificate.
+ *
+ * Usage: 'run_delete_server_certificate <cert_name>'
  *
  */
 
 #ifndef TESTING_BUILD
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
-        std::cout << "Usage: run_delete_server_cert <cert_name>" << std::endl;
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: run_delete_server_certificate <cert_name>" << std::endl;
         return 1;
     }
 
@@ -86,5 +84,6 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif  // TESTING_BUILD
 

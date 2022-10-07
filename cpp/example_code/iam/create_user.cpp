@@ -3,16 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.create_user.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/CreateUserRequest.h>
-#include <aws/iam/model/GetUserRequest.h>
-#include <aws/iam/model/GetUserResult.h>
-#include <iostream>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.create_user.inc]
-
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -26,6 +16,16 @@
  *
  */
 
+//snippet-start:[iam.cpp.create_user.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/CreateUserRequest.h>
+#include <aws/iam/model/GetUserRequest.h>
+#include <aws/iam/model/GetUserResult.h>
+#include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.create_user.inc]
+
 //! Creates an IAM user.
 /*!
   \sa createUser()
@@ -33,28 +33,24 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-
-bool AwsDoc::IAM::createUser(const Aws::String& userName,
-                             const Aws::Client::ClientConfiguration &clientConfig)
-{
+bool AwsDoc::IAM::createUser(const Aws::String &userName,
+                             const Aws::Client::ClientConfiguration &clientConfig) {
     // snippet-start:[iam.cpp.create_user01.code]
-    Aws::IAM::IAMClient iam;
+    Aws::IAM::IAMClient iam(clientConfig);
     // snippet-end:[iam.cpp.create_user01.code]
     // snippet-start:[iam.cpp.get_user.code]
     Aws::IAM::Model::GetUserRequest get_request;
     get_request.SetUserName(userName);
 
     auto get_outcome = iam.GetUser(get_request);
-    if (get_outcome.IsSuccess())
-    {
+    if (get_outcome.IsSuccess()) {
         std::cout << "IAM user " << userName << " already exists" << std::endl;
         return true;
     }
     else if (get_outcome.GetError().GetErrorType() !=
-        Aws::IAM::IAMErrors::NO_SUCH_ENTITY)
-    {
+             Aws::IAM::IAMErrors::NO_SUCH_ENTITY) {
         std::cerr << "Error checking existence of IAM user " << userName << ":"
-            << get_outcome.GetError().GetMessage() << std::endl;
+                  << get_outcome.GetError().GetMessage() << std::endl;
         return false;
     }
     // snippet-end:[iam.cpp.get_user.code]
@@ -64,12 +60,11 @@ bool AwsDoc::IAM::createUser(const Aws::String& userName,
     create_request.SetUserName(userName);
 
     auto create_outcome = iam.CreateUser(create_request);
-    if (!create_outcome.IsSuccess())
-    {
+    if (!create_outcome.IsSuccess()) {
         std::cerr << "Error creating IAM user " << userName << ":" <<
                   create_outcome.GetError().GetMessage() << std::endl;
     }
-    else{
+    else {
         std::cout << "Successfully created IAM user " << userName << std::endl;
     }
 
@@ -86,10 +81,9 @@ bool AwsDoc::IAM::createUser(const Aws::String& userName,
  */
 
 #ifndef TESTING_BUILD
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
         std::cout << "Usage: run_create_user <user_name>" << std::endl;
         return 1;
     }
@@ -108,4 +102,5 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif  // TESTING_BUILD

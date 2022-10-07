@@ -3,15 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.delete_policy.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/DeletePolicyRequest.h>
-#include <iostream>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.delete_policy.inc]
-
-
 /**
 * Before running this C++ code example, set up your development environment, including your credentials.
 *
@@ -28,6 +19,14 @@
 *
 */
 
+//snippet-start:[iam.cpp.delete_policy.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/DeletePolicyRequest.h>
+#include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.delete_policy.inc]
+
 // snippet-start:[iam.cpp.delete_policy.code]
 //! Deletes an IAM policy.
 /*!
@@ -36,21 +35,18 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-bool AwsDoc::IAM::deletePolicy(const Aws::String& policyArn,
-                                   const Aws::Client::ClientConfiguration &clientConfig)
-{
-    Aws::IAM::IAMClient iam;
+bool AwsDoc::IAM::deletePolicy(const Aws::String &policyArn,
+                               const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::IAM::IAMClient iam(clientConfig);
     Aws::IAM::Model::DeletePolicyRequest request;
     request.SetPolicyArn(policyArn);
 
     auto outcome = iam.DeletePolicy(request);
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error deleting policy with arn " << policyArn << ": "
                   << outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Successfully deleted policy with arn " << policyArn
                   << std::endl;
     }
@@ -63,15 +59,16 @@ bool AwsDoc::IAM::deletePolicy(const Aws::String& policyArn,
  *
  *  main function
  *
+ * Prerequisites: Existing IAM policy.
+ *
  * Usage: 'run_delete_policy <policy_arn>'
  *
  */
 
 #ifndef TESTING_BUILD
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
         std::cout << "Usage: run_delete_policy <policy_arn>" << std::endl;
         return 1;
     }
@@ -90,4 +87,5 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif  // TESTING_BUILD

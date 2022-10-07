@@ -3,16 +3,9 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.delete_account_alias.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/DeleteAccountAliasRequest.h>
-#include <iostream>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.delete_account_alias.inc]
-
 /**
-* Before running this C++ code example, set up your development environment, including your credentials.
+* Before running this C++ code example, set up your development environment,
+* including your credentials.
 *
 * For more information, see the following documentation topic:
 *
@@ -24,6 +17,14 @@
 *
 */
 
+//snippet-start:[iam.cpp.delete_account_alias.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/DeleteAccountAliasRequest.h>
+#include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.delete_account_alias.inc]
+
 // snippet-start:[iam.cpp.delete_account_alias.code]
 //! Deletes an alias from an AWS account.
 /*!
@@ -32,22 +33,19 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-bool AwsDoc::IAM::deleteAccountAlias(const Aws::String& accountAlias,
-                                  const Aws::Client::ClientConfiguration &clientConfig)
-{
+bool AwsDoc::IAM::deleteAccountAlias(const Aws::String &accountAlias,
+                                     const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
 
     Aws::IAM::Model::DeleteAccountAliasRequest request;
     request.SetAccountAlias(accountAlias);
 
     const auto outcome = iam.DeleteAccountAlias(request);
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error deleting account alias " << accountAlias << ": "
                   << outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Successfully deleted account alias " << accountAlias <<
                   std::endl;
     }
@@ -61,17 +59,18 @@ bool AwsDoc::IAM::deleteAccountAlias(const Aws::String& accountAlias,
  *
  *  main function
  *
+ * Prerequisites: Existing access key.
+ *
  * Usage: run_delete_access_key <user_name> <access_key_id>
  *
  */
 
 #ifndef TESTING_BUILD
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
         std::cout << "Usage: delete_account_alias <account_alias>" <<
-            std::endl;
+                  std::endl;
         return 1;
     }
 
@@ -90,4 +89,5 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif // TESTING_BUILD

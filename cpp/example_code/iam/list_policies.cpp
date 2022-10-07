@@ -1,28 +1,21 @@
- 
-//snippet-sourcedescription:[list_policies.cpp demonstrates how to list the managed policies available in an AWS account.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-service:[iam]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+  SPDX-License-Identifier: Apache-2.0
 */
+
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Demonstrates listing all IAM policies.
+ *
+ */
+
 //snippet-start:[iam.cpp.list_policies.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
@@ -30,66 +23,91 @@
 #include <aws/iam/model/ListPoliciesResult.h>
 #include <iomanip>
 #include <iostream>
+#include "iam_samples.h"
 //snippet-end:[iam.cpp.list_policies.inc]
 
 static const char* DATE_FORMAT = "%Y-%m-%d";
 
-/**
- * Lists all iam policies
+// snippet-start:[iam.cpp.list_policies.code]
+// ! Gets an IAM policy's information.
+/*!
+  \sa listPolicies()
+  \param clientConfig: Aws client configuration.
+  \return bool: Successful completion.
+*/
+
+bool AwsDoc::IAM::listPolicies(const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::IAM::IAMClient iam(clientConfig);
+    Aws::IAM::Model::ListPoliciesRequest request;
+
+    bool done = false;
+    bool header = false;
+    while (!done)
+    {
+        auto outcome = iam.ListPolicies(request);
+        if (!outcome.IsSuccess())
+        {
+            std::cerr << "Failed to list iam policies: " <<
+                      outcome.GetError().GetMessage() << std::endl;
+            return false;
+        }
+
+        if (!header)
+        {
+            std::cout << std::left << std::setw(55) << "Name" <<
+                      std::setw(30) << "ID" << std::setw(80) << "Arn" <<
+                      std::setw(64) << "Description" << std::setw(12) <<
+                      "CreateDate" << std::endl;
+            header = true;
+        }
+
+        const auto &policies = outcome.GetResult().GetPolicies();
+        for (const auto &policy : policies)
+        {
+            std::cout << std::left << std::setw(55) <<
+                      policy.GetPolicyName() << std::setw(30) <<
+                      policy.GetPolicyId() << std::setw(80) << policy.GetArn() <<
+                      std::setw(64) << policy.GetDescription() << std::setw(12) <<
+                      policy.GetCreateDate().ToGmtString(DATE_FORMAT) <<
+                      std::endl;
+        }
+
+        if (outcome.GetResult().GetIsTruncated())
+        {
+            request.SetMarker(outcome.GetResult().GetMarker());
+        }
+        else
+        {
+            done = true;
+        }
+    }
+
+    return true;
+}
+// snippet-end:[iam.cpp.list_policies.code]
+
+/*
+ *
+ *  main function
+ *
+ * Usage: 'run_list_policies'
+ *
  */
+
+#ifndef TESTING_BUILD
+
 int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // snippet-start:[iam.cpp.list_policies.code]
-        Aws::IAM::IAMClient iam;
-        Aws::IAM::Model::ListPoliciesRequest request;
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+        AwsDoc::IAM::listPolicies(clientConfig);
 
-        bool done = false;
-        bool header = false;
-        while (!done)
-        {
-            auto outcome = iam.ListPolicies(request);
-            if (!outcome.IsSuccess())
-            {
-                std::cout << "Failed to list iam policies: " <<
-                    outcome.GetError().GetMessage() << std::endl;
-                break;
-            }
-
-            if (!header)
-            {
-                std::cout << std::left << std::setw(55) << "Name" <<
-                    std::setw(30) << "ID" << std::setw(80) << "Arn" <<
-                    std::setw(64) << "Description" << std::setw(12) <<
-                    "CreateDate" << std::endl;
-                header = true;
-            }
-
-            const auto &policies = outcome.GetResult().GetPolicies();
-            for (const auto &policy : policies)
-            {
-                std::cout << std::left << std::setw(55) <<
-                    policy.GetPolicyName() << std::setw(30) <<
-                    policy.GetPolicyId() << std::setw(80) << policy.GetArn() <<
-                    std::setw(64) << policy.GetDescription() << std::setw(12) <<
-                    policy.GetCreateDate().ToGmtString(DATE_FORMAT) <<
-                    std::endl;
-            }
-
-            if (outcome.GetResult().GetIsTruncated())
-            {
-                request.SetMarker(outcome.GetResult().GetMarker());
-            }
-            else
-            {
-                done = true;
-            }
-        }
-        // snippet-end:[iam.cpp.list_policies.code]
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
-
+#endif  // TESTING_BUILD

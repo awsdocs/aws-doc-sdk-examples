@@ -3,16 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.get_policy.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/GetPolicyRequest.h>
-#include <aws/iam/model/GetPolicyResult.h>
-#include <iostream>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.get_policy.inc]
-
-
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -26,6 +16,15 @@
  *
  */
 
+//snippet-start:[iam.cpp.get_policy.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/GetPolicyRequest.h>
+#include <aws/iam/model/GetPolicyResult.h>
+#include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.get_policy.inc]
+
 // snippet-start:[iam.cpp.get_policy.code]
 //! Gets an IAM policy's information.
 /*!
@@ -35,21 +34,18 @@
   \return bool: Successful completion.
 */
 
-bool AwsDoc::IAM::getPolicy(const Aws::String& policyArn,
-               const Aws::Client::ClientConfiguration &clientConfig)
-{
-    Aws::IAM::IAMClient iam;
+bool AwsDoc::IAM::getPolicy(const Aws::String &policyArn,
+                            const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::IAM::IAMClient iam(clientConfig);
     Aws::IAM::Model::GetPolicyRequest request;
     request.SetPolicyArn(policyArn);
 
     auto outcome = iam.GetPolicy(request);
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error getting policy " << policyArn << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         const auto &policy = outcome.GetResult().GetPolicy();
         std::cout << "Name: " << policy.GetPolicyName() << std::endl <<
                   "ID: " << policy.GetPolicyId() << std::endl << "Arn: " <<
@@ -67,15 +63,16 @@ bool AwsDoc::IAM::getPolicy(const Aws::String& policyArn,
  *
  *  main function
  *
+ * Prerequisites: Existing IAM policy.
+ *
  * Usage: 'run_get_policy <policy_arn>'
  *
  */
 
 #ifndef TESTING_BUILD
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
         std::cout << "Usage: run_get_policy <policy_arn>" << std::endl;
         return 1;
     }
@@ -94,5 +91,6 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif  // TESTING_BUILD
 

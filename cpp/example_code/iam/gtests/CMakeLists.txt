@@ -70,6 +70,7 @@ target_sources(
         iam_gtest
         PUBLIC
         ${GTEST_SOURCE}
+        iam_gtests.cpp
         test_main.cpp
 )
 

@@ -3,16 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.get_server_cert.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/GetServerCertificateRequest.h>
-#include <aws/iam/model/GetServerCertificateResult.h>
-#include <iostream>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.get_server_cert.inc]
-
-
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -26,6 +16,15 @@
  *
  */
 
+//snippet-start:[iam.cpp.get_server_cert.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/GetServerCertificateRequest.h>
+#include <aws/iam/model/GetServerCertificateResult.h>
+#include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.get_server_cert.inc]
+
 // snippet-start:[iam.cpp.get_server_cert.code]
 //! Gets a server certificate.
 /*!
@@ -35,21 +34,18 @@
   \return bool: Successful completion.
 */
 
-bool AwsDoc::IAM::getServerCertificate(const Aws::String& certificateName,
-                          const Aws::Client::ClientConfiguration &clientConfig)
-{
-    Aws::IAM::IAMClient iam;
+bool AwsDoc::IAM::getServerCertificate(const Aws::String &certificateName,
+                                       const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::IAM::IAMClient iam(clientConfig);
     Aws::IAM::Model::GetServerCertificateRequest request;
     request.SetServerCertificateName(certificateName);
 
     auto outcome = iam.GetServerCertificate(request);
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error getting server certificate " << certificateName <<
                   ": " << outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         const auto &certificate = outcome.GetResult().GetServerCertificate();
         std::cout << "Name: " <<
                   certificate.GetServerCertificateMetadata().GetServerCertificateName()
@@ -66,16 +62,17 @@ bool AwsDoc::IAM::getServerCertificate(const Aws::String& certificateName,
  *
  *  main function
  *
- * Usage: 'run_get_server_cert <cert_name>'
+ * Prerequisites: Existing server certificate.
+ *
+ * Usage: 'run_get_server_certificate <cert_name>'
  *
  */
 
 #ifndef TESTING_BUILD
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
-        std::cout << "Usage: run_get_server_cert <cert_name>" << std::endl;
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: run_get_server_certificate <cert_name>" << std::endl;
         return 1;
     }
 
@@ -92,5 +89,6 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif  // TESTING_BUILD
 

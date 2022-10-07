@@ -3,14 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[iam.cpp.delete_access_key.inc]
-#include <aws/core/Aws.h>
-#include <aws/iam/IAMClient.h>
-#include <aws/iam/model/DeleteAccessKeyRequest.h>
-#include <iostream>
-#include "iam_samples.h"
-//snippet-end:[iam.cpp.delete_access_key.inc]
-
 /**
 * Before running this C++ code example, set up your development environment, including your credentials.
 *
@@ -24,6 +16,14 @@
 *
 */
 
+//snippet-start:[iam.cpp.delete_access_key.inc]
+#include <aws/core/Aws.h>
+#include <aws/iam/IAMClient.h>
+#include <aws/iam/model/DeleteAccessKeyRequest.h>
+#include <iostream>
+#include "iam_samples.h"
+//snippet-end:[iam.cpp.delete_access_key.inc]
+
 // snippet-start:[iam.cpp.delete_access_key.code]
 //! Deletes an access key from an IAM user.
 /*!
@@ -33,10 +33,9 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-bool AwsDoc::IAM::deleteAccessKey(const Aws::String& userName,
-                     const Aws::String& accessKeyID,
-                     const Aws::Client::ClientConfiguration &clientConfig)
-{
+bool AwsDoc::IAM::deleteAccessKey(const Aws::String &userName,
+                                  const Aws::String &accessKeyID,
+                                  const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
 
     Aws::IAM::Model::DeleteAccessKeyRequest request;
@@ -45,14 +44,12 @@ bool AwsDoc::IAM::deleteAccessKey(const Aws::String& userName,
 
     auto outcome = iam.DeleteAccessKey(request);
 
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error deleting access key " << accessKeyID << " from user "
                   << userName << ": " << outcome.GetError().GetMessage() <<
                   std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Successfully deleted access key " << accessKeyID
                   << " for IAM user " << userName << std::endl;
     }
@@ -65,17 +62,18 @@ bool AwsDoc::IAM::deleteAccessKey(const Aws::String& userName,
  *
  *  main function
  *
+ * Prerequisites: Existing access key.
+ *
  * Usage: run_delete_access_key <user_name> <access_key_id>
  *
  */
 
 #ifndef TESTING_BUILD
-int main(int argc, char** argv)
-{
-    if (argc != 3)
-    {
+
+int main(int argc, char **argv) {
+    if (argc != 3) {
         std::cout << "Usage: run_delete_access_key <user_name> <access_key_id>"
-            << std::endl;
+                  << std::endl;
         return 1;
     }
 
@@ -93,4 +91,5 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif  // TESTING_BUILD

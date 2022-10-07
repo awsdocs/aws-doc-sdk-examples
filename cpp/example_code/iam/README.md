@@ -25,23 +25,23 @@ IAM is a web service that helps you securely control access to AWS resources. Yo
 - [Delete an access key](./delete_access_key.cpp) (DeleteAccessKey)
 - [Delete an account alias](./delete_account_alias.cpp) (DeleteAccountAlias)
 - [Delete a policy](./delete_policy.cpp) (DeletePolicy)
-- [Delete a server certificate](./delete_server_cert.cpp) (DeleteServerCertificate)
-- [Delete a user](./delete_user.cpp) (DeleteUser)
+- [Delete a server certificate](./delete_server_certificate.cpp) (DeleteServerCertificate)
+- [Delete a user](./delete_user.cpp) (deleteUser)
 - [Detach a role policy](./detach_role_policy.cpp) (DetachRolePolicy)
 - [Get a policy](./get_policy.cpp) (GetPolicy)
 - [List the access keys](./list_access_keys.cpp) (ListAccessKeys)
 - [List the account aliases](./list_account_aliases.cpp) (ListAccountAliases)
 - [List the policies](./list_policies.cpp) (ListPolicies)
-- [List the server certificates](./list_server_certs.cpp) (ListServerCertificates)
+- [List the server certificates](./list_server_certificates.cpp) (ListServerCertificates)
 - [List the users](./list_users.cpp) (ListUsers)
-- [Put a role policy](./put_role_policy.cpp) (PutRolePolicy)
+- [Put a role policy](./put_role_policy.cpp) (putRolePolicy)
 - [Update an access key](./update_access_key.cpp) (UpdateAccessKey)
-- [Update a server certificate](./update_server_cert.cpp) (UpdateServerCertificate)
+- [Update a server certificate](./update_server_certificate.cpp) (UpdateServerCertificate)
 - [Update a user](./update_user.cpp) (UpdateUser)
 
 
 ### Scenarios
-- [Create an IAM user, create an IAM role, and apply the role to the user](./iam_create_user_assume_role_scenario.cpp) (CreateUser, GetUser, CreateRole, CreatePolicy, AssumeRole, ListBuckets, AttachRolePolicy, DetachRolePolicy, DeletePolicy, DeleteRole, DeleteUser)
+- [Create an IAM user, create an IAM role, and apply the role to the user](./iam_create_user_assume_role_scenario.cpp) (CreateUser, GetUser, CreateRole, CreatePolicy, AssumeRole, ListBuckets, AttachRolePolicy, DetachRolePolicy, DeletePolicy, DeleteRole, deleteUser)
 
 ## Run the examples
 Before using the code examples, first complete the installation and setup steps of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
