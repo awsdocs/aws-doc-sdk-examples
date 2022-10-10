@@ -4,26 +4,21 @@ import * as batch from "aws-cdk-lib/aws-batch";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as iam from "aws-cdk-lib/aws-iam";
 
+
 export class BatchFargateStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const vpc = new ec2.Vpc(this, "BatchEnvironmentVPC", {
-      cidr: "10.0.0.0/16",
-    });
+    // const vpc = new ec2.Vpc(this, "BatchEnvironmentVPC", {
+    //   cidr: "10.0.0.0/16",
+    // });
+
+    const vpc = ec2.Vpc.fromLookup(this, 'ImportVPC',{isDefault: true});
 
     const selection = vpc.selectSubnets({
-      subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+      subnetType: ec2.SubnetType.PUBLIC,
     });
-
-    const internalSecurityGroup = new ec2.SecurityGroup(
-      this,
-      "BatchFargateInternalSecurityGroup",
-      {
-        vpc,
-        allowAllOutbound: true,
-      }
-    );
+    
     // internalSecurityGroup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80));
     // internalSecurityGroup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80));
     // internalSecurityGroup.addEgressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443));
@@ -45,12 +40,13 @@ export class BatchFargateStack extends cdk.Stack {
       "BatchFargateComputeEnvironment",
       {
         type: "MANAGED",
+        computeEnvironmentName: 'test',
         computeResources: {
           type: "FARGATE",
           subnets: selection.subnets.map((subnet) => subnet.subnetId),
           creationStack: [],
           maxvCpus: 256,
-          securityGroupIds: [internalSecurityGroup.uniqueId],
+          securityGroupIds: ["sg-0e567eefb820f4411"],
         },
       }
     );
