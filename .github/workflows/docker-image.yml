@@ -58,10 +58,10 @@ jobs:
           tags: fordataws/gov3:latest
           labels: ${{ steps.meta.outputs.labels }}
       
-      - name: Build and push Docker image - dotnet
+      - name: Build and push Docker image - dotnetv3
         uses: docker/build-push-action@master
         with:
-          context: dotnet
+          context: dotnetv3
           push: true
-          tags: fordataws/dotnet:latest
+          tags: fordataws/dotnetv3:latest
           labels: ${{ steps.meta.outputs.labels }}
