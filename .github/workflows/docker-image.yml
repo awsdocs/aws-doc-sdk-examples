@@ -31,9 +31,7 @@ jobs:
         with:
           context: ruby
           push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            type=ruby
+          tags: fordataws/ruby:latest
           labels: ${{ steps.meta.outputs.labels }}
           
       - name: Build and push Docker image - Python
@@ -41,9 +39,7 @@ jobs:
         with:
           context: python
           push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            type=python
+          tags: fordataws/python:latest
           labels: ${{ steps.meta.outputs.labels }}
     
       - name: Build and push Docker image - JavaScript
@@ -51,9 +47,7 @@ jobs:
         with:
           context: javascriptv3
           push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            type=javascriptv3
+          tags: fordataws/javascript:latest
           labels: ${{ steps.meta.outputs.labels }}
       
       - name: Build and push Docker image - gov2
@@ -61,9 +55,7 @@ jobs:
         with:
           context: gov2
           push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            type=gov2
+          tags: fordataws/gov3:latest
           labels: ${{ steps.meta.outputs.labels }}
       
       - name: Build and push Docker image - dotnet
@@ -71,7 +63,5 @@ jobs:
         with:
           context: dotnet
           push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            type=dotnet
+          tags: fordataws/dotnet:latest
           labels: ${{ steps.meta.outputs.labels }}
