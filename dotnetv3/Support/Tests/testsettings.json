@@ -3,6 +3,6 @@
   "categoryCode": "account-structure",
   "severityCode": "low",
   "exampleFileName": "exampleFile.txt",
-  "missingSubscriptionAccessKey": "00000000000000000000",
-  "missingSubscriptionSecret": "0000000000000000000000000000000000000000"
+  "missingSubscriptionAccessKey": "12345678901234567890",
+  "missingSubscriptionSecret": "1234567890123456789012345678901234567890"
 }
