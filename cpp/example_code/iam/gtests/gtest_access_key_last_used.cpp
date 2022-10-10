@@ -10,6 +10,10 @@
 namespace AwsDocTest { 
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, access_key_last_used) {
-          EXPECT_TRUE(false);
+        auto keyID = getExistingKey();
+        ASSERT_TRUE(!keyID.empty()) << preconditionError() << std::endl;
+
+        auto result = AwsDoc::IAM::accessKeyLastUsed(keyID, *s_clientConfig);
+        ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

@@ -10,6 +10,12 @@
 namespace AwsDocTest { 
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, create_access_key) {
-          EXPECT_TRUE(false);
+        auto userName = getUser();
+        ASSERT_FALSE(userName.empty())  << preconditionError() << std::endl;
+
+        auto accessKeyID = AwsDoc::IAM::createAccessKey(userName, *s_clientConfig);
+        ASSERT_FALSE(accessKeyID.empty());
+
+        deleteAccessKey(accessKeyID);
     }
 } // namespace AwsDocTest

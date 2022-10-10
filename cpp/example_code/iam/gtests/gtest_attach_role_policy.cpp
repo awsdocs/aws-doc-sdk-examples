@@ -10,6 +10,13 @@
 namespace AwsDocTest { 
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, attach_role_policy) {
-          EXPECT_TRUE(false);
+         auto policyARN = samplePolicyARN();
+         auto role = getRole();
+        ASSERT_FALSE(role.empty())  << preconditionError() << std::endl;
+
+         bool result = AwsDoc::IAM::attachRolePolicy(role, policyARN, *s_clientConfig);
+        ASSERT_TRUE(result);
+
+        detachRolePolicy(role, policyARN);
     }
 } // namespace AwsDocTest

@@ -39,10 +39,10 @@ namespace AwsDoc {
   \param policyName: The policy name.
   \param rsrcArn: The Amazon Resource Name.
   \param clientConfig Aws client configuration.
-  \return bool: Successful completion.
+  \return Aws::String: Policy ARN or empty string if unsuccessful.
 */
 
-bool AwsDoc::IAM::createPolicy(const Aws::String &policyName,
+Aws::String AwsDoc::IAM::createPolicy(const Aws::String &policyName,
                                const Aws::String &rsrcArn,
                                const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
@@ -51,17 +51,19 @@ bool AwsDoc::IAM::createPolicy(const Aws::String &policyName,
     request.SetPolicyName(policyName);
     request.SetPolicyDocument(BuildSamplePolicyDocument(rsrcArn));
 
-    auto outcome = iam.CreatePolicy(request);
+    Aws::IAM::Model::CreatePolicyOutcome outcome = iam.CreatePolicy(request);
+    Aws::String result;
     if (!outcome.IsSuccess()) {
         std::cerr << "Error creating policy " << policyName << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
     else {
+        result = outcome.GetResult().GetPolicy().GetArn();
         std::cout << "Successfully created policy " << policyName <<
                   std::endl;
     }
 
-    return outcome.IsSuccess();
+    return result;
 }
 // snippet-end:[iam.cpp.create_policy.code]
 

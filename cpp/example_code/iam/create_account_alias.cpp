@@ -39,7 +39,7 @@ bool AwsDoc::IAM::createAccountAlias(const Aws::String &aliasName,
     Aws::IAM::Model::CreateAccountAliasRequest request;
     request.SetAccountAlias(aliasName);
 
-    auto outcome = iam.CreateAccountAlias(request);
+    Aws::IAM::Model::CreateAccountAliasOutcome outcome = iam.CreateAccountAlias(request);
     if (!outcome.IsSuccess()) {
         std::cerr << "Error creating account alias " << aliasName << ": "
                   << outcome.GetError().GetMessage() << std::endl;

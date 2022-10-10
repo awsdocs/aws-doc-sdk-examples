@@ -24,15 +24,15 @@ namespace AwsDoc {
                               const Aws::String &policyArn,
                               const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool createAccessKey(const Aws::String &userName,
+        Aws::String createAccessKey(const Aws::String &userName,
                              const Aws::Client::ClientConfiguration &clientConfig);
 
         bool createAccountAlias(const Aws::String &aliasName,
                                 const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool createPolicy(const Aws::String &policyName,
-                          const Aws::String &rsrcArn,
-                          const Aws::Client::ClientConfiguration &clientConfig);
+        Aws::String createPolicy(const Aws::String &policyName,
+                                 const Aws::String &rsrcArn,
+                                 const Aws::Client::ClientConfiguration &clientConfig);
 
         bool createIamRole(
                 const Aws::String &roleName,

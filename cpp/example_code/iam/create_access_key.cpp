@@ -18,7 +18,6 @@
  */
 
 //snippet-start:[iam.cpp.create_access_key.inc]
-#include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateAccessKeyRequest.h>
 #include <aws/iam/model/CreateAccessKeyResult.h>
@@ -32,17 +31,18 @@
   \sa createAccessKey()
   \param userName: User name for the access key.
   \param clientConfig Aws client configuration.
-  \return bool: Successful completion.
+  \return Aws::String: Access key ID or empty string if unsuccessful.
 */
 
-bool AwsDoc::IAM::createAccessKey(const Aws::String &userName,
+Aws::String AwsDoc::IAM::createAccessKey(const Aws::String &userName,
                                   const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
 
     Aws::IAM::Model::CreateAccessKeyRequest request;
     request.SetUserName(userName);
 
-    auto outcome = iam.CreateAccessKey(request);
+    Aws::String result;
+    Aws::IAM::Model::CreateAccessKeyOutcome outcome = iam.CreateAccessKey(request);
     if (!outcome.IsSuccess()) {
         std::cerr << "Error creating access key for IAM user " << userName
                   << ":" << outcome.GetError().GetMessage() << std::endl;
@@ -54,9 +54,10 @@ bool AwsDoc::IAM::createAccessKey(const Aws::String &userName,
                   accessKey.GetAccessKeyId() << std::endl <<
                   " aws_secret_access_key = " << accessKey.GetSecretAccessKey() <<
                   std::endl;
+        result = accessKey.GetAccessKeyId();
     }
 
-    return outcome.IsSuccess();
+    return result;
 }
 // snippet-end:[iam.cpp.create_access_key.code]
 
