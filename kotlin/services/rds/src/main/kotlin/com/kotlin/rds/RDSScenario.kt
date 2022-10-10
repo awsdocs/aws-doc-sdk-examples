@@ -37,22 +37,22 @@ import kotlin.system.exitProcess
 
  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
 
- This example performs these tasks:
+ This example performs the following tasks:
 
  1. Returns a list of the available DB engines by invoking the DescribeDbEngineVersions method.
- 2. Select an engine family and create a custom DB parameter group by invoking the createDBParameterGroup method.
- 3. Get the parameter groups by invoking the DescribeDbParameterGroups methods.
- 4. Get parameters in the group by invoking the DescribeDbParameters method.
- 5. Modify both the auto_increment_offset and auto_increment_increment parameters by invoking the modifyDbParameterGroup method.
- 6. Get and display the updated parameters.
- 7. Get a list of allowed engine versions by invoking the describeDbEngineVersions method.
- 8. Get a list of micro instance classes available for the selected engine
- 9. Create an RDS database instance that contains a MySql database and uses the parameter group
- 10. Wait for DB instance to be ready and print out the connection endpoint value.
- 11. Create a snapshot of the DB instance.
- 12. Wait for DB snapshot to be ready.
- 13. Delete the DB instance. rds.DeleteDbInstance.
- 14. Delete the parameter group.
+ 2. Selects an engine family and create a custom DB parameter group by invoking the createDBParameterGroup method.
+ 3. Gets the parameter groups by invoking the DescribeDbParameterGroups method.
+ 4. Gets parameters in the group by invoking the DescribeDbParameters method.
+ 5. Modifies both the auto_increment_offset and auto_increment_increment parameters by invoking the modifyDbParameterGroup method.
+ 6. Gets and displays the updated parameters.
+ 7. Gets a list of allowed engine versions by invoking the describeDbEngineVersions method.
+ 8. Gets a list of micro instance classes available for the selected engine.
+ 9. Creates an RDS database instance that contains a MySql database and uses the parameter group
+ 10. Waits for DB instance to be ready and print out the connection endpoint value.
+ 11. Creates a snapshot of the DB instance.
+ 12. Waits for DB snapshot to be ready.
+ 13. Deletes the DB instance. rds.DeleteDbInstance.
+ 14. Deletes the parameter group.
  */
 
 var sleepTime: Long = 20
@@ -64,10 +64,10 @@ suspend fun main(args: Array<String>) {
         Where:
             dbGroupName - The database group name. 
             dbParameterGroupFamily - The database parameter group name.
-            dbInstanceIdentifier - The database instance identifier 
+            dbInstanceIdentifier - The database instance identifier. 
             dbName -  The database name. 
-            masterUsername - The master user name. 
-            masterUserPassword - The password that corresponds to the master user name. 
+            username - The user name. 
+            userPassword - The password that corresponds to the user name. 
             dbSnapshotIdentifier - The snapshot identifier. 
     """
 
@@ -80,8 +80,8 @@ suspend fun main(args: Array<String>) {
     val dbParameterGroupFamily = args[1]
     val dbInstanceIdentifier = args[2]
     val dbName = args[3]
-    val masterUsername = args[4]
-    val masterUserPassword = args[5]
+    val username = args[4]
+    val userPassword = args[5]
     val dbSnapshotIdentifier = args[6]
 
     println("1. Return a list of the available DB engines")
@@ -109,7 +109,7 @@ suspend fun main(args: Array<String>) {
     getMicroInstances()
 
     println("9. Create an RDS database instance that contains a MySql database and uses the parameter group")
-    val dbARN = createDatabaseInstance(dbGroupName, dbInstanceIdentifier, dbName, masterUsername, masterUserPassword)
+    val dbARN = createDatabaseInstance(dbGroupName, dbInstanceIdentifier, dbName, username, userPassword)
     println("The ARN of the new database is $dbARN")
 
     println("10. Wait for DB instance to be ready")
@@ -144,8 +144,8 @@ suspend fun deleteParaGroup(dbGroupName: String, dbARN: String) {
             val response = rdsClient.describeDbInstances()
             val instanceList = response.dbInstances
             val listSize = instanceList?.size
-            isDataDel = false // reset this value
-            didFind = false // reset this value
+            isDataDel = false // Reset this value.
+            didFind = false // Reset this value.
             var index = 1
             if (instanceList != null) {
                 for (instance in instanceList) {
@@ -410,7 +410,7 @@ suspend fun describeDbParameterGroups(dbGroupName: String?) {
 // snippet-end:[rds.kotlin.scenario.desc_para_groups.main]
 
 // snippet-start:[rds.kotlin.scenario.create_para_group.main]
-// Create a parameter group
+// Create a parameter group.
 suspend fun createDBParameterGroup(dbGroupName: String?, dbParameterGroupFamilyVal: String?) {
     val groupRequest = CreateDbParameterGroupRequest {
         dbParameterGroupName = dbGroupName
