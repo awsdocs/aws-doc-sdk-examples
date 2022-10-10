@@ -42,12 +42,12 @@ jobs:
           tags: fordataws/python:latest
           labels: ${{ steps.meta.outputs.labels }}
     
-      - name: Build and push Docker image - JavaScript
+      - name: Build and push Docker image - JavaScriptv3
         uses: docker/build-push-action@master
         with:
           context: javascriptv3
           push: true
-          tags: fordataws/javascript:latest
+          tags: fordataws/javascriptv3:latest
           labels: ${{ steps.meta.outputs.labels }}
       
       - name: Build and push Docker image - gov2
@@ -55,7 +55,7 @@ jobs:
         with:
           context: gov2
           push: true
-          tags: fordataws/gov3:latest
+          tags: fordataws/gov2:latest
           labels: ${{ steps.meta.outputs.labels }}
       
       - name: Build and push Docker image - dotnetv3
