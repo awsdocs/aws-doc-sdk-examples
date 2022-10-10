@@ -1,13 +1,27 @@
-# AWS SDK for Rust code examples for Amazon DynamoDB
+# Rust code examples for DynamoDB
 
-## Purpose
+## Overview
 
-These examples demonstrate how to perform several Amazon DynamoDB (DynamoDB) operations using the developer preview version of the AWS SDK for Rust.
-Most use the schema defined in the **create-table** example.
+Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. DynamoDB offers built-in security, continuous backups, automated multi-Region replication, in-memory caching, and data import and export tools.
 
-DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+## ⚠ Important
+
+- Running this code might result in charges to your AWS account.
+- Running the tests might result in charges to your AWS account.
+- We recommend that you grant this code least privilege,
+  or at most the minimum permissions required to perform the task.
+  For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the AWS Identity and Access Management User Guide.
+- This code has not been tested in all AWS Regions.
+  Some AWS services are available only in specific
+  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
 
 - [Add item to table](src/bin/add-item.rs) (PutItem)
 - [Are there more tables](src/bin/are-more-tables.rs) (ListTables)
@@ -22,28 +36,23 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 - [Lists your tables](src/bin/list-tables.rs) (ListTables)
 - [Lists your local tables](src/bin/list-tables-local.rs) (ListTables)
 - [Minimal version of listing tables](src/bin/list-tables-main.rs) (ListTables)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
 - [Create a table, adds some items from a file to the table, queries the table, and deletes the table](src/bin/movies.rs) (CreateTable, DeleteTable, ListTables, PutItem, Query)
   - To run this example, you should replace the `moviedata.json` file with the [DynamoDB Movies](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip) zip database.
   - On a \*nix environment with bash, you can use this command (be sure to run it from the same directory as this README):
     `curl https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip > moviedata.zip ; unzip moviedata.zip ; rm moviedata.zip `
 
-## ⚠ Important
-
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
-
-## Running the code examples
+## Run the examples
 
 ### Prerequisites
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+
+These examples run with the Rust minimum compiler version as supported by the Rust SDK; at the time of this writing, that is Rust 1.61.0. Executables can run from cargo with additional command line arguments documented below & in the binary main functions.
 
 ## Running the code
 
@@ -201,16 +210,14 @@ Use **delete-table** to delete **dynamo-movies-example\_\_.
 
 `cargo run --bin movies`
 
+## Tests
+
+⚠️ Running the tests might result in charges to your AWS account.
+
+All tests can be run with `cargo test --all-targets --all-features`.
+
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
 - [AWS SDK for Rust API Reference for DynamoDB](https://docs.rs/aws-sdk-dynamodb)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html)
-
-## Contributing
-
-To propose a new code example to the AWS documentation team,
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
-The team prefers to create code examples that show broad scenarios rather than individual API calls.
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
