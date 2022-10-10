@@ -30,7 +30,7 @@ async fn verify(client: &Client) -> Result<(), Error> {
         .await
         .expect("Query should succeed");
 
-    // this isn't back to the future, there are no movies from 2022
+    // This isn't back to the future, there are no movies from 2222.
     assert_eq!(films_2222.len(), 0);
 
     let films_2013 = movies_in_year(client, TABLE_NAME, 2013)
@@ -42,13 +42,14 @@ async fn verify(client: &Client) -> Result<(), Error> {
     Ok(())
 }
 
-/// A DynamoDB backed movie database. Loads a bunch of movies
+/// A DynamoDB backed movie database. Loads a bunch of movies.
 ///
-/// - Create table
-/// - Wait for table to be ready
-/// - Add a bunch of data
-/// - Check the data is there
-/// - Start an HTTP server to return subsets of those rows
+/// 1. Check if table exists.
+///    a. Create table, if it doesn't exist.
+///    b. Wait for table to be ready.
+///    c. Add a bunch of data in batches.
+/// 2. Verify the table has data.
+/// 3. Start an HTTP server to return subsets of those rows.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();

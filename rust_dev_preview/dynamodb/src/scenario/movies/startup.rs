@@ -111,7 +111,7 @@ pub fn create_table(
 // snippet-end:[dynamodb.rust.movies-create_table_request]
 
 const TABLE_WAIT_POLLS: u64 = 6;
-const TABLE_WAIT_TIMEOUT: u64 = 5; // Takes about 30 seconds in my experience
+const TABLE_WAIT_TIMEOUT: u64 = 5; // Takes about 30 seconds in my experience.
 pub async fn await_table(client: &Client, table_name: &str) -> Result<(), Error> {
     // TODO: Use an adaptive backoff retry, rather than a sleeping loop.
     for _ in 0..TABLE_WAIT_POLLS {
@@ -138,7 +138,7 @@ pub async fn await_table(client: &Client, table_name: &str) -> Result<(), Error>
     })))
 }
 
-// Must be less than 26
+// Must be less than 26.
 const CHUNK_SIZE: usize = 25;
 
 pub async fn load_data(client: &Client, table_name: &str) -> Result<(), Error> {
