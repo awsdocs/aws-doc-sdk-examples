@@ -42,7 +42,6 @@ class RDSTest {
     private var masterUserPassword = ""
     private var newMasterUserPassword = ""
 
-    // Set data members required for the Scenario test
     private var dbGroupNameSc = ""
     private var dbParameterGroupFamilySc = ""
     private var dbInstanceIdentifierSc = ""
@@ -56,7 +55,7 @@ class RDSTest {
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
 
-        // load the properties file.
+        // Load the properties file.
         prop.load(input)
         dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier")
         dbSnapshotIdentifier = prop.getProperty("dbSnapshotIdentifier")
