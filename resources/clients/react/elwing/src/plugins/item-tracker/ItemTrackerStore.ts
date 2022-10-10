@@ -5,6 +5,13 @@ import {
   WorkItemStatus,
 } from "./work-item/WorkItemService";
 
+interface ItemTrackerState {
+  items: WorkItem[];
+  status: WorkItemStatus;
+  error: string;
+  loading: boolean;
+}
+
 interface ItemTrackerActions {
   setStatus: (status: WorkItemStatus) => void;
   setError: (error: string) => void;
@@ -13,15 +20,10 @@ interface ItemTrackerActions {
   loadItems: () => Promise<void>;
 }
 
-interface ItemTrackerState {
-  items: WorkItem[];
-  status: WorkItemStatus;
-  error: string;
-  loading: boolean;
-}
+export type Store<State, Actions> = State & { actions: Actions };
 
 export const useItemTrackerState = create<
-  ItemTrackerState & { actions: ItemTrackerActions }
+  Store<ItemTrackerState, ItemTrackerActions>
 >((set, get) => {
   const actions: ItemTrackerActions = {
     setStatus: (status: WorkItemStatus) => set({ status }),

@@ -22,15 +22,15 @@ export interface WorkItem {
 }
 
 export class WorkItemService extends RestService<WorkItem> {
-  constructor(baseUrl?: string) {
-    super("/items", baseUrl);
+  constructor(baseUrl: string = BASE_URL) {
+    super("items", baseUrl);
   }
 
   /**
    * Sends a PUT request to archive an active item.
    */
   async archiveItem(itemId: string) {
-    return await fetch(`${this.url()}/${itemId}:archive`);
+    return this.fetch(this.url({ id: itemId, adverb: "archive" }));
   }
 
   /**
@@ -43,5 +43,5 @@ export class WorkItemService extends RestService<WorkItem> {
   };
 }
 
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "http://localhost:8080/api";
 export const workItemService = new WorkItemService();

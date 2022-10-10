@@ -9,6 +9,7 @@ import {
 } from "@cloudscape-design/components";
 import { OptionDefinition } from "@cloudscape-design/components/internal/components/option/interfaces";
 import { useEffect, useState } from "react";
+import { useItemTrackerAction } from "../ItemTrackerStore";
 import { workItemService as service } from "./WorkItemService";
 
 const GUIDE_OPTIONS: OptionDefinition[] = [
@@ -36,6 +37,7 @@ export const AddWorkItem = () => {
   const [description, setDescription] = useState("");
   const [show, setShow] = useState(false);
   const [canAdd, setCanAdd] = useState(false);
+  const { loadItems } = useItemTrackerAction();
 
   useEffect(() => {
     let can = user.length > 0 && description.length > 0;
@@ -52,6 +54,7 @@ export const AddWorkItem = () => {
       })
       .catch(console.error);
     setShow(false);
+    loadItems();
   };
 
   const handleClose = () => {

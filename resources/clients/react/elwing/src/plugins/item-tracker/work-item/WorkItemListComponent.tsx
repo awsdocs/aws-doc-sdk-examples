@@ -8,7 +8,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { WorkItem as IWorkItem, WorkItemStatus } from "./WorkItemService";
+import { WorkItem, WorkItemStatus } from "./WorkItemService";
 import { workItemService as service } from "./WorkItemService";
 import {
   Alert,
@@ -17,50 +17,10 @@ import {
   Input,
   Select,
   SpaceBetween,
+  Table,
 } from "@cloudscape-design/components";
 import { OptionDefinition } from "@cloudscape-design/components/internal/components/option/interfaces";
 import { useItemTrackerAction, useItemTrackerState } from "../ItemTrackerStore";
-
-export const WorkItem = ({
-  item,
-  status,
-  archiveItem,
-}: {
-  item: IWorkItem;
-  status: WorkItemStatus;
-  archiveItem: (id: string) => Promise<void>;
-}) => {
-  return (
-    <tr>
-      <td>{item.id}</td>
-      <td>{item.name}</td>
-      <td>{item.guide}</td>
-      <td>{item.description}</td>
-      <td>{item.status}</td>
-      <td>
-        {status === "active" ? (
-          <Button onClick={() => archiveItem(item.id)}>🗑</Button>
-        ) : null}
-      </td>
-    </tr>
-  );
-};
-
-export const WorkItemsLoading = () => {
-  return (
-    <>
-      {[1, 2, 3].map((item) => (
-        <tr key={item}>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      ))}
-    </>
-  );
-};
 
 const STATUS_OPTIONS: OptionDefinition[] = [
   { value: "active", label: "Active" },
@@ -108,14 +68,15 @@ export const WorkItemControls = ({
 };
 
 export const WorkItems = () => {
+  const [selected, setSelected] = useState<WorkItem[]>([]);
   const { loadItems, setError } = useItemTrackerAction();
-  const status = useItemTrackerState(({ status }) => status);
+  // const status = useItemTrackerState(({ status }) => status);
   const items = useItemTrackerState(({ items }) => items);
-  const loading = useItemTrackerState(({ loading }) => loading);
+  // const loading = useItemTrackerState(({ loading }) => loading);
 
   useEffect(() => {
     loadItems();
-  }, [loadItems]);
+  }, []);
 
   const archiveItem = async (itemId: string) => {
     try {
@@ -127,38 +88,92 @@ export const WorkItems = () => {
   };
 
   return (
-    <>
-      {!loading && items.length === 0 ? (
-        <Alert>No work items found.</Alert>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Item Id</th>
-              <th>User</th>
-              <th>Guide</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th />
-            </tr>
-          </thead>
-          {loading ? (
-            <tbody>
-              <WorkItemsLoading />
-            </tbody>
-          ) : (
-            <tbody>
-              {items.map((item) => (
-                <WorkItem
-                  item={item}
-                  status={status}
-                  archiveItem={archiveItem}
-                />
-              ))}
-            </tbody>
-          )}
-        </table>
-      )}
-    </>
+    <Table
+      variant="embedded"
+      selectedItems={selected}
+      onSelectionChange={({ detail }) =>
+        setSelected(detail.selectedItems as WorkItem[])
+      }
+      columnDefinitions={[
+        {
+          id: "id",
+          header: "ID",
+          cell: (e) => e.id,
+          sortingField: "id",
+        },
+        {
+          id: "name",
+          header: "Name",
+          cell: (e) => e.name,
+          sortingField: "name",
+        },
+        {
+          id: "guide",
+          header: "Guide",
+          cell: (e) => e.guide,
+          sortingField: "guide",
+        },
+        {
+          id: "description",
+          header: "Description",
+          cell: (e) => e.description,
+          sortingField: "description",
+        },
+        {
+          id: "status",
+          header: "Status",
+          cell: (e) => e.status,
+          sortingField: "status",
+        },
+        {
+          id: "archive",
+          header: "",
+          cell: (e) => (
+            <Button
+              iconName="check"
+              variant="primary"
+              onClick={() => archiveItem(e.id)}
+            />
+          ),
+        },
+      ]}
+      empty={<Alert>No work items found.</Alert>}
+      items={items}
+    />
   );
+  // return (
+  //   <>
+  //     {!loading && items.length === 0 ? (
+  //       <Alert>No work items found.</Alert>
+  //     ) : (
+  //       <table>
+  //         <thead>
+  //           <tr>
+  //             <th>Item Id</th>
+  //             <th>User</th>
+  //             <th>Guide</th>
+  //             <th>Description</th>
+  //             <th>Status</th>
+  //             <th />
+  //           </tr>
+  //         </thead>
+  //         {loading ? (
+  //           <tbody>
+  //             <WorkItemsLoading />
+  //           </tbody>
+  //         ) : (
+  //           <tbody>
+  //             {items.map((item) => (
+  //               <WorkItem
+  //                 item={item}
+  //                 status={status}
+  //                 archiveItem={archiveItem}
+  //               />
+  //             ))}
+  //           </tbody>
+  //         )}
+  //       </table>
+  //     )}
+  //   </>
+  // );
 };
