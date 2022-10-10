@@ -14,9 +14,6 @@ Amazon RDS is a collection of managed services that makes it simple to set up, o
 
 The credential provider used in all code examples is Shared credentials. For more information, see [Credential providers](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/credential-providers.html).
 
-To run these examples, set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
-
 ### Single actions
 
 Code excerpts that show you how to call individual service functions using the **RdsClient** object: 
@@ -30,15 +27,20 @@ Code excerpts that show you how to call individual service functions using the *
 
 ### Scenario
 
-- [Performing various Amazon RDS operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/rds/src/main/kotlin/com/kotlin/RDSScenario.kt) (multiple commands)
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
+- [Perform various Amazon RDS operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/rds/src/main/kotlin/com/kotlin/RDSScenario.kt) (multiple commands)
 
 ### Cross-service examples
 
 Sample applications that work across multiple AWS services.
 
-- [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/serverless_rds)
+- [Create a React and Spring REST application that queries Amazon Aurora Serverless data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/serverless_rds)
 
 ## Run the examples
+
+To run these examples, set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
+see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon RDS instance. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
