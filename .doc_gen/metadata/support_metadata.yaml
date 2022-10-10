@@ -1,0 +1,200 @@
+# zexi 0.4.0
+support_Hello:
+  title: Hello &SUPPORT;
+  title_abbrev: Hello &SUPPORT;
+  synopsis: get started using &SUPPORTlong; (&SUPPORT;).
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.HelloSupport
+  services:
+    support: {ListServices}
+support_AddAttachment:
+  title: Add an &SUPPORT; attachment to a set using an &AWS; SDK
+  title_abbrev: Add an attachment to a set
+  synopsis: add an &SUPPORT; attachment to an attachment set to use in a support case.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.AddAttachmentToSet
+  services:
+    support: {AddAttachmentsToSet}
+support_addCommunication:
+  title: Add an &SUPPORT; communication to a support case using an &AWS; SDK
+  title_abbrev: Add a communication to a case
+  synopsis: add an &SUPPORT; communication with an attachment to a support case.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.AddCommunicationToCase
+  services:
+    support: {AddCommunicationToCase}
+support_createCase:
+  title: Create an &SUPPORT; case using an &AWS; SDK
+  title_abbrev: Create a case
+  synopsis: create a new &SUPPORT; case.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.CreateCase
+  services:
+    support: {CreateCase}
+support_describeAttachment:
+  title: Describe an &SUPPORT; attachment for a case using an &AWS; SDK
+  title_abbrev: Describe an attachment
+  synopsis: Describe an &SUPPORT; attachment for a case.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.DescribeAttachment
+  services:
+    support: {DescribeAttachment}
+support_describeCases:
+  title: Describe &SUPPORT; cases using an &AWS; SDK
+  title_abbrev: Describe cases
+  synopsis: Describe &SUPPORT; cases.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.DescribeCases
+  services:
+    support: {DescribeCases}
+support_describeCommunications:
+  title: Describe &SUPPORT; communications for a case using an &AWS; SDK
+  title_abbrev: Describe communications
+  synopsis: Describe &SUPPORT; communications for a case.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.DescribeCommunications
+  services:
+    support: {DescribeCommunications}
+support_describeServices:
+  title: Describe &SUPPORT; services using an &AWS; SDK
+  title_abbrev: Describe services
+  synopsis: Describe &SUPPORT; services.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.DescribeServices
+  services:
+    support: {DescribeServices}
+support_describeSeverityLevels:
+  title: Describe &SUPPORT; severity levels using an &AWS; SDK
+  title_abbrev: Describe severity levels
+  synopsis: Describe &SUPPORT; severity levels.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.DescribeSeverityLevels
+  services:
+    support: {DescribeSeverityLevels}
+support_resolveCase:
+  title: Resolve an &SUPPORT; case using an &AWS; SDK
+  title_abbrev: Resolve case
+  synopsis: Resolve an &SUPPORT; case.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.ResolveCase
+  services:
+    support: {ResolveCase}
+support_Scenario_GetStartedSupportCases:
+  title: Get started with &SUPPORT; cases using an &AWS; SDK
+  title_abbrev: Get started with &SUPPORT; cases
+  synopsis_list:
+    - Get and display available services and severity levels for cases.
+    - Create a support case using a selected service, category, and severity level.
+    - Get and display a list of open cases for the current day.
+    - Add an attachment set and a communication to the new case.
+    - Describe the new attachment and communication for the case.
+    - Resolve the case.
+    - Get and display a list of resolved cases for the current day.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - Support.dotnetv3.SupportBasics
+            - description: Wrapper methods used by the scenario for &SUPPORT actions.
+              snippet_tags:
+                - Support.dotnetv3.SupportWrapper
+  services:
+    support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment,
+               DescribeCases, DescribeCommunications, DescribeServices, DescribeSeverityLevels,
+               ResolveCase}

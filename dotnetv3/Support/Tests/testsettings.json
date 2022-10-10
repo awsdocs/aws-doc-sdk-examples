@@ -1,0 +1,8 @@
+{
+  "serviceCode": "general-info",
+  "categoryCode": "account-structure",
+  "severityCode": "low",
+  "exampleFileName": "exampleFile.txt",
+  "missingSubscriptionAccessKey": "00000000000000000000",
+  "missingSubscriptionSecret": "0000000000000000000000000000000000000000"
+}

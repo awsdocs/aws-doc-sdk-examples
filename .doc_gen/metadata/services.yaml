@@ -489,6 +489,14 @@ sts:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: sts-2011-06-15
   api_ref: STS/latest/APIReference/welcome.html
+support:
+  long: '&SUPPORTlong;'
+  short: '&SUPPORT;'
+  sort: Support
+  tags:
+    product_categories: {'Customer Enablement Services'}
+  version: support-2013-04-15
+  api_ref: support/latest/APIReference/welcome.html
 textract:
   long: '&TEXTRACTlong;'
   short: '&TEXTRACT;'
