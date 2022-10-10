@@ -5,5 +5,9 @@ RUN mkdir /src
 COPY . /src/
 
 # resolve dependencies
+# or builld
+
+# set work directory
 WORKDIR /src
+
 CMD ["bash"]
