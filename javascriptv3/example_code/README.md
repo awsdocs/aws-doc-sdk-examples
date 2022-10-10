@@ -25,7 +25,6 @@ npm install node -g
 cd javascriptv3/example_code/s3/tests
 npm install
 npm test
-
 ```
 ## Resources
 * [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
