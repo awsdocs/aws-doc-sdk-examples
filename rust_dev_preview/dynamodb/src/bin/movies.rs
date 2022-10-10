@@ -26,18 +26,18 @@ async fn run(client: Client) {
 }
 
 async fn verify(client: &Client) -> Result<(), Error> {
-    let films_2222 = movies_in_year(&client, TABLE_NAME, 2222)
+    let films_2222 = movies_in_year(client, TABLE_NAME, 2222)
         .await
         .expect("Query should succeed");
 
     // this isn't back to the future, there are no movies from 2022
     assert_eq!(films_2222.len(), 0);
 
-    let films_2013 = movies_in_year(&client, TABLE_NAME, 2013)
+    let films_2013 = movies_in_year(client, TABLE_NAME, 2013)
         .await
         .expect("Query should succeed");
 
-    assert!(films_2013.len() > 0, "should get movies back");
+    assert!(!films_2013.is_empty(), "should get movies back");
 
     Ok(())
 }

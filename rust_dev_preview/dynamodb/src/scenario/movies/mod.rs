@@ -140,15 +140,16 @@ impl From<&HashMap<String, AttributeValue>> for Movie {
     }
 }
 
-impl Into<PutRequest> for &Movie {
-    fn into(self) -> PutRequest {
+impl From<&Movie> for PutRequest {
+    fn from(movie: &Movie) -> Self {
         PutRequest::builder()
-            .item("year", AttributeValue::N(self.year.to_string()))
-            .item("title", AttributeValue::S(self.title.clone()))
+            .item("year", AttributeValue::N(movie.year.to_string()))
+            .item("title", AttributeValue::S(movie.title.clone()))
             .item(
                 "cast",
                 AttributeValue::L(
-                    self.info
+                    movie
+                        .info
                         .cast
                         .iter()
                         .map(|v| AttributeValue::S(v.clone()))
@@ -158,7 +159,8 @@ impl Into<PutRequest> for &Movie {
             .item(
                 "genre",
                 AttributeValue::L(
-                    self.info
+                    movie
+                        .info
                         .genres
                         .iter()
                         .map(|v| AttributeValue::S(v.clone()))
