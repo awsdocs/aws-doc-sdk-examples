@@ -138,7 +138,7 @@ support_describeServices:
 support_describeSeverityLevels:
   title: Describe &SUP; severity levels using an &AWS; SDK
   title_abbrev: Describe severity levels
-  synopsis: Describe &SUP; severity levels.
+  synopsis: describe &SUP; severity levels.
   category:
   languages:
     .NET:
