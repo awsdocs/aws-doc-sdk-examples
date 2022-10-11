@@ -2,7 +2,7 @@
 support_Hello:
   title: Hello &SUP;
   title_abbrev: Hello &SUP;
-  synopsis: get started using &SUPlong; (&SUP;).
+  synopsis: get started using &SUP;.
   category: Hello
   languages:
     .NET:
