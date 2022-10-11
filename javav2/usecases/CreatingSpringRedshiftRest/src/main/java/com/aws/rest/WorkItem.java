@@ -5,16 +5,46 @@
 
 package com.aws.rest;
 
-public class WorkItem {
+import software.amazon.awssdk.services.redshiftdata.model.Field;
+import java.util.List;
 
+public class WorkItem {
     private String id;
     private String name;
-    private String guide ;
+    private String guide;
     private String date;
     private String description;
     private String status;
 
-    public void setId (String id) {
+    public static WorkItem from(List<Field> fields) {
+        WorkItem item = new WorkItem();
+        for (int i = 0; i <= 5; i++) {
+            String value = fields.get(i).stringValue();
+            switch (i) {
+                case 0:
+                    item.setId(value);
+                    break;
+                case 1:
+                    item.setDate(value);
+                    break;
+                case 2:
+                    item.setDescription(value);
+                    break;
+                case 3:
+                    item.setGuide(value);
+                    break;
+                case 4:
+                    item.setStatus(value);
+                    break;
+                case 5:
+                    item.setName(value);
+                    break;
+            }
+        }
+        return item;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -22,7 +52,7 @@ public class WorkItem {
         return this.id;
     }
 
-    public void setStatus (String status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -30,7 +60,7 @@ public class WorkItem {
         return this.status;
     }
 
-    public void setDescription (String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -38,7 +68,7 @@ public class WorkItem {
         return this.description;
     }
 
-    public void setDate (String date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -46,7 +76,7 @@ public class WorkItem {
         return this.date;
     }
 
-    public void setName (String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -54,7 +84,7 @@ public class WorkItem {
         return this.name;
     }
 
-    public void setGuide (String guide) {
+    public void setGuide(String guide) {
         this.guide = guide;
     }
 

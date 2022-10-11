@@ -43,7 +43,8 @@ namespace CreateExportTaskExample
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                Console.WriteLine($"The task, {taskName} with ID: {response.TaskId} has been created successfully.");
+                Console.WriteLine($"The task, {taskName} with ID: " +
+                                  $"{response.TaskId} has been created successfully.");
             }
         }
 

@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import software.amazon.awssdk.services.lookoutvision.LookoutVisionClient;
 import software.amazon.awssdk.services.lookoutvision.model.DatasetDescription;
 import software.amazon.awssdk.services.lookoutvision.model.DatasetStatus;
+import software.amazon.awssdk.services.lookoutvision.model.DetectAnomalyResult;
 import software.amazon.awssdk.services.lookoutvision.model.LookoutVisionException;
 import software.amazon.awssdk.services.lookoutvision.model.ModelDescription;
 import software.amazon.awssdk.services.lookoutvision.model.ModelMetadata;
@@ -42,6 +43,8 @@ public class LookoutVisionTest {
     private static String modelTrainingOutputBucket = "";
     private static String modelTrainingOutputFolder = "";
     private static String photo = "";
+    private static String anomalousPhoto = "";
+    private static String anomalyLabel = "";
     private static String datasetType = "";
     private static String manifestFile = "";
     private static String jobName = "";
@@ -66,6 +69,8 @@ public class LookoutVisionTest {
             modelTrainingOutputBucket = prop.getProperty("modelTrainingOutputBucket");
             modelTrainingOutputFolder = prop.getProperty("modelTrainingOutputFolder");
             photo = prop.getProperty("photo");
+            anomalousPhoto = prop.getProperty("anomalousPhoto");
+            anomalyLabel = prop.getProperty("anomalyLabel");
             manifestFile = prop.getProperty("manifestFile");
             // jobName = prop.getProperty("jobName");
             modelPackageJobJsonFile = prop.getProperty("modelPackageJobJsonFile");
@@ -306,20 +311,37 @@ public class LookoutVisionTest {
     @Order(15)
     public void detectAnomaliesPanel_thenNotNull() throws IOException, LookoutVisionException {
 
-        DetectAnomalies panel = new DetectAnomalies(lfvClient, projectName, modelVersion, photo);
-        assertNotNull(panel);
+        float minConfidence = (float) 0.5;
+    
+        // Check normal classification
+        DetectAnomalyResult prediction = DetectAnomalies.detectAnomalies(lfvClient, projectName, modelVersion, photo);
+        boolean reject = DetectAnomalies.rejectOnClassification(photo, prediction, minConfidence);
+        assertEquals(Boolean.FALSE, reject);
+
+        // Check anomalous classification
+        prediction = DetectAnomalies.detectAnomalies(lfvClient, projectName, modelVersion, anomalousPhoto);
+        reject = DetectAnomalies.rejectOnClassification(anomalousPhoto, prediction, minConfidence);
+        assertEquals(Boolean.TRUE, reject);
+
+        // Check at least 1 anomaly exists
+        reject = DetectAnomalies.rejectOnAnomalyTypeCount(anomalousPhoto, prediction, minConfidence, 0);
+        assertEquals(Boolean.TRUE, reject);
+
+        // Check coverage for an anomaly is at least 0.01.
+        reject = DetectAnomalies.rejectOnCoverage(anomalousPhoto, prediction, minConfidence, anomalyLabel,
+                (float) 0.01);
+        assertEquals(Boolean.TRUE, reject);
+
         System.out.println("Test 15 passed");
 
     }
 
     @Test
     @Order(16)
-    public void stopModel_thenEquals() throws IOException, LookoutVisionException, InterruptedException {
+    public void showAnomaliesPanel_thenNotNull() throws IOException, LookoutVisionException {
 
-        // Describe a model.
-        ModelDescription model = Hosting.stopModel(lfvClient, projectName, modelVersion);
-
-        assertEquals(ModelStatus.TRAINED, model.status());
+        ShowAnomalies panel = new ShowAnomalies(lfvClient, projectName, modelVersion, photo);
+        assertNotNull(panel);
 
         System.out.println("Test 16 passed");
 
@@ -327,6 +349,19 @@ public class LookoutVisionTest {
 
     @Test
     @Order(17)
+    public void stopModel_thenEquals() throws IOException, LookoutVisionException, InterruptedException {
+
+        // Describe a model.
+        ModelDescription model = Hosting.stopModel(lfvClient, projectName, modelVersion);
+
+        assertEquals(ModelStatus.TRAINED, model.status());
+
+        System.out.println("Test 17 passed");
+
+    }
+
+    @Test
+    @Order(18)
     public void startModelPackagingJob_thenEqual() throws IOException, LookoutVisionException, InterruptedException {
 
         // Create the model packaging job.
@@ -337,12 +372,12 @@ public class LookoutVisionTest {
 
         assertEquals(ModelPackagingJobStatus.SUCCEEDED, packageDescription.status());
 
-        System.out.println("Test 17 passed");
+        System.out.println("Test 18 passed");
 
     }
 
     @Test
-    @Order(18)
+    @Order(19)
     public void listModelPackagingJobs_thenEquals() throws IOException, LookoutVisionException, InterruptedException {
 
         // List model packaging jobs.
@@ -353,12 +388,12 @@ public class LookoutVisionTest {
 
         assertEquals(jobName, packagingJobs.get(0).jobName());
 
-        System.out.println("Test 18 passed");
+        System.out.println("Test 19 passed");
 
     }
 
     @Test
-    @Order(19)
+    @Order(20)
     public void describeModelPackagingJob_thenNotNull() throws IOException, LookoutVisionException {
 
         // Describe a model.
@@ -369,12 +404,12 @@ public class LookoutVisionTest {
 
         // Check that a description is returned.
         assertNotNull(description);
-        System.out.println("Test 19 passed");
+        System.out.println("Test 20 passed");
 
     }
 
     @Test
-    @Order(20)
+    @Order(21)
     public void deleteDataset_thenNotFound() throws IOException,
             LookoutVisionException {
 
@@ -387,13 +422,13 @@ public class LookoutVisionTest {
         } catch (LookoutVisionException e) {
 
             assertEquals("ResourceNotFoundException", e.awsErrorDetails().errorCode());
-            System.out.println("Test 20 passed");
+            System.out.println("Test 21 passed");
         }
 
     }
 
     @Test
-    @Order(21)
+    @Order(22)
     public void deleteModel_thenNotFound() throws IOException,
             LookoutVisionException, InterruptedException {
 
@@ -406,13 +441,13 @@ public class LookoutVisionTest {
         } catch (LookoutVisionException e) {
 
             assertEquals("ResourceNotFoundException", e.awsErrorDetails().errorCode());
-            System.out.println("Test 21 passed");
+            System.out.println("Test 22 passed");
         }
 
     }
 
     @Test
-    @Order(22)
+    @Order(23)
     public void deleteProject_thenNotFound() throws IOException,
             LookoutVisionException, InterruptedException {
 
@@ -422,7 +457,7 @@ public class LookoutVisionTest {
         } catch (LookoutVisionException e) {
 
             assertEquals("ResourceNotFoundException", e.awsErrorDetails().errorCode());
-            System.out.println("Test 22 passed");
+            System.out.println("Test 23 passed");
         }
 
     }

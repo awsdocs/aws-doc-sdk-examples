@@ -97,7 +97,6 @@ app.post("/request", (req, res) => {
 });
 
 app.post("/changewi", (req, res) => {
-  const body = req.body;
   console.log(req.body);
   var params = {
     TableName: tableName,
@@ -147,7 +146,7 @@ app.post("/uploadCSV", (req, res) => {
   };
   const run = async () => {
     try {
-      const data = await s3Client.send(new PutObjectCommand(uploadParams));
+      await s3Client.send(new PutObjectCommand(uploadParams));
       const linkToCSV =
         "https://s3.console.aws.amazon.com/s3/buckets/" +
         uploadParams.Bucket +

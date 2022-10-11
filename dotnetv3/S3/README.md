@@ -1,105 +1,93 @@
-# Amazon S3 code examples for .NET
+# Amazon S3 code examples for the SDK for .NET
 
-## Purpose
+## Overview
+The code examples in this section show how to use the AWS SDK for .NET with Amazon Simple Storage Service (Amazon S3) features.
 
-The code examples in this directory demonstrate how to work with Amazon Simple
-Storage Service (Amazon S3) features using the AWS SDK for .NET v3.5 or later.
-
-Amazon S3 is storage for the internet. You can use Amazon S3 to store and
-retrieve any amount of data at any time, from anywhere on the web.
+Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
 
 ## ⚠️ Important
-
-- We recommend that grant your code least privilege, or at most the minimum
-  permissions required to perform the task. For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide. 
-- This code has not been tested in all AWS Regions. Some AWS services are
-  available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
-- Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
-### Scenario Examples
+### Single actions
+Code excerpts that show you how to call individual service functions.
+
+- [Abort multi-part upload](AbortMPUExample/AbortMPU.cs) (`AbortMultipartUploadsAsync`)
+- [Copy an object from one bucket to another](CopyObjectExample/CopyObject.cs) (`CopyObjectAsync`)
+- [Create a bucket](CreateBucketExample/CreateBucket.cs) (`CreateBucketAsync`)
+- [Cross-Region replication](CrossRegionReplicationExample/CrossRegionReplication.cs) (`PutBucketReplicationAsync`, `GetBucketReplicationAsync`)
+- [Delete an empty bucket](DeleteBucketExample/DeleteBucket.cs) (`DeleteBucketAsync`)
+- [Delete an object from a bucket](non-versioned-examples/DeleteObjectExample/DeleteObject.cs) (`DeleteObjectAsync`)
+- [Delete multiple objects](non-versioned-examples/DeleteMultipleObjectsExample/DeleteMultipleObjects.cs) (`DeleteObjectsAsync`)
+- [Delete versions of an object](versioned-examples/DeleteObjectVersionExample/DeleteObjectVersion.cs) (`DeleteObjectVersionAsync`)
+- [Enable notifications](EnableNotificationsExample/EnableNotifications.cs) (`PutBucketNotificationAsync`)
+- [Encrypt an object using server side encryption](ServerSideEncryptionExample/ServerSideEncryption.cs) (`PutObjectAsync`, `GetObjectMetadataAsync`)
+- [Encrypt an object using client side encryption](SSEClientEncryptionExample/SSEClientEncryption.cs) (`PutObjectAsync`, `GetObjectAsync`, `GetObjectMetadataAsync`)
+- [Get a bucket's transfer acceleration configuration](TransferAccelerationExample/TransferAcceleration.cs) (`GetBucketAccelerateConfigurationAsync`)
+- [Get a presigned URL](GenPresignedURLExample/GenPresignedUrl.cs) (`GetPreSignedURLAsync`)
+- [Get an object from a bucket](GetObjectExample/GetObject.cs) (`GetObjectAsync`)
+- [Get temporary federated credentials](TempFederatedCredentialsExample/TempFederatedCredentials.cs) (`GetTemporaryFederatedCredentialsAsync`, `GetFederationTokenAsync`)
+- [Get the ACL of a bucket](BucketACLExample/BucketACL.cs) (`GetBucketAclAsync` )
+- [List buckets](ListBucketsExample/ListBuckets.cs) (`ListBucketsAsync`)
+- [List objects in a bucket](ListObjectsExample/ListObjects.cs) (`ListObjectsV2Async`)
+- [List objects in a bucket using a dual stack endpoint](DualStackEndpointExample/DualStackEndpoint.cs) (`ListObjectsV2Async`)
+- [List objects in a bucket using a paginator](ListObjectsPaginatorExample/ListObjectsPaginator.cs) (`ListObjectsV2Async`)
+- [List the versions of an object](versioned-examples/ListObjectVersionsExample/ListObjectVersions.cs) (`ListObjectVersionsAsync`)
+- [Log server access](ServerAccessLoggingExample/ServerAccessLogging.cs) (`PutACLAsync`, `PutBucketLoggingAsync`)
+- [Manage a bucket's ACL](ManageACLsExample/ManageACLs.cs) (`PutBucketAsync`, `GetACLAsync`, `PutACLAsync`)
+- [Manage an object's ACL](ManageObjectACLExample/ManageObjectACL.cs) (`PubtObjectACLAsync`, `GetObjectAclAsync`)
+- [Manage bucket CORS rules](s3CORSExample/S3CORS.cs) (`GetBucketCorsAsync`, `PutBucketCorsAsync`, `DeleteBucketCorsAsync`)
+- [Manage the lifecycle of a bucket](LifecycleExample/Lifecycle.cs) (`GetBucketLifecycleConfigurationAsync`, `PutBucketLifecycleConfigurationAsync`, `DeleteLifecycleConfigurationAsync`)
+- [Perform a multi-part copy](SSECLowLevelMPUcopyObjectExample/SSECLowLevelMPUcopyObject.cs) (`InitiateMultipartUploadAsync`, `UploadPartAsync`, `CompleteMultipartUploadAsync`)
+- [Perform a multi-part upload](MPUapiCopyObjExample/MPUapiCopyObj.cs) (`InitiateMultipartUploadAsync`, `CopyPartAsync`, `CompleteMultipartUploadAsync`)
+- [Perform a multi-part upload of a directory](UploadDirMPUHighLevelAPIExample/UploadDirMPUHighLevelAPI.cs) (`UploadDirectoryAsync`)
+- [Perform a multi-part upload of a file](UploadFileMPUHighLevelAPIExample/UploadFileMPUHighLevelAPI.cs) (`UploadAsync`)
+- [Perform a multi-part upload of a file](UploadFileMPULowLevelAPIExample/UploadFileMPULowLevelAPI.cs) (`UploadPartAsync`)
+- [Restore an archived object](RestoreArchivedObjectExample/RestoreArchivedObject.cs) (`RestoreObjectAsync`)
+- [Set a new ACL for a bucket](BucketACLExample/BucketACL.cs) (`PutBucketACLAsync`)
+- [Set the website configuration of a bucket](WebsiteConfigExample/WebsiteConfig.cs) (`PutBucketWebsiteAsync`)
+- [Start a session using temporary credentials](TempCredExplicitSessionStartExample/TempCredExplicitSessionStart.cs) (`GetSessionTokenAsync`)
+- [Tag an object in a bucket](ObjectTagExample/ObjectTag.cs) (`PutOjectAsync`, `PutObjectTaggingAsync`)
+- [Track progress of a multi-part upload](TrackMPUUsingHighLevelAPIExample/TrackMPUUsingHighLevelAPI.cs) (`FileTransferUtility.UploadAsync`)
+- [Upload an object to a bucket](UploadObjectExample/UploadObject.cs) (`PutObjectAsync`)
+- [Upload objects using a presigned URL](UploadUsingPresignedURLExample/UploadUsingPresignedURL.cs) (`GetPreSignedURLAsync`)
+
+### Scenarios
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
  - [S3 basics](S3_Basics)
  - [Transfer Utility basics](scenarios/TransferUtilityBasics/)
 
-### API examples
-
-- [Abort multi-part upload](AbortMPUExample/) (`AbortMultipartUploadsAsync`)
-- [Get the ACL of a bucket](BucketACLExample/) (`GetBucketAclAsync` )
-- [Set a new ACL for a bucket](BucketACLExample/) (`PutBucketACLAsync`)
-- [Copy an object from one bucket to another](CopyObjectExample/) (`CopyObjectAsync`)
-- [Create a bucket](CreateBucketExample/) (`CreateBucketAsync`)
-- [Cross-region replication](CrossRegionReplicationExample/)
-(`PutBucketReplicationAsync`, `GetBucketReplicationAsync`)
-- [Delete an empty bucket](DeleteBucketExample/) (`DeleteBucketAsync`)
-- [List objects in a bucket](DualStackEndpointExample/) (`ListObjectsV2Async`)
-- [Enable notifications](EnableNotificationsExample/) (`PutBucketNotificationAsync`)
-- [Get a presigned URL](GenPresignedURLExample/) (`GetPreSignedURLAsync`)
-- [Get an object from a bucket](GetObjectExample/) (`GetObjectAsync`)
-- [Manage the lifecycle of a bucket](LifecycleExample/)
-(`GetBucketLifecycleConfigurationAsync`, `PutBucketLifecycleConfigurationAsync`, `DeleteLifecycleConfigurationAsync`)
-- [List buckets](ListBucketsExample/) (`ListBucketsAsync`)
-- [List objects in a bucket](ListObjectsExample/) (`ListObjectsV2Async`)
-- [List objects in a bucket using a paginator](ListObjectsPaginatorExample/) (`ListObjectsV2Async`)
-- [Manage a bucket's ACL](ManageACLsExample/) (`PutBucketAsync`, `GetACLAsync`, `PutACLAsync`)
-- [Manage an object's ACL](ManageObjectACLExample/) (`PubtObjectACLAsync`, `GetObjectAclAsync`)
-- [Perform a multi-part upload](MPUapiCopyObjExample/)
-(`InitiateMultipartUploadAsync`, `CopyPartAsync`, `CompleteMultipartUploadAsync`)
-- [Delete multiple objects](non-versioned-examples/DeleteMultipleObjectsExample/) (`DeleteObjectsAsync`)
-- [Delete an object from a bucket](non-versioned-examples/DeleteObjectExample/) (`DeleteObjectAsync`)
-- [Tag an object in a bucket](ObjectTagExample/) (`PutOjectAsync`, `PutObjectTaggingAsync`)
-- [Restore an archived object](RestoreArchivedObjectExample/) (`RestoreObjectAsync`)
-- [Manage bucket CORS rules](s3CORSExample/) (`GetBucketCorsAsync`, `PutBucketCorsAsync`, `DeleteBucketCorsAsync`)
-- [Log server access](ServerAccessLoggingExample/) (`PutACLAsync`, `PutBucketLoggingAsync`)
-- [Encrypt an object using server side encryption](ServerSideEncryptionExample/) (`PutObjectAsync`, `GetObjectMetadataAsync`)
-- [Encrypt an object using client side encryption](SSEClientEncryptionExample/) (`PutObjectAsync`, `GetObjectAsync`, `GetObjectMetadataAsync`)
-- [Perform a multi-part copy](SSECLowLevelMPUcopyObjectExample/)
-(`InitiateMultipartUploadAsync`, `UploadPartAsync`, `CompleteMultipartUploadAsync`)
-- [Start a session using temporary credentials](TempCredExplicitSessionStartExample/) (`GetSessionTokenAsync`)
-- [TempFederatedCredentialsExample](TempFederatedCredentialsExample/)
-(`GetTemporaryFederatedCredentialsAsync`, `GetFederationTokenAsync`)
-- [TrackMPUUsingHighLevelAPIExample](TrackMPUUsingHighLevelAPIExample/) (`FileTransferUtility.UploadAsync`)
-- [Get a bucket's transfer acceleration configuration](TransferAccelerationExample/) (`GetBucketAccelerateConfigurationAsync`)
-- [Perform a multi-part upload of a directory](UploadDirMPUHighLevelAPIExample/) (`UploadDirectoryAsync`)
-- [Perform a multi-part upload of a file](UploadFileMPUHighLevelAPIExample/) (`UploadAsync`)
-- [Perform a multi-part upload of a file](UploadFileMPULowLevelAPIExample/) (`UploadPartAsync`)
-- [Upload an object to a bucket](UploadObjectExample/) (`PutObjectAsync`)
-- [Upload objects using a presigned URL](UploadUsingPresignedURLExample/) (`GetPreSignedURLAsync`)
-- [Delete multiple objects](versioned-examples/DeleteMultipleObjectsExample/) (`DeleteObjectsAsync`)
-- [Delete versions of an object](versioned-examples/DeleteObjectVersionExample/)
-(`DeleteObjectVersionAsync`)
-- [List the versions of an object](versioned-examples/ListObjectVersionsExample/) (`ListObjectVersionsAsync`)
-- [Set the website configuration of a bucket](WebsiteConfigExample/) (`PutBucketWebsiteAsync`)
-
 ### Cross-service examples
+Sample applications that work across multiple AWS services.
 
 - [Create a web application that analyzes photos in a bucket using the Amazon Rekognition service](../cross-service/PhotoAnalyzerApp)
 
-## Running the Examples
+## Run the examples
 
-The examples in this folder use the default user account. The call to
-initialize the Amazon S3 client supplies the region. Change the region to
-match your own before running the example.
+### Prerequisites
+* To find prerequisites for running these examples, see the
+  [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-Once the example has been compiled, you can run it from the commandline by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run
 ```
 
-Alternatively you can execute the example from within your IDE.
+Alternatively, you can run the example from within your IDE.
 
-## Resources and documentation
-
-- [Amazon Simple Storage Service documentation](https://docs.aws.amazon.com/s3/)
-- [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-- [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
-
+## Additional resources
+* [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/index.html)
+* [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+* [AWS SDK for .NET Amazon S3](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/S3/NS3.html)
+* [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 

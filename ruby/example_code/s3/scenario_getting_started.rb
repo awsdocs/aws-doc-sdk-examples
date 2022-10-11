@@ -31,7 +31,7 @@ class ScenarioGettingStarted
     bucket = @s3_resource.create_bucket(
       bucket: "doc-example-bucket-#{Random.uuid}",
       create_bucket_configuration: {
-        location_constraint: s3_resource.client.config.region
+        location_constraint: "us-east-2" # Note: only certain regions permitted
       }
     )
     puts("Created demo bucket named #{bucket.name}.")
@@ -47,30 +47,21 @@ class ScenarioGettingStarted
   # Requests a file name from the user.
   #
   # @return The name of the file.
-  def request_file_name
-    file_name = ""
-    while file_name.empty?
-      puts("\nEnter a file you want to upload to your bucket: ")
-      file_name = gets.chomp
-      unless File.file?(file_name)
-        puts("Couldn't find file #{file_name}. Are you sure it exists?")
-        file_name = ""
-      end
-    end
-    file_name
+  def create_file
+    File.open("demo.txt", w) { |f| f.write("This is a demo file.") }
   end
 
-  # Uploads a file from your computer to an Amazon S3 bucket.
+  # Uploads a file to an Amazon S3 bucket.
   #
-  # @param bucket [Aws::S3::Bucket] The bucket where the file is uploaded.
+  # @param bucket [Aws::S3::Bucket] The bucket object representing the upload destination
   # @return [Aws::S3::Object] The Amazon S3 object that contains the uploaded file.
   def upload_file(bucket)
-    file_name = request_file_name
-    s3_object = bucket.object(File.basename(file_name))
-    s3_object.upload_file(file_name)
-    puts("Uploaded file #{file_name} into bucket #{bucket.name} with key #{s3_object.key}.")
+    File.open("demo.txt", "w+") { |f| f.write("This is a demo file.") }
+    s3_object = bucket.object(File.basename("demo.txt"))
+    s3_object.upload_file("demo.txt")
+    puts("Uploaded file demo.txt into bucket #{bucket.name} with key #{s3_object.key}.")
   rescue Aws::Errors::ServiceError => e
-    puts("Couldn't upload file #{file_name} to #{bucket.name}.")
+    puts("Couldn't upload file demo.txt to #{bucket.name}.")
     puts("\t#{e.code}: #{e.message}")
     raise
   else

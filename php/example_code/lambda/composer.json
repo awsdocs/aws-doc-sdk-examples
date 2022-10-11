@@ -1,0 +1,17 @@
+{
+  "require": {
+    "aws/aws-sdk-php": "^3.209",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "": "*"
+    },
+    "psr-4": {
+      "Lambda\\": "../lambda/",
+      "Iam\\": "../iam",
+      "AwsUtilities\\": "../aws_utilities"
+    },
+    "files": ["../aws_utilities/TestableReadline.php"]
+  }
+}

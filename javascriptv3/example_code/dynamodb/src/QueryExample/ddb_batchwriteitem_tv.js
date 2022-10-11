@@ -15,7 +15,6 @@ node ddb_batchwriteitem_tv.test.js
 // snippet-start:[dynamodb.JavaScript.batch.BatchWriterItemTVV3]
 // Import required AWS SDK clients and commands for Node.js
 import {
-  DynamoDBClient,
   BatchWriteItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "../libs/ddbClient.js";

@@ -1,0 +1,16 @@
+source "https://rubygems.org"
+ruby "3.1.2"
+
+gem "aws-sdk"
+gem "rspec"
+gem "rubyzip"
+gem "rake"
+gem "rubocop"
+gem "rubocop-rake"
+gem "rubocop-github"
+gem 'json'
+gem 'pp'
+gem "open-uri"
+gem "zip"
+gem 'openssl'
+gem 'cli-ui'
