@@ -1,6 +1,6 @@
 # CloudWatch code examples for the AWS SDK for Ruby (v3)
 ## Overview
-Shows how to create and manage Amazon Cloudwatch apparatus using the AWS SDK for Ruby (v3).
+These examples show how to create and manage Amazon Cloudwatch apparatus using the AWS SDK for Ruby (v3).
 
 Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes. You no longer need to set up, manage, and scale your own monitoring systems and infrastructure.
 

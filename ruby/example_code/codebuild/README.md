@@ -1,6 +1,6 @@
 # CodeBuild code examples for the AWS SDK for Ruby (v3)
 ## Overview
-Shows how to create and manage AWS CodeBuild workflows using the AWS SDK for Ruby (v3).
+These examples show how to create and manage AWS CodeBuild workflows using the AWS SDK for Ruby (v3).
 
 AWS CodeBuild is a fully managed build service that compiles your source code, runs unit tests, and produces artifacts that are ready to deploy.
 

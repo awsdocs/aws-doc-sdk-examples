@@ -1,6 +1,6 @@
 # DynamoDB code examples for the AWS SDK for Ruby (v3)
 ## Overview
-Shows how to create and manage Amazon DynamoDB database tables using the AWS SDK for Ruby (v3).
+These examples show how to create and manage Amazon DynamoDB database tables using the AWS SDK for Ruby (v3).
 
 Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. You can use Amazon DynamoDB to create a database table that can store and retrieve any amount of data, and serve any level of request traffic. Amazon DynamoDB automatically spreads the data and traffic for the table over a sufficient number of servers to handle the request capacity specified by the customer and the amount of data stored, while maintaining consistent and fast performance.
 

@@ -1,6 +1,6 @@
 # SecretsManager code examples for the AWS SDK for Ruby (v3)
 ## Overview
-Shows how to create and manage secrets in AWS Secrets Manager using the AWS SDK for Ruby (v3).
+These examples show how to create and manage secrets in AWS Secrets Manager using the AWS SDK for Ruby (v3).
 
 AWS Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services. Instead of hardcoding credentials in your apps, you can make calls to Secrets Manager to retrieve your credentials whenever needed. Secrets Manager helps you protect access to your IT resources and data by enabling you to rotate and manage access to your secrets.
 

@@ -1,6 +1,6 @@
 # SES code examples for the AWS SDK for Ruby (v3)
 ## Overview
-Shows how to create and manage Amazon Simple Email Service (Amazon SES) domains using the AWS SDK for Ruby (v3).
+These examples show how to create and manage Amazon Simple Email Service (Amazon SES) domains using the AWS SDK for Ruby (v3).
 
 Amazon Simple Email Service (Amazon SES) is a reliable, scalable, and cost-effective email service. Digital marketers and application developers can use Amazon SES to send marketing, notification, and transactional emails.
 

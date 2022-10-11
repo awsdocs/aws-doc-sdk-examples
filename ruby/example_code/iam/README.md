@@ -1,6 +1,6 @@
 # IAM code examples for the AWS SDK for Ruby (v3)
 ## Overview
-Shows how to create and manage AWS users, credentials, and permissions using the AWS SDK for Ruby (v3).
+These examples show how to create and manage AWS users, credentials, and permissions using the AWS SDK for Ruby (v3).
 
 AWS Identity and Access Management (IAM) is a web service for securely controlling access to AWS services. With IAM, you can centrally manage users, security credentials such as access keys, and permissions that control which AWS resources users and applications can access.
 

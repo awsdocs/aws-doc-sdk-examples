@@ -1,6 +1,6 @@
 # WorkDocs code examples for the AWS SDK for Ruby (v3)
 ## Overview
-Shows how to create and manage Amazon WorkDocs sites using the AWS SDK for Ruby (v3).
+These examples show how to create and manage Amazon WorkDocs sites using the AWS SDK for Ruby (v3).
 
 Amazon WorkDocs is a fully managed, secure enterprise storage and sharing service with strong administrative controls and feedback capabilities that improve user productivity.
 

@@ -1,6 +1,6 @@
 # {{ service_name }} code examples for the {{ short_sdk_name }}
 ## Overview
-Shows how to {{ code_examples_actions }} using the {{ short_sdk_name }}.
+These examples show how to {{ code_examples_actions }} using the {{ short_sdk_name }}.
 
 {{ service_blurb_from_website }}
 

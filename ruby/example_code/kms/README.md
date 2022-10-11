@@ -1,6 +1,6 @@
 # KMS code examples for the AWS SDK for Ruby (v3)
 ## Overview
-Shows how to create and manage AWS Key Management Service (AWS KMS) keys using the AWS SDK for Ruby (v3).
+These examples show how to create and manage AWS Key Management Service (AWS KMS) keys using the AWS SDK for Ruby (v3).
 
 AWS Key Management Service (AWS KMS) is an encryption and key management service scaled for the cloud. AWS KMS keys and functionality are used by other AWS services, and you can use them to protect data in your own applications that use AWS.
 
