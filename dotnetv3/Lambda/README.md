@@ -43,6 +43,39 @@ multiple functions within the same service.
 
 ## Run the examples
 
+### Get started with functions
+
+This interactive scenario runs at a command prompt and shows you how to use
+AWS Lambda to do the following:
+
+1. Create an AWS Identity and Access Management (IAM) role that grants Lambda
+   permission to write to logs.
+1. Create a Lambda function and upload handler code.
+1. List the functions for your account.
+1. Invoke the function with a single parameter and get results.
+1. Update the function code and configure its Lambda environment with an environment
+   variable.
+1. Invoke the function with new parameters and get results.
+1. Delete the Lambda function.
+1. Delete the IAM role.
+
+The scenario uses two different Lambda function:
+
+- [Increment a value](LambdaIncrement/)
+- [Perform simple arithmetic](LambdaCalculator/)
+
+The scenario expects to find the compressed files in an Amazon Simple Storage
+Service (Amazon S3) bucket. To create the compressed files, you can use the
+.NET command line interpreter. To install the CLI tools for AWS Lambda, type the
+following command:
+
+`dotnet tool install -g Amazon.Lambda.Tools`
+
+Once installed, navigate to the folder containing the project file (`*.csproj`) and type
+the following:
+
+`dotnet lambda package`
+
 ### Prerequisites
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
