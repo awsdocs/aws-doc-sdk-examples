@@ -28,7 +28,7 @@ public static class HelloSupport
                     .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information)
                     .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
             .ConfigureServices((_, services) =>
-                services.AddAWSService<IAmazonAWSSupport>(new AWSOptions(){Profile = "dotnettesting"})
+                services.AddAWSService<IAmazonAWSSupport>()
                     .AddTransient<SupportWrapper>()
             )
             .Build();

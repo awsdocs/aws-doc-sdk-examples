@@ -1,8 +1,8 @@
 # zexi 0.4.0
 support_Hello:
-  title: Hello &SUPPORT;
-  title_abbrev: Hello &SUPPORT;
-  synopsis: get started using &SUPPORTlong; (&SUPPORT;).
+  title: Hello &SUP;
+  title_abbrev: Hello &SUP;
+  synopsis: get started using &SUPlong; (&SUP;).
   category: Hello
   languages:
     .NET:
@@ -17,9 +17,9 @@ support_Hello:
   services:
     support: {ListServices}
 support_AddAttachment:
-  title: Add an &SUPPORT; attachment to a set using an &AWS; SDK
+  title: Add an &SUP; attachment to a set using an &AWS; SDK
   title_abbrev: Add an attachment to a set
-  synopsis: add an &SUPPORT; attachment to an attachment set to use in a support case.
+  synopsis: add an &SUP; attachment to an attachment set to use in a support case.
   category:
   languages:
     .NET:
@@ -34,9 +34,9 @@ support_AddAttachment:
   services:
     support: {AddAttachmentsToSet}
 support_addCommunication:
-  title: Add an &SUPPORT; communication to a support case using an &AWS; SDK
+  title: Add an &SUP; communication to a support case using an &AWS; SDK
   title_abbrev: Add a communication to a case
-  synopsis: add an &SUPPORT; communication with an attachment to a support case.
+  synopsis: add an &SUP; communication with an attachment to a support case.
   category:
   languages:
     .NET:
@@ -51,9 +51,9 @@ support_addCommunication:
   services:
     support: {AddCommunicationToCase}
 support_createCase:
-  title: Create an &SUPPORT; case using an &AWS; SDK
+  title: Create an &SUP; case using an &AWS; SDK
   title_abbrev: Create a case
-  synopsis: create a new &SUPPORT; case.
+  synopsis: create a new &SUP; case.
   category:
   languages:
     .NET:
@@ -68,9 +68,9 @@ support_createCase:
   services:
     support: {CreateCase}
 support_describeAttachment:
-  title: Describe an &SUPPORT; attachment for a case using an &AWS; SDK
+  title: Describe an &SUP; attachment for a case using an &AWS; SDK
   title_abbrev: Describe an attachment
-  synopsis: Describe an &SUPPORT; attachment for a case.
+  synopsis: Describe an &SUP; attachment for a case.
   category:
   languages:
     .NET:
@@ -85,9 +85,9 @@ support_describeAttachment:
   services:
     support: {DescribeAttachment}
 support_describeCases:
-  title: Describe &SUPPORT; cases using an &AWS; SDK
+  title: Describe &SUP; cases using an &AWS; SDK
   title_abbrev: Describe cases
-  synopsis: Describe &SUPPORT; cases.
+  synopsis: Describe &SUP; cases.
   category:
   languages:
     .NET:
@@ -102,9 +102,9 @@ support_describeCases:
   services:
     support: {DescribeCases}
 support_describeCommunications:
-  title: Describe &SUPPORT; communications for a case using an &AWS; SDK
+  title: Describe &SUP; communications for a case using an &AWS; SDK
   title_abbrev: Describe communications
-  synopsis: Describe &SUPPORT; communications for a case.
+  synopsis: Describe &SUP; communications for a case.
   category:
   languages:
     .NET:
@@ -119,9 +119,9 @@ support_describeCommunications:
   services:
     support: {DescribeCommunications}
 support_describeServices:
-  title: Describe &SUPPORT; services using an &AWS; SDK
+  title: Describe &SUP; services using an &AWS; SDK
   title_abbrev: Describe services
-  synopsis: Describe &SUPPORT; services.
+  synopsis: Describe &SUP; services.
   category:
   languages:
     .NET:
@@ -136,9 +136,9 @@ support_describeServices:
   services:
     support: {DescribeServices}
 support_describeSeverityLevels:
-  title: Describe &SUPPORT; severity levels using an &AWS; SDK
+  title: Describe &SUP; severity levels using an &AWS; SDK
   title_abbrev: Describe severity levels
-  synopsis: Describe &SUPPORT; severity levels.
+  synopsis: Describe &SUP; severity levels.
   category:
   languages:
     .NET:
@@ -153,9 +153,9 @@ support_describeSeverityLevels:
   services:
     support: {DescribeSeverityLevels}
 support_resolveCase:
-  title: Resolve an &SUPPORT; case using an &AWS; SDK
+  title: Resolve an &SUP; case using an &AWS; SDK
   title_abbrev: Resolve case
-  synopsis: Resolve an &SUPPORT; case.
+  synopsis: Resolve an &SUP; case.
   category:
   languages:
     .NET:
@@ -170,8 +170,8 @@ support_resolveCase:
   services:
     support: {ResolveCase}
 support_Scenario_GetStartedSupportCases:
-  title: Get started with &SUPPORT; cases using an &AWS; SDK
-  title_abbrev: Get started with &SUPPORT; cases
+  title: Get started with &SUP; cases using an &AWS; SDK
+  title_abbrev: Get started with &SUP; cases
   synopsis_list:
     - Get and display available services and severity levels for cases.
     - Create a support case using a selected service, category, and severity level.
@@ -191,7 +191,7 @@ support_Scenario_GetStartedSupportCases:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - Support.dotnetv3.SupportBasics
-            - description: Wrapper methods used by the scenario for &SUPPORT; actions.
+            - description: Wrapper methods used by the scenario for &SUP; actions.
               snippet_tags:
                 - Support.dotnetv3.SupportWrapper
   services:

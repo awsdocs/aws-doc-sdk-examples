@@ -490,8 +490,8 @@ sts:
   version: sts-2011-06-15
   api_ref: STS/latest/APIReference/welcome.html
 support:
-  long: '&SUPPORTlong;'
-  short: '&SUPPORT;'
+  long: '&SUPlong;'
+  short: '&SUP;'
   sort: Support
   tags:
     product_categories: {'Customer Enablement Services'}
