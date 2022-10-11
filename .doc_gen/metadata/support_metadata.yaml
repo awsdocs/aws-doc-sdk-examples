@@ -15,7 +15,7 @@ support_Hello:
               snippet_tags:
                 - Support.dotnetv3.HelloSupport
   services:
-    support: {ListServices}
+    support: {DescribeServices}
 support_AddAttachment:
   title: Add an &SUP; attachment to a set using an &AWS; SDK
   title_abbrev: Add an attachment to a set
