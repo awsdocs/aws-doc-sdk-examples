@@ -36,11 +36,12 @@ public class MainController {
     InjectWorkService iw;
 
     @GetMapping("items/{state}")
-    public List< WorkItem > getItems(@PathVariable String state) {
-        if (state.compareTo("active") == 0)
-            return ri.getItemsDataSQLReport(0);
-        else
-            return ri.getItemsDataSQLReport(1);
+    public List<WorkItem> getItems(@PathVariable String state) {
+        if (state.compareTo("active") == 0) {
+            return ri.getItemsDataSQLReport("0");
+        } else {
+            return ri.getItemsDataSQLReport("1");
+        }
     }
 
     // Flip an item from Active to Archive.
@@ -58,20 +59,19 @@ public class MainController {
         String description = (String)payLoad.get("description");
         String status = (String)payLoad.get("status");
 
-        // Create a Work Item object to pass to the injestNewSubmission method.
+        // Create a Work Item object to pass injestNewSubmission().
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
         myWork.setStatus(status);
         myWork.setName(name);
-
-        iw.injestNewSubmission(myWork);
+        iw.injectNewSubmission(myWork);
         return "Item added";
     }
 
     @PutMapping("report/{email}")
     public String sendReport(@PathVariable String email){
-        List<WorkItem> theList = ri.getItemsDataSQLReport(0);
+        List<WorkItem> theList = ri.getItemsDataSQLReport("0");
         java.io.InputStream is = writeExcel.exportExcel(theList);
 
         try {

@@ -56,7 +56,7 @@ export const submitData = async () => {
   if (id != "" && title != "" && name != "" && body != "") {
     try {
       //Upload the item to the table
-      const data = await dynamoClient.send(new PutItemCommand(params));
+      await dynamoClient.send(new PutItemCommand(params));
       alert("Data added to table.");
       try {
         // Create the message parameters object.

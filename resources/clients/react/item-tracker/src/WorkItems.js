@@ -30,7 +30,7 @@ export const WorkItems = () => {
   const [email, setEmail] = useState('');
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('active');
   const [error, setError] = useState('');
 
   const getItems = async () => {

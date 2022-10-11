@@ -5,7 +5,7 @@ authors = [
   "Richard H. Boyd <rhboyd@amazon.com>",
   "Doug Schwartz <dougsch@amazon.com>",
 ]
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -19,6 +19,6 @@ lambda_runtime = "0.4"
 log = "0.4"
 serde = { version = "1", features = ["derive"] }
 structopt = { version = "0.3", default-features = false }
-tokio = { version = "1", features = ["full"] }
-tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
+tokio = { version = "1.20.1", features = ["full"] }
+tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
 time = "0.3"

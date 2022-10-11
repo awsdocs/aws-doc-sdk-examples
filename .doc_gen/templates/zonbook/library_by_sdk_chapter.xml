@@ -2,12 +2,12 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
     <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
     %xinclude;
-    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
-    %phrases-code-examples;
 {{- if isSnapshot}}
-    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
-    %phrases-prerelease-examples;
+    <!ENTITY % phrases-code-examples SYSTEM "phrases-code-examples.ent">
+{{- else}}
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
 {{- end}}
+    %phrases-code-examples;
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
@@ -85,8 +85,29 @@
                 <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
                 <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task
                     by calling multiple functions within the same service.</para>
+                {{- $hello := index $svc_examples.CategorizedExampleSets "Hello"}}
+                {{- if $hello.Examples}}
+                <block>
+                    <collapsible expand-section="_collapse_all_">
+                        {{- range $hello.Examples}}
+                        <section id="example_{{.ExampleId}}_section">
+                            <info>
+                                <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                                <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                                <abstract>
+                                    <para>{{.Title}}</para>
+                                </abstract>
+                            </info>
+                            <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
+                            <xi:include href="{{$include_docs}}{{.ExampleId}}_tablist.xml"></xi:include>
+                        </section>
+                        {{- end}}
+                    </collapsible>
+                </block>
+                {{- end}}
                 <para role="topiclist-abbrev"/>
                 {{- range $category := $svc_examples.CategoryNamesSorted}}
+                {{- if ne $category "Hello"}}
                 {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
                 <section>
                     <info>
@@ -123,6 +144,7 @@
                         {{- end}}
                     </collapsible>
                 </section>
+                {{- end}}
                 {{- end}}
                 {{- end}}
             </section>

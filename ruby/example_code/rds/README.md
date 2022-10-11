@@ -12,14 +12,14 @@ compatibility they need.
 This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon RDS examples:
 
 ### API examples
-- [Create a cluster snapshot](./rds-ruby-example-create-cluster-snapshot.rb)
-- [Create a snapshot](./rds-ruby-example-create-snapshot.rb)
-- [List all instances](./rds-ruby-example-list-all-instances.rb)
-- [List a cluster's snapshots](./rds-ruby-example-list-cluster-snapshots.rb)
-- [List instance snapshots](./rds-ruby-example-list-instance-snapshots.rb)
-- [List parameter groups](./rds-ruby-example-list-parameter-groups.rb)
-- [List subnet groups](./rds-ruby-example-list-security-groups.rb)
-- [List security groups](./rds-ruby-example-list-subnet-groups.rb)
+- [Create a cluster snapshot](./create_cluster_snapshot.rb)
+- [Create a snapshot](./create_snapshot.rb)
+- [List all instances](./list_instances.rb)
+- [List a cluster's snapshots](./list_cluster_snapshots.rb)
+- [List instance snapshots](./list_instance_snapshots.rb)
+- [List parameter groups](./list_parameter_groups.rb)
+- [List subnet groups](./list_security_groups.rb)
+- [List security groups](./list_subnet_groups.rb)
 
 ## Important
 

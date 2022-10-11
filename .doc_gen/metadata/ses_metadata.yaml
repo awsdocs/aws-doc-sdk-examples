@@ -5,6 +5,15 @@ ses_SendEmail:
   synopsis: send email with &SES;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.SendEmailAsync
     Java:
       versions:
         - sdk_version: 2
@@ -33,6 +42,15 @@ ses_SendTemplatedEmail:
   synopsis: send templated email with &SES;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.SendTemplateEmailAsync
     Java:
       versions:
         - sdk_version: 2
@@ -78,6 +96,15 @@ ses_VerifyEmailIdentity:
   synopsis: verify an email identity with &SES;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.VerifyEmailIdentityAsync
     Python:
       versions:
         - sdk_version: 3
@@ -96,6 +123,15 @@ ses_GetIdentityVerificationAttributes:
   synopsis: get the status of an &SES; identity.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.GetIdentityStatusAsync
     Python:
       versions:
         - sdk_version: 3
@@ -114,6 +150,15 @@ ses_DeleteIdentity:
   synopsis: delete an &SES; identity.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.DeleteIdentityAsync
     Python:
       versions:
         - sdk_version: 3
@@ -132,6 +177,15 @@ ses_ListIdentities:
   synopsis: list &SES; identities.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.ListIdentitiesAsync
     Java:
       versions:
         - sdk_version: 2
@@ -317,6 +371,15 @@ ses_CreateTemplate:
   synopsis: create an &SES; email template.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.CreateEmailTemplateAsync
     Python:
       versions:
         - sdk_version: 3
@@ -335,6 +398,15 @@ ses_DeleteTemplate:
   synopsis: delete an &SES; email template.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.DeleteEmailTemplateAsync
     Python:
       versions:
         - sdk_version: 3
@@ -371,6 +443,15 @@ ses_ListTemplates:
   synopsis: list &SES; email templates.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.ListEmailTemplatesAsync
     Java:
       versions:
         - sdk_version: 2
@@ -410,6 +491,23 @@ ses_UpdateTemplate:
                 - python.example_code.ses.UpdateTemplate
   services:
     ses: {UpdateTemplate}
+ses_GetSendQuota:
+  title: Get &SES; sending limits using an &AWS; SDK
+  title_abbrev: Get sending limits
+  synopsis: get &SES; sending limits.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SES
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SES.dotnetv3.GetSendQuotaAsync
+  services:
+    ses: {GetSendQuota}
 ses_Scenario_GenerateSmtpCredentials:
   title: Generate credentials to connect to an &SES; SMTP endpoint
   title_abbrev: Generate credentials to connect to an SMTP endpoint

@@ -1,7 +1,13 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.regions.Region;
@@ -39,6 +45,7 @@ public class AmazonPinpointTest {
     private static String toAddress = "";
     private static String originationNumber = "";
     private static String destinationNumber = "";
+    private static String destinationNumber1 = "";
     private static String message = "";
 
     @BeforeAll
@@ -101,6 +108,7 @@ public class AmazonPinpointTest {
             toAddress = prop.getProperty("toAddress");
             originationNumber= prop.getProperty("originationNumber");
             destinationNumber= prop.getProperty("destinationNumber");
+            destinationNumber1 = prop.getProperty("destinationNumber1");
             message= prop.getProperty("message");
 
 
@@ -141,7 +149,7 @@ public class AmazonPinpointTest {
     @Order(4)
     public void LookUpEndpoint()
     {
-        LookUpEndpoint.lookupPinpointEndpoint(pinpoint, appId, endpointId2);
+        assertDoesNotThrow(() ->LookUpEndpoint.lookupPinpointEndpoint(pinpoint, appId, endpointId2));
         System.out.println("Test 4 passed");
     }
 
@@ -149,50 +157,44 @@ public class AmazonPinpointTest {
     @Order(5)
     public void AddExampleUser()
     {
-        AddExampleUser.updatePinpointEndpoint(pinpoint,appId,endpointId2);
-        System.out.println("Test 5 passed");
+        assertDoesNotThrow(() ->AddExampleUser.updatePinpointEndpoint(pinpoint,appId,endpointId2));
+       System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(6)
     public void AddExampleEndpoints()
     {
-         AddExampleEndpoints.updateEndpointsViaBatch(pinpoint,appId);
+        assertDoesNotThrow(() -> AddExampleEndpoints.updateEndpointsViaBatch(pinpoint,appId));
         System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void DeleteEndpoint() {
-
-        DeleteEndpoint.deletePinEncpoint(pinpoint, appId, endpointId2 );
+        assertDoesNotThrow(() ->DeleteEndpoint.deletePinEncpoint(pinpoint, appId, endpointId2));
         System.out.println("Test 7 passed");
     }
 
     @Test
     @Order(8)
     public void SendMessage() {
-
-      SendMessage.sendSMSMessage(pinpoint, message, existingApplicationId, originationNumber, destinationNumber);
-     //   SendMessage.sendSMSMessage(pinpoint, message, "2fdc4442c6a2483f85eaf7a943054815", originationNumber, destinationNumber);
-
+       assertDoesNotThrow(() ->SendMessage.sendSMSMessage(pinpoint, message, existingApplicationId, originationNumber, destinationNumber));
        System.out.println("Test 8 passed");
     }
 
-  //  @Test
-  //  @Order(9)
-  //  public void ImportSegments() {
-
-    //   ImportSegment.createImportSegment(pinpoint, existingApplicationId, bucket, path, roleArn);
-    //   System.out.println("Test 9 passed");
-   // }
+    @Test
+    @Order(9)
+   public void ImportSegments() {
+        assertDoesNotThrow(() -> SendMessageBatch.sendSMSMessage(pinpoint, message, "2fdc4442c6a2483f85eaf7a943054815", originationNumber, destinationNumber, destinationNumber));
+        System.out.println("Test 8 passed");
+    }
 
     @Test
     @Order(10)
     public void ListSegments() {
-
-     ListSegments.listSegs(pinpoint, appId);
-     System.out.println("Test 10 passed");
+        assertDoesNotThrow(() -> ListSegments.listSegs(pinpoint, appId));
+        System.out.println("Test 10 passed");
     }
 
     @Test
@@ -209,7 +211,7 @@ public class AmazonPinpointTest {
     @Order(12)
     public void CreateCampaign() {
 
-       CreateCampaign.createPinCampaign(pinpoint, existingApplicationId, segmentId );
+       assertDoesNotThrow(() -> CreateCampaign.createPinCampaign(pinpoint, existingApplicationId, segmentId));
        System.out.println("Test 12 passed");
     }
 
@@ -218,35 +220,35 @@ public class AmazonPinpointTest {
     @Order(13)
     public void ExportEndpoints() {
 
-        ExportEndpoints.exportAllEndpoints(pinpoint, s3Client, existingApplicationId, s3BucketName, filePath, iamExportRoleArn);
+        assertDoesNotThrow(() ->  ExportEndpoints.exportAllEndpoints(pinpoint, s3Client, existingApplicationId, s3BucketName, filePath, iamExportRoleArn));
         System.out.println("Test 13 passed");
     }
 
     @Test
     @Order(14)
     public void SendEmailMessage() {
-        SendEmailMessage.sendEmail(pinpoint, subject, existingApplicationId,  senderAddress, toAddress);
+        assertDoesNotThrow(() -> SendEmailMessage.sendEmail(pinpoint, subject, existingApplicationId,  senderAddress, toAddress));
         System.out.println("Test 14 passed");
    }
 
     @Test
     @Order(15)
    public void SendVoiceMessage() {
-       SendVoiceMessage.sendVoiceMsg(voiceClient, originationNumber, destinationNumber);
+        assertDoesNotThrow(() ->SendVoiceMessage.sendVoiceMsg(voiceClient, originationNumber, destinationNumber));
         System.out.println("Test 15 passed");
    }
 
     @Test
     @Order(16)
    public void ListEndpointIds() {
-        ListEndpointIds.listAllEndpoints(pinpoint, existingApplicationId, userId);
+        assertDoesNotThrow(() ->ListEndpointIds.listAllEndpoints(pinpoint, existingApplicationId, userId));
         System.out.println("Test 16 passed");
    }
 
    @Test
     @Order(17)
     public void DeleteApp() {
-         DeleteApp.deletePinApp(pinpoint, appId);
+       assertDoesNotThrow(() ->DeleteApp.deletePinApp(pinpoint, appId));
          System.out.println("Test 17 passed");
     }
 }

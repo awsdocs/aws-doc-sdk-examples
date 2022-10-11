@@ -7,6 +7,8 @@ package com.example.dynamodb;
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
+
 import java.time.Instant;
 
 /**
@@ -24,7 +26,7 @@ import java.time.Instant;
         @DynamoDbPartitionKey
         public String getId() {
             return this.id;
-        };
+        }
 
         public void setId(String id) {
 
@@ -39,6 +41,7 @@ import java.time.Instant;
             this.name = name;
         }
 
+        @DynamoDbSortKey
         public String getEmail() {
             return this.email;
         }
@@ -51,7 +54,12 @@ import java.time.Instant;
             return regDate;
         }
         public void setRegistrationDate(Instant registrationDate) {
-
             this.regDate = registrationDate;
+        }
+
+        @Override
+        public String toString() {
+            return "Customer [id=" + id + ", name=" + name + ", email=" + email
+                    + ", regDate=" + regDate + "]";
         }
     }

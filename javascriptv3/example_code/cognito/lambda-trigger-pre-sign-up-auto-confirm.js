@@ -23,7 +23,7 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirmV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   // Set the user pool autoConfirmUser flag after validating the email domain
   event.response.autoConfirmUser = false;
 

@@ -22,7 +22,6 @@ import { StartStreamTranscriptionCommand } from "@aws-sdk/client-transcribe-stre
 import { TranslateTextCommand } from "@aws-sdk/client-translate";
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 import MicrophoneStream from "microphone-stream";
-import getUserMedia from "get-user-media-promise";
 
 // Helper function to encode PCM audio.
 const pcmEncodeChunk = (chunk) => {
@@ -60,9 +59,10 @@ window.startRecord = async () => {
       for await (const chunk of micStream) {
         yield {
           AudioEvent: {
-            AudioChunk: pcmEncodeChunk(
-              chunk
-            ) /* pcm Encoding is optional depending on the source. */,
+            AudioChunk:
+              pcmEncodeChunk(
+                chunk
+              ) /* pcm Encoding is optional depending on the source. */,
           },
         };
       }
@@ -191,8 +191,8 @@ window.sendEmail = async () => {
       Source: fromEmail, // Sender's email address (required)
     };
     const data = await sesClient.send(new SendEmailCommand(params));
-    // return data; // Uncomment this for unit tests.
     alert("Success. Email sent.");
+    return data;
   } catch (err) {
     console.log("Error", err);
   }

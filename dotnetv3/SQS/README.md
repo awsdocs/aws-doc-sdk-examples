@@ -1,86 +1,51 @@
-# Amazon Simple Queue Service (Amazon SQS) code examples in C\#
+# Amazon SQS code examples for the SDK for .NET
 
-## Purpose
+## Overview
+The examples in this section show how to use the AWS SDK for .NET with Amazon Simple Queue Service (Amazon SQS).
 
-This folder contains examples that show how to use the AWS SDK for .NET 3.x to
-get started using queue and message operations in Amazon Simple Queue Service
-(Amazon SQS). The examples will show you how to create a queue and send, receive,
-and delete messages from it.
+Amazon SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications. Amazon SQS moves data between distributed application components and helps you decouple these components.
+
+## ⚠️ Important
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
-- [AuthorizeS3ToSendMessageExample](AuthorizeS2ToSendMessageExample/) - Authorizes
-  an Amazon Simple Storage Service (Amazon S3) bucket to post message to an
-  Amazon SQS queue.
-- [CreateQueueExample](CreateQueueExample/) - Creates an Amazon SQS queue.
-- [CreateSendExample](CreateSendExample/) - Create an SQS queue and sends a
-  sample message.
-- [DeleteMessageExample](DeleteMessageExample/) | Deletes messages from an
-  Amazon SQS queue.
-- [DeleteQueueExample](DeleteQueueExample/) | Deletes an Amazon SQS queue. Run
-  this example with caution as when you run it, any existing messages in the
-  queue will also be removed.
-- [GetQueueAttributesExample](GetQueueAttributesExample/) | Retrieves and
-  displays the attributes of an Amazon SQS queue.
-- [GetQueueUrlExample](GetQueueUrlExample/) | Retrieves the URL for an Amazon
-  SQS queue.
-- [ReceiveDeleteExample](ReceivDeleteExample/) | Receives a single message from
-  the queue and then deletes it from the queue.
-- [ReceiveFromQueueExample](ReceiveFromQueueExample/) | Receives a message from
-  an Amazon SQS queue.
-- [SendMessageToQueueExample](SendMessageToQueueExample/) | Sends a message to
-  an Amazon SQS queue.
+### Single actions
+Code excerpts that show you how to call individual service functions.
+- [Authorize a bucket to send messages to a queue](AuthorizeS3ToSendMessageExample/AuthorizeS3ToSendMessageExample/AuthorizeS3ToSendMessage.cs) (`AuthorizeS3ToSendMessageAsync`)
+- [Create a queue](CreateQueueExample/CreateQueueExample/CreateQueue.cs) (`CreateQueueAsync`)
+- [Create a queue and send a message](CreateSendExample/CreateSendExample/CreateSendExample.cs) (`CreateQueueAsync`, `SendMessageAsync`)
+- [Delete a message from a queue](DeleteMessageExample/DeleteMessageExample/DeleteMessage.cs) (`DeleteMessageAsync`)
+- [Delete a queue](DeleteQueueExample/DeleteQueueExample/DeleteQueue.cs) (`DeleteQueueAsync`)
+- [Get attributes for a queue](GetQueueAttributesExample/GetQueueAttributesExample/GetQueueAttributes.cs) (`GetQueueAttributesAsync`)
+- [Get the URL of a queue](GetQueueUrlExample/GetQueueUrlExample/GetQueueUrl.cs) (`GetQueueUrlAsync`)
+- [Receive messages from a queue](ReceiveFromQueueExample/ReceiveFromQueueExample/ReceiveFromQueue.cs) (`ReceiveMessageAsync`)
+- [Receive messages from a queue and delete](ReceiveDeleteExample/ReceiveDeleteExample/ReceiveDeleteExample.cs) (`ReceiveMessageAsync`, `DeleteMessageAsync`)
+- [Send a message to a queue](SendMessageToQueueExample/SendMessageToQueueExample/SendMessageToQueue.cs) (`SendMessageAsync`)
 
-## ⚠ Important
-- We recommend that you grant your code least privilege, or at most the minimum
-  permissions required to perform the task. For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide. 
-- This code has not been tested in all AWS Regions. Some AWS services are
-  available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
-- Running this code might result in charges to your AWS account. 
-- Running the unit tests might result in charges to your AWS account. [optional]
-
-## Running the examples
-
-The examples in this folder use the default user account. The call to
-initialize the Rekognition client does not specify the AWS region. Supply
-the AWS region to match your own as a parameter to the client constructor. For
-example:
-
-```
-var client = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
-```
+## Run the examples
 
 ### Prerequisites
+* To find prerequisites for running these examples, see the
+  [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- .NET Core 5.0 or later
-- AWS SDK for .NET 3.0 or later
-- XUnit and Moq (to run unit tests)
-
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To
+do this, navigate to the folder that contains the .csproj file, and then
+issue the following command:
 
 ```
 dotnet run
 ```
 
-Or you can execute the example from within your IDE.
+Alternatively, you can run the example from within your IDE.
 
-## Additional information
-[AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
-
-[AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
-
-## Contributing
-
-To propose a new code example to the AWS documentation team, see the
-[CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md).
-The team prefers to create code examples that show broad scenarios rather than
-individual API calls. 
+## Additional resources
+* [Amazon Simple Queue Service Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
+* [Amazon Simple Queue Service API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/index.html)
+* [AWS SDK for .NET Amazon SQS](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SQS/NSQS.html)
+* [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

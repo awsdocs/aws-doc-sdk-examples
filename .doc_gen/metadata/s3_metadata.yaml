@@ -1,4 +1,21 @@
 # zexi 0.4.0
+s3_Hello:
+  title: Hello &S3;
+  title_abbrev: Hello &S3;
+  synopsis: get started using &S3long; (&S3;).
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.Hello
+  services:
+    s3: {ListBuckets}
 s3_CreateBucket:
   title: Create an &S3; bucket using an &AWS; SDK
   title_abbrev: Create a bucket
@@ -797,6 +814,38 @@ s3_DeleteBucketLifecycle:
                 - python.example_code.s3.DeleteBucketLifecycleConfiguration
   services:
     s3: {DeleteBucketLifecycle}
+s3_CompleteMultipartUpload:
+  title: Complete the multipart upload action using an &AWS; SDK
+  title_abbrev: Complete a multipart upload
+  synopsis: complete a multipart upload action.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.complete_multipart_upload
+  services:
+    s3: {CompleteMultipartUpload}
+s3_CreateMultipartUpload:
+  title: Create a multipart upload structure using an &AWS; SDK
+  title_abbrev: Create a multipart upload
+  synopsis: create the structure to build a multipart upload action.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.create_multipart_upload
+  services:
+    s3: {CreateMultipartUpload}
 s3_ListMultipartUploads:
   title: List in-progress multipart uploads to an &S3; bucket using an &AWS; SDK
   title_abbrev: List in-progress multipart uploads
@@ -1400,6 +1449,7 @@ s3_PutBucketPolicy:
             - description:
               snippet_tags:
                 - s3.cpp.put_bucket_policy02.code
+                - s3.cpp.put_bucket_policy01.code
     Java:
       versions:
         - sdk_version: 2
@@ -1615,10 +1665,27 @@ s3_PutObjectAcl:
                 - python.example_code.s3.PutObjectAcl
   services:
     s3: {PutObjectAcl}
-s3_Scenario_TransferManager:
-  title: Use a transfer manager to upload and download files to and from &S3; using an &AWS; SDK
-  title_abbrev: Use a transfer manager to upload and download files
-  synopsis: use a transfer manager to upload and download files to and from S3.
+s3_UploadPart:
+  title: Upload a single part of a multipart upload using an &AWS; SDK
+  title_abbrev: Upload a single part of a multipart upload
+  synopsis: upload a single part of a multipart upload.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.upload_part
+                - rust.example_code.s3.upload_part.CompletedMultipartUpload
+  services:
+    s3: {UploadPart}
+s3_Scenario_UsingLargeFiles:
+  title: Upload or download large files to and from &S3; using an &AWS; SDK
+  title_abbrev: Upload or download large files
+  synopsis: upload or download large files to and from &S3;.
   category: Scenarios
   guide_topic:
     title: Uploading an object using multipart upload
@@ -1664,6 +1731,14 @@ s3_Scenario_TransferManager:
                 results.
               snippet_tags:
                 - python.example_code.s3.Scenario_FileTransfer_Demo
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.large_files.scenario
   services:
     s3: {}
 s3_Scenario_BatchObjectVersioning:
@@ -1788,8 +1863,8 @@ s3_GetBucketLocation:
   services:
     s3: {GetBucketLocation}
 s3_Scenario_GettingStarted:
-  title: Getting started with &S3; buckets and objects using an &AWS; SDK
-  title_abbrev: Getting started with buckets and objects
+  title: Get started with &S3; buckets and objects using an &AWS; SDK
+  title_abbrev: Get started with buckets and objects
   synopsis_list:
     - Create a bucket.
     - Upload a file to the bucket.

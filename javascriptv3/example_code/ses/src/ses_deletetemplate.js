@@ -13,7 +13,7 @@ node ses_deletetemplate.js
 */
 // snippet-start:[ses.JavaScript.templates.deleteTemplateV3]
 import { DeleteTemplateCommand } from "@aws-sdk/client-ses";
-import { getUniqueName } from "../../libs/index.js";
+import { getUniqueName } from "../../libs/utils/util-string.js";
 import { sesClient } from "./libs/sesClient.js";
 
 const TEMPLATE_NAME = getUniqueName("TemplateName");
@@ -22,7 +22,7 @@ const createDeleteTemplateCommand = (templateName) =>
   new DeleteTemplateCommand({ TemplateName: templateName });
 
 const run = async () => {
-  const deleteTemplateCommand = new createDeleteTemplateCommand(TEMPLATE_NAME);
+  const deleteTemplateCommand = createDeleteTemplateCommand(TEMPLATE_NAME);
 
   try {
     return await sesClient.send(deleteTemplateCommand);

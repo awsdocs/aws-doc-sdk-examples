@@ -10,7 +10,7 @@ namespace DeleteOrganizationExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Shows how to delete an existing Organization using the Amazon
+    /// Shows how to delete an existing organization using the AWS
     /// Organizations Service. This example was created using the AWS SDK for
     /// .NET version 3.7 and .NET Core 5.0.
     /// </summary>
@@ -29,11 +29,11 @@ namespace DeleteOrganizationExample
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                Console.WriteLine("Successfully deleted Organization.");
+                Console.WriteLine("Successfully deleted organization.");
             }
             else
             {
-                Console.WriteLine("Could not delete Organization.");
+                Console.WriteLine("Could not delete organization.");
             }
         }
     }

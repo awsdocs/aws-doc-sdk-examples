@@ -26,7 +26,6 @@ import { ec2Client } from "./libs/ec2Client";
 
 // Set the parameters
 const params = { InstanceIds: ["INSTANCE_ID"] }; // Array of INSTANCE_IDs
-const state = "STATE"; // STATE; i.e., 'ON' or 'OFF'
 
 const run = async () => {
   if (process.argv[4].toUpperCase() === "ON") {
