@@ -19,7 +19,7 @@ public class Function
         if (input["action"] == "increment")
         {
             int inputValue = Convert.ToInt32(input["x"]);
-            return inputValue +1;
+            return inputValue + 1;
         }
         else
         {
