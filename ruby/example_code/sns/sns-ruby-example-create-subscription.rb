@@ -12,7 +12,7 @@
 
 # snippet-start:[sns.Ruby.createSubscription]
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require "aws-sdk-sns"  # v2: require 'aws-sdk'
 
 def subscription_created?(sns_client, topic_arn, protocol, endpoint)
 
@@ -25,19 +25,19 @@ end
 # Full example call:
 def run_me
 
-protocol = 'email'
-endpoint = 'EMAIL_ADDRESS'
-topic_arn = 'TOPIC_ARN'
-region = 'REGION'
+  protocol = "email"
+endpoint = "EMAIL_ADDRESS"
+topic_arn = "TOPIC_ARN"
+region = "REGION"
 
 sns_client = Aws::SNS::Client.new(region: region)
 
 puts "Creating the subscription."
 
   if subscription_created?(sns_client, topic_arn, protocol, endpoint)
-    puts 'The subscriptions was created.'
+    puts "The subscriptions was created."
   else
-    puts 'The subscription was not created. Stopping program.'
+    puts "The subscription was not created. Stopping program."
     exit 1
   end
 end

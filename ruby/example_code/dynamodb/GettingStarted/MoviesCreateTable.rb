@@ -9,19 +9,19 @@
 # is then returned, for example 'CREATING'.
 
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesCreateTable]
-require 'aws-sdk-dynamodb'
+require "aws-sdk-dynamodb"
 
 def create_table(dynamodb_client, table_definition)
   response = dynamodb_client.create_table(table_definition)
   response.table_description.table_status
 rescue StandardError => e
   puts "Error creating table: #{e.message}"
-  'Error'
+  "Error"
 end
 
 def run_me
 # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
+  region = "us-west-2"
 
   # To use the downloadable version of Amazon DynamoDB,
   # uncomment the endpoint statement.
@@ -33,25 +33,25 @@ def run_me
   dynamodb_client = Aws::DynamoDB::Client.new
 
   table_definition = {
-    table_name: 'Movies',
+    table_name: "Movies",
     key_schema: [
       {
-        attribute_name: 'year',
-        key_type: 'HASH'  # Partition key.
+        attribute_name: "year",
+        key_type: "HASH"  # Partition key.
       },
       {
-        attribute_name: 'title',
-        key_type: 'RANGE' # Sort key.
+        attribute_name: "title",
+        key_type: "RANGE" # Sort key.
       }
     ],
     attribute_definitions: [
       {
-        attribute_name: 'year',
-        attribute_type: 'N'
+        attribute_name: "year",
+        attribute_type: "N"
       },
       {
-        attribute_name: 'title',
-        attribute_type: 'S'
+        attribute_name: "title",
+        attribute_type: "S"
       }
     ],
     provisioned_throughput: {
@@ -63,8 +63,8 @@ def run_me
   puts "Creating the table named 'Movies'..."
   create_table_result = create_table(dynamodb_client, table_definition)
 
-  if create_table_result == 'Error'
-    puts 'Table not created.'
+  if create_table_result == "Error"
+    puts "Table not created."
   else
     puts "Table created with status '#{create_table_result}'."
   end

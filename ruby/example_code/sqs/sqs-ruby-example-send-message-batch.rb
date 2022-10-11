@@ -6,8 +6,8 @@
 
 # snippet-start:[s3.sqs-ruby-example-send-message-batch.rb]
 
-require 'aws-sdk-sqs'
-require 'aws-sdk-sts'
+require "aws-sdk-sqs"
+require "aws-sdk-sts"
 
 #
 # @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
@@ -44,16 +44,16 @@ end
 # Full example call:
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 def run_me
-  region = 'us-west-2'
-  queue_name = 'my-queue'
+  region = "us-west-2"
+  queue_name = "my-queue"
   entries = [
     {
-      id: 'Message1',
-      message_body: 'This is the first message.'
+      id: "Message1",
+      message_body: "This is the first message."
     },
     {
-      id: 'Message2',
-      message_body: 'This is the second message.'
+      id: "Message2",
+      message_body: "This is the second message."
     }
   ]
 
@@ -61,17 +61,17 @@ def run_me
 
   # For example:
   # 'https://sqs.us-west-2.amazonaws.com/111111111111/my-queue'
-  queue_url = 'https://sqs.' + region + '.amazonaws.com/' +
-    sts_client.get_caller_identity.account + '/' + queue_name
+  queue_url = "https://sqs." + region + ".amazonaws.com/" +
+    sts_client.get_caller_identity.account + "/" + queue_name
 
   sqs_client = Aws::SQS::Client.new(region: region)
 
   puts "Sending messages to the queue named '#{queue_name}'..."
 
   if messages_sent?(sqs_client, queue_url, entries)
-    puts 'Messages sent.'
+    puts "Messages sent."
   else
-    puts 'Messages not sent.'
+    puts "Messages not sent."
   end
 end
 

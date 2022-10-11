@@ -1,32 +1,32 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative '../cw-ruby-example-create-alarm'
+require_relative "../cw-ruby-example-create-alarm"
 
-describe '#alarm_created_or_updated?' do
-  let(:alarm_name) { 'ObjectsInBucket' }
-  let(:alarm_description) { 'Objects exist in this bucket for more than 1 day.' }
-  let(:metric_name) { 'NumberOfObjects' }
-  let(:alarm_actions) { ['arn:aws:sns:us-east-1:111111111111:Default_CloudWatch_Alarms_Topic'] }
-  let(:namespace) { 'AWS/S3' }
-  let(:statistic) { 'Average' }
+describe "#alarm_created_or_updated?" do
+  let(:alarm_name) { "ObjectsInBucket" }
+  let(:alarm_description) { "Objects exist in this bucket for more than 1 day." }
+  let(:metric_name) { "NumberOfObjects" }
+  let(:alarm_actions) { ["arn:aws:sns:us-east-1:111111111111:Default_CloudWatch_Alarms_Topic"] }
+  let(:namespace) { "AWS/S3" }
+  let(:statistic) { "Average" }
   let(:dimensions) do
     [
       {
-        name: 'BucketName',
-        value: 'doc-example-bucket'
+        name: "BucketName",
+        value: "doc-example-bucket"
       },
       {
-        name: 'StorageType',
-        value: 'AllStorageTypes'
+        name: "StorageType",
+        value: "AllStorageTypes"
       }
     ]
   end
   let(:period) { 86_400 }
-  let(:unit) { 'Count' }
+  let(:unit) { "Count" }
   let(:evaluation_periods) { 1 }
   let(:threshold) { 1 }
-  let(:comparison_operator) { 'GreaterThanThreshold' }
+  let(:comparison_operator) { "GreaterThanThreshold" }
   let(:cloudwatch_client) do
     Aws::CloudWatch::Client.new(
       stub_responses: {
@@ -35,7 +35,7 @@ describe '#alarm_created_or_updated?' do
     )
   end
 
-  it 'creates or updates an alarm' do
+  it "creates or updates an alarm" do
     expect(
       alarm_created_or_updated?(
         cloudwatch_client,
