@@ -7,7 +7,7 @@
 
 # snippet-start:[ec2.Ruby.createVpc]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Creates aenecccbnknvjhilfgulciihrdilevcgrkheukiriennh
 # Amazon Virtual Private Cloud (Amazon VPC) and then tags
@@ -18,7 +18,7 @@ require 'aws-sdk-ec2'
 # @return vpc_id [String] The Id associated with the VPC;
 #   otherwise, false.
 def create_vpc(resource)
-  vpc = resource.create_vpc(cidr_block: '10.0.0.1/24', tag_specifications: [
+  vpc = resource.create_vpc(cidr_block: "10.0.0.1/24", tag_specifications: [
     {
       resource_type: "vpc",
       tags: [
@@ -41,12 +41,12 @@ end
 def tag_vpc(resource, vpc_id)
   tags = resource.create_tags(resources: [vpc_id], tags: [
     {
-      key: 'baz',
-      value: 'biz'
+      key: "baz",
+      value: "biz"
     }
   ])
   if tags.batches.count > 0
-    puts "\nVPC successfully tagged! - #{tags.to_s}"
+    puts "\nVPC successfully tagged! - #{tags}"
   else
     puts "There was an error tagging VPC."
   end
@@ -54,7 +54,7 @@ end
 
 # Full example call:
 def run_me
-  ec2_resource = Aws::EC2::Resource.new(region: 'us-east-1')
+  ec2_resource = Aws::EC2::Resource.new(region: "us-east-1")
   vpc_id = create_vpc(ec2_resource)
   tag_vpc(ec2_resource, vpc_id)
 end

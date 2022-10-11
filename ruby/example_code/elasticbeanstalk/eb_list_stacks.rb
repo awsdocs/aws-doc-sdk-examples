@@ -6,8 +6,8 @@
 # solution stacks using the AWS SDK for Ruby.
 
 # snippet-start:[eb.Ruby.listStacks]
-require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
-require 'os'
+require "aws-sdk-elasticbeanstalk"  # v2: require 'aws-sdk'
+require "os"
 
 if OS.windows?
   Aws.use_bundled_cert!
@@ -37,22 +37,22 @@ If REGION is not supplied, defaults to 'us-east-1'
 
 DOC
 # Replace us-west-2 with the AWS Region you're using for Elastic Beanstalk.
-region = 'us-west-2'
-filter = ''
+region = "us-west-2"
+filter = ""
 
 i = 0
 
 while i < ARGV.length
   case ARGV[i]
-    when '-F'
+    when "-F"
       i += 1
       filter = ARGV[i]
 
-    when '-r'
+    when "-r"
       i += 1
       region = ARGV[i]
 
-    when '-h'
+    when "-h"
       puts USAGE
       exit 1
 
@@ -72,8 +72,8 @@ filtered_length = 0
 
 stacks.each do |s|
 
-  if filter != ''
-      d = s.downcase
+  if filter != ""
+    d = s.downcase
 
       if d.include? filter
         puts s
@@ -86,7 +86,7 @@ end
 
 puts
 
-if filter != ''
+if filter != ""
   puts "Showed #{filtered_length} stack(s) of #{orig_length}"
 else
   puts "Showed #{orig_length} stack(s)"

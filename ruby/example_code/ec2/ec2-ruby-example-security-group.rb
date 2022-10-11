@@ -15,7 +15,7 @@
 # 3. Displays information about available security groups.
 # 4. Deletes the security group.
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Creates an Amazon Elastic Compute Cloud (Amazon EC2) security group.
 #
@@ -52,7 +52,7 @@ def create_security_group(
   return security_group.group_id
 rescue StandardError => e
   puts "Error creating security group: #{e.message}"
-  return 'Error'
+  return "Error"
 end
 
 # Adds an inbound rule to an Amazon Elastic Compute Cloud (Amazon EC2)
@@ -130,16 +130,16 @@ def describe_security_group_permissions(perm)
   print "  Protocol: #{perm.ip_protocol == '-1' ? 'All' : perm.ip_protocol}"
 
   unless perm.from_port.nil?
-    if perm.from_port == '-1' || perm.from_port == -1
-      print ', From: All'
+    if perm.from_port == "-1" || perm.from_port == -1
+      print ", From: All"
     else
       print ", From: #{perm.from_port}"
     end
   end
 
   unless perm.to_port.nil?
-    if perm.to_port == '-1' || perm.to_port == -1
-      print ', To: All'
+    if perm.to_port == "-1" || perm.to_port == -1
+      print ", To: All"
     else
       print ", To: #{perm.to_port}"
     end
@@ -167,7 +167,7 @@ def describe_security_groups(ec2_client)
 
   if response.security_groups.count.positive?
     response.security_groups.each do |sg|
-      puts '-' * (sg.group_name.length + 13)
+      puts "-" * (sg.group_name.length + 13)
       puts "Name:        #{sg.group_name}"
       puts "Description: #{sg.description}"
       puts "Group ID:    #{sg.group_id}"
@@ -175,28 +175,28 @@ def describe_security_groups(ec2_client)
       puts "VPC ID:      #{sg.vpc_id}"
 
       if sg.tags.count.positive?
-        puts 'Tags:'
+        puts "Tags:"
         sg.tags.each do |tag|
           puts "  Key: #{tag.key}, Value: #{tag.value}"
         end
       end
 
       unless sg.ip_permissions.empty?
-        puts 'Inbound rules:' if sg.ip_permissions.count.positive?
+        puts "Inbound rules:" if sg.ip_permissions.count.positive?
         sg.ip_permissions.each do |p|
           describe_security_group_permissions(p)
         end
       end
 
       unless sg.ip_permissions_egress.empty?
-        puts 'Outbound rules:' if sg.ip_permissions.count.positive?
+        puts "Outbound rules:" if sg.ip_permissions.count.positive?
         sg.ip_permissions_egress.each do |p|
           describe_security_group_permissions(p)
         end
       end
     end
   else
-    puts 'No security groups found.'
+    puts "No security groups found."
   end
 rescue StandardError => e
   puts "Error getting information about security groups: #{e.message}"
@@ -229,44 +229,44 @@ end
 
 # Full example call:
 def run_me
-  group_name = ''
-  description = ''
-  vpc_id = ''
-  ip_protocol_http = ''
-  from_port_http = ''
-  to_port_http = ''
-  cidr_ip_range_http = ''
-  ip_protocol_ssh = ''
-  from_port_ssh = ''
-  to_port_ssh = ''
-  cidr_ip_range_ssh = ''
-  region = ''
+  group_name = ""
+  description = ""
+  vpc_id = ""
+  ip_protocol_http = ""
+  from_port_http = ""
+  to_port_http = ""
+  cidr_ip_range_http = ""
+  ip_protocol_ssh = ""
+  from_port_ssh = ""
+  to_port_ssh = ""
+  cidr_ip_range_ssh = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage:   ruby ec2-ruby-example-security-group.rb ' \
-      'GROUP_NAME DESCRIPTION VPC_ID IP_PROTOCOL_1 FROM_PORT_1 TO_PORT_1 ' \
-      'CIDR_IP_RANGE_1 IP_PROTOCOL_2 FROM_PORT_2 TO_PORT_2 ' \
-      'CIDR_IP_RANGE_2 REGION'
-    puts 'Example: ruby ec2-ruby-example-security-group.rb ' \
-      'my-security-group \'This is my security group.\' vpc-6713dfEX ' \
-      'tcp 80 80 \'0.0.0.0/0\' tcp 22 22 \'0.0.0.0/0\' us-west-2'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage:   ruby ec2-ruby-example-security-group.rb " \
+      "GROUP_NAME DESCRIPTION VPC_ID IP_PROTOCOL_1 FROM_PORT_1 TO_PORT_1 " \
+      "CIDR_IP_RANGE_1 IP_PROTOCOL_2 FROM_PORT_2 TO_PORT_2 " \
+      "CIDR_IP_RANGE_2 REGION"
+    puts "Example: ruby ec2-ruby-example-security-group.rb " \
+      "my-security-group 'This is my security group.' vpc-6713dfEX " \
+      "tcp 80 80 '0.0.0.0/0' tcp 22 22 '0.0.0.0/0' us-west-2"
     exit 1
 
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    group_name = 'my-security-group'
-    description = 'This is my security group.'
-    vpc_id = 'vpc-026603f41400bc209'
-    ip_protocol_http = 'tcp'
-    from_port_http = '80'
-    to_port_http = '80'
-    cidr_ip_range_http = '0.0.0.0/0'
-    ip_protocol_ssh = 'tcp'
-    from_port_ssh = '22'
-    to_port_ssh = '22'
-    cidr_ip_range_ssh = '0.0.0.0/0'
+    group_name = "my-security-group"
+    description = "This is my security group."
+    vpc_id = "vpc-026603f41400bc209"
+    ip_protocol_http = "tcp"
+    from_port_http = "80"
+    to_port_http = "80"
+    cidr_ip_range_http = "0.0.0.0/0"
+    ip_protocol_ssh = "tcp"
+    from_port_ssh = "22"
+    to_port_ssh = "22"
+    cidr_ip_range_ssh = "0.0.0.0/0"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-east-1'
+    region = "us-east-1"
   # Otherwise, use the values as specified at the command prompt.
   else
     group_name = ARGV[0]
@@ -283,25 +283,25 @@ def run_me
     region = ARGV[11]
   end
 
-  security_group_id = ''
+  security_group_id = ""
   security_group_exists = false
   ec2_client = Aws::EC2::Client.new(region: region)
 
-  puts 'Attempting to create security group...'
+  puts "Attempting to create security group..."
   security_group_id = create_security_group(
     ec2_client,
     group_name,
     description,
     vpc_id
   )
-  if security_group_id == 'Error'
-    puts 'Could not create security group. Skipping this step.'
+  if security_group_id == "Error"
+    puts "Could not create security group. Skipping this step."
   else
     security_group_exists = true
   end
 
   if security_group_exists
-    puts 'Attempting to add inbound rules to security group...'
+    puts "Attempting to add inbound rules to security group..."
     unless security_group_ingress_authorized?(
       ec2_client,
       security_group_id,
@@ -310,8 +310,8 @@ def run_me
       to_port_http,
       cidr_ip_range_http
     )
-      puts 'Could not add inbound HTTP rule to security group. ' \
-        'Skipping this step.'
+      puts "Could not add inbound HTTP rule to security group. " \
+        "Skipping this step."
     end
 
     unless security_group_ingress_authorized?(
@@ -322,8 +322,8 @@ def run_me
       to_port_ssh,
       cidr_ip_range_ssh
     )
-      puts 'Could not add inbound SSH rule to security group. ' \
-        'Skipping this step.'
+      puts "Could not add inbound SSH rule to security group. " \
+        "Skipping this step."
     end
   end
 
@@ -333,7 +333,7 @@ def run_me
   if security_group_exists
     puts "\nAttempting to delete security group..."
     unless security_group_deleted?(ec2_client, security_group_id)
-      puts 'Could not delete security group. You must delete it yourself.'
+      puts "Could not delete security group. You must delete it yourself."
     end
   end
 end

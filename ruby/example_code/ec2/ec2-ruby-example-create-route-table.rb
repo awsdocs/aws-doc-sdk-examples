@@ -7,7 +7,7 @@
 # and then associates the route table with a subnet in Amazon VPC.
 
 # snippet-start:[ec2.Ruby.createRouteTable]
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Prerequisites:
 #
@@ -55,12 +55,12 @@ def route_table_created_and_associated?(
       }
     ]
   )
-  puts 'Added tags to route table.'
+  puts "Added tags to route table."
   route_table.create_route(
     destination_cidr_block: destination_cidr_block,
     gateway_id: gateway_id
   )
-  puts 'Created route with destination CIDR block ' \
+  puts "Created route with destination CIDR block " \
     "'#{destination_cidr_block}' and associated with gateway " \
     "with ID '#{gateway_id}'."
   route_table.associate_with_subnet(subnet_id: subnet_id)
@@ -68,40 +68,40 @@ def route_table_created_and_associated?(
   return true
 rescue StandardError => e
   puts "Error creating or associating route table: #{e.message}"
-  puts 'If the route table was created but not associated, you should ' \
-    'clean up by deleting the route table.'
+  puts "If the route table was created but not associated, you should " \
+    "clean up by deleting the route table."
   return false
 end
 
 # Full example call:
 def run_me
-  vpc_id = ''
-  subnet_id = ''
-  gateway_id = ''
-  destination_cidr_block = ''
-  tag_key = ''
-  tag_value = ''
-  region = ''
+  vpc_id = ""
+  subnet_id = ""
+  gateway_id = ""
+  destination_cidr_block = ""
+  tag_key = ""
+  tag_value = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage: ruby ec2-ruby-example-create-route-table.rb ' \
-      'VPC_ID SUBNET_ID GATEWAY_ID DESTINATION_CIDR_BLOCK ' \
-      'TAG_KEY TAG_VALUE REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage: ruby ec2-ruby-example-create-route-table.rb " \
+      "VPC_ID SUBNET_ID GATEWAY_ID DESTINATION_CIDR_BLOCK " \
+      "TAG_KEY TAG_VALUE REGION"
   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-create-route-table.rb ' \
-      'vpc-0b6f769731EXAMPLE subnet-03d9303b57EXAMPLE igw-06ca90c011EXAMPLE ' \
-      '\'0.0.0.0/0\' my-key my-value us-west-2'
+    puts "Example: ruby ec2-ruby-example-create-route-table.rb " \
+      "vpc-0b6f769731EXAMPLE subnet-03d9303b57EXAMPLE igw-06ca90c011EXAMPLE " \
+      "'0.0.0.0/0' my-key my-value us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    vpc_id = 'vpc-0b6f769731EXAMPLE'
-    subnet_id = 'subnet-03d9303b57EXAMPLE'
-    gateway_id = 'igw-06ca90c011EXAMPLE'
-    destination_cidr_block = '0.0.0.0/0'
-    tag_key = 'my-key'
-    tag_value = 'my-value'
+    vpc_id = "vpc-0b6f769731EXAMPLE"
+    subnet_id = "subnet-03d9303b57EXAMPLE"
+    gateway_id = "igw-06ca90c011EXAMPLE"
+    destination_cidr_block = "0.0.0.0/0"
+    tag_key = "my-key"
+    tag_value = "my-value"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-west-2'
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     vpc_id = ARGV[0]
@@ -124,9 +124,9 @@ def run_me
     tag_key,
     tag_value
   )
-    puts 'Route table created and associated.'
+    puts "Route table created and associated."
   else
-    puts 'Route table not created or not associated.'
+    puts "Route table not created or not associated."
   end
 end
 

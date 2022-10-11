@@ -7,10 +7,10 @@
 
 # snippet-start:[eb.Ruby.listApps]
 
-require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
+require "aws-sdk-elasticbeanstalk"  # v2: require 'aws-sdk'
 
 # Replace us-west-2 with the AWS Region you're using for Elastic Beanstalk.
-eb = Aws::ElasticBeanstalk::Client.new(region: 'us-east-1')
+eb = Aws::ElasticBeanstalk::Client.new(region: "us-east-1")
 
 eb.describe_applications.applications.each do |a|
   puts "Name:         #{a.application_name}"
