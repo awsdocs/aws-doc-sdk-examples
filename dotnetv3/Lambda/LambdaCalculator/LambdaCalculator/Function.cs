@@ -1,3 +1,7 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+// snippet-start:[lambda.dotnetv3.handler.arithmetic]
 using Amazon.Lambda.Core;
 using System.Diagnostics;
 
@@ -49,3 +53,5 @@ public class Function
         return result;
     }
 }
+
+// snippet-end:[lambda.dotnetv3.handler.arithmetic]

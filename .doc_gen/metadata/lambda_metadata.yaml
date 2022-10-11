@@ -385,6 +385,14 @@ lambda_Scenario_GettingStartedFunctions:
               snippet_tags:
                 - lambda.dotnetv3.Lambda_Basics.GlobalUsings
                 - lambda.dotnetv3.Lambda_Basics.main
+            - description: Define a &LAM; handler that increments a number.
+              snippet_tags:
+                - lambda.dotnetv3.handler.increment
+            - description:
+                Define a second &LAM; handler that performs arithmetic
+                operations.
+              snippet_tags:
+                - lambda.dotnetv3.handler.arithmetic
     Kotlin:
       versions:
         - sdk_version: 1

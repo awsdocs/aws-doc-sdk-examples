@@ -1,3 +1,7 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+// snippet-start:[lambda.dotnetv3.handler.increment]
 using Amazon.Lambda.Core;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -27,3 +31,5 @@ public class Function
         }
     }
 }
+
+// snippet-end:[lambda.dotnetv3.handler.increment]
