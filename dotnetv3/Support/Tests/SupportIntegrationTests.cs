@@ -134,7 +134,7 @@ public class SupportIntegrationTests
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
-    [Order(6)]
+    [Order(7)]
     public async Task VerifyAddAttachmentToSet_ShouldReturnId()
     {
         var fileName = _configuration["exampleFileName"];
@@ -161,7 +161,7 @@ public class SupportIntegrationTests
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
-    [Order(7)]
+    [Order(8)]
     public async Task VerifyAddCommunicationToCase_ShouldReturnId()
     {
         var result = await _supportWrapper.AddCommunicationToCase(
@@ -177,7 +177,7 @@ public class SupportIntegrationTests
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
-    [Order(8)]
+    [Order(9)]
     public async Task VerifyCommunicationForCase_ShouldNotBeEmpty()
     {
         var communications = await _supportWrapper.DescribeCommunications(_caseId!);
