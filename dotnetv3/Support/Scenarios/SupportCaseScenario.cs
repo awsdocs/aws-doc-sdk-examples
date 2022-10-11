@@ -202,7 +202,7 @@ public static class SupportCaseScenario
     /// <param name="category">Category to use for the new case.</param>
     /// <param name="severity">Severity to use for the new case.</param>
     /// <returns>The caseId of the new support case.</returns>
-    private static async Task<string> CreateSupportCase(Service service, 
+    private static async Task<string> CreateSupportCase(Service service,
         Category category, SeverityLevel severity)
     {
         Console.WriteLine(new string('-', 80));
@@ -210,12 +210,8 @@ public static class SupportCaseScenario
                           $" with the following settings:" +
                           $" \n\tService: {service.Name}, Category: {category.Name} " +
                           $"and Severity Level: {severity.Name}.");
-        var caseId = await _supportWrapper.CreateCase(
-            service.Code, 
-            category.Code, 
-            severity.Code, 
-            "Example case for testing, please ignore.",
-            "This is my example support case.");
+        var caseId = await _supportWrapper.CreateCase(service.Code, category.Code, severity.Code,
+            "Example case for testing, please ignore.", "This is my example support case.");
 
         Console.WriteLine($"\tNew case created with id {caseId}");
 
@@ -231,8 +227,7 @@ public static class SupportCaseScenario
     private static async Task DescribeTodayOpenCases()
     {
         Console.WriteLine($"5. List the open support cases for the current day.");
-        
-        // Describe the cases. In case it is empty try again and allow time for the new case to show up.
+        // Describe the cases. In case it is empty, try again and allow time for the new case to appear.
         List<CaseDetails> currentOpenCases = null!;
         while (currentOpenCases == null || currentOpenCases.Count == 0)
         {
@@ -278,7 +273,7 @@ public static class SupportCaseScenario
             ms,
             fileName);
 
-        Console.WriteLine($"\tNew attachment set created with id: \n\t{attachmentSetId.Substring(0,65)}...");
+        Console.WriteLine($"\tNew attachment set created with id: \n\t{attachmentSetId.Substring(0, 65)}...");
 
         Console.WriteLine(new string('-', 80));
 

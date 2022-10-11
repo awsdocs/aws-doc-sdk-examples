@@ -21,7 +21,7 @@ public static class HelloSupport
     static async Task Main(string[] args)
     {
         // Set up dependency injection for the AWS Support service. 
-        // Use your AWS profile name, or leave blank to use the default profile.
+        // Use your AWS profile name, or leave it blank to use the default profile.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)

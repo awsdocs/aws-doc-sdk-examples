@@ -73,7 +73,7 @@ public class SupportWrapper
     /// <param name="issueType">Optional issue type for the new case. Options are "customer-service" or "technical".</param>
     /// <returns>The caseId of the new support case.</returns>
     public async Task<string> CreateCase(string serviceCode, string categoryCode, string severityCode, string subject,
-        string body, string language = "en", string? attachmentSetId = null, string issueType="customer-service")
+        string body, string language = "en", string? attachmentSetId = null, string issueType = "customer-service")
     {
         var response = await _amazonSupport.CreateCaseAsync(
             new CreateCaseRequest()
@@ -107,7 +107,7 @@ public class SupportWrapper
             new AddAttachmentsToSetRequest
             {
                 AttachmentSetId = attachmentSetId,
-               Attachments = new List<Attachment>
+                Attachments = new List<Attachment>
                 {
                     new Attachment
                     {
@@ -150,7 +150,7 @@ public class SupportWrapper
     /// <param name="attachmentSetId">Optional Id for an attachment set.</param>
     /// <param name="ccEmailAddresses">Optional list of cc email addresses.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> AddCommunicationToCase(string caseId, string body, 
+    public async Task<bool> AddCommunicationToCase(string caseId, string body,
         string? attachmentSetId = null, List<string>? ccEmailAddresses = null)
     {
         var response = await _amazonSupport.AddCommunicationToCaseAsync(
@@ -208,7 +208,7 @@ public class SupportWrapper
     /// <param name="beforeTime">The optional end date for a filtered search.</param>
     /// <param name="language">Optional language for the new case. Currently "en" and "ja" are supported.</param>
     /// <returns>A list of CaseDetails.</returns>
-    public async Task<List<CaseDetails>> DescribeCases(List<string> caseIds, string? displayId = null, bool includeCommunication = true, 
+    public async Task<List<CaseDetails>> DescribeCases(List<string> caseIds, string? displayId = null, bool includeCommunication = true,
         bool includeResolvedCases = false, DateTime? afterTime = null, DateTime? beforeTime = null,
         string language = "en")
     {
@@ -254,7 +254,7 @@ public class SupportWrapper
     // snippet-end:[Support.dotnetv3.ResolveCase]
 
     /// <summary>
-    /// Verify support level for support API access.
+    /// Verify the support level for support API access.
     /// </summary>
     /// <returns>True if the subscription level supports API access.</returns>
     public async Task<bool> VerifySubscription()

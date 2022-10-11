@@ -57,7 +57,7 @@ public class SupportIntegrationTests
     {
         var supportClient = new AmazonAWSSupportClient(
             new BasicAWSCredentials(
-                _configuration["missingSubscriptionAccessKey"], 
+                _configuration["missingSubscriptionAccessKey"],
                 _configuration["missingSubscriptionSecret"]));
         var supportWrapperWithoutSubscription = new SupportWrapper(supportClient);
         var result = await supportWrapperWithoutSubscription.VerifySubscription();
@@ -206,7 +206,7 @@ public class SupportIntegrationTests
     [Order(11)]
     public async Task VerifyDescribeCases_ShouldNotBeEmpty()
     {
-        // Describe the cases. In case it is empty try again and allow time for the new case to show up.
+        // Describe the cases. In case it is empty, try again and allow time for the new case to appear.
         List<CaseDetails> todayCases = null!;
         while (todayCases == null || todayCases.Count == 0)
         {
