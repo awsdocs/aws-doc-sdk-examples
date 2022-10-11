@@ -191,7 +191,7 @@ support_Scenario_GetStartedSupportCases:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - Support.dotnetv3.SupportBasics
-            - description: Wrapper methods used by the scenario for &SUPPORT actions.
+            - description: Wrapper methods used by the scenario for &SUPPORT; actions.
               snippet_tags:
                 - Support.dotnetv3.SupportWrapper
   services:
