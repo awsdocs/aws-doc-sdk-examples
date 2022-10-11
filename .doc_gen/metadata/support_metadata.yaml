@@ -70,7 +70,7 @@ support_createCase:
 support_describeAttachment:
   title: Describe an &SUP; attachment for a case using an &AWS; SDK
   title_abbrev: Describe an attachment
-  synopsis: Describe an &SUP; attachment for a case.
+  synopsis: describe an &SUP; attachment for a case.
   category:
   languages:
     .NET:
@@ -87,7 +87,7 @@ support_describeAttachment:
 support_describeCases:
   title: Describe &SUP; cases using an &AWS; SDK
   title_abbrev: Describe cases
-  synopsis: Describe &SUP; cases.
+  synopsis: describe &SUP; cases.
   category:
   languages:
     .NET:
@@ -104,7 +104,7 @@ support_describeCases:
 support_describeCommunications:
   title: Describe &SUP; communications for a case using an &AWS; SDK
   title_abbrev: Describe communications
-  synopsis: Describe &SUP; communications for a case.
+  synopsis: describe &SUP; communications for a case.
   category:
   languages:
     .NET:
@@ -121,7 +121,7 @@ support_describeCommunications:
 support_describeServices:
   title: Describe &SUP; services using an &AWS; SDK
   title_abbrev: Describe services
-  synopsis: Describe &SUP; services.
+  synopsis: describe &SUP; services.
   category:
   languages:
     .NET:
@@ -155,7 +155,7 @@ support_describeSeverityLevels:
 support_resolveCase:
   title: Resolve an &SUP; case using an &AWS; SDK
   title_abbrev: Resolve case
-  synopsis: Resolve an &SUP; case.
+  synopsis: resolve an &SUP; case.
   category:
   languages:
     .NET:
