@@ -14,7 +14,7 @@ node ses_sendbulktemplatedemail.js
  */
 // snippet-start:[ses.JavaScript.email.sendBulkTemplatedEmailV3]
 import { SendBulkTemplatedEmailCommand } from "@aws-sdk/client-ses";
-import { getUniqueName, postfix } from "../../libs/index";
+import { getUniqueName, postfix } from "../../libs/utils/util-string.js";
 import { sesClient } from "./libs/sesClient.js";
 
 /**

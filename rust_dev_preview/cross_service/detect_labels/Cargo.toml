@@ -5,7 +5,7 @@
 [package]
 name = "detect-labels-code-example"
 version = "0.1.0"
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -15,7 +15,7 @@ aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "
 aws-sdk-rekognition = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1.20.1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
+tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
 kamadak-exif = "0.5.4"

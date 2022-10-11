@@ -10,15 +10,15 @@ namespace ListPoliciesExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Shows how to list the Amazon Organizations policies associated with an
-    /// Organization. The example was created with the AWS SDK for .NET version
+    /// Shows how to list the AWS Organizations policies associated with an
+    /// organization. The example was created with the AWS SDK for .NET version
     /// 3.7 and .NET Core 5.0.
     /// </summary>
     public class ListPolicies
     {
         /// <summary>
         /// Initializes an Organizations client object, and then calls its
-        /// ListPolliciesAsync method.
+        /// ListPoliciesAsync method.
         /// </summary>
         public static async Task Main()
         {
@@ -58,9 +58,9 @@ namespace ListPoliciesExample
 
         /// <summary>
         /// Displays information about the Organizations policies associated
-        /// with an Organization.
+        /// with an organization.
         /// </summary>
-        /// <param name="policy">An Organizations Policy Summary to display
+        /// <param name="policy">An Organizations policy summary to display
         /// information on the console.</param>
         private static void DisplayPolicies(PolicySummary policy)
         {

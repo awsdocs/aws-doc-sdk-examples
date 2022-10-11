@@ -16,9 +16,6 @@ INPUTS:
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { dynamoClient } from "./dynamoClient.js";
 
-// Set the AWS Region.
-const REGION = "REGION"; //e.g. "us-east-1"
-
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.

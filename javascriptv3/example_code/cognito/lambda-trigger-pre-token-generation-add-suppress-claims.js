@@ -21,7 +21,7 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-token-generation-add-suppress-claimsV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
     event.response = {
       claimsOverrideDetails: {

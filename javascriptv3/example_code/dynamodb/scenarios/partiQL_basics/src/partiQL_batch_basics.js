@@ -126,7 +126,7 @@ export const run = async (
               ],
             },
           };
-          const data = ddbDocClient.send(new BatchWriteCommand(params));
+          ddbDocClient.send(new BatchWriteCommand(params));
         }
       }
       wait(10000);
@@ -170,7 +170,7 @@ export const run = async (
               },
             ],
           };
-          const data = await ddbDocClient.send(
+          await ddbDocClient.send(
             new BatchExecuteStatementCommand(params)
           );
           console.log("Success. Items deleted by batch.");
@@ -193,7 +193,7 @@ export const run = async (
                 },
               ],
             };
-            const data = await ddbDocClient.send(
+            await ddbDocClient.send(
               new BatchExecuteStatementCommand(params)
             );
             console.log("Success. Items added by batch.");
@@ -225,7 +225,7 @@ export const run = async (
                 ],
               };
               console.log("Updating movies...");
-              const data = await ddbDocClient.send(
+              await ddbDocClient.send(
                 new BatchExecuteStatementCommand(params)
               );
               console.log("Success. Items updated by batch.");

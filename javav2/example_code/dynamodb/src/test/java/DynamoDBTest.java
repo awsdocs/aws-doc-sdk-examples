@@ -53,7 +53,7 @@ public class DynamoDBTest {
     private static String songTitleVal = "";
 
     @BeforeAll
-    public static void setUp() throws IOException {
+    public static void setUp() {
 
         // Run tests on Real AWS Resources
         Region region = Region.US_EAST_1;

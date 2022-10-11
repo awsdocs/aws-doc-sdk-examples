@@ -6,77 +6,38 @@
 package com.example.demo
 
 import kotlinx.coroutines.runBlocking
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.*
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
+import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+import java.io.IOException
 
 @SpringBootApplication
-class DemoApplication
+open class DemoApplication
 
 fun main(args: Array<String>) {
     runApplication<DemoApplication>(*args)
 }
 
-@Controller
+@CrossOrigin(origins = ["*"])
+@RestController
+@RequestMapping("api/")
 class MessageResource {
 
-    @Autowired
-    lateinit var injectItems: InjectWorkService
-
-    @Autowired
-    lateinit var sendMsg: SendMessage
-
-    @Autowired
-    lateinit var ri: RetrieveItems
-
-    @GetMapping("/")
-    fun root(): String? {
-        return "index"
-    }
-
-    @GetMapping("/add")
-    fun designer(): String? {
-        return "add"
-    }
-
-    @GetMapping("/items")
-    fun items(): String? {
-        return "items"
-    }
-
-    // Retrieve all items for a given user.
-    @RequestMapping(value = ["/retrieve"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun retrieveItems(request: HttpServletRequest, response: HttpServletResponse?): String?  = runBlocking {
-
-        val type = request.getParameter("type")
-        val name = "user"
-
-        // Pass back all data from the database.
-        val xml: String?
-
-        return@runBlocking if (type == "active") {
-            xml = ri.getItemsDataSQL(name, 0)
-            xml
-        } else {
-            xml = ri.getItemsDataSQL(name, 1)
-            xml
-        }
-    }
-
-    // Add a new item to the database.
-    @RequestMapping(value = ["/additems"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun addItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
-
+    // Add a new item.
+    @PostMapping("/add")
+    fun addItems(@RequestBody payLoad: Map<String, Any>): String = runBlocking {
+        val injectWorkService = InjectWorkService()
         val nameVal = "user"
-        val guideVal = request.getParameter("guide")
-        val descriptionVal = request.getParameter("description")
-        val statusVal = request.getParameter("status")
+        val guideVal = payLoad.get("guide").toString()
+        val descriptionVal = payLoad.get("description").toString()
+        val statusVal = payLoad.get("status").toString()
 
         // Create a Work Item object.
         val myWork = WorkItem()
@@ -84,48 +45,44 @@ class MessageResource {
         myWork.description = descriptionVal
         myWork.status = statusVal
         myWork.name = nameVal
-        val id =  injectItems.injestNewSubmission(myWork)
+        val id = injectWorkService.injestNewSubmission(myWork)
         return@runBlocking "Item $id added successfully!"
     }
 
-    // Return a work item to modify.
-    @RequestMapping(value = ["/modify"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun modifyWork(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
-        val id = request.getParameter("id")
-        return@runBlocking ri.getItemSQL(id)
+    // Retrieve items.
+    @GetMapping("items/{state}")
+    fun getItems(@PathVariable state: String): MutableList<WorkItem> = runBlocking {
+        val retrieveItems = RetrieveItems()
+        val list: MutableList<WorkItem>
+        val name = "user"
+        if (state.compareTo("archive") == 0) {
+            list = retrieveItems.getItemsDataSQL(name, 1)
+        } else {
+            list = retrieveItems.getItemsDataSQL(name, 0)
+        }
+        return@runBlocking list
     }
 
-    // Modify the value of a work item.
-    @RequestMapping(value = ["/modstatus"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun changeWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
-        val id = request.getParameter("id")
-        val status = request.getParameter("stat")
-        injectItems.modifySubmission(id, status)
+    // Flip an item from Active to Archive.
+    @PutMapping("mod/{id}")
+    fun modUser(@PathVariable id: String): String = runBlocking {
+        val retrieveItems = RetrieveItems()
+        retrieveItems.flipItemArchive(id)
         return@runBlocking id
     }
 
-    // Archive a work item.
-    @RequestMapping(value = ["/archive"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun archieveWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
-        val id = request.getParameter("id")
-        ri.flipItemArchive(id)
-        return@runBlocking id
+    // Send a report through Amazon SES.
+    @PutMapping("report/{email}")
+    fun sendReport(@PathVariable email: String): String = runBlocking {
+        val retrieveItems = RetrieveItems()
+        val nameVal = "user"
+        val sendMsg = SendMessage()
+        val xml = retrieveItems.getItemsDataSQLReport(nameVal, 0)
+        try {
+            sendMsg.send(email, xml)
+        } catch (e: IOException) {
+            e.stackTrace
+        }
+        return@runBlocking "Report was sent"
     }
-
-     // Email a report.
-     @RequestMapping(value = ["/report"], method = [RequestMethod.POST])
-     @ResponseBody
-     fun getReport(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
-         val email = request.getParameter("email")
-         val xml = ri.getItemsDataSQLReport("user", 0)
-         try {
-             sendMsg.send(email, xml)
-         } catch (e: Exception) {
-             e.stackTrace
-         }
-         return@runBlocking "Report was sent"
-     }
 }

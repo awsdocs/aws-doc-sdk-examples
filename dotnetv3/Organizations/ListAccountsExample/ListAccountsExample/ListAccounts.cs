@@ -10,7 +10,7 @@ namespace ListAccountsExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Uses the Amazon Organizations service to lisst the accounts associated
+    /// Uses the AWS Organizations service to list the accounts associated
     /// with the default account. The example was created using the AWS SDK for
     /// .NET and .NET Core 5.0.
     /// </summary>
@@ -52,7 +52,7 @@ namespace ListAccountsExample
         /// <summary>
         /// Displays information about an Organizations account.
         /// </summary>
-        /// <param name="account">An Organizations Account for which to display
+        /// <param name="account">An Organizations account for which to display
         /// information on the console.</param>
         private static void DisplayAccounts(Account account)
         {

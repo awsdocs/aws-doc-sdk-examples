@@ -44,16 +44,16 @@ function getHtml(template) {
 window.getHTML = getHtml;
 
 // List the photo albums that exist in the bucket
-var albumBucketName = "BUCKET_NAME"; //BUCKET_NAME
+const albumBucketName = "BUCKET_NAME"; //BUCKET_NAME
 
 const listAlbums = async () => {
   try {
     const data = await s3.send(
       new ListObjectsCommand({ Delimiter: "/", Bucket: albumBucketName })
     );
-    var albums = data.CommonPrefixes.map(function (commonPrefix) {
-      var prefix = commonPrefix.Prefix;
-      var albumName = decodeURIComponent(prefix.replace("/", ""));
+    const albums = data.CommonPrefixes.map(function (commonPrefix) {
+      const prefix = commonPrefix.Prefix;
+      const albumName = decodeURIComponent(prefix.replace("/", ""));
       return getHtml([
         "<li>",
         '<button style="margin:5px;" onclick="viewAlbum(\'' +
@@ -64,10 +64,10 @@ const listAlbums = async () => {
         "</li>",
       ]);
     });
-    var message = albums.length
+    const message = albums.length
       ? getHtml(["<p>Click an album name to view it.</p>"])
       : "<p>You don't have any albums. You need to create an album.";
-    var htmlTemplate = [
+    const htmlTemplate = [
       "<h2>Albums</h2>",
       message,
       "<ul>",
@@ -88,18 +88,18 @@ window.listAlbums = listAlbums;
 // Show the photos that exist in an album
 const viewAlbum = async (albumName) => {
   try {
-    var albumPhotosKey = encodeURIComponent(albumName) + "/";
+    const albumPhotosKey = encodeURIComponent(albumName) + "/";
     const data = await s3.send(
       new ListObjectsCommand({
         Prefix: albumPhotosKey,
         Bucket: albumBucketName,
       })
     );
-    var href = "https://s3." + REGION + ".amazonaws.com/";
-    var bucketUrl = href + albumBucketName + "/";
-    var photos = data.Contents.map(function (photo) {
-      var photoKey = photo.Key;
-      var photoUrl = bucketUrl + encodeURIComponent(photoKey);
+    const href = "https://s3." + REGION + ".amazonaws.com/";
+    const bucketUrl = href + albumBucketName + "/";
+    const photos = data.Contents.map(function (photo) {
+      const photoKey = photo.Key;
+      const photoUrl = bucketUrl + encodeURIComponent(photoKey);
       return getHtml([
         "<span>",
         "<div>",
@@ -114,10 +114,10 @@ const viewAlbum = async (albumName) => {
         "</span>",
       ]);
     });
-    var message = photos.length
+    const message = photos.length
       ? "<p>The following photos are present.</p>"
       : "<p>There are no photos in this album.</p>";
-    var htmlTemplate = [
+    const htmlTemplate = [
       "<div>",
       '<button onclick="listAlbums()">',
       "Back To albums",

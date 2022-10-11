@@ -9,15 +9,18 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.batchitems.import]
+
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.BatchWriteItemEnhancedRequest;
 import software.amazon.awssdk.enhanced.dynamodb.model.WriteBatch;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,13 +47,13 @@ public class EnhancedBatchWriteItems {
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .credentialsProvider(credentialsProvider)
-            .build();
+                .region(region)
+                .credentialsProvider(credentialsProvider)
+                .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(ddb)
-            .build();
+                .dynamoDbClient(ddb)
+                .build();
 
         putBatchRecords(enhancedClient);
         ddb.close();
@@ -60,7 +63,8 @@ public class EnhancedBatchWriteItems {
     public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
 
         try {
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+            DynamoDbTable<Customer> customerMappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+            DynamoDbTable<Music> musicMappedTable = enhancedClient.table("Music", TableSchema.fromBean(Music.class));
             LocalDate localDate = LocalDate.parse("2020-04-07");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
@@ -77,16 +81,32 @@ public class EnhancedBatchWriteItems {
             record3.setEmail("spink@noserver.com");
             record3.setRegistrationDate(instant) ;
 
-            BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest = BatchWriteItemEnhancedRequest.builder()
-                .writeBatches(WriteBatch.builder(Customer.class)
-                    .mappedTableResource(mappedTable)
-                    .addPutItem(r -> r.item(record2))
-                    .addPutItem(r -> r.item(record3))
-                    .build())
-                .build();
+            Customer record4 = new Customer();
+            record4.setCustName("Jerry orange");
+            record4.setId("id101");
+            record4.setEmail("jorange@noserver.com");
+            record4.setRegistrationDate(instant) ;
 
-            // Add these two items to the table.
+
+            BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest = BatchWriteItemEnhancedRequest.builder()
+                    .writeBatches(
+                            WriteBatch.builder(Customer.class)          // add items to the Customer table
+                                    .mappedTableResource(customerMappedTable)
+                                    .addPutItem(builder -> builder.item(record2))
+                                    .addPutItem(builder -> builder.item(record3))
+                                    .addPutItem(builder -> builder.item(record4))
+                                    .build(),
+                            WriteBatch.builder(Music.class)             // delete an item from the Music table
+                                    .mappedTableResource(musicMappedTable)
+                                    .addDeleteItem(builder -> builder.key(
+                                            Key.builder().partitionValue("Famous Band").build()))
+                                    .build())
+                    .build();
+
+
+            // Add two items to the Customer table and delete one item from the Music table
             enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
+
             System.out.println("done");
 
         } catch (DynamoDbException e) {

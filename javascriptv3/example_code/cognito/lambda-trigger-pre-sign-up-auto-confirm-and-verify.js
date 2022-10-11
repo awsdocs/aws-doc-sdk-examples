@@ -22,7 +22,7 @@ Running the code:
 */
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm-and-verifyV3]
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   // Confirm the user
   event.response.autoConfirmUser = true;
   try {

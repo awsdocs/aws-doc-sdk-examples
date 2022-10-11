@@ -50,8 +50,6 @@ window.startRecord = function () {
   record.disabled = true;
   record.style.backgroundColor = "blue";
   stop.disabled = false;
-  let audioChunks;
-  audioChunks = [];
   rec.start();
 };
 
