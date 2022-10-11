@@ -2,16 +2,10 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 using Amazon.AWSSupport;
-using Amazon.Extensions.NETCore.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Logging.Debug;
 
 namespace SupportActions;
-
-// snippet-start:[Support.dotnetv3.HelloSupport]
 
 /// <summary>
 /// Hello AWS Support example.
@@ -20,51 +14,23 @@ public static class HelloSupport
 {
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the AWS Support service. 
+        // snippet-start:[Support.dotnetv3.HelloSupport]
+
+        // Use the AWS .NET Core Setup package to set up dependency injection for the AWS Support service.
         // Use your AWS profile name, or leave it blank to use the default profile.
+        // You must have a Business, Enterprise On-Ramp, or Enterprise Support subscription, or an exception will be thrown.
         using var host = Host.CreateDefaultBuilder(args)
-            .ConfigureLogging(logging =>
-                logging.AddFilter("System", LogLevel.Debug)
-                    .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information)
-                    .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonAWSSupport>()
-                    .AddTransient<SupportWrapper>()
-            )
-            .Build();
+            ).Build();
 
-        var logger = LoggerFactory.Create(builder =>
-        {
-            builder.AddConsole();
-        }).CreateLogger(typeof(HelloSupport));
+        // For this example, get the client from the host after setup.
+        var supportClient = host.Services.GetRequiredService<IAmazonAWSSupport>();
 
-        var supportWrapper = host.Services.GetRequiredService<SupportWrapper>();
+        var response = await supportClient.DescribeServicesAsync();
+        Console.WriteLine($"\tHello AWS Support! There are {response.Services.Count} services available.");
 
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Welcome to the AWS Support Hello Support example.");
-        Console.WriteLine(new string('-', 80));
+        // snippet-end:[Support.dotnetv3.HelloSupport]
 
-        try
-        {
-            var apiSupported = await supportWrapper.VerifySubscription();
-            if (!apiSupported)
-            {
-                logger.LogError("You must have a Business, Enterprise On-Ramp, or Enterprise Support " +
-                                 "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these examples.");
-                return;
-            }
-
-            var services = await supportWrapper.DescribeServices();
-            Console.WriteLine($"AWS Support client returned {services.Count} services.");
-
-            Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Hello Support example is complete.");
-            Console.WriteLine(new string('-', 80));
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "There was a problem executing the scenario.");
-        }
     }
 }
-// snippet-end:[Support.dotnetv3.HelloSupport]
