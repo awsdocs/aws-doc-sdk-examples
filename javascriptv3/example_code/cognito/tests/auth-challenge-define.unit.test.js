@@ -65,7 +65,7 @@ describe("auth-challenge-define", () => {
   );
 
   it(
-    "should return a tokens if the last challenge was successful",
+    "should return tokens if the last challenge was successful",
     testEqual(
       expect.objectContaining({
         response: {
