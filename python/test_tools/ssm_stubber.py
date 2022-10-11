@@ -8,6 +8,7 @@ When tests are run against an actual AWS account, the stubber class does not
 set up stubs and passes all calls through to the Boto3 client.
 """
 
+from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -47,3 +48,9 @@ class SsmStubber(ExampleStubber):
             'CommandId': command_id, 'StatusDetails': status_details}]}
         self._stub_bifurcator(
             'list_commands', expected_parameters, response, error_code=error_code)
+
+    def stub_get_parameters_by_path(self, names, values, path=ANY, error_code=None):
+        expected_params = {'Path': path}
+        response = {'Parameters': [{'Name': name, 'Value': value} for name, value in zip(names, values)]}
+        self._stub_bifurcator(
+            'get_parameters_by_path', expected_params, response, error_code=error_code)
