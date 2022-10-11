@@ -8,7 +8,7 @@ namespace LambdaCalculator;
 
 public class Function
 {
-    
+
     /// <summary>
     /// A simple function that takes a string and does a ToUpper
     /// </summary>
@@ -21,7 +21,7 @@ public class Function
         int x = Convert.ToInt32(input["x"]);
         int y = Convert.ToInt32(input["y"]);
         int result;
-        switch(action)
+        switch (action)
         {
             case "add":
                 result = x + y;
