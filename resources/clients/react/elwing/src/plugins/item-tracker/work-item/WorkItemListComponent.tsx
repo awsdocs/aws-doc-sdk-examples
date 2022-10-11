@@ -1,13 +1,7 @@
-/**
- * An element that displays a list of work items that are retrieved from a REST service.
- *
- * - Select Active or Archived to display work items with the specified state.
- * - Select the wastebasket icon to archive an active item.
- * - Select 'Add item' to add a new item.
- * - Enter a recipient email and select 'Send report' to send a report of work items.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { WorkItem, WorkItemStatus } from "./WorkItemService";
 import { workItemService as service } from "./WorkItemService";
 import {
@@ -28,14 +22,21 @@ const STATUS_OPTIONS: OptionDefinition[] = [
   { value: "", label: "All" },
 ];
 
-export const WorkItemControls = ({
-  sendReport,
-}: {
-  sendReport: (email: string) => Promise<void>;
-}) => {
+export const WorkItemControls = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(STATUS_OPTIONS[0]);
-  const { setStatus: handleStatusChange } = useItemTrackerAction();
+  const { setStatus: handleStatusChange, setError } = useItemTrackerAction();
+
+  const sendReport = useCallback(
+    async (email: string) => {
+      try {
+        service.mailItem(email);
+      } catch (e) {
+        setError((e as Error).message);
+      }
+    },
+    [setError]
+  );
 
   useEffect(() => {
     handleStatusChange((status.value as WorkItemStatus) ?? "");
@@ -52,7 +53,7 @@ export const WorkItemControls = ({
       </FormField>
       <FormField
         label="Email Report"
-        description="You must first register the recipient's email with Amazon SES."
+        description="Register the recipient's email with Amazon SES."
       >
         <Input
           value={email}
@@ -70,13 +71,11 @@ export const WorkItemControls = ({
 export const WorkItems = () => {
   const [selected, setSelected] = useState<WorkItem[]>([]);
   const { loadItems, setError } = useItemTrackerAction();
-  // const status = useItemTrackerState(({ status }) => status);
   const items = useItemTrackerState(({ items }) => items);
-  // const loading = useItemTrackerState(({ loading }) => loading);
 
   useEffect(() => {
     loadItems();
-  }, []);
+  }, [loadItems]);
 
   const archiveItem = async (itemId: string) => {
     try {
@@ -141,39 +140,4 @@ export const WorkItems = () => {
       items={items}
     />
   );
-  // return (
-  //   <>
-  //     {!loading && items.length === 0 ? (
-  //       <Alert>No work items found.</Alert>
-  //     ) : (
-  //       <table>
-  //         <thead>
-  //           <tr>
-  //             <th>Item Id</th>
-  //             <th>User</th>
-  //             <th>Guide</th>
-  //             <th>Description</th>
-  //             <th>Status</th>
-  //             <th />
-  //           </tr>
-  //         </thead>
-  //         {loading ? (
-  //           <tbody>
-  //             <WorkItemsLoading />
-  //           </tbody>
-  //         ) : (
-  //           <tbody>
-  //             {items.map((item) => (
-  //               <WorkItem
-  //                 item={item}
-  //                 status={status}
-  //                 archiveItem={archiveItem}
-  //               />
-  //             ))}
-  //           </tbody>
-  //         )}
-  //       </table>
-  //     )}
-  //   </>
-  // );
 };

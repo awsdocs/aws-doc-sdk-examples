@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import { Box, Header, Link, SpaceBetween } from "@cloudscape-design/components";
 export function Readme() {
   return (
@@ -28,7 +31,7 @@ export function Readme() {
           <li>
             <Link
               external
-              href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/2142ca5b294e06b719b6e22a38339e86050d8fde/javav2/usecases/Creating_Spring_RDS_%20Rest"
+              href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest"
             >
               Java Spring
             </Link>
@@ -36,7 +39,7 @@ export function Readme() {
           <li>
             <Link
               external
-              href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/84ea245588ffe9043ed162f211cbfdc91f952640/kotlin/usecases/serverless_rds"
+              href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/serverless_rds"
             >
               Kotlin
             </Link>

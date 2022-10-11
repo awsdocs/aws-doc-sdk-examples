@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { RestService } from "../RestService";
+import { BASE_URL } from "../config.json";
 
 /**
  * Sends REST requests to get work items, add new work items, modify work items,
@@ -36,12 +37,11 @@ export class WorkItemService extends RestService<WorkItem> {
   /**
    * Sends a POST request to email a report of work items.
    */
-  mailItem = async (email: string) => {
+  async mailItem(email: string) {
     return await fetch(`${this.url()}:report`, {
       body: JSON.stringify({ email }),
     });
-  };
+  }
 }
 
-export const BASE_URL = "http://localhost:8080/api";
 export const workItemService = new WorkItemService();
