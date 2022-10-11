@@ -196,5 +196,5 @@ support_Scenario_GetStartedSupportCases:
                 - Support.dotnetv3.SupportWrapper
   services:
     support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment,
-               DescribeCases, DescribeCommunications, DescribeServices, DescribeSeverityLevels,
-               ResolveCase}
+              DescribeCases, DescribeCommunications, DescribeServices, DescribeSeverityLevels,
+              ResolveCase}
