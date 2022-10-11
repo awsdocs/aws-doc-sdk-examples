@@ -5,13 +5,19 @@ describe("auth-challenge-create function", () => {
   it(
     'should return the same request/response objects if the challenge name is not "CUSTOM_CHALLENGE"',
     testEqual(
-      expect.objectContaining({ request: {}, response: {} }),
-      handler({ request: {}, response: {} })
+      expect.objectContaining({
+        request: { challengeName: "NOT_CUSTOM_CHALLENGE" },
+        response: {},
+      }),
+      handler({
+        request: { challengeName: "NOT_CUSTOM_CHALLENGE" },
+        response: {},
+      })
     )
   );
 
   it(
-    "should return the same request/response objects if there are no sessions",
+    "should return the same request/response objects if the session array is empty",
     testEqual(
       expect.objectContaining({
         request: { challengeName: "CUSTOM_CHALLENGE", session: [] },
@@ -25,7 +31,7 @@ describe("auth-challenge-create function", () => {
   );
 
   it(
-    "should return a captcha challenge if the session length is 2",
+    "should return a captcha challenge if the session array has two elements and the challenge is a CUSTOM_CHALLENGE",
     testEqual(
       expect.objectContaining({
         response: {
@@ -41,7 +47,7 @@ describe("auth-challenge-create function", () => {
   );
 
   it(
-    "should return a mascot challenge if the session length is 3",
+    "should return a mascot challenge if the session array has three elements and the challenge is a CUSTOM_CHALLENGE",
     testEqual(
       expect.objectContaining({
         response: {
