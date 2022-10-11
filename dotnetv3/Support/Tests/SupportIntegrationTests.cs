@@ -223,7 +223,7 @@ public class SupportIntegrationTests
     }
 
     /// <summary>
-    /// Resolve an active case. Should return a result of resolved
+    /// Resolve an active case. Should return a result of resolved.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

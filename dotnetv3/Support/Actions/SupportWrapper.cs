@@ -23,7 +23,7 @@ public class SupportWrapper
     // snippet-start:[Support.dotnetv3.DescribeServices]
 
     /// <summary>
-    /// Get descriptions of support services.
+    /// Get the descriptions of support services.
     /// </summary>
     /// <param name="name">Optional language for services. Currently "en" and "ja" are supported.</param>
     /// <returns>The list of support service descriptions.</returns>
@@ -42,7 +42,7 @@ public class SupportWrapper
     // snippet-start:[Support.dotnetv3.DescribeSeverityLevels]
 
     /// <summary>
-    /// Get descriptions of support severity levels.
+    /// Get the descriptions of support severity levels.
     /// </summary>
     /// <param name="name">Optional language for severity levels. Currently "en" and "ja" are supported.</param>
     /// <returns>The list of support severity levels.</returns>

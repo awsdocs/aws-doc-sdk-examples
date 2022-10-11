@@ -335,7 +335,7 @@ public static class SupportCaseScenario
     private static async Task DescribeCaseAttachment(string attachmentId)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"9. Describe attachment set.");
+        Console.WriteLine($"9. Describe the attachment set.");
 
         var attachment = await _supportWrapper.DescribeAttachment(attachmentId);
         var data = Encoding.ASCII.GetString(attachment.Data.ToArray());
