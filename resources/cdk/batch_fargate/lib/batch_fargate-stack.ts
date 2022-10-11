@@ -40,7 +40,7 @@ export class BatchFargateStack extends cdk.Stack {
       "BatchFargateComputeEnvironment",
       {
         type: "MANAGED",
-        computeEnvironmentName: 'test',
+        computeEnvironmentName: 'batch-fargate-test-runner',
         computeResources: {
           type: "FARGATE",
           subnets: selection.subnets.map((subnet) => subnet.subnetId),
