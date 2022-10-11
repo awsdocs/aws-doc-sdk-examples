@@ -14,9 +14,9 @@ import { SendEmailCommand } from "@aws-sdk/client-ses";
 import * as awsID from "./awsID.js";
 
 export const sendEmail = async(sender, receiver, originalText, translatedText) => {
-  let sesClient = createSESClient();
-  let htmlBody = createHTMLBody(originalText, translatedText);
-  let textBody = createTextBody(originalText, translatedText);
+  const sesClient = createSESClient();
+  const htmlBody = createHTMLBody(originalText, translatedText);
+  const textBody = createTextBody(originalText, translatedText);
   const command = createEmailCommand(sender, receiver, htmlBody, textBody);
   await sesClient.send(new SendEmailCommand(command));
 }

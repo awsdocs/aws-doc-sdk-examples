@@ -15,13 +15,13 @@ import { ComprehendClient, DetectDominantLanguageCommand } from "@aws-sdk/client
 import * as awsID from "./awsID.js";
 
 export const translateTextToLanguage = async (text, targetLanguage) => {
-  let sourceLanguage = await detectLanguageOfText(text);
+  const sourceLanguage = await detectLanguageOfText(text);
   return await translateTextFromLanguageToLanguage(text, sourceLanguage, targetLanguage);
 };
 
 const detectLanguageOfText = async(text) => {
-  let comprehendClient = createComprehendClient();
-  let data = await comprehendClient.send(
+  const comprehendClient = createComprehendClient();
+  const data = await comprehendClient.send(
     new DetectDominantLanguageCommand({ Text: text })
   );
   return data.Languages[0].LanguageCode;
@@ -38,13 +38,13 @@ const createComprehendClient = () => {
 }
 
 const translateTextFromLanguageToLanguage = async (text, sourceLanguage, targetLanguage) => {
-  let translateClient = createTranslateClient();
+  const translateClient = createTranslateClient();
   const translateParams = {
     Text: text,
     SourceLanguageCode: sourceLanguage,
     TargetLanguageCode: targetLanguage,
   };
-  let data = await translateClient.send(
+  const data = await translateClient.send(
     new TranslateTextCommand(translateParams)
   );
   return data.TranslatedText;
