@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
-        <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
-        %xinclude;
-        <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
-        %phrases-code-examples;
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
 {{- if isSnapshot}}
-    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
-    %phrases-prerelease-examples;
+    <!ENTITY % phrases-code-examples SYSTEM "phrases-code-examples.ent">
+{{- else}}
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
 {{- end}}
-        <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
-        %phrases-shared;
-        ]>
+    %phrases-code-examples;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+    ]>
 {{- $chapter_id := printf "code_example_library_by_%s" .TagName}}
 {{- $grouping := ""}}
 {{- if eq .TagName "product_categories"}}

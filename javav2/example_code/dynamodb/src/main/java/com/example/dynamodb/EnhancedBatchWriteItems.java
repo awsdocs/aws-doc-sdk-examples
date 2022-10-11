@@ -81,12 +81,20 @@ public class EnhancedBatchWriteItems {
             record3.setEmail("spink@noserver.com");
             record3.setRegistrationDate(instant) ;
 
+            Customer record4 = new Customer();
+            record4.setCustName("Jerry orange");
+            record4.setId("id101");
+            record4.setEmail("jorange@noserver.com");
+            record4.setRegistrationDate(instant) ;
+
+
             BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest = BatchWriteItemEnhancedRequest.builder()
                     .writeBatches(
                             WriteBatch.builder(Customer.class)          // add items to the Customer table
                                     .mappedTableResource(customerMappedTable)
                                     .addPutItem(builder -> builder.item(record2))
                                     .addPutItem(builder -> builder.item(record3))
+                                    .addPutItem(builder -> builder.item(record4))
                                     .build(),
                             WriteBatch.builder(Music.class)             // delete an item from the Music table
                                     .mappedTableResource(musicMappedTable)

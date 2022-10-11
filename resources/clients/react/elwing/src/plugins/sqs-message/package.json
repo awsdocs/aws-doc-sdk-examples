@@ -1,0 +1,16 @@
+{
+  "name": "ewp-sqs-message",
+  "version": "1.0.0",
+  "description": "An Elwing plugin demonstrating Amazon Simple Queue Service (Amazon SQS) functionality.",
+  "author": "corepyle@amazon.com",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "peerDependencies": {
+    "@cloudscape-design/components": "^3.0.65",
+    "@cloudscape-design/global-styles": "^1.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

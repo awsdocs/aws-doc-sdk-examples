@@ -388,7 +388,7 @@ Create the React SPA that consumes the JSON data returned from the
 Spring REST API. To start, download files from the 
 following GitHub repository. Included in this repository are instructions 
 on how to set up the project. Click the following link to access the 
-GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/clients/react/sqs-chat/README.md).
+GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/clients/react/elwing/src/plugins/sqs-chat/README.md).
 
 In the instructions for the React app, you'll see directions to replace the `BASE_URL` value.
 The React app uses the `BASE_URL` value to communicate with the Spring app.
