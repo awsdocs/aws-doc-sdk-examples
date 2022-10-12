@@ -57,7 +57,7 @@ string policyDocument = "{" +
 string handler = _configuration["Handler"];
 string bucketName = _configuration["BucketName"];
 string key = _configuration["Key"];
-string keyUpdate = _configuration["KeyUpdate"];
+string updateKey = _configuration["UpdateKey"];
 
 string sepBar = new('-', 80);
 
@@ -75,7 +75,7 @@ Console.WriteLine("Waiting for role to become active.");
 System.Threading.Thread.Sleep(10000);
 
 // Create the Lambda function using a zip file stored in an Amazon S3 bucket.
-Console.Write(sepBar);
+Console.WriteLine(sepBar);
 Console.WriteLine($"Creating the AWS Lambda function: {functionName}.");
 var lambdaARN = await lambdaMethods.CreateLambdaFunction(
     lambdaClient,
@@ -131,7 +131,7 @@ Console.WriteLine($"{value} +1 = {answer}.");
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Now update the Lambda function code.");
-await lambdaMethods.UpdateFunctionCode(lambdaClient, functionName, bucketName, keyUpdate);
+await lambdaMethods.UpdateFunctionCode(lambdaClient, functionName, bucketName, updateKey);
 
 Console.WriteLine("Sleep for 1 min to update to complete.");
 System.Threading.Thread.Sleep(60000);
@@ -144,7 +144,7 @@ value = string.Empty;
 do
 {
     Console.Write("Enter the first value: ");
-    Console.ReadLine();
+    value = Console.ReadLine();
 }
 while (value == string.Empty);
 
@@ -152,7 +152,7 @@ string value2 = string.Empty;
 do
 {
     Console.Write("Enter a second value: ");
-    Console.ReadLine();
+    value2 = Console.ReadLine();
 }
 while (value2 == string.Empty);
 
@@ -173,16 +173,16 @@ while (opSelected == string.Empty);
 
 var operation = (opSelected) switch
 {
-    ("1") => "add",
-    ("2") => "subtract",
-    ("3") => "multiply",
-    ("4") => "divide",
+    "1" => "add",
+    "2" => "subtract",
+    "3" => "multiply",
+    "4" => "divide",
     _ => "add",
 };
 
 functionParameters = "{" +
     "\"action\": \"" + operation + "\", " +
-    "\"x\": \"" + value + "\"" +
+    "\"x\": \"" + value + "\"," +
     "\"y\": \"" + value2 + "\"" +
 "}";
 
