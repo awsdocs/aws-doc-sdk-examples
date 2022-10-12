@@ -60,7 +60,7 @@ class ElasticIpWrapper:
 
         :param instance: A Boto3 Instance object. This is a high-level object that wraps
                          Amazon EC2 instance actions.
-        :return: A response that contain the ID of the association.
+        :return: A response that contains the ID of the association.
         """
         if self.elastic_ip is None:
             logger.info("No Elastic IP to associate.")

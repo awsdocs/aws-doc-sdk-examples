@@ -77,7 +77,7 @@ class Ec2InstanceScenario:
     def create_security_group(self):
         """
         1. Creates a security group for the default VPC.
-        2. Adds inbound rules to allow HTTP, HTTPS, and SSH. The SSH rule allows only
+        2. Adds an inbound rule to allow SSH. The SSH rule allows only
            inbound traffic from the current computer’s public IPv4 address.
         3. Displays information about the security group.
 
@@ -96,10 +96,9 @@ class Ec2InstanceScenario:
 
         ip_response = urllib.request.urlopen('http://checkip.amazonaws.com')
         current_ip_address = ip_response.read().decode('utf-8').strip()
-        print("Let's add rules to allow all HTTP and HTTPS inbound traffic and to "
-              "allow SSH only from your current IP address.")
+        print("Let's add a rule to allow SSH only from your current IP address.")
         print(f"Your public IP address is {current_ip_address}.")
-        q.ask("Press Enter to add these rules to your security group.")
+        q.ask("Press Enter to add this rule to your security group.")
         response = self.sg_wrapper.authorize_ingress(current_ip_address)
         if response['Return']:
             print("Security group rules updated.")

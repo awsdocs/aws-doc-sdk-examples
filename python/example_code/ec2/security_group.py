@@ -55,7 +55,7 @@ class SecurityGroupWrapper:
     # snippet-start:[python.example_code.ec2.AuthorizeSecurityGroupIngress]
     def authorize_ingress(self, ssh_ingress_ip):
         """
-        Adds rules to the security group to allow access to HTTP, HTTPS and, SSH.
+        Adds a rule to the security group to allow access to SSH.
 
         :param ssh_ingress_ip: The IP address that is granted inbound access to connect
                                to port 22 over TCP, used for SSH.
@@ -68,15 +68,6 @@ class SecurityGroupWrapper:
 
         try:
             ip_permissions = [{
-                # HTTP ingress open to anyone
-                'IpProtocol': 'tcp', 'FromPort': 80, 'ToPort': 80,
-                'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
-            }, {
-
-                # HTTPS ingress open to anyone
-                'IpProtocol': 'tcp', 'FromPort': 443, 'ToPort': 443,
-                'IpRanges': [{'CidrIp': '0.0.0.0/0'}]
-            }, {
                 # SSH ingress open to only the specified IP address
                 'IpProtocol': 'tcp', 'FromPort': 22, 'ToPort': 22,
                 'IpRanges': [{'CidrIp': f'{ssh_ingress_ip}/32'}]}]
