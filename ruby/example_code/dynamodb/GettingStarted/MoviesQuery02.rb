@@ -13,7 +13,7 @@
 # beginning with the letters 'A' through 'L'.
 
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesQuery02]
-require 'aws-sdk-dynamodb'
+require "aws-sdk-dynamodb"
 
 def query_for_items_from_table(dynamodb_client, query_condition)
   # To display the elapsed time for the query operation,
@@ -23,20 +23,20 @@ def query_for_items_from_table(dynamodb_client, query_condition)
   # finish = Time.now
   # puts "Search took #{finish - start} seconds."
   if result.items.count.zero?
-    puts 'No matching movies found.'
+    puts "No matching movies found."
   else
     puts "Found #{result.items.count} matching movies:"
     result.items.each do |movie|
       puts "#{movie['title']} (#{movie['year'].to_i}):"
-      if movie['info'].key?('genres') && movie['info']['genres'].count.positive?
-        puts '  Genres:'
-        movie['info']['genres'].each do |genre|
+      if movie["info"].key?("genres") && movie["info"]["genres"].count.positive?
+        puts "  Genres:"
+        movie["info"]["genres"].each do |genre|
           puts "    #{genre}"
         end
       end
-      if movie['info'].key?('actors') && movie['info']['actors'].count.positive?
-        puts '  Actors:'
-        movie['info']['actors'].each do |actor|
+      if movie["info"].key?("actors") && movie["info"]["actors"].count.positive?
+        puts "  Actors:"
+        movie["info"]["actors"].each do |actor|
           puts "    #{actor}"
         end
       end
@@ -48,11 +48,11 @@ end
 
 def run_me
 # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
+  region = "us-west-2"
+  table_name = "Movies"
   year = 1982
-  letter1 = 'A'
-  letter2 = 'L'
+  letter1 = "A"
+  letter2 = "L"
 
   # To use the downloadable version of Amazon DynamoDB,
   # uncomment the endpoint statement.
@@ -65,13 +65,13 @@ def run_me
 
   query_condition = {
     table_name: table_name,
-    projection_expression: '#yr, title, info.genres, info.actors[0]',
-    key_condition_expression: '#yr = :yyyy AND title BETWEEN :letter1 AND :letter2',
-    expression_attribute_names: { '#yr' => 'year' },
+    projection_expression: "#yr, title, info.genres, info.actors[0]",
+    key_condition_expression: "#yr = :yyyy AND title BETWEEN :letter1 AND :letter2",
+    expression_attribute_names: { "#yr" => "year" },
     expression_attribute_values: {
-      ':yyyy' => year,
-      ':letter1' => letter1,
-      ':letter2' => letter2
+      ":yyyy" => year,
+      ":letter1" => letter1,
+      ":letter2" => letter2
     }
   }
 

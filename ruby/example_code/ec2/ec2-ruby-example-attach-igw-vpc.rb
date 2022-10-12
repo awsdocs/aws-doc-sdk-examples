@@ -9,7 +9,7 @@
 
 # snippet-start:[ec2.Ruby.attachIgwVpc]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Prerequisites:
 #
@@ -48,32 +48,32 @@ def internet_gateway_created_and_attached?(
   return true
 rescue StandardError => e
   puts "Error creating or attaching internet gateway: #{e.message}"
-  puts 'If the internet gateway was created but not attached, you should ' \
-    'clean up by deleting the internet gateway.'
+  puts "If the internet gateway was created but not attached, you should " \
+    "clean up by deleting the internet gateway."
   return false
 end
 
 # Full example call:
 def run_me
-  vpc_id = ''
-  tag_key = ''
-  tag_value = ''
-  region = ''
+  vpc_id = ""
+  tag_key = ""
+  tag_value = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage: ruby ec2-ruby-example-attach-igw-vpc.rb ' \
-      'VPC_ID TAG_KEY TAG_VALUE REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage: ruby ec2-ruby-example-attach-igw-vpc.rb " \
+      "VPC_ID TAG_KEY TAG_VALUE REGION"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-attach-igw-vpc.rb ' \
-      'vpc-6713dfEX my-key my-value us-west-2'
+    puts "Example: ruby ec2-ruby-example-attach-igw-vpc.rb " \
+      "vpc-6713dfEX my-key my-value us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    vpc_id = 'vpc-6713dfEX'
-    tag_key = 'my-key'
-    tag_value = 'my-value'
+    vpc_id = "vpc-6713dfEX"
+    tag_key = "my-key"
+    tag_value = "my-value"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-west-2'
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     vpc_id = ARGV[0]

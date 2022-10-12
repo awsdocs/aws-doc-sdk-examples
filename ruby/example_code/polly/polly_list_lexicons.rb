@@ -7,7 +7,7 @@
 
 # snippet-start:[polly.ruby.listLexicons]
 
-require 'aws-sdk-polly'  # In v2: require 'aws-sdk'
+require "aws-sdk-polly"  # In v2: require 'aws-sdk'
 
 begin
   # Create an Amazon Polly client using
@@ -19,13 +19,13 @@ begin
 
   resp.lexicons.each do |l|
     puts l.name
-    puts '  Alphabet:' + l.attributes.alphabet
-    puts '  Language:' + l.attributes.language
+    puts "  Alphabet:" + l.attributes.alphabet
+    puts "  Language:" + l.attributes.language
     puts
   end
 rescue StandardError => ex
-  puts 'Could not get lexicons'
-  puts 'Error message:'
+  puts "Could not get lexicons"
+  puts "Error message:"
   puts ex.message
 end
 # snippet-end:[polly.ruby.listLexicons]

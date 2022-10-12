@@ -6,12 +6,12 @@
 
 # snippet-start:[s3.wd_list_users.rb]
 
-require 'aws-sdk-workdocs'  # v2: require 'aws-sdk'
+require "aws-sdk-workdocs"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon WorkDocs.
-client = Aws::WorkDocs::Client.new(region: 'us-west-2')
+client = Aws::WorkDocs::Client.new(region: "us-west-2")
 
 # Set to the OrganizationId of your WorkDocs site
-orgId = 'd-123456789c'
+orgId = "d-123456789c"
 
 resp = client.describe_users({
   organization_id: orgId,

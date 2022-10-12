@@ -17,7 +17,7 @@
 # 4. Enables detailed monitoring for the instance.
 # 5. Displays information about available instances.
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Waits for an Amazon Elastic Compute Cloud (Amazon EC2) instance
 # to reach the specified state.
@@ -149,7 +149,7 @@ def list_instances_information(ec2_client)
   result.reservations.each do |reservation|
     if reservation.instances.count.positive?
       reservation.instances.each do |instance|
-        puts '-' * 12
+        puts "-" * 12
         puts "Instance ID:               #{instance.instance_id}"
         puts "State:                     #{instance.state.name}"
         puts "Image ID:                  #{instance.image_id}"
@@ -164,7 +164,7 @@ def list_instances_information(ec2_client)
         puts "VPC ID:                    #{instance.vpc_id}"
         puts "Subnet ID:                 #{instance.subnet_id}"
         if instance.tags.count.positive?
-          puts 'Tags:'
+          puts "Tags:"
           instance.tags.each do |tag|
             puts "                           #{tag.key}/#{tag.value}"
           end
@@ -176,21 +176,21 @@ end
 
 # Full example call:
 def run_me
-  instance_id = ''
-  region = ''
+  instance_id = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage:   ruby ec2-ruby-example-manage-instances.rb ' \
-      'INSTANCE_ID REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage:   ruby ec2-ruby-example-manage-instances.rb " \
+      "INSTANCE_ID REGION"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-manage-instances.rb ' \
-      'i-033c48ef067af3dEX us-west-2'
+    puts "Example: ruby ec2-ruby-example-manage-instances.rb " \
+      "i-033c48ef067af3dEX us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
-    instance_id = 'i-033c48ef067af3dEX'
-    region = 'us-west-2'
+    instance_id = "i-033c48ef067af3dEX"
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]
@@ -199,28 +199,28 @@ def run_me
 
   ec2_client = Aws::EC2::Client.new(region: region)
 
-  puts 'Attempting to stop the instance. ' \
-    'This might take a few minutes...'
+  puts "Attempting to stop the instance. " \
+    "This might take a few minutes..."
   unless instance_stopped?(ec2_client, instance_id)
-    puts 'Cannot stop the instance. Skipping this step.'
+    puts "Cannot stop the instance. Skipping this step."
   end
 
   puts "\nAttempting to restart the instance. " \
-    'This might take a few minutes...'
+    "This might take a few minutes..."
   unless instance_restarted?(ec2_client, instance_id)
-    puts 'Cannot restart the instance. Skipping this step.'
+    puts "Cannot restart the instance. Skipping this step."
   end
 
   puts "\nAttempting to reboot the instance. " \
-    'This might take a few minutes...'
+    "This might take a few minutes..."
   unless instance_rebooted?(ec2_client, instance_id)
-    puts 'Cannot reboot the instance. Skipping this step.'
+    puts "Cannot reboot the instance. Skipping this step."
   end
 
   puts "\nAttempting to enable detailed monitoring for the instance..."
   unless instance_detailed_monitoring_enabled?(ec2_client, instance_id)
-    puts 'Cannot enable detailed monitoring for the instance. ' \
-      'Skipping this step.'
+    puts "Cannot enable detailed monitoring for the instance. " \
+      "Skipping this step."
   end
 
   puts "\nInformation about available instances:"
