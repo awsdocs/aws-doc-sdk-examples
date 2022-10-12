@@ -24,7 +24,7 @@ public static class HelloSupport
         // Now the client is available for injection.
         var supportClient = host.Services.GetRequiredService<IAmazonAWSSupport>();
 
-        // We can use await and any of the async methods to get a response.
+        // You can use await and any of the async methods to get a response.
         var response = await supportClient.DescribeServicesAsync();
         Console.WriteLine($"\tHello AWS Support! There are {response.Services.Count} services available.");
     }
