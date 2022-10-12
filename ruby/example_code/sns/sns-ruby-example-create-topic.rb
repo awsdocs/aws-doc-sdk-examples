@@ -11,28 +11,28 @@
 
 # snippet-start:[sns.Ruby.createTopic]
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require "aws-sdk-sns"  # v2: require 'aws-sdk'
 
 def topic_created?(sns_client, topic_name)
 
-sns_client.create_topic(name: topic_name)
-rescue StandardError => e
-  puts "Error while creating the topic named '#{topic_name}': #{e.message}"
+  sns_client.create_topic(name: topic_name)
+  rescue StandardError => e
+    puts "Error while creating the topic named '#{topic_name}': #{e.message}"
 end
 
 # Full example call:
 def run_me
-  topic_name = 'TOPIC_NAME'
-  region = 'REGION'
+  topic_name = "TOPIC_NAME"
+  region = "REGION"
 
   sns_client = Aws::SNS::Client.new(region: region)
 
   puts "Creating the topic '#{topic_name}'..."
 
   if topic_created?(sns_client, topic_name)
-    puts 'The topic was created.'
+    puts "The topic was created."
   else
-    puts 'The topic was not created. Stopping program.'
+    puts "The topic was not created. Stopping program."
     exit 1
   end
 end

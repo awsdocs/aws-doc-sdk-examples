@@ -43,7 +43,7 @@ and produces artifacts that are ready to deploy.
 Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `aws-ruby-sdk-codebuild-example-build-project.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 
 ```
-ruby aws-ruby-sdk-codebuild-example-build-project.rb
+ruby aws-ruby-sdk-codebuild-example-build-project.rb my-project
 ```
 
 ## Additional information
