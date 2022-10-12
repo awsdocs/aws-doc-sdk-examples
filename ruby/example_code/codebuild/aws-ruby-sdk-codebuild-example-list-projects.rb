@@ -16,6 +16,4 @@ if resp.projects.empty?
 else
   resp.projects.each { |p| puts p }
 end
-
-puts
 # snippet-end:[codebuild.Ruby.listProjects]
