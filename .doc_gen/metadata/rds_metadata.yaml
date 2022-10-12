@@ -460,7 +460,7 @@ rds_Scenario_GetStartedInstances:
           github: kotlin/services/rds
           sdkguide:
           excerpts:
-            - description:
+            - description: Run multiple operations.
               snippet_tags:
                 - rds.kotlin.scenario.main
     Java:
@@ -469,7 +469,7 @@ rds_Scenario_GetStartedInstances:
           github: javav2/example_code/rds
           sdkguide:
           excerpts:
-            - description: Run multiple operations
+            - description: Run multiple operations.
               snippet_tags:
                 - rds.java2.scenario.main
     .NET:
