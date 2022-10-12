@@ -36,3 +36,5 @@ tool/cloudformation:
   - cloudformation/**/*
 type/github-settings:
   - .github/**/*
+type/sos:
+  - .doc_gen/metadata/**/*
