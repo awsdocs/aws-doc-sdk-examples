@@ -7,7 +7,7 @@
 
 # snippet-start:[ec2.Ruby.createVpc]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Creates a virtual private cloud (VPC) in
 # Amazon Virtual Private Cloud (Amazon VPC) and then tags
@@ -51,25 +51,25 @@ end
 
 # Full example call:
 def run_me
-  cidr_block = ''
-  tag_key = ''
-  tag_value = ''
-  region = ''
+  cidr_block = ""
+  tag_key = ""
+  tag_value = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage:   ruby ec2-ruby-example-create-vpc.rb ' \
-      'CIDR_BLOCK TAG_KEY TAG_VALUE REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage:   ruby ec2-ruby-example-create-vpc.rb " \
+      "CIDR_BLOCK TAG_KEY TAG_VALUE REGION"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-create-vpc.rb ' \
-      '10.0.0.0/24 my-key my-value us-west-2'
+    puts "Example: ruby ec2-ruby-example-create-vpc.rb " \
+      "10.0.0.0/24 my-key my-value us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    cidr_block = '10.0.0.0/24'
-    tag_key = 'my-key'
-    tag_value = 'my-value'
+    cidr_block = "10.0.0.0/24"
+    tag_key = "my-key"
+    tag_value = "my-value"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-west-2'
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     cidr_block = ARGV[0]
@@ -86,9 +86,9 @@ def run_me
     tag_key,
     tag_value
   )
-    puts 'VPC created and tagged.'
+    puts "VPC created and tagged."
   else
-    puts 'VPC not created or not tagged.'
+    puts "VPC not created or not tagged."
   end
 end
 

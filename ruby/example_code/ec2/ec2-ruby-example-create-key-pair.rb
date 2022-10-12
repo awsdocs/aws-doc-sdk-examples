@@ -9,7 +9,7 @@
 
 # snippet-start:[ec2.Ruby.createKeyPair]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @param key_pair_name [String] The name for the key pair and private
@@ -25,8 +25,8 @@ def key_pair_created?(ec2_client, key_pair_name)
   key_pair = ec2_client.create_key_pair(key_name: key_pair_name)
   puts "Created key pair '#{key_pair.key_name}' with fingerprint " \
     "'#{key_pair.key_fingerprint}' and ID '#{key_pair.key_pair_id}'."
-  filename = File.join(Dir.home, key_pair_name + '.pem')
-  File.open(filename, 'w') { |file| file.write(key_pair.key_material) }
+  filename = File.join(Dir.home, key_pair_name + ".pem")
+  File.open(filename, "w") { |file| file.write(key_pair.key_material) }
   puts "Private key file saved locally as '#{filename}'."
   return true
 rescue StandardError => e
@@ -36,21 +36,21 @@ end
 
 # Full example call:
 def run_me
-  key_pair_name = ''
-  region = ''
+  key_pair_name = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage: ruby ec2-ruby-example-create-key-pair.rb ' \
-      'KEY_PAIR_NAME REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage: ruby ec2-ruby-example-create-key-pair.rb " \
+      "KEY_PAIR_NAME REGION"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-create-key-pair.rb ' \
-      'my-key-pair us-west-2'
+    puts "Example: ruby ec2-ruby-example-create-key-pair.rb " \
+      "my-key-pair us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    key_pair_name = 'my-key-pair'
+    key_pair_name = "my-key-pair"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-west-2 '
+    region = "us-west-2 "
   # Otherwise, use the values as specified at the command prompt.
   else
     key_pair_name = ARGV[0]
@@ -60,9 +60,9 @@ def run_me
   ec2_client = Aws::EC2::Client.new(region: region)
 
   if key_pair_created?(ec2_client, key_pair_name)
-    puts 'Key pair created and private key file saved.'
+    puts "Key pair created and private key file saved."
   else
-    puts 'Key pair not created or private key file not saved.'
+    puts "Key pair not created or private key file not saved."
   end
 end
 

@@ -49,7 +49,7 @@ def create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, b
 
     s3_client.put_bucket_policy(
       bucket: bucket_name,
-      policy:
+      policy: policy
     )
     puts "Successfully added policy to bucket #{bucket_name}"
   end
@@ -67,7 +67,6 @@ def create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, b
     exit 1
   end
   # snippet-end:[cloudtrail.Ruby.createTrail]
-  "test"
 end
 
 if __FILE__ == $0

@@ -7,12 +7,12 @@
 
 # snippet-start:[polly.ruby.synthesizeSpeech]
 
-require 'aws-sdk-polly'  # In v2: require 'aws-sdk'
+require "aws-sdk-polly"  # In v2: require 'aws-sdk'
 
 begin
   # Get the filename from the command line
-  if ARGV.empty?()
-    puts 'You must supply a filename'
+  if ARGV.empty?
+    puts "You must supply a filename"
     exit 1
   end
 
@@ -22,7 +22,7 @@ begin
   if File.exist?(filename)
     contents = IO.read(filename)
   else
-    puts 'No such file: ' + filename
+    puts "No such file: " + filename
     exit 1
   end
 
@@ -43,16 +43,16 @@ begin
   name = File.basename(filename)
 
   # Split up name so we get just the xyz part
-  parts = name.split('.')
+  parts = name.split(".")
   first_part = parts[0]
-  mp3_file = first_part + '.mp3'
+  mp3_file = first_part + ".mp3"
 
   IO.copy_stream(resp.audio_stream, mp3_file)
 
-  puts 'Wrote MP3 content to: ' + mp3_file
+  puts "Wrote MP3 content to: " + mp3_file
 rescue StandardError => ex
-  puts 'Got error:'
-  puts 'Error message:'
+  puts "Got error:"
+  puts "Error message:"
   puts ex.message
 end
 # snippet-end:[polly.ruby.synthesizeSpeech]

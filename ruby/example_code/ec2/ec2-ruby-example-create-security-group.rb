@@ -8,7 +8,7 @@
 
 # snippet-start:[ec2.Ruby.createSecurityGroup]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Prerequisites:
 #
@@ -78,35 +78,35 @@ end
 
 # Full example call:
 def run_me
-  group_name = ''
-  description = ''
-  vpc_id = ''
-  ip_protocol = ''
-  from_port = ''
-  to_port = ''
-  cidr_ip_range = ''
-  region = ''
+  group_name = ""
+  description = ""
+  vpc_id = ""
+  ip_protocol = ""
+  from_port = ""
+  to_port = ""
+  cidr_ip_range = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage: ruby ec2-ruby-example-create-security-group.rb ' \
-      'GROUP_NAME DESCRIPTION VPC_ID IP_PROTOCOL FROM_PORT TO_PORT ' \
-      'CIDR_IP_RANGE REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage: ruby ec2-ruby-example-create-security-group.rb " \
+      "GROUP_NAME DESCRIPTION VPC_ID IP_PROTOCOL FROM_PORT TO_PORT " \
+      "CIDR_IP_RANGE REGION"
    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-create-security-group.rb ' \
-      'my-security-group \'This is my security group.\' vpc-6713dfEX ' \
-      'tcp 22 22 \'0.0.0.0/0\' us-west-2'
+    puts "Example: ruby ec2-ruby-example-create-security-group.rb " \
+      "my-security-group 'This is my security group.' vpc-6713dfEX " \
+      "tcp 22 22 '0.0.0.0/0' us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    group_name = 'my-security-group'
-    description = 'This is my security group.'
-    vpc_id = 'vpc-6713dfEX'
-    ip_protocol = 'tcp'
-    from_port = '22'
-    to_port = '22'
-    cidr_ip_range = '0.0.0.0/0'
+    group_name = "my-security-group"
+    description = "This is my security group."
+    vpc_id = "vpc-6713dfEX"
+    ip_protocol = "tcp"
+    from_port = "22"
+    to_port = "22"
+    cidr_ip_range = "0.0.0.0/0"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-west-2'
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     group_name = ARGV[0]
@@ -131,9 +131,9 @@ def run_me
     to_port,
     cidr_ip_range
   )
-    puts 'Security group created and egress granted.'
+    puts "Security group created and egress granted."
   else
-    puts 'Security group not created or egress not granted.'
+    puts "Security group not created or egress not granted."
   end
 end
 
