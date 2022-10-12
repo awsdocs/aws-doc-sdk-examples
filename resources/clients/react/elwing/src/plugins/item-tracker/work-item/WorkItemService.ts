@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { RestService } from "../RestService";
-import { BASE_URL } from "../config.json";
+import config from "../config.json";
 
 /**
  * Sends REST requests to get work items, add new work items, modify work items,
@@ -12,7 +12,7 @@ import { BASE_URL } from "../config.json";
  * value to your endpoint.
  */
 
-export type WorkItemStatus = "archived" | "active" | "";
+export type WorkItemStatus = "ARCH" | "ACT" | "";
 
 export interface WorkItem {
   id: string;
@@ -23,7 +23,7 @@ export interface WorkItem {
 }
 
 export class WorkItemService extends RestService<WorkItem> {
-  constructor(baseUrl: string = BASE_URL) {
+  constructor(baseUrl: string = config.BASE_URL) {
     super("items", baseUrl);
   }
 
@@ -38,7 +38,7 @@ export class WorkItemService extends RestService<WorkItem> {
    * Sends a POST request to email a report of work items.
    */
   async mailItem(email: string) {
-    return await fetch(`${this.url()}:report`, {
+    return await fetch(this.url({ adverb: "report" }), {
       body: JSON.stringify({ email }),
     });
   }

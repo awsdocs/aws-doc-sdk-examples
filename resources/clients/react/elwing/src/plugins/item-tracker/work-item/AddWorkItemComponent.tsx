@@ -53,7 +53,7 @@ export const AddWorkItem = () => {
         name: user,
         guide: guide.value!,
         description,
-        status: "active",
+        status: "ACT",
       })
       .catch(console.error);
     setShow(false);
