@@ -9,9 +9,7 @@
 
 require "aws-sdk-ec2"
 
-# Creates aenecccbnknvjhilfgulciihrdilevcgrkheukiriennh
-# Amazon Virtual Private Cloud (Amazon VPC) and then tags
-# the VPC.
+# Creates and tags an Amazon Virtual Private Cloud (Amazon VPC)
 #
 # @param ec2_resource [Aws::EC2::Resource] An initialized
 #   Amazon Elastic Compute Cloud (Amazon EC2) resource object.
