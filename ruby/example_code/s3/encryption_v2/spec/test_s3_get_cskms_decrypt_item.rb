@@ -43,15 +43,15 @@ describe "#get_decrypted_object_content" do
   def stub_decrypt(kms_client, opts)
     kms_client.stub_responses(
       :decrypt, lambda do |context|
-      if opts[:any_kms_key]
-        expect(context.params["key_id"]).to be_nil
-      else
-        if opts[:raise] && context.params["key_id"] != opts[:response][:key_id]
-          raise Aws::KMS::Errors::IncorrectKeyException.new(context, "")
+        if opts[:any_kms_key]
+          expect(context.params["key_id"]).to be_nil
         else
-          expect(context.params[:key_id]).to eq(opts[:response][:key_id])
+          if opts[:raise] && context.params["key_id"] != opts[:response][:key_id]
+            raise Aws::KMS::Errors::IncorrectKeyException.new(context, "")
+          else
+            expect(context.params[:key_id]).to eq(opts[:response][:key_id])
+          end
         end
-      end
       opts[:response]
       end
     )

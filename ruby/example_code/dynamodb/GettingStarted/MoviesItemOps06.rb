@@ -10,7 +10,7 @@
 # 'info' attribute is less than or equal to 5, then that item is deleted.
 
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps06]
-require 'aws-sdk-dynamodb'
+require "aws-sdk-dynamodb"
 
 def table_item_deleted?(dynamodb_client, table_item)
   dynamodb_client.delete_item(table_item)
@@ -22,9 +22,9 @@ end
 
 def run_me
 # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
-  title = 'The Big New Movie'
+  region = "us-west-2"
+  table_name = "Movies"
+  title = "The Big New Movie"
   year = 2015
 
   # To use the downloadable version of Amazon DynamoDB,
@@ -42,9 +42,9 @@ def run_me
       year: year,
       title: title
     },
-    condition_expression: 'info.rating <= :val',
+    condition_expression: "info.rating <= :val",
     expression_attribute_values: {
-      ':val' => 5
+      ":val" => 5
     }
   }
 
@@ -52,9 +52,9 @@ def run_me
     "'#{title} (#{year})' if specified criteria are met..."
 
   if table_item_deleted?(dynamodb_client, table_item)
-    puts 'Item deleted.'
+    puts "Item deleted."
   else
-    puts 'Item not deleted.'
+    puts "Item not deleted."
   end
 end
 
