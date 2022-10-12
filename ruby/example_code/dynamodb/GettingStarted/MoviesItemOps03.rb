@@ -12,13 +12,13 @@
 # about the updated attributes are returned, as specified by 'UPDATED_NEW'.
 
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps03]
-require 'aws-sdk-dynamodb'
+require "aws-sdk-dynamodb"
 
 def table_item_updated?(dynamodb_client, table_item)
   response = dynamodb_client.update_item(table_item)
   puts "Table item updated with the following attributes for 'info':"
-  response.attributes['info'].each do |key, value|
-    if key == 'rating'
+  response.attributes["info"].each do |key, value|
+    if key == "rating"
       puts "#{key}: #{value.to_f}"
     else
       puts "#{key}: #{value}"
@@ -32,9 +32,9 @@ end
 
 def run_me
 # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
-  title = 'The Big New Movie'
+  region = "us-west-2"
+  table_name = "Movies"
+  title = "The Big New Movie"
   year = 2015
 
   # To use the downloadable version of Amazon DynamoDB,
@@ -52,22 +52,22 @@ def run_me
       year: year,
       title: title
     },
-    update_expression: 'SET info.rating = :r, info.plot = :p, info.actors = :a',
+    update_expression: "SET info.rating = :r, info.plot = :p, info.actors = :a",
     expression_attribute_values: {
       ':r': 5.5,
-      ':p': 'Everything happens all at once.',
-      ':a': [ 'Larry', 'Moe', 'Curly' ]
+      ':p': "Everything happens all at once.",
+      ':a': ["Larry", "Moe", "Curly"]
     },
-    return_values: 'UPDATED_NEW'
+    return_values: "UPDATED_NEW"
   }
 
   puts "Updating table '#{table_name}' with information about " \
     "'#{title} (#{year})'..."
 
   if table_item_updated?(dynamodb_client, table_item)
-    puts 'Table updated.'
+    puts "Table updated."
   else
-    puts 'Table not updated.'
+    puts "Table not updated."
   end
 end
 
