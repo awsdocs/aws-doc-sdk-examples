@@ -7,12 +7,12 @@
 
 # snippet-start:[s3.ruby.sqs-ruby-example-dead-letter-queue.rb]
 
-require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
+require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
-sqs = Aws::SQS::Client.new(region: 'us-west-2')
+sqs = Aws::SQS::Client.new(region: "us-west-2")
 
 # Create a queue representing a dead-letter queue.
 dead_letter_queue_name = "dead-letter-queue"
@@ -69,7 +69,7 @@ puts "\n"
 
 poller = Aws::SQS::QueuePoller.new(queue_url)
 # Receive 5 messages max and stop polling after 20 seconds of no received messages.
-poller.poll(max_number_of_messages:5, idle_timeout: 20) do |messages|
+poller.poll(max_number_of_messages: 5, idle_timeout: 20) do |messages|
   messages.each do |msg|
     puts "Received message ID: #{msg.message_id}"
   end
