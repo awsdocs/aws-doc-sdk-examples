@@ -1,16 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# Purpose:
-# aws-ruby-sdk-codebuild-example-list-builds.rb demonstrates how to list your
-# AWS CodeBuild builds using the AWS SDK for Ruby.
-
 # snippet-start:[codebuild.Ruby.listBuilds]
-
 require "aws-sdk-codebuild"  # v2: require 'aws-sdk'
 
-# Replace us-west-2 with the AWS Region you're using for Amazon CodeBuild.
-client = Aws::CodeBuild::Client.new(region: "us-east-1")
+client = Aws::CodeBuild::Client.new
 
 build_list = client.list_builds({sort_order: "ASCENDING", })
 
