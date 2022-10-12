@@ -7,8 +7,10 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -27,8 +29,7 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.attach_role_policy.inc]
 
-// snippet-start:[iam.cpp.attach_role_policy.code]
-//! Demonstrates attaching a policy to a role.
+//! Attaches a policy to a role.
 /*!
   \sa attachRolePolicy()
   \param roleName: The name of the role.
@@ -36,6 +37,7 @@
   \param clientConfig Aws client configuration.
   \return bool: Successful completion.
 */
+// snippet-start:[iam.cpp.attach_role_policy.code]
 bool AwsDoc::IAM::attachRolePolicy(const Aws::String &roleName,
                                    const Aws::String &policyArn,
                                    const Aws::Client::ClientConfiguration &clientConfig) {
@@ -72,7 +74,7 @@ bool AwsDoc::IAM::attachRolePolicy(const Aws::String &roleName,
     request.SetRoleName(roleName);
     request.SetPolicyArn(policyArn);
 
-    auto outcome = iam.AttachRolePolicy(request);
+    Aws::IAM::Model::AttachRolePolicyOutcome outcome = iam.AttachRolePolicy(request);
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed to attach policy " << policyArn << " to role " <<
                   roleName << ": " << outcome.GetError().GetMessage() << std::endl;

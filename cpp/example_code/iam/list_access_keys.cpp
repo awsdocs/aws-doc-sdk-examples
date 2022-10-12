@@ -8,8 +8,10 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -27,35 +29,31 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.list_access_keys.inc]
 
-// snippet-start:[iam.cpp.list_access_keys.code]
-//! Displays the last time an access key was used.
+//! Lists all access keys associated with an IAM user.
 /*!
   \sa listAccessKeys()
   \param userName: The user's name.
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-bool AwsDoc::IAM::listAccessKeys(const Aws::String& userName,
-                    const Aws::Client::ClientConfiguration &clientConfig)
-{
+// snippet-start:[iam.cpp.list_access_keys.code]
+bool AwsDoc::IAM::listAccessKeys(const Aws::String &userName,
+                                 const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
     Aws::IAM::Model::ListAccessKeysRequest request;
     request.SetUserName(userName);
 
     bool done = false;
     bool header = false;
-    while (!done)
-    {
+    while (!done) {
         auto outcome = iam.ListAccessKeys(request);
-        if (!outcome.IsSuccess())
-        {
+        if (!outcome.IsSuccess()) {
             std::cerr << "Failed to list access keys for user " << userName
                       << ": " << outcome.GetError().GetMessage() << std::endl;
             return false;
         }
 
-        if (!header)
-        {
+        if (!header) {
             std::cout << std::left << std::setw(32) << "UserName" <<
                       std::setw(30) << "KeyID" << std::setw(20) << "Status" <<
                       std::setw(20) << "CreateDate" << std::endl;
@@ -65,8 +63,7 @@ bool AwsDoc::IAM::listAccessKeys(const Aws::String& userName,
         const auto &keys = outcome.GetResult().GetAccessKeyMetadata();
         const Aws::String DATE_FORMAT = "%Y-%m-%d";
 
-        for (const auto &key : keys)
-        {
+        for (const auto &key: keys) {
             Aws::String statusString =
                     Aws::IAM::Model::StatusTypeMapper::GetNameForStatusType(
                             key.GetStatus());
@@ -76,12 +73,10 @@ bool AwsDoc::IAM::listAccessKeys(const Aws::String& userName,
                       key.GetCreateDate().ToGmtString(DATE_FORMAT.c_str()) << std::endl;
         }
 
-        if (outcome.GetResult().GetIsTruncated())
-        {
+        if (outcome.GetResult().GetIsTruncated()) {
             request.SetMarker(outcome.GetResult().GetMarker());
         }
-        else
-        {
+        else {
             done = true;
         }
     }

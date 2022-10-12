@@ -6,10 +6,12 @@
 /**
 * Before running this C++ code example, set up your development environment, including your credentials.
 *
-* For more information, see the following documentation topic:
-*
-* https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
-*
+ * For more information, see the following documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
 * Purpose
 *
 * Demonstrates deleting an access key from an IAM user.
@@ -24,7 +26,6 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.delete_access_key.inc]
 
-// snippet-start:[iam.cpp.delete_access_key.code]
 //! Deletes an access key from an IAM user.
 /*!
   \sa deleteAccessKey()
@@ -33,6 +34,7 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
+// snippet-start:[iam.cpp.delete_access_key.code]
 bool AwsDoc::IAM::deleteAccessKey(const Aws::String &userName,
                                   const Aws::String &accessKeyID,
                                   const Aws::Client::ClientConfiguration &clientConfig) {
@@ -64,7 +66,7 @@ bool AwsDoc::IAM::deleteAccessKey(const Aws::String &userName,
  *
  * Prerequisites: Existing access key.
  *
- * Usage: run_delete_access_key <user_name> <access_key_id>
+ * Usage: 'run_delete_access_key <user_name> <access_key_id>'
  *
  */
 

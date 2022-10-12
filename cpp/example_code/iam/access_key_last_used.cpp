@@ -8,8 +8,10 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -26,7 +28,6 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.access_key_last_used.inc]
 
-// snippet-start:[iam.cpp.access_key_last_used.code]
 //! Displays the last time an access key was used.
 /*!
   \sa accessKeyLastUsed()
@@ -34,6 +35,7 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
+// snippet-start:[iam.cpp.access_key_last_used.code]
 bool AwsDoc::IAM::accessKeyLastUsed(const Aws::String &secretKeyID,
                                     const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);

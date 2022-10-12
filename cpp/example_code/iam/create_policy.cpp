@@ -8,12 +8,14 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
- * Creates a fixed policy with name.
+ * Demonstrates creating a fixed policy with name.
  *
  */
 
@@ -32,19 +34,18 @@ namespace AwsDoc {
     } // IAM
 } // AwsDoc
 
-// snippet-start:[iam.cpp.create_policy.code]
 //! Creates a fixed policy with name.
 /*!
   \sa createPolicy()
   \param policyName: The policy name.
-  \param rsrcArn: The Amazon Resource Name.
+  \param rsrcArn: The Amazon Resource Name (ARN).
   \param clientConfig Aws client configuration.
   \return Aws::String: Policy ARN or empty string if unsuccessful.
 */
-
+// snippet-start:[iam.cpp.create_policy.code]
 Aws::String AwsDoc::IAM::createPolicy(const Aws::String &policyName,
-                               const Aws::String &rsrcArn,
-                               const Aws::Client::ClientConfiguration &clientConfig) {
+                                      const Aws::String &rsrcArn,
+                                      const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
 
     Aws::IAM::Model::CreatePolicyRequest request;
@@ -104,7 +105,7 @@ Aws::String AwsDoc::IAM::BuildSamplePolicyDocument(const Aws::String &rsrc_arn) 
  *
  *  main function
  *
- * Usage: run_create_policy <policy_name> <resource_arn>'
+ * Usage: 'run_create_policy <policy_name> <resource_arn>'
  *
  */
 

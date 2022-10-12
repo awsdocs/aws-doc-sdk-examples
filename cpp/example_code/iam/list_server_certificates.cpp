@@ -8,8 +8,10 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -26,15 +28,15 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.list_server_certs.inc]
 
-// snippet-start:[iam.cpp.list_server_certs.code]
 //! List all server certificates.
 /*!
   \sa listServerCertificates()
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-
-bool AwsDoc::IAM::listServerCertificates(const Aws::Client::ClientConfiguration &clientConfig) {
+// snippet-start:[iam.cpp.list_server_certs.code]
+bool AwsDoc::IAM::listServerCertificates(
+        const Aws::Client::ClientConfiguration &clientConfig) {
     const Aws::String DATE_FORMAT = "%Y-%m-%d";
 
     Aws::IAM::IAMClient iam(clientConfig);
@@ -42,18 +44,15 @@ bool AwsDoc::IAM::listServerCertificates(const Aws::Client::ClientConfiguration 
 
     bool done = false;
     bool header = false;
-    while (!done)
-    {
+    while (!done) {
         auto outcome = iam.ListServerCertificates(request);
-        if (!outcome.IsSuccess())
-        {
+        if (!outcome.IsSuccess()) {
             std::cerr << "Failed to list server certificates: " <<
                       outcome.GetError().GetMessage() << std::endl;
             return false;
         }
 
-        if (!header)
-        {
+        if (!header) {
             std::cout << std::left << std::setw(55) << "Name" <<
                       std::setw(30) << "ID" << std::setw(80) << "Arn" <<
                       std::setw(14) << "UploadDate" << std::setw(14) <<
@@ -64,8 +63,7 @@ bool AwsDoc::IAM::listServerCertificates(const Aws::Client::ClientConfiguration 
         const auto &certificates =
                 outcome.GetResult().GetServerCertificateMetadataList();
 
-        for (const auto &certificate : certificates)
-        {
+        for (const auto &certificate: certificates) {
             std::cout << std::left << std::setw(55) <<
                       certificate.GetServerCertificateName() << std::setw(30) <<
                       certificate.GetServerCertificateId() << std::setw(80) <<
@@ -76,12 +74,10 @@ bool AwsDoc::IAM::listServerCertificates(const Aws::Client::ClientConfiguration 
                       std::endl;
         }
 
-        if (outcome.GetResult().GetIsTruncated())
-        {
+        if (outcome.GetResult().GetIsTruncated()) {
             request.SetMarker(outcome.GetResult().GetMarker());
         }
-        else
-        {
+        else {
             done = true;
         }
     }

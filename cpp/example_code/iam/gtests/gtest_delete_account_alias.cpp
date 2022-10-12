@@ -7,9 +7,13 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, delete_account_alias) {
-          EXPECT_TRUE(false);
+        auto accountAlias = createAccountAlias();
+        ASSERT_FALSE(accountAlias.empty()) << preconditionError << std::endl;
+
+        auto result = AwsDoc::IAM::deleteAccountAlias(accountAlias, *s_clientConfig);
+        ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

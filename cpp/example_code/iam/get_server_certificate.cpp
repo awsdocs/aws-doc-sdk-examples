@@ -7,8 +7,10 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -41,9 +43,17 @@ bool AwsDoc::IAM::getServerCertificate(const Aws::String &certificateName,
     request.SetServerCertificateName(certificateName);
 
     auto outcome = iam.GetServerCertificate(request);
+    bool result = true;
     if (!outcome.IsSuccess()) {
-        std::cerr << "Error getting server certificate " << certificateName <<
-                  ": " << outcome.GetError().GetMessage() << std::endl;
+        if (outcome.GetError().GetErrorType() != Aws::IAM::IAMErrors::NO_SUCH_ENTITY) {
+            std::cerr << "Error getting server certificate " << certificateName <<
+                      ": " << outcome.GetError().GetMessage() << std::endl;
+            result = false;
+        }
+        else {
+            std::cout << "Certificate '" << certificateName
+                      << "' not found." << std::endl;
+        }
     }
     else {
         const auto &certificate = outcome.GetResult().GetServerCertificate();
@@ -54,7 +64,7 @@ bool AwsDoc::IAM::getServerCertificate(const Aws::String &certificateName,
                   std::endl;
     }
 
-    return outcome.IsSuccess();
+    return result;
 }
 // snippet-end:[iam.cpp.get_server_cert.code]
 

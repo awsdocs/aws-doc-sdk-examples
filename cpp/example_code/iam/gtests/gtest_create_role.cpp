@@ -7,9 +7,14 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, create_role) {
-          EXPECT_TRUE(false);
+        Aws::String roleName = uuidName("role");
+        auto result = AwsDoc::IAM::createIamRole(roleName, getAssumeRolePolicyJSON(),
+                                                 *s_clientConfig);
+        ASSERT_TRUE(result);
+
+        deleteRole(roleName);
     }
 } // namespace AwsDocTest

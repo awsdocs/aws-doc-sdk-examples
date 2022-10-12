@@ -8,12 +8,14 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
- * Demonstrate how to create an IAM role.
+ * Demonstrate creating an IAM role.
  *
  */
 
@@ -24,8 +26,7 @@
 #include <iostream>
 #include "iam_samples.h"
 
-// snippet-start:[iam.cpp.create_iam_role.code]
-//! Demonstrate how to create an IAM role.
+//! Creates an IAM role.
 /*!
   \sa createIamRole()
   \param roleName: The role name.
@@ -33,7 +34,7 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-
+// snippet-start:[iam.cpp.create_iam_role.code]
 bool AwsDoc::IAM::createIamRole(
         const Aws::String &roleName,
         const Aws::String &policy,
@@ -64,16 +65,14 @@ bool AwsDoc::IAM::createIamRole(
  *
  *  main function
  *
- * Prerequisites: Existing key in Secrets Manager.
- *
- * Usage: 'run_access_createIamRole <roleName>'
+ *  Usage: 'run_create_role <roleName>'
  *
  */
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        std::cout << "run_access_createIamRole <roleName>" <<
+        std::cout << "run_create_role <roleName>" <<
                   std::endl;
         return 1;
     }
@@ -81,7 +80,6 @@ int main(int argc, char **argv) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // TODO(user): Set these configuration values before running the program.
         Aws::String roleName = argv[1];
 
         // Define a role trust policy

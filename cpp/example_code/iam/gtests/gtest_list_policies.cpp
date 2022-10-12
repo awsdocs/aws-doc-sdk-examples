@@ -7,9 +7,10 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, list_policies) {
-          EXPECT_TRUE(false);
+        auto result = AwsDoc::IAM::listPolicies(*s_clientConfig);
+        EXPECT_TRUE(result);
     }
 } // namespace AwsDocTest

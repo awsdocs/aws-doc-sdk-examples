@@ -24,15 +24,25 @@ namespace AwsDocTest {
 
         static void TearDownTestSuite();
 
+        static Aws::String uuidName(const Aws::String &name);
+
         static Aws::String getExistingKey();
+
+        static Aws::String getPolicy();
 
         static Aws::String getRole();
 
         static Aws::String getUser();
 
+        static void setUserName(const Aws::String &newName);
+
+        static Aws::String getAssumeRolePolicyJSON();
+
         static Aws::String getRolePolicyJSON();
 
         static Aws::String createAccessKey();
+
+        static Aws::String createAccountAlias();
 
         static Aws::String createRole();
 
@@ -44,29 +54,38 @@ namespace AwsDocTest {
 
         static Aws::String samplePolicyARN();
 
-        static void deleteAccessKey(const Aws::String& accessKey);
+        static bool attachRolePolicy(const Aws::String &role,
+                                     const Aws::String &policyArn);
 
-        static void deleteRole(const Aws::String& role);
+        static void deleteAccessKey(const Aws::String &accessKey);
 
-        static void deleteUser(const Aws::String& user);
+        static void deleteRole(const Aws::String &role);
 
-        static void deleteAccountAlias(const Aws::String& accountAlias);
+        static void deleteUser(const Aws::String &user);
 
-        static void detachRolePolicy(const Aws::String& role, const Aws::String& policyARN);
+        static void deleteAccountAlias(const Aws::String &accountAlias);
 
-        // s_clientConfig must be a pointer because the client config must be initialized
+        static void deletePolicy(const Aws::String &policyArn);
+
+        static void
+        detachRolePolicy(const Aws::String &role, const Aws::String &policyARN);
+
+        static void
+        deleteRolePolicy(const Aws::String &role, const Aws::String &policyName);
+
+        // "s_clientConfig" must be a pointer because the client config must be initialized
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
     private:
         static Aws::SDKOptions s_options;
 
-        std::stringbuf  m_coutBuffer;  // Use just to silence cout.
-        std::streambuf* m_savedBuffer = nullptr;
-        static Aws::String      s_accessKey;
-        static Aws::String      s_role;
-        static Aws::String      s_userName;
-        static Aws::String      s_policyArn;
+        std::stringbuf m_coutBuffer;  // Used to silence std::cout.
+        std::streambuf *m_savedBuffer = nullptr;
+        static Aws::String s_accessKey;
+        static Aws::String s_role;
+        static Aws::String s_userName;
+        static Aws::String s_policyArn;
     };
 } // AwsDocTest
 

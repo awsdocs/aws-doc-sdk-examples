@@ -4,18 +4,20 @@
 */
 
 /**
-* Before running this C++ code example, set up your development environment,
-* including your credentials.
-*
-* For more information, see the following documentation topic:
-*
-* https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
-*
-* Purpose
-*
-* Demonstrates deleting an alias from an AWS account.
-*
-*/
+ * Before running this C++ code example, set up your development environment,
+ * including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ * Purpose
+ *
+ * Demonstrates deleting an alias from an AWS account.
+ *
+ */
 
 //snippet-start:[iam.cpp.delete_account_alias.inc]
 #include <aws/core/Aws.h>
@@ -25,7 +27,6 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.delete_account_alias.inc]
 
-// snippet-start:[iam.cpp.delete_account_alias.code]
 //! Deletes an alias from an AWS account.
 /*!
   \sa deleteAccountAlias()
@@ -33,6 +34,7 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
+// snippet-start:[iam.cpp.delete_account_alias.code]
 bool AwsDoc::IAM::deleteAccountAlias(const Aws::String &accountAlias,
                                      const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
@@ -61,7 +63,7 @@ bool AwsDoc::IAM::deleteAccountAlias(const Aws::String &accountAlias,
  *
  * Prerequisites: Existing access key.
  *
- * Usage: run_delete_access_key <user_name> <access_key_id>
+ * Usage: 'delete_account_alias <account_alias>'
  *
  */
 

@@ -4,20 +4,23 @@
 */
 
 /**
-* Before running this C++ code example, set up your development environment, including your credentials.
-*
-* For more information, see the following documentation topic:
-*
-* https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
-*
-* Purpose
-*
-* Demonstrates deleting an IAM policy.
-* This api only works for policies that have not been associated with other resources.
-* To delete a policy in the non-trivial case, use the DeletePolicy operation within the
-* aws-cpp-sdk-access-management high level sdk.
-*
-*/
+ * Before running this C++ code example, set up your development environment,
+ * including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ * Purpose
+ *
+ * Demonstrates deleting an IAM policy.
+ * This api only works for policies that have not been associated with other resources.
+ * To delete a policy in the non-trivial case, use the DeletePolicy operation within the
+ * aws-cpp-sdk-access-management high level sdk.
+ *
+ */
 
 //snippet-start:[iam.cpp.delete_policy.inc]
 #include <aws/core/Aws.h>
@@ -27,14 +30,14 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.delete_policy.inc]
 
-// snippet-start:[iam.cpp.delete_policy.code]
 //! Deletes an IAM policy.
 /*!
   \sa deletePolicy()
-  \param policyArn: The policy Amazon resource name.
+  \param policyArn: The policy Amazon Resource Name (ARN).
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
+// snippet-start:[iam.cpp.delete_policy.code]
 bool AwsDoc::IAM::deletePolicy(const Aws::String &policyArn,
                                const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
@@ -82,7 +85,6 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
         AwsDoc::IAM::deletePolicy(policyArn, clientConfig);
-
     }
     Aws::ShutdownAPI(options);
     return 0;

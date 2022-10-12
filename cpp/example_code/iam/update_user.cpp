@@ -7,8 +7,10 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -36,9 +38,8 @@
 
 // snippet-start:[iam.cpp.update_user.code]
 bool AwsDoc::IAM::updateUser(const Aws::String &currentUserName,
-                const Aws::String &newUserName,
-                const Aws::Client::ClientConfiguration &clientConfig)
-{
+                             const Aws::String &newUserName,
+                             const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
 
     Aws::IAM::Model::UpdateUserRequest request;
@@ -46,14 +47,12 @@ bool AwsDoc::IAM::updateUser(const Aws::String &currentUserName,
     request.SetNewUserName(newUserName);
 
     auto outcome = iam.UpdateUser(request);
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "IAM user " << currentUserName <<
                   " successfully updated with new user name " << newUserName <<
                   std::endl;
     }
-    else
-    {
+    else {
         std::cerr << "Error updating user name for IAM user " << currentUserName <<
                   ":" << outcome.GetError().GetMessage() << std::endl;
     }

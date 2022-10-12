@@ -7,8 +7,10 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -24,9 +26,6 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.update_server_cert.inc]
 
-/**
- * Updates a server certificate name based on command line input
- */
 //! Updates a server certificate name.
 /*!
   \sa updateServerCertificate()
@@ -35,7 +34,6 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-
 // snippet-start:[iam.cpp.update_server_cert.code]
 bool AwsDoc::IAM::updateServerCertificate(const Aws::String &currentCertificateName,
                                           const Aws::String &newCertificateName,
@@ -46,20 +44,26 @@ bool AwsDoc::IAM::updateServerCertificate(const Aws::String &currentCertificateN
     request.SetNewServerCertificateName(newCertificateName);
 
     auto outcome = iam.UpdateServerCertificate(request);
-    if (outcome.IsSuccess())
-    {
+    bool result = true;
+    if (outcome.IsSuccess()) {
         std::cout << "Server certificate " << currentCertificateName
                   << " successfully renamed as " << newCertificateName
                   << std::endl;
     }
-    else
-    {
-        std::cerr << "Error changing name of server certificate " <<
-                  currentCertificateName << " to " << newCertificateName << ":" <<
-                  outcome.GetError().GetMessage() << std::endl;
+    else {
+        if (outcome.GetError().GetErrorType() != Aws::IAM::IAMErrors::NO_SUCH_ENTITY) {
+            std::cerr << "Error changing name of server certificate " <<
+                      currentCertificateName << " to " << newCertificateName << ":" <<
+                      outcome.GetError().GetMessage() << std::endl;
+            result = false;
+        }
+        else {
+            std::cout << "Certificate '" << currentCertificateName
+                      << "' not found." << std::endl;
+        }
     }
 
-    return outcome.IsSuccess();
+    return result;
 }
 // snippet-end:[iam.cpp.update_server_cert.code]
 

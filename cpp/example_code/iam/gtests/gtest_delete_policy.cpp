@@ -7,9 +7,13 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, delete_policy) {
-          EXPECT_TRUE(false);
+        auto policyArn = createPolicy();
+        ASSERT_FALSE(policyArn.empty()) << preconditionError() << std::endl;
+
+        auto result = AwsDoc::IAM::deletePolicy(policyArn, *s_clientConfig);
+        EXPECT_TRUE(result);
     }
 } // namespace AwsDocTest

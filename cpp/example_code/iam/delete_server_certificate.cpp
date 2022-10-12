@@ -7,8 +7,10 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -24,7 +26,6 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.delete_server_cert.inc]
 
-// snippet-start:[iam.cpp.delete_server_cert.code]
 //! Deletes an IAM server certificate.
 /*!
   \sa deleteServerCertificate()
@@ -32,7 +33,7 @@
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-
+// snippet-start:[iam.cpp.delete_server_cert.code]
 bool AwsDoc::IAM::deleteServerCertificate(const Aws::String &certificateName,
                                           const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
@@ -40,16 +41,24 @@ bool AwsDoc::IAM::deleteServerCertificate(const Aws::String &certificateName,
     request.SetServerCertificateName(certificateName);
 
     const auto outcome = iam.DeleteServerCertificate(request);
+    bool result = true;
     if (!outcome.IsSuccess()) {
-        std::cerr << "Error deleting server certificate " << certificateName <<
-                  ": " << outcome.GetError().GetMessage() << std::endl;
+        if (outcome.GetError().GetErrorType() != Aws::IAM::IAMErrors::NO_SUCH_ENTITY) {
+            std::cerr << "Error deleting server certificate " << certificateName <<
+                      ": " << outcome.GetError().GetMessage() << std::endl;
+            result = false;
+        }
+        else {
+            std::cout << "Certificate '" << certificateName
+                      << "' not found." << std::endl;
+        }
     }
     else {
         std::cout << "Successfully deleted server certificate " << certificateName
                   << std::endl;
     }
 
-    return outcome.IsSuccess();
+    return result;
 }
 // snippet-end:[iam.cpp.delete_server_cert.code]
 
@@ -78,7 +87,7 @@ int main(int argc, char **argv) {
 
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
-        // clientConfig.region = "us-east-1";
+        clientConfig.region = "us-east-1";
         AwsDoc::IAM::deleteServerCertificate(certificateName, clientConfig);
     }
     Aws::ShutdownAPI(options);

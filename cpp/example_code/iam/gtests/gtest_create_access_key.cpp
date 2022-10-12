@@ -7,11 +7,11 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, create_access_key) {
         auto userName = getUser();
-        ASSERT_FALSE(userName.empty())  << preconditionError() << std::endl;
+        ASSERT_FALSE(userName.empty()) << preconditionError() << std::endl;
 
         auto accessKeyID = AwsDoc::IAM::createAccessKey(userName, *s_clientConfig);
         ASSERT_FALSE(accessKeyID.empty());

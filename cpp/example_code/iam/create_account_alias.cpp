@@ -8,12 +8,14 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
- * Creates an alias for an AWS account.
+ * Demonstrates creating an alias for an AWS account.
  *
  */
 
@@ -25,7 +27,6 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.create_account_alias.inc]
 
-// snippet-start:[iam.cpp.create_account_alias.code]
 //! Creates an alias for an AWS account.
 /*!
   \sa createAccountAlias()
@@ -33,13 +34,15 @@
   \param clientConfig Aws client configuration.
   \return bool: Successful completion.
 */
+// snippet-start:[iam.cpp.create_account_alias.code]
 bool AwsDoc::IAM::createAccountAlias(const Aws::String &aliasName,
                                      const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
     Aws::IAM::Model::CreateAccountAliasRequest request;
     request.SetAccountAlias(aliasName);
 
-    Aws::IAM::Model::CreateAccountAliasOutcome outcome = iam.CreateAccountAlias(request);
+    Aws::IAM::Model::CreateAccountAliasOutcome outcome = iam.CreateAccountAlias(
+            request);
     if (!outcome.IsSuccess()) {
         std::cerr << "Error creating account alias " << aliasName << ": "
                   << outcome.GetError().GetMessage() << std::endl;

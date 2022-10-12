@@ -7,9 +7,18 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, detach_role_policy) {
-          EXPECT_TRUE(false);
+        auto roleName = getRole();
+        ASSERT_FALSE(roleName.empty()) << preconditionError() << std::endl;
+        auto policyArn = samplePolicyARN();
+
+        auto attached = attachRolePolicy(roleName, policyArn);
+        ASSERT_TRUE(attached) << preconditionError() << std::endl;
+
+        auto result = AwsDoc::IAM::detachRolePolicy(roleName, policyArn,
+                                                    *s_clientConfig);
+        EXPECT_TRUE(result);
     }
 } // namespace AwsDocTest

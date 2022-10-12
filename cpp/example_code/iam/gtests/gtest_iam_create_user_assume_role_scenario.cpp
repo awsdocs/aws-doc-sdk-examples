@@ -2,17 +2,15 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 #include <gtest/gtest.h>
-#include <aws/core/Aws.h>
-#include <fstream>
 #include "iam_samples.h"
+#include "iam_gtests.h"
 
 
-TEST(IAMScenarioTest, Test_valid_arguments) {
-    Aws::SDKOptions options;
-    InitAPI(options);
-    Aws::Client::ClientConfiguration clientConfig;
+namespace AwsDocTest {
+    // NOLINTNEXTLINE(readability-named-parameter)
+    TEST_F(IAM_GTests, create_user_assume_role_scenario) {
 
-    EXPECT_TRUE(AwsDoc::IAM::iamCreateUserAssumeRoleScenario(clientConfig, false));
-
-    ShutdownAPI(options);
-}
+        auto result = AwsDoc::IAM::iamCreateUserAssumeRoleScenario(*s_clientConfig);
+        EXPECT_TRUE(result);
+    }
+} // namespace AwsDocTest

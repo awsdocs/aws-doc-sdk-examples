@@ -7,9 +7,14 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, create_policy) {
-          EXPECT_TRUE(false);
+        Aws::String policyName = uuidName("policy");
+        auto policyArn = AwsDoc::IAM::createPolicy(policyName, "arn:aws:s3:::*",
+                                                   *s_clientConfig);
+        ASSERT_FALSE(policyArn.empty());
+
+        deletePolicy(policyArn);
     }
 } // namespace AwsDocTest

@@ -14,8 +14,7 @@
 namespace AwsDoc {
     namespace IAM {
         bool iamCreateUserAssumeRoleScenario(
-                const Aws::Client::ClientConfiguration &clientConfig,
-                bool logProgress);
+                const Aws::Client::ClientConfiguration &clientConfig);
 
         bool accessKeyLastUsed(const Aws::String &secretKeyID,
                                const Aws::Client::ClientConfiguration &clientConfig);
@@ -25,7 +24,7 @@ namespace AwsDoc {
                               const Aws::Client::ClientConfiguration &clientConfig);
 
         Aws::String createAccessKey(const Aws::String &userName,
-                             const Aws::Client::ClientConfiguration &clientConfig);
+                                    const Aws::Client::ClientConfiguration &clientConfig);
 
         bool createAccountAlias(const Aws::String &aliasName,
                                 const Aws::Client::ClientConfiguration &clientConfig);
@@ -86,13 +85,14 @@ namespace AwsDoc {
                            const Aws::Client::ClientConfiguration &clientConfig);
 
         bool updateAccessKey(const Aws::String &userName,
-                                          const Aws::String &accessKeyID,
+                             const Aws::String &accessKeyID,
                              Aws::IAM::Model::StatusType status,
-                                          const Aws::Client::ClientConfiguration &clientConfig);
+                             const Aws::Client::ClientConfiguration &clientConfig);
 
         bool updateServerCertificate(const Aws::String &currentCertificateName,
-                                                  const Aws::String &newCertificateName,
-                                                  const Aws::Client::ClientConfiguration &clientConfig);
+                                     const Aws::String &newCertificateName,
+                                     const Aws::Client::ClientConfiguration &clientConfig);
+
         bool updateUser(const Aws::String &currentUserName,
                         const Aws::String &newUserName,
                         const Aws::Client::ClientConfiguration &clientConfig);

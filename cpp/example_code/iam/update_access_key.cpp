@@ -8,8 +8,10 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -49,13 +51,11 @@ bool AwsDoc::IAM::updateAccessKey(const Aws::String &userName,
     request.SetStatus(status);
 
     auto outcome = iam.UpdateAccessKey(request);
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully updated status of access key "
-        << accessKeyID << " for user " << userName << std::endl;
+                  << accessKeyID << " for user " << userName << std::endl;
     }
-    else
-    {
+    else {
         std::cerr << "Error updated status of access key " << accessKeyID <<
                   " for user " << userName << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
@@ -112,8 +112,7 @@ int main(int argc, char** argv)
 #endif
 
 
-void printUsage()
-{
+void printUsage() {
     std::cout <<
               "Usage: run_update_access_key <user_name> <access_key_id> <Active|Inactive>"
               << std::endl;

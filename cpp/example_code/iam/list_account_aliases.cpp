@@ -8,8 +8,10 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
@@ -27,35 +29,31 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.list_account_aliases.inc]
 
-// snippet-start:[iam.cpp.list_account_aliases.code]
-//! lists the last time an access key was used.
+//! Lists all account aliases associated with an AWS account.
 /*!
   \sa listAccountAliases()
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
-bool AwsDoc::IAM::listAccountAliases(const Aws::Client::ClientConfiguration &clientConfig)
-{
+// snippet-start:[iam.cpp.list_account_aliases.code]
+bool
+AwsDoc::IAM::listAccountAliases(const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
     Aws::IAM::Model::ListAccountAliasesRequest request;
 
     bool done = false;
     bool header = false;
-    while (!done)
-    {
+    while (!done) {
         auto outcome = iam.ListAccountAliases(request);
-        if (!outcome.IsSuccess())
-        {
+        if (!outcome.IsSuccess()) {
             std::cerr << "Failed to list account aliases: " <<
                       outcome.GetError().GetMessage() << std::endl;
             return false;
         }
 
         const auto &aliases = outcome.GetResult().GetAccountAliases();
-        if (!header)
-        {
-            if (aliases.size() == 0)
-            {
+        if (!header) {
+            if (aliases.size() == 0) {
                 std::cout << "Account has no aliases" << std::endl;
                 break;
             }
@@ -63,17 +61,14 @@ bool AwsDoc::IAM::listAccountAliases(const Aws::Client::ClientConfiguration &cli
             header = true;
         }
 
-        for (const auto &alias : aliases)
-        {
+        for (const auto &alias: aliases) {
             std::cout << std::left << std::setw(32) << alias << std::endl;
         }
 
-        if (outcome.GetResult().GetIsTruncated())
-        {
+        if (outcome.GetResult().GetIsTruncated()) {
             request.SetMarker(outcome.GetResult().GetMarker());
         }
-        else
-        {
+        else {
             done = true;
         }
     }

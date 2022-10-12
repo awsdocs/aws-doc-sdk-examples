@@ -7,9 +7,11 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, delete_server_certificate) {
-          EXPECT_TRUE(false);
+        auto result = AwsDoc::IAM::deleteServerCertificate("non-existent-certificate",
+                                                           *s_clientConfig);
+        EXPECT_TRUE(result);  // the routine will return true if certificate not found.
     }
 } // namespace AwsDocTest

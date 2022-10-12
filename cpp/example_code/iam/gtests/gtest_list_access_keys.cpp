@@ -7,9 +7,13 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, list_access_keys) {
-          EXPECT_TRUE(false);
+        auto userName = getUser();
+        ASSERT_FALSE(userName.empty()) << preconditionError() << std::endl;
+
+        auto result = AwsDoc::IAM::listAccessKeys(userName, *s_clientConfig);
+        ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

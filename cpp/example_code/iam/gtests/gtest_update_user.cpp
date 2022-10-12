@@ -7,9 +7,16 @@
 #include "iam_samples.h"
 #include "iam_gtests.h"
 
-namespace AwsDocTest { 
+namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, update_user) {
-          EXPECT_TRUE(false);
+        auto user = getUser();
+        ASSERT_FALSE(user.empty());
+        auto newUserName = uuidName("user");
+
+        auto result = AwsDoc::IAM::updateUser(user, newUserName, *s_clientConfig);
+        ASSERT_TRUE(result);
+
+        setUserName(newUserName);
     }
 } // namespace AwsDocTest
