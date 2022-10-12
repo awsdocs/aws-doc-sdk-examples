@@ -1,0 +1,17 @@
+[package]
+name = "rest_ses"
+version = "0.1.0"
+edition = "2021"
+
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+path = "src/main.rs"
+name = "rest_ses"
+
+[dependencies]
+actix-web = "4"
+reqwest = "0.11.12"
+tokio = {version = "1", features = ["macros", "rt-multi-thread"]}
