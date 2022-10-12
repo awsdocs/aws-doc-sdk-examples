@@ -1,10 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative '../ec2-ruby-example-stop-instance-i-123abc'
+require_relative "../ec2-ruby-example-stop-instance-i-123abc"
 
-describe '#instance_stopped?' do
-  let(:instance_id) { 'i-033c48ef067af3dEX' }
+describe "#instance_stopped?" do
+  let(:instance_id) { "i-033c48ef067af3dEX" }
   let(:ec2_client) do
     Aws::EC2::Client.new(
       stub_responses: {
@@ -12,7 +12,7 @@ describe '#instance_stopped?' do
           instance_statuses: [
             {
               instance_state: {
-                name: 'running'
+                name: "running"
               }
             }
           ]
@@ -22,12 +22,12 @@ describe '#instance_stopped?' do
             {
               current_state: {
                 code: 80,
-                name: 'stopped'
+                name: "stopped"
               },
               instance_id: instance_id,
               previous_state: {
                 code: 16,
-                name: 'running'
+                name: "running"
               }
             }
           ]
@@ -38,7 +38,7 @@ describe '#instance_stopped?' do
               instance_id: instance_id,
               state: {
                 code: 80,
-                name: 'stopped'
+                name: "stopped"
               }
             ]
           ]
@@ -47,7 +47,7 @@ describe '#instance_stopped?' do
     )
   end
 
-  it 'stops an instance' do
+  it "stops an instance" do
     expect(instance_stopped?(ec2_client, instance_id)).to be(true)
   end
 end

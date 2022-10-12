@@ -10,7 +10,7 @@
 
 # snippet-start:[sns.Ruby.showTopics]
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require "aws-sdk-sns"  # v2: require 'aws-sdk'
 
 def list_topics?(sns_client)
   sns_client.topics.each do |topic|
@@ -18,18 +18,18 @@ def list_topics?(sns_client)
 rescue StandardError => e
   puts "Error while listing the topics: #{e.message}"
   end
-  end
+end
 
 def run_me
 
-  region = 'REGION'
+  region = "REGION"
   sns_client = Aws::SNS::Resource.new(region: region)
 
   puts "Listing the topics."
 
   if list_topics?(sns_client)
   else
-    puts 'The bucket was not created. Stopping program.'
+    puts "The bucket was not created. Stopping program."
     exit 1
   end
 end

@@ -6,7 +6,7 @@
 # 2. List available metrics for a metric namespace in Amazon CloudWatch.
 
 # snippet-start:[cloudwatch.Ruby.addDataPoint]
-require 'aws-sdk-cloudwatch'
+require "aws-sdk-cloudwatch"
 
 # Adds a datapoint to a metric in Amazon CloudWatch.
 #
@@ -84,58 +84,58 @@ def list_metrics_for_namespace(cloudwatch_client, metric_namespace)
     response.metrics.each do |metric|
       puts "  Metric name: #{metric.metric_name}"
       if metric.dimensions.count.positive?
-        puts '    Dimensions:'
+        puts "    Dimensions:"
         metric.dimensions.each do |dimension|
           puts "      Name: #{dimension.name}, Value: #{dimension.value}"
         end
       else
-        puts 'No dimensions found.'
+        puts "No dimensions found."
       end
     end
   else
     puts "No metrics found for namespace '#{metric_namespace}'. " \
-      'Note that it could take up to 15 minutes for recently-added metrics ' \
-      'to become available.'
+      "Note that it could take up to 15 minutes for recently-added metrics " \
+      "to become available."
   end
 end
 
 # Full example call:
 def run_me
-  metric_namespace = 'SITE/TRAFFIC'
+  metric_namespace = "SITE/TRAFFIC"
   # Replace us-west-2 with the AWS Region you're using for Amazon CloudWatch.
-  region = 'us-east-1'
+  region = "us-east-1"
 
   cloudwatch_client = Aws::CloudWatch::Client.new(region: region)
 
   # Add three datapoints.
-  puts 'Continuing...' unless datapoint_added_to_metric?(
+  puts "Continuing..." unless datapoint_added_to_metric?(
     cloudwatch_client,
     metric_namespace,
-    'UniqueVisitors',
-    'SiteName',
-    'example.com',
+    "UniqueVisitors",
+    "SiteName",
+    "example.com",
     5_885.0,
-    'Count'
+    "Count"
   )
 
-  puts 'Continuing...' unless datapoint_added_to_metric?(
+  puts "Continuing..." unless datapoint_added_to_metric?(
     cloudwatch_client,
     metric_namespace,
-    'UniqueVisits',
-    'SiteName',
-    'example.com',
+    "UniqueVisits",
+    "SiteName",
+    "example.com",
     8_628.0,
-    'Count'
+    "Count"
   )
 
-  puts 'Continuing...' unless datapoint_added_to_metric?(
+  puts "Continuing..." unless datapoint_added_to_metric?(
     cloudwatch_client,
     metric_namespace,
-    'PageViews',
-    'PageURL',
-    'example.html',
+    "PageViews",
+    "PageURL",
+    "example.html",
     18_057.0,
-    'Count'
+    "Count"
   )
 
   puts "Metrics for namespace '#{metric_namespace}':"
