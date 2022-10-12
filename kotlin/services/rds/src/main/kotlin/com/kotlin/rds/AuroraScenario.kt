@@ -64,12 +64,12 @@ var slTime: Long = 20
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier> <username> <userPassword> 
+            <dbClusterGroupName> <dbParameterGroupFamily> <dbInstanceClusterIdentifier> <dbName> <dbSnapshotIdentifier> <username> <userPassword> 
 
         Where:
-            dbGroupName - The database group name. 
+            dbClusterGroupName - The database group name. 
             dbParameterGroupFamily - The database parameter group name.
-            dbInstanceIdentifier - The database instance identifier. 
+            dbInstanceClusterIdentifier - The database instance identifier. 
             dbName -  The database name. 
             dbSnapshotIdentifier - The snapshot identifier.
             username - The user name. 
