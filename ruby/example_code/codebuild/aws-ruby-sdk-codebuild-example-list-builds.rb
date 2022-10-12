@@ -7,18 +7,18 @@
 
 # snippet-start:[codebuild.Ruby.listBuilds]
 
-require 'aws-sdk-codebuild'  # v2: require 'aws-sdk'
+require "aws-sdk-codebuild"  # v2: require 'aws-sdk'
 
 # Replace us-west-2 with the AWS Region you're using for Amazon CodeBuild.
-client = Aws::CodeBuild::Client.new(region: 'us-west-2')
+client = Aws::CodeBuild::Client.new(region: "us-west-2")
 
-build_list = client.list_builds({sort_order: 'ASCENDING', })
+build_list = client.list_builds({sort_order: "ASCENDING", })
 
 builds = client.batch_get_builds({ids: build_list.ids})
 
 builds.builds.each do |build|
-  puts 'Project:    ' + build.project_name
-  puts 'Phase:      ' + build.current_phase
-  puts 'Status:     ' + build.build_status
+  puts "Project:    " + build.project_name
+  puts "Phase:      " + build.current_phase
+  puts "Status:     " + build.build_status
 end
 # snippet-end:[codebuild.Ruby.listBuilds]

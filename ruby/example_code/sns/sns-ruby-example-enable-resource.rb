@@ -13,7 +13,7 @@
 
 # snippet-start:[sns.Ruby.enableResource]
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require "aws-sdk-sns"  # v2: require 'aws-sdk'
 
 policy  = '{
   "Version":"2008-10-17",
@@ -33,7 +33,7 @@ policy  = '{
   }]
 }'
 # Replace us-west-2 with the AWS Region you're using for Amazon SNS.
-sns = Aws::SNS::Resource.new(region: 'REGION')
+sns = Aws::SNS::Resource.new(region: "REGION")
 
 # Get topic by ARN
 topic = sns.topic()

@@ -7,7 +7,7 @@
 
 # snippet-start:[polly.ruby.describeVoices]
 
-require 'aws-sdk-polly'  # In v2: require 'aws-sdk'
+require "aws-sdk-polly"  # In v2: require 'aws-sdk'
 
 begin
   # Create an Amazon Polly client using
@@ -16,16 +16,16 @@ begin
   polly = Aws::Polly::Client.new
 
   # Get US English voices
-  resp = polly.describe_voices(language_code: 'en-US')
+  resp = polly.describe_voices(language_code: "en-US")
 
   resp.voices.each do |v|
     puts v.name
-    puts '  ' + v.gender
+    puts "  " + v.gender
     puts
   end
 rescue StandardError => ex
-  puts 'Could not get voices'
-  puts 'Error message:'
+  puts "Could not get voices"
+  puts "Error message:"
   puts ex.message
 end
 # snippet-end:[polly.ruby.describeVoices]
