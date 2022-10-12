@@ -7,9 +7,9 @@
 
 # snippet-start:[s3.sqs-ruby-example-poll-messages.rb]
 
-require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
+require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
-Aws.config.update({region: 'us-west-2'})
+Aws.config.update({region: "us-west-2"})
 
 poller = Aws::SQS::QueuePoller.new(URL)
 
