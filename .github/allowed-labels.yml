@@ -181,6 +181,10 @@
   color: "d8bfd8"
   description: "Internal: Relates to Scouring of the Services"
   from_name: "SoS"
+- name: type/github-settings
+  color: "5AF8F9"
+  description: "This affects GitHub settings"
+  from_name: "github-settings"
 
 - name: priority/high
   color: "FF0000"
