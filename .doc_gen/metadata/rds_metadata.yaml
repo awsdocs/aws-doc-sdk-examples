@@ -454,6 +454,24 @@ rds_Scenario_GetStartedInstances:
     - Delete the instance and parameter group.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description: Run multiple operations
+              snippet_tags:
+                - rds.java2.scenario.main
     .NET:
       versions:
         - sdk_version: 3
