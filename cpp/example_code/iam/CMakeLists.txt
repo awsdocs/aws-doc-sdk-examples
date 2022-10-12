@@ -36,11 +36,13 @@ find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
+    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
     set(CMAKE_BUILD_TYPE Debug) #Explicitly setting CMAKE_BUILD_TYPE is necessary in windows to copy dlls.
 
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    AWSSDK_CPY_DYN_LIBS(${SERVICE_COMPONENTS} "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
+
+     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
 endif()
 
 
