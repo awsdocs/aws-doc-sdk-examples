@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[AuroraScenario.kt demonstrates how to perform operations multiple on Aurora Clusters by using an Amazon Relational Database Service (RDS) service client.]
+// snippet-sourcedescription:[AuroraScenario.kt demonstrates how to perform multiple operations on Aurora Clusters by using an Amazon Relational Database Service (RDS) service client.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Relational Database Service]
 
@@ -28,6 +28,7 @@ import aws.sdk.kotlin.services.rds.model.DescribeOrderableDbInstanceOptionsReque
 import aws.sdk.kotlin.services.rds.model.ModifyDbClusterParameterGroupRequest
 import aws.sdk.kotlin.services.rds.model.Parameter
 import kotlinx.coroutines.delay
+import kotlin.system.exitProcess
 
 // snippet-start:[rds.kotlin.scenario.aurora.main]
 /**
@@ -63,27 +64,31 @@ var slTime: Long = 20
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> <dbSnapshotIdentifier>
+            <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier> <username> <userPassword> 
 
         Where:
             dbGroupName - The database group name. 
             dbParameterGroupFamily - The database parameter group name.
             dbInstanceIdentifier - The database instance identifier. 
             dbName -  The database name. 
+            dbSnapshotIdentifier - The snapshot identifier.
             username - The user name. 
             userPassword - The password that corresponds to the user name. 
-            dbSnapshotIdentifier - The snapshot identifier. 
     """
 
-    val dbClusterGroupName = "clusterGroup573" //args[0]
-    val dbParameterGroupFamily = "aurora-mysql5.7"// args[1]
-    val dbInstanceClusterIdentifier = "MyCluster73" //args[2]
-    val dbInstanceIdentifier = "ScottDBId573"// args[3]
-    val dbName = "ScottDB573" //args[4]
-    val dbSnapshotIdentifier = "ScottDBSnapshot573" //args[5]
-    val username = "root" //args[6]
-    val userPassword = "root1234" //args[7]
+    if (args.size != 7) {
+        println(usage)
+        exitProcess(1)
+    }
 
+    val dbClusterGroupName = args[0]
+    val dbParameterGroupFamily = args[1]
+    val dbInstanceClusterIdentifier = args[2]
+    val dbInstanceIdentifier = args[3]
+    val dbName = args[4]
+    val dbSnapshotIdentifier = args[5]
+    val username = args[6]
+    val userPassword = args[7]
 
     println("1. Return a list of the available DB engines")
     describeAuroraDBEngines()
@@ -92,7 +97,7 @@ suspend fun main(args: Array<String>) {
     createDBClusterParameterGroup(dbClusterGroupName, dbParameterGroupFamily)
 
     println("3. Get the parameter group")
-   describeDbClusterParameterGroups(dbClusterGroupName)
+    describeDbClusterParameterGroups(dbClusterGroupName)
 
     println("4. Get the parameters in the group")
     describeDbClusterParameters(dbClusterGroupName, 0)
@@ -124,7 +129,7 @@ suspend fun main(args: Array<String>) {
     waitDBAuroraInstanceReady(dbInstanceIdentifier)
 
     println("13. Create a snapshot")
-    createDBClusterSnapshot( dbInstanceClusterIdentifier, dbSnapshotIdentifier)
+    createDBClusterSnapshot(dbInstanceClusterIdentifier, dbSnapshotIdentifier)
 
     println("14. Wait for DB snapshot to be ready")
     waitSnapshotReady(dbSnapshotIdentifier, dbInstanceClusterIdentifier)
@@ -133,14 +138,13 @@ suspend fun main(args: Array<String>) {
     deleteDBInstance(dbInstanceIdentifier)
 
     println("16. Delete the DB cluster")
-    deleteCluster( dbInstanceClusterIdentifier)
+    deleteCluster(dbInstanceClusterIdentifier)
 
     println("17. Delete the DB cluster group")
     if (clusterDBARN != null) {
-        deleteDBClusterGroup( dbClusterGroupName, clusterDBARN)
+        deleteDBClusterGroup(dbClusterGroupName, clusterDBARN)
     }
     println("The Scenario has successfully completed.")
-
 }
 
 @Throws(InterruptedException::class)
@@ -183,8 +187,8 @@ suspend fun deleteDBClusterGroup(dbClusterGroupName: String, clusterDBARN: Strin
     }
 }
 
-suspend  fun deleteCluster(dbInstanceClusterIdentifier: String) {
-    val deleteDbClusterRequest = DeleteDbClusterRequest{
+suspend fun deleteCluster(dbInstanceClusterIdentifier: String) {
+    val deleteDbClusterRequest = DeleteDbClusterRequest {
         dbClusterIdentifier = dbInstanceClusterIdentifier
         skipFinalSnapshot = true
     }
@@ -239,7 +243,7 @@ suspend fun waitSnapshotReady(dbSnapshotIdentifier: String?, dbInstanceClusterId
 }
 
 suspend fun createDBClusterSnapshot(dbInstanceClusterIdentifier: String?, dbSnapshotIdentifier: String?) {
-    val snapshotRequest = CreateDbClusterSnapshotRequest{
+    val snapshotRequest = CreateDbClusterSnapshotRequest {
         dbClusterIdentifier = dbInstanceClusterIdentifier
         dbClusterSnapshotIdentifier = dbSnapshotIdentifier
     }
@@ -262,7 +266,7 @@ suspend fun waitDBAuroraInstanceReady(dbInstanceIdentifierVal: String?) {
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         while (!instanceReady) {
             val response = rdsClient.describeDbInstances(instanceRequest)
-            response.dbInstances?.forEach{instance ->
+            response.dbInstances?.forEach { instance ->
                 instanceReadyStr = instance.dbInstanceStatus.toString()
                 if (instanceReadyStr.contains("available")) {
                     endpoint = instance.endpoint?.address.toString()
@@ -293,11 +297,11 @@ suspend fun createDBInstanceCluster(dbInstanceIdentifierVal: String?, dbInstance
 }
 
 suspend fun getListInstanceClasses(): String? {
-   val optionsRequest = DescribeOrderableDbInstanceOptionsRequest {
-       engine = "aurora-mysql"
-       maxRecords = 20
-   }
-   var instanceClass = ""
+    val optionsRequest = DescribeOrderableDbInstanceOptionsRequest {
+        engine = "aurora-mysql"
+        maxRecords = 20
+    }
+    var instanceClass = ""
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeOrderableDbInstanceOptions(optionsRequest)
         response.orderableDbInstanceOptions?.forEach { instanceOption ->
@@ -307,10 +311,10 @@ suspend fun getListInstanceClasses(): String? {
         }
     }
     return instanceClass
- }
+}
 
 // Waits until the database instance is available.
-suspend fun waitForClusterInstanceReady( dbClusterIdentifierVal: String?) {
+suspend fun waitForClusterInstanceReady(dbClusterIdentifierVal: String?) {
     var instanceReady = false
     var instanceReadyStr: String
     println("Waiting for instance to become available.")
@@ -322,7 +326,7 @@ suspend fun waitForClusterInstanceReady( dbClusterIdentifierVal: String?) {
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         while (!instanceReady) {
             val response = rdsClient.describeDbClusters(instanceRequest)
-            response.dbClusters?.forEach{cluster ->
+            response.dbClusters?.forEach { cluster ->
                 instanceReadyStr = cluster.status.toString()
                 if (instanceReadyStr.contains("available")) {
                     instanceReady = true
@@ -361,7 +365,7 @@ suspend fun getAllowedClusterEngines(dbParameterGroupFamilyVal: String?) {
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbEngineVersions(versionsRequest)
-        response.dbEngineVersions?.forEach{dbEngine ->
+        response.dbEngineVersions?.forEach { dbEngine ->
             println("The engine version is ${dbEngine.engineVersion}")
             println("The engine description is ${dbEngine.dbEngineDescription}")
         }
@@ -385,27 +389,27 @@ suspend fun modifyDBClusterParas(dClusterGroupName: String?) {
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.modifyDbClusterParameterGroup(groupRequest)
-        println("The parameter group ${response.dbClusterParameterGroupName.toString()} was successfully modified")
+        println("The parameter group ${response.dbClusterParameterGroupName} was successfully modified")
     }
 }
 
 suspend fun describeDbClusterParameters(dbCLusterGroupName: String?, flag: Int) {
     val dbParameterGroupsRequest: DescribeDbClusterParametersRequest
-        dbParameterGroupsRequest = if (flag == 0) {
-            DescribeDbClusterParametersRequest {
-                dbClusterParameterGroupName = dbCLusterGroupName
-            }
-        } else {
-            DescribeDbClusterParametersRequest {
-                dbClusterParameterGroupName = dbCLusterGroupName
-                source = "user"
-            }
+    dbParameterGroupsRequest = if (flag == 0) {
+        DescribeDbClusterParametersRequest {
+            dbClusterParameterGroupName = dbCLusterGroupName
         }
+    } else {
+        DescribeDbClusterParametersRequest {
+            dbClusterParameterGroupName = dbCLusterGroupName
+            source = "user"
+        }
+    }
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbClusterParameters(dbParameterGroupsRequest)
-        response.parameters?.forEach{para ->
-             // Only print out information about either auto_increment_offset or auto_increment_increment.
+        response.parameters?.forEach { para ->
+            // Only print out information about either auto_increment_offset or auto_increment_increment.
             val paraName = para.parameterName
             if (paraName != null) {
                 if (paraName.compareTo("auto_increment_offset") == 0 || paraName.compareTo("auto_increment_increment ") == 0) {
@@ -421,14 +425,14 @@ suspend fun describeDbClusterParameters(dbCLusterGroupName: String?, flag: Int) 
 }
 
 suspend fun describeDbClusterParameterGroups(dbClusterGroupName: String?) {
-    val groupsRequest= DescribeDbClusterParameterGroupsRequest {
+    val groupsRequest = DescribeDbClusterParameterGroupsRequest {
         dbClusterParameterGroupName = dbClusterGroupName
-         maxRecords = 20
+        maxRecords = 20
     }
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbClusterParameterGroups(groupsRequest)
-        response.dbClusterParameterGroups?.forEach{group ->
+        response.dbClusterParameterGroups?.forEach { group ->
             println("The group name is ${group.dbClusterParameterGroupName}")
             println("The group ARN is ${group.dbClusterParameterGroupArn}")
         }
@@ -457,7 +461,7 @@ suspend fun describeAuroraDBEngines() {
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbEngineVersions(engineVersionsRequest)
-        response.dbEngineVersions?.forEach{engineOb ->
+        response.dbEngineVersions?.forEach { engineOb ->
             println("The name of the DB parameter group family for the database engine is ${engineOb.dbParameterGroupFamily}")
             println("The name of the database engine ${engineOb.engine}")
             println("The version number of the database engine ${engineOb.engineVersion}")
