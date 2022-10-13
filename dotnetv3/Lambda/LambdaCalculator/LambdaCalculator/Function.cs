@@ -39,14 +39,14 @@ public class Function
             case "divide":
                 if (y == 0)
                 {
-                    Debug.WriteLine("Divide by zero error.");
+                    Console.Error.WriteLine("Divide by zero error.");
                     result = 0;
                 }
                 else
                     result = x / y;
                 break;
             default:
-                Debug.WriteLine($"{action} is not a valid operation.");
+                Console.Error.WriteLine($"{action} is not a valid operation.");
                 result = 0;
                 break;
         }

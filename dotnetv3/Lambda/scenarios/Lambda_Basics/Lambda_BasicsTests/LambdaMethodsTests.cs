@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using Newtonsoft.Json.Linq;
 using Xunit.Extensions.Ordering;
 
 namespace Lambda_Basics.Tests
@@ -67,10 +68,26 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(4)]
-        public async Task InvokeFunctionTest()
+        public async Task InvokeArithmeticMultiplyFunctionTest()
         {
-            var result = await _LambdaMethods.InvokeFunctionAsync(_client, _configuration["FunctionName"]);
-            Assert.NotEmpty(result);
+            var functionParameters = "{" +
+                "\"action\": \"" + "multiply" + "\", " +
+                "\"x\": \"" + 6 + "\"," +
+                "\"y\": \"" + 7 + "\"" +
+            "}";
+
+            var response = await _LambdaMethods.InvokeFunctionAsync(
+                _client,
+                _configuration["FunctionName"],
+                functionParameters);
+            Assert.Equal("42", response);
+        }
+
+        [Fact()]
+        [Order(4)]
+        public async Task InvokeArithmeticDivideFunctionTest()
+        {
+
         }
 
         [Fact()]

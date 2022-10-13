@@ -187,7 +187,7 @@ functionParameters = "{" +
 "}";
 
 answer = await lambdaMethods.InvokeFunctionAsync(lambdaClient, functionName, functionParameters);
-Console.WriteLine("The answer when we {action} the two numbers is: {answer}.");
+Console.WriteLine($"The answer when we {operation} the two numbers is: {answer}.");
 
 PressEnter();
 

@@ -83,7 +83,6 @@ namespace Lambda_Basics
             var response = await client.InvokeAsync(request);
             MemoryStream stream = response.Payload;
             string returnValue = System.Text.Encoding.UTF8.GetString(stream.ToArray());
-            Console.WriteLine(returnValue);
             return returnValue;
         }
 
