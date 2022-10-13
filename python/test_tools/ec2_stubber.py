@@ -9,6 +9,7 @@ When tests are run against an actual AWS account, the stubber class does not
 set up stubs and passes all calls through to the Boto3 client.
 """
 
+from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -32,11 +33,19 @@ class Ec2Stubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_create_key_pair(self, key_name, key_material, error_code=None):
+    def stub_create_key_pair(self, key_name, key_material=None, error_code=None):
         expected_params = {'KeyName': key_name}
-        response = {'KeyMaterial': key_material, 'KeyName': key_name}
+        response = {'KeyName': key_name}
+        if key_material is not None:
+            response['KeyMaterial'] = key_material
         self._stub_bifurcator(
             'create_key_pair', expected_params, response, error_code=error_code)
+
+    def stub_describe_key_pairs(self, key_pairs, error_code=None):
+        expected_params = {}
+        response = {'KeyPairs': key_pairs}
+        self._stub_bifurcator(
+            'describe_key_pairs', expected_params, response, error_code=error_code)
 
     def stub_delete_key_pair(self, key_name, error_code=None):
         expected_params = {'KeyName': key_name}
@@ -56,11 +65,10 @@ class Ec2Stubber(ExampleStubber):
             'describe_vpcs', expected_params, response, error_code=error_code)
 
     def stub_create_security_group(
-            self, group_name, group_description, vpc_id, group_id, error_code=None):
+            self, group_name, group_id, group_description=ANY, error_code=None):
         expected_params = {
             'GroupName': group_name,
             'Description': group_description,
-            'VpcId': vpc_id
         }
         response = {'GroupId': group_id}
         self._stub_bifurcator(
@@ -76,25 +84,21 @@ class Ec2Stubber(ExampleStubber):
             error_code=None):
         expected_params = {'GroupId': group_id}
         if ip_permissions is not None:
-            expected_params['IpPermissions'] = [{
-                'IpProtocol': perm['protocol'],
-                'FromPort': perm['port'],
-                'ToPort': perm['port'],
-                'IpRanges': perm['ip_ranges']
-            } for perm in ip_permissions]
+            expected_params['IpPermissions'] = ip_permissions
         if source_group_name is not None:
             expected_params['SourceSecurityGroupName'] = source_group_name
+        response = {'Return': True}
         self._stub_bifurcator(
-            'authorize_security_group_ingress', expected_params, error_code=error_code)
+            'authorize_security_group_ingress', expected_params, response, error_code=error_code)
 
     def stub_create_instances(
             self, image_id, instance_type, key_name, instance_count, instance_id,
-            security_groups=None, subnet_id=None, error_code=None):
+            security_group_ids=None, subnet_id=None, error_code=None):
         expected_params = {
             'ImageId': image_id, 'InstanceType': instance_type, 'KeyName': key_name,
             'MinCount': instance_count, 'MaxCount': instance_count}
-        if security_groups is not None:
-            expected_params['SecurityGroups'] = security_groups
+        if security_group_ids is not None:
+            expected_params['SecurityGroupIds'] = security_group_ids
         if subnet_id is not None:
             expected_params['SubnetId'] = subnet_id
         response = {'Instances': [{'InstanceId': instance_id}]}
@@ -107,13 +111,7 @@ class Ec2Stubber(ExampleStubber):
             'Reservations': [{
                 'Instances': [{
                     'InstanceId': instance.id,
-                    'NetworkInterfaces': [{
-                        'NetworkInterfaceId': interface.network_interface_id,
-                        'Groups': [{
-                            'GroupName': group.group_name,
-                            'GroupId': group.group_id
-                        } for group in interface.groups]
-                    } for interface in instance.network_interfaces]
+                    'State': instance.state
                 } for instance in instances]
             }]
         }
@@ -266,3 +264,17 @@ class Ec2Stubber(ExampleStubber):
         }
         self._stub_bifurcator(
             'describe_availability_zones', expected_params, response, error_code=error_code)
+
+    def stub_describe_images(self, images, error_code=None):
+        expected_params = {'ImageIds': [i.id for i in images]}
+        response = {'Images': [{
+            'ImageId': image.id, 'Description': image.description, 'Architecture': image.architecture}
+            for image in images]}
+        self._stub_bifurcator(
+            'describe_images', expected_params, response, error_code=error_code)
+
+    def stub_describe_instance_types(self, inst_types, filters=ANY, error_code=None):
+        expected_params = {'Filters': filters}
+        response = {'InstanceTypes': [{'InstanceType': inst_type} for inst_type in inst_types]}
+        self._stub_bifurcator(
+            'describe_instance_types', expected_params, response, error_code=error_code)
