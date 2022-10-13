@@ -51,6 +51,14 @@ sts_AssumeRole:
             - description:
               snippet_tags:
                 - sts.JavaScript.assumeRole
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sts
+          excerpts:
+            - description:
+              snippet_tags:
+                - sts.cpp.assume_role
   services:
     sts: {AssumeRole}
 sts_GetSessionToken:

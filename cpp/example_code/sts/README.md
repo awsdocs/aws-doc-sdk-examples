@@ -3,7 +3,7 @@
 Shows how to use the AWS C++ SDK to access the AWS Security Token
 Service (AWS STS) to acquire temporary credentials that grant specific permissions.
 
-*AWS provides AWS Security Token Service (AWS STS) as a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users you authenticate (federated users).*
+*AWS provides AWS STS as a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users you authenticate (federated users).*
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
 * Running the tests might result in charges to your AWS account.
@@ -13,7 +13,7 @@ Service (AWS STS) to acquire temporary credentials that grant specific permissio
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
-- [Assume a role](./assume_role.cpp) (AssumeRole)
+- [Assume a role](./assume_role.cpp) (assumeRole)
 ## Run the examples
 
 ### Prerequisites

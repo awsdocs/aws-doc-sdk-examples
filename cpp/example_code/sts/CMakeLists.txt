@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(SERVICE_NAME sts)
-set(SERVICE_COMPONENTS sts)
+set(SERVICE_COMPONENTS sts iam s3)
 
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
@@ -25,7 +25,7 @@ if(BUILD_TESTS)
 endif()
 
 # Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
+if(NOT DEFINED BUILD_SHARED_LIBS)
     set(BUILD_SHARED_LIBS ON)
 endif()
 
@@ -36,11 +36,13 @@ find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
+    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
     set(CMAKE_BUILD_TYPE Debug) #Explicitly setting CMAKE_BUILD_TYPE is necessary in windows to copy dlls.
 
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    AWSSDK_CPY_DYN_LIBS(${SERVICE_COMPONENTS} "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
+
+     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
 endif()
 
 
@@ -67,13 +69,11 @@ foreach(file ${AWSDOC_SOURCE})
 
     add_executable(${EXAMPLE_EXE} ${file})
 
-    target_include_directories(${EXAMPLE_EXE} PUBLIC 
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>)
-    target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
-        ${AWSSDK_PLATFORM_DEPS})
+    target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
+            ${AWSSDK_PLATFORM_DEPS})
 
- endforeach()
+endforeach()
+
 
 if(BUILD_TESTS)
     add_subdirectory(gtests)

@@ -8,12 +8,14 @@
 #define S3_EXAMPLES_S3_GTESTS_H
 
 #include <aws/core/Aws.h>
+#include <aws/core/client/ClientConfiguration.h>
+#include <aws/iam/model/Role.h>
 #include <memory>
 #include <gtest/gtest.h>
 
 namespace AwsDocTest {
 
-    class S3_GTests : public testing::Test {
+    class STS_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -24,15 +26,32 @@ namespace AwsDocTest {
 
         static void TearDownTestSuite();
 
-        // s_clientConfig must be a pointer because the client config must be initialized
+        static Aws::String uuidName(const Aws::String &name);
+
+        static Aws::String preconditionError();
+
+        static Aws::String getRoleArn();
+
+        static Aws::IAM::Model::Role createRole();
+
+        static Aws::String getUserArn();
+
+        static void deleteRole(const Aws::String &role);
+
+        static Aws::String getAssumeRolePolicyJSON();
+
+        // "s_clientConfig" must be a pointer because the client config must be initialized
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
     private:
         static Aws::SDKOptions s_options;
 
-        std::stringbuf m_coutBuffer;  // Use just to silence cout.
+        std::stringbuf m_coutBuffer;  // Used just to silence std::cout.
         std::streambuf *m_savedBuffer = nullptr;
+
+        static Aws::IAM::Model::Role s_role;
+        static Aws::String s_userArn;
     };
 } // AwsDocTest
 
