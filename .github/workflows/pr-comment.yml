@@ -19,4 +19,4 @@ jobs:
         uses: thollander/actions-comment-pull-request@v1
         with:
           message: |
-            Thanks for your contribution! :tada: To speed up the review process, please see our [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md) to make sure you did everything correctly. We will review your PR as soon as possible! :heart: 
+            Thanks for your contribution! :tada: To speed up the review process, please double-check our [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md) and stand by. We will review your PR as soon as possible! :rocket: 
