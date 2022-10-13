@@ -11,7 +11,7 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Compute Clou
   an EC2 instance.
 * Create a security group that acts as a virtual firewall for your EC2 instances to
   control incoming and outgoing traffic.
-* Find an Amazon Machine Image (AMI)e and a compatible instance type.
+* Find an Amazon Machine Image (AMI) and a compatible instance type.
 * Create an instance that is created from the instance type and AMI you select, and
   is configured to use the security group and key pair created in this example.
 * Stop and restart the instance.
