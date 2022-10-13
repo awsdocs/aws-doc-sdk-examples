@@ -7,23 +7,26 @@
   "author": "brmur",
   "license": "Apache 2.0",
   "scripts": {
-    "build": "webpack index.js --mode development --target web --devtool false -o main.js",
+    "build": "webpack --config ./webpack.config.cjs",
     "test": "exit 0"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.32.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
-    "@aws-sdk/client-transcribe-streaming": "^3.32.0",
-    "@aws-sdk/client-ses": "^3.32.0",
-    "@aws-sdk/client-comprehend": "^3.32.0",
-    "@aws-sdk/client-translate": "^3.32.0",
-    "microphone-stream": "6.0.0",
+    "@aws-sdk/client-cognito-identity": "^3.165.0",
+    "@aws-sdk/client-comprehend": "^3.165.0",
+    "@aws-sdk/client-ses": "^3.165.0",
+    "@aws-sdk/client-transcribe-streaming": "^3.165.0",
+    "@aws-sdk/client-translate": "^3.165.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.165.0",
     "get-user-media-promise": "^1.1.4",
-    "stream": "0.0.2"
+    "buffer": "^6.0.3",
+    "stream": "0.0.2",
+    "microphone-stream": "^6.0.1",
+    "process": "^0.11.10",
+    "workbox-webpack-plugin": "^6.5.4"
   },
   "devDependencies": {
-    "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   },
   "type": "module"
 }
