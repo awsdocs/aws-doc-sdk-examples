@@ -676,8 +676,7 @@ iam_GetAccessKeyLastUsed:
             - description:
               snippet_tags:
                 - iam.cpp.access_key_last_used.code
-
-GetAccessKeyLastUsed  services:
+  services:
     iam: {GetAccessKeyLastUsed}
 iam_ListAccessKeys:
   title: List a user's &IAM; access keys using an &AWS; SDK
