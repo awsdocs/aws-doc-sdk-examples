@@ -61,7 +61,7 @@ cognito-identity-provider_SignUp:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/sign-up.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -115,7 +115,7 @@ cognito-identity-provider_AdminGetUser:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/admin-get-user.js
+          github: javascriptv3/example_code/cognito/
           sdkguide:
           excerpts:
             - description:
@@ -169,7 +169,7 @@ cognito-identity-provider_ResendConfirmationCode:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/resend-confirmation-code.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -223,7 +223,7 @@ cognito-identity-provider_ConfirmSignUp:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/confirm-sign-up.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -268,7 +268,7 @@ cognito-identity-provider_ListUsers:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/list-users.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -313,7 +313,7 @@ cognito-identity-provider_AdminInitiateAuth:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/admin-initiate-auth.js
+          github: javascriptv3/example_code/cognito/
           sdkguide:
           excerpts:
             - description:
@@ -367,7 +367,7 @@ cognito-identity-provider_AssociateSoftwareToken:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/associate-software-token.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -421,7 +421,7 @@ cognito-identity-provider_VerifySoftwareToken:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/verify-software-token.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -476,7 +476,7 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/admin-respond-to-auth-challenge.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -503,7 +503,7 @@ cognito-identity-provider_ConfirmDevice:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/confirm-device.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -541,7 +541,7 @@ cognito-identity-provider_InitiateAuth:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/initiate-auth.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
@@ -579,7 +579,7 @@ cognito-identity-provider_RespondToAuthChallenge:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/actions/respond-to-auth-challenge.js
+          github: javascriptv3/example_code/cognito
           sdkguide:
           excerpts:
             - description:
