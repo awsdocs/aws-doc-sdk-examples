@@ -1,4 +1,11 @@
-on: pull_request
+name: PR Commenter
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'main'
 
 jobs:
   example_comment_pr:
@@ -12,4 +19,4 @@ jobs:
         uses: thollander/actions-comment-pull-request@v1
         with:
           message: |
-            Hello world ! :wave:
+            Thanks for your contribution! :tada: To speed up the review process, please see our [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md) to make sure you did everything correctly. We will review your PR as soon as possible! :heart: 
