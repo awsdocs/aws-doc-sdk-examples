@@ -18,6 +18,7 @@
  *
  */
 
+#include <aws/s3/S3Client.h>
 #include <aws/sts/STSClient.h>
 #include <aws/sts/model/AssumeRoleRequest.h>
 #include <aws/core/auth/AWSCredentialsProvider.h>

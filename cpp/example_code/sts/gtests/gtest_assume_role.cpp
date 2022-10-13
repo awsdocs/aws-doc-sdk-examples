@@ -15,7 +15,7 @@ namespace AwsDocTest {
         ASSERT_FALSE(roleArn.empty()) << preconditionError() << std::endl;
 
         Aws::String roleSessionName = uuidName("role-session");
-        roleSessionName.resize(std::min(62ul, roleSessionName.length()));
+        roleSessionName.resize(std::min(static_cast<size_t>(62), roleSessionName.length()));
         Aws::String externalId = "012345";	// Optional, but recommended
         Aws::Auth::AWSCredentials credentials;
 
