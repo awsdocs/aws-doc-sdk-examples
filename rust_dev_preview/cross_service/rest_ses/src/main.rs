@@ -1,10 +1,16 @@
 use std::net::TcpListener;
 
-use rest_ses::run;
+use rest_ses::client::RdsClient;
+use rest_ses::configuration::get_settings;
+use rest_ses::startup::run;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    let listener = TcpListener::bind("127.0.0.1:8000").expect("Failed to bind a TcpListener!");
+    let settings = get_settings().expect("Failed to load configuration.");
+    let config = aws_config::from_env().load().await;
+    let rds = RdsClient::new(settings.sdk_config, config);
+    let address = format!("127.0.0.1:{}", settings.application_port);
+    let listener = TcpListener::bind(address).expect("Failed to bind a TcpListener!");
     println!("Listening on {addr}", addr = listener.local_addr()?);
-    run(listener)?.await
+    run(listener, rds)?.await
 }

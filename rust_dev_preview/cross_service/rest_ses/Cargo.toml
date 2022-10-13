@@ -13,6 +13,10 @@ name = "rest_ses"
 
 [dependencies]
 actix-web = "4"
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-rdsdata = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+chrono = { version = "0.4.22", default-features = false, features = ["clock", "serde"] }
+config = "0.13.2"
 reqwest = "0.11.12"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0.86"
