@@ -58,6 +58,15 @@ cognito-identity-provider_SignUp:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.SignUp
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/sign-up.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.SignUp
   services:
     cognito-identity-provider: {SignUp}
 cognito-identity-provider_AdminGetUser:
@@ -103,6 +112,15 @@ cognito-identity-provider_AdminGetUser:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.SignUp
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/admin-get-user.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.AdminGetUser
   services:
     cognito-identity-provider: {AdminGetUser}
 cognito-identity-provider_ResendConfirmationCode:
@@ -148,6 +166,15 @@ cognito-identity-provider_ResendConfirmationCode:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.ResendConfirmationCode
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/resend-confirmation-code.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.ResendConfirmationCode
   services:
     cognito-identity-provider: {ResendConfirmationCode}
 cognito-identity-provider_ConfirmSignUp:
@@ -193,6 +220,15 @@ cognito-identity-provider_ConfirmSignUp:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.ConfirmSignUp
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/confirm-sign-up.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.ConfirmSignUp
   services:
     cognito-identity-provider: {ConfirmSignUp}
 cognito-identity-provider_ListUsers:
@@ -229,6 +265,15 @@ cognito-identity-provider_ListUsers:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.ListUsers
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/list-users.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.ListUsers
   services:
     cognito-identity-provider: {ListUsers}
 cognito-identity-provider_AdminInitiateAuth:
@@ -265,6 +310,15 @@ cognito-identity-provider_AdminInitiateAuth:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.AdminInitiateAuth
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/admin-initiate-auth.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.AdminInitiateAuth
   services:
     cognito-identity-provider: {AdminInitiateAuth}
 cognito-identity-provider_AssociateSoftwareToken:
@@ -310,6 +364,15 @@ cognito-identity-provider_AssociateSoftwareToken:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.AssociateSoftwareToken
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/associate-software-token.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.AssociateSoftwareToken
   services:
     cognito-identity-provider: {AssociateSoftwareToken}
 cognito-identity-provider_VerifySoftwareToken:
@@ -355,6 +418,15 @@ cognito-identity-provider_VerifySoftwareToken:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.VerifySoftwareToken
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/verify-software-token.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.VerifySoftwareToken
   services:
     cognito-identity-provider: {VerifySoftwareToken}
 cognito-identity-provider_AdminRespondToAuthChallenge:
@@ -401,6 +473,15 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.AdminRespondToAuthChallenge
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/admin-respond-to-auth-challenge.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.AdminRespondToAuthChallenge
   services:
     cognito-identity-provider: {AdminRespondToAuthChallenge}
 cognito-identity-provider_ConfirmDevice:
@@ -419,6 +500,15 @@ cognito-identity-provider_ConfirmDevice:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.ConfirmDevice
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/confirm-device.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.ConfirmDevice
   services:
     cognito-identity-provider: {ConfirmDevice}
 cognito-identity-provider_InitiateAuth:
@@ -448,6 +538,15 @@ cognito-identity-provider_InitiateAuth:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.InitiateAuth
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/initiate-auth.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.InitiateAuth
   services:
     cognito-identity-provider: {InitiateAuth}
 cognito-identity-provider_RespondToAuthChallenge:
@@ -477,6 +576,15 @@ cognito-identity-provider_RespondToAuthChallenge:
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.RespondToAuthChallenge
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/actions/respond-to-auth-challenge.js
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.RespondToAuthChallenge
   services:
     cognito-identity-provider: {RespondToAuthChallenge}
 cognito-identity-provider_Scenario_SignUpUserWithMfa:
@@ -529,6 +637,25 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
                 device. This avoids the need to enter a new MFA code.
               snippet_tags:
                 - python.example_code.cognito-idp.Scenario_SignUpUserWithMfa
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito/scenarios/basic
+          sdkguide:
+          excerpts:
+            - description: Clone the GitHub repository and run this example for the best
+                 experience. The code below represents a sample of the full example application.
+              snippet_tags:
+                - javascript.v3.cognito-idp.scenarios.basic.SignUpHandler
+                - javascript.v3.cognito-idp.actions.SignUp
+                - javascript.v3.cognito-idp.scenarios.basic.ConfirmSignUpHandler
+                - javascript.v3.cognito-idp.actions.ConfirmSignUp
+                - javascript.v3.cognito-idp.scenarios.basic.AdminInitiateAuthHandler
+                - javascript.v3.cognito-idp.actions.AdminInitiateAuth
+                - javascript.v3.cognito-idp.scenarios.basic.AdminRespondToAuthChallengeHandler
+                - javascript.v3.cognito-idp.actions.RespondToAuthChallenge
+                - javascript.v3.cognito-idp.scenarios.basic.VerifySoftwareTokenHandler
+                - javascript.v3.cognito-idp.actions.VerifySoftwareToken
   services:
     cognito-identity-provider: {ConfirmSignUp, ConfirmDevice, AssociateSoftwareToken,
                                 AdminGetUser, ListUsers, ResendConfirmationCode,
