@@ -5,8 +5,8 @@
 # This code example demonstrates how to send a message to a queue in Amazon Simple Queue Service (Amazon SQS).
 
 # snippet-start:[s3.sqs-ruby-example-send-message.rb]
-require 'aws-sdk-sqs'
-require 'aws-sdk-sts'
+require "aws-sdk-sqs"
+require "aws-sdk-sts"
 
 # @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
 # @param queue_url [String] The URL of the queue.
@@ -32,25 +32,25 @@ end
 # Full example call:
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 def run_me
-  region = 'us-west-2'
-  queue_name = 'my-queue'
-  message_body = 'This is my message.'
+  region = "us-west-2"
+  queue_name = "my-queue"
+  message_body = "This is my message."
 
   sts_client = Aws::STS::Client.new(region: region)
 
   # For example:
   # 'https://sqs.us-west-2.amazonaws.com/111111111111/my-queue'
-  queue_url = 'https://sqs.' + region + '.amazonaws.com/' +
-    sts_client.get_caller_identity.account + '/' + queue_name
+  queue_url = "https://sqs." + region + ".amazonaws.com/" +
+    sts_client.get_caller_identity.account + "/" + queue_name
 
   sqs_client = Aws::SQS::Client.new(region: region)
 
   puts "Sending a message to the queue named '#{queue_name}'..."
 
   if message_sent?(sqs_client, queue_url, message_body)
-    puts 'Message sent.'
+    puts "Message sent."
   else
-    puts 'Message not sent.'
+    puts "Message not sent."
   end
 end
 
