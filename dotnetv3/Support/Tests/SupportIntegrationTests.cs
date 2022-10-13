@@ -206,9 +206,10 @@ public class SupportIntegrationTests
     [Order(11)]
     public async Task VerifyDescribeCases_ShouldNotBeEmpty()
     {
-        // Describe the cases. In case it is empty, try again and allow time for the new case to appear.
+        // Describe the cases. If it is empty, try again and allow time for the new case to appear.
         List<CaseDetails> todayCases = null!;
-        while (todayCases == null || todayCases.Count == 0)
+        int retries = 0;
+        while (todayCases == null || todayCases.Count == 0 || retries < 10)
         {
             Thread.Sleep(1000);
             todayCases = await _supportWrapper.DescribeCases(
@@ -218,6 +219,7 @@ public class SupportIntegrationTests
                 true,
                 DateTime.Today,
                 DateTime.Now);
+            retries++;
         }
         Assert.NotEmpty(todayCases);
     }

@@ -19,7 +19,7 @@ support_Hello:
 support_AddAttachment:
   title: Add an &SUP; attachment to a set using an &AWS; SDK
   title_abbrev: Add an attachment to a set
-  synopsis: add an &SUP; attachment to an attachment set to use in a support case.
+  synopsis: add an &SUP; attachment to an attachment set.
   category:
   languages:
     .NET:
@@ -33,8 +33,8 @@ support_AddAttachment:
                 - Support.dotnetv3.AddAttachmentToSet
   services:
     support: {AddAttachmentsToSet}
-support_addCommunication:
-  title: Add an &SUP; communication to a support case using an &AWS; SDK
+support_AddCommunication:
+  title: Add an &SUP; communication to a case using an &AWS; SDK
   title_abbrev: Add a communication to a case
   synopsis: add an &SUP; communication with an attachment to a support case.
   category:
@@ -50,7 +50,7 @@ support_addCommunication:
                 - Support.dotnetv3.AddCommunicationToCase
   services:
     support: {AddCommunicationToCase}
-support_createCase:
+support_CreateCase:
   title: Create an &SUP; case using an &AWS; SDK
   title_abbrev: Create a case
   synopsis: create a new &SUP; case.
@@ -67,7 +67,7 @@ support_createCase:
                 - Support.dotnetv3.CreateCase
   services:
     support: {CreateCase}
-support_describeAttachment:
+support_DescribeAttachment:
   title: Describe an &SUP; attachment for a case using an &AWS; SDK
   title_abbrev: Describe an attachment
   synopsis: describe an &SUP; attachment for a case.
@@ -84,7 +84,7 @@ support_describeAttachment:
                 - Support.dotnetv3.DescribeAttachment
   services:
     support: {DescribeAttachment}
-support_describeCases:
+support_DescribeCases:
   title: Describe &SUP; cases using an &AWS; SDK
   title_abbrev: Describe cases
   synopsis: describe &SUP; cases.
@@ -101,7 +101,7 @@ support_describeCases:
                 - Support.dotnetv3.DescribeCases
   services:
     support: {DescribeCases}
-support_describeCommunications:
+support_DescribeCommunications:
   title: Describe &SUP; communications for a case using an &AWS; SDK
   title_abbrev: Describe communications
   synopsis: describe &SUP; communications for a case.
@@ -118,7 +118,7 @@ support_describeCommunications:
                 - Support.dotnetv3.DescribeCommunications
   services:
     support: {DescribeCommunications}
-support_describeServices:
+support_DescribeServices:
   title: Describe &SUP; services using an &AWS; SDK
   title_abbrev: Describe services
   synopsis: describe &SUP; services.
@@ -135,7 +135,7 @@ support_describeServices:
                 - Support.dotnetv3.DescribeServices
   services:
     support: {DescribeServices}
-support_describeSeverityLevels:
+support_DescribeSeverityLevels:
   title: Describe &SUP; severity levels using an &AWS; SDK
   title_abbrev: Describe severity levels
   synopsis: describe &SUP; severity levels.
@@ -152,7 +152,7 @@ support_describeSeverityLevels:
                 - Support.dotnetv3.DescribeSeverityLevels
   services:
     support: {DescribeSeverityLevels}
-support_resolveCase:
+support_ResolveCase:
   title: Resolve an &SUP; case using an &AWS; SDK
   title_abbrev: Resolve case
   synopsis: resolve an &SUP; case.
@@ -171,7 +171,7 @@ support_resolveCase:
     support: {ResolveCase}
 support_Scenario_GetStartedSupportCases:
   title: Get started with &SUP; cases using an &AWS; SDK
-  title_abbrev: Get started with &SUP; cases
+  title_abbrev: Get started with cases
   synopsis_list:
     - Get and display available services and severity levels for cases.
     - Create a support case using a selected service, category, and severity level.

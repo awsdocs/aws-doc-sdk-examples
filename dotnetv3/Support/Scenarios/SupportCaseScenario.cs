@@ -43,7 +43,7 @@ public static class SupportCaseScenario
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon RDS service. 
+        // Set up dependency injection for the Amazon Support service. 
         // Use your AWS profile name, or leave it blank to use the default profile.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
@@ -110,7 +110,7 @@ public static class SupportCaseScenario
     }
 
     /// <summary>
-    /// List some available services from AWS support, and select a service for the example.
+    /// List some available services from AWS Support, and select a service for the example.
     /// </summary>
     /// <returns>The selected service.</returns>
     private static async Task<Service> DisplayAndSelectServices()
@@ -213,7 +213,7 @@ public static class SupportCaseScenario
         var caseId = await _supportWrapper.CreateCase(service.Code, category.Code, severity.Code,
             "Example case for testing, please ignore.", "This is my example support case.");
 
-        Console.WriteLine($"\tNew case created with id {caseId}");
+        Console.WriteLine($"\tNew case created with ID {caseId}");
 
         Console.WriteLine(new string('-', 80));
 
@@ -227,7 +227,7 @@ public static class SupportCaseScenario
     private static async Task DescribeTodayOpenCases()
     {
         Console.WriteLine($"5. List the open support cases for the current day.");
-        // Describe the cases. In case it is empty, try again and allow time for the new case to appear.
+        // Describe the cases. If it is empty, try again and allow time for the new case to appear.
         List<CaseDetails> currentOpenCases = null!;
         while (currentOpenCases == null || currentOpenCases.Count == 0)
         {

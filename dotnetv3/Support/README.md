@@ -13,6 +13,10 @@ AWS Support offers a range of plans that provide access to tools and expertise t
 
 ## Code examples
 
+### Get started
+
+* [Hello AWS Support](Actions/HelloSupport.cs)
+
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 * [Add an attachment to a set](Actions/SupportWrapper.cs)(`AddAttachmentsToSetAsync`)

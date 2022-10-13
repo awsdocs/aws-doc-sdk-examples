@@ -143,7 +143,7 @@ public class SupportWrapper
     // snippet-start:[Support.dotnetv3.AddCommunicationToCase]
 
     /// <summary>
-    /// Add communication to a case, including optional attachment set id and cc email addresses.
+    /// Add communication to a case, including optional attachment set ID and cc email addresses.
     /// </summary>
     /// <param name="caseId">Id for the support case.</param>
     /// <param name="body">Body text of the communication.</param>
@@ -171,7 +171,7 @@ public class SupportWrapper
     /// <summary>
     /// Describe the communications for a case, optionally with a date filter.
     /// </summary>
-    /// <param name="caseId">The id of the support case.</param>
+    /// <param name="caseId">The ID of the support case.</param>
     /// <param name="afterTime">The optional start date for a filtered search.</param>
     /// <param name="beforeTime">The optional end date for a filtered search.</param>
     /// <returns>The list of communications for the case.</returns>
