@@ -38,7 +38,7 @@ class KeyPairWrapper:
     # snippet-start:[python.example_code.ec2.CreateKeyPair]
     def create(self, key_name):
         """
-        Creates a key pair that can be used to securely connect to an Amazon EC2 instance.
+        Creates a key pair that can be used to securely connect to an EC2 instance.
         The returned key pair contains private key information that cannot be retrieved
         again. The private key data is stored as a .pem file.
 
