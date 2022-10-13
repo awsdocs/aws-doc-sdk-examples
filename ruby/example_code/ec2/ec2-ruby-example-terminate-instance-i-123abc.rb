@@ -11,7 +11,7 @@
 
 # snippet-start:[ec2.Ruby.terminateInstances]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Prerequisites:
 #
@@ -29,15 +29,15 @@ def instance_terminated?(ec2_client, instance_id)
   response = ec2_client.describe_instance_status(instance_ids: [instance_id])
 
   if response.instance_statuses.count.positive? &&
-    response.instance_statuses[0].instance_state.name == 'terminated'
+    response.instance_statuses[0].instance_state.name == "terminated"
 
-    puts 'The instance is already terminated.'
+    puts "The instance is already terminated."
     return true
   end
 
   ec2_client.terminate_instances(instance_ids: [instance_id])
   ec2_client.wait_until(:instance_terminated, instance_ids: [instance_id])
-  puts 'Instance terminated.'
+  puts "Instance terminated."
   return true
 rescue StandardError => e
   puts "Error terminating instance: #{e.message}"
@@ -46,21 +46,21 @@ end
 
 # Full example call:
 def run_me
-  instance_id = ''
-  region = ''
+  instance_id = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage:   ruby ec2-ruby-example-terminate-instance-i-123abc.rb ' \
-      'INSTANCE_ID REGION '
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage:   ruby ec2-ruby-example-terminate-instance-i-123abc.rb " \
+      "INSTANCE_ID REGION "
    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-terminate-instance-i-123abc.rb ' \
-      'i-123abc us-west-2'
+    puts "Example: ruby ec2-ruby-example-terminate-instance-i-123abc.rb " \
+      "i-123abc us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
-    instance_id = 'i-123abc'
-    region = 'us-west-2'
+    instance_id = "i-123abc"
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]
@@ -70,9 +70,9 @@ def run_me
   ec2_client = Aws::EC2::Client.new(region: region)
 
   puts "Attempting to terminate instance '#{instance_id}' " \
-    '(this might take a few minutes)...'
+    "(this might take a few minutes)..."
   unless instance_terminated?(ec2_client, instance_id)
-    puts 'Could not terminate instance.'
+    puts "Could not terminate instance."
   end
 end
 

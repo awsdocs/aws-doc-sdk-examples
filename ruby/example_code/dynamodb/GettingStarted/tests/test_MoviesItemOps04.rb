@@ -1,23 +1,23 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative '../MoviesItemOps04'
+require_relative "../MoviesItemOps04"
 
-describe '#table_item_updated?' do
+describe "#table_item_updated?" do
   let(:table_item) do
     {
-      table_name: 'Movies',
+      table_name: "Movies",
       key: {
         year: 2015,
-        title: 'The Big New Movie'
+        title: "The Big New Movie"
       },
-      update_expression: 'SET info.rating = :r, info.plot = :p, info.actors = :a',
+      update_expression: "SET info.rating = :r, info.plot = :p, info.actors = :a",
       expression_attribute_values: {
         ':r': 5.5,
-        ':p': 'Everything happens all at once.',
-        ':a': [ 'Larry', 'Moe', 'Curly' ]
+        ':p': "Everything happens all at once.",
+        ':a': ["Larry", "Moe", "Curly"]
       },
-      return_values: 'UPDATED_NEW'
+      return_values: "UPDATED_NEW"
     }
   end
   let(:dynamodb_client) do
@@ -25,12 +25,12 @@ describe '#table_item_updated?' do
       stub_responses: {
         update_item: {
           attributes: {
-            'year' => 2015,
-            'title' => 'The Big New Movie',
-            'info' => {
-              'actors' => [ 'Larry', 'Moe', 'Curly' ],
-              'plot' => 'Everything happens all at once.',
-              'rating' => 5.5
+            "year" => 2015,
+            "title" => "The Big New Movie",
+            "info" => {
+              "actors" => ["Larry", "Moe", "Curly"],
+              "plot" => "Everything happens all at once.",
+              "rating" => 5.5
             }
           }
         }
@@ -38,7 +38,7 @@ describe '#table_item_updated?' do
     )
   end
 
-  it 'updates an item in a table' do
+  it "updates an item in a table" do
     expect(table_item_updated?(dynamodb_client, table_item)).to eq(true)
   end
 end
