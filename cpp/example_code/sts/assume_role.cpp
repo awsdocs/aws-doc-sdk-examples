@@ -60,7 +60,7 @@ bool AwsDoc::STS::assumeRole(const Aws::String &roleArn,
         const Aws::STS::Model::AssumeRoleResult result = outcome.GetResult();
         const Aws::STS::Model::Credentials &temp_credentials = result.GetCredentials();
 
-        // Store temporary credentials in return argument
+        // Store temporary credentials in return argument.
         // Note: The credentials object returned by assumeRole differs
         // from the AWSCredentials object used in most situations.
         credentials.SetAWSAccessKeyId(temp_credentials.GetAccessKeyId());
@@ -97,13 +97,12 @@ int main(int argc, char **argv)
     {
         Aws::String roleArn = argv[1];
         Aws::String roleSessionName = argv[2];
-        Aws::String externalId = "012345";	// Optional, but recommended
+        Aws::String externalId = "012345";	// Optional, but recommended.
         Aws::Auth::AWSCredentials credentials;
 
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        // Assume the role on the external account
         if (!AwsDoc::STS::assumeRole(roleArn, roleSessionName, externalId, credentials, clientConfig))
         {
             return 1;

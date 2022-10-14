@@ -25,7 +25,7 @@ The code examples in this directory demonstrate how to work with the AWS Identit
 - [Delete an account alias](./delete_account_alias.cpp) (DeleteAccountAlias)
 - [Delete a policy](./delete_policy.cpp) (DeletePolicy)
 - [Delete a server certificate](./delete_server_certificate.cpp) (DeleteServerCertificate)
-- [Delete a user](./delete_user.cpp) (deleteUser)
+- [Delete a user](./delete_user.cpp) (DeleteUser)
 - [Detach a role policy](./detach_role_policy.cpp) (DetachRolePolicy)
 - [Get a policy](./get_policy.cpp) (GetPolicy)
 - [Get a server certificate](./get_server_certificate.cpp) (GetServerCertificate)
@@ -41,7 +41,7 @@ The code examples in this directory demonstrate how to work with the AWS Identit
 
 
 ### Scenarios
-- [Create an IAM user, create an IAM role, and apply the role to the user](./iam_create_user_assume_role_scenario.cpp) (CreateUser, GetUser, CreateRole, CreatePolicy, AssumeRole, ListBuckets, AttachRolePolicy, DetachRolePolicy, DeletePolicy, DeleteRole, deleteUser)
+- [Create an IAM user, create an IAM role, and apply the role to the user](./iam_create_user_assume_role_scenario.cpp) (CreateUser, GetUser, CreateRole, CreatePolicy, AssumeRole, ListBuckets, AttachRolePolicy, DetachRolePolicy, DeletePolicy, DeleteRole, DeleteUser)
 
 ## Run the examples
 Before using the code examples, first complete the installation and setup steps of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.

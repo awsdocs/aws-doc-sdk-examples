@@ -8,7 +8,7 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html.
  *
  * For information on the structure of the code examples and how to build and run the examples, see
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
@@ -31,7 +31,7 @@
 /*!
   \sa createAccessKey()
   \param userName: User name for the access key.
-  \param clientConfig Aws client configuration.
+  \param clientConfig: Aws client configuration.
   \return Aws::String: Access key ID or empty string if unsuccessful.
 */
 // snippet-start:[iam.cpp.create_access_key.code]
@@ -66,7 +66,7 @@ Aws::String AwsDoc::IAM::createAccessKey(const Aws::String &userName,
  *
  *  main function
  *
- * Usage: 'create_access_key <user_name>'
+ * Usage: 'run_create_access_key <user_name>'
  *
  */
 

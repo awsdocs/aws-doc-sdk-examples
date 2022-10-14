@@ -7,7 +7,7 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html.
  *
  * For information on the structure of the code examples and how to build and run the examples, see
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
@@ -33,8 +33,8 @@
 /*!
   \sa attachRolePolicy()
   \param roleName: The name of the role.
-  \param policyArn The policy Amazon Resource Name (ARN) to attach.
-  \param clientConfig Aws client configuration.
+  \param policyArn: The policy Amazon Resource Name (ARN) to attach.
+  \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
 // snippet-start:[iam.cpp.attach_role_policy.code]

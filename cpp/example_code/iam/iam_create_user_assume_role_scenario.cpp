@@ -7,7 +7,7 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html.
  *
  * For information on the structure of the code examples and how to build and run the examples, see
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
@@ -58,11 +58,10 @@ namespace AwsDoc {
         //! Cleanup by deleting created entities.
         /*!
           \sa DeleteCreatedEntities
-          \param client IAM client.
-          \param role IAM role.
-          \param user IAM user.
-          \param policy IAM policy.
-          \param logProgress enables verbose logging.
+          \param client: IAM client.
+          \param role: IAM role.
+          \param user: IAM user.
+          \param policy: IAM policy.
         */
         static bool DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
                                           const Aws::IAM::Model::Role &role,
@@ -77,7 +76,7 @@ namespace AwsDoc {
 //    create a custom policy).
 /*!
   \sa iamCreateUserAssumeRoleScenario
-  \param clientConfig Aws client configuration.
+  \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */
 bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(

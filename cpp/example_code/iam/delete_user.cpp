@@ -7,7 +7,7 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html.
  *
  * For information on the structure of the code examples and how to build and run the examples, see
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
@@ -16,7 +16,7 @@
  *
  * Demonstrates deleting an IAM user.
  * This api only works for users with noassociated resources, for example groups and policies.
- * To delete a user in the non-trivial case, use the deleteUser operation within the
+ * To delete a user in the non-trivial case, use the DeleteUser operation within the
  * aws-cpp-sdk-access-management high level sdk.
  *
  */

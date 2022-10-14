@@ -8,7 +8,7 @@
  * including your credentials.
  *
  * For more information, see the following documentation topic:
- * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html.
  *
  * For information on the structure of the code examples and how to build and run the examples, see
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
@@ -39,7 +39,7 @@ namespace AwsDoc {
   \sa createPolicy()
   \param policyName: The policy name.
   \param rsrcArn: The Amazon Resource Name (ARN).
-  \param clientConfig Aws client configuration.
+  \param clientConfig: Aws client configuration.
   \return Aws::String: Policy ARN or empty string if unsuccessful.
 */
 // snippet-start:[iam.cpp.create_policy.code]
