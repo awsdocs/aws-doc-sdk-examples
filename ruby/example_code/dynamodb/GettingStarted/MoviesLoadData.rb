@@ -49,8 +49,8 @@
 # ]
 
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesLoadData]
-require 'aws-sdk-dynamodb'
-require 'json'
+require "aws-sdk-dynamodb"
+require "json"
 
 $movie_counter = 0
 $total_movies = 0
@@ -64,15 +64,15 @@ def add_item_to_table(dynamodb_client, table_item)
 rescue StandardError => e
   puts "Error adding movie '#{table_item[:item]['title']} " \
     "(#{table_item[:item]['year']})': #{e.message}"
-  puts 'Program stopped.'
+  puts "Program stopped."
   exit 1
 end
 
 def run_me
 # Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
-  region = 'us-west-2'
-  table_name = 'Movies'
-  data_file = 'moviedata.json'
+  region = "us-west-2"
+  table_name = "Movies"
+  data_file = "moviedata.json"
 
   # To use the downloadable version of Amazon DynamoDB,
   # uncomment the endpoint statement.
@@ -97,7 +97,7 @@ def run_me
     add_item_to_table(dynamodb_client, table_item)
   end
 
-  puts 'Done.'
+  puts "Done."
 end
 
 run_me if $PROGRAM_NAME == __FILE__
