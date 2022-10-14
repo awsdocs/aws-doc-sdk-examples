@@ -23,7 +23,7 @@ public static class SupportCaseScenario
 {
     /*
     Before running this .NET code example, set up your development environment, including your credentials.
-    You must have a Business, Enterprise On-Ramp, or Enterprise Support plan to use the AWS Support API.
+    You must have one of the following AWS Support plans: Business, Enterprise On-Ramp, or Enterprise. Otherwise, an exception will be thrown.
 
     This .NET example performs the following tasks:
     1.  Get and display services. Select a service from the list.
@@ -129,7 +129,7 @@ public static class SupportCaseScenario
         while (choiceNumber < 1 || choiceNumber > services.Count)
         {
             Console.WriteLine(
-                "Select an example support service by entering a number from the list above:");
+                "Select an example support service by entering a number from the preceding list:");
             var choice = Console.ReadLine();
             Int32.TryParse(choice, out choiceNumber);
         }
@@ -157,7 +157,7 @@ public static class SupportCaseScenario
         while (choiceNumber < 1 || choiceNumber > service.Categories.Count)
         {
             Console.WriteLine(
-                "Select an example support category by entering a number from the list above:");
+                "Select an example support category by entering a number from the preceding list:");
             var choice = Console.ReadLine();
             Int32.TryParse(choice, out choiceNumber);
         }
@@ -168,7 +168,7 @@ public static class SupportCaseScenario
     }
 
     /// <summary>
-    /// List available severity levels from AWS support, and select a level for the example.
+    /// List available severity levels from AWS Support, and select a level for the example.
     /// </summary>
     /// <returns>The selected severity level.</returns>
     private static async Task<SeverityLevel> DisplayAndSelectSeverity()
@@ -186,7 +186,7 @@ public static class SupportCaseScenario
         while (choiceNumber < 1 || choiceNumber > severityLevels.Count)
         {
             Console.WriteLine(
-                "Select an example severity level by entering a number from the list above:");
+                "Select an example severity level by entering a number from the preceding list:");
             var choice = Console.ReadLine();
             Int32.TryParse(choice, out choiceNumber);
         }
@@ -211,7 +211,7 @@ public static class SupportCaseScenario
                           $" \n\tService: {service.Name}, Category: {category.Name} " +
                           $"and Severity Level: {severity.Name}.");
         var caseId = await _supportWrapper.CreateCase(service.Code, category.Code, severity.Code,
-            "Example case for testing, please ignore.", "This is my example support case.");
+            "Example case for testing, ignore.", "This is my example support case.");
 
         Console.WriteLine($"\tNew case created with ID {caseId}");
 

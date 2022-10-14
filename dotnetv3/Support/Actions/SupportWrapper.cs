@@ -25,7 +25,8 @@ public class SupportWrapper
     /// <summary>
     /// Get the descriptions of support services.
     /// </summary>
-    /// <param name="name">Optional language for services. Currently "en" and "ja" are supported.</param>
+    /// <param name="name">Optional language for services.
+    /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
     /// <returns>The list of support service descriptions.</returns>
     public async Task<List<Service>> DescribeServices(string language = "en")
     {
@@ -44,7 +45,8 @@ public class SupportWrapper
     /// <summary>
     /// Get the descriptions of support severity levels.
     /// </summary>
-    /// <param name="name">Optional language for severity levels. Currently "en" and "ja" are supported.</param>
+    /// <param name="name">Optional language for severity levels.
+    /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
     /// <returns>The list of support severity levels.</returns>
     public async Task<List<SeverityLevel>> DescribeSeverityLevels(string language = "en")
     {
@@ -68,7 +70,8 @@ public class SupportWrapper
     /// <param name="severityCode">Severity code for the new case.</param>
     /// <param name="subject">Subject of the new case.</param>
     /// <param name="body">Body text of the new case.</param>
-    /// <param name="language">Optional language for the new case. Currently "en" and "ja" are supported.</param>
+    /// <param name="language">Optional language for the new case.
+    /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
     /// <param name="attachmentSetId">Optional Id for an attachment set for the new case.</param>
     /// <param name="issueType">Optional issue type for the new case. Options are "customer-service" or "technical".</param>
     /// <returns>The caseId of the new support case.</returns>
@@ -98,7 +101,7 @@ public class SupportWrapper
     /// Add an attachment to a set, or create a new attachment set if one does not exist.
     /// </summary>
     /// <param name="data">The data for the attachment.</param>
-    /// <param name="fileName">The filename for the attachment.</param>
+    /// <param name="fileName">The file name for the attachment.</param>
     /// <param name="attachmentSetId">Optional setId for the attachment. Creates a new attachment set if empty.</param>
     /// <returns>The setId of the attachment.</returns>
     public async Task<string> AddAttachmentToSet(MemoryStream data, string fileName, string? attachmentSetId = null)
@@ -143,12 +146,12 @@ public class SupportWrapper
     // snippet-start:[Support.dotnetv3.AddCommunicationToCase]
 
     /// <summary>
-    /// Add communication to a case, including optional attachment set ID and cc email addresses.
+    /// Add communication to a case, including optional attachment set ID and CC email addresses.
     /// </summary>
     /// <param name="caseId">Id for the support case.</param>
     /// <param name="body">Body text of the communication.</param>
     /// <param name="attachmentSetId">Optional Id for an attachment set.</param>
-    /// <param name="ccEmailAddresses">Optional list of cc email addresses.</param>
+    /// <param name="ccEmailAddresses">Optional list of CC email addresses.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> AddCommunicationToCase(string caseId, string body,
         string? attachmentSetId = null, List<string>? ccEmailAddresses = null)
@@ -206,7 +209,8 @@ public class SupportWrapper
     /// <param name="includeResolvedCases">True to include resolved cases. Defaults to false.</param>
     /// <param name="afterTime">The optional start date for a filtered search.</param>
     /// <param name="beforeTime">The optional end date for a filtered search.</param>
-    /// <param name="language">Optional language for the new case. Currently "en" and "ja" are supported.</param>
+    /// <param name="language">Optional language for the new case.
+    /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
     /// <returns>A list of CaseDetails.</returns>
     public async Task<List<CaseDetails>> DescribeCases(List<string> caseIds, string? displayId = null, bool includeCommunication = true,
         bool includeResolvedCases = false, DateTime? afterTime = null, DateTime? beforeTime = null,
@@ -254,7 +258,7 @@ public class SupportWrapper
     // snippet-end:[Support.dotnetv3.ResolveCase]
 
     /// <summary>
-    /// Verify the support level for support API access.
+    /// Verify the support level for AWS Support API access.
     /// </summary>
     /// <returns>True if the subscription level supports API access.</returns>
     public async Task<bool> VerifySubscription()

@@ -104,7 +104,7 @@ public class SupportIntegrationTests
             serviceCode,
             categoryCode,
             severityCode,
-            "Example case for integration testing, please ignore.",
+            "Example case for integration testing, ignore.",
             "This is an example support case.");
         _caseId = caseId;
         Assert.False(string.IsNullOrWhiteSpace(caseId));
@@ -124,7 +124,7 @@ public class SupportIntegrationTests
                 "",
                 "test",
                 "low",
-                "Example case for integration testing, please ignore.",
+                "Example case for integration testing, ignore.",
                 "This is an example support case.");
         });
     }
@@ -187,7 +187,7 @@ public class SupportIntegrationTests
     }
 
     /// <summary>
-    /// Describe the attachment set. Should return an attachment with a filename that is not empty.
+    /// Describe the attachment set. Should return an attachment with a file name that is not empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

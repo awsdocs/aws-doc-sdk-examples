@@ -15,7 +15,7 @@ public static class HelloSupport
     {
         // Use the AWS .NET Core Setup package to set up dependency injection for the AWS Support service.
         // Use your AWS profile name, or leave it blank to use the default profile.
-        // You must have a Business, Enterprise On-Ramp, or Enterprise Support subscription, or an exception will be thrown.
+        // You must have one of the following AWS Support plans: Business, Enterprise On-Ramp, or Enterprise. Otherwise, an exception will be thrown.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonAWSSupport>()
