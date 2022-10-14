@@ -61,22 +61,22 @@ import java.util.List;
  *
  * This Java example performs the following tasks:
  *
- * 1. Gets available engine families for Aurora MySql by calling the DescribeDbEngineVersions(Engine='aurora-mysql') method.
- * 2. Selects an engine family and create a custom DB cluster parameter group by invoking the describeDBClusterParameters method.
+ * 1. Gets available engine families for Amazon Aurora MySQL-Compatible Edition by calling the DescribeDbEngineVersions(Engine='aurora-mysql') method.
+ * 2. Selects an engine family and creates a custom DB cluster parameter group by invoking the describeDBClusterParameters method.
  * 3. Gets the parameter groups by invoking the describeDBClusterParameterGroups method.
  * 4. Gets parameters in the group by invoking the describeDBClusterParameters method.
  * 5. Modifies the auto_increment_offset parameter by invoking the modifyDbClusterParameterGroupRequest method.
  * 6. Gets and displays the updated parameters.
  * 7. Gets a list of allowed engine versions by invoking the describeDbEngineVersions method.
- * 8. Creates an Aurora DB cluster database cluster that contains a MySql database.
+ * 8. Creates an Aurora DB cluster database cluster that contains a MySQL database.
  * 9.  Waits for DB instance to be ready.
- * 10. Gets a list of instance classes available for the selected engine
- * 11. Creates a database instance in the cluster
- * 12. Waits for DB instance to be ready
- * 13. Creates a snapshot
- * 14. Waits for DB snapshot to be ready
- * 15. Deletes the DB cluster
- * 16. Deletes the DB cluster group
+ * 10. Gets a list of instance classes available for the selected engine.
+ * 11. Creates a database instance in the cluster.
+ * 12. Waits for DB instance to be ready.
+ * 13. Creates a snapshot.
+ * 14. Waits for DB snapshot to be ready.
+ * 15. Deletes the DB cluster.
+ * 16. Deletes the DB cluster group.
  */
 
 public class AuroraScenario {
