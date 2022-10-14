@@ -17,11 +17,14 @@ export class RestService<T extends { id: string }> {
     adverb = "",
     params = {},
   }: { id?: string; adverb?: string; params?: RestParams<T> } = {}) {
-    let item = id;
+    let item = "";
+    if (id) {
+      item += "/" + id;
+    }
     if (adverb.length > 0) {
       item += ":" + adverb;
     }
-    const url = new URL(`${this.baseUrl}/${this.collection}/${item}`);
+    const url = new URL(`${this.baseUrl}/${this.collection}${item}`);
     for (const [k, v] of Object.entries(params)) {
       url.searchParams.append(k, v);
     }

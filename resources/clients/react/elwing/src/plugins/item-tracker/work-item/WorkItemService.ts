@@ -38,7 +38,8 @@ export class WorkItemService extends RestService<WorkItem> {
    * Sends a POST request to email a report of work items.
    */
   async mailItem(email: string) {
-    return await fetch(this.url({ adverb: "report" }), {
+    return await this.fetch(this.url({ adverb: "report" }), {
+      method: "POST",
       body: JSON.stringify({ email }),
     });
   }
