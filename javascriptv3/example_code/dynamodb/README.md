@@ -1,21 +1,28 @@
-# Amazon DynamoDB JavaScript SDK v3 code examples
+# Amazon DynamoDB code examples for AWS SDK for JavaScript (v3)
 The code examples in this directory demonstrate how to work with Amazon DynamoDB using the AWS SDK for JavaScript version 3 (v3).
 
 Amazon DynamoDB is a key-value and document database that delivers single-digit millisecond performance at any scale. It's a fully managed, multiregion, multimaster, durable database with built-in security, backup and restore, and in-memory caching for internet-scale applications. 
 
-## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon DynamoDB examples: 
+###Table of contents
+- [Important information](#-important-information)
+- [Code examples](#code-examples)
+  - [Single actions](#single-actions)
+  - [Scenario](#scenario)
+- [Run the examples](#run-the-examples)
+  - [Prerequisites](#prerequisites)
+  - [Steps](#steps)
+- [Unit tests](#unit-tests)
+- [Additional resources](#-A)
 
-### Scenario examples
+## ⚠️ Important information
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code the least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-- [DynamoDB_basics](scenarios/dynamodb_basics/src/dynamodb_basics.js)
+## The code examples
 
-#### Scenario examples using PartiQL
-
-- [PartiQL_basics](scenarios/partiQL_basics/src/partiQL_basics.js)
-- [PartiQL_batch_basics](scenarios/partiQL_basics/src/partiQL_batch_basics.js)
-
-### API Examples - DynamoDB
+### Single actions
+Code excerpts that show you how to call individual service functions.
 
 - [Create a DynamoDB table](src/ddb_createtable.js) (CreateTableCommand)
 - [Create a DynamoDB table - TV example](src/QueryExample/ddb_createtable_tv.js)
@@ -33,8 +40,6 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Update a DynamoDB table using Document Client](src/movies/updateItem.js) (UpdateCommand)
 - [Write batch items using Document Client](src/movies/writeData.js) (BatchGetWriteCommand)
 - [Write batch items - TV example](src/QueryExample/ddb_batchwriteitem_tv.js)
-
-#### API Examples - DynamoDB using PartiQL
 - [Add an item to a table using PartiQL](src/partiQL_examples/src/partiql_putItem.js) (ExecuteStatementCommand)
 - [Add items to a table by batch using PartiQL](src/partiQL_examples/src/partiql_batch_putItems.js) (BatchExecuteStatementCommand)
 - [Delete an item from a table using PartiQL](src/partiQL_examples/src/partiql_deleteItem.js) (ExecuteStatementCommand)
@@ -44,34 +49,32 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Update an item in a table using PartiQL](src/partiQL_examples/src/partiql_updateItem.js) (ExecuteStatementCommand)
 - [Update items in a table by batch using PartiQL](src/partiQL_examples/src/partiql_batch_updateItems.js) (BatchExecuteStatementCommand)
 
-**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
-[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
 
-## Getting started
+### Scenario 
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
-See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
-instructions.
+- [DynamoDB basics](scenarios/dynamodb_basics/src/dynamodb_basics.js)
+- [PartiQL basics](scenarios/partiQL_basics/src/partiQL_basics.js)
+- [PartiQL batch_basics](scenarios/partiQL_basics/src/partiQL_batch_basics.js)
 
-2. Install the dependencies listed in the package.json.
+## Run the examples
 
-**Note**: These include the client modules for the AWS services required in these example, 
-which are *@aws-sdk/client-dynamodb*, *@aws-sdk/lib-dynamodb*.
+### Prerequisites
+
+- [Set up AWS SDK for JavaScript](../README.md#prerequisites)
+
+### Steps
+
+1. Install the dependencies.
+
 ```
-npm install node -g
 cd javascriptv3/example_code/dynamodb
 npm install
 ```
-3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
-
-4. Run sample code:
-```
-cd src
-node [example name].js // For example, node ddb_batchgetitem.js
-```
+3. Follow the instructions at the top of the example.
 
 ## Unit tests
-For more information see, the [README](../README.rst).
+For more information see, the [README](../README.md).
 
 ## Resources
 - [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
