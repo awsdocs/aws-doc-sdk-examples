@@ -4,7 +4,7 @@
 adds what feature
 
 # 💣 Blast radius
-what could break in theory
+AWS services used, SOS tags changed, etc.
 
 # Pre-submit checklist:
 - [ ] New tests
