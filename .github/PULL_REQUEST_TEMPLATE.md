@@ -8,6 +8,7 @@ what could break in theory
 
 # Pre-submit checklist:
 - [ ] New tests
+- [ ] README updated
 - [ ] 100% ready for review
 - [ ] Issue connected
 - [ ] Technical summary
