@@ -146,6 +146,7 @@ suspend fun main(args: Array<String>) {
     println("The Scenario has successfully completed.")
 }
 
+// snippet-start:[rds.kotlin.scenario.cluster.del_paragroup.main]
 @Throws(InterruptedException::class)
 suspend fun deleteDBClusterGroup(dbClusterGroupName: String, clusterDBARN: String) {
     var isDataDel = false
@@ -185,7 +186,9 @@ suspend fun deleteDBClusterGroup(dbClusterGroupName: String, clusterDBARN: Strin
         println("$dbClusterGroupName was deleted.")
     }
 }
+// snippet-end:[rds.kotlin.scenario.cluster.del_paragroup.main]
 
+// snippet-start:[rds.kotlin.scenario.cluster.del.main]
 suspend fun deleteCluster(dbInstanceClusterIdentifier: String) {
     val deleteDbClusterRequest = DeleteDbClusterRequest {
         dbClusterIdentifier = dbInstanceClusterIdentifier
@@ -197,7 +200,9 @@ suspend fun deleteCluster(dbInstanceClusterIdentifier: String) {
         println("$dbInstanceClusterIdentifier was deleted!")
     }
 }
+// snippet-end:[rds.kotlin.scenario.cluster.del.main]
 
+// snippet-start:[rds.kotlin.scenario.cluster.del.instance.main]
 suspend fun deleteDBInstance(dbInstanceIdentifierVal: String) {
     val deleteDbInstanceRequest = DeleteDbInstanceRequest {
         dbInstanceIdentifier = dbInstanceIdentifierVal
@@ -210,7 +215,9 @@ suspend fun deleteDBInstance(dbInstanceIdentifierVal: String) {
         print("The status of the database is ${response.dbInstance?.dbInstanceStatus}")
     }
 }
+// snippet-end:[rds.kotlin.scenario.cluster.del.instance.main]
 
+// snippet-start:[rds.kotlin.scenario.cluster.wait.snapshot.main]
 suspend fun waitSnapshotReady(dbSnapshotIdentifier: String?, dbInstanceClusterIdentifier: String?) {
     var snapshotReady = false
     var snapshotReadyStr: String
@@ -240,7 +247,10 @@ suspend fun waitSnapshotReady(dbSnapshotIdentifier: String?, dbInstanceClusterId
     }
     println("The Snapshot is available!")
 }
+// snippet-end:[rds.kotlin.scenario.cluster.wait.snapshot.main]
 
+
+// snippet-start:[rds.kotlin.scenario.cluster.create.snapshot.main]
 suspend fun createDBClusterSnapshot(dbInstanceClusterIdentifier: String?, dbSnapshotIdentifier: String?) {
     val snapshotRequest = CreateDbClusterSnapshotRequest {
         dbClusterIdentifier = dbInstanceClusterIdentifier
@@ -252,7 +262,10 @@ suspend fun createDBClusterSnapshot(dbInstanceClusterIdentifier: String?, dbSnap
         println("The Snapshot ARN is ${response.dbClusterSnapshot?.dbClusterSnapshotArn}")
     }
 }
+// snippet-end:[rds.kotlin.scenario.cluster.create.snapshot.main
 
+
+// snippet-start:[rds.kotlin.scenario.cluster.wait.db.main]
 suspend fun waitDBAuroraInstanceReady(dbInstanceIdentifierVal: String?) {
     var instanceReady = false
     var instanceReadyStr: String
@@ -279,7 +292,9 @@ suspend fun waitDBAuroraInstanceReady(dbInstanceIdentifierVal: String?) {
     }
     println("Database instance is available! The connection endpoint is $endpoint")
 }
+// snippet-end:[rds.kotlin.scenario.cluster.wait.db.main]
 
+// snippet-start:[rds.kotlin.scenario.cluster.create.db.main]
 suspend fun createDBInstanceCluster(dbInstanceIdentifierVal: String?, dbInstanceClusterIdentifierVal: String?, instanceClassVal: String?): String? {
     val instanceRequest = CreateDbInstanceRequest {
         dbInstanceIdentifier = dbInstanceIdentifierVal
@@ -294,7 +309,10 @@ suspend fun createDBInstanceCluster(dbInstanceIdentifierVal: String?, dbInstance
         return response.dbInstance?.dbInstanceArn
     }
 }
+// snippet-end:[rds.kotlin.scenario.cluster.create.db.main]
 
+
+// snippet-start:[rds.kotlin.scenario.cluster.list.classes.main]
 suspend fun getListInstanceClasses(): String {
     val optionsRequest = DescribeOrderableDbInstanceOptionsRequest {
         engine = "aurora-mysql"
@@ -311,7 +329,9 @@ suspend fun getListInstanceClasses(): String {
     }
     return instanceClass
 }
+// snippet-end:[rds.kotlin.scenario.cluster.list.classes.main]
 
+// snippet-start:[rds.kotlin.scenario.cluster.wait.instance.ready.main]
 // Waits until the database instance is available.
 suspend fun waitForClusterInstanceReady(dbClusterIdentifierVal: String?) {
     var instanceReady = false
@@ -338,7 +358,10 @@ suspend fun waitForClusterInstanceReady(dbClusterIdentifierVal: String?) {
     }
     println("Database cluster is available!")
 }
+// snippet-start:[rds.kotlin.scenario.cluster.wait.instance.ready.main]
 
+
+// snippet-start:[rds.kotlin.scenario.cluster.create.main]
 suspend fun createDBCluster(dbParameterGroupFamilyVal: String?, dbName: String?, dbClusterIdentifierVal: String?, userName: String?, password: String?): String? {
     val clusterRequest = CreateDbClusterRequest {
         databaseName = dbName
@@ -354,7 +377,9 @@ suspend fun createDBCluster(dbParameterGroupFamilyVal: String?, dbName: String?,
         return response.dbCluster?.dbClusterArn
     }
 }
+// snippet-end:[rds.kotlin.scenario.cluster.create.main]
 
+// snippet-start:[rds.kotlin.scenario.cluster.get.engines.main]
 // Get a list of allowed engine versions.
 suspend fun getAllowedClusterEngines(dbParameterGroupFamilyVal: String?) {
     val versionsRequest = DescribeDbEngineVersionsRequest {
@@ -370,7 +395,9 @@ suspend fun getAllowedClusterEngines(dbParameterGroupFamilyVal: String?) {
         }
     }
 }
+// snippet-end:[rds.kotlin.scenario.cluster.get.engines.main]
 
+// snippet-start:[rds.kotlin.scenario.mod.params.main]
 // Modify the auto_increment_offset parameter.
 suspend fun modifyDBClusterParas(dClusterGroupName: String?) {
     val parameter1 = Parameter {
@@ -391,7 +418,10 @@ suspend fun modifyDBClusterParas(dClusterGroupName: String?) {
         println("The parameter group ${response.dbClusterParameterGroupName} was successfully modified")
     }
 }
+// snippet-end:[rds.kotlin.scenario.mod.params.main]
 
+
+// snippet-start:[rds.kotlin.scenario.des.params.main]
 suspend fun describeDbClusterParameters(dbCLusterGroupName: String?, flag: Int) {
     val dbParameterGroupsRequest: DescribeDbClusterParametersRequest
     dbParameterGroupsRequest = if (flag == 0) {
@@ -422,7 +452,9 @@ suspend fun describeDbClusterParameters(dbCLusterGroupName: String?, flag: Int) 
         }
     }
 }
+// snippet-end:[rds.kotlin.scenario.des.params.main]
 
+// snippet-start:[rds.kotlin.scenario.des.params.groups.main]
 suspend fun describeDbClusterParameterGroups(dbClusterGroupName: String?) {
     val groupsRequest = DescribeDbClusterParameterGroupsRequest {
         dbClusterParameterGroupName = dbClusterGroupName
@@ -437,7 +469,10 @@ suspend fun describeDbClusterParameterGroups(dbClusterGroupName: String?) {
         }
     }
 }
+// snippet-end:[rds.kotlin.scenario.des.params.groups.main]
 
+
+// snippet-start:[rds.kotlin.scenario.create.params.groups.main]
 suspend fun createDBClusterParameterGroup(dbClusterGroupNameVal: String?, dbParameterGroupFamilyVal: String?) {
     val groupRequest = CreateDbClusterParameterGroupRequest {
         dbClusterParameterGroupName = dbClusterGroupNameVal
@@ -450,7 +485,10 @@ suspend fun createDBClusterParameterGroup(dbClusterGroupNameVal: String?, dbPara
         println("The group name is ${response.dbClusterParameterGroup?.dbClusterParameterGroupName}")
     }
 }
+// snippet-end:[rds.kotlin.scenario.create.params.groups.main]
 
+
+// snippet-start:[rds.kotlin.scenario.describe.db.engines.main]
 suspend fun describeAuroraDBEngines() {
     val engineVersionsRequest = DescribeDbEngineVersionsRequest {
         engine = "aurora-mysql"
@@ -467,4 +505,5 @@ suspend fun describeAuroraDBEngines() {
         }
     }
 }
+// snippet-end:[rds.kotlin.scenario.describe.db.engines.main]
 // snippet-end:[rds.kotlin.scenario.aurora.main]
