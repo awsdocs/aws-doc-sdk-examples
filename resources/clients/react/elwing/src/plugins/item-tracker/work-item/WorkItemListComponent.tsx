@@ -72,10 +72,11 @@ export const WorkItems = () => {
   const [selected, setSelected] = useState<WorkItem[]>([]);
   const { loadItems, setError } = useItemTrackerAction();
   const items = useItemTrackerState(({ items }) => items);
+  const status = useItemTrackerState(({ status }) => status);
 
   useEffect(() => {
     loadItems();
-  }, [loadItems]);
+  }, [loadItems, status]);
 
   const archiveItem = async (itemId: string) => {
     try {

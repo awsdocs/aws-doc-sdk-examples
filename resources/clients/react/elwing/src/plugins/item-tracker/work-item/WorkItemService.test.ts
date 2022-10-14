@@ -10,15 +10,22 @@ describe("WorkItemService", () => {
   it("builds a URL for the archive route", async () => {
     await workItemService.archiveItem("0");
     expect(fetch).toHaveBeenCalledWith(
-      new URL("http://localhost:8080/api/items/0:archive")
+      "http://localhost:8080/api/items/0:archive"
     );
   });
 
   it("builds a URL for the reports route", async () => {
     await workItemService.mailItem("test@example.com");
     expect(fetch).toHaveBeenCalledWith(
-      new URL("http://localhost:8080/api/items:report"),
+      "http://localhost:8080/api/items:report",
       { method: "POST", body: JSON.stringify({ email: "test@example.com" }) }
+    );
+  });
+
+  it("includes archived status", async () => {
+    await workItemService.list({ status: "active" });
+    expect(fetch).toHaveBeenCalledWith(
+      "http://localhost:8080/api/items?status=active"
     );
   });
 });
