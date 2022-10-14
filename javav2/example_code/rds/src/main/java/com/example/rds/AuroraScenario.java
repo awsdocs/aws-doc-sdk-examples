@@ -173,6 +173,7 @@ public class AuroraScenario {
         rdsClient.close();
     }
 
+    // snippet-start:[rds.java2.scenario.cluster.del_paragroup.main]
     public static void deleteDBClusterGroup( RdsClient rdsClient, String dbClusterGroupName, String clusterDBARN) throws InterruptedException {
         try {
             boolean isDataDel = false;
@@ -214,7 +215,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.del_paragroup.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.del.main]
     public static void deleteCluster(RdsClient rdsClient, String dbInstanceClusterIdentifier) {
         try {
             DeleteDbClusterRequest deleteDbClusterRequest = DeleteDbClusterRequest.builder()
@@ -230,7 +233,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.del.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.del.instance.main]
     public static void deleteDatabaseInstance( RdsClient rdsClient, String dbInstanceIdentifier) {
         try {
             DeleteDbInstanceRequest deleteDbInstanceRequest = DeleteDbInstanceRequest.builder()
@@ -247,7 +252,10 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.del.instance.main]
 
+
+    // snippet-start:[rds.java2.scenario.cluster.wait.snapshot.main]
     public static void waitForSnapshotReady(RdsClient rdsClient, String dbSnapshotIdentifier, String dbInstanceClusterIdentifier) {
         try {
             boolean snapshotReady = false;
@@ -280,8 +288,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+   // snippet-end:[rds.java2.scenario.cluster.wait.snapshot.main]
 
-
+    // snippet-start:[rds.java2.scenario.cluster.create.snapshot.main]
     public static void createDBClusterSnapshot(RdsClient rdsClient, String dbInstanceClusterIdentifier, String dbSnapshotIdentifier) {
         try {
             CreateDbClusterSnapshotRequest snapshotRequest = CreateDbClusterSnapshotRequest.builder()
@@ -297,7 +306,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.create.snapshot.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.wait.db.main]
     public static void waitDBInstanceReady(RdsClient rdsClient, String dbInstanceIdentifier) {
         boolean instanceReady = false;
         String instanceReadyStr;
@@ -330,7 +341,10 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.wait.db.main]
 
+
+    // snippet-start:[rds.java2.scenario.cluster.create.main]
     public static String createDBInstanceCluster(RdsClient rdsClient,
                                                  String dbInstanceIdentifier,
                                                  String dbInstanceClusterIdentifier,
@@ -354,7 +368,9 @@ public class AuroraScenario {
         }
         return "";
     }
+    // snippet-end:[rds.java2.scenario.cluster.create.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.list.instances.main]
     public static String getListInstanceClasses(RdsClient rdsClient) {
         try{
             DescribeOrderableDbInstanceOptionsRequest optionsRequest = DescribeOrderableDbInstanceOptionsRequest.builder()
@@ -378,7 +394,9 @@ public class AuroraScenario {
         }
         return "";
     }
+    // snippet-end:[rds.java2.scenario.cluster.list.instances.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.wait.instances.main]
     // Waits until the database instance is available.
     public static void waitForInstanceReady(RdsClient rdsClient, String dbClusterIdentifier) {
         boolean instanceReady = false;
@@ -410,7 +428,10 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.wait.instances.main]
 
+
+    // snippet-start:[rds.java2.scenario.cluster.create.main]
     public static String createDBCluster(RdsClient rdsClient, String dbParameterGroupFamily, String dbName, String dbClusterIdentifier, String userName, String password) {
         try {
             CreateDbClusterRequest clusterRequest = CreateDbClusterRequest.builder()
@@ -431,7 +452,10 @@ public class AuroraScenario {
         }
         return "";
     }
+    // snippet-end:[rds.java2.scenario.cluster.create.main]
 
+
+    // snippet-start:[rds.java2.scenario.cluster.getengs.main]
     // Get a list of allowed engine versions.
     public static void getAllowedEngines(RdsClient rdsClient, String dbParameterGroupFamily) {
         try {
@@ -452,7 +476,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.getengs.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.modclus.params.main]
     // Modify the auto_increment_offset parameter.
     public static void modifyDBClusterParas(RdsClient rdsClient, String dClusterGroupName) {
         try {
@@ -477,7 +503,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.modclus.params.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.des.params.main]
     public static void describeDbClusterParameters(RdsClient rdsClient, String dbCLusterGroupName, int flag) {
         try {
             DescribeDbClusterParametersRequest dbParameterGroupsRequest;
@@ -512,7 +540,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.des.params.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.des.param.groups.main]
     public static void describeDbClusterParameterGroups(RdsClient rdsClient, String dbClusterGroupName) {
         try {
             DescribeDbClusterParameterGroupsRequest groupsRequest = DescribeDbClusterParameterGroupsRequest.builder()
@@ -532,7 +562,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.des.param.groups.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.create.param.group.main]
     public static void createDBClusterParameterGroup(RdsClient rdsClient, String dbClusterGroupName, String dbParameterGroupFamily) {
         try {
             CreateDbClusterParameterGroupRequest groupRequest = CreateDbClusterParameterGroupRequest.builder()
@@ -549,7 +581,9 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-start:[rds.java2.scenario.cluster.create.param.group.main]
 
+    // snippet-start:[rds.java2.scenario.cluster.describe.engines.main]
     public static void describeDBEngines( RdsClient rdsClient) {
         try {
             DescribeDbEngineVersionsRequest engineVersionsRequest = DescribeDbEngineVersionsRequest.builder()
@@ -573,5 +607,6 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.scenario.cluster.describe.engines.main]
 }
 // snippet-end:[rds.java2.scenario.aurora.main]
