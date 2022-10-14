@@ -60,7 +60,6 @@ for service in language["covered_services"]:
         service_blurb_from_website = service_data["service_blurb_from_website"],
         service_link = service_data["service_link"],
         short_sdk_name=language["short_sdk_name"],
-        prerequisites=language["prerequisites"],
         code_instructions=code_instructions,
         test_instructions=test_instructions,
         service_developer_guide=language["service_developer_guide"],

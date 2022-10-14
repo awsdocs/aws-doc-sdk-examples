@@ -1,6 +1,6 @@
-# EC2 code examples for the AWS SDK for Ruby (v3)
+# EC2 code examples for the AWS SDK for Ruby
 ## Overview
-These examples show how to create and manage Amazon Elastic Compute Cloud (Amazon EC2) instances and supporting infrastructure using the AWS SDK for Ruby (v3).
+These examples show how to create and manage Amazon Elastic Compute Cloud (Amazon EC2) instances and supporting infrastructure using the AWS SDK for Ruby.
 
 Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems.
 
@@ -15,31 +15,31 @@ Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizab
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Create an instance](./ec2-ruby-example-create-instance.rb)
+* [Create an instance](./ec2-ruby-example-create-instance.rb) (`CreateInstance`)
 
-* [Create a key pair](./ec2-ruby-example-create-key-pair.rb)
+* [Create a key pair](./ec2-ruby-example-create-key-pair.rb) (`CreateKeyPair`)
 
-* [Create a route table](./ec2-ruby-example-create-route-table.rb)
+* [Create a route table](./ec2-ruby-example-create-route-table.rb) (`CreateRouteTable`)
 
-* [Create a security group](./ec2-ruby-example-create-security-group.rb)
+* [Create a security group](./ec2-ruby-example-create-security-group.rb) (`CreateSecurityGroup`)
 
-* [Create a subnet](./ec2-ruby-example-create-subnet.rb)
+* [Create a subnet](./ec2-ruby-example-create-subnet.rb) (`CreateSubnet`)
 
-* [Create a VPC](./ec2-ruby-example-create-vpc.rb)
+* [Create a VPC](./ec2-ruby-example-create-vpc.rb) (`CreateVPC`)
 
-* [Get instance information by tag](./ec2-ruby-example-get-instance-info-by-tag.rb)
+* [Get instance information by tag](./ec2-ruby-example-get-instance-info-by-tag.rb) (`DescribeInstances`)
 
-* [List state instances](./ec2-ruby-example-list-state-instance-i-123abc.rb)
+* [List instance state](./ec2-ruby-example-list-state-instance-i-123abc.rb) (`DescribeInstances`)
 
-* [Reboot an instance](./ec2-ruby-example-reboot-instance-i-123abc.rb)
+* [Reboot an instance](./ec2-ruby-example-reboot-instance-i-123abc.rb) (`RebootInstance`)
 
-* [Display list of available AWS Regions](./ec2-ruby-example-regions-availability-zones.rb)
+* [Display list of available AWS Regions](./ec2-ruby-example-regions-availability-zones.rb) (`DescribeRegions`)
 
-* [Start an instance](./ec2-ruby-example-start-instance-i-123abc.rb)
+* [Start an instance](./ec2-ruby-example-start-instance-i-123abc.rb) (`StarInstance`)
 
-* [Stop an instance](./ec2-ruby-example-stop-instance-i-123abc.rb)
+* [Stop an instance](./ec2-ruby-example-stop-instance-i-123abc.rb) (`StopInstance`)
 
-* [Terminate an instance](./ec2-ruby-example-terminate-instance-i-123abc.rb)
+* [Terminate an instance](./ec2-ruby-example-terminate-instance-i-123abc.rb) (`TerminateInstance)
 
 
 
@@ -62,20 +62,9 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ## Run the examples
 
-
 ### Prerequisites
 
-1. An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-
-1. AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the *AWS SDK for Ruby Developer Guide*.
-
-1. To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Programming Language website.
-
-1. To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-
-1. The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the *AWS SDK for Ruby Developer Guide*.
-
-
+See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
 The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your Command Line Interface (CLI). For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
@@ -87,7 +76,7 @@ Code examples thrive on community contribution!
 * To fix a bug, submit a [Bug Report](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=octocat&labels=type%2Fbug&template=bug.yaml&title=%5BBug%5D%3A+%3CDESCRIPTIVE+TITLE+HERE%3E) (~5 min).
 * To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md)
 ### Testing
-⚠️ Running these tests might result in charges to your AWS account.
+⚠️ Running tests might result in charges to your AWS account.
 
 This service is not currently tested.
 

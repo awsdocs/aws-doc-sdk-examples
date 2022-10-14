@@ -1,6 +1,6 @@
-# S3 code examples for the AWS SDK for Ruby (v3)
+# S3 code examples for the AWS SDK for Ruby
 ## Overview
-These examples show how to create and manage Amazon Simple Storage Service (Amazon S3) buckets using the AWS SDK for Ruby (v3).
+These examples show how to create and manage Amazon Simple Storage Service (Amazon S3) buckets using the AWS SDK for Ruby.
 
 Amazon Simple Storage Service (Amazon S3) is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
 
@@ -15,47 +15,47 @@ Amazon Simple Storage Service (Amazon S3) is storage for the internet. You can u
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Add CORS rules to a bucket](bucket_cors.rb)
+* [Add CORS rules to a bucket](bucket_cors.rb) (`PutBucketCors`)
 
-* [Add a policy to a bucket](bucket_policy.rb)
+* [Add a policy to a bucket](bucket_policy.rb) (`PutBucketPolicy`)
 
-* [Copy an object from one bucket to another](object_copy.rb)
+* [Copy an object from one bucket to another](object_copy.rb) (`CopyObject`)
 
-* [Copy an object from one bucket to another and add encryption](object_copy_encrypt.rb)
+* [Copy an object from one bucket to another and add encryption](object_copy_encrypt.rb) (`CopyObject`)
 
-* [Create a bucket](bucket_create.rb)
+* [Create a bucket](bucket_create.rb) (`CreateBucket`)
 
-* [Delete an empty bucket](scenario_getting_started.rb)
+* [Delete an empty bucket](scenario_getting_started.rb) (`DeleteBucket`)
 
-* [Delete CORS rules from a bucket](bucket_cors.rb)
+* [Delete CORS rules from a bucket](bucket_cors.rb) (`DeleteBucketCors`)
 
-* [Delete a policy from a bucket](bucket_policy.rb)
+* [Delete a policy from a bucket](bucket_policy.rb) (`DeleteBucketPolicy`)
 
-* [Delete multiple objects](scenario_getting_started.rb)
+* [Delete multiple objects](scenario_getting_started.rb) (`DeleteObjects`)
 
-* [Determine the existence and content type of an object](object_exists.rb)
+* [Determine the existence and content type of an object](object_exists.rb) (`ListObjects`)
 
-* [Get an object from a bucket](object_get.rb)
+* [Get an object from a bucket](object_get.rb) (`GetObject`)
 
-* [Get an object from a bucket and report its server-side encryption state](object_get_encryption.rb)
+* [Get an object from a bucket and report its server-side encryption state](object_get_encryption.rb) (`GetObject`)
 
-* [Get CORS rules for a bucket](bucket_cors.rb)
+* [Get CORS rules for a bucket](bucket_cors.rb) (`GetBucketCors`)
 
-* [Get the policy for a bucket](bucket_policy.rb)
+* [Get the policy for a bucket](bucket_policy.rb) (`GetBucketPolicy`)
 
-* [List buckets](bucket_list.rb)
+* [List buckets](bucket_list.rb) (`ListBuckets`)
 
-* [List objects in a bucket](bucket_list_objects.rb)
+* [List objects in a bucket](bucket_list_objects.rb) (`ListObjects`)
 
-* [Set the website configuration for a bucket](bucket_put_website.rb)
+* [Set the website configuration for a bucket](bucket_put_website.rb) (`PutBucketWebsite`)
 
-* [Set server-side encryption for a bucket](bucket_put_encryption.rb)
+* [Set server-side encryption for a bucket](bucket_put_encryption.rb) (`PutBucketEncryption`)
 
-* [Upload an object to a bucket using Object.put](object_put.rb)
+* [Upload an object to a bucket using Object.put](object_put.rb) (`PutObject`)
 
-* [Upload an object to a bucket using Object.put and add server-side encryption](object_put_sse.rb)
+* [Upload an object to a bucket using Object.put and add server-side encryption](object_put_sse.rb) (`PutObject`)
 
-* [Upload an object to a bucket using Object.upload_file](object_put.rb)
+* [Upload an object to a bucket using Object.upload_file](object_put.rb) (`PutObject`)
 
 
 
@@ -72,20 +72,9 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ## Run the examples
 
-
 ### Prerequisites
 
-1. An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-
-1. AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the *AWS SDK for Ruby Developer Guide*.
-
-1. To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Programming Language website.
-
-1. To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-
-1. The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the *AWS SDK for Ruby Developer Guide*.
-
-
+See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
 The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your Command Line Interface (CLI). For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
@@ -97,7 +86,7 @@ Code examples thrive on community contribution!
 * To fix a bug, submit a [Bug Report](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=octocat&labels=type%2Fbug&template=bug.yaml&title=%5BBug%5D%3A+%3CDESCRIPTIVE+TITLE+HERE%3E) (~5 min).
 * To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md)
 ### Testing
-⚠️ Running these tests might result in charges to your AWS account.
+⚠️ Running tests might result in charges to your AWS account.
 
 This service is not currently tested.
 

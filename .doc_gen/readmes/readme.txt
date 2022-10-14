@@ -36,12 +36,9 @@ Sample applications that work across multiple AWS services.
 
 ## Run the examples
 
-{% if prerequisites %}
 ### Prerequisites
-{% for prereq in prerequisites %}
-1. {{ prereq }}
-{% endfor %}
-{% endif %}
+
+See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
 {{ code_instructions }}
@@ -53,7 +50,7 @@ Code examples thrive on community contribution!
 * To fix a bug, submit a [Bug Report](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=octocat&labels=type%2Fbug&template=bug.yaml&title=%5BBug%5D%3A+%3CDESCRIPTIVE+TITLE+HERE%3E) (~5 min).
 * To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md)
 ### Testing
-⚠️ Running these tests might result in charges to your AWS account.
+⚠️ Running tests might result in charges to your AWS account.
 
 {{ test_instructions }}
 

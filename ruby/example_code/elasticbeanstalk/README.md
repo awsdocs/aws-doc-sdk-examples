@@ -1,8 +1,8 @@
-# ElasticBeanstalk code examples for the AWS SDK for Ruby (v3)
+# ElasticBeanstalk code examples for the AWS SDK for Ruby
 ## Overview
-These examples show how to create and manage AWS Elastic Beanstalk environments using the AWS SDK for Ruby (v3).
+These examples show how to create and manage AWS Elastic Beanstalk environments using the AWS SDK for Ruby.
 
-With AWS Elastic Beanstalk, you can quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications. AWS Elastic Beanstalk reduces management complexity without restricting choice or control. You simply upload your application, and AWS Elastic Beanstalk automatically handles the details of capacity provisioning, load balancing, scaling, and application health monitoring.
+With AWS Elastic Beanstalk, you can quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -15,13 +15,13 @@ With AWS Elastic Beanstalk, you can quickly deploy and manage applications in th
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [List stacks](./eb_list_stacks.rb)
+* [List stacks](./eb_list_stacks.rb) (`ListAvailableSolutionStacks`)
 
-* [List all apps](./elb-ruby-example-list-all-apps.rb)
+* [List all apps](./elb-ruby-example-list-all-apps.rb) (`DescribeApplications, DescribeEnvironments`)
 
-* [List details of an app](./elb-ruby-example-list-name-description-url-myrailsapp.rb)
+* [List details of an app](./elb-ruby-example-list-name-description-url-myrailsapp.rb) (`DescribeApplications`)
 
-* [Update an app](./elb-ruby-example-update-myrailsapp.rb)
+* [Update an app](./elb-ruby-example-update-myrailsapp.rb) (`UpdateApplication)
 
 
 
@@ -30,20 +30,9 @@ Code excerpts that show you how to call individual service functions.
 
 ## Run the examples
 
-
 ### Prerequisites
 
-1. An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-
-1. AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the *AWS SDK for Ruby Developer Guide*.
-
-1. To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Programming Language website.
-
-1. To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-
-1. The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the *AWS SDK for Ruby Developer Guide*.
-
-
+See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
 The easiest way to interact with this example code is by invoking individual [Actions](#Actions) from your Command Line Interface (CLI). This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
@@ -55,7 +44,7 @@ Code examples thrive on community contribution!
 * To fix a bug, submit a [Bug Report](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=octocat&labels=type%2Fbug&template=bug.yaml&title=%5BBug%5D%3A+%3CDESCRIPTIVE+TITLE+HERE%3E) (~5 min).
 * To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md)
 ### Testing
-⚠️ Running these tests might result in charges to your AWS account.
+⚠️ Running tests might result in charges to your AWS account.
 
 This service is not currently tested.
 

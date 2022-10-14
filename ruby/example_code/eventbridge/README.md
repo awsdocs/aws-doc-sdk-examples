@@ -1,8 +1,8 @@
-# EventBridge code examples for the AWS SDK for Ruby (v3)
+# EventBridge code examples for the AWS SDK for Ruby
 ## Overview
-These examples show how to create and manage Amazon EventBridge event buses using the AWS SDK for Ruby (v3).
+These examples show how to create and manage Amazon EventBridge event buses using the AWS SDK for Ruby.
 
-Amazon EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources. EventBridge delivers a stream of real-time data from your own applications, software-as-a-service (SaaS) applications, and AWS services and routes that data to targets such as AWS Lambda. You can set up routing rules to determine where to send your data to build application architectures that react in real time to all of your data sources. EventBridge enables you to build event-driven architectures that are loosely coupled and distributed.
+Amazon EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -15,8 +15,14 @@ Amazon EventBridge is a serverless event bus service that makes it easy to conne
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Create and trigger a rule in Amazon CloudWatch Events](./cw-ruby-example-send-events-ec2.rb)
+* [Create a job](./create_job.rb) (`CreateJob)
 
+
+
+### Scenarios
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
+* [Use Amazon EventBridge to write EC2 instance activity to Amazon SNS](./cw-ruby-example-send-events-ec2.rb)
 
 
 
@@ -24,23 +30,12 @@ Code excerpts that show you how to call individual service functions.
 
 ## Run the examples
 
-
 ### Prerequisites
 
-1. An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-
-1. AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the *AWS SDK for Ruby Developer Guide*.
-
-1. To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Programming Language website.
-
-1. To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-
-1. The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the *AWS SDK for Ruby Developer Guide*.
-
-
+See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
-The easiest way to interact with this example code is by invoking individual [Actions](#Actions) from your Command Line Interface (CLI). This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
+The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your Command Line Interface (CLI). For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
 
 ## Contributing
 Code examples thrive on community contribution!
@@ -49,7 +44,7 @@ Code examples thrive on community contribution!
 * To fix a bug, submit a [Bug Report](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=octocat&labels=type%2Fbug&template=bug.yaml&title=%5BBug%5D%3A+%3CDESCRIPTIVE+TITLE+HERE%3E) (~5 min).
 * To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md)
 ### Testing
-⚠️ Running these tests might result in charges to your AWS account.
+⚠️ Running tests might result in charges to your AWS account.
 
 This service is not currently tested.
 

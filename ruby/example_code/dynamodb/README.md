@@ -1,8 +1,8 @@
-# DynamoDB code examples for the AWS SDK for Ruby (v3)
+# DynamoDB code examples for the AWS SDK for Ruby
 ## Overview
-These examples show how to create and manage Amazon DynamoDB database tables using the AWS SDK for Ruby (v3).
+These examples show how to create and manage Amazon DynamoDB database tables using the AWS SDK for Ruby.
 
-Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. You can use Amazon DynamoDB to create a database table that can store and retrieve any amount of data, and serve any level of request traffic. Amazon DynamoDB automatically spreads the data and traffic for the table over a sufficient number of servers to handle the request capacity specified by the customer and the amount of data stored, while maintaining consistent and fast performance.
+Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -15,25 +15,25 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Create a table](scenario_getting_started_movies.rb)
+* [Create a table](scenario_getting_started_movies.rb) (`CreateTable`)
 
-* [Delete a table](scenario_getting_started_movies.rb)
+* [Delete a table](scenario_getting_started_movies.rb) (`DeleteTable`)
 
-* [Delete an item from a table](scenario_getting_started_movies.rb)
+* [Delete an item from a table](scenario_getting_started_movies.rb) (`DeleteItem`)
 
-* [Get an item from a table](scenario_getting_started_movies.rb)
+* [Get an item from a table](scenario_getting_started_movies.rb) (`GetItem`)
 
-* [Get information about a table](scenario_getting_started_movies.rb)
+* [Get information about a table](scenario_getting_started_movies.rb) (`DescribeTable`)
 
-* [Put an item in a table](scenario_getting_started_movies.rb)
+* [Put an item in a table](scenario_getting_started_movies.rb) (`PutItem`)
 
-* [Query a table](scenario_getting_started_movies.rb)
+* [Query a table](scenario_getting_started_movies.rb) (`Query`)
 
-* [Scan a table](scenario_getting_started_movies.rb)
+* [Scan a table](scenario_getting_started_movies.rb) (`Scan`)
 
-* [Update an item in a table](scenario_getting_started_movies.rb)
+* [Update an item in a table](scenario_getting_started_movies.rb) (`UpdateItem`)
 
-* [Write a batch of items](scenario_getting_started_movies.rb)
+* [Write a batch of items](scenario_getting_started_movies.rb) (`BatchWriteItem)
 
 
 
@@ -48,20 +48,9 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ## Run the examples
 
-
 ### Prerequisites
 
-1. An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-
-1. AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the *AWS SDK for Ruby Developer Guide*.
-
-1. To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Programming Language website.
-
-1. To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-
-1. The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the *AWS SDK for Ruby Developer Guide*.
-
-
+See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
 The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your Command Line Interface (CLI). For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
@@ -73,7 +62,7 @@ Code examples thrive on community contribution!
 * To fix a bug, submit a [Bug Report](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=octocat&labels=type%2Fbug&template=bug.yaml&title=%5BBug%5D%3A+%3CDESCRIPTIVE+TITLE+HERE%3E) (~5 min).
 * To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md)
 ### Testing
-⚠️ Running these tests might result in charges to your AWS account.
+⚠️ Running tests might result in charges to your AWS account.
 
 This service is not currently tested.
 

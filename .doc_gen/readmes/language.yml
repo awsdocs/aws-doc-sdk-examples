@@ -23,8 +23,6 @@ short_sdk_name: "AWS SDK for Ruby"
 service_developer_guide: https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html
 service_api_reference_guide: https://docs.aws.amazon.com/sdk-for-ruby/v3/api/
 language_sdk_reference_guide: https://aws.amazon.com/developer/language/ruby/
-prerequisites:
-- "See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites."
 running_code:
 - scenario: "The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your Command Line Interface (CLI). For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`."
   no_scenario: "The easiest way to interact with this example code is by invoking individual [Actions](#Actions) from your Command Line Interface (CLI). This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments."
