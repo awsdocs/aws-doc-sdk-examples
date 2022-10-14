@@ -1,22 +1,17 @@
 services:
 - name: Amazon RDS
   keyword: rds
-  service_blurb_from_website: Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the cloud. It provides cost-efficient, resizeable capacity for an industry-standard relational database and manages common database administration tasks.
+  service_blurb_from_website: Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the cloud.
   code_examples_actions: create and manage Amazon Relational Database Service (Amazon RDS) instances and clusters
   service_link: https://docs.aws.amazon.com/rds
-#- name: Amazon Aurora
-#  keyword: rds
-#  service_blurb_from_website: Amazon Aurora is a fully-managed relational database engine that's built for the cloud and compatible with MySQL and PostgreSQL. Amazon Aurora is part of Amazon RDS.
-#  code_examples_actions: create and manage Amazon Aurora DB clusters, DB instances, and custom parameter groups
-#  service_link: https://docs.aws.amazon.com/rds
 - name: CloudTrail
   keyword: cloudtrail
-  service_blurb_from_website: With AWS CloudTrail, you can monitor your AWS deployments in the cloud by getting a history of AWS API calls for your account, including API calls made by using the AWS Management Console, the AWS SDKs, the command line tools, and higher-level AWS services. You can also identify which users and accounts called AWS APIs for services that support CloudTrail, the source IP address from which the calls were made, and when the calls occurred. You can integrate CloudTrail into applications using the API, automate trail creation for your organization, check the status of your trails, and control how administrators turn CloudTrail logging on and off.
+  service_blurb_from_website: With AWS CloudTrail, you can monitor your AWS deployments in the cloud by getting a history of AWS API calls for your account.
   code_examples_actions: create and manage AWS CloudTrail trails
   service_link: https://docs.aws.amazon.com/cloudtrail
 - name: CloudWatch
   keyword: cloudwatch
-  service_blurb_from_website: Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes. You no longer need to set up, manage, and scale your own monitoring systems and infrastructure.
+  service_blurb_from_website: Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes.
   code_examples_actions: create and manage Amazon Cloudwatch apparatus
   service_link: https://docs.aws.amazon.com/cloudwatch
 - name: CodeBuild
@@ -26,7 +21,7 @@ services:
   service_link: https://docs.aws.amazon.com/codebuild
 - name: DynamoDB
   keyword: dynamodb
-  service_blurb_from_website: Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. You can use Amazon DynamoDB to create a database table that can store and retrieve any amount of data, and serve any level of request traffic. Amazon DynamoDB automatically spreads the data and traffic for the table over a sufficient number of servers to handle the request capacity specified by the customer and the amount of data stored, while maintaining consistent and fast performance.
+  service_blurb_from_website: Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
   code_examples_actions: create and manage Amazon DynamoDB database tables
   service_link: https://docs.aws.amazon.com/dynamodb
 - name: EC2
@@ -36,37 +31,37 @@ services:
   service_link: https://docs.aws.amazon.com/ec2
 - name: ElasticBeanstalk
   keyword: elasticbeanstalk
-  service_blurb_from_website: With AWS Elastic Beanstalk, you can quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications. AWS Elastic Beanstalk reduces management complexity without restricting choice or control. You simply upload your application, and AWS Elastic Beanstalk automatically handles the details of capacity provisioning, load balancing, scaling, and application health monitoring.
+  service_blurb_from_website: With AWS Elastic Beanstalk, you can quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications.
   code_examples_actions: create and manage AWS Elastic Beanstalk environments
   service_link: https://docs.aws.amazon.com/elastic-beanstalk
 - name: ElasticTranscoder
   keyword: elastictranscoder
-  service_blurb_from_website: Amazon Elastic Transcoder lets you convert media files that you have stored in Amazon S3 into media files in the formats required by consumer playback devices. For example, you can convert large, high-quality digital media files into formats that users can play back on mobile devices, tablets, web browsers, and connected televisions.
+  service_blurb_from_website: Amazon Elastic Transcoder lets you convert media files that you have stored in Amazon S3 into media files in the formats required by consumer playback devices.
   code_examples_actions: create and manage Amazon Elastic Transcoder workflows
   service_link: https://docs.aws.amazon.com/elastic-transcoder
 - name: EventBridge
   keyword: eventbridge
-  service_blurb_from_website: Amazon EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources. EventBridge delivers a stream of real-time data from your own applications, software-as-a-service (SaaS) applications, and AWS services and routes that data to targets such as AWS Lambda. You can set up routing rules to determine where to send your data to build application architectures that react in real time to all of your data sources. EventBridge enables you to build event-driven architectures that are loosely coupled and distributed.
+  service_blurb_from_website: Amazon EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources.
   code_examples_actions: create and manage Amazon EventBridge event buses
   service_link: https://docs.aws.amazon.com/eventbridge
 - name: IAM
   keyword: iam
-  service_blurb_from_website: AWS Identity and Access Management (IAM) is a web service for securely controlling access to AWS services. With IAM, you can centrally manage users, security credentials such as access keys, and permissions that control which AWS resources users and applications can access.
+  service_blurb_from_website: AWS Identity and Access Management (IAM) is a web service for securely controlling access to AWS services. With IAM, you can centrally manage permissions in your AWS account.
   code_examples_actions: create and manage AWS users, credentials, and permissions
   service_link: https://docs.aws.amazon.com/iam
 - name: KMS
   keyword: kms
-  service_blurb_from_website: AWS Key Management Service (AWS KMS) is an encryption and key management service scaled for the cloud. AWS KMS keys and functionality are used by other AWS services, and you can use them to protect data in your own applications that use AWS.
+  service_blurb_from_website: AWS Key Management Service (AWS KMS) is an encryption and key management service scaled for the cloud.
   code_examples_actions: create and manage AWS Key Management Service (AWS KMS) keys
   service_link: https://docs.aws.amazon.com/kms
 - name: Lambda
   keyword: lambda
-  service_blurb_from_website: With AWS Lambda, you can run code without provisioning or managing servers. You pay only for the compute time that you consume—there's no charge when your code isn't running. You can run code for virtually any type of application or backend service—all with zero administration. Just upload your code and Lambda takes care of everything required to run and scale your code with high availability. You can set up your code to automatically trigger from other AWS services or call it directly from any web or mobile app.
+  service_blurb_from_website: With AWS Lambda, you can run code without provisioning or managing servers.
   code_examples_actions: create and manage AWS Lambda functions
   service_link: https://docs.aws.amazon.com/lambda
 - name: Polly
   keyword: polly
-  service_blurb_from_website: Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech. You can use Amazon Polly to develop applications that increase engagement and accessibility. Amazon Polly supports multiple languages and includes a variety of lifelike voices, so you can build speech-enabled applications that work in multiple locations and use the ideal voice for your customers. 
+  service_blurb_from_website: Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech. Y
   code_examples_actions: create and manage Amazon Polly workflows
   service_link: https://docs.aws.amazon.com/polly
 - name: S3
@@ -76,12 +71,12 @@ services:
   service_link: https://docs.aws.amazon.com/s3
 - name: SES
   keyword: ses
-  service_blurb_from_website: Amazon Simple Email Service (Amazon SES) is a reliable, scalable, and cost-effective email service. Digital marketers and application developers can use Amazon SES to send marketing, notification, and transactional emails.
+  service_blurb_from_website: Amazon Simple Email Service (Amazon SES) is a reliable, scalable, and cost-effective email service.
   code_examples_actions: create and manage Amazon Simple Email Service (Amazon SES) domains
   service_link: https://docs.aws.amazon.com/ses
 - name: SecretsManager
   keyword: secretsmanager
-  service_blurb_from_website: AWS Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services. Instead of hardcoding credentials in your apps, you can make calls to Secrets Manager to retrieve your credentials whenever needed. Secrets Manager helps you protect access to your IT resources and data by enabling you to rotate and manage access to your secrets.
+  service_blurb_from_website: AWS Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services.
   code_examples_actions: create and manage secrets in AWS Secrets Manager
   service_link: https://docs.aws.amazon.com/secretsmanager
 - name: SNS
@@ -91,7 +86,7 @@ services:
   service_link: https://docs.aws.amazon.com/sns
 - name: SQS
   keyword: sqs
-  service_blurb_from_website: Amazon Simple Queue Service (Amazon SQS) is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications. Amazon SQS moves data between distributed application components and helps you decouple these components.
+  service_blurb_from_website: Amazon Simple Queue Service (Amazon SQS) is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
   code_examples_actions: create and manage Amazon Simple Queue Service (Amazon SQS) queues
   service_link: https://docs.aws.amazon.com/sqs
 - name: WorkDocs

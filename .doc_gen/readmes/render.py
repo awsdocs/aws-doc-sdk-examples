@@ -44,7 +44,6 @@ for service in language["covered_services"]:
         code_instructions = language["running_code"][0]["no_scenario"]
 
     # determine which testing instructions apply to service code
-    # breakpoint()
     base = f"../../{language['name']}/example_code/{service_data['keyword']}"
     dirs = [x[0] for x in os.walk(base)]
     if 'test' in base or 'tests' in base:
