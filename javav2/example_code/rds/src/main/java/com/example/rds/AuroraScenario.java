@@ -581,7 +581,7 @@ public class AuroraScenario {
             System.exit(1);
         }
     }
-    // snippet-start:[rds.java2.scenario.cluster.create.param.group.main]
+    // snippet-end:[rds.java2.scenario.cluster.create.param.group.main]
 
     // snippet-start:[rds.java2.scenario.cluster.describe.engines.main]
     public static void describeDBEngines( RdsClient rdsClient) {
