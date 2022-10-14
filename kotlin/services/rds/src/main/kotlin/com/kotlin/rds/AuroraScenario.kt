@@ -262,7 +262,7 @@ suspend fun createDBClusterSnapshot(dbInstanceClusterIdentifier: String?, dbSnap
         println("The Snapshot ARN is ${response.dbClusterSnapshot?.dbClusterSnapshotArn}")
     }
 }
-// snippet-end:[rds.kotlin.scenario.cluster.create.snapshot.main
+// snippet-end:[rds.kotlin.scenario.cluster.create.snapshot.main]
 
 
 // snippet-start:[rds.kotlin.scenario.cluster.wait.db.main]
@@ -358,7 +358,7 @@ suspend fun waitForClusterInstanceReady(dbClusterIdentifierVal: String?) {
     }
     println("Database cluster is available!")
 }
-// snippet-start:[rds.kotlin.scenario.cluster.wait.instance.ready.main]
+// snippet-end:[rds.kotlin.scenario.cluster.wait.instance.ready.main]
 
 
 // snippet-start:[rds.kotlin.scenario.cluster.create.main]
