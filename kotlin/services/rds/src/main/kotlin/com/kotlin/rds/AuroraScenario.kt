@@ -249,7 +249,6 @@ suspend fun waitSnapshotReady(dbSnapshotIdentifier: String?, dbInstanceClusterId
 }
 // snippet-end:[rds.kotlin.scenario.cluster.wait.snapshot.main]
 
-
 // snippet-start:[rds.kotlin.scenario.cluster.create.snapshot.main]
 suspend fun createDBClusterSnapshot(dbInstanceClusterIdentifier: String?, dbSnapshotIdentifier: String?) {
     val snapshotRequest = CreateDbClusterSnapshotRequest {
@@ -263,7 +262,6 @@ suspend fun createDBClusterSnapshot(dbInstanceClusterIdentifier: String?, dbSnap
     }
 }
 // snippet-end:[rds.kotlin.scenario.cluster.create.snapshot.main]
-
 
 // snippet-start:[rds.kotlin.scenario.cluster.wait.db.main]
 suspend fun waitDBAuroraInstanceReady(dbInstanceIdentifierVal: String?) {
@@ -310,7 +308,6 @@ suspend fun createDBInstanceCluster(dbInstanceIdentifierVal: String?, dbInstance
     }
 }
 // snippet-end:[rds.kotlin.scenario.cluster.create.db.main]
-
 
 // snippet-start:[rds.kotlin.scenario.cluster.list.classes.main]
 suspend fun getListInstanceClasses(): String {
@@ -359,7 +356,6 @@ suspend fun waitForClusterInstanceReady(dbClusterIdentifierVal: String?) {
     println("Database cluster is available!")
 }
 // snippet-end:[rds.kotlin.scenario.cluster.wait.instance.ready.main]
-
 
 // snippet-start:[rds.kotlin.scenario.cluster.create.main]
 suspend fun createDBCluster(dbParameterGroupFamilyVal: String?, dbName: String?, dbClusterIdentifierVal: String?, userName: String?, password: String?): String? {
@@ -420,7 +416,6 @@ suspend fun modifyDBClusterParas(dClusterGroupName: String?) {
 }
 // snippet-end:[rds.kotlin.scenario.mod.params.main]
 
-
 // snippet-start:[rds.kotlin.scenario.des.params.main]
 suspend fun describeDbClusterParameters(dbCLusterGroupName: String?, flag: Int) {
     val dbParameterGroupsRequest: DescribeDbClusterParametersRequest
@@ -471,7 +466,6 @@ suspend fun describeDbClusterParameterGroups(dbClusterGroupName: String?) {
 }
 // snippet-end:[rds.kotlin.scenario.des.params.groups.main]
 
-
 // snippet-start:[rds.kotlin.scenario.create.params.groups.main]
 suspend fun createDBClusterParameterGroup(dbClusterGroupNameVal: String?, dbParameterGroupFamilyVal: String?) {
     val groupRequest = CreateDbClusterParameterGroupRequest {
@@ -486,7 +480,6 @@ suspend fun createDBClusterParameterGroup(dbClusterGroupNameVal: String?, dbPara
     }
 }
 // snippet-end:[rds.kotlin.scenario.create.params.groups.main]
-
 
 // snippet-start:[rds.kotlin.scenario.describe.db.engines.main]
 suspend fun describeAuroraDBEngines() {
