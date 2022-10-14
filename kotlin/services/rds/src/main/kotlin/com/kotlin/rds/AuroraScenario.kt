@@ -45,19 +45,18 @@ This Kotlin example performs the following tasks:
 3. Gets the parameter groups.
 4. Gets the parameters in the group.
 5. Modifies the auto_increment_increment parameter.
-6. Display the updated parameter value.
+6. Displays the updated parameter value.
 7. Gets a list of allowed engine versions.
 8. Creates an Aurora DB cluster database.
-9. Waits for DB instance to be ready
-10. Get a list of instance classes available for the selected engine.
+9. Waits for DB instance to be ready.
+10. Gets a list of instance classes available for the selected engine.
 11. Creates a database instance in the cluster.
 12. Waits for the database instance in the cluster to be ready.
 13. Creates a snapshot.
 14. Waits for DB snapshot to be ready.
 15. Deletes the DB instance.
-16. Deletes the DB cluster
-17. Deletes the DB cluster group
-
+16. Deletes the DB cluster.
+17. Deletes the DB cluster group.
 */
 
 var slTime: Long = 20
@@ -296,7 +295,7 @@ suspend fun createDBInstanceCluster(dbInstanceIdentifierVal: String?, dbInstance
     }
 }
 
-suspend fun getListInstanceClasses(): String? {
+suspend fun getListInstanceClasses(): String {
     val optionsRequest = DescribeOrderableDbInstanceOptionsRequest {
         engine = "aurora-mysql"
         maxRecords = 20
