@@ -11,7 +11,7 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Compute Clou
   an EC2 instance.
 * Create a security group that acts as a virtual firewall for your EC2 instances to
   control incoming and outgoing traffic.
-* Find an Amazon Machine Image and a compatible instance type.
+* Find an Amazon Machine Image (AMI) and a compatible instance type.
 * Create an instance that is created from the instance type and AMI you select, and
   is configured to use the security group and key pair created in this example.
 * Stop and restart the instance.
@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.ec2.Scenario_GetStartedInstances]
 class Ec2InstanceScenario:
-    """Runs an interactive scenario that shows how to get started using Amazon EC2 instances."""
+    """Runs an interactive scenario that shows how to get started using EC2 instances."""
     def __init__(self, inst_wrapper, key_wrapper, sg_wrapper, eip_wrapper, ssm_client):
         """
         :param inst_wrapper: An object that wraps instance actions.
@@ -65,7 +65,7 @@ class Ec2InstanceScenario:
         2. Lists the first five key pairs for the current account.
         """
         print("Let's create an RSA key pair that you can be use to securely connect to "
-              "your Amazon EC2 instance.")
+              "your EC2 instance.")
         key_name = q.ask("Enter a unique name for your key: ", q.non_empty)
         self.key_wrapper.create(key_name)
         print(f"Created a key pair {self.key_wrapper.key_pair.key_name} and saved the "
@@ -84,7 +84,7 @@ class Ec2InstanceScenario:
         This function uses 'http://checkip.amazonaws.com' to get the current public IP
         address of the computer that is running the example. This method works in most
         cases. However, depending on how your computer connects to the internet, you
-        may have to manually add your public IP address to the security group by using
+        might have to manually add your public IP address to the security group by using
         the AWS Management Console.
         """
         print("Let's create a security group to manage access to your instance.")
@@ -109,9 +109,8 @@ class Ec2InstanceScenario:
     @demo_func
     def create_instance(self):
         """
-        1. Gets a list of Amazon Linux 2 AMIs from Systems Manager. Specifying the
-           '/aws/service/ami-amazon-linux-latest' path ensures that only the latest AMIs
-           are returned.
+        1. Gets a list of Amazon Linux 2 AMIs from AWS Systems Manager. Specifying the
+           '/aws/service/ami-amazon-linux-latest' path returns only the latest AMIs.
         2. Gets and displays information about the available AMIs and lets you select one.
         3. Gets a list of instance types that are compatible with the selected AMI and
            lets you select one.
