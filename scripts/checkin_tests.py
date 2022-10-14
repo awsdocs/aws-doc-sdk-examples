@@ -137,7 +137,8 @@ ALLOW_LIST = {
     'com/autoscaling/ec2/APIReference/Welcome',
     'CreateCollectionExample/CreateCollection',
     'DescribeDbClusterParameterGroupsResponse',
-    'DeleteCollectionExample/DeleteCollection'
+    'DeleteCollectionExample/DeleteCollection',
+    'DescribeDbClusterParameterGroupsResponse'
 }
 
 def check_files(root, quiet):
