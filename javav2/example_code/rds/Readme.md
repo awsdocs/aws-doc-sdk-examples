@@ -36,7 +36,7 @@ Code excerpts that show you how to call individual service functions using the *
 
 - [Performing various Amazon RDS operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/RDSScenario.java) (multiple commands)
 
-- [Perform various Amazon RDS operations on Aurora Clusters](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/AuroraScenario.java) (multiple commands)
+- [Perform various Aurora DB cluster operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/rds/src/main/java/com/example/rds/AuroraScenario.java) (multiple commands)
 
 ### Cross-service examples
 
