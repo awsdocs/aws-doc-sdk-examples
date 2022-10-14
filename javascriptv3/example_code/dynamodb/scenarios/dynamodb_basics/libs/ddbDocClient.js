@@ -6,9 +6,6 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 ddbDocClient.js is a helper function that creates an Amazon DynamoDB service document client.
 
-INPUTS:
-- REGION
-
 */
 // snippet-start:[dynamodb.JavaScript.scenario.basics.createdocclientv3]
 

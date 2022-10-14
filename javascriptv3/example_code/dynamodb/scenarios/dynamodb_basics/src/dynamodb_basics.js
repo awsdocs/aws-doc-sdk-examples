@@ -5,7 +5,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-Scenario demonstrating how to:
+This scenario demonstrates how to:
     - Create a table that can hold movie data.
     - Write movie data to the table from a sample JSON file.
     - Put, get, and update a single movie in the table.
@@ -15,11 +15,14 @@ Scenario demonstrating how to:
     - Delete a movie from the table.
     - Delete the table.
 
+
 Running the code:
-node dynamodb_basics.js <table_name> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>
+1. Download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html, and put it in the same folder as the example.
+2. Update the region in the client files in the 'libs' folder.
+3. Run the following at the command line:
+   node dynamodb_basics.js <table_name> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>
 
-For example, node dynamodb_basics.js myNewTable myMovieName 2022 'This Is the End' 2013 200 'A coder cracks code...'
-
+   For example, node dynamodb_basics.js myNewTable myMovieName 2022 'This Is the End' 2013 200 'A coder cracks code...'
 
 // snippet-start:[javascript.dynamodb_scenarios.dynamodb_basics]
 */
