@@ -84,13 +84,6 @@ namespace Lambda_Basics.Tests
         }
 
         [Fact()]
-        [Order(4)]
-        public async Task InvokeArithmeticDivideFunctionTest()
-        {
-
-        }
-
-        [Fact()]
         [Order(3)]
         public async Task ListFunctionsTest()
         {

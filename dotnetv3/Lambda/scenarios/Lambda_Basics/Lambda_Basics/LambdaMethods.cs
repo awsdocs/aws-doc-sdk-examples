@@ -161,7 +161,7 @@ namespace Lambda_Basics
                 Description = "Created by the Lambda .NET API",
                 Code = functionCode,
                 Handler = handler,
-                Runtime = Runtime.Dotnet6,
+                Runtime = Runtime.Python39,
                 Role = role,
             };
 

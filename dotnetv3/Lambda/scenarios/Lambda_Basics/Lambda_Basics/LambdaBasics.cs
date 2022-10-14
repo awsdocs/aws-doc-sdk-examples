@@ -109,8 +109,6 @@ Console.WriteLine("Listing all Lambda functions.");
 var functions = await lambdaMethods.ListFunctions(lambdaClient);
 DisplayFunctionList(functions);
 Console.WriteLine(sepBar);
-Console.WriteLine("*** Sleep for 1 min to get Lambda function ready.");
-System.Threading.Thread.Sleep(60000);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Invoke the Lambda increment function.");
@@ -133,8 +131,12 @@ Console.WriteLine(sepBar);
 Console.WriteLine("Now update the Lambda function code.");
 await lambdaMethods.UpdateFunctionCode(lambdaClient, functionName, bucketName, updateKey);
 
-Console.WriteLine("Sleep for 1 min to update to complete.");
-System.Threading.Thread.Sleep(60000);
+do
+{
+    config = await lambdaMethods.GetFunction(lambdaClient, functionName);
+    Console.Write(".");
+}
+while (config.State != State.Active);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Now call the updated function...");
