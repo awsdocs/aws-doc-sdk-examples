@@ -19,7 +19,8 @@ export interface WorkItem {
   name: string;
   guide: string;
   description: string;
-  status: WorkItemStatus;
+  status: string;
+  archive: WorkItemStatus;
 }
 
 export class WorkItemService extends RestService<WorkItem> {

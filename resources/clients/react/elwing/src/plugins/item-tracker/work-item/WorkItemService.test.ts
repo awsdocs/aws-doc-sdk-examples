@@ -22,10 +22,10 @@ describe("WorkItemService", () => {
     );
   });
 
-  it("includes archived status", async () => {
-    await workItemService.list({ status: "active" });
+  it("includes archived state", async () => {
+    await workItemService.list({ archive: "active" });
     expect(fetch).toHaveBeenCalledWith(
-      "http://localhost:8080/api/items?status=active"
+      "http://localhost:8080/api/items?archive=active"
     );
   });
 });
