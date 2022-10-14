@@ -1,31 +1,31 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative '../MoviesCreateTable'
+require_relative "../MoviesCreateTable"
 
-describe '#create_table' do
-  let(:table_status) { 'ACTIVE' }
+describe "#create_table" do
+  let(:table_status) { "ACTIVE" }
   let(:table_definition) do
     {
-      table_name: 'Movies',
+      table_name: "Movies",
       key_schema: [
         {
-          attribute_name: 'year',
-          key_type: 'HASH'  # Partition key.
+          attribute_name: "year",
+          key_type: "HASH"  # Partition key.
         },
         {
-          attribute_name: 'title',
-          key_type: 'RANGE' # Sort key.
+          attribute_name: "title",
+          key_type: "RANGE" # Sort key.
         }
       ],
       attribute_definitions: [
         {
-          attribute_name: 'year',
-          attribute_type: 'N'
+          attribute_name: "year",
+          attribute_type: "N"
         },
         {
-          attribute_name: 'title',
-          attribute_type: 'S'
+          attribute_name: "title",
+          attribute_type: "S"
         }
       ],
       provisioned_throughput: {
@@ -46,7 +46,7 @@ describe '#create_table' do
     )
   end
 
-  it 'creates a table' do
+  it "creates a table" do
     expect(create_table(dynamodb_client, table_definition)).to eq(table_status)
   end
 end

@@ -188,27 +188,27 @@ class IamWrapper
   #
   # @param role [Aws::IAM::Role] The role to delete.
   def delete_service_linked_role(role)
-      response = @iam_resource.client.delete_service_linked_role(role_name: role.name)
-      task_id = response.deletion_task_id
-      while true
-        response = @iam_resource.client.get_service_linked_role_deletion_status(
-          deletion_task_id: task_id)
-        status = response.status
-        puts("Deletion of #{role.name} #{status}.")
-        if %w(SUCCEEDED FAILED).include?(status)
-          break
-        else
-          sleep(3)
-        end
+    response = @iam_resource.client.delete_service_linked_role(role_name: role.name)
+    task_id = response.deletion_task_id
+    while true
+      response = @iam_resource.client.get_service_linked_role_deletion_status(
+        deletion_task_id: task_id)
+      status = response.status
+      puts("Deletion of #{role.name} #{status}.")
+      if %w(SUCCEEDED FAILED).include?(status)
+        break
+      else
+        sleep(3)
       end
-  rescue Aws::Errors::ServiceError => e
-    # If AWS has not yet fully propagated the role, it deletes the role but
-    # returns NoSuchEntity.
-    if e.code != "NoSuchEntity"
-      puts("Couldn't delete #{role.name}. Here's why:")
-      puts("\t#{e.code}: #{e.message}")
-      raise
     end
+rescue Aws::Errors::ServiceError => e
+  # If AWS has not yet fully propagated the role, it deletes the role but
+  # returns NoSuchEntity.
+  if e.code != "NoSuchEntity"
+    puts("Couldn't delete #{role.name}. Here's why:")
+    puts("\t#{e.code}: #{e.message}")
+    raise
+  end
   end
   # snippet-end:[ruby.example_code.iam.DeleteServiceLinkedRole]
 end

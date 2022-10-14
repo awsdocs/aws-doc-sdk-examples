@@ -7,9 +7,9 @@
 
 # snippet-start:[s3.sqs-ruby-example-message-visibility-timeout.rb]
 
-require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
+require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
-sqs = Aws::SQS::Client.new(region: 'us-west-2')
+sqs = Aws::SQS::Client.new(region: "us-west-2")
 
 begin
   queue_name = "my-queue"
@@ -42,4 +42,3 @@ rescue Aws::SQS::Errors::NonExistentQueue
   puts "Cannot receive messages for a queue named '#{receive_queue_name}', as it does not exist."
 end
 # snippet-end:[s3.sqs-ruby-example-message-visibility-timeout.rb]
-

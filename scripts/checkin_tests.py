@@ -138,6 +138,9 @@ ALLOW_LIST = {
     'CreateCollectionExample/CreateCollection',
     'DeleteCollectionExample/DeleteCollection',
     'com/awssupport/latest/APIReference/index'
+    'DescribeDbClusterParameterGroupsResponse',
+    'DeleteCollectionExample/DeleteCollection',
+    'DescribeDbClusterParameterGroupsResponse'
 }
 
 def check_files(root, quiet):
