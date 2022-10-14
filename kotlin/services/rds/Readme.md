@@ -31,7 +31,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 - [Perform various Amazon RDS operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/rds/src/main/kotlin/com/kotlin/rds/RDSScenario.kt) (multiple commands)
 
-- [Perform various Amazon RDS operations on Aurora Clusters](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/rds/src/main/kotlin/com/kotlin/rds/AuroraScenario.kt) (multiple commands)
+- [Perform various Aurora DB cluster operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/rds/src/main/kotlin/com/kotlin/rds/AuroraScenario.kt) (multiple commands)
 
 ### Cross-service examples
 
