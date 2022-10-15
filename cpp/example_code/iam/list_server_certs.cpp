@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[list_account_aliases.cpp demonstrates how to retrieve information about the aliases for an AWS account.]
+//snippet-sourcedescription:[list_server_certs.cpp demonstrates how to list the IAM SSL/TLS server certificates.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
@@ -23,54 +23,63 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-//snippet-start:[iam.cpp.list_account_aliases.inc]
+//snippet-start:[iam.cpp.list_server_certs.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
-#include <aws/iam/model/ListAccountAliasesRequest.h>
-#include <aws/iam/model/ListAccountAliasesResult.h>
+#include <aws/iam/model/ListServerCertificatesRequest.h>
+#include <aws/iam/model/ListServerCertificatesResult.h>
 #include <iomanip>
 #include <iostream>
-//snippet-end:[iam.cpp.list_account_aliases.inc]
+//snippet-end:[iam.cpp.list_server_certs.inc]
+
+static const char* DATE_FORMAT = "%Y-%m-%d";
 
 /**
- * Lists all account aliases associated with an AWS account
+ * Lists all server certificates associated with an account
  */
 int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // snippet-start:[iam.cpp.list_account_aliases.code]
+        // snippet-start:[iam.cpp.list_server_certs.code]
         Aws::IAM::IAMClient iam;
-        Aws::IAM::Model::ListAccountAliasesRequest request;
+        Aws::IAM::Model::ListServerCertificatesRequest request;
 
         bool done = false;
         bool header = false;
         while (!done)
         {
-            auto outcome = iam.ListAccountAliases(request);
+            auto outcome = iam.ListServerCertificates(request);
             if (!outcome.IsSuccess())
             {
-                std::cout << "Failed to list account aliases: " <<
+                std::cout << "Failed to list server certificates: " <<
                     outcome.GetError().GetMessage() << std::endl;
                 break;
             }
 
-            const auto &aliases = outcome.GetResult().GetAccountAliases();
             if (!header)
             {
-                if (aliases.size() == 0)
-                {
-                    std::cout << "Account has no aliases" << std::endl;
-                    break;
-                }
-                std::cout << std::left << std::setw(32) << "Alias" << std::endl;
+                std::cout << std::left << std::setw(55) << "Name" <<
+                    std::setw(30) << "ID" << std::setw(80) << "Arn" <<
+                    std::setw(14) << "UploadDate" << std::setw(14) <<
+                    "ExpirationDate" << std::endl;
                 header = true;
             }
 
-            for (const auto &alias : aliases)
+            const auto &certificates =
+                outcome.GetResult().GetServerCertificateMetadataList();
+
+            for (const auto &certificate : certificates)
             {
-                std::cout << std::left << std::setw(32) << alias << std::endl;
+                std::cout << std::left << std::setw(55) <<
+                    certificate.GetServerCertificateName() << std::setw(30) <<
+                    certificate.GetServerCertificateId() << std::setw(80) <<
+                    certificate.GetArn() << std::setw(14) <<
+                    certificate.GetUploadDate().ToGmtString(DATE_FORMAT) <<
+                    std::setw(14) <<
+                    certificate.GetExpiration().ToGmtString(DATE_FORMAT) <<
+                    std::endl;
             }
 
             if (outcome.GetResult().GetIsTruncated())
@@ -82,7 +91,7 @@ int main(int argc, char** argv)
                 done = true;
             }
         }
-        // snippet-end:[iam.cpp.list_account_aliases.code]
+        // snippet-end:[iam.cpp.list_server_certs.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

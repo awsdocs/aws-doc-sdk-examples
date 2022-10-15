@@ -7,10 +7,8 @@
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html.
  *
- * For information on the structure of the code examples and how to build and run the examples, see
- * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started.html
  *
  * Purpose
  *
@@ -58,29 +56,31 @@ namespace AwsDoc {
         //! Cleanup by deleting created entities.
         /*!
           \sa DeleteCreatedEntities
-          \param client: IAM client.
-          \param role: IAM role.
-          \param user: IAM user.
-          \param policy: IAM policy.
+          \param client IAM client.
+          \param role IAM role.
+          \param user IAM user.
+          \param policy IAM policy.
+          \param logProgress enables verbose logging.
         */
         static bool DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
                                           const Aws::IAM::Model::Role &role,
                                           const Aws::IAM::Model::User &user,
-                                          const Aws::IAM::Model::Policy &policy);
+                                          const Aws::IAM::Model::Policy &policy,
+                                          bool logProgress);
     }
 }
 
 //! Scenario to create an IAM user, create an IAM role, and apply the role to the use.
 // "IAM access" permissions are needed to run this code.
-// "STS assume role" permissions are needed to run this code; (note, it may be necessary to
+// "STS assume role" permissions are need to run this code; (note, it may be necessary to
 //    create a custom policy).
 /*!
-  \sa iamCreateUserAssumeRoleScenario
-  \param clientConfig: Aws client configuration.
-  \return bool: Successful completion.
+  \sa IAMCreateUserAssumeRoleScenario
+  \param clientConfig Aws client configuration.
+  \param logProgress enables verbose logging.
 */
-bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
-        const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(const Aws::Client::ClientConfiguration &clientConfig,
+                                                  bool logProgress) {
 
     Aws::IAM::IAMClient client(clientConfig);
     Aws::IAM::Model::User user;
@@ -101,7 +101,7 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
                       outcome.GetError().GetMessage() << std::endl;
             return false;
         }
-        else {
+        else if (logProgress) {
             std::cout << "Successfully created IAM user " << userName << std::endl;
         }
 
@@ -119,12 +119,11 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
                 std::cerr << "Error getting Iam user. " <<
                           outcome.GetError().GetMessage() << std::endl;
 
-                DeleteCreatedEntities(client, role, user, policy);
+                DeleteCreatedEntities(client, role, user, policy, logProgress);
                 return false;
             }
-            else {
-                std::cout << "Successfully retrieved Iam user "
-                          << outcome.GetResult().GetUser().GetUserName()
+            else if (logProgress) {
+                std::cout << "Successfully retrieved Iam user " << outcome.GetResult().GetUser().GetUserName()
                           << std::endl;
             }
 
@@ -155,8 +154,9 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
         statements[0] = jsonStatement;
         policyDocument.WithArray("Statement", statements);
 
-        std::cout << "Setting policy for role\n   "
-                  << policyDocument.View().WriteCompact() << std::endl;
+        if (logProgress) {
+            std::cout << "Setting policy for role\n   " << policyDocument.View().WriteCompact() << std::endl;
+        }
 
         // Set role policy document as JSON string.
         request.SetAssumeRolePolicyDocument(policyDocument.View().WriteCompact());
@@ -166,12 +166,11 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
             std::cerr << "Error creating role. " <<
                       outcome.GetError().GetMessage() << std::endl;
 
-            DeleteCreatedEntities(client, role, user, policy);
+            DeleteCreatedEntities(client, role, user, policy, logProgress);
             return false;
         }
-        else {
-            std::cout << "Successfully created a role with name " << roleName
-                      << std::endl;
+        else if (logProgress) {
+            std::cout << "Successfully created a role with name " << roleName << std::endl;
         }
 
         role = outcome.GetResult().GetRole();
@@ -198,8 +197,9 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
         statements[0] = jsonStatement;
         policyDocument.WithArray("Statement", statements);
 
-        std::cout << "Creating a policy.\n   " << policyDocument.View().WriteCompact()
-                  << std::endl;
+        if (logProgress) {
+            std::cout << "Creating a policy.\n   " << policyDocument.View().WriteCompact() << std::endl;
+        }
 
         // Set IAM policy document as JSON string.
         request.SetPolicyDocument(policyDocument.View().WriteCompact());
@@ -209,10 +209,10 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
             std::cerr << "Error creating policy. " <<
                       outcome.GetError().GetMessage() << std::endl;
 
-            DeleteCreatedEntities(client, role, user, policy);
+            DeleteCreatedEntities(client, role, user, policy, logProgress);
             return false;
         }
-        else {
+        else if (logProgress) {
             std::cout << "Successfully created a policy with name, " << policyName <<
                       "." << std::endl;
         }
@@ -242,19 +242,19 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
             assumeRoleOutcome = stsClient.AssumeRole(request);
             if (!assumeRoleOutcome.IsSuccess()) {
                 if (count > 20 ||
-                    assumeRoleOutcome.GetError().GetErrorType() !=
-                    Aws::STS::STSErrors::ACCESS_DENIED) {
+                    assumeRoleOutcome.GetError().GetErrorType() != Aws::STS::STSErrors::ACCESS_DENIED) {
                     std::cerr << "Error assuming role after 20 tries. " <<
                               assumeRoleOutcome.GetError().GetMessage() << std::endl;
 
-                    DeleteCreatedEntities(client, role, user, policy);
+                    DeleteCreatedEntities(client, role, user, policy, logProgress);
                     return false;
                 }
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
             else {
-                std::cout << "Successfully assumed the role after " << count
-                          << " seconds." << std::endl;
+                if (logProgress) {
+                    std::cout << "Successfully assumed the role after " << count << " seconds." << std::endl;
+                }
                 break;
             }
             count++;
@@ -266,28 +266,23 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
 
     // 5. List objects in the bucket (This should fail).
     {
-        Aws::S3::S3Client s3Client(
-                Aws::Auth::AWSCredentials(credentials.GetAccessKeyId(),
-                                          credentials.GetSecretAccessKey(),
-                                          credentials.GetSessionToken()),
-                clientConfig);
+        Aws::S3::S3Client s3Client(Aws::Auth::AWSCredentials(credentials.GetAccessKeyId(),
+                                                             credentials.GetSecretAccessKey(),
+                                                             credentials.GetSessionToken()),
+                                   clientConfig);
         Aws::S3::Model::ListBucketsOutcome listBucketsOutcome = s3Client.ListBuckets();
         if (!listBucketsOutcome.IsSuccess()) {
-            if (listBucketsOutcome.GetError().GetErrorType() !=
-                Aws::S3::S3Errors::ACCESS_DENIED) {
+            if (listBucketsOutcome.GetError().GetErrorType() != Aws::S3::S3Errors::ACCESS_DENIED) {
                 std::cerr << "Could not lists buckets. " <<
                           listBucketsOutcome.GetError().GetMessage() << std::endl;
             }
-            else {
-                std::cout
-                        << "Access to list buckets denied because privileges have not been applied."
-                        << std::endl;
+            else if (logProgress) {
+                std::cout << "Access to list buckets denied because privileges have not been applied."
+                          << std::endl;
             }
         }
         else {
-            std::cerr
-                    << "Successfully retrieved bucket lists when this should not happen."
-                    << std::endl;
+            std::cerr << "Successfully retrieved bucket lists when this should not happen." << std::endl;
         }
     }
 
@@ -297,18 +292,16 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
         request.SetRoleName(role.GetRoleName());
         request.WithPolicyArn(policy.GetArn());
 
-        Aws::IAM::Model::AttachRolePolicyOutcome outcome = client.AttachRolePolicy(
-                request);
+        Aws::IAM::Model::AttachRolePolicyOutcome outcome = client.AttachRolePolicy(request);
         if (!outcome.IsSuccess()) {
             std::cerr << "Error creating policy. " <<
                       outcome.GetError().GetMessage() << std::endl;
 
-            DeleteCreatedEntities(client, role, user, policy);
+            DeleteCreatedEntities(client, role, user, policy, logProgress);
             return false;
         }
-        else {
-            std::cout << "Successfully attached the policy with name, "
-                      << policy.GetPolicyName() <<
+        else if (logProgress) {
+            std::cout << "Successfully attached the policy with name, " << policy.GetPolicyName() <<
                       ", to the role, " << role.GetRoleName() << "." << std::endl;
         }
     }
@@ -319,41 +312,41 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
     // before the policy with ListBucket permissions has been applied to the role.
     // Repeat at most 20 times when access is denied.
     while (true) {
-        Aws::S3::S3Client s3Client(
-                Aws::Auth::AWSCredentials(credentials.GetAccessKeyId(),
-                                          credentials.GetSecretAccessKey(),
-                                          credentials.GetSessionToken()),
-                clientConfig);
+        Aws::S3::S3Client s3Client(Aws::Auth::AWSCredentials(credentials.GetAccessKeyId(),
+                                                             credentials.GetSecretAccessKey(),
+                                                             credentials.GetSessionToken()),
+                                   clientConfig);
         Aws::S3::Model::ListBucketsOutcome listBucketsOutcome = s3Client.ListBuckets();
         if (!listBucketsOutcome.IsSuccess()) {
             if ((count > 20) ||
-                listBucketsOutcome.GetError().GetErrorType() !=
-                Aws::S3::S3Errors::ACCESS_DENIED) {
+                listBucketsOutcome.GetError().GetErrorType() != Aws::S3::S3Errors::ACCESS_DENIED) {
                 std::cerr << "Could not lists buckets after 20 seconds. " <<
                           listBucketsOutcome.GetError().GetMessage() << std::endl;
-                DeleteCreatedEntities(client, role, user, policy);
+                DeleteCreatedEntities(client, role, user, policy, logProgress);
                 return false;
             }
 
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         else {
-
-            std::cout << "Successfully retrieved bucket lists after " << count
-                      << " seconds." << std::endl;
+            if (logProgress) {
+                std::cout << "Successfully retrieved bucket lists after " << count
+                          << " seconds." << std::endl;
+            }
             break;
         }
         count++;
     }
 
     // 8. Delete all the created resources.
-    return DeleteCreatedEntities(client, role, user, policy);
+    return DeleteCreatedEntities(client, role, user, policy, logProgress);
 }
 
 bool AwsDoc::IAM::DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
                                         const Aws::IAM::Model::Role &role,
                                         const Aws::IAM::Model::User &user,
-                                        const Aws::IAM::Model::Policy &policy) {
+                                        const Aws::IAM::Model::Policy &policy,
+                                        bool logProgress) {
     bool result = true;
     if (policy.ArnHasBeenSet()) {
         // Detach the policy from the role.
@@ -362,16 +355,14 @@ bool AwsDoc::IAM::DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
             request.SetPolicyArn(policy.GetArn());
             request.SetRoleName(role.GetRoleName());
 
-            Aws::IAM::Model::DetachRolePolicyOutcome outcome = client.DetachRolePolicy(
-                    request);
+            Aws::IAM::Model::DetachRolePolicyOutcome outcome = client.DetachRolePolicy(request);
             if (!outcome.IsSuccess()) {
                 std::cerr << "Error Detaching policy from roles. " <<
                           outcome.GetError().GetMessage() << std::endl;
                 result = false;
             }
-            else {
-                std::cout << "Successfully detached the policy with arn "
-                          << policy.GetArn()
+            else if (logProgress) {
+                std::cout << "Successfully detached the policy with arn " << policy.GetArn()
                           << " from role " << role.GetRoleName() << "." << std::endl;
             }
         }
@@ -387,9 +378,8 @@ bool AwsDoc::IAM::DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
                           outcome.GetError().GetMessage() << std::endl;
                 result = false;
             }
-            else {
-                std::cout << "Successfully deleted the policy with arn "
-                          << policy.GetArn() << std::endl;
+            else if (logProgress) {
+                std::cout << "Successfully deleted the policy with arn " << policy.GetArn() << std::endl;
             }
         }
 
@@ -406,9 +396,8 @@ bool AwsDoc::IAM::DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
                       outcome.GetError().GetMessage() << std::endl;
             result = false;
         }
-        else {
-            std::cout << "Successfully deleted the role with name "
-                      << role.GetRoleName() << std::endl;
+        else if (logProgress) {
+            std::cout << "Successfully deleted the role with name " << role.GetRoleName() << std::endl;
         }
     }
 
@@ -423,23 +412,14 @@ bool AwsDoc::IAM::DeleteCreatedEntities(const Aws::IAM::IAMClient &client,
                       outcome.GetError().GetMessage() << std::endl;
             result = false;
         }
-        else {
-            std::cout << "Successfully deleted the user with name "
-                      << user.GetUserName() << std::endl;
+        else if (logProgress) {
+            std::cout << "Successfully deleted the user with name " << user.GetUserName() << std::endl;
         }
     }
 
     return result;
 }
 // snippet-end:[cpp.example_code.iam.Scenario_CreateUserAssumeRole]
-
-/*
- *
- *  main function
- *
- *  Usage 'run_iam_create_user_assume_role_scenario'
- *
- */
 
 #ifndef TESTING_BUILD
 int main(int argc, const char *argv[]) {
@@ -451,7 +431,7 @@ int main(int argc, const char *argv[]) {
 
     {
         Aws::Client::ClientConfiguration clientConfig;
-        AwsDoc::IAM::iamCreateUserAssumeRoleScenario(clientConfig);
+        AwsDoc::IAM::IAMCreateUserAssumeRoleScenario(clientConfig, true);
     }
 
     ShutdownAPI(options);

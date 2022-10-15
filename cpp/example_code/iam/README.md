@@ -3,7 +3,7 @@
 ## Overview
 The code examples in this directory demonstrate how to work with the AWS Identity and Access Management (IAM) using the AWS SDK for C++.
 
-*IAM is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.*
+IAM is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -15,6 +15,7 @@ The code examples in this directory demonstrate how to work with the AWS Identit
 
 ### Single actions
 - [Access the last used key](./access_key_last_used.cpp) (GetAccessKeyLastUsed)
+- [Assume a role](./assume_role.cpp) (AssumeRole)
 - [Attach a role policy](./attach_role_policy.cpp) (AttachRolePolicy)
 - [Create an access key](./create_access_key.cpp) (CreateAccessKey)
 - [Create an account alias](./create_account_alias.cpp) (CreateAccountAlias)
@@ -24,19 +25,18 @@ The code examples in this directory demonstrate how to work with the AWS Identit
 - [Delete an access key](./delete_access_key.cpp) (DeleteAccessKey)
 - [Delete an account alias](./delete_account_alias.cpp) (DeleteAccountAlias)
 - [Delete a policy](./delete_policy.cpp) (DeletePolicy)
-- [Delete a server certificate](./delete_server_certificate.cpp) (DeleteServerCertificate)
+- [Delete a server certificate](./delete_server_cert.cpp) (DeleteServerCertificate)
 - [Delete a user](./delete_user.cpp) (DeleteUser)
 - [Detach a role policy](./detach_role_policy.cpp) (DetachRolePolicy)
 - [Get a policy](./get_policy.cpp) (GetPolicy)
-- [Get a server certificate](./get_server_certificate.cpp) (GetServerCertificate)
 - [List the access keys](./list_access_keys.cpp) (ListAccessKeys)
 - [List the account aliases](./list_account_aliases.cpp) (ListAccountAliases)
 - [List the policies](./list_policies.cpp) (ListPolicies)
-- [List the server certificates](./list_server_certificates.cpp) (ListServerCertificates)
+- [List the server certificates](./list_server_certs.cpp) (ListServerCertificates)
 - [List the users](./list_users.cpp) (ListUsers)
-- [Put a role policy](./put_role_policy.cpp) (putRolePolicy)
+- [Put a role policy](./put_role_policy.cpp) (PutRolePolicy)
 - [Update an access key](./update_access_key.cpp) (UpdateAccessKey)
-- [Update a server certificate](./update_server_certificate.cpp) (UpdateServerCertificate)
+- [Update a server certificate](./update_server_cert.cpp) (UpdateServerCertificate)
 - [Update a user](./update_user.cpp) (UpdateUser)
 
 
@@ -62,7 +62,5 @@ For information on the structure of the code examples and how to build and run t
 ## Additional resources
 - [AWS Identity and Access Management (IAM) documentation](https://aws.amazon.com/iam/index.html)
 - [AWS SDK for C++ documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html) 
-- [IAM code examples using the AWS SDK for C++](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/examples-iam.html)
 
-
-  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

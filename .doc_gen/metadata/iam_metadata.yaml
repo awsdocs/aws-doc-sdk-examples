@@ -58,14 +58,6 @@ iam_CreateAccountAlias:
             - description:
               snippet_tags:
                 - iam.JavaScript.alias.createAccountAlias
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - iam.cpp.create_account_alias.code
   services:
     iam: {CreateAccountAlias}
 iam_DeleteAccountAlias:
@@ -512,14 +504,6 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_access_key
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - iam.cpp.create_access_key.code
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -668,14 +652,6 @@ iam_GetAccessKeyLastUsed:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.getAccessKeyLastUsed
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - iam.cpp.access_key_last_used.code
   services:
     iam: {GetAccessKeyLastUsed}
 iam_ListAccessKeys:
@@ -923,15 +899,6 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_policy
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - iam.cpp.create_policy.code
-                - iam.cpp.build_policy.code
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -1297,14 +1264,6 @@ iam_AttachRolePolicy:
           excerpts:
             - snippet_tags: ['iam.go-v2.AttachRolePolicy']
               description: ''
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - iam.cpp.attach_role_policy.code
   services:
     iam: {AttachRolePolicy}
 iam_ListAttachedRolePolicies:
@@ -1568,14 +1527,6 @@ iam_CreateRole:
           excerpts:
             - snippet_tags: ['iam.go-v2.CreateRole']
               description: ''
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - iam.cpp.create_iam_role.code
   services:
     iam: {CreateRole}
 iam_ListRoles:
