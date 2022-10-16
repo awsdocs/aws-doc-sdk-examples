@@ -1,10 +1,25 @@
 use std::net::TcpListener;
 
+use once_cell::sync::Lazy;
 use rest_ses::{
     client::{param, RdsClient},
     configuration::get_settings,
+    telemetry::{get_subscriber, init_subscriber},
     work_item::WorkItem,
 };
+
+// Ensure that the `tracing` stack is only initialised once using `once_cell`
+static TRACING: Lazy<()> = Lazy::new(|| {
+    let default_filter_level = "info".to_string();
+    let subscriber_name = "test".to_string();
+    if std::env::var("TEST_LOG").is_ok() {
+        let subscriber = get_subscriber(subscriber_name, default_filter_level, std::io::stdout);
+        init_subscriber(subscriber);
+    } else {
+        let subscriber = get_subscriber(subscriber_name, default_filter_level, std::io::sink);
+        init_subscriber(subscriber);
+    };
+});
 
 #[tokio::test]
 async fn healthz_works() {
@@ -26,6 +41,7 @@ async fn healthz_works() {
 
 #[tokio::test]
 async fn post_workitem_returns_200() {
+    tracing_subscriber::fmt::init();
     let (app, rds) = spawn_app().await;
 
     let client = reqwest::Client::new();
@@ -84,6 +100,7 @@ async fn post_workitem_returns_400_with_missing_username() {
 }
 
 async fn spawn_app() -> (String, RdsClient) {
+    Lazy::force(&TRACING);
     let settings = get_settings().expect("failed to read configuration");
     let config = aws_config::from_env().load().await;
     let rds = RdsClient::new(settings.sdk_config, config);

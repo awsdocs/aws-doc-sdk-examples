@@ -3,11 +3,12 @@ use aws_sdk_rdsdata::{
     model::{Field, SqlParameter},
     Client,
 };
+use secrecy::{ExposeSecret, Secret};
 
 use crate::configuration::SdkSettings;
 
 pub struct RdsClient {
-    secret_arn: String,
+    secret_arn: Secret<String>,
     cluster_arn: String,
     db_instance: String,
     client: Client,
@@ -26,7 +27,7 @@ impl RdsClient {
     pub fn execute_statement(&self, sql: &str) -> ExecuteStatement {
         self.client
             .execute_statement()
-            .secret_arn(self.secret_arn.as_str())
+            .secret_arn(self.secret_arn.expose_secret())
             .resource_arn(self.cluster_arn.as_str())
             .database(self.db_instance.as_str())
             .sql(sql)
@@ -49,4 +50,21 @@ pub fn param(name: &str, value: String) -> SqlParameter {
         .name(name)
         .value(Field::StringValue(value.clone()))
         .build()
+}
+
+#[macro_export]
+macro_rules! params {
+    ($((
+        $name:expr,
+        $value:expr
+    )),* ) => {
+        {
+            use crate::client::param;
+            let mut v = Vec::new();
+            $(
+                v.push(param($name, $value.to_owned()));
+            )*
+            Some(v)
+        }
+    }
 }

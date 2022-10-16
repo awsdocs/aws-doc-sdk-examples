@@ -1,14 +1,17 @@
+use secrecy::Secret;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
 pub struct Settings {
+    pub application_name: String,
+    pub log_level: String,
     pub application_port: u16,
     pub sdk_config: SdkSettings,
 }
 
 #[derive(Deserialize)]
 pub struct SdkSettings {
-    pub secret_arn: String,
+    pub secret_arn: Secret<String>,
     pub cluster_arn: String,
     pub db_instance: String,
 }
