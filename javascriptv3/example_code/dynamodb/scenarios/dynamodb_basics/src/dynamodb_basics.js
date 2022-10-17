@@ -17,10 +17,11 @@ This scenario demonstrates how to:
 
 
 Running the code:
-1. Download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
+1. Download 'movies.json' from https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files,
    and put it in the same folder as the example.
 2. Update the AWS Region in '../libs/ddbClient.js'.
 3. Run the following at the command line:
+
    node dynamodb_basics.js <table_name> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>
 
    For example, node dynamodb_basics.js myNewTable myMovieName 2022 'This Is the End' 2013 200 'A coder cracks code...'
