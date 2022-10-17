@@ -4,7 +4,7 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.8)
 
-set(SERVICE_COMPONENTS sesv2)
+set(SERVICE_COMPONENTS sesv2 rds-data)
 
 # Set this project's name.
 project("ServerlessAurora")
@@ -32,6 +32,7 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
+# Poco library used for http server.
 find_package(POCO REQUIRED Net Util)
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
@@ -58,15 +59,22 @@ endif()
 
 
 add_executable(${EXECUTABLE}
-        ItemTrackerServer.cpp)
+        serverless_aurora.cpp
+        RDSDataHandler.cpp
+        ItemTrackerHTTPServer.cpp)
 
 target_include_directories(${EXECUTABLE}
         PUBLIC
         /opt/homebrew/include)
+target_link_directories(${EXECUTABLE}
+        PUBLIC
+        /opt/homebrew/lib)
 target_link_libraries(${EXECUTABLE}
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
-        Net)
+        PocoNet
+        PocoUtil
+        PocoFoundation)
 
 
 

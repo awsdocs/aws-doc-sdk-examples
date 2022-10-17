@@ -3,4 +3,15 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-#include <aws/a
+#include "ItemTrackerHTTPServer.h"
+#include "RDSDataHandler.h"
+
+int main(int argc, char** argv)
+{
+    AwsDoc::CrossService::RDSDataHandler rdsDataHandler;
+    AwsDoc::CrossService::ItemTrackerHTTPServer itemTrackerHttpServer(rdsDataHandler);
+
+    itemTrackerHttpServer.run(1, argv);
+
+    return 0;
+}
