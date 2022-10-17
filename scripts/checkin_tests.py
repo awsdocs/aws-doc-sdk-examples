@@ -136,7 +136,9 @@ ALLOW_LIST = {
     'SynthesizeSpeechExample/SynthesizeSpeech',
     'com/autoscaling/ec2/APIReference/Welcome',
     'CreateCollectionExample/CreateCollection',
-    'DeleteCollectionExample/DeleteCollection'
+    'DescribeDbClusterParameterGroupsResponse',
+    'DeleteCollectionExample/DeleteCollection',
+    'DescribeDbClusterParameterGroupsResponse'
 }
 
 def check_files(root, quiet):
