@@ -23,11 +23,11 @@ public class SupportWrapper
     // snippet-start:[Support.dotnetv3.DescribeServices]
 
     /// <summary>
-    /// Get the descriptions of support services.
+    /// Get the descriptions of AWS services.
     /// </summary>
     /// <param name="name">Optional language for services.
     /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
-    /// <returns>The list of support service descriptions.</returns>
+    /// <returns>The list of AWS service descriptions.</returns>
     public async Task<List<Service>> DescribeServices(string language = "en")
     {
         var response = await _amazonSupport.DescribeServicesAsync(
@@ -70,7 +70,7 @@ public class SupportWrapper
     /// <param name="severityCode">Severity code for the new case.</param>
     /// <param name="subject">Subject of the new case.</param>
     /// <param name="body">Body text of the new case.</param>
-    /// <param name="language">Optional language for the new case.
+    /// <param name="language">Optional language support for your case.
     /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
     /// <param name="attachmentSetId">Optional Id for an attachment set for the new case.</param>
     /// <param name="issueType">Optional issue type for the new case. Options are "customer-service" or "technical".</param>
@@ -203,13 +203,13 @@ public class SupportWrapper
     /// <summary>
     /// Get case details for a list of case ids, optionally with date filters.
     /// </summary>
-    /// <param name="caseIds">The list of case ids.</param>
-    /// <param name="displayId">Optional display id.</param>
+    /// <param name="caseIds">The list of case IDs.</param>
+    /// <param name="displayId">Optional display ID.</param>
     /// <param name="includeCommunication">True to include communication. Defaults to true.</param>
     /// <param name="includeResolvedCases">True to include resolved cases. Defaults to false.</param>
     /// <param name="afterTime">The optional start date for a filtered search.</param>
     /// <param name="beforeTime">The optional end date for a filtered search.</param>
-    /// <param name="language">Optional language for the new case.
+    /// <param name="language">Optional language support for your case.
     /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
     /// <returns>A list of CaseDetails.</returns>
     public async Task<List<CaseDetails>> DescribeCases(List<string> caseIds, string? displayId = null, bool includeCommunication = true,

@@ -68,9 +68,9 @@ support_CreateCase:
   services:
     support: {CreateCase}
 support_DescribeAttachment:
-  title: Describe an &SUP; attachment for a case using an &AWS; SDK
+  title: Describe an attachment for an &SUP; case using an &AWS; SDK
   title_abbrev: Describe an attachment
-  synopsis: describe an &SUP; attachment for a case.
+  synopsis: describe an attachment for an &SUP;  case.
   category:
   languages:
     .NET:
@@ -119,9 +119,9 @@ support_DescribeCommunications:
   services:
     support: {DescribeCommunications}
 support_DescribeServices:
-  title: Describe &SUP; services using an &AWS; SDK
+  title: Describe the available &AWS; services to create support cases for using an &AWS; SDK
   title_abbrev: Describe services
-  synopsis: describe &SUP; services.
+  synopsis: describe the list of &AWS; services.
   category:
   languages:
     .NET:

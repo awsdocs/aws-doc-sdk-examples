@@ -23,7 +23,7 @@ public static class SupportCaseScenario
 {
     /*
     Before running this .NET code example, set up your development environment, including your credentials.
-    You must have one of the following AWS Support plans: Business, Enterprise On-Ramp, or Enterprise. Otherwise, an exception will be thrown.
+    To use the AWS Support API, you must have one of the following AWS Support plans: Business, Enterprise On-Ramp, or Enterprise.
 
     This .NET example performs the following tasks:
     1.  Get and display services. Select a service from the list.
@@ -43,7 +43,7 @@ public static class SupportCaseScenario
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon Support service. 
+        // Set up dependency injection for the AWS Support service. 
         // Use your AWS profile name, or leave it blank to use the default profile.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
