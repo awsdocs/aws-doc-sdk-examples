@@ -16,9 +16,9 @@
  * Purpose
  *
  * Demonstrates deleting an IAM policy.
- * This api only works for policies that have not been associated with other resources.
+ * This API only works for policies that have not been associated with other resources.
  * To delete a policy in the non-trivial case, use the DeletePolicy operation within the
- * aws-cpp-sdk-access-management high level sdk.
+ * aws-cpp-sdk-access-management high-level SDK.
  *
  */
 

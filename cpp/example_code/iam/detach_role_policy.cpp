@@ -32,7 +32,7 @@
 /*!
   \sa detachRolePolicy()
   \param roleName: The user name.
-  \param policyArn: The policy Amazon resource name.
+  \param policyArn: The policy Amazon Resource Name (ARN).
   \param clientConfig: Aws client configuration.
   \return bool: Successful completion.
 */

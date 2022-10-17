@@ -1,11 +1,13 @@
 #  AWS IAM code examples for the SDK for C++
 
 ## Overview
-The code examples in this directory demonstrate how to work with the AWS Identity and Access Management (IAM) using the AWS SDK for C++.
+
+The code examples in this directory demonstrate how to work with AWS Identity and Access Management (IAM) using the AWS SDK for C++.
 
 *IAM is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.*
 
 ## ⚠️ Important
+
 * Running this code might result in charges to your AWS account. 
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
@@ -14,6 +16,7 @@ The code examples in this directory demonstrate how to work with the AWS Identit
 ## Code examples
 
 ### Single actions
+
 - [Access the last used key](./access_key_last_used.cpp) (GetAccessKeyLastUsed)
 - [Attach a role policy](./attach_role_policy.cpp) (AttachRolePolicy)
 - [Create an access key](./create_access_key.cpp) (CreateAccessKey)
@@ -39,17 +42,19 @@ The code examples in this directory demonstrate how to work with the AWS Identit
 - [Update a server certificate](./update_server_certificate.cpp) (UpdateServerCertificate)
 - [Update a user](./update_user.cpp) (UpdateUser)
 
-
 ### Scenarios
+
 - [Create an IAM user, create an IAM role, and apply the role to the user](./iam_create_user_assume_role_scenario.cpp) (CreateUser, GetUser, CreateRole, CreatePolicy, AssumeRole, ListBuckets, AttachRolePolicy, DetachRolePolicy, DeletePolicy, DeleteRole, DeleteUser)
 
 ## Run the examples
+
 Before using the code examples, first complete the installation and setup steps of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
 The Getting started section covers how to get and build the SDK, and how to build your own code by using the SDK with a sample “Hello World”-style application. 
 
 For information on the structure of the code examples and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
 ## Tests
+
 ⚠️ Running the tests might result in charges to your AWS account.
 
 ```sh
@@ -57,9 +62,10 @@ For information on the structure of the code examples and how to build and run t
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
    ctest 
-```   
+```
 
 ## Additional resources
+
 - [AWS Identity and Access Management (IAM) documentation](https://aws.amazon.com/iam/index.html)
 - [AWS SDK for C++ documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html) 
 - [IAM code examples using the AWS SDK for C++](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/examples-iam.html)
