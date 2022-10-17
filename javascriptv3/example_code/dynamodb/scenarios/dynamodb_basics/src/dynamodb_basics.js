@@ -17,8 +17,9 @@ This scenario demonstrates how to:
 
 
 Running the code:
-1. Download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html, and put it in the same folder as the example.
-2. Update the region in the client files in the 'libs' folder.
+1. Download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
+   and put it in the same folder as the example.
+2. Update the AWS Region in '../libs/ddbClient.js'.
 3. Run the following at the command line:
    node dynamodb_basics.js <table_name> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>
 

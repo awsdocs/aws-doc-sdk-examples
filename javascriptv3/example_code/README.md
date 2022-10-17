@@ -26,7 +26,7 @@ Cross-service examples are located in the [*cross-services folder*](./cross-serv
 
 ### Prerequisites
 * Latest stable version of Node.js
-* A shared configurations file with your user credentials. See the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html) for more information.
+* A shared configuration file with your user credentials. See the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html) for more information.
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.
