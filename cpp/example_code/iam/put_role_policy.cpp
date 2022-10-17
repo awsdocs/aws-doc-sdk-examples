@@ -34,6 +34,7 @@
   \return bool: Successful completion.
 */
 
+// snippet-start:[iam.cpp.put_role_policy.code]
 bool AwsDoc::IAM::putRolePolicy(
         const Aws::String &roleName,
         const Aws::String &policyName,
@@ -57,6 +58,7 @@ bool AwsDoc::IAM::putRolePolicy(
 
     return outcome.IsSuccess();
 }
+// snippet-end:[iam.cpp.put_role_policy.code]
 
 /*
  *

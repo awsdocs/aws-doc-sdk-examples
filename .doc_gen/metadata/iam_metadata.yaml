@@ -120,6 +120,14 @@ iam_DeleteAccountAlias:
             - description:
               snippet_tags:
                 - iam.JavaScript.alias.deleteAccountAlias
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.delete_account_alias.code
   services:
     iam: {DeleteAccountAlias}
 iam_ListAccountAliases:
@@ -607,6 +615,14 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.delete_access_key
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - delete_access_key.code
   services:
     iam: {DeleteAccessKey}
 iam_DeleteRolePolicy:
@@ -746,6 +762,14 @@ iam_ListAccessKeys:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.DeleteUser
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.list_access_keys.code
   services:
     iam: {ListAccessKeys}
 iam_UpdateAccessKey:
@@ -798,6 +822,14 @@ iam_UpdateAccessKey:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.updateAccessKey
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.update_access_key.code
   services:
     iam: {UpdateAccessKey}
 iam_Scenario_ManageAccessKeys:
@@ -995,6 +1027,14 @@ iam_DeletePolicy:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.delete_policy
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.delete_policy.code
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -1082,6 +1122,14 @@ iam_ListPolicies:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_policies
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.list_policies.code
   services:
     iam: {ListPolicies}
 iam_GetPolicy:
@@ -1158,6 +1206,14 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.GetPolicy
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.get_policy.code
   services:
     iam: {GetPolicy}
 iam_GetPolicyVersion:
@@ -1457,6 +1513,15 @@ iam_DetachRolePolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.detachRolePolicy
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.detach_role_policy01.code
+                - iam.cpp.detach_role_policy02.code
   services:
     iam: {DetachRolePolicy}
 iam_Scenario_PolicyManagement:
@@ -1762,6 +1827,22 @@ iam_DeleteRole:
                 - rust.example_code.iam.service.delete_role
   services:
     iam: {DeleteRole}
+iam_PutRolePolicy:
+  title: Put an inline policy for an &IAM; role using an &AWS; SDK
+  title_abbrev: Put an inline policy for a role
+  synopsis: put an inline policy for an &IAM; role.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.put_role_policy.code
+  services:
+    iam: {PutRolePolicy}
 iam_ListRolePolicies:
   title: List inline policies for an &IAM; role using an &AWS; SDK
   title_abbrev: List inline policies for a role
@@ -2043,6 +2124,15 @@ iam_DeleteUser:
             - description:
               snippet_tags:
                 - iam.JavaScript.users.deleteUser
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.delete_user01.code
+                - iam.cpp.delete_user02.code
   services:
     iam: {DeleteUser}
 iam_ListUsers:
@@ -2139,6 +2229,14 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - iam.JavaScript.users.listUsers
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.list_users.code
   services:
     iam: {ListUsers}
 iam_UpdateUser:
@@ -2200,6 +2298,14 @@ iam_UpdateUser:
             - description:
               snippet_tags:
                 - iam.JavaScript.users.updateUser
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.update_user.code
   services:
     iam: {UpdateUser}
 iam_AttachUserPolicy:
@@ -2377,6 +2483,14 @@ iam_ListServerCertificates:
             - description:
               snippet_tags:
                 - iam.JavaScript.certs.listServerCertificates
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.list_server_certs.code
   services:
     iam: {ListServerCertificates}
 iam_GetServerCertificate:
@@ -2404,6 +2518,14 @@ iam_GetServerCertificate:
             - description:
               snippet_tags:
                 - iam.JavaScript.certs.getServerCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.get_server_cert.code
   services:
     iam: {GetServerCertificate}
 iam_UpdateServerCertificate:
@@ -2431,6 +2553,14 @@ iam_UpdateServerCertificate:
             - description:
               snippet_tags:
                 - iam.JavaScript.certs.updateServerCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.update_server_cert.code
   services:
     iam: {UpdateServerCertificate}
 iam_DeleteServerCertificate:
@@ -2458,6 +2588,14 @@ iam_DeleteServerCertificate:
             - description:
               snippet_tags:
                 - iam.JavaScript.certs.deleteServerCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.delete_server_cert.code
   services:
     iam: {DeleteServerCertificate}
 iam_ListGroups:
