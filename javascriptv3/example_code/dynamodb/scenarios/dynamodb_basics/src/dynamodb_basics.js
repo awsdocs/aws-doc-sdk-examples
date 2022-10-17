@@ -49,7 +49,7 @@ import {
 
 if (process.argv.length < 6) {
   console.log(
-    "Usage: node dynamodb_basics.js <tableNaame> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>\n" +
+    "Usage: node dynamodb_basics.js <tableName> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>\n" +
       "Example: node dynamodb_basics.js newmoviesbrmur newmoviename 2025 200 'MOVIE PLOT DETAILS'"
   );
 }
@@ -129,10 +129,8 @@ export const run = async (
       await ddbDocClient.send(new PutCommand(params));
       console.log("Success - single movie added.");
       try {
-        // Before you run this example, download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-        // and put it in the same folder as the example.
         // Get the movie data parse to convert into a JSON object.
-        const allMovies = JSON.parse(fs.readFileSync("moviedata.json", "utf8"));
+        const allMovies = JSON.parse(fs.readFileSync("movies.json", "utf8"));
         // Split the table into segments of 25.
         const dataSegments = R.splitEvery(25, allMovies);
         // Loop batch write operation 10 times to upload 250 items.
