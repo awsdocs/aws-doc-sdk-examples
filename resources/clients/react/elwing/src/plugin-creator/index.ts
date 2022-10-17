@@ -4,12 +4,19 @@
  */
 
 import { writeFileSync } from "fs";
-import { kebabCase, pascalCase } from "../../libs/utils/util-string";
-import { nthAdjust } from "../../libs/ext-ramda";
-import { getArgValidationErrors } from "./validations";
-import { makePluginPath } from "./path-builder";
-import { makeComponentContents, makePluginContents, makePackageJsonContents } from "./content-builder";
-import { refreshRegistry } from "./register";
+import {
+  kebabCase,
+  pascalCase,
+} from "../../../../../../javascriptv3/example_code/libs/utils/util-string.js";
+import { nthAdjust } from "../../../../../../javascriptv3/example_code/libs/ext-ramda.js";
+import { getArgValidationErrors } from "./validations.js";
+import { makePluginPath } from "./path-builder.js";
+import {
+  makeComponentContents,
+  makePluginContents,
+  makePackageJsonContents,
+} from "./content-builder.js";
+import { refreshRegistry } from "./register.js";
 import { execSync } from "child_process";
 
 (async () => {
@@ -24,10 +31,13 @@ import { execSync } from "child_process";
   const path = makePluginPath(pluginName);
   const pluginContents = makePluginContents(pluginName);
   const componentContents = makeComponentContents(pluginName);
-  const packageJsonContents = makePackageJsonContents(pluginName)
+  const packageJsonContents = makePackageJsonContents(pluginName);
   writeFileSync(`${path}/package.json`, packageJsonContents);
   writeFileSync(`${path}/index.ts`, pluginContents);
-  writeFileSync(`${path}/${pascalCase(pluginName)}Component.tsx`, componentContents);
+  writeFileSync(
+    `${path}/${pascalCase(pluginName)}Component.tsx`,
+    componentContents
+  );
   writeFileSync(`${path}/.gitignore`, "node_modules");
   execSync(`npm i file:src/plugins/${pluginName}`);
   refreshRegistry();
