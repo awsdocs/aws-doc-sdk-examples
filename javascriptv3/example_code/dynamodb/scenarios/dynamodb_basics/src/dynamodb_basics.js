@@ -17,8 +17,8 @@ This scenario demonstrates how to:
 
 
 Running the code:
-1. Download 'movies.json' from https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files,
-   and put it in the same folder as the example.
+1. Download 'movies.json' from https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
+   to the same folder as this example.
 2. Update the AWS Region in '../libs/ddbClient.js'.
 3. Run the following at the command line:
 
