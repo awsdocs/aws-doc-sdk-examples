@@ -1947,6 +1947,15 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - iam.JavaScript.users.getUser
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.create_user01.code
+                - iam.cpp.create_user02.code
   services:
     iam: {CreateUser}
 iam_DeleteUser:
