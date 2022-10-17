@@ -20,7 +20,7 @@ const getUser = async (username) => {
   const [userPoolId] = getFirstEntry(FILE_USER_POOLS);
 
   if (!userPoolId) {
-    throw new Error('User Pool id is missing. Did you run "create-user-pool"?');
+    throw new Error('User pool id is missing. Did you run "create-user-pool"?');
   }
 
   return await adminGetUser({ userPoolId, username });

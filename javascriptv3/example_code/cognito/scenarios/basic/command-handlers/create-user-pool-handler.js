@@ -20,7 +20,7 @@ const storeUserPoolMeta = (...args) => {
 const validateUserPool = (poolName) => {
   if (!poolName) {
     throw new Error(
-      `User Pool name is missing. It must be provided as an argument to the 'initialize' command.`
+      `User pool name is missing. It must be provided as an argument to the 'initialize' command.`
     );
   }
 
@@ -28,7 +28,7 @@ const validateUserPool = (poolName) => {
 
   if (tmp) {
     throw new Error(
-      `A User Pool already exists. Run 'clean-up' to delete any existing User Pools created with this tool.`
+      `A user pool already exists. Run 'clean-up' to delete any existing user pools created with this tool.`
     );
   }
 };
@@ -39,12 +39,12 @@ const createUserPoolHandler = async (commands) => {
   try {
     validateUserPool(poolName);
 
-    log(`Creating User Pool: ${poolName}`);
+    log(`Creating user pool: ${poolName}`);
 
     const {
       UserPool: { Id },
     } = await createUserPool(poolName);
-    log(`User Pool created.`);
+    log(`User pool created.`);
 
     log("Configuring user pool to only allow MFA via an authenticator app.");
     await setUserPoolMfaConfig(Id);

@@ -28,23 +28,23 @@ const help = `
  
    help                                   Shows this list of commands.
 
-   create-user-pool <user_pool_name>      Creates and configures a Cognito User Pool
+   create-user-pool <user_pool_name>      Creates and configures an Amazon Cognito user pool
                                           compatible with this example.
 
-   sign-up <user_name> <password>         Creates a new user in the User Pool.
-    <email>                               And email with a verification code is
-                                          sent to the provided email address.
+   sign-up <user_name> <password>         Creates a new user in the user pool.
+    <email>                               Also emails a verification code to 
+                                          the provided email address.
 
    resend-confirmation-code <user_name>   Sends the user a new confirmation code.                                       
                                           
    confirm-sign-up <user_name> <code>     Confirms a new user with the code received
                                           from the 'sign-up' step.
 
-   list-users                             Lists all the users in the active User Pool.
+   list-users                             Lists all the users in the active user pool.
 
-   admin-get-user <user_name>             Attempts to get a user from the active User Pool.
+   admin-get-user <user_name>             Attempts to get a user from the active user pool.
 
-   admin-initiate-auth <user_name>        Attempts to authenticate to the User Pool
+   admin-initiate-auth <user_name>        Attempts to authenticate to the user pool
     <password>                            with the provided credentials. This command
                                           requires AWS developer credentials to be set
                                           up. initiate-auth does not.
@@ -55,7 +55,7 @@ const help = `
    admin-respond-to-auth-challenge        Attempts to verify the time-based one-time password.
     <username> <totp>                     This is the last step in authentication.
 
-   clean-up                               Deletes any User Pool created with this
+   clean-up                               Deletes any user pool created with this
                                           tool.                                          
  
    quit                                   Quits the current interactive session.
@@ -78,5 +78,5 @@ const handlers = [
   [startsWith(["clean-up"]), cleanUpHandler],
 ];
 
-cmdInterface.write('Welcome to Cognito. Type "help" for more info.\n');
+cmdInterface.write('Welcome to Amazon Cognito. Type "help" for more info.\n');
 readCommands({ reader: cmdInterface, handlers });

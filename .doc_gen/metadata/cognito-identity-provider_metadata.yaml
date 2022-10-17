@@ -643,8 +643,8 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
           github: javascriptv3/example_code/cognito/scenarios/basic
           sdkguide:
           excerpts:
-            - description: Clone the GitHub repository and run this example for the best
-                 experience. The code below represents a sample of the full example application.
+            - description: For the best experience, clone the GitHub repository and run this 
+                example. The following code represents a sample of the full example application.
               snippet_tags:
                 - javascript.v3.cognito-idp.scenarios.basic.SignUpHandler
                 - javascript.v3.cognito-idp.actions.SignUp

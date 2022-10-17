@@ -38,8 +38,8 @@ Code excerpts that show you how to call individual service functions.
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Use a custom authentication flow](./scenarios/lambda-triggers)
 - [Sign up a user with a user pool that requires MFA](./scenarios/basic)
+- [Use a custom authentication flow](./scenarios/lambda-triggers)
 
 ## Run the examples
 
@@ -50,15 +50,17 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ### Instructions
 
-#### Run a single Action
+#### Run a single action
 
 1. Create a new `.js` file.
 2. Import an action into your file. For example: `import { createUserPool } from "./actions/create-user-pool"`
 3. Call the imported action in your file.
 
 #### Run a scenario
-Choose one of the scenarios above and follow the instructions in
+
+Choose one of the preceding scenarios and follow the instructions in
 its readme.
+
 ## Tests
 
 ⚠️ Running the tests might result in charges to your AWS account.

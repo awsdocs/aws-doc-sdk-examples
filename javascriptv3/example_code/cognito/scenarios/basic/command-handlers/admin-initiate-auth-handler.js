@@ -34,14 +34,14 @@ const handleSoftwareTokenMfa = (session) => {
 const validateClient = (id) => {
   if (!id) {
     throw new Error(
-      `User Pool client id is missing. Did you run 'create-user-pool'?`
+      `User pool client id is missing. Did you run 'create-user-pool'?`
     );
   }
 };
 
 const validateId = (id) => {
   if (!id) {
-    throw new Error(`User Pool id is missing. Did you run 'create-user-pool'?`);
+    throw new Error(`User pool id is missing. Did you run 'create-user-pool'?`);
   }
 };
 

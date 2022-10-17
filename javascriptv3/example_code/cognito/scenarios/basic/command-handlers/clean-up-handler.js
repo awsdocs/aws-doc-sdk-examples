@@ -27,9 +27,9 @@ const cleanUpHandler = async () => {
 
     const userPoolIds = getFirstValuesFromEntries(FILE_USER_POOLS);
     if (userPoolIds[0].length > 0) {
-      log(`Deleting User Pools: \n${createUserPoolList(userPoolIds)}`);
+      log(`Deleting user pools: \n${createUserPoolList(userPoolIds)}`);
       await cleanUpUserPools(userPoolIds);
-      log(`User Pools deleted.`);
+      log(`User pools deleted.`);
     }
 
     log("Removing temporary files.");
