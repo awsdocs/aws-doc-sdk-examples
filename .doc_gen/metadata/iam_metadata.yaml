@@ -622,7 +622,7 @@ iam_DeleteAccessKey:
           excerpts:
             - description:
               snippet_tags:
-                - delete_access_key.code
+                - iam.cpp.delete_access_key.code
   services:
     iam: {DeleteAccessKey}
 iam_DeleteRolePolicy:
