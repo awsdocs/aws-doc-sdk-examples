@@ -6,7 +6,7 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 - [Important information](#-important-information)
 - [Code examples](#code-examples)
   - [Single actions](#single-actions)
-  - [Scenario](#scenario)
+  - [Scenarios](#scenarios)
 - [Run the examples](#run-the-examples)
   - [Prerequisites](#prerequisites)
   - [Steps](#steps)
