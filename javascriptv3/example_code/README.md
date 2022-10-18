@@ -3,7 +3,7 @@
 ## Overview
 The code examples in this topic show you how to use the AWS SDK for JavaScript (v3) with AWS.
 
-The AWS SDK for JavaScript v3 provides a JavaScript API for AWS infrastructure services. Using the SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
+The AWS SDK for JavaScript (v3) provides a JavaScript API for AWS infrastructure services. Using the SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
 
 ## Types of code examples
 * **Single-service actions** - Code examples that show you how to call individual service functions.
@@ -25,19 +25,27 @@ Cross-service examples are located in the [*cross-services folder*](./cross-serv
 
 
 ### Prerequisites
-* Latest stable version of Node.js
-* A shared configuration file with your user credentials. See the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html) for more information.
+* Latest stable version of Node.js.
+* A shared configuration file with your user credentials. For more information, see the [AWS SDK for JavaScript (v3) Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html).
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.
 
-A description of how to run the unit tests, and a note to see the service level/cross-service level for specific instructions.
+1. Where tests are provided, navigate to the 'tests' folder located in the root of the service folder.
 
+**Note**: In some cases scenarios and cross-service examples have their own test folder, so navigate to that instead.
+
+2. Run the following:
+```
+cd javascriptv3/example_code/[service folder name]
+npm install
+npm test
+```
 
 ## Additional resources
-* [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
-* [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/)
-* [AWS SDK for JavaScript v3 API Reference](http://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html)
+* [AWS SDK for JavaScript (v3)](https://github.com/aws/aws-sdk-js-v3)
+* [AWS SDK for JavaScript (v3) Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/)
+* [AWS SDK for JavaScript (v3) API Reference](http://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 

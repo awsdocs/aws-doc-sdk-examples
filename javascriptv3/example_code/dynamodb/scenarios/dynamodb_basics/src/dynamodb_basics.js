@@ -17,10 +17,8 @@ This scenario demonstrates how to:
 
 
 Running the code:
-1. Download 'movies.json' from https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
-   to the same folder as this example.
-2. Update the AWS Region in '../libs/ddbClient.js'.
-3. Run the following at the command line:
+1. Update the AWS Region in '../libs/ddbClient.js'.
+2. Run the following at the command line:
 
    node dynamodb_basics.js <table_name> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>
 
@@ -130,7 +128,7 @@ export const run = async (
       console.log("Success - single movie added.");
       try {
         // Get the movie data parse to convert into a JSON object.
-        const allMovies = JSON.parse(fs.readFileSync("movies.json", "utf8"));
+        const allMovies = JSON.parse(fs.readFileSync("../../../../../../resources/sample_files/movies.json", "utf8"));
         // Split the table into segments of 25.
         const dataSegments = R.splitEvery(25, allMovies);
         // Loop batch write operation 10 times to upload 250 items.
@@ -164,7 +162,7 @@ export const run = async (
             TableName: tableName,
             Key: {
               title: existingMovieName,
-              year: existingMovieYear,
+              year: existingMovieYear
             },
             // Define expressions for the new or updated attributes.
             ProjectionExpression: "#r",
@@ -172,7 +170,7 @@ export const run = async (
             UpdateExpression: "set info.plot = :p, info.#r = :r",
             ExpressionAttributeValues: {
               ":p": newMoviePlot,
-              ":r": newMovieRank,
+              ":r": newMovieRank
             },
             ReturnValues: "ALL_NEW",
           };
@@ -220,11 +218,10 @@ export const run = async (
                   console.log(
                     "Scan successful. Items with rank of " +
                       newMovieRank +
-                      " include\n" +
-                      "Year = " +
-                      data.Items[i].year +
-                      " Title = " +
-                      data.Items[i].title
+                      " include:\n" +
+                      data.Items[i].title +
+                      ", released in " +
+                      data.Items[i].year
                   );
                 }
                 try {
@@ -251,11 +248,10 @@ export const run = async (
                     console.log(
                       "Query successful. Items with rank of " +
                         newMovieRank +
-                        " include\n" +
-                        "Year = " +
-                        data.Items[i].year +
-                        " Title = " +
-                        data.Items[i].title
+                        " include:\n" +
+                        data.Items[i].title +
+                        ", released in " +
+                        data.Items[i].year
                     );
                   }
                   try {
@@ -276,6 +272,7 @@ export const run = async (
                       const params = {
                         TableName: tableName,
                       };
+                      wait(5000);
                       await ddbDocClient.send(
                         new DeleteTableCommand(params)
                       );

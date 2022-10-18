@@ -50,7 +50,7 @@ Code excerpts that show you how to call individual service functions.
 - [Update items in a table by batch using PartiQL](src/partiQL_examples/src/partiql_batch_updateItems.js) (BatchExecuteStatementCommand)
 
 
-### Scenario 
+### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
 - [DynamoDB basics](scenarios/dynamodb_basics/src/dynamodb_basics.js)
@@ -63,7 +63,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 - [Set up AWS SDK for JavaScript](../README.md#prerequisites)
 
-### Steps
+### Instructions
 
 1. Install the dependencies.
 
@@ -71,13 +71,13 @@ Code examples that show you how to accomplish a specific task by calling multipl
 cd javascriptv3/example_code/dynamodb
 npm install
 ```
-3. Follow the instructions at the top of the example.
+2. Follow the instructions at the top of the example.
 
-## Unit tests
-For more information see, the [README](../README.md).
+## Tests
+For more information, see the [README](../README.md).
 
-## Resources
-- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html) 
-- [AWS SDK for JavaScript v3 API Reference Guide - Amazon DynamoDB client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/index.html) 
+## Additional resources
+- [AWS SDK for JavaScript (v3)](https://github.com/aws/aws-sdk-js-v3) is available. 
+- [AWS SDK for JavaScript (v3) Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html) 
+- [AWS SDK for JavaScript (v3) API Reference Guide - Amazon DynamoDB client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/index.html) 
 
