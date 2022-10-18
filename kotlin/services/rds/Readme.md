@@ -29,7 +29,9 @@ Code excerpts that show you how to call individual service functions using the *
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Perform various Amazon RDS operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/rds/src/main/kotlin/com/kotlin/RDSScenario.kt) (multiple commands)
+- [Perform various Amazon RDS operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/rds/src/main/kotlin/com/kotlin/rds/RDSScenario.kt) (multiple commands)
+
+- [Perform various Aurora DB cluster operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/rds/src/main/kotlin/com/kotlin/rds/AuroraScenario.kt) (multiple commands)
 
 ### Cross-service examples
 
