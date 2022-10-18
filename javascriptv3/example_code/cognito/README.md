@@ -21,18 +21,18 @@ Amazon Cognito user pools let you add registration and sign-in to your apps.
 
 Code excerpts that show you how to call individual service functions.
 
-- [Sign up a user](./actions/sign-up.js) (SignUp)
-- [Get information about a user](./actions/admin-get-user.js) (AdminGetUser)
-- [Resend a confirmation code](./actions/resend-confirmation-code.js) (ResendConfirmationCode)
 - [Confirm a user](./actions/confirm-sign-up.js) (ConfirmSignUp)
-- [List users](./actions/list-users.js) (ListUsers)
-- [Start authentication with administrator credentials](./actions/admin-initiate-auth.js) (AdminInitiateAuth)
-- [Get a token to associate an MFA application with a user](./actions/associate-software-token.js) (AssociateSoftwareToken)
-- [Verify an MFA application with a user](./actions/verify-software-token.js) (VerifySoftwareToken)
-- [Respond to an authentication challenge](./actions/admin-respond-to-auth-challenge.js) (AdminRespondToAuthChallenge)
 - [Confirm an MFA device for tracking](./actions/confirm-device.js) (ConfirmDevice)
-- [Start authentication with a tracked device](./actions/initiate-auth.js) (InitiateAuth)
+- [Get a token to associate an MFA application with a user](./actions/associate-software-token.js) (AssociateSoftwareToken)
+- [Get information about a user](./actions/admin-get-user.js) (AdminGetUser)
+- [List users](./actions/list-users.js) (ListUsers)
+- [Resend a confirmation code](./actions/resend-confirmation-code.js) (ResendConfirmationCode)
+- [Respond to an authentication challenge](./actions/admin-respond-to-auth-challenge.js) (AdminRespondToAuthChallenge)
 - [Respond to SRP authentication challenges](./actions/respond-to-auth-challenge.js) (RespondToAuthChallenge)
+- [Sign up a user](./actions/sign-up.js) (SignUp)
+- [Start authentication with a tracked device](./actions/initiate-auth.js) (InitiateAuth)
+- [Start authentication with administrator credentials](./actions/admin-initiate-auth.js) (AdminInitiateAuth)
+- [Verify an MFA application with a user](./actions/verify-software-token.js) (VerifySoftwareToken)
 
 ### Scenarios
 
