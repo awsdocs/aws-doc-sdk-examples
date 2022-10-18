@@ -190,6 +190,14 @@ iam_ListAccountAliases:
             - description:
               snippet_tags:
                 - iam.JavaScript.alias.listAccountAliases
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.cpp.list_account_aliases.code
   services:
     iam: {ListAccountAliases}
 iam_GetAccountAuthorizationDetails:
@@ -1828,9 +1836,9 @@ iam_DeleteRole:
   services:
     iam: {DeleteRole}
 iam_PutRolePolicy:
-  title: Put an inline policy for an &IAM; role using an &AWS; SDK
-  title_abbrev: Put an inline policy for a role
-  synopsis: put an inline policy for an &IAM; role.
+  title: Attach an inline policy to an &IAM; role using an &AWS; SDK
+  title_abbrev: Attach an inline policy to a role
+  synopsis: attach an inline policy to an &IAM; role.
   category:
   languages:
     C++:
