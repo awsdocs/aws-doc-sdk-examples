@@ -1,4 +1,4 @@
-# Amazon SecretsManager  code examples for the SDK for C++ using SecretsManagerClient 
+# Amazon SecretsManager  code examples for the SDK for C++
 
 ## Overview
 Shows how to use the AWS SDK for C++ with the Secrets Manager to
@@ -21,17 +21,17 @@ Code excerpts that show you how to call individual service functions.
 
 ### Prerequisites
 Before using the code examples, first complete the installation and setup steps
-of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
+of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
 This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
 sample Hello World-style application.
 
-Next, for information on code examples structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
+Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
 
 ## Additional resources
-- [Secrets Manager user guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
-- [Secrets Manager API reference guide](https://docs.aws.amazon.com/secretsmanager/latest/apireference/Welcome.html)
+- [Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
+- [Secrets Manager API reference](https://docs.aws.amazon.com/secretsmanager/latest/apireference/Welcome.html)
 - [AWS SDK for C++ documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

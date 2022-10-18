@@ -2,41 +2,30 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. For more information on this example, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples.html.
-
+which is available at https://github.com/aws/aws-sdk-js-v3. For more information on this example,
+see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples.html.
 
 Purpose:
 pinpoint_send_email_message.js demonstrates how to send a transactional email message using Amazon Pinpoint.
 
 Inputs (replace in code):
-- SENDER_ADDRESS
-- RECIPIENT_ADDRESS
+- FROM_ADDRESS
+- TO_ADDRESS
 - PINPOINT_PROJECT_ID
-- CC_ADDRESSES (optional)
-- BCC_ADDRESSES (optional)
 
 Running the code:
 node pinpoint_send_email_message.js
 */
-// snippet-start:[pinpoint.javascript.pinpoint_send_email_message_v3]
 
+// snippet-start:[pinpoint.javascript.pinpoint_send_email_message_v3]
 // Import required AWS SDK clients and commands for Node.js
 import { SendMessagesCommand } from "@aws-sdk/client-pinpoint";
 import { pinClient } from "./libs/pinClient.js";
 
-/* The address on the "To" line. If your Amazon Pinpoint account is in
-the sandbox, this address also has to be verified.
-Note: All recipient addresses in this example are in arrays, which makes it
-easier to specify multiple recipients. Alternatively, you can make these
-variables strings, and then modify the To/Cc/BccAddresses attributes in the
-params variable so that it passes an array for each recipient type.*/
-const senderAddress = "SENDER_ADDRESS";
-const toAddress = "RECIPIENT_ADDRESS";
-const projectId = "PINPOINT_PROJECT_ID"; //e.g., XXXXXXXX66e4e9986478cXXXXXXXXX
-
-// CC and BCC addresses. If your account is in the sandbox, these addresses have to be verified.
-var ccAddresses = ["cc_recipient1@example.com", "cc_recipient2@example.com"];
-var bccAddresses = ["bcc_recipient@example.com"];
+// The FromAddress must be verified in SES.
+const fromAddress = "FROM_ADDRESS";
+const toAddress = "TO_ADDRESS";
+const projectId = "PINPOINT_PROJECT_ID";
 
 // The subject line of the email.
 var subject = "Amazon Pinpoint Test (AWS SDK for JavaScript in Node.js)";
@@ -45,7 +34,7 @@ var subject = "Amazon Pinpoint Test (AWS SDK for JavaScript in Node.js)";
 var body_text = `Amazon Pinpoint Test (SDK for JavaScript in Node.js)
 ----------------------------------------------------
 This email was sent with Amazon Pinpoint using the AWS SDK for JavaScript in Node.js.
-For more information, see https:\/\/aws.amazon.com/sdk-for-node-js/`;
+For more information, see https://aws.amazon.com/sdk-for-node-js/`;
 
 // The body of the email for recipients whose email clients support HTML content.
 var body_html = `<html>
@@ -53,8 +42,8 @@ var body_html = `<html>
 <body>
   <h1>Amazon Pinpoint Test (SDK for JavaScript in Node.js)</h1>
   <p>This email was sent with
-    <a href='https://aws.amazon.com//pinpoint/'>the Amazon Pinpoint Email API</a> using the
-    <a href='https://aws.amazon.com//sdk-for-node-js/'>
+    <a href='https://aws.amazon.com/pinpoint/'>the Amazon Pinpoint Email API</a> using the
+    <a href='https://aws.amazon.com/sdk-for-node-js/'>
       AWS SDK for JavaScript in Node.js</a>.</p>
 </body>
 </html>`;
@@ -66,19 +55,13 @@ const params = {
   ApplicationId: projectId,
   MessageRequest: {
     Addresses: {
-      Destination: {
-        ToAddresses: toAddress,
-        CcAddresses: ccAddresses,
-        BccAddresses: bccAddresses,
-      },
-
       [toAddress]: {
         ChannelType: "EMAIL",
       },
     },
     MessageConfiguration: {
       EmailMessage: {
-        FromAddress: senderAddress,
+        FromAddress: fromAddress,
         SimpleEmail: {
           Subject: {
             Charset: charset,
@@ -101,16 +84,22 @@ const params = {
 const run = async () => {
   try {
     const data = await pinClient.send(new SendMessagesCommand(params));
-    console.log(
-      "Email sent! Message ID: ",
-      data["MessageResponse"]["Result"][toAddress]["MessageId"]
-    );
-    return data; // For unit tests.
+
+    const {
+      MessageResponse: { Result },
+    } = data;
+
+    const recipientResult = Result[toAddress];
+
+    if (recipientResult.StatusCode !== 200) {
+      throw new Error(recipientResult.StatusMessage);
+    } else {
+      console.log(recipientResult.MessageId);
+    }
   } catch (err) {
-    console.log("Error", err);
+    console.log(err.message);
   }
 };
+
 run();
 // snippet-end:[pinpoint.javascript.pinpoint_send_email_message_v3]
-// For unit tests only.
-// module.exports = { run, params };
