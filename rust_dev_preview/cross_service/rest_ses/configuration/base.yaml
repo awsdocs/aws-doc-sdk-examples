@@ -1,0 +1,9 @@
+log_level: info
+application:
+  name: aws_docs_rest_example
+  address: "127.0.0.1"
+  port: 8080
+sdk_config:
+  db_instance: auroraappdb
+  secret_arn: "arn:aws:secretsmanager:region:1234567890:secret:docexampleauroraapp-secret-id"
+  cluster_arn: "arn:aws:rds:us-east-1:1234567890:cluster:docexampleauroraapp-cluster-id"

@@ -15,9 +15,9 @@ pub struct RdsClient {
 }
 
 impl RdsClient {
-    pub fn new(settings: SdkSettings, sdk_config: aws_config::SdkConfig) -> Self {
+    pub fn new(settings: &SdkSettings, sdk_config: &aws_config::SdkConfig) -> Self {
         RdsClient {
-            client: Client::new(&sdk_config),
+            client: Client::new(sdk_config),
             secret_arn: settings.secret_arn.clone(),
             cluster_arn: settings.cluster_arn.clone(),
             db_instance: settings.db_instance.clone(),

@@ -39,7 +39,7 @@ pub mod collection {
     #[tracing::instrument(
         name = "Request Create new WorkItem",
         skip(item, client),
-        fields(work_item_user = %item.username, work_item_guide = %item.guide,)
+        fields(work_item.user = %item.username, work_item.guide = %item.guide,)
     )]
     pub async fn create(
         item: Json<WorkItem>,
@@ -60,7 +60,7 @@ mod repository {
     use super::{WorkItem, RDS_DATE_FORMAT};
     use crate::{client::RdsClient, params};
 
-    #[tracing::instrument(name = "Creating new WorkItem", skip(item, client))]
+    #[tracing::instrument(name = "Repository Create new WorkItem", skip(item, client))]
     pub async fn create(
         item: WorkItem,
         client: &RdsClient,
