@@ -907,17 +907,17 @@ dynamodb_ListTables:
               snippet_tags:
                 - python.example_code.dynamodb.helper.Movies.class_decl
                 - python.example_code.dynamodb.ListTables
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rust_dev_preview/dynamodb
-          excerpts:
-            - description:
-              snippet_tags:
-                - dynamodb.rust.list-tables
-            - description: Determine whether table exists.
-              snippet_tags:
-                - dynamodb.rust.movies-does_table_exist
+#     Rust:
+#       versions:
+#         - sdk_version: 1
+#           github: rust_dev_preview/dynamodb
+#           excerpts:
+#             - description:
+#               snippet_tags:
+#                 - dynamodb.rust.list-tables
+#             - description: Determine whether table exists.
+#               snippet_tags:
+#                 - dynamodb.rust.movies-does_table_exist
     JavaScript:
       versions:
         - sdk_version: 3

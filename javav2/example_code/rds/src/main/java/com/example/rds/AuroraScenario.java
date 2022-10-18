@@ -29,7 +29,6 @@ import software.amazon.awssdk.services.rds.model.DeleteDbClusterRequest;
 import software.amazon.awssdk.services.rds.model.DeleteDbInstanceRequest;
 import software.amazon.awssdk.services.rds.model.DeleteDbInstanceResponse;
 import software.amazon.awssdk.services.rds.model.DescribeDbClusterParameterGroupsRequest;
-import software.amazon.awssdk.services.rds.model.DescribeDbClusterParameterGroupsResponse;
 import software.amazon.awssdk.services.rds.model.DescribeDbClusterParametersRequest;
 import software.amazon.awssdk.services.rds.model.DescribeDbClusterParametersResponse;
 import software.amazon.awssdk.services.rds.model.DescribeDbClusterSnapshotsRequest;
@@ -344,7 +343,7 @@ public class AuroraScenario {
     // snippet-end:[rds.java2.scenario.cluster.wait.db.main]
 
 
-    // snippet-start:[rds.java2.scenario.cluster.create.main]
+    // snippet-start:[rds.java2.scenario.cluster.create.instance.main]
     public static String createDBInstanceCluster(RdsClient rdsClient,
                                                  String dbInstanceIdentifier,
                                                  String dbInstanceClusterIdentifier,
@@ -368,7 +367,7 @@ public class AuroraScenario {
         }
         return "";
     }
-    // snippet-end:[rds.java2.scenario.cluster.create.main]
+    // snippet-end:[rds.java2.scenario.cluster.create.instance.main]
 
     // snippet-start:[rds.java2.scenario.cluster.list.instances.main]
     public static String getListInstanceClasses(RdsClient rdsClient) {
@@ -550,8 +549,7 @@ public class AuroraScenario {
                 .maxRecords(20)
                 .build();
 
-            DescribeDbClusterParameterGroupsResponse response = rdsClient.describeDBClusterParameterGroups(groupsRequest);
-            List<DBClusterParameterGroup> groups = response.dbClusterParameterGroups();
+            List<DBClusterParameterGroup> groups = rdsClient.describeDBClusterParameterGroups(groupsRequest).dbClusterParameterGroups();
             for (DBClusterParameterGroup group: groups) {
                 System.out.println("The group name is "+group.dbClusterParameterGroupName());
                 System.out.println("The group ARN is "+group.dbClusterParameterGroupArn());
