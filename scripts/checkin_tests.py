@@ -136,6 +136,8 @@ ALLOW_LIST = {
     'SynthesizeSpeechExample/SynthesizeSpeech',
     'com/autoscaling/ec2/APIReference/Welcome',
     'CreateCollectionExample/CreateCollection',
+    'DeleteCollectionExample/DeleteCollection',
+    'com/awssupport/latest/APIReference/index',
     'DescribeDbClusterParameterGroupsResponse',
     'DeleteCollectionExample/DeleteCollection',
     'DescribeDbClusterParameterGroupsResponse'
