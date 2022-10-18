@@ -119,7 +119,7 @@ support_DescribeCommunications:
   services:
     support: {DescribeCommunications}
 support_DescribeServices:
-  title: Describe the available &AWS; services to create support cases for using an &AWS; SDK
+  title: Describe the available &AWS; services for support cases using an &AWS; SDK
   title_abbrev: Describe services
   synopsis: describe the list of &AWS; services.
   category:
