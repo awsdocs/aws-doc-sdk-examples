@@ -83,8 +83,8 @@ func main() {
 
     // snippet-start:[dynamodb.go.read_item.unmarshall]
     if result.Item == nil {
-        msg := "Could not find '" + *title + "'"
-        return nil, errors.New(msg)
+        msg := errors.New("Could not find '" + movieName + "'\n")
+        fmt.Print(msg)
     }
         
     item := Item{}
@@ -94,11 +94,12 @@ func main() {
         panic(fmt.Sprintf("Failed to unmarshal Record, %v", err))
     }
 
-    fmt.Println("Found item:")
-    fmt.Println("Year:  ", item.Year)
-    fmt.Println("Title: ", item.Title)
-    fmt.Println("Plot:  ", item.Plot)
-    fmt.Println("Rating:", item.Rating)
-    // snippet-end:[dynamodb.go.read_item.unmarshall]
+	if result.Item != nil {
+		fmt.Println("Found item:")
+		fmt.Println("Year:  ", item.Year)
+		fmt.Println("Title: ", item.Title)
+		fmt.Println("Plot:  ", item.Plot)
+		fmt.Println("Rating:", item.Rating)
+	}
 }
 // snippet-end:[dynamodb.go.read_item]
