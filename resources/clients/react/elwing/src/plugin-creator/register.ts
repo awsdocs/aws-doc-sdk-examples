@@ -1,9 +1,14 @@
 import { writeFileSync } from "fs";
 import { format } from "prettier";
 import { concat, join, map, pipe } from "ramda";
-import { readSubdirSync } from "../../libs/utils/util-fs";
-import { pascalCase } from "../../libs/utils/util-string";
-import { copyright } from "./copyright";
+import {
+  dirnameFromMetaUrl,
+  readSubdirSync,
+} from "../../../../../../javascriptv3/example_code/libs/utils/util-fs.js";
+import { pascalCase } from "../../../../../../javascriptv3/example_code/libs/utils/util-string.js";
+import { copyright } from "./copyright.js";
+
+const __dirname = dirnameFromMetaUrl(import.meta.url);
 
 const pluginsPath = `${__dirname}/../plugins`;
 const manifestPath = `${__dirname}/../plugins/manifest.ts`;

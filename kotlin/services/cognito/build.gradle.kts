@@ -23,8 +23,8 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:cognitoidentityprovider:0.17.1-beta")
-    implementation("aws.sdk.kotlin:cognitoidentity:0.17.1-beta")
+    implementation("aws.sdk.kotlin:cognitoidentityprovider:0.17.7-beta")
+    implementation("aws.sdk.kotlin:cognitoidentity:0.17.7-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
 }

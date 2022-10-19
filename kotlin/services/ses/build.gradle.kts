@@ -23,7 +23,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:ses:0.17.1-beta")
+    implementation("aws.sdk.kotlin:ses:0.17.7-beta")
     implementation("javax.mail:javax.mail-api:1.5.5")
     implementation("com.sun.mail:javax.mail:1.5.5")
     implementation("javax.activation:activation:1.1")

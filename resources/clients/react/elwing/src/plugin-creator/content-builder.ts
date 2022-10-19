@@ -9,8 +9,8 @@ import {
   pascalCase,
   snakeCase,
   titleCase,
-} from "../../libs/utils/util-string";
-import { copyright } from "./copyright";
+} from "../../../../../../javascriptv3/example_code/libs/utils/util-string.js";
+import { copyright } from "./copyright.js";
 
 const makePluginContents = (pluginName: string) => {
   const fileData = `
