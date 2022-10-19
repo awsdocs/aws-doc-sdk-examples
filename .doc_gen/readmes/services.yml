@@ -159,7 +159,7 @@ scenarios:
   dynamodb:
     - "[Get started using tables, items, and queries](scenario_getting_started_movies.rb)"
   ec2:
-    - "[Create an Internet gateway and attach it to a VPC](./ec2-ruby-example-attach-igw-vpc.rb)"
+    - "[Create an internet gateway and attach it to a VPC](./ec2-ruby-example-attach-igw-vpc.rb)"
     - "[Manage addresses](./ec2-ruby-example-elastic-ips.rb)"
     - "[Manage key pairs](./ec2-ruby-example-key-pairs.rb)"
     - "[Manage security groups](./ec2-ruby-example-security-group.rb)"
