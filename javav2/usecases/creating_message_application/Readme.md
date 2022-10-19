@@ -66,7 +66,7 @@ selecting **Send message** after data is entered for each row.
 
 The React application shows you how to work with Amazon SQS messages. The application posts a message to your Amazon SQS queue and it polls the Amazon SQS queue for new messages and displays them. You can enter a message and a user and then click **Send Message**.
 
-![AWS Messaging application](images/clientReact.png)
+![AWS Messaging application](images/app.png)
 
 After the message is sent, the application displays the message, as shown in the following figure.
 
