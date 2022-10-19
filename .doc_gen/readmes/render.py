@@ -56,7 +56,6 @@ for service in language["covered_services"]:
     readme_text = template.render(
         language_name=language["name"],
         short_service_name = service_data["subsequent_use"],
-        long_service_name = service_data["first_use"],
         code_examples_actions = service_data["code_examples_actions"],
         service_blurb_from_website = service_data["service_blurb_from_website"],
         service_link = service_data["service_link"],
