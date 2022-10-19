@@ -162,7 +162,7 @@ dynamodb_DescribeTable:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - dynamodb.java2.describe_table.main
     C++:
@@ -693,7 +693,8 @@ dynamodb_UpdateItem:
               snippet_tags:
                 - python.example_code.dynamodb.helper.Movies.class_decl
                 - python.example_code.dynamodb.UpdateItem.UpdateExpression
-            - description: Update an item by using an update expression that includes an
+            - description:
+                Update an item by using an update expression that includes an
                 arithmetic operation.
               snippet_tags:
                 - python.example_code.dynamodb.helper.UpdateQueryWrapper.decl
@@ -793,8 +794,9 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - python.example_code.dynamodb.helper.Movies.class_decl
                 - python.example_code.dynamodb.DeleteItem
-            - description: You can specify a condition so that an item is deleted only
-                  when it meets certain criteria.
+            - description:
+                You can specify a condition so that an item is deleted only
+                when it meets certain criteria.
               snippet_tags:
                 - python.example_code.dynamodb.helper.UpdateQueryWrapper.decl
                 - python.example_code.dynamodb.DeleteItem.ConditionExpression
@@ -907,17 +909,17 @@ dynamodb_ListTables:
               snippet_tags:
                 - python.example_code.dynamodb.helper.Movies.class_decl
                 - python.example_code.dynamodb.ListTables
-#     Rust:
-#       versions:
-#         - sdk_version: 1
-#           github: rust_dev_preview/dynamodb
-#           excerpts:
-#             - description:
-#               snippet_tags:
-#                 - dynamodb.rust.list-tables
-#             - description: Determine whether table exists.
-#               snippet_tags:
-#                 - dynamodb.rust.movies-does_table_exist
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.list-tables
+            - description: Determine whether table exists.
+              snippet_tags:
+                - dynamodb.rust.movies-does_table_exist
     JavaScript:
       versions:
         - sdk_version: 3
@@ -997,7 +999,7 @@ dynamodb_Query:
                 - dynamodb.java2.query.main
             - description: Queries a table by using the DynamoDbClient and a secondary index.
               snippet_tags:
-                - dynamodb.java2.query_items_sec_index.main               
+                - dynamodb.java2.query_items_sec_index.main
     PHP:
       versions:
         - sdk_version: 3
@@ -1209,7 +1211,8 @@ dynamodb_ExecuteStatement:
             - description: Use a SELECT statement to get an item.
               snippet_tags:
                 - gov2.dynamodb.ExecuteStatement.Select
-            - description: Use a SELECT statement to get a list of items and project
+            - description:
+                Use a SELECT statement to get a list of items and project
                 the results.
               snippet_tags:
                 - gov2.dynamodb.ExecuteStatement.Select.Projected
@@ -1444,7 +1447,8 @@ dynamodb_Scenario_GettingStartedMovies:
             - description: Create a struct and methods that call &DDB; actions.
               snippet_tags:
                 - gov2.dynamodb.TableBasics.complete
-            - description: Run an interactive scenario to create the table and perform
+            - description:
+                Run an interactive scenario to create the table and perform
                 actions on it.
               snippet_tags:
                 - gov2.dynamodb.Scenario_GettingStartedMovies
@@ -1458,7 +1462,7 @@ dynamodb_Scenario_GettingStartedMovies:
               snippet_tags:
                 - dynamodb.kotlin.scenario.create_table.main
             - description: Create a helper function to download and extract the
-                  sample JSON file.
+                sample JSON file.
               snippet_tags:
                 - dynamodb.kotlin.scenario.populate_table.main
             - description: Get an item from a table.
@@ -1477,7 +1481,7 @@ dynamodb_Scenario_GettingStartedMovies:
               snippet_tags:
                 - dynamodb.java2.scenario.create_table.main
             - description: Create a helper function to download and extract the
-                  sample JSON file.
+                sample JSON file.
               snippet_tags:
                 - dynamodb.java2.scenario.populate_table.main
             - description: Get an item from a table.
@@ -1505,15 +1509,16 @@ dynamodb_Scenario_GettingStartedMovies:
                 - python.example_code.dynamodb.helper.Movies.imports
                 - python.example_code.dynamodb.helper.Movies.class_full
             - description: Create a helper function to download and extract the
-                  sample JSON file.
+                sample JSON file.
               snippet_tags:
                 - python.example_code.dynamodb.helper.get_sample_movie_data
-            - description: Run an interactive scenario to create the table and perform
-                  actions on it.
+            - description:
+                Run an interactive scenario to create the table and perform
+                actions on it.
               snippet_tags:
                 - python.example_code.dynamodb.Scenario_GettingStartedMovies
             - description: This scenario uses the following helper class to ask
-                  questions at a command prompt.
+                questions at a command prompt.
               snippet_tags:
                 - python.example_code.dynamodb.helper.Question
     Ruby:
@@ -1525,15 +1530,16 @@ dynamodb_Scenario_GettingStartedMovies:
               snippet_tags:
                 - ruby.example_code.dynamodb.helper.Movies
             - description: Create a helper function to download and extract the
-                  sample JSON file.
+                sample JSON file.
               snippet_tags:
                 - ruby.example_code.dynamodb.helper.get_sample_movie_data
-            - description: Run an interactive scenario to create the table and perform
-                  actions on it.
+            - description:
+                Run an interactive scenario to create the table and perform
+                actions on it.
               snippet_tags:
                 - ruby.example_code.dynamodb.Scenario_GettingStartedMovies
             - description: This scenario uses the following helper class to ask
-                  questions at a command prompt.
+                questions at a command prompt.
               snippet_tags:
                 - ruby.example_code.dynamodb.helper.Question
     JavaScript:
@@ -1561,8 +1567,19 @@ dynamodb_Scenario_GettingStartedMovies:
               snippet_tags:
                 - cpp.example_code.dynamodb.Scenario_GettingStarted
   services:
-    dynamodb: {DescribeTable, CreateTable, BatchWriteItem, PutItem, GetItem, UpdateItem,
-               DeleteItem, Query, Scan, DeleteTable}
+    dynamodb:
+      {
+        DescribeTable,
+        CreateTable,
+        BatchWriteItem,
+        PutItem,
+        GetItem,
+        UpdateItem,
+        DeleteItem,
+        Query,
+        Scan,
+        DeleteTable,
+      }
 dynamodb_Scenario_PartiQLSingle:
   title: Query a &DDB; table using PartiQL and an &AWS; SDK
   title_abbrev: Query a table using PartiQL
@@ -1590,7 +1607,8 @@ dynamodb_Scenario_PartiQLSingle:
         - sdk_version: 2
           github: gov2/dynamodb
           excerpts:
-            - description: Create a struct that is a receiver for methods that can run
+            - description:
+                Create a struct that is a receiver for methods that can run
                 PartiQL statements.
               snippet_tags:
                 - gov2.dynamodb.PartiQLRunner.struct
@@ -1687,7 +1705,8 @@ dynamodb_Scenario_PartiQLBatch:
         - sdk_version: 2
           github: gov2/dynamodb
           excerpts:
-            - description: Create a struct that is a receiver for methods that can run
+            - description:
+                Create a struct that is a receiver for methods that can run
                 PartiQL statements.
               snippet_tags:
                 - gov2.dynamodb.PartiQLRunner.struct
@@ -1696,7 +1715,8 @@ dynamodb_Scenario_PartiQLBatch:
                 - gov2.dynamodb.ExecuteStatement.Select.Projected
                 - gov2.dynamodb.BatchExecuteStatement.Update
                 - gov2.dynamodb.BatchExecuteStatement.Delete
-            - description: Run a scenario that creates a table and runs batches of
+            - description:
+                Run a scenario that creates a table and runs batches of
                 PartiQL queries.
               snippet_tags:
                 - gov2.dynamodb.Scenario_PartiQLBatch
@@ -1754,8 +1774,9 @@ dynamodb_Scenario_PartiQLBatch:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLBatchWrapper.imports
                 - python.example_code.dynamodb.helper.PartiQLBatchWrapper.class_full
-            - description: Run a scenario that creates a table and runs PartiQL queries
-                  in batches.
+            - description:
+                Run a scenario that creates a table and runs PartiQL queries
+                in batches.
               snippet_tags:
                 - python.example_code.dynamodb.Scenario_PartiQLBatch
   services:

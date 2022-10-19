@@ -2,13 +2,28 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { compose, map, tryCatch, always } from "ramda";
+import {
+  compose,
+  map,
+  tryCatch,
+  always,
+  identity,
+  ifElse,
+  invoker,
+  split,
+  tap,
+  pipe,
+  filter,
+  prop,
+} from "ramda";
 import { unlink, readFile } from "fs/promises";
 import {
   readdirSync,
   createWriteStream,
   readFileSync,
   writeFileSync,
+  existsSync,
+  mkdirSync,
 } from "fs";
 import archiver from "archiver";
 import { fileURLToPath } from "url";
@@ -40,6 +55,16 @@ const handleZipEnd = (resolve, path) => async () => {
   resolve(buffer);
 };
 
+const makeDir = ifElse(existsSync, identity, tap(mkdirSync));
+
+const readLines = pipe(readFileSync, invoker(0, "toString"), split("\n"));
+
+const readSubdirSync = pipe(
+  readdirSync,
+  filter(invoker(0, "isDirectory")),
+  map(prop("name"))
+);
+
 const zip = (inputPath) =>
   new Promise((resolve, reject) => {
     try {
@@ -65,4 +90,13 @@ const zip = (inputPath) =>
     archive.finalize();
   });
 
-export { deleteFiles, dirnameFromMetaUrl, getTmp, setTmp, zip };
+export {
+  deleteFiles,
+  dirnameFromMetaUrl,
+  getTmp,
+  makeDir,
+  readLines,
+  readSubdirSync,
+  setTmp,
+  zip,
+};

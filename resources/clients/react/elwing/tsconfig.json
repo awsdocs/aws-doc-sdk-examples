@@ -17,8 +17,9 @@
     "jsx": "react-jsx"
   },
   "ts-node": {
+    "esm": true,
     "compilerOptions": {
-      "module": "CommonJS"
+      "module": "ESNext"
     }
   },
   "include": ["src"]
