@@ -1,8 +1,8 @@
-# {{ service_name }} code examples for the {{ short_sdk_name }}
+# {{ short_service_name }} code examples for the {{ short_sdk_name }}
 ## Overview
 These examples show how to {{ code_examples_actions }} using the {{ short_sdk_name }}.
 
-{{ service_blurb_from_website }}
+{{ short_service_name }} {{ service_blurb_from_website }}
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 

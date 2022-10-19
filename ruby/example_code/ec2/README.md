@@ -1,8 +1,8 @@
-# EC2 code examples for the AWS SDK for Ruby
+# Amazon EC2 code examples for the SDK for Ruby
 ## Overview
-These examples show how to create and manage Amazon Elastic Compute Cloud (Amazon EC2) instances and supporting infrastructure using the AWS SDK for Ruby.
+These examples show how to create and manage Amazon Elastic Compute Cloud (Amazon EC2) instances and supporting infrastructure using the SDK for Ruby.
 
-Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems.
+Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -67,7 +67,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
-The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your Command Line Interface (CLI). For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
+The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
 
 ## Contributing
 Code examples thrive on community contribution!

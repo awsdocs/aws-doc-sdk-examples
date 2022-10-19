@@ -1,8 +1,8 @@
-# SNS code examples for the AWS SDK for Ruby
+# Amazon SNS code examples for the SDK for Ruby
 ## Overview
-These examples show how to create and manage Amazon Simple Notification Service (Amazon SNS) topics and subscriptions using the AWS SDK for Ruby.
+These examples show how to create and manage Amazon Simple Notification Service (Amazon SNS) topics and subscriptions using the SDK for Ruby.
 
-Amazon Simple Notification Service (Amazon SNS) is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
+Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -39,7 +39,7 @@ Code excerpts that show you how to call individual service functions.
 See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
-The easiest way to interact with this example code is by invoking individual [Actions](#Actions) from your Command Line Interface (CLI). This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
+The easiest way to interact with this example code is by invoking individual [Actions](#Actions) from your command line. This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
 
 ## Contributing
 Code examples thrive on community contribution!

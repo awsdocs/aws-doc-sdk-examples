@@ -1,8 +1,8 @@
-# SecretsManager code examples for the AWS SDK for Ruby
+# Secrets Manager code examples for the SDK for Ruby
 ## Overview
-These examples show how to create and manage secrets in AWS Secrets Manager using the AWS SDK for Ruby.
+These examples show how to create and manage secrets in AWS Secrets Manager using the SDK for Ruby.
 
-AWS Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services.
+Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -29,7 +29,7 @@ Code excerpts that show you how to call individual service functions.
 See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
 
 ### Instructions
-The easiest way to interact with this example code is by invoking individual [Actions](#Actions) from your Command Line Interface (CLI). This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
+The easiest way to interact with this example code is by invoking individual [Actions](#Actions) from your command line. This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
 
 ## Contributing
 Code examples thrive on community contribution!
