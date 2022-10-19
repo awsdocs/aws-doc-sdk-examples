@@ -70,7 +70,7 @@ The React application shows you how to work with Amazon SQS messages. The applic
 
 After the message is sent, the application displays the message, as shown in the following figure.
 
-![AWS Messaging application](images/clientReact2.png)
+![AWS Messaging application](images/app1.png)
 
 The following describes how the application handles a message:
 
