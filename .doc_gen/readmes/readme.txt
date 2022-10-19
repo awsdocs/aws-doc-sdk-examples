@@ -38,7 +38,7 @@ Sample applications that work across multiple AWS services.
 
 ### Prerequisites
 
-See the [Ruby README.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for prerequisites.
+See the [Ruby README.md](../../../ruby/README.md) for prerequisites.
 
 ### Instructions
 {{ code_instructions }}

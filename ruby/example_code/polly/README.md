@@ -30,7 +30,7 @@ Code excerpts that show you how to call individual service functions.
 
 ### Prerequisites
 
-See the [Ruby README.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for prerequisites.
+See the [Ruby README.md](../../../ruby/README.md) for prerequisites.
 
 ### Instructions
 The easiest way to interact with this example code is by invoking [Single Actions](#single-actions) from your command line. This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
