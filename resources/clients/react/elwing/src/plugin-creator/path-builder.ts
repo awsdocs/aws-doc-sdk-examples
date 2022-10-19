@@ -4,8 +4,13 @@
  */
 
 import { pipe, concat } from "ramda";
-import { makeDir } from "../../libs/utils/util-fs";
-import { kebabCase } from "../../libs/utils/util-string";
+import {
+  makeDir,
+  dirnameFromMetaUrl,
+} from "../../../../../../javascriptv3/example_code/libs/utils/util-fs.js";
+import { kebabCase } from "../../../../../../javascriptv3/example_code/libs/utils/util-string.js";
+
+const __dirname = dirnameFromMetaUrl(import.meta.url);
 
 const makePluginPath = pipe(
   kebabCase,

@@ -2,6 +2,7 @@
   "name": "elwing",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@cloudscape-design/components": "^3.0.65",
     "@cloudscape-design/global-styles": "^1.0.1",
