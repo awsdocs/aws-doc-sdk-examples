@@ -55,7 +55,7 @@ export const AddWorkItem = () => {
         guide: guide.value!,
         description,
         status,
-        archive: "ACT",
+        archive: "active",
       })
       .catch(console.error);
     setShow(false);

@@ -37,7 +37,8 @@ export const useItemTrackerState = create<
       actions.clearError();
       actions.setLoading(true);
       try {
-        const items = await workItemService.list({ archive: get().status });
+        const status = get().status;
+        const items = await workItemService.list(status ? { status } : {});
         set({ items });
       } catch (e) {
         actions.setError((e as Error).message);
