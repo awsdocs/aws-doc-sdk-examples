@@ -2,16 +2,16 @@ actions:
   cloudwatch:
     - "[Create an alarm](./cw-ruby-example-create-alarm.rb) (`CreateAlarm`)"
     - "[Show alarms](./cw-ruby-example-show-alarms.rb) (`DescribeAlarms`)"
-    - "[Disable alarm actions](./cw-ruby-example-alarm-actions.rb) (`DisableAlarmActions)"
+    - "[Disable alarm actions](./cw-ruby-example-alarm-actions.rb) (`DisableAlarmActions`)"
   cloudtrail:
     - "[Create a trail](./create_trail.rb) (`CreateTrail`)"
     - "[Delete a trail](./delete_trail.rb) (`DeleteTrail`)"
     - "[Describe trails](./describe_trails.rb) (`DescribeTrails`)"
-    - "[Lookup events](./lookup_events.rb) (`LookupEvents)"
+    - "[Lookup events](./lookup_events.rb) (`LookupEvents`)"
   codebuild:
     - "[Build a project](./aws-ruby-sdk-codebuild-example-build-project.rb) (`CreateProject`)"
     - "[List builds](./aws-ruby-sdk-codebuild-example-list-builds.rb) (`ListBuilds`)"
-    - "[List projects](./aws-ruby-sdk-codebuild-example-list-projects.rb) (`ListProjects)"
+    - "[List projects](./aws-ruby-sdk-codebuild-example-list-projects.rb) (`ListProjects`)"
   dynamodb:
     - "[Create a table](scenario_getting_started_movies.rb) (`CreateTable`)"
     - "[Delete a table](scenario_getting_started_movies.rb) (`DeleteTable`)"
@@ -22,7 +22,7 @@ actions:
     - "[Query a table](scenario_getting_started_movies.rb) (`Query`)"
     - "[Scan a table](scenario_getting_started_movies.rb) (`Scan`)"
     - "[Update an item in a table](scenario_getting_started_movies.rb) (`UpdateItem`)"
-    - "[Write a batch of items](scenario_getting_started_movies.rb) (`BatchWriteItem)"
+    - "[Write a batch of items](scenario_getting_started_movies.rb) (`BatchWriteItem`)"
   ec2:
     - "[Create an instance](./ec2-ruby-example-create-instance.rb) (`CreateInstance`)"
     - "[Create a key pair](./ec2-ruby-example-create-key-pair.rb) (`CreateKeyPair`)"
@@ -36,14 +36,14 @@ actions:
     - "[Display list of available AWS Regions](./ec2-ruby-example-regions-availability-zones.rb) (`DescribeRegions`)"
     - "[Start an instance](./ec2-ruby-example-start-instance-i-123abc.rb) (`StarInstance`)"
     - "[Stop an instance](./ec2-ruby-example-stop-instance-i-123abc.rb) (`StopInstance`)"
-    - "[Terminate an instance](./ec2-ruby-example-terminate-instance-i-123abc.rb) (`TerminateInstance)"
+    - "[Terminate an instance](./ec2-ruby-example-terminate-instance-i-123abc.rb) (`TerminateInstance`)"
   elasticbeanstalk:
     - "[List stacks](./eb_list_stacks.rb) (`ListAvailableSolutionStacks`)"
     - "[List all apps](./elb-ruby-example-list-all-apps.rb) (`DescribeApplications, DescribeEnvironments`)"
     - "[List details of an app](./elb-ruby-example-list-name-description-url-myrailsapp.rb) (`DescribeApplications`)"
-    - "[Update an app](./elb-ruby-example-update-myrailsapp.rb) (`UpdateApplication)"
+    - "[Update an app](./elb-ruby-example-update-myrailsapp.rb) (`UpdateApplication`)"
   elastictranscoder:
-    - "[Create a job](./create_job.rb) (`CreateJob)"
+    - "[Create a job](./create_job.rb) (`CreateJob`)"
   iam:
     - "[Attach a policy to a role](scenario_create_user_assume_role.rb) (`AttachRolePolicy`)"
     - "[Create a policy](scenario_create_user_assume_role.rb) (`CreatePolicy`)"
