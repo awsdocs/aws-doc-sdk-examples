@@ -1,9 +1,19 @@
+# zexi 0.4.0
 aurora_DescribeDBClusterParameterGroups:
   title: Describe &AUR; DB cluster parameter groups using an &AWS; SDK
   title_abbrev: Describe DB cluster parameter groups
   synopsis: describe &AUR; DB cluster parameter groups.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.des.param.groups.main
     Python:
       versions:
         - sdk_version: 3
@@ -22,6 +32,15 @@ aurora_CreateDBClusterParameterGroup:
   synopsis: create an &AUR; DB cluster parameter group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.create.param.group.main
     Python:
       versions:
         - sdk_version: 3
@@ -40,6 +59,15 @@ aurora_DeleteDBClusterParameterGroup:
   synopsis: delete an &AUR; DB cluster parameter group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.del_paragroup.main
     Python:
       versions:
         - sdk_version: 3
@@ -58,6 +86,15 @@ aurora_DescribeDBClusterParameters:
   synopsis: describe parameters from an &AUR; DB cluster parameter group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.des.params.main
     Python:
       versions:
         - sdk_version: 3
@@ -76,6 +113,15 @@ aurora_ModifyDBClusterParameterGroup:
   synopsis: update parameters in an &AUR; DB cluster parameter group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.des.param.groups.main
     Python:
       versions:
         - sdk_version: 3
@@ -94,6 +140,15 @@ aurora_DescribeDBClusters:
   synopsis: describe &AUR; DB clusters.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.des.params.main
     Python:
       versions:
         - sdk_version: 3
@@ -112,6 +167,15 @@ aurora_CreateDBCluster:
   synopsis: create an &AUR; DB cluster.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.create.main
     Python:
       versions:
         - sdk_version: 3
@@ -130,6 +194,15 @@ aurora_DeleteDBCluster:
   synopsis: delete an &AUR; DB cluster.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.del.main
     Python:
       versions:
         - sdk_version: 3
@@ -148,6 +221,15 @@ aurora_CreateDBClusterSnapshot:
   synopsis: create an &AUR; DB cluster snapshot.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.create.snapshot.main
     Python:
       versions:
         - sdk_version: 3
@@ -166,6 +248,15 @@ aurora_DescribeDBClusterSnapshots:
   synopsis: describe &AUR; DB cluster snapshots.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.wait.snapshot.main
     Python:
       versions:
         - sdk_version: 3
@@ -184,6 +275,15 @@ aurora_CreateDBInstance:
   synopsis: create a DB instance in an &AUR; DB cluster.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.create.instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -202,6 +302,15 @@ aurora_DescribeDBEngineVersions:
   synopsis: describe &AUR; database engine versions.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.describe.engines.main
     Python:
       versions:
         - sdk_version: 3
@@ -220,6 +329,15 @@ aurora_DescribeOrderableDBInstanceOptions:
   synopsis: describe options for &AUR; DB instances.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.describe.engines.main
     Python:
       versions:
         - sdk_version: 3
@@ -238,6 +356,15 @@ aurora_DescribeDBInstances:
   synopsis: describe &AUR; DB instances.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.wait.instances.main
     Python:
       versions:
         - sdk_version: 3
@@ -256,6 +383,15 @@ aurora_DeleteDBInstance:
   synopsis: delete an &AUR; DB instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.cluster.del.instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -279,6 +415,15 @@ aurora_Scenario_GetStartedClusters:
     - Delete the instance, DB cluster, and parameter group.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.aurora.main
     Python:
       versions:
         - sdk_version: 3
