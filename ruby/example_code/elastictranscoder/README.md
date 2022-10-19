@@ -15,7 +15,7 @@ ElasticTranscoder lets you convert media files that you have stored in Amazon S3
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Create a job](./create_job.rb) (`CreateJob)
+* [Create a job](./create_job.rb) (`CreateJob`)
 
 
 
@@ -32,7 +32,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ### Prerequisites
 
-See the [Ruby README.md(https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for pre-requisites.
+See the [Ruby README.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md) for prerequisites.
 
 ### Instructions
 The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
