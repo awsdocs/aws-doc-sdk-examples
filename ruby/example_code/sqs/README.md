@@ -1,8 +1,8 @@
-# Amazon SQS code examples for the SDK for Ruby
+# SQS code examples for the SDK for Ruby
 ## Overview
 These examples show how to create and manage Amazon Simple Queue Service (Amazon SQS) queues using the SDK for Ruby.
 
-Amazon SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
+SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 

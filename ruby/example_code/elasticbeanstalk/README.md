@@ -1,8 +1,8 @@
-# Elastic Beanstalk code examples for the SDK for Ruby
+# ElasticBeanstalk code examples for the SDK for Ruby
 ## Overview
 These examples show how to create and manage AWS Elastic Beanstalk environments using the SDK for Ruby.
 
-Elastic Beanstalk allows you to quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications.
+ElasticBeanstalk allows you to quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 

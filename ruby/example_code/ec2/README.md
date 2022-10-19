@@ -1,8 +1,8 @@
-# Amazon EC2 code examples for the SDK for Ruby
+# EC2 code examples for the SDK for Ruby
 ## Overview
 These examples show how to create and manage Amazon Elastic Compute Cloud (Amazon EC2) instances and supporting infrastructure using the SDK for Ruby.
 
-Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems.
+EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 

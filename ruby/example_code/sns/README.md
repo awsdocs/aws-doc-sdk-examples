@@ -1,8 +1,8 @@
-# Amazon SNS code examples for the SDK for Ruby
+# SNS code examples for the SDK for Ruby
 ## Overview
 These examples show how to create and manage Amazon Simple Notification Service (Amazon SNS) topics and subscriptions using the SDK for Ruby.
 
-Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
+SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 

@@ -1,8 +1,8 @@
-# Amazon S3 code examples for the SDK for Ruby
+# S3 code examples for the SDK for Ruby
 ## Overview
 These examples show how to create and manage Amazon Simple Storage Service (Amazon S3) buckets using the SDK for Ruby.
 
-Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
+S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 

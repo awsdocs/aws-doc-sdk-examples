@@ -1,6 +1,6 @@
 # Amazon RDS code examples for the SDK for Ruby
 ## Overview
-These examples show how to create and manage Amazon Relational Database Service (Amazon RDS) instances and clusters using the SDK for Ruby.
+These examples show how to create and manage Amazon Relational Database Service (Amazon RDS) DB instances and clusters using the SDK for Ruby.
 
 Amazon RDS is a web service that makes it easier to set up, operate, and scale a relational database in the cloud.
 

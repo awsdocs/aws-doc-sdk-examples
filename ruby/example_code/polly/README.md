@@ -1,8 +1,8 @@
-# Amazon Polly code examples for the SDK for Ruby
+# Polly code examples for the SDK for Ruby
 ## Overview
 These examples show how to create and manage Amazon Polly workflows using the SDK for Ruby.
 
-Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech.
+Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 

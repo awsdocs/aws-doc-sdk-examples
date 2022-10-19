@@ -1,8 +1,8 @@
-# Elastic Transcoder code examples for the SDK for Ruby
+# ElasticTranscoder code examples for the SDK for Ruby
 ## Overview
 These examples show how to create and manage Amazon Elastic Transcoder workflows using the SDK for Ruby.
 
-Elastic Transcoder lets you convert media files that you have stored in Amazon S3 into media files in the formats required by consumer playback devices.
+ElasticTranscoder lets you convert media files that you have stored in Amazon S3 into media files in the formats required by consumer playback devices.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
