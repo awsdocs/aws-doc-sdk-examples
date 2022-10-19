@@ -12,7 +12,6 @@ template = env.get_template("readme.txt")
 with open("language.yml") as file:
     language = yaml.safe_load(file)
 
-# sear
 for service in language["covered_services"]:
     
     # get general service data
