@@ -5,6 +5,15 @@ aurora_DescribeDBClusterParameterGroups:
   synopsis: describe &AUR; DB cluster parameter groups.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.des.params.groups.main
     Java:
       versions:
         - sdk_version: 2
@@ -32,6 +41,15 @@ aurora_CreateDBClusterParameterGroup:
   synopsis: create an &AUR; DB cluster parameter group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.create.params.groups.main
     Java:
       versions:
         - sdk_version: 2
@@ -59,6 +77,15 @@ aurora_DeleteDBClusterParameterGroup:
   synopsis: delete an &AUR; DB cluster parameter group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.del_paragroup.main
     Java:
       versions:
         - sdk_version: 2
@@ -86,6 +113,15 @@ aurora_DescribeDBClusterParameters:
   synopsis: describe parameters from an &AUR; DB cluster parameter group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.des.params.main
     Java:
       versions:
         - sdk_version: 2
@@ -113,6 +149,15 @@ aurora_ModifyDBClusterParameterGroup:
   synopsis: update parameters in an &AUR; DB cluster parameter group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.mod.params.main
     Java:
       versions:
         - sdk_version: 2
@@ -140,6 +185,15 @@ aurora_DescribeDBClusters:
   synopsis: describe &AUR; DB clusters.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.des.params.main
     Java:
       versions:
         - sdk_version: 2
@@ -167,6 +221,15 @@ aurora_CreateDBCluster:
   synopsis: create an &AUR; DB cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.create.main
     Java:
       versions:
         - sdk_version: 2
@@ -194,6 +257,15 @@ aurora_DeleteDBCluster:
   synopsis: delete an &AUR; DB cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.del.main
     Java:
       versions:
         - sdk_version: 2
@@ -221,6 +293,15 @@ aurora_CreateDBClusterSnapshot:
   synopsis: create an &AUR; DB cluster snapshot.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.create.snapshot.main
     Java:
       versions:
         - sdk_version: 2
@@ -248,6 +329,15 @@ aurora_DescribeDBClusterSnapshots:
   synopsis: describe &AUR; DB cluster snapshots.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.wait.snapshot.main
     Java:
       versions:
         - sdk_version: 2
@@ -275,6 +365,15 @@ aurora_CreateDBInstance:
   synopsis: create a DB instance in an &AUR; DB cluster.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.create.db.main
     Java:
       versions:
         - sdk_version: 2
@@ -302,6 +401,15 @@ aurora_DescribeDBEngineVersions:
   synopsis: describe &AUR; database engine versions.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.get.engines.main
     Java:
       versions:
         - sdk_version: 2
@@ -356,6 +464,15 @@ aurora_DescribeDBInstances:
   synopsis: describe &AUR; DB instances.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.wait.db.main
     Java:
       versions:
         - sdk_version: 2
@@ -383,6 +500,15 @@ aurora_DeleteDBInstance:
   synopsis: delete an &AUR; DB instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.cluster.del.instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -415,6 +541,15 @@ aurora_Scenario_GetStartedClusters:
     - Delete the instance, DB cluster, and parameter group.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.aurora.main
     Java:
       versions:
         - sdk_version: 2
