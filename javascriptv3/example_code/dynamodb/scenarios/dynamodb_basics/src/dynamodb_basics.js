@@ -5,7 +5,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-Scenario demonstrating how to:
+This scenario demonstrates how to:
     - Create a table that can hold movie data.
     - Write movie data to the table from a sample JSON file.
     - Put, get, and update a single movie in the table.
@@ -15,11 +15,14 @@ Scenario demonstrating how to:
     - Delete a movie from the table.
     - Delete the table.
 
+
 Running the code:
-node dynamodb_basics.js <table_name> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>
+1. Update the AWS Region in '../libs/ddbClient.js'.
+2. Run the following at the command line:
 
-For example, node dynamodb_basics.js myNewTable myMovieName 2022 'This Is the End' 2013 200 'A coder cracks code...'
+   node dynamodb_basics.js <table_name> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>
 
+   For example, node dynamodb_basics.js myNewTable myMovieName 2022 'This Is the End' 2013 200 'A coder cracks code...'
 
 // snippet-start:[javascript.dynamodb_scenarios.dynamodb_basics]
 */
@@ -44,7 +47,7 @@ import {
 
 if (process.argv.length < 6) {
   console.log(
-    "Usage: node dynamodb_basics.js <tableNaame> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>\n" +
+    "Usage: node dynamodb_basics.js <tableName> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>\n" +
       "Example: node dynamodb_basics.js newmoviesbrmur newmoviename 2025 200 'MOVIE PLOT DETAILS'"
   );
 }
@@ -124,10 +127,8 @@ export const run = async (
       await ddbDocClient.send(new PutCommand(params));
       console.log("Success - single movie added.");
       try {
-        // Before you run this example, download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-        // and put it in the same folder as the example.
         // Get the movie data parse to convert into a JSON object.
-        const allMovies = JSON.parse(fs.readFileSync("moviedata.json", "utf8"));
+        const allMovies = JSON.parse(fs.readFileSync("../../../../../../resources/sample_files/movies.json", "utf8"));
         // Split the table into segments of 25.
         const dataSegments = R.splitEvery(25, allMovies);
         // Loop batch write operation 10 times to upload 250 items.
@@ -161,7 +162,7 @@ export const run = async (
             TableName: tableName,
             Key: {
               title: existingMovieName,
-              year: existingMovieYear,
+              year: existingMovieYear
             },
             // Define expressions for the new or updated attributes.
             ProjectionExpression: "#r",
@@ -169,7 +170,7 @@ export const run = async (
             UpdateExpression: "set info.plot = :p, info.#r = :r",
             ExpressionAttributeValues: {
               ":p": newMoviePlot,
-              ":r": newMovieRank,
+              ":r": newMovieRank
             },
             ReturnValues: "ALL_NEW",
           };
@@ -217,11 +218,10 @@ export const run = async (
                   console.log(
                     "Scan successful. Items with rank of " +
                       newMovieRank +
-                      " include\n" +
-                      "Year = " +
-                      data.Items[i].year +
-                      " Title = " +
-                      data.Items[i].title
+                      " include:\n" +
+                      data.Items[i].title +
+                      ", released in " +
+                      data.Items[i].year
                   );
                 }
                 try {
@@ -248,11 +248,10 @@ export const run = async (
                     console.log(
                       "Query successful. Items with rank of " +
                         newMovieRank +
-                        " include\n" +
-                        "Year = " +
-                        data.Items[i].year +
-                        " Title = " +
-                        data.Items[i].title
+                        " include:\n" +
+                        data.Items[i].title +
+                        ", released in " +
+                        data.Items[i].year
                     );
                   }
                   try {
@@ -273,6 +272,7 @@ export const run = async (
                       const params = {
                         TableName: tableName,
                       };
+                      wait(5000);
                       await ddbDocClient.send(
                         new DeleteTableCommand(params)
                       );

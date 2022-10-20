@@ -33,7 +33,7 @@ class InstanceWrapper:
     def create(
             self, image, instance_type, key_pair, security_groups=None):
         """
-        Creates a new Amazon EC2 instance. The instance starts immediately after
+        Creates a new EC2 instance. The instance starts immediately after
         it is created.
 
         The instance is created in the default VPC of the current account.
