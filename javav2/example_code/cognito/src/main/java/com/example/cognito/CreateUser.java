@@ -72,20 +72,12 @@ public class CreateUser {
                 .value(email)
                 .build();
 
-            AttributeType userAttrs1 = AttributeType.builder()
-                .name("autoVerifyEmail")
-                .value("true")
-                .build();
-
-            List<AttributeType> userAttrsList = new ArrayList<>();
-            userAttrsList.add(userAttrs);
-            userAttrsList.add(userAttrs1);
 
             AdminCreateUserRequest userRequest = AdminCreateUserRequest.builder()
                     .userPoolId(userPoolId)
                     .username(name)
                     .temporaryPassword(password)
-                    .userAttributes(userAttrsList)
+                    .userAttributes(userAttrs)
                     .messageAction("SUPPRESS")
                     .build() ;
 
