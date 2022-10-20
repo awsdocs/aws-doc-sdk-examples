@@ -7,7 +7,7 @@ namespace Lambda_Basics
     /// </summary>
     internal class LambdaRoleMethods
     {
-        private AmazonIdentityManagementServiceClient _client;
+        private readonly AmazonIdentityManagementServiceClient _client;
 
         public LambdaRoleMethods()
         {
