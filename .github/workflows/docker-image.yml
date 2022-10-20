@@ -27,6 +27,7 @@ jobs:
           images: fordataws/aws-sdk-code-examples
       
       - name: Build and push Docker image - Ruby
+        if: ${{ github.event.label.name == 'lang/ruby' }}
         uses: docker/build-push-action@master
         with:
           context: ruby
@@ -34,74 +35,74 @@ jobs:
           tags: fordataws/ruby:latest
           labels: ${{ steps.meta.outputs.labels }}
           
-      - name: Build and push Docker image - Python
-        uses: docker/build-push-action@master
-        with:
-          context: python
-          push: true
-          tags: fordataws/python:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - Python
+#         uses: docker/build-push-action@master
+#         with:
+#           context: python
+#           push: true
+#           tags: fordataws/python:latest
+#           labels: ${{ steps.meta.outputs.labels }}
     
-      - name: Build and push Docker image - JavaScriptv3
-        uses: docker/build-push-action@master
-        with:
-          context: javascriptv3
-          push: true
-          tags: fordataws/javascriptv3:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - JavaScriptv3
+#         uses: docker/build-push-action@master
+#         with:
+#           context: javascriptv3
+#           push: true
+#           tags: fordataws/javascriptv3:latest
+#           labels: ${{ steps.meta.outputs.labels }}
       
-      - name: Build and push Docker image - gov2
-        uses: docker/build-push-action@master
-        with:
-          context: gov2
-          push: true
-          tags: fordataws/gov2:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - gov2
+#         uses: docker/build-push-action@master
+#         with:
+#           context: gov2
+#           push: true
+#           tags: fordataws/gov2:latest
+#           labels: ${{ steps.meta.outputs.labels }}
       
-      - name: Build and push Docker image - PHP
-        uses: docker/build-push-action@master
-        with:
-          context: php
-          push: true
-          tags: fordataws/php:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - PHP
+#         uses: docker/build-push-action@master
+#         with:
+#           context: php
+#           push: true
+#           tags: fordataws/php:latest
+#           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Build and push Docker image - Javav2
-        uses: docker/build-push-action@master
-        with:
-          context: javav2
-          push: true
-          tags: fordataws/javav2:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - Javav2
+#         uses: docker/build-push-action@master
+#         with:
+#           context: javav2
+#           push: true
+#           tags: fordataws/javav2:latest
+#           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Build and push Docker image - Kotlin
-        uses: docker/build-push-action@master
-        with:
-          context: kotlin
-          push: true
-          tags: fordataws/kotlin:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - Kotlin
+#         uses: docker/build-push-action@master
+#         with:
+#           context: kotlin
+#           push: true
+#           tags: fordataws/kotlin:latest
+#           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Build and push Docker image - C++
-        uses: docker/build-push-action@master
-        with:
-          context: cpp
-          push: true
-          tags: fordataws/cpp:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - C++
+#         uses: docker/build-push-action@master
+#         with:
+#           context: cpp
+#           push: true
+#           tags: fordataws/cpp:latest
+#           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Build and push Docker image - Swift
-        uses: docker/build-push-action@master
-        with:
-          context: swift
-          push: true
-          tags: fordataws/swift:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - Swift
+#         uses: docker/build-push-action@master
+#         with:
+#           context: swift
+#           push: true
+#           tags: fordataws/swift:latest
+#           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Build and push Docker image - Rust
-        uses: docker/build-push-action@master
-        with:
-          context: rust_dev_preview
-          push: true
-          tags: fordataws/rust:latest
-          labels: ${{ steps.meta.outputs.labels }}
+#       - name: Build and push Docker image - Rust
+#         uses: docker/build-push-action@master
+#         with:
+#           context: rust_dev_preview
+#           push: true
+#           tags: fordataws/rust:latest
+#           labels: ${{ steps.meta.outputs.labels }}
