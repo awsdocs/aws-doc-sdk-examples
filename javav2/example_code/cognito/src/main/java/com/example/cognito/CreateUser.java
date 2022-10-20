@@ -85,7 +85,7 @@ public class CreateUser {
                     .userPoolId(userPoolId)
                     .username(name)
                     .temporaryPassword(password)
-                    .userAttributes(userAttrs)
+                    .userAttributes(userAttrsList)
                     .messageAction("SUPPRESS")
                     .build() ;
 
