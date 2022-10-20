@@ -192,6 +192,6 @@ namespace Lambda_Basics
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        // snippet-start:[lambda.dotnetv3.Lambda_Basics.UpdateLambdaConfiguration]
+        // snippet-end:[lambda.dotnetv3.Lambda_Basics.UpdateLambdaConfiguration]
     }
 }
