@@ -1,351 +1,444 @@
-// snippet-sourcedescription:[AutoScalingScenario.kt performs multiple Auto Scaling operations.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon EC2 Auto Scaling]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-package com.example.autoscaling
-
-// snippet-start:[autoscale.kotlin.create_scaling_scenario.import]
-import aws.sdk.kotlin.services.autoscaling.AutoScalingClient
-import aws.sdk.kotlin.services.autoscaling.model.CreateAutoScalingGroupRequest
-import aws.sdk.kotlin.services.autoscaling.model.DeleteAutoScalingGroupRequest
-import aws.sdk.kotlin.services.autoscaling.model.DescribeAccountLimitsRequest
-import aws.sdk.kotlin.services.autoscaling.model.DescribeAutoScalingGroupsRequest
-import aws.sdk.kotlin.services.autoscaling.model.DescribeAutoScalingInstancesRequest
-import aws.sdk.kotlin.services.autoscaling.model.DescribeScalingActivitiesRequest
-import aws.sdk.kotlin.services.autoscaling.model.DisableMetricsCollectionRequest
-import aws.sdk.kotlin.services.autoscaling.model.EnableMetricsCollectionRequest
-import aws.sdk.kotlin.services.autoscaling.model.LaunchTemplateSpecification
-import aws.sdk.kotlin.services.autoscaling.model.SetDesiredCapacityRequest
-import aws.sdk.kotlin.services.autoscaling.model.TerminateInstanceInAutoScalingGroupRequest
-import aws.sdk.kotlin.services.autoscaling.model.UpdateAutoScalingGroupRequest
-import aws.sdk.kotlin.services.autoscaling.waiters.waitUntilGroupExists
-import kotlinx.coroutines.delay
-import kotlin.system.exitProcess
-// snippet-end:[autoscale.kotlin.create_scaling_scenario.import]
-
-/**
- * Before running this SDK for Kotlin code example, set up your development environment, including your credentials.
- *
- * For more information, see the following documentation:
- *
- * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- *
- * This code example performs the following operations:
- * 1. Creates an Auto Scaling group using an AutoScalingWaiter.
- * 2. Gets a specific Auto Scaling group and returns an instance Id value.
- * 3. Describes the Auto Scaling group with the Id value.
- * 4. Enables metrics collection.
- * 5. Describes the Auto Scaling groups.
- * 6. Describes account details.
- * 7. Updates an Auto Scaling group to use an additional instance.
- * 8. Gets the specific Auto Scaling group and gets the number of instances.
- * 9. Lists the scaling activities that occur for the group.
- * 10. Terminates an instance in the Auto Scaling group.
- * 11. Stops the metrics collection.
- * 12. Deletes the Auto Scaling group.
- */
-
-// snippet-start:[autoscale.kotlin.create_scaling_scenario.main]
-suspend fun main(args: Array<String>) {
-    val usage = """
-    Usage:
-        <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>
-
-    Where:
-        groupName - The name of the Auto Scaling group.
-        launchTemplateName - The name of the launch template. 
-        serviceLinkedRoleARN - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses.
-        vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
-    """
-
-    if (args.size != 4) {
-        println(usage)
-        exitProcess(1)
-    }
-
-    val groupName = args[0]
-    val launchTemplateName = args[1]
-    val serviceLinkedRoleARN = args[2]
-    val vpcZoneId = args[3]
-
-    println("**** Create an Auto Scaling group named $groupName")
-    createAutoScalingGroup(groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId)
-
-    println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned")
-    delay(60000)
-
-    val instanceId = getSpecificAutoScaling(groupName)
-    if (instanceId.compareTo("") == 0) {
-        println("Error - no instance Id value")
-        exitProcess(1)
-    } else {
-        println("The instance Id value is $instanceId")
-    }
-
-    println("**** Describe Auto Scaling with the Id value $instanceId")
-    describeAutoScalingInstance(instanceId)
-
-    println("**** Enable metrics collection $instanceId")
-    enableMetricsCollection(groupName)
-
-    println("**** Update an Auto Scaling group to maximum size of 3")
-    updateAutoScalingGroup(groupName, launchTemplateName, serviceLinkedRoleARN)
-
-    println("**** Describe all Auto Scaling groups to show the current state of the groups")
-    describeAutoScalingGroups(groupName)
-
-    println("**** Describe account details")
-    describeAccountLimits()
-
-    println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned")
-    delay(60000)
-
-    println("**** Set desired capacity to 2")
-    setDesiredCapacity(groupName)
-
-    println("**** Get the two instance Id values and state")
-    getSpecificAutoScalingGroups(groupName)
-
-    println("**** List the scaling activities that have occurred for the group")
-    describeScalingActivities(groupName)
-
-    println("**** Terminate an instance in the Auto Scaling group")
-    terminateInstanceInAutoScalingGroup(instanceId)
-
-    println("**** Stop the metrics collection")
-    disableMetricsCollection(groupName)
-
-    println("**** Delete the Auto Scaling group")
-    deleteSpecificAutoScalingGroup(groupName)
-}
-
-// snippet-start:[autoscale.kotlin.describe_scaling_activites.main]
-suspend fun describeAutoScalingGroups(groupName: String) {
-    val groupsReques = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-        maxRecords = 10
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        val response = autoScalingClient.describeAutoScalingGroups(groupsReques)
-        response.autoScalingGroups?.forEach { group ->
-            println("The service to use for the health checks: ${group.healthCheckType}")
-        }
-    }
-}
-// snippet-end:[autoscale.kotlin.describe_scaling_activites.main]
-
-// snippet-start:[autoscale.kotlin.disable_collection.main]
-suspend fun disableMetricsCollection(groupName: String) {
-    val disableMetricsCollectionRequest = DisableMetricsCollectionRequest {
-        autoScalingGroupName = groupName
-        metrics = listOf("GroupMaxSize")
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        autoScalingClient.disableMetricsCollection(disableMetricsCollectionRequest)
-        println("The disable metrics collection operation was successful")
-    }
-}
-// snippet-end:[autoscale.kotlin.disable_collection.main]
-
-// snippet-start:[autoscale.kotlin.describe_scaling_activites.main]
-suspend fun describeScalingActivities(groupName: String?) {
-    val scalingActivitiesRequest = DescribeScalingActivitiesRequest {
-        autoScalingGroupName = groupName
-        maxRecords = 10
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        val response = autoScalingClient.describeScalingActivities(scalingActivitiesRequest)
-        response.activities?.forEach { activity ->
-            println("The activity Id is ${activity.activityId}")
-            println("The activity details are ${activity.details}")
-        }
-    }
-}
-// snippet-end:[autoscale.kotlin.describe_scaling_activites.main]
-
-// snippet-start:[autoscale.kotlin.get_autoscalinggroup.main]
-suspend fun getSpecificAutoScalingGroups(groupName: String) {
-    val scalingGroupsRequest = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        val response = autoScalingClient.describeAutoScalingGroups(scalingGroupsRequest)
-        response.autoScalingGroups?.forEach { group ->
-            println("The group name is ${group.autoScalingGroupName}")
-            println("The group ARN is ${group.autoScalingGroupArn}")
-            group.instances?.forEach { instance ->
-                println("The instance id is ${instance.instanceId}")
-                println("The lifecycle state is " + instance.lifecycleState)
-            }
-        }
-    }
-}
-// snippet-end:[autoscale.kotlin.get_autoscalinggroup.main]
-
-// snippet-start:[autoscale.kotlin.set_capacity.main]
-suspend fun setDesiredCapacity(groupName: String) {
-    val capacityRequest = SetDesiredCapacityRequest {
-        autoScalingGroupName = groupName
-        desiredCapacity = 2
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        autoScalingClient.setDesiredCapacity(capacityRequest)
-        println("You set the DesiredCapacity to 2")
-    }
-}
-// snippet-end:[autoscale.kotlin.set_capacity.main]
-
-// snippet-start:[autoscale.kotlin.update_autoscalinggroup.main]
-suspend fun updateAutoScalingGroup(groupName: String, launchTemplateNameVal: String, serviceLinkedRoleARNVal: String) {
-    val templateSpecification = LaunchTemplateSpecification {
-        launchTemplateName = launchTemplateNameVal
-    }
-
-    val groupRequest = UpdateAutoScalingGroupRequest {
-        maxSize = 3
-        serviceLinkedRoleArn = serviceLinkedRoleARNVal
-        autoScalingGroupName = groupName
-        launchTemplate = templateSpecification
-    }
-
-    val groupsRequestWaiter = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        autoScalingClient.updateAutoScalingGroup(groupRequest)
-        autoScalingClient.waitUntilGroupExists(groupsRequestWaiter)
-        println("You successfully updated the Auto Scaling group  $groupName")
-    }
-}
-// snippet-end:[autoscale.kotlin.update_autoscalinggroup.main]
-
-// snippet-start:[autoscale.kotlin.create_autoscalinggroup.main]
-suspend fun createAutoScalingGroup(groupName: String, launchTemplateNameVal: String, serviceLinkedRoleARNVal: String, vpcZoneIdVal: String) {
-    val templateSpecification = LaunchTemplateSpecification {
-        launchTemplateName = launchTemplateNameVal
-    }
-
-    val request = CreateAutoScalingGroupRequest {
-        autoScalingGroupName = groupName
-        availabilityZones = listOf("us-east-1a")
-        launchTemplate = templateSpecification
-        maxSize = 1
-        minSize = 1
-        vpcZoneIdentifier = vpcZoneIdVal
-        serviceLinkedRoleArn = serviceLinkedRoleARNVal
-    }
-
-    // This object is required for the waiter call.
-    val groupsRequestWaiter = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        autoScalingClient.createAutoScalingGroup(request)
-        autoScalingClient.waitUntilGroupExists(groupsRequestWaiter)
-        println("$groupName was created!")
-    }
-}
-// snippet-end:[autoscale.kotlin.create_autoscalinggroup.main]
-
-// snippet-start:[autoscale.kotlin.describe_autoscalinggroup.main]
-suspend fun describeAutoScalingInstance(id: String) {
-    val describeAutoScalingInstancesRequest = DescribeAutoScalingInstancesRequest {
-        instanceIds = listOf(id)
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        val response = autoScalingClient.describeAutoScalingInstances(describeAutoScalingInstancesRequest)
-        response.autoScalingInstances?.forEach { group ->
-            println("The instance lifecycle state is: ${group.lifecycleState}")
-        }
-    }
-}
-// snippet-end:[autoscale.kotlin.describe_autoscalinggroup.main]
-
-// snippet-start:[autoscale.kotlin.enable_collection.main]
-suspend fun enableMetricsCollection(groupName: String?) {
-    val collectionRequest = EnableMetricsCollectionRequest {
-        autoScalingGroupName = groupName
-        metrics = listOf("GroupMaxSize")
-        granularity = "1Minute"
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        autoScalingClient.enableMetricsCollection(collectionRequest)
-        println("The enable metrics collection operation was successful")
-    }
-}
-// snippet-end:[autoscale.kotlin.enable_collection.main]
-
-// snippet-start:[autoscale.kotlin.get_autoscalinggroup.main]
-suspend fun getSpecificAutoScaling(groupName: String): String {
-    var instanceId = ""
-    val scalingGroupsRequest = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        val response = autoScalingClient.describeAutoScalingGroups(scalingGroupsRequest)
-        response.autoScalingGroups?.forEach { group ->
-            println("The group name is ${group.autoScalingGroupName}")
-            println("The group ARN is ${group.autoScalingGroupArn}")
-
-            group.instances?.forEach { instance ->
-                instanceId = instance.instanceId.toString()
-            }
-        }
-    }
-    return instanceId
-}
-// snippet-end:[autoscale.kotlin.get_autoscalinggroup.main]
-
-// snippet-start:[autoscale.kotlin.describe_account.main]
-suspend fun describeAccountLimits() {
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        val response = autoScalingClient.describeAccountLimits(DescribeAccountLimitsRequest {})
-        println("The max number of Auto Scaling groups is ${response.maxNumberOfAutoScalingGroups}")
-        println("The current number of Auto Scaling groups is ${response.numberOfAutoScalingGroups}")
-    }
-}
-// snippet-end:[autoscale.kotlin.describe_account.main]
-
-// snippet-start:[autoscale.kotlin.terminate_instance.main]
-suspend fun terminateInstanceInAutoScalingGroup(instanceIdVal: String) {
-    val request = TerminateInstanceInAutoScalingGroupRequest {
-        instanceId = instanceIdVal
-        shouldDecrementDesiredCapacity = false
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        autoScalingClient.terminateInstanceInAutoScalingGroup(request)
-        println("You have terminated instance $instanceIdVal")
-    }
-}
-// snippet-end:[autoscale.kotlin.terminate_instance.main]
-
-// snippet-start:[autoscale.kotlin.del_group.main]
-suspend fun deleteSpecificAutoScalingGroup(groupName: String) {
-    val deleteAutoScalingGroupRequest = DeleteAutoScalingGroupRequest {
-        autoScalingGroupName = groupName
-        forceDelete = true
-    }
-
-    AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-        autoScalingClient.deleteAutoScalingGroup(deleteAutoScalingGroupRequest)
-        println("You successfully deleted $groupName")
-    }
-}
-// snippet-end:[autoscale.kotlin.del_group.main]
-// snippet-end:[autoscale.kotlin.create_scaling_scenario.main]
+# zexi 0.4.0
+auto-scaling_CreateAutoScalingGroup:
+  title: Create an &AS; group using an &AWS; SDK
+  title_abbrev: Create a group
+  synopsis: create an &AS; group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.CreateAutoScalingGroup
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.create_scaling_group.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.CreateAutoScalingGroup
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.create-autoscaling-group
+  services:
+    auto-scaling: {CreateAutoScalingGroup}
+auto-scaling_DeleteAutoScalingGroup:
+  title: Delete an &AS; group using an &AWS; SDK
+  title_abbrev: Delete a group
+  synopsis: delete an &AS; group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.del_scaling_group.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DeleteAutoScalingGroup
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.delete-autoscaling-group
+  services:
+    auto-scaling: {DeleteAutoScalingGroup}
+auto-scaling_DescribeAutoScalingGroups:
+  title: Get information about &AS; groups using an &AWS; SDK
+  title_abbrev: Get information about groups
+  synopsis: get information about &AS; groups.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_instances.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DescribeAutoScalingGroups
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.list-autoscaling-groups
+  services:
+    auto-scaling: {DescribeAutoScalingGroups}
+auto-scaling_UpdateAutoScalingGroup:
+  title: Update an &AS; group using an &AWS; SDK
+  title_abbrev: Update a group
+  synopsis: update the configuration for an &AS; group.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.update_autoscalinggroup.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.UpdateAutoScalingGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.UpdateAutoScalingGroup
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.update-autoscaling-group
+  services:
+    auto-scaling: {UpdateAutoScalingGroup}
+auto-scaling_TerminateInstanceInAutoScalingGroup:
+  title: Terminate an instance in an &AS; group using an &AWS; SDK
+  title_abbrev: Terminate an instance in a group
+  synopsis: terminate an instance in an &AS; group.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.terminate_instance.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.TerminateInstanceInAutoScalingGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.TerminateInstanceInAutoScalingGroup
+  services:
+    auto-scaling: {TerminateInstanceInAutoScalingGroup}
+auto-scaling_SetDesiredCapacity:
+  title: Set the desired capacity of an &AS; group using an &AWS; SDK
+  title_abbrev: Set the desired capacity of a group
+  synopsis: set the desired capacity of an &AS; group.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.set_capacity.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.SetDesiredCapacity
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.SetDesiredCapacity
+  services:
+    auto-scaling: {SetDesiredCapacity}
+auto-scaling_DescribeAutoScalingInstances:
+  title: Get information about &AS; instances using an &AWS; SDK
+  title_abbrev: Get information about instances
+  synopsis: get information about &AS; instances.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_autoscalinggroup.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DescribeAutoScalingInstances
+  services:
+    auto-scaling: {DescribeAutoScalingInstances}
+auto-scaling_DescribeScalingActivities:
+  title: Get information about &AS; activities using an &AWS; SDK
+  title_abbrev: Get information about scaling activities
+  synopsis: get information about &AS; activities.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_scaling_activites.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DescribeScalingActivities
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DescribeScalingActivities
+  services:
+    auto-scaling: {DescribeScalingActivities}
+auto-scaling_EnableMetricsCollection:
+  title: Enable &CW; metrics collection for an &AS; group using an &AWS; SDK
+  title_abbrev: Enable metrics collection for a group
+  synopsis: enable &CW; metrics collection for an &AS; group.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.enable_collection.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.EnableMetricsCollection
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.EnableMetricsCollection
+  services:
+    auto-scaling: {EnableMetricsCollection}
+auto-scaling_DisableMetricsCollection:
+  title: Disable &CW; metrics collection for an &AS; group using an &AWS; SDK
+  title_abbrev: Disable metrics collection for a group
+  synopsis: disable &CW; metrics collection for an &AS; group.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.disable_collection.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.AutoScalingWrapper.decl
+                - python.example_code.auto-scaling.DisableMetricsCollection
+  services:
+    auto-scaling: {DisableMetricsCollection}
+auto-scaling_Scenario_GroupsAndInstances:
+  title: Manage &AS; groups and instances using an &AWS; SDK
+  title_abbrev: Manage groups and instances
+  synopsis_list:
+    - Create an &ASlong; group and configure it with a launch template and Availability
+      Zones.
+    - Get information about the group and running instances.
+    - Enable &CWlong; metrics collection on the group.
+    - Update the desired capacity of the group and wait for an instance to start.
+    - Terminate an instance in the group.
+    - List scaling activities that occur in response to user requests and capacity
+      changes.
+    - Get statistics for &CW; metrics that are collected during the example.
+    - Stop collecting metrics, terminate all instances, and delete the group.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.global-usings
+                - AutoScale.dotnetv3.AutoScale_Basics.main
+            - description: Define functions that are called by the scenario to
+                manage launch templates and metrics. These functions wrap
+                &EC2; and &CW; actions.
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.EC2Methods
+                - AutoScale.dotnetv3.AutoScale_Basics.CloudWatchMethods
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.create_scaling_scenario.main 
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.create_scaling_scenario.main  
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.auto-scaling.Scenario_GroupsAndInstances
+            - description: Define functions that are called by the scenario to
+                manage launch templates and metrics. These functions wrap
+                &EC2; and &CW; actions.
+              snippet_tags:
+                - python.example_code.auto-scaling.helper.ServiceHelper
+  services:
+    auto-scaling: {CreateAutoScalingGroup, DeleteAutoScalingGroup, DisableMetricsCollection,
+                   EnableMetricsCollection, DescribeAutoScalingGroups, DescribeAutoScalingInstances,
+                   DescribeScalingActivities, SetDesiredCapacity, TerminateInstanceInAutoScalingGroup,
+                   UpdateAutoScalingGroup}
