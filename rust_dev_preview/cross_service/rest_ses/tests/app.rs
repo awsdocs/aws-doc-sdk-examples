@@ -40,14 +40,13 @@ async fn healthz_works() {
 
 #[tokio::test]
 async fn post_workitem_returns_200() {
-    tracing_subscriber::fmt::init();
     let (app, rds) = spawn_app().await;
 
     let client = reqwest::Client::new();
     let response = client
         .post(format!("{app}/api/items"))
         .header("content-type", "application/json")
-        .body(r#"{"username":"david","guide":"Rust","description":"A work item"}"#)
+        .body(r#"{"name":"david","guide":"Rust","description":"A work item"}"#)
         .send()
         .await
         .expect("Request failed");
@@ -67,7 +66,7 @@ async fn post_workitem_returns_200() {
 
     let result = rds
         .execute_statement("SELECT idwork FROM Work WHERE idwork = :idwork;")
-        .parameters(param("idwork", work_item.idwork.to_string()))
+        .parameters(param("idwork", work_item.idwork().to_string()))
         .send()
         .await
         .expect("failed to query rds");
@@ -98,6 +97,43 @@ async fn post_workitem_returns_400_with_missing_username() {
     );
 }
 
+#[tokio::test]
+async fn get_workitem_returns_200() {
+    let (app, _) = spawn_app().await;
+
+    let client = reqwest::Client::new();
+    let response = client
+        .post(format!("{app}/api/items"))
+        .header("content-type", "application/json")
+        .body(r#"{"name":"david","guide":"Rust","description":"A work item"}"#)
+        .send()
+        .await
+        .expect("Request failed");
+
+    let body = response.text().await.expect("response missing a body");
+    let work_item: WorkItem =
+        serde_json::from_str(body.as_str()).expect("failed to parse response body");
+    let id = work_item.idwork();
+
+    eprintln!("\n\nLooking for {id}\n\n");
+
+    let response = client
+        .get(format!("{app}/api/items/{id}",))
+        .send()
+        .await
+        .expect("Failed to look up created item");
+
+    let status = response.status();
+    let body = response.text().await.expect("response missing a body");
+
+    eprintln!("{}", body);
+
+    assert!(
+        status.is_success(),
+        "Response did not return with success: {status} {body}"
+    );
+}
+
 async fn spawn_app() -> (String, RdsClient) {
     let environment = Lazy::force(&TRACING);
     let settings = get_settings(environment).expect("failed to read configuration");
@@ -109,6 +145,6 @@ async fn spawn_app() -> (String, RdsClient) {
     let server =
         rest_ses::startup::run(listener, rds.clone()).expect("Failed to initalize server!");
     let _ = tokio::spawn(server);
-    let address = format!("127.0.0.1:{port}");
+    let address = format!("http://127.0.0.1:{port}");
     return (address, rds);
 }
