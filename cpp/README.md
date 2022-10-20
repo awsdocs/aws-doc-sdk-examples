@@ -23,7 +23,7 @@ Before using the Code Examples, first complete the installation and setup steps 
 Developer Guide.
 
 The Getting Started section covers how to obtain and build the SDK, and how to build your own
-code utilizing the SDK with a sample ìHello Worldî-style application.  A similar procedure is 
+code utilizing the SDK with a sample ‚ÄúHello World‚Äù-style application.  A similar procedure is 
 applicable to utilizing the code examples in this repository.
 
 Building and running the code examples
@@ -46,14 +46,14 @@ Additional information
 - To propose a new code example for the AWS documentation team to consider producing, create a
   new request. The team is looking to produce code examples that cover broader scenarios and use 
   cases, versus simple code snippets that cover only individual API calls. For instructions, see
-  the ìProposing new code examplesî section in the 
+  the ‚ÄúProposing new code examples‚Äù section in the 
   `Readme on GitHub <https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/README.rst>`_.
 
 Copyright and License
 =============
 
 All content in this repository, unless otherwise stated, is 
-Copyright © Amazon Web Services, Inc. or its affiliates. All rights reserved.
+Copyright ¬© Amazon Web Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the `Apache
 license, version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>`_ (the "License"). The full
