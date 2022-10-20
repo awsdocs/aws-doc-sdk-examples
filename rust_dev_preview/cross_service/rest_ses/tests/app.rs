@@ -2,8 +2,9 @@ use std::net::TcpListener;
 
 use once_cell::sync::Lazy;
 use rest_ses::{
-    client::{param, RdsClient},
+    client::RdsClient,
     configuration::{get_settings, init_environment, Environment},
+    params,
     telemetry::{get_subscriber, init_subscriber},
     work_item::WorkItem,
 };
@@ -66,7 +67,7 @@ async fn post_workitem_returns_200() {
 
     let result = rds
         .execute_statement("SELECT idwork FROM Work WHERE idwork = :idwork;")
-        .parameters(param("idwork", work_item.idwork().to_string()))
+        .set_parameters(params![("idwork", work_item.idwork().to_string())])
         .send()
         .await
         .expect("failed to query rds");

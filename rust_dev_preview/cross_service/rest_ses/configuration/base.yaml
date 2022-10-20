@@ -5,5 +5,5 @@ application:
   port: 8080
 sdk_config:
   db_instance: auroraappdb
-  secret_arn: "arn:aws:secretsmanager:region:1234567890:secret:docexampleauroraapp-secret-id"
-  cluster_arn: "arn:aws:rds:us-east-1:1234567890:cluster:docexampleauroraapp-cluster-id"
+  secret_arn: "arn:aws:secretsmanager:region:111122223333:secret:docexampleauroraapp-secret-id"
+  cluster_arn: "arn:aws:rds:us-east-1:111122223333:cluster:docexampleauroraapp-cluster-id"
