@@ -55,7 +55,6 @@ suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
         <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>
-
     Where:
         groupName - The name of the Auto Scaling group.
         launchTemplateName - The name of the launch template. 
@@ -109,7 +108,7 @@ suspend fun main(args: Array<String>) {
     setDesiredCapacity(groupName)
 
     println("**** Get the two instance Id values and state")
-    getAutoScalingGroups(groupName)
+    getSpecificAutoScalingGroups(groupName)
 
     println("**** List the scaling activities that have occurred for the group")
     describeScalingActivities(groupName)
@@ -124,6 +123,7 @@ suspend fun main(args: Array<String>) {
     deleteSpecificAutoScalingGroup(groupName)
 }
 
+// snippet-start:[autoscale.kotlin.describe_scaling_activites.main]
 suspend fun describeAutoScalingGroups(groupName: String) {
     val groupsReques = DescribeAutoScalingGroupsRequest {
         autoScalingGroupNames = listOf(groupName)
@@ -137,6 +137,7 @@ suspend fun describeAutoScalingGroups(groupName: String) {
         }
     }
 }
+// snippet-end:[autoscale.kotlin.describe_scaling_activites.main]
 
 // snippet-start:[autoscale.kotlin.disable_collection.main]
 suspend fun disableMetricsCollection(groupName: String) {
@@ -169,8 +170,8 @@ suspend fun describeScalingActivities(groupName: String?) {
 }
 // snippet-end:[autoscale.kotlin.describe_scaling_activites.main]
 
-// snippet-start:[autoscale.kotlin.get_autoscalinggroups.main]
-suspend fun getAutoScalingGroups(groupName: String) {
+// snippet-start:[autoscale.kotlin.get_autoscalinggroup.main]
+suspend fun getSpecificAutoScalingGroups(groupName: String) {
     val scalingGroupsRequest = DescribeAutoScalingGroupsRequest {
         autoScalingGroupNames = listOf(groupName)
     }
@@ -187,7 +188,7 @@ suspend fun getAutoScalingGroups(groupName: String) {
         }
     }
 }
-// snippet-end:[autoscale.kotlin.get_autoscalinggroups.main]
+// snippet-end:[autoscale.kotlin.get_autoscalinggroup.main]
 
 // snippet-start:[autoscale.kotlin.set_capacity.main]
 suspend fun setDesiredCapacity(groupName: String) {
