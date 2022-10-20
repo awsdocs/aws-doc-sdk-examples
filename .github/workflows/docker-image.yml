@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   pull_request:
-    types: [ labeled, opened, synchronize, reopened ]
+    types: [ labeled ]
 
 jobs:
   push_to_registry:
