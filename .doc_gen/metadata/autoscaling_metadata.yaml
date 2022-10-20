@@ -118,7 +118,7 @@ auto-scaling_DescribeAutoScalingGroups:
           excerpts:
             - description:
               snippet_tags:
-                - autoscale.kotlin.describe_autoscalinggroup.main
+                - autoscale.kotlin.describe_scaling_groups.main
     Java:
       versions:
         - sdk_version: 2
