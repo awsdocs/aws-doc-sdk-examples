@@ -55,7 +55,7 @@ export const writeData = async () => {
             ],
           },
         };
-        const data = ddbDocClient.send(new BatchWriteCommand(params));
+        ddbDocClient.send(new BatchWriteCommand(params));
       }
       console.log("Success, table updated.");
     }

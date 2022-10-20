@@ -17,7 +17,7 @@ namespace DeleteSNSTopicExample
     {
         public static async Task Main()
         {
-            string topicArn = "arn:aws:sns:us-east-2:704825161248:ExampleSNSTopic";
+            string topicArn = "arn:aws:sns:us-east-2:012345678901:ExampleSNSTopic";
             IAmazonSimpleNotificationService client = new AmazonSimpleNotificationServiceClient();
 
             var response = await client.DeleteTopicAsync(topicArn);

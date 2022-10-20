@@ -11,12 +11,12 @@
 
 # snippet-start:[sns.Ruby.showSubscription]
 
-require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require "aws-sdk-sns"  # v2: require 'aws-sdk'
 
 def show_subscriptions?(sns_client, topic_arn)
   topic = sns_client.topic(topic_arn)
   topic.subscriptions.each do |s|
-    puts s.attributes['Endpoint']
+    puts s.attributes["Endpoint"]
   end
 
 rescue StandardError => e
@@ -25,8 +25,8 @@ end
 
 def run_me
 
-  topic_arn = 'SNS_TOPIC_ARN'
-  region = 'REGION'
+  topic_arn = "SNS_TOPIC_ARN"
+  region = "REGION"
 
   sns_client = Aws::SNS::Resource.new(region: region)
 
@@ -34,7 +34,7 @@ def run_me
 
   if show_subscriptions?(sns_client, topic_arn)
   else
-    puts 'There was an error. Stopping program.'
+    puts "There was an error. Stopping program."
     exit 1
   end
 end

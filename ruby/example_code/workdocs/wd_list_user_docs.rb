@@ -6,10 +6,10 @@
 
 # snippet-start:[s3.wd_list_user_docs.rb]
 
-require 'aws-sdk-workdocs'  # v2: require 'aws-sdk'
+require "aws-sdk-workdocs"  # v2: require 'aws-sdk'
 
 def get_user_folder(client, orgId, user_email)
-  root_folder = ''
+  root_folder = ""
 
   resp = client.describe_users({
     organization_id: orgId,
@@ -25,18 +25,18 @@ def get_user_folder(client, orgId, user_email)
   return root_folder
 end
 # Replace us-west-2 with the AWS Region you're using for Amazon WorkDocs.
-client = Aws::WorkDocs::Client.new(region: 'us-west-2')
+client = Aws::WorkDocs::Client.new(region: "us-west-2")
 
 # Set to the email address of a user
-user_email = 'someone@somewhere'
+user_email = "someone@somewhere"
 
 # Set to the OrganizationId of your WorkDocs site.
-orgId = 'd-123456789c'
+orgId = "d-123456789c"
 
 user_folder = get_user_folder(client, orgId, user_email)
 
-if user_folder == ''
-  puts 'Could not get root folder for user with email address ' + user_email
+if user_folder == ""
+  puts "Could not get root folder for user with email address " + user_email
   exit(1)
 end
 

@@ -2,6 +2,7 @@
 *.suo
 *.user
 *.sln.docstates
+*.local.json
 
 # Build results
 

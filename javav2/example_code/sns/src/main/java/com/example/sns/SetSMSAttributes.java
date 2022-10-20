@@ -25,6 +25,7 @@ import java.util.HashMap;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+//snippet-start:[sns.java2.SetSMSAttributes.main]
 public class SetSMSAttributes {
     public static void main(String[] args) {
 
@@ -40,7 +41,6 @@ public class SetSMSAttributes {
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.SetSMSAttributes.main]
     public static void setSNSAttributes( SnsClient snsClient, HashMap<String, String> attributes) {
 
         try {

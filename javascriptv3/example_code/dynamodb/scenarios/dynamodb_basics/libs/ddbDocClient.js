@@ -6,17 +6,12 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 ddbDocClient.js is a helper function that creates an Amazon DynamoDB service document client.
 
-INPUTS:
-- REGION
-
 */
 // snippet-start:[dynamodb.JavaScript.scenario.basics.createdocclientv3]
 
 // Create a service client module using ES6 syntax.
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { ddbClient } from "./ddbClient.js";
-// Set the AWS Region.
-const REGION = "REGION"; // For example, "us-east-1".
 
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.

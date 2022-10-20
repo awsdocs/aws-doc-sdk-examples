@@ -1,12 +1,12 @@
-# Creating a React and Spring REST application that queries Amazon Aurora Serverless data
+# Creating a React and Spring Boot application that queries Amazon Aurora Serverless data
 
 ## Overview
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that queries Amazon Aurora Serverless data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
+| Description | Discusses how to develop a Spring Boot application that queries Amazon Aurora Serverless data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 6/09/2022        |
+| Updated   | 10/03/2022        |
 | Required skills   | Java, Maven, JavaScript  |
 
 ## Purpose
@@ -37,7 +37,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Java IDE to build the Spring REST API. This tutorial uses the IntelliJ IDE.
-+ Java JDK 1.8.
++ Java JDK 11. (The code in this example uses APIs that are available in JDK 11). 
 + Maven 3.6 or later.
 + Set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
@@ -120,10 +120,11 @@ Active items are queried from the database and used to dynamically create an Exc
 
 ## Create an IntelliJ project named ItemTrackerRDSRest
 
-1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
-3. For **GroupId**, enter **aws-spring**.
-4. For **ArtifactId**, enter **ItemTrackerRDSRest**.
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**. 
+2. In the **Project SDK**, choose **11**. 
+3. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+4. For **GroupId**, enter **aws-spring**.
+5. For **ArtifactId**, enter **ItemTrackerRDSRest**.
 6. Choose **Next**.
 7. Choose **Finish**.
 
@@ -133,7 +134,7 @@ At this point, you have a new project named **ItemTrackerRDSRest**.
 
 ![AWS Tracking Application](images/project.png)
 
-**Note:** Make sure to use Java 1.8 (as shown in the following example).
+**Note:** Make sure to use Java 11 (as shown in the following example).
 
 Confirm that the **pom.xml** file looks like the following example.
 
@@ -154,7 +155,7 @@ Confirm that the **pom.xml** file looks like the following example.
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -171,24 +172,24 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-commons</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -198,7 +199,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
+            <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -212,12 +213,12 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
-            <version>2.0.1</version>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
-            <version>1.6.5</version>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -227,7 +228,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -256,6 +257,36 @@ Confirm that the **pom.xml** file looks like the following example.
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>10</source>
+                    <target>10</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
@@ -271,28 +302,60 @@ The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles REST requests.
-+ **RetrieveItems** -  Uses the **RDSDataClient** to retrieve a dataset from the **Work** table. 
-+ **InjectWorkService** - Uses the **RDSDataClient** to inject a new item into the **Work** table. 
++ **RetrieveItems** -  Retrieves a dataset from the **Work** table. 
++ **InjectWorkService** - Injects a new item into the **Work** table. 
 + **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object to send email messages.
 + **WorkItem** - Represents the application's data model.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
 
 ### App class 
 
-The following Java code represents the **App** class. This is the entry point into a Spring boot application.  
+The following Java code represents the **App** class. This is the entry point into a Spring boot application. Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to retrieve data from the **Work** table. 
 
 ```java
-   package com.aws.rest;
+package com.aws.rest;
 
-   import org.springframework.boot.SpringApplication;
-   import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.rdsdata.RdsDataClient;
+import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementRequest;
+import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementResponse;
+import software.amazon.awssdk.services.rdsdata.model.Field;
+import software.amazon.awssdk.services.rdsdata.model.SqlParameter;
+import java.util.List;
 
-   @SpringBootApplication
-   public class App {
-     public static void main(String[] args) throws Throwable {
+@SpringBootApplication
+public class App {
+    static final String database = "jobs";
+    static final String username = "User";
+    static final String archived = "1";
+    public static final Region region = Region.US_EAST_1;
+    private static String secretArn = "<Enter value>" ;
+    private static String resourceArn = "<Enter value>" ;
+    static RdsDataClient getClient() {
+        return RdsDataClient.builder().region(App.region).build();
+    }
+
+    static ExecuteStatementResponse execute(String sqlStatement, List<SqlParameter> parameters) {
+        ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+            .resourceArn(resourceArn)
+            .secretArn(secretArn)
+            .database(database)
+            .sql(sqlStatement)
+            .parameters(parameters)
+            .build();
+        return App.getClient().executeStatement(sqlRequest);
+    }
+
+    static SqlParameter param(String name, String value) {
+        return SqlParameter.builder().name(name).value(Field.builder().stringValue(value).build()).build();
+    }
+
+    public static void main(String[] args) throws Throwable {
         SpringApplication.run(App.class, args);
-     }
-   }
+    }
+}
 ```    
 
 ### MainController class
@@ -305,6 +368,8 @@ package com.aws.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -331,13 +396,14 @@ public class MainController {
     InjectWorkService iw;
 
     @GetMapping("items/{state}")
-    public List< WorkItem > getItems(@PathVariable String state) {
-        if (state.compareTo("active") == 0)
-            return ri.getItemsDataSQLReport(0);
-        else
-            return ri.getItemsDataSQLReport(1);
+    public List<WorkItem> getItems(@PathVariable String state) {
+        if (state.compareTo("active") == 0) {
+            return ri.getItemsDataSQLReport("0");
+        } else {
+            return ri.getItemsDataSQLReport("1");
+        }
     }
-    
+
     // Flip an item from Active to Archive.
     @PutMapping("mod/{id}")
     public String modUser(@PathVariable String id) {
@@ -349,24 +415,23 @@ public class MainController {
     @PostMapping("add")
     String addItems(@RequestBody Map<String, Object> payLoad) {
         String name = "user";
-        String guide =  (String)payLoad.get("guide");
-        String description =  (String)payLoad.get("description");
+        String guide = (String)payLoad.get("guide");
+        String description = (String)payLoad.get("description");
         String status = (String)payLoad.get("status");
 
-        // Create a Work Item object to pass to the injestNewSubmission method.
+        // Create a Work Item object to pass injestNewSubmission().
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
         myWork.setStatus(status);
         myWork.setName(name);
-
-        iw.injestNewSubmission(myWork);
+        iw.injectNewSubmission(myWork);
         return "Item added";
     }
 
     @PutMapping("report/{email}")
     public String sendReport(@PathVariable String email){
-        List<WorkItem> theList = ri.getItemsDataSQLReport(0);
+        List<WorkItem> theList = ri.getItemsDataSQLReport("0");
         java.io.InputStream is = writeExcel.exportExcel(theList);
 
         try {
@@ -379,241 +444,134 @@ public class MainController {
     }
 }
 
-
 ```
 
 ### RetrieveItems class
 
-The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to retrieve data from the **Work** table.
+The following Java code represents the **RetrieveItems** class that retrieves data from the **Work** table. 
 
 ```java
-     package com.aws.rest;
- 
-     import java.io.StringWriter;
-     import java.util.ArrayList ;
-     import java.util.List;
-     import org.springframework.stereotype.Component;
-     import org.w3c.dom.Document;
-     import javax.xml.parsers.DocumentBuilder;
-     import javax.xml.parsers.DocumentBuilderFactory;
-     import org.w3c.dom.Element;
-     import software.amazon.awssdk.regions.Region;
-     import software.amazon.awssdk.services.rdsdata.RdsDataClient;
-     import software.amazon.awssdk.services.rdsdata.model.*;
-     import javax.xml.parsers.ParserConfigurationException;
-     import javax.xml.transform.Transformer;
-     import javax.xml.transform.TransformerException;
-     import javax.xml.transform.TransformerFactory;
-     import javax.xml.transform.dom.DOMSource;
-     import javax.xml.transform.stream.StreamResult;
+package com.aws.rest;
 
-     @Component
-     public class RetrieveItems {
+import org.springframework.stereotype.Component;
+import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
+import software.amazon.awssdk.services.rdsdata.model.SqlParameter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-     private final String secretArn = "<Enter value>" ;
-     private final String resourceArn = "<Enter value>" ;
-
-   private RdsDataClient getClient() {
-
-        Region region = Region.US_EAST_1;
-        RdsDataClient dataClient = RdsDataClient.builder()
-                .region(region)
-                .build();
-
-        return dataClient;
-    }
-
-    public void flipItemArchive(String id ) {
-
-        RdsDataClient dataClient = getClient();
-        int arc = 1;
-
+@Component
+public class RetrieveItems {
+    public void flipItemArchive(String id) {
         try {
-            // Specify the SQL statement to query data.
-            String sqlStatement = "update work set archive = '"+arc+"' where idwork ='" +id + "' ";
-            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
-                    .secretArn(secretArn)
-                    .sql(sqlStatement)
-                    .database("jobs")
-                    .resourceArn(resourceArn)
-                    .build();
-
-            dataClient.executeStatement(sqlRequest);
+            String sqlStatement = "UPDATE work SET archive = (:arch) WHERE idwork = (:id);";
+            List<SqlParameter> parameters = List.of(
+                App.param("id", id),
+                App.param("arch", App.archived)
+            );
+            App.execute(sqlStatement, parameters);
         } catch (RdsDataException e) {
             e.printStackTrace();
         }
     }
 
-    // Get Items data from the database.
-    public List<WorkItem> getItemsDataSQLReport(int arch) {
-
-        RdsDataClient dataClient = getClient();
-        String username = "User";
-        List<WorkItem>records = new ArrayList<>();
-
+    public List<WorkItem> getItemsDataSQLReport(String archived) {
         try {
-            String sqlStatement = "Select * FROM work where username = '" +username +"' and archive = " + arch +"";
-            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
-                    .secretArn(secretArn)
-                    .sql(sqlStatement)
-                    .database("jobs")
-                    .resourceArn(resourceArn)
-                    .build();
-
-            ExecuteStatementResponse response = dataClient.executeStatement(sqlRequest);
-            List<List<Field>> dataList = response.records();
-
-            WorkItem workItem ;
-            int index = 0 ;
-
-            // Get the records.
-            for (List list: dataList) {
-
-                // New WorkItem object.
-                workItem = new WorkItem();
-                index = 0;
-                for (Object myField : list) {
-
-                    Field field = (Field) myField;
-                    String value = field.stringValue();
-
-                    if (index == 0)
-                        workItem.setId(value);
-
-                    else if (index == 1)
-                        workItem.setDate(value);
-
-                    else if (index == 2)
-                        workItem.setDescription(value);
-
-                    else if (index == 3)
-                        workItem.setGuide(value);
-
-                    else if (index == 4)
-                        workItem.setStatus(value);
-
-                    else if (index == 5)
-                        workItem.setName(value);
-
-                    // Increment the index.
-                    index++;
-                }
-
-                // Push the object to the List.
-                records.add(workItem);
-            }
-
-            return records;
-
+            String sqlStatement = "SELECT idwork, date, description, guide, status, username "+
+                "FROM work WHERE username = :username and archive = :arch ;";
+            List<SqlParameter> parameters = List.of(
+                App.param("username", App.username),
+                App.param("arch", archived)
+            );
+            return App.execute(sqlStatement, parameters)
+                .records()
+                .stream()
+                .map(WorkItem::from)
+                .collect(Collectors.toUnmodifiableList());
         } catch (RdsDataException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return null;
     }
 }
 ```
 
 ### InjectWorkService class
 
-The following Java code represents the **InjectWorkService** class. Notice that you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database (as discussed in the *Creating the resources* section). Without both of these values, your code does not work. To use the **DSDataClient**, you need to create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to submit data to the work table.
+The following Java code represents the **InjectWorkService** class that adds a new record to the database.
 
 ```java
-     package com.aws.rest;
+package com.aws.rest;
 
+import org.springframework.stereotype.Component;
+import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementResponse;
+import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
+import software.amazon.awssdk.services.rdsdata.model.SqlParameter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
-import org.springframework.stereotype.Component;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.rdsdata.RdsDataClient;
-import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementRequest;
-import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
 
 @Component
 public class InjectWorkService {
+    public String injectNewSubmission(WorkItem item) {
+        try {
+            String name = item.getName();
+            String guide = item.getGuide();
+            String description = item.getDescription();
+            String status = item.getStatus();
+            String archived = "0";
 
-        private String secretArn = "<Enter value>" ;
-        private String resourceArn = "<Enter value>" ;
+            UUID uuid = UUID.randomUUID();
+            String workId = uuid.toString();
 
-        // Returns a RdsDataClient object.
-        private RdsDataClient getClient() {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String sDate1 = dtf.format(now);
+            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
+            java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
 
-                Region region = Region.US_EAST_1;
-                RdsDataClient dataClient = RdsDataClient.builder()
-                        .region(region)
-                        .build();
+            String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
+                "(:idwork, :username, :date, :description, :guide, :status, :archive);";
+            List<SqlParameter> paremeters = List.of(
+                App.param("idwork", workId),
+                App.param("username", name),
+                App.param("date", sqlDate.toString()),
+                App.param("description", description),
+                App.param("guide", guide),
+                App.param("status", status),
+                App.param("archive", archived)
+            );
 
-                return dataClient;
+            ExecuteStatementResponse result = App.execute(sql, paremeters);
+            System.out.println(result.toString());
+            return workId;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        return "";
+    }
 
-        // Inject a new submission.
-        public String injestNewSubmission(WorkItem item) {
-
-                RdsDataClient dataClient = getClient();
-
-                try {
-
-                        // Convert rev to int.
-                        String name = item.getName();
-                        String guide = item.getGuide();
-                        String description = item.getDescription();
-                        String status = item.getStatus();
-                        int arc = 0;
-
-                        // Generate the work item ID.
-                        UUID uuid = UUID.randomUUID();
-                        String workId = uuid.toString();
-
-                        // Date conversion.
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-                        LocalDateTime now = LocalDateTime.now();
-                        String sDate1 = dtf.format(now);
-                        Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
-                        java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
-
-                        // Inject an item into the system.
-                        String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES('"+workId+"', '"+name+"', '"+sqlDate+"','"+description+"','"+guide+"','"+status+"','"+arc+"');";
-                        ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
-                                .secretArn(secretArn)
-                                .sql(insert)
-                                .database("jobs")
-                                .resourceArn(resourceArn)
-                                .build();
-                        dataClient.executeStatement(sqlRequest);
-                        return workId;
-
-                } catch (RdsDataException | ParseException e) {
-                        e.printStackTrace();
-                }
-                return null;
+    public String modifySubmission(String id, String desc, String status) {
+        try {
+            App.execute(
+                "UPDATE Work SET description = :description, status = :status WHERE idwork = :idwork;",
+                List.of(
+                    App.param("idwork", id),
+                    App.param("description", desc),
+                    App.param("status", status)
+                )
+            );
+            return id;
+        } catch (RdsDataException e) {
+            e.printStackTrace();
         }
+        return "";
+    }
 
-        // Modifies an existing record.
-        public String modifySubmission(String id, String desc, String status) {
-
-                RdsDataClient dataClient = getClient();
-                try {
-
-                        String query = "update work set description = '"+desc+"', status = '"+status+"' where idwork = '" +id +"'";
-                        ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
-                                .secretArn(secretArn)
-                                .sql(query)
-                                .database("jobs")
-                                .resourceArn(resourceArn)
-                                .build();
-                        dataClient.executeStatement(sqlRequest);
-                        return id;
-
-                } catch (RdsDataException e) {
-                        e.printStackTrace();
-                }
-                return null;
-        }
-}
 ```
 
 ### SendMessage class
@@ -622,7 +580,7 @@ The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an emai
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
 
 ```java
-    package com.aws.services;
+    package com.aws.rest;
 
     import org.apache.commons.io.IOUtils;
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -776,65 +734,95 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 The following Java code represents the **WorkItem** class.   
 
 ```java
-    package com.aws.entities;
+package com.aws.rest;
 
-    public class WorkItem {
+import software.amazon.awssdk.services.rdsdata.model.Field;
+import java.util.List;
 
-     private String id;
-     private String name;
-     private String guide ;
-     private String date;
-     private String description;
-     private String status;
+public class WorkItem {
+    private String id;
+    private String name;
+    private String guide;
+    private String date;
+    private String description;
+    private String status;
 
-     public void setId (String id) {
-         this.id = id;
-     }
+    public static WorkItem from(List<Field> fields) {
+        WorkItem item = new WorkItem();
+        for (int i = 0; i <= 5; i++) {
+            String value = fields.get(i).stringValue();
+            switch (i) {
+                case 0:
+                    item.setId(value);
+                    break;
+                case 1:
+                    item.setDate(value);
+                    break;
+                case 2:
+                    item.setDescription(value);
+                    break;
+                case 3:
+                    item.setGuide(value);
+                    break;
+                case 4:
+                    item.setStatus(value);
+                    break;
+                case 5:
+                    item.setName(value);
+                    break;
+            }
+        }
+        return item;
+    }
 
-     public String getId() {
-         return this.id;
-     }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-     public void setStatus (String status) {
+    public String getId() {
+        return this.id;
+    }
+
+    public void setStatus(String status) {
         this.status = status;
-     }
+    }
 
-     public String getStatus() {
-       return this.status;
-     }
+    public String getStatus() {
+        return this.status;
+    }
 
-     public void setDescription (String description) {
+    public void setDescription(String description) {
         this.description = description;
-     }
+    }
 
-     public String getDescription() {
-       return this.description;
-     }
+    public String getDescription() {
+        return this.description;
+    }
 
-     public void setDate (String date) {
-       this.date = date;
-     }
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-     public String getDate() {
-       return this.date;
-     }
+    public String getDate() {
+        return this.date;
+    }
 
-     public void setName (String name) {
-       this.name = name;
-     }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-     public String getName() {
-       return this.name;
-     }
+    public String getName() {
+        return this.name;
+    }
 
-     public void setGuide (String guide) {
-      this.guide = guide;
-     }
+    public void setGuide(String guide) {
+        this.guide = guide;
+    }
 
-     public String getGuide() {
-      return this.guide;
-      }
-     }
+    public String getGuide() {
+        return this.guide;
+    }
+}
 ```
 ### WriteExcel class
 
@@ -1029,9 +1017,266 @@ The following illustration shows the JSON data returned from the Spring REST API
 
 ## Create the React front end
 
-You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following Github repository. Included in this repository are instructions on how to set up the project. For more information, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
+You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
 
-You must modify the **AWSServices.js** file so that your React requests work with your Java backend. Update this file to include this code.
+### Update WorkItem.js
+
+You must modify the **WorkItem.js** file so that your React requests work with your Java backend. Update this file to include this code.
+
+```javascript
+import React, {useEffect, useState} from "react";
+import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
+import Modal from "react-bootstrap/Modal";
+
+import * as service from './RestService';
+
+/**
+ * An element that displays an 'Add item' button that lets you add an item to the work
+ * item list. When you click the 'Add item' button, a modal form is displayed that
+ * includes form fields that you can use to define the work item. When you click the
+ * 'Add' button on the form, your new work item is sent to the server so it can be
+ * added to the database.
+ *
+ * @returns {JSX.Element}
+ */
+export const WorkItem = () => {
+  const [user, setUser] = useState('');
+  const [guide, setGuide] = useState('');
+  const [description, setDescription] = useState('');
+  const [status, setStatus] = useState('');
+  const [show, setShow] = useState(false);
+  const [canAdd, setCanAdd] = useState(false);
+
+  useEffect(() => {
+    let can = user.length > 0 && guide.length > 0 && description.length > 0 && status.length > 0;
+    setCanAdd(can);
+  }, [user, guide, description, status]);
+
+  const handleAdd = () => {
+    service.addWorkItem({name: user, guide: guide, description: description, status: status})
+      .catch(console.error);
+    setShow(false);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  return (
+    <>
+      <Button onClick={() => setShow(true)} variant="primary">Add item</Button>
+
+      <Modal show={show} onHide={handleClose} dialogClassName="modal-90w">
+        <Modal.Header closeButton>
+          <Modal.Title>Add a new work item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label htmlFor='userField'>User</Form.Label>
+              <Form.Control id='userField' type="text" placeholder="User name"
+                            onChange={(event) => setUser(event.target.value)}/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor='guideField'>Guide</Form.Label>
+              <Form.Control id='guideField' type="text" placeholder="Developer guide"
+                            onChange={(event) => setGuide(event.target.value)}/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor='descriptionField'>Description</Form.Label>
+              <Form.Control as="textarea" rows={3} id='descriptionField'
+                            onChange={(event) => setDescription(event.target.value)}/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor='statusField'>Status</Form.Label>
+              <Form.Control as="textarea" rows={3} id='statusField'
+                            onChange={(event) => setStatus(event.target.value)}/>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>Close</Button>
+          <Button variant="primary" disabled={!canAdd} onClick={handleAdd}>Add</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
+```
+### Update WorkItems.js
+
+You must modify the **WorkItems.js** file so that your React requests work with your Java backend. Update this file to include this code.
+
+```javascript
+import React, {useEffect, useState} from 'react';
+import * as service from './RestService';
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Placeholder from "react-bootstrap/Placeholder";
+import Row from "react-bootstrap/Row";
+import Table from "react-bootstrap/Table";
+import {WorkItem} from "./WorkItem";
+
+/**
+ * An element that displays a list of work items that are retrieved from a REST service.
+ *
+ * * Select Active or Archived to display work items with the specified state.
+ * * Select the wastebasket icon to archive and active item.
+ * * Select 'Add item' to add a new item.
+ * * Enter a recipient email and select 'Send report' to send a report of work items.
+ *
+ * @returns {JSX.Element}
+ */
+
+export const WorkItems = () => {
+  const [email, setEmail] = useState('');
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('active');
+  const [error, setError] = useState('');
+
+  const getItems = async () => {
+    setError('');
+    setLoading(true);
+    const response = await service.getWorkItems(status).catch((e) => {setError(e.message)});
+    setItems(response ? await response.data : []);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getItems().catch((e) => {setError(e.message)});
+  }, [status]);
+
+  const archiveItem = async (itemId) => {
+    service.archiveItem(itemId).catch((e) => {setError(e.message)});
+    getItems().catch((e) => {setError(e.message)});
+  }
+
+  const sendReport = async () => {
+    service.mailItem(email).catch((e) => {setError(e.message)});
+  }
+
+  const handleStatusChange = (newStatus) => {
+    setStatus(newStatus);
+  }
+
+  return (
+    <>
+      {error !== ''
+        ?
+        <Row>
+          <Col>
+            <Alert variant="danger">{error}</Alert>
+          </Col>
+        </Row>
+        : null
+      }
+      <Row>
+        <Col className="col-3">
+          <FloatingLabel controlId="floatingSelect" label="State">
+            <Form.Select aria-label="Status" onChange={(event) => handleStatusChange(event.target.value)}>
+              <option value="active">Active</option>
+              <option value="archive">Archived</option>
+            </Form.Select>
+          </FloatingLabel>
+        </Col>
+        <Col className="col-5">
+          <InputGroup>
+            <FormControl onChange={(event) => setEmail(event.target.value)}
+              placeholder="Recipient's email"
+              aria-label="Recipient's email"
+              aria-describedby="basic-addon2"
+            />
+            <Button
+              variant="outline-secondary"
+              id="button-addon2"
+              disabled={email === ''}
+              onClick={() => sendReport()}>
+                Send report
+            </Button>
+          </InputGroup>
+          <Form.Text className="text-muted">
+            You must first register the recipient's email with Amazon SES.
+          </Form.Text>
+        </Col>
+      </Row>
+      <hr/>
+      <Row>
+        <h3>Work items</h3>
+        <p>Click the 🗑 icon to Archive an item.</p>
+      </Row>
+      <Row style={{maxHeight: `calc(100vh - 400px)`, overflowY: "auto"}}>
+        <Col>
+          {!loading && items.length === 0
+            ? <Alert variant="info">No work items found.</Alert>
+            : <Table striped>
+              <thead>
+              <tr>
+                <th>Item Id</th>
+                <th>User</th>
+                <th>Guide</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th/>
+              </tr>
+              </thead>
+              {loading
+                ? <tbody>{
+                  [1, 2, 3].map(item =>
+                    <tr key={item}>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
+                    </tr>
+                  )
+                }
+                </tbody>
+                : <tbody>{
+                  items.map(item =>
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td>{item.name}</td>
+                      <td>{item.guide}</td>
+                      <td>{item.description}</td>
+                      <td>{item.status}</td>
+                      <td>{
+                        status === 'active' ?
+                          <Button variant="outline-secondary" size="sm" onClick={() => archiveItem(item.id)}>🗑</Button>
+                          : null
+                      }
+                      </td>
+                    </tr>
+                  )
+                }
+                </tbody>
+              }
+            </Table>
+          }
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <WorkItem />
+        </Col>
+      </Row>
+    </>
+  )
+};
+```
+
+
+### Update RestService.js
+
+You must modify the **RestService.js** file so that your React requests work with your Java backend. Update this file to include this code.
 
 ```javascript
 

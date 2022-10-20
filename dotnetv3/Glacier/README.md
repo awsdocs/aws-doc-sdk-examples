@@ -5,7 +5,7 @@ The code examples in this section show how to use the AWS SDK for .NET with Amaz
 
 Amazon S3 Glacier is a secure and durable service for low-cost data archiving and long-term backup.
 
-## ⚠ Important
+## ⚠️ Important
 * Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
@@ -16,47 +16,44 @@ Amazon S3 Glacier is a secure and durable service for low-cost data archiving an
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Add tags](AddTagsToVaultExample/AddTagsToVault.cs) (AddTagsToVault)
-* [Create a vault](CreateVaultExample/CreateVault.cs) (CreateVault)
-* [Describe a job](DescribeVaultExample/DescribeVault.cs) (DescribeJob)
-* [Download an archive](DownloadArchiveHighLevelExample/DownloadArchiveHighLevel.cs)
-* [List jobs](ListJobsExample/ListJobs.cs) (ListJobs)
-* [List tags](ListTagsForVaultExample/ListTagsForVault.cs) (ListTagsForVault)
-* [List vaults](ListVaultsExample/ListVaults.cs) (ListVaults)
-* [Upload an archive to a vault](UploadArchiveHighLevelExample/UploadArchiveHighLevel.cs) (UploadArchive)
+* [Add tags](AddTagsToVaultExample/AddTagsToVault.cs) (`AddTagsToVaultAsync`)
+* [Create a vault](CreateVaultExample/CreateVault.cs) (`CreateVaultAsync`)
+* [Describe a job](DescribeVaultExample/DescribeVault.cs) (`DescribeJobAsync`)
+* [Download an archive](DownloadArchiveHighLevelExample/DownloadArchiveHighLevel.cs) (`DownloadAsync`)
+* [List jobs](ListJobsExample/ListJobs.cs) (`ListJobsAsync`)
+* [List tags](ListTagsForVaultExample/ListTagsForVault.cs) (`ListTagsForVaultAsync`)
+* [List vaults](ListVaultsExample/ListVaults.cs) (`ListVaultsAsync`)
+* [Upload an archive to a vault](UploadArchiveHighLevelExample/UploadArchiveHighLevel.cs) (`UploadArchiveAsync`)
 
 ## Run the examples
 
+### Prerequisites
+* To find prerequisites for running these examples, see the
+  [README](../README.md#Prerequisites) in the dotnetv3 folder.
+
 The examples in this folder use the default user account. The call to
-initialize the client object does not specify the AWS region. Supply
-the AWS Region to match your own as a parameter to the client constructor. For
-example:
+initialize the client object does not specify the AWS Region. The following
+example shows how to supply the AWS Region to match your own as a
+parameter to the client constructor:
 
 ```
 var client = new AmazonGlacierClient(Amazon.RegionEndpoint.USWest2);
 ```
 
-Once the example has been compiled, you can run it from the command line by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
 
 ```
 dotnet run
 ```
 
-Or you can execute the example from within your IDE.
-
-### Prerequisites
-* You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-* .NET Core 5.0 or later
-* AWS SDK for .NET (v3) or later
+Alternatively, you can run the example from within your IDE.
 
 ## Additional resources
 * [Amazon S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/index.html)
+* [Amazon S3 Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
 * [AWS SDK for .NET Amazon S3 Glacier](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glacier/NGlacier.html)
 * [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
-

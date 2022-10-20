@@ -25,7 +25,7 @@ namespace CreateKeyPairExample
             string keyName = "sdk-example-key-pair";
 
             // If the default user on your system is not the same as
-            // the region where you want to create the key pair, you
+            // the Region where you want to create the key pair, you
             // need to supply the AWS Region as a parameter to the
             // client constructor.
             var client = new AmazonEC2Client();

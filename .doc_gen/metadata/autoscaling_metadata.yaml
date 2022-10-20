@@ -128,6 +128,14 @@ auto-scaling_UpdateAutoScalingGroup:
   synopsis: update the configuration for an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.update_autoscalinggroup.main
     .NET:
       versions:
         - sdk_version: 3
@@ -161,6 +169,23 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
   synopsis: terminate an instance in an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.terminate_instance.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.TerminateInstanceInAutoScalingGroup
     Python:
       versions:
         - sdk_version: 3
@@ -179,6 +204,14 @@ auto-scaling_SetDesiredCapacity:
   synopsis: set the desired capacity of an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.set_capacity.main
     .NET:
       versions:
         - sdk_version: 3
@@ -206,6 +239,14 @@ auto-scaling_DescribeAutoScalingInstances:
   synopsis: get information about &AS; instances.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_autoscalinggroup.main
     .NET:
       versions:
         - sdk_version: 3
@@ -233,6 +274,14 @@ auto-scaling_DescribeScalingActivities:
   synopsis: get information about &AS; activities.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_scaling_activites.main
     .NET:
       versions:
         - sdk_version: 3
@@ -260,6 +309,14 @@ auto-scaling_EnableMetricsCollection:
   synopsis: enable &CW; metrics collection for an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.enable_collection.main
     .NET:
       versions:
         - sdk_version: 3
@@ -287,6 +344,14 @@ auto-scaling_DisableMetricsCollection:
   synopsis: disable &CW; metrics collection for an &AS; group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.disable_collection.main
     .NET:
       versions:
         - sdk_version: 3
@@ -324,6 +389,22 @@ auto-scaling_Scenario_GroupsAndInstances:
     - Stop collecting metrics, terminate all instances, and delete the group.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.global-usings
+                - AutoScale.dotnetv3.AutoScale_Basics.main
+            - description: Define functions that are called by the scenario to
+                manage launch templates and metrics. These functions wrap
+                &EC2; and &CW; actions.
+              snippet_tags:
+                - AutoScale.dotnetv3.AutoScale_Basics.EC2Methods
+                - AutoScale.dotnetv3.AutoScale_Basics.CloudWatchMethods
     Kotlin:
       versions:
         - sdk_version: 1

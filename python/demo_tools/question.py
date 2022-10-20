@@ -29,6 +29,12 @@ def ask(question, *validators):
     return answer
 
 
+def choose(question, choices):
+    for index, choice in enumerate(choices):
+        print(f"{index+1}. {choice}")
+    return ask(question, is_int, in_range(1, len(choices))) - 1
+
+
 def non_empty(answer):
     """
     Validates that the answer is not empty.

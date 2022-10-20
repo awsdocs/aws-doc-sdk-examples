@@ -5,6 +5,15 @@ transcribe_StartTranscriptionJob:
   synopsis: start an &TSC; transcription job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.StartTranscriptionJob
     Python:
       versions:
         - sdk_version: 3
@@ -34,6 +43,15 @@ transcribe_ListTranscriptionJobs:
   synopsis: list &TSC; transcription jobs.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.ListTranscriptionJobs
     Python:
       versions:
         - sdk_version: 3
@@ -63,6 +81,15 @@ transcribe_GetTranscriptionJob:
   synopsis: get an &TSC; transcription job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.GetTranscriptionJob
     Python:
       versions:
         - sdk_version: 3
@@ -80,6 +107,15 @@ transcribe_DeleteTranscriptionJob:
   synopsis: delete an &TSC; transcription job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.DeleteTranscriptionJob
     Python:
       versions:
         - sdk_version: 3
@@ -109,6 +145,15 @@ transcribe_CreateVocabulary:
   synopsis: create a custom &TSC; vocabulary.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.CreateVocabularyAsync
     Python:
       versions:
         - sdk_version: 3
@@ -126,6 +171,15 @@ transcribe_ListVocabularies:
   synopsis: list custom &TSC; vocabularies.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.ListCustomVocabularies
     Python:
       versions:
         - sdk_version: 3
@@ -143,6 +197,15 @@ transcribe_GetVocabulary:
   synopsis: get a custom &TSC; vocabulary.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.GetVocabularyAsync
     Python:
       versions:
         - sdk_version: 3
@@ -160,6 +223,15 @@ transcribe_UpdateVocabulary:
   synopsis: update a custom &TSC; vocabulary.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.UpdateCustomVocabulary
     Python:
       versions:
         - sdk_version: 3
@@ -177,6 +249,15 @@ transcribe_DeleteVocabulary:
   synopsis: delete a custom &TSC; vocabulary.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Transcribe.dotnetv3.DeleteVocabularyAsync
     Python:
       versions:
         - sdk_version: 3
@@ -188,6 +269,22 @@ transcribe_DeleteVocabulary:
                 - python.example_code.transcribe.DeleteVocabulary
   services:
     transcribe: {DeleteVocabulary}
+transcribe_StartStreamTranscriptionAsync:
+  title: Produce real-time transcriptions with &TSC; using an &AWS; SDK
+  title_abbrev: Produce real-time transcriptions
+  synopsis: produce a real-time transcription with &TSC;.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/transcribe
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.cpp.stream_transcription_async.code
+  services:
+    transcribe: {StartStreamTranscriptionAsync}
 transcribe_Scenario_GettingStartedTranscriptionJobs:
   title: Transcribe audio and get job data with &TSC; using an &AWS; SDK
   title_abbrev: Transcribe audio and get job data

@@ -1,10 +1,35 @@
-# zexi 0.4.0
+ec2_Hello:
+  title: Hello &EC2;
+  title_abbrev: Hello &EC2;
+  synopsis: get started using &EC2long; (&EC2;).
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.Hello
+  services:
+    ec2: {DescribeSecurityGroups}
 ec2_CreateKeyPair:
   title: Create a security key pair for &EC2; using an &AWS; SDK
   title_abbrev: Create a security key pair
   synopsis: create a security key pair for &EC2;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.CreateKeyPairExample
     Java:
       versions:
         - sdk_version: 2
@@ -22,15 +47,44 @@ ec2_CreateKeyPair:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.CreateKeyPair
   services:
     ec2: {CreateKeyPair}
+ec2_DescribeKeyPairs:
+  title: List &EC2; security key pairs using an &AWS; SDK
+  title_abbrev: List security key pairs
+  synopsis: list &EC2; security key pairs.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.KeyPairWrapper.decl
+                - python.example_code.ec2.DescribeKeyPairs
+  services:
+    ec2: {DescribeKeyPairs}
+
 ec2_CreateSecurityGroup:
   title: Create an &EC2; security group using an &AWS; SDK
   title_abbrev: Create a security group
   synopsis: create an &EC2; security group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.CreateSecurityGroupExample
     Java:
       versions:
         - sdk_version: 2
@@ -48,7 +102,8 @@ ec2_CreateSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.ec2.CreateSecurityGroup_AuthorizeIngress
+                - python.example_code.ec2.SecurityGroupWrapper.decl
+                - python.example_code.ec2.CreateSecurityGroup
   services:
     ec2: {CreateSecurityGroup}
 ec2_RunInstances:
@@ -74,15 +129,42 @@ ec2_RunInstances:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.RunInstances
   services:
     ec2: {RunInstances}
+ec2_CreateVpc:
+  title: Create an &EC2; VPC using an &AWS; SDK
+  title_abbrev: Create a VPC
+  synopsis: create an &EC2; VPC.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.CreateVPCExample
+  services:
+    ec2: {CreateVpc}
 ec2_StartInstances:
   title: Start an &EC2; instance using an &AWS; SDK
   title_abbrev: Start an instance
   synopsis: start an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.StartInstancesExample
     Java:
       versions:
         - sdk_version: 2
@@ -100,6 +182,7 @@ ec2_StartInstances:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StartInstances
     Rust:
       versions:
@@ -117,6 +200,15 @@ ec2_StopInstances:
   synopsis: stop an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.StopInstancesExample
     Java:
       versions:
         - sdk_version: 2
@@ -134,6 +226,7 @@ ec2_StopInstances:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StopInstances
     Rust:
       versions:
@@ -168,6 +261,7 @@ ec2_AllocateAddress:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AllocateAddress
   services:
     ec2: {AllocateAddress}
@@ -185,6 +279,7 @@ ec2_AssociateAddress:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AssociateAddress
   services:
     ec2: {AssociateAddress}
@@ -202,6 +297,7 @@ ec2_DisassociateAddress:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.DisassociateAddress
   services:
     ec2: {DisassociateAddress}
@@ -228,43 +324,10 @@ ec2_ReleaseAddress:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.ReleaseAddress
   services:
     ec2: {ReleaseAddress}
-ec2_GetConsoleOutput:
-  title: Get the console output of an &EC2; instance using an &AWS; SDK
-  title_abbrev: Get the console output of an instance
-  synopsis: get the console output of an &EC2; instance.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ec2.GetConsoleOutput
-  services:
-    ec2: {GetConsoleOutput}
-ec2_ModifyNetworkInterfaceAttribute:
-  title: Change the security group of an &EC2; instance using an &AWS; SDK
-  title_abbrev: Change the security group on an instance
-  synopsis: change the security group of an &EC2; instance.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ec2.ModifyNetworkInterfaceAttribute
-  services:
-    ec2: {ModifyNetworkInterfaceAttribute}
 ec2_AuthorizeSecurityGroupIngress:
   title: Set inbound rules for an &EC2; security group using an &AWS; SDK
   title_abbrev: Set inbound rules for a security group
@@ -278,14 +341,8 @@ ec2_AuthorizeSecurityGroupIngress:
           sdkguide:
           excerpts:
             - description:
-                Create an &EC2long; (&EC2;) security group and add rules
-                to filter incoming traffic.
               snippet_tags:
-                - python.example_code.ec2.CreateSecurityGroup_AuthorizeIngress
-            - description:
-                Authorize incoming traffic to a security group from instances
-                in another security group.
-              snippet_tags:
+                - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.AuthorizeSecurityGroupIngress
   services:
     ec2: {AuthorizeSecurityGroupIngress}
@@ -295,6 +352,15 @@ ec2_DeleteKeyPair:
   synopsis: delete an &EC2; security key pair.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DeleteKeyPairExample
     Java:
       versions:
         - sdk_version: 2
@@ -312,15 +378,43 @@ ec2_DeleteKeyPair:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DeleteKeyPair
   services:
     ec2: {DeleteKeyPair}
+ec2_DescribeSecurityGroups:
+  title: Get data about an &EC2; security group using an &AWS; SDK
+  title_abbrev: Get data about a security group
+  synopsis: get data about an &EC2; security group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.SecurityGroupWrapper.decl
+                - python.example_code.ec2.DescribeSecurityGroups
+  services:
+    ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
   title: Delete an &EC2; security group using an &AWS; SDK
   title_abbrev: Delete a security group
   synopsis: delete an &EC2; security group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DeleteSecurityGroupExample
     Java:
       versions:
         - sdk_version: 2
@@ -338,6 +432,7 @@ ec2_DeleteSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DeleteSecurityGroup
   services:
     ec2: {DeleteSecurityGroup}
@@ -399,30 +494,34 @@ ec2_TerminateInstances:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.TerminateInstances
   services:
     ec2: {TerminateInstances}
-ec2_Usage_InstanceCreationAndManagement:
-  title: Manage &EC2; instances, Elastic IPs, and security groups using an &AWS; SDK
-  title_abbrev: Manage instances, Elastic IPs, and security groups
-  synopsis: manage &EC2; instances, Elastic IPs, and security groups.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          block_content: usage_EC2InstanceManagement_Python_block.xml
-  services:
-    ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair, CreateSecurityGroup,
-          DeleteKeyPair, DeleteSecurityGroup, DisassociateAddress, GetConsoleOutput,
-          ModifyNetworkInterfaceAttribute, ReleaseAddress, RunInstances, StartInstances, StopInstances,
-          TerminateInstances}
 ec2_DescribeInstances:
   title: Describe &EC2; instances using an &AWS; SDK
   title_abbrev: Describe instances
   synopsis: describe &EC2; instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DescribeInstancesExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.InstanceWrapper.decl
+                - python.example_code.ec2.DescribeInstances
     Rust:
       versions:
         - sdk_version: 1
@@ -487,6 +586,15 @@ ec2_RebootInstances:
   synopsis: reboot an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.RebootInstancesExample
     Rust:
       versions:
         - sdk_version: 1
@@ -497,3 +605,100 @@ ec2_RebootInstances:
                 - ec2.rust.reboot-instance
   services:
     ec2: {RebootInstances}
+ec2_DeleteVPC:
+  title: Delete an &EC2; VPC using an &AWS; SDK
+  title_abbrev: Delete a VPC
+  synopsis: delete an &EC2; VPC.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DeleteVPCExample
+  services:
+    ec2: {DeleteVpc}
+ec2_DescribeImages:
+  title: Get data about Amazon Machine Images using an &AWS; SDK
+  title_abbrev: Get data about Amazon Machine Images
+  synopsis: get data about Amazon Machine Images (AMIs).
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.InstanceWrapper.decl
+                - python.example_code.ec2.DescribeImages
+  services:
+    ec2: {DescribeImages}
+ec2_DescribeInstanceTypes:
+  title: Get data about &EC2; instance types using an &AWS; SDK
+  title_abbrev: Get data about instance types
+  synopsis: get data about &EC2; instance types.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.InstanceWrapper.decl
+                - python.example_code.ec2.DescribeInstanceTypes
+  services:
+    ec2: {DescribeInstanceTypes}
+ec2_Scenario_GetStartedInstances:
+  title: Get started with &EC2; instances using an &AWS; SDK
+  title_abbrev: Get started with instances
+  synopsis_list:
+    - Create a key pair that is used to secure SSH communication between your computer and
+      an EC2 instance.
+    - Create a security group that acts as a virtual firewall for your EC2 instances to
+      control incoming and outgoing traffic.
+    - Find an Amazon Machine Image (AMI) and a compatible instance type.
+    - Create an instance that is created from the instance type and AMI you select, and
+      is configured to use the security group and key pair created in this example.
+    - Stop and restart the instance.
+    - Create an Elastic IP address and associate it as a consistent IP address for your instance.
+    - Connect to your instance with SSH, using both its public IP address and your Elastic IP
+      address.
+    - Clean up all of the resources created by this example.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.ec2.Scenario_GetStartedInstances
+            - description: Define a class that wraps key pair actions.
+              snippet_tags:
+                - python.example_code.ec2.KeyPairWrapper.class
+            - description: Define a class that wraps security group actions.
+              snippet_tags:
+                - python.example_code.ec2.SecurityGroupWrapper.class
+            - description: Define a class that wraps instance actions.
+              snippet_tags:
+                - python.example_code.ec2.InstanceWrapper.class
+            - description: Define a class that wraps Elastic IP actions.
+              snippet_tags:
+                - python.example_code.ec2.ElasticIpWrapper.class
+  services:
+    ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair,
+          CreateSecurityGroup, DeleteKeyPair, DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes,
+          DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups, DisassociateAddress,
+          ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances}

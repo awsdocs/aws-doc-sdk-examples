@@ -18,7 +18,7 @@
     "function-name"        : "CreateS3Bucket",
     "function-description" : "Creates a new S3 bucket.",
     "package-type"         : "Zip",
-    "function-role"        : "arn:aws:iam::704825161248:role/lambda-support",
+    "function-role"        : "arn:aws:iam::012345678901:role/lambda-support",
     "tracing-mode"         : "PassThrough",
     "environment-variables" : "",
     "image-tag"             : ""

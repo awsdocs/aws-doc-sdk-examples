@@ -2,12 +2,12 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
     <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
     %xinclude;
-    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
-    %phrases-code-examples;
 {{- if isSnapshot}}
-    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
-    %phrases-prerelease-examples;
+    <!ENTITY % phrases-code-examples SYSTEM "phrases-code-examples.ent">
+{{- else}}
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
 {{- end}}
+    %phrases-code-examples;
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
@@ -36,28 +36,16 @@
         </abstract>
     </info>
     <para>The code examples in this topic show you how to use the {{.SdkEntity.Long}} with &AWS;.</para>
-    <variablelist role="termdef">
-        <para>The examples are divided into the following categories:</para>
-        <varlistentry>
-            <term>Single-service actions</term>
-            <listitem><para>Code excerpts that show you how to call individual service functions.</para></listitem>
-        </varlistentry>
-        <varlistentry>
-            <term>Single-service scenarios</term>
-            <listitem><para>Code examples that show you how to accomplish a specific task by
-                calling multiple functions within the same service.</para></listitem>
-        </varlistentry>
-        <varlistentry>
-            <term>Cross-service examples</term>
-            <listitem><para>Sample applications that work across multiple &AWS-services;.</para></listitem>
-        </varlistentry>
-    </variablelist>
+    <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
+    <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
+        calling multiple functions within the same service.</para>
+    <para><emphasis>Cross-service examples</emphasis> are sample applications that work across multiple &AWS-services;.</para>
     <para role="topiclist-abbrev">Examples</para>
     {{- if .ApiExamples}}
     <section id="{{$.LanguageSlug}}_code_examples_categorized" role="topic">
         <info>
-            <title id="{{$.LanguageSlug}}_code_examples_categorized.title">Single-service actions and scenarios using {{$.SdkEntity.Short}}</title>
-            <titleabbrev id="{{$.LanguageSlug}}_code_examples_categorized.titleabbrev">Single-service actions and scenarios</titleabbrev>
+            <title id="{{$.LanguageSlug}}_code_examples_categorized.title">Actions and scenarios using {{$.SdkEntity.Short}}</title>
+            <titleabbrev id="{{$.LanguageSlug}}_code_examples_categorized.titleabbrev">Actions and scenarios</titleabbrev>
             <abstract>
                 <para>The following code examples show how to implement common scenarios and perform individual service actions by using
                     {{$.SdkEntity.Short}} with &AWS-services;.</para>
@@ -87,8 +75,30 @@
                 by calling multiple {{$svc_examples.ServiceEntity.Short}} functions.</para>
             <para>Each example includes a link to GitHub, where you can find
                 instructions on how to set up and run the code in context.</para>
+            {{- $hello := index $svc_examples.CategorizedExampleSets "Hello"}}
+            {{- if $hello.Examples}}
+            <para><emphasis role="bold">Get started</emphasis></para>
+            <block>
+                <collapsible expand-section="_collapse_all_">
+                    {{- range $hello.Examples}}
+                    <section id="example_{{.ExampleId}}_section">
+                        <info>
+                            <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                            <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                            <abstract>
+                                <para>{{.Title}}</para>
+                            </abstract>
+                        </info>
+                        <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
+                        <xi:include href="{{$include_docs}}{{.ExampleId}}_tablist.xml"></xi:include>
+                    </section>
+                    {{- end}}
+                </collapsible>
+            </block>
+            {{- end}}
             <para role="topiclist-abbrev"/>
             {{- range $category := $svc_examples.CategoryNamesSorted}}
+            {{- if ne $category "Hello"}}
             {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
             <section>
                 <info>
@@ -125,6 +135,7 @@
                     {{- end}}
                 </collapsible>
             </section>
+            {{- end}}
             {{- end}}
             {{- end}}
         </section>

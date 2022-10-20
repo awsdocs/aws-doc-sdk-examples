@@ -22,7 +22,7 @@ namespace DescribeTextTranslationExample
 
             // The Job Id is generated when the text translation job is started
             // with a call to the StartTextTranslationJob method.
-            var jobId = "";
+            var jobId = "1234567890abcdef01234567890abcde";
 
             var request = new DescribeTextTranslationJobRequest
             {
