@@ -12,15 +12,13 @@ import config from "../config.json";
  * value to your endpoint.
  */
 
-export type WorkItemStatus = "archived" | "active" | "";
-
 export interface WorkItem {
   id: string;
   name: string;
   guide: string;
   description: string;
   status: string;
-  archive: WorkItemStatus;
+  archived: boolean;
 }
 
 export class WorkItemService extends RestService<WorkItem> {
