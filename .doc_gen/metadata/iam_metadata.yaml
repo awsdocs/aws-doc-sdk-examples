@@ -2619,6 +2619,14 @@ iam_CreateServiceLinkedRole:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_service_linked_role
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/CreateServiceLinkedRole
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.createservicelinkedrole.handler.createservicelinkedrole
   services:
     iam: {CreateServiceLinkedRole}
 iam_DeleteServiceLinkedRole:

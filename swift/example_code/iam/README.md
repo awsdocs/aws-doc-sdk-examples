@@ -23,18 +23,15 @@ Code excerpts that show you how to call individual service functions.
   (`AttachRolePolicy`)
 * [Create a new IAM user](./CreateUser/Sources/ServiceHandler/ServiceHandler.swift) (`CreateUser`)
 * [Create an IAM role](./CreateRole/Sources/ServiceHandler/ServiceHandler.swift) (`CreateRole`)
+* [Create an IAM role linked to a specific service](./CreateServiceLinkedRole/Sources/ServiceHandler/ServiceHandler.swift) (`CreateServiceLinkedRole`)
 * [Get information about an IAM role](./GetRole/Sources/ServiceHandler/ServiceHandler.swift) (`GetRole`)
 * [Get information about an IAM policy](./GetPolicy/Sources/ServiceHandler/ServiceHandler.swift) (`GetPolicy`)
-* [List all users on an AWS account](./ListUsers/Sources/ServiceHandler/ServiceHandler.swift) (`ListUsers`)
+* [List the managed policies attached to a role](./ListAttachedRolePolicies/Sources/ServiceHandler/ServiceHandler.swift). (`ListAttachedRolePolicies`)
 * [List all groups on an AWS account](./ListGroups/Sources/ServiceHandler/ServiceHandler.swift) (`ListGroups`)
 * [List all AWS policies](./ListPolicies/Sources/ServiceHandler/ServiceHandler.swift) (`ListPolicies`)
-* [List the policies embedded in a
-  role](./ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift).
- This does _not_ include managed policies attached to the role.
- (`ListRolePolicies`)
- * [List the managed policies attached to a
-   role](./ListAttachedRolePolicies/Sources/ServiceHandler/ServiceHandler.swift).
-   (`ListAttachedRolePolicies`)
+* [List the policies embedded in a role](./ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift). This does _not_ include managed policies attached to the role. (`ListRolePolicies`)
+* [List all users on an AWS account](./ListUsers/Sources/ServiceHandler/ServiceHandler.swift) (`ListUsers`)
+
 
 <!-- ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
