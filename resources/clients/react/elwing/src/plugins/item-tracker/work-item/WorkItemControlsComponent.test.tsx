@@ -8,7 +8,7 @@ const mocked = jest.mocked(service);
 
 const FAKE_EMAIL = "ses-recipient@example.com";
 
-test("AddWorkItemComponent sends report", async () => {
+test.skip("AddWorkItemComponent sends report", async () => {
   mocked.workItemService = new MockWorkItemService();
   await render(<WorkItemControls />);
 
