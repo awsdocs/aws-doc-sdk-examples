@@ -12,15 +12,13 @@ import config from "../config.json";
  * value to your endpoint.
  */
 
-export type WorkItemStatus = "ARCH" | "ACT" | "";
-
 export interface WorkItem {
   id: string;
   name: string;
   guide: string;
   description: string;
   status: string;
-  archive: WorkItemStatus;
+  archived: boolean;
 }
 
 export class WorkItemService extends RestService<WorkItem> {
@@ -32,7 +30,9 @@ export class WorkItemService extends RestService<WorkItem> {
    * Sends a PUT request to archive an active item.
    */
   async archiveItem(itemId: string) {
-    return this.fetch(this.url({ id: itemId, adverb: "archive" }));
+    return this.fetch(this.url({ id: itemId, adverb: "archive" }), {
+      method: "PUT",
+    });
   }
 
   /**

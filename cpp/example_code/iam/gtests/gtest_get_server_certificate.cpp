@@ -12,6 +12,6 @@ namespace AwsDocTest {
     TEST_F(IAM_GTests, get_server_certificate) {
         auto result = AwsDoc::IAM::getServerCertificate("non-existent-certificate",
                                                         *s_clientConfig);
-        EXPECT_TRUE(result);  // the routine will return true if certificate not found.
+        EXPECT_TRUE(result);  // The routine will return true if certificate not found.
     }
 } // namespace AwsDocTest

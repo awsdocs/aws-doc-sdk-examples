@@ -109,7 +109,7 @@ int main(int argc, char **argv)
         }
 
         // List the S3 buckets in the external account. Note: The assumed
-        // role must grant the appropriate S3 permissions.
+        // role must grant the appropriate Amazon S3 permissions.
         Aws::S3::S3Client s3(credentials);
         auto response_s3 = s3.ListBuckets();
 

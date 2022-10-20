@@ -27,7 +27,6 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.get_server_cert.inc]
 
-// snippet-start:[iam.cpp.get_server_cert.code]
 //! Gets a server certificate.
 /*!
   \sa getServerCertificate()
@@ -36,6 +35,7 @@
   \return bool: Successful completion.
 */
 
+// snippet-start:[iam.cpp.get_server_cert.code]
 bool AwsDoc::IAM::getServerCertificate(const Aws::String &certificateName,
                                        const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);
