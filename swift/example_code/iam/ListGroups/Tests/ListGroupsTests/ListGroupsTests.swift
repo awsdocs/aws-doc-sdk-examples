@@ -52,6 +52,7 @@ final class ListGroupsTests: XCTestCase {
         tdSem.wait()
     }
 
+    /// Test the `listGroups()` function.
     func testListGroups() async throws {
         do {
             var createdGroups: [String] = []
@@ -68,10 +69,14 @@ final class ListGroupsTests: XCTestCase {
             var groups = try await ListGroupsTests.serviceHandler!.listGroups()
             XCTAssertTrue(groups.count == createdGroups.count + previousGroups.count, "Incorrect number of groups created. Should be \(createdGroups.count + previousGroups.count) but is instead \(groups.count).")
 
-            for group in groups {
+            // Removed the previously existing groups from the retrieved group
+            // list.
+            for group in previousGroups {
                 groups = groups.filter { $0 != group }
             }
-            XCTAssertTrue(groups.count == previousGroups.count, "Created group list doesn't match expected list.")
+            XCTAssertEqual(createdGroups.count, groups.count, "Created group list doesn't match expected list.")
+
+            // Delete the groups created by the test.
 
             for group in createdGroups {
                 _ = try await ListGroupsTests.serviceHandler!.deleteGroup(name: group)

@@ -20,12 +20,10 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(
-            //name: "AWSSwiftSDK",
             url: "https://github.com/awslabs/aws-sdk-swift",
             from: "0.3.0"
         ),
         .package(
-            //name: "swift-argument-parser",
             url: "https://github.com/apple/swift-argument-parser.git",
             from: "1.1.0"
         ),

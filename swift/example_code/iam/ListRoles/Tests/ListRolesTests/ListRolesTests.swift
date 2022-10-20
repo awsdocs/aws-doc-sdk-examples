@@ -98,8 +98,8 @@ final class ListRolesTests: XCTestCase {
             }
 
             // Get the list of roles including the new ones we just created.
-            var roles = try await ListRolesTests.serviceHandler!.listRoles()
-            XCTAssertTrue(roles.count == createdRoles.count + previousRoles.count, "Incorrect number of roles created. Should be \(createdRoles.count + previousRoles.count) but is instead \(roles.count).")
+            let roles = try await ListRolesTests.serviceHandler!.listRoles()
+            XCTAssertEqual(roles.count, createdRoles.count + previousRoles.count, "Incorrect number of roles created. Should be \(createdRoles.count + previousRoles.count) but is instead \(roles.count).")
 
             // Remove the created roles.            
             for role in createdRoles {
