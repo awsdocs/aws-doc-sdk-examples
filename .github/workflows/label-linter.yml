@@ -1,4 +1,4 @@
-name: Lint Labels
+name: "Lint Labels"
 
 on: [pull_request_target]
 
@@ -27,7 +27,6 @@ jobs:
        with:
          repo-token: "${{ secrets.GITHUB_TOKEN }}"
          configuration-path: .github/label-ruleset.yml
-         snyc-labels: !!bool "false"
 
       # The Audit Labels workflow creates, renames, updates
       # or deletes labels based on a list of allowed labels.
