@@ -1,4 +1,4 @@
-# Amazon SecretsManager  code examples for the SDK for C++
+# Secrets Manager code examples for the SDK for C++
 
 ## Overview
 Shows how to use the AWS SDK for C++ with the Secrets Manager to
