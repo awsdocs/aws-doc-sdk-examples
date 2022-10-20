@@ -124,7 +124,6 @@ suspend fun main(args: Array<String>) {
     deleteSpecificAutoScalingGroup(groupName)
 }
 
-// snippet-start:[autoscale.kotlin.describe_scaling_groups.main]
 suspend fun describeAutoScalingGroups(groupName: String) {
     val groupsReques = DescribeAutoScalingGroupsRequest {
         autoScalingGroupNames = listOf(groupName)
@@ -138,7 +137,6 @@ suspend fun describeAutoScalingGroups(groupName: String) {
         }
     }
 }
-// snippet-end:[autoscale.kotlin.describe_scaling_groups.main]
 
 // snippet-start:[autoscale.kotlin.disable_collection.main]
 suspend fun disableMetricsCollection(groupName: String) {
