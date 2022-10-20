@@ -14,18 +14,12 @@ namespace Lambda_Basics
             _client = new AmazonIdentityManagementServiceClient();
         }
 
-        public async Task<bool> AttachRoleAsync(string policyArn, string roleName)
-        {
-            var request = new AttachRolePolicyRequest
-            {
-                PolicyArn = policyArn,
-                RoleName = roleName,
-            };
-
-            var response = await _client.AttachRolePolicyAsync(request);
-            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
-        }
-
+        /// <summary>
+        /// Create a new AWS Identity and Access Management (IAM)
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <param name="policyDocument"></param>
+        /// <returns></returns>
         public async Task<string> CreateLambdaRole(string roleName, string policyDocument)
         {
             var request = new CreateRoleRequest

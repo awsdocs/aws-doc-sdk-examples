@@ -161,7 +161,7 @@ namespace Lambda_Basics
                 Description = "Created by the Lambda .NET API",
                 Code = functionCode,
                 Handler = handler,
-                Runtime = Runtime.Python39,
+                Runtime = Runtime.Dotnet6,
                 Role = role,
             };
 
@@ -170,5 +170,28 @@ namespace Lambda_Basics
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.CreateLambdaFunction]
+
+        // snippet-start:[lambda.dotnetv3.Lambda_Basics.UpdateLambdaConfiguration]
+        public async Task<bool> UpdateFunctionConfigurationAsync(
+            AmazonLambdaClient client,
+            string functionName,
+            string functionHandler,
+            Dictionary<string, string> environmentVariables)
+        {
+            var request = new UpdateFunctionConfigurationRequest
+            {
+                Handler = functionHandler,
+                FunctionName = functionName,
+                Environment = new Amazon.Lambda.Model.Environment { Variables = environmentVariables },
+            };
+
+            var response = await client.UpdateFunctionConfigurationAsync(request);
+
+            Console.WriteLine(response.LastModified);
+
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        // snippet-start:[lambda.dotnetv3.Lambda_Basics.UpdateLambdaConfiguration]
     }
 }

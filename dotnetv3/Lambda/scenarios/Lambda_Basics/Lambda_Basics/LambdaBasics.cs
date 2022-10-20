@@ -17,10 +17,10 @@
 // 10. Deletes the role.
 
 // snippet-start:[lambda.dotnetv3.Lambda_Basics.main]
-// Set the following variables:
+// The following variables will be loaded from a configuration file:
 //
 //   functionName - The name of the Lambda function.
-//   roleArn - The AWS Identity and Access Management (IAM) service role that
+//   roleName - The AWS Identity and Access Management (IAM) service role that
 //       has Lambda permissions.
 //   handler - The fully qualified method name (for example,
 //       example.Handler::handleRequest).
@@ -30,17 +30,16 @@
 //       example, LambdaHello-1.0-SNAPSHOT.jar).
 //   keyUpdate - The Amazon S3 key name that represents the updated .zip (for
 //      example, "updated-function.zip").
-using Amazon.Runtime;
 
-var _configuration = new ConfigurationBuilder()
+var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("settings.json") // Load test settings from JSON file.
     .AddJsonFile("settings.local.json",
     true) // Optionally load local settings.
 .Build();
 
-string functionName = _configuration["FunctionName"];
-string roleName = _configuration["RoleName"];
+string functionName = configuration["FunctionName"];
+string roleName = configuration["RoleName"];
 string policyDocument = "{" +
     " \"Version\": \"2012-10-17\"," +
     " \"Statement\": [ " +
@@ -54,10 +53,11 @@ string policyDocument = "{" +
     "]" +
 "}";
 
-string handler = _configuration["Handler"];
-string bucketName = _configuration["BucketName"];
-string key = _configuration["Key"];
-string updateKey = _configuration["UpdateKey"];
+var incrementHandler = configuration["IncrementHandler"];
+var calculatorHandler = configuration["CalculatorHandler"];
+var bucketName = configuration["BucketName"];
+var key = configuration["Key"];
+var updateKey = configuration["UpdateKey"];
 
 string sepBar = new('-', 80);
 
@@ -77,16 +77,16 @@ System.Threading.Thread.Sleep(10000);
 // Create the Lambda function using a zip file stored in an Amazon S3 bucket.
 Console.WriteLine(sepBar);
 Console.WriteLine($"Creating the AWS Lambda function: {functionName}.");
-var lambdaARN = await lambdaMethods.CreateLambdaFunction(
+var lambdaArn = await lambdaMethods.CreateLambdaFunction(
     lambdaClient,
     functionName,
     bucketName,
     key,
     roleArn,
-    handler);
+    incrementHandler);
 
 Console.WriteLine(sepBar);
-Console.WriteLine($"The AWS Lambda ARN is {lambdaARN}");
+Console.WriteLine($"The AWS Lambda ARN is {lambdaArn}");
 
 // Get the Lambda function.
 Console.WriteLine($"Getting the {functionName} AWS Lambda function.");
@@ -112,7 +112,7 @@ Console.WriteLine(sepBar);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Invoke the Lambda increment function.");
-string value = string.Empty;
+string? value;
 do
 {
     Console.Write("Enter a value to increment: ");
@@ -125,7 +125,7 @@ string functionParameters = "{" +
     "\"x\": \"" + value + "\"" +
 "}";
 var answer = await lambdaMethods.InvokeFunctionAsync(lambdaClient, functionName, functionParameters);
-Console.WriteLine($"{value} +1 = {answer}.");
+Console.WriteLine($"{value} + 1 = {answer}.");
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Now update the Lambda function code.");
@@ -136,7 +136,20 @@ do
     config = await lambdaMethods.GetFunction(lambdaClient, functionName);
     Console.Write(".");
 }
-while (config.State != State.Active);
+while (config.LastUpdateStatus == LastUpdateStatus.InProgress);
+
+await lambdaMethods.UpdateFunctionConfigurationAsync(
+    lambdaClient,
+    functionName,
+    configuration["CalculatorHandler"],
+    new Dictionary<string, string> { { "LOG_LEVEL", "DEBUG" } });
+
+do
+{
+    config = await lambdaMethods.GetFunction(lambdaClient, functionName);
+    Console.Write(".");
+}
+while (config.LastUpdateStatus == LastUpdateStatus.InProgress);
 
 Console.WriteLine(sepBar);
 Console.WriteLine("Now call the updated function...");
@@ -150,7 +163,7 @@ do
 }
 while (value == string.Empty);
 
-string value2 = string.Empty;
+string? value2;
 do
 {
     Console.Write("Enter a second value: ");
@@ -193,6 +206,7 @@ Console.WriteLine($"The answer when we {operation} the two numbers is: {answer}.
 
 PressEnter();
 
+// Delete the function created earlier.
 Console.WriteLine(sepBar);
 Console.WriteLine("Delete the AWS Lambda function.");
 var success = await lambdaMethods.DeleteLambdaFunction(lambdaClient, functionName);
@@ -205,7 +219,8 @@ else
     Console.WriteLine($"Could not remove the function {functionName}");
 }
 
-// Now delete the IAM role.
+// Now delete the IAM role created for use with the functions
+// created by the application.
 success = await lambdaRoleMethods.DeleteLambdaRole(roleName);
 if (success)
 {
@@ -217,7 +232,10 @@ else
 }
 
 Console.WriteLine("The Lambda Scenario is now complete.");
+PressEnter();
 
+// Displays a formatted list of existing functions returned by the
+// LambdaMethods.ListFunctions.
 void DisplayFunctionList(List<FunctionConfiguration> functions)
 {
     functions.ForEach(functionConfig =>
@@ -226,6 +244,7 @@ void DisplayFunctionList(List<FunctionConfiguration> functions)
     });
 }
 
+// Display an overview of the application.
 void ShowOverview()
 {
     Console.WriteLine("Welcome to the AWS Lambda Basics Example");
@@ -245,6 +264,7 @@ void ShowOverview()
     PressEnter();
 }
 
+// Wait for the user to press the Enter key.
 void PressEnter()
 {
     Console.Write("Press <Enter> to continue.");
