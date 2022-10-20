@@ -2,10 +2,12 @@ name: Docker Image CI
 
 on:
   pull_request:
-    types: [ labeled ]
+    types:
+      - closed
 
 jobs:
   push_to_registry:
+    if: github.event.pull_request.merged == true
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +27,7 @@ jobs:
           images: fordataws/aws-sdk-code-examples
       
       - name: Build and push Docker image - Ruby
-        if: ${{ github.event.label.name == 'lang/ruby' }}
+        if: contains(github.event.pull_request.labels.*.name, 'lang/ruby')
         uses: docker/build-push-action@master
         with:
           context: ruby
