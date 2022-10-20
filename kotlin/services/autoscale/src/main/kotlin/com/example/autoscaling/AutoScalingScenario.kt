@@ -109,7 +109,7 @@ suspend fun main(args: Array<String>) {
     setDesiredCapacity(groupName)
 
     println("**** Get the two instance Id values and state")
-    getSpecificAutoScalingGroups(groupName)
+    getAutoScalingGroups(groupName)
 
     println("**** List the scaling activities that have occurred for the group")
     describeScalingActivities(groupName)
@@ -171,8 +171,8 @@ suspend fun describeScalingActivities(groupName: String?) {
 }
 // snippet-end:[autoscale.kotlin.describe_scaling_activites.main]
 
-// snippet-start:[autoscale.kotlin.get_autoscalinggroup.main]
-suspend fun getSpecificAutoScalingGroups(groupName: String) {
+// snippet-start:[autoscale.kotlin.get_autoscalinggroups.main]
+suspend fun getAutoScalingGroups(groupName: String) {
     val scalingGroupsRequest = DescribeAutoScalingGroupsRequest {
         autoScalingGroupNames = listOf(groupName)
     }
@@ -189,7 +189,7 @@ suspend fun getSpecificAutoScalingGroups(groupName: String) {
         }
     }
 }
-// snippet-end:[autoscale.kotlin.get_autoscalinggroup.main]
+// snippet-end:[autoscale.kotlin.get_autoscalinggroups.main]
 
 // snippet-start:[autoscale.kotlin.set_capacity.main]
 suspend fun setDesiredCapacity(groupName: String) {
