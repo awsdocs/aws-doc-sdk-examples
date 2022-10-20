@@ -30,31 +30,47 @@ namespace AwsDoc {
             handleRequest(Poco::Net::HTTPServerRequest &req, Poco::Net::HTTPServerResponse &resp) {
                 std::string method = req.getMethod();
                 std::string uri = req.getURI();
-                std::cout << "<h1>Hello world!</h1>"
-                          << "<p>Host: " << req.getHost() << "</p>"
-                          << "<p>Method: " << req.getMethod() << "</p>"
-                          << "<p>URI: " << req.getURI() << "</p>" << std::endl;
+                std::cout << "<p>Host: " << req.getHost() << "\n"
+                          << "<p>Method: " << req.getMethod() << "\n"
+                          << "<p>URI: " << req.getURI() << "\n"
+                          << "content length " << req.getContentLength() << std::endl;
 
                 resp.set("Access-Control-Allow-Origin", "*");
-                if (method == "GET")
+                if (method == "OPTIONS")
                 {
-                    if (uri == "//items/active")
+                    resp.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                    resp.add("Access-Control-Allow-Methods", "OPTIONS, PUT, POST, GET");
+                    resp.add("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type");
+                    resp.add("Access-Control-Max-Age", "86400");
+                    resp.send();
+                }
+                else if (method == "GET")
+                {
+                    if (uri.find("/api/items") == 0)
                     {
-                        setItemsResponse(AwsDoc::CrossService::WorkItemStatus::ACTIVE, resp);
+                         setItemsResponse(AwsDoc::CrossService::WorkItemStatus::ACTIVE, resp);
                     }
                     else{
                         std::cerr << "Unhandled GET uri " << uri << std::endl;
                     }
                 }
-                else if ((method == "POST") || (method == "OPTIONS"))
+                else if ((method == "POST"))
                 {
-                    if (uri == "//items")
+                    if (uri == "/api/items")
                     {
                         std::istream& istream = req.stream();
-                        std::vector<char> body(req.getContentLength() + 1);
-                        istream.read(body.data(), body.size() - 1);
-                        body[body.size() - 1] = 0;
-                        std::cout << body.data() << std::endl;
+                        if (req.getContentLength() > 0) {
+                            std::vector<char> body(req.getContentLength() + 1);
+                            istream.read(body.data(), body.size() - 1);
+                            body[body.size() - 1] = 0;
+                            std::cout << body.data() << std::endl;
+                            mItemTrackerServer.addWorkItem(&body[0]);
+                            resp.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                            resp.send();
+                        }
+                        else{
+                            std::cerr << "No content in Post /api/items" << std::endl;
+                        }
                     }
                     else{
                         std::cerr << "Unhandled POST uri " << uri << std::endl;
@@ -70,7 +86,12 @@ namespace AwsDoc {
                     std::cerr << "Unhandled method " << method << std::endl;
                 }
 
-             }
+                std::cout << "HTTP response" << std::endl;
+                for (auto iter = resp.begin(); iter != resp.end(); ++iter) {
+                    std::cout << iter->first <<" : " << iter->second << std::endl;
+                }
+
+            }
 
         private:
             void setItemsResponse(AwsDoc::CrossService::WorkItemStatus status,
@@ -100,28 +121,29 @@ namespace AwsDoc {
             AwsDoc::CrossService::ItemTrackerHTTPServer &mItemTrackerServer;
         };
 
+
     class MyServerApp : public Poco::Util::ServerApplication {
         public:
-            explicit MyServerApp(MyRequestHandlerFactory &myRequestHandlerFactory) :
-                    mMyRequestHandlerFactory(myRequestHandlerFactory) {}
+            explicit MyServerApp(AwsDoc::CrossService::ItemTrackerHTTPServer &itemTrackerHttpServer) :
+                    mItemTrackerHttpServer(itemTrackerHttpServer) {}
 
         protected:
             int main(const std::vector <std::string> &) {
-                Poco::Net::HTTPServer s(&mMyRequestHandlerFactory, Poco::Net::ServerSocket(8000),
+                Poco::Net::HTTPServer pocoHTTPServer(new MyRequestHandlerFactory(mItemTrackerHttpServer), Poco::Net::ServerSocket(8080),
                              new Poco::Net::HTTPServerParams);
 
-                s.start();
-                std::cout << "\nServer started" << std::endl;
+                pocoHTTPServer.start();
+                std::cout << "\nPoco http server started" << std::endl;
 
                 waitForTerminationRequest();  // wait for CTRL-C or kill
 
-                std::cout << "\nShutting down..." << std::endl;
-                s.stop();
+                std::cout << "\nPoco http shutting down..." << std::endl;
+                pocoHTTPServer.stop();
 
                 return Application::EXIT_OK;
             }
 
-            MyRequestHandlerFactory &mMyRequestHandlerFactory;
+        AwsDoc::CrossService::ItemTrackerHTTPServer &mItemTrackerHttpServer;
         };
 
     }  // namespace PocoImpl
@@ -144,8 +166,7 @@ AwsDoc::CrossService::ItemTrackerHTTPServer::ItemTrackerHTTPServer(
 }
 
 void AwsDoc::CrossService::ItemTrackerHTTPServer::run(int argc, char **argv) {
-    AwsDoc::PocoImpl::MyRequestHandlerFactory myRequestHandlerFactory(*this);
-    AwsDoc::PocoImpl::MyServerApp myServerApp(myRequestHandlerFactory);
+    AwsDoc::PocoImpl::MyServerApp myServerApp(*this);
     myServerApp.run(argc, argv);
 }
 

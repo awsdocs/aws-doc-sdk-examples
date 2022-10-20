@@ -9,6 +9,8 @@
 
 #include "ItemTrackerHTTPServer.h"
 #include <aws/core/client/ClientConfiguration.h>
+#include <aws/rds-data/RDSDataServiceServiceClientModel.h>
+#include <aws/rds-data/model/SqlParameter.h>
 
 namespace AwsDoc {
     namespace CrossService {
@@ -25,6 +27,11 @@ namespace AwsDoc {
             virtual std::vector<WorkItem> getWorkItems(WorkItemStatus status) override;
 
         private:
+
+            Aws::RDSDataService::Model::ExecuteStatementOutcome executeStatement(
+                    const Aws::String& sqlStatement,
+                    std::vector<Aws::RDSDataService::Model::SqlParameter> parameters =
+                    std::vector<Aws::RDSDataService::Model::SqlParameter>());
 
             Aws::String mDatabase;
             Aws::String mResourceArn;

@@ -18,7 +18,10 @@ void runServerLessAurora(const Aws::String& database,
                                                         clientConfiguration);
     AwsDoc::CrossService::ItemTrackerHTTPServer itemTrackerHttpServer(rdsDataHandler);
 
-    char* argv[1] = {"run_serverless_aurora"};
+    char* argv[1];
+    char app_name[256];
+    strncpy(app_name, "run_aurora_serverless", 256);
+    argv[0] = app_name;
     itemTrackerHttpServer.run(1, argv);
 }
 

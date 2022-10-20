@@ -22,6 +22,7 @@ namespace AwsDoc {
             Aws::String mGuide;
             Aws::String mDescription;
             Aws::String mStatus;
+            bool mArchived;
 
         };
         class RDSDataReceiver {
