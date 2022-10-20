@@ -52,7 +52,6 @@ import kotlin.system.exitProcess
 
 // snippet-start:[autoscale.kotlin.create_scaling_scenario.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>
@@ -125,8 +124,8 @@ suspend fun main(args: Array<String>) {
     deleteSpecificAutoScalingGroup(groupName)
 }
 
+// snippet-start:[autoscale.kotlin.describe_scaling_groups.main]
 suspend fun describeAutoScalingGroups(groupName: String) {
-
     val groupsReques = DescribeAutoScalingGroupsRequest {
         autoScalingGroupNames = listOf(groupName)
         maxRecords = 10
@@ -139,9 +138,10 @@ suspend fun describeAutoScalingGroups(groupName: String) {
         }
     }
 }
+// snippet-end:[autoscale.kotlin.describe_scaling_groups.main]
 
+// snippet-start:[autoscale.kotlin.disable_collection.main]
 suspend fun disableMetricsCollection(groupName: String) {
-
     val disableMetricsCollectionRequest = DisableMetricsCollectionRequest {
         autoScalingGroupName = groupName
         metrics = listOf("GroupMaxSize")
@@ -152,9 +152,10 @@ suspend fun disableMetricsCollection(groupName: String) {
         println("The disable metrics collection operation was successful")
     }
 }
+// snippet-end:[autoscale.kotlin.disable_collection.main]
 
+// snippet-start:[autoscale.kotlin.describe_scaling_activites.main]
 suspend fun describeScalingActivities(groupName: String?) {
-
     val scalingActivitiesRequest = DescribeScalingActivitiesRequest {
         autoScalingGroupName = groupName
         maxRecords = 10
@@ -168,9 +169,10 @@ suspend fun describeScalingActivities(groupName: String?) {
         }
     }
 }
+// snippet-end:[autoscale.kotlin.describe_scaling_activites.main]
 
+// snippet-start:[autoscale.kotlin.get_autoscalinggroup.main]
 suspend fun getSpecificAutoScalingGroups(groupName: String) {
-
     val scalingGroupsRequest = DescribeAutoScalingGroupsRequest {
         autoScalingGroupNames = listOf(groupName)
     }
@@ -187,9 +189,10 @@ suspend fun getSpecificAutoScalingGroups(groupName: String) {
         }
     }
 }
+// snippet-end:[autoscale.kotlin.get_autoscalinggroup.main]
 
+// snippet-start:[autoscale.kotlin.set_capacity.main]
 suspend fun setDesiredCapacity(groupName: String) {
-
     val capacityRequest = SetDesiredCapacityRequest {
         autoScalingGroupName = groupName
         desiredCapacity = 2
@@ -200,9 +203,10 @@ suspend fun setDesiredCapacity(groupName: String) {
         println("You set the DesiredCapacity to 2")
     }
 }
+// snippet-end:[autoscale.kotlin.set_capacity.main]
 
+// snippet-start:[autoscale.kotlin.update_autoscalinggroup.main]
 suspend fun updateAutoScalingGroup(groupName: String, launchTemplateNameVal: String, serviceLinkedRoleARNVal: String) {
-
     val templateSpecification = LaunchTemplateSpecification {
         launchTemplateName = launchTemplateNameVal
     }
@@ -224,9 +228,10 @@ suspend fun updateAutoScalingGroup(groupName: String, launchTemplateNameVal: Str
         println("You successfully updated the Auto Scaling group  $groupName")
     }
 }
+// snippet-end:[autoscale.kotlin.update_autoscalinggroup.main]
 
+// snippet-start:[autoscale.kotlin.create_autoscalinggroup.main]
 suspend fun createAutoScalingGroup(groupName: String, launchTemplateNameVal: String, serviceLinkedRoleARNVal: String, vpcZoneIdVal: String) {
-
     val templateSpecification = LaunchTemplateSpecification {
         launchTemplateName = launchTemplateNameVal
     }
@@ -252,9 +257,10 @@ suspend fun createAutoScalingGroup(groupName: String, launchTemplateNameVal: Str
         println("$groupName was created!")
     }
 }
+// snippet-end:[autoscale.kotlin.create_autoscalinggroup.main]
 
+// snippet-start:[autoscale.kotlin.describe_autoscalinggroup.main]
 suspend fun describeAutoScalingInstance(id: String) {
-
     val describeAutoScalingInstancesRequest = DescribeAutoScalingInstancesRequest {
         instanceIds = listOf(id)
     }
@@ -266,9 +272,10 @@ suspend fun describeAutoScalingInstance(id: String) {
         }
     }
 }
+// snippet-end:[autoscale.kotlin.describe_autoscalinggroup.main]
 
+// snippet-start:[autoscale.kotlin.enable_collection.main]
 suspend fun enableMetricsCollection(groupName: String?) {
-
     val collectionRequest = EnableMetricsCollectionRequest {
         autoScalingGroupName = groupName
         metrics = listOf("GroupMaxSize")
@@ -280,9 +287,10 @@ suspend fun enableMetricsCollection(groupName: String?) {
         println("The enable metrics collection operation was successful")
     }
 }
+// snippet-end:[autoscale.kotlin.enable_collection.main]
 
+// snippet-start:[autoscale.kotlin.get_autoscalinggroup.main]
 suspend fun getSpecificAutoScaling(groupName: String): String {
-
     var instanceId = ""
     val scalingGroupsRequest = DescribeAutoScalingGroupsRequest {
         autoScalingGroupNames = listOf(groupName)
@@ -301,19 +309,20 @@ suspend fun getSpecificAutoScaling(groupName: String): String {
     }
     return instanceId
 }
+// snippet-end:[autoscale.kotlin.get_autoscalinggroup.main]
 
+// snippet-start:[autoscale.kotlin.describe_account.main]
 suspend fun describeAccountLimits() {
-
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
-
         val response = autoScalingClient.describeAccountLimits(DescribeAccountLimitsRequest {})
         println("The max number of Auto Scaling groups is ${response.maxNumberOfAutoScalingGroups}")
         println("The current number of Auto Scaling groups is ${response.numberOfAutoScalingGroups}")
     }
 }
+// snippet-end:[autoscale.kotlin.describe_account.main]
 
+// snippet-start:[autoscale.kotlin.terminate_instance.main]
 suspend fun terminateInstanceInAutoScalingGroup(instanceIdVal: String) {
-
     val request = TerminateInstanceInAutoScalingGroupRequest {
         instanceId = instanceIdVal
         shouldDecrementDesiredCapacity = false
@@ -324,8 +333,10 @@ suspend fun terminateInstanceInAutoScalingGroup(instanceIdVal: String) {
         println("You have terminated instance $instanceIdVal")
     }
 }
-suspend fun deleteSpecificAutoScalingGroup(groupName: String) {
+// snippet-end:[autoscale.kotlin.terminate_instance.main]
 
+// snippet-start:[autoscale.kotlin.del_group.main]
+suspend fun deleteSpecificAutoScalingGroup(groupName: String) {
     val deleteAutoScalingGroupRequest = DeleteAutoScalingGroupRequest {
         autoScalingGroupName = groupName
         forceDelete = true
@@ -336,4 +347,5 @@ suspend fun deleteSpecificAutoScalingGroup(groupName: String) {
         println("You successfully deleted $groupName")
     }
 }
+// snippet-end:[autoscale.kotlin.del_group.main]
 // snippet-end:[autoscale.kotlin.create_scaling_scenario.main]
