@@ -36,12 +36,12 @@
             </itemizedlist>
             {{- else}}
             {{- if $version.GitHubUrl}}
-            <tip>
+            <note>
                 <para>
-                    To learn how to set up and run this example, see
-                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>.
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">&AWS; Code Examples Repository</ulink>.
                 </para>
-            </tip>
+            </note>
             {{- end}}
             {{- range $version.Excerpts}}
             <block>
