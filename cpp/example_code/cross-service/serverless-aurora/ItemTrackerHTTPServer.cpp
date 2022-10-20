@@ -34,6 +34,8 @@ namespace AwsDoc {
                           << "<p>Host: " << req.getHost() << "</p>"
                           << "<p>Method: " << req.getMethod() << "</p>"
                           << "<p>URI: " << req.getURI() << "</p>" << std::endl;
+
+                resp.set("Access-Control-Allow-Origin", "*");
                 if (method == "GET")
                 {
                     if (uri == "//items/active")
@@ -44,11 +46,15 @@ namespace AwsDoc {
                         std::cerr << "Unhandled GET uri " << uri << std::endl;
                     }
                 }
-                else if (method == "POST")
+                else if ((method == "POST") || (method == "OPTIONS"))
                 {
                     if (uri == "//items")
                     {
-
+                        std::istream& istream = req.stream();
+                        std::vector<char> body(req.getContentLength() + 1);
+                        istream.read(body.data(), body.size() - 1);
+                        body[body.size() - 1] = 0;
+                        std::cout << body.data() << std::endl;
                     }
                     else{
                         std::cerr << "Unhandled POST uri " << uri << std::endl;
@@ -175,7 +181,7 @@ void AwsDoc::CrossService::ItemTrackerHTTPServer::addWorkItem(
         const std::string &workItemJson) {
 
     WorkItem workItem = jsonToWorkItem(workItemJson);
-    mRdsDataReceiver.setWorkItem(workItem);
+    mRdsDataReceiver.addWorkItem(workItem);
 }
 
 AwsDoc::CrossService::WorkItem

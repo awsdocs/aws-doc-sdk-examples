@@ -26,7 +26,7 @@ namespace AwsDoc {
         };
         class RDSDataReceiver {
         public:
-            virtual bool setWorkItem(const WorkItem& workItem) = 0;
+            virtual bool addWorkItem(const WorkItem& workItem) = 0;
 
             virtual std::vector<WorkItem> getWorkItems(WorkItemStatus status) = 0;
         };
