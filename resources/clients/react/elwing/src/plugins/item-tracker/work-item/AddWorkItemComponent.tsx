@@ -38,6 +38,7 @@ export const AddWorkItem = () => {
   const [user, setUser] = useState("");
   const [guide, setGuide] = useState(GUIDE_OPTIONS[0]);
   const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
   const [show, setShow] = useState(false);
   const [canAdd, setCanAdd] = useState(false);
   const { loadItems } = useItemTrackerAction();
@@ -53,7 +54,8 @@ export const AddWorkItem = () => {
         name: user,
         guide: guide.value!,
         description,
-        status: "ACT",
+        status,
+        archived: false,
       })
       .catch(console.error);
     setShow(false);
@@ -106,6 +108,14 @@ export const AddWorkItem = () => {
               rows={3}
               id="descriptionField"
               onChange={(event) => setDescription(event.detail.value)}
+            />
+          </FormField>
+          <FormField label="Status">
+            <Textarea
+              value={status}
+              rows={3}
+              id="statusField"
+              onChange={(event) => setStatus(event.detail.value)}
             />
           </FormField>
         </Form>

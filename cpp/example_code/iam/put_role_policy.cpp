@@ -34,6 +34,7 @@
   \return bool: Successful completion.
 */
 
+// snippet-start:[iam.cpp.put_role_policy.code]
 bool AwsDoc::IAM::putRolePolicy(
         const Aws::String &roleName,
         const Aws::String &policyName,
@@ -57,6 +58,7 @@ bool AwsDoc::IAM::putRolePolicy(
 
     return outcome.IsSuccess();
 }
+// snippet-end:[iam.cpp.put_role_policy.code]
 
 /*
  *
@@ -79,11 +81,11 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // Set these configuration values before running the program
-        Aws::String roleName = argv[1];	// An existing IAM role
+        // Set these configuration values before running the program.
+        Aws::String roleName = argv[1];	// An existing IAM role,
         Aws::String policyName = argv[2];
 
-        // Define a permissions policy that enables S3 ReadOnly access
+        // Define a permissions policy that enables Amazon S3 ReadOnly access.
         Aws::String permissionsPolicy = R"({
             "Version": "2012-10-17",
             "Statement": [
