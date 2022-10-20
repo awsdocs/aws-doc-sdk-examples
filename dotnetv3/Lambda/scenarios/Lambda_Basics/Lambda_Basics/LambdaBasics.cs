@@ -151,10 +151,11 @@ do
 }
 while (config.LastUpdateStatus == LastUpdateStatus.InProgress);
 
+Console.WriteLine();
 Console.WriteLine(sepBar);
 Console.WriteLine("Now call the updated function...");
 
-// Get an action and two numbers from the user.
+// Get two numbers and an action from the user.
 value = string.Empty;
 do
 {
@@ -171,7 +172,7 @@ do
 }
 while (value2 == string.Empty);
 
-var opSelected = string.Empty;
+string? opSelected;
 
 Console.WriteLine("Select the operation to perform:");
 Console.WriteLine("\t1. add");
@@ -258,9 +259,10 @@ void ShowOverview()
     Console.WriteLine("\t 5. Lists all Lambda functions.");
     Console.WriteLine("\t 6. Invokes the Lambda function.");
     Console.WriteLine("\t 7. Updates the Lambda function's code.");
-    Console.WriteLine("\t 8. Updates the Lambda function's configuration value.");
-    Console.WriteLine("\t 9. Deletes the Lambda function.");
-    Console.WriteLine("\t10. Deletes the IAM role.");
+    Console.WriteLine("\t 8. Updates the Lambda function's configuration.");
+    Console.WriteLine("\t 9. Invokes the updated function.");
+    Console.WriteLine("\t10. Deletes the Lambda function.");
+    Console.WriteLine("\t11. Deletes the IAM role.");
     PressEnter();
 }
 

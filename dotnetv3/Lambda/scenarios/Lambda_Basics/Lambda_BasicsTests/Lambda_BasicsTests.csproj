@@ -27,13 +27,14 @@
     <ProjectReference Include="..\Lambda_Basics\Lambda_Basics.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="testsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testsettings.local.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="testsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="testsettings.*.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<DependentUpon>testsettings.json</DependentUpon>
+		</Content>
+	</ItemGroup>
 
 </Project>

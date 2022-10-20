@@ -3,6 +3,10 @@
 
 namespace Lambda_Basics
 {
+    /// <summary>
+    /// The methods of this class perform AWS Lambda operations for the Lambda
+    /// Basics Scenario.
+    /// </summary>
     public class LambdaMethods
     {
         // snippet-start:[lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction]

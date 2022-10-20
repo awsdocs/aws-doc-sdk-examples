@@ -6,6 +6,9 @@ using Xunit.Extensions.Ordering;
 
 namespace Lambda_Basics.Tests
 {
+    /// <summary>
+    /// Test methods for the LambdaMethods class in the Lambda Basics scenario.
+    /// </summary>
     public class LambdaMethodsTests
     {
         private readonly IConfiguration _configuration;
