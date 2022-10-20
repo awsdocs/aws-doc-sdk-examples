@@ -65,3 +65,4 @@ public class ServiceHandler {
     }
     // snippet-end:[iam.swift.getrole.handler.getrole]
 }
+// snippet-end:[iam.swift.getrole.handler]

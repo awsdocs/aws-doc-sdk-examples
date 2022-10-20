@@ -89,5 +89,6 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[iam.swift.createrole.getuser]
+    // snippet-end:[iam.swift.createrole.handler.getuser]
 }
+// snippet-end:[iam.swift.createrole.handler]
