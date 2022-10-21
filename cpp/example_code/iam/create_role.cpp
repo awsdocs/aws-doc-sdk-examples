@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
     {
         Aws::String roleName = argv[1];
 
-        // Define a role trust policy
+        // Define a role trust policy.
         Aws::String roleTrustPolicy = R"({
             "Version": "2012-10-17",
             "Statement": {

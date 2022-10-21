@@ -70,9 +70,9 @@ namespace AwsDoc {
     }
 }
 
-//! Scenario to create an IAM user, create an IAM role, and apply the role to the use.
+//! Scenario to create an IAM user, create an IAM role, and apply the role to the user.
 // "IAM access" permissions are needed to run this code.
-// "STS assume role" permissions are needed to run this code; (note, it may be necessary to
+// "STS assume role" permissions are needed to run this code. (Note: It might be necessary to
 //    create a custom policy).
 /*!
   \sa iamCreateUserAssumeRoleScenario

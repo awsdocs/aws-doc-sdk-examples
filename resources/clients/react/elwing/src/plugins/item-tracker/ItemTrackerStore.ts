@@ -2,21 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import create from "zustand";
-import {
-  WorkItem,
-  workItemService,
-  WorkItemStatus,
-} from "./work-item/WorkItemService";
+import { WorkItem, workItemService } from "./work-item/WorkItemService";
+
+export type WorkItemsFilter = "archived" | "active" | "";
 
 interface ItemTrackerState {
   items: WorkItem[];
-  status: WorkItemStatus;
+  filter: WorkItemsFilter;
   error: string;
   loading: boolean;
 }
 
 interface ItemTrackerActions {
-  setStatus: (status: WorkItemStatus) => void;
+  setFilter: (filter: WorkItemsFilter) => void;
   setError: (error: string) => void;
   clearError: () => void;
   setLoading: (loading: boolean) => void;
@@ -29,15 +27,18 @@ export const useItemTrackerState = create<
   Store<ItemTrackerState, ItemTrackerActions>
 >((set, get) => {
   const actions: ItemTrackerActions = {
-    setStatus: (status: WorkItemStatus) => set({ status }),
-    setError: (error: string) => set({ error }),
+    setFilter: (filter) => set({ filter }),
+    setError: (error) => set({ error }),
     clearError: () => set({ error: "" }),
-    setLoading: (loading: boolean) => set({ loading }),
+    setLoading: (loading) => set({ loading }),
     loadItems: async () => {
       actions.clearError();
       actions.setLoading(true);
       try {
-        const items = await workItemService.list({ archive: get().status });
+        const filter = get().filter;
+        const items = await workItemService.list(
+          filter ? { archived: filter === "archived" ? 'true' : 'false' } : {}
+        );
         set({ items });
       } catch (e) {
         actions.setError((e as Error).message);
@@ -48,7 +49,7 @@ export const useItemTrackerState = create<
   };
 
   return {
-    status: "" as WorkItemStatus,
+    filter: "" as WorkItemsFilter,
     error: "",
     loading: false,
     items: [],

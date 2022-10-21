@@ -28,7 +28,7 @@ int main(int argc, const char *argv[])
     {
         Aws::Client::ClientConfiguration config;
 
-        //TODO(user): Enter the region where you want to create the secret..
+        //TODO(user): Enter the Region where you want to create the secret.
         String region = "us-east-1";
         if (!region.empty())
         {
