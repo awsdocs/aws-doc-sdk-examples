@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rust:1.31
+FROM rust:1.58
 # copy in files
 RUN mkdir /src
 COPY . /src/
