@@ -26,7 +26,23 @@ To e `cpp` folder is for the AWS SDK for C++, and the `python` folder is for the
 Preview SDK paths are subject to change.
 
 
-[test](cpp)
+| language   | folder                                | SDK version | SDK status  |
+|------------|---------------------------------------|-------------|-------------|
+| C++        | [cpp/](cpp)                           | 1           | GA          |
+| .NET       | [dotnetv3/](dotnetv3)                 | 3.5+        | GA          |
+| Go         | [gov2/](gov2)                         | 2           | GA          |
+| Java       | [javav2/]()                           | 2           | GA          |
+| JavaScript | [javascriptv3/](javascriptv3)         | 3           | GA          |
+| PHP        | [php/](php)                           | 3           | GA          |
+| Python     | [python/](python)                     | 3           | GA          |
+| Ruby       | [ruby/](ruby)                         | 3           | GA          |
+| Kotlin     | [kotlin/](kotlin)                     |             | alpha       |
+| Swift      | [swift/](swift)                       |             | preview     |
+| Rust       | [rust_dev_preview/](rust_dev_preview) |             | dev preview |
+| .NET       | [dotnet/](dotnet)                     | <3.5        | deprecated  |
+| Go         | [go/](go)                             | 1           | deprecated  |
+| Java       | [java/](java)                         | 1           | deprecated  |
+| JavaScript | [javascript/](javascript)             | 2           | deprecated  |
 
 
 
