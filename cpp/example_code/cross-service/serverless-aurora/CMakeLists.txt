@@ -61,6 +61,7 @@ endif()
 add_executable(${EXECUTABLE}
         serverless_aurora.cpp
         RDSDataHandler.cpp
+        SES3EmailHandler.cpp
         ItemTrackerHTTPServer.cpp)
 
 target_include_directories(${EXECUTABLE}

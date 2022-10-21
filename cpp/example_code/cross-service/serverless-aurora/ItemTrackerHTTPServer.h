@@ -11,8 +11,9 @@
 namespace AwsDoc {
     namespace CrossService {
         enum WorkItemStatus {
-            ACTIVE,
-            ARCHIVED
+            ARCHIVED,
+            NOT_ARCHIVED,
+            BOTH
         };
         struct WorkItem
         {
@@ -30,14 +31,25 @@ namespace AwsDoc {
             virtual bool addWorkItem(const WorkItem& workItem) = 0;
 
             virtual std::vector<WorkItem> getWorkItems(WorkItemStatus status) = 0;
+
+            virtual WorkItem getWorkItemWithId(const Aws::String& id) = 0;
         };
+        class SESEmailReceiver {
+        public:
+            virtual bool sendEmail(const Aws::String emailAddress) = 0;
+        };
+
         class ItemTrackerHTTPServer {
         public:
             explicit ItemTrackerHTTPServer(RDSDataReceiver& rdsDataReceiver);
 
             std::string getWorkItemJSON(WorkItemStatus status);
 
+            std::string getWorkItemWithIdJson(const Aws::String& id);
+
             void addWorkItem(const std::string& workItemJson);
+
+            void sendEmail(const std::string& emailJson);
 
             void run(int argc, char** argv);
         private:
@@ -45,7 +57,9 @@ namespace AwsDoc {
             static WorkItem jsonToWorkItem(const std::string& jsonString);
 
             RDSDataReceiver& mRdsDataReceiver;
-
+            std::mutex mHTTPMutex;  // HTTP is received asynchronously.
+                                    // The lock ensures the get items following
+                                    // a post item contains the posted record.
         };
     }  // namespace CrossService
 } // namespace AwsDoc

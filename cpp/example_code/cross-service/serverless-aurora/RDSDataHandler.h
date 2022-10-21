@@ -22,11 +22,21 @@ namespace AwsDoc {
                            const Aws::String& tableName,
                            const Aws::Client::ClientConfiguration& clientConfiguration);
 
+            bool initializeTable(bool recreateTable);
+
+            WorkItem getWorkItemWithId(const Aws::String &id) override;
+
             virtual bool addWorkItem(const WorkItem &workItem) override;
 
             virtual std::vector<WorkItem> getWorkItems(WorkItemStatus status) override;
 
         private:
+
+            bool tableExists(const Aws::String &tableName);
+
+            bool createTable(const Aws::String& tableName);
+
+            bool deleteTable(const Aws::String& tableName);
 
             Aws::RDSDataService::Model::ExecuteStatementOutcome executeStatement(
                     const Aws::String& sqlStatement,

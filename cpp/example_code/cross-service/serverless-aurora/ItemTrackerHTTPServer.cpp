@@ -20,14 +20,15 @@
 
 namespace AwsDoc {
     namespace PocoImpl {
-    class MyRequestHandler : public Poco::Net::HTTPRequestHandler {
+        class MyRequestHandler : public Poco::Net::HTTPRequestHandler {
         public:
             explicit MyRequestHandler(
                     AwsDoc::CrossService::ItemTrackerHTTPServer &itemTrackerServer) :
                     mItemTrackerServer(itemTrackerServer) {}
 
             virtual void
-            handleRequest(Poco::Net::HTTPServerRequest &req, Poco::Net::HTTPServerResponse &resp) {
+            handleRequest(Poco::Net::HTTPServerRequest &req,
+                          Poco::Net::HTTPServerResponse &resp) {
                 std::string method = req.getMethod();
                 std::string uri = req.getURI();
                 std::cout << "<p>Host: " << req.getHost() << "\n"
@@ -36,29 +37,35 @@ namespace AwsDoc {
                           << "content length " << req.getContentLength() << std::endl;
 
                 resp.set("Access-Control-Allow-Origin", "*");
-                if (method == "OPTIONS")
-                {
+                if (method == "OPTIONS") {
                     resp.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                     resp.add("Access-Control-Allow-Methods", "OPTIONS, PUT, POST, GET");
-                    resp.add("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type");
+                    resp.add("Access-Control-Allow-Headers",
+                             "X-PINGOTHER, Content-Type");
                     resp.add("Access-Control-Max-Age", "86400");
                     resp.send();
                 }
-                else if (method == "GET")
-                {
-                    if (uri.find("/api/items") == 0)
-                    {
-                         setItemsResponse(AwsDoc::CrossService::WorkItemStatus::ACTIVE, resp);
+                else if (method == "GET") {
+                    if (uri == "/api/items" == 0) {
+                        getItemsAndRespond(AwsDoc::CrossService::WorkItemStatus::BOTH,
+                                           resp);
                     }
-                    else{
+                    else if (uri == "/api/items?archived=true") {
+                        getItemsAndRespond(
+                                AwsDoc::CrossService::WorkItemStatus::ARCHIVED, resp);
+                    }
+                    else if (uri == "/api/items?archived=false") {
+                        getItemsAndRespond(
+                                AwsDoc::CrossService::WorkItemStatus::NOT_ARCHIVED,
+                                resp);
+                    }
+                    else {
                         std::cerr << "Unhandled GET uri " << uri << std::endl;
                     }
                 }
-                else if ((method == "POST"))
-                {
-                    if (uri == "/api/items")
-                    {
-                        std::istream& istream = req.stream();
+                else if ((method == "POST")) {
+                    if (uri == "/api/items") {
+                        std::istream &istream = req.stream();
                         if (req.getContentLength() > 0) {
                             std::vector<char> body(req.getContentLength() + 1);
                             istream.read(body.data(), body.size() - 1);
@@ -68,39 +75,59 @@ namespace AwsDoc {
                             resp.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                             resp.send();
                         }
-                        else{
+                        else {
                             std::cerr << "No content in Post /api/items" << std::endl;
                         }
                     }
-                    else{
+                    else if (uri == "/api/items:report") {
+                        std::istream &istream = req.stream();
+                        if (req.getContentLength() > 0) {
+                            std::vector<char> body(req.getContentLength() + 1);
+                            istream.read(body.data(), body.size() - 1);
+                            body[body.size() - 1] = 0;
+                            std::cout << body.data() << std::endl;
+                            mItemTrackerServer.sendEmail(&body[0]);
+                            resp.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                            resp.send();
+                        }
+                        else {
+                            std::cerr << "No content in Post /api/items" << std::endl;
+                        }
+                    }
+                    else {
                         std::cerr << "Unhandled POST uri " << uri << std::endl;
                     }
 
                 }
-                else if (method == "PUT")
-                {
+                else if (method == "PUT") {
 
                 }
-                else
-                {
+                else {
                     std::cerr << "Unhandled method " << method << std::endl;
                 }
 
                 std::cout << "HTTP response" << std::endl;
                 for (auto iter = resp.begin(); iter != resp.end(); ++iter) {
-                    std::cout << iter->first <<" : " << iter->second << std::endl;
+                    std::cout << iter->first << " : " << iter->second << std::endl;
                 }
 
             }
 
         private:
-            void setItemsResponse(AwsDoc::CrossService::WorkItemStatus status,
-                                         Poco::Net::HTTPServerResponse &resp)
-            {
+            void getItemsAndRespond(AwsDoc::CrossService::WorkItemStatus status,
+                                    Poco::Net::HTTPServerResponse &resp) {
                 resp.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                 resp.setContentType("application/json");
-                std::ostream& ostream = resp.send();
+                std::ostream &ostream = resp.send();
                 ostream << mItemTrackerServer.getWorkItemJSON(status);
+            }
+
+            void getItemAndRespond(const Aws::String &itemID,
+                                   Poco::Net::HTTPServerResponse &resp) {
+                resp.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                resp.setContentType("application/json");
+                std::ostream &ostream = resp.send();
+                ostream << mItemTrackerServer.getWorkItemWithIdJson(itemID);
             }
 
             AwsDoc::CrossService::ItemTrackerHTTPServer &mItemTrackerServer;
@@ -122,15 +149,19 @@ namespace AwsDoc {
         };
 
 
-    class MyServerApp : public Poco::Util::ServerApplication {
+        class MyServerApp : public Poco::Util::ServerApplication {
         public:
-            explicit MyServerApp(AwsDoc::CrossService::ItemTrackerHTTPServer &itemTrackerHttpServer) :
+            explicit MyServerApp(
+                    AwsDoc::CrossService::ItemTrackerHTTPServer &itemTrackerHttpServer)
+                    :
                     mItemTrackerHttpServer(itemTrackerHttpServer) {}
 
         protected:
-            int main(const std::vector <std::string> &) {
-                Poco::Net::HTTPServer pocoHTTPServer(new MyRequestHandlerFactory(mItemTrackerHttpServer), Poco::Net::ServerSocket(8080),
-                             new Poco::Net::HTTPServerParams);
+            int main(const std::vector<std::string> &) {
+                Poco::Net::HTTPServer pocoHTTPServer(
+                        new MyRequestHandlerFactory(mItemTrackerHttpServer),
+                        Poco::Net::ServerSocket(8080),
+                        new Poco::Net::HTTPServerParams);
 
                 pocoHTTPServer.start();
                 std::cout << "\nPoco http server started" << std::endl;
@@ -143,7 +174,7 @@ namespace AwsDoc {
                 return Application::EXIT_OK;
             }
 
-        AwsDoc::CrossService::ItemTrackerHTTPServer &mItemTrackerHttpServer;
+            AwsDoc::CrossService::ItemTrackerHTTPServer &mItemTrackerHttpServer;
         };
 
     }  // namespace PocoImpl
@@ -172,13 +203,15 @@ void AwsDoc::CrossService::ItemTrackerHTTPServer::run(int argc, char **argv) {
 
 std::string AwsDoc::CrossService::ItemTrackerHTTPServer::getWorkItemJSON(
         AwsDoc::CrossService::WorkItemStatus status) {
-
-    std::vector<WorkItem> workItems = mRdsDataReceiver.getWorkItems(status);
+    std::vector<WorkItem> workItems;
+    {
+        std::lock_guard<std::mutex> lock(mHTTPMutex);
+        workItems = mRdsDataReceiver.getWorkItems(status);
+    }
 
     std::stringstream jsonString;
     jsonString << "[";
-     for (size_t i = 0; i < workItems.size(); ++i)
-    {
+    for (size_t i = 0; i < workItems.size(); ++i) {
         WorkItem workItem = workItems[i];
         Aws::Utils::Document jsonWorkItem;
         jsonWorkItem.WithString(ID_KEY, workItem.mID);
@@ -187,14 +220,13 @@ std::string AwsDoc::CrossService::ItemTrackerHTTPServer::getWorkItemJSON(
         jsonWorkItem.WithString(DESCRIPTION_KEY, workItem.mDescription);
         jsonWorkItem.WithString(STATUS_KEY, workItem.mStatus);
         jsonString << jsonWorkItem.View().WriteReadable();
-        if (i < workItems.size() - 1)
-        {
+        if (i < workItems.size() - 1) {
             jsonString << ",";
         }
     }
     jsonString << "]";
 
-     std::cout << "work items\n" << jsonString.str() << std::endl;
+    std::cout << "work items\n" << jsonString.str() << std::endl;
     return jsonString.str();
 }
 
@@ -202,7 +234,10 @@ void AwsDoc::CrossService::ItemTrackerHTTPServer::addWorkItem(
         const std::string &workItemJson) {
 
     WorkItem workItem = jsonToWorkItem(workItemJson);
-    mRdsDataReceiver.addWorkItem(workItem);
+    {
+        std::lock_guard<std::mutex> lock(mHTTPMutex);
+        mRdsDataReceiver.addWorkItem(workItem);
+    }
 }
 
 AwsDoc::CrossService::WorkItem
@@ -210,11 +245,46 @@ AwsDoc::CrossService::ItemTrackerHTTPServer::jsonToWorkItem(
         const std::string &jsonString) {
     WorkItem result;
     Aws::Utils::Document document(jsonString);
-    Aws::Utils::DocumentView  view(document);
+    Aws::Utils::DocumentView view(document);
     result.mName = view.GetString(NAME_KEY);
     result.mGuide = view.GetString(GUIDE_KEY);
     result.mDescription = view.GetString(DESCRIPTION_KEY);
     result.mStatus = view.GetString(STATUS_KEY);
 
     return result;
+}
+
+void
+AwsDoc::CrossService::ItemTrackerHTTPServer::sendEmail(const std::string &emailJson) {
+    Aws::Utils::Document document(emailJson);
+    Aws::Utils::DocumentView view(document);
+    Aws::String email = view.GetString("email");
+
+    if (!email.empty()) {
+
+    }
+}
+
+std::string AwsDoc::CrossService::ItemTrackerHTTPServer::getWorkItemWithIdJson(
+        const Aws::String &id) {
+    WorkItem workItem;
+    {
+        std::lock_guard<std::mutex> lock(mHTTPMutex);
+        workItem = mRdsDataReceiver.getWorkItemWithId(id);
+    }
+
+    std::stringstream jsonString;
+    jsonString << "[";
+    Aws::Utils::Document jsonWorkItem;
+    jsonWorkItem.WithString(ID_KEY, workItem.mID);
+    jsonWorkItem.WithString(NAME_KEY, workItem.mName);
+    jsonWorkItem.WithString(GUIDE_KEY, workItem.mGuide);
+    jsonWorkItem.WithString(DESCRIPTION_KEY, workItem.mDescription);
+    jsonWorkItem.WithString(STATUS_KEY, workItem.mStatus);
+    jsonString << jsonWorkItem.View().WriteReadable();
+
+    jsonString << "]";
+
+    std::cout << "work items\n" << jsonString.str() << std::endl;
+    return jsonString.str();
 }

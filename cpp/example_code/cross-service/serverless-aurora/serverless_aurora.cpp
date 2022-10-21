@@ -5,6 +5,8 @@
 
 #include "ItemTrackerHTTPServer.h"
 #include "RDSDataHandler.h"
+#include "SES3EmailHandler.h"
+
 
 static const Aws::String TABLE_NAME("items");
 
@@ -16,11 +18,17 @@ void runServerLessAurora(const Aws::String& database,
     AwsDoc::CrossService::RDSDataHandler rdsDataHandler(database, resourceArn,
                                                         secretArn, TABLE_NAME,
                                                         clientConfiguration);
+
+    rdsDataHandler.initializeTable(false); // bool: recreate table.
+
+    AwsDoc::CrossService::SES3EmailHandler sesEmailHandler(clientConfiguration);
+    sesEmailHandler.sendEmail("meyertst@amazon.com");
+
     AwsDoc::CrossService::ItemTrackerHTTPServer itemTrackerHttpServer(rdsDataHandler);
 
     char* argv[1];
     char app_name[256];
-    strncpy(app_name, "run_aurora_serverless", 256);
+    strncpy(app_name, "run_aurora_serverless", sizeof(app_name));
     argv[0] = app_name;
     itemTrackerHttpServer.run(1, argv);
 }
