@@ -1,8 +1,12 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+﻿using Xunit;
+using Lambda_Basics;
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
 using Newtonsoft.Json.Linq;
 using Xunit.Extensions.Ordering;
+using Amazon.Lambda.Model;
+using static Xunit.Assert;
 
 namespace Lambda_Basics.Tests
 {
@@ -37,9 +41,10 @@ namespace Lambda_Basics.Tests
                 _configuration["FunctionName"],
                 _configuration["BucketName"],
                 _configuration["Key"],
-                _configuration["Role"],
-                _configuration["Handler"]);
-            Assert.NotNull(functionArn);
+                _configuration["RoleArn"],
+                _configuration["CalculatorHandler"]);
+
+            NotNull(functionArn);
         }
 
         [Fact()]
@@ -47,7 +52,7 @@ namespace Lambda_Basics.Tests
         public async Task GetFunctionTest()
         {
             var functionConfig = await _LambdaMethods.GetFunction(_client, _configuration["FunctionName"]);
-            Assert.Equal(functionConfig.FunctionName, _configuration["FunctionName"]);
+            Equal(functionConfig.FunctionName, _configuration["FunctionName"]);
         }
 
         [Fact()]
@@ -55,24 +60,31 @@ namespace Lambda_Basics.Tests
         public async Task ListFunctionsTest()
         {
             var functions = await _LambdaMethods.ListFunctions(_client);
-            Assert.True(functions.Count > 0, "Couldn't find any functions to list.");
+            True(functions.Count > 0, "Couldn't find any functions to list.");
         }
 
         [Fact()]
         [Order(4)]
-        public async Task InvokeArithmeticMultiplyFunctionTest()
+        public async Task InvokeIncrementerTest()
         {
-            var functionParameters = "{" +
-                                     "\"action\": \"" + "multiply" + "\", " +
-                                     "\"x\": \"" + 6 + "\"," +
-                                     "\"y\": \"" + 7 + "\"" +
-                                     "}";
+            // First make sure that the function is active.
+            FunctionConfiguration config;
+            do
+            {
+                config = await _LambdaMethods.GetFunction(_client, _configuration["FunctionName"]);
+            }
+            while (config.State != State.Active);
 
-            var response = await _LambdaMethods.InvokeFunctionAsync(
+            string functionParameters = "{" +
+                "\"action\": \"increment\", " +
+                "\"x\": \"" + 12 + "\"" +
+            "}";
+
+            var answer = await _LambdaMethods.InvokeFunctionAsync(
                 _client,
                 _configuration["FunctionName"],
                 functionParameters);
-            Assert.Equal("42", response);
+            Equal("13", answer);
         }
 
         [Fact()]
@@ -82,26 +94,74 @@ namespace Lambda_Basics.Tests
             await _LambdaMethods.UpdateFunctionCode(
                 _client,
                 _configuration["FunctionName"],
-                _configuration["bucketName"],
-                _configuration["key"]);
+                _configuration["BucketName"],
+                _configuration["UpdateKey"]);
+
+            FunctionConfiguration config;
+            do
+            {
+                config = await _LambdaMethods.GetFunction(_client, _configuration["FunctionName"]);
+            }
+            while (config.LastUpdateStatus == LastUpdateStatus.InProgress);
+
+            Equal(config.LastUpdateStatus, LastUpdateStatus.Successful);
         }
+
         [Fact()]
         [Order(6)]
+        public async Task UpdateFunctionConfigurationAsyncTest()
+        {
+            var success = await _LambdaMethods.UpdateFunctionConfigurationAsync(
+                _client,
+                _configuration["FunctionName"],
+                _configuration["CalculatorHandler"],
+                new Dictionary<string, string> { { "LOG_LEVEL", "DEBUG" } });
+
+            // Give the configuration a chance to be updated.
+            FunctionConfiguration config;
+            do
+            {
+                config = await _LambdaMethods.GetFunction(_client, _configuration["FunctionName"]);
+            }
+            while (config.LastUpdateStatus == LastUpdateStatus.InProgress);
+
+            Equal(config.LastUpdateStatus, LastUpdateStatus.Successful);
+        }
+
+        [Fact()]
+        [Order(7)]
+        public async Task InvokeArithmeticMultiplyFunctionTest()
+        {
+            var functionParameters = "{" +
+                 "\"action\": \"" + "multiply" + "\", " +
+                 "\"x\": \"" + 6 + "\"," +
+                 "\"y\": \"" + 7 + "\"" +
+            "}";
+
+            var answer = await _LambdaMethods.InvokeFunctionAsync(
+                _client,
+                _configuration["FunctionName"],
+                functionParameters);
+            Equal("42", answer);
+        }
+
+        [Fact()]
+        [Order(8)]
         public async Task DeleteLambdaFunctionTest()
         {
             var success = await _LambdaMethods.DeleteLambdaFunction(
                 _client,
                 _configuration["FunctionName"]);
-            Assert.True(success, "Could not delete the function.");
+            True(success, "Could not delete the function.");
         }
 
         [Fact()]
-        [Order(7)]
+        [Order(9)]
         public async Task DeleteLambdaFunctionTest_DoesntExist_ShouldFail()
         {
             var functionName = "nonexistent_function";
             var success = await _LambdaMethods.DeleteLambdaFunction(_client, functionName);
-            Assert.False(success, "Should not be able to delete a non-existent function.");
+            False(success, "Should not be able to delete a non-existent function.");
         }
     }
 }

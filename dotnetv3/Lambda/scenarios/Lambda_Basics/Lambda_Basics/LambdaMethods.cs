@@ -27,7 +27,11 @@ namespace Lambda_Basics
             };
 
             var response = await client.DeleteFunctionAsync(request);
-            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+
+            // A return value of NoContent means that the request was processed
+            // (in this case, the function was deleted, and the return value
+            // is intentionally blank.
+            return response.HttpStatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction]

@@ -17,9 +17,10 @@ namespace Lambda_Basics
         /// <summary>
         /// Create a new AWS Identity and Access Management (IAM)
         /// </summary>
-        /// <param name="roleName"></param>
-        /// <param name="policyDocument"></param>
-        /// <returns></returns>
+        /// <param name="roleName">The name of the IAM role to create.</param>
+        /// <param name="policyDocument">The policy document for the new IAM role.</param>
+        /// <returns>A string representing the Amazon Resource Name (ARN) for
+        /// newly created role.</returns>
         public async Task<string> CreateLambdaRole(string roleName, string policyDocument)
         {
             var request = new CreateRoleRequest
@@ -32,6 +33,11 @@ namespace Lambda_Basics
             return response.Role.Arn;
         }
 
+        /// <summary>
+        /// Deletes and IAM role.
+        /// </summary>
+        /// <param name="roleName">The name of the role to delete.</param>
+        /// <returns>A Boolean value indicating the success of the operation.</returns>
         public async Task<bool> DeleteLambdaRole(string roleName)
         {
             var request = new DeleteRoleRequest
