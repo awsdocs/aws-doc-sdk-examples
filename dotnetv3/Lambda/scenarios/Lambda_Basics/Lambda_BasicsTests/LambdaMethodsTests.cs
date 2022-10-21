@@ -42,7 +42,7 @@ namespace Lambda_Basics.Tests
                 _configuration["BucketName"],
                 _configuration["Key"],
                 _configuration["RoleArn"],
-                _configuration["CalculatorHandler"]);
+                _configuration["IncrementHandler"]);
 
             NotNull(functionArn);
         }
@@ -160,8 +160,10 @@ namespace Lambda_Basics.Tests
         public async Task DeleteLambdaFunctionTest_DoesntExist_ShouldFail()
         {
             var functionName = "nonexistent_function";
-            var success = await _LambdaMethods.DeleteLambdaFunction(_client, functionName);
-            False(success, "Should not be able to delete a non-existent function.");
+            await ThrowsAsync<Amazon.Lambda.Model.ResourceNotFoundException>(async () =>
+            {
+                var success = await _LambdaMethods.DeleteLambdaFunction(_client, functionName);
+            });
         }
     }
 }
