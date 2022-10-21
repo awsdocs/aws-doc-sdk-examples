@@ -22,35 +22,29 @@ Additionally, example code may theoretically modify or delete existing AWS resou
  * Back up your important data.
 
 ## How this repository is organized
-To e `cpp` folder is for the AWS SDK for C++, and the `python` folder is for the AWS SDK for Python (Boto3).
-Preview SDK paths are subject to change.
+Code examples for each language's SDK can be found within the following sub-directories:
 
-
-| language   | folder                                | SDK version | SDK status  |
+| SDK        | folder                                | SDK version | SDK status  |
 |------------|---------------------------------------|-------------|-------------|
-| C++        | [cpp/](cpp)                           | 1           | GA          |
 | .NET       | [dotnetv3/](dotnetv3)                 | 3.5+        | GA          |
+| .NET       | [dotnet/](dotnet)                     | <3.5        | deprecated  |
+| C++        | [cpp/](cpp)                           | 1           | GA          |
 | Go         | [gov2/](gov2)                         | 2           | GA          |
+| Go         | [go/](go)                             | 1           | deprecated  |
 | Java       | [javav2/]()                           | 2           | GA          |
+| Java       | [java/](java)                         | 1           | deprecated  |
 | JavaScript | [javascriptv3/](javascriptv3)         | 3           | GA          |
+| JavaScript | [javascript/](javascript)             | 2           | deprecated  |
+| Kotlin     | [kotlin/](kotlin)                     |             | alpha       |
 | PHP        | [php/](php)                           | 3           | GA          |
 | Python     | [python/](python)                     | 3           | GA          |
 | Ruby       | [ruby/](ruby)                         | 3           | GA          |
-| Kotlin     | [kotlin/](kotlin)                     |             | alpha       |
-| Swift      | [swift/](swift)                       |             | preview     |
 | Rust       | [rust_dev_preview/](rust_dev_preview) |             | dev preview |
-| .NET       | [dotnet/](dotnet)                     | <3.5        | deprecated  |
-| Go         | [go/](go)                             | 1           | deprecated  |
-| Java       | [java/](java)                         | 1           | deprecated  |
-| JavaScript | [javascript/](javascript)             | 2           | deprecated  |
+| Swift      | [swift/](swift)                       |             | preview     |
 
+At the top level of each directory, a README explains how to build and run that set of examples.
 
-
-
-
-The README file in each SDK language folder explains how to build and run the examples in that folder.
-
-Within each SDK language folder, the example_code folder contains examples organized by AWS service.
+Within each directory, an `example_code/` folder contains examples organized by AWS service. For example `ruby/example_code/ec2` contains example code using the SDK for Ruby 
 Each AWS service folder is named for its corresponding AWS CLI command. 
 or example, the s3 folder contains Amazon S3 examples. For a list of AWS service commands, see [Available services](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html#available-services) in the *AWS CLI Command Reference*.
 
