@@ -11,59 +11,26 @@ Many examples are injected into the [AWS Documentation](https://docs.aws.amazon.
 ## Get started
 To invoke this example code, you must have an AWS account. For more information about creating an account, see [AWS Free Tier](https://aws.amazon.com/free/). 
 
-### Configuring the AWS SDKs
-
-AWS SDKs must be configured with the *AWS Access Key ID*, *AWS Secret Key*. In some cases, you need a *Session ID*.
-
-We recommend using the AWS Command Line Interface (AWS CLI) to complete the configuration.
-Most AWS SDKs use the configuration created by the AWS CLI.
-To configure the AWS CLI, use the following command:
-```
-   aws configure
-```
-The preceding command will create or update the file `$HOME/.aws/credentials`, which is used by the SDKs where applicable.
-For more information, see [Configuration and credential file settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) in the AWS Command Line Interface User Guide.
-
-Generally, the AWS SDKs look for configuration information in the following places, in this order:
-
-1. Within `$HOME/.aws/credentials`, in the default profile
-2. Within `$HOME/.aws/credentials`, in the profile defined by the `AWS_PROFILE` environment variable
-3. The `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and (if defined,) `AWS_SESSION_TOKEN` environment variables.
-4. An SDK-specific location such as the Java SDK system property `aws.accessKeyId` and `aws.secretKey`
-5. Credentials specified directly to the SDK, such as `AWSBasicCredentials` in the Java V2 SDK
-
-If you are unsure, see the documentation for the specific SDK that you're using.
-
+You must also have AWS credentials configured, specifically a *AWS Access Key ID* and *AWS Secret Key*. In some cases, you need a *Session ID*. We recommend you accomplish this using the AWS CLI. To learn more, see [CLI Configuration basics](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
 
 ## ⚠️ Important
-Running these code examples might result in charges to your AWS account.
-Many examples involve services that are charged on a per-use basis, such as Amazon Simple Email Service (Amazon SES).
-Other examples might create resources that have long-term costs with services such as Amazon Simple Storage Service Glacier (Amazon S3 Glacier).
-For more information, see [AWS Pricing](https://aws.amazon.com/pricing/).
+These code examples interact with services that may incur charges to your AWS account. For more information, see [AWS Pricing](https://aws.amazon.com/pricing/).
 
-Some examples modify or delete resources, such as AWS Identity and Access Management (IAM) users and Amazon S3 bucket contents or previous versions.
-It is your responsibility to do the following:
+Additionally, example code may theoretically modify or delete existing AWS resources. As a matter of due diligence:
+ * Be aware of the resources that these examples create or delete.
+ * Be aware of the costs that might be charged to your account as a result.
+ * Back up your important data.
 
- * Be aware of the resources that these examples create or delete
- * Be aware of the costs that might be charged to your account as a result
- * Back up your important data
-
-## SDKs and support status
-Each SDK, and its respective examples, has one of the following support statuses:
-
-* Currently maintained
-* In preview 
-* No longer maintained
-
-Do not use preview examples in any type of production environment.
-SDKs that are in preview might not be stable or consistent, and their respective SDK examples might not be up-to-date or fully tested.
-
-Examples for SDKs that are no longer maintained are not likely to be current and might not follow current best practices.
-These examples are retained for reference purposes.
-
-This repo contains top-level folders of code examples for each SDK language.
-For example, the `cpp` folder is for the AWS SDK for C++, and the `python` folder is for the AWS SDK for Python (Boto3).
+## How this repository is organized
+To e `cpp` folder is for the AWS SDK for C++, and the `python` folder is for the AWS SDK for Python (Boto3).
 Preview SDK paths are subject to change.
+
+
+[test](cpp)
+
+
+
+
 
 The README file in each SDK language folder explains how to build and run the examples in that folder.
 
@@ -106,12 +73,7 @@ then the previous ruby folder is deleted.
 ## Other examples
 Other top-level folders include the following:
 
-* **aws-cli** for script examples for use with the AWS Command Line Interface (AWS CLI).
-* **cloudformation** for example templates for use with AWS CloudFormation.
-* **iam_policies** for example policy documents for use with AWS Identity and Access Management (IAM).
-* **lambda_functions** for example function code for use with AWS Lambda.
-* **typescript** for TypeScript-based code examples for use with the AWS Cloud Development Kit (AWS CDK), and other AWS services.
-  (For TypeScript-based code examples for use with the AWS SDK for JavaScript, see the **javascriptv3** folder.)
+[test](cpp)
 
 # Contributing
 If you plan to contribute examples for use in the documentation, see the `Guidelines for contributing](CONTRIBUTING.md). 
