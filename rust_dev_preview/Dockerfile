@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rust:1.58
+FROM rust:1.59
 # copy in files
 RUN mkdir /src
 COPY . /src/
@@ -10,4 +10,5 @@ COPY . /src/
 # set work directory
 WORKDIR /src
 
-CMD ["bash"]
+RUN cargo build --all-targets
+CMD ["cargo test"]
