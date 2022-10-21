@@ -4,16 +4,14 @@
 [![GitHub Super-Linter](https://github.com/awsdocs/aws-doc-sdk-examples/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 # AWS SDK Code Examples
-Here, you'll find examples of how to use the various SDKs that AWS provides for interacting with its services.
+This repository contains code examples that demonstrate how to use the AWSK SDK's to interact with AWS services.
 
-These examples appear in the [AWS documentation](https://docs.aws.amazon.com). *For more
-information on getting started with the SDKs for AWS, see* [Tools to Build on AWS](https://aws.amazon.com/getting-started/tools-sdks/).
+Many examples are injected into the [AWS Documentation](https://docs.aws.amazon.com).
 
+## Get started
+To invoke this example code, you must have an AWS account. For more information about creating an account, see [AWS Free Tier](https://aws.amazon.com/free/). 
 
-## Prerequisites for all AWS SDKs
-To use the examples in this documentation, you must have an AWS account. For more information about creating an account, see [AWS Free Tier](https://aws.amazon.com/free/). 
-
-## Configuring the AWS SDKs
+### Configuring the AWS SDKs
 
 AWS SDKs must be configured with the *AWS Access Key ID*, *AWS Secret Key*. In some cases, you need a *Session ID*.
 
