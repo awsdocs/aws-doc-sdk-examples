@@ -27,7 +27,6 @@
 #include "iam_samples.h"
 //snippet-end:[iam.cpp.get_policy.inc]
 
-// snippet-start:[iam.cpp.get_policy.code]
 //! Gets an IAM policy's information.
 /*!
   \sa getPolicy()
@@ -36,6 +35,7 @@
   \return bool: Successful completion.
 */
 
+// snippet-start:[iam.cpp.get_policy.code]
 bool AwsDoc::IAM::getPolicy(const Aws::String &policyArn,
                             const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient iam(clientConfig);

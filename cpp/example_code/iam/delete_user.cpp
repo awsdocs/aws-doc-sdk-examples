@@ -15,9 +15,9 @@
  * Purpose
  *
  * Demonstrates deleting an IAM user.
- * This api only works for users with noassociated resources, for example groups and policies.
+ * This API only works for users with no associated resources, such as groups and policies.
  * To delete a user in the non-trivial case, use the DeleteUser operation within the
- * aws-cpp-sdk-access-management high level sdk.
+ * aws-cpp-sdk-access-management high-level SDK.
  *
  */
 
