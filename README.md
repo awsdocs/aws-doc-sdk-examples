@@ -83,7 +83,13 @@ then the previous ruby folder is deleted.
 ## Other examples
 Other top-level folders include the following:
 
-[test](cpp)
+| folder                                | service                                  |
+|---------------------------------------|------------------------------------------|
+| [aws-cli/](aws-cli)                   | AWS Command Line Interface (AWS CLI)     |
+| [cloudformation/](cloudformation)     | AWS CloudFormation                       |
+| [iam_policies/](iam_policies)         | AWS Identity and Access Management (IAM) |
+| [lambda_functions/](lambda_functions) | AWS Lambda                               |
+| [typescript/](typescript)             | AWS Cloud Development Kit (AWS CDK)      |
 
 # Contributing
 If you plan to contribute examples for use in the documentation, see the `Guidelines for contributing](CONTRIBUTING.md). 
