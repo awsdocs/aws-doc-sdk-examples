@@ -1,0 +1,115 @@
+services:
+  - subsequent_use: Amazon RDS
+    keyword: rds
+    service_blurb_from_website: is a web service that makes it easier to set up, operate, and scale a relational database in the cloud.
+    code_examples_actions: create and manage Amazon Relational Database Service (Amazon RDS) DB instances and clusters
+    service_link: https://docs.aws.amazon.com/rds
+
+  - subsequent_use: CloudTrail
+    keyword: cloudtrail
+    service_blurb_from_website: allows you to monitor your AWS deployments in the cloud by getting a history of AWS API calls for your account.
+    code_examples_actions: create and manage AWS CloudTrail trails
+    service_link: https://docs.aws.amazon.com/cloudtrail
+
+  - subsequent_use: CloudWatch
+    keyword: cloudwatch
+    service_blurb_from_website: provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes.
+    code_examples_actions: create and manage Amazon CloudWatch metrics, dashboards, and alarms
+    service_link: https://docs.aws.amazon.com/cloudwatch
+
+  - subsequent_use: CodeBuild
+    keyword: codebuild
+    service_blurb_from_website: is a fully managed build service that compiles your source code, runs unit tests, and produces artifacts that are ready to deploy.
+    code_examples_actions: create and manage AWS CodeBuild workflows
+    service_link: https://docs.aws.amazon.com/codebuild
+
+  - subsequent_use: DynamoDB
+    keyword: dynamodb
+    service_blurb_from_website: is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+    code_examples_actions: create and manage Amazon DynamoDB database tables
+    service_link: https://docs.aws.amazon.com/dynamodb
+
+  - subsequent_use: EC2
+    keyword: ec2
+    service_blurb_from_website: is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems.
+    code_examples_actions: create and manage Amazon Elastic Compute Cloud (Amazon EC2) instances and supporting infrastructure
+    service_link: https://docs.aws.amazon.com/ec2
+
+  - subsequent_use: ElasticBeanstalk
+    keyword: elasticbeanstalk
+    service_blurb_from_website: allows you to quickly deploy and manage applications in the AWS Cloud without worrying about the infrastructure that runs those applications.
+    code_examples_actions: create and manage AWS Elastic Beanstalk environments
+    service_link: https://docs.aws.amazon.com/elastic-beanstalk
+
+  - subsequent_use: ElasticTranscoder
+    keyword: elastictranscoder
+    service_blurb_from_website: lets you convert media files that you have stored in Amazon S3 into media files in the formats required by consumer playback devices.
+    code_examples_actions: create and manage Amazon Elastic Transcoder workflows
+    service_link: https://docs.aws.amazon.com/elastic-transcoder
+
+  - subsequent_use: EventBridge
+    keyword: eventbridge
+    service_blurb_from_website: is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources.
+    code_examples_actions: create and manage Amazon EventBridge event buses
+    service_link: https://docs.aws.amazon.com/eventbridge
+
+  - subsequent_use: IAM
+    keyword: iam
+    service_blurb_from_website: is a web service for securely controlling access to AWS services. With IAM, you can centrally manage permissions in your AWS account.
+    code_examples_actions: create and manage AWS Identity and Access Management (IAM) users, credentials, and permissions
+    service_link: https://docs.aws.amazon.com/iam
+
+  - subsequent_use: KMS
+    keyword: kms
+    service_blurb_from_website: is an encryption and key management service scaled for the cloud.
+    code_examples_actions: create and manage AWS Key Management Service (AWS KMS) keys
+    service_link: https://docs.aws.amazon.com/kms
+
+  - subsequent_use: Lambda
+    keyword: lambda
+    service_blurb_from_website: allows you to run code without provisioning or managing servers.
+    code_examples_actions: create and manage AWS Lambda functions
+    service_link: https://docs.aws.amazon.com/lambda
+
+  - subsequent_use: Polly
+    keyword: polly
+    service_blurb_from_website: is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech.
+    code_examples_actions: create and manage Amazon Polly workflows
+    service_link: https://docs.aws.amazon.com/polly
+
+  - subsequent_use: S3
+    keyword: s3
+    service_blurb_from_website: is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
+    code_examples_actions: create and manage Amazon Simple Storage Service (Amazon S3) buckets
+    service_link: https://docs.aws.amazon.com/s3
+
+  - subsequent_use: SES
+    keyword: ses
+    service_blurb_from_website: is a reliable, scalable, and cost-effective email service.
+    code_examples_actions: create and manage Amazon Simple Email Service (Amazon SES) domains
+    service_link: https://docs.aws.amazon.com/ses
+
+  - subsequent_use: SecretsManager
+    keyword: secretsmanager
+    service_blurb_from_website: helps you to securely encrypt, store, and retrieve credentials for your databases and other services.
+    code_examples_actions: create and manage secrets in AWS Secrets Manager
+    service_link: https://docs.aws.amazon.com/secretsmanager
+
+  - subsequent_use: SNS
+    keyword: sns
+    service_blurb_from_website: is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
+    code_examples_actions: create and manage Amazon Simple Notification Service (Amazon SNS) topics and subscriptions
+    service_link: https://docs.aws.amazon.com/sns
+
+  - subsequent_use: SQS
+    keyword: sqs
+    service_blurb_from_website: is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
+    code_examples_actions: create and manage Amazon Simple Queue Service (Amazon SQS) queues
+    service_link: https://docs.aws.amazon.com/sqs
+
+  - subsequent_use: WorkDocs
+    keyword: workdocs
+    service_blurb_from_website: is a fully managed, secure enterprise storage and sharing service with strong administrative controls and feedback capabilities that improve user productivity.
+    code_examples_actions: create and manage Amazon WorkDocs resources
+    service_link: https://docs.aws.amazon.com/workdocs
+

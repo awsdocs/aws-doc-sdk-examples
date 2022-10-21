@@ -1,8 +1,8 @@
-# SES code examples for the SDK for Ruby
+# {{ short_service_name }} code examples for the {{ short_sdk_name }}
 ## Overview
-These examples show how to create and manage Amazon Simple Email Service (Amazon SES) domains using the SDK for Ruby.
+These examples show how to {{ code_examples_actions }} using the {{ short_sdk_name }}.
 
-SES is a reliable, scalable, and cost-effective email service.
+{{ short_service_name }} {{ service_blurb_from_website }}
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -14,19 +14,25 @@ SES is a reliable, scalable, and cost-effective email service.
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
+{% for action in actions %}
+* {{ action }}
+{% endfor %}
 
-* [Get statistics](./ses_get_statistics.rb) (`GetSendStatistics`)
+{% if scenarios %}
+### Scenarios
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+{% for scenario in scenarios %}
+* {{ scenario }}
+{% endfor %}
+{% endif %}
 
-* [List emails](./ses_list_emails.rb) (`ListTemplates`)
-
-* [Send an email](./ses_send_email.rb) (`SendEmail`)
-
-* [Send a verification](./ses_send_verification.rb) (`VerifyEmailIdentity`)
-
-
-
-
-
+{% if cross_service_examples %}
+### Cross-service examples
+Sample applications that work across multiple AWS services.
+{% for cross_service_example in cross_service_examples %}
+* {{ cross_service_example }}
+{% endfor %}
+{% endif %}
 
 ## Run the examples
 
@@ -35,7 +41,7 @@ Code excerpts that show you how to call individual service functions.
 See the [Ruby README.md](../../../ruby/README.md) for prerequisites.
 
 ### Instructions
-The easiest way to interact with this example code is by invoking [Single Actions](#single-actions) from your command line. This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
+{{ code_instructions }}
 
 ## Contributing
 Code examples thrive on community contribution!
@@ -44,11 +50,12 @@ Code examples thrive on community contribution!
 ### Tests
 ⚠️ Running tests might result in charges to your AWS account.
 
-This service is not currently tested.
+{{ test_instructions }}
 
 ## Additional resources
-* [Service Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
-* [Service API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
-* [SDK API reference guide](https://aws.amazon.com/developer/language/ruby/)
+* [Service Developer Guide]({{service_developer_guide}})
+* [Service API Reference]({{service_api_reference_guide}})
+* [SDK API reference guide]({{language_sdk_reference_guide}})
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+
