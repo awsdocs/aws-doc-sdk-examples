@@ -1,7 +1,7 @@
 [![Build Status](https://github.com/aws/aws-sdk-ruby/workflows/CI/badge.svg)](https://github.com/awsdocs/aws-doc-sdk-examples/actions)
+[![GitHub Super-Linter](https://github.com/awsdocs/aws-doc-sdk-examples/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 [![Github forks](https://img.shields.io/github/forks/aws/aws-sdk-ruby.svg)](https://github.com/awsdocs/aws-doc-sdk-examples/network)
 [![Github stars](https://img.shields.io/github/stars/aws/aws-sdk-ruby.svg)](https://github.com/awsdocs/aws-doc-sdk-examples/stargazers)
-[![GitHub Super-Linter](https://github.com/awsdocs/aws-doc-sdk-examples/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 # AWS SDK Code Examples
 This repository contains code examples that demonstrate how to use the AWSK SDK's to interact with AWS services.
