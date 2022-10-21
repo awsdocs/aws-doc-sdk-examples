@@ -10,7 +10,7 @@
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(IAM_GTests, get_policy) {
-        auto policyArn = getPolicy();  // creates policy if necessary
+        auto policyArn = getPolicy();  // Creates policy if necessary.
         ASSERT_FALSE(policyArn.empty()) << preconditionError() << std::endl;
 
         auto result = AwsDoc::IAM::getPolicy(policyArn, *s_clientConfig);

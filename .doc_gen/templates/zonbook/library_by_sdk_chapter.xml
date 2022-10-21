@@ -87,6 +87,7 @@
                     by calling multiple functions within the same service.</para>
                 {{- $hello := index $svc_examples.CategorizedExampleSets "Hello"}}
                 {{- if $hello.Examples}}
+                <para><emphasis role="bold">Get started</emphasis></para>
                 <block>
                     <collapsible expand-section="_collapse_all_">
                         {{- range $hello.Examples}}

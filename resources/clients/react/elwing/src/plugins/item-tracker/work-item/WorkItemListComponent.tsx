@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useCallback, useEffect, useState } from "react";
-import { WorkItem, WorkItemStatus } from "./WorkItemService";
+import { WorkItem } from "./WorkItemService";
 import { workItemService as service } from "./WorkItemService";
 import {
   Alert,
@@ -14,9 +14,9 @@ import {
   Table,
 } from "@cloudscape-design/components";
 import { OptionDefinition } from "@cloudscape-design/components/internal/components/option/interfaces";
-import { useItemTrackerAction, useItemTrackerState } from "../ItemTrackerStore";
+import { useItemTrackerAction, useItemTrackerState, WorkItemsFilter } from "../ItemTrackerStore";
 
-const STATUS_OPTIONS: OptionDefinition[] = [
+export const FILTER_OPTIONS: OptionDefinition[] = [
   { value: "active", label: "Active" },
   { value: "archived", label: "Archived" },
   { value: "", label: "All" },
@@ -24,8 +24,8 @@ const STATUS_OPTIONS: OptionDefinition[] = [
 
 export const WorkItemControls = () => {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState(STATUS_OPTIONS[0]);
-  const { setStatus: handleStatusChange, setError } = useItemTrackerAction();
+  const [filter, setFilter] = useState(FILTER_OPTIONS[0]);
+  const { setFilter: handleFilterChange, setError } = useItemTrackerAction();
 
   const sendReport = useCallback(
     async (email: string) => {
@@ -39,16 +39,16 @@ export const WorkItemControls = () => {
   );
 
   useEffect(() => {
-    handleStatusChange((status.value as WorkItemStatus) ?? "");
-  }, [status, handleStatusChange]);
+    handleFilterChange(filter.value as WorkItemsFilter);
+  }, [filter, handleFilterChange]);
 
   return (
     <SpaceBetween size="s">
       <FormField>
         <Select
-          selectedOption={status}
-          onChange={(event) => setStatus(event.detail.selectedOption)}
-          options={STATUS_OPTIONS}
+          selectedOption={filter}
+          onChange={(event) => setFilter(event.detail.selectedOption)}
+          options={FILTER_OPTIONS}
         />
       </FormField>
       <FormField
@@ -72,10 +72,11 @@ export const WorkItems = () => {
   const [selected, setSelected] = useState<WorkItem[]>([]);
   const { loadItems, setError } = useItemTrackerAction();
   const items = useItemTrackerState(({ items }) => items);
+  const filter = useItemTrackerState(({ filter }) => filter);
 
   useEffect(() => {
     loadItems();
-  }, [loadItems]);
+  }, [loadItems, filter]);
 
   const archiveItem = async (itemId: string) => {
     try {
@@ -127,13 +128,16 @@ export const WorkItems = () => {
         {
           id: "archive",
           header: "",
-          cell: (e) => (
-            <Button
-              iconName="check"
-              variant="primary"
-              onClick={() => archiveItem(e.id)}
-            />
-          ),
+          cell: (e) =>
+            e.archived ? (
+              <Button variant="normal" disabled={true}>
+                Archived
+              </Button>
+            ) : (
+              <Button variant="normal" onClick={() => archiveItem(e.id)}>
+                Archive
+              </Button>
+            ),
         },
       ]}
       empty={<Alert>No work items found.</Alert>}
