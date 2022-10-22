@@ -21,6 +21,16 @@ Additionally, example code may theoretically modify or delete existing AWS resou
  * Be aware of the costs that might be charged to your account as a result.
  * Back up your important data.
 
+## SDK Support
+This SDK example code is supported to varying degrees:
+
+| status     | description               |
+|------------|---------------------------|
+| GA         | Bug-free. Recommended.    |
+| deprecated | Unsupported. User beware. |
+| preview    | Encouraged. User beware.  |
+
+
 ## How this repository is organized
 Code examples for each language's SDK can be found within the following sub-directories:
 
@@ -45,8 +55,6 @@ Code examples for each language's SDK can be found within the following sub-dire
 At the top level of each directory, a README explains how to build and run that set of examples.
 
 Within each directory, an `example_code/` folder contains examples organized by AWS service. For example `ruby/example_code/ec2` contains example code using the SDK for Ruby 
-Each AWS service folder is named for its corresponding AWS CLI command. 
-or example, the s3 folder contains Amazon S3 examples. For a list of AWS service commands, see [Available services](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html#available-services) in the *AWS CLI Command Reference*.
 
 ## Examples for currently maintained SDKs
 The code examples are organized by AWS SDK or AWS programming tool. The following list shows some of the top-level folders:
