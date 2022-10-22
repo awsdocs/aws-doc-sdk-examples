@@ -1,14 +1,10 @@
 # syntax=docker/dockerfile:1
-FROM rust:1.59
+FROM rust:1.40 as builder
+
 # copy in files
 RUN mkdir /src
 COPY . /src/
-
-# resolve dependencies
-# or builld
-
-# set work directory
 WORKDIR /src
+RUN cargo install --path .
 
-RUN cargo build --all-targets
-CMD ["cargo test"]
+CMD ["bash"]
