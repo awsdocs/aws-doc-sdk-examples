@@ -9,7 +9,7 @@
 
 #include "ItemTrackerHTTPServer.h"
 #include <aws/core/client/ClientConfiguration.h>
-#include <aws/rds-data/RDSDataServiceServiceClientModel.h>
+#include <aws/rds-data/RDSDataServiceClient.h>
 #include <aws/rds-data/model/SqlParameter.h>
 
 namespace AwsDoc {

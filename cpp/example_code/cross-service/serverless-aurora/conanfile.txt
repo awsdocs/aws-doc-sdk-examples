@@ -1,5 +1,9 @@
 [requires]
  poco/1.12.2
 
+
+ [options]
+ poco:shared=True
+
  [generators]
  cmake

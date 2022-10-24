@@ -56,7 +56,7 @@ bool AwsDoc::CrossService::SES3EmailHandler::sendEmail(const Aws::String emailAd
     for (const WorkItem &item: workItems) {
         csvStream << item.mID << "," << item.mName << "," << item.mGuide << ","
                   << item.mDescription << "," << item.mStatus << ","
-                  << (item.mArchived > 0 ? "yes" : "no") << "\n";
+                  << (item.mArchived ? "yes" : "no") << "\n";
     }
 
     std::string csvString = csvStream.str();
