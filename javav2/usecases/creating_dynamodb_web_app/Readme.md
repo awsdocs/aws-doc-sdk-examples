@@ -131,7 +131,7 @@ The user can enter an email recipient into the **Email Report** text field and c
 
 At this point, you have a new project named **ItemTrackerDynamoDBRest**.
 
-**Note:** Make sure to use Java 1.8 (as shown in the following example).
+**Note:** Make sure to use Java 11 (as shown in the following example).
 
 Confirm that the **pom.xml** file looks like the following example.
 
