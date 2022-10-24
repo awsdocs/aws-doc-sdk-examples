@@ -94,6 +94,53 @@ If your code example submission is missing any of these things, we might ask you
 
 Although many older code examples in this repo don't contain all of these things, we're working to ensure that all newer ones do.
 
+## Additional Information
+
+The `scripts/` folder
+
+The **scripts** folder contains scripts that the AWS documentation team uses internally to build the code examples into various AWS documentation sets.
+
+
+## Default branch name change
+
+We have changed the default branch for this repo from **master** to **main**.
+
+If the parent branch of your fork or branch is **master**,
+the following instructions tell you how to change the parent branch to **main**.
+
+To show the parent branch,
+where **BRANCH** is the name of your branch:
+
+1. Navigate to the root of your branch or fork.
+2. Make sure your branch is the current branch (**git checkout BRANCH**).
+3. Run **git branch --contains**.
+
+### Changing a branch parent branch from master to main
+To change the parent branch for your branch to **main**,
+navigate to the root of your branch and enter the following commands,
+where *BRANCH* is the name of your branch:
+
+```		
+   git branch -m master main
+   git fetch origin
+   git branch -u origin/main main
+   git remote set-head origin -a
+   git remote update --prune
+```
+
+### Changing a fork's default branch from master to main
+GitHub will notify you when a parent branch has changed.
+To change your fork's default branch to **main**:
+
+1. Navigate to main web page of your fork.
+2. You should see a "The default branch on the parent repository has been renamed" message.
+3. Select the **branch settings** link.
+4. Change **master** to **main**.
+
+# Questions or issues?
+If you have any questions, or if you experience an issue when retargeting your branch or fork,
+create a new GitHub issue and include as much detail as possible.
+
 ## Finding contributions to work on
 
 If you'd like to contribute, but don't have a project in mind, look at the [open issues](https://github.com/awsdocs/aws-doc-sdk-examples/issues) in this repository for some ideas. Any issues with the [help wanted](https://github.com/awsdocs/aws-doc-sdk-examples/labels/help%20wanted) or [enhancement](https://github.com/awsdocs/aws-doc-sdk-examples/labels/enhancement) labels are a great place to start.
