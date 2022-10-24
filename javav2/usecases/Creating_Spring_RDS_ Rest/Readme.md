@@ -119,7 +119,7 @@ The user can enter an email recipient into the **Manager** text field and choose
 
 Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
 
-![AWS Tracking Application](images/reportEx.png)
+![AWS Tracking Application](images/report.png)
 
 ## Create an IntelliJ project named ItemTrackerRDSRest
 
