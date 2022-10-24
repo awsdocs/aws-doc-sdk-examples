@@ -113,7 +113,7 @@ The React application also lets a user enter a new item.
 
 ![AWS Tracking Application](images/react3.png)
 
-The user can enter an email recipient into the **Manager** text field and choose **Send Report**.
+The user can enter an email recipient into the **Email Report** text field and choose **Send report**.
 
 ![AWS Tracking Application](images/react4.png)
 
