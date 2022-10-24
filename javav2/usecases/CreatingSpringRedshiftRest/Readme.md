@@ -253,11 +253,7 @@ Confirm that the **pom.xml** file looks like the following example.
 
 ## Create the Java classes
 
-Create a Java package in the **main/java** folder named **com.aws.rest**. 
-
-![AWS Tracking Application](images/projectClasses.png)
-
-The following Java files go into this package:
+Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
