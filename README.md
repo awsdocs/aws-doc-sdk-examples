@@ -28,9 +28,7 @@ Code examples for each language's SDK can be found within the following sub-dire
 | Rust       | [rust_dev_preview/](rust_dev_preview) |             | ![[]](https://img.shields.io/badge/-preview-brightgreen) |
 | Swift      | [swift/](swift)                       |             | ![[]](https://img.shields.io/badge/-preview-brightgreen)     |
 
-At the top level of each directory, a README explains how to build and run that set of examples.
-
-Within each directory, an `example_code/` folder contains examples organized by AWS service. For example `ruby/example_code/ec2` contains example code using the SDK for Ruby.
+Within each directory, you will find SDK-specific instructions for understanding and invoking example code.
 
 ## Invoking example code
 To invoke this example code, you must have an AWS account. For more information about creating an account, see [AWS Free Tier](https://aws.amazon.com/free/). 
