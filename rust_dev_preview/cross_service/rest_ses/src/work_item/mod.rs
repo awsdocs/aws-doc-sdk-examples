@@ -33,6 +33,21 @@ impl WorkItem {
     pub fn idwork(&self) -> &Uuid {
         &self.idwork
     }
+    pub fn date(&self) -> &NaiveDate {
+        &self.date
+    }
+    pub fn name(&self) -> &String {
+        &self.name
+    }
+    pub fn description(&self) -> &String {
+        &self.description
+    }
+    pub fn guide(&self) -> &String {
+        &self.guide
+    }
+    pub fn status(&self) -> &String {
+        &self.status
+    }
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]

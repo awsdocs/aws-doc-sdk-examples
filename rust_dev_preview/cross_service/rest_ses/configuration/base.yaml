@@ -3,7 +3,10 @@ application:
   name: aws_docs_rest_example
   address: "127.0.0.1"
   port: 8080
-sdk_config:
+rds:
   db_instance: auroraappdb
   secret_arn: "arn:aws:secretsmanager:region:111122223333:secret:docexampleauroraapp-secret-id"
   cluster_arn: "arn:aws:rds:us-east-1:111122223333:cluster:docexampleauroraapp-cluster-id"
+ses:
+  source: "report-account@amazondomains.com"
+  source-arn: "arn:aws:ses:region:0123456789012"
