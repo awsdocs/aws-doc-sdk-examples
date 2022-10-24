@@ -280,6 +280,14 @@ lambda_UpdateFunctionConfiguration:
   synopsis: update &LAM; function configuration.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.UpdateLambdaConfiguration
     PHP:
       versions:
         - sdk_version: 3

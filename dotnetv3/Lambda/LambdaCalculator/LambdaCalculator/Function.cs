@@ -14,11 +14,14 @@ public class Function
 {
 
     /// <summary>
-    /// A simple function that takes a string and does a ToUpper
+    /// A simple function that takes two number in string format and performs
+    /// the requested arithmetic function.
     /// </summary>
-    /// <param name="input"></param>
-    /// <param name="context"></param>
-    /// <returns></returns>
+    /// <param name="input">JSON data containing an action, and x and y values.
+    /// Valid actions include: add, subtract, multiply, and divide.</param>
+    /// <param name="context">The context object passed by Lambda containing
+    /// information about invocation, function, and execution environment.</param>
+    /// <returns>A string representing the results of the calculation.</returns>
     public int FunctionHandler(Dictionary<string, string> input, ILambdaContext context)
     {
         var action = input["action"];

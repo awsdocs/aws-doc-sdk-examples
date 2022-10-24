@@ -15,9 +15,11 @@ public class Function
     /// <summary>
     /// A simple function increments the integer parameter.
     /// </summary>
-    /// <param name="input">An integer value.</param>
-    /// <param name="context"></param>
-    /// <returns></returns>
+    /// <param name="input">A JSON string containing an action, which must be
+    /// "increment" and a string representing the value to increment.</param>
+    /// <param name="context">The context object passed by Lambda containing
+    /// information about invocation, function, and execution environment.</param>
+    /// <returns>A string representing the incremented value of the parameter.</returns>
     public int FunctionHandler(Dictionary<string, string> input, ILambdaContext context)
     {
         if (input["action"] == "increment")

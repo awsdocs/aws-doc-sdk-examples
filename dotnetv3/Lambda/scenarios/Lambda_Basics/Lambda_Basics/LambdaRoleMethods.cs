@@ -15,7 +15,7 @@ namespace Lambda_Basics
         }
 
         /// <summary>
-        /// Create a new AWS Identity and Access Management (IAM)
+        /// Create a new AWS Identity and Access Management (IAM) role.
         /// </summary>
         /// <param name="roleName">The name of the IAM role to create.</param>
         /// <param name="policyDocument">The policy document for the new IAM role.</param>
@@ -34,7 +34,7 @@ namespace Lambda_Basics
         }
 
         /// <summary>
-        /// Deletes and IAM role.
+        /// Deletes an IAM role.
         /// </summary>
         /// <param name="roleName">The name of the role to delete.</param>
         /// <returns>A Boolean value indicating the success of the operation.</returns>

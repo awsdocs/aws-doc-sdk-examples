@@ -31,9 +31,9 @@ Code excerpts that show you how to call individual service functions.
 - [Get a function](scenarios/Lambda_Basics/Lambda_Basics/LambdaMethods.cs) (`GetFunctionAsync`)
 - [Invoke a function](InvokeFunctionExample/InvokeFunctionExample/InvokeFunction.cs) (`InvokeAsync`)
 - [List functions](ListFunctionsExample/ListFunctionsExample/ListFunctions.cs) (`ListFunctionsAsync`, `Paginators.ListFunctions`)
-- [Update a function](scenarios/Lambda_Basics/Lambda_Basics/LambdaMethods.cs) (`UpdateFunctionCodeAsync`)
 - [Set up role](SetuplambdaRoleExample/SetuplambdaRoleExample/SetupLambdaRole.cs)
-
+- [Update a function](scenarios/Lambda_Basics/Lambda_Basics/LambdaMethods.cs) (`UpdateFunctionCodeAsync`)
+- [Update function configuration](scenarios/Lambda_Basics/Lambda_Basics/LambdaMethods.cs) (`UpdateFunctionConfigurationAsync`)
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling
@@ -71,8 +71,8 @@ following command:
 
 `dotnet tool install -g Amazon.Lambda.Tools`
 
-Once installed, navigate to the folder containing the project file (`*.csproj`) and type
-the following:
+After installation, navigate to the folder containing the project file
+(`*.csproj`) and type the following:
 
 `dotnet lambda package`
 

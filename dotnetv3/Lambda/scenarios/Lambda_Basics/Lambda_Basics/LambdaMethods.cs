@@ -12,7 +12,7 @@ namespace Lambda_Basics
         // snippet-start:[lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction]
 
         /// <summary>
-        /// Deletes a Lambda function.
+        /// Deletes an AWS Lambda function.
         /// </summary>
         /// <param name="client">An initialized Lambda client object.</param>
         /// <param name="functionName">The name of the Lambda function to
@@ -143,12 +143,12 @@ namespace Lambda_Basics
         /// <param name="functionName">The name of the function.</param>
         /// <param name="s3Bucket">The S3 bucket where the zip file containing
         /// the code is located.</param>
-        /// <param name="s3Key">The S3 key of the zip file.</param>
-        /// <param name="role">A role with the appropriate Amazon Lambda
+        /// <param name="s3Key">The Amazon S3 key of the zip file.</param>
+        /// <param name="role">A role with the appropriate Lambda
         /// permissions.</param>
         /// <param name="handler">The name of the handler function.</param>
         /// <returns>The Amazon Resource Name (ARN) of the newly created
-        /// Amazon Lambda function.</returns>
+        /// Lambda function.</returns>
         public async Task<string> CreateLambdaFunction(
             AmazonLambdaClient client,
             string functionName,

@@ -5,7 +5,8 @@
 // For more information, see the following documentation:
 // https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html
 // This code example performs the following operations:
-// 1. Creates an IAM policy that will be used by AWS Lambda.
+// 1. Creates an AWS Identity and Access Management (IAM) policy that will be
+//    used by AWS Lambda.
 // 2. Attaches the policy to a new IAM role.
 // 3. Creates an AWS Lambda function.
 // 4. Gets a specific AWS Lambda function.
@@ -20,8 +21,7 @@
 // The following variables will be loaded from a configuration file:
 //
 //   functionName - The name of the Lambda function.
-//   roleName - The AWS Identity and Access Management (IAM) service role that
-//       has Lambda permissions.
+//   roleName - The IAM service role that has Lambda permissions.
 //   handler - The fully qualified method name (for example,
 //       example.Handler::handleRequest).
 //   bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name
@@ -74,7 +74,7 @@ var roleArn = await lambdaRoleMethods.CreateLambdaRole(roleName, policyDocument)
 Console.WriteLine("Waiting for role to become active.");
 System.Threading.Thread.Sleep(10000);
 
-// Create the Lambda function using a zip file stored in an Amazon S3 bucket.
+// Create the Lambda function using a zip file stored in an S3 bucket.
 Console.WriteLine(sepBar);
 Console.WriteLine($"Creating the AWS Lambda function: {functionName}.");
 var lambdaArn = await lambdaMethods.CreateLambdaFunction(
@@ -245,7 +245,7 @@ void DisplayFunctionList(List<FunctionConfiguration> functions)
     });
 }
 
-// Display an overview of the application.
+// Displays an overview of the application.
 void ShowOverview()
 {
     Console.WriteLine("Welcome to the AWS Lambda Basics Example");
