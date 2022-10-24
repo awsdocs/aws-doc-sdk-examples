@@ -4,7 +4,7 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring Boot application that queries Amazon Aurora Serverless data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
+| Description | Discusses how to develop a Spring Boot application that queries Amazon Redshift data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
 | Audience   |  Developer (intermediate)        |
 | Updated   | 10/13/2022        |
 | Required skills   | Java, Maven, JavaScript  |
