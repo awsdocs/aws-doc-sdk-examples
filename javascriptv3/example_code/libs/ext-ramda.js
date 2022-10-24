@@ -13,7 +13,6 @@ import {
   identity,
   is,
   map,
-  nth,
   prop,
   T,
 } from "ramda";
@@ -28,6 +27,8 @@ const flipApplyMap = curry((funcs) =>
 
 const concatMap = compose(map, concat);
 
+const nthAdjust = curry((i, fn, list) => fn(list[i]));
+
 const parseString = cond([
   [is(String), identity],
   [is(Error), prop("message")],
@@ -36,4 +37,12 @@ const parseString = cond([
 
 const promiseAll = bind(Promise.all, Promise);
 
-export { flipApply, flipMap, flipApplyMap, concatMap, parseString, promiseAll };
+export {
+  flipApply,
+  flipMap,
+  flipApplyMap,
+  concatMap,
+  nthAdjust,
+  parseString,
+  promiseAll,
+};

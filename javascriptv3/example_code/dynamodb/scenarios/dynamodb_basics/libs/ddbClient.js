@@ -8,7 +8,7 @@ Purpose:
 ddbClient.js is a helper function that creates an Amazon Simple Storage Service (Amazon S3) service client.
 
 Inputs (replace in code):
-
+-REGION - replace with your AWS Region.
 */
 // snippet-start:[dynamodb.JavaScript.scenario.basics.createclientv3]
 // Create the DynamoDB service client module using ES6 syntax.

@@ -2,6 +2,7 @@
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon EC2 Auto Scaling]
 
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -144,6 +145,7 @@ public class AutoScalingScenario {
         autoScalingClient.close();
     }
 
+    // snippet-start:[autoscale.java2.describe_scaling_activites.main]
     public static void describeScalingActivities(AutoScalingClient autoScalingClient, String groupName) {
         try {
             DescribeScalingActivitiesRequest scalingActivitiesRequest = DescribeScalingActivitiesRequest.builder()
@@ -163,7 +165,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.describe_scaling_activites.main]
 
+    // snippet-start:[autoscale.java2.set_capacity.main]
     public static void setDesiredCapacity(AutoScalingClient autoScalingClient, String groupName) {
         try {
             SetDesiredCapacityRequest capacityRequest = SetDesiredCapacityRequest.builder()
@@ -179,7 +183,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.set_capacity.main]
 
+    // snippet-start:[autoscale.java2.create_autoscalinggroup.main]
     public static void createAutoScalingGroup(AutoScalingClient autoScalingClient,
                                               String groupName,
                                               String launchTemplateName,
@@ -215,7 +221,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.create_autoscalinggroup.main]
 
+    // snippet-start:[autoscale.java2.describe_autoscalinggroup.main]
     public static void describeAutoScalingInstance( AutoScalingClient autoScalingClient, String id) {
         try {
             DescribeAutoScalingInstancesRequest describeAutoScalingInstancesRequest = DescribeAutoScalingInstancesRequest.builder()
@@ -233,7 +241,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.describe_autoscalinggroup.main]
 
+    // snippet-start:[autoscale.java2.describe_autoscalinggroups.main]
     public static void describeAutoScalingGroups(AutoScalingClient autoScalingClient, String groupName) {
         try {
             DescribeAutoScalingGroupsRequest groupsRequest = DescribeAutoScalingGroupsRequest.builder()
@@ -252,7 +262,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.describe_autoscalinggroups.main]
 
+    // snippet-start:[autoscale.java2.get_autoscalinggroup.main]
     public static String getSpecificAutoScalingGroups(AutoScalingClient autoScalingClient, String groupName) {
         try{
             String instanceId = "";
@@ -281,7 +293,9 @@ public class AutoScalingScenario {
         }
         return "" ;
     }
+    // snippet-end:[autoscale.java2.get_autoscalinggroup.main]
 
+    // snippet-start:[autoscale.java2.enable_collection.main]
     public static void enableMetricsCollection(AutoScalingClient autoScalingClient, String groupName) {
         try {
 
@@ -299,7 +313,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.enable_collection.main]
 
+    // snippet-start:[autoscale.java2.disable_collection.main]
     public static void disableMetricsCollection(AutoScalingClient autoScalingClient, String groupName) {
         try {
             DisableMetricsCollectionRequest disableMetricsCollectionRequest = DisableMetricsCollectionRequest.builder()
@@ -315,7 +331,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.disable_collection.main]
 
+    // snippet-start:[autoscale.java2.describe_account.main]
     public static void describeAccountLimits(AutoScalingClient autoScalingClient) {
         try {
             DescribeAccountLimitsResponse response = autoScalingClient.describeAccountLimits();
@@ -327,7 +345,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.describe_account.main]
 
+    // snippet-start:[autoscale.java2.update_autoscalinggroup.main]
     public static void updateAutoScalingGroup(AutoScalingClient autoScalingClient, String groupName, String launchTemplateName, String serviceLinkedRoleARN) {
         try {
             AutoScalingWaiter waiter = autoScalingClient.waiter();
@@ -356,7 +376,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.update_autoscalinggroup.main]
 
+    // snippet-start:[autoscale.java2.terminate_instance.main]
     public static void terminateInstanceInAutoScalingGroup(AutoScalingClient autoScalingClient, String instanceId){
         try {
             TerminateInstanceInAutoScalingGroupRequest request = TerminateInstanceInAutoScalingGroupRequest.builder()
@@ -372,7 +394,9 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.terminate_instance.main]
 
+    // snippet-start:[autoscale.java2.del_group.main]
     public static void deleteAutoScalingGroup(AutoScalingClient autoScalingClient, String groupName) {
         try {
             DeleteAutoScalingGroupRequest deleteAutoScalingGroupRequest = DeleteAutoScalingGroupRequest.builder()
@@ -388,5 +412,6 @@ public class AutoScalingScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[autoscale.java2.del_group.main]
 }
 // snippet-end:[autoscale.java2.create_scaling_scenario.main]

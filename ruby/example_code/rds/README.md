@@ -1,67 +1,62 @@
-# AWS SDK for Ruby code examples for Amazon RDS
+# Amazon RDS code examples for the SDK for Ruby
+## Overview
+These examples show how to create and manage Amazon Relational Database Service (Amazon RDS) DB instances and clusters using the SDK for Ruby.
 
-## Purpose
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Relational Database Service (Amazon RDS).
+Amazon RDS is a web service that makes it easier to set up, operate, and scale a relational database in the cloud.
 
-Amazon Relational Database Service (Amazon RDS) makes it easy to set up, operate, and scale a relational database in the cloud. It provides 
-cost-efficient and resizable capacity while automating time-consuming administration tasks such as hardware provisioning, database setup, 
-patching and backups. It frees you to focus on your applications so you can give them the fast performance, high availability, security and 
-compatibility they need.
+## ⚠️ Important
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon RDS examples:
 
-### API examples
-- [Create a cluster snapshot](./rds-ruby-example-create-cluster-snapshot.rb)
-- [Create a snapshot](./rds-ruby-example-create-snapshot.rb)
-- [List all instances](./rds-ruby-example-list-all-instances.rb)
-- [List a cluster's snapshots](./rds-ruby-example-list-cluster-snapshots.rb)
-- [List instance snapshots](./rds-ruby-example-list-instance-snapshots.rb)
-- [List parameter groups](./rds-ruby-example-list-parameter-groups.rb)
-- [List subnet groups](./rds-ruby-example-list-security-groups.rb)
-- [List security groups](./rds-ruby-example-list-subnet-groups.rb)
+### Single actions
+Code excerpts that show you how to call individual service functions.
 
-## Important
+* [Create a cluster snapshot](./create_cluster_snapshot.rb) (`CreateDbClusterSnapshot`)
 
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific AWS Regions. For more information, see the 
-  [AWS Regional Services List](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
+* [Create a snapshot](./create_snapshot.rb) (`CreateDbSnapshot`)
 
-## Running the code
+* [List all instances](./list_instances.rb) (`DescribeDBInstances`)
+
+* [List a cluster's snapshots](./list_cluster_snapshots.rb) (`DescribeDbClusterSnapshots`)
+
+* [List instance snapshots](./list_instance_snapshots.rb) (`DescribeDbSnapshots`)
+
+* [List parameter groups](./list_parameter_groups.rb) (`DescribeDbParameterGroups`)
+
+* [List subnet groups](./list_security_groups.rb) (`GetDbClusterParameters`)
+
+* [List security groups](./list_subnet_groups.rb) (`GetDbClusterParameters`)
+
+
+
+
+
+
+## Run the examples
 
 ### Prerequisites
 
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
-  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
-- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
-  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
-- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
-  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
+See the [Ruby README.md](../../../ruby/README.md) for prerequisites.
 
-Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `rds-ruby-example-create-cluster-snapshot.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
+### Instructions
+The easiest way to interact with this example code is by invoking [Single Actions](#single-actions) from your command line. This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
 
-```
-ruby rds-ruby-example-create-cluster-snapshot.rb
-```
+## Contributing
+Code examples thrive on community contribution!
+* To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md)
 
-## Additional information
+### Tests
+⚠️ Running tests might result in charges to your AWS account.
 
-- [Amazon Relational Database Service Documentation](https://docs.aws.amazon.com/rds/)
-- [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
-- [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
-- [RSpec Documentation](https://rspec.info/documentation)
+This service is not currently tested.
 
----
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+## Additional resources
+* [Service Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
+* [Service API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
+* [SDK API reference guide](https://aws.amazon.com/developer/language/ruby/)
 
-SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

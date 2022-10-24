@@ -9,7 +9,7 @@
 
 # snippet-start:[ec2.Ruby.createSubnet]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # Creates a subnet within a virtual private cloud (VPC) in
 # Amazon Virtual Private Cloud (Amazon VPC) and then tags
@@ -71,29 +71,29 @@ end
 
 # Full example call:
 def run_me
-  vpc_id = ''
-  cidr_block = ''
-  availability_zone = ''
-  tag_key = ''
-  tag_value = ''
-  region = ''
+  vpc_id = ""
+  cidr_block = ""
+  availability_zone = ""
+  tag_key = ""
+  tag_value = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage:   ruby ec2-ruby-example-create-subnet.rb ' \
-      'VPC_ID CIDR_BLOCK AVAILABILITY_ZONE TAG_KEY TAG_VALUE REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage:   ruby ec2-ruby-example-create-subnet.rb " \
+      "VPC_ID CIDR_BLOCK AVAILABILITY_ZONE TAG_KEY TAG_VALUE REGION"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-create-subnet.rb ' \
-      'vpc-6713dfEX 10.0.0.0/24 us-west-2a my-key my-value us-west-2'
+    puts "Example: ruby ec2-ruby-example-create-subnet.rb " \
+      "vpc-6713dfEX 10.0.0.0/24 us-west-2a my-key my-value us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    vpc_id = 'vpc-6713dfEX'
-    cidr_block = '10.0.0.0/24'
-    availability_zone = 'us-west-2a'
-    tag_key = 'my-key'
-    tag_value = 'my-value'
+    vpc_id = "vpc-6713dfEX"
+    cidr_block = "10.0.0.0/24"
+    availability_zone = "us-west-2a"
+    tag_key = "my-key"
+    tag_value = "my-value"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-west-2'
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     vpc_id = ARGV[0]
@@ -114,9 +114,9 @@ def run_me
     tag_key,
     tag_value
   )
-    puts 'Subnet created and tagged.'
+    puts "Subnet created and tagged."
   else
-    puts 'Subnet not created or not tagged.'
+    puts "Subnet not created or not tagged."
   end
 end
 

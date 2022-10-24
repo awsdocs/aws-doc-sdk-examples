@@ -131,7 +131,7 @@ def run_scenario(lambda_client, iam_resource, basic_file, calculator_file, lambd
         want_invoke = q.ask("That was fun. Shall we do it again? (y/n) ", q.is_yesno)
     print('-'*88)
 
-    if q.ask("Do you want to list all of the functions in your account? (y/n) "):
+    if q.ask("Do you want to list all of the functions in your account? (y/n) ", q.is_yesno):
         wrapper.list_functions()
     print('-'*88)
 

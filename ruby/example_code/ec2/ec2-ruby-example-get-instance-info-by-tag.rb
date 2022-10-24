@@ -9,7 +9,7 @@
 
 # snippet-start:[ec2.Ruby.getInstanceInforByTag]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # @param ec2_resource [Aws::EC2::Resource] An initialized EC2 resource object.
 # @param tag_key [String] The key portion of the tag to search on.
@@ -30,9 +30,9 @@ def list_instance_ids_states_by_tag(ec2_resource, tag_key, tag_value)
     ]
   )
   if response.count.zero?
-    puts 'No matching instances found.'
+    puts "No matching instances found."
   else
-    puts 'Matching instances -- ID, state, tag key/value:'
+    puts "Matching instances -- ID, state, tag key/value:"
     response.each do |instance|
       print "#{instance.id}, #{instance.state.name}"
       instance.tags.each do |tag|
@@ -47,23 +47,23 @@ end
 
 #Full example call:
 def run_me
-  tag_key = ''
-  tag_value = ''
-  region = ''
+  tag_key = ""
+  tag_value = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage:   ruby ec2-ruby-example-get-instance-info-by-tag.rb ' \
-      'TAG_KEY TAG_VALUE REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage:   ruby ec2-ruby-example-get-instance-info-by-tag.rb " \
+      "TAG_KEY TAG_VALUE REGION"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-get-instance-info-by-tag.rb ' \
-      'my-key my-value us-west-2'
+    puts "Example: ruby ec2-ruby-example-get-instance-info-by-tag.rb " \
+      "my-key my-value us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
-    tag_key = 'my-key'
-    tag_value = 'my-value'
-    region = 'us-west-2'
+    tag_key = "my-key"
+    tag_value = "my-value"
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     tag_key = ARGV[0]
