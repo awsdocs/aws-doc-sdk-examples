@@ -336,31 +336,28 @@ public class MainController {
     @GetMapping("" )
     public List<WorkItem> getItems(@RequestParam(required=false) String archived) {
         Iterable<WorkItem> result;
-        if (archived != null)
-            result = repository.findAllWithStatus(archived);
+        if (archived != null && archived.compareTo("false")==0)
+           result = repository.getData("0");
+        else if (archived != null && archived.compareTo("true")==0)
+            result = repository.getData("1");
         else
-            result = repository.findAllWithStatus("");
+            result = repository.getData("");
 
         return StreamSupport.stream(result.spliterator(), false)
             .collect(Collectors.toUnmodifiableList());
     }
 
-    // Notice the : character which is used for custom methods. More information can be found here:
-    // https://cloud.google.com/apis/design/custom_methods
     @PutMapping("{id}:archive")
-    public List<WorkItem> modUser(@PathVariable String id) {
+    public String modUser(@PathVariable String id) {
         repository.flipItemArchive(id);
-        Iterable<WorkItem> result = repository.findAllWithStatus("false");
-        return StreamSupport.stream(result.spliterator(), false)
-            .collect(Collectors.toUnmodifiableList());
+        return id +" was archived";
     }
 
     @PostMapping("")
-    public List<WorkItem> addItem(@RequestBody Map<String, String> payload) {
+    public String addItem(@RequestBody Map<String, String> payload) {
         String name = payload.get("name");
         String guide = payload.get("guide");
         String description = payload.get("description");
-        String status = payload.get("description");
 
         WorkItem item = new WorkItem();
         String workId = UUID.randomUUID().toString();
@@ -370,13 +367,8 @@ public class MainController {
         item.setDescription(description);
         item.setName(name);
         item.setDate(date);
-        item.setStatus(status);
-        repository.save(item);
-
-        // Return active records.
-        Iterable<WorkItem> result = repository.findAllWithStatus("false");
-        return StreamSupport.stream(result.spliterator(), false)
-            .collect(Collectors.toUnmodifiableList());
+        item.setStatus(WorkItemRepository.active);
+        return repository.injectNewSubmission(item);
     }
 }
 ```
