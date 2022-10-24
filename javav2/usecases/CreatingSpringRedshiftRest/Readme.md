@@ -315,7 +315,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@ComponentScan(basePackages = {"com.aws.services"})
+@ComponentScan(basePackages = {"com.aws.rest"})
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/items")
