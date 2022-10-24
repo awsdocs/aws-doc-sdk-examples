@@ -104,7 +104,7 @@ public class EnhancedBatchWriteItems {
                     .build();
 
 
-            // Add two items to the Customer table and delete one item from the Music table
+            // Add three items to the Customer table and delete one item from the Music table
             enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
 
             System.out.println("done");

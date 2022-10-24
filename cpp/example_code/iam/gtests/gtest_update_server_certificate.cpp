@@ -14,6 +14,6 @@ namespace AwsDocTest {
                                                            "new-non-existent-certificate",
                                                            *s_clientConfig);
 
-        EXPECT_TRUE(result);  // the routine will return true if certificate not found.
+        EXPECT_TRUE(result);  // The routine will return true if certificate not found.
     }
 } // namespace AwsDocTest
