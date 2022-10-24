@@ -2,12 +2,12 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
     <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
     %xinclude;
-    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
-    %phrases-code-examples;
 {{- if isSnapshot}}
-    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
-    %phrases-prerelease-examples;
+    <!ENTITY % phrases-code-examples SYSTEM "phrases-code-examples.ent">
+{{- else}}
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
 {{- end}}
+    %phrases-code-examples;
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
@@ -36,12 +36,12 @@
             </itemizedlist>
             {{- else}}
             {{- if $version.GitHubUrl}}
-            <tip>
+            <note>
                 <para>
-                    To learn how to set up and run this example, see
-                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>.
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">&AWS; Code Examples Repository</ulink>.
                 </para>
-            </tip>
+            </note>
             {{- end}}
             {{- range $version.Excerpts}}
             <block>

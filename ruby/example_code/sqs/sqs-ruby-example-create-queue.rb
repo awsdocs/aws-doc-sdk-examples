@@ -6,7 +6,7 @@
 # snippet-start:[s3.ruby.sqs-ruby-example-create-queue.rb]
 # This code example demonstrates how to create a queue in Amazon Simple Queue Service (Amazon SQS).
 
-require 'aws-sdk-sqs'
+require "aws-sdk-sqs"
 
 # @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
 # @param queue_name [String] The name of the queue.
@@ -27,16 +27,16 @@ end
 # Full example call:
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 def run_me
-  region = 'us-west-2'
-  queue_name = 'my-queue'
+  region = "us-west-2"
+  queue_name = "my-queue"
   sqs_client = Aws::SQS::Client.new(region: region)
 
   puts "Creating the queue named '#{queue_name}'..."
 
   if queue_created?(sqs_client, queue_name)
-    puts 'Queue created.'
+    puts "Queue created."
   else
-    puts 'Queue not created.'
+    puts "Queue not created."
   end
 end
 

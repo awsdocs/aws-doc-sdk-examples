@@ -2,12 +2,12 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
     <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
     %xinclude;
-    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
-    %phrases-code-examples;
 {{- if isSnapshot}}
-    <!ENTITY % phrases-prerelease-examples SYSTEM "phrases-prerelease-examples.ent">
-    %phrases-prerelease-examples;
+    <!ENTITY % phrases-code-examples SYSTEM "phrases-code-examples.ent">
+{{- else}}
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
 {{- end}}
+    %phrases-code-examples;
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
@@ -38,32 +38,21 @@
     </info>
     <para>The following code examples show how to use {{.ServiceEntity.Short}} with an &AWS; software development kit (SDK).
         {{.ServiceEntity.Caveat}}</para>
-    <variablelist role="termdef">
-        <para>The examples are divided into the following categories:</para>
-        {{- if $actions.Examples}}
-        <varlistentry>
-            <term>Actions</term>
-            <listitem><para>Code excerpts that show you how to call individual service functions.</para></listitem>
-        </varlistentry>
-        {{- end}}
-        {{- if $scenarios.Examples}}
-        <varlistentry>
-            <term>Scenarios</term>
-            <listitem><para>Code examples that show you how to accomplish a specific task by calling multiple
-                functions within the same service.</para></listitem>
-        </varlistentry>
-        {{- end }}
-        {{- if $cross_service.Examples}}
-        <varlistentry>
-            <term>Cross-service examples</term>
-            <listitem><para>Sample applications that work across multiple &AWS-services;.</para></listitem>
-        </varlistentry>
-        {{- end }}
-    </variablelist>
+    {{- if $actions.Examples}}
+    <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
+    {{- end}}
+    {{- if $scenarios.Examples}}
+    <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
+        calling multiple functions within the same service.</para>
+    {{- end}}
+    {{- if $cross_service.Examples}}
+    <para><emphasis>Cross-service examples</emphasis> are sample applications that work across multiple &AWS-services;.</para>
+    {{- end }}
     <para>For a complete list of &AWS; SDK developer guides and code examples, see
         <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
         This topic also includes information about getting started and details about previous SDK versions.</para>
     {{- if $hello.Examples}}
+    <para><emphasis role="bold">Get started</emphasis></para>
     <block>
         <collapsible expand-section="_collapse_all_">
             {{- range $hello.Examples}}

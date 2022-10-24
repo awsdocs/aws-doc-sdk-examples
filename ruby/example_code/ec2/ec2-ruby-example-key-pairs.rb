@@ -14,7 +14,7 @@
 # 2. Displays information about available key pairs.
 # 3. Deletes the key pair.
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @param key_pair_name [String] The name for the key pair and private
@@ -30,13 +30,13 @@ def key_pair_created?(ec2_client, key_pair_name)
   key_pair = ec2_client.create_key_pair(key_name: key_pair_name)
   puts "Created key pair '#{key_pair.key_name}' with fingerprint " \
     "'#{key_pair.key_fingerprint}' and ID '#{key_pair.key_pair_id}'."
-  filename = File.join(Dir.home, key_pair_name + '.pem')
-  File.open(filename, 'w') { |file| file.write(key_pair.key_material) }
+  filename = File.join(Dir.home, key_pair_name + ".pem")
+  File.open(filename, "w") { |file| file.write(key_pair.key_material) }
   puts "Private key file saved locally as '#{filename}'."
   return true
 rescue Aws::EC2::Errors::InvalidKeyPairDuplicate
   puts "Error creating key pair: a key pair named '#{key_pair_name}' " \
-    'already exists.'
+    "already exists."
   return false
 rescue StandardError => e
   puts "Error creating key pair or saving private key file: #{e.message}"
@@ -52,9 +52,9 @@ end
 def describe_key_pairs(ec2_client)
   result = ec2_client.describe_key_pairs
   if result.key_pairs.count.zero?
-    puts 'No key pairs found.'
+    puts "No key pairs found."
   else
-    puts 'Key pair names:'
+    puts "Key pair names:"
     result.key_pairs.each do |key_pair|
       puts key_pair.key_name
     end
@@ -87,18 +87,18 @@ end
 
 # Full example call:
 def run_me
-  key_pair_name = ''
-  region = ''
+  key_pair_name = ""
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage:   ruby ec2-ruby-example-key-pairs.rb KEY_PAIR_NAME REGION'
-    puts 'Example: ruby ec2-ruby-example-key-pairs.rb my-key-pair us-west-2'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage:   ruby ec2-ruby-example-key-pairs.rb KEY_PAIR_NAME REGION"
+    puts "Example: ruby ec2-ruby-example-key-pairs.rb my-key-pair us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
-    key_pair_name = 'my-key-pair'
-    region = 'us-west-2'
+    key_pair_name = "my-key-pair"
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     key_pair_name = ARGV[0]
@@ -107,41 +107,41 @@ def run_me
 
   ec2_client = Aws::EC2::Client.new(region: region)
 
-  puts 'Displaying existing key pair names before creating this key pair...'
+  puts "Displaying existing key pair names before creating this key pair..."
   describe_key_pairs(ec2_client)
 
-  puts '-' * 10
-  puts 'Creating key pair...'
+  puts "-" * 10
+  puts "Creating key pair..."
   unless key_pair_created?(ec2_client, key_pair_name)
-    puts 'Stopping program.'
+    puts "Stopping program."
     exit 1
   end
 
-  puts '-' * 10
-  puts 'Displaying existing key pair names after creating this key pair...'
+  puts "-" * 10
+  puts "Displaying existing key pair names after creating this key pair..."
   describe_key_pairs(ec2_client)
 
-  puts '-' * 10
-  puts 'Deleting key pair...'
+  puts "-" * 10
+  puts "Deleting key pair..."
   unless key_pair_deleted?(ec2_client, key_pair_name)
-    puts 'Stopping program. You must delete the key pair yourself.'
+    puts "Stopping program. You must delete the key pair yourself."
     exit 1
   end
-  puts 'Key pair deleted.'
+  puts "Key pair deleted."
 
-  puts '-' * 10
-  puts 'Now that the key pair is deleted, ' \
-    'also deleting the related private key pair file...'
-  filename = File.join(Dir.home, key_pair_name + '.pem')
+  puts "-" * 10
+  puts "Now that the key pair is deleted, " \
+    "also deleting the related private key pair file..."
+  filename = File.join(Dir.home, key_pair_name + ".pem")
   File.delete(filename)
   if File.exist?(filename)
     puts "Could not delete file at '#{filename}'. You must delete it yourself."
   else
-    puts 'File deleted.'
+    puts "File deleted."
   end
 
-  puts '-' * 10
-  puts 'Displaying existing key pair names after deleting this key pair...'
+  puts "-" * 10
+  puts "Displaying existing key pair names after deleting this key pair..."
   describe_key_pairs(ec2_client)
 end
 

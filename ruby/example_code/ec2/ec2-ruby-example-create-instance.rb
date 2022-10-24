@@ -7,8 +7,8 @@
 
 # snippet-start:[ec2.Ruby.createInstances]
 
-require 'aws-sdk-ec2'
-require 'base64'
+require "aws-sdk-ec2"
+require "base64"
 
 # Prerequisites:
 #
@@ -44,12 +44,12 @@ def instance_created?(
   key_pair_name,
   tag_key,
   tag_value,
-  instance_type = 't2.micro',
-  user_data_file = ''
+  instance_type = "t2.micro",
+  user_data_file = ""
 )
-  encoded_script = ''
+  encoded_script = ""
 
-  unless user_data_file == ''
+  unless user_data_file == ""
     script = File.read(user_data_file)
     encoded_script = Base64.encode64(script)
   end
@@ -63,7 +63,7 @@ def instance_created?(
     user_data: encoded_script
   )
 
-  puts 'Creating instance...'
+  puts "Creating instance..."
 
   # Check whether the new instance is in the "running" state.
   polls = 0
@@ -75,7 +75,7 @@ def instance_created?(
       ]
     )
     # Stop polling after 10 minutes (40 polls * 15 seconds per poll) if not running.
-    break if response.reservations[0].instances[0].state.name == 'running' || polls > 40
+    break if response.reservations[0].instances[0].state.name == "running" || polls > 40
 
     sleep(15)
   end
@@ -90,7 +90,7 @@ def instance_created?(
       }
     ]
   )
-  puts 'Instance tagged.'
+  puts "Instance tagged."
 
   return true
 rescue StandardError => e
@@ -100,33 +100,33 @@ end
 
 # Full example call:
 def run_me
-  image_id = ''
-  key_pair_name = ''
-  tag_key = ''
-  tag_value = ''
-  instance_type = ''
-  region = ''
-  user_data_file = ''
+  image_id = ""
+  key_pair_name = ""
+  tag_key = ""
+  tag_value = ""
+  instance_type = ""
+  region = ""
+  user_data_file = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage: ruby ec2-ruby-example-create-instance.rb ' \
-      'IMAGE_ID KEY_PAIR_NAME TAG_KEY TAG_VALUE INSTANCE_TYPE ' \
-      'REGION [USER_DATA_FILE]'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage: ruby ec2-ruby-example-create-instance.rb " \
+      "IMAGE_ID KEY_PAIR_NAME TAG_KEY TAG_VALUE INSTANCE_TYPE " \
+      "REGION [USER_DATA_FILE]"
      # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-create-instance.rb ' \
-      'ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro ' \
-      'us-west-2 my-user-data.txt'
+    puts "Example: ruby ec2-ruby-example-create-instance.rb " \
+      "ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro " \
+      "us-west-2 my-user-data.txt"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    image_id = 'ami-0947d2ba12EXAMPLE'
-    key_pair_name = 'my-key-pair'
-    tag_key = 'my-key'
-    tag_value = 'my-value'
-    instance_type = 't2.micro'
+    image_id = "ami-0947d2ba12EXAMPLE"
+    key_pair_name = "my-key-pair"
+    tag_key = "my-key"
+    tag_value = "my-value"
+    instance_type = "t2.micro"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = 'us-west-2'
-    user_data_file = 'my-user-data.txt'
+    region = "us-west-2"
+    user_data_file = "my-user-data.txt"
   # Otherwise, use the values as specified at the command prompt.
   else
     image_id = ARGV[0]
@@ -149,9 +149,9 @@ def run_me
     instance_type,
     user_data_file
   )
-    puts 'Created and tagged instance.'
+    puts "Created and tagged instance."
   else
-    puts 'Could not create or tag instance.'
+    puts "Could not create or tag instance."
   end
 end
 

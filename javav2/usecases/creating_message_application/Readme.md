@@ -66,11 +66,11 @@ selecting **Send message** after data is entered for each row.
 
 The React application shows you how to work with Amazon SQS messages. The application posts a message to your Amazon SQS queue and it polls the Amazon SQS queue for new messages and displays them. You can enter a message and a user and then click **Send Message**.
 
-![AWS Messaging application](images/clientReact.png)
+![AWS Messaging application](images/app.png)
 
 After the message is sent, the application displays the message, as shown in the following figure.
 
-![AWS Messaging application](images/clientReact2.png)
+![AWS Messaging application](images/app1.png)
 
 The following describes how the application handles a message:
 
@@ -533,14 +533,14 @@ Create the React SPA that consumes the JSON data returned from the
 Spring REST API. To start, download files from the 
 following GitHub repository. Included in this repository are instructions 
 on how to set up the project. Click the following link to access the 
-GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/clients/react/sqs-chat/README.md).
+GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).
 
-In the instructions for the React app, you'll see directions to replace the `BASE_URL` value.
+In the instructions for the React app, you'll see directions to replace the `BASE_URL` value located in **plugins\sqs-message\src\config.json**.
 The React app uses the `BASE_URL` value to communicate with the Spring app.
 Be sure you use the same port you used to start the Spring app above. For example, use `http://localhost:8082/`
 for the `BASE_URL` value, if that is the port you used.
 
-You must modify the **AwsService.js** file so that your React requests work with your Java backend. Update this file to include the following code.
+Ensure that the **AwsService.js** file contains the following logic so that your React requests work with your Java backend. 
 
 ```javascript
 
