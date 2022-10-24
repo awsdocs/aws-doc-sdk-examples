@@ -1,18 +1,18 @@
 # Guidelines for contributing
 
-Thank you for your interest in contributing to AWS documentation! We greatly value feedback and contributions from our community.
+Welcome to AWS Docs! We thrive on your contribution. :heart:
 
-Please read through this document before you submit any pull requests or issues. It will help us work together more effectively.
+## Before you get started
+Please take 3 minutes to understand:
+1. 🎫 [Submitting issues](submitting-issues)
+1. 🤝[What to expect from AWS](what-to-expect-from-aws)
+2. ✍️ [Write code and submit pull requests](write-code-and-submit-pull-requests)
 
+---
 
+## Submitting issues
 
-## What to expect when you contribute
-
-When you submit a pull request, our team is notified and will respond as quickly as we can. We'll do our best to work with you to ensure that your pull request adheres to our style and standards. If we merge your pull request, we might make additional edits later for style or clarity.
-
-The AWS documentation source files on GitHub aren't published directly to the official documentation website. If we merge your pull request, we'll publish your changes to the documentation website as soon as we can, but they won't appear immediately or automatically.
-
-We look forward to receiving your pull requests for:
+We look forward to receiving your issues for:
 
 * New content you'd like to contribute (such as new code examples or tutorials) - for more information, see [Types of examples](https://github.com/awsdocs/aws-doc-sdk-examples/edit/main/CONTRIBUTING.md#types-of-examples) below.
 * Inaccuracies in the content
@@ -20,10 +20,20 @@ We look forward to receiving your pull requests for:
 * Typos or grammatical errors
 * Suggested rewrites that improve clarity and reduce confusion
 
+## What to expect from AWS
+
+When you submit a pull request, our team is notified and will respond as quickly as we can. We'll do our best to work with you to ensure that your pull request adheres to our style and standards. If we merge your pull request, we might make additional edits later for style or clarity.
+
+The AWS documentation source files on GitHub aren't published directly to the official documentation website. If we merge your pull request, we'll publish your changes to the documentation website as soon as we can, but they won't appear immediately or automatically.
+
+
 **Note:** We all write differently, and you might not like how we've written or organized something currently. We want that feedback. But please be sure that your request for a rewrite is supported by the previous criteria. If it isn't, we might decline to merge it.
 
+## Write code and submit pull requests
 
-## Where to put a new code example
+If you'd like to contribute, but don't have a project in mind, look at the [open issues](https://github.com/awsdocs/aws-doc-sdk-examples/issues) in this repository for some ideas. Any issues with the [help wanted](https://github.com/awsdocs/aws-doc-sdk-examples/labels/help%20wanted) or [enhancement](https://github.com/awsdocs/aws-doc-sdk-examples/labels/enhancement) labels are a great place to start.
+
+In addition to written content, we really appreciate new examples for our documentation, such as examples for different platforms or environments, and examples in additional programming languages.
 
 Code examples are organized by service for each SDK. Within each SDK, the folder and example structure varies. To add
 an example, find the SDK and service folder and add the example following the established convention for that SDK.
@@ -42,8 +52,6 @@ If your example uses multiple services and you aren't sure where to add it to th
 create an issue and describe what your code example does. 
 One of the AWS SDK code example team members will follow up with you in that issue.
 
-## How to contribute
-
 To contribute, send us a pull request. For small changes, such as fixing a typo or adding a link, you can use the [GitHub Edit Button](https://blog.github.com/2011-04-26-forking-with-the-edit-button/). For larger changes:
 
 1. [Fork the repository](https://help.github.com/articles/fork-a-repo/).
@@ -51,17 +59,13 @@ To contribute, send us a pull request. For small changes, such as fixing a typo 
 3. Commit the change to your fork, using a clear and descriptive commit message.
 4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/), answering any questions in the pull request form.
 
-Before you send us a pull request, please be sure that:
+### Before you send us a pull request, please be sure that:
 
 1. You're working from the latest source on the **main** branch.
 2. You check [existing open](https://github.com/awsdocs/aws-doc-sdk-examples/pulls), and [recently closed](https://github.com/awsdocs/aws-doc-sdk-examples/pulls?q=is%3Apr+is%3Aclosed), pull requests to be sure that someone else hasn't already addressed the problem.
 3. You [create an issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new) before working on a contribution that will take a significant amount of your time.
 
 For contributions that will take a significant amount of time, [open a new issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new) to pitch your idea before you get started. Explain the problem and describe the content you want to see added to the documentation. Let us know if you'll write it yourself or if you'd like us to help. We'll discuss your proposal with you and let you know whether we're likely to accept it. We don't want you to spend a lot of time on a contribution that might be outside the scope of the documentation or that's already in the works.
-
-## Guidelines for contributing code examples
-
-Help us raise the bar for code examples, so that your code example will provide the most value it can to users. 
 
 ### Types of examples
 There are three types of examples of AWS SDK usage in this repo:
@@ -94,14 +98,7 @@ If your code example submission is missing any of these things, we might ask you
 
 Although many older code examples in this repo don't contain all of these things, we're working to ensure that all newer ones do.
 
-## Additional Information
-
-The `scripts/` folder
-
-The **scripts** folder contains scripts that the AWS documentation team uses internally to build the code examples into various AWS documentation sets.
-
-
-## Default branch name change
+### Default branch name change
 
 We have changed the default branch for this repo from **master** to **main**.
 
@@ -137,15 +134,9 @@ To change your fork's default branch to **main**:
 3. Select the **branch settings** link.
 4. Change **master** to **main**.
 
-# Questions or issues?
+## Questions or issues?
 If you have any questions, or if you experience an issue when retargeting your branch or fork,
 create a new GitHub issue and include as much detail as possible.
-
-## Finding contributions to work on
-
-If you'd like to contribute, but don't have a project in mind, look at the [open issues](https://github.com/awsdocs/aws-doc-sdk-examples/issues) in this repository for some ideas. Any issues with the [help wanted](https://github.com/awsdocs/aws-doc-sdk-examples/labels/help%20wanted) or [enhancement](https://github.com/awsdocs/aws-doc-sdk-examples/labels/enhancement) labels are a great place to start.
-
-In addition to written content, we really appreciate new examples for our documentation, such as examples for different platforms or environments, and examples in additional programming languages.
 
 ## Code of conduct
 
