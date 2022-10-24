@@ -95,31 +95,28 @@ A user can perform the following tasks using the React application:
 + View all active items.
 + View archived items that are complete.
 + Add a new item. 
-+ Archive an active item.
++ Convert an active item into an archived item.
 + Send a report to an email recipient.
 
-The React SPA displays *active* and *archive* items. For example, the following illustration shows the React 
-application displaying active items.
+The React application displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
 
-![AWS Tracking Application](images/client.png)
+![AWS Tracking Application](images/react1.png)
 
-Likewise, the following illustration shows the React application displaying archived items.
+Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/clientarc.png)
+![AWS Tracking Application](images/react2.png)
 
-The React SPA also lets a user enter a new item. 
+The React application lets a user convert an active item to an archived item by clicking the following button. 
 
-![AWS Tracking Application](images/clientAddItem.png)
+![AWS Tracking Application](images/button.png)
 
-The user can enter an email recipient into the **Manager** text field and choose **Send Report**.
+The React application also lets a user enter a new item. 
 
-![AWS Tracking Application](images/clientReport2.png)
+![AWS Tracking Application](images/react3.png)
 
-Active items are queried from the database and used to dynamically create an Excel document. 
-Then, the application uses Amazon SES to email the document to the selected email recipient. 
-The following image shows an example of a report.
+The user can enter an email recipient into the **Email Report** text field and choose **Send report**.
 
-![AWS Tracking Application](images/report.png)
+![AWS Tracking Application](images/react4.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDBRest
 
