@@ -1,10 +1,10 @@
-# Creating a React and Spring REST application that queries Amazon DynamoDB data
+# Creating a Spring Boot Web application that queries Amazon DynamoDB data
 
 ## Overview
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
+| Description | Discusses how to develop a Spring Boot application that queries Amazon DynamoDB data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
 | Audience   |  Developer (intermediate)        |
 | Updated   | 8/02/2022        |
 | Required skills   | Java, Maven, JavaScript  |
