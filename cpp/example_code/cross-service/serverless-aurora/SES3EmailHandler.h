@@ -7,7 +7,7 @@
 #ifndef SERVERLESSAURORA_SES3EMAILHANDLER_H
 #define SERVERLESSAURORA_SES3EMAILHANDLER_H
 
-#include "ItemTrackerHTTPServer.h"
+#include "ItemTrackerHTTPHandler.h"
 #include <aws/core/client/ClientConfiguration.h>
 
 namespace AwsDoc {

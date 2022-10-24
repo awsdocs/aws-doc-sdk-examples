@@ -7,7 +7,7 @@
 #ifndef EXAMPLECODE_RDSDATAHANDLER_H
 #define EXAMPLECODE_RDSDATAHANDLER_H
 
-#include "ItemTrackerHTTPServer.h"
+#include "ItemTrackerHTTPHandler.h"
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/rds-data/RDSDataServiceClient.h>
 #include <aws/rds-data/model/SqlParameter.h>

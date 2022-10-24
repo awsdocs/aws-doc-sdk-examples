@@ -75,7 +75,8 @@ add_executable(${EXECUTABLE}
         serverless_aurora.cpp
         RDSDataHandler.cpp
         SES3EmailHandler.cpp
-        ItemTrackerHTTPServer.cpp)
+        ItemTrackerHTTPHandler.cpp
+        PocoHTTPServer.cpp)
 
 target_include_directories(${EXECUTABLE}
         PUBLIC

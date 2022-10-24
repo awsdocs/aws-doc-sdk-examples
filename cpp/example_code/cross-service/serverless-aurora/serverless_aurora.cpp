@@ -3,7 +3,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-#include "ItemTrackerHTTPServer.h"
+#include "ItemTrackerHTTPHandler.h"
 #include "RDSDataHandler.h"
 #include "SES3EmailHandler.h"
 
@@ -49,8 +49,8 @@ void runServerLessAurora(const Aws::String& database,
 //    }
 //    sesEmailHandler.sendEmail("meyertst@amazon.com", debugWorkItems);
 
-    AwsDoc::CrossService::ItemTrackerHTTPServer itemTrackerHttpServer(rdsDataHandler,
-                                                                      sesEmailHandler);
+    AwsDoc::CrossService::ItemTrackerHTTPHandler itemTrackerHttpServer(rdsDataHandler,
+                                                                       sesEmailHandler);
 
     char* argv[1];
     char app_name[256];
