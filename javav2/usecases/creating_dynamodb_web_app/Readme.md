@@ -144,22 +144,30 @@ Confirm that the **pom.xml** file looks like the following example.
     <groupId>ItemTrackerDynamoDB</groupId>
     <artifactId>ItemTrackerDynamoDBRest</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.example</groupId>
+    <artifactId>ItemTrackerDynamoDBRest2</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.7.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.17.230</version>
+                <version>2.17.146</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -169,21 +177,14 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb-enhanced</artifactId>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.2.0</version>
+            <type>maven-plugin</type>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -194,12 +195,12 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-commons</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -209,12 +210,16 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
+            <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>rdsdata</artifactId>
+            <artifactId>dynamodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -238,7 +243,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -260,6 +265,11 @@ Confirm that the **pom.xml** file looks like the following example.
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>2.7.3</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -267,29 +277,7 @@ Confirm that the **pom.xml** file looks like the following example.
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <linkXRef>false</linkXRef>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+           </plugins>
     </build>
 </project>
 ```
@@ -298,10 +286,12 @@ Confirm that the **pom.xml** file looks like the following example.
 
 Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
+The following Java files go into this package:
+
 + **App** - The entry point into the Spring boot application.  
-+ **MainController** - Represents the Spring Controller that handles REST requests.
-+ **DynamoDBService** -  Uses the Amazon DynamoDB Java API to perform CRUD operations on the **Work** table. 
-+ **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object to send email messages.
++ **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
++ **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
++ **DynamoDBService** - Uses the Amazon DynamoDB Java API to perform CRUD operations on the **Work** table. 
 + **WorkItem** - Represents the application's data model.
 + **Work** - Represents the Java class that uses the **@DynamoDbBean** annotation required for the Enhanced Client.  
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
@@ -332,6 +322,7 @@ The following Java code represents the **MainController** class, which handles H
 package com.aws.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -339,72 +330,69 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+@ComponentScan(basePackages = {"com.aws.rest"})
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/items")
 public class MainController {
+    private final DynamoDBService dbService;
 
     @Autowired
-    DynamoDBService dbService;
-
-    @Autowired
-    SendMessage sendMsg;
-
-    @Autowired
-    WriteExcel excel;
-
-    // Adds a new item to the Amazon DynamoDB database.
-    @PostMapping("add")
-    String addItems(@RequestBody Map<String, Object> payLoad) {
-        String name = "user";
-        String guide = (String)payLoad.get("guide");
-        String description = (String)payLoad.get("description");
-        String status = (String)payLoad.get("status");
-
-        // Create a Work Item object.
-        WorkItem myWork = new WorkItem();
-        myWork.setGuide(guide);
-        myWork.setDescription(description);
-        myWork.setStatus(status);
-        myWork.setName(name);
-        dbService.setItem(myWork);
-        return "Item added";
+    MainController(
+        DynamoDBService dbService
+    ) {
+        this.dbService = dbService;
     }
 
-    // Builds and emails a report with all items.
-    @PutMapping("report/{email}")
-    public String sendReport(@PathVariable String email){
-        List<WorkItem> theList = dbService.getOpenItems();
-        java.io.InputStream is = excel.exportExcel(theList);
-
-        try {
-            sendMsg.sendReport(is, email);
-
-        }catch (IOException e) {
-            e.getStackTrace();
-        }
-        return "Report is created";
-    }
-
-    // Archives a work item.
-    @PutMapping("mod/{id}")
-    public String modUser(@PathVariable String id) {
-        dbService.archiveItemEC(id );
-        return id ;
-    }
-
-    // Retrieve items based on state.
-    @GetMapping("items/{state}")
-    public List< WorkItem > getItems(@PathVariable String state) {
-        if (state.compareTo("active") == 0)
-            return dbService.getOpenItems();
+    @GetMapping("" )
+    public List<WorkItem> getItems(@RequestParam(required=false) String archived) {
+        Iterable<WorkItem> result;
+        if (archived != null && archived.compareTo("false")==0)
+            result = dbService.getOpenItems();
+        else if (archived != null && archived.compareTo("true")==0)
+            result = dbService.getClosedItems();
         else
-            return dbService.getClosedItems();
+            result = dbService.getAllItems();
+
+        return StreamSupport.stream(result.spliterator(), false)
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+    @PutMapping("{id}:archive")
+    public String modUser(@PathVariable String id) {
+        dbService.archiveItemEC(id);
+        return id +" was archived";
+    }
+
+    @PostMapping("")
+    public List<WorkItem> addItem(@RequestBody Map<String, String> payload) {
+        String name = payload.get("name");
+        String guide = payload.get("guide");
+        String description = payload.get("description");
+        String status = payload.get("status");
+
+        WorkItem item = new WorkItem();
+        String workId = UUID.randomUUID().toString();
+        String date = LocalDateTime.now().toString();
+        item.setId(workId);
+        item.setGuide(guide);
+        item.setDescription(description);
+        item.setName(name);
+        item.setDate(date);
+        item.setStatus(status);
+        dbService.setItem(item);
+        Iterable<WorkItem> result= dbService.getOpenItems();
+        return StreamSupport.stream(result.spliterator(), false)
+            .collect(Collectors.toUnmodifiableList());
     }
 }
 
@@ -449,10 +437,45 @@ public class DynamoDBService {
             .region(region)
             .build();
     }
+    // Get All items from the DynamoDB table.
+    public List<WorkItem> getAllItems() {
+
+        // Create a DynamoDbEnhancedClient.
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(getClient())
+            .build();
+
+        try{
+            // Create a DynamoDbTable object.
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+            Iterator<Work> results = table.scan().items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList<>();
+
+            while (results.hasNext()) {
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
+
+                // Push the workItem to the list.
+                itemList.add(workItem);
+            }
+            return itemList;
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return null;
+    }
 
     // Archives an item based on the key.
     public void archiveItemEC(String id) {
-
         try {
             // Create a DynamoDbEnhancedClient.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -640,154 +663,6 @@ public class DynamoDBService {
 }
 ```
 
-### SendMessage class
-The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an email message with an attachment (the Excel document) to an email recipient. Before you can send the email message, the email address that you're sending it to must be verified. For more information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
-
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
-
-```java
-    package com.aws.rest;
-
-import org.apache.commons.io.IOUtils;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.ses.SesClient;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.util.ByteArrayDataSource;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.util.Properties;
-import software.amazon.awssdk.core.SdkBytes;
-import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
-import software.amazon.awssdk.services.ses.model.RawMessage;
-import software.amazon.awssdk.services.ses.model.SesException;
-import org.springframework.stereotype.Component;
-
-@Component
-public class SendMessage {
-
-    // The email body for recipients with non-HTML email clients.
-    private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
-
-    // The HTML body of the email.
-    private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-        + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
-
-    public void sendReport(InputStream is, String emailAddress ) throws IOException {
-
-        // Convert the InputStream to a byte[].
-        byte[] fileContent = IOUtils.toByteArray(is);
-
-        try {
-            send(fileContent,emailAddress);
-
-        } catch (MessagingException e) {
-            e.getStackTrace();
-        }
-    }
-
-    public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
-        MimeMessage message;
-        Session session = Session.getDefaultInstance(new Properties());
-
-        // Create a new MimeMessage object.
-        message = new MimeMessage(session);
-
-        // Add subject, from and to lines. Update the sender with a validated email address! 
-        String subject = "Weekly AWS Status Report";
-        message.setSubject(subject, "UTF-8");
-        String sender = "<Enter sender>";
-        message.setFrom(new InternetAddress(sender));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
-
-        // Create a multipart/alternative child container.
-        MimeMultipart msgBody = new MimeMultipart("alternative");
-
-        // Create a wrapper for the HTML and text parts.
-        MimeBodyPart wrap = new MimeBodyPart();
-
-        // Define the text part.
-        MimeBodyPart textPart = new MimeBodyPart();
-        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
-
-        // Define the HTML part.
-        MimeBodyPart htmlPart = new MimeBodyPart();
-        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
-
-        // Add the text and HTML parts to the child container.
-        msgBody.addBodyPart(textPart);
-        msgBody.addBodyPart(htmlPart);
-
-        // Add the child container to the wrapper object.
-        wrap.setContent(msgBody);
-
-        // Create a multipart/mixed parent containe.r
-        MimeMultipart msg = new MimeMultipart("mixed");
-
-        // Add the parent container to the message.
-        message.setContent(msg);
-
-        // Add the multipart/alternative part to the message.
-        msg.addBodyPart(wrap);
-
-        // Define the attachment.
-        MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        att.setDataHandler(new DataHandler(fds));
-
-        String reportName = "WorkReport.xls";
-        att.setFileName(reportName);
-
-        // Add the attachment to the message.
-        msg.addBodyPart(att);
-
-        // Send the email.
-        try {
-            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-            Region region = Region.US_WEST_2;
-            SesClient client = SesClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
-                .build();
-
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            message.writeTo(outputStream);
-            ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
-            byte[] arr = new byte[buf.remaining()];
-            buf.get(arr);
-            SdkBytes data = SdkBytes.fromByteArray(arr);
-            RawMessage rawMessage = RawMessage.builder()
-                .data(data)
-                .build();
-
-            SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                .rawMessage(rawMessage)
-                .build();
-
-            client.sendRawEmail(rawEmailRequest);
-
-        } catch (SesException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Email sent with attachment");
-    }
-}
-```
-
-**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
-
-
 ### WorkItem class
 
 The following Java code represents the **WorkItem** class.   
@@ -945,7 +820,7 @@ public class Work {
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
 
 ```java
-   package com.aws.rest;
+ package com.aws.rest;
 
 import jxl.CellView;
 import jxl.Workbook;
@@ -957,149 +832,184 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
+import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ses.SesClient;
+import software.amazon.awssdk.services.ses.model.RawMessage;
+import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
+import software.amazon.awssdk.services.ses.model.SesException;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Locale;
+import java.util.Properties;
 
 @Component
 public class WriteExcel {
+    static WritableCellFormat times ;
+    static WritableCellFormat timesBoldUnderline;
 
-    private WritableCellFormat timesBoldUnderline;
-    private WritableCellFormat times;
-
-    // Returns an InputStream that represents the Excel Report.
-    public java.io.InputStream exportExcel( List<WorkItem> list) {
+    static {
         try {
-            return write(list);
+            WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
+            times = new WritableCellFormat(times10pt);
+            times.setWrap(true);
 
-        } catch(WriteException | IOException e) {
+            WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false, UnderlineStyle.SINGLE);
+            timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
+            timesBoldUnderline.setWrap(true);
+        } catch (WriteException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    // Generates the report and returns an inputstream.
-    public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
-        java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
+    public InputStream write(Iterable<WorkItem> items) throws IOException, WriteException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
         WorkbookSettings wbSettings = new WorkbookSettings();
-        wbSettings.setLocale(new Locale("en", "EN"));
+        wbSettings.setLocale(new Locale("en", "US"));
 
-        // Create a Workbook - pass the OutputStream.
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         workbook.createSheet("Work Item Report", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
-        createLabel(excelSheet) ;
-        int size = createContent(excelSheet, list);
 
-        // Close the workbook.
+        addLabels(excelSheet);
+        fillContent(excelSheet, items);
+
         workbook.write();
         workbook.close();
 
-        // Get an inputStram that represents the Report.
-        java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
-        stream = (java.io.ByteArrayOutputStream)os;
-        byte[] myBytes = stream.toByteArray();
-        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
-        return is ;
+        return new ByteArrayInputStream(os.toByteArray());
     }
 
-    // Create Headings in the Excel spreadsheet
-    private void createLabel(WritableSheet sheet) throws WriteException {
-        // Create a times font.
-        WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-
-        // Define the cell format.
-        times = new WritableCellFormat(times10pt);
-
-        // Automatically wrap the cells.
-        times.setWrap(true);
-
-        // Create a bold font with unterlines.
-        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false, UnderlineStyle.SINGLE);
-        timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-
-        // Let's automatically wrap the cells.
-        timesBoldUnderline.setWrap(true);
+    private void addLabels(WritableSheet sheet) throws WriteException {
         CellView cv = new CellView();
-        cv.setFormat(times);
         cv.setFormat(timesBoldUnderline);
         cv.setAutosize(true);
 
-        // Write a few headers
-        addCaption(sheet, 0, "Writer");
-        addCaption(sheet, 1, "Date");
-        addCaption(sheet, 2, "Guide");
-        addCaption(sheet, 3, "Description");
-        addCaption(sheet, 4, "Status");
+        addCaption(sheet, 0, 0, "Writer");
+        addCaption(sheet, 1, 0, "Date");
+        addCaption(sheet, 2, 0, "Guide");
+        addCaption(sheet, 3, 0, "Description");
+        addCaption(sheet, 4, 0, "Status");
     }
 
-    // Write the Work Item Data to the Excel Report.
-    private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
-
-        int size = list.size() ;
-
-        // Add customer data to the Excel report.
-        for (int i = 0; i < size; i++) {
-            WorkItem wi = list.get(i);
-            //Get tne work item values
-            String name = wi.getName();
-            String guide = wi.getGuide();
-            String date = wi.getDate();
-            String des = wi.getDescription();
-            String status = wi.getStatus();
-
-            // First column.
-            addLabel(sheet, 0, i+2, name);
-
-            // Second column.
-            addLabel(sheet, 1, i+2, date);
-
-            // Third column.
-            addLabel(sheet, 2, i+2,guide);
-
-            // Forth column.
-            addLabel(sheet, 3, i+2, des);
-
-            // Fifth column.
-            addLabel(sheet, 4, i+2, status);
-        }
-        return size;
-    }
-
-    private void addCaption(WritableSheet sheet, int column, String s) throws WriteException {
-        Label label;
-        label = new Label(column, 0, s, timesBoldUnderline);
-        int cc = countString(s);
+    private void addCaption(WritableSheet sheet, int column, int row, String s) throws WriteException {
+        Label label = new Label(column, row, s, timesBoldUnderline);
+        int cc = s.length();
         sheet.setColumnView(column, cc);
         sheet.addCell(label);
     }
 
-    private void addLabel(WritableSheet sheet, int column, int row, String s) throws WriteException {
-        Label label;
-        label = new Label(column, row, s, times);
-        int cc = countString(s);
-        if (cc > 200)
-            sheet.setColumnView(column, 150);
-        else
-            sheet.setColumnView(column, cc+6);
-
+    private void addField(WritableSheet sheet, int column, int row, String s) throws WriteException {
+        Label label = new Label(column, row, s, timesBoldUnderline);
+        int cc = s.length();
+        cc = cc > 200 ? 150 : cc + 6;
+        sheet.setColumnView(column, cc);
         sheet.addCell(label);
     }
 
-    private int countString (String ss) {
-        int count = 0;
-        for(int i = 0; i < ss.length(); i++) {
-            if(ss.charAt(i) != ' ')
-                count++;
+    private void fillContent(WritableSheet sheet, Iterable<WorkItem> items) throws WriteException {
+        int row = 2;
+        for (WorkItem item : items) {
+            addField(sheet, 0, row, item.getName());
+            addField(sheet, 1, row, item.getDate());
+            addField(sheet, 2, row, item.getGuide());
+            addField(sheet, 3, row, item.getDescription());
+            addField(sheet, 4, row, item.getStatus());
+            row += 1;
         }
-        return count;
+    }
+
+    @Component
+    public static class SendMessages {
+        private static String sender = "scmacdon@amazon.com";
+        private static String subject = "Weekly AWS Status Report";
+        private static String bodyText = "Hello,\r\n\r\nPlease see the attached file for a weekly update.";
+        private static String bodyHTML = "<!DOCTYPE html><html lang=\"en-US\"><body><h1>Hello!</h1><p>Please see the attached file for a weekly update.</p></body></html>";
+        private static String attachmentName = "WorkReport.xls";
+
+        public void sendReport(InputStream is, String emailAddress) throws IOException {
+            byte[] fileContent = IOUtils.toByteArray(is);
+
+            try {
+                send(makeEmail(fileContent, emailAddress));
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void send(MimeMessage message) throws MessagingException, IOException {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            message.writeTo(outputStream);
+            ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
+            byte[] arr = new byte[buf.remaining()];
+            buf.get(arr);
+            SdkBytes data = SdkBytes.fromByteArray(arr);
+            RawMessage rawMessage = RawMessage.builder().data(data).build();
+            SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder().rawMessage(rawMessage).build();
+
+            try {
+                System.out.println("Attempting to send an email through Amazon SES...");
+                SesClient client = SesClient.builder().region(Region.US_WEST_2).build();
+                client.sendRawEmail(rawEmailRequest);
+            } catch (SesException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private MimeMessage makeEmail(byte[] attachment, String emailAddress) throws MessagingException {
+            Session session = Session.getDefaultInstance(new Properties());
+            MimeMessage message = new MimeMessage(session);
+
+            message.setSubject(subject, "UTF-8");
+            message.setFrom(new InternetAddress(sender));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
+
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setContent(bodyText, "text/plain; charset=UTF-8");
+
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
+
+            MimeMultipart msgBody = new MimeMultipart("alternative");
+            msgBody.addBodyPart(textPart);
+            msgBody.addBodyPart(htmlPart);
+
+            MimeBodyPart wrap = new MimeBodyPart();
+            wrap.setContent(msgBody);
+
+            MimeMultipart msg = new MimeMultipart("mixed");
+            msg.addBodyPart(wrap);
+
+            MimeBodyPart att = new MimeBodyPart();
+            DataSource fds = new ByteArrayDataSource(attachment, "application/vnc.openxmlformats-officedocument.spreadsheetml.sheet");
+            att.setDataHandler(new DataHandler(fds));
+            att.setFileName(attachmentName);
+
+            msg.addBodyPart(att);
+            message.setContent(msg);
+            return message;
+        }
     }
 }
 
 
 ```
-
+**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
 
 ## Run the application 
 
