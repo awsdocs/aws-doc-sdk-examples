@@ -4,9 +4,9 @@ Welcome to AWS Docs! We thrive on your contribution. :heart:
 
 ## Before you get started
 Please take 3 minutes to understand:
-1. 🎫 [Submitting issues](#submitting-issues)
-1. 🤝[What to expect from AWS](#what-to-expect-from-aws)
-2. ✍️ [Write code and submit pull requests](#write-code-and-submit-pull-requests)
+1.[Submitting issues](#submitting-issues)
+1.[What to expect from AWS](#what-to-expect-from-aws)
+2.[Write code and submit pull requests](#write-code-and-submit-pull-requests)
 
 ---
 
