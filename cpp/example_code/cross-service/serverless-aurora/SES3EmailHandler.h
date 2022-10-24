@@ -14,12 +14,27 @@ namespace AwsDoc {
     namespace CrossService {
 class SES3EmailHandler : public SESEmailReceiver {
 public :
-    SES3EmailHandler(const Aws::Client::ClientConfiguration& clientConfiguration);
+    explicit SES3EmailHandler(const Aws::String& fromEmailAddress,
+            const Aws::Client::ClientConfiguration& clientConfiguration);
 
-    virtual bool sendEmail(const Aws::String emailAddress) override;
+    virtual bool sendEmail(const Aws::String emailAddress,
+                           const std::vector<WorkItem> &workItems) override;
 
 private:
+    void writeMultipartHeader(const Aws::String &toEmail,
+            const Aws::String &subject, const Aws::String &returnPath,
+            std::ostream &ostream);
+
+    void writePlainTextPart(const Aws::String &plainText, std::ostream& ostream);
+
+    void writeHtmlTextPart(const Aws::String &htmlText, std::ostream& ostream);
+
+    void writeAttachmentPart(const Aws::String& contentType, const Aws::String& name,
+                             const std::vector<unsigned char>& attachmentBuffer,
+                             std::ostream& ostream);
+
     Aws::Client::ClientConfiguration mClientConfiguration;
+    Aws::String mFromEmailAddress;
 };
     }  // namespace CrossService
 } // namespace AwsDoc

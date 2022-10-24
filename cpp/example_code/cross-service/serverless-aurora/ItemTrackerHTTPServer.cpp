@@ -46,7 +46,7 @@ namespace AwsDoc {
                     resp.send();
                 }
                 else if (method == "GET") {
-                    if (uri == "/api/items" == 0) {
+                    if (uri == "/api/items") {
                         getItemsAndRespond(AwsDoc::CrossService::WorkItemStatus::BOTH,
                                            resp);
                     }
@@ -191,8 +191,10 @@ namespace AwsDoc {
 } // namespace AwsDoc
 
 AwsDoc::CrossService::ItemTrackerHTTPServer::ItemTrackerHTTPServer(
-        AwsDoc::CrossService::RDSDataReceiver &rdsDataReceiver) :
-        mRdsDataReceiver(rdsDataReceiver) {
+        AwsDoc::CrossService::RDSDataReceiver &rdsDataReceiver,
+        SESEmailReceiver& emailReceiver) :
+        mRdsDataReceiver(rdsDataReceiver),
+        mEmailReceiver(emailReceiver) {
 
 }
 
@@ -261,7 +263,8 @@ AwsDoc::CrossService::ItemTrackerHTTPServer::sendEmail(const std::string &emailJ
     Aws::String email = view.GetString("email");
 
     if (!email.empty()) {
-
+        std::vector<WorkItem> workItems = mRdsDataReceiver.getWorkItems(WorkItemStatus::BOTH);
+        mEmailReceiver.sendEmail(email, workItems);
     }
 }
 

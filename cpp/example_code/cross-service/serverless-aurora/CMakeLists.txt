@@ -6,6 +6,11 @@ cmake_minimum_required(VERSION 3.8)
 
 set(SERVICE_COMPONENTS sesv2 rds-data)
 
+# This example uses the poco library to implement an http server.
+# Poco can be installed automatically using the Conan package manager.
+# See the accompanying ReadMe for instructions.
+set(USING_CONAN TRUE)  # True if using Conan.
+
 # Set this project's name.
 project("ServerlessAurora")
 set(EXECUTABLE run_serverless_aurora)
@@ -32,8 +37,16 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-# Poco library used for http server.
-find_package(POCO REQUIRED Net Util)
+if (USING_CONAN)
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    conan_basic_setup()
+else()
+    find_package(POCO REQUIRED Net Util)
+    list(APPEND MY_POCO_LIBS
+            PocoNet
+            PocoUtil
+            PocoFoundation)
+endif()
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
@@ -43,7 +56,7 @@ if(MSVC AND BUILD_SHARED_LIBS)
 
     set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
 
-    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS} Net)
+    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS} ${MY_POCO_LIBS})
 
      AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
 endif()
@@ -73,9 +86,8 @@ target_link_directories(${EXECUTABLE}
 target_link_libraries(${EXECUTABLE}
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
-        PocoNet
-        PocoUtil
-        PocoFoundation)
+        ${MY_POCO_LIBS}
+        ${CONAN_LIBS})
 
 
 

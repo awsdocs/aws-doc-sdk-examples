@@ -7,12 +7,21 @@
 #include "RDSDataHandler.h"
 #include "SES3EmailHandler.h"
 
+/*
+ *  Add proper body to email
+ *  add csv to email
+ *
+ *  test get item with ID
+ *
+ *  go through the api's
+ */
 
 static const Aws::String TABLE_NAME("items");
 
 void runServerLessAurora(const Aws::String& database,
                          const Aws::String& resourceArn,
                          const Aws::String& secretArn,
+                         const Aws::String& sesEmailAddress,
                          const Aws::Client::ClientConfiguration& clientConfiguration)
 {
     AwsDoc::CrossService::RDSDataHandler rdsDataHandler(database, resourceArn,
@@ -21,10 +30,27 @@ void runServerLessAurora(const Aws::String& database,
 
     rdsDataHandler.initializeTable(false); // bool: recreate table.
 
-    AwsDoc::CrossService::SES3EmailHandler sesEmailHandler(clientConfiguration);
-    sesEmailHandler.sendEmail("meyertst@amazon.com");
+    AwsDoc::CrossService::SES3EmailHandler sesEmailHandler(sesEmailAddress,
+                                                           clientConfiguration);
 
-    AwsDoc::CrossService::ItemTrackerHTTPServer itemTrackerHttpServer(rdsDataHandler);
+    // TODO(Developer) remove this code
+
+//    std::vector<AwsDoc::CrossService::WorkItem> debugWorkItems;
+//    for (int i = 0; i < 40; ++i)
+//    {
+//        AwsDoc::CrossService::WorkItem item;
+//        item.mID = std::to_string(i);
+//        item.mName = std::to_string(i) + " name";
+//        item.mGuide = std::to_string(i) + " guide";
+//        item.mDescription = std::to_string(i) + " description";
+//        item.mStatus = std::to_string(i) + " status";
+//        item.mArchived = i % 2;
+//        debugWorkItems.push_back(item);
+//    }
+//    sesEmailHandler.sendEmail("meyertst@amazon.com", debugWorkItems);
+
+    AwsDoc::CrossService::ItemTrackerHTTPServer itemTrackerHttpServer(rdsDataHandler,
+                                                                      sesEmailHandler);
 
     char* argv[1];
     char app_name[256];
@@ -48,10 +74,11 @@ int main(int argc, char** argv)
         Aws::String database = argv[1];
         Aws::String resourceArn = argv[2];
         Aws::String secretArn = argv[3];
+        Aws::String sesEmailAddress = argv[4];
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        runServerLessAurora(database, resourceArn, secretArn, clientConfig);
+        runServerLessAurora(database, resourceArn, secretArn, sesEmailAddress, clientConfig);
     }
 
     ShutdownAPI(options);

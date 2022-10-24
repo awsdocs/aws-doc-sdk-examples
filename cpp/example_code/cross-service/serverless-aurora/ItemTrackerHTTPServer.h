@@ -19,7 +19,6 @@ namespace AwsDoc {
         {
             Aws::String mID;
             Aws::String mName;
-            Aws::String mDate;
             Aws::String mGuide;
             Aws::String mDescription;
             Aws::String mStatus;
@@ -36,12 +35,14 @@ namespace AwsDoc {
         };
         class SESEmailReceiver {
         public:
-            virtual bool sendEmail(const Aws::String emailAddress) = 0;
+            virtual bool sendEmail(const Aws::String emailAddress,
+                                   const std::vector<WorkItem> &workItems) = 0;
         };
 
         class ItemTrackerHTTPServer {
         public:
-            explicit ItemTrackerHTTPServer(RDSDataReceiver& rdsDataReceiver);
+            explicit ItemTrackerHTTPServer(RDSDataReceiver& rdsDataReceiver,
+                                           SESEmailReceiver& emailReceiver);
 
             std::string getWorkItemJSON(WorkItemStatus status);
 
@@ -57,6 +58,7 @@ namespace AwsDoc {
             static WorkItem jsonToWorkItem(const std::string& jsonString);
 
             RDSDataReceiver& mRdsDataReceiver;
+            SESEmailReceiver& mEmailReceiver;
             std::mutex mHTTPMutex;  // HTTP is received asynchronously.
                                     // The lock ensures the get items following
                                     // a post item contains the posted record.
