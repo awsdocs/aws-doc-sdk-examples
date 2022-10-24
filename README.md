@@ -3,23 +3,9 @@
 ![[]](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)
 
 # AWS SDK Code Examples
-This repository contains code examples that demonstrate how to use the AWSK SDK's to interact with AWS services.
+This repository contains code examples that demonstrate how to use the [AWSK SDK's](https://aws.amazon.com/developer/tools/) to interact with [AWS services](https://aws.amazon.com/products).
 
 Many examples are injected into the [AWS Documentation](https://docs.aws.amazon.com).
-
-## Invoking example code
-To invoke this example code, you must have an AWS account. For more information about creating an account, see [AWS Free Tier](https://aws.amazon.com/free/). 
-
-You must also have AWS credentials configured. For steps on using the CLI to configure credentials, see [CLI Configuration basics](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
-
-## ⚠️ Usage Disclaimer
-These code examples interact with services that may incur charges to your AWS account. For more information, see [AWS Pricing](https://aws.amazon.com/pricing/).
-
-Additionally, example code may theoretically modify or delete existing AWS resources. As a matter of due diligence:
- * Be aware of the resources that these examples create or delete.
- * Be aware of the costs that might be charged to your account as a result.
- * Back up your important data.
-
 
 ## How this repository is organized
 Code examples for each language's SDK can be found within the following sub-directories:
@@ -45,6 +31,19 @@ Code examples for each language's SDK can be found within the following sub-dire
 At the top level of each directory, a README explains how to build and run that set of examples.
 
 Within each directory, an `example_code/` folder contains examples organized by AWS service. For example `ruby/example_code/ec2` contains example code using the SDK for Ruby.
+
+## Invoking example code
+To invoke this example code, you must have an AWS account. For more information about creating an account, see [AWS Free Tier](https://aws.amazon.com/free/). 
+
+You must also have AWS credentials configured. For steps on using the CLI to configure credentials, see [CLI Configuration basics](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+
+## ⚠️ Usage Disclaimer
+These code examples interact with services that may incur charges to your AWS account. For more information, see [AWS Pricing](https://aws.amazon.com/pricing/).
+
+Additionally, example code may theoretically modify or delete existing AWS resources. As a matter of due diligence:
+ * Be aware of the resources that these examples create or delete.
+ * Be aware of the costs that might be charged to your account as a result.
+ * Back up your important data.
 
 ## Other examples
 Additionally, this repository contains sample code for non-SDK AWS tooling:
