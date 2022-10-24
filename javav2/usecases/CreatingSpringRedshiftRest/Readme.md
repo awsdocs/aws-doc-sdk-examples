@@ -72,9 +72,9 @@ To use the **RedshiftDataClient** object, you must have the following Amazon Red
 For more information, see [Getting started with Amazon Redshift clusters and data loading](https://docs.aws.amazon.com/redshift/latest/gsg/database-tasks.html).
 
 
-## Understanding the AWS Tracker React application 
+## Understand the AWS Tracker React application 
 
-A user can perform the following tasks by using the React application:
+A user can perform the following tasks using the React application:
 
 + View all active items.
 + View archived items that are complete.
@@ -82,26 +82,27 @@ A user can perform the following tasks by using the React application:
 + Convert an active item into an archived item.
 + Send a report to an email recipient.
 
-The React application displays *active* and *archive* items. For example, the following image shows the React application displaying active data.
+The React application displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
 
-![AWS Tracking Application](images/activeItems2.png)
+![AWS Tracking Application](images/react1.png)
 
-Likewise, the following image shows the React application displaying archived data.
+Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/arcItems.png)
+![AWS Tracking Application](images/react2.png)
+
+The React application lets a user convert an active item to an archived item by clicking the following button. 
+
+![AWS Tracking Application](images/button.png)
 
 The React application also lets a user enter a new item. 
 
-![AWS Tracking Application](images/newitem.png)
+![AWS Tracking Application](images/react3.png)
 
-The user can enter an email recipient into the text field and choose **Send Report**.
+The user can enter an email recipient into the **Email Report** text field and choose **Send report**.
 
-![AWS Tracking Application](images/reportUI.png)
+![AWS Tracking Application](images/react4.png)
 
 Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
-
-![AWS Tracking Application](images/report.png)
-
 ## Creating an IntelliJ project named ItemTrackerRedshiftRest
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
