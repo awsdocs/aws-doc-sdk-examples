@@ -12,7 +12,11 @@ Please take 3 minutes to understand:
 
 ## Submit an issue
 
-We look forward to receiving your issues for:
+If you'd like to contribute, but don't have a project in mind, look at the [open issues](https://github.com/awsdocs/aws-doc-sdk-examples/issues) in this repository for some ideas. Any issues with the [help wanted](https://github.com/awsdocs/aws-doc-sdk-examples/labels/help%20wanted) or [enhancement](https://github.com/awsdocs/aws-doc-sdk-examples/labels/enhancement) labels are a great place to start.
+
+In addition to written content, we really appreciate new examples for our documentation, such as examples for different platforms or environments, and examples in additional programming languages.
+
+Additionally, we look forward to receiving your issues for:
 
 * New content you'd like to contribute (such as new code examples or tutorials) - for more information, see [Types of examples](https://github.com/awsdocs/aws-doc-sdk-examples/edit/main/CONTRIBUTING.md#types-of-examples) below.
 * Inaccuracies in the content
@@ -30,10 +34,6 @@ The AWS documentation source files on GitHub aren't published directly to the of
 **Note:** We all write differently, and you might not like how we've written or organized something currently. We want that feedback. But please be sure that your request for a rewrite is supported by the previous criteria. If it isn't, we might decline to merge it.
 
 ## Write code and submit pull requests
-
-If you'd like to contribute, but don't have a project in mind, look at the [open issues](https://github.com/awsdocs/aws-doc-sdk-examples/issues) in this repository for some ideas. Any issues with the [help wanted](https://github.com/awsdocs/aws-doc-sdk-examples/labels/help%20wanted) or [enhancement](https://github.com/awsdocs/aws-doc-sdk-examples/labels/enhancement) labels are a great place to start.
-
-In addition to written content, we really appreciate new examples for our documentation, such as examples for different platforms or environments, and examples in additional programming languages.
 
 Code examples are organized by service for each SDK. Within each SDK, the folder and example structure varies. To add
 an example, find the SDK and service folder and add the example following the established convention for that SDK.
