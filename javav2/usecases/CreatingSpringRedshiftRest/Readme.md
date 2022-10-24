@@ -431,236 +431,124 @@ public class ReportController {
 
 ### WorkItemRepository class
 
-The following Java code represents the **WorkItemRepository** class that extends [Interface CrudRepository](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html). Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement. 
+The following Java code represents the **WorkItemRepository** class. Notice that you are required to specify three values (database, database user, and clusterId value) to use the RedshiftDataClient object (as discussed in the Creating the resources section). Without all of these values, your code won't work. To use the RedshiftDataClient, you must create an ExecuteStatementRequest object and specify these values.
 
-In addition, notice the use of [Class SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rdsdata/model/SqlParameter.html) when using SQL statemenets. For example, in the **save** method, you build a list of **SqlParameter** objects used to add a new record to the database.
+In addition, notice the use of [Class SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) when using SQL statemenets. For example, in the **getData** method, you build a list of **SqlParameter** objects used to get records from the database.
 
 ```java
 package com.aws.rest;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
-import software.amazon.awssdk.services.rdsdata.RdsDataClient;
-import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementRequest;
-import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementResponse;
-import software.amazon.awssdk.services.rdsdata.model.Field;
-import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
-import software.amazon.awssdk.services.rdsdata.model.SqlParameter;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
+import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementResponse;
+import software.amazon.awssdk.services.redshiftdata.model.SqlParameter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-@Component()
-public class WorkItemRepository implements CrudRepository<WorkItem, String> {
+@Component
+public class WorkItemRepository  {
     static final String active = "0";
     static final String archived = "1";
-    static final String database = "jobs";
-    static final String secretArn = "<ENTER VALUE>";
-    static final String resourceArn = "<ENTER VALUE>";
+    static final String username = "user";
 
-    static RdsDataClient getClient() {
-        return RdsDataClient.builder().region(App.region).build();
-    }
+    static RedshiftDataClient getClient() {
 
-    static ExecuteStatementResponse execute(String sqlStatement, List<SqlParameter> parameters) {
-        var sqlRequest = ExecuteStatementRequest.builder()
-            .resourceArn(resourceArn)
-            .secretArn(secretArn)
-            .database(database)
-            .sql(sqlStatement)
-            .parameters(parameters)
+        Region region = Region.US_WEST_2;
+        return RedshiftDataClient.builder()
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
-        return getClient().executeStatement(sqlRequest);
     }
 
-    static SqlParameter param(String name, String value) {
-        return SqlParameter.builder().name(name).value(Field.builder().stringValue(value).build()).build();
+    SqlParameter param(String name, String value) {
+        return SqlParameter.builder().name(name).value(value).build();
     }
 
-    @Override
-    public <S extends WorkItem> S save(S item) {
-        String name = item.getName();
-        String guide = item.getGuide();
-        String description = item.getDescription();
-        String status = item.getStatus();
-        String archived = "0";
+    // Update the work table.
+    public void flipItemArchive(String id ) {
+        String arc = "1";
+        String sqlStatement = "update work set archive = :arc where idwork =:id ";
+        List<SqlParameter> parameters = List.of(
+            param("arc", arc),
+            param("id", id)
+        );
 
-        UUID uuid = UUID.randomUUID();
-        String workId = uuid.toString();
+        App.flipItemArchive(sqlStatement,parameters);
+    }
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String sDate1 = dtf.format(now);
-        Date date1 = null;
+    // Return items from the work table.
+    public List<WorkItem> getData(String arch) {
+        String sqlStatement;
+        List<SqlParameter> parameters;
+
+        // Get all records from the Amazon Redshift table.
+        if (arch.compareTo("") == 0) {
+            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work";
+            ExecuteStatementResponse response = App.executeAll(sqlStatement);
+            String id = response.id();
+            System.out.println("The identifier of the statement is "+id);
+            App.checkStatement(id);
+            return App.getResults(id);
+        } else {
+            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+                "FROM work WHERE username = :username and archive = :arch ;";
+
+            parameters = List.of(
+                param("username", username),
+                param("arch", arch)
+            );
+            ExecuteStatementResponse response = App.execute(sqlStatement,parameters);
+            String id = response.id();
+            System.out.println("The identifier of the statement is "+id);
+            App.checkStatement(id);
+            return App.getResults(id);
+        }
+    }
+
+    public String injectNewSubmission(WorkItem item) {
         try {
-            date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
+            String name = item.getName();
+            String guide = item.getGuide();
+            String description = item.getDescription();
+            String status = item.getStatus();
+            String archived = "0";
+            UUID uuid = UUID.randomUUID();
+            String workId = uuid.toString();
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String sDate1 = dtf.format(now);
+            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
+            java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
+
+            String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
+                "(:idwork, :username, :date, :description, :guide, :status, :archive);";
+            List<SqlParameter> paremeters = List.of(
+                param("idwork", workId),
+                param("username", name),
+                param("date", sqlDate.toString()),
+                param("description", description),
+                param("guide", guide),
+                param("status", status),
+                param("archive", archived)
+            );
+
+            ExecuteStatementResponse result = App.execute(sql, paremeters);
+            System.out.println(result.toString());
+            return workId;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assert date1 != null;
-        java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
-
-        String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
-            "(:idwork, :username, :date, :description, :guide, :status, :archive);";
-        List<SqlParameter> paremeters = List.of(
-            param("idwork", workId),
-            param("username", name),
-            param("date", sqlDate.toString()),
-            param("description", description),
-            param("guide", guide),
-            param("status", status),
-            param("archive", archived)
-        );
-
-        ExecuteStatementResponse result = execute(sql, paremeters);
-        System.out.println(result.toString());
-        return (S) findById(workId).get();
-    }
-
-    @Override
-    public <S extends WorkItem> Iterable<S> saveAll(Iterable<S> entities) {
-        return StreamSupport.stream(entities.spliterator(), true).map(this::save)::iterator;
-    }
-
-    @Override
-    public Optional<WorkItem> findById(String s) {
-        String sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work WHERE idwork = :id;";
-        List<SqlParameter> parameters = List.of(param("id", s));
-        var result = execute(sqlStatement, parameters)
-            .records()
-            .stream()
-            .map(WorkItem::from)
-            .collect(Collectors.toUnmodifiableList());
-        if (result.isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(result.get(0));
-        }
-    }
-
-    @Override
-    public boolean existsById(String s) {
-        return findById(s).isPresent();
-    }
-
-    @Override
-    public Iterable<WorkItem> findAll() {
-        return findAllWithStatus(active);
-    }
-
-    public void flipItemArchive(String id) {
-        try {
-            String sqlStatement = "UPDATE work SET archive = (:arch) WHERE idwork = (:id);";
-            List<SqlParameter> parameters = List.of(
-                param("id", id),
-                param("arch", archived)
-            );
-           execute(sqlStatement, parameters);
-        } catch (RdsDataException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public Iterable<WorkItem> findAllWithStatus(String status) {
-        String sqlStatement;
-        String isArc;
-
-        if (status.compareTo("true") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
-                "FROM work WHERE archive = :arch ;";
-            isArc = "1";
-            List<SqlParameter> parameters = List.of(
-                param("arch", isArc)
-            );
-            return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
-
-        } else if (status.compareTo("false") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
-                "FROM work WHERE archive = :arch ;";
-            isArc = "0";
-            List<SqlParameter> parameters = List.of(
-                param("arch", isArc)
-            );
-            return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
-
-        } else {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work ;";
-            List<SqlParameter> parameters = List.of(
-
-            );
-            return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
-        }
-    }
-
-    @Override
-    public Iterable<WorkItem> findAllById(Iterable<String> strings) {
-        var item = findById(strings.iterator().next());
-        if (item.isPresent()) {
-            return List.of(item.get());
-        }
-        return List.of();
-    }
-
-    @Override
-    public long count() {
-        String sqlStatement = "SELECT COUNT(idwork) AS count FROM work;";
-        List<SqlParameter> parameters = List.of();
-        return execute(sqlStatement, parameters)
-            .records()
-            .stream()
-            .map(fields -> fields.get(0).longValue()).iterator().next();
-    }
-
-    @Override
-    public void deleteById(String s) {
-        String sqlStatement = "DELETE FROM work WHERE idwork = :id;";
-        List<SqlParameter> parameters = List.of(param("id", s));
-        execute(sqlStatement, parameters);
-    }
-
-    @Override
-    public void delete(WorkItem entity) {
-        deleteById(entity.getId());
-    }
-
-    @Override
-    public void deleteAllById(Iterable<? extends String> strings) {
-        strings.forEach(this::deleteById);
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends WorkItem> entities) {
-        deleteAllById(StreamSupport.stream(entities.spliterator(), false).map(WorkItem::getId)::iterator);
-    }
-
-    @Override
-    public void deleteAll() {
-        String sqlStatement = "DELETE FROM work;";
-        List<SqlParameter> parameters = List.of();
-        execute(sqlStatement, parameters);
+        return "";
     }
 }
-
 
 ```
 
