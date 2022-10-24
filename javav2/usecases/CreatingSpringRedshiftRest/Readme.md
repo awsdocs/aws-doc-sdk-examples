@@ -135,8 +135,8 @@ Confirm that the **pom.xml** file looks like the following example.
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.7.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -159,6 +159,12 @@ Confirm that the **pom.xml** file looks like the following example.
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.9.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.2.0</version>
+            <type>maven-plugin</type>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -202,12 +208,12 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
-            <version>2.1.0</version>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
-            <version>2.0.1</version>
+            <version>1.6.5</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -239,6 +245,11 @@ Confirm that the **pom.xml** file looks like the following example.
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>2.7.3</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -258,7 +269,7 @@ Create a Java package in the **main/java** folder named **com.aws.rest**. The fo
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
 + **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
-+ **WorkItemRepository** - A Spring class that extends **CrudRepository** and uses the AWS SDK for Java (v2) that performs database operations. 
++ **WorkItemRepository** - A Spring class that uses the AWS SDK for Java (v2) that performs database operations. 
 + **WorkItem** - Represents the application's data model.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
 
@@ -548,7 +559,6 @@ public class WorkItemRepository  {
 
 ```
 
-
 ### WorkItem class
 
 The following Java code represents the **WorkItem** class.   
@@ -556,7 +566,7 @@ The following Java code represents the **WorkItem** class.
 ```java
 package com.aws.rest;
 
-import software.amazon.awssdk.services.rdsdata.model.Field;
+import software.amazon.awssdk.services.redshiftdata.model.Field;
 
 import java.util.List;
 
