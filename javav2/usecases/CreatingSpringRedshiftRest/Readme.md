@@ -750,7 +750,7 @@ public class WorkItem {
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. In addition, notice the use of the **SendMessage** class that uses the Amazon SES Java API to send email messages. The following code represents this class.
 
 ```java
-  package com.aws.rest;
+ package com.aws.rest;
 
 import jxl.CellView;
 import jxl.Workbook;
@@ -765,6 +765,7 @@ import jxl.write.WriteException;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.RawMessage;
 import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
@@ -865,7 +866,7 @@ public class WriteExcel {
 
     @Component
     public static class SendMessages {
-        private static String sender = "<ENTER VALUE>"; // CHANGE THIS VALUE.
+        private static String sender = "<Enter email address>;
         private static String subject = "Weekly AWS Status Report";
         private static String bodyText = "Hello,\r\n\r\nPlease see the attached file for a weekly update.";
         private static String bodyHTML = "<!DOCTYPE html><html lang=\"en-US\"><body><h1>Hello!</h1><p>Please see the attached file for a weekly update.</p></body></html>";
@@ -893,7 +894,7 @@ public class WriteExcel {
 
             try {
                 System.out.println("Attempting to send an email through Amazon SES...");
-                SesClient client = SesClient.builder().region(App.region).build();
+                SesClient client = SesClient.builder().region(Region.US_WEST_2).build();
                 client.sendRawEmail(rawEmailRequest);
             } catch (SesException e) {
                 e.printStackTrace();
@@ -930,15 +931,13 @@ public class WriteExcel {
             att.setFileName(attachmentName);
 
             msg.addBodyPart(att);
-
             message.setContent(msg);
-
             return message;
         }
     }
 }
 ```
-**Note:** Notice that the **SendMessages** is part of this Java file. You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
+**Note:** You must update the **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
 
 ## Run the application 
 
