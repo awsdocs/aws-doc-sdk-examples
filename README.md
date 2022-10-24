@@ -54,7 +54,7 @@ Additionally, this repository contains sample code for non-SDK AWS tooling:
 | [lambda_functions/](lambda_functions) | AWS Lambda                               |
 | [typescript/](typescript)             | AWS Cloud Development Kit (AWS CDK)      |
 
-# Contributing
+# Contributing ❤️
 This repository thrives on your contributions! To get involved, see the [Guidelines for contributing](CONTRIBUTING.md). 
 
 # Copyright and license
