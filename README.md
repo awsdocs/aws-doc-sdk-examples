@@ -10,9 +10,9 @@ Many examples are injected into the [AWS Documentation](https://docs.aws.amazon.
 ## Get started
 To invoke this example code, you must have an AWS account. For more information about creating an account, see [AWS Free Tier](https://aws.amazon.com/free/). 
 
-You must also have AWS credentials configured, specifically a *AWS Access Key ID* and *AWS Secret Key*. In some cases, you need a *Session ID*. We recommend you accomplish this using the AWS CLI. To learn more, see [CLI Configuration basics](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+You must also have AWS credentials configured. For steps on using the CLI to configure credentials, see [CLI Configuration basics](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
 
-## ⚠️ Important
+## ⚠️ Usage Disclaimer
 These code examples interact with services that may incur charges to your AWS account. For more information, see [AWS Pricing](https://aws.amazon.com/pricing/).
 
 Additionally, example code may theoretically modify or delete existing AWS resources. As a matter of due diligence:
