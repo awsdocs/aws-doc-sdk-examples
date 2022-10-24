@@ -455,11 +455,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
-public class WorkItemRepository  {
+public class WorkItemRepository {
     static final String active = "0";
-    static final String archived = "1";
     static final String username = "user";
-
 
     // Specify the database name, the database user, and the cluster Id value.
     private static final String database = "dev";
@@ -467,12 +465,40 @@ public class WorkItemRepository  {
     private static final String clusterId = "redshift-cluster-1";
 
     RedshiftDataClient getClient() {
-
         Region region = Region.US_WEST_2;
         return RedshiftDataClient.builder()
             .region(region)
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
+    }
+
+    // Return items from the work table.
+    public List<WorkItem> getData(String arch) {
+        String sqlStatement;
+        List<SqlParameter> parameters;
+
+        // Get all records from the Amazon Redshift table.
+        if (arch.compareTo("") == 0) {
+            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work";
+            ExecuteStatementResponse response = executeAll(sqlStatement);
+            String id = response.id();
+            System.out.println("The identifier of the statement is "+id);
+            checkStatement(id);
+            return getResults(id);
+        } else {
+            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+                "FROM work WHERE username = :username and archive = :arch ;";
+
+            parameters = List.of(
+                param("username", username),
+                param("arch", arch)
+            );
+            ExecuteStatementResponse response = execute(sqlStatement,parameters);
+            String id = response.id();
+            System.out.println("The identifier of the statement is "+id);
+            checkStatement(id);
+            return getResults(id);
+        }
     }
 
     List<WorkItem> getResults(String statementId) {
@@ -496,7 +522,7 @@ public class WorkItemRepository  {
     }
 
     // Update the work table.
-    void flipItemArchive(String sqlStatement,  List<SqlParameter> parameters ) {
+    void flipItemArchive(String sqlStatement, List<SqlParameter> parameters ) {
         try {
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
                 .clusterIdentifier(clusterId)
@@ -561,8 +587,6 @@ public class WorkItemRepository  {
         return getClient().executeStatement(sqlRequest);
     }
 
-
-
     SqlParameter param(String name, String value) {
         return SqlParameter.builder().name(name).value(value).build();
     }
@@ -579,34 +603,7 @@ public class WorkItemRepository  {
         flipItemArchive(sqlStatement,parameters);
     }
 
-    // Return items from the work table.
-    public List<WorkItem> getData(String arch) {
-        String sqlStatement;
-        List<SqlParameter> parameters;
 
-        // Get all records from the Amazon Redshift table.
-        if (arch.compareTo("") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work";
-            ExecuteStatementResponse response = executeAll(sqlStatement);
-            String id = response.id();
-            System.out.println("The identifier of the statement is "+id);
-            checkStatement(id);
-            return getResults(id);
-        } else {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
-                "FROM work WHERE username = :username and archive = :arch ;";
-
-            parameters = List.of(
-                param("username", username),
-                param("arch", arch)
-            );
-            ExecuteStatementResponse response = execute(sqlStatement,parameters);
-            String id = response.id();
-            System.out.println("The identifier of the statement is "+id);
-            checkStatement(id);
-            return getResults(id);
-        }
-    }
 
     public String injectNewSubmission(WorkItem item) {
         try {
