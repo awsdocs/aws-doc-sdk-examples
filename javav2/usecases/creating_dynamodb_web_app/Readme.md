@@ -1,4 +1,4 @@
-# Creating a Spring Boot Web application that queries Amazon DynamoDB data
+# Creating a Spring Boot application that queries Amazon DynamoDB data
 
 ## Overview
 
