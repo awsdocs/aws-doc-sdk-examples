@@ -401,7 +401,8 @@ public class MainController {
 
 ### DynamoDBService class
 
-The following Java code represents the **DynamoDBService** class. This class uses the Enchanced Client to perform operations on the Amazon DynamoDB **Work** table. 
+The following Java code represents the **DynamoDBService** class. This class uses the Enhanced Client to perform operations on the Amazon DynamoDB **Work** table.  For more information, 
+see [Mapping items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html).  
 
 ```java
 package com.aws.rest;
