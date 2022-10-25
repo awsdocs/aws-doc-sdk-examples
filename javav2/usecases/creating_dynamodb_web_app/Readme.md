@@ -116,7 +116,7 @@ The React application also lets a user enter a new item.
 
 The user can enter an email recipient into the **Email Report** text field and choose **Send report**.
 
-![AWS Tracking Application](images/react4.png)
+![AWS Tracking Application](images/elapp4.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDBRest
 
