@@ -84,15 +84,15 @@ A user can perform the following tasks using the React application:
 
 The React application displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
 
-![AWS Tracking Application](images/react1.png)
+![AWS Tracking Application](images/elapp1.png)
 
 Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/react2.png)
+![AWS Tracking Application](images/elapp2.png)
 
 The React application lets a user convert an active item to an archived item by clicking the following button. 
 
-![AWS Tracking Application](images/button.png)
+![AWS Tracking Application](images/elapp3.png)
 
 The React application also lets a user enter a new item. 
 
@@ -100,9 +100,12 @@ The React application also lets a user enter a new item.
 
 The user can enter an email recipient into the **Email Report** text field and choose **Send report**.
 
-![AWS Tracking Application](images/react4.png)
+![AWS Tracking Application](images/elapp4.png)
 
 Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
+
+![AWS Tracking Application](images/report.png)
+
 ## Creating an IntelliJ project named ItemTrackerRedshiftRest
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
