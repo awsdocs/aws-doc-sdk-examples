@@ -286,8 +286,6 @@ Confirm that the **pom.xml** file looks like the following example.
 
 Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
-The following Java files go into this package:
-
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
 + **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
@@ -731,7 +729,7 @@ public class WorkItem {
 ```
 ### Work class
 
-The following class represents the **Work** class that uses the **@DynamoDbBean** annotation required for the Enchanced Client.
+The following class represents the **Work** class that uses the **@DynamoDbBean** annotation required for the Enhanced Client.
 
 ```java
  package com.aws.rest;
@@ -1007,9 +1005,8 @@ public class WriteExcel {
         }
     }
 }
-
-
 ```
+
 **Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
 
 ## Run the application 
