@@ -51,6 +51,8 @@ public class MainController {
             .collect(Collectors.toUnmodifiableList());
     }
 
+    // Notice the : character which is used for custom methods. More information can be found here:
+    // https://cloud.google.com/apis/design/custom_methods
     @PutMapping("{id}:archive")
     public String modUser(@PathVariable String id) {
         dbService.archiveItemEC(id);
