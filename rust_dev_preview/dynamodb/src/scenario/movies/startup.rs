@@ -52,7 +52,7 @@ pub async fn initialize(client: &Client, table_name: &str) -> Result<(), Error> 
 
 #[tracing::instrument(level = "trace")]
 // Does table exist?
-// snippet-start:[dynamodb.rust.movies-table_exists]
+// snippet-start:[dynamodb.rust.movies-does_table_exist]
 pub async fn table_exists(client: &Client, table: &str) -> Result<bool, Error> {
     debug!("Checking for table: {table}");
     let table_list = client.list_tables().send().await;
@@ -62,7 +62,7 @@ pub async fn table_exists(client: &Client, table: &str) -> Result<bool, Error> {
         Err(e) => Err(Error::Unhandled(Box::new(e))),
     }
 }
-// snippet-end:[dynamodb.rust.movies-table_exists]
+// snippet-end:[dynamodb.rust.movies-does_table_exist]
 
 #[tracing::instrument(level = "trace")]
 // snippet-start:[dynamodb.rust.movies-create_table_request]

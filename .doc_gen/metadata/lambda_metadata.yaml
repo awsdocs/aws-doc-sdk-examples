@@ -5,6 +5,15 @@ lambda_CreateFunction:
   synopsis: create a &LAM; function.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.CreateLambdaFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -68,6 +77,15 @@ lambda_DeleteFunction:
   synopsis: delete a &LAM; function.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -140,6 +158,7 @@ lambda_Invoke:
             - description:
               snippet_tags:
                 - Lambda.dotnetv3.InvokeFunctionExample
+                - lambda.dotnetv3.Lambda_Basics.InvokeFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -203,6 +222,15 @@ lambda_GetFunction:
   synopsis: get a &LAM; function.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.GetFunction
     PHP:
       versions:
         - sdk_version: 3
@@ -248,6 +276,15 @@ lambda_UpdateFunctionCode:
   synopsis: update &LAM; function code.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.UpdateFunctionCode
     PHP:
       versions:
         - sdk_version: 3
@@ -293,6 +330,14 @@ lambda_UpdateFunctionConfiguration:
   synopsis: update &LAM; function configuration.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.UpdateLambdaConfiguration
     PHP:
       versions:
         - sdk_version: 3
@@ -347,6 +392,10 @@ lambda_ListFunctions:
             - description:
               snippet_tags:
                 - Lambda.dotnetv3.ListFunctionsExample
+                - lambda.dotnetv3.Lambda_Basics.ListFunctions
+            - description: List functions using a paginator.
+              snippet_tags:
+                - Lambda.dotnetv3.ListFunctionsExample.Paginator
     PHP:
       versions:
         - sdk_version: 3
@@ -404,6 +453,24 @@ lambda_Scenario_GettingStartedFunctions:
     title: "Create a &LAM; function with the console"
     url: lambda/latest/dg/getting-started-create-function.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.dotnetv3.Lambda_Basics.GlobalUsings
+                - lambda.dotnetv3.Lambda_Basics.main
+            - description: Define a &LAM; handler that increments a number.
+              snippet_tags:
+                - lambda.dotnetv3.handler.increment
+            - description:
+                Define a second &LAM; handler that performs arithmetic
+                operations.
+              snippet_tags:
+                - lambda.dotnetv3.handler.arithmetic
     Kotlin:
       versions:
         - sdk_version: 1

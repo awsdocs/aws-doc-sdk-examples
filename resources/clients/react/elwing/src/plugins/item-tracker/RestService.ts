@@ -17,15 +17,18 @@ export class RestService<T extends { id: string }> {
     adverb = "",
     params = {},
   }: { id?: string; adverb?: string; params?: RestParams<T> } = {}) {
-    let item = id;
+    let item = "";
+    if (id) {
+      item += "/" + id;
+    }
     if (adverb.length > 0) {
       item += ":" + adverb;
     }
-    const url = new URL(`${this.baseUrl}/${this.collection}/${item}`);
+    const url = new URL(`${this.baseUrl}/${this.collection}${item}`);
     for (const [k, v] of Object.entries(params)) {
       url.searchParams.append(k, v);
     }
-    return url;
+    return url.href;
   }
 
   /**
@@ -35,7 +38,7 @@ export class RestService<T extends { id: string }> {
    * @returns a promise resolved with the response data, if the response is
    *          status 200, or a promise rejected with the entire response.
    */
-  protected async fetch<R>(url: URL, request: RequestInit = {}): Promise<R> {
+  protected async fetch<R>(url: string, request: RequestInit = {}): Promise<R> {
     const headers: Record<string, string> = Array.isArray(request.headers)
       ? request.headers.reduce((h, [k, v]) => {
           h[k] = v;
@@ -69,7 +72,7 @@ export class RestService<T extends { id: string }> {
 
   /** Send a GET request to the collection root URL, retrieving a list of all items in the collection. Optionally include query parameters to narrow the requested list. */
   async list(params: RestParams<T> = {}): Promise<T[]> {
-    return this.fetch(this.url(params));
+    return this.fetch(this.url({ params }));
   }
 
   /** Send a GET request to a specific ID in the collection, retrieving that single item. Optionally include query parameters to narrow the requested item. */
