@@ -52,7 +52,8 @@ public class MainController {
     }
 
 
-
+    // Notice the : character which is used for custom methods. More information can be found here:
+    // https://cloud.google.com/apis/design/custom_methods
     @PutMapping("{id}:archive")
     public String modUser(@PathVariable String id) {
         repository.flipItemArchive(id);
@@ -64,6 +65,7 @@ public class MainController {
         String name = payload.get("name");
         String guide = payload.get("guide");
         String description = payload.get("description");
+        String status = payload.get("status");
 
         WorkItem item = new WorkItem();
         String workId = UUID.randomUUID().toString();
@@ -73,7 +75,7 @@ public class MainController {
         item.setDescription(description);
         item.setName(name);
         item.setDate(date);
-        item.setStatus(WorkItemRepository.active);
+        item.setStatus(status);
         return repository.injectNewSubmission(item);
     }
 }
