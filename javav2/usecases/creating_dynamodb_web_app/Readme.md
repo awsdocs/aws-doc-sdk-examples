@@ -100,7 +100,7 @@ A user can perform the following tasks using the React application:
 
 The React application displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
 
-![AWS Tracking Application](images/react1.png)
+![AWS Tracking Application](images/elapp1.png)
 
 Likewise, the following illustration shows the React application displaying archived data.
 
