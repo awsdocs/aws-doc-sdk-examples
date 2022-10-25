@@ -20,6 +20,9 @@
 This example uses the poco library.
 The poco library can be installed using Conan.
 conan install .. --build=missing
+On Windows
+conan install .. --build=missing -o poco:shared=True
+
 *Varies by language, and clearly illustrates the workflow of building the app. Should include descriptions of code not included as code comments in actual examples.* **<-- Delete this sentence from template**
 
 ## Delete the resources
