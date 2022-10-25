@@ -27,6 +27,7 @@ class MockManager:
                     stubber.stub_get_keyspace, self.ks_name, self.ks_arn,
                     error_code='ResourceNotFoundException')
                 runner.add(stubber.stub_create_keyspace, self.ks_name, self.ks_arn)
+                runner.add(stubber.stub_get_keyspace, self.ks_name, self.ks_arn)
             runner.add(stubber.stub_list_keyspaces, self.keyspaces)
 
 

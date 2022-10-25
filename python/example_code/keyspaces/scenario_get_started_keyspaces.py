@@ -62,7 +62,10 @@ class KeyspaceScenario:
             print(f"A keyspace named {ks_name} exists.")
         else:
             ks_arn = self.ks_wrapper.create_keyspace(ks_name)
-            wait(3)
+            ks_exists = False
+            while not ks_exists:
+                wait(3)
+                ks_exists = self.ks_wrapper.exists_keyspace(ks_name)
             print(f"Created a new keyspace.\n\t{ks_arn}.")
         print("The first 10 keyspaces in your account are:\n")
         self.ks_wrapper.list_keyspaces(10)

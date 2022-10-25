@@ -228,4 +228,4 @@ keyspaces_Scenario_GetStartedKeyspaces:
                 - python.example_code.keyspaces.QueryManager.class
   services:
     keyspaces: {CreateKeyspace, CreateTable, DeleteKeyspace, DeleteTable, GetKeyspace,
-                GetTable, ListKeyspaces, ListKeyspaces, ListTables, RestoreTable, UpdateTable}
+                GetTable, ListKeyspaces, ListTables, RestoreTable, UpdateTable}
