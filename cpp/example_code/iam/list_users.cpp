@@ -1,92 +1,104 @@
- 
-//snippet-sourcedescription:[list_users.cpp demonstrates how to list IAM users.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-service:[iam]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html.
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ * Purpose
+ *
+ * Demonstrates listing all IAM users.
+ *
+ */
+
 //snippet-start:[iam.cpp.list_users.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListUsersRequest.h>
-#include <aws/iam/model/ListUsersResult.h>
 #include <iomanip>
 #include <iostream>
+#include "iam_samples.h"
 //snippet-end:[iam.cpp.list_users.inc]
 
-static const char* DATE_FORMAT = "%Y-%m-%d";
+//! List all IAM users.
+/*!
+  \sa listUsers()
+  \param clientConfig: Aws client configuration.
+  \return bool: Successful completion.
+*/
+// snippet-start:[iam.cpp.list_users.code]
+bool AwsDoc::IAM::listUsers(const Aws::Client::ClientConfiguration &clientConfig) {
+    const Aws::String DATE_FORMAT = "%Y-%m-%d";
+    Aws::IAM::IAMClient iam(clientConfig);
+    Aws::IAM::Model::ListUsersRequest request;
 
-/**
- * Lists all iam users
+    bool done = false;
+    bool header = false;
+    while (!done) {
+        auto outcome = iam.ListUsers(request);
+        if (!outcome.IsSuccess()) {
+            std::cerr << "Failed to list iam users:" <<
+                      outcome.GetError().GetMessage() << std::endl;
+            return false;
+        }
+
+        if (!header) {
+            std::cout << std::left << std::setw(32) << "Name" <<
+                      std::setw(30) << "ID" << std::setw(64) << "Arn" <<
+                      std::setw(20) << "CreateDate" << std::endl;
+            header = true;
+        }
+
+        const auto &users = outcome.GetResult().GetUsers();
+        for (const auto &user: users) {
+            std::cout << std::left << std::setw(32) << user.GetUserName() <<
+                      std::setw(30) << user.GetUserId() << std::setw(64) <<
+                      user.GetArn() << std::setw(20) <<
+                      user.GetCreateDate().ToGmtString(DATE_FORMAT.c_str())
+                      << std::endl;
+        }
+
+        if (outcome.GetResult().GetIsTruncated()) {
+            request.SetMarker(outcome.GetResult().GetMarker());
+        }
+        else {
+            done = true;
+        }
+    }
+
+    return true;
+}
+// snippet-end:[iam.cpp.list_users.code]
+
+/*
+ *
+ *  main function
+ *
+ * Usage: 'run_lists_users'
+ *
  */
+
+#ifndef TESTING_BUILD
+
 int main(int argc, char** argv)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // snippet-start:[iam.cpp.list_users.code]
-        Aws::IAM::IAMClient iam;
-        Aws::IAM::Model::ListUsersRequest request;
-
-        bool done = false;
-        bool header = false;
-        while (!done)
-        {
-            auto outcome = iam.ListUsers(request);
-            if (!outcome.IsSuccess())
-            {
-                std::cout << "Failed to list iam users:" <<
-                    outcome.GetError().GetMessage() << std::endl;
-                break;
-            }
-
-            if (!header)
-            {
-                std::cout << std::left << std::setw(32) << "Name" <<
-                    std::setw(30) << "ID" << std::setw(64) << "Arn" <<
-                    std::setw(20) << "CreateDate" << std::endl;
-                header = true;
-            }
-
-            const auto &users = outcome.GetResult().GetUsers();
-            for (const auto &user : users)
-            {
-                std::cout << std::left << std::setw(32) << user.GetUserName() <<
-                    std::setw(30) << user.GetUserId() << std::setw(64) <<
-                    user.GetArn() << std::setw(20) <<
-                    user.GetCreateDate().ToGmtString(DATE_FORMAT) << std::endl;
-            }
-
-            if (outcome.GetResult().GetIsTruncated())
-            {
-                request.SetMarker(outcome.GetResult().GetMarker());
-            }
-            else
-            {
-                done = true;
-            }
-        }
-        // snippet-end:[iam.cpp.list_users.code]
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+        AwsDoc::IAM::listUsers(clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
 
+#endif  // TESTING_BUILD

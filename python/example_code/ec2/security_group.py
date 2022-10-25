@@ -68,7 +68,7 @@ class SecurityGroupWrapper:
 
         try:
             ip_permissions = [{
-                # SSH ingress open to only the specified IP address
+                # SSH ingress open to only the specified IP address.
                 'IpProtocol': 'tcp', 'FromPort': 22, 'ToPort': 22,
                 'IpRanges': [{'CidrIp': f'{ssh_ingress_ip}/32'}]}]
             response = self.security_group.authorize_ingress(IpPermissions=ip_permissions)

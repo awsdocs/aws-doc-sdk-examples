@@ -42,6 +42,7 @@
             </info>
             <para>The following code examples show how to use {{$service.ServiceEntity.Long}} with an &AWS; software development kit (SDK).</para>
             {{- if $hello.Examples}}
+            <para><emphasis role="bold">Get started</emphasis></para>
             <block>
                 <collapsible expand-section="_collapse_all_">
                     {{- range $hello.Examples}}
