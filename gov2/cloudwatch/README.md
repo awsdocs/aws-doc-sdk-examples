@@ -1,6 +1,6 @@
 # Amazon CloudWatch examples for the AWS SDK for Go (V2)
 
-## Purpose
+## Overview
 
 These examples in this directory demonstrate how to perform Amazon CloudWatch
 operations using version 2 of the AWS SDK for Go.
@@ -13,18 +13,18 @@ optimize resource utilization.
 
 ## ⚠️ Important
 
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) on the AWS website.
 - Running this code might result in charges to your AWS account.
+- Running the tests might result in charges to your AWS account.
+- We recommend that you grant your code least privilege. At most, grant only
+  the minimum permissions required to perform the task. For more information,
+  see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 
 ## Code examples
 
 ### Single actions
+
+Code excerpts that show you how to call individual service functions.
 
 - [Create a custom metric](CreateCustomMetric/) (`CreateCustomMetric`)
 - [Create an alarm that watches a metric](CreateEnableMetricAlarm/) (`CreateEnableMetricAlarm`)
@@ -35,7 +35,14 @@ optimize resource utilization.
 - [List metrics](ListMetrics/) (`ListMetrics`)
 - [Put an event](PutEvent/) (`PutEvent`)
 
-### Run the examples
+## Run the examples
+
+### Prerequisites
+
+Prerequisites for running the examples for this service can be found in the
+[README](../README.md#Prerequisites) in the GoV2 folder.
+
+### Instructions
 
 Go to the directory where you want to run the sample, and do the following:
 
@@ -43,16 +50,10 @@ Go to the directory where you want to run the sample, and do the following:
 go mod tidy
 go run .
 ```
-### Prerequisites
 
-Prerequisites for running the examples for this service can be found in the
-[README](../README.md#Prerequisites) in the GoV2 folder.
+## Tests
 
-### Tests
-
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
+⚠️ Running the tests might result in charges to your AWS account.
 
 To run a unit test, enter:
 
@@ -75,7 +76,7 @@ The last two lines should be similar to the previous output shown.
 
 ## Additional resources
 
-- [AWS SDK for Go V3 Amazon IAM service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
-- [AWS IAM documentation](https://docs.aws.amazon.com/iam)
+- [AWS IAM documentation](https://docs.aws.amazon.com/cloudwatch)
+- [AWS SDK for Go V2 Amazon CloudWatch service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/cloudwatch)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
