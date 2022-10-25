@@ -1,4 +1,4 @@
-# DynamoDB code examples for the AWS SDK for Go (v2).
+# DynamoDB examples for the AWS SDK for Go (v2).
 
 ## Overview
 

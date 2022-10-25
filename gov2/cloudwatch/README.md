@@ -1,9 +1,9 @@
-# Amazon CloudWatch examples for the AWS SDK for Go (V2)
+# CloudWatch examples for the SDK for Go (V2)
 
 ## Overview
 
 These examples in this directory demonstrate how to perform Amazon CloudWatch
-operations using version 2 of the AWS SDK for Go.
+actions using the AWS SDK for Go (v2).
 
 Amazon CloudWatch is a monitoring and observability service built for DevOps
 engineers, developers, site reliability engineers (SREs), IT managers, and
@@ -75,8 +75,8 @@ You should see some additional log messages.
 The last two lines should be similar to the previous output shown.
 
 ## Additional resources
-
-- [AWS IAM documentation](https://docs.aws.amazon.com/cloudwatch)
-- [AWS SDK for Go V2 Amazon CloudWatch service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/cloudwatch)
+* [Amazon Cloudwatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/index.html)
+* [Amazon CloudWatch API Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/Welcome.html)
+- [AWS SDK for Go (v2)](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/cloudwatch)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
