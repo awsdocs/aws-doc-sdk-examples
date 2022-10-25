@@ -10,7 +10,7 @@ declare type Item = {
   name: string;
 
   /**
-   * One of the various AWS SDK languages. For example: "dotnet", "cpp", "javascript", etc.
+   * One of the various AWS SDK languages. Examples include "dotnet", "cpp", and "javascript".
    */
   guide: string;
 
@@ -20,12 +20,12 @@ declare type Item = {
   description: string;
 
   /**
-   * A plain test description of the current status of the item.
+   * A plain text description of the current status of the item.
    */
   status: string;
 
   /**
-   * A boolean value indicating whether or not the item is archived.
+   * A Boolean value indicating whether or not the item is archived.
    */
   archived: boolean;
 };

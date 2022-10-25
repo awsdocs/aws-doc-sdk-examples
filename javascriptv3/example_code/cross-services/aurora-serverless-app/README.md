@@ -15,28 +15,28 @@ and sends email reports with Amazon Simple Email Service (Amazon SES).
 ### Prerequisites
 
 - See [the JavaScript (v3) prerequisites](../../README.md#prerequisites)
-- [Create an email address identity](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#verify-email-addresses-procedure) in Amazon SES
+- [Create an email address identity](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#verify-email-addresses-procedure) in Amazon SES.
 
 ## Create the resources
 
-See [the steps for creating the resource stack](../../../../resources//cdk/aurora_serverless_app/README.md#deploying-with-the-aws-cdk)
+See [the steps for creating the resource stack](../../../../resources//cdk/aurora_serverless_app/README.md#deploying-with-the-aws-cdk).
 
 ## Run the code
 
 - Populate the `env.json` file with the outputs from the preceding ["create the resources"](#create-the-resources) step.
-- Run `yarn start`
+- Run `yarn start`.
 
 ## Delete the resources
 
 To avoid charges, delete all the resources that you created for this tutorial.
 
-See [the steps for destroying the resources with the CDK](../../../../resources//cdk/aurora_serverless_app/README.md#destroying-with-the-aws-cdk)
+See [the steps for destroying the resources with the CDK](../../../../resources//cdk/aurora_serverless_app/README.md#destroying-with-the-aws-cdk).
 
-**Note**: By running the app, you modified the table and the bucket, so you must delete these resources manually through the console before you can delete the stack.
+**Note**: Running the app modifies the table and the bucket, so you must delete these resources manually through the console before you can delete the stack.
 
 ## Additional resources
 
-- [Aurora Developer Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
-- [SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
+- [Amazon Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+- [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
 - [RDS Data Client - AWS SDK for JavaScript v3](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds-data/index.html)
 - [SES Client - AWS SDK for JavaScript v3](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/index.html)
