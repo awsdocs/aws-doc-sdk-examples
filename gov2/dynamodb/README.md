@@ -43,6 +43,35 @@ multiple functions within the same service.
 * [Query a table using PartiQL](scenarios/scenario_partiql_single.go)
 * [Query a table by using batches of PartiQL statements](scenarios/scenario_partiql_batch.go)
   
+#### Get started using tables, items, and queries
+
+This interactive scenario runs at a command prompt and shows you how to use DynamoDB
+to do the following:
+
+- Create a table that can hold movie data.
+- Put, get, and update a single movie in the table.
+- Write movie data to the table from a sample JSON file.
+- Query for movies that were released in a given year.
+- Scan for movies that were released in a range of years.
+- List tables in your account.
+- Delete a movie from the table.
+- Delete the table.
+
+#### Query a table using PartiQL
+
+These two scenarios show you how to run PartiQL statements to query a DynamoDB table of
+movie data. You can do this one at a time or in batches. Both scenarios add, get,
+update, and delete movies in the table.
+
+Install all required resources and start the example by running one of the following in 
+the `dynamodb` folder at a command prompt.
+
+```
+go mod tidy
+go run ./cmd -scenario partiQLSingle
+go run ./cmd -scenario partiQLBatch
+```
+
 ## Run the examples
 
 ### Prerequisites
