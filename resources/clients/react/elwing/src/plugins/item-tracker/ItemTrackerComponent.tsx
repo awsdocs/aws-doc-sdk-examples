@@ -15,8 +15,8 @@ const Component = () => {
         <Grid gridDefinition={[{ colspan: 9 }, { colspan: 3 }]}>
           <WorkItems />
           <WorkItemControls />
-          <AddWorkItem />
         </Grid>
+        <AddWorkItem />
       </Container>
     </>
   );
