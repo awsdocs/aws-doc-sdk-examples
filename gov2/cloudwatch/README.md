@@ -75,8 +75,10 @@ You should see some additional log messages.
 The last two lines should be similar to the previous output shown.
 
 ## Additional resources
-* [Amazon Cloudwatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/index.html)
+* [Amazon Cloudwatch Developer Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/index.html)
 * [Amazon CloudWatch API Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/Welcome.html)
-- [AWS SDK for Go (v2)](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/cloudwatch)
+- [AWS SDK for Go (v2) API Reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/cloudwatch)
+
+---
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

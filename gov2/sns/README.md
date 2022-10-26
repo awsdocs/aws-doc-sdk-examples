@@ -1,6 +1,6 @@
-# AWS SDK for Go V2 code examples for Amazon SNS
+# Amazon SNS code examples for the AWS SDK for Go (v2)
 
-## Purpose
+## Overview
 
 These examples demonstrates how to perform several Amazon Simple Notification Service 
 (Amazon SNS) operations using version 2 of the AWS SDK for Go.

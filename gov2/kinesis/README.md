@@ -26,9 +26,18 @@ that best suit the requirements of your application.
 
 ### Single actions
 
+Code excerpts that show you how to call individual service functions.
+
 - [Put data into a stream](PutRecord) (`PutRecord`)
 
 ## Run the examples
+
+### Prerequisites
+
+Prerequisites for running the examples for this service can be found in the
+[README](../README.md#Prerequisites) in the GoV2 folder.
+
+### Instructions
 
 Go to the directory where you want to run the sample, and do the following:
 
@@ -37,16 +46,9 @@ go mod tidy
 go run .
 ```
 
-### Prerequisites
-
-Prerequisites for running the examples for this service can be found in the
-[README](../README.md#Prerequisites) in the GoV2 folder.
-
 ## Tests
 
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
+⚠️ Running the tests might result in charges to your AWS account.
 
 To run a unit test, enter:
 
@@ -69,7 +71,10 @@ The last two lines should be similar to the previous output shown.
 
 ## Additional Resources
 
-- [AWS SDK for Go V3 Amazon Kinesis](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2)
-- [Amazon Kinesis documentation](https://docs.aws.amazon.com/kinesis)
+- [Amazon Kinesis Developer Guide](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/what-is-kinesis-video.html)
+- [Amazon Kinesis API Reference](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_Reference.html)
+- [AWS SDK for Go (v2) API Reference](https://docs.aws.amazon.com/sdk-for-go/api/service/kinesis/)
+
+---
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

@@ -36,7 +36,8 @@ Code excerpts that show you how to call individual service functions.
 
 ### Scenarios
 
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+Code examples that show you how to accomplish a specific task by calling
+multiple functions within the same service.
 
 * [Get started using tables, items, and queries](scenarios/scenario_movie_table.go)
 * [Query a table using PartiQL](scenarios/scenario_partiql_single.go)
@@ -69,6 +70,8 @@ Instructions for running the tests for this service can be found in the
 
 * [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 * [Amazon DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-* [AWS SDK for Go DynamoDB Client](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb)
+* [AWS SDK for Go DynamoDB API Reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/dynamodb)
+
+---
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

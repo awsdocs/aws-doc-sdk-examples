@@ -1,9 +1,9 @@
-# AWS SDK for Go V2 examples
+# AWS SDK for Go (v2) examples
 
-## Purpose
+## Overview
 
-These examples show ways to work with Go-specific aspects of the
-AWS SDK for Go V2. 
+These examples show how to work with language-specific aspects of the
+AWS SDK for Go (v2). 
 
 The AWS SDK for Go provides easy-to-use APIs and utilities developers can 
 use to quickly integrate Go applications with AWS services like Amazon S3 and Amazon EC2.
@@ -42,6 +42,6 @@ in the AWS SDK for Go Developer Guide.
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 
-## License
+---
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

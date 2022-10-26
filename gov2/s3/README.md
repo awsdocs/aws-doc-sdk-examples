@@ -1,52 +1,44 @@
-# AWS SDK for Go V2 code examples for Amazon S3
+# Amazon S3 code examples for the AWS SDK for Go (v2)
 
-## Purpose
+## Overview
 
-These examples demonstrate how to perform several Amazon Simple Storage Service 
-(Amazon S3) operations using version 2 of the AWS SDK for Go.
+These examples in this directory demonstrate how to perform several Amazon S3
+actions using AWS SDK for Go (v2).
+
+## ⚠️ Important
+
+- Running this code might result in charges to your AWS account.
+- Running the tests might result in charges to your AWS account.
+- We recommend that you grant your code least privilege. At most, grant only
+  the minimum permissions required to perform the task. For more information,
+  see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 
 ## Code examples
 
-### Scenario examples
-* [`common/`](common/) -- These examples show you how to complete common Amazon S3 operations such as creating a bucket, managing bucket objects, and deleting objects and buckets.
+### Single Actions
 
-### API Examples
-- [`GetBucketAcl`](GetBucketAcl/) and [`GetObjectAcl`](GetObjectAcl/) -- These two examples show you how to work with access control lists (ACLs) on Amazon S3 objects.
+Code excerpts that show you how to call individual service functions.
 
+- [Copy an object from one bucket to another](common/main.go) (`CopyObject`)
+- [Create a presign client](common/main.go) (`NewPresignClient`)
+- [Delete a bucket](common/main.go) (`DeleteBucket`)
+- [Delete an object](common/main.go) (`DeleteObject`)
+- [Get an object from a bucket](common/main.go) (`GetObject`)
+- [Get the ACL of a bucket](GetBucketAcl/GetBucketAclv2.go) (`GetBucketAclInput`)
+- [Gat the ACL of an object](GetBucketAcl/GetBucketAclv2.go) (`GetObjectAcl`)
+- [List buckets](common/main.go) (`ListBuckets`)
+- [List objects in a bucket](common/main.go) (`ListObjectsV2`)
+- [Upload an object to a bucket](common/main.go) (`PubObject`)
 
+### Scenarios
 
-## ⚠ Important
+Code examples that show you how to accomplish a specific task by calling
+multiple functions within the same service.
 
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
+* [Get started with buckets and objects](common/main.go)
 
-
-## Running the code
-
-Go to the directory where you want to run the sample, and do the following:
-
-```
-go mod tidy
-go run .
-```
-
-## Running the tests
-
-From a directory containing `go.mod`, use `go test` to run all unit tests:
-
-```
-go test ./...
-```
-
-This tests all modules in the current folder and any submodules.
+## Run the examples
 
 ### Prerequisites
 
@@ -57,14 +49,31 @@ in the *AWS SDK for Go Developer Guide*.
 
 You must have Go 1.17 or later installed.
 
-## Additional information
+Go to the directory where you want to run the sample, and do the following:
 
-- [AWS SDK for Go V2 Amazon S3 service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
-- [Amazon S3 documentation](https://docs.aws.amazon.com/s3)
+```
+go mod tidy
+go run .
+```
+
+## Tests
+
+⚠️ Running the tests might result in charges to your AWS account.
+
+From a directory containing `go.mod`, use `go test` to run all unit tests:
+
+```
+go test ./...
+```
+
+This tests all modules in the current folder and any submodules.
+
+## Additional resources
+
+- [Amazon S3 Developer Guide](https://docs.aws.amazon.com/amazonglacier/amazons3/dev/introduction.html)
+- [Amazon S3 API reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+- [AWS SDK for Go (v2) API reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
 
 ---
 
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

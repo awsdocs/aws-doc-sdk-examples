@@ -1,6 +1,6 @@
-# AWS SDK for Go V2 code examples for AWS STS.
+# AWS STD examples for the AWS SDK for Go (v2)
 
-## Purpose
+## Overview
 
 These examples demonstrates how to perform several AWS Security Token Service (AWS STS) 
 operations using version 2 of the AWS SDK for Go.

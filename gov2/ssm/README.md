@@ -1,9 +1,9 @@
-# AWS SDK for Go V2 code examples for AWS Systems Manager
+# AWS Systems Manager code examples for AWS SDK for Go (v2)
 
 ## Purpose
 
-These examples demonstrates how to perform several AWS Systems Manager 
-(Systems Manager) operations using version 2 of the AWS SDK for Go.
+These examples in this directory demonstrates how to perform several AWS
+Systems Manager  (Systems Manager) operations using the AWS SDK for Go (v2).
 
 ## Prerequisites
 

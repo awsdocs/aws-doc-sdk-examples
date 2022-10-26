@@ -72,7 +72,11 @@ The last two lines should be similar to the previous output shown.
 
 ## Additional resources
 
-* [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
-* [AWS SDK for Go Amazon EC2 Client](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/ec2)
+- [Amazon EC2 Developer Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+- [Amazon EC2 Developer Guide for Windows Instances](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/concepts.html)
+- [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
+- [AWS SDK for Go Amazon EC2 Client](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/ec2)
+
+---
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

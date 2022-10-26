@@ -1,74 +1,52 @@
-# AWS SDK for Go V2 code examples for AWS KMS 
+# AWS KMS code examples the AWS SDK for Go (v2) 
 
-## Purpose
+## Overview
 
-These examples demonstrate how to perform several AWS Key Management Service (AWS KMS) 
-operations using version 2 of the AWS SDK for Go.
+These examples demonstrate how to perform AWS Key Management Service (AWS KMS) 
+actions using the AWS SDK for Go (v2).
 
-## Prerequisites
+
+## ⚠️ Important
+
+- Running this code might result in charges to your AWS account.
+- Running the tests might result in charges to your AWS account.
+- We recommend that you grant your code least privilege. At most, grant only
+  the minimum permissions required to perform the task. For more information,
+  see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
+
+## Code examples
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a key](CreateKey/CreateKeyv2.go) (`CreateKey`)
+- [Decrypt cyphertext](DecryptData/DecryptDatav2.go) (`DecryptData`)
+- [Encrypt text using a key](EncryptData/EncryptDatav2.go) (`Encrypt`)
+- [Reencrypt ciphertext from one key to another](ReEncryptData/ReEncryptDatav2.go) (`Reencrypt`)
+
+## Run the examples
+
+### Prerequisites
 
 You must have an AWS account, and have your default credentials and AWS Region
 configured as described in
 [Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
 in the AWS SDK for Go Developer Guide.
 
-## Running the code
+### Instructions
 
-### CreateKey/CreateKeyv2.go
+Go to the directory where you want to run the sample, and do the following:
 
-This example creates an AWS KMS key (KMS key).
+```
+go mod tidy
+go run .
+```
 
-`go run CreateKeyv2.go`
+## Tests
 
-### DecryptData/DecryptDatav2.go
-
-This example decrypts some text that was encrypted with an AWS KMS key (KMS key).
-
-`go run DecryptDatav2.go -d DATA`
-
-- _DATA_ is the encrypted data, as a string.
-
-The unit test accepts a similar value in _config.json_.
-
-### EncryptData/EncryptDatav2.go
-
-This example encrypts some text using an AWS KMS key (KMS key).
-
-`go run EncryptDatav2.go -k KEYID -t TEXT`
-
-- _KEYID_ is the ID for the AWS KMS key to use for encrypting the text.
-- _TEXT_ is the text to encrypt.
-
-The unit test accepts similar values in _config.json_.
-
-### ReEncryptData/ReEncryptDatav2.go
-
-This example reencrypts some text using an AWS KMS key (KMS key).
-
-`go run ReEncryptDatav2.go -k KeyID -d DATA`
-
-- _KeyID_ is the ID of the AWS KMS key to use for reencrypting the data.
-- _DATA_ is the data to reencrypt, as a string.
-
-The unit test accepts similar values in _config.json_.
-
-### Notes
-
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
-
-## Running the unit tests
-
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
+⚠️ Running the tests might result in charges to your AWS account.
 
 To run a unit test, enter:
 
@@ -88,5 +66,13 @@ If you want to see any log messages, enter:
 
 You should see some additional log messages.
 The last two lines should be similar to the previous output shown.
+
+## Additional resources
+
+- [AWS KMS developer guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
+- [AWS KMS API reference](https://docs.aws.amazon.com/kms/latest/APIReference/Welcome.html)
+- [AWS SDK for Go (v2) API reference](https://docs.aws.amazon.com/sdk-for-go/api/service/kms/)
+
+---
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

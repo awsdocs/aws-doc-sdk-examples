@@ -1,162 +1,57 @@
-# AWS SDK for Go V2 code examples for Amazon SQS
+# Amazon SQS code examples for the AWS SDK for Go (v2)
 
-## Purpose
+## Overview
 
 These examples demonstrate how to perform several
 Amazon Simple Queue Service (Amazon SQS)
-operations using version 2 of the AWS SDK for Go.
+actions using the AWS SDK for Go (v2).
 
-## Prerequisites
+## ⚠️ Important
+
+- Running this code might result in charges to your AWS account.
+- Running the tests might result in charges to your AWS account.
+- We recommend that you grant your code least privilege. At most, grant only
+  the minimum permissions required to perform the task. For more information,
+  see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
+
+## Code examples
+
+### Single actions
+
+[Change message timeout visibility](ChangeMsgVisibility/ChangeMsgVisibilityv2.go)
+[Configure a queue](ConfigureLPQueue/ConfigureLPQueuev2.go)
+[Configure a dead letter queue](DeadLetterQueue/DeadLetterQueuev2.go)
+[Create a queue](CreateLPQueue/CreateLPQueuev2.go)
+[Delete a message from a queue](DeleteMessage/DeleteMessagev2.go)
+[Delete a queue](DeleteQueue/DeleteQueuev2.go)
+[Get the URL of a queue](GetQueueURL/GetQueueURLv2.go)
+[List queues](ListQueues/ListQueuesv2.go)
+[Receive a message from a queue](ReceiveLPMessage/ReceiveLPMessagev2.go)
+[Receive messages from a queue](ReceiveLPMessage/ReceiveLPMessagev2.go)
+[Send a message to a queue](SendMessage/SendMessagev2.go)
+
+## Running the examples
+
+### Prerequisites
 
 You must have an AWS account, and have your default credentials and AWS Region 
 configured as described in
 [Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
 in the AWS SDK for Go Developer Guide.
 
-## Running the code
+### Instructions
 
-### ChangeMsgVisibility/ChangeMsgVisibilityv2.go
+Go to the directory where you want to run the sample, and do the following:
 
-This example sets the visibility timeout for a message in an Amazon SQS queue.
+```
+go mod tidy
+go run .
+```
 
-`go run ChangeMsgVisibilityv2.go -q QUEUE-NAME -h RECEIPT-HANDLE -v VISIBILITY`
+## Tests
 
-- _QUEUE-NAME_ is the name of the queue.
-- _RECEIPT-HANDLE_ is the receipt handle of the message.
-- _VISIBILITY_ is the duration, in seconds, that the message is not visible to other consumers.
-  The example ensures the value is between 0 and 12 hours;
-  the default is 30 seconds.
-
-The unit test accepts similar values in _config.json_.
-
-### ConfigureLPQueue/ConfigureLPQueuev2.go
-
-This example configures an Amazon SQS queue to use long polling.
-
-`go run ConfigureLPQueuev2.go -q QUEUE-NAME [-w WAIT-TIME]`
-
-- _QUEUE-NAME_ is the name of the queue to configure.
-- _WAIT-TIME_ is how long, in seconds, to wait.
-  The example ensures the value is between 1 and 20;
-  the default is 10.
-
-The unit test accepts similar values in _config.json_.
-
-### CreateQueue/CreateQueuev2.go
-
-This example creates an Amazon SQS queue.
-
-`go run CreateQueuev2.go -q QUEUE-NAME`
-
-- _QUEUE-NAME_ is the name of the queue to create.
-
-The unit test accepts a similar value in _config.json_.
-
-### CreateLPQueue/CreateLPQueuev2.go
-
-This example creates a long-polling Amazon SQS queue.
-
-`go run CreateLPQueuev2.go -q QUEUE-NAME [-w WAIT-TIME]`
-
-- _QUEUE-NAME_ is the name of the queue to create.
-- _WAIT-TIME_ is how long, in seconds, to wait.
-  The example ensures the value is between 1 and 20;
-  the default is 10.
-
-The unit test accepts similar values in _config.json_.
-
-### DeadLetterQueue/DeadLetterQueuev2.go
-
-This example configures an Amazon SQS queue for messages 
-that could not be delivered to another queue.
-
-`go run DeadLetterQueuev2.go -q QUEUE-NAME -d DEAD-LETTER-QUEUE-NAME`
-
-- _QUEUE-NAME_ is the name of the queue from which the dead letters are sent.
-- _DEAD-LETTER-QUEUE-NAME_ is the name of the queue to which the dead letters are sent.
-
-The unit test accepts similar values in _config.json_.
-
-### DeleteMessage/DeleteMessagev2.go
-
-This example deletes a message from an Amazon SQS queue.
-
-`go run DeleteMessagev2.go -q QUEUE-NAME -m MESSAGE-HANDLE`
-
-- _QUEUE-NAME_ is the name of the queue from which the message is deleted.
-- _MESSAGE-HANDLE_ is the handle of the message to delete.
-
-The unit test accepts similar values in _config.json_.
-
-### DeleteQueue/DeleteQueuev2.go
-
-This example deletes an Amazon SQS queue.
-
-`go run DeleteQueuev2.go -q QUEUE-NAME`
-
-- _QUEUE-NAME_ is the name of the queue to delete.
-
-The unit test accepts a similar value in _config.json_.
-
-### GetQueueURL/GetQueueURLv2.go
-
-This example gets the URL of an Amazon SQS queue.
-
-`go run GetQueueURLv2.go -q QUEUE-NAME`
-
-- _QUEUE-NAME_ is the name of the queue for which the URL is retrieved.
-
-The unit test accepts a similar value in _config.json_.
-
-### ListQueues/ListQueuesv2.go
-
-This example retrieves a list of your Amazon SQS queues.
-
-`go run ListQueuesv2.go`
-
-### ReceiveLPMessage/ReceiveLPMessagev2.go
-
-This example gets the most recent message from a long-polling Amazon SQS queue.
-
-`go run ReceiveLPMessagev2.go -q QUEUE-NAME`
-
-- _QUEUE-NAME_ is the name of the queue from which the message is retrieved.
-
-The unit test accepts a similar value in _config.json_.
-
-### ReceiveMessage/ReceiveMessagev2.go
-
-This example gets the most recent message from an Amazon SQS queue.
-
-`go run ReceiveMessagev2.go -q QUEUE-NAME`
-
-- _QUEUE-NAME_ is the name of the queue from which the message is retrieved.
-
-The unit test accepts a similar value in _config.json_.
-
-### SendMessage/SendMessagev2.go
-
-This example sends a message to an Amazon SQS queue.
-
-`go run SendMessagev2.go -q QUEUE-NAME`
-
-- _QUEUE-NAME_ is the name of the queue to which the message is sent.
-
-The unit test accepts a similar value in _config.json_.
-
-### Notes
-
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
-
-## Running the unit tests
+⚠️ Running the tests might result in charges to your AWS account.
 
 Unit tests should delete any resources they create.
 However, they might result in charges to your
@@ -180,5 +75,9 @@ If you want to see any log messages, enter:
 
 You should see some additional log messages.
 The last two lines should be similar to the previous output shown.
+
+[Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
+[Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
+[AWS SDK for Go (v2) API Reference Guide](https://docs.aws.amazon.com/sdk-for-go/api/service/sqs/)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
