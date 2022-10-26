@@ -36,10 +36,45 @@ public class DynamoDBService {
             .region(region)
             .build();
     }
+    // Get All items from the DynamoDB table.
+    public List<WorkItem> getAllItems() {
+
+        // Create a DynamoDbEnhancedClient.
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(getClient())
+            .build();
+
+        try{
+            // Create a DynamoDbTable object.
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+            Iterator<Work> results = table.scan().items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList<>();
+
+            while (results.hasNext()) {
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
+
+                // Push the workItem to the list.
+                itemList.add(workItem);
+            }
+            return itemList;
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return null;
+    }
 
     // Archives an item based on the key.
     public void archiveItemEC(String id) {
-
         try {
             // Create a DynamoDbEnhancedClient.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()

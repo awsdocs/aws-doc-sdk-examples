@@ -91,6 +91,7 @@ export const WorkItems = () => {
     <Table
       variant="embedded"
       selectedItems={selected}
+      sortingDisabled
       onSelectionChange={({ detail }) =>
         setSelected(detail.selectedItems as WorkItem[])
       }

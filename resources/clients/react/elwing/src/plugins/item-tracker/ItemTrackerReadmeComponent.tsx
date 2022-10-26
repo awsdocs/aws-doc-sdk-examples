@@ -10,7 +10,7 @@ export function Readme() {
         A sample application that shows you how to track work items served by a
         REST endpoint.
       </Box>
-      <Box variant="p">
+      <Box variant="div">
         <Header variant="h2">Services used</Header>
         <ul>
           <li>
@@ -25,7 +25,7 @@ export function Readme() {
           </li>
         </ul>
       </Box>
-      <Box variant="p">
+      <Box variant="div">
         <Header variant="h2">Available backends</Header>
         <ul>
           <li>

@@ -6,6 +6,7 @@
 package com.aws.rest;
 
 import software.amazon.awssdk.services.redshiftdata.model.Field;
+
 import java.util.List;
 
 public class WorkItem {
@@ -17,7 +18,7 @@ public class WorkItem {
     private String status;
 
     public static WorkItem from(List<Field> fields) {
-        WorkItem item = new WorkItem();
+        var item = new WorkItem();
         for (int i = 0; i <= 5; i++) {
             String value = fields.get(i).stringValue();
             switch (i) {
@@ -67,6 +68,7 @@ public class WorkItem {
     public String getDescription() {
         return this.description;
     }
+
 
     public void setDate(String date) {
         this.date = date;
