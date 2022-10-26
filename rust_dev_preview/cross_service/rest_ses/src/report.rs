@@ -1,3 +1,4 @@
+//! The /items:report endpoint
 use crate::{
     client::{Email, RdsClient, SesClient},
     work_item::{repository::list, WorkItem, WorkItemArchived, WorkItemError},
@@ -114,54 +115,58 @@ fn make_report<'a>(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
         .add_worksheet(Some(&"Workitems"))
         .map_err(ReportError::XslxError)?;
 
-    macro_rules! header {
-        ($col:ident, $val:expr) => {
+    let wrote_workbook: Result<(), ReportError> = {
+        for (col, text) in vec!["Writer", "Date", "Guide", "Description", "Status"]
+            .iter()
+            .enumerate()
+        {
+            let col: u16 = col
+                .try_into()
+                .map_err(|e| ReportError::Other(format!("{e}")))?;
             report_sheet
-                .write_string(0, $col, $val, Some(header_format))
-                .map_err(ReportError::XslxError)?
-        };
-    }
+                .write_string(0, col, text, Some(header_format))
+                .map_err(ReportError::XslxError)?;
+        }
 
-    for (i, h) in vec!["Writer", "Date", "Guide", "Description", "Status"]
-        .iter()
-        .enumerate()
-    {
-        let i: u16 = i.try_into().unwrap();
-        header!(i, h);
-    }
+        for (row, item) in items.iter().enumerate() {
+            for (col, (text, format)) in [
+                (item.name(), None),
+                (item.date().to_string().as_str(), Some(date_format)),
+                (item.guide(), None),
+                (item.description(), None),
+                (item.status(), None),
+            ]
+            .iter()
+            .enumerate()
+            {
+                let row: u32 = (row + 1)
+                    .try_into()
+                    .map_err(|e| ReportError::Other(format!("{e}")))?;
+                let col: u16 = col
+                    .try_into()
+                    .map_err(|e| ReportError::Other(format!("{e}")))?;
+                report_sheet
+                    .write_string(row, col, text, format.or(Some(body_format)))
+                    .map_err(ReportError::XslxError)?;
+            }
+        }
+        Ok(())
+    };
 
-    macro_rules! body {
-        ($row:ident, $col:literal, $val:expr, $format:expr) => {
-            report_sheet
-                .write_string($row + 1, $col, format!("{}", $val).as_str(), $format)
-                .map_err(ReportError::XslxError)?
-        };
-        ($row:ident, $col:expr, $val:expr) => {
-            report_sheet
-                .write_string(
-                    $row + 1,
-                    $col,
-                    format!("{}", $val).as_str(),
-                    Some(body_format),
-                )
-                .map_err(ReportError::XslxError)?
-        };
-    }
+    let result = {
+        // If the close fails, we have big problems and probably can't clean up.
+        workbook.close().map_err(ReportError::XslxError)?;
 
-    for (row, item) in items.iter().enumerate() {
-        let row: u32 = row.try_into().unwrap();
-        body!(row, 0, item.name());
-        body!(row, 1, item.date(), Some(date_format));
-        body!(row, 2, item.guide());
-        body!(row, 3, item.description());
-        body!(row, 4, item.status());
-    }
+        wrote_workbook.and_then(|()| {
+            std::fs::read(&path).map_err(|err| {
+                ReportError::Other(format!("Failed to read back report from {path}: {err}"))
+            })
+        })
+    };
 
-    workbook.close().map_err(ReportError::XslxError)?;
-
-    let result = std::fs::read(&path).map_err(|err| {
-        ReportError::Other(format!("Failed to read back report from {path}: {err}"))
+    let _ = std::fs::remove_file(&path).or_else(|e| {
+        tracing::error!({ error = ?e }, "Failed to remove temporary file {path}");
+        Err(e)
     });
-    let _ = std::fs::remove_file(&path);
     result
 }

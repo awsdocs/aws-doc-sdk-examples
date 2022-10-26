@@ -1,12 +1,14 @@
+# chef and planner steps pre-compile the upstream create dependencies.
 FROM lukemathwalker/cargo-chef:latest-rust-1.59.0 as chef
 WORKDIR /app
 RUN apt update && apt install lld clang -y
 
 FROM chef as planner
-COPY . .
+COPY Cargo.toml .
 # Compute a lock-like file for our project
 RUN cargo chef prepare  --recipe-path recipe.json
 
+# After pre-building the crates, build the app binary
 FROM chef as builder
 COPY --from=planner /app/recipe.json recipe.json
 # Build our project dependencies, not our application!
@@ -15,6 +17,7 @@ COPY . .
 # Build our project
 RUN cargo build --release --bin rest_ses
 
+# Take the final binary from the builder, and the local configuration files
 FROM debian:bullseye-slim AS runtime
 WORKDIR /app
 RUN apt-get update -y \

@@ -9,6 +9,8 @@ use serde::Deserialize;
 
 use crate::configuration::{RdsSettings, SesSettings};
 
+/// An AWS RDSData Client, with additional global request information.
+/// The configured db, cluster, and secret manager will be used when executing statements or transactions from this Client.
 pub struct RdsClient {
     secret_arn: Secret<String>,
     cluster_arn: String,
@@ -26,13 +28,13 @@ impl RdsClient {
         }
     }
 
-    pub fn execute_statement(&self, sql: &str) -> ExecuteStatement {
+    /// Prepare an ExecuteStatement builder with the ARNs from this client.
+    pub fn execute_statement(&self) -> ExecuteStatement {
         self.client
             .execute_statement()
             .secret_arn(self.secret_arn.expose_secret())
             .resource_arn(self.cluster_arn.as_str())
             .database(self.db_instance.as_str())
-            .sql(sql)
     }
 }
 
@@ -47,6 +49,7 @@ impl Clone for RdsClient {
     }
 }
 
+/// A newtype wrapper for Email addresses.
 #[derive(Debug, Clone, Deserialize)]
 pub struct Email(String);
 
@@ -62,6 +65,7 @@ impl<'a> Into<Address<'a>> for Email {
     }
 }
 
+/// A newtype wrapper for ARNs.
 #[derive(Debug, Clone, Deserialize)]
 pub struct Arn(String);
 
@@ -71,6 +75,8 @@ impl Into<std::string::String> for Arn {
     }
 }
 
+/// An AWS SES Client, with additional global request information.
+/// All requests will use this source Email and Arn when sending via SES.
 pub struct SesClient {
     client: aws_sdk_ses::Client,
     source: Email,

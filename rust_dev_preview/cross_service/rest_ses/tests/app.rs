@@ -1,3 +1,4 @@
+//! End-to-end tests for the Rest SES app.
 use std::net::TcpListener;
 
 use once_cell::sync::Lazy;
@@ -21,6 +22,8 @@ static TRACING: Lazy<Environment> = Lazy::new(|| {
     environment
 });
 
+/// Verify that the healthz route works.
+/// This is the "hello, world" of the test suite!
 #[tokio::test]
 async fn healthz_works() {
     let (app, _) = spawn_app().await;
@@ -39,6 +42,7 @@ async fn healthz_works() {
     assert_eq!(response.content_length(), Some(3));
 }
 
+/// Send JSON to the create endpoint, expect 200 back, and check the database for that item.
 #[tokio::test]
 async fn post_workitem_returns_200() {
     let (app, rds) = spawn_app().await;
@@ -66,7 +70,8 @@ async fn post_workitem_returns_200() {
         serde_json::from_str(&body.as_str()).expect("failed to parse response body");
 
     let result = rds
-        .execute_statement("SELECT idwork FROM Work WHERE idwork = :idwork;")
+        .execute_statement()
+        .sql("SELECT idwork FROM Work WHERE idwork = :idwork;")
         .set_parameters(params![("idwork", work_item.idwork().to_string())])
         .send()
         .await
@@ -98,6 +103,7 @@ async fn post_workitem_returns_400_with_missing_username() {
     );
 }
 
+/// Create a single item, and assert we can get it back from the list endpoint.
 #[tokio::test]
 async fn get_workitem_returns_200() {
     let (app, _) = spawn_app().await;
@@ -135,6 +141,8 @@ async fn get_workitem_returns_200() {
     );
 }
 
+/// Prepare the application for testing.
+/// This is similar to, but not quite the same as, main in main.rs.
 async fn spawn_app() -> (String, RdsClient) {
     let environment = Lazy::force(&TRACING);
     let settings = get_settings(environment).expect("failed to read configuration");

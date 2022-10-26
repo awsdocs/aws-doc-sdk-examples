@@ -6,6 +6,8 @@ use rest_ses::startup::run;
 use rest_ses::telemetry::{get_subscriber, init_subscriber};
 use tracing::{debug, info};
 
+/// A tokio main for our app!
+/// It loads the environment & settings, prepares subscribers, AWS Clients, and the Actix server.
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
     // App Settings come from configuration.yaml

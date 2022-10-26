@@ -1,6 +1,8 @@
 pub mod collection;
 pub mod repository;
 
+use std::convert::TryFrom;
+
 use actix_web::{http::StatusCode, HttpResponse, ResponseError};
 use chrono::NaiveDate;
 use serde::{
@@ -11,6 +13,9 @@ use serde_json::json;
 use thiserror::Error;
 use uuid::Uuid;
 
+/// A WorkItem, following the spec definition.
+/// Many fields are default, both for default as well as serde.
+/// `name` has an alias of `username`, to match the FE spec with the table defition.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct WorkItem {
     #[serde(default = "uuid::Uuid::new_v4")]
@@ -36,25 +41,22 @@ impl WorkItem {
     pub fn date(&self) -> &NaiveDate {
         &self.date
     }
-    pub fn name(&self) -> &String {
-        &self.name
+    pub fn name(&self) -> &str {
+        self.name.as_str()
     }
-    pub fn description(&self) -> &String {
-        &self.description
+    pub fn description(&self) -> &str {
+        self.description.as_str()
     }
-    pub fn guide(&self) -> &String {
-        &self.guide
+    pub fn guide(&self) -> &str {
+        self.guide.as_str()
     }
-    pub fn status(&self) -> &String {
-        &self.status
+    pub fn status(&self) -> &str {
+        self.status.as_str()
     }
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-pub struct WorkItemStatus {
-    archived: WorkItemArchived,
-}
-
+/// An enum to represent the archival status of a WorkItem.
+/// This field has varying representations at different parts of the stack, so needs some specialized serde visitors.
 #[derive(Clone, Debug, Default, Serialize)]
 #[serde(untagged)]
 pub enum WorkItemArchived {
@@ -62,6 +64,49 @@ pub enum WorkItemArchived {
     Active,
     Archived,
 }
+
+const ACTIVE: &str = "active";
+const ARCHIVED: &str = "archive";
+
+impl From<&WorkItemArchived> for u8 {
+    fn from(value: &WorkItemArchived) -> Self {
+        match value {
+            WorkItemArchived::Active => 0,
+            WorkItemArchived::Archived => 1,
+        }
+    }
+}
+
+impl TryFrom<u8> for WorkItemArchived {
+    type Error = WorkItemError;
+
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        match value {
+            0 => Ok(WorkItemArchived::Active),
+            1 => Ok(WorkItemArchived::Archived),
+            _ => Err(WorkItemError::Archival(format!(
+                "Unrecognized archive number {value}"
+            ))),
+        }
+    }
+}
+
+impl TryFrom<&str> for WorkItemArchived {
+    type Error = WorkItemError;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value {
+            ACTIVE | "" | "0" => Ok(WorkItemArchived::Active),
+            ARCHIVED | "1" => Ok(WorkItemArchived::Archived),
+            _ => Err(WorkItemError::Archival(format!(
+                "Unrecognized archive string {value}"
+            ))),
+        }
+    }
+}
+
+/// The front end specifies archived status with the strings "archived" and "active".
+/// The RDS table encodes status as 1 and 0.
+/// This serde visit handles those disparate cases, using the try_from impls.
 struct WorkItemArchivedVisitor;
 impl<'de> Visitor<'de> for WorkItemArchivedVisitor {
     type Value = WorkItemArchived;
@@ -70,30 +115,18 @@ impl<'de> Visitor<'de> for WorkItemArchivedVisitor {
     where
         E: de::Error,
     {
-        if value == 0 {
-            Ok(WorkItemArchived::Active)
-        } else if value == 1 {
-            Ok(WorkItemArchived::Archived)
-        } else {
-            Err(E::custom(format!("Unrecognized archive number {value}")))
-        }
+        (value as u8).try_into().map_err(E::custom)
     }
 
-    fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+    fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
     where
         E: de::Error,
     {
-        if matches!(v, "active") {
-            Ok(WorkItemArchived::Active)
-        } else if matches!(v, "archived") {
-            Ok(WorkItemArchived::Archived)
-        } else {
-            Err(E::custom(format!("Unrecognized archive string {v}")))
-        }
+        value.try_into().map_err(E::custom)
     }
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-        formatter.write_str("Integer 0 or 1, or string 'active' or 'archive'")
+        formatter.write_str("int 0 or 1, or string 'active' or 'archived'")
     }
 }
 
@@ -102,47 +135,36 @@ impl<'de> Deserialize<'de> for WorkItemArchived {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_i64(WorkItemArchivedVisitor)
+        deserializer.deserialize_u64(WorkItemArchivedVisitor)
     }
 }
 
-impl WorkItemArchived {
-    pub fn db_int(&self) -> u8 {
-        match self {
-            WorkItemArchived::Active => 0,
-            WorkItemArchived::Archived => 1,
-        }
-    }
-}
-
-const ARCHIVED: &str = &"archive";
-
-impl std::convert::From<&str> for WorkItemArchived {
-    fn from(archived: &str) -> Self {
-        if matches!(archived, ARCHIVED) {
-            WorkItemArchived::Archived
-        } else {
-            WorkItemArchived::Active
-        }
-    }
-}
-
+/// The various WorkItem specific errors that can occur.
 #[derive(Debug, Error)]
 pub enum WorkItemError {
-    #[error("RDS Failed: {0}")]
-    RDSError(aws_sdk_rdsdata::Error),
-
+    /// An error when the requested itemid is missing.
     #[error("Missing item: {0}")]
     MissingItem(String),
 
+    /// An error in the underlying RDSError service.
+    #[error("RDS Failed: {0}")]
+    RDSError(aws_sdk_rdsdata::Error),
+
+    /// An error when parsing a request or response body from Json to WorkItem.
     #[error("Invalid Field: {0}")]
     FromFields(String),
 
+    /// An unknown archive value was sent.
+    #[error("Unknown archive state: {0}")]
+    Archival(String),
+
+    /// Some other error.
     #[error("Other WorkItem Error: {0}")]
     Other(String),
 }
 
 impl ResponseError for WorkItemError {
+    /// MissingItem is a 404, everything else is a server error.
     fn status_code(&self) -> reqwest::StatusCode {
         match self {
             WorkItemError::MissingItem(_) => StatusCode::NOT_FOUND,
@@ -150,9 +172,8 @@ impl ResponseError for WorkItemError {
         }
     }
 
+    /// All errors get formatted using their display formtting, and put into the `error` response body field.
     fn error_response(&self) -> actix_web::HttpResponse<actix_web::body::BoxBody> {
         HttpResponse::build(self.status_code()).json(json!({ "error": format!("{}", self) }))
     }
 }
-
-const RDS_DATE_FORMAT: &'static str = "%Y-%m-%d";

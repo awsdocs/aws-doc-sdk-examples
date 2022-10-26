@@ -1,22 +1,26 @@
+//! The repository module includes data access components. It exposes Create,
+//! Retrieve, List, Update, and Delete functions that work with an `&RdsClient`
+//! to execute SQL that manages WorkItem persitence. Its interface encapsulates
+//! RDS and data parsing errors behind the WorkItemError enum defined in the
+//! parent work_item mod.
 use aws_sdk_rdsdata::{
     error::ExecuteStatementError, model::RecordsFormatType, output::ExecuteStatementOutput,
     types::SdkError,
 };
 use serde_json::from_str;
 
-use super::{WorkItem, WorkItemArchived, WorkItemError, RDS_DATE_FORMAT};
+use super::{WorkItem, WorkItemArchived, WorkItemError};
 use crate::{client::RdsClient, params};
 
-/// The repository module includes data access components. It exposes Create,
-/// Retrieve, List, Update, and Delete functions that work with an `&RdsClient`
-/// to execute SQL that manages WorkItem persitence. Its interface encapsulates
-/// RDS and data parsing errors behind the WorkItemError enum defined in the
-/// parent work_item mod.
+pub const RDS_DATE_FORMAT: &str = "%Y-%m-%d";
 
+/// Create a new WorkItem using `INSERT INTO`.
+/// After inserting the item, ensures its success by retrieving that item rather than the stored copy.
 #[tracing::instrument(name = "Repository Create new WorkItem", skip(item, client))]
 pub async fn create(item: WorkItem, client: &RdsClient) -> Result<WorkItem, WorkItemError> {
     client
-        .execute_statement(
+        .execute_statement()
+        .sql(
             r#"
             INSERT INTO Work
             (idwork, username, date, description, guide, status, archive)
@@ -31,7 +35,10 @@ pub async fn create(item: WorkItem, client: &RdsClient) -> Result<WorkItem, Work
             ("description", item.description),
             ("guide", item.guide),
             ("status", item.status),
-            ("archive", format!("{}", 0))
+            (
+                "archive",
+                format!("{}", u8::from(&WorkItemArchived::Active))
+            )
         ])
         .send()
         .await
@@ -43,10 +50,12 @@ pub async fn create(item: WorkItem, client: &RdsClient) -> Result<WorkItem, Work
     retrieve(item.idwork().to_string(), client).await
 }
 
+// Retrieve a single record, by ID.
 #[tracing::instrument(name = "Repository Retrieve single WorkItem", skip(client))]
 pub async fn retrieve(id: String, client: &RdsClient) -> Result<WorkItem, WorkItemError> {
     let statement = client
-        .execute_statement(
+        .execute_statement()
+        .sql(
             r#"SELECT
                 idwork, username, date, description, guide, status, archive
             FROM Work
@@ -80,20 +89,22 @@ pub async fn retrieve(id: String, client: &RdsClient) -> Result<WorkItem, WorkIt
     Ok(item.to_owned())
 }
 
+/// Retrieve a list of all records with a given WorkItemArchived state.
 #[tracing::instrument(name = "Repository List all WorkItems", skip(client))]
 pub async fn list(
     archive: WorkItemArchived,
     client: &RdsClient,
 ) -> Result<Vec<WorkItem>, WorkItemError> {
     let statement = client
-        .execute_statement(
+        .execute_statement()
+        .sql(
             r#"SELECT
                 idwork, username, date, description, guide, status, archive
             FROM Work
             WHERE archive = :archive
             ;"#,
         )
-        .set_parameters(params![("archive", archive.db_int().to_string())])
+        .set_parameters(params![("archive", format!("{}", u8::from(&archive)))])
         .format_records_as(RecordsFormatType::Json)
         .send()
         .await;
@@ -101,10 +112,13 @@ pub async fn list(
     parse_rds_output(statement)
 }
 
+/// Update a single item in the database, by ID.
+/// Retrieves the value after update for its result.
 #[tracing::instrument(name = "Repository Update WorkItem", skip(client))]
 pub async fn update(item: &WorkItem, client: &RdsClient) -> Result<WorkItem, WorkItemError> {
     client
-        .execute_statement(
+        .execute_statement()
+        .sql(
             r#"
             UPDATE Work
             SET 
@@ -114,7 +128,7 @@ pub async fn update(item: &WorkItem, client: &RdsClient) -> Result<WorkItem, Wor
                 guide = :guide,
                 status = :status,
                 archive = :archive
-            WEHRE idwork:idwork
+            WEHRE idwork = :idwork;
         "#,
         )
         .set_parameters(params![
@@ -124,7 +138,7 @@ pub async fn update(item: &WorkItem, client: &RdsClient) -> Result<WorkItem, Wor
             ("description", item.description),
             ("guide", item.guide),
             ("status", item.status),
-            ("archive", format!("{}", item.archive.db_int()))
+            ("archive", format!("{}", u8::from(&item.archive)))
         ])
         .send()
         .await
@@ -132,14 +146,15 @@ pub async fn update(item: &WorkItem, client: &RdsClient) -> Result<WorkItem, Wor
             tracing::error!("Failed to update user: {id} {err:?}", id = item.idwork);
             WorkItemError::RDSError(err.into())
         })?;
-
     retrieve(item.idwork().to_string(), client).await
 }
 
+/// Delete an item from the database, returning () on success.
 #[tracing::instrument(name = "Repository Delete WorkItem", skip(client))]
 pub async fn delete(id: String, client: &RdsClient) -> Result<(), WorkItemError> {
     client
-        .execute_statement(r#"DELETE FROM Work WHERE idwork = :idwork"#)
+        .execute_statement()
+        .sql(r#"DELETE FROM Work WHERE idwork = :idwork"#)
         .set_parameters(params![("idwork", id)])
         .send()
         .await

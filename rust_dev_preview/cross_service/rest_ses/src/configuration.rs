@@ -6,6 +6,7 @@ use serde::Deserialize;
 
 use crate::client::{Arn, Email};
 
+/// Top level settings, for organization.
 #[derive(Debug, Deserialize)]
 pub struct Settings {
     pub log_level: String,
@@ -20,6 +21,7 @@ impl Settings {
     }
 }
 
+/// Application specific settings, for the HTTP server.
 #[derive(Debug, Deserialize)]
 pub struct ApplicationSettings {
     pub name: String,
@@ -27,6 +29,7 @@ pub struct ApplicationSettings {
     pub port: u16,
 }
 
+/// Settings for the RDS client, primarily the DB & Cluster to access.
 #[derive(Debug, Deserialize)]
 pub struct RdsSettings {
     pub secret_arn: Secret<String>,
@@ -34,12 +37,14 @@ pub struct RdsSettings {
     pub db_instance: String,
 }
 
+/// Settings for the SES client, primarily the source email & ARN.
 #[derive(Debug, Deserialize)]
 pub struct SesSettings {
     pub source: Email,
     pub source_arn: Option<Arn>,
 }
 
+/// Any errors when loading the settings. Why are environments so complicated.
 #[derive(Debug)]
 pub enum SettingsError {
     Config(config::ConfigError),
@@ -50,6 +55,8 @@ const DEFAULT_ENVIRONMENT: &str = &"local";
 const DEFAULT_LOG_LEVEL: &str = &"trace";
 const DEFAULT_BACKTRACE: &str = &"1";
 
+/// Attempt to find the environment, and pre-set any environment variables.
+/// Valid environments are in [Environment].
 pub fn init_environment() -> Result<Environment, SettingsError> {
     let environment: Environment = std::env::var("APP_ENVIRONMENT")
         .unwrap_or_else(|_| DEFAULT_ENVIRONMENT.into())
@@ -72,6 +79,8 @@ pub fn init_environment() -> Result<Environment, SettingsError> {
     Ok(environment)
 }
 
+/// Load settings, given an [Environment].
+/// Looks in base.yaml, {environment}.yaml, and then APP_* env variables.
 pub fn get_settings(environment: &Environment) -> Result<Settings, SettingsError> {
     let base_dir = std::env::current_dir().expect("Failed to determine cwd");
     let config_dir = base_dir.join("configuration");
@@ -94,6 +103,7 @@ pub fn get_settings(environment: &Environment) -> Result<Settings, SettingsError
         .map_err(SettingsError::Config)
 }
 
+/// Valid environments for this app.
 pub enum Environment {
     Local,
     Production,
