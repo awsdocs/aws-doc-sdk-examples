@@ -1,3 +1,8 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { map, nth, pipe } from "ramda";
 import { splitMapTrim } from "../ext-ramda.js";
 import { getNewLineDelimitedEntries } from "./util-fs.js";
