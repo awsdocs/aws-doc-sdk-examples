@@ -97,12 +97,6 @@ export const WorkItems = () => {
       }
       columnDefinitions={[
         {
-          id: "id",
-          header: "ID",
-          cell: (e) => e.id,
-          sortingField: "id",
-        },
-        {
           id: "name",
           header: "Name",
           cell: (e) => e.name,

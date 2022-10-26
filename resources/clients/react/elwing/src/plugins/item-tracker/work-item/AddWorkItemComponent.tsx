@@ -57,9 +57,9 @@ export const AddWorkItem = () => {
         status,
         archived: false,
       })
+      .then(loadItems)
       .catch(console.error);
     setShow(false);
-    loadItems();
   };
 
   const handleClose = () => {
