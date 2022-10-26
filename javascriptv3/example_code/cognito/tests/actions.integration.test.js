@@ -1,3 +1,8 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { describe, expect } from "@jest/globals";
 import { createUserPool } from "../actions/create-user-pool.js";
 import { getUniqueName } from "../../libs/utils/util-string.js";
