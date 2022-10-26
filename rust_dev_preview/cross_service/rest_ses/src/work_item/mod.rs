@@ -1,3 +1,4 @@
+//! WorkItem domain entity and error wrapper.
 pub mod collection;
 pub mod repository;
 
@@ -22,6 +23,7 @@ pub struct WorkItem {
     idwork: Uuid,
     #[serde(default)]
     date: NaiveDate,
+    /// This ...
     #[serde(alias = "username")]
     name: String,
     #[serde(default)]
@@ -60,9 +62,10 @@ impl WorkItem {
 #[derive(Clone, Debug, Default, Serialize)]
 #[serde(untagged)]
 pub enum WorkItemArchived {
-    #[default]
     Active,
     Archived,
+    #[default]
+    All,
 }
 
 const ACTIVE: &str = "active";
@@ -73,6 +76,7 @@ impl From<&WorkItemArchived> for u8 {
         match value {
             WorkItemArchived::Active => 0,
             WorkItemArchived::Archived => 1,
+            WorkItemArchived::All => 255,
         }
     }
 }
@@ -95,7 +99,8 @@ impl TryFrom<&str> for WorkItemArchived {
     type Error = WorkItemError;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
-            ACTIVE | "" | "0" => Ok(WorkItemArchived::Active),
+            "" => Ok(WorkItemArchived::All),
+            ACTIVE | "0" => Ok(WorkItemArchived::Active),
             ARCHIVED | "1" => Ok(WorkItemArchived::Archived),
             _ => Err(WorkItemError::Archival(format!(
                 "Unrecognized archive string {value}"

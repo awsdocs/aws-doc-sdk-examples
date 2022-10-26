@@ -1,3 +1,6 @@
+//! Application logic aware wrappers around AWS SDK Clients.
+//!
+//! These wrappers add default ARNs for resources the application accesses, and adds those to common calls.
 use std::option::Option;
 
 use aws_config::SdkConfig;
@@ -11,6 +14,7 @@ use crate::configuration::{RdsSettings, SesSettings};
 
 /// An AWS RDSData Client, with additional global request information.
 /// The configured db, cluster, and secret manager will be used when executing statements or transactions from this Client.
+#[derive(Clone)]
 pub struct RdsClient {
     secret_arn: Secret<String>,
     cluster_arn: String,
@@ -29,23 +33,20 @@ impl RdsClient {
     }
 
     /// Prepare an ExecuteStatement builder with the ARNs from this client.
+    ///
+    /// ```
+    /// let client: rest_ses::client::RdsClient = todo!();
+    /// client
+    ///     .execute_statement()
+    ///     .sql("INSERT values (:name) INTO table;")
+    ///     .set_parameters(rest_ses::params![("name", "rust")]);
+    /// ```
     pub fn execute_statement(&self) -> ExecuteStatement {
         self.client
             .execute_statement()
             .secret_arn(self.secret_arn.expose_secret())
             .resource_arn(self.cluster_arn.as_str())
             .database(self.db_instance.as_str())
-    }
-}
-
-impl Clone for RdsClient {
-    fn clone(&self) -> Self {
-        Self {
-            secret_arn: self.secret_arn.clone(),
-            cluster_arn: self.cluster_arn.clone(),
-            db_instance: self.db_instance.clone(),
-            client: self.client.clone(),
-        }
     }
 }
 
@@ -77,6 +78,7 @@ impl Into<std::string::String> for Arn {
 
 /// An AWS SES Client, with additional global request information.
 /// All requests will use this source Email and Arn when sending via SES.
+#[derive(Clone)]
 pub struct SesClient {
     client: aws_sdk_ses::Client,
     source: Email,
@@ -107,12 +109,7 @@ impl SesClient {
 }
 
 /// This is a declarative macro that builds a Vec<SqlParameter> to use in ExecuteStatementBuilder::set_parameters.
-/// It requires that all parameters will be sent as strings.
-///
-/// ```
-/// client.execute_statement("INSERT values (:name) INTO table;")
-/// .set_parameters(params![("name"), ("rust")])
-/// ```
+/// It requires that all parameters be sent as strings.
 #[macro_export]
 macro_rules! params {
     ($((
@@ -123,8 +120,8 @@ macro_rules! params {
             let mut v = Vec::new();
             $(
                 v.push(aws_sdk_rdsdata::model::SqlParameter::builder()
-                    .name($name)
-                    .value(aws_sdk_rdsdata::model::Field::StringValue($value.clone()))
+                    .name($name.to_string())
+                    .value(aws_sdk_rdsdata::model::Field::StringValue($value.to_string().clone()))
                     .build());
             )*
             Some(v)

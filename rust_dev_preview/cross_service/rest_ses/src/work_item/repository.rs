@@ -29,7 +29,7 @@ pub async fn create(item: WorkItem, client: &RdsClient) -> Result<WorkItem, Work
         "#,
         )
         .set_parameters(params![
-            ("idwork", item.idwork.to_string()),
+            ("idwork", item.idwork),
             ("username", item.name),
             ("date", format!("{}", item.date.format(RDS_DATE_FORMAT))),
             ("description", item.description),
@@ -132,7 +132,7 @@ pub async fn update(item: &WorkItem, client: &RdsClient) -> Result<WorkItem, Wor
         "#,
         )
         .set_parameters(params![
-            ("idwork", item.idwork.to_string()),
+            ("idwork", item.idwork),
             ("username", item.name),
             ("date", format!("{}", item.date.format(RDS_DATE_FORMAT))),
             ("description", item.description),

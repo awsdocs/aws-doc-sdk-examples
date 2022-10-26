@@ -1,4 +1,5 @@
 //! Configure a common tracing stack for the the app.
+use actix_web_prom::{PrometheusMetrics, PrometheusMetricsBuilder};
 use tracing::{subscriber::set_global_default, Subscriber};
 use tracing_bunyan_formatter::{BunyanFormattingLayer, JsonStorageLayer};
 use tracing_log::LogTracer;
@@ -24,4 +25,11 @@ where
 pub fn init_subscriber(subscriber: impl Subscriber + Send + Sync) {
     LogTracer::init().expect("Failed to init logger");
     set_global_default(subscriber).expect("Failed to set global subscriber");
+}
+
+pub fn metrics_wrapper() -> PrometheusMetrics {
+    PrometheusMetricsBuilder::new("api")
+        .endpoint("/metricz")
+        .build()
+        .expect("Failed to create metrics endpoint")
 }

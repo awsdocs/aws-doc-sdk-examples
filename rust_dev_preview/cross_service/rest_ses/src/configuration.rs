@@ -1,3 +1,6 @@
+//! Environment and settings loading.
+//!
+//! Loads environment specific details for ARNs, tcp listeners, etc.
 use std::net::{IpAddr, SocketAddr};
 
 use color_eyre::Report;

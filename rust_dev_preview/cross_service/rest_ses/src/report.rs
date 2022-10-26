@@ -1,4 +1,4 @@
-//! The /items:report endpoint
+//! The `/items:report` endpoint.
 use crate::{
     client::{Email, RdsClient, SesClient},
     work_item::{repository::list, WorkItem, WorkItemArchived, WorkItemError},

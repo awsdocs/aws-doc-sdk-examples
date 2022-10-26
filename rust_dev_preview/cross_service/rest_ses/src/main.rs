@@ -1,3 +1,4 @@
+//! Main that loads environments & prepares clients, and hands them to `startup`.
 use std::net::TcpListener;
 
 use rest_ses::client::{RdsClient, SesClient};

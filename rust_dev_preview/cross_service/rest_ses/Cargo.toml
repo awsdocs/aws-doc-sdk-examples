@@ -13,6 +13,7 @@ name = "rest_ses"
 
 [dependencies]
 actix-web = "4"
+actix-web-prom = "0.6.0"
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-cloudwatchlogs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-rdsdata = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }

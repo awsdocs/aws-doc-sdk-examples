@@ -1,6 +1,7 @@
-use actix_web::{HttpResponse, Responder};
+//! Don't worry! Be healthz!
+use actix_web::{get, HttpResponse, Responder};
 
-/// Don't worry... be healthz...
+#[get("/healthz")]
 pub async fn healthz() -> impl Responder {
     HttpResponse::Ok().body("OK\n")
 }
