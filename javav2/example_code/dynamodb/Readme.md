@@ -25,6 +25,7 @@ You will find these examples that use the **DynamoDbClient** object:
 - [Deleting an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DeleteTable.java) (DeleteTable command)
 - [Describing an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DescribeTable.java) (DescribeTable command)
 - [Listing Amazon DynamoDB tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ListTables.java) (ListTables command)
+- [Retrieving an item from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/GetItem.java) (GetItem command)
 - [Putting items into an Amazon DynamoDB tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/PutItem.java) (PutItem command)
 - [Querying items from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Query.java) (Query command)
 - [Querying items from an Amazon DynamoDB table using a secondary index](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/QueryItemsUsingIndex.java) (Query command)
@@ -39,7 +40,6 @@ You will find these examples that use the **DynamoDbEnhancedClient** object:
 - [Putting an item into an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedPutItem.java) (PutItem command)
 - [Quering items from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedQueryRecords.java) (Query command)
 - [Quering items from an Amazon DynamoDB table by using the enhanced client and a secondary index](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedGetItemUsingIndex.java) (Query command)
-- [Retrieving an item from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/GetItem.java) (GetItem command)
 - [Scanning items from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedScanRecords.java) (Scan command)
 
 ### Scenario

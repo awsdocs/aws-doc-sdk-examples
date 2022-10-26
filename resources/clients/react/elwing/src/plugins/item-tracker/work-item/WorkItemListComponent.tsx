@@ -91,16 +91,11 @@ export const WorkItems = () => {
     <Table
       variant="embedded"
       selectedItems={selected}
+      sortingDisabled
       onSelectionChange={({ detail }) =>
         setSelected(detail.selectedItems as WorkItem[])
       }
       columnDefinitions={[
-        {
-          id: "id",
-          header: "ID",
-          cell: (e) => e.id,
-          sortingField: "id",
-        },
         {
           id: "name",
           header: "Name",

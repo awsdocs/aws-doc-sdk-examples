@@ -6,78 +6,76 @@
 package com.aws.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+@ComponentScan(basePackages = {"com.aws.rest"})
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/items")
 public class MainController {
+    private final WorkItemRepository repository;
 
     @Autowired
-    RetrieveItems ri;
-
-    @Autowired
-    WriteExcel writeExcel;
-
-    @Autowired
-    SendMessage sm;
-
-   @Autowired
-   InjectWorkService iw;
-
-    @GetMapping("items/{state}")
-    public List< WorkItem > getItems(@PathVariable String state) {
-        if (state.compareTo("active") == 0)
-            return ri.getData("0") ;
-        else
-            return ri.getData("1") ;
+    MainController(
+        WorkItemRepository repository
+    ) {
+        this.repository = repository;
     }
 
-    // Flip an item from Active to Archive.
-    @PutMapping("mod/{id}")
+    @GetMapping("" )
+    public List<WorkItem> getItems(@RequestParam(required=false) String archived) {
+        Iterable<WorkItem> result;
+        if (archived != null && archived.compareTo("false")==0)
+           result = repository.getData("0");
+        else if (archived != null && archived.compareTo("true")==0)
+            result = repository.getData("1");
+        else
+            result = repository.getData("");
+
+        return StreamSupport.stream(result.spliterator(), false)
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+
+    // Notice the : character which is used for custom methods. More information can be found here:
+    // https://cloud.google.com/apis/design/custom_methods
+    @PutMapping("{id}:archive")
     public String modUser(@PathVariable String id) {
-        ri.flipItemArchive(id);
+        repository.flipItemArchive(id);
         return id +" was archived";
     }
 
-    // Adds a new item to the database.
-    @PostMapping("add")
-    String addItems(@RequestBody Map<String, Object> payLoad) {
-        String name = "user";
-        String guide = (String)payLoad.get("guide");
-        String description = (String)payLoad.get("description");
-        String status = (String)payLoad.get("status");
+    @PostMapping("")
+    public String addItem(@RequestBody Map<String, String> payload) {
+        String name = payload.get("name");
+        String guide = payload.get("guide");
+        String description = payload.get("description");
+        String status = payload.get("status");
 
-        // Create a Work Item object to pass to the injestNewSubmission method.
-        WorkItem myWork = new WorkItem();
-        myWork.setGuide(guide);
-        myWork.setDescription(description);
-        myWork.setStatus(status);
-        myWork.setName(name);
-        iw.injectNewSubmission(myWork);
-        return "Item added";
-    }
-
-    @PutMapping("report/{email}")
-    public String sendReport(@PathVariable String email){
-       List<WorkItem> theList = ri.getData("0");
-       java.io.InputStream is = writeExcel.exportExcel(theList);
-        try {
-           sm.sendReport(is, email);
-        }catch (IOException e) {
-            e.getStackTrace();
-        }
-        return "Report is created";
+        WorkItem item = new WorkItem();
+        String workId = UUID.randomUUID().toString();
+        String date = LocalDateTime.now().toString();
+        item.setId(workId);
+        item.setGuide(guide);
+        item.setDescription(description);
+        item.setName(name);
+        item.setDate(date);
+        item.setStatus(status);
+        return repository.injectNewSubmission(item);
     }
 }
-
