@@ -8,27 +8,19 @@
 #define SERVERLESSAURORA_POCOHTTPSERVER_H
 
 #include <Poco/Util/ServerApplication.h>
+#include "HTTPReceiver.h"
 
 namespace AwsDoc {
     namespace PocoImpl {
-        class PocoHTTPReceiver {
-        public:
-            virtual bool handleHTTP(const std::string &method, const std::string &uri,
-                                    const std::string &requestContent,
-                                    std::string &responseContentType,
-                                    std::ostream &responseStream) = 0;
-        };
-
         class PocoHTTPServer : public Poco::Util::ServerApplication {
         public:
-            explicit PocoHTTPServer(PocoHTTPReceiver &httpReceiver);
+            explicit PocoHTTPServer(AwsDoc::CrossService::HTTPReceiver &httpReceiver);
 
         protected:
             int main(const std::vector<std::string> &) override;
 
-            PocoHTTPReceiver &mHttpReceiver;
+            AwsDoc::CrossService::HTTPReceiver &mHttpReceiver;
         };
-
     }  // namespace PocoImpl
 } // namespace AwsDoc
 

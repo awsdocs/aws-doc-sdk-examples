@@ -2,18 +2,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Set the minimum required version of CMake for this project.
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.14)
 
 set(SERVICE_COMPONENTS sesv2 rds-data)
 
-# This example uses the poco library to implement an http server.
-# Poco can be installed automatically using the Conan package manager.
-# See the accompanying ReadMe for instructions.
-set(USING_CONAN TRUE)  # True if using Conan.
-
 # Set this project's name.
-project("ServerlessAurora")
-set(EXECUTABLE run_serverless_aurora)
+project("ServerlessAuroraGTest")
+set(EXECUTABLE serverless_aurora_gtest)
 
 #Set the location of where Windows can find the installed libraries of the SDK.
 if(MSVC)
@@ -22,12 +17,18 @@ if(MSVC)
 endif()
 
 # Set the C++ standard to use to build this target.
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
-# Enable CTest for testing these code examples.
-if(BUILD_TESTS)
-    include(CTest)
-endif()
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG release-1.12.1
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings.
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
 
 # Build shared libraries by default.
 if(NOT DEFINED BUILD_SHARED_LIBS)
@@ -37,17 +38,6 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-if (USING_CONAN)
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()
-else()
-    find_package(POCO REQUIRED Net Util)
-    list(APPEND MY_POCO_LIBS
-            PocoNet
-            PocoUtil
-            PocoFoundation)
-endif()
-
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
@@ -56,10 +46,20 @@ if(MSVC AND BUILD_SHARED_LIBS)
 
     set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
 
-    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS} ${MY_POCO_LIBS})
+    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
 
-     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
-endif()
+    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
+
+    add_custom_command(
+            TARGET
+            ${EXECUTABLE}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
+            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest_main.dll
+            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+    )
+ endif()
 
 
 # Check whether the target system is Windows, including Win64.
@@ -72,27 +72,25 @@ endif()
 
 
 add_executable(${EXECUTABLE}
-        serverless_aurora.cpp
-        RDSDataHandler.cpp
-        SES3EmailHandler.cpp
-        ItemTrackerHTTPHandler.cpp
-        PocoHTTPServer.cpp)
+        ../RDSDataHandler.cpp
+        ../SES3EmailHandler.cpp
+        ../ItemTrackerHTTPHandler.cpp
+        gtest_serverless_aurora.cpp)
 
-target_include_directories(${EXECUTABLE}
+target_include_directories(
+        ${EXECUTABLE}
         PUBLIC
-        /opt/homebrew/include)
-target_link_directories(${EXECUTABLE}
-        PUBLIC
-        /opt/homebrew/lib)
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+)
+
 target_link_libraries(${EXECUTABLE}
+        GTest::gtest_main
         ${AWSSDK_LINK_LIBRARIES}
-        ${AWSSDK_PLATFORM_DEPS}
-        ${MY_POCO_LIBS}
-        ${CONAN_LIBS})
-
-if(BUILD_TESTS)
-    add_subdirectory(gtests)
-endif()
+        ${AWSSDK_PLATFORM_DEPS})
 
 
-
+include(GoogleTest)
+gtest_add_tests(
+        TARGET
+        ${EXECUTABLE}
+)

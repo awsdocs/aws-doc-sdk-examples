@@ -6,15 +6,8 @@
 #include "ItemTrackerHTTPHandler.h"
 #include "RDSDataHandler.h"
 #include "SES3EmailHandler.h"
+#include "PocoHTTPServer.h"
 
-/*
- *  Add proper body to email
- *  add csv to email
- *
- *  test get item with ID
- *
- *  go through the api's
- */
 
 static const Aws::String TABLE_NAME("items");
 
@@ -33,30 +26,15 @@ void runServerLessAurora(const Aws::String& database,
     AwsDoc::CrossService::SES3EmailHandler sesEmailHandler(sesEmailAddress,
                                                            clientConfiguration);
 
-    // TODO(Developer) remove this code
-
-//    std::vector<AwsDoc::CrossService::WorkItem> debugWorkItems;
-//    for (int i = 0; i < 40; ++i)
-//    {
-//        AwsDoc::CrossService::WorkItem item;
-//        item.mID = std::to_string(i);
-//        item.mName = std::to_string(i) + " name";
-//        item.mGuide = std::to_string(i) + " guide";
-//        item.mDescription = std::to_string(i) + " description";
-//        item.mStatus = std::to_string(i) + " status";
-//        item.mArchived = i % 2;
-//        debugWorkItems.push_back(item);
-//    }
-//    sesEmailHandler.sendEmail("meyertst@amazon.com", debugWorkItems);
-
     AwsDoc::CrossService::ItemTrackerHTTPHandler itemTrackerHttpServer(rdsDataHandler,
                                                                        sesEmailHandler);
-
     char* argv[1];
     char app_name[256];
     strncpy(app_name, "run_aurora_serverless", sizeof(app_name));
     argv[0] = app_name;
-    itemTrackerHttpServer.run(1, argv);
+    AwsDoc::PocoImpl::PocoHTTPServer myServerApp(itemTrackerHttpServer);
+    myServerApp.run(1, argv);
+
 }
 
 int main(int argc, char** argv)

@@ -8,7 +8,7 @@
 #define SERVERLESSAURORA_ITEMTRACKERSERVER_H
 
 #include <aws/core/Aws.h>
-#include "PocoHTTPServer.h"
+#include "HTTPReceiver.h"
 
 namespace AwsDoc {
     namespace CrossService {
@@ -34,6 +34,10 @@ namespace AwsDoc {
             virtual std::vector<WorkItem> getWorkItems(WorkItemStatus status) = 0;
 
             virtual WorkItem getWorkItemWithId(const Aws::String &id) = 0;
+
+            virtual bool setWorkItemToArchive(const Aws::String &id) = 0;
+
+            virtual bool updateWorkItem(const WorkItem &workItem) = 0;
         };
 
         class SESEmailReceiver {
@@ -42,7 +46,8 @@ namespace AwsDoc {
                                    const std::vector<WorkItem> &workItems) = 0;
         };
 
-        class ItemTrackerHTTPHandler : public AwsDoc::PocoImpl::PocoHTTPReceiver {
+
+        class ItemTrackerHTTPHandler : public HTTPReceiver {
         public:
             explicit ItemTrackerHTTPHandler(RDSDataReceiver &rdsDataReceiver,
                                             SESEmailReceiver &emailReceiver);
@@ -55,8 +60,6 @@ namespace AwsDoc {
             void addWorkItem(const std::string &workItemJson);
 
             void sendEmail(const std::string &emailJson);
-
-            void run(int argc, char **argv);
 
         private:
 

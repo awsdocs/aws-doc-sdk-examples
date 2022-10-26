@@ -111,13 +111,11 @@ AwsDoc::CrossService::RDSDataHandler::getWorkItems(WorkItemStatus status) {
         for (const std::vector<Aws::RDSDataService::Model::Field> &record: records) {
             WorkItem item;
             item.mID = record[0].GetStringValue();
-            item.mID = item.mID.substr(0, std::min(4,
-                                                   (int) item.mID.length())); // TODO(Steve) remove substring
             item.mName = record[1].GetStringValue();
             item.mDescription = record[2].GetStringValue();
             item.mGuide = record[3].GetStringValue();
             item.mStatus = record[4].GetStringValue();
-            item.mArchived = record[5].GetBooleanValue();
+            item.mArchived = record[5].GetLongValue() > 0;
             result.push_back(item);
         }
     }
@@ -273,6 +271,95 @@ AwsDoc::CrossService::RDSDataHandler::getWorkItemWithId(const Aws::String &id) {
 
     return result;
 
+}
+
+bool AwsDoc::CrossService::RDSDataHandler::setWorkItemToArchive(const Aws::String &id) {
+    std::stringstream sqlStream;
+    sqlStream << "UPDATE " << mTableName << " SET archived=:archived WHERE "
+     << "iditem='" << id << "';";
+
+    std::vector<Aws::RDSDataService::Model::SqlParameter> parameters;
+
+    // Add 'archived' boolean to parameters.
+    Aws::RDSDataService::Model::SqlParameter parameter;
+
+    parameter.SetName("archived");
+
+    Aws::RDSDataService::Model::Field field;
+    field.SetLongValue(0);
+    parameter.SetValue(field);
+
+    parameters.push_back(parameter);
+
+    Aws::RDSDataService::Model::ExecuteStatementOutcome outcome =
+            executeStatement(sqlStream.str(), parameters);
+
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully updated work item with id '" << id << "' to archived."
+                  << std::endl;
+    }
+    else {
+        std::cerr << "Error updating work item with id '" << id << "' to archived.\n"
+                  << "Error: " << outcome.GetError().GetMessage() << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+
+bool AwsDoc::CrossService::RDSDataHandler::updateWorkItem(
+        const AwsDoc::CrossService::WorkItem &workItem) {
+    // Create SQL statement.
+    std::stringstream sqlStream;
+    sqlStream << "UPDATE " << mTableName <<
+              " SET username=:username, description=:description, guide=:guide, "
+              << "status=:status, archived=:archived WHERE "
+            << "iditem='" << workItem.mID << "';";
+
+
+    // Add strings to parameters.
+    std::vector<std::string> parameterNames =
+            {"username", "description", "guide", "status"};
+    std::vector<std::string> parameterValues =
+            {workItem.mName, workItem.mDescription, workItem.mGuide,
+             workItem.mStatus};
+
+    std::vector<Aws::RDSDataService::Model::SqlParameter> parameters;
+    for (size_t i = 0; i < parameterNames.size(); ++i) {
+        Aws::RDSDataService::Model::SqlParameter parameter;
+
+        parameter.SetName(parameterNames[i]);
+
+        Aws::RDSDataService::Model::Field field;
+        field.SetStringValue(parameterValues[i]);
+        parameter.SetValue(field);
+
+        parameters.push_back(parameter);
+    }
+
+    // Add 'archived' boolean to parameters.
+    Aws::RDSDataService::Model::SqlParameter parameter;
+
+    parameter.SetName("archived");
+
+    Aws::RDSDataService::Model::Field field;
+    field.SetLongValue(workItem.mArchived ? 1 : 0);
+    parameter.SetValue(field);
+
+    parameters.push_back(parameter);
+
+    Aws::RDSDataService::Model::ExecuteStatementOutcome outcome =
+            executeStatement(sqlStream.str(), parameters);
+
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully updated '" << workItem.mName << "' in the table"
+                  << std::endl;
+    }
+    else {
+        std::cerr << "Error updating '" << workItem.mName << "' in the table\n"
+                  << "Error: " << outcome.GetError().GetMessage() << std::endl;
+    }
+
+    return outcome.IsSuccess();
 }
 
 

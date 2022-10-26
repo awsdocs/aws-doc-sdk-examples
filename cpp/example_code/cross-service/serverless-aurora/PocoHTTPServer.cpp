@@ -11,6 +11,7 @@
 #include <Poco/Net/HTTPResponse.h>
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/HTTPServerResponse.h>
+
 #include <iostream>
 #include <sstream>
 
@@ -21,7 +22,7 @@ namespace AwsDoc {
         class MyRequestHandler : public Poco::Net::HTTPRequestHandler {
         public:
             explicit MyRequestHandler(
-                    PocoHTTPReceiver &httpReceiver) :
+                    AwsDoc::CrossService::HTTPReceiver &httpReceiver) :
                     mHttpReceiver(httpReceiver) {}
 
             virtual void
@@ -79,13 +80,13 @@ namespace AwsDoc {
             }
 
         private :
-            PocoHTTPReceiver &mHttpReceiver;
+            AwsDoc::CrossService::HTTPReceiver &mHttpReceiver;
        };
 
         class MyRequestHandlerFactory : public Poco::Net::HTTPRequestHandlerFactory {
         public:
             explicit MyRequestHandlerFactory(
-                    PocoHTTPReceiver &httpReceiver) :
+                    AwsDoc::CrossService::HTTPReceiver &httpReceiver) :
                     mHttpReceiver(httpReceiver) {}
 
             virtual Poco::Net::HTTPRequestHandler *
@@ -94,14 +95,14 @@ namespace AwsDoc {
             }
 
         private:
-            PocoHTTPReceiver &mHttpReceiver;
+            AwsDoc::CrossService::HTTPReceiver &mHttpReceiver;
         };
     }  // namespace PocoImpl
 } // namespace AwsDoc
 
 
 AwsDoc::PocoImpl::PocoHTTPServer::PocoHTTPServer(
-        AwsDoc::PocoImpl::PocoHTTPReceiver &httpReceiver) :
+        AwsDoc::CrossService::HTTPReceiver &httpReceiver) :
         mHttpReceiver(httpReceiver) {
 }
 

@@ -24,6 +24,10 @@ namespace AwsDoc {
 
             bool initializeTable(bool recreateTable);
 
+            bool setWorkItemToArchive(const Aws::String &id) override;
+
+            bool updateWorkItem(const WorkItem &workItem) override;
+
             WorkItem getWorkItemWithId(const Aws::String &id) override;
 
             virtual bool addWorkItem(const WorkItem &workItem) override;

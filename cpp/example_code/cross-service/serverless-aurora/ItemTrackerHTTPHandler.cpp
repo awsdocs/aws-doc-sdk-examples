@@ -26,11 +26,6 @@ AwsDoc::CrossService::ItemTrackerHTTPHandler::ItemTrackerHTTPHandler(
         mEmailReceiver(emailReceiver) {
 }
 
-void AwsDoc::CrossService::ItemTrackerHTTPHandler::run(int argc, char **argv) {
-    AwsDoc::PocoImpl::PocoHTTPServer myServerApp(*this);
-    myServerApp.run(argc, argv);
-}
-
 std::string AwsDoc::CrossService::ItemTrackerHTTPHandler::getWorkItemJSON(
         AwsDoc::CrossService::WorkItemStatus status) {
     std::vector<WorkItem> workItems;
@@ -178,8 +173,23 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::handleHTTP(const std::string 
     else if (method == "PUT") {
         if (uri.find("/api/items/") == 0)
         {
-            size_t archivePos = uri.find_last_of(":archive");
-            
+            auto archivePos = uri.find(":archive");
+
+            bool setToArchive = archivePos < uri.length();
+            size_t itemIDEnd = archivePos < uri.length() ? archivePos : uri.length();
+            size_t itemIDStart = strlen("/api/items/");
+
+            std::string itemId = uri.substr(itemIDStart, itemIDEnd - itemIDStart);
+
+            if (setToArchive)
+            {
+                mRdsDataReceiver.setWorkItemToArchive(itemId);
+            }
+            else{
+                WorkItem workItem = jsonToWorkItem(requestContent);
+                workItem.mID = itemId;
+                mRdsDataReceiver.updateWorkItem(workItem);
+            }
         }
         else {
             std::cerr << "Unhandled PUT uri " << uri << std::endl;
