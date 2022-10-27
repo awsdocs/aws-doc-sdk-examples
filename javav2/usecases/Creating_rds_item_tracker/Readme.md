@@ -286,6 +286,7 @@ The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
++ **ConnectionHelper** - Establishes a connection to the Amazon RDS for MySQL database.
 + **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
 + **WorkItemRepository** - A Spring class that extends **CrudRepository** and uses the AWS SDK for Java (v2) that performs database operations. 
 + **WorkItem** - Represents the application's data model.
@@ -337,27 +338,29 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@ComponentScan(basePackages = {"com.aws.services"})
+@ComponentScan(basePackages = {"com.aws.rest"})
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/items")
 public class MainController {
-    private final WorkItemRepository repository;
+    private final DatabaseService dbService;
 
     @Autowired
     MainController(
-        WorkItemRepository repository
-    ) {
-        this.repository = repository;
-    }
+        DatabaseService dbService
+     ) {
+        this.dbService = dbService;
+     }
 
     @GetMapping("" )
     public List<WorkItem> getItems(@RequestParam(required=false) String archived) {
         Iterable<WorkItem> result;
-        if (archived != null)
-            result = repository.findAllWithStatus(archived);
+        if (archived != null && archived.compareTo("false")==0)
+            result = dbService.getItemsDataSQLReport(0);
+        else if (archived != null && archived.compareTo("true")==0)
+            result = dbService.getItemsDataSQLReport(1);
         else
-            result = repository.findAllWithStatus("");
+            result = dbService.getItemsDataSQLReport(-1);
 
         return StreamSupport.stream(result.spliterator(), false)
             .collect(Collectors.toUnmodifiableList());
@@ -366,11 +369,9 @@ public class MainController {
     // Notice the : character which is used for custom methods. More information can be found here:
     // https://cloud.google.com/apis/design/custom_methods
     @PutMapping("{id}:archive")
-    public List<WorkItem> modUser(@PathVariable String id) {
-        repository.flipItemArchive(id);
-        Iterable<WorkItem> result = repository.findAllWithStatus("false");
-        return StreamSupport.stream(result.spliterator(), false)
-            .collect(Collectors.toUnmodifiableList());
+    public String modUser(@PathVariable String id) {
+        dbService.flipItemArchive(id);
+        return id +" was archived";
     }
 
     @PostMapping("")
@@ -378,7 +379,7 @@ public class MainController {
         String name = payload.get("name");
         String guide = payload.get("guide");
         String description = payload.get("description");
-        String status = payload.get("description");
+        String status = payload.get("status");
 
         WorkItem item = new WorkItem();
         String workId = UUID.randomUUID().toString();
@@ -389,10 +390,8 @@ public class MainController {
         item.setName(name);
         item.setDate(date);
         item.setStatus(status);
-        repository.save(item);
-
-        // Return active records.
-        Iterable<WorkItem> result = repository.findAllWithStatus("false");
+        dbService.injestNewSubmission(item);
+        Iterable<WorkItem> result= dbService.getItemsDataSQLReport(0);
         return StreamSupport.stream(result.spliterator(), false)
             .collect(Collectors.toUnmodifiableList());
     }
@@ -409,7 +408,7 @@ package com.aws.rest;
 import jxl.write.WriteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -417,31 +416,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/items:report")
 public class ReportController {
 
-    private final WorkItemRepository repository;
-
+    private final DatabaseService dbService;
     private final WriteExcel writeExcel;
-
     private final WriteExcel.SendMessages sm;
+
     @Autowired()
     ReportController(
-        WorkItemRepository repository,
+        DatabaseService dbService,
         WriteExcel writeExcel,
         WriteExcel.SendMessages sm
     ) {
-        this.repository = repository;
+        this.dbService = dbService;
         this.writeExcel = writeExcel;
         this.sm = sm;
     }
 
-    @PutMapping("")
+    @PostMapping("")
     public String sendReport(@RequestBody Map<String, String> body) {
-        var list = repository.findAllWithStatus(WorkItemRepository.active);
+        var list = dbService.getItemsDataSQLReport(0);
         try {
             InputStream is = writeExcel.write(list);
             sm.sendReport(is, body.get("email"));
@@ -453,239 +450,197 @@ public class ReportController {
     }
 }
 ```
+### ConnectionHelper class 
 
-### WorkItemRepository class
+The following class connects to the Amazon RDS for MySQL database. Enter your endpoint, the user name, and the password. Otherwise, your code won't work. Replace the URL endpoint value with the endpoint value you obtained while setting up the Amazon RDS database.
 
-The following Java code represents the **WorkItemRepository** class that extends [Interface CrudRepository](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html). Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement. 
+```java
 
-In addition, notice the use of [Class SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rdsdata/model/SqlParameter.html) when using SQL statements. For example, in the **save** method, you build a list of **SqlParameter** objects used to add a new record to the database.
+package com.aws.rest;
+
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
+
+    public class ConnectionHelper {
+
+      private String url;
+      private static ConnectionHelper instance;
+
+      private ConnectionHelper() {
+        url = "jdbc:mysql://<Enter DataBase URL>:3306/mydb?useSSL=false";
+      }
+
+      public static Connection getConnection() throws SQLException {
+        if (instance == null) {
+            instance = new ConnectionHelper();
+        }
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            return DriverManager.getConnection(instance.url, "root","root1234");
+
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.getStackTrace();
+        }
+        return null;
+    }
+
+    public static void close(Connection connection) {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+### DatabaseService class
+
+The following Java code represents the **DatabaseService** class. This class uses the JDBC API to perform CRUD operations in the Amazon RDS MySQL database. Notice the use of [Interface PreparedStatement](https://docs.oracle.com/javase/7/docs/api/java/sql/PreparedStatement.html) when using SQL statements. For example, in the **getItemsDataSQLReport** method, you use this object to query data from the **work** table.
 
 ```java
 package com.aws.rest;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
-import software.amazon.awssdk.services.rdsdata.RdsDataClient;
-import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementRequest;
-import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementResponse;
-import software.amazon.awssdk.services.rdsdata.model.Field;
-import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
-import software.amazon.awssdk.services.rdsdata.model.SqlParameter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-@Component()
-public class WorkItemRepository implements CrudRepository<WorkItem, String> {
-    static final String active = "0";
-    static final String archived = "1";
-    static final String database = "jobs";
-    static final String secretArn = "<ENTER VALUE>";
-    static final String resourceArn = "<ENTER VALUE>";
+@Component
+public class DatabaseService {
 
-    static RdsDataClient getClient() {
-        return RdsDataClient.builder().region(App.region).build();
-    }
-
-    static ExecuteStatementResponse execute(String sqlStatement, List<SqlParameter> parameters) {
-        var sqlRequest = ExecuteStatementRequest.builder()
-            .resourceArn(resourceArn)
-            .secretArn(secretArn)
-            .database(database)
-            .sql(sqlStatement)
-            .parameters(parameters)
-            .build();
-        return getClient().executeStatement(sqlRequest);
-    }
-
-    static SqlParameter param(String name, String value) {
-        return SqlParameter.builder().name(name).value(Field.builder().stringValue(value).build()).build();
-    }
-
-    @Override
-    public <S extends WorkItem> S save(S item) {
-        String name = item.getName();
-        String guide = item.getGuide();
-        String description = item.getDescription();
-        String status = item.getStatus();
-        String archived = "0";
-
-        UUID uuid = UUID.randomUUID();
-        String workId = uuid.toString();
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String sDate1 = dtf.format(now);
-        Date date1 = null;
-        try {
-            date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        assert date1 != null;
-        java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
-
-        String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
-            "(:idwork, :username, :date, :description, :guide, :status, :archive);";
-        List<SqlParameter> paremeters = List.of(
-            param("idwork", workId),
-            param("username", name),
-            param("date", sqlDate.toString()),
-            param("description", description),
-            param("guide", guide),
-            param("status", status),
-            param("archive", archived)
-        );
-
-        ExecuteStatementResponse result = execute(sql, paremeters);
-        System.out.println(result.toString());
-        return (S) findById(workId).get();
-    }
-
-    @Override
-    public <S extends WorkItem> Iterable<S> saveAll(Iterable<S> entities) {
-        return StreamSupport.stream(entities.spliterator(), true).map(this::save)::iterator;
-    }
-
-    @Override
-    public Optional<WorkItem> findById(String s) {
-        String sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work WHERE idwork = :id;";
-        List<SqlParameter> parameters = List.of(param("id", s));
-        var result = execute(sqlStatement, parameters)
-            .records()
-            .stream()
-            .map(WorkItem::from)
-            .collect(Collectors.toUnmodifiableList());
-        if (result.isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(result.get(0));
-        }
-    }
-
-    @Override
-    public boolean existsById(String s) {
-        return findById(s).isPresent();
-    }
-
-    @Override
-    public Iterable<WorkItem> findAll() {
-        return findAllWithStatus(active);
-    }
-
+    // Set the specified item to archive.
     public void flipItemArchive(String id) {
+        Connection c = null;
+        String query;
         try {
-            String sqlStatement = "UPDATE work SET archive = (:arch) WHERE idwork = (:id);";
-            List<SqlParameter> parameters = List.of(
-                param("id", id),
-                param("arch", archived)
-            );
-           execute(sqlStatement, parameters);
-        } catch (RdsDataException e) {
+            c = ConnectionHelper.getConnection();
+            query = "update work set archive = ? where idwork ='" +id + "' ";
+            PreparedStatement updateForm = c.prepareStatement(query);
+            updateForm.setBoolean(1, true);
+            updateForm.execute();
+
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(c);
         }
     }
 
+    // Get Items data from MySQL.
+    public List<WorkItem> getItemsDataSQLReport(int flag) {
+        Connection c = null;
+        List<WorkItem> itemList = new ArrayList<>();
+        String query;
+        String username = "user";
+        WorkItem item;
 
-    public Iterable<WorkItem> findAllWithStatus(String status) {
-        String sqlStatement;
-        String isArc;
+        try {
+            c = ConnectionHelper.getConnection();
+            ResultSet rs = null;
+            PreparedStatement pstmt = null;
+            if (flag == 0) {
+                // Retrieves active data from the MySQL database
+                int arch = 0;
+                query = "Select idwork,username,date,description,guide,status FROM work where username=? and archive=?;";
+                pstmt = c.prepareStatement(query);
+                pstmt.setString(1, username);
+                pstmt.setInt(2, arch);
+                rs = pstmt.executeQuery();
+            }else if (flag == 1)  {
+                // Retrieves archive data from the MySQL database
+                int arch = 1;
+                query = "Select idwork,username,date,description,guide,status FROM work where username=? and archive=?;";
+                pstmt = c.prepareStatement(query);
+                pstmt.setString(1, username);
+                pstmt.setInt(2, arch);
+                rs = pstmt.executeQuery();
+            } else {
+                // Retrieves all data from the MySQL database
+                query = "Select idwork,username,date,description,guide,status FROM work";
+                pstmt = c.prepareStatement(query);
+                rs = pstmt.executeQuery();
+            }
 
-        if (status.compareTo("true") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
-                "FROM work WHERE archive = :arch ;";
-            isArc = "1";
-            List<SqlParameter> parameters = List.of(
-                param("arch", isArc)
-            );
-            return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
+            while (rs.next()) {
+                item = new WorkItem();
+                item.setId(rs.getString(1));
+                item.setName(rs.getString(2));
+                item.setDate(rs.getDate(3).toString().trim());
+                item.setDescription(rs.getString(4));
+                item.setGuide(rs.getString(5));
+                item.setStatus(rs.getString(6));
 
-        } else if (status.compareTo("false") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
-                "FROM work WHERE archive = :arch ;";
-            isArc = "0";
-            List<SqlParameter> parameters = List.of(
-                param("arch", isArc)
-            );
-            return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
+                // Push the WorkItem Object to the list.
+                itemList.add(item);
+            }
+            return itemList;
 
-        } else {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work ;";
-            List<SqlParameter> parameters = List.of(
-
-            );
-            return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(c);
         }
+        return null;
     }
 
-    @Override
-    public Iterable<WorkItem> findAllById(Iterable<String> strings) {
-        var item = findById(strings.iterator().next());
-        if (item.isPresent()) {
-            return List.of(item.get());
+    // Inject a new submission.
+    public void injestNewSubmission(WorkItem item) {
+        Connection c = null;
+        try {
+            c = ConnectionHelper.getConnection();
+            PreparedStatement ps;
+
+            // Convert rev to int.
+            String name = item.getName();
+            String guide = item.getGuide();
+            String description = item.getDescription();
+            String status = item.getStatus();
+
+            // Generate the work item ID.
+            UUID uuid = UUID.randomUUID();
+            String workId = uuid.toString();
+
+            // Date conversion.
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String sDate1 = dtf.format(now);
+            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
+            java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
+
+            // Inject an item into the system.
+            String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
+            ps = c.prepareStatement(insert);
+            ps.setString(1, workId);
+            ps.setString(2, name);
+            ps.setDate(3, sqlDate);
+            ps.setString(4, description);
+            ps.setString(5, guide );
+            ps.setString(6, status );
+            ps.setBoolean(7, false);
+            ps.execute();
+
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(c);
         }
-        return List.of();
-    }
-
-    @Override
-    public long count() {
-        String sqlStatement = "SELECT COUNT(idwork) AS count FROM work;";
-        List<SqlParameter> parameters = List.of();
-        return execute(sqlStatement, parameters)
-            .records()
-            .stream()
-            .map(fields -> fields.get(0).longValue()).iterator().next();
-    }
-
-    @Override
-    public void deleteById(String s) {
-        String sqlStatement = "DELETE FROM work WHERE idwork = :id;";
-        List<SqlParameter> parameters = List.of(param("id", s));
-        execute(sqlStatement, parameters);
-    }
-
-    @Override
-    public void delete(WorkItem entity) {
-        deleteById(entity.getId());
-    }
-
-    @Override
-    public void deleteAllById(Iterable<? extends String> strings) {
-        strings.forEach(this::deleteById);
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends WorkItem> entities) {
-        deleteAllById(StreamSupport.stream(entities.spliterator(), false).map(WorkItem::getId)::iterator);
-    }
-
-    @Override
-    public void deleteAll() {
-        String sqlStatement = "DELETE FROM work;";
-        List<SqlParameter> parameters = List.of();
-        execute(sqlStatement, parameters);
     }
 }
-
 
 ```
 
@@ -792,7 +747,7 @@ public class WorkItem {
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. In addition, notice the use of the **SendMessage** class that uses the Amazon SES Java API to send email messages. The following code represents this class.
 
 ```java
-  package com.aws.rest;
+ package com.aws.rest;
 
 import jxl.CellView;
 import jxl.Workbook;
@@ -807,6 +762,7 @@ import jxl.write.WriteException;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.RawMessage;
 import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
@@ -907,7 +863,7 @@ public class WriteExcel {
 
     @Component
     public static class SendMessages {
-        private static String sender = "<ENTER VALUE>"; // CHANGE THIS VALUE.
+        private static String sender = "<Enter value>";
         private static String subject = "Weekly AWS Status Report";
         private static String bodyText = "Hello,\r\n\r\nPlease see the attached file for a weekly update.";
         private static String bodyHTML = "<!DOCTYPE html><html lang=\"en-US\"><body><h1>Hello!</h1><p>Please see the attached file for a weekly update.</p></body></html>";
@@ -935,7 +891,7 @@ public class WriteExcel {
 
             try {
                 System.out.println("Attempting to send an email through Amazon SES...");
-                SesClient client = SesClient.builder().region(App.region).build();
+                SesClient client = SesClient.builder().region(Region.US_WEST_2).build();
                 client.sendRawEmail(rawEmailRequest);
             } catch (SesException e) {
                 e.printStackTrace();
@@ -972,17 +928,13 @@ public class WriteExcel {
             att.setFileName(attachmentName);
 
             msg.addBodyPart(att);
-
             message.setContent(msg);
-
             return message;
         }
     }
 }
 ```
 **Note:** Notice that the **SendMessages** is part of this Java file. You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
-
-
 
 ## Run the application 
 
