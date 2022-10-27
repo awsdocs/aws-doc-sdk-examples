@@ -442,14 +442,11 @@ public class DynamoDBService {
     }
     // Get All items from the DynamoDB table.
     public List<WorkItem> getAllItems() {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
 
         try{
-            // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             Iterator<Work> results = table.scan().items().iterator();
             WorkItem workItem ;
@@ -464,6 +461,7 @@ public class DynamoDBService {
                 workItem.setStatus(work.getStatus());
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
 
                 // Push the workItem to the list.
                 itemList.add(workItem);
@@ -480,7 +478,6 @@ public class DynamoDBService {
     // Archives an item based on the key.
     public void archiveItemEC(String id) {
         try {
-            // Create a DynamoDbEnhancedClient.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
                 .build();
@@ -494,8 +491,7 @@ public class DynamoDBService {
 
             // Get the item by using the key.
             Work work = workTable.getItem(r->r.key(key));
-            work.setArchive("Closed");
-
+            work.setArchive(1);
             workTable.updateItem(r->r.item(work));
 
         } catch (DynamoDbException e) {
@@ -506,17 +502,14 @@ public class DynamoDBService {
 
     // Get Open items from the DynamoDB table.
     public List<WorkItem> getOpenItems() {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
 
         try{
-            // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             AttributeValue attr = AttributeValue.builder()
-                .s("Open")
+                .n("0")
                 .build();
 
             Map<String, AttributeValue> myMap = new HashMap<>();
@@ -525,7 +518,7 @@ public class DynamoDBService {
             Map<String, String> myExMap = new HashMap<>();
             myExMap.put("#archive", "archive");
 
-            // Set the Expression so only Closed items are queried from the Work table.
+            // Set the Expression so only active items are queried from the Work table.
             Expression expression = Expression.builder()
                 .expressionValues(myMap)
                 .expressionNames(myExMap)
@@ -551,6 +544,7 @@ public class DynamoDBService {
                 workItem.setStatus(work.getStatus());
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
 
                 // Push the workItem to the list.
                 itemList.add(workItem);
@@ -566,8 +560,6 @@ public class DynamoDBService {
 
     // Get Closed Items from the DynamoDB table.
     public List< WorkItem > getClosedItems() {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
@@ -575,9 +567,8 @@ public class DynamoDBService {
         try{
             // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
-
             AttributeValue attr = AttributeValue.builder()
-                .s("Closed")
+                .n("1")
                 .build();
 
             Map<String, AttributeValue> myMap = new HashMap<>();
@@ -611,6 +602,7 @@ public class DynamoDBService {
                 workItem.setStatus(work.getStatus());
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
 
                 //Push the workItem to the list.
                 itemList.add(workItem);
@@ -625,8 +617,6 @@ public class DynamoDBService {
     }
 
     public void setItem(WorkItem item) {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
@@ -638,7 +628,6 @@ public class DynamoDBService {
     public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
 
         try {
-            // Create a DynamoDbTable object.
             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             String myGuid = java.util.UUID.randomUUID().toString();
             Work record = new Work();
@@ -647,7 +636,7 @@ public class DynamoDBService {
             record.setDescription(item.getDescription());
             record.setDate(now()) ;
             record.setStatus(item.getStatus());
-            record.setArchive("Open");
+            record.setArchive(0);
             record.setGuide(item.getGuide());
             workTable.putItem(record);
 
@@ -671,7 +660,7 @@ public class DynamoDBService {
 The following Java code represents the **WorkItem** class.   
 
 ```java
-    package com.aws.rest;
+  package com.aws.rest;
 
 public class WorkItem {
 
@@ -681,54 +670,63 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private int archived ;
+
+    public int getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(int archived) {
+        this.archived = archived;
+    }
 
     public void setId (String id) {
-                this.id = id;
-        }
+        this.id = id;
+    }
 
     public String getId() {
-                return this.id;
-        }
+        return this.id;
+    }
 
     public void setStatus (String status) {
-                this.status = status;
-        }
+        this.status = status;
+    }
 
     public String getStatus() {
-                return this.status;
-        }
+        return this.status;
+    }
 
     public void setDescription (String description) {
-                this.description = description;
-        }
+        this.description = description;
+    }
 
     public String getDescription() {
-                return this.description;
-        }
+        return this.description;
+    }
 
     public void setDate (String date) {
-                this.date = date;
-        }
+        this.date = date;
+    }
 
     public String getDate() {
-                return this.date;
-        }
+        return this.date;
+    }
 
     public void setName (String name) {
-                this.name = name;
-        }
+        this.name = name;
+    }
 
     public String getName() {
-                return this.name;
-        }
+        return this.name;
+    }
 
     public void setGuide (String guide) {
-                this.guide = guide;
-        }
+        this.guide = guide;
+    }
 
     public String getGuide() {
-                return this.guide;
-        }
+        return this.guide;
+    }
 }
 ```
 ### Work class
@@ -750,7 +748,7 @@ public class Work {
     private String guide;
     private String username ;
     private String status ;
-    private String archive ;
+    private int archive ;
 
     @DynamoDbPartitionKey
     public String getId() {
@@ -766,11 +764,11 @@ public class Work {
         return this.username;
     }
 
-    public void setArchive(String archive) {
+    public void setArchive(int archive) {
         this.archive = archive;
     }
 
-    public String getArchive() {
+    public int getArchive() {
         return this.archive;
     }
 
