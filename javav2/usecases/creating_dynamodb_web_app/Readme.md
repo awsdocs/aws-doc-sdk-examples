@@ -108,9 +108,9 @@ Likewise, the following illustration shows the React application displaying arch
 
 **Note**: Notice that the **Archived** button is disabled. 
 
-The React application lets a user convert an active item to an archived item by clicking the following button. 
+The React application lets a user convert an active item to an archived item by clicking the **Archive** button. 
 
-![AWS Tracking Application](images/elapp3.png)
+![AWS Tracking Application](images/elappArcAll.png)
 
 The React application also lets a user enter a new item. 
 
