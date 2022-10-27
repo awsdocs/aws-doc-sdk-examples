@@ -61,7 +61,7 @@ Create an Amazon RDS for MySQL DB instance that has a table named **Work** and a
 
 The following figure shows the **Work** table in the Amazon RDS console.
 
-![AWS Tracking Application](images/work.png)
+![AWS Tracking Application](images/MySqlTable.png)
 
 For information about creating an Amazon RDS database, see [Creating a MySQL DB instance and connecting to a database on a MySQL DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html). 
 
