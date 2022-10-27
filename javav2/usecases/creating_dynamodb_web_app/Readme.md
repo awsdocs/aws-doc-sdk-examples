@@ -106,7 +106,7 @@ Likewise, the following illustration shows the React application displaying arch
 
 ![AWS Tracking Application](images/elappArc.png)
 
-**Note**: Notice that the Archive button is disabled. 
+**Note**: Notice that the **Archived** button is disabled. 
 
 The React application lets a user convert an active item to an archived item by clicking the following button. 
 
