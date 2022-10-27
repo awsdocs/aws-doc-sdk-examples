@@ -17,7 +17,7 @@ public class Work {
     private String guide;
     private String username ;
     private String status ;
-    private String archive ;
+    private int archive ;
 
     @DynamoDbPartitionKey
     public String getId() {
@@ -33,11 +33,11 @@ public class Work {
         return this.username;
     }
 
-    public void setArchive(String archive) {
+    public void setArchive(int archive) {
         this.archive = archive;
     }
 
-    public String getArchive() {
+    public int getArchive() {
         return this.archive;
     }
 
