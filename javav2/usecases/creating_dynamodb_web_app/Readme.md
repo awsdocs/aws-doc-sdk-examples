@@ -69,7 +69,7 @@ The **Work** table attributes
 | guide          | name of the guide the work is for                                            |
 | status         | status of the work, e.g., 'started', 'in review'                             |
  | username       | user name who worked performed the work item                                 |
-| archive        | a value of 'Open' or 'Closed' to indicate if the work item has been archived |
+| archive        | a numeric value of 0 (Open) or 1 (Closed) to indicate if the item is active or archived |
 
 Enter at least two more items (rows). This time, since you have already defined all the attributes
 needed for this example, select the first item you created by activating the item's checkbox, then select
