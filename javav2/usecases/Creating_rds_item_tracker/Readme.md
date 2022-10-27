@@ -4,7 +4,7 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that queries Amazon Relational Database Service (Amazon RDS) for MySQL data. The Spring REST API uses the JDBC API and the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
+| Description | Discusses how to develop a Spring REST API that queries Amazon Relational Database Service (Amazon RDS) for MySQL data. The Spring REST API uses the JDBC API and the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).  |
 | Audience   |  Developer (intermediate)        |
 | Updated   | 8/02/2022        |
 | Required skills   | Java, Maven, JavaScript  |
