@@ -262,8 +262,8 @@ The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
-+ **ConnectionHelper** - Establishes a connection to the Amazon RDS for MySQL database.
 + **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
++ **ConnectionHelper** - Establishes a connection to the Amazon RDS for MySQL database.
 + **WorkItemRepository** - A Spring class that extends **CrudRepository** and uses the AWS SDK for Java (v2) that performs database operations. 
 + **WorkItem** - Represents the application's data model.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
@@ -480,11 +480,6 @@ package com.aws.rest;
 The following Java code represents the **DatabaseService** class. This class uses the JDBC API to perform CRUD operations in the Amazon RDS MySQL database. Notice the use of [Interface PreparedStatement](https://docs.oracle.com/javase/7/docs/api/java/sql/PreparedStatement.html) when using SQL statements. For example, in the **getItemsDataSQLReport** method, you use this object to query data from the **work** table.
 
 ```java
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
 package com.aws.rest;
 
 import org.springframework.stereotype.Component;
@@ -632,10 +627,6 @@ public class DatabaseService {
 The following Java code represents the **WorkItem** class.   
 
 ```java
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 
 package com.aws.rest;
 
