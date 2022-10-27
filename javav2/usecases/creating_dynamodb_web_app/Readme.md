@@ -104,7 +104,9 @@ The React application displays *active* and *archive* items. For example, the fo
 
 Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/elapp2.png)
+![AWS Tracking Application](images/elappArc.png)
+
+**Note** - Notice that the Archive button is disabled. 
 
 The React application lets a user convert an active item to an archived item by clicking the following button. 
 
