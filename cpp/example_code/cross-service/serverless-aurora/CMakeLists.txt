@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Set the minimum required version of CMake for this project.
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.9)
 
 set(SERVICE_COMPONENTS sesv2 rds-data)
 
@@ -23,11 +23,6 @@ endif()
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
-
-# Enable CTest for testing these code examples.
-if(BUILD_TESTS)
-    include(CTest)
-endif()
 
 # Build shared libraries by default.
 if(NOT DEFINED BUILD_SHARED_LIBS)
@@ -56,9 +51,9 @@ if(MSVC AND BUILD_SHARED_LIBS)
 
     set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
 
-    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS} ${MY_POCO_LIBS})
+    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
 
-     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
+     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 endif()
 
 
@@ -70,7 +65,6 @@ if(WIN32)
     endif(MSVC)
 endif()
 
-
 add_executable(${EXECUTABLE}
         serverless_aurora.cpp
         RDSDataHandler.cpp
@@ -78,21 +72,11 @@ add_executable(${EXECUTABLE}
         ItemTrackerHTTPHandler.cpp
         PocoHTTPServer.cpp)
 
-target_include_directories(${EXECUTABLE}
-        PUBLIC
-        /opt/homebrew/include)
-target_link_directories(${EXECUTABLE}
-        PUBLIC
-        /opt/homebrew/lib)
 target_link_libraries(${EXECUTABLE}
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
         ${MY_POCO_LIBS}
         ${CONAN_LIBS})
-
-if(BUILD_TESTS)
-    add_subdirectory(gtests)
-endif()
 
 
 

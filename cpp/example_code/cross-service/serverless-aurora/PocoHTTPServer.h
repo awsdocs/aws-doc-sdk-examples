@@ -12,8 +12,22 @@
 
 namespace AwsDoc {
     namespace PocoImpl {
+        /**
+          *  PocoHTTPServer
+          *
+          *  Implementation of Poco http server application.
+          *
+          *  This code is designed to be used unmodified on multiple cross-service
+          *  examples.
+          *
+          */
         class PocoHTTPServer : public Poco::Util::ServerApplication {
         public:
+            //! PocoHTTPServer constructor.
+            /*!
+             \sa PocoHTTPServer::PocoHTTPServer()
+             \param httpReceiver: Handler for http requests.
+             */
             explicit PocoHTTPServer(AwsDoc::CrossService::HTTPReceiver &httpReceiver);
 
         protected:

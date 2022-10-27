@@ -17,7 +17,29 @@ namespace AwsDoc {
             NOT_ARCHIVED,
             BOTH
         };
+
+          /**
+           *
+           *  Struct to store work item data.
+           *
+           */
         struct WorkItem {
+            WorkItem() {}
+
+            WorkItem(const Aws::String& id,
+                     const Aws::String& name,
+                     const Aws::String& guide,
+                     const Aws::String& description,
+                     const Aws::String& status,
+                     bool archived) :
+                     mID(id)
+                     , mName(name)
+                     , mGuide(guide)
+                     , mDescription(description)
+                     , mStatus(status)
+                     , mArchived(archived)
+            {}
+
             Aws::String mID;
             Aws::String mName;
             Aws::String mGuide;
@@ -27,53 +49,162 @@ namespace AwsDoc {
 
         };
 
+         /**
+          *
+          *  Constants for http request keys.
+          *
+          */
+        extern const Aws::String HTTP_ID_KEY;
+        extern const Aws::String HTTP_NAME_KEY;
+        extern const Aws::String HTTP_GUIDE_KEY;
+        extern const Aws::String HTTP_DESCRIPTION_KEY;
+        extern const Aws::String HTTP_STATUS_KEY;
+        extern const Aws::String HTTP_ARCHIVED_KEY;
+        extern const Aws::String HTTP_EMAIL_KEY;
+
+         /**
+          * RDSDataReceiver
+          *
+          *  Abstract class defining handler for Relational Database Service (Amazon RDS).
+          *
+          */
         class RDSDataReceiver {
         public:
+            //! Routine which adds one work item.
+            /*!
+             \sa RDSDataReceiver::addWorkItem()
+             \param workItem: Work item struct.
+             \return bool: Successful completion.
+             */
             virtual bool addWorkItem(const WorkItem &workItem) = 0;
 
-            virtual std::vector<WorkItem> getWorkItems(WorkItemStatus status) = 0;
+            //! Routine which retrieves a list of work items.
+            /*!
+             \sa RDSDataReceiver::getWorkItems()
+             \param status: Filter for work item status.
+             \param workItems: Vector of work items.
+             \return bool: Successful completion.
+             */
+            virtual bool
+            getWorkItems(WorkItemStatus status, std::vector<WorkItem> &workItems) = 0;
 
-            virtual WorkItem getWorkItemWithId(const Aws::String &id) = 0;
+            //! Routine which retrieves one work item.
+            /*!
+             \sa RDSDataReceiver::getWorkItemWithId()
+             \param id: ID of work item.
+             \param workItem: Work item struct.
+             \return bool: Successful completion.
+             */
+            virtual bool getWorkItemWithId(const Aws::String &id, WorkItem &workItem) = 0;
 
+            //! Routine which updates a work item setting it as archived.
+            /*!
+             \sa RDSDataReceiver::setWorkItemToArchive()
+             \param id: ID of work item.
+             \return bool: Successful completion.
+             */
             virtual bool setWorkItemToArchive(const Aws::String &id) = 0;
 
+            //! Routine which updates a work item's columns.
+            /*!
+             \sa RDSDataReceiver::updateWorkItem()
+             \param workItem: Work item struct.
+             \return bool: Successful completion.
+             */
             virtual bool updateWorkItem(const WorkItem &workItem) = 0;
         };
 
-        class SESEmailReceiver {
+          /**
+           * RDSDataReceiver
+           *
+           *  Abstract class defining handler for Simple Email Service (Amazon SES).
+           *
+           */
+       class SESEmailReceiver {
         public:
             virtual bool sendEmail(const Aws::String emailAddress,
                                    const std::vector<WorkItem> &workItems) = 0;
         };
 
-
+         /**
+          * ItemTrackerHTTPHandler
+          *
+          *  Implementation of http server handler.
+          *
+          */
         class ItemTrackerHTTPHandler : public HTTPReceiver {
         public:
+            //! ItemTrackerHTTPHandler constructor.
+            /*!
+             \sa ItemTrackerHTTPHandler::ItemTrackerHTTPHandler()
+             \param rdsDataReceiver: Handler for Relational Database Service (Amazon RDS).
+             \param emailReceiver: Handler for Simple Email Service (Amazon SES).
+            */
             explicit ItemTrackerHTTPHandler(RDSDataReceiver &rdsDataReceiver,
                                             SESEmailReceiver &emailReceiver);
 
+            //! Override of HTTPReceiver::handleHTTP routine which handles http server requests.
+            /*!
+             \sa ItemTrackerHTTPHandler::handleHTTP()
+             \param method: Method of http request.
+             \param uri: Uri of http request.
+             \param requestContent Content of http request.
+             \param responseContentType Content type of response, if any.
+             \param responseStream Content of response, if any.
+             \return bool: Successful completion.
+            */
              bool handleHTTP(const std::string &method, const std::string &uri,
                              const std::string &requestContent,
                              std::string &responseContentType,
                              std::ostream &responseStream) override;
 
-            void addWorkItem(const std::string &workItemJson);
+            //! Routine which adds a work items to Amazon RDS.
+            /*!
+             \sa ItemTrackerHTTPHandler::addWorkItem()
+             \param workItemJson: Content of http request as JSON string.
+             \return bool: Successful completion.
+            */
+            bool addWorkItem(const std::string &workItemJson);
 
-            void sendEmail(const std::string &emailJson);
+            //! Routine sends an email using Amazon SES.
+            /*!
+             \sa ItemTrackerHTTPHandler::sendEmail()
+             \param emailJson: Http request JSON string containing an email.
+             \return bool: Successful completion.
+            */
+            bool sendEmail(const std::string &emailJson);
 
         private:
 
-            std::string getWorkItemWithIdJson(const Aws::String &id);
+            //! Routine which retrieves a work items from Amazon RDS with the specified ID.
+            /*!
+             \sa ItemTrackerHTTPHandler::getWorkItemWithIdJson()
+             \param id: Work item id.
+             \param jsonString: String with JSON response.
+             \return bool: Successful completion.
+            */
+             bool getWorkItemWithIdJson(
+                    const Aws::String &id, std::string &jsonString);
 
-            std::string getWorkItemJSON(WorkItemStatus status);
+            //! Routine which retrieves a list of work items from Amazon RDS as an http response
+            //! JSON string.
+            /*!
+             \sa ItemTrackerHTTPHandler::getWorkItemJSON()
+             \param status: Status filter for work items.
+             \param jsonString: Http response JSON string.
+             \return bool: Successful completion.
+            */
+            bool getWorkItemJSON(
+                    AwsDoc::CrossService::WorkItemStatus status,
+                    std::string &jsonString);
 
+            //! Routine which converts a JSON string to a WorkItem struct.
+            /*!
+             \sa ItemTrackerHTTPHandler::jsonToWorkItem()
+             \param workItemJson: Content of http request as JSON string.
+             \return WorkItem: WorkItem struct.
+            */
             static WorkItem jsonToWorkItem(const std::string &jsonString);
-
-            bool getItemsAndRespond(AwsDoc::CrossService::WorkItemStatus status,
-                                    std::string &contentType, std::ostream &ostream);
-
-            bool getItemAndRespond(const Aws::String &itemID,
-                    std::string &contentType, std::ostream &ostream);
 
             RDSDataReceiver &mRdsDataReceiver;
             SESEmailReceiver &mEmailReceiver;

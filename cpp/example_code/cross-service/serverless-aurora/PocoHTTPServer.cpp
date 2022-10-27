@@ -15,8 +15,6 @@
 #include <iostream>
 #include <sstream>
 
-#define DEBUGGING 0
-
 namespace AwsDoc {
     namespace PocoImpl {
         class MyRequestHandler : public Poco::Net::HTTPRequestHandler {
@@ -30,12 +28,7 @@ namespace AwsDoc {
                           Poco::Net::HTTPServerResponse &resp) {
                 std::string method = req.getMethod();
                 std::string uri = req.getURI();
-#if DEBUGGING
-                std::cout << "<p>Host: " << req.getHost() << "\n"
-                          << "<p>Method: " << req.getMethod() << "\n"
-                          << "<p>URI: " << req.getURI() << "\n"
-                          << "content length " << req.getContentLength() << std::endl;
-#endif
+
                 resp.set("Access-Control-Allow-Origin", "*");
                 if (method == "OPTIONS") {
                     resp.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
@@ -54,9 +47,6 @@ namespace AwsDoc {
                         req.stream().read(body.data(), body.size() - 1);
                         body[body.size() - 1] = 0;
                         requestContent = body.data();
-#if DEBUGGING
-                        std::cout << body.data() << std::endl;
-#endif
                     }
 
                     bool result = mHttpReceiver.handleHTTP(method, uri, requestContent,
@@ -70,13 +60,6 @@ namespace AwsDoc {
                     std::ostream &ostream = resp.send();
                     ostream << responseStream.str() << std::endl;
                 }
-
-#if DEBUGGING
-                std::cout << "HTTP response" << std::endl;
-                for (auto iter = resp.begin(); iter != resp.end(); ++iter) {
-                    std::cout << iter->first << " : " << iter->second << std::endl;
-                }
-#endif
             }
 
         private :

@@ -11,8 +11,28 @@
 
 namespace AwsDoc {
     namespace CrossService {
+        /**
+         *  HTTPReceiver
+         *
+         *  Abstract class defining interface of cross-service http server
+         *  receiver.
+         *
+         *  This code is designed to be used unmodified on multiple cross-service
+         *  examples.
+         *
+         */
         class HTTPReceiver {
         public:
+            //! Routine which handles http server requests.
+            /*!
+             \sa handleHTTP()
+             \param method: Method of http request.
+             \param uri: Uri of http request.
+             \param requestContent Content of http request.
+             \param responseContentType Content type of response, if any.
+             \param responseStream Content of response, if any.
+             \return bool: Successful completion.
+            */
             virtual bool handleHTTP(const std::string &method, const std::string &uri,
                                     const std::string &requestContent,
                                     std::string &responseContentType,

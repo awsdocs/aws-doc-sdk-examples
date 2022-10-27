@@ -3,7 +3,6 @@
 
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.14)
-
 set(SERVICE_COMPONENTS sesv2 rds-data)
 
 # Set this project's name.
@@ -18,6 +17,7 @@ endif()
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_BUILD_TYPE Debug)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -29,15 +29,13 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+set(BUILD_SHARED_LIBS ON)
 
-# Build shared libraries by default.
-if(NOT DEFINED BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
-endif()
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
+add_executable(${EXECUTABLE})
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
@@ -70,12 +68,18 @@ if(WIN32)
     endif(MSVC)
 endif()
 
+enable_testing()
 
-add_executable(${EXECUTABLE}
+target_sources(
+        ${EXECUTABLE}
+        PUBLIC
         ../RDSDataHandler.cpp
         ../SES3EmailHandler.cpp
         ../ItemTrackerHTTPHandler.cpp
-        gtest_serverless_aurora.cpp)
+        serverless_aurora_gtests.cpp
+        gtest_serverless_aurora.cpp
+)
+
 
 target_include_directories(
         ${EXECUTABLE}
