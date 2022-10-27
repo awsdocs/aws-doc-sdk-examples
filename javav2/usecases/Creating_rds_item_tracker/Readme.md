@@ -480,6 +480,11 @@ package com.aws.rest;
 The following Java code represents the **DatabaseService** class. This class uses the JDBC API to perform CRUD operations in the Amazon RDS MySQL database. Notice the use of [Interface PreparedStatement](https://docs.oracle.com/javase/7/docs/api/java/sql/PreparedStatement.html) when using SQL statements. For example, in the **getItemsDataSQLReport** method, you use this object to query data from the **work** table.
 
 ```java
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.aws.rest;
 
 import org.springframework.stereotype.Component;
@@ -532,7 +537,7 @@ public class DatabaseService {
             if (flag == 0) {
                 // Retrieves active data from the MySQL database
                 int arch = 0;
-                query = "Select idwork,username,date,description,guide,status FROM work where username=? and archive=?;";
+                query = "Select idwork,username,date,description,guide,status,archive FROM work where username=? and archive=?;";
                 pstmt = c.prepareStatement(query);
                 pstmt.setString(1, username);
                 pstmt.setInt(2, arch);
@@ -540,14 +545,14 @@ public class DatabaseService {
             }else if (flag == 1)  {
                 // Retrieves archive data from the MySQL database
                 int arch = 1;
-                query = "Select idwork,username,date,description,guide,status FROM work where username=? and archive=?;";
+                query = "Select idwork,username,date,description,guide,status, archive  FROM work where username=? and archive=?;";
                 pstmt = c.prepareStatement(query);
                 pstmt.setString(1, username);
                 pstmt.setInt(2, arch);
                 rs = pstmt.executeQuery();
             } else {
                 // Retrieves all data from the MySQL database
-                query = "Select idwork,username,date,description,guide,status FROM work";
+                query = "Select idwork,username,date,description,guide,status, archive FROM work";
                 pstmt = c.prepareStatement(query);
                 rs = pstmt.executeQuery();
             }
@@ -560,6 +565,7 @@ public class DatabaseService {
                 item.setDescription(rs.getString(4));
                 item.setGuide(rs.getString(5));
                 item.setStatus(rs.getString(6));
+                item.setArchived(rs.getBoolean(7));
 
                 // Push the WorkItem Object to the list.
                 itemList.add(item);
@@ -626,57 +632,40 @@ public class DatabaseService {
 The following Java code represents the **WorkItem** class.   
 
 ```java
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.aws.rest;
 
-import software.amazon.awssdk.services.rdsdata.model.Field;
-
-import java.util.List;
-
 public class WorkItem {
+
     private String id;
     private String name;
-    private String guide;
+    private String guide ;
     private String date;
     private String description;
     private String status;
+    private boolean archived ;
 
-    public static WorkItem from(List<Field> fields) {
-        var item = new WorkItem();
-        for (int i = 0; i <= 5; i++) {
-            String value = fields.get(i).stringValue();
-            switch (i) {
-                case 0:
-                    item.setId(value);
-                    break;
-                case 1:
-                    item.setDate(value);
-                    break;
-                case 2:
-                    item.setDescription(value);
-                    break;
-                case 3:
-                    item.setGuide(value);
-                    break;
-                case 4:
-                    item.setStatus(value);
-                    break;
-                case 5:
-                    item.setName(value);
-                    break;
-            }
-        }
-        return item;
+    public void setId (String id) {
+        this.id = id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public boolean getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 
     public String getId() {
         return this.id;
     }
 
-    public void setStatus(String status) {
+    public void setStatus (String status) {
         this.status = status;
     }
 
@@ -684,7 +673,7 @@ public class WorkItem {
         return this.status;
     }
 
-    public void setDescription(String description) {
+    public void setDescription (String description) {
         this.description = description;
     }
 
@@ -692,8 +681,7 @@ public class WorkItem {
         return this.description;
     }
 
-
-    public void setDate(String date) {
+    public void setDate (String date) {
         this.date = date;
     }
 
@@ -701,7 +689,7 @@ public class WorkItem {
         return this.date;
     }
 
-    public void setName(String name) {
+    public void setName (String name) {
         this.name = name;
     }
 
@@ -709,7 +697,7 @@ public class WorkItem {
         return this.name;
     }
 
-    public void setGuide(String guide) {
+    public void setGuide (String guide) {
         this.guide = guide;
     }
 
@@ -930,7 +918,7 @@ http://localhost:8080/api/items
 
 The following illustration shows the JSON data returned from the Spring REST API. 
 
-![AWS Tracking Application](images/json.png)
+![AWS Tracking Application](images/json2.png)
 
 ## Create the React front end
 
