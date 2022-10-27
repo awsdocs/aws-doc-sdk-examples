@@ -57,9 +57,7 @@ the **Actions** menu, select **Create item** to enter more columns and values (A
 As you are creating an item for the first time, you will both define the attributes in your table as well 
 as add values. Enter the attributes and values as shown in the table below. Enter 'Open' as the
 value for the **archive** attribute. Select **Create item** to create
-your first item (row).
-
-The **Work** table attributes
+your first item (row). The **Work** table attributes.
 
 | Attribute name | What the attribute value represents                                          |
 |----------------|------------------------------------------------------------------------------|
