@@ -126,7 +126,7 @@ At this point, you have a new project named **ItemTrackerRDSRest**.
 Confirm that the **pom.xml** file looks like the following example.
 
 ```xml
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -142,7 +142,7 @@ Confirm that the **pom.xml** file looks like the following example.
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencyManagement>
         <dependencies>
