@@ -59,7 +59,7 @@ Create an Amazon RDS for MySQL DB instance that has a table named **Work** and a
 + **username** - A VARCHAR(45) value that represents the user who entered the item.
 + **archive** - A TINYINT(4) value that represents whether this is an active or archive item.
 
-The following figure shows the **Work** table in the Amazon RDS console.
+The following figure shows the **Work** table in the MySQL Workbench.
 
 ![AWS Tracking Application](images/MySqlTable.png)
 
