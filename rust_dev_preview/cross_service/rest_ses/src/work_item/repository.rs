@@ -50,17 +50,16 @@ pub async fn create(item: WorkItem, client: &RdsClient) -> Result<WorkItem, Work
     retrieve(item.idwork().to_string(), client).await
 }
 
+const FIELDS: &str = "idwork, username, date, description, guide, status, archive";
+
 // Retrieve a single record, by ID.
 #[tracing::instrument(name = "Repository Retrieve single WorkItem", skip(client))]
 pub async fn retrieve(id: String, client: &RdsClient) -> Result<WorkItem, WorkItemError> {
     let statement = client
         .execute_statement()
-        .sql(
-            r#"SELECT
-                idwork, username, date, description, guide, status, archive
-            FROM Work
-            WHERE idwork = :idwork;"#,
-        )
+        .sql(format!(
+            r#"SELECT {FIELDS} FROM Work WHERE idwork = :idwork;"#
+        ))
         .set_parameters(params![("idwork", id)])
         .format_records_as(RecordsFormatType::Json)
         .send()
@@ -90,21 +89,21 @@ pub async fn retrieve(id: String, client: &RdsClient) -> Result<WorkItem, WorkIt
 }
 
 /// Retrieve a list of all records with a given WorkItemArchived state.
-#[tracing::instrument(name = "Repository List all WorkItems", skip(client))]
 pub async fn list(
     archive: WorkItemArchived,
     client: &RdsClient,
 ) -> Result<Vec<WorkItem>, WorkItemError> {
-    let statement = client
-        .execute_statement()
-        .sql(
-            r#"SELECT
-                idwork, username, date, description, guide, status, archive
-            FROM Work
-            WHERE archive = :archive
-            ;"#,
-        )
-        .set_parameters(params![("archive", format!("{}", u8::from(&archive)))])
+    let statement = client.execute_statement();
+    let statement = match archive {
+        WorkItemArchived::All => statement.sql(format!(r#"SELECT {FIELDS} FROM Work;"#)),
+        _ => statement
+            .sql(format!(
+                r#"SELECT {FIELDS} FROM Work WHERE archive = :archive ;"#
+            ))
+            .set_parameters(params![("archive", format!("{}", u8::from(&archive)))]),
+    };
+
+    let statement = statement
         .format_records_as(RecordsFormatType::Json)
         .send()
         .await;

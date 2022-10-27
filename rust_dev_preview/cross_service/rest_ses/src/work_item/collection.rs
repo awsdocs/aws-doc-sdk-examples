@@ -54,19 +54,20 @@ async fn retrieve(
         .map(Json)
 }
 
+#[derive(Debug, serde::Deserialize)]
+struct ListParams {
+    archived: Option<WorkItemArchived>,
+}
+
 /// List all WorkItems, with an optional archived query parameter.
 /// The archived parameter defaults to active items.
 #[get("/")]
 #[tracing::instrument(name = "Request list all WorkItem", skip(client))]
 async fn list(
-    archived: Option<Query<String>>,
+    params: Query<ListParams>,
     client: Data<RdsClient>,
 ) -> Result<Json<Vec<WorkItem>>, WorkItemError> {
-    let archived = archived
-        .map(|a| a.0)
-        .unwrap_or_default()
-        .as_str()
-        .try_into()?;
+    let archived = params.archived.unwrap_or_default();
     super::repository::list(archived, &client).await.map(Json)
 }
 

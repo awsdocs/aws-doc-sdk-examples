@@ -59,8 +59,7 @@ impl WorkItem {
 
 /// An enum to represent the archival status of a WorkItem.
 /// This field has varying representations at different parts of the stack, so needs some specialized serde visitors.
-#[derive(Clone, Debug, Default, Serialize)]
-#[serde(untagged)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub enum WorkItemArchived {
     Active,
     Archived,
@@ -77,6 +76,16 @@ impl From<&WorkItemArchived> for u8 {
             WorkItemArchived::Active => 0,
             WorkItemArchived::Archived => 1,
             WorkItemArchived::All => 255,
+        }
+    }
+}
+
+impl From<&WorkItemArchived> for &str {
+    fn from(value: &WorkItemArchived) -> Self {
+        match value {
+            WorkItemArchived::Active => ACTIVE,
+            WorkItemArchived::Archived => ARCHIVED,
+            WorkItemArchived::All => ACTIVE,
         }
     }
 }
@@ -109,12 +118,36 @@ impl TryFrom<&str> for WorkItemArchived {
     }
 }
 
+impl TryFrom<Option<String>> for WorkItemArchived {
+    type Error = WorkItemError;
+
+    fn try_from(value: Option<String>) -> Result<Self, Self::Error> {
+        value.unwrap_or_default().as_str().try_into()
+    }
+}
+
+impl Serialize for WorkItemArchived {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.into())
+    }
+}
+
 /// The front end specifies archived status with the strings "archived" and "active".
 /// The RDS table encodes status as 1 and 0.
 /// This serde visit handles those disparate cases, using the try_from impls.
 struct WorkItemArchivedVisitor;
 impl<'de> Visitor<'de> for WorkItemArchivedVisitor {
     type Value = WorkItemArchived;
+
+    fn visit_unit<E>(self) -> Result<Self::Value, E>
+    where
+        E: de::Error,
+    {
+        Ok(WorkItemArchived::default())
+    }
 
     fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
     where
@@ -180,5 +213,65 @@ impl ResponseError for WorkItemError {
     /// All errors get formatted using their display formtting, and put into the `error` response body field.
     fn error_response(&self) -> actix_web::HttpResponse<actix_web::body::BoxBody> {
         HttpResponse::build(self.status_code()).json(json!({ "error": format!("{}", self) }))
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use crate::work_item::{WorkItem, WorkItemArchived};
+
+    #[test]
+    fn deser_work_item_database() {
+        let work_item: WorkItem = serde_json::from_str(
+            r#"{
+            "idwork":"d060bafa-5cf4-486e-8e0f-2fc97a54382e",
+            "date":"1970-01-01",
+            "description":"A test item",
+            "guide":"Rust",
+            "status":"",
+            "username":"David",
+            "archive":0
+        }"#,
+        )
+        .unwrap();
+
+        assert_eq!(work_item.archive, WorkItemArchived::Active);
+    }
+
+    #[test]
+    fn ser_work_item() {
+        let work_item: WorkItem = serde_json::from_str(
+            r#"{
+            "idwork":"d060bafa-5cf4-486e-8e0f-2fc97a54382e",
+            "date":"1970-01-01",
+            "description":"A test item",
+            "guide":"Rust",
+            "status":"",
+            "username":"David",
+            "archive":0
+        }"#,
+        )
+        .unwrap();
+
+        let ser_work_item = serde_json::to_string_pretty(&work_item).unwrap();
+        assert!(ser_work_item.contains(r#""archive": "active""#));
+    }
+
+    #[test]
+    fn deser_work_item_database_collection() {
+        let work_item: WorkItem = serde_json::from_str(
+            r#"{
+            "idwork":"d060bafa-5cf4-486e-8e0f-2fc97a54382e",
+            "date":"1970-01-01",
+            "description":"A test item",
+            "guide":"Rust",
+            "status":"",
+            "username":"David",
+            "archive":"active"
+        }"#,
+        )
+        .unwrap();
+
+        assert_eq!(work_item.archive, WorkItemArchived::Active);
     }
 }
