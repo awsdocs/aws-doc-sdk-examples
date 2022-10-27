@@ -121,7 +121,7 @@ Active items are queried from the database and used to dynamically create an Exc
 
 At this point, you have a new project named **ItemTrackerRDSRest**.
 
-**Note:** Make sure to use Java 1.8 (as shown in the following example).
+**Note:** Make sure to use Java 11 (as shown in the following example).
 
 Confirm that the **pom.xml** file looks like the following example.
 
@@ -256,17 +256,13 @@ Confirm that the **pom.xml** file looks like the following example.
 
 ## Create the Java classes
 
-Create a Java package in the **main/java** folder named **com.aws.rest**. 
-
-![AWS Tracking Application](images/projectClasses.png)
-
-The following Java files go into this package:
+Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
 + **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
 + **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
 + **ConnectionHelper** - Establishes a connection to the Amazon RDS for MySQL database.
-+ **WorkItemRepository** - A Spring class that extends **CrudRepository** and uses the AWS SDK for Java (v2) that performs database operations. 
++ **DatabaseService** - A Spring class that extends **CrudRepository** and uses the AWS SDK for Java (v2) that performs database operations. 
 + **WorkItem** - Represents the application's data model.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
 
