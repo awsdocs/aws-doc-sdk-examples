@@ -79,7 +79,7 @@ Duplicate one more item so that you have a total of three items.
 
 The following illustration shows an example of the Work table. 
 
-![AWS Tracking Application](images/WorkTable2.png)
+![AWS Tracking Application](images/DynTable.png)
 
 For additional information about how to create an Amazon DynamoDB table using the AWS Management Console 
 and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
