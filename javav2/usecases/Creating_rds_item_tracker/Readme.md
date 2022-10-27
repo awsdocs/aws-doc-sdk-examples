@@ -1,4 +1,4 @@
-# Creating a React and Spring REST application that queries RDS for MySQL data
+# Building an Amazon RDS for MySQL Web Application with Spring Boot
 
 ## Overview
 
