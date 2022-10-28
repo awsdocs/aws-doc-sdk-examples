@@ -1,123 +1,55 @@
-#  Amazon DynamoDB work item tracker web application
+#  Track work items in a DynamoDB table with the SDK for Python
 
 ## Overview
 
-| Item              | Description |
-| ----------        | ----------- |
-| Synopsis          | Shows how to create a web application that tracks work items and sends email reports. |
-| SDK               | AWS SDK for Python (Boto3) |
-| Difficulty        | Beginner |
-| Required skills   | Python, Flask |
+This example shows you how to use the AWS SDK for Python (Boto3) to create a REST 
+service that lets you do the following:
 
-### AWS services demonstrated
+* Build a Flask REST service that integrates with AWS services.
+* Read, write, and update work items that are stored in an Amazon DynamoDB table.
+* Use Amazon Simple Email Service (Amazon SES) to send email reports of work items.
 
-* Amazon DynamoDB
-* Amazon Simple Email Service (Amazon SES)
-* AWS Identity and Access Management (IAM)
+The REST service is used in conjunction with the [Elwing React client](../../../resources/clients/react/elwing)
+to present a fully functional web application.
 
-## Purpose
-
-Shows how to use the AWS SDK for Python (Boto3) to create a web application that tracks 
-work items in DynamoDB and emails reports by using Amazon SES.
-This example uses the Flask web framework to host a local website and render
-templated web pages.
-
-* Integrate a Flask web application with AWS services.
-* List, add, update, and delete items in a DynamoDB table.
-* Send an email report of filtered work items using Amazon SES.
-* Make AWS requests with an IAM role that restricts permissions.
-* Deploy and manage example resources with the included AWS CloudFormation script.
-
-## ⚠ Important
-
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
-
-## Running the code
+### ⚠️ Important
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum 
+  permissions required to perform the task. For more information, see 
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see 
+  [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ### Prerequisites
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.8 or later
-- Flask 2.0.2 or later
-- Boto3 1.18.50 or later
-- AWS CLI 2.1.12 or later (to set a role profile with these instructions)
-- PyTest 6.0.2 or later (to run unit tests)
+Prerequisites for running examples can be found in the 
+[README](../../README.md#Prerequisites) in the Python folder.
+
+In addition to the standard prerequisites, this example also requires:
+
+* Flask 2.2.0 or later
+* Flask-Cors 3.0.10 or later
+* webargs 8.2.0 or later
+
+You can install all of the prerequisites by running the following in a virtual environment:
+
+```
+python -m pip install -r requirements.txt
+```
  
-### Deploy resources
+## Create the resources
 
-This example requires a DynamoDB table and an optional IAM role to restrict
-permissions. You can use the `setup.yaml` CloudFormation script to create and
-manage these resources, either by using the AWS Command Line Interface (AWS CLI) or 
-the `setup.py` script. You can also manually deploy resources by using the AWS
-Management Console.
+### Work item table
 
-The `setup.yaml` script was created by using the AWS Cloud Development Kit (AWS CDK)
-script contained in the 
-[resources/cdk/dynamodb-item-tracker](/resources/cdk/dynamodb-item-tracker)
-folder.
+This example requires a DynamoDB table that has a String partition key named `iditem`.
 
-#### CloudFormation deployment
-
-1. Run `setup.py` with the `deploy` flag to create and deploy a CloudFormation stack 
-that manages creation of a DynamoDB table and an IAM role that grants limited 
-permissions needed by the app.
-    ```
-    python setup.py deploy
-    ```
-    The setup script outputs the name of the table and the Amazon Resource Name (ARN)
-of the role.
-    The setup script also creates a configuration file (`config.py`) used by the app.
-    The default contents are similar to:
-    ```python
-    TABLE_NAME = 'doc-example-work-item-tracker'
-    ```  
-1. (Optional) If you want to run the app with restricted permissions instead of the
-default user permissions, take the following steps:
-    1. Use the [AWS CLI](https://docs.aws.amazon.com/cli/) 
-    to create an assume role profile. In the following commands,
-    replace the value of `role_arn` with the RoleArn from the setup script output, 
-    replace the value of `source_profile` with the user profile you used to run the 
-    setup script (the default is `default`), and replace the value of `region` with
-    your AWS Region.
-       ```
-       aws configure set role_arn arn:aws:iam::111122223333:role/doc-example-work-item-tracker-role --profile item_tracker_role
-       aws configure set source_profile default --profile item_tracker_role
-       aws configure set region YOUR-AWS-REGION --profile item_tracker_role
-       ``` 
-    1. You can find the entry for this profile in your `~/.aws/config` file under the
-    heading `[profile item_tracker_role]`. Or you can verify it with the AWS CLI.
-       ```
-       aws configure list --profile item_tracker_role
-       ```
-       The profile looks similar to:
-       ```
-       [profile item_tracker_role]
-       role_arn = arn:aws:iam::111222333:role/doc-example-work-item-tracker-role
-       source_profile = default
-       region = us-west-2
-       ``` 
-    1. Add an 'ITEM_TRACKER_PROFILE' value to the `config.py` file created by the setup
-    script.
-       ```
-       ITEM_TRACKER_PROFILE = 'item_tracker_role'
-       ```  
-**Note:** The example can be run with default permissions or with restricted 
-permissions. When you run the app, it checks the `ITEM_TRACKER_PROFILE` value in 
-`config.py`. If this entry exists, Boto3 is configured to use that profile to assume the 
-specified role. The result is that Boto3 is granted restricted permissions instead of
-the default user permissions, and the app is only able to make AWS requests that are 
-allowed by the role.
+#### AWS CDK and AWS CLI deployment
+ 
+Follow the instructions in the 
+[README for the DynamoDB item tracker](/resources/cdk/dynamodb-item-tracker/README.md) 
+to use the AWS Cloud Development Kit (AWS CDK) or AWS Command Line Interface
+(AWS CLI) to create and manage the table resource. 
 
 #### Console deployment
 
@@ -127,14 +59,14 @@ To deploy with the console, take the following steps:
 
 1. Open the console in your browser.
 1. Navigate to DynamoDB and create a table named `doc-example-work-item-tracker`
-with a partition key of String type named `item_id`.
+with a partition key of String type named `iditem`.
 
-**Note:** With manual deployment, the app runs as the default user with full permissions.
+### Verified email address
 
-#### Verify an email address
+To email reports from the app, you must register at least one email address with 
+Amazon SES. This verified email is specified as the sender for emailed reports.
 
-1. To email reports from the app, you must register at least one email address.
-In a browser, navigate to the [Amazon SES console](https://console.aws.amazon.com/ses/).
+1. In a browser, navigate to the [Amazon SES console](https://console.aws.amazon.com/ses/).
 1. If necessary, select your AWS Region.
 1. Select **Verified identities**.
 1. Select **Create identity**.
@@ -145,25 +77,52 @@ In a browser, navigate to the [Amazon SES console](https://console.aws.amazon.co
 to verify the email with Amazon SES. Follow the instructions in the email to complete
 verification.
 
-### Run the app
+*Tip:* For this example, you can use the same email account for both the sender and 
+the recipient.
+
+## Run the example 
+
+### REST service
+
+#### Configure the service
+
+Before you run the service, enter your DynamoDB table name and verified email address
+in `config.py`, similar to the following:
+
+```
+TABLE_NAME = 'doc-example-work-item-tracker'
+SENDER_EMAIL = 'your_name@example.com'
+```
+
+#### Run the service
 
 This example uses [Flask](https://flask.palletsprojects.com/en/2.0.x/) to host a local 
-web server. With the web server running, you can browse to the app endpoint and use
-the app to add and remove work items and send email reports.
+web server and REST service. With the web server running, you can send HTTP requests to
+the service endpoint to list, add, and update work items and to send email reports.
 
-1. Run the app at a command prompt to start the Flask web server.
-   ```
-   python app.py
-   ```
-   When the app starts, it logs whether it is using default credentials or 
-   restricted credentials along with the URL where the app is hosted.
-   ```
-   INFO: Using credentials from restricted profile item_tracker_role.
-   INFO:  * Running on http://127.0.0.1:5000/
-   ```
+Run the app at a command prompt to start the Flask web server. Specify the `--debug`
+flag for more detailed output during development, and specify a port of 8080 to work
+with the Elwing client.
 
-1. Start a web browser and browse to the [app URL](http://127.0.0.1:5000/).
+```
+flask --debug run -p 8080
+```
 
+### Webpage
+
+The REST service is designed to work with the item tracker plugin in the Elwing web
+client. The item tracker plugin is a JavaScript application that lets you manage work 
+items, send requests to the REST service, and see the results.
+
+#### Run Elwing and select the item tracker
+
+1. Run Elwing by following the instructions in the [Elwing README](/resources/clients/react/elwing/README.md).
+1. When Elwing starts, a web browser opens and browses to http://localhost:3000/.
+1. Run the item tracker plugin by selecting **Item Tracker** in the left navigation bar.
+1. This sends a request to the REST service to get any existing active items:
+   ```
+   GET http://localhost:8080/api/items?archived=false
+   ```
 1. At first, the table is empty.
 
     ![Work item tracker](images/item-tracker-start.png)
@@ -172,131 +131,154 @@ the app to add and remove work items and send email reports.
 
     ![Add item](images/item-tracker-add-item.png)
 
-1. After you've added items, they're displayed in the table.
+   This sends a POST request to the REST service with a JSON payload that contains the
+   work item.
+
+   ```
+   POST http://localhost:8080/api/items
+   {"name":"Me",
+    "guide":"python",
+    "description":"Show how to add an item",
+    "status":"In progress",
+    "archived":false}
+   ```
+
+1. After you've added items, they're displayed in the table. You can archive an active 
+   item by selecting the **Archive** button next to the item.
 
     ![Work item tracker with items](images/item-tracker-all-items.png)
 
-1. Select a filter, such as **Archived**, and select **Filter** to get and display
+   This sends a PUT request to the REST service, specifying the item ID and the
+   `archive` action. 
+   
+   ```
+   PUT http://localhost:8080/api/items/8db8aaa4-6f04-4467-bd60-EXAMPLEGUID:archive
+   ```
+   
+1. Select a filter in the dropdown list, such as **Archived**, to get and display
 only items with the specified status.
 
     ![Work item tracker Archived items](images/item-tracker-archived-items.png)
 
-1. Select **Report** to send an email of the displayed items.
+   This sends a GET request to the REST service with an `archived` query parameter.
+   
+   ```
+   GET http://localhost:8080/api/items?archived=true
+   ```
+
+1. Enter an email recipient and select **Send report** to send an email of active items.
 
     ![Work item tracker send report](images/item-tracker-send-report.png)
 
-1. Fill in the form with the email you verified during setup, edit the message text, 
-and select **Send report** to send an email of the displayed work items.
-
-1. You can also edit and delete items by selecting **Edit** and **Delete** for each 
-item in the table in the main page. 
-
-### Destroy
-
-If you created the example resources by using the `setup.yaml` CloudFormation script,
-you can destroy all resources in the same way, either by using the AWS CLI or the
-`setup.py script`. If you created resources by using the console, you must manually
-destroy them.
-
-Run `setup.py` with the `destroy` flag to destroy the example resources and the
-CloudFormation stack that manages them.
+   This sends a POST request to the REST service with a `report` action.
+   
    ```
-   python setup.py destroy
+   POST http://localhost:8080/api/items:report
    ```
+    
+   When your Amazon SES account is in the sandbox, both the sender and recipient
+   email addresses must be registered with Amazon SES.
 
-## Example structure
+## Understand the example
 
-This example uses the Flask web framework to host a local website and render
-templated web pages.
+This example uses the Flask web framework to host a local REST service and respond to
+HTTP requests.
 
 ### Routing
 
-The [app.py](app.py) file starts and configures the app and handles all website routing.
+The [app.py](app.py) file configures the app, creates Boto3 resources, and sets up 
+URL routing. This example uses Flask's `MethodView` class to help with routing.
 
-In this file, you can find functions decorated as Flask routes. For example:
+In this file, you can find route definitions like the following, which routes a GET
+request to `/api/items` to the `ItemList.get` method:
 
 ```python
-    @app.route('/')
-    @app.route('/items')
-    def items():
-        ...
+item_list_view = ItemList.as_view('item_list_api', storage)
+app.add_url_rule(
+    '/api/items', defaults={'iditem': None}, view_func=item_list_view, methods=['GET'],
+    strict_slashes=False)
 ```  
 
-The routes in the app do things like:
+### REST methods
 
-* Display a table of items.
-* Display a form for adding a new item.
-* Accept a POST that edits an item.
-* Send an email report to a specified email address.
+HTTP requests are routed to methods in the [ItemList](item_list.py) and 
+[Report](report.py) classes, which use webargs and marshmallow to handle argument 
+parsing and data transformation.
 
-### Rendering
+For example, the work item schema includes a field that is named `id` in the web page,
+but is named `iditem` in the data table. By defining a `data_key`, the marshmallow 
+schema transforms this field automatically. 
 
-The routes serve web pages that are rendered by Flask from templates that are stored in
-the `templates` folder, such as [items.html](templates/items.html), which displays the 
-list of work items based on the specified filter.
+```python
+class WorkItemSchema(Schema):
+    iditem = fields.Str(data_key='id')
+``` 
 
-The templates use flow control and variables contained in curly braces to render data 
-returned from DynamoDB. For example, the work items table rows are rendered from 
-this part of the `items.html` template:
+The `ItemList` class contains methods that handle REST requests and use the
+`@use_args` and `@use_kwargs` decorators from webargs to parse incoming arguments.
 
-```html
-{% for item in items %}
-<tr>
-  <td>{{item.name}}</td>
-  <td>{{item.formatted_date}}</td>
-  <td>{{item.description}}</td>
-  <td>{{item.status}}</td>
-  <td>
-    <a class="btn btn-primary" href="/item/{{item.item_id}}">Edit</a>
-    <a class="btn btn-primary" href="/items/delete/{{item.item_id}}">Delete</a>
-  </td>
-</tr>
-{% endfor %}
-```    
+For example, the `get` method uses `@use_kwargs` to parse fields contained in the query 
+string into arguments in the method signature, and then calls the underlying `storage`
+object to get work items from the DynamoDB table.
+
+```python
+@use_kwargs(WorkItemSchema, location='query')
+def get(self, iditem, archived=None):
+    work_items = self.storage.get_work_items(archived)
+```
 
 ### DynamoDB storage
 
-The [storage.py](storage.py) file contains functions that get and set data in DynamoDB. 
-For example, this excerpt scans the table for work items with a specified status:
+The [storage.py](storage.py) file contains functions that get and set data in DynamoDB
+by using a Boto3 Table object. This object is a high-level object that wraps low-level
+DynamoDB service actions.
+ 
+For example, the `get_work_items` function scans the table for work items with a 
+specified `archived` status:
 
 ```python
-work_items = self.table.scan(
-    FilterExpression=Attr('status').eq(status_filter)).get('Items', [])
+def get_work_items(self, archived=None):
+    work_items = self.table.scan(
+        FilterExpression=Attr('archived').eq(archived)).get('Items', [])
 ```
 
 ### Amazon SES report
 
-The [report.py](report.py) file contains functions that send an email report of work items to
-a specified email address. For example: 
+The [report.py](report.py) file contains functions that send an email report of work 
+items to a specified email address.
 
-```python
-self.ses_client.send_email(
-    Source=sender,
-    Destination={'ToAddresses': [recipient]},
-    Message={
-        'Subject': {'Data': subject},
-        'Body': {
-            'Text': {'Data': text_message},
-            'Html': {'Data': html_message}}})
-``` 
+When 10 or fewer work items are included in the report, the work item list is included 
+directly in the email body, with both HTML and text versions. This style of report is
+sent by using the `send_email` service action, which lets you send the HTML and text
+body as plain Python strings.
 
-## Running the tests
+When the list is larger than 10 work items, it is rendered in CSV format and included 
+as an attachment to the email. When you use Amazon SES to send an attachment, you must 
+use the `send_raw_email` service action and send the email in MIME format. 
 
-The unit tests in this module use the botocore Stubber, which captures requests before 
-they are sent to AWS, and returns a mocked response. To run all of the tests, 
-run the following in your [GitHub root]/python/cross_service/dynamodb_item_tracker
-folder.
+## Delete the resources
 
-```    
-python -m pytest
-```
+To avoid charges, delete all the resources that you created for this tutorial.
+
+If you created the example resources by using the AWS CDK or AWS CLI,
+you can destroy the resources by following the instructions in the 
+[README for the DynamoDB item tracker](/resources/cdk/dynamodb-item-tracker/README.md) 
+
+If you created your resources through the AWS Management Console, or modified them by 
+running the app, you must use the console to delete them.
+
+## Next steps
+
+Congratulations! You have built a REST service that reads, writes, and archives 
+work items that are stored in an Amazon DynamoDB table, and that uses 
+Amazon SES to send email to a registered user.
 
 ## Additional information
 
-- [Boto3 DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
-- [Boto3 IAM service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html)
-- [DynamoDB Documentation](https://docs.aws.amazon.com/dynamodb)
-- [IAM Documentation](https://docs.aws.amazon.com/iam)
+* [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+* [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
+* [Boto3 DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
+* [Amazon SES Boto3 API Reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ses.html)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
