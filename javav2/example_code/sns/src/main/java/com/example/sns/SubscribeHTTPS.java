@@ -57,7 +57,7 @@ public class SubscribeHTTPS {
 
         try {
             SubscribeRequest request = SubscribeRequest.builder()
-                .protocol("http")
+                .protocol("https")
                 .endpoint(url)
                 .returnSubscriptionArn(true)
                 .topicArn(topicArn)
