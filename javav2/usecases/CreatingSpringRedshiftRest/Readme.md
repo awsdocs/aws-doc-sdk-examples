@@ -959,7 +959,7 @@ http://localhost:8080/api/items
 
 The following illustration shows the JSON data returned from the Spring REST API. 
 
-![AWS Tracking Application](images/json.png)
+![AWS Tracking Application](images/json2.png)
 
 ## Create the React front end
 
