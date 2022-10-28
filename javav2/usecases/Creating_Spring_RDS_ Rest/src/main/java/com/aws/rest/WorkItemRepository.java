@@ -29,8 +29,8 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
     static final String active = "0";
     static final String archived = "1";
     static final String database = "jobs";
-    static final String secretArn = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b";
-    static final String resourceArn = "arn:aws:rds:us-east-1:814548047983:cluster:database-4";
+    static final String secretArn = "<Enter Value>";
+    static final String resourceArn = "<Enter Value>";
 
     static RdsDataClient getClient() {
         return RdsDataClient.builder().region(App.region).build();
