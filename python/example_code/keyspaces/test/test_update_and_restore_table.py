@@ -53,11 +53,13 @@ def mock_mgr(stub_runner, scenario_data, monkeypatch, input_mocker):
 def test_update_and_restore_table(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.stubber)
 
+    og_table_name = mock_mgr.scenario_data.scenario.ks_wrapper.table_name
+
     with query.QueryManager('test-cert-path', MagicMock(), 'test-ks') as qm:
         mock_mgr.scenario_data.scenario.update_and_restore_table(qm)
         capt = capsys.readouterr()
         assert f"Marked {mock_mgr.scenario_data.mm_movie.title}" in capt.out
-        assert f"Restored {mock_mgr.scenario_data.scenario.ks_wrapper.table_name}" in capt.out
+        assert f"Restored {og_table_name}" in capt.out
 
 
 @pytest.mark.parametrize('error, stop_on_index', [
