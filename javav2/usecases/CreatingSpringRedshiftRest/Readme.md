@@ -88,11 +88,13 @@ The React application displays *active* and *archive* items. For example, the fo
 
 Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/elapp2.png)
+![AWS Tracking Application](images/elappArc2.png)
 
-The React application lets a user convert an active item to an archived item by clicking the following button. 
+**Note**: Notice that the **Archived** button is disabled. 
 
-![AWS Tracking Application](images/elapp3.png)
+The React application lets a user convert an active item to an archived item by clicking the **Archive** button. 
+
+![AWS Tracking Application](images/elappArcAll.png)
 
 The React application also lets a user enter a new item. 
 
@@ -957,7 +959,7 @@ http://localhost:8080/api/items
 
 The following illustration shows the JSON data returned from the Spring REST API. 
 
-![AWS Tracking Application](images/json.png)
+![AWS Tracking Application](images/json2.png)
 
 ## Create the React front end
 
