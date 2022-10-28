@@ -14,7 +14,7 @@ def hello_keyspaces(keyspaces_client):
     :param keyspaces_client: A Boto3 Amazon Keyspaces Client object. This object wraps
                              the low-level Amazon Keyspaces service API.
     """
-    print("Hello, Amazon Keyspaces! Let's list your keyspaces:\n")
+    print("Hello, Amazon Keyspaces! Let's list some of your keyspaces:\n")
     for ks in keyspaces_client.list_keyspaces(maxResults=5).get('keyspaces', []):
         print(ks['keyspaceName'])
         print(f"\t{ks['resourceArn']}")

@@ -14,7 +14,7 @@ class KeyspacesStubber(ExampleStubber):
     A class that implements stub functions used by Amazon Keyspaces unit tests.
 
     The stubbed functions expect certain parameters to be passed to them as
-    part of the tests, and raise errors if the parameters are not as expected.
+    part of the tests. If the parameters are not as expected, the functions raise errors.
     """
     def __init__(self, client, use_stubs=True):
         """

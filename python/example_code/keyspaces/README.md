@@ -17,7 +17,7 @@ database service.*
 
 ## Code examples
 
-### Hello
+### Get started
 
 * [Hello Amazon Keyspaces](hello.py)
 (`ListKeyspaces`)
@@ -79,7 +79,7 @@ python -m pip install -r requirements.txt
 
 #### Get started with keyspaces and tables
 
-Run an interactive example that shows you how to:
+Run an interactive example that shows you how to do the following:
 
 * Create and manage a keyspace and table.
 * Query the table over a secure TLS connection that's authenticated by Signature V4 (SigV4).

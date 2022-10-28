@@ -17,12 +17,12 @@ def test_run_keyspace_scenario_integ(input_mocker, capsys):
     scenario = KeyspaceScenario(KeyspaceWrapper.from_client())
 
     input_mocker.mock_answers([
-        'doc_example_test_keyspace',    # create keyspace
-        'movietabletest',               # create table
-        'y',                            # ensure TLC cert
-        1,                              # query table
-        '', 'y',                        # update and restore table
-        'y',                            # cleanup
+        'doc_example_test_keyspace',    # Create keyspace.
+        'movietabletest',               # Create table.
+        'y',                            # Ensure TLS cert.
+        1,                              # Query table.
+        '', 'y',                        # Update and restore table.
+        'y',                            # Cleanup.
     ])
 
     scenario.run_scenario()

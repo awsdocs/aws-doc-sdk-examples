@@ -142,7 +142,7 @@ class KeyspaceScenario:
         1. Updates the table by adding a column to track watched movies.
         2. Marks some of the movies as watched.
         3. Gets the list of watched movies from the table.
-        4. Restores the table to a previous point in time.
+        4. Restores to a movies_restored table at a previous point in time.
         5. Gets the list of movies from the restored table.
         """
         print("Let's add a column to record which movies you've watched.")
@@ -169,12 +169,13 @@ class KeyspaceScenario:
         if q.ask(
                 "Do you want to restore the table to the way it was before all of these\n"
                 "updates? Keep in mind, this can take up to 20 minutes. (y/n) ", q.is_yesno):
+            starting_table_name = self.ks_wrapper.table_name
             table_name_restored = self.ks_wrapper.restore_table(pre_update_timestamp)
             table = {'status': 'RESTORING'}
             while table['status'] != 'ACTIVE':
                 wait(10)
                 table = self.ks_wrapper.get_table(table_name_restored)
-            print(f"Restored {self.ks_wrapper.table_name} to {table_name_restored} "
+            print(f"Restored {starting_table_name} to {table_name_restored} "
                   f"at a point in time of {pre_update_timestamp}.")
             movies = qm.get_movies(table_name_restored)
             print("Now the movies in our table are:")
@@ -197,7 +198,8 @@ class KeyspaceScenario:
                 table = self.ks_wrapper.get_table(table_name)
             print("Table deleted.")
             self.ks_wrapper.delete_keyspace()
-            print("Keyspace deleted.")
+            print("Keyspace deleted. If you chose to restore your table during the "
+                  "demo, the original table is also deleted.")
 
     def run_scenario(self):
         logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')

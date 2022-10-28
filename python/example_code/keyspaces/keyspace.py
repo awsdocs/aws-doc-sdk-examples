@@ -171,7 +171,9 @@ class KeyspaceWrapper:
     # snippet-start:[python.example_code.keyspaces.UpdateTable]
     def update_table(self):
         """
-        Updates the schema of the table of movie data by adding a new column
+        Updates the schema of the table.
+        
+        This example updates a table of movie data by adding a new column
         that tracks whether the movie has been watched.
         """
         try:
