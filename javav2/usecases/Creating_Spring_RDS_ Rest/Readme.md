@@ -555,7 +555,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
 
     @Override
     public Optional<WorkItem> findById(String s) {
-        String sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work WHERE idwork = :id;";
+        String sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work WHERE idwork = :id;";
         List<SqlParameter> parameters = List.of(param("id", s));
         var result = execute(sqlStatement, parameters)
             .records()
@@ -586,7 +586,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
                 param("id", id),
                 param("arch", archived)
             );
-           execute(sqlStatement, parameters);
+            execute(sqlStatement, parameters);
         } catch (RdsDataException e) {
             e.printStackTrace();
         }
@@ -598,7 +598,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
         String isArc;
 
         if (status.compareTo("true") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE archive = :arch ;";
             isArc = "1";
             List<SqlParameter> parameters = List.of(
@@ -611,7 +611,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
                 .collect(Collectors.toUnmodifiableList());
 
         } else if (status.compareTo("false") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE archive = :arch ;";
             isArc = "0";
             List<SqlParameter> parameters = List.of(
@@ -624,7 +624,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
                 .collect(Collectors.toUnmodifiableList());
 
         } else {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work ;";
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work ;";
             List<SqlParameter> parameters = List.of(
 
             );
@@ -685,7 +685,6 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
     }
 }
 
-
 ```
 
 
@@ -707,11 +706,16 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private boolean archived;
 
     public static WorkItem from(List<Field> fields) {
         var item = new WorkItem();
-        for (int i = 0; i <= 5; i++) {
+        boolean arcVal = false;
+        for (int i = 0; i <= 6; i++) {
             String value = fields.get(i).stringValue();
+            if (i == 6)
+                arcVal = fields.get(i).booleanValue();
+
             switch (i) {
                 case 0:
                     item.setId(value);
@@ -731,9 +735,21 @@ public class WorkItem {
                 case 5:
                     item.setName(value);
                     break;
+
+                case 6:
+                    item.setArchived(arcVal);
+                    break;
             }
         }
         return item;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived =archived;
+    }
+
+    public boolean getArchived() {
+        return this.archived;
     }
 
     public void setId(String id) {

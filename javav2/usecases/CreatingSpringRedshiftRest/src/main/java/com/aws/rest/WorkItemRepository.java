@@ -51,14 +51,14 @@ public class WorkItemRepository {
 
         // Get all records from the Amazon Redshift table.
         if (arch.compareTo("") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work";
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work";
             ExecuteStatementResponse response = executeAll(sqlStatement);
             String id = response.id();
             System.out.println("The identifier of the statement is "+id);
             checkStatement(id);
             return getResults(id);
         } else {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE username = :username and archive = :arch ;";
 
             parameters = List.of(
