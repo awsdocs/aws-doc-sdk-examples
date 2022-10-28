@@ -436,6 +436,7 @@ The following Java code represents the **WorkItemRepository** class. Notice that
 In addition, notice the use of [Class SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) when using SQL statements. For example, in the **getData** method, you build a list of **SqlParameter** objects used to get records from the database.
 
 ```java
+
 package com.aws.rest;
 
 import org.springframework.stereotype.Component;
@@ -484,14 +485,14 @@ public class WorkItemRepository {
 
         // Get all records from the Amazon Redshift table.
         if (arch.compareTo("") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work";
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work";
             ExecuteStatementResponse response = executeAll(sqlStatement);
             String id = response.id();
             System.out.println("The identifier of the statement is "+id);
             checkStatement(id);
             return getResults(id);
         } else {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE username = :username and archive = :arch ;";
 
             parameters = List.of(
@@ -608,8 +609,6 @@ public class WorkItemRepository {
         flipItemArchive(sqlStatement,parameters);
     }
 
-
-
     public String injectNewSubmission(WorkItem item) {
         try {
             String name = item.getName();
@@ -647,6 +646,7 @@ public class WorkItemRepository {
         return "";
     }
 }
+
 
 ```
 
