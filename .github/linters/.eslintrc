@@ -8,6 +8,7 @@
     // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     "plugin:@typescript-eslint/recommended"
   ],
+  "env": { "es6": true, "node": true, "jest": true },
   "plugins": ["@typescript-eslint"],
   "rules": {
     "no-unused-vars": "off",
@@ -20,6 +21,15 @@
       }
     ],
     /** Turn off strict enforcement */
+    "no-undef": 1,
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-var-requires": "off",

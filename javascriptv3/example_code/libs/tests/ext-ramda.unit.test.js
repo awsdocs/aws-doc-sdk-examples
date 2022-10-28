@@ -10,6 +10,7 @@ import {
   flipMap,
   parseString,
   promiseAll,
+  splitMapTrim,
 } from "../ext-ramda";
 import { testEqual } from "../utils/util-test";
 
@@ -63,6 +64,13 @@ describe("ext-ramda", () => {
           Promise.resolve("c"),
         ])
       )
+    );
+  });
+
+  describe("splitMapTrim", () => {
+    it(
+      "should take a string, split by a delimiter, and map to a trimmed version of each element",
+      testEqual(["a,b", "c,d"], splitMapTrim("\n", "   a,b \n  c,d "))
     );
   });
 });

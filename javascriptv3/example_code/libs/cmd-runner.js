@@ -8,7 +8,6 @@ import {
   startsWith,
   compose,
   split,
-  toLower,
   trim,
   T,
   prop,
@@ -31,7 +30,7 @@ const processCommands = (context) =>
     [T, () => log("Command not recognized.")],
   ]);
 
-const getCommands = compose(split(" "), toLower, trim);
+const getCommands = compose(split(" "), trim);
 
 const handleInput = (context) => compose(processCommands(context), getCommands);
 
@@ -45,7 +44,7 @@ const handleInput = (context) => compose(processCommands(context), getCommands);
  * @returns
  */
 const readCommands = compose(
-  apply(on("line")), 
+  apply(on("line")),
   flipApplyMap([handleInput, readerProp])
 );
 
