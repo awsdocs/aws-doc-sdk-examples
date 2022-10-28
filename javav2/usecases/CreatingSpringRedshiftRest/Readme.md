@@ -71,7 +71,6 @@ To use the **RedshiftDataClient** object, you must have the following Amazon Red
 
 For more information, see [Getting started with Amazon Redshift clusters and data loading](https://docs.aws.amazon.com/redshift/latest/gsg/database-tasks.html).
 
-
 ## Understand the AWS Tracker React application 
 
 A user can perform the following tasks using the React application:
@@ -88,11 +87,13 @@ The React application displays *active* and *archive* items. For example, the fo
 
 Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/elapp2.png)
+![AWS Tracking Application](images/elappArc2.png)
 
-The React application lets a user convert an active item to an archived item by clicking the following button. 
+**Note**: Notice that the **Archived** button is disabled. 
 
-![AWS Tracking Application](images/elapp3.png)
+The React application lets a user convert an active item to an archived item by clicking the **Archive** button. 
+
+![AWS Tracking Application](images/elappArcAll.png)
 
 The React application also lets a user enter a new item. 
 
@@ -105,6 +106,7 @@ The user can enter an email recipient into the **Email Report** text field and c
 Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
 
 ![AWS Tracking Application](images/report.png)
+
 
 ## Creating an IntelliJ project named ItemTrackerRedshiftRest
 
