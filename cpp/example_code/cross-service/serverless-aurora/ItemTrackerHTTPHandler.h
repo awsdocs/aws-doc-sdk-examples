@@ -3,6 +3,14 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+/**
+ *  ItemTrackerHTTPHandler.h/.cpp
+ *
+ *  The code in these 2 files implements the HTTP server portion of the Amazon Aurora
+ *  serverless, cross-service example.
+ *
+ *  To run the example, refer to instructions in the ReadMe.
+*/
 #pragma once
 #ifndef SERVERLESSAURORA_ITEMTRACKERSERVER_H
 #define SERVERLESSAURORA_ITEMTRACKERSERVER_H
@@ -18,27 +26,22 @@ namespace AwsDoc {
             BOTH
         };
 
-          /**
-           *
-           *  Struct to store work item data.
-           *
-           */
+        /**
+         *
+         *  Struct to store work item data.
+         *
+         */
         struct WorkItem {
             WorkItem() {}
 
-            WorkItem(const Aws::String& id,
-                     const Aws::String& name,
-                     const Aws::String& guide,
-                     const Aws::String& description,
-                     const Aws::String& status,
+            WorkItem(const Aws::String &id,
+                     const Aws::String &name,
+                     const Aws::String &guide,
+                     const Aws::String &description,
+                     const Aws::String &status,
                      bool archived) :
-                     mID(id)
-                     , mName(name)
-                     , mGuide(guide)
-                     , mDescription(description)
-                     , mStatus(status)
-                     , mArchived(archived)
-            {}
+                    mID(id), mName(name), mGuide(guide), mDescription(description),
+                    mStatus(status), mArchived(archived) {}
 
             Aws::String mID;
             Aws::String mName;
@@ -49,11 +52,11 @@ namespace AwsDoc {
 
         };
 
-         /**
-          *
-          *  Constants for http request keys.
-          *
-          */
+        /**
+         *
+         *  Constants for HTTP request keys.
+         *
+         */
         extern const Aws::String HTTP_ID_KEY;
         extern const Aws::String HTTP_NAME_KEY;
         extern const Aws::String HTTP_GUIDE_KEY;
@@ -62,12 +65,12 @@ namespace AwsDoc {
         extern const Aws::String HTTP_ARCHIVED_KEY;
         extern const Aws::String HTTP_EMAIL_KEY;
 
-         /**
-          * RDSDataReceiver
-          *
-          *  Abstract class defining handler for Relational Database Service (Amazon RDS).
-          *
-          */
+        /**
+         * RDSDataReceiver
+         *
+         *  Abstract class defining handler for Amazon Relational Database Service (Amazon RDS).
+         *
+         */
         class RDSDataReceiver {
         public:
             //! Routine which adds one work item.
@@ -95,7 +98,8 @@ namespace AwsDoc {
              \param workItem: Work item struct.
              \return bool: Successful completion.
              */
-            virtual bool getWorkItemWithId(const Aws::String &id, WorkItem &workItem) = 0;
+            virtual bool
+            getWorkItemWithId(const Aws::String &id, WorkItem &workItem) = 0;
 
             //! Routine which updates a work item setting it as archived.
             /*!
@@ -114,54 +118,54 @@ namespace AwsDoc {
             virtual bool updateWorkItem(const WorkItem &workItem) = 0;
         };
 
-          /**
-           * RDSDataReceiver
-           *
-           *  Abstract class defining handler for Simple Email Service (Amazon SES).
-           *
-           */
-       class SESEmailReceiver {
+        /**
+         * RDSDataReceiver
+         *
+         *  Abstract class defining handler for Amazon Simple Email Service (Amazon SES).
+         *
+         */
+        class SESEmailReceiver {
         public:
             virtual bool sendEmail(const Aws::String emailAddress,
                                    const std::vector<WorkItem> &workItems) = 0;
         };
 
-         /**
-          * ItemTrackerHTTPHandler
-          *
-          *  Implementation of http server handler.
-          *
-          */
+        /**
+         * ItemTrackerHTTPHandler
+         *
+         *  Implementation of HTTP server handler.
+         *
+         */
         class ItemTrackerHTTPHandler : public HTTPReceiver {
         public:
             //! ItemTrackerHTTPHandler constructor.
             /*!
              \sa ItemTrackerHTTPHandler::ItemTrackerHTTPHandler()
-             \param rdsDataReceiver: Handler for Relational Database Service (Amazon RDS).
-             \param emailReceiver: Handler for Simple Email Service (Amazon SES).
+             \param rdsDataReceiver: Handler for Amazon Relational Database Service (Amazon RDS).
+             \param emailReceiver: Handler for Amazon Simple Email Service (Amazon SES).
             */
             explicit ItemTrackerHTTPHandler(RDSDataReceiver &rdsDataReceiver,
                                             SESEmailReceiver &emailReceiver);
 
-            //! Override of HTTPReceiver::handleHTTP routine which handles http server requests.
+            //! Override of HTTPReceiver::handleHTTP routine which handles HTTP server requests.
             /*!
              \sa ItemTrackerHTTPHandler::handleHTTP()
-             \param method: Method of http request.
-             \param uri: Uri of http request.
-             \param requestContent Content of http request.
+             \param method: Method of HTTP request.
+             \param uri: Uri of HTTP request.
+             \param requestContent Content of HTTP request.
              \param responseContentType Content type of response, if any.
              \param responseStream Content of response, if any.
              \return bool: Successful completion.
             */
-             bool handleHTTP(const std::string &method, const std::string &uri,
-                             const std::string &requestContent,
-                             std::string &responseContentType,
-                             std::ostream &responseStream) override;
+            bool handleHTTP(const std::string &method, const std::string &uri,
+                            const std::string &requestContent,
+                            std::string &responseContentType,
+                            std::ostream &responseStream) override;
 
             //! Routine which adds a work items to Amazon RDS.
             /*!
              \sa ItemTrackerHTTPHandler::addWorkItem()
-             \param workItemJson: Content of http request as JSON string.
+             \param workItemJson: Content of HTTP request as JSON string.
              \return bool: Successful completion.
             */
             bool addWorkItem(const std::string &workItemJson);
@@ -169,7 +173,7 @@ namespace AwsDoc {
             //! Routine sends an email using Amazon SES.
             /*!
              \sa ItemTrackerHTTPHandler::sendEmail()
-             \param emailJson: Http request JSON string containing an email.
+             \param emailJson: HTTP request JSON string containing an email.
              \return bool: Successful completion.
             */
             bool sendEmail(const std::string &emailJson);
@@ -183,15 +187,15 @@ namespace AwsDoc {
              \param jsonString: String with JSON response.
              \return bool: Successful completion.
             */
-             bool getWorkItemWithIdJson(
+            bool getWorkItemWithIdJson(
                     const Aws::String &id, std::string &jsonString);
 
-            //! Routine which retrieves a list of work items from Amazon RDS as an http response
+            //! Routine which retrieves a list of work items from Amazon RDS as an HTTP response
             //! JSON string.
             /*!
              \sa ItemTrackerHTTPHandler::getWorkItemJSON()
              \param status: Status filter for work items.
-             \param jsonString: Http response JSON string.
+             \param jsonString: HTTP response JSON string.
              \return bool: Successful completion.
             */
             bool getWorkItemJSON(
@@ -201,7 +205,7 @@ namespace AwsDoc {
             //! Routine which converts a JSON string to a WorkItem struct.
             /*!
              \sa ItemTrackerHTTPHandler::jsonToWorkItem()
-             \param workItemJson: Content of http request as JSON string.
+             \param workItemJson: Content of HTTP request as JSON string.
              \return WorkItem: WorkItem struct.
             */
             static WorkItem jsonToWorkItem(const std::string &jsonString);

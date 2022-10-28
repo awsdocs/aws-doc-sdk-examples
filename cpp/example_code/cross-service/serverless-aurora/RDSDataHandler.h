@@ -3,6 +3,15 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+/**
+ *  RDSDataHandler.h/.cpp
+ *
+ *  The code in these 2 file implements the creation, updating and querying of a table in
+ *  a Amazon Relational Database Service (Amazon RDS)
+ *
+ *  To run the example, refer to instructions in the ReadMe.
+ */
+
 #pragma once
 #ifndef EXAMPLECODE_RDSDATAHANDLER_H
 #define EXAMPLECODE_RDSDATAHANDLER_H
@@ -18,7 +27,7 @@ namespace AwsDoc {
          *  RDSDataHandler
          *
          *  Implementation of RDSDataReceiver which handles requests for data from a
-         *  database table using Relational Database Service (Amazon RDS).
+         *  database table using Amazon RDS.
          *
          */
         class RDSDataHandler : public AwsDoc::CrossService::RDSDataReceiver {
@@ -33,11 +42,11 @@ namespace AwsDoc {
              \param tableName: Name of table to create in an Amazon RDS database.
              \param clientConfiguration: Aws client configuration.
              */
-            RDSDataHandler(const Aws::String& database,
-                           const Aws::String& resourceArn,
-                           const Aws::String& secretArn,
-                           const Aws::String& tableName,
-                           const Aws::Client::ClientConfiguration& clientConfiguration);
+            RDSDataHandler(const Aws::String &database,
+                           const Aws::String &resourceArn,
+                           const Aws::String &secretArn,
+                           const Aws::String &tableName,
+                           const Aws::Client::ClientConfiguration &clientConfiguration);
 
             //! Routine which creates if table does not exist.
             /*!
@@ -94,12 +103,12 @@ namespace AwsDoc {
 
             bool tableExists(const Aws::String &tableName);
 
-            bool createTable(const Aws::String& tableName);
+            bool createTable(const Aws::String &tableName);
 
-            bool deleteTable(const Aws::String& tableName);
+            bool deleteTable(const Aws::String &tableName);
 
             Aws::RDSDataService::Model::ExecuteStatementOutcome executeStatement(
-                    const Aws::String& sqlStatement,
+                    const Aws::String &sqlStatement,
                     std::vector<Aws::RDSDataService::Model::SqlParameter> parameters =
                     std::vector<Aws::RDSDataService::Model::SqlParameter>());
 

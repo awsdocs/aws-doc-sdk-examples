@@ -3,6 +3,15 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+/**
+ *  PocoHTTPHandler.h/.cpp
+ *
+ *  The code in these 2 file implements a Poco HTTP server.  This code is designed
+ *  to be re-used unmodified across multiple examples.
+ *
+ *  To run the example, refer to instructions in the ReadMe.
+ */
+
 #include "PocoHTTPServer.h"
 #include <Poco/Net/HTTPServer.h>
 #include <Poco/Net/ServerSocket.h>
@@ -64,7 +73,7 @@ namespace AwsDoc {
 
         private :
             AwsDoc::CrossService::HTTPReceiver &mHttpReceiver;
-       };
+        };
 
         class MyRequestHandlerFactory : public Poco::Net::HTTPRequestHandlerFactory {
         public:
@@ -96,11 +105,11 @@ int AwsDoc::PocoImpl::PocoHTTPServer::main(const std::vector<std::string> &) {
             new Poco::Net::HTTPServerParams);
 
     pocoHTTPServer.start();
-    std::cout << "\nPoco http server started" << std::endl;
+    std::cout << "\nPoco HTTP server started" << std::endl;
 
     waitForTerminationRequest();  // wait for CTRL-C or kill
 
-    std::cout << "\nPoco http shutting down..." << std::endl;
+    std::cout << "\nPoco HTTP shutting down..." << std::endl;
     pocoHTTPServer.stop();
 
     return Application::EXIT_OK;

@@ -2,6 +2,15 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/**
+ *  RDSDataHandler.h/.cpp
+ *
+ *  The code in these 2 file implements the creation, updating and querying of a table in
+ *  a Amazon Relational Database Service (Amazon RDS)
+ *
+ * To run the example, refer to instructions in the ReadMe.
+ *
+ */
 
 #include "RDSDataHandler.h"
 #include <aws/rds-data/RDSDataServiceClient.h>
@@ -15,7 +24,7 @@
  *  RDSDataHandler
  *
  *  Implementation of RDSDataReceiver which handles requests for data from a
- *  database table using Relational Database Service (Amazon RDS).
+ *  database table using Amazon RDS.
  *
  */
 
@@ -117,7 +126,7 @@ bool AwsDoc::CrossService::RDSDataHandler::addWorkItem(
                                               GUIDE_COLUMN, STATUS_COLUMN,
                                               ARCHIVED_COLUMN};
 
-    // Create SQL statement.
+    // Create a sql statement.
     std::stringstream sqlStream;
     sqlStream << "INSERT INTO " << mTableName << " (";
     for (size_t i = 0; i < COLUMNS.size(); ++i) {
@@ -135,7 +144,6 @@ bool AwsDoc::CrossService::RDSDataHandler::addWorkItem(
     }
     sqlStream << ")";
 
-    std::cout << sqlStream.str();
     // Create parameters vector and set it.
     std::string idItem = Aws::Utils::UUID::RandomUUID();
 
@@ -195,11 +203,12 @@ bool AwsDoc::CrossService::RDSDataHandler::addWorkItem(
 bool
 AwsDoc::CrossService::RDSDataHandler::getWorkItems(WorkItemStatus status,
                                                    std::vector<WorkItem> &workItems) {
-     std::vector<const Aws::String> COLUMNS = {ID_COLUMN, NAME_COLUMN,
+    std::vector<const Aws::String> COLUMNS = {ID_COLUMN, NAME_COLUMN,
                                               DESCRIPTION_COLUMN,
                                               GUIDE_COLUMN, STATUS_COLUMN,
                                               ARCHIVED_COLUMN};
 
+    // Create a sql statement.
     std::stringstream sqlStream;
     sqlStream << "SELECT ";
     for (size_t i = 0; i < COLUMNS.size(); ++i) {
@@ -266,6 +275,7 @@ AwsDoc::CrossService::RDSDataHandler::getWorkItems(WorkItemStatus status,
  \return bool: Successful completion.
  */
 bool AwsDoc::CrossService::RDSDataHandler::setWorkItemToArchive(const Aws::String &id) {
+    // Create a sql statement.
     std::stringstream sqlStream;
     sqlStream << "UPDATE " << mTableName << " SET " << ARCHIVED_COLUMN << "=:"
               << ARCHIVED_COLUMN << " WHERE " << ID_COLUMN << "='" << id << "';";
@@ -275,7 +285,7 @@ bool AwsDoc::CrossService::RDSDataHandler::setWorkItemToArchive(const Aws::Strin
     // Add 'archived' boolean to parameters.
     Aws::RDSDataService::Model::SqlParameter parameter;
 
-    parameter.SetName("archived");
+    parameter.SetName(ARCHIVED_COLUMN);
 
     Aws::RDSDataService::Model::Field field;
     field.SetLongValue(1);
@@ -312,7 +322,7 @@ bool AwsDoc::CrossService::RDSDataHandler::updateWorkItem(
                                               GUIDE_COLUMN, STATUS_COLUMN,
                                               ARCHIVED_COLUMN};
 
-    // Create SQL statement.
+    // Create a sql statement.
     std::stringstream sqlStream;
     sqlStream << "UPDATE " << mTableName << " SET ";
     for (size_t i = 0; i < COLUMNS.size(); ++i) {
@@ -322,7 +332,6 @@ bool AwsDoc::CrossService::RDSDataHandler::updateWorkItem(
         }
     }
     sqlStream << " WHERE " << ID_COLUMN << "='" << workItem.mID << "';";
-
 
     // Add strings to parameters.
     std::vector<std::string> parameterNames =
@@ -384,6 +393,7 @@ AwsDoc::CrossService::RDSDataHandler::getWorkItemWithId(const Aws::String &id,
                                               DESCRIPTION_COLUMN,
                                               GUIDE_COLUMN, STATUS_COLUMN,
                                               ARCHIVED_COLUMN};
+    // Create a sql statement.
     std::stringstream sqlStream;
     sqlStream << "SELECT ";
     for (size_t i = 0; i < COLUMNS.size(); ++i) {
@@ -409,7 +419,8 @@ AwsDoc::CrossService::RDSDataHandler::getWorkItemWithId(const Aws::String &id,
             workItem.mName = record[getIndexOf(COLUMNS, NAME_COLUMN)].GetStringValue();
             workItem.mDescription = record[getIndexOf(COLUMNS,
                                                       DESCRIPTION_COLUMN)].GetStringValue();
-            workItem.mGuide = record[getIndexOf(COLUMNS, GUIDE_COLUMN)].GetStringValue();
+            workItem.mGuide = record[getIndexOf(COLUMNS,
+                                                GUIDE_COLUMN)].GetStringValue();
             workItem.mStatus = record[getIndexOf(COLUMNS,
                                                  STATUS_COLUMN)].GetStringValue();
             workItem.mArchived =
@@ -428,7 +439,8 @@ AwsDoc::CrossService::RDSDataHandler::getWorkItemWithId(const Aws::String &id,
 
 }
 
-//! Routine which creates if table does not exist.
+//! Routine which creates an Amazon RDS database table if the table does not
+//! already exist.
 /*!
  \sa RDSDataHandler::initializeTable()
  \param recreateTable: If true, always create blank table.
@@ -455,6 +467,7 @@ bool AwsDoc::CrossService::RDSDataHandler::initializeTable(bool recreateTable) {
  \return bool: True if table exists.
  */
 bool AwsDoc::CrossService::RDSDataHandler::tableExists(const Aws::String &tableName) {
+    // Create a sql statement.
     std::stringstream sqlStream;
     sqlStream << "SHOW TABLES IN " << mDatabase;
 
@@ -481,8 +494,7 @@ bool AwsDoc::CrossService::RDSDataHandler::tableExists(const Aws::String &tableN
     }
 
     std::cout << "Table '" << tableName << (result ? "' exists." : "' doesn't exist.")
-              <<
-              std::endl;
+              << std::endl;
 
     return result;
 }
@@ -494,6 +506,7 @@ bool AwsDoc::CrossService::RDSDataHandler::tableExists(const Aws::String &tableN
  \return bool: Successful completion.
  */
 bool AwsDoc::CrossService::RDSDataHandler::createTable(const Aws::String &tableName) {
+    // Create a sql statement.
     std::stringstream sqlStream;
     sqlStream << "CREATE TABLE " << tableName << " ("
               << ID_COLUMN << " VARCHAR(45), "
@@ -524,6 +537,7 @@ bool AwsDoc::CrossService::RDSDataHandler::createTable(const Aws::String &tableN
  \return bool: Successful completion.
  */
 bool AwsDoc::CrossService::RDSDataHandler::deleteTable(const Aws::String &tableName) {
+    // Create a sql statement.
     std::stringstream sqlStream;
     sqlStream << "DROP TABLE " << tableName;
 

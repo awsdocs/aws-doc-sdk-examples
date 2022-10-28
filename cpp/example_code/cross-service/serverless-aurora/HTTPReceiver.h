@@ -14,7 +14,7 @@ namespace AwsDoc {
         /**
          *  HTTPReceiver
          *
-         *  Abstract class defining interface of cross-service http server
+         *  Abstract class defining interface of cross-service HTTP server
          *  receiver.
          *
          *  This code is designed to be used unmodified on multiple cross-service
@@ -23,12 +23,12 @@ namespace AwsDoc {
          */
         class HTTPReceiver {
         public:
-            //! Routine which handles http server requests.
+            //! Routine which handles HTTP server requests.
             /*!
              \sa handleHTTP()
-             \param method: Method of http request.
-             \param uri: Uri of http request.
-             \param requestContent Content of http request.
+             \param method: Method of HTTP request.
+             \param uri: Uri of HTTP request.
+             \param requestContent Content of HTTP request.
              \param responseContentType Content type of response, if any.
              \param responseStream Content of response, if any.
              \return bool: Successful completion.

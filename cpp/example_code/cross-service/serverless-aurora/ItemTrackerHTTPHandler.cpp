@@ -3,15 +3,24 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+/**
+ *  ItemTrackerHTTPHandler.h/.cpp
+ *
+ *  The code in these file implements the HTTP server portion of the Aurora serverless
+ *  cross-service example.
+ *
+ *  To run the example, refer to instructions in the ReadMe.
+ */
+
 #include "ItemTrackerHTTPHandler.h"
-#include <aws/core/utils/Document.h>
+#include <aws/core/utils/json/JsonSerializer.h>
 #include <iostream>
 #include <string>
 #include <vector>
 
 /**
  *
- *  Implementation of http server handler.
+ *  Implementation of HTTP server handler.
  *
  */
 
@@ -19,7 +28,7 @@ namespace AwsDoc {
     namespace CrossService {
         /**
          *
-         *  Constants for http request keys.
+         *  Constants for HTTP request keys.
          *
          */
 
@@ -30,14 +39,46 @@ namespace AwsDoc {
         const Aws::String HTTP_STATUS_KEY("status");
         const Aws::String HTTP_ARCHIVED_KEY("archived");
         const Aws::String HTTP_EMAIL_KEY("email");
+
+        static Aws::String safeGetJsonString(Aws::Utils::Json::JsonView view,
+                                                    const Aws::String& key)
+        {
+            Aws::String result;
+            if (view.ValueExists(key))
+            {
+                result = view.GetString(key);
+            }
+            else{
+                result += "Error: key '" + key + "' not found";
+                std::cerr << "\nItemTrackerHTTPHandler " << result << std::endl;
+            }
+
+            return result;
+        }
+
+        static bool safeGetJsonBool(Aws::Utils::Json::JsonView view,
+                                             const Aws::String& key)
+        {
+            bool result = false;
+            if (view.ValueExists(key))
+            {
+                result = view.GetBool(key);
+            }
+            else{
+                std::cerr << "ItemTrackerHTTPHandler Error: key '" + key + "' not found" << std::endl;
+            }
+
+            return result;
+        }
+
     }  // namespace CrossService
 } // namespace AwsDoc
 
 //! ItemTrackerHTTPHandler constructor.
 /*!
  \sa ItemTrackerHTTPHandler::ItemTrackerHTTPHandler()
- \param rdsDataReceiver: Handler for Relational Database Service (Amazon RDS).
- \param emailReceiver: Handler for Simple Email Service (Amazon SES).
+ \param rdsDataReceiver: Handler for Amazon Relational Database Service (Amazon RDS).
+ \param emailReceiver: Handler for Amazon Simple Email Service (Amazon SES).
 */
 AwsDoc::CrossService::ItemTrackerHTTPHandler::ItemTrackerHTTPHandler(
         AwsDoc::CrossService::RDSDataReceiver &rdsDataReceiver,
@@ -46,12 +87,12 @@ AwsDoc::CrossService::ItemTrackerHTTPHandler::ItemTrackerHTTPHandler(
         mEmailReceiver(emailReceiver) {
 }
 
-//! Routine which retrieves a list of work items from Amazon RDS as an http response
+//! Routine which retrieves a list of work items from Amazon RDS as an HTTP response
 //! JSON string.
 /*!
  \sa ItemTrackerHTTPHandler::getWorkItemJSON()
  \param status: Status filter for work items.
- \param jsonString: Http response JSON string.
+ \param jsonString: HTTP response JSON string.
  \return bool: Successful completion.
 */
 bool AwsDoc::CrossService::ItemTrackerHTTPHandler::getWorkItemJSON(
@@ -68,7 +109,7 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::getWorkItemJSON(
         jsonStringStream << "[";
         for (size_t i = 0; i < workItems.size(); ++i) {
             WorkItem workItem = workItems[i];
-            Aws::Utils::Document jsonWorkItem;
+            Aws::Utils::Json::JsonValue jsonWorkItem;
             jsonWorkItem.WithString(HTTP_ID_KEY, workItem.mID);
             jsonWorkItem.WithString(HTTP_NAME_KEY, workItem.mName);
             jsonWorkItem.WithString(HTTP_GUIDE_KEY, workItem.mGuide);
@@ -90,7 +131,7 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::getWorkItemJSON(
 //! Routine which adds a work items to Amazon RDS.
 /*!
  \sa ItemTrackerHTTPHandler::addWorkItem()
- \param workItemJson: Content of http request as JSON string.
+ \param workItemJson: Content of HTTP request as JSON string.
  \return bool: Successful completion.
 */
 bool AwsDoc::CrossService::ItemTrackerHTTPHandler::addWorkItem(
@@ -109,20 +150,20 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::addWorkItem(
 //! Routine which converts a JSON string to a WorkItem struct.
 /*!
  \sa ItemTrackerHTTPHandler::jsonToWorkItem()
- \param workItemJson: Content of http request as JSON string.
+ \param workItemJson: Content of HTTP request as JSON string.
  \return WorkItem: WorkItem struct.
 */
 AwsDoc::CrossService::WorkItem
 AwsDoc::CrossService::ItemTrackerHTTPHandler::jsonToWorkItem(
         const std::string &jsonString) {
     WorkItem result;
-    Aws::Utils::Document document(jsonString);
-    Aws::Utils::DocumentView view(document);
-    result.mName = view.GetString(HTTP_NAME_KEY);
-    result.mGuide = view.GetString(HTTP_GUIDE_KEY);
-    result.mDescription = view.GetString(HTTP_DESCRIPTION_KEY);
-    result.mStatus = view.GetString(HTTP_STATUS_KEY);
-    result.mArchived = view.GetBool(HTTP_ARCHIVED_KEY);
+    Aws::Utils::Json::JsonValue document(jsonString);
+    Aws::Utils::Json::JsonView view(document);
+    result.mName = safeGetJsonString(view, HTTP_NAME_KEY);
+    result.mGuide = safeGetJsonString(view, HTTP_GUIDE_KEY);
+    result.mDescription = safeGetJsonString(view, HTTP_DESCRIPTION_KEY);
+    result.mStatus = safeGetJsonString(view, HTTP_STATUS_KEY);
+    result.mArchived = safeGetJsonBool(view, HTTP_ARCHIVED_KEY);
 
     return result;
 }
@@ -130,22 +171,21 @@ AwsDoc::CrossService::ItemTrackerHTTPHandler::jsonToWorkItem(
 //! Routine sends an email using Amazon SES.
 /*!
  \sa ItemTrackerHTTPHandler::sendEmail()
- \param emailJson: Http request JSON string containing an email.
+ \param emailJson: HTTP request JSON string containing an email.
  \return bool: Successful completion.
 */
 bool
 AwsDoc::CrossService::ItemTrackerHTTPHandler::sendEmail(const std::string &emailJson) {
-    Aws::Utils::Document document(emailJson);
-    Aws::Utils::DocumentView view(document);
-    Aws::String email = view.GetString(HTTP_EMAIL_KEY);
+    Aws::Utils::Json::JsonValue document(emailJson);
+    Aws::Utils::Json::JsonView view(document);
+    Aws::String email = safeGetJsonString(view, HTTP_EMAIL_KEY);
     bool result = false;
 
     if (!email.empty()) {
         std::vector<WorkItem> workItems;
         result = mRdsDataReceiver.getWorkItems(
                 WorkItemStatus::BOTH, workItems);
-        if (result)
-        {
+        if (result) {
             result = mEmailReceiver.sendEmail(email, workItems);
         }
     }
@@ -173,7 +213,7 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::getWorkItemWithIdJson(
         std::stringstream jsonStringStream;
         jsonStringStream << "[";
         if (!workItem.mID.empty()) {
-            Aws::Utils::Document jsonWorkItem;
+            Aws::Utils::Json::JsonValue jsonWorkItem;
             jsonWorkItem.WithString(HTTP_ID_KEY, workItem.mID);
             jsonWorkItem.WithString(HTTP_NAME_KEY, workItem.mName);
             jsonWorkItem.WithString(HTTP_GUIDE_KEY, workItem.mGuide);
@@ -189,12 +229,12 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::getWorkItemWithIdJson(
     return result;
 }
 
-//! Override of HTTPReceiver::handleHTTP routine which handles http server requests.
+//! Override of HTTPReceiver::handleHTTP routine which handles HTTP server requests.
 /*!
  \sa ItemTrackerHTTPHandler::handleHTTP()
- \param method: Method of http request.
- \param uri: Uri of http request.
- \param requestContent Content of http request.
+ \param method: Method of HTTP request.
+ \param uri: Uri of HTTP request.
+ \param requestContent Content of HTTP request.
  \param responseContentType Content type of response, if any.
  \param responseStream Content of response, if any.
  \return bool: Successful completion.
@@ -208,30 +248,30 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::handleHTTP(const std::string 
     if (method == "GET") {
         if (uri == "/api/items") {
             std::string responseString;
-            result = getWorkItemJSON(AwsDoc::CrossService::WorkItemStatus::BOTH, responseString);
+            result = getWorkItemJSON(AwsDoc::CrossService::WorkItemStatus::BOTH,
+                                     responseString);
 
-            if (result)
-            {
+            if (result) {
                 responseContentType = "application/json";
                 responseStream << responseString;
             }
         }
         else if (uri == "/api/items?archived=true") {
             std::string responseString;
-            result = getWorkItemJSON(AwsDoc::CrossService::WorkItemStatus::ARCHIVED, responseString);
+            result = getWorkItemJSON(AwsDoc::CrossService::WorkItemStatus::ARCHIVED,
+                                     responseString);
 
-            if (result)
-            {
+            if (result) {
                 responseContentType = "application/json";
                 responseStream << responseString;
             }
         }
         else if (uri == "/api/items?archived=false") {
             std::string responseString;
-            result = getWorkItemJSON(AwsDoc::CrossService::WorkItemStatus::NOT_ARCHIVED, responseString);
+            result = getWorkItemJSON(AwsDoc::CrossService::WorkItemStatus::NOT_ARCHIVED,
+                                     responseString);
 
-            if (result)
-            {
+            if (result) {
                 responseContentType = "application/json";
                 responseStream << responseString;
             }
@@ -242,10 +282,9 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::handleHTTP(const std::string 
 
             Aws::String responseString;
             result = getWorkItemWithIdJson(itemID, responseString);
-            if (result)
-            {
+            if (result) {
                 responseContentType = "application/json";
-                responseStream  << responseString;
+                responseStream << responseString;
             }
         }
         else {

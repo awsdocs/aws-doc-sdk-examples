@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.9)
 
 set(SERVICE_COMPONENTS sesv2 rds-data)
 
-# This example uses the poco library to implement an http server.
+# This example uses the poco library to implement an HTTP server.
 # Poco can be installed automatically using the Conan package manager.
 # See the accompanying ReadMe for instructions.
 set(USING_CONAN TRUE)  # True if using Conan.

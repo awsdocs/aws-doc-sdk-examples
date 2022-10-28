@@ -11,12 +11,11 @@
 
 static const Aws::String TABLE_NAME("items");
 
-void runServerLessAurora(const Aws::String& database,
-                         const Aws::String& resourceArn,
-                         const Aws::String& secretArn,
-                         const Aws::String& sesEmailAddress,
-                         const Aws::Client::ClientConfiguration& clientConfiguration)
-{
+void runServerLessAurora(const Aws::String &database,
+                         const Aws::String &resourceArn,
+                         const Aws::String &secretArn,
+                         const Aws::String &sesEmailAddress,
+                         const Aws::Client::ClientConfiguration &clientConfiguration) {
     AwsDoc::CrossService::RDSDataHandler rdsDataHandler(database, resourceArn,
                                                         secretArn, TABLE_NAME,
                                                         clientConfiguration);
@@ -28,7 +27,7 @@ void runServerLessAurora(const Aws::String& database,
 
     AwsDoc::CrossService::ItemTrackerHTTPHandler itemTrackerHttpServer(rdsDataHandler,
                                                                        sesEmailHandler);
-    char* argv[1];
+    char *argv[1];
     char app_name[256];
     strncpy(app_name, "run_aurora_serverless", sizeof(app_name));
     argv[0] = app_name;
@@ -37,12 +36,10 @@ void runServerLessAurora(const Aws::String& database,
 
 }
 
-int main(int argc, char** argv)
-{
-    if (argc != 5)
-    {
+int main(int argc, char **argv) {
+    if (argc != 5) {
         std::cout << "Usage: run_serverless_aurora <database> <resource_arn>"
-                     << "<secret_arn> <email>" << std::endl;
+                  << "<secret_arn> <email>" << std::endl;
         return 1;
     }
 
@@ -56,7 +53,8 @@ int main(int argc, char** argv)
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        runServerLessAurora(database, resourceArn, secretArn, sesEmailAddress, clientConfig);
+        runServerLessAurora(database, resourceArn, secretArn, sesEmailAddress,
+                            clientConfig);
     }
 
     ShutdownAPI(options);
