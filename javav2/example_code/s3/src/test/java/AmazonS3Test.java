@@ -3,16 +3,40 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.example.s3.CopyObject;
+import com.example.s3.CreateAccessPoint;
+import com.example.s3.CreateBucket;
+import com.example.s3.DeleteBucketPolicy;
+import com.example.s3.DeleteMultiObjects;
+import com.example.s3.DeleteObjects;
+import com.example.s3.GeneratePresignedUrlAndUploadObject;
+import com.example.s3.GetAcl;
+import com.example.s3.GetBucketPolicy;
+import com.example.s3.GetObjectData;
+import com.example.s3.GetObjectPresignedUrl;
+import com.example.s3.LifecycleConfiguration;
+import com.example.s3.ListObjects;
+import com.example.s3.PutObject;
+import com.example.s3.S3Cors;
+import com.example.s3.SetAcl;
+import com.example.s3.SetBucketPolicy;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import java.io.*;
-import java.util.*;
-import com.example.s3.*;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 
@@ -82,7 +106,7 @@ public class AmazonS3Test {
             objectPath= prop.getProperty("objectPath");
             toBucket = prop.getProperty("toBucket");
             policyText = prop.getProperty("policyText");
-            id  = prop.getProperty("id");
+            id = prop.getProperty("id");
             presignKey = prop.getProperty("presignKey");
             presignBucket= prop.getProperty("presignBucket");
             path = prop.getProperty("path");
@@ -101,7 +125,7 @@ public class AmazonS3Test {
 
     @Test
     @Order(1)
-    public void whenInitializingAWSS3Service_thenNotNull() {
+    public void whenInitializingAWSS3ServiceThenNotNull() {
         assertNotNull(s3);
         System.out.println("Test 1 passed");
     }
@@ -161,8 +185,7 @@ public class AmazonS3Test {
 
     @Test
     @Order(8)
-    public void setBucketACL()
-    {
+    public void setBucketACL() {
         System.out.format("Running Amazon S3 Test 8");
         System.out.println("for object: " + objectKey);
         System.out.println(" in bucket: " + bucketName);
@@ -182,14 +205,14 @@ public class AmazonS3Test {
 
     @Test
     @Order(10)
-    public void GeneratePresignedUrlAndUploadObject() {
+    public void generatePresignedUrlAndUploadObject() {
         GeneratePresignedUrlAndUploadObject.signBucket(presigner, presignBucket, presignKey);
         System.out.println("Test 10 passed");
     }
 
     @Test
     @Order(11)
-    public void GetObjectPresignedUrl() {
+    public void getObjectPresignedUrl() {
 
         GetObjectPresignedUrl.getPresignedUrl(presigner, presignBucket, presignKey);
         System.out.println("Test 11 passed");
@@ -197,21 +220,21 @@ public class AmazonS3Test {
 
     @Test
     @Order(12)
-    public void GetObjectData() {
+    public void getObjectData() {
         GetObjectData.getObjectBytes(s3,bucketName,objectKey, path);
         System.out.println("Test 12 passed");
     }
 
     @Test
     @Order(13)
-    public void ListObjects() {
+    public void listObjects() {
         ListObjects.listBucketObjects(s3,bucketName);
         System.out.println("Test 13 passed");
     }
 
     @Test
     @Order(14)
-    public void CreateAccessPoint() {
+    public void createAccessPoint() {
         CreateAccessPoint.createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName);
         CreateAccessPoint.deleteSpecificAccessPoint(s3ControlClient, accountId, accessPointName);
         System.out.println("Test 14 passed");
@@ -219,7 +242,7 @@ public class AmazonS3Test {
 
     @Test
     @Order(15)
-    public void  LifecycleConfiguration() {
+    public void lifecycleConfiguration() {
 
         LifecycleConfiguration.setLifecycleConfig(s3, bucketName, accountId);
         LifecycleConfiguration.getLifecycleConfig(s3, bucketName, accountId);
@@ -229,7 +252,7 @@ public class AmazonS3Test {
 
     @Test
     @Order(16)
-    public void S3Cors() {
+    public void testS3Cors() {
         S3Cors.setCorsInformation(s3, bucketName, accountId);
         S3Cors.getBucketCorsInformation(s3, bucketName, accountId);
         S3Cors.deleteBucketCorsInformation(s3, bucketName, accountId);
@@ -238,7 +261,7 @@ public class AmazonS3Test {
 
     @Test
     @Order(17)
-    public void DeleteMultiObjects() {
+    public void deleteMultiObjects() {
         DeleteMultiObjects.deleteBucketObjects(s3, bucketName);
         System.out.println("Test 18 passed");
     }
