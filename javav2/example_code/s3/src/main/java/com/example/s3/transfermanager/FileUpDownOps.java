@@ -8,7 +8,6 @@
 package com.example.s3.transfermanager;
 
 // snippet-start:[s3.tm.java2.file_up_down_ops.import]
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.transfer.s3.CompletedFileDownload;
 import software.amazon.awssdk.transfer.s3.CompletedFileUpload;
@@ -20,6 +19,7 @@ import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import java.nio.file.Paths;
 
 import static software.amazon.awssdk.transfer.s3.SizeConstant.MB;
+// snippet-end:[s3.tm.java2.file_up_down_ops.import]
 
 public class FileUpDownOps {
 
