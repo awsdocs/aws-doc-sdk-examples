@@ -193,8 +193,8 @@ fn parse_rds_output(
     // It is incumbent on the developer to match up the serde annotations with SELECT statement.
     match from_str::<Vec<WorkItem>>(records) {
         Ok(items) => Ok(items),
-        Err(e) => Err(WorkItemError::FromFields(
-            format!("Failed to parse formatted records: {e}"),
-        )),
+        Err(e) => Err(WorkItemError::FromFields(format!(
+            "Failed to parse formatted records: {e}"
+        ))),
     }
 }
