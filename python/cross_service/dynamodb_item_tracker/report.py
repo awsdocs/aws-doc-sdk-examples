@@ -68,9 +68,9 @@ class Report(MethodView):
     def post(self, email):
         """
         Gets a list of work items from storage, makes a report of them, and
-        sends an email. The email is sent in both HTMl and text format.
+        sends an email. The email is sent in both HTML and text format.
 
-        When ten or fewer items are in the report, the items are included in the body
+        When 10 or fewer items are in the report, the items are included in the body
         of the email. Otherwise, the items are included as an attachment in CSV format.
 
         When your Amazon SES account is in the sandbox, both the sender and recipient

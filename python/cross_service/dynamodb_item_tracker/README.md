@@ -205,7 +205,7 @@ HTTP requests are routed to methods in the [ItemList](item_list.py) and
 [Report](report.py) classes, which use webargs and marshmallow to handle argument 
 parsing and data transformation.
 
-For example, the work item schema includes a field that is named `id` in the web page,
+For example, the work item schema includes a field that is named `id` in the webpage,
 but is named `iditem` in the data table. By defining a `data_key`, the marshmallow 
 schema transforms this field automatically. 
 
@@ -262,7 +262,7 @@ To avoid charges, delete all the resources that you created for this tutorial.
 
 If you created the example resources by using the AWS CDK or AWS CLI,
 you can destroy the resources by following the instructions in the 
-[README for the DynamoDB item tracker](/resources/cdk/dynamodb-item-tracker/README.md) 
+[README for the DynamoDB item tracker](/resources/cdk/dynamodb-item-tracker/README.md). 
 
 If you created your resources through the AWS Management Console, or modified them by 
 running the app, you must use the console to delete them.
@@ -270,7 +270,7 @@ running the app, you must use the console to delete them.
 ## Next steps
 
 Congratulations! You have built a REST service that reads, writes, and archives 
-work items that are stored in an Amazon DynamoDB table, and that uses 
+work items that are stored in an Amazon DynamoDB table. It also uses 
 Amazon SES to send email to a registered user.
 
 ## Additional information
