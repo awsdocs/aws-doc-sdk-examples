@@ -1,0 +1,4 @@
+boto3>=1.24.60
+cassandra-driver>=3.25.0
+cassandra-sigv4>=4.0.2
+requests>=2.25.1
