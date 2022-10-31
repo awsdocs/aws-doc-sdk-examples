@@ -13,7 +13,7 @@ Inputs (replace in code):
 - KEY
 
 Running the code:
-nodes3_getobject.js
+node s3_getobject.js
 
 [Outputs | Returns]:
 Returns the object} from the Amazon S3 bucket.
@@ -30,26 +30,15 @@ export const bucketParams = {
 
 export const run = async () => {
   try {
-    // Create a helper function to convert a ReadableStream to a string.
-    const streamToString = (stream) =>
-      new Promise((resolve, reject) => {
-        const chunks = [];
-        stream.on("data", (chunk) => chunks.push(chunk));
-        stream.on("error", reject);
-        stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
-      });
-
     // Get the object} from the Amazon S3 bucket. It is returned as a ReadableStream.
     const data = await s3Client.send(new GetObjectCommand(bucketParams));
-      return data; // For unit tests.
     // Convert the ReadableStream to a string.
-    const bodyContents = await streamToString(data.Body);
-    console.log(bodyContents);
-      return bodyContents;
+    return await data.Body.transformToString();
   } catch (err) {
     console.log("Error", err);
   }
 };
+
 run();
 // snippet-end:[s3.JavaScript.buckets.getobjectV3]
 // For unit testing only.
