@@ -56,7 +56,7 @@ async fn retrieve(
 
 #[derive(Debug, serde::Deserialize)]
 struct ListParams {
-    archived: Option<WorkItemArchived>,
+    archived: Option<bool>,
 }
 
 /// List all WorkItems, with an optional archived query parameter.
@@ -67,7 +67,10 @@ async fn list(
     params: Query<ListParams>,
     client: Data<RdsClient>,
 ) -> Result<Json<Vec<WorkItem>>, WorkItemError> {
-    let archived = params.archived.unwrap_or_default();
+    let archived = match params.archived.unwrap_or(false) {
+        false => WorkItemArchived::Active,
+        true => WorkItemArchived::Archived,
+    };
     super::repository::list(archived, &client).await.map(Json)
 }
 

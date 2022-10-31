@@ -6,10 +6,7 @@ use std::convert::TryFrom;
 
 use actix_web::{http::StatusCode, HttpResponse, ResponseError};
 use chrono::NaiveDate;
-use serde::{
-    de::{self, Visitor},
-    Deserialize, Serialize,
-};
+use serde::{de, Deserialize, Serialize};
 use serde_json::json;
 use thiserror::Error;
 use uuid::Uuid;
@@ -59,6 +56,7 @@ impl WorkItem {
 
 /// An enum to represent the archival status of a WorkItem.
 /// This field has varying representations at different parts of the stack, so needs some specialized serde visitors.
+/// The Elwing front end uses "active" and "archive"
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub enum WorkItemArchived {
     Active,
@@ -68,7 +66,7 @@ pub enum WorkItemArchived {
 }
 
 const ACTIVE: &str = "active";
-const ARCHIVED: &str = "archive";
+const ARCHIVED: &str = "archived";
 
 impl From<&WorkItemArchived> for u8 {
     fn from(value: &WorkItemArchived) -> Self {
@@ -86,6 +84,15 @@ impl From<&WorkItemArchived> for &str {
             WorkItemArchived::Active => ACTIVE,
             WorkItemArchived::Archived => ARCHIVED,
             WorkItemArchived::All => ACTIVE,
+        }
+    }
+}
+
+impl From<bool> for WorkItemArchived {
+    fn from(value: bool) -> Self {
+        match value {
+            false => WorkItemArchived::Active,
+            true => WorkItemArchived::Archived,
         }
     }
 }
@@ -135,45 +142,38 @@ impl Serialize for WorkItemArchived {
     }
 }
 
-/// The front end specifies archived status with the strings "archived" and "active".
-/// The RDS table encodes status as 1 and 0.
-/// This serde visit handles those disparate cases, using the try_from impls.
-struct WorkItemArchivedVisitor;
-impl<'de> Visitor<'de> for WorkItemArchivedVisitor {
-    type Value = WorkItemArchived;
-
-    fn visit_unit<E>(self) -> Result<Self::Value, E>
-    where
-        E: de::Error,
-    {
-        Ok(WorkItemArchived::default())
-    }
-
-    fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
-    where
-        E: de::Error,
-    {
-        (value as u8).try_into().map_err(E::custom)
-    }
-
-    fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
-    where
-        E: de::Error,
-    {
-        value.try_into().map_err(E::custom)
-    }
-
-    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-        formatter.write_str("int 0 or 1, or string 'active' or 'archived'")
-    }
-}
-
 impl<'de> Deserialize<'de> for WorkItemArchived {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_u64(WorkItemArchivedVisitor)
+        /// The front end specifies archived status with the strings "archived" and "active".
+        /// The RDS table encodes status as 1 and 0.
+        /// This serde visit handles those disparate cases, using the try_from impls.
+        struct Visitor;
+        impl<'de> de::Visitor<'de> for Visitor {
+            type Value = WorkItemArchived;
+
+            fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
+            where
+                E: de::Error,
+            {
+                (value as u8).try_into().map_err(E::custom)
+            }
+
+            fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
+            where
+                E: de::Error,
+            {
+                value.try_into().map_err(E::custom)
+            }
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("int 0 or 1, or string 'active' or 'archived'")
+            }
+        }
+
+        deserializer.deserialize_any(Visitor)
     }
 }
 
