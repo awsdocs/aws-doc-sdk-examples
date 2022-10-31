@@ -20,7 +20,7 @@ pub struct Settings {
 
 impl Settings {
     pub fn address(&self) -> SocketAddr {
-        SocketAddr::new(self.application.address.clone(), self.application.port)
+        SocketAddr::new(self.application.address, self.application.port)
     }
 }
 
@@ -54,9 +54,9 @@ pub enum SettingsError {
     Eyre(Report),
 }
 
-const DEFAULT_ENVIRONMENT: &str = &"local";
-const DEFAULT_LOG_LEVEL: &str = &"trace";
-const DEFAULT_BACKTRACE: &str = &"1";
+const DEFAULT_ENVIRONMENT: &str = "local";
+const DEFAULT_LOG_LEVEL: &str = "trace";
+const DEFAULT_BACKTRACE: &str = "1";
 
 /// Attempt to find the environment, and pre-set any environment variables.
 /// Valid environments are in [Environment].

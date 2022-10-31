@@ -64,9 +64,9 @@ impl AsRef<str> for Email {
     }
 }
 
-impl<'a> Into<Address<'a>> for Email {
-    fn into(self) -> Address<'a> {
-        self.0.into()
+impl<'a> From<Email> for Address<'a> {
+    fn from(email: Email) -> Self {
+        email.0.into()
     }
 }
 
@@ -74,9 +74,9 @@ impl<'a> Into<Address<'a>> for Email {
 #[derive(Debug, Clone, Deserialize)]
 pub struct Arn(String);
 
-impl Into<std::string::String> for Arn {
-    fn into(self) -> std::string::String {
-        self.0.clone()
+impl From<Arn> for std::string::String {
+    fn from(arn: Arn) -> Self {
+        arn.0
     }
 }
 
@@ -121,14 +121,14 @@ macro_rules! params {
         $value:expr
     )),* ) => {
         {
-            let mut v = Vec::new();
+            Some(vec![
             $(
-                v.push(aws_sdk_rdsdata::model::SqlParameter::builder()
+                aws_sdk_rdsdata::model::SqlParameter::builder()
                     .name($name.to_string())
                     .value(aws_sdk_rdsdata::model::Field::StringValue($value.to_string().clone()))
-                    .build());
+                    .build(),
             )*
-            Some(v)
+            ])
         }
     }
 }

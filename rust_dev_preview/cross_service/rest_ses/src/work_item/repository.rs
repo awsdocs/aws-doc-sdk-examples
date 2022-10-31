@@ -73,7 +73,7 @@ pub async fn retrieve(id: String, client: &RdsClient) -> Result<WorkItem, WorkIt
     }
 
     // Are there enough records?
-    if items.len() == 0 {
+    if items.is_empty() {
         return Err(WorkItemError::MissingItem(id.clone()));
     }
 
@@ -194,7 +194,7 @@ fn parse_rds_output(
     match from_str::<Vec<WorkItem>>(records) {
         Ok(items) => Ok(items),
         Err(e) => Err(WorkItemError::FromFields(
-            format!("Failed to parse formatted records: {e}").to_string(),
+            format!("Failed to parse formatted records: {e}"),
         )),
     }
 }

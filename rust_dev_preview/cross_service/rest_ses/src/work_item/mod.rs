@@ -57,7 +57,7 @@ impl WorkItem {
 /// An enum to represent the archival status of a WorkItem.
 /// This field has varying representations at different parts of the stack, so needs some specialized serde visitors.
 /// The Elwing front end uses "active" and "archive"
-#[derive(Clone, Copy, Debug, Default, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub enum WorkItemArchived {
     Active,
     Archived,

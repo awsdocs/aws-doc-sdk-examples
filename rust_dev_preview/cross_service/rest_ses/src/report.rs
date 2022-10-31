@@ -53,11 +53,11 @@ pub struct ReportEmail {
     pub email: Email,
 }
 
-const TEXT_BODY: &str = &"Hello,\r\n\r\nPlease see the attached file for a weekly update.";
-const HTML_BODY: &str = &"<!DOCTYPE html><html lang=\"en-US\"><body><h1>Hello!</h1><p>Please see the attached file for a weekly update.</p></body></html>";
-const ATTACHMENT_NAME: &str = &"WorkReport.xlsx";
+const TEXT_BODY: &str = "Hello,\r\n\r\nPlease see the attached file for a weekly update.";
+const HTML_BODY: &str = "<!DOCTYPE html><html lang=\"en-US\"><body><h1>Hello!</h1><p>Please see the attached file for a weekly update.</p></body></html>";
+const ATTACHMENT_NAME: &str = "WorkReport.xlsx";
 const ATTACHMENT_CONTENT_TYPE: &str =
-    &"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
 #[put("/items:report")]
 pub async fn send_report(
@@ -72,7 +72,7 @@ pub async fn send_report(
     let attachment = make_report(report_items)?;
 
     let message_builder = MessageBuilder::new()
-        .from(ses.from().clone())
+        .from(ses.from())
         .to(to.email.clone())
         .subject("WorkItem Report")
         .text_body(TEXT_BODY)
@@ -97,8 +97,8 @@ pub async fn send_report(
 }
 
 const FONT_SIZE: f64 = 12.0;
-fn make_report<'a>(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
-    let path = format!("{ATTACHMENT_NAME}.{}.xlsx", Uuid::new_v4().to_string());
+fn make_report(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
+    let path = format!("{ATTACHMENT_NAME}.{}.xlsx", Uuid::new_v4());
     let workbook = Workbook::new(path.as_str());
 
     let body_format = &workbook.add_format().set_font_size(FONT_SIZE);
@@ -112,7 +112,7 @@ fn make_report<'a>(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
         .set_font_size(FONT_SIZE * 1.125);
 
     let mut report_sheet = workbook
-        .add_worksheet(Some(&"Workitems"))
+        .add_worksheet(Some("Workitems"))
         .map_err(ReportError::XslxError)?;
 
     let wrote_workbook: Result<(), ReportError> = {
@@ -164,9 +164,9 @@ fn make_report<'a>(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
         })
     };
 
-    let _ = std::fs::remove_file(&path).or_else(|e| {
+    let _ = std::fs::remove_file(&path).map_err(|e| {
         tracing::error!({ error = ?e }, "Failed to remove temporary file {path}");
-        Err(e)
+        e
     });
     result
 }

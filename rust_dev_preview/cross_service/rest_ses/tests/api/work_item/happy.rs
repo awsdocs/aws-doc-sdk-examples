@@ -43,7 +43,7 @@ async fn post_workitem_returns_200() {
     );
 
     let work_item: WorkItem =
-        serde_json::from_str(&body.as_str()).expect("failed to parse response body");
+        serde_json::from_str(body.as_str()).expect("failed to parse response body");
 
     let result = rds
         .execute_statement()
