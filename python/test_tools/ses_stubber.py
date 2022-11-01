@@ -6,6 +6,7 @@ Stub functions that are used by the Amazon Simple Email Service (Amazon SES) uni
 """
 
 import json
+from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -184,6 +185,13 @@ class SesStubber(ExampleStubber):
         response = {'MessageId': message_id}
         self._stub_bifurcator(
             'send_email', expected_params, response, error_code=error_code)
+
+    def stub_send_raw_email(self, source, destinations, message_id, msg=ANY, error_code=None):
+        expected_params = {
+            'Source': source, 'Destinations': destinations, 'RawMessage': {'Data': msg}}
+        response = {'MessageId': message_id}
+        self._stub_bifurcator(
+            'send_raw_email', expected_params, response, error_code=error_code)
 
     def stub_send_templated_email(
             self, source, destination, template_name, template_data, message_id,

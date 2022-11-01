@@ -3,10 +3,10 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       KeySchema:
-        - AttributeName: item_id
+        - AttributeName: iditem
           KeyType: HASH
       AttributeDefinitions:
-        - AttributeName: item_id
+        - AttributeName: iditem
           AttributeType: S
       ProvisionedThroughput:
         ReadCapacityUnits: 5
@@ -16,62 +16,10 @@ Resources:
     DeletionPolicy: Delete
     Metadata:
       aws:cdk:path: doc-example-work-item-tracker-stack/doc-example-work-item-tracker/Resource
-  docexampleworkitemtrackerroleC9B48144:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-          - Action: sts:AssumeRole
-            Effect: Allow
-            Principal:
-              AWS:
-                Fn::Join:
-                  - ""
-                  - - "arn:"
-                    - Ref: AWS::Partition
-                    - ":iam::"
-                    - Ref: AWS::AccountId
-                    - :root
-        Version: "2012-10-17"
-      RoleName: doc-example-work-item-tracker-role
-    Metadata:
-      aws:cdk:path: doc-example-work-item-tracker-stack/doc-example-work-item-tracker-role/Resource
-  docexampleworkitemtrackerroleDefaultPolicy374DD834:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyDocument:
-        Statement:
-          - Action:
-              - dynamodb:BatchGetItem
-              - dynamodb:GetRecords
-              - dynamodb:GetShardIterator
-              - dynamodb:Query
-              - dynamodb:GetItem
-              - dynamodb:Scan
-              - dynamodb:ConditionCheckItem
-              - dynamodb:BatchWriteItem
-              - dynamodb:PutItem
-              - dynamodb:UpdateItem
-              - dynamodb:DeleteItem
-            Effect: Allow
-            Resource:
-              - Fn::GetAtt:
-                  - docexampleworkitemtracker5B110B34
-                  - Arn
-              - Ref: AWS::NoValue
-          - Action: ses:SendEmail
-            Effect: Allow
-            Resource: "*"
-        Version: "2012-10-17"
-      PolicyName: docexampleworkitemtrackerroleDefaultPolicy374DD834
-      Roles:
-        - Ref: docexampleworkitemtrackerroleC9B48144
-    Metadata:
-      aws:cdk:path: doc-example-work-item-tracker-stack/doc-example-work-item-tracker-role/DefaultPolicy/Resource
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAA/02KwQ7CIBAFv6V3WG2jifd+gKZ6NxQw2RbYpoCmIfy7FS6eZt7kdXCBYyM+nks1c4MjpHsQcmZ7eia1OWFJ7fEhRqNZ/3JFMkNhIQ1UW+GNDMrtN6vlzAbtKa6yfK4xLDGU91/tySkMSC4zR0rD5A/v9gTtGbpm8oh8jS6g1TBUfgFbjhf1rwAAAA==
+      Analytics: v2:deflate64:H4sIAAAAAAAA/zPSs9AzUEwsL9ZNTsnWzclM0qsOLklMztYBCsWnVOYl5uanAMVCEpNyUnWc0/LAjFqdoNTi/NKiZLCQf2lJQWkJiIUs6pyfl5JZkpmfV6uTl5+SqpdVrF9maKFnaAi0Lqs4M1O3qDSvJDM3VS8IQgMAQZamuIkAAAA=
     Metadata:
       aws:cdk:path: doc-example-work-item-tracker-stack/CDKMetadata/Default
     Condition: CDKMetadataAvailable
@@ -79,11 +27,6 @@ Outputs:
   TableName:
     Value:
       Ref: docexampleworkitemtracker5B110B34
-  RoleArn:
-    Value:
-      Fn::GetAtt:
-        - docexampleworkitemtrackerroleC9B48144
-        - Arn
 Conditions:
   CDKMetadataAvailable:
     Fn::Or:
