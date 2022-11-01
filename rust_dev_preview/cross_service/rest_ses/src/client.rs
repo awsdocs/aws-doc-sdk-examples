@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 //! Application logic aware wrappers around AWS SDK Clients.
 //!
 //! These wrappers add default ARNs for resources the application accesses, and adds those to common calls.

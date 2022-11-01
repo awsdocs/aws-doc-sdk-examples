@@ -1,4 +1,9 @@
-//! Configure a common tracing stack for the the app.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
+//! Configure a common tracing stack for the app.
 use actix_web_prom::{PrometheusMetrics, PrometheusMetricsBuilder};
 use tracing::{subscriber::set_global_default, Subscriber};
 use tracing_bunyan_formatter::{BunyanFormattingLayer, JsonStorageLayer};

@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 //! Main that loads environments & prepares clients, and hands them to `startup`.
 use std::net::TcpListener;
 

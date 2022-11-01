@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 //! The common entry point for starting the REST server, shared by tests and `main`.
 use std::net::TcpListener;
 

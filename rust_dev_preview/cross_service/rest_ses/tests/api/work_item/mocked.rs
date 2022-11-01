@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 //! End-to-end tests for the Rest WorkItem app with mocked AWS resources.
 //! This uses MockServer to hand-craft replies, and is run in normal tests.
 //! It additionally tests many error cases, by having the mocked AWS resources respond with errors.

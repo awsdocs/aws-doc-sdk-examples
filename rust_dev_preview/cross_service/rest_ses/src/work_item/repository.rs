@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 //! The repository module includes data access components. It exposes Create,
 //! Retrieve, List, Update, and Delete functions that work with an `&RdsClient`
 //! to execute SQL that manages WorkItem persitence. Its interface encapsulates
