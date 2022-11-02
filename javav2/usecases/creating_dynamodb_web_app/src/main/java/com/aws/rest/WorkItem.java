@@ -13,6 +13,15 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private int archived ;
+
+    public int getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(int archived) {
+        this.archived = archived;
+    }
 
     public void setId (String id) {
         this.id = id;

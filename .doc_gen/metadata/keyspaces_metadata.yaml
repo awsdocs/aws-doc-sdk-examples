@@ -1,0 +1,231 @@
+keyspaces_Hello:
+  title: Hello &KEY;
+  title_abbrev: Hello &KEY;
+  synopsis: get started using &KEYlong;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.Hello
+  services:
+    keyspaces: {ListKeyspaces}
+keyspaces_CreateKeyspace:
+  title: Create an &KEY; keyspace using an &AWS; SDK
+  title_abbrev: Create a keyspace
+  synopsis: create an &KEY; keyspace.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.CreateKeyspace
+  services:
+    keyspaces: {CreateKeyspace}
+keyspaces_GetKeyspace:
+  title: Get data about an &KEY; keyspace using an &AWS; SDK
+  title_abbrev: Get data about a keyspace
+  synopsis: get data about an &KEY; keyspace.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.GetKeyspace
+  services:
+    keyspaces: {GetKeyspace}
+keyspaces_ListKeyspaces:
+  title: List &KEY; keyspaces using an &AWS; SDK
+  title_abbrev: List keyspaces
+  synopsis: list &KEY; keyspaces.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.ListKeyspaces
+  services:
+    keyspaces: {ListKeyspaces}
+keyspaces_CreateTable:
+  title: Create an &KEY; table using an &AWS; SDK
+  title_abbrev: Create a table
+  synopsis: create an &KEY; table.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.CreateTable
+  services:
+    keyspaces: {CreateTable}
+keyspaces_GetTable:
+  title: Get data about an &KEY; table using an &AWS; SDK
+  title_abbrev: Get data about a table
+  synopsis: get data about an &KEY; table.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.GetTable
+  services:
+    keyspaces: {GetTable}
+keyspaces_ListTables:
+  title: List &KEY; tables in a keyspace using an &AWS; SDK
+  title_abbrev: List tables in a keyspace
+  synopsis: list &KEY; tables in a keyspace.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.ListTables
+  services:
+    keyspaces: {ListTables}
+keyspaces_UpdateTable:
+  title: Update an &KEY; table using an &AWS; SDK
+  title_abbrev: Update a table
+  synopsis: update an &KEY; table.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.UpdateTable
+  services:
+    keyspaces: {UpdateTable}
+keyspaces_RestoreTable:
+  title: Restore an &KEY; table to a point in time using an &AWS; SDK
+  title_abbrev: Restore a table to a point in time
+  synopsis: restore an &KEY; table to a point in time.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.RestoreTable
+  services:
+    keyspaces: {RestoreTable}
+keyspaces_DeleteTable:
+  title: Delete an &KEY; table using an &AWS; SDK
+  title_abbrev: Delete a table
+  synopsis: delete an &KEY; table.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.DeleteTable
+  services:
+    keyspaces: {DeleteTable}
+keyspaces_DeleteKeyspace:
+  title: Delete an &KEY; keyspace using an &AWS; SDK
+  title_abbrev: Delete a keyspace
+  synopsis: delete an &KEY; keyspace.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.decl
+                - python.example_code.keyspaces.DeleteKeyspace
+  services:
+    keyspaces: {DeleteKeyspace}
+keyspaces_Scenario_GetStartedKeyspaces:
+  title: Get started with &KEY; keyspaces and tables using an &AWS; SDK
+  title_abbrev: Get started with keyspaces and tables
+  synopsis_list:
+    - Create a keyspace.
+    - Create a table in the keyspace. The table is configured with a schema to hold movie data
+      and has point-in-time recovery enabled.
+    - Connect to the keyspace with a connection secured by TLS and authenticated with
+      Signature V4 (SigV4).
+    - Query the table by adding, retrieving, and updating movie data.
+    - Update the table by adding a column to track watched movies.
+    - Restore the table to a previous point in time.
+    - Delete the table and keyspace.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.keyspaces.Scenario_GetStartedKeyspaces
+            - description: Define a class that wraps keyspace and table actions.
+              snippet_tags:
+                - python.example_code.keyspaces.KeyspaceWrapper.class
+            - description: Define a class that creates a TLS connection to a keyspace,
+                authenticates with SigV4, and sends CQL queries to a table in the keyspace.
+              snippet_tags:
+                - python.example_code.keyspaces.QueryManager.class
+  services:
+    keyspaces: {CreateKeyspace, CreateTable, DeleteKeyspace, DeleteTable, GetKeyspace,
+                GetTable, ListKeyspaces, ListTables, RestoreTable, UpdateTable}

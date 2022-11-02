@@ -14,7 +14,7 @@ const SqsMessage = {
     items: [
       {
         type: "link",
-        text: "Developer Guide",
+        text: "SQS Developer Guide",
         href: "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
         external: true,
       },

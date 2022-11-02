@@ -1,0 +1,9 @@
+{
+  "FunctionName": "LambdaExample",
+  "Handler": "LambdaIncrement::LambdaIncrement.Function::FunctionHandler",
+  "UpdatedHandler":  "LambdaCalculator::LambdaCalculator.Function::FunctionHandler",
+  "BucketName": "doc-example-bucket",
+  "Key": "LambdaIncrement.zip",
+  "UpdateKey": "LambdaCalculator.zip",
+  "RoleName":  "lambda-support"
+}

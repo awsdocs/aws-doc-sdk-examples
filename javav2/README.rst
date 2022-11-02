@@ -75,9 +75,7 @@ The following tutorials use the synchronous Java client to build sample applicat
 
 + `Creating a Spring Boot Application that has publish/subscription functionality <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the application is created using the Spring Framework with the AWS SDK for Java V2 API for Amazon SNS. 
 
-+ `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web MVC application.
-
-+ `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web MVC application.
++ `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
 
 + `Building a Spring Boot web application that Streams Amazon S3 content over HTTP <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app>`_ - Discusses how to create a web MVC application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework is used with the AWS SDK for Java API to create the application.
 
