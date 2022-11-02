@@ -38,7 +38,6 @@ import software.amazon.awssdk.services.support.model.Service;
 import software.amazon.awssdk.services.support.model.SeverityLevel;
 import software.amazon.awssdk.services.support.model.SupportException;
 import software.amazon.awssdk.services.support.model.AddAttachmentsToSetRequest;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -59,21 +58,20 @@ import java.util.List;
  *
  *  https://aws.amazon.com/premiumsupport/plans/
  *
- *  This Java example performs the following tasks:
+ *  This Java example performs these tasks:
  *
- * 1. Get and display available services. Select a service for an example support case. (DescribeServices)
- * 2. Get and display severity levels and select one severity level from the list.
- * 3. Create a support case using the selected service, category, and severity level.
- * 4. Get a list of open cases for the current day.
- * 5. Create an attachment set with a generated file to add to the case.
- * 6. Add communication with the attachment to the support case.
- * 7. List the communications of the support case.
- * 8. Describe the attachment set included with the communication.
- * 9. Resolve the support case.
- * 10. Get a list of resolved cases for the current day.
+ * 1. Gets and displays available services.
+ * 2. Gets and displays severity levels.
+ * 3. Creates a support case by using the selected service, category, and severity level.
+ * 4. Gets a list of open cases for the current day.
+ * 5. Creates an attachment set with a generated file.
+ * 6. Adds a communication with the attachment to the support case.
+ * 7. Lists the communications of the support case.
+ * 8. Describes the attachment set included with the communication.
+ * 9. Resolves the support case.
+ * 10. Gets a list of resolved cases for the current day.
  */
-
-
+// snippet-start:[support.java2.scenario.main]
 public class SupportScenario {
 
     public static void main(String[] args) {
@@ -83,12 +81,12 @@ public class SupportScenario {
             "Where:\n" +
             "    fileAttachment - The file can be a simple saved .txt file to use as an email attachment. \n";
 
-        //if (args.length != 1) {
-        //    System.out.println(usage);
-        //    System.exit(1);
-       // }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String fileAttachment = "C:\\AWS\\simpleSupport.txt" ; //args[0];
+        String fileAttachment = args[0];
         Region region = Region.US_WEST_2;
         SupportClient supportClient = SupportClient.builder()
             .region(region)
@@ -104,10 +102,10 @@ public class SupportScenario {
         System.out.println("***** Step 3. Create a support case using the selected service, category, and severity level.");
         String caseId = createSupportCase(supportClient, sevCatList, sevLevel);
         if (caseId.compareTo("")==0) {
-            System.out.println("A support Case was not successfully created!");
+            System.out.println("A support case was not successfully created!");
             System.exit(1);
         } else
-            System.out.println("Support Case "+caseId +" was successfully created!");
+            System.out.println("Support case "+caseId +" was successfully created!");
 
         System.out.println("***** Step 4. Get open support cases.");
         getOpenCase(supportClient);
@@ -136,7 +134,7 @@ public class SupportScenario {
 
     public static void getResolvedCase(SupportClient supportClient) {
         try {
-            // Specify the start and end time to base the search on.
+            // Specify the start and end time.
             Instant now = Instant.now();
             java.time.LocalDate.now();
             Instant yesterday = now.minus(1, ChronoUnit.DAYS);
@@ -175,7 +173,6 @@ public class SupportScenario {
             System.exit(1);
         }
     }
-
 
     public static void describeAttachment(SupportClient supportClient,String attachId) {
         try {
@@ -240,8 +237,7 @@ public class SupportScenario {
         }
    }
 
-
-    public static String addAttachment(SupportClient supportClient,  String fileAttachment) {
+    public static String addAttachment(SupportClient supportClient, String fileAttachment) {
         try {
             File myFile = new File(fileAttachment);
             InputStream sourceStream = new FileInputStream(myFile);
@@ -266,7 +262,6 @@ public class SupportScenario {
         return "";
     }
 
-
     public static void getOpenCase(SupportClient supportClient) {
         try {
             DescribeCasesRequest describeCasesRequest = DescribeCasesRequest.builder()
@@ -287,9 +282,7 @@ public class SupportScenario {
         }
     }
 
-
     public static String createSupportCase(SupportClient supportClient, List<String> sevCatList, String sevLevel) {
-
         try {
             String serviceCode = sevCatList.get(0);
             String caseCat = sevCatList.get(1);
@@ -381,3 +374,4 @@ public class SupportScenario {
         return null;
     }
 }
+// snippet-end:[support.java2.scenario.main]
