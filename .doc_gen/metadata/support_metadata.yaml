@@ -188,7 +188,7 @@ support_Scenario_GetStartedSupportCases:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: Run various AWS Support operations.
+            - description: Run various &SUP; operations.
               snippet_tags:
                 - support.java2.scenario.main
     .NET:
