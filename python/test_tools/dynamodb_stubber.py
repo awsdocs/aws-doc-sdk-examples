@@ -40,7 +40,8 @@ class DynamoStubber(ExampleStubber):
         type(Decimal()): 'N',
         type(b''): 'B',
         type({}): 'M',
-        type([]): 'L'
+        type([]): 'L',
+        type(True): 'BOOL',
     }
 
     @staticmethod
@@ -68,6 +69,8 @@ class DynamoStubber(ExampleStubber):
                         {self.type_encoding[type(list_val)]: list_val}
                         for list_val in value
                     ]
+                elif value_type == 'BOOL':
+                    out_val = value
                 else:
                     out_val = str(value)
                 out_item[key] = {value_type: out_val}
