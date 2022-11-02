@@ -5,15 +5,17 @@
 ]>
 <block>
     <para>
-        Shows how to use the &NETlong; to create a web application that tracks work items in an &RDS; database and
+        Shows how to use the &NETlong; to create a web application that tracks work items in an &AURlong; database and
         emails reports by using &SESlong; (&SES;).
         This example uses a front end built with React.js to interact with a RESTful .NET backend.
     </para>
     <para>
+        <itemizedlist>
             <listitem><para>Integrate a React.js web application with &AWS; services.</para></listitem>
             <listitem><para>List, add, update, and delete items in an &RDS; table.</para></listitem>
             <listitem><para>Send an email report of filtered work items using &SES;.</para></listitem>
             <listitem><para>Deploy and manage example resources with the included &CFNlong; script.</para></listitem>
+        </itemizedlist>
     </para>
     <para>
         For complete source code and instructions on how to set up and run an example that uses the AWS SDK for .NET, see the full example on
