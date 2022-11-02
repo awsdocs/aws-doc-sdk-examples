@@ -19,19 +19,19 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 The following Scenario use the **SupportClient** object:
 
-- [Perform AWS Support operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateApiKey.java) (CreateApiKey command)
+- [Perform AWS Support operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (Multiple commands)
 
-## Running the AWS AppSync Java files
+## Running the AWS Support Java file
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS AppSync data source. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
+**Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
 
- ## Testing the AWS AppSync Java files
+ ## Testing the AWS Support Java files
 
-You can test the Java code examples for AWS AppSync Java by running a test file named **AppSyncTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code example for AWS Support by running a test file named **SupportTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -40,17 +40,14 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
 
  ### Properties file
-Before running the AWS Elastic Beanstalk JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a crawler name used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a crawler name used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **apiId** - The id of the API (You can get this value from the AWS Management Console).  
-- **dsName** - The name of the data source. 
-- **dsRole** - The AWS Identity and Access Management (IAM) service role for the data source. 
-- **tableName** - The name of the Amazon DynamoDB table used as the data source.
+- **fileAttachment** - The file can be a simple saved .txt file to use as an email attachment.  
 
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
-* [Developer Guide - AWS AppSync](https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html).
+* [Developer Guide - AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
