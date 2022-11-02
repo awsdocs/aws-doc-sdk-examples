@@ -44,7 +44,7 @@
 source awsdocs_general.sh
 
 ###############################################################################
-# function instance-exists
+# function get_instance_info
 #
 # This function checks to see if the specified instance already exists. If it
 # does, it sets two global parameters to return the running state and the
@@ -100,6 +100,9 @@ function get_instance_info {
 ######################################
 
 function change_ec2_instance_type {
+
+    local -x AWS_CLI_AUTO_PROMPT
+    AWS_CLI_AUTO_PROMPT=off
 
     function usage() (
         echo ""
