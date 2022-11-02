@@ -18,7 +18,7 @@
         </itemizedlist>
     </para>
     <para>
-        For complete source code and instructions on how to set up and run an example that uses the AWS SDK for .NET, see the full example on
+        For complete source code and instructions on how to set up and run, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/cross-service/AuroraItemTracker">GitHub</ulink>.
     </para>
 </block>
