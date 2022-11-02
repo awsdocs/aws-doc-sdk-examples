@@ -15,17 +15,11 @@ AWS Support is one-on-one, fast-response support from experienced technical supp
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
-### Single action
+### Scenario 
 
-The following examples use the **AppSyncClient** object:
+The following Scenario use the **SupportClient** object:
 
-- [Creating an AWS AppSync key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateApiKey.java) (CreateApiKey command)
-- [Creating an AWS AppSync data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateDataSource.java) (CreateDataSource command)
-- [Deleting an AWS AppSync key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DeleteApiKey.java) (DeleteApiKey command)
-- [Deleting an AWS AppSync data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/DeleteDataSource.java) (DeleteDataSource command)
-- [Getting an AWS AppSync data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/GetDataSource.java) (GetDataSource command)
-- [Listing AWS AppSync keys](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListApiKeys.java) (ListApiKeys command)
-- [Listing AWS AppSync APIs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/ListGraphqlApis.java) (ListGraphqlApis command)
+- [Perform AWS Support operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appsync/src/main/java/com/example/appsync/CreateApiKey.java) (CreateApiKey command)
 
 ## Running the AWS AppSync Java files
 
