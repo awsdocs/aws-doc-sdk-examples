@@ -1,6 +1,7 @@
 def demo_func(func):
     def wrapper(*args, **kwargs):
         print('-'*88)
-        func(*args, **kwargs)
+        result = func(*args, **kwargs)
         print('-'*88)
+        return result
     return wrapper

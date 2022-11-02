@@ -1,0 +1,9 @@
+Work items
+
+Snapshot of {{item_count}} active work items taken at {{snap_time.strftime('%H:%M on %h %d %Y')}}.
+----------------------------------------------------------------------
+{%- if item_count > 10 %}
+See attachment for work items table.
+{%- else %}
+{% include 'work_items.csv' %}
+{%- endif %}
