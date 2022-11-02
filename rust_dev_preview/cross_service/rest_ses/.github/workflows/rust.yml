@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: pre-setup
-        run: apt install -y libclang-dev
+      - name: setup
+        run: apt install -Y libclang-dev
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal

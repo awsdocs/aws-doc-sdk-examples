@@ -89,6 +89,7 @@ impl ResponseError for WorkItemError {
     fn status_code(&self) -> reqwest::StatusCode {
         match self {
             WorkItemError::MissingItem(_) => StatusCode::NOT_FOUND,
+            WorkItemError::FromFields(_) => StatusCode::BAD_REQUEST,
             _ => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
