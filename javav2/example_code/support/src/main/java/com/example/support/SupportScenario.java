@@ -46,7 +46,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-
+// snippet-start:[support.java2.scenario.main]
 /**
  * Before running this Java (v2) code example, set up your development environment, including your credentials.
  *
@@ -71,7 +71,7 @@ import java.util.List;
  * 9. Resolves the support case.
  * 10. Gets a list of resolved cases for the current day.
  */
-// snippet-start:[support.java2.scenario.main]
+
 public class SupportScenario {
 
     public static void main(String[] args) {
