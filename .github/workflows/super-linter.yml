@@ -19,9 +19,6 @@ jobs:
   run-lint:
     runs-on: ubuntu-latest
     steps:
-      - name: pre-setup
-        # This is necessary for the rust libxsmlwriter dependency
-        run: sudo apt-get update && sudo apt-get install -y libclang-dev
       - name: Checkout code
         uses: actions/checkout@v2
         with:

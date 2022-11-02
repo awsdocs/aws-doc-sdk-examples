@@ -97,7 +97,7 @@ pub fn get_settings(environment: &Environment) -> Result<Settings, SettingsError
 
     let settings_loader = config::Config::builder()
         .add_source(config::File::from(config_dir.join(base_yaml)))
-        .add_source(config::File::from(config_dir.join(environment_yaml)))
+        .add_source(config::File::from(config_dir.join(environment_yaml)).required(false))
         .add_source(
             config::Environment::with_prefix("APP")
                 .prefix_separator("_")
@@ -114,6 +114,7 @@ pub fn get_settings(environment: &Environment) -> Result<Settings, SettingsError
 /// Valid environments for this app.
 pub enum Environment {
     Local,
+    Test,
     Production,
 }
 
@@ -121,6 +122,7 @@ impl Environment {
     pub fn as_str(&self) -> &'static str {
         match self {
             Environment::Local => "local",
+            Environment::Test => "test",
             Environment::Production => "production",
         }
     }
@@ -132,9 +134,10 @@ impl TryFrom<String> for Environment {
     fn try_from(value: String) -> Result<Self, Self::Error> {
         match value.to_lowercase().as_str() {
             "local" => Ok(Environment::Local),
+            "test" => Ok(Environment::Test),
             "production" => Ok(Environment::Production),
             other => Err(format!(
-                "Unknown environment {other}. Please use 'local' or 'production'."
+                "Unknown environment {other}. Please use 'local', 'test', or 'production'."
             )),
         }
     }

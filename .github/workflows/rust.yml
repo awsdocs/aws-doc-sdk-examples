@@ -38,3 +38,5 @@ jobs:
         with:
           command: test
           args: --manifest-path rust_dev_preview/Cargo.toml
+        env:
+          APP_ENVIRONMENT: test
