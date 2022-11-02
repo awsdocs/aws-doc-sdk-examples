@@ -132,6 +132,7 @@ public class SupportScenario {
         System.out.println("***** This Scenario has successfully completed");
     }
 
+    // snippet-start:[support.java2.get.resolve.main]
     public static void getResolvedCase(SupportClient supportClient) {
         try {
             // Specify the start and end time.
@@ -158,7 +159,9 @@ public class SupportScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[support.java2.get.resolve.main]
 
+    // snippet-start:[support.java2.resolve.main]
     public static void resolveSupportCase(SupportClient supportClient, String caseId) {
         try {
             ResolveCaseRequest caseRequest = ResolveCaseRequest.builder()
@@ -173,7 +176,9 @@ public class SupportScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[support.java2.resolve.main]
 
+    // snippet-start:[support.java2.des.attachment.main]
     public static void describeAttachment(SupportClient supportClient,String attachId) {
         try {
             DescribeAttachmentRequest attachmentRequest = DescribeAttachmentRequest.builder()
@@ -188,7 +193,9 @@ public class SupportScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[support.java2.des.attachment.main]
 
+    // snippet-start:[support.java2.list.comms.main]
     public static String listCommunications(SupportClient supportClient, String caseId) {
         try {
             String attachId = null;
@@ -216,7 +223,9 @@ public class SupportScenario {
         }
         return "";
     }
+    // snippet-end:[support.java2.list.comms.main]
 
+    // snippet-start:[support.java2.add.attach.case.main]
     public static void addAttachSupportCase(SupportClient supportClient, String caseId, String attachmentSetId) {
         try {
             AddCommunicationToCaseRequest caseRequest = AddCommunicationToCaseRequest.builder()
@@ -236,7 +245,9 @@ public class SupportScenario {
             System.exit(1);
         }
    }
+    // snippet-end:[support.java2.add.attach.case.main]
 
+    // snippet-start:[support.java2.add.attach.main]
     public static String addAttachment(SupportClient supportClient, String fileAttachment) {
         try {
             File myFile = new File(fileAttachment);
@@ -261,11 +272,20 @@ public class SupportScenario {
         }
         return "";
     }
+    // snippet-end:[support.java2.add.attach.main]
 
+    // snippet-start:[support.java2.get.open.cases.main]
     public static void getOpenCase(SupportClient supportClient) {
         try {
+            // Specify the start and end time.
+            Instant now = Instant.now();
+            java.time.LocalDate.now();
+            Instant yesterday = now.minus(1, ChronoUnit.DAYS);
+
             DescribeCasesRequest describeCasesRequest = DescribeCasesRequest.builder()
                 .maxResults(20)
+                .afterTime(yesterday.toString())
+                .beforeTime(now.toString())
                 .build();
 
             DescribeCasesResponse response = supportClient.describeCases(describeCasesRequest);
@@ -281,7 +301,9 @@ public class SupportScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[support.java2.get.open.cases.main]
 
+    // snippet-start:[support.java2.create.case.main]
     public static String createSupportCase(SupportClient supportClient, List<String> sevCatList, String sevLevel) {
         try {
             String serviceCode = sevCatList.get(0);
@@ -305,7 +327,9 @@ public class SupportScenario {
         }
         return "";
     }
+    // snippet-end:[support.java2.create.case.main]
 
+    // snippet-start:[support.java2.display.sev.main]
     public static String displaySevLevels(SupportClient supportClient) {
         try {
             DescribeSeverityLevelsRequest severityLevelsRequest = DescribeSeverityLevelsRequest.builder()
@@ -328,7 +352,9 @@ public class SupportScenario {
         }
         return "";
     }
+    // snippet-end:[support.java2.display.sev.main]
 
+    // snippet-start:[support.java2.display.services.main]
     // Return a List that contains a Service name and Category name.
     public static List<String> displayServices(SupportClient supportClient) {
         try {
@@ -373,5 +399,6 @@ public class SupportScenario {
         }
         return null;
     }
+    // snippet-start:[support.java2.display.services.main]
 }
 // snippet-end:[support.java2.scenario.main]
