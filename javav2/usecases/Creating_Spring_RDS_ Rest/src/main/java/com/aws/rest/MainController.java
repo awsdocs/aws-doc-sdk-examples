@@ -6,80 +6,80 @@
 package com.aws.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+@ComponentScan(basePackages = {"com.aws.services"})
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/items")
 public class MainController {
+    private final WorkItemRepository repository;
 
     @Autowired
-    RetrieveItems ri;
-
-    @Autowired
-    WriteExcel writeExcel;
-
-    @Autowired
-    SendMessage sm;
-
-    @Autowired
-    InjectWorkService iw;
-
-    @GetMapping("items/{state}")
-    public List<WorkItem> getItems(@PathVariable String state) {
-        if (state.compareTo("active") == 0) {
-            return ri.getItemsDataSQLReport("0");
-        } else {
-            return ri.getItemsDataSQLReport("1");
-        }
+    MainController(
+        WorkItemRepository repository
+    ) {
+        this.repository = repository;
     }
 
-    // Flip an item from Active to Archive.
-    @PutMapping("mod/{id}")
-    public String modUser(@PathVariable String id) {
-        ri.flipItemArchive(id);
-        return id +" was archived";
+    @GetMapping("" )
+    public List<WorkItem> getItems(@RequestParam(required=false) String archived) {
+        Iterable<WorkItem> result;
+        if (archived != null)
+            result = repository.findAllWithStatus(archived);
+        else
+            result = repository.findAllWithStatus("");
+
+        return StreamSupport.stream(result.spliterator(), false)
+            .collect(Collectors.toUnmodifiableList());
     }
 
-    // Adds a new item to the database.
-    @PostMapping("add")
-    String addItems(@RequestBody Map<String, Object> payLoad) {
-        String name = "user";
-        String guide = (String)payLoad.get("guide");
-        String description = (String)payLoad.get("description");
-        String status = (String)payLoad.get("status");
-
-        // Create a Work Item object to pass injestNewSubmission().
-        WorkItem myWork = new WorkItem();
-        myWork.setGuide(guide);
-        myWork.setDescription(description);
-        myWork.setStatus(status);
-        myWork.setName(name);
-        iw.injectNewSubmission(myWork);
-        return "Item added";
+    // Notice the : character which is used for custom methods. More information can be found here:
+    // https://cloud.google.com/apis/design/custom_methods
+    @PutMapping("{id}:archive")
+    public List<WorkItem> modUser(@PathVariable String id) {
+        repository.flipItemArchive(id);
+        Iterable<WorkItem> result = repository.findAllWithStatus("false");
+        return StreamSupport.stream(result.spliterator(), false)
+            .collect(Collectors.toUnmodifiableList());
     }
 
-    @PutMapping("report/{email}")
-    public String sendReport(@PathVariable String email){
-        List<WorkItem> theList = ri.getItemsDataSQLReport("0");
-        java.io.InputStream is = writeExcel.exportExcel(theList);
+    @PostMapping("")
+    public List<WorkItem> addItem(@RequestBody Map<String, String> payload) {
+        String name = payload.get("name");
+        String guide = payload.get("guide");
+        String description = payload.get("description");
+        String status = payload.get("description");
 
-        try {
-            sm.sendReport(is, email);
+        WorkItem item = new WorkItem();
+        String workId = UUID.randomUUID().toString();
+        String date = LocalDateTime.now().toString();
+        item.setId(workId);
+        item.setGuide(guide);
+        item.setDescription(description);
+        item.setName(name);
+        item.setDate(date);
+        item.setStatus(status);
+        repository.save(item);
 
-        }catch (IOException e) {
-            e.getStackTrace();
-        }
-        return "Report is created";
+        // Return active records.
+        Iterable<WorkItem> result = repository.findAllWithStatus("false");
+        return StreamSupport.stream(result.spliterator(), false)
+            .collect(Collectors.toUnmodifiableList());
     }
 }

@@ -12,14 +12,14 @@ const ItemTracker = {
     items: [
       {
         type: "link",
-        text: "Creating Spring RDS REST (Java)",
-        href: "https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest",
+        text: "Verify SES email identity",
+        href: "https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#just-verify-email-proc",
         external: true,
       },
       {
         type: "link",
-        text: "Creating Spring RDS REST ()",
-        href: "https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/serverless_rds",
+        text: "Running Aurora queries",
+        href: "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/query-editor.html#query-editor.running",
         external: true,
       },
     ],

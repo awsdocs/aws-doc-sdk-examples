@@ -3,7 +3,7 @@ import { lazy } from "react";
 
 
 const DevelopPluginComponent = {
-  navigationItem: { text: "Developer guide", href: "/developer_guide", type: "link" } as SideNavigationProps.Link,
+  navigationItem: { text: "Build a plugin", href: "/developer_guide", type: "link" } as SideNavigationProps.Link,
   component: lazy(() => import("./DevelopPluginComponent")),
 };
 

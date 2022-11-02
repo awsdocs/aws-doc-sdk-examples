@@ -1,0 +1,32 @@
+name: Ruby
+covered_services:
+- cloudtrail
+- cloudwatch
+- codebuild
+- dynamodb
+- ec2
+- elasticbeanstalk
+- elastictranscoder
+- eventbridge
+- iam
+- kms
+- lambda
+- polly
+- sqs
+- sns
+- ses
+- workdocs
+- rds
+- s3
+- secretsmanager
+short_sdk_name: "SDK for Ruby"
+service_developer_guide: https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html
+service_api_reference_guide: https://docs.aws.amazon.com/sdk-for-ruby/v3/api/
+language_sdk_reference_guide: https://aws.amazon.com/developer/language/ruby/
+running_code:
+- scenario: "The easiest way to interact with this example code is by invoking a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`."
+  no_scenario: "The easiest way to interact with this example code is by invoking [Single Actions](#single-actions) from your command line. This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments."
+tests:
+- minitest: "This service is currently tested using `minitest` and each test must be invoked individually from the command line. For example, `ruby some_test.rb` will invoke `some_test.rb`."
+  rspec: "This service is currently tested using `rspec` and tests can be invoked from the command line either individually (`rspec some_spec.rb`) or all at once (`rspec .`)."
+  no_tests: "This service is not currently tested."

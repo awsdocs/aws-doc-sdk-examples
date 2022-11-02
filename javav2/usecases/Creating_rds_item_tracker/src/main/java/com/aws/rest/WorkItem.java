@@ -13,52 +13,61 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private boolean archived ;
 
     public void setId (String id) {
-                this.id = id;
-        }
+        this.id = id;
+    }
+
+    public boolean getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
+    }
 
     public String getId() {
-                return this.id;
-        }
+        return this.id;
+    }
 
     public void setStatus (String status) {
-                this.status = status;
-        }
+        this.status = status;
+    }
 
     public String getStatus() {
-                return this.status;
-        }
+        return this.status;
+    }
 
     public void setDescription (String description) {
-                this.description = description;
-        }
+        this.description = description;
+    }
 
     public String getDescription() {
-                return this.description;
-        }
+        return this.description;
+    }
 
     public void setDate (String date) {
-                this.date = date;
-        }
+        this.date = date;
+    }
 
     public String getDate() {
-                return this.date;
-        }
+        return this.date;
+    }
 
     public void setName (String name) {
-                this.name = name;
-        }
+        this.name = name;
+    }
 
     public String getName() {
-                return this.name;
-        }
+        return this.name;
+    }
 
     public void setGuide (String guide) {
-                this.guide = guide;
-        }
+        this.guide = guide;
+    }
 
     public String getGuide() {
-                return this.guide;
-        }
+        return this.guide;
+    }
 }
