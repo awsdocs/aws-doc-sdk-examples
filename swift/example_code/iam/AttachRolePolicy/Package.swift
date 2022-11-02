@@ -52,7 +52,7 @@ let package = Package(
             ],
             path: "./Sources/AttachRolePolicy",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
 // snippet-end:[iam.swift.attachrolepolicy.package.target.executable]
@@ -75,7 +75,7 @@ let package = Package(
             ],
             path: "./Tests/AttachRolePolicyTests",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         )
 // snippet-end:[iam.swift.attachrolepolicy.package.target.tests]

@@ -16,9 +16,10 @@ import SwiftUtilities
 
 public extension ServiceHandler {
 
-    /// Get the ID of an IAM role.
+    /// Get the ID of an AWS Identity and Access Management (IAM) role.
     ///
-    /// - Parameter name: The name of the IAM role whose ID is wanted.
+    /// - Parameter name: The name of the IAM role.
+    ///
     /// - Returns: A `String` containing the role's ID.
     func getRoleID(name: String) async throws -> String {
         let input = GetRoleInput(

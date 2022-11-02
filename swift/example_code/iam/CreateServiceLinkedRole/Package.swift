@@ -47,7 +47,7 @@ let package = Package(
             ],
             path: "./Sources/CreateServiceLinkedRole",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
 // snippet-end:[iam.swift.createservicelinkedrole.package.target.executable]
@@ -69,7 +69,7 @@ let package = Package(
             ],
             path: "./Tests/CreateServiceLinkedRoleTests",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         )
 // snippet-end:[iam.swift.createservicelinkedrole.package.target.tests]

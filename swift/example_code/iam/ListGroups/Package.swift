@@ -47,7 +47,7 @@ let package = Package(
             ],
             path: "./Sources/ListGroups",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
 // snippet-end:[iam.swift.listgroups.package.target.executable]
@@ -69,7 +69,7 @@ let package = Package(
             ],
             path: "./Tests/ListGroupsTests",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         )
 // snippet-end:[iam.swift.listgroups.package.target.tests]

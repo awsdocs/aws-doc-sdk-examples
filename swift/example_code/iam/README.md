@@ -1,12 +1,13 @@
-# Amazon IAM code examples for the SDK for Swift
+# IAM code examples for the SDK for Swift
 ## Overview
 This folder contains code examples demonstrating how to use the AWS SDK for
-Swift to use the Amazon Identity and Access Management (`IAM`). This README
-discusses how to run these examples.
+Swift to use the Amazon Identity and Access Management (IAM) service. This
+README discusses how to run these examples.
 
-Amazon Identity and Access Management (`Amazon IAM`) lets you specify who and
-what can access services and resources on your AWS account, centrally manage
-fine-grained permissions, and analyze access to refine permissions across AWS.
+Amazon IAM is a web service for securely controlling access to AWS services.
+With IAM, you can centrally manage users, security credentials such as access
+keys, and permissions that control which AWS resources users and applications
+can access. 
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -19,18 +20,18 @@ fine-grained permissions, and analyze access to refine permissions across AWS.
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 * [Attach an IAM policy to a
-  role](./AttachRolePolicy/Sources/ServiceHandler/ServiceHandler.swift).
+  role](./AttachRolePolicy/Sources/ServiceHandler/ServiceHandler.swift)
   (`AttachRolePolicy`)
 * [Create a new IAM user](./CreateUser/Sources/ServiceHandler/ServiceHandler.swift) (`CreateUser`)
 * [Create an IAM role](./CreateRole/Sources/ServiceHandler/ServiceHandler.swift) (`CreateRole`)
 * [Create an IAM role linked to a specific service](./CreateServiceLinkedRole/Sources/ServiceHandler/ServiceHandler.swift) (`CreateServiceLinkedRole`)
-* [Get information about an IAM role](./GetRole/Sources/ServiceHandler/ServiceHandler.swift) (`GetRole`)
 * [Get information about an IAM policy](./GetPolicy/Sources/ServiceHandler/ServiceHandler.swift) (`GetPolicy`)
-* [List the managed policies attached to a role](./ListAttachedRolePolicies/Sources/ServiceHandler/ServiceHandler.swift). (`ListAttachedRolePolicies`)
-* [List all groups on an AWS account](./ListGroups/Sources/ServiceHandler/ServiceHandler.swift) (`ListGroups`)
+* [Get information about an IAM role](./GetRole/Sources/ServiceHandler/ServiceHandler.swift) (`GetRole`)
 * [List all AWS policies](./ListPolicies/Sources/ServiceHandler/ServiceHandler.swift) (`ListPolicies`)
-* [List the policies embedded in a role](./ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift). This does _not_ include managed policies attached to the role. (`ListRolePolicies`)
+* [List all groups on an AWS account](./ListGroups/Sources/ServiceHandler/ServiceHandler.swift) (`ListGroups`)
 * [List all users on an AWS account](./ListUsers/Sources/ServiceHandler/ServiceHandler.swift) (`ListUsers`)
+* [List the managed policies attached to a role](./ListAttachedRolePolicies/Sources/ServiceHandler/ServiceHandler.swift). (`ListAttachedRolePolicies`)
+* [List the policies embedded in a role](./ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift). This does _not_ include managed policies attached to the role. (`ListRolePolicies`)
 
 
 <!-- ### Scenarios
@@ -41,15 +42,16 @@ Code examples that show you how to accomplish a specific task by calling multipl
 Sample applications that work across multiple AWS services.
 * [*Title of code example*](*relative link to code example*) --->
 
-## Running the examples
-To build any of these examples from a terminal window, navigate into its directory then use the command:
+## Run the examples
+To build any of these examples from a terminal window, navigate into its
+directory, then use the following command:
 
 ```
 $ swift build
 ```
 
 To build one of these examples in Xcode, navigate to the example's directory
-(such as the `ListUsers` directory, to build that example), then type `xed.`
+(such as the `ListUsers` directory, to build that example). Then type `xed.`
 to open the example directory in Xcode. You can then use standard Xcode build
 and run commands.
 
@@ -62,9 +64,9 @@ See the [Prerequisites](https://github.com/awsdocs/aws-doc-sdk-examples/tree/mai
 To run the tests for an example, use the command `swift test` in the example's directory.
 
 ## Additional resources
-* [Amazon IAM user guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)
-* [Amazon IAM API reference](https://docs.aws.amazon.com/IAM/latest/APIReference/)
-* [IAM developer guide for Swift](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/examples-iam.html)
+* [IAM user guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)
+* [IAM API reference](https://docs.aws.amazon.com/IAM/latest/APIReference/)
+* [IAM Developer Guide for Swift](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/examples-iam.html)
 * [IAM API reference for Swift](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSIAM/Home)
 * [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 

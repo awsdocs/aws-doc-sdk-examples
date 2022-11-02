@@ -26,8 +26,8 @@ public class ServiceHandler {
     public let client: IamClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
-    /// to drive the AWS calls used for the example. The region string
-    /// `AWS_GLOBAL` is used because users are shared across all regions.
+    /// to drive the AWS calls used for the example. The Region string
+    /// `AWS_GLOBAL` is used because users are shared across all Regions.
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
@@ -44,11 +44,13 @@ public class ServiceHandler {
 
     // snippet-start:[iam.swift.listattachedrolepolicies.handler.listattachedrolepolicies]
 
-    /// Returns a list of IAM policies attached to the role.
+    /// Returns a list of AWS Identity and Access Management (IAM) policies
+    /// that are attached to the role.
     ///
     /// - Parameter role: The IAM role to return the policy list for.
-    /// - Returns: An array of `IamClientTypes.AttachedPolicy` objects describing each
-    ///   managed policy attached to the role.
+    ///
+    /// - Returns: An array of `IamClientTypes.AttachedPolicy` objects
+    ///   describing each managed policy that's attached to the role.
     public func listAttachedRolePolicies(role: String) async throws -> [IamClientTypes.AttachedPolicy] {
         var policyList: [IamClientTypes.AttachedPolicy] = []
         var marker: String? = nil

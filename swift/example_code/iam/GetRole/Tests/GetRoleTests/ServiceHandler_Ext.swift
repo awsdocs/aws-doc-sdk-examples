@@ -35,7 +35,7 @@ public extension ServiceHandler {
         }
     }
 
-    /// Create a new IAM role.
+    /// Create a new AWS Identity and Access Management (IAM) role.
     ///
     /// - Parameter name: The name of the new IAM role.
     ///

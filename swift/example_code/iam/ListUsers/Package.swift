@@ -47,7 +47,7 @@ let package = Package(
             ],
             path: "./Sources/ListUsers",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
 // snippet-end:[iam.swift.listusers.package.target.executable]
@@ -69,7 +69,7 @@ let package = Package(
             ],
             path: "./Tests/ListUsersTests",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         )
 // snippet-end:[iam.swift.listusers.package.target.tests]

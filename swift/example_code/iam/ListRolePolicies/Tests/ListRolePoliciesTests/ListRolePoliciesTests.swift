@@ -11,8 +11,8 @@ import SwiftUtilities
 
 @testable import ServiceHandler
 
-/// Perform tests on the S3Basics program. Call Amazon S3 service functions
-/// using the global `ListRolePoliciesTests.serviceHandler` property, and manage
+/// Perform tests on the sample program. Call Amazon service functions
+/// using the global `ListRolePoliciesTests.serviceHandler` property. Also, manage
 /// the demo cleanup handler object using the global
 /// `ListRolePoliciesTests.demoCleanup` property.
 final class ListRolePoliciesTests: XCTestCase {
@@ -23,9 +23,9 @@ final class ListRolePoliciesTests: XCTestCase {
     ///
     /// This function sets up the following:
     ///
-    ///     Configures AWS SDK log system to only log errors.
+    ///     Configures the AWS SDK log system to only log errors.
     ///     Initializes the service handler, which is used to call
-    ///     Amazon S3 functions.
+    ///     Amazon Identity and Access Management (IAM) functions.
     ///     Initializes the demo cleanup handler, which is used to
     ///     track the names of the files and buckets created by the tests
     ///     in order to remove them after testing is complete.
@@ -127,26 +127,26 @@ final class ListRolePoliciesTests: XCTestCase {
                 testPolicyNames.append(policyName)
             }
 
-            // Get a list of the role's policies
+            // Get a list of the role's policies.
 
             var returnedPolicyNames = try await ListRolePoliciesTests.serviceHandler!.listRolePolicies(role: testRole)
 
-            // Sort the arrays for easier comparing
+            // Sort the arrays for easier comparing.
 
             testPolicyNames = testPolicyNames.sorted()
             returnedPolicyNames = returnedPolicyNames.sorted()
 
-            // Compare the retrieved policy names to the expected values
+            // Compare the retrieved policy names to the expected values.
 
             XCTAssertEqual(testPolicyNames, returnedPolicyNames, "Retrieved policy list doesn't match the created policies.")
 
-            // Delete the policies
+            // Delete the policies.
 
             for policy in testPolicyNames {
                 _ = try await ListRolePoliciesTests.serviceHandler!.deleteRolePolicy(role: testRole, policyName: policy)
             }
 
-            // Delete the role
+            // Delete the role.
 
             _ = try await ListRolePoliciesTests.serviceHandler!.deleteRole(name: testRole)
 

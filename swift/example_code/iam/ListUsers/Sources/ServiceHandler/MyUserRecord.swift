@@ -5,7 +5,8 @@
 
 import Foundation
 
-/// A structure type used to return the desired information about an IAM user.
+/// A structure type used to return the desired information about an AWS
+/// Identity and Access Management (IAM) user.
 ///
 /// - term ``id``: The user's unique, stable ID.
 /// - term ``name``: The user's name. See [IAM

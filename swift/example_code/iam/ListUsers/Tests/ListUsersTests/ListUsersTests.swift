@@ -11,8 +11,8 @@ import SwiftUtilities
 
 @testable import ServiceHandler
 
-/// Perform tests on the S3Basics program. Call Amazon S3 service functions
-/// using the global `ListUsersTests.serviceHandler` property, and manage
+/// Perform tests on the sample program. Call Amazon service functions
+/// using the global `ListUsersTests.serviceHandler` property. Also, manage
 /// the demo cleanup handler object using the global
 /// `ListUsersTests.demoCleanup` property.
 final class ListUsersTests: XCTestCase {
@@ -23,9 +23,9 @@ final class ListUsersTests: XCTestCase {
     ///
     /// This function sets up the following:
     ///
-    ///     Configures AWS SDK log system to only log errors.
+    ///     Configures the AWS SDK log system to only log errors.
     ///     Initializes the service handler, which is used to call
-    ///     Amazon S3 functions.
+    ///     Amazon Identity and Access Management (IAM) functions.
     ///     Initializes the demo cleanup handler, which is used to
     ///     track the names of the files and buckets created by the tests
     ///     in order to remove them after testing is complete.
@@ -80,7 +80,7 @@ final class ListUsersTests: XCTestCase {
             XCTAssertTrue(users.count == testNames.count + previousUsers.count, "Incorrect number of users created. Should be \(testNames.count) but is instead \(users.count).")
 
             // For each user AWS reported, remove it from the list of names we
-            // created. Once done, there should be no entries left in the list
+            // created. When done, there should be no entries left in the list
             // of names we created.
             for user in users {
                 createdNames = createdNames.filter { $0 != user.name }

@@ -47,7 +47,7 @@ let package = Package(
             ],
             path: "./Sources/ListRoles",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
 // snippet-end:[iam.swift.listroles.package.target.executable]
@@ -69,7 +69,7 @@ let package = Package(
             ],
             path: "./Tests/ListRolesTests",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         )
 // snippet-end:[iam.swift.listroles.package.target.tests]

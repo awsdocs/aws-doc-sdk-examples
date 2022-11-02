@@ -16,7 +16,7 @@ import SwiftUtilities
 
 public extension ServiceHandler {
 
-    /// Create a new IAM role.
+    /// Create a new AWS Identity and Access Management (IAM) role.
     ///
     /// - Parameter name: The name of the new IAM role.
     ///
@@ -54,10 +54,11 @@ public extension ServiceHandler {
         }
     }
 
-    /// Get information about the specified user
+    /// Get information about the specified user.
     ///
     /// - Parameter name: A `String` giving the name of the user to get. If
     ///   this parameter is `nil`, the default user's information is returned.
+    ///
     /// - Returns: An `IamClientTypes.User` record describing the user.
     func getUser(name: String?) async throws -> IamClientTypes.User {
         let input = GetUserInput(

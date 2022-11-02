@@ -20,7 +20,7 @@ enum ServiceHandlerError: Error {
 
 public extension ServiceHandler {
 
-    /// Create a new IAM user.
+    /// Create a new AWS Identity and Access Management (IAM) user.
     ///
     /// - Parameter name: The user's name.
     ///

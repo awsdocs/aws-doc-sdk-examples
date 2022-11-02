@@ -16,15 +16,16 @@ import SwiftUtilities
 
 public extension ServiceHandler {
 
-    /// Get the ID of an IAM user.
+    /// Get the ID of an AWS Identity and Access Management (IAM) user.
     ///
-    /// - Parameter name: The name of the IAM user whose ID is wanted.
+    /// - Parameter name: The name of the IAM user.
+    ///
     /// - Returns: A `String` containing the user's ID.
     func getUserID(name: String) async throws -> String {
         let input = GetUserInput(
             userName: name
         )
-
+1
         do {
             let output = try await client.getUser(input: input)
             guard let user = output.user else {

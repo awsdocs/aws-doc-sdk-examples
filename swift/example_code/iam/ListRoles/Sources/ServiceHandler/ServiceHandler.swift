@@ -25,8 +25,8 @@ public class ServiceHandler {
     public let client: IamClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
-    /// to drive the AWS calls used for the example. The region string
-    /// `AWS_GLOBAL` is used because users are shared across all regions.
+    /// to drive the AWS calls used for the example. The Region string
+    /// `AWS_GLOBAL` is used because users are shared across all Regions.
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
@@ -41,7 +41,8 @@ public class ServiceHandler {
     }
     // snippet-end:[iam.swift.listroles.handler.init]
 
-    /// Returns a list of the names of all IAM role names.
+    /// Returns a list of all AWS Identity and Access Management (IAM) role
+    /// names.
     ///
     /// - Returns: An array of user records.
     // snippet-start:[iam.swift.listroles.handler.listroles]

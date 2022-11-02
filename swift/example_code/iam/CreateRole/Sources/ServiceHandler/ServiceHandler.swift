@@ -27,8 +27,8 @@ public class ServiceHandler {
     public let client: IamClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
-    /// to drive the AWS calls used for the example. The region string
-    /// `AWS_GLOBAL` is used because users are shared across all regions.
+    /// to drive the AWS calls used for the example. The Region string
+    /// `AWS_GLOBAL` is used because users are shared across all Regions.
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
@@ -43,7 +43,7 @@ public class ServiceHandler {
     }
     // snippet-end:[iam.swift.createrole.handler.init]
 
-    /// Create a new IAM role.
+    /// Create a new AWS Identity and Access Management (IAM) role.
     ///
     /// - Parameter name: The name of the new IAM role.
     ///
@@ -73,6 +73,7 @@ public class ServiceHandler {
     ///
     /// - Parameter name: A `String` giving the name of the user to get. If
     ///   this parameter is `nil`, the default user's information is returned.
+    ///
     /// - Returns: An `IamClientTypes.User` record describing the user.
     // snippet-start:[iam.swift.createrole.handler.getuser]
     public func getUser(name: String?) async throws -> IamClientTypes.User {

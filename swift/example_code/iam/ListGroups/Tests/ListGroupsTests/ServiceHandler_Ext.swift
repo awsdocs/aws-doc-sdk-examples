@@ -20,7 +20,7 @@ enum ServiceHandlerError: Error {
 
 public extension ServiceHandler {
 
-    /// Create a new IAM group.
+    /// Create a new AWS Identity and Access Management (IAM) group.
     ///
     /// - Parameter name: A `String` containing the name to assign to the new
     ///   IAM group.

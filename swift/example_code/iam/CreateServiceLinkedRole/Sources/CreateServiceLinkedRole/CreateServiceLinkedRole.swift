@@ -1,8 +1,8 @@
 //
 // Swift Example: CreateServiceLinkedRole
 //
-// An example showing how to use the Amazon S3 `IamClient` function
-// `CreateServiceLinkedRole()`.
+// An example showing how to use the Amazon Identity and Access Management (IAM)
+// `IamClient` function `createServiceLinkedRole()`.
 //
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
@@ -14,14 +14,14 @@ import ServiceHandler
 import ArgumentParser
 // snippet-end:[iam.swift.createservicelinkedrole.main.imports]
 
-/// The command-line arguments and options available for this
+/// The command line arguments and options available for this
 /// example command.
 // snippet-start:[iam.swift.createservicelinkedrole.command]
 struct ExampleCommand: ParsableCommand {
     @Argument(help: "The name of the service to create a linked role for.")
     var servicename: String
 
-    @Option(help: "A custom string to append to the service-provided prefix to be used as the new role's name.")
+    @Option(help: "A custom string to append to the service-provided prefix. Used to generate the new role's name.")
     var suffix: String?
 
     @Option(help: "A human-readable description of the new role.")

@@ -16,11 +16,11 @@ import SwiftUtilities
 
 public extension ServiceHandler {
 
-    /// Create a new IAM policy.
+    /// Create a new AWS Identity and Access Management (IAM) policy.
     ///
     /// - Parameters:
     ///   - name: The name of the new policy.
-    ///   - policyDocument: The policy document to assign to the new policy
+    ///   - policyDocument: The policy document to assign to the new policy.
     ///
     /// - Returns: A `MyPolicyRecord` describing the new policy.
     ///

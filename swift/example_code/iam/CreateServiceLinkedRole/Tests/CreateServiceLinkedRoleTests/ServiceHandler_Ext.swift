@@ -16,9 +16,10 @@ import SwiftUtilities
 
 public extension ServiceHandler {
 
-    /// Get the ID of an IAM role.
+    /// Get the ID of an AWS Identity and Access Management (IAM) role.
     ///
-    /// - Parameter name: The name of the IAM role whose ID is wanted.
+    /// - Parameter name: The name of the IAM role.
+    ///
     /// - Returns: A `String` containing the role's ID.
     func getRoleID(name: String) async throws -> String {
         let input = GetRoleInput(
@@ -54,7 +55,7 @@ public extension ServiceHandler {
 
     /// Delete a service-linked role, given its name.
     ///
-    /// - Parameter name: The name of the server-linked role to delete.
+    /// - Parameter name: The name of the service-linked role to delete.
     func deleteServiceLinkedRole(name: String) async throws {
         let input = DeleteServiceLinkedRoleInput(
             roleName: name
@@ -66,7 +67,7 @@ public extension ServiceHandler {
         }
     }
 
-    /// Get information about the specified user
+    /// Get information about the specified user.
     ///
     /// - Parameter name: A `String` giving the name of the user to get. If
     ///   this parameter is `nil`, the default user's information is returned.

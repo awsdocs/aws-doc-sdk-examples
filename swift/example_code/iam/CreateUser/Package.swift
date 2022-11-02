@@ -47,7 +47,7 @@ let package = Package(
             ],
             path: "./Sources/CreateUser",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
 // snippet-end:[iam.swift.createuser.package.target.executable]
@@ -69,7 +69,7 @@ let package = Package(
             ],
             path: "./Tests/CreateUserTests",
             linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work
+                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         )
 // snippet-end:[iam.swift.createuser.package.target.tests]

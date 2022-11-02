@@ -1,8 +1,8 @@
 //
-// Swift Example: ListUsers
+// Swift Example: CreateRole
 //
-// An example showing how to use the Amazon S3 `IamClient` function
-// `ListUsers()`.
+// An example showing how to use the Amazon Identity and Access Management (IAM)
+// `IamClient` function `createRole()`.
 //
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
@@ -14,7 +14,7 @@ import ServiceHandler
 import ArgumentParser
 // snippet-end:[iam.swift.createrole.main.imports]
 
-/// The command-line arguments and options available for this
+/// The command line arguments and options available for this
 /// example command.
 // snippet-start:[iam.swift.createrole.command]
 struct ExampleCommand: ParsableCommand {
