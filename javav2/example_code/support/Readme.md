@@ -29,7 +29,7 @@ To run these examples, set up your development environment. For more information
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
 
- ## Testing the AWS Support Java files
+ ## Testing the AWS Support Java file
 
 You can test the Java code example for AWS Support by running a test file named **SupportTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
