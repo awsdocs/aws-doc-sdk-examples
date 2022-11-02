@@ -399,6 +399,6 @@ public class SupportScenario {
         }
         return null;
     }
-    // snippet-start:[support.java2.display.services.main]
+    // snippet-end:[support.java2.display.services.main]
 }
 // snippet-end:[support.java2.scenario.main]
