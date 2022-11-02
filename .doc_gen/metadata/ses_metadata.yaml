@@ -1,592 +1,209 @@
-# zexi 0.4.3
-ses_SendEmail:
-  title: Send email with &SES; using an &AWS; SDK
-  title_abbrev: Send email
-  synopsis: send email with &SES;.
+# zexi 0.4.0
+support_Hello:
+  title: Hello &SUP;
+  title_abbrev: Hello &SUP;
+  synopsis: get started using &SUP;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Support
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Support.dotnetv3.HelloSupport
+  services:
+    support: {DescribeServices}
+support_AddAttachment:
+  title: Add an &SUP; attachment to a set using an &AWS; SDK
+  title_abbrev: Add an attachment to a set
+  synopsis: add an &SUP; attachment to an attachment set.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.SendEmailAsync
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ses.java2.sendmessage.request.main
-                - ses.java2.sendmessageattachment.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesMailSender
-                - python.example_code.ses.SendEmail
+                - Support.dotnetv3.AddAttachmentToSet
   services:
-    ses: {SendEmail}
-ses_SendTemplatedEmail:
-  title: Send templated email with &SES; using an &AWS; SDK
-  title_abbrev: Send templated email
-  synopsis: send templated email with &SES;.
+    support: {AddAttachmentsToSet}
+support_AddCommunication:
+  title: Add an &SUP; communication to a case using an &AWS; SDK
+  title_abbrev: Add a communication to a case
+  synopsis: add an &SUP; communication with an attachment to a support case.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.SendTemplateEmailAsync
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ses.java2.sendmessage.template.sesv2.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesMailSender
-                - python.example_code.ses.SendTemplatedEmail
+                - Support.dotnetv3.AddCommunicationToCase
   services:
-    ses: {SendTemplatedEmail}
-ses_VerifyDomainIdentity:
-  title: Verify a domain identity with &SES; using an &AWS; SDK
-  title_abbrev: Verify a domain identity
-  synopsis: verify a domain identity with &SES;.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesIdentity
-                - python.example_code.ses.VerifyDomainIdentity
-  services:
-    ses: {VerifyDomainIdentity}
-ses_VerifyEmailIdentity:
-  title: Verify an email identity with &SES;  using an &AWS; SDK
-  title_abbrev: Verify an email identity
-  synopsis: verify an email identity with &SES;.
+    support: {AddCommunicationToCase}
+support_CreateCase:
+  title: Create an &SUP; case using an &AWS; SDK
+  title_abbrev: Create a case
+  synopsis: create a new &SUP; case.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.VerifyEmailIdentityAsync
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesIdentity
-                - python.example_code.ses.VerifyEmailIdentity
+                - Support.dotnetv3.CreateCase
   services:
-    ses: {VerifyEmailIdentity}
-ses_GetIdentityVerificationAttributes:
-  title: Get the status of an &SES; identity using an &AWS; SDK
-  title_abbrev: Get the status of an identity
-  synopsis: get the status of an &SES; identity.
+    support: {CreateCase}
+support_DescribeAttachment:
+  title: Describe an attachment for an &SUP; case using an &AWS; SDK
+  title_abbrev: Describe an attachment
+  synopsis: describe an attachment for an &SUP;  case.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.GetIdentityStatusAsync
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesIdentity
-                - python.example_code.ses.GetIdentityVerificationAttributes
+                - Support.dotnetv3.DescribeAttachment
   services:
-    ses: {GetIdentityVerificationAttributes}
-ses_DeleteIdentity:
-  title: Delete an &SES; identity using an &AWS; SDK
-  title_abbrev: Delete an identity
-  synopsis: delete an &SES; identity.
+    support: {DescribeAttachment}
+support_DescribeCases:
+  title: Describe &SUP; cases using an &AWS; SDK
+  title_abbrev: Describe cases
+  synopsis: describe &SUP; cases.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.DeleteIdentityAsync
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesIdentity
-                - python.example_code.ses.DeleteIdentity
+                - Support.dotnetv3.DescribeCases
   services:
-    ses: {DeleteIdentity}
-ses_ListIdentities:
-  title: List &SES; identities using an &AWS; SDK
-  title_abbrev: List identities
-  synopsis: list &SES; identities.
+    support: {DescribeCases}
+support_DescribeCommunications:
+  title: Describe &SUP; communications for a case using an &AWS; SDK
+  title_abbrev: Describe communications
+  synopsis: describe &SUP; communications for a case.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.ListIdentitiesAsync
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ses.java2.identities.main
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ses.JavaScript.identities.listIdentitiesV3
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesIdentity
-                - python.example_code.ses.ListIdentities
+                - Support.dotnetv3.DescribeCommunications
   services:
-    ses: {ListIdentities}
-ses_CreateReceiptFilter:
-  title: Create an &SES; receipt filter using an &AWS; SDK
-  title_abbrev: Create a receipt filter
-  synopsis: create an &SES; receipt filter that blocks incoming mail from an IP
-    address or range of IP addresses.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesReceiptHandler
-                - python.example_code.ses.CreateReceiptFilter
-  services:
-    ses: {CreateReceiptFilter}
-ses_ListReceiptFilters:
-  title: List &SES; receipt filters using an &AWS; SDK
-  title_abbrev: List receipt filters
-  synopsis: list &SES; receipt filters.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesReceiptHandler
-                - python.example_code.ses.ListReceiptFilters
-  services:
-    ses: {ListReceiptFilters}
-ses_DeleteReceiptFilter:
-  title: Delete an &SES; receipt filter using an &AWS; SDK
-  title_abbrev: Delete a receipt filter
-  synopsis: delete an &SES; receipt filter.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesReceiptHandler
-                - python.example_code.ses.DeleteReceiptFilter
-  services:
-    ses: {DeleteReceiptFilter}
-ses_CreateReceiptRuleSet:
-  title: Create an &SES; receipt rule set using an &AWS; SDK
-  title_abbrev: Create a receipt rule set
-  synopsis: create an &SES; receipt rule set to organize rules applied to incoming
-    emails.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesReceiptHandler
-                - python.example_code.ses.CreateReceiptRuleSet
-  services:
-    ses: {CreateReceiptRuleSet}
-ses_CreateReceiptRule:
-  title: Create an &SES; receipt rule using an &AWS; SDK
-  title_abbrev: Create a receipt rule
-  synopsis: create an &SES; receipt rule.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description: Create an &S3; bucket where &SES; can put copies of incoming
-                emails and create a rule that copies incoming email to the bucket for
-                a specific list of recipients.
-              snippet_tags:
-                - python.example_code.ses.SesReceiptHandler
-                - python.example_code.ses.helper.create_bucket_for_copy
-                - python.example_code.ses.CreateReceiptRule
-  services:
-    ses: {CreateReceiptRule}
-ses_DescribeReceiptRuleSet:
-  title: Describe an &SES; receipt rule set using an &AWS; SDK
-  title_abbrev: Describe a receipt rule set
-  synopsis: describe an &SES; receipt rule set.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesReceiptHandler
-                - python.example_code.ses.DescribeReceiptRuleSet
-  services:
-    ses: {DescribeReceiptRuleSet}
-ses_DeleteReceiptRule:
-  title: Delete an &SES; receipt rule using an &AWS; SDK
-  title_abbrev: Delete a receipt rule
-  synopsis: delete an &SES; receipt rule.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesReceiptHandler
-                - python.example_code.ses.DeleteReceiptRule
-  services:
-    ses: {DeleteReceiptRule}
-ses_DeleteReceiptRuleSet:
-  title: Delete an &SES; rule set using an &AWS; SDK
-  title_abbrev: Delete a rule set
-  synopsis: delete an &SES; rule set and all of the rules it contains.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesReceiptHandler
-                - python.example_code.ses.DeleteReceiptRuleSet
-  services:
-    ses: {DeleteReceiptRuleSet}
-ses_CreateTemplate:
-  title: Create an &SES; email template using an &AWS; SDK
-  title_abbrev: Create an email template
-  synopsis: create an &SES; email template.
+    support: {DescribeCommunications}
+support_DescribeServices:
+  title: Describe the available &AWS; services for support cases using an &AWS; SDK
+  title_abbrev: Describe services
+  synopsis: describe the list of &AWS; services.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.CreateEmailTemplateAsync
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesTemplate
-                - python.example_code.ses.CreateTemplate
+                - Support.dotnetv3.DescribeServices
   services:
-    ses: {CreateTemplate}
-ses_DeleteTemplate:
-  title: Delete an &SES; email template using an &AWS; SDK
-  title_abbrev: Delete an email template
-  synopsis: delete an &SES; email template.
+    support: {DescribeServices}
+support_DescribeSeverityLevels:
+  title: Describe &SUP; severity levels using an &AWS; SDK
+  title_abbrev: Describe severity levels
+  synopsis: describe &SUP; severity levels.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.DeleteEmailTemplateAsync
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesTemplate
-                - python.example_code.ses.DeleteTemplate
+                - Support.dotnetv3.DescribeSeverityLevels
   services:
-    ses: {DeleteTemplate}
-ses_GetTemplate:
-  title: Get an existing &SES; email template using an &AWS; SDK
-  title_abbrev: Get an existing email template
-  synopsis: get an existing &SES; email template.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesTemplate
-                - python.example_code.ses.GetTemplate
-  services:
-    ses: {GetTemplate}
-ses_ListTemplates:
-  title: List &SES; email templates using an &AWS; SDK
-  title_abbrev: List email templates
-  synopsis: list &SES; email templates.
+    support: {DescribeSeverityLevels}
+support_ResolveCase:
+  title: Resolve an &SUP; case using an &AWS; SDK
+  title_abbrev: Resolve case
+  synopsis: resolve an &SUP; case.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SES
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - SES.dotnetv3.ListEmailTemplatesAsync
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ses.java2.list.templates.sesv2.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesTemplate
-                - python.example_code.ses.ListTemplates
+                - Support.dotnetv3.ResolveCase
   services:
-    ses: {ListTemplates}
-ses_UpdateTemplate:
-  title: Update an &SES; email template using an &AWS; SDK
-  title_abbrev: Update an email template
-  synopsis: update an &SES; email template.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.ses.SesTemplate
-                - python.example_code.ses.UpdateTemplate
-  services:
-    ses: {UpdateTemplate}
-ses_GetSendQuota:
-  title: Get &SES; sending limits using an &AWS; SDK
-  title_abbrev: Get sending limits
-  synopsis: get &SES; sending limits.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/SES
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - SES.dotnetv3.GetSendQuotaAsync
-  services:
-    ses: {GetSendQuota}
-ses_Scenario_GenerateSmtpCredentials:
-  title: Generate credentials to connect to an &SES; SMTP endpoint
-  title_abbrev: Generate credentials to connect to an SMTP endpoint
-  synopsis: generate credentials to connect to an &SES; SMTP endpoint.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/ses
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ses.python.ses_generate_smtp_credentials.complete
-  services:
-    ses: {}
-ses_Scenario_SendEmail:
-  title: Verify an email identity and send messages with &SES;  using an &AWS; SDK
-  title_abbrev: Verify an email identity and send messages
+    support: {ResolveCase}
+support_Scenario_GetStartedSupportCases:
+  title: Get started with &SUP; cases using an &AWS; SDK
+  title_abbrev: Get started with cases
   synopsis_list:
-    - Add and verify an email address with &SES;.
-    - Send a standard email message.
-    - Create a template and send a templated email message.
-    - Send a message by using an &SES; SMTP server.
+    - Get and display available services and severity levels for cases.
+    - Create a support case using a selected service, category, and severity level.
+    - Get and display a list of open cases for the current day.
+    - Add an attachment set and a communication to the new case.
+    - Describe the new attachment and communication for the case.
+    - Resolve the case.
+    - Get and display a list of resolved cases for the current day.
   category: Scenarios
   languages:
-    Python:
+    Java:
       versions:
-        - sdk_version: 3
-          github: python/example_code/ses
+        - sdk_version: 2
+          github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: Create functions to wrap &SES; identity actions.
+            - description: Run various AWS Support operations.
               snippet_tags:
-                - python.example_code.ses.SesIdentity
-                - python.example_code.ses.VerifyDomainIdentity
-                - python.example_code.ses.VerifyEmailIdentity
-                - python.example_code.ses.helper.wait_until_identity_exists
-                - python.example_code.ses.GetIdentityVerificationAttributes
-                - python.example_code.ses.DeleteIdentity
-                - python.example_code.ses.ListIdentities
-            - description: Create functions to wrap &SES; template actions.
-              snippet_tags:
-                - python.example_code.ses.SesTemplate
-                - python.example_code.ses.CreateTemplate
-                - python.example_code.ses.DeleteTemplate
-                - python.example_code.ses.GetTemplate
-                - python.example_code.ses.ListTemplates
-                - python.example_code.ses.UpdateTemplate
-            - description: Create functions to wrap &SES; email actions.
-              snippet_tags:
-                - python.example_code.ses.SesDestination
-                - python.example_code.ses.SesMailSender
-                - python.example_code.ses.SendEmail
-                - python.example_code.ses.SendTemplatedEmail
-            - description: Verify an email address with &SES; and send messages.
-              snippet_tags:
-                - python.example_code.ses.Scenario_SendEmail
-  services:
-    ses: {VerifyDomainIdentity, VerifyEmailIdentity, GetIdentityVerificationAttributes, DeleteIdentity,
-          ListIdentities, CreateTemplate, DeleteTemplate, GetTemplate, ListTemplates, UpdateTemplate,
-          SendEmail, SendTemplatedEmail}
-ses_Scenario_ReplicateIdentities:
-  title: Copy &SES; email and domain identities from one &AWS; Region to another using an &AWS; SDK
-  title_abbrev: Copy email and domain identities from one &AWS; Region to another
-  synopsis: copy &SES; email and domain identities from one &AWS; Region to another.
-    When domain identities are managed by &R53;, verification records are copied to the
-    domain for the destination Region.
-  category: Scenarios
-  languages:
-    Python:
+                - support.java2.scenario.main
+    .NET:
       versions:
         - sdk_version: 3
-          github: python/example_code/ses
+          github: dotnetv3/Support
           sdkguide:
           excerpts:
-            - description:
+            - description: Run an interactive scenario at a command prompt.
               snippet_tags:
-                - ses.python.ses_replicateidentities.complete
+                - Support.dotnetv3.SupportBasics
+            - description: Wrapper methods used by the scenario for &SUP; actions.
+              snippet_tags:
+                - Support.dotnetv3.SupportWrapper
   services:
-    ses: {VerifyDomainIdentity, VerifyEmailIdentity, VerifyDomainDkim, ListIdentities, SetIdentityNotificationTopic}
+    support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment,
+              DescribeCases, DescribeCommunications, DescribeServices, DescribeSeverityLevels,
+              ResolveCase}
