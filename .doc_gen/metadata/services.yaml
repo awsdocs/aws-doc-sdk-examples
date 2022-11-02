@@ -231,6 +231,13 @@ iot:
   tags:
     product_categories: {'Internet of Things (IoT)'}
   version: iot-2015-05-28
+keyspaces:
+  long: '&KEYlong;'
+  short: '&KEY;'
+  sort: Keyspaces
+  tags:
+    product_categories: {'Database'}
+  version: keyspaces-2022-02-10
 kinesis:
   long: '&AKlong;'
   short: '&AK;'
@@ -489,6 +496,14 @@ sts:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: sts-2011-06-15
   api_ref: STS/latest/APIReference/welcome.html
+support:
+  long: '&SUPlong;'
+  short: '&SUP;'
+  sort: Support
+  tags:
+    product_categories: {'Customer Enablement Services'}
+  version: support-2013-04-15
+  api_ref: support/latest/APIReference/welcome.html
 textract:
   long: '&TEXTRACTlong;'
   short: '&TEXTRACT;'

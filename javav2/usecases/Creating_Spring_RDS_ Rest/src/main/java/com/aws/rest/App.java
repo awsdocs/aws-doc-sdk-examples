@@ -8,41 +8,12 @@ package com.aws.rest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.rdsdata.RdsDataClient;
-import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementRequest;
-import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementResponse;
-import software.amazon.awssdk.services.rdsdata.model.Field;
-import software.amazon.awssdk.services.rdsdata.model.SqlParameter;
-import java.util.List;
 
 @SpringBootApplication
 public class App {
-    static final String database = "jobs";
-    static final String username = "User";
-    static final String archived = "1";
     public static final Region region = Region.US_EAST_1;
-    private static String secretArn = "<Enter value>" ;
-    private static String resourceArn =  "<Enter value>";
-    static RdsDataClient getClient() {
-        return RdsDataClient.builder().region(App.region).build();
-    }
 
-    static ExecuteStatementResponse execute(String sqlStatement, List<SqlParameter> parameters) {
-        ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
-            .resourceArn(resourceArn)
-            .secretArn(secretArn)
-            .database(database)
-            .sql(sqlStatement)
-            .parameters(parameters)
-            .build();
-        return App.getClient().executeStatement(sqlRequest);
-    }
-
-    static SqlParameter param(String name, String value) {
-        return SqlParameter.builder().name(name).value(Field.builder().stringValue(value).build()).build();
-    }
-
-    public static void main(String[] args) throws Throwable {
+    public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
 }

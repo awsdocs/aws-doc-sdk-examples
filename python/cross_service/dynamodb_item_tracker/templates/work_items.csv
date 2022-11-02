@@ -1,0 +1,4 @@
+Description,Guide,Status,User name,Archived
+{%- for work_item in work_items %}
+{{work_item["description"]}},{{work_item["guide"]}},{{work_item["status"]}},{{work_item["username"]}},{{'Yes' if work_item["archived"] else 'No'}}
+{%- endfor %}

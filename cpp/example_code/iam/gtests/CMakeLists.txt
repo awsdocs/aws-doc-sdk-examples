@@ -4,8 +4,12 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.14)
 
+set(EXAMPLE_SERVICE_NAME "iam")
+set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
+set(CURRENT_TARGET_AWS_DEPENDENCIES iam s3 sts)
+
 # Set this project's name.
-project("iam-examples-gtests")
+project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
@@ -25,29 +29,41 @@ FetchContent_MakeAvailable(googletest)
 set(BUILD_SHARED_LIBS ON)
 
 # Find the AWS SDK for C++ package.
-find_package(AWSSDK REQUIRED COMPONENTS iam s3 sts)
+find_package(AWSSDK REQUIRED COMPONENTS ${CURRENT_TARGET_AWS_DEPENDENCIES})
 
 add_executable(
-        iam_gtest
+        ${CURRENT_TARGET}
 )
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    list(APPEND SERVICE_LIST iam s3 sts)
+    AWSSDK_CPY_DYN_LIBS(
+        SERVICE_LIST
+        ""
+        ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+    )
 
-    # For IDEs like Xcode and Visual Studio, this line is ignored. This is because Release/Debug
-    #  is switched internally, but this is necessary for non-IDE builds.
-    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-
-    # Copy the gtest shared libraries.
     add_custom_command(
-        TARGET iam_gtest  POST_BUILD
+        TARGET
+        ${CURRENT_TARGET}
+        POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
-                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+    )
  endif()
+
+# GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build. For example,
+# you can limit files to one action.
+if (NOT DEFINED GTEST_SOURCE_FILES)
+    file(
+            GLOB
+            GTEST_SOURCE_FILES
+            "gtest_*.cpp"
+    )
+endif()
 
 enable_testing()
 
@@ -60,32 +76,40 @@ foreach(TEST_FILE ${GTEST_SOURCE_FILES})
      if (EXISTS ${SOURCE_FILE})
         list(APPEND GTEST_SOURCE ${SOURCE_FILE} ${TEST_FILE})
     else()
-        message("Error: no associated source file ${SOURCE_FILE} found for\n ${TEST_FILE}")
+        message("Error: no associated source file ${SOURCE_FILE} found for ${TEST_FILE}")
     endif()
-
 endforeach()
 
-
 target_sources(
-        iam_gtest
+        ${CURRENT_TARGET}
         PUBLIC
         ${GTEST_SOURCE}
         test_main.cpp
+        ${EXAMPLE_SERVICE_NAME}_gtests.cpp
 )
 
-target_include_directories(iam_gtest PUBLIC
+target_include_directories(
+        ${CURRENT_TARGET}
+        PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-        $<INSTALL_INTERFACE:../include>)
+        $<INSTALL_INTERFACE:..>
+)
 
-target_compile_definitions(iam_gtest PUBLIC
-        TESTING_BUILD)
+target_compile_definitions(
+        ${CURRENT_TARGET}
+        PUBLIC
+        TESTING_BUILD
+)
 
 target_link_libraries(
-        iam_gtest
+        ${CURRENT_TARGET}
         GTest::gtest
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
 )
 
 include(GoogleTest)
-gtest_add_tests(TARGET iam_gtest)
+gtest_add_tests(
+        TARGET
+        ${CURRENT_TARGET}
+)

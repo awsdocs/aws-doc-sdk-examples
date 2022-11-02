@@ -4,7 +4,7 @@
  */
 
 import { pipe, length, equals, nth, test, isNil } from "ramda";
-import { validate, validationErrors } from "../../libs/validator";
+import { validate, validationErrors } from "../../libs/validator.js";
 
 const pluginNamePattern = /^[A-Za-z]+-?[A-Za-z]+$/;
 

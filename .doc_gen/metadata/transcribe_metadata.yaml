@@ -269,6 +269,22 @@ transcribe_DeleteVocabulary:
                 - python.example_code.transcribe.DeleteVocabulary
   services:
     transcribe: {DeleteVocabulary}
+transcribe_StartStreamTranscriptionAsync:
+  title: Produce real-time transcriptions with &TSC; using an &AWS; SDK
+  title_abbrev: Produce real-time transcriptions
+  synopsis: produce a real-time transcription with &TSC;.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/transcribe
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.cpp.stream_transcription_async.code
+  services:
+    transcribe: {StartStreamTranscriptionAsync}
 transcribe_Scenario_GettingStartedTranscriptionJobs:
   title: Transcribe audio and get job data with &TSC; using an &AWS; SDK
   title_abbrev: Transcribe audio and get job data

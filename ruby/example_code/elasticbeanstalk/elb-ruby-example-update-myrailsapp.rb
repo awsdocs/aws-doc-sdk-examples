@@ -5,14 +5,14 @@
 # eb_list_stacks.rb demonstrates how to update a Ruby on Rails application the AWS SDK for Ruby.
 
 # snippet-start:[eb.Ruby.updateMyRailsApp]
-require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
+require "aws-sdk-elasticbeanstalk"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Elastic Beanstalk.
-Aws.config.update({region: 'us-west-2'})
+Aws.config.update({region: "us-west-2"})
 
 eb = Aws::ElasticBeanstalk::Client.new
 s3 = Aws::S3::Client.new
 
-app_name = 'MyRailsApp'
+app_name = "MyRailsApp"
 
 # Get S3 bucket containing app
 app_versions = eb.describe_application_versions({ application_name: app_name })
@@ -26,7 +26,7 @@ env = envs.environments[0]
 env_name = env.environment_name
 
 # Create new storage location
-resp = eb.create_storage_location()
+resp = eb.create_storage_location
 
 puts "Created storage location in bucket #{resp.s3_bucket}"
 
@@ -37,7 +37,7 @@ s3.list_objects({
 
 # Create ZIP file
 zip_file_basename = SecureRandom.urlsafe_base64.to_s
-zip_file_name = zip_file_basename + '.zip'
+zip_file_name = zip_file_basename + ".zip"
 
 # Call out to OS to produce ZIP file
 cmd = "git archive --format=zip -o #{zip_file_name} HEAD"

@@ -6,9 +6,9 @@
 
 # snippet-start:[s3.ruby.sqs-ruby-example-delete-queue.rb]
 
-require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
+require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
-sqs = Aws::SQS::Client.new(region: 'us-west-2')
+sqs = Aws::SQS::Client.new(region: "us-west-2")
 
 sqs.delete_queue(queue_url: URL)
 # snippet-end:[s3.ruby.sqs-ruby-example-delete-queue.rb]

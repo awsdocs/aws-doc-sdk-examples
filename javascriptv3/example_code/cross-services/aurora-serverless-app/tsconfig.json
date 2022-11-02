@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "build",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowJs": true
+  },
+  "files": ["../../libs/utils/util-aws-sdk.js"],
+  "include": ["src/**/*.ts", "tests/*.test.ts"]
+}

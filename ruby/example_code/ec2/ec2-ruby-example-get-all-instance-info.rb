@@ -8,7 +8,7 @@
 
 # snippet-start:[ec2.Ruby.getAllInstances]
 
-require 'aws-sdk-ec2'
+require "aws-sdk-ec2"
 
 # @param ec2_resource [Aws::EC2::Resource] An initialized EC2 resource object.
 # @example
@@ -16,9 +16,9 @@ require 'aws-sdk-ec2'
 def list_instance_ids_states(ec2_resource)
   response = ec2_resource.instances
   if response.count.zero?
-    puts 'No instances found.'
+    puts "No instances found."
   else
-    puts 'Instances -- ID, state:'
+    puts "Instances -- ID, state:"
     response.each do |instance|
       puts "#{instance.id}, #{instance.state.name}"
     end
@@ -29,17 +29,17 @@ end
 
 #Full example call:
 def run_me
-  region = ''
+  region = ""
   # Print usage information and then stop.
-  if ARGV[0] == '--help' || ARGV[0] == '-h'
-    puts 'Usage:   ruby ec2-ruby-example-get-all-instance-info.rb REGION'
+  if ARGV[0] == "--help" || ARGV[0] == "-h"
+    puts "Usage:   ruby ec2-ruby-example-get-all-instance-info.rb REGION"
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts 'Example: ruby ec2-ruby-example-get-all-instance-info.rb us-west-2'
+    puts "Example: ruby ec2-ruby-example-get-all-instance-info.rb us-west-2"
     exit 1
   # If no values are specified at the command prompt, use these default values.
   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
-    region = 'us-west-2'
+    region = "us-west-2"
   # Otherwise, use the values as specified at the command prompt.
   else
     region = ARGV[0]

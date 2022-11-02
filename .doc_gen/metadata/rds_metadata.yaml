@@ -206,6 +206,15 @@ rds_DescribeDBParameterGroups:
   synopsis: describe &RDS; DB parameter groups.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.desc_para_groups.main
     .NET:
       versions:
         - sdk_version: 3
@@ -233,6 +242,15 @@ rds_CreateDBParameterGroup:
   synopsis: create an &RDS; DB parameter group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.create_para_group.main
     .NET:
       versions:
         - sdk_version: 3
@@ -260,6 +278,15 @@ rds_DeleteDBParameterGroup:
   synopsis: delete an &RDS; DB parameter group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.del_paragroup.main
     .NET:
       versions:
         - sdk_version: 3
@@ -287,6 +314,15 @@ rds_DescribeDBParameters:
   synopsis: describe parameters in an &RDS; DB parameter group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.get_paras.main
     .NET:
       versions:
         - sdk_version: 3
@@ -314,6 +350,15 @@ rds_ModifyDBParameterGroup:
   synopsis: update parameters in an &RDS; DB parameter group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.mod_paras.main
     .NET:
       versions:
         - sdk_version: 3
@@ -341,6 +386,15 @@ rds_CreateDBSnapshot:
   synopsis: create a snapshot of an &RDS; DB instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.create_snapshot.main
     .NET:
       versions:
         - sdk_version: 3
@@ -395,6 +449,15 @@ rds_DescribeDBEngineVersions:
   synopsis: describe &RDS; database engine versions.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario_desc_engine.main
     .NET:
       versions:
         - sdk_version: 3
@@ -422,6 +485,15 @@ rds_DescribeOrderableDBInstanceOptions:
   synopsis: describe options for &RDS; DB instances.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.scenario.get_engines.main
     .NET:
       versions:
         - sdk_version: 3
@@ -454,6 +526,24 @@ rds_Scenario_GetStartedInstances:
     - Delete the instance and parameter group.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description: Run multiple operations.
+              snippet_tags:
+                - rds.java2.scenario.main
     .NET:
       versions:
         - sdk_version: 3
@@ -490,3 +580,4 @@ rds_Scenario_GetStartedInstances:
           DeleteDBParameterGroup, DescribeDBInstances, DescribeDBEngineVersions, DescribeDBParameterGroups,
           DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
           ModifyDBParameterGroup}
+          
