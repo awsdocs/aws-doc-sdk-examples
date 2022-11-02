@@ -16,11 +16,17 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private boolean archived;
 
     public static WorkItem from(List<Field> fields) {
-        WorkItem item = new WorkItem();
-        for (int i = 0; i <= 5; i++) {
+        var item = new WorkItem();
+        boolean arcVal = false;
+        for (int i = 0; i <= 6; i++) {
             String value = fields.get(i).stringValue();
+
+            if (i == 6)
+                arcVal = fields.get(i).booleanValue();
+
             switch (i) {
                 case 0:
                     item.setId(value);
@@ -40,9 +46,21 @@ public class WorkItem {
                 case 5:
                     item.setName(value);
                     break;
+
+                case 6:
+                    item.setArchived(arcVal);
+                    break;
             }
         }
         return item;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived =archived;
+    }
+
+    public boolean getArchived() {
+        return this.archived;
     }
 
     public void setId(String id) {
@@ -68,6 +86,7 @@ public class WorkItem {
     public String getDescription() {
         return this.description;
     }
+
 
     public void setDate(String date) {
         this.date = date;

@@ -5,21 +5,20 @@
 ]>
 <block>
     <para>
-        Shows how to use the &Python3long; to create a web application that tracks work
+        Shows how to use the &Python3long; to create a REST service that tracks work
         items in &DDBlong; and emails reports by using &SESlong; (&SES;).
-        This example uses the Flask web framework to host a local website and render
-        templated web pages.
+        This example uses the Flask web framework to handle HTTP routing and integrates
+        with a React webpage to present a fully functional web application.
     </para>
 
     <itemizedlist>
-        <listitem><para>Integrate a Flask web application with &AWS; services.</para></listitem>
-        <listitem><para>List, add, update, and delete items in a &DDB; table.</para></listitem>
-        <listitem><para>Send an email report of filtered work items using &SES;.</para></listitem>
-        <listitem><para>Make &AWS; requests with an &IAMlong; (&IAM;) role that restricts permissions.</para></listitem>
-        <listitem><para>Deploy and manage example resources with the included &CFNlong; script.</para></listitem>
+        <listitem><para>Build a Flask REST service that integrates with &AWS-services;.</para></listitem>
+        <listitem><para>Read, write, and update work items that are stored in a &DDB; table.</para></listitem>
+        <listitem><para>Use &SES; to send email reports of work items.</para></listitem>
     </itemizedlist>
     <para>
-        For complete source code and instructions on how to set up and run, see the full example on
-        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/dynamodb_item_tracker">GitHub</ulink>.
+        For complete source code and instructions on how to set up and run, see the full example in the
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/dynamodb_item_tracker">&AWS; Code Examples Repository</ulink>
+        on GitHub.
     </para>
 </block>

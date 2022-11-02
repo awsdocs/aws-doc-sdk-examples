@@ -13,6 +13,14 @@ auto-scaling_CreateAutoScalingGroup:
             - description:
               snippet_tags:
                 - AutoScale.dotnetv3.AutoScale_Basics.CreateAutoScalingGroup
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.create_autoscalinggroup.main
     Java:
       versions:
         - sdk_version: 2
@@ -54,6 +62,14 @@ auto-scaling_DeleteAutoScalingGroup:
             - description:
               snippet_tags:
                 - AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.del_group.main
     Java:
       versions:
         - sdk_version: 2
@@ -95,6 +111,14 @@ auto-scaling_DescribeAutoScalingGroups:
             - description:
               snippet_tags:
                 - AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.describe_autoscalinggroups.main
     Java:
       versions:
         - sdk_version: 2
@@ -128,6 +152,22 @@ auto-scaling_UpdateAutoScalingGroup:
   synopsis: update the configuration for an &AS; group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.update_autoscalinggroup.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.update_autoscalinggroup.main
     .NET:
       versions:
         - sdk_version: 3
@@ -161,6 +201,22 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
   synopsis: terminate an instance in an &AS; group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.terminate_instance.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.terminate_instance.main
     .NET:
       versions:
         - sdk_version: 3
@@ -188,6 +244,22 @@ auto-scaling_SetDesiredCapacity:
   synopsis: set the desired capacity of an &AS; group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.set_capacity.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.set_capacity.main
     .NET:
       versions:
         - sdk_version: 3
@@ -215,6 +287,22 @@ auto-scaling_DescribeAutoScalingInstances:
   synopsis: get information about &AS; instances.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.describe_instance.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_autoscalinggroup.main
     .NET:
       versions:
         - sdk_version: 3
@@ -242,6 +330,22 @@ auto-scaling_DescribeScalingActivities:
   synopsis: get information about &AS; activities.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.kotlin.describe_scaling_activites.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.describe_scaling_activites.main
     .NET:
       versions:
         - sdk_version: 3
@@ -269,6 +373,22 @@ auto-scaling_EnableMetricsCollection:
   synopsis: enable &CW; metrics collection for an &AS; group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags: 
+                - autoscale.kotlin.enable_collection.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.enable_collection.main
     .NET:
       versions:
         - sdk_version: 3
@@ -296,6 +416,22 @@ auto-scaling_DisableMetricsCollection:
   synopsis: disable &CW; metrics collection for an &AS; group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/autoscale
+          excerpts:
+            - description:
+              snippet_tags: 
+                - autoscale.kotlin.disable_collection.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.disable_collection.main
     .NET:
       versions:
         - sdk_version: 3

@@ -1,4 +1,3 @@
-
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
@@ -83,11 +82,6 @@ describe("cmd-runner", () => {
     );
 
     it(
-      "should downcase all commands",
-      testEqual(["do", "thing"], getCommands("DO THING"))
-    );
-
-    it(
       "should trim spaces off the ends of commands",
       testEqual(["do", "thing"], getCommands("   do thing   "))
     );
@@ -113,7 +107,7 @@ describe("cmd-runner", () => {
       };
       const context = getContext(handlers, reader);
       const result = readCommands(context);
-      expect(result).toBe("pong")
+      expect(result).toBe("pong");
     });
   });
 });

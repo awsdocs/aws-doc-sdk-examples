@@ -6,6 +6,7 @@
 package com.aws.rest;
 
 import software.amazon.awssdk.services.redshiftdata.model.Field;
+
 import java.util.List;
 
 public class WorkItem {
@@ -15,11 +16,17 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private boolean archived ;
 
     public static WorkItem from(List<Field> fields) {
-        WorkItem item = new WorkItem();
-        for (int i = 0; i <= 5; i++) {
-            String value = fields.get(i).stringValue();
+        var item = new WorkItem();
+        for (int i = 0; i <= 6; i++) {
+            String value="";
+            boolean val = false;
+            value = fields.get(i).stringValue();
+            if (i == 6)
+                val = fields.get(i).booleanValue();
+
             switch (i) {
                 case 0:
                     item.setId(value);
@@ -39,9 +46,20 @@ public class WorkItem {
                 case 5:
                     item.setName(value);
                     break;
+                case 6:
+                    item.setArchived(val);
+                    break;
             }
         }
         return item;
+    }
+
+    public boolean getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 
     public void setId(String id) {
@@ -67,6 +85,7 @@ public class WorkItem {
     public String getDescription() {
         return this.description;
     }
+
 
     public void setDate(String date) {
         this.date = date;

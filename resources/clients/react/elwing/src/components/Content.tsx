@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Container } from "@cloudscape-design/components";
 import { LazyExoticComponent } from "react";
 import { Suspense } from "react";
 import { Routes, Route, PathRouteProps } from "react-router-dom";
@@ -18,19 +17,17 @@ interface ContentProps {
 }
 
 const Content = ({ routes }: ContentProps) => (
-  <Container>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        {routes.map((route, index) => (
-          <Route
-            key={index}
-            path={route.path}
-            element={<route.element />}
-          ></Route>
-        ))}
-      </Routes>
-    </Suspense>
-  </Container>
+  <Suspense fallback={<div>Loading...</div>}>
+    <Routes>
+      {routes.map((route, index) => (
+        <Route
+          key={index}
+          path={route.path}
+          element={<route.element />}
+        ></Route>
+      ))}
+    </Routes>
+  </Suspense>
 );
 
 export type { ContentProps, RouteProps };

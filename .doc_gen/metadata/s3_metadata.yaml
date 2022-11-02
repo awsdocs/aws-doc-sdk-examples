@@ -615,9 +615,9 @@ s3_GetBucketPolicy:
   services:
     s3: {GetBucketPolicy}
 s3_HeadObject:
-  title: Determine the existence and content type of an object in an &S3; bucket using an &AWS; SDK
-  title_abbrev: Determine the existence and content type of an object
-  synopsis: determine the existence and content type of an object in an S3 bucket.
+  title: Determine the content type of an object in an &S3; bucket using an &AWS; SDK
+  title_abbrev: Determine the content type of an object
+  synopsis: determine the content type of an object in an S3 bucket.
   category:
   languages:
     Java:

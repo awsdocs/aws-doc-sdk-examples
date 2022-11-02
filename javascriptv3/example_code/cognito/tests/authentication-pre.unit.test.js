@@ -1,3 +1,8 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { handler } from "../scenarios/lambda-triggers/functions/authentication-pre.mjs";
 
 describe("authentication-pre", () => {
