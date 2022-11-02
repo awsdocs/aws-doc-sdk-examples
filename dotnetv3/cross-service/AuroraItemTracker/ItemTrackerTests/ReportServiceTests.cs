@@ -35,7 +35,7 @@ public class ReportServiceTests
     [Fact]
     [Order(1)]
     [Trait("Category", "Integration")]
-    public async Task VerifyCanSendEmail_ShouldReturnMessageId()
+    public async Task VerifyCanSendEmail_ShouldReturnNotNullMessageId()
     {
         var workItems = new List<WorkItem>
         {
@@ -50,8 +50,8 @@ public class ReportServiceTests
             }
         };
         var email = _configuration["EmailRecipientAddress"];
-        var result = await _reportService.SendReport(workItems, email);
-        Assert.NotNull(result);
+        var messageId = await _reportService.SendReport(workItems, email);
+        Assert.NotNull(messageId);
     }
 
     [Fact]
