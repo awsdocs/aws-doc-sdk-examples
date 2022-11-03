@@ -18,14 +18,14 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 ### Single action
 
-The following examples use the **SupportClient** object:
+The following examples uses the **SupportClient** object:
 
 - [Create a Service Client and perform a single operation](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/HelloSupport.java) (describeServices command)
 
 
 ### Scenario 
 
-The following Scenario use the **SupportClient** object:
+The following Scenario uses the **SupportClient** object:
 
 - [Perform AWS Support operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (Multiple commands)
 
