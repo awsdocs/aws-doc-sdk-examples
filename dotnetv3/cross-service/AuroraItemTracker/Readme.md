@@ -34,9 +34,9 @@ AWS CLI
 
 Use the AWS CLI to create the work_items table by running the following command at a command prompt. Before you run, replace the following values with the output from the CloudFormation setup script:
 
-- **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as arn:aws:rds:us-west-2:123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-15xfvaEXAMPLE.
-- **SECRET_ARN** — Replace with the ARN of the secret that contains your database credentials, such as arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj.
-- **DATABASE** — Replace with the name of the database, such as auroraappdb.
+- **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as `arn:aws:rds:us-west-2:123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-15xfvaEXAMPLE`.
+- **SECRET_ARN** — Replace with the ARN of the secret that contains your database credentials, such as `arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`.
+- **DATABASE** — Replace with the name of the database, such as `auroraappdb`.
 
 Tip: The caret ^ is the line continuation character for a Windows command prompt. If you run this command on another platform, replace the caret with the line continuation character for that platform.
 
