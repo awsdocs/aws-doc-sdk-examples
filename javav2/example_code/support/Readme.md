@@ -15,6 +15,14 @@ AWS Support is one-on-one, fast-response support from experienced technical supp
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
+
+### Single action
+
+The following examples use the **SupportClient** object:
+
+- [Create a Service Client and perform a single operation](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/HelloSupport.java) (describeServices command)
+
+
 ### Scenario 
 
 The following Scenario use the **SupportClient** object:
