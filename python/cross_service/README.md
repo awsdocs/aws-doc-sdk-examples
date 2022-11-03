@@ -38,16 +38,16 @@ using the AWS SDK for Python.
     * Amazon DynamoDB
     * AWS Lambda
 
-* [Tracking work items in a serverless Aurora database](aurora_item_tracker/README.md)
+* [Track work items in an Aurora Serverless database](aurora_item_tracker/README.md)
 
-    Shows how to create a REST service that lets you store work items in a serverless 
-    Amazon Aurora database and use Amazon Simple Email Service (Amazon SES) 
+    Shows how to create a REST service that lets you store work items in an 
+    Amazon Aurora Serverless database and use Amazon Simple Email Service (Amazon SES) 
     to send email reports of work items.
     
     * Aurora
     * Amazon SES
 
-* [Amazon Aurora serverless REST API lending library example](aurora_rest_lending_library/README.md)
+* [Amazon Aurora Serverless REST API lending library example](aurora_rest_lending_library/README.md)
 
     Shows how to use the Amazon Relational Database Service (Amazon RDS) API and 
     AWS Chalice to create a REST API backed by an Amazon Aurora database. The web 
@@ -59,15 +59,14 @@ using the AWS SDK for Python.
     * Amazon RDS
     * AWS Secrets Manager
 
-* [Amazon DynamoDB work item tracker web application](dynamodb_item_tracker/README.md)
+* [Track work items in a DynamoDB table](dynamodb_item_tracker/README.md)
 
-    Shows how to create a web application that tracks work items in DynamoDB and emails 
-    reports by using Amazon SES. This example uses the 
-    Flask web framework to host a local website and render templated webpages.
-
+    Shows how to create a REST service that lets you store work items in an 
+    Amazon DynamoDB table and use Amazon Simple Email Service (Amazon SES) 
+    to send email reports of work items.
+    
     * Amazon DynamoDB
     * Amazon SES
-    * AWS Identity and Access Management (IAM)
 
 * [Analyzing photos using Amazon Rekognition](photo_analyzer/README.md)
 

@@ -4,24 +4,23 @@
     %phrases-shared;
 ]>
 <block>
-
     <para>
-        Shows how to use the &Python3long; to create a web application that tracks work
-        items in an &AURlong; database and emails reports by using &SESlong; (&SES;).
-        This example uses a front end built with React.js to interact with a Flask-RESTful
-        Python backend.
+        Shows how to use the &Python3long; to create a REST service that tracks work
+        items in an &AURlong; Serverless database and emails reports by using &SESlong; (&SES;).
+        This example uses the Flask web framework to handle HTTP routing and integrates
+        with a React webpage to present a fully functional web application.
     </para>
     <para>
         <itemizedlist>
-            <listitem><para>Integrate a React.js web application with &AWS-services;.</para></listitem>
-            <listitem><para>List, add, and update items in an &AUR; table.</para></listitem>
-            <listitem><para>Send an email report of filtered work items by using &SES;.</para></listitem>
-            <listitem><para>Deploy and manage example resources with the included &CFNlong; script.</para></listitem>
+        <listitem><para>Build a Flask REST service that integrates with &AWS-services;.</para></listitem>
+        <listitem><para>Read, write, and update work items that are stored in an &AUR; Serverless database.</para></listitem>
+        <listitem><para>Create an &ASMlong; secret that contains database credentials and use it
+            to authenticate calls to the database.</para></listitem>
+        <listitem><para>Use &SES; to send email reports of work items.</para></listitem>
         </itemizedlist>
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/aurora_item_tracker">GitHub</ulink>.
     </para>
-
 </block>
