@@ -71,7 +71,6 @@ To use the **RedshiftDataClient** object, you must have the following Amazon Red
 
 For more information, see [Getting started with Amazon Redshift clusters and data loading](https://docs.aws.amazon.com/redshift/latest/gsg/database-tasks.html).
 
-
 ## Understand the AWS Tracker React application 
 
 A user can perform the following tasks using the React application:
@@ -88,11 +87,13 @@ The React application displays *active* and *archive* items. For example, the fo
 
 Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/elapp2.png)
+![AWS Tracking Application](images/elappArc2.png)
 
-The React application lets a user convert an active item to an archived item by clicking the following button. 
+**Note**: Notice that the **Archived** button is disabled. 
 
-![AWS Tracking Application](images/elapp3.png)
+The React application lets a user convert an active item to an archived item by clicking the **Archive** button. 
+
+![AWS Tracking Application](images/elappArcAll.png)
 
 The React application also lets a user enter a new item. 
 
@@ -105,6 +106,7 @@ The user can enter an email recipient into the **Email Report** text field and c
 Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
 
 ![AWS Tracking Application](images/report.png)
+
 
 ## Creating an IntelliJ project named ItemTrackerRedshiftRest
 
@@ -434,6 +436,7 @@ The following Java code represents the **WorkItemRepository** class. Notice that
 In addition, notice the use of [Class SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/model/SqlParameter.html) when using SQL statements. For example, in the **getData** method, you build a list of **SqlParameter** objects used to get records from the database.
 
 ```java
+
 package com.aws.rest;
 
 import org.springframework.stereotype.Component;
@@ -482,14 +485,14 @@ public class WorkItemRepository {
 
         // Get all records from the Amazon Redshift table.
         if (arch.compareTo("") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work";
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work";
             ExecuteStatementResponse response = executeAll(sqlStatement);
             String id = response.id();
             System.out.println("The identifier of the statement is "+id);
             checkStatement(id);
             return getResults(id);
         } else {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE username = :username and archive = :arch ;";
 
             parameters = List.of(
@@ -606,8 +609,6 @@ public class WorkItemRepository {
         flipItemArchive(sqlStatement,parameters);
     }
 
-
-
     public String injectNewSubmission(WorkItem item) {
         try {
             String name = item.getName();
@@ -646,6 +647,7 @@ public class WorkItemRepository {
     }
 }
 
+
 ```
 
 ### WorkItem class
@@ -666,11 +668,17 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private boolean archived ;
 
     public static WorkItem from(List<Field> fields) {
         var item = new WorkItem();
-        for (int i = 0; i <= 5; i++) {
-            String value = fields.get(i).stringValue();
+        for (int i = 0; i <= 6; i++) {
+            String value="";
+            boolean val = false;
+            value = fields.get(i).stringValue();
+            if (i == 6)
+                val = fields.get(i).booleanValue();
+
             switch (i) {
                 case 0:
                     item.setId(value);
@@ -690,9 +698,20 @@ public class WorkItem {
                 case 5:
                     item.setName(value);
                     break;
+                case 6:
+                    item.setArchived(val);
+                    break;
             }
         }
         return item;
+    }
+
+    public boolean getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 
     public void setId(String id) {
@@ -957,7 +976,7 @@ http://localhost:8080/api/items
 
 The following illustration shows the JSON data returned from the Spring REST API. 
 
-![AWS Tracking Application](images/json.png)
+![AWS Tracking Application](images/json2.png)
 
 ## Create the React front end
 

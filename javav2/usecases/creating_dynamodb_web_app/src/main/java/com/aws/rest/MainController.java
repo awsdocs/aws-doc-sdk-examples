@@ -66,7 +66,6 @@ public class MainController {
         String description = payload.get("description");
         String status = payload.get("status");
 
-
         WorkItem item = new WorkItem();
         String workId = UUID.randomUUID().toString();
         String date = LocalDateTime.now().toString();
@@ -76,6 +75,7 @@ public class MainController {
         item.setName(name);
         item.setDate(date);
         item.setStatus(status);
+        item.setArchived(0);
         dbService.setItem(item);
         Iterable<WorkItem> result= dbService.getOpenItems();
         return StreamSupport.stream(result.spliterator(), false)

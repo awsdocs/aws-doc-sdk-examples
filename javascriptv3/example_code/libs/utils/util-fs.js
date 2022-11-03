@@ -15,6 +15,8 @@ import {
   pipe,
   filter,
   prop,
+  defaultTo,
+  curry,
 } from "ramda";
 import { unlink, readFile } from "fs/promises";
 import {
@@ -28,13 +30,19 @@ import {
 import archiver from "archiver";
 import { fileURLToPath } from "url";
 import { log } from "./util-log.js";
-import { promiseAll } from "../ext-ramda.js";
+import { promiseAll, splitMapTrim } from "../ext-ramda.js";
 
 const deleteFiles = compose(promiseAll, map(unlink));
 
 const dirnameFromMetaUrl = (metaUrl) => {
   return fileURLToPath(new URL(".", metaUrl));
 };
+
+const getDelimitedEntries = curry((delimiter, str) =>
+  pipe(getTmp, defaultTo(""), splitMapTrim(delimiter))(str)
+);
+
+const getNewLineDelimitedEntries = getDelimitedEntries("\n");
 
 const getTmp = tryCatch(
   (name) => readFileSync(`./${name}.tmp`, { encoding: "utf-8" }),
@@ -97,6 +105,8 @@ export {
   makeDir,
   readLines,
   readSubdirSync,
+  getDelimitedEntries,
+  getNewLineDelimitedEntries,
   setTmp,
   zip,
 };

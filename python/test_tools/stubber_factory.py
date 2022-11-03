@@ -28,6 +28,7 @@ from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.glacier_stubber import GlacierStubber
 from test_tools.glue_stubber import GlueStubber
 from test_tools.iam_stubber import IamStubber
+from test_tools.keyspaces_stubber import KeyspacesStubber
 from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
 from test_tools.kms_stubber import KmsStubber
@@ -100,6 +101,8 @@ def stubber_factory(service_name):
         return GlueStubber
     elif service_name == 'iam':
         return IamStubber
+    elif service_name == 'keyspaces':
+        return KeyspacesStubber
     elif service_name == 'kinesis':
         return KinesisStubber
     elif service_name == 'kinesisanalyticsv2':

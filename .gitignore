@@ -2,7 +2,6 @@ build_dir/
 target/
 *.swp
 .DS_Store
-.gitignore
 .metadata
 .recommenders
 ._*

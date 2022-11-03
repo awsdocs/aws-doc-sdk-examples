@@ -103,11 +103,13 @@ The React application displays *active* and *archive* items. For example, the fo
 
 Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/elapp2.png)
+![AWS Tracking Application](images/elappArc2.png)
 
-The React application lets a user convert an active item to an archived item by clicking the following button. 
+**Note**: Notice that the **Archived** button is disabled. 
 
-![AWS Tracking Application](images/elapp3.png)
+The React application lets a user convert an active item to an archived item by clicking the **Archive** button. 
+
+![AWS Tracking Application](images/elappArcAll.png)
 
 The React application also lets a user enter a new item. 
 
@@ -453,7 +455,7 @@ public class ReportController {
 
 ### WorkItemRepository class
 
-The following Java code represents the **WorkItemRepository** class that extends [Interface CrudRepository](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html). Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement. 
+The following Java code represents the **WorkItemRepository** class that implements [Interface CrudRepository](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html). Notice that you are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the Creating the resources section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement. 
 
 In addition, notice the use of [Class SqlParameter](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rdsdata/model/SqlParameter.html) when using SQL statements. For example, in the **save** method, you build a list of **SqlParameter** objects used to add a new record to the database.
 
@@ -553,7 +555,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
 
     @Override
     public Optional<WorkItem> findById(String s) {
-        String sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work WHERE idwork = :id;";
+        String sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work WHERE idwork = :id;";
         List<SqlParameter> parameters = List.of(param("id", s));
         var result = execute(sqlStatement, parameters)
             .records()
@@ -584,7 +586,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
                 param("id", id),
                 param("arch", archived)
             );
-           execute(sqlStatement, parameters);
+            execute(sqlStatement, parameters);
         } catch (RdsDataException e) {
             e.printStackTrace();
         }
@@ -596,7 +598,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
         String isArc;
 
         if (status.compareTo("true") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE archive = :arch ;";
             isArc = "1";
             List<SqlParameter> parameters = List.of(
@@ -609,7 +611,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
                 .collect(Collectors.toUnmodifiableList());
 
         } else if (status.compareTo("false") == 0) {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username " +
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE archive = :arch ;";
             isArc = "0";
             List<SqlParameter> parameters = List.of(
@@ -622,7 +624,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
                 .collect(Collectors.toUnmodifiableList());
 
         } else {
-            sqlStatement = "SELECT idwork, date, description, guide, status, username FROM work ;";
+            sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work ;";
             List<SqlParameter> parameters = List.of(
 
             );
@@ -683,7 +685,6 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
     }
 }
 
-
 ```
 
 
@@ -705,11 +706,16 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private boolean archived;
 
     public static WorkItem from(List<Field> fields) {
         var item = new WorkItem();
-        for (int i = 0; i <= 5; i++) {
+        boolean arcVal = false;
+        for (int i = 0; i <= 6; i++) {
             String value = fields.get(i).stringValue();
+            if (i == 6)
+                arcVal = fields.get(i).booleanValue();
+
             switch (i) {
                 case 0:
                     item.setId(value);
@@ -729,9 +735,21 @@ public class WorkItem {
                 case 5:
                     item.setName(value);
                     break;
+
+                case 6:
+                    item.setArchived(arcVal);
+                    break;
             }
         }
         return item;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived =archived;
+    }
+
+    public boolean getArchived() {
+        return this.archived;
     }
 
     public void setId(String id) {
@@ -997,7 +1015,7 @@ http://localhost:8080/api/items
 
 The following illustration shows the JSON data returned from the Spring REST API. 
 
-![AWS Tracking Application](images/json.png)
+![AWS Tracking Application](images/json2.png)
 
 ## Create the React front end
 

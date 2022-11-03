@@ -231,6 +231,13 @@ iot:
   tags:
     product_categories: {'Internet of Things (IoT)'}
   version: iot-2015-05-28
+keyspaces:
+  long: '&KEYlong;'
+  short: '&KEY;'
+  sort: Keyspaces
+  tags:
+    product_categories: {'Database'}
+  version: keyspaces-2022-02-10
 kinesis:
   long: '&AKlong;'
   short: '&AK;'

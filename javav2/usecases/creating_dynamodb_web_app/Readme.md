@@ -57,9 +57,7 @@ the **Actions** menu, select **Create item** to enter more columns and values (A
 As you are creating an item for the first time, you will both define the attributes in your table as well 
 as add values. Enter the attributes and values as shown in the table below. Enter 'Open' as the
 value for the **archive** attribute. Select **Create item** to create
-your first item (row).
-
-The **Work** table attributes
+your first item (row). The **Work** table attributes.
 
 | Attribute name | What the attribute value represents                                          |
 |----------------|------------------------------------------------------------------------------|
@@ -69,7 +67,7 @@ The **Work** table attributes
 | guide          | name of the guide the work is for                                            |
 | status         | status of the work, e.g., 'started', 'in review'                             |
  | username       | user name who worked performed the work item                                 |
-| archive        | a value of 'Open' or 'Closed' to indicate if the work item has been archived |
+| archive        | a numeric value of 0 (Open) or 1 (Closed) to indicate if the item is active or archived |
 
 Enter at least two more items (rows). This time, since you have already defined all the attributes
 needed for this example, select the first item you created by activating the item's checkbox, then select
@@ -79,7 +77,7 @@ Duplicate one more item so that you have a total of three items.
 
 The following illustration shows an example of the Work table. 
 
-![AWS Tracking Application](images/WorkTable2.png)
+![AWS Tracking Application](images/DynTable.png)
 
 For additional information about how to create an Amazon DynamoDB table using the AWS Management Console 
 and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
@@ -104,11 +102,13 @@ The React application displays *active* and *archive* items. For example, the fo
 
 Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/elapp2.png)
+![AWS Tracking Application](images/elappArc2.png)
 
-The React application lets a user convert an active item to an archived item by clicking the following button. 
+**Note**: Notice that the **Archived** button is disabled. 
 
-![AWS Tracking Application](images/elapp3.png)
+The React application lets a user convert an active item to an archived item by clicking the **Archive** button. 
+
+![AWS Tracking Application](images/elappArcAll.png)
 
 The React application also lets a user enter a new item. 
 
@@ -442,14 +442,11 @@ public class DynamoDBService {
     }
     // Get All items from the DynamoDB table.
     public List<WorkItem> getAllItems() {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
 
         try{
-            // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             Iterator<Work> results = table.scan().items().iterator();
             WorkItem workItem ;
@@ -464,6 +461,7 @@ public class DynamoDBService {
                 workItem.setStatus(work.getStatus());
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
 
                 // Push the workItem to the list.
                 itemList.add(workItem);
@@ -480,7 +478,6 @@ public class DynamoDBService {
     // Archives an item based on the key.
     public void archiveItemEC(String id) {
         try {
-            // Create a DynamoDbEnhancedClient.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
                 .build();
@@ -494,8 +491,7 @@ public class DynamoDBService {
 
             // Get the item by using the key.
             Work work = workTable.getItem(r->r.key(key));
-            work.setArchive("Closed");
-
+            work.setArchive(1);
             workTable.updateItem(r->r.item(work));
 
         } catch (DynamoDbException e) {
@@ -506,17 +502,14 @@ public class DynamoDBService {
 
     // Get Open items from the DynamoDB table.
     public List<WorkItem> getOpenItems() {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
 
         try{
-            // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             AttributeValue attr = AttributeValue.builder()
-                .s("Open")
+                .n("0")
                 .build();
 
             Map<String, AttributeValue> myMap = new HashMap<>();
@@ -525,7 +518,7 @@ public class DynamoDBService {
             Map<String, String> myExMap = new HashMap<>();
             myExMap.put("#archive", "archive");
 
-            // Set the Expression so only Closed items are queried from the Work table.
+            // Set the Expression so only active items are queried from the Work table.
             Expression expression = Expression.builder()
                 .expressionValues(myMap)
                 .expressionNames(myExMap)
@@ -551,6 +544,7 @@ public class DynamoDBService {
                 workItem.setStatus(work.getStatus());
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
 
                 // Push the workItem to the list.
                 itemList.add(workItem);
@@ -566,8 +560,6 @@ public class DynamoDBService {
 
     // Get Closed Items from the DynamoDB table.
     public List< WorkItem > getClosedItems() {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
@@ -575,9 +567,8 @@ public class DynamoDBService {
         try{
             // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
-
             AttributeValue attr = AttributeValue.builder()
-                .s("Closed")
+                .n("1")
                 .build();
 
             Map<String, AttributeValue> myMap = new HashMap<>();
@@ -611,6 +602,7 @@ public class DynamoDBService {
                 workItem.setStatus(work.getStatus());
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
 
                 //Push the workItem to the list.
                 itemList.add(workItem);
@@ -625,8 +617,6 @@ public class DynamoDBService {
     }
 
     public void setItem(WorkItem item) {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
@@ -638,7 +628,6 @@ public class DynamoDBService {
     public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
 
         try {
-            // Create a DynamoDbTable object.
             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             String myGuid = java.util.UUID.randomUUID().toString();
             Work record = new Work();
@@ -647,7 +636,7 @@ public class DynamoDBService {
             record.setDescription(item.getDescription());
             record.setDate(now()) ;
             record.setStatus(item.getStatus());
-            record.setArchive("Open");
+            record.setArchive(0);
             record.setGuide(item.getGuide());
             workTable.putItem(record);
 
@@ -671,7 +660,7 @@ public class DynamoDBService {
 The following Java code represents the **WorkItem** class.   
 
 ```java
-    package com.aws.rest;
+  package com.aws.rest;
 
 public class WorkItem {
 
@@ -681,54 +670,63 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private int archived ;
+
+    public int getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(int archived) {
+        this.archived = archived;
+    }
 
     public void setId (String id) {
-                this.id = id;
-        }
+        this.id = id;
+    }
 
     public String getId() {
-                return this.id;
-        }
+        return this.id;
+    }
 
     public void setStatus (String status) {
-                this.status = status;
-        }
+        this.status = status;
+    }
 
     public String getStatus() {
-                return this.status;
-        }
+        return this.status;
+    }
 
     public void setDescription (String description) {
-                this.description = description;
-        }
+        this.description = description;
+    }
 
     public String getDescription() {
-                return this.description;
-        }
+        return this.description;
+    }
 
     public void setDate (String date) {
-                this.date = date;
-        }
+        this.date = date;
+    }
 
     public String getDate() {
-                return this.date;
-        }
+        return this.date;
+    }
 
     public void setName (String name) {
-                this.name = name;
-        }
+        this.name = name;
+    }
 
     public String getName() {
-                return this.name;
-        }
+        return this.name;
+    }
 
     public void setGuide (String guide) {
-                this.guide = guide;
-        }
+        this.guide = guide;
+    }
 
     public String getGuide() {
-                return this.guide;
-        }
+        return this.guide;
+    }
 }
 ```
 ### Work class
@@ -750,7 +748,7 @@ public class Work {
     private String guide;
     private String username ;
     private String status ;
-    private String archive ;
+    private int archive ;
 
     @DynamoDbPartitionKey
     public String getId() {
@@ -766,11 +764,11 @@ public class Work {
         return this.username;
     }
 
-    public void setArchive(String archive) {
+    public void setArchive(int archive) {
         this.archive = archive;
     }
 
-    public String getArchive() {
+    public int getArchive() {
         return this.archive;
     }
 
@@ -1031,7 +1029,7 @@ http://localhost:8080/api/items
 
 The following illustration shows the JSON data returned from the Spring REST API. 
 
-![AWS Tracking Application](images/json.png)
+![AWS Tracking Application](images/jsonDynamoDB.png)
 
 ## Create the React front end
 
