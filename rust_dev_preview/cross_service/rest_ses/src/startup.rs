@@ -21,7 +21,7 @@ use crate::{
     work_item,
 };
 
-/// Given a TCP socket & AWS Clients, organize an actix server & start it listening!
+/// Given a TCP socket & AWS Clients, organize an actix server and start it listening.
 pub fn run(
     listener: TcpListener,
     rds_client: RdsClient,

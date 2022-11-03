@@ -5,7 +5,7 @@
 
 //! Environment and settings loading.
 //!
-//! Loads environment specific details for ARNs, tcp listeners, etc.
+//! Loads environment specific details for ARNs, TCP listeners, etc.
 use std::net::{IpAddr, SocketAddr};
 
 use color_eyre::Report;
@@ -37,7 +37,7 @@ pub struct ApplicationSettings {
     pub port: u16,
 }
 
-/// Settings for the RDS client, primarily the DB & Cluster to access.
+/// Settings for the Amazon Relational Database Service (Amazon RDS) client, primarily the Database & Cluster to access.
 #[derive(Debug, Deserialize)]
 pub struct RdsSettings {
     pub secret_arn: Secret<String>,
@@ -45,7 +45,7 @@ pub struct RdsSettings {
     pub db_instance: String,
 }
 
-/// Settings for the SES client, primarily the source email & ARN.
+/// Settings for the Amazon Simple Email Service (Amazon SES) client, primarily the source email & ARN.
 #[derive(Debug, Deserialize)]
 pub struct SesSettings {
     pub source: Email,
@@ -63,7 +63,7 @@ const DEFAULT_ENVIRONMENT: &str = "local";
 const DEFAULT_LOG_LEVEL: &str = "trace";
 const DEFAULT_BACKTRACE: &str = "1";
 
-/// Attempt to find the environment, and pre-set any environment variables.
+/// Attempt to find the environment, and preset any environment variables.
 /// Valid environments are in [Environment].
 pub fn init_environment() -> Result<Environment, SettingsError> {
     let environment: Environment = std::env::var("APP_ENVIRONMENT")

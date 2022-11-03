@@ -110,7 +110,7 @@ async fn get_workitem_returns_200() {
     );
 }
 
-/// Look for an item that shouldn't exist, check for 404
+/// Look for an item that shouldn't exist, check for 404.
 #[ignore]
 #[tokio::test]
 async fn get_workitem_returns_404() {

@@ -5,7 +5,7 @@
 
 //! Application logic aware wrappers around AWS SDK Clients.
 //!
-//! These wrappers add default ARNs for resources the application accesses, and adds those to common calls.
+//! These wrappers add default ARNs for SDK resources the application accesses to common calls.
 use std::option::Option;
 
 use aws_config::SdkConfig;
@@ -17,8 +17,8 @@ use serde::Deserialize;
 
 use crate::configuration::{RdsSettings, SesSettings};
 
-/// An AWS RDSData Client, with additional global request information.
-/// The configured db, cluster, and secret manager will be used when executing statements or transactions from this Client.
+/// Amazon Relational Database Service (Amazon RDS) Data Client, with additional global request information.
+/// The configured databae ARN, cluster ARN, and secret manager ARN will be used when executing statements or transactions from this Client.
 #[derive(Clone)]
 pub struct RdsClient {
     secret_arn: Secret<String>,
@@ -85,8 +85,8 @@ impl From<Arn> for std::string::String {
     }
 }
 
-/// An AWS SES Client, with additional global request information.
-/// All requests will use this source Email and Arn when sending via SES.
+/// An Amazon Simple Email Service (Amazon SES) Client, with additional global request information.
+/// All requests will use this source Email and Arn when sending via Amazon SES.
 #[derive(Clone)]
 pub struct SesClient {
     client: aws_sdk_ses::Client,
@@ -103,12 +103,12 @@ impl SesClient {
         }
     }
 
-    /// Returns an owned clone of the Email
+    /// Returns an owned clone of the Email.
     pub fn from(&self) -> Email {
         self.source.clone()
     }
 
-    /// Prepares a SendRawEmail SES request with the source email & arn configured.
+    /// Prepares a SendRawEmail Amazon SES request with the source email & ARN configured.
     pub fn send_raw_email(&self) -> SendRawEmail {
         self.client
             .send_raw_email()

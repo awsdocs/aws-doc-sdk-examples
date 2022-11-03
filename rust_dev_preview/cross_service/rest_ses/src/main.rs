@@ -12,11 +12,11 @@ use rest_ses::startup::run;
 use rest_ses::telemetry::{get_subscriber, init_subscriber};
 use tracing::{debug, info};
 
-/// A tokio main for our app!
-/// It loads the environment & settings, prepares subscribers, AWS Clients, and the Actix server.
+/// A tokio main for our app.
+/// It loads the environment and settings, prepares subscribers, AWS Clients, and the Actix server.
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    // App Settings come from configuration.yaml
+    // App Settings come from configuration.yaml.
     let environment = init_environment().expect("Failed to initialize environment.");
     let settings = get_settings(&environment).expect("Failed to load configuration.");
 
@@ -27,7 +27,7 @@ async fn main() -> std::io::Result<()> {
     );
     init_subscriber(subscriber);
 
-    // AWS Settings (region & role) come from the environment
+    // AWS Settings (Region & role) come from the environment.
     let config = aws_config::from_env().load().await;
     let rds = RdsClient::new(&settings.rds, &config);
     let ses = SesClient::new(&settings.ses, &config);

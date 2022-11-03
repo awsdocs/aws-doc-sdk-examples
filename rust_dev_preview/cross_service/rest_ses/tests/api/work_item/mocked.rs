@@ -4,8 +4,8 @@
  */
 
 //! End-to-end tests for the Rest WorkItem app with mocked AWS resources.
-//! This uses MockServer to hand-craft replies, and is run in normal tests.
-//! It additionally tests many error cases, by having the mocked AWS resources respond with errors.
+//! This uses MockServer to handcraft replies, and is run in normal tests.
+//! It also tests many error cases by having the mocked AWS resources respond with errors.
 use wiremock::{matchers::any, Mock, ResponseTemplate};
 
 use crate::{
@@ -13,7 +13,7 @@ use crate::{
     work_item::{fake_description, fake_guide},
 };
 
-/// Send JSON to the create endpoint, mock a failing call to RDS, and expect a 500
+/// Send JSON to the create endpoint, mock a failing call to Amazon Relational Database Service (Amazon RDS), and expect a 500
 #[tokio::test]
 async fn post_workitem_returns_500_when_rds_fails() {
     let (app, mock_server) = spawn_app_mocked().await;

@@ -4,14 +4,14 @@
  */
 
 //! Provides scoped HTTP endpoints for a REST WorkItem collection.
-//! This includes the common REST HTTP endpoints, as well as RPC-like endpoints.
+//! This includes the common REST HTTP endpoints and also RPC-like endpoints.
 //!
-//! * `GET /items/` for list
-//! * `GET /items/{itemid} to retrieve
-//! * `POST /items/` for create
-//! * `PUT /items/{itemid}` to update
-//! * `DELETE /items/{itemid}` to delete
-//! * `PUT /items/{itemid}:archive` to mark an item as archived
+//! * `GET /items/` for list.
+//! * `GET /items/{itemid} to retrieve.
+//! * `POST /items/` for create.
+//! * `PUT /items/{itemid}` to update.
+//! * `DELETE /items/{itemid}` to delete.
+//! * `PUT /items/{itemid}:archive` to mark an item as archived.
 
 use actix_web::{
     get, post, put,

@@ -18,15 +18,15 @@ use thiserror::Error;
 use uuid::Uuid;
 
 /// A WorkItem, following the spec definition.
-/// Many fields are default, both for default as well as serde.
-/// `name` has an alias of `username`, to match the FE spec with the table defition.
+/// Many fields use default values for both for core::Default and serde.
+/// `name` has an alias of `username`, to match the FE spec with the table definition.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct WorkItem {
     #[serde(default = "uuid::Uuid::new_v4")]
     idwork: Uuid,
     #[serde(default)]
     date: NaiveDate,
-    /// This alias is for the frontened using `username` in some contexts, but the backend using `name`.
+    /// This alias is for the frontend using `username` in some contexts, but the backend using `name`.
     #[serde(alias = "username")]
     name: String,
     #[serde(default)]
