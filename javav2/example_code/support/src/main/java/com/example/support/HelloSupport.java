@@ -30,9 +30,12 @@ import java.util.List;
  *
  *  https://aws.amazon.com/premiumsupport/plans/
  *
- *  This Java example performs these task:
+ *  This Java example performs this task:
  *
  * 1. Gets and displays available services.
+ *
+ * 
+ * NOTE: To see multiple operations, see SupportScenario.
  */
 
 public class HelloSupport {
