@@ -18,7 +18,7 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 ### Single action
 
-The following examples uses the **SupportClient** object:
+The following example uses the **SupportClient** object:
 
 - [Create a Service Client and perform a single operation](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/HelloSupport.java) (describeServices command)
 
