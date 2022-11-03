@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-//! Use lazy_static and AsyncOnce to allow on-demand access to a global config & client.
+//! Use lazy_static and AsyncOnce to allow on demand access to a global config and client.
 //! Configs and clients are both cheap to clone (they are Tower stacks).
 //! This example will log "Initializing SdkConfig" and "Initializing S3 Client" once each.
 //! The requests then use clones of the globally initialized values.
