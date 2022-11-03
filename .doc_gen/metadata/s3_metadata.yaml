@@ -1,7 +1,7 @@
 # zexi 0.4.0
 s3_EncryptData:
   title: Use the &kms-key-long; to encrypt data using the &AWS; SDK
-  title_abbrev:  Use the &kms-key-long; to encrypt data
+  title_abbrev: Use the &kms-key-long; to encrypt data
   synopsis: encrypt data prior to placing the data into an S3 bucket.
   category:
   languages:
