@@ -197,7 +197,7 @@ rds_RebootDBInstance:
           excerpts:
             - description:
               snippet_tags:
-                - rds.java2.describe_instances.main
+                - rds.java2.reboot_instance.main
   services:
     rds: {RebootDBInstance}
 rds_DescribeDBParameterGroups:
