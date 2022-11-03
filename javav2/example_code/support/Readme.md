@@ -15,12 +15,14 @@ AWS Support is one-on-one, fast-response support from experienced technical supp
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
+### Get started
+
+- [Hello service](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/HelloSupport.java) (describeServices command)
 
 ### Single action
 
-The following example uses the **SupportClient** object:
+The following examples use the **SupportClient** object:
 
-- [Create a Service Client and perform a single operation](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/HelloSupport.java) (describeServices command)
 - [Get and display Support severity levels.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeSeverityLevels command)
 - [Create a support case.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (createCase command)
 - [Get open support cases.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCases command)
