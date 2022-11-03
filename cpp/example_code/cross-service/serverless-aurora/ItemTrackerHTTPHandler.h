@@ -9,7 +9,7 @@
  *  The code in these 2 files implements the HTTP server portion of the Amazon Aurora
  *  serverless, cross-service example.
  *
- *  To run the example, refer to instructions in the ReadMe.
+ *  To run the example, refer to the instructions in the ReadMe.
 */
 #pragma once
 #ifndef SERVERLESSAURORA_ITEMTRACKERSERVER_H

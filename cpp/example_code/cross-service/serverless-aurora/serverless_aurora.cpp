@@ -9,6 +9,7 @@
 #include "PocoHTTPServer.h"
 
 
+// snippet-start:[cpp.example_code.cross-service.serverless-aurora.serverless_aurora]
 static const Aws::String TABLE_NAME("items");
 
 void runServerLessAurora(const Aws::String &database,
@@ -61,3 +62,4 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+// snippet-end:[cpp.example_code.cross-service.serverless-aurora.serverless_aurora]

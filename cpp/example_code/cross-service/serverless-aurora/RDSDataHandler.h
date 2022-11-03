@@ -7,9 +7,9 @@
  *  RDSDataHandler.h/.cpp
  *
  *  The code in these 2 file implements the creation, updating and querying of a table in
- *  a Amazon Relational Database Service (Amazon RDS)
+ *  an Amazon Relational Database Service (Amazon RDS).
  *
- *  To run the example, refer to instructions in the ReadMe.
+ *  To run the example, refer to the instructions in the ReadMe.
  */
 
 #pragma once

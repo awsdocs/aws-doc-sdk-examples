@@ -8,7 +8,7 @@
  *  The code in these 2 file implements a Poco HTTP server.  This code is designed
  *  to be re-used unmodified across multiple examples.
  *
- *  To run the example, refer to instructions in the ReadMe.
+ *  To run the example, refer to the instructions in the ReadMe.
  */
 
 #pragma once

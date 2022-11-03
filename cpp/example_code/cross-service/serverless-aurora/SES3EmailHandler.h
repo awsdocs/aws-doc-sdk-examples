@@ -7,10 +7,10 @@
  *  SES3EmailHandler.h/.cpp
  *
  *  The code in these 2 file implements the sending of a multi-part email message containing
- *  plain text, html text, and an attachment file using Amazon Simple Email Service
+ *  plain text, HTML text, and an attachment file using Amazon Simple Email Service
  *  (Amazon SES).
  *
- * To run the example, refer to instructions in the ReadMe.
+ * To run the example, refer to the instructions in the ReadMe.
  */
 
 #pragma once
@@ -76,10 +76,10 @@ namespace AwsDoc {
             static void
             writePlainTextPart(const Aws::String &plainText, std::ostream &ostream);
 
-            //! Routine which writes the html text part of a multipart raw email message.
+            //! Routine which writes the HTML text part of a multipart raw email message.
             /*!
              \sa SES3EmailHandler::writeHtmlTextPart()
-             \param htmlText: Content in html text format.
+             \param htmlText: Content in HTML text format.
              \param ostream: An output stream.
              \return void:
              */

@@ -7,10 +7,10 @@
  *  SES3EmailHandler.h/.cpp
  *
  *  The code in these 2 file implements the sending of a multi-part email message containing
- *  plain text, html text, and an attachment file using Amazon Simple Email Service
+ *  plain text, HTML text, and an attachment file using Amazon Simple Email Service
  *  (Amazon SES).
  *
- * To run the example, refer to instructions in the ReadMe.
+ * To run the example, refer to the instructions in the ReadMe.
  */
 
 #include "SES3EmailHandler.h"
@@ -20,6 +20,7 @@
 #include <chrono>
 #include <ctime>
 
+// snippet-start:[cpp.example_code.cross-service.serverless-aurora.SES3EmailHandler]
 namespace AwsDoc {
     namespace CrossService {
         static const Aws::String MIME_BOUNDARY("--MIME_boundary_2A837DD77556CFB3");
@@ -166,10 +167,10 @@ AwsDoc::CrossService::SES3EmailHandler::writePlainTextPart(const Aws::String &pl
             << "--" << MIME_BOUNDARY << "\n";
 }
 
-//! Routine which writes the html text part of a multipart raw email message.
+//! Routine which writes the HTML text part of a multipart raw email message.
 /*!
  \sa SES3EmailHandler::writeHtmlTextPart()
- \param htmlText: Content in html text format.
+ \param htmlText: Content in HTML text format.
  \param ostream: An output stream.
  \return void:
  */
@@ -208,4 +209,5 @@ void AwsDoc::CrossService::SES3EmailHandler::writeAttachmentPart(
             << encodedAttachment << "\n"
             << "--" << MIME_BOUNDARY << "\n";
 }
+// snippet-end:[cpp.example_code.cross-service.serverless-aurora.SES3EmailHandler]
 
