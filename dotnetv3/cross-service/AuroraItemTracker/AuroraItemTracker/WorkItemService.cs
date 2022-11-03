@@ -32,7 +32,7 @@ public class WorkItemService
     }
 
     /// <summary>
-    /// Run a SQL statement using the Amazon RDS Data Service
+    /// Run a SQL statement using the Amazon RDS Data Service.
     /// </summary>
     /// <param name="sql">The SQL statement.</param>
     /// <param name="parameters">Optional parameters for the statement.</param>
