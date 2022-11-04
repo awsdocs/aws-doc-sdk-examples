@@ -24,7 +24,7 @@ public class WorkItem
     public string Guide { get; set; } = null!;
 
     /// <summary>
-    /// User name for the work item;
+    /// User name for the work item.
     /// </summary>
     public string Name { get; set; } = null!;
 

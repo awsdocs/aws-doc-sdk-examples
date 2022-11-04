@@ -9,7 +9,7 @@ using Amazon.RDSDataService.Model;
 namespace AuroraItemTracker;
 
 /// <summary>
-/// Class for working with WorkItems using the Amazon Relational Database Service (Amazon RDS) data service.
+/// Class for working with WorkItems using the Amazon Relational Database Service (Amazon RDS) Data Service.
 /// </summary>
 public class WorkItemService
 {
@@ -45,7 +45,7 @@ public class WorkItemService
     }
 
     /// <summary>
-    /// Get an RDS request for a statement to run.
+    /// Get an Amazon RDS request for a statement to run.
     /// </summary>
     /// <param name="sql">The SQL statement.</param>
     /// <param name="parameters">Optional parameters for the statement.</param>

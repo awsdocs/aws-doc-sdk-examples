@@ -127,7 +127,7 @@ public class WorkItemServiceTests
     }
 
     /// <summary>
-    /// Verify that an RDS request has the correct configuration.
+    /// Verify that an Amazon RDS request has the correct configuration.
     /// </summary>
     [Fact]
     [Order(6)]
@@ -146,7 +146,7 @@ public class WorkItemServiceTests
     }
 
     /// <summary>
-    /// Validate correct parameters and sql for getting all items.
+    /// Validate correct parameters and SQL for getting all items.
     /// </summary>
     [Fact]
     [Order(7)]
@@ -160,7 +160,7 @@ public class WorkItemServiceTests
     }
 
     /// <summary>
-    /// Validate correct parameters and sql for getting archived items.
+    /// Validate correct parameters and SQL for getting archived items.
     /// </summary>
     [Fact]
     [Order(8)]
@@ -175,7 +175,7 @@ public class WorkItemServiceTests
     }
 
     /// <summary>
-    /// Validate correct parameters and sql for getting an item by ID.
+    /// Validate correct parameters and SQL for getting an item by ID.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

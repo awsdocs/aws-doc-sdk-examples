@@ -82,9 +82,8 @@ app.MapPut("/items/{itemId}:archive", async (WorkItemService workItemService, st
 // POST to send a CSV report to a specific email address.
 app.MapPost("/items:report", async (WorkItemService workItemService, ReportService reportService, ReportRequest reportRequest) =>
 {
-    // Get the active items.
     var activeItems = await workItemService.GetItemsByArchiveState(false);
-    // Send the email.
+
     await reportService.SendReport(activeItems, reportRequest.Email);
 
     return Results.Ok();

@@ -32,7 +32,7 @@ public class ReportService
     /// Send the report to an email address.
     /// Both the sender and recipient must be validated email addresses if this account uses the SES Sandbox.
     /// </summary>
-    /// <param name="workItems">The collection of work items for the report</param>
+    /// <param name="workItems">The collection of work items for the report.</param>
     /// <param name="emailAddress">The recipient's email address.</param>
     /// <returns>The messageId as a string.</returns>
     public async Task<string> SendReport(IList<WorkItem> workItems, string emailAddress)
@@ -138,16 +138,15 @@ public class ReportService
     }
 
     /// <summary>
-    /// Put the work items into a CSV in a memory stream for emailing as an attachment..
+    /// Put the work items into a CSV in a memory stream for emailing as an attachment.
     /// </summary>
     /// <param name="workItems">The work item collection.</param>
     /// <param name="memoryStream">The memory stream to use.</param>
     /// <param name="streamWriter">The stream writer to use.</param>
-    /// <param name="csvWriter">The csv writer to use.</param>
+    /// <param name="csvWriter">The CSV writer to use.</param>
     /// <returns>Async task.</returns>
     public async Task GetCsvStreamFromWorkItems(IList<WorkItem> workItems, MemoryStream memoryStream, StreamWriter streamWriter, CsvWriter csvWriter)
     {
-        // The CSV report can be created using CsvHelper.
         csvWriter.WriteHeader<WorkItem>();
         await csvWriter.NextRecordAsync();
         await csvWriter.WriteRecordsAsync(workItems);

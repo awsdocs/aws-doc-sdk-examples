@@ -1,4 +1,4 @@
-# AWS SDK for .NET 3.5+ cross-service examples
+# AWS SDK for .NET (v3) cross-service examples
 
 This README lists the cross-service examples available for the AWS SDK for 
 .NET (v3). Each folder in this directory contains the following cross-service 
@@ -18,23 +18,23 @@ using the AWS SDK for .NET.
 ### [Amazon Aurora work item tracker web application](AuroraItemTracker/Readme.md)
 
 Shows how to create a web application that tracks work items in an Amazon Aurora database
-and emails reports by using Amazon SES.
+and emails reports by using Amazon Simple Email Service (Amazon SES).
 
 The application uses the following services:
 
 - Amazon Aurora
-- Amazon RDS
+- Amazon Relational Database Service (Amazon RDS)
 - Amazon SES
 
 ### [Subscribe, publish, and translate example](SubscribePublishTranslate/Readme.md).
 
-Create an ASP .NET application that allows users to subscribe to an Amazon SNS
+Create an ASP .NET application that allows users to subscribe to an Amazon Simple Notification Service (Amazon SNS)
 queue and to publish messages with optional translation to French or Spanish.
 
 The application uses the following services:
 
-  - Amazon Simple Notification Service (Amazon SNS)
-  - Amazon Translation Service
+  - Amazon SNS
+  - Amazon Translate
 
 ### [Amazon DynamoDB work item tracker web application](DynamodbWebApp/Readme.md)
 
@@ -43,15 +43,15 @@ reports by using Amazon SES.
 
 The application uses the following services:
 
-- Amazon DynamoDB
+- DynamoDB
 - Amazon SES
 - AWS Identity and Access Management (IAM)
 
 ### [Amazon Rekognition photo analyzer application](PhotoAnalyzerApp/Readme.md)
 
-Shows how to create a web application that analyzes photos uploaded to an Amazon Simple Storage Service (Amazon S3) bucket, using Amazon Rekognition to label the photos, and Amazon Simple Email Service (Amazon SES) to send email reports of the image analysis.
+Shows how to create a web application that analyzes photos uploaded to an Amazon Simple Storage Service (Amazon S3) bucket, using Amazon Rekognition to label the photos, and Amazon SES to send email reports of the image analysis.
 
-The application sues the following services:
+The application uses the following services:
 
 - Amazon Rekognition
 - Amazon S3
