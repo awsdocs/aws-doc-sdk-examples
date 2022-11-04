@@ -34,7 +34,7 @@ namespace AwsDoc {
             //! SES3EmailHandler constructor.
             /*!
              \sa SES3EmailHandler::SES3EmailHandler()
-             \param fromEmailAddress: Email address which has been enabled in Amazon SES.
+             \param fromEmailAddress: Verified mail address enabled in Amazon SES.
              \param clientConfiguration: Aws client configuration.
              */
             explicit SES3EmailHandler(const Aws::String &fromEmailAddress,

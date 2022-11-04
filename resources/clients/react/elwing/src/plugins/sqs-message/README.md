@@ -83,6 +83,7 @@ This launches the test runner in interactive watch mode.
 - [Kotlin cross-service examples](../../../../kotlin/usecases/Readme.md)
 - [Python cross-service examples](../../../../python/cross_service/README.md)
 - [Rust cross-service examples](../../../../rust_dev_preview/cross_service/README.md)
+- [C++ cross-service examples](../../../../../../../cpp/example_code/cross-service/README.md)
 
 ---
 

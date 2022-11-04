@@ -58,7 +58,7 @@ void runServerLessAurora(const Aws::String &database,
  *
  *  Prerequisites: See the accompanying README.
  *
- * Usage: Usage: 'run_serverless_aurora <database> <resource_arn> <secret_arn> <email>'
+ * Usage: 'run_serverless_aurora <database> <resource_arn> <secret_arn> <email>'
  *
  */
 

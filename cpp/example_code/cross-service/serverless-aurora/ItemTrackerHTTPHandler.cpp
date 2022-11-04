@@ -9,7 +9,7 @@
  *  The code in these file implements the HTTP server portion of the Aurora serverless
  *  cross-service example.
  *
- *  To run the example, refer to instructions in the ReadMe.
+ *  To run the example, refer to the instructions in the ReadMe.
  */
 
 #include "ItemTrackerHTTPHandler.h"
@@ -168,7 +168,7 @@ AwsDoc::CrossService::ItemTrackerHTTPHandler::jsonToWorkItem(
     return result;
 }
 
-//! Routine sends an email using Amazon SES.
+//! Routine which sends an email using Amazon SES.
 /*!
  \sa ItemTrackerHTTPHandler::sendEmail()
  \param emailJson: HTTP request JSON string containing an email.
@@ -193,7 +193,7 @@ AwsDoc::CrossService::ItemTrackerHTTPHandler::sendEmail(const std::string &email
     return result;
 }
 
-//! Routine which retrieves a work items from Amazon RDS with the specified ID.
+//! Routine which retrieves a work item from Amazon RDS with the specified ID.
 /*!
  \sa ItemTrackerHTTPHandler::getWorkItemWithIdJson()
  \param id: Work item id.

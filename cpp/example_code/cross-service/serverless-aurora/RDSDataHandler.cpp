@@ -87,7 +87,7 @@ AwsDoc::CrossService::RDSDataHandler::RDSDataHandler(const Aws::String &database
         mClientConfiguration(clientConfiguration) {
 }
 
-//! Routine executes a statement on an Amazon RDS database.
+//! Routine which executes a statement on an Amazon RDS database.
 /*!
  \sa RDSDataHandler::executeStatement()
  \param sqlStatement: Sql statement as string.
@@ -144,7 +144,7 @@ bool AwsDoc::CrossService::RDSDataHandler::addWorkItem(
     }
     sqlStream << ")";
 
-    // Create parameters vector and set it.
+    // Create a parameters vector and set the paramaters.
     std::string idItem = Aws::Utils::UUID::RandomUUID();
 
     // Add strings to parameters.
@@ -443,7 +443,7 @@ AwsDoc::CrossService::RDSDataHandler::getWorkItemWithId(const Aws::String &id,
 //! already exist.
 /*!
  \sa RDSDataHandler::initializeTable()
- \param recreateTable: If true, always create blank table.
+ \param recreateTable: If true, always create an empty table.
  \return bool: Successful completion.
  */
 bool AwsDoc::CrossService::RDSDataHandler::initializeTable(bool recreateTable) {

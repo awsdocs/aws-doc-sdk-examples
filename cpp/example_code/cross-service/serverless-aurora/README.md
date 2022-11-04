@@ -74,7 +74,7 @@ The "database", "resource_arn", and "secret_arn" were obtained in the preceding 
 
 The "email" is a [verified identity](https://docs.aws.amazon.com/ses/latest/dg/verify-addresses-and-domains.html) created in Amazon SES.
 
-Now run the [client app](../../../../resources/clients/react/elwing/) to communicate with the "run_serverless_aurora" HTTP server. The [ReadMe](../../../../resources/clients/react/elwing/README.md) contains instructions for running client web app.
+Now run the [client app](../../../../resources/clients/react/elwing/) to communicate with the "run_serverless_aurora" HTTP server. The [ReadMe](../../../../resources/clients/react/elwing/README.md) contains instructions for running the client web app.
 
 When both the client app and the HTTP server app are running, AWS resources can be manipulated from a web page. The client app will appear in your web browser. Select "Item Tracker" in the webpage sidebar to open the webpage which communicates with the HTTP server.
 

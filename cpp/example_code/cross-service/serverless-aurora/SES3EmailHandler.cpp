@@ -11,6 +11,7 @@
  *  (Amazon SES).
  *
  * To run the example, refer to the instructions in the ReadMe.
+ *
  */
 
 #include "SES3EmailHandler.h"
@@ -29,7 +30,7 @@ namespace AwsDoc {
 //! SES3EmailHandler constructor.
 /*!
  \sa SES3EmailHandler::SES3EmailHandler()
- \param fromEmailAddress: Email address which has been enabled in Amazon SES.
+ \param fromEmailAddress: Verified mail address enabled in Amazon SES.
  \param clientConfiguration: Aws client configuration.
  */
 AwsDoc::CrossService::SES3EmailHandler::SES3EmailHandler(

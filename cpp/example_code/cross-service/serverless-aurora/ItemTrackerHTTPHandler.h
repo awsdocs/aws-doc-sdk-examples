@@ -126,6 +126,13 @@ namespace AwsDoc {
          */
         class SESEmailReceiver {
         public:
+            //! Routine which sends an email containing work items.
+            /*!
+             \sa SESEmailReceiver::sendEmail()
+             \param emailAddress: Receiver's email address.
+             \param workItems: Vector of work items.
+             \return bool: Successful completion.
+             */
             virtual bool sendEmail(const Aws::String emailAddress,
                                    const std::vector<WorkItem> &workItems) = 0;
         };
@@ -162,7 +169,7 @@ namespace AwsDoc {
                             std::string &responseContentType,
                             std::ostream &responseStream) override;
 
-            //! Routine which adds a work items to Amazon RDS.
+            //! Routine which adds a work item to Amazon RDS.
             /*!
              \sa ItemTrackerHTTPHandler::addWorkItem()
              \param workItemJson: Content of HTTP request as JSON string.
@@ -170,7 +177,7 @@ namespace AwsDoc {
             */
             bool addWorkItem(const std::string &workItemJson);
 
-            //! Routine sends an email using Amazon SES.
+            //! Routine which sends an email using Amazon SES.
             /*!
              \sa ItemTrackerHTTPHandler::sendEmail()
              \param emailJson: HTTP request JSON string containing an email.
@@ -180,7 +187,7 @@ namespace AwsDoc {
 
         private:
 
-            //! Routine which retrieves a work items from Amazon RDS with the specified ID.
+            //! Routine which retrieves a work item from Amazon RDS with the specified ID.
             /*!
              \sa ItemTrackerHTTPHandler::getWorkItemWithIdJson()
              \param id: Work item id.

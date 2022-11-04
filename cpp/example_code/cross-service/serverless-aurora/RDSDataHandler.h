@@ -48,10 +48,10 @@ namespace AwsDoc {
                            const Aws::String &tableName,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
-            //! Routine which creates if table does not exist.
+            //! Routine which creates database table if table does not exist.
             /*!
              \sa RDSDataHandler::initializeTable()
-             \param recreateTable: If true, always create blank table.
+             \param recreateTable: If true, always create an empty table.
              \return bool: Successful completion.
              */
             bool initializeTable(bool recreateTable);
