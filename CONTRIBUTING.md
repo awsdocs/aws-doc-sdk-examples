@@ -60,7 +60,7 @@ This project abides by the [Amazon Open Source Code of Conduct](https://aws.gith
 If you discover a potential security issue, please notify AWS Security via our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Please do **not** create a public issue on GitHub.
 
 ### Licensing disclaimer
-See the [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/LICENSE) file for this project's licensing. We will ask you to confirm the licensing of your contribution. We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
+See the [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/LICENSE) file for this project's licensing. When forked, remember that under
 
 ---
 
