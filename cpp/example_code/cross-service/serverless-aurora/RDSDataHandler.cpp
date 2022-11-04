@@ -28,8 +28,7 @@
  *
  */
 
-// snippet-start:[cpp.example_code.cross-service.serverless-aurora.RDSDataHandler]
-namespace AwsDoc {
+-namespace AwsDoc {
     namespace CrossService {
         /**
           *
@@ -555,6 +554,5 @@ bool AwsDoc::CrossService::RDSDataHandler::deleteTable(const Aws::String &tableN
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.cross-service.serverless-aurora.RDSDataHandler.constants]
 
 

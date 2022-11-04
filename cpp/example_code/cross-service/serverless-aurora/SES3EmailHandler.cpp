@@ -20,7 +20,6 @@
 #include <chrono>
 #include <ctime>
 
-// snippet-start:[cpp.example_code.cross-service.serverless-aurora.SES3EmailHandler]
 namespace AwsDoc {
     namespace CrossService {
         static const Aws::String MIME_BOUNDARY("--MIME_boundary_2A837DD77556CFB3");
@@ -209,5 +208,4 @@ void AwsDoc::CrossService::SES3EmailHandler::writeAttachmentPart(
             << encodedAttachment << "\n"
             << "--" << MIME_BOUNDARY << "\n";
 }
-// snippet-end:[cpp.example_code.cross-service.serverless-aurora.SES3EmailHandler]
 

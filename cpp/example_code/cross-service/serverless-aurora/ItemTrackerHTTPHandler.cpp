@@ -9,7 +9,7 @@
  *  The code in these file implements the HTTP server portion of the Aurora serverless
  *  cross-service example.
  *
- *  To run the example, refer to the instructions in the ReadMe.
+ *  To run the example, refer to instructions in the ReadMe.
  */
 
 #include "ItemTrackerHTTPHandler.h"
