@@ -6,5 +6,6 @@ RUN mkdir /src
 COPY . /src/
 WORKDIR /src
 RUN cargo install --path .
+RUN cargo build
 
 CMD ["bash"]
