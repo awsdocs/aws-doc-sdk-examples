@@ -51,16 +51,13 @@ public class HelloSupport {
       }
 
    // Return a List that contains a Service name and Category name.
-    public static List<String> displayServices(SupportClient supportClient) {
+    public static void displayServices(SupportClient supportClient) {
         try {
             DescribeServicesRequest servicesRequest = DescribeServicesRequest.builder()
                 .language("en")
                 .build();
 
             DescribeServicesResponse response = supportClient.describeServices(servicesRequest);
-            String serviceCode = null;
-            String catName = null;
-            List<String> sevCatList = new ArrayList<>();
             List<Service> services = response.services();
 
             System.out.println("Get the first 10 services");
@@ -70,29 +67,19 @@ public class HelloSupport {
                     break;
 
                 System.out.println("The Service name is: "+service.name());
-                if (service.name().compareTo("Account") == 0)
-                    serviceCode = service.code();
 
-                // Get the Categories for this service.
+                // Display the Categories for this service.
                 List<Category> categories = service.categories();
                 for (Category cat: categories) {
                     System.out.println("The category name is: "+cat.name());
-                    if (cat.name().compareTo("Security") == 0)
-                        catName = cat.name();
                 }
                 index++ ;
             }
-
-            // Push the two values to the list.
-            sevCatList.add(serviceCode);
-            sevCatList.add(catName);
-            return sevCatList;
 
         } catch (SupportException e) {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        return null;
     }
 }
 // snippet-end:[support.java2.hello.main]
