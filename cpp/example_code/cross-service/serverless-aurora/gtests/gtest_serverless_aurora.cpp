@@ -15,13 +15,20 @@ namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(ServerlessAurora_GTests, test1) {
         Aws::String database("auroraappdb");
-        Aws::String resourceArn = std::getenv("RESOURCE_ARN");
-        Aws::String secretArn = std::getenv("SECRET_ARN");
-        Aws::String sesEmailAddress = std::getenv("EMAIL_ADDRESS");
-        Aws::String destinationEmail = std::getenv("DESTINATION_ADDRESS");
+        const char* env_var = std::getenv("RESOURCE_ARN");
+        ASSERT_NE(env_var, nullptr) << preconditionError();
+        Aws::String resourceArn(env_var);
+        env_var = std::getenv("SECRET_ARN");
+        ASSERT_NE(env_var, nullptr) << preconditionError();
+        Aws::String secretArn(env_var);
+        env_var = std::getenv("EMAIL_ADDRESS");
+        ASSERT_NE(env_var, nullptr) << preconditionError();
+        Aws::String sesEmailAddress(env_var);
+        env_var = std::getenv("DESTINATION_ADDRESS");
+        ASSERT_NE(env_var, nullptr) << preconditionError();
+        Aws::String destinationEmail(env_var);
         Aws::Client::ClientConfiguration clientConfig;
 
-        ASSERT_FALSE(resourceArn.empty()) << preconditionError();
         ASSERT_FALSE(secretArn.empty()) << preconditionError();
         ASSERT_FALSE(sesEmailAddress.empty()) << preconditionError();
         ASSERT_FALSE(destinationEmail.empty()) << preconditionError();

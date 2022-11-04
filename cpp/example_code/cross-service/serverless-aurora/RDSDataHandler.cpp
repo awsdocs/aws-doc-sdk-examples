@@ -28,7 +28,7 @@
  *
  */
 
--namespace AwsDoc {
+namespace AwsDoc {
     namespace CrossService {
         /**
           *
@@ -49,7 +49,7 @@
          \param string: Search string.
          \return size_t: Index of string or zero.
          */
-        static size_t getIndexOf(std::vector<const Aws::String> vector,
+        static size_t getIndexOf(std::vector<Aws::String> vector,
                                  const Aws::String &string) {
             auto it = find(vector.begin(), vector.end(), string);
             size_t result = 0;
@@ -121,7 +121,7 @@ AwsDoc::CrossService::RDSDataHandler::executeStatement(const Aws::String &sqlSta
  */
 bool AwsDoc::CrossService::RDSDataHandler::addWorkItem(
         const AwsDoc::CrossService::WorkItem &workItem) {
-    std::vector<const Aws::String> COLUMNS = {ID_COLUMN, NAME_COLUMN,
+    std::vector<Aws::String> COLUMNS = {ID_COLUMN, NAME_COLUMN,
                                               DESCRIPTION_COLUMN,
                                               GUIDE_COLUMN, STATUS_COLUMN,
                                               ARCHIVED_COLUMN};
@@ -203,7 +203,7 @@ bool AwsDoc::CrossService::RDSDataHandler::addWorkItem(
 bool
 AwsDoc::CrossService::RDSDataHandler::getWorkItems(WorkItemStatus status,
                                                    std::vector<WorkItem> &workItems) {
-    std::vector<const Aws::String> COLUMNS = {ID_COLUMN, NAME_COLUMN,
+    std::vector<Aws::String> COLUMNS = {ID_COLUMN, NAME_COLUMN,
                                               DESCRIPTION_COLUMN,
                                               GUIDE_COLUMN, STATUS_COLUMN,
                                               ARCHIVED_COLUMN};
@@ -317,7 +317,7 @@ bool AwsDoc::CrossService::RDSDataHandler::setWorkItemToArchive(const Aws::Strin
  */
 bool AwsDoc::CrossService::RDSDataHandler::updateWorkItem(
         const AwsDoc::CrossService::WorkItem &workItem) {
-    std::vector<const Aws::String> COLUMNS = {NAME_COLUMN,
+    std::vector<Aws::String> COLUMNS = {NAME_COLUMN,
                                               DESCRIPTION_COLUMN,
                                               GUIDE_COLUMN, STATUS_COLUMN,
                                               ARCHIVED_COLUMN};
@@ -389,7 +389,7 @@ bool AwsDoc::CrossService::RDSDataHandler::updateWorkItem(
 bool
 AwsDoc::CrossService::RDSDataHandler::getWorkItemWithId(const Aws::String &id,
                                                         WorkItem &workItem) {
-    std::vector<const Aws::String> COLUMNS = {ID_COLUMN, NAME_COLUMN,
+    std::vector<Aws::String> COLUMNS = {ID_COLUMN, NAME_COLUMN,
                                               DESCRIPTION_COLUMN,
                                               GUIDE_COLUMN, STATUS_COLUMN,
                                               ARCHIVED_COLUMN};

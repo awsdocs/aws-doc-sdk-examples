@@ -5,6 +5,8 @@
 cmake_minimum_required(VERSION 3.14)
 set(SERVICE_COMPONENTS sesv2 rds-data)
 
+set(BUILD_SHARED_LIBS ON)
+
 # Set this project's name.
 project("ServerlessAuroraGTest")
 set(EXECUTABLE serverless_aurora_gtest)
@@ -28,8 +30,6 @@ FetchContent_Declare(
 # For Windows: Prevent overriding the parent project's compiler/linker settings.
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
-
-set(BUILD_SHARED_LIBS ON)
 
 
 # Find the AWS SDK for C++ package.

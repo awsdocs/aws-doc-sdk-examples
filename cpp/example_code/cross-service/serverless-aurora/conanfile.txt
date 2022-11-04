@@ -10,7 +10,6 @@
  poco:enable_data_postgresql=False
  poco:enable_data_sqlite=False
  poco:enable_encodings=True
- poco:enable_fork=True
  poco:enable_json=True
  poco:enable_jwt=False
  poco:enable_mongodb=False
@@ -23,3 +22,6 @@
 
  [generators]
  cmake
+
+[imports]
+bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my local "bin" folder
