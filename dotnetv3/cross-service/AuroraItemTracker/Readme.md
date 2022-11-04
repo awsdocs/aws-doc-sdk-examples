@@ -121,11 +121,11 @@ A user can perform the following tasks using the web application:
 
 The web application displays active, archived, or all items. For example, the following illustration shows the React application displaying active data.
 
-![Viewing active items](images/elapp1.png)
+![Viewing active items](images/elapp2.png)
 
 Here is the React application displaying archived data.
 
-![Viewing archived items](images/elapp2.png)
+![Viewing archived items](images/elapp3.png)
 
 The user can insert a new item into the work item table from the user interface in the React front end application. In the following image, you can see the new item form. 
 

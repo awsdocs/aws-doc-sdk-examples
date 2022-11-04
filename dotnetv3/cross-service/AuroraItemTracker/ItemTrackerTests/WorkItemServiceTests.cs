@@ -191,7 +191,7 @@ public class WorkItemServiceTests
     }
 
     /// <summary>
-    /// Validate correct parameters and sql for creating a new work item.
+    /// Validate correct parameters and SQL for creating a new work item.
     /// </summary>
     [Fact]
     [Order(10)]
@@ -251,7 +251,7 @@ public class WorkItemServiceTests
     }
 
     /// <summary>
-    /// Validate correct parameters and sql for archiving an item.
+    /// Validate correct parameters and SQL for archiving an item.
     /// </summary>
     [Fact]
     [Order(11)]
