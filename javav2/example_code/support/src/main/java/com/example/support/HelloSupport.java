@@ -26,15 +26,15 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  In addition, you must have the Business AWS Support Plan to use the AWS Support Java API. For more information, see:
+ *  In addition, you must have the AWS Business Support Plan to use the AWS Support Java API. For more information, see:
  *
  *  https://aws.amazon.com/premiumsupport/plans/
  *
- *  This Java example performs this task:
+ *  This Java example performs the following task:
  *
  * 1. Gets and displays available services.
  *
- * 
+ *
  * NOTE: To see multiple operations, see SupportScenario.
  */
 

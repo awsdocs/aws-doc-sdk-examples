@@ -54,11 +54,11 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  In addition, you must have the Business AWS Support Plan to use the AWS Support Java API. For more information, see:
+ *  In addition, you must have the AWS Business Support Plan to use the AWS Support Java API. For more information, see:
  *
  *  https://aws.amazon.com/premiumsupport/plans/
  *
- *  This Java example performs these tasks:
+ *  This Java example performs the following tasks:
  *
  * 1. Gets and displays available services.
  * 2. Gets and displays severity levels.
@@ -71,7 +71,6 @@ import java.util.List;
  * 9. Resolves the support case.
  * 10. Gets a list of resolved cases for the current day.
  */
-
 public class SupportScenario {
 
     public static void main(String[] args) {
@@ -151,7 +150,7 @@ public class SupportScenario {
             List<CaseDetails> cases = response.cases();
             for (CaseDetails sinCase: cases) {
                 if (sinCase.status().compareTo("resolved") ==0)
-                    System.out.println("The Case status is "+sinCase.status());
+                    System.out.println("The case status is "+sinCase.status());
             }
 
         } catch (SupportException e) {
@@ -236,15 +235,15 @@ public class SupportScenario {
 
             AddCommunicationToCaseResponse response = supportClient.addCommunicationToCase(caseRequest);
             if (response.result())
-                System.out.println("You have successfully added a communication to an Amazon Web Services Support case");
+                System.out.println("You have successfully added a communication to an AWS Support case");
             else
-                System.out.println("There was an error adding the communication to an Amazon Web Services Support case");
+                System.out.println("There was an error adding the communication to an AWS Support case");
 
         } catch (SupportException e) {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-   }
+    }
     // snippet-end:[support.java2.add.attach.case.main]
 
     // snippet-start:[support.java2.add.attach.main]
@@ -291,9 +290,9 @@ public class SupportScenario {
             DescribeCasesResponse response = supportClient.describeCases(describeCasesRequest);
             List<CaseDetails> cases = response.cases();
             for (CaseDetails sinCase: cases) {
-                System.out.println("The Case status is "+sinCase.status());
-                System.out.println("The Case Id is "+sinCase.caseId());
-                System.out.println("The Case subject is "+sinCase.subject());
+                System.out.println("The case status is "+sinCase.status());
+                System.out.println("The case Id is "+sinCase.caseId());
+                System.out.println("The case subject is "+sinCase.subject());
             }
 
         } catch (SupportException e) {
