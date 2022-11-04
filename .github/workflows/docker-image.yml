@@ -99,10 +99,11 @@ jobs:
 #           tags: fordataws/swift:latest
 #           labels: ${{ steps.meta.outputs.labels }}
 
-#       - name: Build and push Docker image - Rust
-#         uses: docker/build-push-action@master
-#         with:
-#           context: rust_dev_preview
-#           push: true
-#           tags: fordataws/rust:latest
-#           labels: ${{ steps.meta.outputs.labels }}
+        - name: Build and push Docker image - Rust
+          if: contains(github.event.pull_request.labels.*.name, 'lang/rust')
+          uses: docker/build-push-action@master
+          with:
+            context: rust_dev_preview
+            push: true
+            tags: fordataws/rust:latest
+            labels: ${{ steps.meta.outputs.labels }}
