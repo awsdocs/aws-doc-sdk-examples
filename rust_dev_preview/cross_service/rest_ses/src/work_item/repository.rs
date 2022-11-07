@@ -132,7 +132,7 @@ pub async fn update(item: &WorkItem, client: &RdsClient) -> Result<WorkItem, Wor
                 guide = :guide,
                 status = :status,
                 archive = :archive
-            WEHRE idwork = :idwork;
+            WHERE idwork = :idwork;
         "#,
         )
         .set_parameters(params![
@@ -194,7 +194,7 @@ fn parse_rds_output(
 
     // Can we parse the records?
     // The formatted records have been mapped to a JSON array where each row is one object, with keys named the same as the SELECT AS statements.
-    // Serde will pare the `formattedResults` string as JSON, into an array with (hopefully) a single item.
+    // Serde will parse the `formattedResults` string as JSON, into an array with (hopefully) a single item.
     //
     // It is incumbent on the developer to match up the serde annotations with the SELECT statement.
     match from_str::<Vec<WorkItem>>(records) {

@@ -14,7 +14,7 @@ use rest_ses::{
 };
 use wiremock::MockServer;
 
-// Ensure that the `tracing` stack is only initialised once using `once_cell`.
+// Ensure that the `tracing` stack is only initialized once using `once_cell`.
 static TRACING: Lazy<Environment> = Lazy::new(|| {
     let environment = init_environment().expect("Failed to initialize test environment");
     let default_filter_level = "info".to_string();

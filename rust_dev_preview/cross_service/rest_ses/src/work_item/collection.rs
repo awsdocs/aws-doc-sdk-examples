@@ -14,7 +14,6 @@
 //! * `PUT /items/{itemid}:archive` to mark an item as archived.
 
 use actix_web::{
-    get, post, put,
     web::{self, Data, Json, Path, Query},
     Scope,
 };
@@ -34,7 +33,7 @@ pub fn scope() -> Scope {
 }
 
 /// Create a single WorkItem, serialized as a JSON body.
-#[post("")]
+#[actix_web::post("")]
 #[tracing::instrument(
         name = "Request Create new WorkItem",
         skip(item, client),
@@ -48,7 +47,7 @@ async fn create(
 }
 
 /// Retrieve a single WorkItem, in a JSON body, specified by a URL parameter.
-#[get("/{id}")]
+#[actix_web::get("/{id}")]
 #[tracing::instrument(name = "Request Retrieve single WorkItem", skip(client))]
 async fn retrieve(
     itemid: Path<String>,
@@ -66,15 +65,16 @@ struct ListParams {
 
 /// List all WorkItems, with an optional archived query parameter.
 /// The archived parameter defaults to active items.
-#[get("/")]
+#[actix_web::get("/")]
 #[tracing::instrument(name = "Request list all WorkItem", skip(client))]
 async fn list(
     params: Query<ListParams>,
     client: Data<RdsClient>,
 ) -> Result<Json<Vec<WorkItem>>, WorkItemError> {
-    let archived = match params.archived.unwrap_or(false) {
-        false => WorkItemArchived::Active,
-        true => WorkItemArchived::Archived,
+    let archived = match params.archived {
+        None => WorkItemArchived::All,
+        Some(false) => WorkItemArchived::Active,
+        Some(true) => WorkItemArchived::Archived,
     };
     super::repository::list(archived, &client).await.map(Json)
 }
@@ -82,7 +82,7 @@ async fn list(
 /// Update a WorkItem, in a JSON body.
 /// The JSON body ID must match the path ID.
 /// If they do not match, returns a 404.
-#[put("/{itemid}")]
+#[actix_web::put("/{itemid}")]
 #[tracing::instrument(name = "Request update WorkItem", skip(client))]
 async fn update(
     itemid: Path<String>,
@@ -105,7 +105,7 @@ async fn delete(itemid: Path<String>, client: Data<RdsClient>) -> Result<Json<()
 }
 
 /// RPC-like action to archive an item.
-#[put("/{itemid}:archive")]
+#[actix_web::post("/{itemid}:archive")]
 #[tracing::instrument(name = "Request archive WorkItem", skip(client))]
 async fn archive(
     itemid: Path<String>,

@@ -4,11 +4,16 @@
  */
 
 //! End-to-end tests for the Rest SES happy-path API.
-//! This uses real aws environments and real aws services.
+//! This uses real AWS environments and real AWS services.
 //! It will result in billing for an AWS account!
 //! All tests are ignored by default.
+use std::collections::HashSet;
+
 use reqwest::StatusCode;
-use rest_ses::{params, work_item::WorkItem};
+use rest_ses::{
+    params,
+    work_item::{WorkItem, WorkItemArchived},
+};
 use uuid::Uuid;
 
 use crate::{
@@ -16,17 +21,11 @@ use crate::{
     work_item::{fake_description, fake_guide, fake_name},
 };
 
-/// Send JSON to the create endpoint, expect 200 back, and check the database for that item.
-#[ignore]
-#[tokio::test]
-async fn post_workitem_returns_200() {
-    let (app, rds) = spawn_app().await;
-
+async fn create_test_item(client: &reqwest::Client, app: &str) -> Uuid {
     let name = fake_name();
     let guide = fake_guide();
     let description = fake_description();
 
-    let client = reqwest::Client::new();
     let response = client
         .post(format!("{app}/api/items"))
         .header("content-type", "application/json")
@@ -36,8 +35,6 @@ async fn post_workitem_returns_200() {
         .send()
         .await
         .expect("Request failed");
-
-    eprintln!("{response:?}");
 
     let status = response.status();
     let body = response.text().await.expect("response missing a body");
@@ -50,10 +47,54 @@ async fn post_workitem_returns_200() {
     let work_item: WorkItem =
         serde_json::from_str(body.as_str()).expect("failed to parse response body");
 
+    work_item.idwork().to_owned()
+}
+
+async fn get_items(
+    client: &reqwest::Client,
+    app: &str,
+    archived: WorkItemArchived,
+) -> HashSet<Uuid> {
+    let query: Option<bool> = match archived {
+        WorkItemArchived::All => None,
+        WorkItemArchived::Active => Some(false),
+        WorkItemArchived::Archived => Some(true),
+    };
+
+    let mut request = client.get(format!("{app}/api/items/"));
+    if let Some(query) = query {
+        request = request.query(&[("archived", query)])
+    }
+    let response = request.send().await.expect("Could not get all items");
+
+    assert_eq!(response.status(), StatusCode::OK);
+
+    let body = response.text().await.expect("response missing body");
+
+    println!("\n\nResponse body: \n\n{}\n\n", body);
+
+    let items: Vec<WorkItem> =
+        serde_json::from_str(body.as_str()).expect("Failed to parse all_items_response");
+
+    let item_ids: HashSet<Uuid> = items.iter().map(|item| item.idwork().to_owned()).collect();
+
+    item_ids
+}
+
+/// Send JSON to the create endpoint, expect 200 back, and check the database for that item.
+#[ignore]
+#[tokio::test]
+async fn post_workitem_returns_200() {
+    let (app, rds) = spawn_app().await;
+
+    let client = reqwest::Client::new();
+
+    let id = create_test_item(&client, app.as_str()).await;
+
     let result = rds
         .execute_statement()
         .sql("SELECT idwork FROM Work WHERE idwork = :idwork;")
-        .set_parameters(params![("idwork", work_item.idwork())])
+        .set_parameters(params![("idwork", id)])
         .send()
         .await
         .expect("failed to query rds");
@@ -71,27 +112,8 @@ async fn post_workitem_returns_200() {
 async fn get_workitem_returns_200() {
     let (app, _) = spawn_app().await;
 
-    let name = fake_name();
-    let guide = fake_guide();
-    let description = fake_description();
-
     let client = reqwest::Client::new();
-    let response = client
-        .post(format!("{app}/api/items"))
-        .header("content-type", "application/json")
-        .body(format!(
-            r#"{{"name":"{name}","guide":"{guide}","description":"{description}"}}"#
-        ))
-        .send()
-        .await
-        .expect("Request failed");
-
-    let body = response.text().await.expect("response missing a body");
-    let work_item: WorkItem =
-        serde_json::from_str(body.as_str()).expect("failed to parse response body");
-    let id = work_item.idwork();
-
-    eprintln!("\n\nLooking for {id}\n\n");
+    let id = create_test_item(&client, app.as_str()).await;
 
     let response = client
         .get(format!("{app}/api/items/{id}",))
@@ -101,8 +123,6 @@ async fn get_workitem_returns_200() {
 
     let status = response.status();
     let body = response.text().await.expect("response missing a body");
-
-    eprintln!("{}", body);
 
     assert!(
         status.is_success(),
@@ -117,7 +137,6 @@ async fn get_workitem_returns_404() {
     let (app, _) = spawn_app().await;
 
     let id = Uuid::new_v4().to_string();
-    eprintln!("\n\nLooking for {id}\n\n");
 
     let client = reqwest::Client::new();
     let response = client
@@ -129,11 +148,39 @@ async fn get_workitem_returns_404() {
     let status = response.status();
     let body = response.text().await.expect("response missing a body");
 
-    eprintln!("{}", body);
-
     assert_eq!(
         status,
         StatusCode::NOT_FOUND,
         "Response returned as not missing: {status} {body}"
     );
+}
+
+/// Create two items. Archive one. Assert both are returned for all, and each in their respective status requests.
+#[ignore]
+#[tokio::test]
+async fn archive_and_retrieve_by_status() {
+    let (app, _) = spawn_app().await;
+
+    let client = reqwest::Client::new();
+
+    // Create first item
+    let id_a = create_test_item(&client, app.as_str()).await;
+    let id_b = create_test_item(&client, app.as_str()).await;
+
+    // Archive id_b
+    client
+        .post(format!("{app}/api/items/{id_b}:archive"))
+        .send()
+        .await
+        .expect("Failed to archive item");
+
+    // Requst all
+    let all_item_ids = get_items(&client, app.as_str(), WorkItemArchived::All).await;
+    let active_item_ids = get_items(&client, app.as_str(), WorkItemArchived::Active).await;
+    let archived_item_ids = get_items(&client, app.as_str(), WorkItemArchived::Archived).await;
+
+    assert!(all_item_ids.contains(&id_a));
+    assert!(all_item_ids.contains(&id_b));
+    assert!(active_item_ids.contains(&id_a));
+    assert!(archived_item_ids.contains(&id_b));
 }
