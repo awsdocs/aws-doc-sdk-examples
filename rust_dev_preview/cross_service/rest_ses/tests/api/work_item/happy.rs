@@ -71,8 +71,6 @@ async fn get_items(
 
     let body = response.text().await.expect("response missing body");
 
-    println!("\n\nResponse body: \n\n{}\n\n", body);
-
     let items: Vec<WorkItem> =
         serde_json::from_str(body.as_str()).expect("Failed to parse all_items_response");
 

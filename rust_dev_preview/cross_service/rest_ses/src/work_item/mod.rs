@@ -114,7 +114,7 @@ mod test {
             "guide":"Rust",
             "status":"",
             "username":"David",
-            "archive":0
+            "archived":0
         }"#,
         )
         .unwrap();
@@ -132,13 +132,13 @@ mod test {
             "guide":"Rust",
             "status":"",
             "username":"David",
-            "archive":0
+            "archived":0
         }"#,
         )
         .unwrap();
 
         let ser_work_item = serde_json::to_string_pretty(&work_item).unwrap();
-        assert!(ser_work_item.contains(r#""archive": "active""#));
+        assert!(ser_work_item.contains(r#""archived": "active""#));
     }
 
     #[test]
@@ -151,7 +151,7 @@ mod test {
             "guide":"Rust",
             "status":"",
             "username":"David",
-            "archive":"active"
+            "archived":"active"
         }"#,
         )
         .unwrap();
