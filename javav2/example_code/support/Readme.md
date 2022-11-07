@@ -27,10 +27,11 @@ Code excerpts that show you how to call individual service functions.
 - [Add an attachment to a set](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (addAttachmentsToSet command)
 - [Create a case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (createCase command)
 - [Describe an attachment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeAttachment command)
-- [Get and display Support severity levels](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeSeverityLevels command)
-- [Get open support cases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCases command)
-- [List the communications of the support case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCommunications command)
-- [Resolve the support case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (resolveCase command)
+- [Describe services](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeServices command)
+- [Describe severity levels](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeSeverityLevels command)
+- [Describe cases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCases command)
+- [Describe communications](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCommunications command)
+- [Resolve case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (resolveCase command)
 
 ### Scenario 
 
