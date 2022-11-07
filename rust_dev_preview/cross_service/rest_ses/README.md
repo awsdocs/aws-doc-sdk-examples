@@ -59,74 +59,15 @@ cargo run
 
 ### Webpage
 
-The REST service is designed to work with the item tracker plugin in the Elwing web
-client. The item tracker plugin is a JavaScript application that lets you manage work
-items, send requests to the REST service, and see the results.
+The REST service is designed to work with the item tracker plugin in the Elwing web client.
+The item tracker plugin is a JavaScript application that lets you manage work items, send requests to the REST service, and see the results.
 
 #### Run Elwing and select the item tracker
 
 1.  Run Elwing by following the instructions in the [Elwing README](/resources/clients/react/elwing/README.md).
 1.  When Elwing starts, a web browser opens and browses to http://localhost:3000/.
 1.  Run the item tracker plugin by selecting **Item Tracker** in the left navigation bar.
-1.  This sends a request to the REST service to get any existing active items:
-    ```
-    GET http://localhost:8080/api/items?archived=false
-    ```
-1.  At first, the table is empty.
-
-    ![Work item tracker](images/item-tracker-start.png)
-
-1.  Select **Add item**, fill in the values, and select **Add** to add an item.
-
-    ![Add item](images/item-tracker-add-item.png)
-
-    This sends a POST request to the REST service with a JSON payload that contains the
-    work item.
-
-    ```
-    POST http://localhost:8080/api/items
-    {"name":"Me",
-     "guide":"Rust",
-     "description":"Show how to add an item",
-     "status":"In progress",
-     "archived":false}
-    ```
-
-1.  After you've added items, they're displayed in the table. You can archive an active
-    item by selecting the **Archive** button next to the item.
-
-    ![Work item tracker with items](images/item-tracker-all-items.png)
-
-    This sends a PUT request to the REST service, specifying the item ID and the
-    `archive` action.
-
-    ```
-    PUT http://localhost:8080/api/items/8db8aaa4-6f04-4467-bd60-EXAMPLEGUID:archive
-    ```
-
-1.  Select a filter in the dropdown list, such as **Archived**, to get and display
-    only items with the specified status.
-
-        ![Work item tracker Archived items](images/item-tracker-archived-items.png)
-
-    This sends a GET request to the REST service with an `archived` query parameter.
-
-    ```
-    GET http://localhost:8080/api/items?archived=true
-    ```
-
-1.  Enter an email recipient and select **Send report** to send an email of active items.
-
-    ![Work item tracker send report](images/item-tracker-send-report.png)
-
-    This sends a POST request to the REST service with a `report` action.
-
-    ```
-    POST http://localhost:8080/api/items:report
-    ```
-
-    When your Amazon SES account is in the sandbox, both the sender and recipient
-    email addresses must be registered with Amazon SES.
+1.  Follow the Elwing [Item Tracker instructions](/resources/clients/react/elwing/src/plugins/item-tracker/README.md).
 
 ## Understand the example
 
@@ -134,41 +75,27 @@ This example uses the Actix web framework to host a local REST service and respo
 
 ### Start up
 
+When the program first starts, it loads environment and configuration information from `src/configuration.rs`.
+It then prepares its actix web resources and SDK clients in `src/startup.rs`.
+These helpers are also used in `test/startup.rs` to ensure the application is running in a consistent environment in development, testing, and production.
+
 ### Routing
 
-Top level
+Top level routing happens when creating the http server in `src/startup.rs`, with specific routes registered in `src/healthz.rs`, `src/collection.rs`, and `src/report.rs`.
+All routes are instrumented, and primarily serve as a facade between Actix's HTTP tooling and the SDK resources.
 
 ```Rust
-item_list_view = ItemList.as_view('item_list_api', storage)
-app.add_url_rule(
-    '/api/items', defaults={'iditem': None}, view_func=item_list_view, methods=['GET'],
-    strict_slashes=False)
-```
-
-HTTP requests are routed to methods in the [ItemList](item_list.py) and
-[Report](report.py) classes, which use webargs and marshmallow to handle argument
-parsing and data transformation.
-
-For example, the work item schema includes a field that is named `id` in the web page,
-but is named `iditem` in the data table. By defining a `data_key`, the marshmallow
-schema transforms this field automatically.
-
-```Rust
-class WorkItemSchema(Schema):
-    iditem = fields.Str(data_key='id')
-```
-
-The `ItemList` class contains methods that handle REST requests and use the
-`@use_args` and `@use_kwargs` decorators from webargs to parse incoming arguments.
-
-For example, the `get` method uses `@use_kwargs` to parse fields contained in the query
-string into arguments in the method signature, and then calls the underlying `storage`
-object to get work items from the DynamoDB table.
-
-```Rust
-@use_kwargs(WorkItemSchema, location='query')
-def get(self, iditem, archived=None):
-    work_items = self.storage.get_work_items(archived)
+/// Retrieve a single WorkItem, in a JSON body, specified by a URL parameter.
+#[actix_web::get("/{id}")]
+#[tracing::instrument(name = "Request Retrieve single WorkItem", skip(client))]
+async fn retrieve(
+    itemid: Path<String>,
+    client: Data<crate::client::RdsClient>,
+) -> Result<Json<crate::work_item::WorkItem>, crate::work_item::WorkItemError> {
+    crate::work_item::repository::retrieve(itemid.to_string(), &client)
+        .await
+        .map(Json)
+}
 ```
 
 ### Aurora Serverless repository
