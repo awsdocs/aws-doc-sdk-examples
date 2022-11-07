@@ -37,7 +37,7 @@ async fn make_key(client: &Client, key: &str) -> Result<(), Error> {
     let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
     let bytes = blob.as_ref();
 
-    let s = base64::encode(&bytes);
+    let s = base64::encode(bytes);
 
     println!();
     println!("Data key:");

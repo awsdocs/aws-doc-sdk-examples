@@ -34,8 +34,6 @@ jobs:
           VALIDATE_PHP_PHPCS: true
           VALIDATE_PYTHON: true
           VALIDATE_PYTHON_PYLINT: true
-          VALIDATE_RUST_CLIPPY: true
-          VALIDATE_RUST_2021: true
           VALIDATE_RUBY: true
           VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_CSHARP: true

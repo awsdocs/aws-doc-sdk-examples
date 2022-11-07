@@ -1130,6 +1130,14 @@ iam_ListPolicies:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_policies
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListPolicies
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listpolicies.handler.listpolicies
     C++:
       versions:
         - sdk_version: 1
@@ -1214,6 +1222,14 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.GetPolicy
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/GetPolicy
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.getpolicy.handler.getpolicy
     C++:
       versions:
         - sdk_version: 1
@@ -1335,6 +1351,14 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.attach_role_policy
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/AttachRolePolicy
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.attachrolepolicy.handler.attachrolepolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1439,6 +1463,14 @@ iam_ListAttachedRolePolicies:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_attached_role_policies
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListAttachedRolePolicies
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listattachedrolepolicies.handler.listattachedrolepolicies
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -1623,6 +1655,14 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_role
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/CreateRole
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.createrole.handler.createrole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1718,6 +1758,14 @@ iam_ListRoles:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_roles
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListRoles
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listroles.handler.listroles
   services:
     iam: {ListRoles}
 iam_GetRole:
@@ -1788,6 +1836,14 @@ iam_GetRole:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.get_role
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/GetRole
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.getrole.handler.getrole
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1911,6 +1967,14 @@ iam_ListRolePolicies:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_role_policies
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListRolePolicies
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listrolepolicies.handler.listrolepolicies
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
@@ -2009,6 +2073,14 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_user
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/CreateUser
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.createuser.handler.createuser
     Go:
       versions:
         - sdk_version: 2
@@ -2210,6 +2282,14 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_users
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListUsers
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listusers.handler.listusers
     Go:
       versions:
         - sdk_version: 2
@@ -2674,6 +2754,14 @@ iam_ListGroups:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.list_groups
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/ListGroups
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.listgroups.handler.listgroups
   services:
     iam: {ListGroups}
 iam_CreateServiceLinkedRole:
@@ -2735,6 +2823,14 @@ iam_CreateServiceLinkedRole:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.create_service_linked_role
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/CreateServiceLinkedRole
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.createservicelinkedrole.handler.createservicelinkedrole
   services:
     iam: {CreateServiceLinkedRole}
 iam_DeleteServiceLinkedRole:
