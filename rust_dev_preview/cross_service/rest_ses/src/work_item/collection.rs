@@ -113,7 +113,7 @@ async fn archive(
 ) -> Result<Json<WorkItem>, WorkItemError> {
     let mut item = super::repository::retrieve(itemid.to_string(), &client).await?;
 
-    item.archive = WorkItemArchived::Archived;
+    item.archived = WorkItemArchived::Archived;
 
     let item = super::repository::update(&item, &client).await?;
 

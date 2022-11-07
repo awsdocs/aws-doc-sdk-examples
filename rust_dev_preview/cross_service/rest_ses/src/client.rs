@@ -6,8 +6,6 @@
 //! Application logic aware wrappers around AWS SDK Clients.
 //!
 //! These wrappers add default ARNs for SDK resources the application accesses to common calls.
-use std::option::Option;
-
 use aws_config::SdkConfig;
 use aws_sdk_rdsdata::client::fluent_builders::ExecuteStatement;
 use aws_sdk_ses::client::fluent_builders::SendRawEmail;

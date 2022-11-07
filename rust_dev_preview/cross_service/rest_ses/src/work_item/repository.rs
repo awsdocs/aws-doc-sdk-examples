@@ -34,7 +34,7 @@ pub async fn create(item: WorkItem, client: &RdsClient) -> Result<WorkItem, Work
         "#,
         )
         .set_parameters(params![
-            ("idwork", item.idwork),
+            ("idwork", item.id),
             ("username", item.name),
             ("date", format!("{}", item.date.format(RDS_DATE_FORMAT))),
             ("description", item.description),
@@ -136,18 +136,18 @@ pub async fn update(item: &WorkItem, client: &RdsClient) -> Result<WorkItem, Wor
         "#,
         )
         .set_parameters(params![
-            ("idwork", item.idwork),
+            ("idwork", item.id),
             ("username", item.name),
             ("date", format!("{}", item.date.format(RDS_DATE_FORMAT))),
             ("description", item.description),
             ("guide", item.guide),
             ("status", item.status),
-            ("archive", format!("{}", u8::from(&item.archive)))
+            ("archive", format!("{}", u8::from(&item.archived)))
         ])
         .send()
         .await
         .map_err(|err| {
-            tracing::error!("Failed to update user: {id} {err:?}", id = item.idwork);
+            tracing::error!("Failed to update user: {id} {err:?}", id = item.id);
             WorkItemError::RDSError(err.into())
         })?;
     retrieve(item.idwork().to_string(), client).await
@@ -183,7 +183,7 @@ fn parse_rds_output(
     }?;
 
     // Are there records?
-    // Because the request specified `format_records_as(RecordFormatType::Json)`, this field should be pressend.
+    // Because the request specified `format_records_as(RecordFormatType::Json)`, this field should be pressent.
     // If it's not, Amazon RDS did something weird and it gets returned as an RDSError.
     let records = match data.formatted_records() {
         Some(records) => Ok(records),

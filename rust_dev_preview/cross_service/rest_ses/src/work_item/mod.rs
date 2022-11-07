@@ -22,11 +22,11 @@ use uuid::Uuid;
 /// `name` has an alias of `username`, to match the FE spec with the table definition.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct WorkItem {
-    #[serde(default = "uuid::Uuid::new_v4")]
-    idwork: Uuid,
+    #[serde(default = "uuid::Uuid::new_v4", alias = "idwork")]
+    id: Uuid,
     #[serde(default)]
     date: NaiveDate,
-    /// This alias is for the frontend using `username` in some contexts, but the backend using `name`.
+    /// This alias is for the frontend using `name` in some contexts, but the backend using `username`.
     #[serde(alias = "username")]
     name: String,
     #[serde(default)]
@@ -36,12 +36,12 @@ pub struct WorkItem {
     #[serde(default)]
     status: String,
     #[serde(default)]
-    archive: WorkItemArchived,
+    archived: WorkItemArchived,
 }
 
 impl WorkItem {
     pub fn idwork(&self) -> &Uuid {
-        &self.idwork
+        &self.id
     }
     pub fn date(&self) -> &NaiveDate {
         &self.date
@@ -63,11 +63,11 @@ impl WorkItem {
 /// The various WorkItem specific errors that can occur.
 #[derive(Debug, Error)]
 pub enum WorkItemError {
-    /// An error when the requested itemid is missing.
+    /// An error when the requested item ID is missing.
     #[error("Missing item: {0}")]
     MissingItem(String),
 
-    /// An error in the underlying RDSError service.
+    /// An error in the underlying RDS client.
     #[error("RDS Failed: {0}")]
     RDSError(aws_sdk_rdsdata::Error),
 
@@ -119,7 +119,7 @@ mod test {
         )
         .unwrap();
 
-        assert_eq!(work_item.archive, WorkItemArchived::Active);
+        assert_eq!(work_item.archived, WorkItemArchived::Active);
     }
 
     #[test]
@@ -156,6 +156,6 @@ mod test {
         )
         .unwrap();
 
-        assert_eq!(work_item.archive, WorkItemArchived::Active);
+        assert_eq!(work_item.archived, WorkItemArchived::Active);
     }
 }
