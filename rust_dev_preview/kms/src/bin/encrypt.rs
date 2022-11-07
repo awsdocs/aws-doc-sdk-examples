@@ -50,9 +50,9 @@ async fn encrypt_string(
     let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
     let bytes = blob.as_ref();
 
-    let s = base64::encode(&bytes);
+    let s = base64::encode(bytes);
 
-    let mut ofile = File::create(&out_file).expect("unable to create file");
+    let mut ofile = File::create(out_file).expect("unable to create file");
     ofile.write_all(s.as_bytes()).expect("unable to write");
 
     if verbose {

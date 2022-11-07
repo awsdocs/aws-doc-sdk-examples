@@ -47,7 +47,7 @@ async fn convert_text(verbose: bool, client: &aws_sdk_polly::Client, filename: &
         println!();
     }
 
-    let content = fs::read_to_string(&filename);
+    let content = fs::read_to_string(filename);
 
     let resp = client
         .synthesize_speech()

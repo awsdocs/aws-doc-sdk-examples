@@ -28,7 +28,7 @@ struct Opt {
 // Create speech from text.
 // snippet-start:[polly.rust.synthesize-speech]
 async fn synthesize(client: &Client, filename: &str) -> Result<(), Error> {
-    let content = fs::read_to_string(&filename);
+    let content = fs::read_to_string(filename);
 
     let resp = client
         .synthesize_speech()
