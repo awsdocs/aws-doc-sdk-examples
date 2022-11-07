@@ -6,8 +6,8 @@
 /**
  *  PocoHTTPHandler.h/.cpp
  *
- *  The code in these 2 file implements a Poco HTTP server.  This code is designed
- *  to be re-used unmodified across multiple examples.
+ *  The code in these two file implements a Poco HTTP server.  This code is designed
+ *  to be reused unmodified across multiple examples.
  *
  *  To run the example, refer to the instructions in the ReadMe.
  */
@@ -107,7 +107,7 @@ int AwsDoc::PocoImpl::PocoHTTPServer::main(const std::vector<std::string> &) {
     pocoHTTPServer.start();
     std::cout << "\nPoco HTTP server started" << std::endl;
 
-    waitForTerminationRequest();  // wait for CTRL-C or kill
+    waitForTerminationRequest();  // Wait for CTRL-C or kill.
 
     std::cout << "\nPoco HTTP shutting down..." << std::endl;
     pocoHTTPServer.stop();

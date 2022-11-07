@@ -1,5 +1,5 @@
 
-# Create an item tracker web app using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the AWS SDK for C++.
+# Create an item tracker web app using Amazon RDS, Amazon SES, and the AWS SDK for C++
 
 ## Overview
 This example code creates an HTTP server which implements the following APIs.
@@ -9,17 +9,17 @@ This example code creates an HTTP server which implements the following APIs.
 - `POST /items` to create a new item in the collection.
 - `PUT /items/{item_id}` to update an individual item. 
 - `PUT /items/{item_id}:archive` to move an individual item to the `archived` status.
-- `POST /items:report` to generate a report. The body may accept an `email` field with a string email address.
+- `POST /items:report` to generate a report. The body can accept an `email` field with a string email address.
 
-The data for these APIs is stored in an Amazon RDS database. The email report is sent using Amazon SES.
+The data for these APIs is stored in an Amazon Relational Database Service (Amazon RDS) database. The email report is sent using Amazon Simple Email Service (Amazon SES).
 
-This example uses C++ code, Javascript React code, and AWS Cloud Development Kit (AWS CDK) code.
+This example uses C++ code, JavaScript React code, and AWS Cloud Development Kit (AWS CDK) code.
 
-1. The example code in this folder creates an HTTP server which accesses Amazon services using the AWS SDK for C++. 
+1. The example code in this folder creates an HTTP server which accesses AWS services using the AWS SDK for C++. 
 
-2. A client Javascript React web app is created using the code at [resources/clients/react/elwing](../../../../resources/clients/react/elwing/).
+2. A client JavaScript React web app is created using the code at [resources/clients/react/elwing](../../../../resources/clients/react/elwing/).
 
-3. The Aurora serverless resources  are created using the AWS CDK code at [resources/cdk/aurora_serverless_app](../../../../resources/cdk/aurora_serverless_app). 
+3. The Amazon Aurora Serverless resources  are created using the AWS CDK code at [resources/cdk/aurora_serverless_app](../../../../resources/cdk/aurora_serverless_app). 
 
 ## ⚠️ Important
 
@@ -31,7 +31,7 @@ This example uses C++ code, Javascript React code, and AWS Cloud Development Kit
 ### Prerequisites
 
 * Install the [AWS SDK for C++](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html).
-* Install the [Conan C++ package manager](https://conan.io/), which is used  by this example to install dependencies. 
+* Install the [Conan C++ package manager](https://conan.io/), which is used by this example to install dependencies. 
 
 ## Create the resources 
 
@@ -44,12 +44,12 @@ A [verified identity](https://docs.aws.amazon.com/ses/latest/dg/verify-addresses
 
 ## Build the code
 
-### Open a terminal in the code example's directory and create a build subdirectory.
+### Open a terminal in the code example's directory and create a build subdirectory
 
 `mkdir build`  
 `cd build`
 
-### Install the Poco library using the Conan package manager.  
+### Install the Poco library using the Conan package manager
 
 On Linux and Mac.
 
@@ -59,12 +59,12 @@ On Windows.
 
 `conan install .. --build=missing -o poco:shared=True -s build_type=Debug`
 
-### Build the example using CMake and Make.
+### Build the example using CMake and Make
 
 `cmake ..`  
 `make ..`
 
-## Run the example.
+## Run the example
 
 Run the HTTP server from the command line with the necessary arguments.
 
@@ -76,7 +76,7 @@ The "email" is a [verified identity](https://docs.aws.amazon.com/ses/latest/dg/v
 
 Now run the [client app](../../../../resources/clients/react/elwing/) to communicate with the "run_serverless_aurora" HTTP server. The [ReadMe](../../../../resources/clients/react/elwing/README.md) contains instructions for running the client web app.
 
-When both the client app and the HTTP server app are running, AWS resources can be manipulated from a web page. The client app will appear in your web browser. Select "Item Tracker" in the webpage sidebar to open the webpage which communicates with the HTTP server.
+When both the client app and the HTTP server app are running, AWS resources can be manipulated from a webpage. The client app will appear in your web browser. Select "Item Tracker" in the webpage sidebar to open the webpage which communicates with the HTTP server.
 
 ## Delete the resources
 

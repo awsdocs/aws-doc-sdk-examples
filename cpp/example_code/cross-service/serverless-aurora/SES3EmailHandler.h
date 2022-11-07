@@ -6,7 +6,7 @@
 /**
  *  SES3EmailHandler.h/.cpp
  *
- *  The code in these 2 file implements the sending of a multi-part email message containing
+ *  The code in these 2 file implements the sending of a multipart email message containing
  *  plain text, HTML text, and an attachment file using Amazon Simple Email Service
  *  (Amazon SES).
  *

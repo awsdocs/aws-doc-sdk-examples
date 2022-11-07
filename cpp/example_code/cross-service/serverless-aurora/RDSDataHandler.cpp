@@ -5,8 +5,8 @@
 /**
  *  RDSDataHandler.h/.cpp
  *
- *  The code in these 2 file implements the creation, updating and querying of a table in
- *  an Amazon Relational Database Service (Amazon RDS).
+ *  The code in these two file creates, updates and queries an Amazon Relational
+ *  Database Service (Amazon RDS) table.
  *
  * To run the example, refer to the instructions in the ReadMe.
  *
@@ -167,7 +167,7 @@ bool AwsDoc::CrossService::RDSDataHandler::addWorkItem(
         parameters.push_back(parameter);
     }
 
-    // Add 'archived' boolean to parameters.
+    // Add 'archived' Boolean to parameters.
     Aws::RDSDataService::Model::SqlParameter parameter;
 
     parameter.SetName(ARCHIVED_COLUMN);
@@ -268,7 +268,7 @@ AwsDoc::CrossService::RDSDataHandler::getWorkItems(WorkItemStatus status,
     return outcome.IsSuccess();
 }
 
-//! Routine which updates a work item setting it as archived.
+//! Routine which updates a work item, setting it as archived.
 /*!
  \sa RDSDataHandler::setWorkItemToArchive()
  \param id: ID of work item.
@@ -282,7 +282,7 @@ bool AwsDoc::CrossService::RDSDataHandler::setWorkItemToArchive(const Aws::Strin
 
     std::vector<Aws::RDSDataService::Model::SqlParameter> parameters;
 
-    // Add 'archived' boolean to parameters.
+    // Add 'archived' Boolean to parameters.
     Aws::RDSDataService::Model::SqlParameter parameter;
 
     parameter.SetName(ARCHIVED_COLUMN);
@@ -353,7 +353,7 @@ bool AwsDoc::CrossService::RDSDataHandler::updateWorkItem(
         parameters.push_back(parameter);
     }
 
-    // Add 'archived' boolean to parameters.
+    // Add 'archived' Boolean to parameters.
     Aws::RDSDataService::Model::SqlParameter parameter;
 
     parameter.SetName(ARCHIVED_COLUMN);

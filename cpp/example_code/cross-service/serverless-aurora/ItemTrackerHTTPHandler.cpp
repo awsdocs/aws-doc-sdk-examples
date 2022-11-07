@@ -6,7 +6,7 @@
 /**
  *  ItemTrackerHTTPHandler.h/.cpp
  *
- *  The code in these file implements the HTTP server portion of the Aurora serverless
+ *  The code in these two files implements the HTTP server portion of the Amazon Aurora Serverless
  *  cross-service example.
  *
  *  To run the example, refer to the instructions in the ReadMe.

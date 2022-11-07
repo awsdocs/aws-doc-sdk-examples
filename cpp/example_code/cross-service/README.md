@@ -13,7 +13,7 @@ A cross-service example is an application that works across multiple AWS service
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Cross-service examples
-* [Severless aurora item tracker](serverless-aurora/README.md). Create an item tracker web app using Amazon Relational Database Service (Amazon RDS), and Amazon Simple Email Service (Amazon SES).
+* [Amazon Aurora Severless item tracker](serverless-aurora/README.md) Create an item tracker web app using Amazon Relational Database Service (Amazon RDS), and Amazon Simple Email Service (Amazon SES).
  
 
 

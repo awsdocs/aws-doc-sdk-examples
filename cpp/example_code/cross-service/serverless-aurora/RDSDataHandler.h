@@ -6,8 +6,8 @@
 /**
  *  RDSDataHandler.h/.cpp
  *
- *  The code in these 2 file implements the creation, updating and querying of a table in
- *  an Amazon Relational Database Service (Amazon RDS).
+ *  The code in these two file creates, updates and queries an Amazon Relational
+ *  Database Service (Amazon RDS) table.
  *
  *  To run the example, refer to the instructions in the ReadMe.
  */
@@ -56,7 +56,7 @@ namespace AwsDoc {
              */
             bool initializeTable(bool recreateTable);
 
-            //! Routine which updates a work item setting it as archived.
+            //! Routine which updates a work item, setting it as archived.
             /*!
              \sa RDSDataHandler::setWorkItemToArchive()
              \param id: ID of work item.

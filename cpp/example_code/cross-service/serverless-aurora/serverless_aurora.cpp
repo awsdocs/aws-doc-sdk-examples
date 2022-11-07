@@ -18,7 +18,7 @@
 
 static const Aws::String TABLE_NAME("items");
 
-//! Routine which runs serverless Aurora as an HTTP server using the Poco library.
+//! Routine which runs Amazon Aurora Serverless as an HTTP server using the Poco library.
 /*!
  \sa runServerLessAurora
  \param database: The Amazon Relational Database Service (Amazon RDS) database name.

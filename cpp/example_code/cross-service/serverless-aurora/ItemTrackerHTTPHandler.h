@@ -6,8 +6,8 @@
 /**
  *  ItemTrackerHTTPHandler.h/.cpp
  *
- *  The code in these 2 files implements the HTTP server portion of the Amazon Aurora
- *  serverless, cross-service example.
+ *  The code in these two files implements the HTTP server portion of the Amazon Aurora
+ *  Serverless cross-service example.
  *
  *  To run the example, refer to the instructions in the ReadMe.
 */
@@ -101,7 +101,7 @@ namespace AwsDoc {
             virtual bool
             getWorkItemWithId(const Aws::String &id, WorkItem &workItem) = 0;
 
-            //! Routine which updates a work item setting it as archived.
+            //! Routine which updates a work item, setting it as archived.
             /*!
              \sa RDSDataReceiver::setWorkItemToArchive()
              \param id: ID of work item.
