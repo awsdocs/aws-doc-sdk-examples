@@ -37,7 +37,7 @@ Code excerpts that show you how to call individual service functions.
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Perform AWS Support operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (Multiple commands)
+- [Get started with cases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (Multiple commands)
 
 ## Run the AWS Support Java file
 
@@ -45,6 +45,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+
+In addition, you must have the AWS Business Support Plan to use the AWS Support Java API. For more information, see: https://aws.amazon.com/premiumsupport/plans/.
 
 
  ## Test the AWS Support Java file
