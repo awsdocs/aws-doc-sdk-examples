@@ -53,6 +53,7 @@ async fn show_cores(client: &Client) -> Result<(), Error> {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display information.
 #[tokio::main]
+#[allow(clippy::result_large_err)]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
     let Opt { region, verbose } = Opt::from_args();

@@ -36,7 +36,7 @@ async fn make_string(client: &Client, length: i32) -> Result<(), Error> {
     let blob = resp.plaintext.expect("Could not get encrypted text");
     let bytes = blob.as_ref();
 
-    let s = base64::encode(&bytes);
+    let s = base64::encode(bytes);
 
     println!();
     println!("Data key:");

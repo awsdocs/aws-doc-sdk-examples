@@ -3,6 +3,7 @@
 *.user
 *.sln.docstates
 *.local.json
+*.development.json
 
 # Build results
 

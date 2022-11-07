@@ -67,7 +67,7 @@ async fn reencrypt_string(
     let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
     let bytes = blob.as_ref();
 
-    let s = base64::encode(&bytes);
+    let s = base64::encode(bytes);
     let o = &output_file;
 
     let mut ofile = File::create(o).expect("unable to create file");

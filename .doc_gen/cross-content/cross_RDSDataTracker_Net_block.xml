@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to use the &NETlong; to create a web application that tracks work items in an &AURlong; database and
+        emails reports by using &SESlong; (&SES;).
+        This example uses a front end built with React.js to interact with a RESTful .NET backend.
+    </para>
+    <para>
+        <itemizedlist>
+            <listitem><para>Integrate a React web application with &AWS; services.</para></listitem>
+            <listitem><para>List, add, update, and delete items in an &AUR; table.</para></listitem>
+            <listitem><para>Send an email report of filtered work items using &SES;.</para></listitem>
+            <listitem><para>Deploy and manage example resources with the included &CFNlong; script.</para></listitem>
+        </itemizedlist>
+    </para>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/cross-service/AuroraItemTracker">GitHub</ulink>.
+    </para>
+</block>
