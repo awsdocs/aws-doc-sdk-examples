@@ -1,9 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative "../cw-ruby-example-create-alarm"
+require_relative "../create_alarm"
+require "rspec"
 
-describe "#alarm_created_or_updated?" do
+describe "#alarm_created_or_updated?", :integ do
   let(:alarm_name) { "ObjectsInBucket" }
   let(:alarm_description) { "Objects exist in this bucket for more than 1 day." }
   let(:metric_name) { "NumberOfObjects" }

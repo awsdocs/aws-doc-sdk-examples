@@ -1,9 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative "../cw-ruby-example-metrics-basics"
+require_relative "../metrics_basics"
+require "rspec"
 
-describe "#datapoint_added_to_metric?" do
+describe "#datapoint_added_to_metric?", :integ do
   let(:metric_namespace) { "SITE/TRAFFIC" }
   let(:metric_name) { "UniqueVisitors" }
   let(:dimension_name) { "SiteName" }
@@ -33,7 +34,7 @@ describe "#datapoint_added_to_metric?" do
   end
 end
 
-describe "list_metrics_for_namespace" do
+describe "list_metrics_for_namespace", :integ do
   let(:metric_namespace) { "SITE/TRAFFIC" }
   let(:cloudwatch_client) do
     Aws::CloudWatch::Client.new(

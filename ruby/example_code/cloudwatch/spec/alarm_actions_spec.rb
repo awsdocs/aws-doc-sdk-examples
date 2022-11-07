@@ -1,29 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative "../cw-ruby-example-alarm-basics"
+require_relative "../alarm_actions"
+require "rspec"
 
-describe "#list_alarms" do
-  let(:cloudwatch_client) do
-    Aws::CloudWatch::Client.new(
-      stub_responses: {
-        describe_alarms: {
-          metric_alarms: [
-            {
-              alarm_name: "ObjectsInBucket"
-            }
-          ]
-        }
-      }
-    )
-  end
-
-  it "lists information about alarms" do
-    expect { list_alarms(cloudwatch_client) }.not_to raise_error
-  end
-end
-
-describe "#alarm_created_or_updated?" do
+describe "#alarm_created_or_updated?", :integ do
   let(:alarm_name) { "ObjectsInBucket" }
   let(:alarm_description) { "Objects exist in this bucket for more than 1 day." }
   let(:metric_name) { "NumberOfObjects" }
@@ -76,19 +57,19 @@ describe "#alarm_created_or_updated?" do
   end
 end
 
-describe "#alarm_deleted?" do
+describe "#alarm_actions_disabled?", :integ do
   let(:alarm_name) { "ObjectsInBucket" }
   let(:cloudwatch_client) do
     Aws::CloudWatch::Client.new(
       stub_responses: {
-        delete_alarms: {}
+        disable_alarm_actions: {}
       }
     )
   end
 
-  it "deletes an alarm" do
+  it "disables actions for an alarm" do
     expect(
-      alarm_deleted?(cloudwatch_client, alarm_name)
+      alarm_actions_disabled?(cloudwatch_client, alarm_name)
     ).to be(true)
   end
 end

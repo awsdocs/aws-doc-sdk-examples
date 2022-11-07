@@ -1,9 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative "../cw-ruby-example-show-alarms"
+require_relative "../show_alarms"
+require "rspec"
 
-describe "#describe_metric_alarms" do
+describe "#describe_metric_alarms", :integ do
   let(:metric_namespace) { "SITE/TRAFFIC" }
   let(:metric_name) { "UniqueVisitors" }
   let(:dimension_name) { "SiteName" }
