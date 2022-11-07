@@ -66,5 +66,6 @@ Define this value to successfully run the JUnit tests:
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
 * [Developer Guide - AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html).
+* [Interface SupportClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/support/SupportClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
