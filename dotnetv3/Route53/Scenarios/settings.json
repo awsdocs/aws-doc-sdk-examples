@@ -1,0 +1,18 @@
+{
+  "DomainName": "example.com",
+  "DurationInYears": 1,
+  "AutoRenew": true,
+  "Contact": {
+    "FirstName": "Martha",
+    "LastName": "Rivera",
+    "ContactType": "PERSON",
+    "OrganizationName": "Example",
+    "AddressLine1": "1 Main Street",
+    "City": "Anytown",
+    "State": "WA",
+    "CountryCode": "US",
+    "ZipCode": "98101",
+    "PhoneNumber": "+1.8005551212",
+    "Email": "mrivera@example.com"
+  }
+}
