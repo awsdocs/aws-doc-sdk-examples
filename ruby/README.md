@@ -27,16 +27,22 @@ To request a cross-service example, create an issue in the
 *  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-### Prerequisites
+## Get started
 
-* You must have an AWS account, and have your default credentials and AWS Region
-configured as described in the 
-[AWS Tools and SDKs Shared Configuration and
-Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-* Ruby 3.0.0 or later
-* RSpec 3.10 or later (to run tests)
-* aws-sdk gem 3.1.0 or later
-* bundler 2.3.8 or later (to use bundler to install gems)
+To begin, you must [set up an AWS account](../README.md#prerequisites-for-all-aws-sdks) and [configure credentials locally](../README.md#configuring-the-aws-sdks).
+
+To resolve Ruby-specific dependencies, you must start a command line session and navigate to this directory.
+
+First, verify your version of Ruby is at 3.1 using the following command:
+```bash
+ruby -v
+```
+
+Next, execute the following commands to resolve [Gemfile](Gemfile) dependencies:
+```bash
+gem install bundler
+bundle install
+```
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.
