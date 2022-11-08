@@ -26,7 +26,6 @@ public static class HelloRoute53Domains
 
         // You can use await and any of the async methods to get a response.
         var response = await route53Client.ListPricesAsync(new ListPricesRequest { Tld = "com" });
-        Console.WriteLine(new string('-', 80));
         Console.WriteLine($"Hello Amazon Route 53 Domains! Following are prices for .com domain operations:");
         var comPrices = response.Prices.FirstOrDefault();
         if (comPrices != null)
@@ -37,7 +36,6 @@ public static class HelloRoute53Domains
             Console.WriteLine($"\tChange Ownership: {comPrices.ChangeOwnershipPrice?.Price} {comPrices.ChangeOwnershipPrice?.Currency}");
             Console.WriteLine($"\tRestoration: {comPrices.RestorationPrice?.Price} {comPrices.RestorationPrice?.Currency}");
         }
-        Console.WriteLine(new string('-', 80));
     }
 }
 // snippet-end:[Route53.dotnetv3.HelloRoute53]

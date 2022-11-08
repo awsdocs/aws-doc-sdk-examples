@@ -15,7 +15,7 @@ route-53_Hello:
               snippet_tags:
                 - Route53.dotnetv3.HelloRoute53
   services:
-    route-53: {ListPrices}
+    route53-domains: {ListPrices}
 route-53_CheckDomainAvailability:
   title: Check the availability of a domain using an &AWS; SDK
   title_abbrev: Check domain availability
@@ -32,7 +32,7 @@ route-53_CheckDomainAvailability:
               snippet_tags:
                 - Route53.dotnetv3.CheckDomainAvailability
   services:
-    route-53: {CheckDomainAvailability}
+    route53-domains: {CheckDomainAvailability}
 route-53_CheckDomainTransferability:
   title: Check the transferability of a domain using an &AWS; SDK
   title_abbrev: Check domain transferability
@@ -49,7 +49,7 @@ route-53_CheckDomainTransferability:
               snippet_tags:
                 - Route53.dotnetv3.CheckDomainTransferability
   services:
-    route-53: {CheckDomainTransferability}
+    route53-domains: {CheckDomainTransferability}
 route-53_GetDomainDetails:
   title: Get &R53; domain details using an &AWS; SDK
   title_abbrev: Get domain details
@@ -66,7 +66,7 @@ route-53_GetDomainDetails:
               snippet_tags:
                 - Route53.dotnetv3.GetDomainDetail
   services:
-    route-53: {GetDomainDetail}
+    route53-domains: {GetDomainDetail}
 route-53_GetDomainSuggestions:
   title: Get &R53; domain name suggestions using an &AWS; SDK
   title_abbrev: Get suggested domain names
@@ -83,7 +83,7 @@ route-53_GetDomainSuggestions:
               snippet_tags:
                 - Route53.dotnetv3.GetDomainSuggestions
   services:
-    route-53: {GetDomainSuggestions}
+    route53-domains: {GetDomainSuggestions}
 route-53_GetOperationDetails:
   title: Get details on a &R53; operation using an &AWS; SDK
   title_abbrev: Get operation details
@@ -100,7 +100,7 @@ route-53_GetOperationDetails:
               snippet_tags:
                 - Route53.dotnetv3.GetOperationDetail
   services:
-    route-53: {GetOperationDetail}
+    route53-domains: {GetOperationDetail}
 route-53_ListPrices:
   title: List &R53; domain prices using an &AWS; SDK
   title_abbrev: List prices
@@ -117,7 +117,7 @@ route-53_ListPrices:
               snippet_tags:
                 - Route53.dotnetv3.ListPrices
   services:
-    route-53: {ListPrices}
+    route53-domains: {ListPrices}
 route-53_ListDomains:
   title: List &R53; registered domains using an &AWS; SDK
   title_abbrev: List domains
@@ -134,7 +134,7 @@ route-53_ListDomains:
               snippet_tags:
                 - Route53.dotnetv3.ListDomains
   services:
-    route-53: {ListDomains}
+    route53-domains: {ListDomains}
 route-53_ListHostedZones:
   title: Get a list of the public and private &R53; hosted zones using an &AWS; SDK
   title_abbrev: Get a list of the public and private hosted zones
@@ -151,7 +151,7 @@ route-53_ListHostedZones:
               snippet_tags:
                 - route53.rust.route53-helloworld
   services:
-    route-53: {ListPrices}
+    route-53: {ListHostedZones}
 route-53_ListOperations:
   title: List &R53; operations using an &AWS; SDK
   title_abbrev: List operations
@@ -168,7 +168,7 @@ route-53_ListOperations:
               snippet_tags:
                 - Route53.dotnetv3.ListOperations
   services:
-    route-53: {ListOperations}
+    route53-domains: {ListOperations}
 route-53_RegisterDomain:
   title: Register a domain with &R53; using an &AWS; SDK
   title_abbrev: Register domain
@@ -185,7 +185,7 @@ route-53_RegisterDomain:
               snippet_tags:
                 - Route53.dotnetv3.RegisterDomain
   services:
-    route-53: {RegisterDomain}
+    route53-domains: {RegisterDomain}
 route-53_ViewBilling:
   title: View &R53; billing records using an &AWS; SDK
   title_abbrev: View billing
@@ -202,7 +202,7 @@ route-53_ViewBilling:
               snippet_tags:
                 - Route53.dotnetv3.ViewBilling
   services:
-    route-53: {ViewBilling}
+    route53-domains: {ViewBilling}
 route-53_Scenario_GetStartedRoute53Domains:
   title: Get started with &R53; domains using an &AWS; SDK
   title_abbrev: Get started with domains
@@ -232,6 +232,6 @@ route-53_Scenario_GetStartedRoute53Domains:
               snippet_tags:
                 - Route53.dotnetv3.Route53Wrapper
   services:
-    route-53: {CheckDomainAvailability, CheckDomainTransferability, GetDomainDetail, GetDomainSuggestions,
+    route53-domains: {CheckDomainAvailability, CheckDomainTransferability, GetDomainDetail, GetDomainSuggestions,
                 GetOperationDetail, ListPrices, ListDomains, ListOperations,
                 RegisterDomain, ViewBilling}
