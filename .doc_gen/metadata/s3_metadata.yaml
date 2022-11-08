@@ -137,7 +137,7 @@ s3_CopyObject:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.S3_Basics-CopyObject
+                - S3.dotnet35.CopyObject
     C++:
       versions:
         - sdk_version: 1
@@ -841,6 +841,23 @@ s3_DeleteBucketLifecycle:
                 - python.example_code.s3.DeleteBucketLifecycleConfiguration
   services:
     s3: {DeleteBucketLifecycle}
+s3_CancelMultipartUpload:
+  title: Cancel multipart uploads using an &AWS; SDK
+  title_abbrev: Cancel multipart uploads
+  synopsis: cancel multipart uploads.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.AbortMPUExample
+  services:
+    s3: { AbortMultipartUploads }
 s3_CompleteMultipartUpload:
   title: Complete the multipart upload action using an &AWS; SDK
   title_abbrev: Complete a multipart upload
@@ -1421,7 +1438,7 @@ s3_GetBucketAcl:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.GetACL
+                - S3.dotnetv3.GetBucketACLExample
     Java:
       versions:
         - sdk_version: 2
@@ -1476,7 +1493,7 @@ s3_PutBucketAcl:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.PutACL
+                - S3.dotnetv3.PutBucketACLExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1784,6 +1801,40 @@ s3_UploadPart:
                 - rust.example_code.s3.upload_part.CompletedMultipartUpload
   services:
     s3: {UploadPart}
+s3_UseDualStackEndpoint:
+  title: Enable the use of a dual-stack endpoint when creating an &S3; client using an &AWS; SDK
+  title_abbrev: Enable the use of a dual-stack endpoint.
+  synopsis: enable a dual-stack endpoint.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.DualStackEndpointExample
+  services:
+    s3: {}
+s3_PutBucketNotification:
+  title: Enable notifications for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Enable notifications.
+  synopsis: Enable notifications for an S3 bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.EnableNotificationsExample
+  services:
+    s3: {PutBucketNotification}
 s3_Scenario_UsingLargeFiles:
   title: Upload or download large files to and from &S3; using an &AWS; SDK
   title_abbrev: Upload or download large files
@@ -1867,10 +1918,15 @@ s3_Scenario_PresignedUrl:
           github: dotnetv3/S3/
           sdkguide:
           excerpts:
-            - description:
-                Generate a presigned URL and perform an upload using that URL.
-              snippet_tags:
-                - S3.dotnetv3.UploadUsingPresignedURLExample
+              - description:
+                  Generate a presigned URL that can perform an S3 action
+                  for a limited time.
+                snippet_tags:
+                  - S3.dotnetv3.GenPresignedUrlExample
+              - description:
+                  Generate a presigned URL and perform an upload using that URL.
+                snippet_tags:
+                  - S3.dotnetv3.UploadUsingPresignedURLExample
     Java:
       versions:
         - sdk_version: 2
