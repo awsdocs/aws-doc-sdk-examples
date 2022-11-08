@@ -398,6 +398,7 @@ rekognition:
   version: rekognition-2016-06-27
   api_ref: rekognition/latest/APIReference/Welcome.html
 route-53:
+  bundle: route53
   long: '&R53long;'
   short: '&R53;'
   sort: Route 53
@@ -405,6 +406,7 @@ route-53:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53-2013-04-01
 route53-domains:
+  bundle: route53
   long: '&R53DRlong;'
   short: '&R53DR;'
   sort: Route 53
@@ -412,6 +414,7 @@ route53-domains:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53domains-2014-05-15
 route53-recovery-cluster:
+  bundle: route53
   long: '&R53ARClong;'
   short: '&R53ARC;'
   sort: Application Recovery Controller
