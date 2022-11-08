@@ -1,12 +1,19 @@
 {
-  "parameterGroupName": "test-parameter-group",
-  "parameterGroupFamily": "mysql8.0",
-  "modifyParameterName": "auto_increment_offset",
-  "modifyParameterValue": "3",
-  "engineName": "mysql",
-  "engineVersion": "8.0.28",
-  "instanceIdentifier": "test-instance-1",
-  "instanceClass": "db.t3.micro",
-  "adminUserName": "admin",
-  "adminPassword": "EXAMPLEPASSWORD"
+  "DomainName": "example.com",
+  "DurationInYears": 1,
+  "AutoRenew": true,
+  "Contact": {
+    "FirstName": "Martha",
+    "LastName": "Rivera",
+    "ContactType": "PERSON",
+    "OrganizationName": "Example",
+    "AddressLine1": "1 Main Street",
+    "City": "Anytown",
+    "State": "WA",
+    "CountryCode": "US",
+    "ZipCode": "98101",
+    "PhoneNumber": "+1.8005551212",
+    "Email": "mrivera@example.com"
+  }
 }
+
