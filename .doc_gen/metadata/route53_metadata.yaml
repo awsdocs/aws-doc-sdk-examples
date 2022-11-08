@@ -1,4 +1,140 @@
 # zexi 0.4.3
+route-53_Hello:
+  title: Hello &R53;
+  title_abbrev: Hello &R53;
+  synopsis: get started using &R53;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.HelloRoute53
+  services:
+    route-53: {ListPrices}
+route-53_CheckDomainAvailability:
+  title: Check the availability of a domain using an &AWS; SDK
+  title_abbrev: Check domain availability
+  synopsis: check the availability of a domain.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.CheckDomainAvailability
+  services:
+    route-53: {CheckDomainAvailability}
+route-53_CheckDomainTransferability:
+  title: Check the transferability of a domain using an &AWS; SDK
+  title_abbrev: Check domain transferability
+  synopsis: check the transferability of a domain.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.CheckDomainTransferability
+  services:
+    route-53: {CheckDomainTransferability}
+route-53_GetDomainDetails:
+  title: Get &R53; domain details using an &AWS; SDK
+  title_abbrev: Get domain details
+  synopsis: get the details for a domain.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.GetDomainDetail
+  services:
+    route-53: {GetDomainDetail}
+route-53_GetDomainSuggestions:
+  title: Get &R53; domain name suggestions using an &AWS; SDK
+  title_abbrev: Get suggested domain names
+  synopsis: get domain name suggestions.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.GetDomainSuggestions
+  services:
+    route-53: {GetDomainSuggestions}
+route-53_GetOperationDetails:
+  title: Get details on a &R53; operation using an &AWS; SDK
+  title_abbrev: Get operation details
+  synopsis: get details on an operation.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.GetOperationDetail
+  services:
+    route-53: {GetOperationDetail}
+route-53_ListPrices:
+  title: List &R53; domain prices using an &AWS; SDK
+  title_abbrev: List prices
+  synopsis: list prices.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.ListPrices
+  services:
+    route-53: {ListPrices}
+route-53_ListDomains:
+  title: List &R53; registered domains using an &AWS; SDK
+  title_abbrev: List domains
+  synopsis: list the &R53; registered domains.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.ListDomains
+  services:
+    route-53: {ListDomains}
 route-53_ListHostedZones:
   title: Get a list of the public and private &R53; hosted zones using an &AWS; SDK
   title_abbrev: Get a list of the public and private hosted zones
@@ -15,4 +151,87 @@ route-53_ListHostedZones:
               snippet_tags:
                 - route53.rust.route53-helloworld
   services:
-    route-53: {ListHostedZones}
+    route-53: {ListPrices}
+route-53_ListOperations:
+  title: List &R53; operations using an &AWS; SDK
+  title_abbrev: List operations
+  synopsis: list operations.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.ListOperations
+  services:
+    route-53: {ListOperations}
+route-53_RegisterDomain:
+  title: Register a domain with &R53; using an &AWS; SDK
+  title_abbrev: Register domain
+  synopsis: register a domain.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.RegisterDomain
+  services:
+    route-53: {RegisterDomain}
+route-53_ViewBilling:
+  title: View &R53; billing records using an &AWS; SDK
+  title_abbrev: View billing
+  synopsis: view billing records.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.ViewBilling
+  services:
+    route-53: {ViewBilling}
+route-53_Scenario_GetStartedRoute53Domains:
+  title: Get started with &R53; domains using an &AWS; SDK
+  title_abbrev: Get started with domains
+  synopsis_list:
+    - List current domains.
+    - List operations in the past year.
+    - View billing for the account in the past year.
+    - View prices for domain types.
+    - Get domain suggestions.
+    - Check domain availability.
+    - Check domain transferability.
+    - Optionally request a domain registration.
+    - Get an operation detail.
+    - Optionally get a domain detail.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - Route53.dotnetv3.DomainBasics
+            - description: Wrapper methods used by the scenario for &R53; actions.
+              snippet_tags:
+                - Route53.dotnetv3.Route53Wrapper
+  services:
+    route-53: {CheckDomainAvailability, CheckDomainTransferability, GetDomainDetail, GetDomainSuggestions,
+                GetOperationDetail, ListPrices, ListDomains, ListOperations,
+                RegisterDomain, ViewBilling}
