@@ -10,11 +10,13 @@ When the list of items is longer than a specified threshold, it is included as a
 attachment to the email instead of in the body of the email itself.
 """
 
+import csv
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import logging
+from io import StringIO
 from botocore.exceptions import ClientError
 from flask import jsonify, render_template
 from flask.views import MethodView
@@ -64,11 +66,28 @@ class Report(MethodView):
         msg.attach(att)
         return msg
 
+    @staticmethod
+    def _render_csv(work_items):
+        """
+        Renders work items to CSV format, with the field names as a header row.
+
+        :param work_items: The work items to include in the CSV output.
+        :return: Work items rendered to a string in CSV format.
+        """
+        with StringIO() as csv_buffer:
+            writer = csv.DictWriter(
+                csv_buffer, ['description', 'guide', 'status', 'username', 'archived'],
+                extrasaction='ignore')
+            writer.writeheader()
+            writer.writerows(work_items)
+            csv_items = csv_buffer.getvalue()
+        return csv_items
+
     @use_kwargs({'email': fields.Str(required=True)})
     def post(self, email):
         """
         Gets a list of work items from storage, makes a report of them, and
-        sends an email. The email is sent in both HTMl and text format.
+        sends an email. The email is sent in both HTML and text format.
 
         When ten or fewer items are in the report, the items are included in the body
         of the email. Otherwise, the items are included as an attachment in CSV format.
@@ -84,14 +103,14 @@ class Report(MethodView):
         try:
             work_items = self.storage.get_work_items(archived=False)
             snap_time = datetime.now()
-            print(f"Sending report of {len(work_items)} items to {email}.")
+            logger.info(f"Sending report of %s items to %s.", len(work_items), email)
             html_report = render_template(
                 'report.html', work_items=work_items, item_count=len(work_items), snap_time=snap_time)
+            csv_items = self._render_csv(work_items)
             text_report = render_template(
-                'report.txt', work_items=work_items, item_count=len(work_items), snap_time=snap_time)
+                'report.txt', work_items=csv_items, item_count=len(work_items), snap_time=snap_time)
             if len(work_items) > 10:
-                item_csv = render_template('work_items.csv', work_items=work_items)
-                mime_msg = self._format_mime_message(email, text_report, html_report, item_csv)
+                mime_msg = self._format_mime_message(email, text_report, html_report, csv_items)
                 response = self.ses_client.send_raw_email(
                     Source=self.email_sender,
                     Destinations=[email],

@@ -12,11 +12,11 @@
     </para>
     <para>
         <itemizedlist>
-        <listitem><para>Build a Flask REST service that integrates with &AWS-services;.</para></listitem>
-        <listitem><para>Read, write, and update work items that are stored in an &AUR; Serverless database.</para></listitem>
-        <listitem><para>Create an &ASMlong; secret that contains database credentials and use it
-            to authenticate calls to the database.</para></listitem>
-        <listitem><para>Use &SES; to send email reports of work items.</para></listitem>
+            <listitem><para>Build a Flask REST service that integrates with &AWS-services;.</para></listitem>
+            <listitem><para>Read, write, and update work items that are stored in an &AUR; Serverless database.</para></listitem>
+            <listitem><para>Create an &ASMlong; secret that contains database credentials and use it
+                to authenticate calls to the database.</para></listitem>
+            <listitem><para>Use &SES; to send email reports of work items.</para></listitem>
         </itemizedlist>
     </para>
     <para>

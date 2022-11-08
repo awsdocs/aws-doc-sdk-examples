@@ -42,9 +42,9 @@ python -m pip install -r requirements.txt
  
 ## Create the resources
 
-### Aurora Serverless cluster and Secrets Manager secret
+### Aurora Serverless DB cluster and Secrets Manager secret
 
-This example requires an Aurora Serverless cluster that contains a MySQL database. The
+This example requires an Aurora Serverless DB cluster that contains a MySQL database. The
 database must be configured to use credentials that are contained in a Secrets Manager
 secret. 
 
@@ -80,7 +80,7 @@ aws rds-data execute-statement ^
     --resource-arn "CLUSTER_ARN" ^
     --database "DATABASE" ^
     --secret-arn "SECRET_ARN" ^
-    --sql "create table work_items (iditem INT AUTO_INCREMENT PRIMARY KEY, description TEXT, guide VARCHAR(45), status TEXT, username VARCHAR(45), archive BOOL DEFAULT 0);"
+    --sql "create table work_items (iditem INT AUTO_INCREMENT PRIMARY KEY, description TEXT, guide VARCHAR(45), status TEXT, username VARCHAR(45), archived BOOL DEFAULT 0);"
 ```
 
 #### AWS Management Console
@@ -109,7 +109,7 @@ create table work_items (
   guide VARCHAR(45), 
   status TEXT, 
   username VARCHAR(45), 
-  archive BOOL DEFAULT 0
+  archived BOOL DEFAULT 0
 );
 ```
 
@@ -198,7 +198,7 @@ items, send requests to the REST service, and see the results.
     "archived":false}
    ```
 
-1. After you've added items, they're displayed in the table. You can archive an active 
+1. After you add items, they're displayed in the table. You can archive an active 
    item by selecting the **Archive** button next to the item.
 
     ![Work item tracker with items](images/item-tracker-all-items.png)
@@ -260,7 +260,7 @@ HTTP requests are routed to methods in the [ItemList](item_list.py) and
 [Report](report.py) classes, which use webargs and marshmallow to handle argument 
 parsing and data transformation.
 
-For example, the work item schema includes a field that is named `id` in the web page,
+For example, the work item schema includes a field that is named `id` in the webpage,
 but is named `iditem` in the data table. By defining a `data_key`, the marshmallow 
 schema transforms this field automatically. 
 
@@ -285,8 +285,9 @@ def get(self, iditem, archived=None):
 ### Aurora Serverless MySQL storage
 
 The [storage.py](storage.py) file contains functions that get and set data in an
-Aurora Serverless MySQL database by using a Boto3 Amazon RDS Data Service object. 
-This object wraps low-level Amazon RDS Data Service actions.
+Aurora Serverless MySQL database by using a Boto3 Amazon Relational Database 
+Service (Amazon RDS) Data Service object. This object wraps low-level Amazon RDS Data 
+Service actions.
  
 For example, the `get_work_items` function constructs a `SELECT` statement and parameters 
 and sends them to the data client to get work items with a specified `archived` status:
