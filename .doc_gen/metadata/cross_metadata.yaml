@@ -37,6 +37,10 @@ cross_RDSDataTracker:
   synopsis: create a web application that tracks work items in an &AURlong; Serverless
     database and uses &SESlong; (&SES;) to send reports.
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RDSDataTracker_Net_block.xml
     Java:
       versions:
         - sdk_version: 2
