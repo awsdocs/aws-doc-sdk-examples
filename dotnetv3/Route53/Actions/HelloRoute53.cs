@@ -40,4 +40,4 @@ public static class HelloRoute53Domains
         Console.WriteLine(new string('-', 80));
     }
 }
-// snippet-end:[Route53.dotnetv3.HelloSupport]
+// snippet-end:[Route53.dotnetv3.HelloRoute53]
