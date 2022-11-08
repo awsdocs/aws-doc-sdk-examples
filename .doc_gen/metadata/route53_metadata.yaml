@@ -1,8 +1,8 @@
 # zexi 0.4.3
 route-53_Hello:
-  title: Hello &R53;
-  title_abbrev: Hello &R53;
-  synopsis: get started using &R53;.
+  title: Hello &R53DR;
+  title_abbrev: Hello &R53DR;;
+  synopsis: get started using &R53DRlong; (&R53DR;).
   category: Hello
   languages:
     .NET:
