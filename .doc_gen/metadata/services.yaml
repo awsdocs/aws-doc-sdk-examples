@@ -405,8 +405,8 @@ route-53:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53-2013-04-01
 route53-domains:
-  long: '&R53long;'
-  short: '&R53;'
+  long: '&R53DRlong;'
+  short: '&R53DR;'
   sort: Route 53
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
