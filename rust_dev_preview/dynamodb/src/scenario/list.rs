@@ -61,7 +61,7 @@ pub async fn list_tables_iterative(client: &Client) -> Result<(), Error> {
         println!("  {}", name);
     }
 
-    while resp.last_evaluated_table_name != None {
+    while resp.last_evaluated_table_name.is_some() {
         println!("-- more --");
         resp = client
             .list_tables()
@@ -109,7 +109,7 @@ pub async fn list_tables_are_more(client: &Client) -> Result<(), Error> {
     println!("Found {} tables", names.len());
 
     // snippet-start:[dynamodb.rust.are-more-tables-more]
-    if resp.last_evaluated_table_name != None {
+    if resp.last_evaluated_table_name.is_some() {
         println!("There are more tables");
     }
     // snippet-end:[dynamodb.rust.are-more-tables-more]

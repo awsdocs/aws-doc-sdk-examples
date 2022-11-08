@@ -13,8 +13,11 @@ import {
   identity,
   is,
   map,
+  pipe,
   prop,
+  split,
   T,
+  trim,
 } from "ramda";
 
 const flipMap = flip(map);
@@ -37,6 +40,8 @@ const parseString = cond([
 
 const promiseAll = bind(Promise.all, Promise);
 
+const splitMapTrim = curry(pipe(split, map(trim)));
+
 export {
   flipApply,
   flipMap,
@@ -45,4 +50,5 @@ export {
   nthAdjust,
   parseString,
   promiseAll,
+  splitMapTrim,
 };

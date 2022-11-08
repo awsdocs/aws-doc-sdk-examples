@@ -1,12 +1,12 @@
-# Creating a React and Spring REST application that queries Amazon DynamoDB data
+# Creating a Spring Boot application that queries Amazon DynamoDB data
 
 ## Overview
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.   |
+| Description | Discusses how to develop a Spring Boot application that queries Amazon DynamoDB data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 8/02/2022        |
+| Updated   | 10/24/2022        |
 | Required skills   | Java, Maven, JavaScript  |
 
 ## Purpose
@@ -35,7 +35,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Java IDE to build the Spring REST API. This tutorial uses the IntelliJ IDE.
-+ Java JDK 1.8.
++ Java JDK 11. (The code in this example uses APIs that are available in JDK 11).
 + Maven 3.6 or later.
 + Set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
@@ -51,15 +51,13 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 Using the AWS Management Console, create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String. 
 
-After creating the **Work** table with the **id** partition key, select the table in the Console, then under
+After creating the **Work** table with the **id** partition key, select the table in the Console. Under
 the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with Amazon DynamoDB).
 
 As you are creating an item for the first time, you will both define the attributes in your table as well 
 as add values. Enter the attributes and values as shown in the table below. Enter 'Open' as the
 value for the **archive** attribute. Select **Create item** to create
-your first item (row).
-
-The **Work** table attributes
+your first item (row). The **Work** table attributes.
 
 | Attribute name | What the attribute value represents                                          |
 |----------------|------------------------------------------------------------------------------|
@@ -69,7 +67,7 @@ The **Work** table attributes
 | guide          | name of the guide the work is for                                            |
 | status         | status of the work, e.g., 'started', 'in review'                             |
  | username       | user name who worked performed the work item                                 |
-| archive        | a value of 'Open' or 'Closed' to indicate if the work item has been archived |
+| archive        | a numeric value of 0 (Open) or 1 (Closed) to indicate if the item is active or archived |
 
 Enter at least two more items (rows). This time, since you have already defined all the attributes
 needed for this example, select the first item you created by activating the item's checkbox, then select
@@ -79,7 +77,7 @@ Duplicate one more item so that you have a total of three items.
 
 The following illustration shows an example of the Work table. 
 
-![AWS Tracking Application](images/WorkTable2.png)
+![AWS Tracking Application](images/DynTable.png)
 
 For additional information about how to create an Amazon DynamoDB table using the AWS Management Console 
 and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
@@ -95,29 +93,32 @@ A user can perform the following tasks using the React application:
 + View all active items.
 + View archived items that are complete.
 + Add a new item. 
-+ Archive an active item.
++ Convert an active item into an archived item.
 + Send a report to an email recipient.
 
-The React SPA displays *active* and *archive* items. For example, the following illustration shows the React 
-application displaying active items.
+The React application displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
 
-![AWS Tracking Application](images/client.png)
+![AWS Tracking Application](images/elapp1.png)
 
-Likewise, the following illustration shows the React application displaying archived items.
+Likewise, the following illustration shows the React application displaying archived data.
 
-![AWS Tracking Application](images/clientarc.png)
+![AWS Tracking Application](images/elappArc2.png)
 
-The React SPA also lets a user enter a new item. 
+**Note**: Notice that the **Archived** button is disabled. 
 
-![AWS Tracking Application](images/clientAddItem.png)
+The React application lets a user convert an active item to an archived item by clicking the **Archive** button. 
 
-The user can enter an email recipient into the **Manager** text field and choose **Send Report**.
+![AWS Tracking Application](images/elappArcAll.png)
 
-![AWS Tracking Application](images/clientReport2.png)
+The React application also lets a user enter a new item. 
 
-Active items are queried from the database and used to dynamically create an Excel document. 
-Then, the application uses Amazon SES to email the document to the selected email recipient. 
-The following image shows an example of a report.
+![AWS Tracking Application](images/react3.png)
+
+The user can enter an email recipient into the **Email Report** text field and choose **Send report**.
+
+![AWS Tracking Application](images/elapp4.png)
+
+Active items are queried from the database and used to dynamically create an Excel document. Then, the application uses Amazon SES to email the document to the selected email recipient. The following image shows an example of a report.
 
 ![AWS Tracking Application](images/report.png)
 
@@ -134,7 +135,7 @@ The following image shows an example of a report.
 
 At this point, you have a new project named **ItemTrackerDynamoDBRest**.
 
-**Note:** Make sure to use Java 1.8 (as shown in the following example).
+**Note:** Make sure to use Java 11 (as shown in the following example).
 
 Confirm that the **pom.xml** file looks like the following example.
 
@@ -147,22 +148,30 @@ Confirm that the **pom.xml** file looks like the following example.
     <groupId>ItemTrackerDynamoDB</groupId>
     <artifactId>ItemTrackerDynamoDBRest</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.example</groupId>
+    <artifactId>ItemTrackerDynamoDBRest2</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.7.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.17.230</version>
+                <version>2.17.146</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -172,21 +181,14 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb-enhanced</artifactId>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.2.0</version>
+            <type>maven-plugin</type>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -197,12 +199,12 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-commons</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -212,12 +214,16 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
+            <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>rdsdata</artifactId>
+            <artifactId>dynamodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -241,7 +247,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -263,6 +269,11 @@ Confirm that the **pom.xml** file looks like the following example.
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>2.7.3</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -270,29 +281,7 @@ Confirm that the **pom.xml** file looks like the following example.
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <linkXRef>false</linkXRef>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+           </plugins>
     </build>
 </project>
 ```
@@ -302,9 +291,9 @@ Confirm that the **pom.xml** file looks like the following example.
 Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
 + **App** - The entry point into the Spring boot application.  
-+ **MainController** - Represents the Spring Controller that handles REST requests.
-+ **DynamoDBService** -  Uses the Amazon DynamoDB Java API to perform CRUD operations on the **Work** table. 
-+ **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object to send email messages.
++ **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
++ **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
++ **DynamoDBService** - Uses the Amazon DynamoDB Java API to perform CRUD operations on the **Work** table. 
 + **WorkItem** - Represents the application's data model.
 + **Work** - Represents the Java class that uses the **@DynamoDbBean** annotation required for the Enhanced Client.  
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
@@ -335,6 +324,7 @@ The following Java code represents the **MainController** class, which handles H
 package com.aws.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -342,72 +332,69 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+@ComponentScan(basePackages = {"com.aws.rest"})
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/items")
 public class MainController {
+    private final DynamoDBService dbService;
 
     @Autowired
-    DynamoDBService dbService;
-
-    @Autowired
-    SendMessage sendMsg;
-
-    @Autowired
-    WriteExcel excel;
-
-    // Adds a new item to the Amazon DynamoDB database.
-    @PostMapping("add")
-    String addItems(@RequestBody Map<String, Object> payLoad) {
-        String name = "user";
-        String guide = (String)payLoad.get("guide");
-        String description = (String)payLoad.get("description");
-        String status = (String)payLoad.get("status");
-
-        // Create a Work Item object.
-        WorkItem myWork = new WorkItem();
-        myWork.setGuide(guide);
-        myWork.setDescription(description);
-        myWork.setStatus(status);
-        myWork.setName(name);
-        dbService.setItem(myWork);
-        return "Item added";
+    MainController(
+        DynamoDBService dbService
+    ) {
+        this.dbService = dbService;
     }
 
-    // Builds and emails a report with all items.
-    @PutMapping("report/{email}")
-    public String sendReport(@PathVariable String email){
-        List<WorkItem> theList = dbService.getOpenItems();
-        java.io.InputStream is = excel.exportExcel(theList);
-
-        try {
-            sendMsg.sendReport(is, email);
-
-        }catch (IOException e) {
-            e.getStackTrace();
-        }
-        return "Report is created";
-    }
-
-    // Archives a work item.
-    @PutMapping("mod/{id}")
-    public String modUser(@PathVariable String id) {
-        dbService.archiveItemEC(id );
-        return id ;
-    }
-
-    // Retrieve items based on state.
-    @GetMapping("items/{state}")
-    public List< WorkItem > getItems(@PathVariable String state) {
-        if (state.compareTo("active") == 0)
-            return dbService.getOpenItems();
+    @GetMapping("" )
+    public List<WorkItem> getItems(@RequestParam(required=false) String archived) {
+        Iterable<WorkItem> result;
+        if (archived != null && archived.compareTo("false")==0)
+            result = dbService.getOpenItems();
+        else if (archived != null && archived.compareTo("true")==0)
+            result = dbService.getClosedItems();
         else
-            return dbService.getClosedItems();
+            result = dbService.getAllItems();
+
+        return StreamSupport.stream(result.spliterator(), false)
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+    @PutMapping("{id}:archive")
+    public String modUser(@PathVariable String id) {
+        dbService.archiveItemEC(id);
+        return id +" was archived";
+    }
+
+    @PostMapping("")
+    public List<WorkItem> addItem(@RequestBody Map<String, String> payload) {
+        String name = payload.get("name");
+        String guide = payload.get("guide");
+        String description = payload.get("description");
+        String status = payload.get("status");
+
+        WorkItem item = new WorkItem();
+        String workId = UUID.randomUUID().toString();
+        String date = LocalDateTime.now().toString();
+        item.setId(workId);
+        item.setGuide(guide);
+        item.setDescription(description);
+        item.setName(name);
+        item.setDate(date);
+        item.setStatus(status);
+        dbService.setItem(item);
+        Iterable<WorkItem> result= dbService.getOpenItems();
+        return StreamSupport.stream(result.spliterator(), false)
+            .collect(Collectors.toUnmodifiableList());
     }
 }
 
@@ -416,7 +403,8 @@ public class MainController {
 
 ### DynamoDBService class
 
-The following Java code represents the **DynamoDBService** class. This class uses the Enchanced Client to perform operations on the Amazon DynamoDB **Work** table. 
+The following Java code represents the **DynamoDBService** class. This class uses the Enhanced Client to perform operations on the Amazon DynamoDB **Work** table.  For more information, 
+see [Mapping items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html).  
 
 ```java
 package com.aws.rest;
@@ -452,12 +440,44 @@ public class DynamoDBService {
             .region(region)
             .build();
     }
+    // Get All items from the DynamoDB table.
+    public List<WorkItem> getAllItems() {
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(getClient())
+            .build();
+
+        try{
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+            Iterator<Work> results = table.scan().items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList<>();
+
+            while (results.hasNext()) {
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
+
+                // Push the workItem to the list.
+                itemList.add(workItem);
+            }
+            return itemList;
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return null;
+    }
 
     // Archives an item based on the key.
     public void archiveItemEC(String id) {
-
         try {
-            // Create a DynamoDbEnhancedClient.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
                 .build();
@@ -471,8 +491,7 @@ public class DynamoDBService {
 
             // Get the item by using the key.
             Work work = workTable.getItem(r->r.key(key));
-            work.setArchive("Closed");
-
+            work.setArchive(1);
             workTable.updateItem(r->r.item(work));
 
         } catch (DynamoDbException e) {
@@ -483,17 +502,14 @@ public class DynamoDBService {
 
     // Get Open items from the DynamoDB table.
     public List<WorkItem> getOpenItems() {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
 
         try{
-            // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             AttributeValue attr = AttributeValue.builder()
-                .s("Open")
+                .n("0")
                 .build();
 
             Map<String, AttributeValue> myMap = new HashMap<>();
@@ -502,7 +518,7 @@ public class DynamoDBService {
             Map<String, String> myExMap = new HashMap<>();
             myExMap.put("#archive", "archive");
 
-            // Set the Expression so only Closed items are queried from the Work table.
+            // Set the Expression so only active items are queried from the Work table.
             Expression expression = Expression.builder()
                 .expressionValues(myMap)
                 .expressionNames(myExMap)
@@ -528,6 +544,7 @@ public class DynamoDBService {
                 workItem.setStatus(work.getStatus());
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
 
                 // Push the workItem to the list.
                 itemList.add(workItem);
@@ -543,8 +560,6 @@ public class DynamoDBService {
 
     // Get Closed Items from the DynamoDB table.
     public List< WorkItem > getClosedItems() {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
@@ -552,9 +567,8 @@ public class DynamoDBService {
         try{
             // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
-
             AttributeValue attr = AttributeValue.builder()
-                .s("Closed")
+                .n("1")
                 .build();
 
             Map<String, AttributeValue> myMap = new HashMap<>();
@@ -588,6 +602,7 @@ public class DynamoDBService {
                 workItem.setStatus(work.getStatus());
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
+                workItem.setArchived(work.getArchive());
 
                 //Push the workItem to the list.
                 itemList.add(workItem);
@@ -602,8 +617,6 @@ public class DynamoDBService {
     }
 
     public void setItem(WorkItem item) {
-
-        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
             .build();
@@ -615,7 +628,6 @@ public class DynamoDBService {
     public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
 
         try {
-            // Create a DynamoDbTable object.
             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             String myGuid = java.util.UUID.randomUUID().toString();
             Work record = new Work();
@@ -624,7 +636,7 @@ public class DynamoDBService {
             record.setDescription(item.getDescription());
             record.setDate(now()) ;
             record.setStatus(item.getStatus());
-            record.setArchive("Open");
+            record.setArchive(0);
             record.setGuide(item.getGuide());
             workTable.putItem(record);
 
@@ -643,160 +655,12 @@ public class DynamoDBService {
 }
 ```
 
-### SendMessage class
-The **SendMessage** class uses the AWS SDK for Java (v2) SES API to send an email message with an attachment (the Excel document) to an email recipient. Before you can send the email message, the email address that you're sending it to must be verified. For more information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
-
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
-
-```java
-    package com.aws.rest;
-
-import org.apache.commons.io.IOUtils;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.ses.SesClient;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.util.ByteArrayDataSource;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.util.Properties;
-import software.amazon.awssdk.core.SdkBytes;
-import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
-import software.amazon.awssdk.services.ses.model.RawMessage;
-import software.amazon.awssdk.services.ses.model.SesException;
-import org.springframework.stereotype.Component;
-
-@Component
-public class SendMessage {
-
-    // The email body for recipients with non-HTML email clients.
-    private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
-
-    // The HTML body of the email.
-    private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-        + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
-
-    public void sendReport(InputStream is, String emailAddress ) throws IOException {
-
-        // Convert the InputStream to a byte[].
-        byte[] fileContent = IOUtils.toByteArray(is);
-
-        try {
-            send(fileContent,emailAddress);
-
-        } catch (MessagingException e) {
-            e.getStackTrace();
-        }
-    }
-
-    public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
-        MimeMessage message;
-        Session session = Session.getDefaultInstance(new Properties());
-
-        // Create a new MimeMessage object.
-        message = new MimeMessage(session);
-
-        // Add subject, from and to lines. Update the sender with a validated email address! 
-        String subject = "Weekly AWS Status Report";
-        message.setSubject(subject, "UTF-8");
-        String sender = "<Enter sender>";
-        message.setFrom(new InternetAddress(sender));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
-
-        // Create a multipart/alternative child container.
-        MimeMultipart msgBody = new MimeMultipart("alternative");
-
-        // Create a wrapper for the HTML and text parts.
-        MimeBodyPart wrap = new MimeBodyPart();
-
-        // Define the text part.
-        MimeBodyPart textPart = new MimeBodyPart();
-        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
-
-        // Define the HTML part.
-        MimeBodyPart htmlPart = new MimeBodyPart();
-        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
-
-        // Add the text and HTML parts to the child container.
-        msgBody.addBodyPart(textPart);
-        msgBody.addBodyPart(htmlPart);
-
-        // Add the child container to the wrapper object.
-        wrap.setContent(msgBody);
-
-        // Create a multipart/mixed parent containe.r
-        MimeMultipart msg = new MimeMultipart("mixed");
-
-        // Add the parent container to the message.
-        message.setContent(msg);
-
-        // Add the multipart/alternative part to the message.
-        msg.addBodyPart(wrap);
-
-        // Define the attachment.
-        MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        att.setDataHandler(new DataHandler(fds));
-
-        String reportName = "WorkReport.xls";
-        att.setFileName(reportName);
-
-        // Add the attachment to the message.
-        msg.addBodyPart(att);
-
-        // Send the email.
-        try {
-            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-            Region region = Region.US_WEST_2;
-            SesClient client = SesClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
-                .build();
-
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            message.writeTo(outputStream);
-            ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
-            byte[] arr = new byte[buf.remaining()];
-            buf.get(arr);
-            SdkBytes data = SdkBytes.fromByteArray(arr);
-            RawMessage rawMessage = RawMessage.builder()
-                .data(data)
-                .build();
-
-            SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                .rawMessage(rawMessage)
-                .build();
-
-            client.sendRawEmail(rawEmailRequest);
-
-        } catch (SesException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Email sent with attachment");
-    }
-}
-```
-
-**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
-
-
 ### WorkItem class
 
 The following Java code represents the **WorkItem** class.   
 
 ```java
-    package com.aws.rest;
+  package com.aws.rest;
 
 public class WorkItem {
 
@@ -806,59 +670,68 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
+    private int archived ;
+
+    public int getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(int archived) {
+        this.archived = archived;
+    }
 
     public void setId (String id) {
-                this.id = id;
-        }
+        this.id = id;
+    }
 
     public String getId() {
-                return this.id;
-        }
+        return this.id;
+    }
 
     public void setStatus (String status) {
-                this.status = status;
-        }
+        this.status = status;
+    }
 
     public String getStatus() {
-                return this.status;
-        }
+        return this.status;
+    }
 
     public void setDescription (String description) {
-                this.description = description;
-        }
+        this.description = description;
+    }
 
     public String getDescription() {
-                return this.description;
-        }
+        return this.description;
+    }
 
     public void setDate (String date) {
-                this.date = date;
-        }
+        this.date = date;
+    }
 
     public String getDate() {
-                return this.date;
-        }
+        return this.date;
+    }
 
     public void setName (String name) {
-                this.name = name;
-        }
+        this.name = name;
+    }
 
     public String getName() {
-                return this.name;
-        }
+        return this.name;
+    }
 
     public void setGuide (String guide) {
-                this.guide = guide;
-        }
+        this.guide = guide;
+    }
 
     public String getGuide() {
-                return this.guide;
-        }
+        return this.guide;
+    }
 }
 ```
 ### Work class
 
-The following class represents the **Work** class that uses the **@DynamoDbBean** annotation required for the Enchanced Client.
+The following class represents the **Work** class that uses the **@DynamoDbBean** annotation required for the Enhanced Client.
 
 ```java
  package com.aws.rest;
@@ -875,7 +748,7 @@ public class Work {
     private String guide;
     private String username ;
     private String status ;
-    private String archive ;
+    private int archive ;
 
     @DynamoDbPartitionKey
     public String getId() {
@@ -891,11 +764,11 @@ public class Work {
         return this.username;
     }
 
-    public void setArchive(String archive) {
+    public void setArchive(int archive) {
         this.archive = archive;
     }
 
-    public String getArchive() {
+    public int getArchive() {
         return this.archive;
     }
 
@@ -948,7 +821,7 @@ public class Work {
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
 
 ```java
-   package com.aws.rest;
+ package com.aws.rest;
 
 import jxl.CellView;
 import jxl.Workbook;
@@ -960,494 +833,220 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
+import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ses.SesClient;
+import software.amazon.awssdk.services.ses.model.RawMessage;
+import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
+import software.amazon.awssdk.services.ses.model.SesException;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Locale;
+import java.util.Properties;
 
 @Component
 public class WriteExcel {
+    static WritableCellFormat times ;
+    static WritableCellFormat timesBoldUnderline;
 
-    private WritableCellFormat timesBoldUnderline;
-    private WritableCellFormat times;
-
-    // Returns an InputStream that represents the Excel Report.
-    public java.io.InputStream exportExcel( List<WorkItem> list) {
+    static {
         try {
-            return write(list);
+            WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
+            times = new WritableCellFormat(times10pt);
+            times.setWrap(true);
 
-        } catch(WriteException | IOException e) {
+            WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false, UnderlineStyle.SINGLE);
+            timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
+            timesBoldUnderline.setWrap(true);
+        } catch (WriteException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    // Generates the report and returns an inputstream.
-    public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
-        java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
+    public InputStream write(Iterable<WorkItem> items) throws IOException, WriteException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
         WorkbookSettings wbSettings = new WorkbookSettings();
-        wbSettings.setLocale(new Locale("en", "EN"));
+        wbSettings.setLocale(new Locale("en", "US"));
 
-        // Create a Workbook - pass the OutputStream.
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         workbook.createSheet("Work Item Report", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
-        createLabel(excelSheet) ;
-        int size = createContent(excelSheet, list);
 
-        // Close the workbook.
+        addLabels(excelSheet);
+        fillContent(excelSheet, items);
+
         workbook.write();
         workbook.close();
 
-        // Get an inputStram that represents the Report.
-        java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
-        stream = (java.io.ByteArrayOutputStream)os;
-        byte[] myBytes = stream.toByteArray();
-        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
-        return is ;
+        return new ByteArrayInputStream(os.toByteArray());
     }
 
-    // Create Headings in the Excel spreadsheet
-    private void createLabel(WritableSheet sheet) throws WriteException {
-        // Create a times font.
-        WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-
-        // Define the cell format.
-        times = new WritableCellFormat(times10pt);
-
-        // Automatically wrap the cells.
-        times.setWrap(true);
-
-        // Create a bold font with unterlines.
-        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false, UnderlineStyle.SINGLE);
-        timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-
-        // Let's automatically wrap the cells.
-        timesBoldUnderline.setWrap(true);
+    private void addLabels(WritableSheet sheet) throws WriteException {
         CellView cv = new CellView();
-        cv.setFormat(times);
         cv.setFormat(timesBoldUnderline);
         cv.setAutosize(true);
 
-        // Write a few headers
-        addCaption(sheet, 0, "Writer");
-        addCaption(sheet, 1, "Date");
-        addCaption(sheet, 2, "Guide");
-        addCaption(sheet, 3, "Description");
-        addCaption(sheet, 4, "Status");
+        addCaption(sheet, 0, 0, "Writer");
+        addCaption(sheet, 1, 0, "Date");
+        addCaption(sheet, 2, 0, "Guide");
+        addCaption(sheet, 3, 0, "Description");
+        addCaption(sheet, 4, 0, "Status");
     }
 
-    // Write the Work Item Data to the Excel Report.
-    private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
-
-        int size = list.size() ;
-
-        // Add customer data to the Excel report.
-        for (int i = 0; i < size; i++) {
-            WorkItem wi = list.get(i);
-            //Get tne work item values
-            String name = wi.getName();
-            String guide = wi.getGuide();
-            String date = wi.getDate();
-            String des = wi.getDescription();
-            String status = wi.getStatus();
-
-            // First column.
-            addLabel(sheet, 0, i+2, name);
-
-            // Second column.
-            addLabel(sheet, 1, i+2, date);
-
-            // Third column.
-            addLabel(sheet, 2, i+2,guide);
-
-            // Forth column.
-            addLabel(sheet, 3, i+2, des);
-
-            // Fifth column.
-            addLabel(sheet, 4, i+2, status);
-        }
-        return size;
-    }
-
-    private void addCaption(WritableSheet sheet, int column, String s) throws WriteException {
-        Label label;
-        label = new Label(column, 0, s, timesBoldUnderline);
-        int cc = countString(s);
+    private void addCaption(WritableSheet sheet, int column, int row, String s) throws WriteException {
+        Label label = new Label(column, row, s, timesBoldUnderline);
+        int cc = s.length();
         sheet.setColumnView(column, cc);
         sheet.addCell(label);
     }
 
-    private void addLabel(WritableSheet sheet, int column, int row, String s) throws WriteException {
-        Label label;
-        label = new Label(column, row, s, times);
-        int cc = countString(s);
-        if (cc > 200)
-            sheet.setColumnView(column, 150);
-        else
-            sheet.setColumnView(column, cc+6);
-
+    private void addField(WritableSheet sheet, int column, int row, String s) throws WriteException {
+        Label label = new Label(column, row, s, timesBoldUnderline);
+        int cc = s.length();
+        cc = cc > 200 ? 150 : cc + 6;
+        sheet.setColumnView(column, cc);
         sheet.addCell(label);
     }
 
-    private int countString (String ss) {
-        int count = 0;
-        for(int i = 0; i < ss.length(); i++) {
-            if(ss.charAt(i) != ' ')
-                count++;
+    private void fillContent(WritableSheet sheet, Iterable<WorkItem> items) throws WriteException {
+        int row = 2;
+        for (WorkItem item : items) {
+            addField(sheet, 0, row, item.getName());
+            addField(sheet, 1, row, item.getDate());
+            addField(sheet, 2, row, item.getGuide());
+            addField(sheet, 3, row, item.getDescription());
+            addField(sheet, 4, row, item.getStatus());
+            row += 1;
         }
-        return count;
+    }
+
+    @Component
+    public static class SendMessages {
+        private static String sender = "scmacdon@amazon.com";
+        private static String subject = "Weekly AWS Status Report";
+        private static String bodyText = "Hello,\r\n\r\nPlease see the attached file for a weekly update.";
+        private static String bodyHTML = "<!DOCTYPE html><html lang=\"en-US\"><body><h1>Hello!</h1><p>Please see the attached file for a weekly update.</p></body></html>";
+        private static String attachmentName = "WorkReport.xls";
+
+        public void sendReport(InputStream is, String emailAddress) throws IOException {
+            byte[] fileContent = IOUtils.toByteArray(is);
+
+            try {
+                send(makeEmail(fileContent, emailAddress));
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void send(MimeMessage message) throws MessagingException, IOException {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            message.writeTo(outputStream);
+            ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
+            byte[] arr = new byte[buf.remaining()];
+            buf.get(arr);
+            SdkBytes data = SdkBytes.fromByteArray(arr);
+            RawMessage rawMessage = RawMessage.builder().data(data).build();
+            SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder().rawMessage(rawMessage).build();
+
+            try {
+                System.out.println("Attempting to send an email through Amazon SES...");
+                SesClient client = SesClient.builder().region(Region.US_WEST_2).build();
+                client.sendRawEmail(rawEmailRequest);
+            } catch (SesException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private MimeMessage makeEmail(byte[] attachment, String emailAddress) throws MessagingException {
+            Session session = Session.getDefaultInstance(new Properties());
+            MimeMessage message = new MimeMessage(session);
+
+            message.setSubject(subject, "UTF-8");
+            message.setFrom(new InternetAddress(sender));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
+
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setContent(bodyText, "text/plain; charset=UTF-8");
+
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
+
+            MimeMultipart msgBody = new MimeMultipart("alternative");
+            msgBody.addBodyPart(textPart);
+            msgBody.addBodyPart(htmlPart);
+
+            MimeBodyPart wrap = new MimeBodyPart();
+            wrap.setContent(msgBody);
+
+            MimeMultipart msg = new MimeMultipart("mixed");
+            msg.addBodyPart(wrap);
+
+            MimeBodyPart att = new MimeBodyPart();
+            DataSource fds = new ByteArrayDataSource(attachment, "application/vnc.openxmlformats-officedocument.spreadsheetml.sheet");
+            att.setDataHandler(new DataHandler(fds));
+            att.setFileName(attachmentName);
+
+            msg.addBodyPart(att);
+            message.setContent(msg);
+            return message;
+        }
     }
 }
-
-
 ```
 
+**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
 
 ## Run the application 
 
 Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs. 
 
-- /api/items/{state} - A GET request that returns all active or archive data items from the **Work** table. 
-- /api/mod/{id} - A PUT request that converts the specified data item to an archived item. 
-- /api/add - A POST request that adds a new item to the database. 
-- /api/report/{email} - A PUT request that creates a report of active items and emails the report. 
+- /api/items - A GET request that returns all data items from the **Work** table. 
+- /api/items?archived=true - A GET request that returns either active or archive data items from the **Work** table. 
+- /api/items/{id}:archive - A PUT request that converts the specified data item to an archived item. 
+- /api/items - A POST request that adds a new item to the database. 
+- api/items:report - A POST request that creates a report of active items and emails the report. 
 
-**Note**: The React SPA created in the next section consumes all of these URLs. 
+**Note**: The React application created in the next section consumes all of these URLs. 
 
 Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser. 
 
-http://localhost:8080/api/items/active
+http://localhost:8080/api/items
 
 The following illustration shows the JSON data returned from the Spring REST API. 
 
-![AWS Tracking Application](images/browser.png)
+![AWS Tracking Application](images/jsonDynamoDB.png)
 
 ## Create the React front end
 
-You can create the React SPA that consumes the JSON data returned from the Spring REST API. To create the React SPA, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/item-tracker/README.md).  
+You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).  
 
-### Update WorkItem.js
+### Update BASE_URL
 
-You must modify the **WorkItem.js** file so that your React requests work with your Java backend. Update this file to include this code.
-
-```javascript
-import React, {useEffect, useState} from "react";
-import Button from "react-bootstrap/Button";
-import Form from 'react-bootstrap/Form';
-import Modal from "react-bootstrap/Modal";
-
-import * as service from './RestService';
-
-/**
- * An element that displays an 'Add item' button that lets you add an item to the work
- * item list. When you click the 'Add item' button, a modal form is displayed that
- * includes form fields that you can use to define the work item. When you click the
- * 'Add' button on the form, your new work item is sent to the server so it can be
- * added to the database.
- *
- * @returns {JSX.Element}
- */
-export const WorkItem = () => {
-  const [user, setUser] = useState('');
-  const [guide, setGuide] = useState('');
-  const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
-  const [show, setShow] = useState(false);
-  const [canAdd, setCanAdd] = useState(false);
-
-  useEffect(() => {
-    let can = user.length > 0 && guide.length > 0 && description.length > 0 && status.length > 0;
-    setCanAdd(can);
-  }, [user, guide, description, status]);
-
-  const handleAdd = () => {
-    service.addWorkItem({name: user, guide: guide, description: description, status: status})
-      .catch(console.error);
-    setShow(false);
-  };
-
-  const handleClose = () => {
-    setShow(false);
-  };
-
-  return (
-    <>
-      <Button onClick={() => setShow(true)} variant="primary">Add item</Button>
-
-      <Modal show={show} onHide={handleClose} dialogClassName="modal-90w">
-        <Modal.Header closeButton>
-          <Modal.Title>Add a new work item</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label htmlFor='userField'>User</Form.Label>
-              <Form.Control id='userField' type="text" placeholder="User name"
-                            onChange={(event) => setUser(event.target.value)}/>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor='guideField'>Guide</Form.Label>
-              <Form.Control id='guideField' type="text" placeholder="Developer guide"
-                            onChange={(event) => setGuide(event.target.value)}/>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor='descriptionField'>Description</Form.Label>
-              <Form.Control as="textarea" rows={3} id='descriptionField'
-                            onChange={(event) => setDescription(event.target.value)}/>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor='statusField'>Status</Form.Label>
-              <Form.Control as="textarea" rows={3} id='statusField'
-                            onChange={(event) => setStatus(event.target.value)}/>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Close</Button>
-          <Button variant="primary" disabled={!canAdd} onClick={handleAdd}>Add</Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-};
-
-```
-### Update WorkItems.js
-
-You must modify the **WorkItems.js** file so that your React requests work with your Java backend. Update this file to include this code.
+You must ensure that the **BASE_URL** is correct. In the **config.json** file, ensure this value references your Spring application.
 
 ```javascript
-import React, {useEffect, useState} from 'react';
-import * as service from './RestService';
-import Alert from "react-bootstrap/Alert";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import FormControl from "react-bootstrap/FormControl";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Placeholder from "react-bootstrap/Placeholder";
-import Row from "react-bootstrap/Row";
-import Table from "react-bootstrap/Table";
-import {WorkItem} from "./WorkItem";
-
-/**
- * An element that displays a list of work items that are retrieved from a REST service.
- *
- * * Select Active or Archived to display work items with the specified state.
- * * Select the wastebasket icon to archive and active item.
- * * Select 'Add item' to add a new item.
- * * Enter a recipient email and select 'Send report' to send a report of work items.
- *
- * @returns {JSX.Element}
- */
-
-export const WorkItems = () => {
-  const [email, setEmail] = useState('');
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState('active');
-  const [error, setError] = useState('');
-
-  const getItems = async () => {
-    setError('');
-    setLoading(true);
-    const response = await service.getWorkItems(status).catch((e) => {setError(e.message)});
-    setItems(response ? await response.data : []);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getItems().catch((e) => {setError(e.message)});
-  }, [status]);
-
-  const archiveItem = async (itemId) => {
-    service.archiveItem(itemId).catch((e) => {setError(e.message)});
-    getItems().catch((e) => {setError(e.message)});
-  }
-
-  const sendReport = async () => {
-    service.mailItem(email).catch((e) => {setError(e.message)});
-  }
-
-  const handleStatusChange = (newStatus) => {
-    setStatus(newStatus);
-  }
-
-  return (
-    <>
-      {error !== ''
-        ?
-        <Row>
-          <Col>
-            <Alert variant="danger">{error}</Alert>
-          </Col>
-        </Row>
-        : null
-      }
-      <Row>
-        <Col className="col-3">
-          <FloatingLabel controlId="floatingSelect" label="State">
-            <Form.Select aria-label="Status" onChange={(event) => handleStatusChange(event.target.value)}>
-              <option value="active">Active</option>
-              <option value="archive">Archived</option>
-            </Form.Select>
-          </FloatingLabel>
-        </Col>
-        <Col className="col-5">
-          <InputGroup>
-            <FormControl onChange={(event) => setEmail(event.target.value)}
-              placeholder="Recipient's email"
-              aria-label="Recipient's email"
-              aria-describedby="basic-addon2"
-            />
-            <Button
-              variant="outline-secondary"
-              id="button-addon2"
-              disabled={email === ''}
-              onClick={() => sendReport()}>
-                Send report
-            </Button>
-          </InputGroup>
-          <Form.Text className="text-muted">
-            You must first register the recipient's email with Amazon SES.
-          </Form.Text>
-        </Col>
-      </Row>
-      <hr/>
-      <Row>
-        <h3>Work items</h3>
-        <p>Click the 🗑 icon to Archive an item.</p>
-      </Row>
-      <Row style={{maxHeight: `calc(100vh - 400px)`, overflowY: "auto"}}>
-        <Col>
-          {!loading && items.length === 0
-            ? <Alert variant="info">No work items found.</Alert>
-            : <Table striped>
-              <thead>
-              <tr>
-                <th>Item Id</th>
-                <th>User</th>
-                <th>Guide</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th/>
-              </tr>
-              </thead>
-              {loading
-                ? <tbody>{
-                  [1, 2, 3].map(item =>
-                    <tr key={item}>
-                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
-                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
-                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
-                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
-                      <td><Placeholder animation="glow"><Placeholder xs={3}/></Placeholder></td>
-                    </tr>
-                  )
-                }
-                </tbody>
-                : <tbody>{
-                  items.map(item =>
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.name}</td>
-                      <td>{item.guide}</td>
-                      <td>{item.description}</td>
-                      <td>{item.status}</td>
-                      <td>{
-                        status === 'active' ?
-                          <Button variant="outline-secondary" size="sm" onClick={() => archiveItem(item.id)}>🗑</Button>
-                          : null
-                      }
-                      </td>
-                    </tr>
-                  )
-                }
-                </tbody>
-              }
-            </Table>
-          }
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <WorkItem />
-        </Col>
-      </Row>
-    </>
-  )
-};
-```
-
-
-### Update RestService.js
-
-You must modify the **RestService.js** file so that your React requests work with your Java backend. Update this file to include this code.
-
-```javascript
-
-/**
- * Sends REST requests to get work items, add new work items, modify work items,
- * and send an email report.
- *
- * The base URL of the REST service is stored in config.json. If necessary, update this
- * value to your endpoint.
- */
-
- import axios from 'axios'
- import configData from './config.json'
- 
- /**
-  * Sends a POST request to add a new work item.
-  *
-  * @param item: The work item to add.
-  * @returns {Promise<void>}
-  */
- export const addWorkItem = async (item) => {
-        let status = item.status;
-        let description = item.description;
-        let guide = item.guide;
-        let payload = { status: item.status, description: item.description , guide: item.guide};
-        await axios.post(`${configData.BASE_URL}/api/add`, payload);
- };
- 
- /**
-  * Sends a GET request to retrieve work items that are in the specified state.
-  *
-  * @param state: The state of work items to retrieve. Can be either 'active' or 'archive'.
-  * @returns {Promise<AxiosResponse<any>>}: The list of work items that have the
-  *                                         specified state.
-  */
- export const getWorkItems = async (state) => {
-   return await axios.get(`${configData.BASE_URL}/api/items/${state}`);
- };
- 
- /**
-  * Sends a PUT request to archive an active item.
-  *
-  * @param itemId: The ID of the item to archive.
-  * @returns {Promise<void>}
-  */
- export const archiveItem = async (itemId) => {
-   await axios.put(`${configData.BASE_URL}/api/mod/${itemId}`);
- }
- 
- /**
-  * Sends a POST request to email a report of work items.
-  *
-  * @param email: The report recipient's email address.
-  * @returns {Promise<void>}
-  */
- export const mailItem = async (email) => {
-   await axios.put(`${configData.BASE_URL}/api/report/${email}`);
- }
-
+{
+  "BASE_URL": "http://localhost:8080/api"
+}
 ```
   
 ### Next steps
-Congratulations, you have created a decoupled React application that consumes data from a Spring REST API. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.
+Congratulations, you have created a decoupled React application that consumes data from a Spring Boot application. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
