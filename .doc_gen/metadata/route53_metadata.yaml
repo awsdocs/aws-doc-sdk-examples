@@ -1,7 +1,7 @@
 # zexi 0.4.3
 route-53_Hello:
   title: Hello &R53DR;
-  title_abbrev: Hello &R53DR;;
+  title_abbrev: Hello &R53DR;
   synopsis: get started using &R53DRlong; (&R53DR;).
   category: Hello
   languages:
@@ -51,7 +51,7 @@ route-53_CheckDomainTransferability:
   services:
     route53-domains: {CheckDomainTransferability}
 route-53_GetDomainDetails:
-  title: Get &R53; domain details using an &AWS; SDK
+  title: Get &R53DR; domain details using an &AWS; SDK
   title_abbrev: Get domain details
   synopsis: get the details for a domain.
   category:
@@ -68,7 +68,7 @@ route-53_GetDomainDetails:
   services:
     route53-domains: {GetDomainDetail}
 route-53_GetDomainSuggestions:
-  title: Get &R53; domain name suggestions using an &AWS; SDK
+  title: Get &R53DR; domain name suggestions using an &AWS; SDK
   title_abbrev: Get suggested domain names
   synopsis: get domain name suggestions.
   category:
@@ -85,7 +85,7 @@ route-53_GetDomainSuggestions:
   services:
     route53-domains: {GetDomainSuggestions}
 route-53_GetOperationDetails:
-  title: Get details on a &R53; operation using an &AWS; SDK
+  title: Get details on a &R53DR; operation using an &AWS; SDK
   title_abbrev: Get operation details
   synopsis: get details on an operation.
   category:
@@ -102,7 +102,7 @@ route-53_GetOperationDetails:
   services:
     route53-domains: {GetOperationDetail}
 route-53_ListPrices:
-  title: List &R53; domain prices using an &AWS; SDK
+  title: List &R53DR; domain prices using an &AWS; SDK
   title_abbrev: List prices
   synopsis: list prices.
   category:
@@ -119,7 +119,7 @@ route-53_ListPrices:
   services:
     route53-domains: {ListPrices}
 route-53_ListDomains:
-  title: List &R53; registered domains using an &AWS; SDK
+  title: List &R53DR; registered domains using an &AWS; SDK
   title_abbrev: List domains
   synopsis: list the &R53; registered domains.
   category:
@@ -153,7 +153,7 @@ route-53_ListHostedZones:
   services:
     route-53: {ListHostedZones}
 route-53_ListOperations:
-  title: List &R53; operations using an &AWS; SDK
+  title: List &R53DR; operations using an &AWS; SDK
   title_abbrev: List operations
   synopsis: list operations.
   category:
@@ -170,7 +170,7 @@ route-53_ListOperations:
   services:
     route53-domains: {ListOperations}
 route-53_RegisterDomain:
-  title: Register a domain with &R53; using an &AWS; SDK
+  title: Register a domain with &R53DR; using an &AWS; SDK
   title_abbrev: Register domain
   synopsis: register a domain.
   category:
@@ -187,7 +187,7 @@ route-53_RegisterDomain:
   services:
     route53-domains: {RegisterDomain}
 route-53_ViewBilling:
-  title: View &R53; billing records using an &AWS; SDK
+  title: View &R53DR; billing records using an &AWS; SDK
   title_abbrev: View billing
   synopsis: view billing records.
   category:
@@ -204,7 +204,7 @@ route-53_ViewBilling:
   services:
     route53-domains: {ViewBilling}
 route-53_Scenario_GetStartedRoute53Domains:
-  title: Get started with &R53; domains using an &AWS; SDK
+  title: Get started with &R53DR; using an &AWS; SDK
   title_abbrev: Get started with domains
   synopsis_list:
     - List current domains.
