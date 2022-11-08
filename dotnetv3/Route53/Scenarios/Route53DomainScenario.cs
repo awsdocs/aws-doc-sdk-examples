@@ -14,6 +14,8 @@ using Route53Actions;
 
 namespace Route53DomainScenario;
 
+// snippet-start:[Route53.dotnetv3.DomainBasics]
+
 public static class Route53DomainScenario
 {
     /*
@@ -328,3 +330,4 @@ public static class Route53DomainScenario
         return null;
     }
 }
+// snippet-end:[Route53.dotnetv3.DomainBasics]
