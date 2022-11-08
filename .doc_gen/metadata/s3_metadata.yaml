@@ -758,6 +758,15 @@ s3_GetBucketLifecycleConfiguration:
   synopsis: get the lifecycle configuration of an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetLifecycleExample
     Python:
       versions:
         - sdk_version: 3
@@ -776,6 +785,15 @@ s3_PutBucketLifecycleConfiguration:
   synopsis: add a lifecycle configuration to an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.PutLifecycleExample
     Java:
       versions:
         - sdk_version: 2
@@ -802,6 +820,15 @@ s3_DeleteBucketLifecycle:
   synopsis: delete the lifecycle configuration of an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.DeleteLifecycleExample
     Python:
       versions:
         - sdk_version: 3
@@ -878,6 +905,9 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-ListBucketContents
+            - description: List objects with a paginator.
+              snippet_tags:
+                - S3.dotnetv3.ListObjectsPaginatorExample
     C++:
       versions:
         - sdk_version: 1
@@ -1118,6 +1148,15 @@ s3_RestoreObject:
   synopsis: restore an archived copy of an object back into an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.RestoreArchivedObjectExample
     Java:
       versions:
         - sdk_version: 2
@@ -1231,6 +1270,15 @@ s3_GetBucketCors:
   synopsis: get cross-origin resource sharing (CORS) rules for an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetCORS
     Python:
       versions:
         - sdk_version: 3
@@ -1271,6 +1319,15 @@ s3_PutBucketCors:
   synopsis: add cross-origin resource sharing (CORS) rules to an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.PutCORS
     Java:
       versions:
         - sdk_version: 2
@@ -1319,6 +1376,15 @@ s3_DeleteBucketCors:
   synopsis: delete CORS rules from an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.DeleteCORS
     Python:
       versions:
         - sdk_version: 3
@@ -1347,6 +1413,15 @@ s3_GetBucketAcl:
   synopsis: get the access control list (ACL) of an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetACL
     Java:
       versions:
         - sdk_version: 2
@@ -1393,6 +1468,15 @@ s3_PutBucketAcl:
   synopsis: set a new access control list (ACL) for an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.PutACL
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1498,6 +1582,15 @@ s3_PutBucketWebsite:
   synopsis: set the website configuration for an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.WebsiteConfigExample
     C++:
       versions:
         - sdk_version: 1
@@ -1591,6 +1684,15 @@ s3_ListBuckets:
   synopsis: list S3 buckets.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.LisBuckets
     C++:
       versions:
         - sdk_version: 1
@@ -1759,6 +1861,16 @@ s3_Scenario_PresignedUrl:
   synopsis: create a presigned URL for S3 and upload an object.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/
+          sdkguide:
+          excerpts:
+            - description:
+                Generate a presigned URL and perform an upload using that URL.
+              snippet_tags:
+                - S3.dotnetv3.UploadUsingPresignedURLExample
     Java:
       versions:
         - sdk_version: 2
