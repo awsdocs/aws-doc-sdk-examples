@@ -25,7 +25,7 @@ public static class HelloRoute53Domains
         var route53Client = host.Services.GetRequiredService<IAmazonRoute53Domains>();
 
         // You can use await and any of the async methods to get a response.
-        var response = await route53Client.ListPricesAsync( new ListPricesRequest{ Tld = "com" });
+        var response = await route53Client.ListPricesAsync(new ListPricesRequest { Tld = "com" });
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"Hello Amazon Route 53 Domains! Following are prices for .com domain operations:");
         var comPrices = response.Prices.FirstOrDefault();

@@ -36,7 +36,7 @@ public class Route53ServiceTests
         });
 
         _route53Wrapper = new Route53Wrapper(
-            new AmazonRoute53DomainsClient(), 
+            new AmazonRoute53DomainsClient(),
             new Logger<Route53Wrapper>(_loggerFactory)
             );
     }
@@ -79,7 +79,7 @@ public class Route53ServiceTests
     [Trait("Category", "Integration")]
     public async Task ListPrices_ShouldHaveRecords()
     {
-        var domainTypes = new List<string> { "net"};
+        var domainTypes = new List<string> { "net" };
         var prices = await _route53Wrapper.ListPrices(domainTypes);
 
         Assert.Contains(prices, price => price.Name.Equals("net"));
@@ -174,7 +174,7 @@ public class Route53ServiceTests
                 Convert.ToBoolean(_configuration["AutoRenew"]),
                 Convert.ToInt32(_configuration["DurationInYears"]),
                 contact);
-       Assert.Null(stringResult);
+        Assert.Null(stringResult);
     }
 
     /// <summary>

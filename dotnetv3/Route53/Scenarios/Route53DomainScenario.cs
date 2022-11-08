@@ -45,7 +45,7 @@ public static class Route53DomainScenario
                 logging.AddFilter("System", LogLevel.Debug)
                     .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information)
                     .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
-            .ConfigureServices((_, services) => 
+                    .ConfigureServices((_, services) =>
             services.AddAWSService<IAmazonRoute53Domains>()
                 .AddTransient<Route53Wrapper>()
             )
@@ -122,7 +122,7 @@ public static class Route53DomainScenario
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"2. List account domain operations in the past year.");
-        var operations = await _route53Wrapper.ListOperations( 
+        var operations = await _route53Wrapper.ListOperations(
             DateTime.Today.AddYears(-1));
         for (int i = 0; i < operations.Count; i++)
         {
@@ -218,7 +218,6 @@ public static class Route53DomainScenario
 
         var availability = await _route53Wrapper.CheckDomainAvailability(domainName);
         Console.WriteLine($"\tAvailability: {availability}");
-       
         Console.WriteLine(new string('-', 80));
     }
 

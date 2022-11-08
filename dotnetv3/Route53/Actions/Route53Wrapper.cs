@@ -129,8 +129,8 @@ public class Route53Wrapper
                 return details;
             }
             catch (AmazonRoute53DomainsException ex)
-            { 
-                return $"Unable to get details. Here's why: {ex.Message}";
+            {
+                return $"Unable to get details. Here's why: {ex.Message}.";
             }
         }
 
