@@ -63,7 +63,7 @@ resources:
 1.  Select a filter in the dropdown list, such as **Archived**, to get and display
     only items with the specified status.
 
-        ![Work item tracker Archived items](images/item-tracker-archived-items.png)
+    ![Work item tracker Archived items](images/item-tracker-archived-items.png)
 
     This sends a GET request to the REST service with an `archived` query parameter.
 

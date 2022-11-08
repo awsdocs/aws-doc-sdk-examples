@@ -50,7 +50,7 @@ ses:
 
 #### Run the service
 
-This example uses [Actix Web]() to host a local web server and REST service.
+This example uses [Actix Web](https://actix.rs/) to host a local web server and REST service.
 With the web server running, you can send HTTP requests to the service endpoint to list, add, and update work items and to send email reports.
 
 ```
@@ -71,7 +71,7 @@ The item tracker plugin is a JavaScript application that lets you manage work it
 
 ## Understand the example
 
-This example uses the Actix web framework to host a local REST service and respond to HTTP requests.
+This example uses the Actix Web framework to host a local REST service and respond to HTTP requests.
 
 ### Start up
 
@@ -81,7 +81,7 @@ These helpers are also used in `test/startup.rs` to ensure the application is ru
 
 ### Routing
 
-Top level routing happens when creating the http server in `src/startup.rs`, with specific routes registered in `src/healthz.rs`, `src/collection.rs`, and `src/report.rs`.
+Top level routing happens when creating the HTTP server in `src/startup.rs`, with specific routes registered in `src/healthz.rs`, `src/collection.rs`, and `src/report.rs`.
 All routes are instrumented, and primarily serve as a facade between Actix's HTTP tooling and the SDK resources.
 
 ```Rust
@@ -100,7 +100,7 @@ async fn retrieve(
 
 ### Aurora Serverless repository
 
-The [src/work_item/repository.rs](repository.rs) file contains functions that get and set data in an Aurora Serverless database by using an Amazon RDS Data Service client.
+The [repository.rs](src/work_item/repository.rs) file contains functions that get and set data in an Aurora Serverless database by using an Amazon RDS Data Service client.
 
 For example, the `retrieve` function constructs a `SELECT` statement and parameters and sends them to the data client to get a single work item.
 
@@ -123,9 +123,9 @@ pub async fn retrieve(id: String, client: &crate::client::RdsClient) -> Result<c
 
 ### Amazon SES report
 
-The [src/report.rs](report.rs) file contains functions that route the report HTTP request and send an email report of work items to a specified email address.
+The [report.rs](src/report.rs) file contains functions that route the report HTTP request and send an email report of work items to a specified email address.
 
-The report is send as an xslx Excel spreadshee.
+The report is send as an XSLX Excel spreadshee.
 When you use Amazon SES to send an attachment, you must use the `send_raw_email` service action and send the email in MIME format.
 
 ## Delete the resources

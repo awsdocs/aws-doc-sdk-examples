@@ -96,7 +96,7 @@ async fn update(
     Ok(Json(()))
 }
 
-/// Deleate a WorkItem, by given id.
+/// Delete a WorkItem, by given id.
 #[actix_web::delete("/{itemid}")]
 #[tracing::instrument(name = "Request delete WorkItem", skip(client))]
 async fn delete(itemid: Path<String>, client: Data<RdsClient>) -> Result<Json<()>, WorkItemError> {
