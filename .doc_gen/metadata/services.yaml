@@ -409,7 +409,7 @@ route53-domains:
   bundle: route-53
   long: '&R53DRlong;'
   short: '&R53DR;'
-  sort: Route 53
+  sort: Route 53 Domain Registration
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53domains-2014-05-15
