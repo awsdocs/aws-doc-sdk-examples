@@ -154,7 +154,6 @@ suspend fun describeAttachment(attachId: String?) {
 
 // snippet-start:[support.kotlin.list.comms.main]
 suspend fun listCommunications(caseIdVal: String?): String? {
-    var attachId: String? = null
     val communicationsRequest = DescribeCommunicationsRequest {
         caseId = caseIdVal
         maxResults = 10
