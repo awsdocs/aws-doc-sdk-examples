@@ -7,9 +7,9 @@ import com.example.support.addAttachSupportCase
 import com.example.support.addAttachment
 import com.example.support.createSupportCase
 import com.example.support.describeAttachment
-import com.example.support.displayAllServices
 import com.example.support.displayServices
 import com.example.support.displaySevLevels
+import com.example.support.displaySomeServices
 import com.example.support.getOpenCase
 import com.example.support.getResolvedCase
 import com.example.support.listCommunications
@@ -54,7 +54,7 @@ class SupportTest {
     @Test
     @Order(1)
     fun supportHelloScenario() = runBlocking {
-        displayAllServices()
+        displaySomeServices()
         println("\n AWS Support Hello Test passed")
     }
 
