@@ -67,5 +67,6 @@ Define this value to successfully run the JUnit tests:
 ## Additional resources
 * [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html)
 * [Developer Guide - AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
+* [SupportClient - Kotlin Reference](https://sdk.amazonaws.com/kotlin/api/latest/support/aws.sdk.kotlin.services.support/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
