@@ -11,7 +11,7 @@ package com.example.support
 import aws.sdk.kotlin.services.support.SupportClient
 import aws.sdk.kotlin.services.support.model.DescribeServicesRequest
 
-// snippet-end:[support.kotlin.hello.main]
+// snippet-start:[support.kotlin.hello.main]
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
