@@ -23,20 +23,21 @@ The credential provider used in all code examples is Shared credentials. For mor
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add communication with the attachment to the support case](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (addCommunicationToCase command)
-- [Create an attachment set](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (addAttachmentsToSet command)
-- [Create a support case](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (createCase command)
-- [Describe the attachment set](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeAttachment command)
-- [Get and display Support severity levels](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeSeverityLevels command)
-- [Get open support cases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeCases command)
-- [List the communications of the support case](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeCommunications command)
-- [Resolve the support case](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (resolveCase command)
+- [Add a communication to a case](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (addCommunicationToCase command)
+- [Add an attachment to a set](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (addAttachmentsToSet command)
+- [Create a case](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (createCase command)
+- [Describe an attachment](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeAttachment command)
+- [Describe services](https://github.com/awsdocs/aws-doc-sdk-examples/blob/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeServices command)
+- [Describe severity levels](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeSeverityLevels command)
+- [Describe cases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeCases command)
+- [Describe communications](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (describeCommunications command)
+- [Resolve the case](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (resolveCase command)
 
 ### Scenarios 
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Perform AWS Support operations](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (Multiple commands)
+- [Get started with cases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/support/src/main/kotlin/com/example/support/SupportScenario.kt) (Multiple commands)
 
 ## Run the AWS Support Kotlin file
 
