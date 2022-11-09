@@ -109,32 +109,29 @@ public class Route53Wrapper
     /// <returns>A string describing the operational details.</returns>
     public async Task<string> GetOperationDetail(string? operationId)
     {
-        if (operationId != null)
+        if (operationId == null)
+            return "Unable to get operational details because ID is null.";
+        try
         {
-            try
-            {
-                var operationDetails =
-                    await _amazonRoute53Domains.GetOperationDetailAsync(
-                        new GetOperationDetailRequest
-                        {
-                            OperationId = operationId
-                        }
-                    );
+            var operationDetails =
+                await _amazonRoute53Domains.GetOperationDetailAsync(
+                    new GetOperationDetailRequest
+                    {
+                        OperationId = operationId
+                    }
+                );
 
-                var details = $"\tOperation {operationId}:\n" +
-                              $"\tFor domain {operationDetails.DomainName} on {operationDetails.SubmittedDate.ToShortDateString()}.\n" +
-                              $"\tMessage is {operationDetails.Message}.\n" +
-                              $"\tStatus is {operationDetails.Status}.\n";
+            var details = $"\tOperation {operationId}:\n" +
+                          $"\tFor domain {operationDetails.DomainName} on {operationDetails.SubmittedDate.ToShortDateString()}.\n" +
+                          $"\tMessage is {operationDetails.Message}.\n" +
+                          $"\tStatus is {operationDetails.Status}.\n";
 
-                return details;
-            }
-            catch (AmazonRoute53DomainsException ex)
-            {
-                return $"Unable to get details. Here's why: {ex.Message}.";
-            }
+            return details;
         }
-
-        return "Unable to get operational details because ID is null.";
+        catch (AmazonRoute53DomainsException ex)
+        {
+            return $"Unable to get operation details. Here's why: {ex.Message}.";
+        }
     }
     // snippet-end:[Route53.dotnetv3.GetOperationDetail]
 
@@ -150,9 +147,7 @@ public class Route53Wrapper
     /// <returns>The operation Id.</returns>
     public async Task<string?> RegisterDomain(string domainName, bool autoRenew, int duration, ContactDetail contact)
     {
-        // Create a contact detail.
-        // This example uses the same email for admin, registrant, and tech contacts.
-
+        // This example uses the same contact information for admin, registrant, and tech contacts.
         try
         {
             var result = await _amazonRoute53Domains.RegisterDomainAsync(

@@ -1,7 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Text.Json;
 using Amazon.Route53Domains;
 using Amazon.Route53Domains.Model;
 using Microsoft.Extensions.Configuration;
@@ -108,7 +107,7 @@ public static class Route53DomainScenario
 
         if (!domains.Any())
         {
-            Console.WriteLine("No domains found in this account.");
+            Console.WriteLine("\tNo domains found in this account.");
         }
 
         Console.WriteLine(new string('-', 80));
@@ -149,6 +148,10 @@ public static class Route53DomainScenario
             Console.WriteLine($"\tBill Date: {billingRecords[i].BillDate.ToShortDateString()}");
             Console.WriteLine($"\tOperation: {billingRecords[i].Operation}");
             Console.WriteLine($"\tPrice: {billingRecords[i].Price}");
+        }
+        if (!billingRecords.Any())
+        {
+            Console.WriteLine("\tNo billing records found in this account for the past year.");
         }
         Console.WriteLine(new string('-', 80));
     }
