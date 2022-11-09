@@ -58,7 +58,7 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
 **WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account._
 
  ### Properties file
-Before running the JUnit tests, you must define values in the **config.proerties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. If you do not define all values, the JUnit tests fail.
+Before running the JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. If you do not define all values, the JUnit tests fail.
 
 Define this value to successfully run the JUnit tests:
 
