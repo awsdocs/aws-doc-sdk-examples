@@ -29,11 +29,11 @@ This Kotlin example performs the following task:
  */
 
 suspend fun main() {
-    displayAllServices()
+    displaySomeServices()
 }
 
 // Return a List that contains a Service name and Category name.
-suspend fun displayAllServices() {
+suspend fun displaySomeServices() {
     val servicesRequest = DescribeServicesRequest {
         language = "en"
     }
