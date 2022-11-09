@@ -291,8 +291,9 @@ suspend fun displayServices(): List<String> {
         var index = 1
 
         response.services?.forEach { service ->
-            if (index == 11)
+            if (index == 11) {
                 return@forEach
+            }
 
             println("The Service name is: " + service.name)
             if (service.name == "Account")
