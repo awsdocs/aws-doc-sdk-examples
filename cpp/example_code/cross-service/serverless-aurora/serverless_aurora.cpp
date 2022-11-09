@@ -13,12 +13,12 @@
 
 #include "ItemTrackerHTTPHandler.h"
 #include "RDSDataHandler.h"
-#include "SES3EmailHandler.h"
+#include "SESV2EmailHandler.h"
 #include "PocoHTTPServer.h"
 
 static const Aws::String TABLE_NAME("items");
 
-//! Routine which runs Amazon Aurora Serverless as an HTTP server using the Poco library.
+//! Routine which runs the Amazon Aurora Serverless example as an HTTP server using the Poco library.
 /*!
  \sa runServerLessAurora
  \param database: The Amazon Relational Database Service (Amazon RDS) database name.
@@ -39,8 +39,8 @@ void runServerLessAurora(const Aws::String &database,
 
     rdsDataHandler.initializeTable(false); // bool: Recreate table.
 
-    AwsDoc::CrossService::SES3EmailHandler sesEmailHandler(sesEmailAddress,
-                                                           clientConfiguration);
+    AwsDoc::CrossService::SESV2EmailHandler sesEmailHandler(sesEmailAddress,
+                                                            clientConfiguration);
 
     AwsDoc::CrossService::ItemTrackerHTTPHandler itemTrackerHttpServer(rdsDataHandler,
                                                                        sesEmailHandler);

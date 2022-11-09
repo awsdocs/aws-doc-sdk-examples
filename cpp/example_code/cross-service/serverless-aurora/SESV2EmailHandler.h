@@ -4,7 +4,7 @@
 */
 
 /**
- *  SES3EmailHandler.h/.cpp
+ *  SESV2EmailHandler.h/.cpp
  *
  *  The code in these 2 file implements the sending of a multipart email message containing
  *  plain text, HTML text, and an attachment file using Amazon Simple Email Service
@@ -14,8 +14,8 @@
  */
 
 #pragma once
-#ifndef SERVERLESSAURORA_SES3EMAILHANDLER_H
-#define SERVERLESSAURORA_SES3EMAILHANDLER_H
+#ifndef SERVERLESSAURORA_SESV2EMAILHANDLER_H
+#define SERVERLESSAURORA_SESV2EMAILHANDLER_H
 
 #include "ItemTrackerHTTPHandler.h"
 #include <aws/core/client/ClientConfiguration.h>
@@ -23,26 +23,26 @@
 namespace AwsDoc {
     namespace CrossService {
         /**
-         *  SES3EmailHandler
+         *  SESV2EmailHandler
          *
          *  Implementation of SESEmailReceiver which sends emails using Amazon SES.
          *
          */
-        class SES3EmailHandler : public SESEmailReceiver {
+        class SESV2EmailHandler : public SESEmailReceiver {
         public :
 
-            //! SES3EmailHandler constructor.
+            //! SESV2EmailHandler constructor.
             /*!
-             \sa SES3EmailHandler::SES3EmailHandler()
+             \sa SESV2EmailHandler::SESV2EmailHandler()
              \param fromEmailAddress: Verified mail address enabled in Amazon SES.
              \param clientConfiguration: Aws client configuration.
              */
-            explicit SES3EmailHandler(const Aws::String &fromEmailAddress,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration);
+            explicit SESV2EmailHandler(const Aws::String &fromEmailAddress,
+                                       const Aws::Client::ClientConfiguration &clientConfiguration);
 
             //! Routine which sends an email.
             /*!
-             \sa SES3EmailHandler::sendEmail()
+             \sa SESV2EmailHandler::sendEmail()
              \param emailAddress: The destination email address.
              \param workItems: List of work items for the email content.
              \return bool: Successful completion.
@@ -54,7 +54,7 @@ namespace AwsDoc {
 
             //! Routine which writes the header of a multipart raw email message.
             /*!
-             \sa SES3EmailHandler::writeMultipartHeader()
+             \sa SESV2EmailHandler::writeMultipartHeader()
              \param toEmail: The destination email address.
              \param subject: The email subject.
              \param returnPath: Optional return email address.
@@ -68,7 +68,7 @@ namespace AwsDoc {
 
             //! Routine which writes the plain text part of a multipart raw email message.
             /*!
-             \sa SES3EmailHandler::writePlainTextPart()
+             \sa SESV2EmailHandler::writePlainTextPart()
              \param plainText: Plain text content.
              \param ostream: An output stream.
              \return void:
@@ -78,7 +78,7 @@ namespace AwsDoc {
 
             //! Routine which writes the HTML text part of a multipart raw email message.
             /*!
-             \sa SES3EmailHandler::writeHtmlTextPart()
+             \sa SESV2EmailHandler::writeHtmlTextPart()
              \param htmlText: Content in HTML text format.
              \param ostream: An output stream.
              \return void:
@@ -87,7 +87,7 @@ namespace AwsDoc {
 
             //! Routine which writes the file attachment part of a multipart raw email message.
             /*!
-             \sa SES3EmailHandler::writeAttachmentPart()
+             \sa SESV2EmailHandler::writeAttachmentPart()
              \param contentType: The MIME content type.
              \param name: The file name.
              \param attachmentBuffer: Buffer containing the file contents                                             cv f.
@@ -105,4 +105,4 @@ namespace AwsDoc {
     }  // namespace CrossService
 } // namespace AwsDoc
 
-#endif //SERVERLESSAURORA_SES3EMAILHANDLER_H
+#endif //SERVERLESSAURORA_SESV2EMAILHANDLER_H

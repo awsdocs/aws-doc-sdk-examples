@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include "ItemTrackerHTTPHandler.h"
 #include "RDSDataHandler.h"
-#include "SES3EmailHandler.h"
+#include "SESV2EmailHandler.h"
 #include "serverless_aurora_gtests.h"
 
 namespace AwsDocTest {
@@ -39,7 +39,7 @@ namespace AwsDocTest {
 
         rdsDataHandler.initializeTable(true); // bool: recreate table.
 
-        AwsDoc::CrossService::SES3EmailHandler sesEmailHandler(sesEmailAddress,
+        AwsDoc::CrossService::SESV2EmailHandler sesEmailHandler(sesEmailAddress,
                                                                clientConfig);
 
         AwsDoc::CrossService::ItemTrackerHTTPHandler itemTrackerHttpServer(

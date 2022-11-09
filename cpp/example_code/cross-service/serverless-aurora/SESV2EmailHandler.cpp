@@ -4,7 +4,7 @@
 */
 
 /**
- *  SES3EmailHandler.h/.cpp
+ *  SESV2EmailHandler.h/.cpp
  *
  *  The code in these 2 file implements the sending of a multipart email message containing
  *  plain text, HTML text, and an attachment file using Amazon Simple Email Service
@@ -14,7 +14,7 @@
  *
  */
 
-#include "SES3EmailHandler.h"
+#include "SESV2EmailHandler.h"
 #include <aws/sesv2/SESV2Client.h>
 #include <aws/sesv2/model/SendEmailRequest.h>
 #include <aws/core/utils/base64/Base64.h>
@@ -27,13 +27,13 @@ namespace AwsDoc {
     }  // namespace CrossService
 } // namespace AwsDoc
 
-//! SES3EmailHandler constructor.
+//! SESV2EmailHandler constructor.
 /*!
- \sa SES3EmailHandler::SES3EmailHandler()
+ \sa SESV2EmailHandler::SESV2EmailHandler()
  \param fromEmailAddress: Verified mail address enabled in Amazon SES.
  \param clientConfiguration: Aws client configuration.
  */
-AwsDoc::CrossService::SES3EmailHandler::SES3EmailHandler(
+AwsDoc::CrossService::SESV2EmailHandler::SESV2EmailHandler(
         const Aws::String &fromEmailAddress,
         const Aws::Client::ClientConfiguration &clientConfiguration) :
         mClientConfiguration(clientConfiguration),
@@ -43,13 +43,13 @@ AwsDoc::CrossService::SES3EmailHandler::SES3EmailHandler(
 
 //! Routine which sends an email.
 /*!
- \sa SES3EmailHandler::sendEmail()
+ \sa SESV2EmailHandler::sendEmail()
  \param emailAddress: The destination email address.
  \param workItems: List of work items for the email content.
  \return bool: Successful completion.
  */
-bool AwsDoc::CrossService::SES3EmailHandler::sendEmail(const Aws::String emailAddress,
-                                                       const std::vector<WorkItem> &workItems) {
+bool AwsDoc::CrossService::SESV2EmailHandler::sendEmail(const Aws::String emailAddress,
+                                                        const std::vector<WorkItem> &workItems) {
     Aws::SESV2::SESV2Client client(mClientConfiguration);
 
     auto currentTime = std::chrono::system_clock::to_time_t(
@@ -125,14 +125,14 @@ bool AwsDoc::CrossService::SES3EmailHandler::sendEmail(const Aws::String emailAd
 
 //! Routine which writes the header of a multipart raw email message.
 /*!
- \sa SES3EmailHandler::writeMultipartHeader()
+ \sa SESV2EmailHandler::writeMultipartHeader()
  \param toEmail: The destination email address.
  \param subject: The email subject.
  \param returnPath: Optional return email address.
  \param ostream: An output stream.
  \return void:
  */
-void AwsDoc::CrossService::SES3EmailHandler::writeMultipartHeader(
+void AwsDoc::CrossService::SESV2EmailHandler::writeMultipartHeader(
         const Aws::String &toEmail, const Aws::String &subject,
         const Aws::String &returnPath, std::ostream &ostream) {
     ostream << "From: " << mFromEmailAddress << "\n"
@@ -151,14 +151,14 @@ void AwsDoc::CrossService::SES3EmailHandler::writeMultipartHeader(
 
 //! Routine which writes the plain text part of a multipart raw email message.
 /*!
- \sa SES3EmailHandler::writePlainTextPart()
+ \sa SESV2EmailHandler::writePlainTextPart()
  \param plainText: Plain text content.
  \param ostream: An output stream.
  \return void:
  */
 void
-AwsDoc::CrossService::SES3EmailHandler::writePlainTextPart(const Aws::String &plainText,
-                                                           std::ostream &ostream) {
+AwsDoc::CrossService::SESV2EmailHandler::writePlainTextPart(const Aws::String &plainText,
+                                                            std::ostream &ostream) {
     ostream << "Content-Type: text/plain; charset=UTF-8\n"
             << "Content-Transfer-Encoding: 7bit\n"
             << "\n"
@@ -169,14 +169,14 @@ AwsDoc::CrossService::SES3EmailHandler::writePlainTextPart(const Aws::String &pl
 
 //! Routine which writes the HTML text part of a multipart raw email message.
 /*!
- \sa SES3EmailHandler::writeHtmlTextPart()
+ \sa SESV2EmailHandler::writeHtmlTextPart()
  \param htmlText: Content in HTML text format.
  \param ostream: An output stream.
  \return void:
  */
 void
-AwsDoc::CrossService::SES3EmailHandler::writeHtmlTextPart(const Aws::String &htmlText,
-                                                          std::ostream &ostream) {
+AwsDoc::CrossService::SESV2EmailHandler::writeHtmlTextPart(const Aws::String &htmlText,
+                                                           std::ostream &ostream) {
     ostream << "Content-Type: text/html; charset=UTF-8\n"
             << "Content-Transfer-Encoding: 7bit\n"
             << "\n"
@@ -187,14 +187,14 @@ AwsDoc::CrossService::SES3EmailHandler::writeHtmlTextPart(const Aws::String &htm
 
 //! Routine which writes the file attachment part of a multipart raw email message.
 /*!
- \sa SES3EmailHandler::writeAttachmentPart()
+ \sa SESV2EmailHandler::writeAttachmentPart()
  \param contentType: The MIME content type.
  \param name: The file name.
  \param attachmentBuffer: Buffer containing the file contents.
  \param ostream: An output stream.
  \return void:
  */
-void AwsDoc::CrossService::SES3EmailHandler::writeAttachmentPart(
+void AwsDoc::CrossService::SESV2EmailHandler::writeAttachmentPart(
         const Aws::String &contentType, const Aws::String &name,
         const std::vector<unsigned char> &attachmentBuffer, std::ostream &ostream) {
     Aws::Utils::ByteBuffer encodeBuffer(attachmentBuffer.data(),

@@ -74,7 +74,7 @@ target_sources(
         ${EXECUTABLE}
         PUBLIC
         ../RDSDataHandler.cpp
-        ../SES3EmailHandler.cpp
+        ../SESV2EmailHandler.cpp
         ../ItemTrackerHTTPHandler.cpp
         serverless_aurora_gtests.cpp
         gtest_serverless_aurora.cpp

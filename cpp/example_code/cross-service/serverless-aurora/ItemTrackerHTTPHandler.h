@@ -119,7 +119,7 @@ namespace AwsDoc {
         };
 
         /**
-         * RDSDataReceiver
+         * SESEmailReceiver
          *
          *  Abstract class defining handler for Amazon Simple Email Service (Amazon SES).
          *

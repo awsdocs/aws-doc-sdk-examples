@@ -68,7 +68,7 @@ endif()
 add_executable(${EXECUTABLE}
         serverless_aurora.cpp
         RDSDataHandler.cpp
-        SES3EmailHandler.cpp
+        SESV2EmailHandler.cpp
         ItemTrackerHTTPHandler.cpp
         PocoHTTPServer.cpp)
 

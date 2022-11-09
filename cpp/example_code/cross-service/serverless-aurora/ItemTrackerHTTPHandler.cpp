@@ -128,7 +128,7 @@ bool AwsDoc::CrossService::ItemTrackerHTTPHandler::getWorkItemJSON(
     return result;
 }
 
-//! Routine which adds a work items to Amazon RDS.
+//! Routine which adds a work item to Amazon RDS.
 /*!
  \sa ItemTrackerHTTPHandler::addWorkItem()
  \param workItemJson: Content of HTTP request as JSON string.

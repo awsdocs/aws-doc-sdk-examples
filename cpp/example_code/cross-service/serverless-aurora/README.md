@@ -11,7 +11,7 @@ This example code creates an HTTP server which implements the following APIs.
 - `PUT /items/{item_id}:archive` to move an individual item to the `archived` status.
 - `POST /items:report` to generate a report. The body can accept an `email` field with a string email address.
 
-The data for these APIs is stored in an Amazon Relational Database Service (Amazon RDS) database. The email report is sent using Amazon Simple Email Service (Amazon SES).
+The data for these APIs is stored in an Amazon Aurora Serverless database. The email report is sent using Amazon Simple Email Service (Amazon SES).
 
 This example uses C++ code, JavaScript React code, and AWS Cloud Development Kit (AWS CDK) code.
 
@@ -19,7 +19,7 @@ This example uses C++ code, JavaScript React code, and AWS Cloud Development Kit
 
 2. A client JavaScript React web app is created using the code at [resources/clients/react/elwing](../../../../resources/clients/react/elwing/).
 
-3. The Amazon Aurora Serverless resources  are created using the AWS CDK code at [resources/cdk/aurora_serverless_app](../../../../resources/cdk/aurora_serverless_app). 
+3. The Amazon Aurora Serverless resources are created using the AWS CDK code at [resources/cdk/aurora_serverless_app](../../../../resources/cdk/aurora_serverless_app). 
 
 ## ⚠️ Important
 
