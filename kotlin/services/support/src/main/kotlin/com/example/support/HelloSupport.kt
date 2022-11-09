@@ -44,8 +44,9 @@ suspend fun displayAllServices() {
         var index = 1
 
         response.services?.forEach { service ->
-            if (index == 11)
+            if (index == 11) {
                 return@forEach
+            }
 
             println("The Service name is: " + service.name)
 
@@ -57,4 +58,5 @@ suspend fun displayAllServices() {
         }
     }
 }
+
 // snippet-end:[support.kotlin.hello.main]
