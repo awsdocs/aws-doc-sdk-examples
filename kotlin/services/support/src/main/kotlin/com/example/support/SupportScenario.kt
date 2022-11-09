@@ -90,7 +90,7 @@ suspend fun main(args: Array<String>) {
 
     println("***** Step 7. List the communications of the support case.")
     val attachId = listCommunications(caseIdVal)
-    println("The Attachment id value is$attachId")
+    println("The Attachment id value is $attachId")
 
     println("***** Step 8. Describe the attachment set included with the communication.")
     describeAttachment(attachId)
