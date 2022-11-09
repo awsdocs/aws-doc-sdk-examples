@@ -183,10 +183,11 @@ suspend fun addAttachSupportCase(caseIdVal: String?, attachmentSetIdVal: String?
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.addCommunicationToCase(caseRequest)
-        if (response.result)
+        if (response.result) {
             println("You have successfully added a communication to an AWS Support case")
-        else
+        } else {
             println("There was an error adding the communication to an AWS Support case")
+        }
     }
 }
 // snippet-end:[support.kotlin.add.attach.case.main]
@@ -266,8 +267,9 @@ suspend fun displaySevLevels(): String {
         val response = supportClient.describeSeverityLevels(severityLevelsRequest)
         response.severityLevels?.forEach { sevLevel ->
             println("The severity level name is: " + sevLevel.name)
-            if (sevLevel.name == "High")
+            if (sevLevel.name == "High") {
                 levelName = sevLevel.name!!
+            }
         }
         return levelName
     }
@@ -295,14 +297,16 @@ suspend fun displayServices(): List<String> {
             }
 
             println("The Service name is: " + service.name)
-            if (service.name == "Account")
+            if (service.name == "Account") {
                 serviceCode = service.code.toString()
+            }
 
             // Get the categories for this service.
             service.categories?.forEach { cat ->
                 println("The category name is: " + cat.name)
-                if (cat.name == "Security")
+                if (cat.name == "Security") {
                     catName = cat.name!!
+                }
             }
             index++
         }
