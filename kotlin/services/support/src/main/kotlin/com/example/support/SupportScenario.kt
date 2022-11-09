@@ -31,10 +31,14 @@ import kotlin.system.exitProcess
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
+
 For more information, see the following documentation topic:
+
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 In addition, you must have the AWS Business Support Plan to use the AWS Support Java API. For more information, see:
+
 https://aws.amazon.com/premiumsupport/plans/
+
 This Kotlin example performs the following tasks:
 1. Gets and displays available services.
 2. Gets and displays severity levels.
@@ -83,7 +87,7 @@ suspend fun main(args: Array<String>) {
 
     println("***** Step 5. Create an attachment set with a generated file to add to the case.")
     val attachmentSetId = addAttachment(fileAttachment)
-    println("The Attachment Set id value is$attachmentSetId")
+    println("The Attachment Set id value is $attachmentSetId")
 
     println("***** Step 6. Add communication with the attachment to the support case.")
     addAttachSupportCase(caseIdVal, attachmentSetId)
@@ -119,9 +123,9 @@ suspend fun getResolvedCase() {
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeCases(describeCasesRequest)
         response.cases?.forEach { sinCase ->
-            println("The case status is " + sinCase.status)
-            println("The case Id is " + sinCase.caseId)
-            println("The case subject is " + sinCase.subject)
+            println("The case status is ${sinCase.status}")
+            println("The case Id is ${sinCase.caseId}")
+            println("The case subject is ${sinCase.subject}")
         }
     }
 }
@@ -226,9 +230,9 @@ suspend fun getOpenCase() {
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeCases(describeCasesRequest)
         response.cases?.forEach { sinCase ->
-            println("The case status is " + sinCase.status)
-            println("The case Id is " + sinCase.caseId)
-            println("The case subject is " + sinCase.subject)
+            println("The case status is ${sinCase.status}")
+            println("The case Id is ${sinCase.caseId}")
+            println("The case subject is ${sinCase.subject}")
         }
     }
 }
@@ -242,7 +246,7 @@ suspend fun createSupportCase(sevCatListVal: List<String>, sevLevelVal: String):
         categoryCode = caseCategory.lowercase(Locale.getDefault())
         serviceCode = serCode.lowercase(Locale.getDefault())
         severityCode = sevLevelVal.lowercase(Locale.getDefault())
-        communicationBody = "Test issue with " + serCode.lowercase(Locale.getDefault())
+        communicationBody = "Test issue with ${serCode.lowercase(Locale.getDefault())}"
         subject = "Test case, please ignore"
         language = "en"
         issueType = "technical"
@@ -265,7 +269,7 @@ suspend fun displaySevLevels(): String {
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeSeverityLevels(severityLevelsRequest)
         response.severityLevels?.forEach { sevLevel ->
-            println("The severity level name is: " + sevLevel.name)
+            println("The severity level name is: ${sevLevel.name}")
             if (sevLevel.name == "High") {
                 levelName = sevLevel.name!!
             }
@@ -295,14 +299,14 @@ suspend fun displayServices(): List<String> {
                 return@forEach
             }
 
-            println("The Service name is: " + service.name)
+            println("The Service name is ${service.name}")
             if (service.name == "Account") {
                 serviceCode = service.code.toString()
             }
 
             // Get the categories for this service.
             service.categories?.forEach { cat ->
-                println("The category name is: " + cat.name)
+                println("The category name is ${cat.name}")
                 if (cat.name == "Security") {
                     catName = cat.name!!
                 }

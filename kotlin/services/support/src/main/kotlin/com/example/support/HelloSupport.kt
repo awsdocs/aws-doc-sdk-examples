@@ -52,7 +52,7 @@ suspend fun displaySomeServices() {
 
             // Get the categories for this service.
             service.categories?.forEach { cat ->
-                println("The category name is: " + cat.name)
+                println("The category name is ${cat.name}")
                 index++
             }
         }
