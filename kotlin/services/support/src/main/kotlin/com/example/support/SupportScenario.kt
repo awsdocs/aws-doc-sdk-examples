@@ -49,7 +49,6 @@ This Kotlin example performs the following tasks:
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <fileAttachment> 
