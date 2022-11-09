@@ -275,7 +275,7 @@ suspend fun displaySevLevels(): String {
 }
 // snippet-end:[support.kotlin.display.sev.main]
 
-// snippet-end:[support.kotlin.display.sev.main]
+// snippet-start:[support.kotlin.display.main]
 // Return a List that contains a Service name and Category name.
 suspend fun displayServices(): List<String> {
     var serviceCode = ""
@@ -313,5 +313,5 @@ suspend fun displayServices(): List<String> {
     catName.let { sevCatList.add(it) }
     return sevCatList
 }
-// snippet-end:[support.kotlin.display.services.main]
+// snippet-end:[support.kotlin.display.main]
 // snippet-end:[support.kotlin.scenario.main]
