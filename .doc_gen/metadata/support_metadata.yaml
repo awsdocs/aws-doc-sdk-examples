@@ -5,6 +5,15 @@ support_Hello:
   synopsis: get started using &SUP;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.hello.main
     .NET:
       versions:
         - sdk_version: 3
@@ -22,6 +31,15 @@ support_AddAttachment:
   synopsis: add an &SUP; attachment to an attachment set.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.add.attach.main
     .NET:
       versions:
         - sdk_version: 3
@@ -39,6 +57,15 @@ support_AddCommunication:
   synopsis: add an &SUP; communication with an attachment to a support case.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.add.attach.case.main
     .NET:
       versions:
         - sdk_version: 3
@@ -56,6 +83,15 @@ support_CreateCase:
   synopsis: create a new &SUP; case.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.create.case.main
     .NET:
       versions:
         - sdk_version: 3
@@ -73,6 +109,15 @@ support_DescribeAttachment:
   synopsis: describe an attachment for an &SUP;  case.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.des.attachment.main
     .NET:
       versions:
         - sdk_version: 3
@@ -90,6 +135,15 @@ support_DescribeCases:
   synopsis: describe &SUP; cases.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.get.open.cases.main
     .NET:
       versions:
         - sdk_version: 3
@@ -107,6 +161,15 @@ support_DescribeCommunications:
   synopsis: describe &SUP; communications for a case.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.list.comms.main
     .NET:
       versions:
         - sdk_version: 3
@@ -124,6 +187,15 @@ support_DescribeServices:
   synopsis: describe the list of &AWS; services.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.display.services.main
     .NET:
       versions:
         - sdk_version: 3
@@ -141,6 +213,15 @@ support_DescribeSeverityLevels:
   synopsis: describe &SUP; severity levels.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.display.sev.main
     .NET:
       versions:
         - sdk_version: 3
@@ -158,6 +239,15 @@ support_ResolveCase:
   synopsis: resolve an &SUP; case.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.java2.resolve.main
     .NET:
       versions:
         - sdk_version: 3
@@ -182,6 +272,15 @@ support_Scenario_GetStartedSupportCases:
     - Get and display a list of resolved cases for the current day.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/support
+          sdkguide:
+          excerpts:
+            - description: Run various &SUP; operations.
+              snippet_tags:
+                - support.java2.scenario.main
     .NET:
       versions:
         - sdk_version: 3
