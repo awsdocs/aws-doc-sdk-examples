@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: pre-setup
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -36,3 +38,5 @@ jobs:
         with:
           command: test
           args: --manifest-path rust_dev_preview/Cargo.toml
+        env:
+          APP_ENVIRONMENT: test
