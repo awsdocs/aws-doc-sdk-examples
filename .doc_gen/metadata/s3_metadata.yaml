@@ -1803,7 +1803,7 @@ s3_UploadPart:
     s3: {UploadPart}
 s3_UseDualStackEndpoint:
   title: Enable the use of a dual-stack endpoint when creating an &S3; client using an &AWS; SDK
-  title_abbrev: Enable the use of a dual-stack endpoint.
+  title_abbrev: Enable the use of a dual-stack endpoint
   synopsis: enable a dual-stack endpoint.
   category:
   languages:
@@ -1820,8 +1820,8 @@ s3_UseDualStackEndpoint:
     s3: {}
 s3_PutBucketNotification:
   title: Enable notifications for an &S3; bucket using an &AWS; SDK
-  title_abbrev: Enable notifications.
-  synopsis: Enable notifications for an S3 bucket.
+  title_abbrev: Enable notifications
+  synopsis: enable notifications for an S3 bucket.
   category:
   languages:
     .NET:
