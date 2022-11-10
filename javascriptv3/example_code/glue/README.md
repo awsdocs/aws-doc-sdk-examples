@@ -1,8 +1,8 @@
-# Glue code examples for the SDK for JavaScript in Node.js
+# AWS Glue code examples for the SDK for JavaScript in Node.js
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript in Node.js with AWS Glue
+Shows how to use the AWS SDK for JavaScript in Node.js with AWS Glue.
 
 AWS Glue is a serverless data integration service that makes it easier to discover, prepare, move, and integrate data from multiple sources for analytics, machine learning (ML), and application development.
 
@@ -34,38 +34,46 @@ Code examples that show you how to accomplish a specific task by calling multipl
 1. [Set up AWS SDK for JavaScript](../README.md).
 1. Run `yarn`.
 
-### Run a single action
+### Instructions
 
-1. Create a new file in this directory and `import { functionName } from "./actions/action-name.js"`
-   where `action-name` is the file name of the action you want to run, and `functionName` is the name of
+**Run a single action**
+
+1. Create a new file in this directory and run `import { functionName } from "./actions/action-name.js"`.
+   Replace `action-name` with the file name of the action to run, and replace `functionName` with the name of
    the exported function in that file.
 1. Call the imported function with its required parameters and log the result.
 
-### Run a scenario
+**Run a scenario**
 
-#### Get started running crawlers and jobs
+> ### Get started running crawlers and jobs
+>
+> ---
+>
+> Prerequisites:
+>
+> 1. [Install the AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_install).
+> 1. Run `cdk bootstrap`.
+> 1. Change directories to `resources/cdk/glue_role_bucket`.
+> 1. Run `cdk deploy` and save the output.
+> 1. Upload `python/example_code/glue/flight_etl_job_script.py` to the S3 bucket created in the preceding step.
+>
+> Running the scenario:
+>
+> 1. Run `node ./scenarios/basic`.
+> 2. The scenario will create a crawler, create a job, run the crawler, and run the job. User input will be required
+>    for getting more information about job runs, and for clean up options.
 
-Prerequisites:
-
-1. [Install the AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_install).
-1. Run `cdk bootstrap`.
-1. Change directories to `resources/cdk/glue_role_bucket`.
-1. Run `cdk deploy` and save the output.
-1. Upload `python/example_code/glue/flight_etl_job_script.py` to the S3 bucket created in the preceding step.
-
-Running the scenario:
-1. Run `node ./scenarios/basic`.
-2. The scenario will create a crawler, create a job, run the crawler, and run the job. User input will be required
-for getting more information about job runs, and for clean up options.
-
-## Unit Tests
+## Tests
 
 ⚠️ Running the tests might result in charges to your AWS account.
+
+### Unit tests
 
 1. Run `yarn`.
 1. Run `yarn test`.
 
-## Integration tests
+### Integration tests
+
 1. Run `yarn`.
 1. Run `yarn integration-test`.
 
