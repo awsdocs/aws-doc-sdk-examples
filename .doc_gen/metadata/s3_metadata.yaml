@@ -857,7 +857,7 @@ s3_CancelMultipartUpload:
               snippet_tags:
                 - S3.dotnetv3.AbortMPUExample
   services:
-    s3: { AbortMultipartUploads }
+    s3: {AbortMultipartUploads}
 s3_CompleteMultipartUpload:
   title: Complete the multipart upload action using an &AWS; SDK
   title_abbrev: Complete a multipart upload
@@ -1918,15 +1918,15 @@ s3_Scenario_PresignedUrl:
           github: dotnetv3/S3/
           sdkguide:
           excerpts:
-              - description:
-                  Generate a presigned URL that can perform an S3 action
-                  for a limited time.
-                snippet_tags:
-                  - S3.dotnetv3.GenPresignedUrlExample
-              - description:
-                  Generate a presigned URL and perform an upload using that URL.
-                snippet_tags:
-                  - S3.dotnetv3.UploadUsingPresignedURLExample
+            - description:
+                Generate a presigned URL that can perform an S3 action
+                for a limited time.
+              snippet_tags:
+                - S3.dotnetv3.GenPresignedUrlExample
+            - description:
+                Generate a presigned URL and perform an upload using that URL.
+              snippet_tags:
+                - S3.dotnetv3.UploadUsingPresignedURLExample
     Java:
       versions:
         - sdk_version: 2
