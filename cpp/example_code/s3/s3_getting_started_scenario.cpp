@@ -56,8 +56,7 @@ namespace AwsDoc {
         static bool DeleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client);
 
         //! Delete an object in an S3 bucket.
-        /*!
-          \sa DeleteObjectFromBucket()
+        /*!          \sa DeleteObjectFromBucket()
           \param bucketName The S3 bucket's name.
           \param key The key for the object in the S3 bucket.
           \param client An S3 client.
