@@ -1,0 +1,20 @@
+
+# Uses the github 'stale' action to monitor and identify old issues and pull requests.
+name: 'Shirriff'
+on:
+  schedule:
+    - cron: '* * * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v6
+        with:
+          exempt-issue-labels: 'type/epic,status/icebox'
+          only-labels: 'stale-test'
+          stale-issue-label: 'status/stale'
+          days-before-stale: 0.00069
+          days-before-close: -1
+          stale-issue-message: 'Marked stale by the Shirriff. Notifying @aws-sdk-docs-code-maintainers.'
+          stale-pr-message: 'Marked stale by the Shirriff. Notifying @aws-sdk-docs-code-maintainers.'
