@@ -32,9 +32,6 @@ public static class HelloRoute53Domains
         {
             Console.WriteLine($"\tRegistration: {comPrices.RegistrationPrice?.Price} {comPrices.RegistrationPrice?.Currency}");
             Console.WriteLine($"\tRenewal: {comPrices.RenewalPrice?.Price} {comPrices.RenewalPrice?.Currency}");
-            Console.WriteLine($"\tTransfer: {comPrices.TransferPrice?.Price} {comPrices.TransferPrice?.Currency}");
-            Console.WriteLine($"\tChange Ownership: {comPrices.ChangeOwnershipPrice?.Price} {comPrices.ChangeOwnershipPrice?.Currency}");
-            Console.WriteLine($"\tRestoration: {comPrices.RestorationPrice?.Price} {comPrices.RestorationPrice?.Currency}");
         }
     }
 }
