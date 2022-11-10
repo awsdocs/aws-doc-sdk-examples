@@ -61,6 +61,10 @@ cross_RDSDataTracker:
       versions:
         - sdk_version: 3
           block_content: cross_RDSDataTracker_JavaScriptV3_block.xml
+    C++:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RDSDataTracker_cpp_block.xml
   services:
     aurora:
     rds:
