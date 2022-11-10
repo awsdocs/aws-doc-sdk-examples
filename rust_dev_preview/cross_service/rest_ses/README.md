@@ -65,7 +65,7 @@ The item tracker plugin is a JavaScript application that lets you manage work it
 #### Run Elwing and select the item tracker
 
 1.  Run Elwing by following the instructions in the [Elwing README](/resources/clients/react/elwing/README.md).
-1.  When Elwing starts, a web browser opens and browses to http://localhost:3000/.
+1.  When Elwing starts, a web browser opens http://localhost:3000/.
 1.  Run the item tracker plugin by selecting **Item Tracker** in the left navigation bar.
 1.  Follow the Elwing [Item Tracker instructions](/resources/clients/react/elwing/src/plugins/item-tracker/README.md).
 
@@ -76,7 +76,7 @@ This example uses the Actix Web framework to host a local REST service and respo
 ### Start up
 
 When the program first starts, it loads environment and configuration information from `src/configuration.rs`.
-It then prepares its actix web resources and SDK clients in `src/startup.rs`.
+It then prepares its Actix Web resources and SDK clients in `src/startup.rs`.
 These helpers are also used in `test/startup.rs` to ensure the application is running in a consistent environment in development, testing, and production.
 
 ### Routing
@@ -100,7 +100,7 @@ async fn retrieve(
 
 ### Aurora Serverless repository
 
-The [repository.rs](src/work_item/repository.rs) file contains functions that get and set data in an Aurora Serverless database by using an Amazon RDS Data Service client.
+The [repository.rs](src/work_item/repository.rs) file contains functions that get and set data in an Aurora Serverless database by using an Amazon Relational Database Service (Amazon RDS) Data Service client.
 
 For example, the `retrieve` function constructs a `SELECT` statement and parameters and sends them to the data client to get a single work item.
 
@@ -125,7 +125,7 @@ pub async fn retrieve(id: String, client: &crate::client::RdsClient) -> Result<c
 
 The [report.rs](src/report.rs) file contains functions that route the report HTTP request and send an email report of work items to a specified email address.
 
-The report is send as an XSLX Excel spreadshee.
+The report is send as an XSLX Excel spreadsheet.
 When you use Amazon SES to send an attachment, you must use the `send_raw_email` service action and send the email in MIME format.
 
 ## Delete the resources

@@ -15,14 +15,14 @@ The web client is designed to send requests to one of the following sample appli
 Each sample application shows you how to use an AWS SDK to store work items using AWS
 resources:
 
-- [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](/javav2/usecases/Creating_Spring_RDS_%20Rest)
-- [Creating the Amazon Aurora Serverless backend using the AWS SDK for PHP](/php/cross_service/aurora_item_tracker)
-- [Tracking work items in an Aurora Serverless database with the SDK for Python](/python/cross_service/aurora_item_tracker)
+- [Create a React and Spring REST application that queries Amazon Aurora Serverless data](/javav2/usecases/Creating_Spring_RDS_%20Rest)
+- [Create the Amazon Aurora Serverless backend using the AWS SDK for PHP](/php/cross_service/aurora_item_tracker)
+- [Track work items in an Aurora Serverless database with the SDK for Python](/python/cross_service/aurora_item_tracker)
 
-## Running the Item Tracker UI
+## Run the Item Tracker UI
 
 1.  Run Elwing by following the instructions in the [Elwing README](/resources/clients/react/elwing/README.md).
-1.  When Elwing starts, a web browser opens and browses to http://localhost:3000/.
+1.  When Elwing starts, a web browser opens http://localhost:3000/.
 1.  Run the item tracker plugin by selecting **Item Tracker** in the left navigation bar.
 1.  This sends a request to the REST service to get any existing active items:
     ```
@@ -48,20 +48,18 @@ resources:
      "archived":false}
     ```
 
-1.  After you've added items, they're displayed in the table. You can archive an active
-    item by selecting the **Archive** button next to the item.
+1.  After you add items, they display in the table.
+    You can archive an active item by selecting the **Archive** button next to the item.
 
     ![Work item tracker with items](images/item-tracker-all-items.png)
 
-    This sends a PUT request to the REST service, specifying the item ID and the
-    `archive` action.
+    This sends a PUT request to the REST service, specifying the item ID and the `archive` action.
 
     ```
     PUT http://localhost:8080/api/items/8db8aaa4-6f04-4467-bd60-EXAMPLEGUID:archive
     ```
 
-1.  Select a filter in the dropdown list, such as **Archived**, to get and display
-    only items with the specified status.
+1.  To get and display items with a specific status, select a filter in the dropdown list, such as **Archived**.
 
     ![Work item tracker Archived items](images/item-tracker-archived-items.png)
 
@@ -81,8 +79,7 @@ resources:
     POST http://localhost:8080/api/items:report
     ```
 
-    When your Amazon SES account is in the sandbox, both the sender and recipient
-    email addresses must be registered with Amazon SES.
+    When your Amazon Simple Email Service (Amazon SES) account is in the sandbox, both the sender and recipient email addresses must be registered with Amazon SES.
 
 ## Additional resources
 
