@@ -19,7 +19,20 @@ AWS Glue is a serverless data integration service that makes it easier to discov
 
 Code excerpts that show you how to call individual service functions.
 
-- [Perform an action](./link/to/action)(`ActionName`)
+- [Create a crawler](./actions/create-crawler.js)(`CreateCrawler`)
+- [Create a job definition](./actions/create-job.js)(`CreateJob`)
+- [Delete a crawler](./actions/delete-crawler.js)(`DeleteCrawler`)
+- [Delete a database from the Data Catalog](./actions/delete-database.js)(`DeleteDatabase`)
+- [Delete a job definition](./actions/delete-job.js)(`DeleteJob`)
+- [Delete a table from a database](./actions/delete-table.js)(`DeleteTable`)
+- [Get a crawler](./actions/get-crawler.js)(`GetCrawler`)
+- [Get a database from the Data Catalog](./actions/get-database.js)(`GetDatabase`)
+- [Get a job run](./actions/get-job.js)(`GetJob`)
+- [Get runs of a job](./actions/get-job-runs.js)(`GetJobRuns`)
+- [Get tables from a database](./actions/get-tables.js)(`GetTables`)
+- [List job definitions](./actions/list-jobs.js)(`ListJobs`)
+- [Start a crawler](./actions/start-crawler.js)(`StartCrawler`)
+- [Start a job run](./actions/start-job-run.js)(`StartJobRun`)
 
 ### Scenarios
 
