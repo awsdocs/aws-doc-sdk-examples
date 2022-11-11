@@ -41,7 +41,7 @@ class RdsDataStubber(ExampleStubber):
 
     def stub_execute_statement(
             self, resource_arn, secret_arn, database, sql, sql_params=None,
-            transaction_id=None, records=None, generated_fields=None, error_code=None):
+            transaction_id=None, records=None, generated_fields=None, error_code=None, error_message=''):
         expected_params = {
             'database': database, 'resourceArn': resource_arn, 'secretArn': secret_arn,
             'sql': sql}
@@ -58,7 +58,7 @@ class RdsDataStubber(ExampleStubber):
             response['generatedFields'] = [
                 {VALUE_KEYS[type(field)]: field} for field in generated_fields]
         self._stub_bifurcator(
-            'execute_statement', expected_params, response, error_code=error_code)
+            'execute_statement', expected_params, response, error_code=error_code, error_message=error_message)
 
     def stub_batch_execute_statement(
             self, resource_arn, secret_arn, database, sql, sql_param_sets=None,

@@ -32,9 +32,10 @@ cross_SQSMessageApp:
     sqs:
     comprehend:
 cross_RDSDataTracker:
-  title: Create an &RDSlong; item tracker
-  title_abbrev: Create a web application to track &RDS; data
-  synopsis: create a web application that tracks and reports on work items using an &RDSlong; (&RDS;) database.
+  title: Create an &AUR; Serverless work item tracker
+  title_abbrev: Create an &AUR; Serverless work item tracker
+  synopsis: create a web application that tracks work items in an &AURlong; Serverless
+    database and uses &SESlong; (&SES;) to send reports.
   languages:
     .NET:
       versions:
@@ -60,8 +61,14 @@ cross_RDSDataTracker:
       versions:
         - sdk_version: 3
           block_content: cross_RDSDataTracker_JavaScriptV3_block.xml
+    C++:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RDSDataTracker_cpp_block.xml
   services:
+    aurora:
     rds:
+    rds-data:
     ses:
 cross_SnsPublishSubscription:
   title: Build a publish and subscription application that translates messages
