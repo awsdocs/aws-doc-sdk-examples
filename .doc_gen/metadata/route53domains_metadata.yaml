@@ -154,7 +154,7 @@ route-53_ListOperations:
     route53-domains: {ListOperations}
 route-53_RegisterDomain:
   title: Register a domain with &R53DR; using an &AWS; SDK
-  title_abbrev: Register domain
+  title_abbrev: Register a domain
   synopsis: register a domain.
   category:
   languages:

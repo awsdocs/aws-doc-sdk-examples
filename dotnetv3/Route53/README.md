@@ -16,7 +16,7 @@ Route 53 is a highly available and scalable Domain Name System (DNS) web service
 
 ### Get started
 
-* [Hello Route 53](Actions/HelloRoute53.cs)
+* [Hello Route 53 domain registration](Actions/HelloRoute53.cs)
 
 ### Single actions
 
@@ -25,11 +25,11 @@ Code excerpts that show you how to call individual service functions.
 * [Check domain availability](Actions/Route53Wrapper.cs)(`CheckDomainAvailabilityAsync`)
 * [Check domain transferability](Actions/Route53Wrapper.cs)(`CheckDomainTransferabilityAsync`)
 * [Get domain details](Actions/Route53Wrapper.cs)(`GetDomainDetailAsync`)
-* [Get domain name suggestions](Actions/Route53Wrapper.cs)(`GetDomainSuggestionsAsync`)
 * [Get operation details](Actions/Route53Wrapper.cs)(`GetOperationDetailAsync`)
-* [List prices for domains](Actions/Route53Wrapper.cs)(`ListPricesAsync`)
-* [List registered domains](Actions/Route53Wrapper.cs)(`ListDomainsAsync`)
+* [Get suggested domain names](Actions/Route53Wrapper.cs)(`GetDomainSuggestionsAsync`)
+* [List domains](Actions/Route53Wrapper.cs)(`ListDomainsAsync`)
 * [List operations](Actions/Route53Wrapper.cs)(`ListOperationsAsync`)
+* [List prices](Actions/Route53Wrapper.cs)(`ListPricesAsync`)
 * [Register a domain](Actions/Route53Wrapper.cs)(`RegisterDomainAsync`)
 * [View billing](Actions/Route53Wrapper.cs)(`ViewBillingAsync`)
 
@@ -38,7 +38,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling
 multiple functions within the same service.
 
-* [Get started with Route 53 domains](Scenarios/Route53DomainScenario.cs)
+* [Get started with domains](Scenarios/Route53DomainScenario.cs)
 
 ## Run the examples
 
