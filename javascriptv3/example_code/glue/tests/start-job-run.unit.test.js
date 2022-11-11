@@ -5,7 +5,6 @@
 
 import { describe, it, expect, vi } from "vitest";
 
-import * as envVars from "../scenarios/basic/env.js";
 import { makeStartJobRunStep } from "../scenarios/basic/steps/start-job-run.js";
 import { mockPrompter } from "./mock-prompter.js";
 
@@ -17,17 +16,17 @@ describe("start-job-run", async () => {
     }));
     const actions = { startJobRun, getJobRun };
 
-    const context = { envVars, prompter: mockPrompter({ shouldOpen: false }) };
+    const context = { prompter: mockPrompter({ shouldOpen: false }) };
+
+    process.env.JOB_NAME = "job";
+    process.env.DATABASE_NAME = "db";
+    process.env.TABLE_NAME = "table";
+    process.env.BUCKET_NAME = "bucket";
 
     const step = makeStartJobRunStep(actions);
     await step(context);
 
-    expect(startJobRun).toHaveBeenCalledWith(
-      envVars.JOB_NAME,
-      envVars.DATABASE_NAME,
-      envVars.TABLE_NAME,
-      envVars.BUCKET_NAME
-    );
+    expect(startJobRun).toHaveBeenCalledWith("job", "db", "table", "bucket");
   });
 
   it("should call prompt the user about opening a browser if the job succeeds", async () => {
@@ -37,7 +36,7 @@ describe("start-job-run", async () => {
     }));
     const actions = { startJobRun, getJobRun };
     const prompter = mockPrompter({ shouldOpen: false });
-    const context = { envVars, prompter };
+    const context = { prompter };
 
     const step = makeStartJobRunStep(actions);
     await step(context);
@@ -56,7 +55,7 @@ describe("start-job-run", async () => {
     }));
     const actions = { startJobRun, getJobRun };
 
-    const context = { envVars, prompter: mockPrompter({ shouldOpen: false }) };
+    const context = { prompter: mockPrompter({ shouldOpen: false }) };
 
     const step = makeStartJobRunStep(actions);
     const error = new Error("Job FAILED. Error: Deliberate Failure");
@@ -71,7 +70,7 @@ describe("start-job-run", async () => {
     }));
     const actions = { startJobRun, getJobRun };
 
-    const context = { envVars, prompter: mockPrompter({ shouldOpen: false }) };
+    const context = { prompter: mockPrompter({ shouldOpen: false }) };
 
     const step = makeStartJobRunStep(actions);
     const actual = await step(context);

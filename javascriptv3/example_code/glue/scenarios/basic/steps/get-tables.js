@@ -9,7 +9,7 @@ import { log } from "../log.js";
 const makeGetTablesStep =
   ({ getTables }) =>
   async (context) => {
-    const { TableList } = await getTables(context.envVars.DATABASE_NAME);
+    const { TableList } = await getTables(process.env.DATABASE_NAME);
     log("Tables:");
     log(TableList.map((table) => `  • ${table.Name}\n`));
     return { ...context };

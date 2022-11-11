@@ -11,7 +11,7 @@ const makeGetDatabaseStep =
   async (context) => {
     const {
       Database: { Name },
-    } = await getDatabase(context.envVars.DATABASE_NAME);
+    } = await getDatabase(process.env.DATABASE_NAME);
     log(`Database: ${Name}`);
     return { ...context };
   };

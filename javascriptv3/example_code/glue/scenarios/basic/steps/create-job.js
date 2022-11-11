@@ -11,10 +11,10 @@ const makeCreateJobStep =
   async (context) => {
     log("Creating Job.");
     await createJob(
-      context.envVars.JOB_NAME,
-      context.envVars.ROLE_NAME,
-      context.envVars.BUCKET_NAME,
-      context.envVars.PYTHON_SCRIPT_KEY
+      process.env.JOB_NAME,
+      process.env.ROLE_NAME,
+      process.env.BUCKET_NAME,
+      process.env.PYTHON_SCRIPT_KEY
     );
     log("Job created.", { type: "success" });
 

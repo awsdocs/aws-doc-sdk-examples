@@ -55,7 +55,7 @@ describe("clean-up-jobs", () => {
     const deleteJob = vi.fn(async () => {});
     const actions = { listJobs, deleteJob };
 
-    const context = { envVars: {} };
+    const context = {};
 
     const step = makeCleanUpJobsStep(actions);
     const actual = await step(context);

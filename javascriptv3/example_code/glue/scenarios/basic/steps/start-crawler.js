@@ -28,11 +28,11 @@ const makeStartCrawlerStep =
   ({ startCrawler, getCrawler }) =>
   async (context) => {
     log("Starting crawler.");
-    await startCrawler(context.envVars.CRAWLER_NAME);
+    await startCrawler(process.env.CRAWLER_NAME);
     log("Crawler started.", { type: "success" });
 
     log("Waiting for crawler to finish running. This can take a while.");
-    await waitForCrawler(getCrawler, context.envVars.CRAWLER_NAME);
+    await waitForCrawler(getCrawler, process.env.CRAWLER_NAME);
     log("Crawler ready.", { type: "success" });
 
     return { ...context };

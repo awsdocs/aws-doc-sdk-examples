@@ -20,7 +20,7 @@ describe("pick-job-run", () => {
     const step = makePickJobRunStep(actions);
     await step(context);
     expect(getJobRuns).toBeCalledWith("job1");
-    expect(getJobRun).toHaveBeenCalledWith("job1", "jobRun1")
+    expect(getJobRun).toHaveBeenCalledWith("job1", "jobRun1");
   });
 
   it("should return a context object", async () => {
@@ -28,10 +28,8 @@ describe("pick-job-run", () => {
     const getJobRuns = vi.fn(async () => ({ JobRuns: [{ Id: "jobRun1" }] }));
     const actions = { getJobRun, getJobRuns };
 
-    const context = { envVars: {} };
-
     const step = makePickJobRunStep(actions);
-    const actual = await step(context);
-    expect(actual).toEqual(context);
+    const actual = await step({});
+    expect(actual).toEqual({});
   });
 });

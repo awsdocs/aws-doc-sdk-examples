@@ -15,7 +15,8 @@ describe("create-crawler", () => {
       createCrawler,
     });
 
-    await createCrawlerStep({ envVars: { CRAWLER_NAME: "crwlr" } });
+    process.env.CRAWLER_NAME = "crwlr";
+    await createCrawlerStep({});
 
     expect(createCrawler).not.toHaveBeenCalled();
   });
@@ -30,7 +31,8 @@ describe("create-crawler", () => {
       createCrawler,
     });
 
-    await createCrawlerStep({ envVars: { CRAWLER_NAME: "crwlr" } });
+    process.env.CRAWLER_NAME = "crwlr";
+    await createCrawlerStep({});
 
     expect(createCrawler).toHaveBeenCalled();
   });
@@ -40,10 +42,8 @@ describe("create-crawler", () => {
     const createCrawler = vi.fn();
     const actions = { getCrawler, createCrawler };
 
-    const context = { envVars: {} };
-
     const step = makeCreateCrawlerStep(actions);
-    const actual = await step(context);
-    expect(actual).toEqual(context);
+    const actual = await step({});
+    expect(actual).toEqual({});
   });
 });

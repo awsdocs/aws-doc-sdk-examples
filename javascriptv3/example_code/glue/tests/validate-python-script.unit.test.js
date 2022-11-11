@@ -4,7 +4,6 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import * as envVars from "../scenarios/basic/env.js";
 import { makeValidatePythonScriptStep } from "../scenarios/basic/steps/validate-python-script.js";
 
 describe("validate-python-script", () => {
@@ -14,10 +13,8 @@ describe("validate-python-script", () => {
     }));
     const actions = { s3ListObjects };
 
-    const context = { envVars };
-
     const step = makeValidatePythonScriptStep(actions);
-    return expect(step(context)).rejects.toEqual(
+    return expect(step({})).rejects.toEqual(
       new Error(
         "Missing ETL python script. Did you run the setup steps in the readme?"
       )
@@ -25,15 +22,14 @@ describe("validate-python-script", () => {
   });
 
   it("should return a context object", async () => {
+    process.env.PYTHON_SCRIPT_KEY = "scriptName";
     const s3ListObjects = vi.fn(async () => ({
-      Contents: [{ Key: envVars.PYTHON_SCRIPT_KEY }],
+      Contents: [{ Key: "scriptName" }],
     }));
     const actions = { s3ListObjects };
 
-    const context = { envVars };
-
     const step = makeValidatePythonScriptStep(actions);
-    const actual = await step(context);
-    expect(actual).toEqual(context);
+    const actual = await step({});
+    expect(actual).toEqual({});
   });
 });

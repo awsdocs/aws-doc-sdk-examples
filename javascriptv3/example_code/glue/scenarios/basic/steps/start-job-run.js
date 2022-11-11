@@ -49,7 +49,7 @@ const promptToOpen = async (context) => {
 
   if (shouldOpen) {
     return open(
-      `https://s3.console.aws.amazon.com/s3/buckets/${context.envVars.BUCKET_NAME}?region=${DEFAULT_REGION}&tab=objects to view the output.`
+      `https://s3.console.aws.amazon.com/s3/buckets/${process.env.BUCKET_NAME}?region=${DEFAULT_REGION}&tab=objects to view the output.`
     );
   }
 };
@@ -59,15 +59,15 @@ const makeStartJobRunStep =
   async (context) => {
     log("Starting job.");
     const { JobRunId } = await startJobRun(
-      context.envVars.JOB_NAME,
-      context.envVars.DATABASE_NAME,
-      context.envVars.TABLE_NAME,
-      context.envVars.BUCKET_NAME
+      process.env.JOB_NAME,
+      process.env.DATABASE_NAME,
+      process.env.TABLE_NAME,
+      process.env.BUCKET_NAME
     );
     log("Job started.", { type: "success" });
 
     log("Waiting for job to finish running. This can take a while.");
-    await waitForJobRun(getJobRun, context.envVars.JOB_NAME, JobRunId);
+    await waitForJobRun(getJobRun, process.env.JOB_NAME, JobRunId);
     log("Job run succeeded.", { type: "success" });
 
     await promptToOpen(context);

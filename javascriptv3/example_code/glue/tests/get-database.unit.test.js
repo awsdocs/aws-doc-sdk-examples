@@ -4,29 +4,26 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import * as envVars from "../scenarios/basic/env.js";
 import { makeGetDatabaseStep } from "../scenarios/basic/steps/get-database.js";
 
 describe("get-database", () => {
-  it('should call getDatabase with the database environment variable', async () => {
+  it("should call getDatabase with the database environment variable", async () => {
     const getDatabase = vi.fn(async () => ({ Database: {} }));
     const actions = { getDatabase };
 
-    const context = { envVars };
+    process.env.DATABASE_NAME = "db_name";
 
     const step = makeGetDatabaseStep(actions);
-    await step(context);
-    expect(getDatabase).toHaveBeenCalledWith(envVars.DATABASE_NAME)
+    await step({});
+    expect(getDatabase).toHaveBeenCalledWith("db_name");
   });
 
   it("should return a context object", async () => {
     const getDatabase = vi.fn(async () => ({ Database: {} }));
     const actions = { getDatabase };
 
-    const context = { envVars };
-
     const step = makeGetDatabaseStep(actions);
-    const actual = await step(context);
-    expect(actual).toEqual(context);
+    const actual = await step({});
+    expect(actual).toEqual({});
   });
 });

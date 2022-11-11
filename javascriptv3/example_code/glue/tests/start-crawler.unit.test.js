@@ -5,7 +5,6 @@
 
 import { describe, it, expect, vi } from "vitest";
 
-import * as envVars from "../scenarios/basic/env.js";
 import { makeStartCrawlerStep } from "../scenarios/basic/steps/start-crawler.js";
 
 describe("start-crawler", async () => {
@@ -14,12 +13,13 @@ describe("start-crawler", async () => {
     const getCrawler = vi.fn(async () => ({ Crawler: { State: "READY" } }));
     const actions = { startCrawler, getCrawler };
 
-    const context = { envVars };
+    const context = {};
+    process.env.CRAWLER_NAME = "crawler_name";
 
     const step = makeStartCrawlerStep(actions);
     await step(context);
 
-    expect(startCrawler).toHaveBeenCalledWith(envVars.CRAWLER_NAME);
+    expect(startCrawler).toHaveBeenCalledWith("crawler_name");
   });
 
   it("should return a context object", async () => {
@@ -27,7 +27,7 @@ describe("start-crawler", async () => {
     const getCrawler = vi.fn(async () => ({ Crawler: { State: "READY" } }));
     const actions = { startCrawler, getCrawler };
 
-    const context = { envVars };
+    const context = {};
 
     const step = makeStartCrawlerStep(actions);
     const actual = await step(context);

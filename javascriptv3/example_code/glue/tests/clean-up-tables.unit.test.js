@@ -17,7 +17,8 @@ describe("clean-up-tables", () => {
       deleteTable,
     });
 
-    await cleanUpTablesStep({ prompter, envVars: { DATABASE_NAME: "db1" } });
+    process.env.DATABASE_NAME = "db1";
+    await cleanUpTablesStep({ prompter });
     expect(deleteTable).not.toHaveBeenCalled();
     expect(prompter.prompt).not.toHaveBeenCalled();
   });
@@ -31,7 +32,8 @@ describe("clean-up-tables", () => {
       deleteTable,
     });
 
-    await cleanUpTablesStep({ prompter, envVars: { DATABASE_NAME: "db1" } });
+    process.env.DATABASE_NAME = "db1";
+    await cleanUpTablesStep({ prompter });
     expect(deleteTable).toHaveBeenCalled("tb1");
     expect(prompter.prompt).toHaveBeenCalled();
   });
@@ -45,7 +47,8 @@ describe("clean-up-tables", () => {
       deleteTable,
     });
 
-    await cleanUpTablesStep({ prompter, envVars: { DATABASE_NAME: "db1" } });
+    process.env.DATABASE_NAME = "db1";
+    await cleanUpTablesStep({ prompter });
     expect(deleteTable).not.toHaveBeenCalled();
     expect(prompter.prompt).toHaveBeenCalled();
   });
@@ -55,7 +58,7 @@ describe("clean-up-tables", () => {
     const deleteTable = vi.fn(async () => {});
     const actions = { getTables, deleteTable };
 
-    const context = { envVars: {} };
+    const context = {};
 
     const step = makeCleanUpTablesStep(actions);
     const actual = await step(context);

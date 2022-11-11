@@ -12,7 +12,7 @@ const makeCleanUpCrawlerStep =
     log(`Deleting crawler.`);
 
     try {
-      await deleteCrawler(context.envVars.CRAWLER_NAME);
+      await deleteCrawler(process.env.CRAWLER_NAME);
       log("Crawler deleted.", { type: "success" });
     } catch (err) {
       if (err.name === "EntityNotFoundException") {

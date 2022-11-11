@@ -27,7 +27,7 @@ describe("clean-up-databases", () => {
       DatabaseList: [{ Name: "db1" }],
     }));
     const deleteDatabase = vi.fn(async (_dbName) => {});
-    const prompter = mockPrompter({ dbNames: ['db1']});
+    const prompter = mockPrompter({ dbNames: ["db1"] });
 
     const cleanUpDatabasesStep = makeCleanUpDatabasesStep({
       getDatabases,
@@ -44,7 +44,7 @@ describe("clean-up-databases", () => {
     const deleteDatabase = vi.fn(async () => {});
     const actions = { getDatabases, deleteDatabase };
 
-    const context = { envVars: {} };
+    const context = {};
 
     const step = makeCleanUpDatabasesStep(actions);
     const actual = await step(context);

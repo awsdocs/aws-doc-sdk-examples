@@ -69,7 +69,20 @@ Code examples that show you how to accomplish a specific task by calling multipl
 > 1. Change directories to `resources/cdk/glue_role_bucket`.
 > 1. Run `cdk deploy` and save the output.
 > 1. Upload `python/example_code/glue/flight_etl_job_script.py` to the S3 bucket created in the preceding step.
->
+> 1. Create a .env file with the following values.
+>    Set the value of BUCKET_NAME and ROLE_NAME to the values output from
+>    the CDK.
+> ```
+>    BUCKET_NAME = 
+>    ROLE_NAME = 
+>    PYTHON_SCRIPT_KEY = flight_etl_job_script.py
+>    S3_TARGET_PATH = s3://crawler-public-us-east-1/flight/2016/csv
+>    DATABASE_NAME = doc-example-database
+>    TABLE_PREFIX = doc-example-
+>    TABLE_NAME = doc-example-csv
+>    CRAWLER_NAME = s3-flight-data-crawler
+>    JOB_NAME = flight_etl_job
+>```
 > Running the scenario:
 >
 > 1. Run `node ./scenarios/basic`.

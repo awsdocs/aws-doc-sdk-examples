@@ -15,15 +15,15 @@ const crawlerExists = async ({ getCrawler }, crawlerName) => {
 };
 
 const makeCreateCrawlerStep = (actions) => async (context) => {
-  if (await crawlerExists(actions, context.envVars.CRAWLER_NAME)) {
+  if (await crawlerExists(actions, process.env.CRAWLER_NAME)) {
     log("Crawler already exists. Skipping creation.");
   } else {
     await actions.createCrawler(
-      context.envVars.CRAWLER_NAME,
-      context.envVars.ROLE_NAME,
-      context.envVars.DATABASE_NAME,
-      context.envVars.TABLE_PREFIX,
-      context.envVars.S3_TARGET_PATH
+      process.env.CRAWLER_NAME,
+      process.env.ROLE_NAME,
+      process.env.DATABASE_NAME,
+      process.env.TABLE_PREFIX,
+      process.env.S3_TARGET_PATH
     );
 
     log("Crawler created successfully.", { type: "success" });

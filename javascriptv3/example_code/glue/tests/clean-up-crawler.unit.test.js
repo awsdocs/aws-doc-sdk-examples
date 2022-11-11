@@ -10,7 +10,8 @@ describe("clean-up-crawler", () => {
   it('should call "deleteCrawler"', async () => {
     const deleteCrawler = vi.fn(async () => {});
     const cleanUpCrawlerStep = makeCleanUpCrawlerStep({ deleteCrawler });
-    await cleanUpCrawlerStep({ envVars: { CRAWLER_NAME: "crawler" } });
+    process.env.CRAWLER_NAME = "crawler";
+    await cleanUpCrawlerStep({});
     expect(deleteCrawler).toHaveBeenCalledWith("crawler");
   });
 

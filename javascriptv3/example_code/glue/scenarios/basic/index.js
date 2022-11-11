@@ -4,6 +4,7 @@
  */
 import inquirer from "inquirer";
 import { pipe, andThen } from "ramda";
+import { config } from "dotenv";
 
 import { deleteDatabase } from "../../actions/delete-database.js";
 import { createCrawler } from "../../actions/create-crawler.js";
@@ -22,7 +23,6 @@ import { startCrawler } from "../../actions/start-crawler.js";
 import { startJobRun } from "../../actions/start-job-run.js";
 import { s3ListObjects } from "../../non-glue-actions/s3-list-objects.js";
 
-import * as ENV_VARS from "./env.js";
 import { log } from "./log.js";
 import { makeCleanUpCrawlerStep } from "./steps/clean-up-crawler.js";
 import { makeCleanUpDatabasesStep } from "./steps/clean-up-databases.js";
@@ -39,6 +39,8 @@ import { makeStartCrawlerStep } from "./steps/start-crawler.js";
 import { makeStartJobRunStep } from "./steps/start-job-run.js";
 import { validateEnv } from "./steps/validate-env.js";
 import { makeValidatePythonScriptStep } from "./steps/validate-python-script.js";
+
+config();
 
 const run = pipe(
   validateEnv,
@@ -60,7 +62,6 @@ const run = pipe(
 
 try {
   await run({
-    envVars: ENV_VARS,
     prompter: inquirer,
   });
 } catch (err) {

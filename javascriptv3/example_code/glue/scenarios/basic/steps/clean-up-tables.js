@@ -16,7 +16,7 @@ const deleteTables = (deleteTable, databaseName, tableNames) =>
 const makeCleanUpTablesStep =
   ({ getTables, deleteTable }) =>
   async (context) => {
-    const { TableList } = await getTables(context.envVars.DATABASE_NAME).catch(
+    const { TableList } = await getTables(process.env.DATABASE_NAME).catch(
       () => ({ TableList: null })
     );
 
@@ -32,11 +32,7 @@ const makeCleanUpTablesStep =
         log("No tables selected.");
       } else {
         log("Deleting tables.");
-        await deleteTables(
-          deleteTable,
-          context.envVars.DATABASE_NAME,
-          tableNames
-        );
+        await deleteTables(deleteTable, process.env.DATABASE_NAME, tableNames);
         log("Tables deleted.", { type: "success" });
       }
     }

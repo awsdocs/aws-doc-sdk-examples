@@ -5,6 +5,7 @@
 
 import { readFile } from "fs/promises";
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { config } from "dotenv";
 import {
   CloudFormationClient,
   CreateStackCommand,
@@ -21,7 +22,6 @@ import {
 
 import { dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
 import { DEFAULT_REGION } from "../../libs/utils/util-aws-sdk.js";
-import * as envVars from "../scenarios/basic/env.js";
 import { createCrawler } from "../actions/create-crawler.js";
 import { getCrawler } from "../actions/get-crawler.js";
 import { deleteCrawler } from "../actions/delete-crawler.js";
@@ -40,6 +40,8 @@ import { getDatabase } from "../actions/get-database.js";
 import { getJobRuns } from "../actions/get-job-runs.js";
 import { listJobs } from "../actions/list-jobs.js";
 import { getTables } from "../actions/get-tables.js";
+
+config();
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 const cdkAppPath = `${dirname}../../../../resources/cdk/glue_role_bucket/setup.yaml`;
@@ -110,12 +112,13 @@ describe("actions", () => {
   afterAll(async () => {
     try {
       await emptyS3Bucket(bucketName).catch(console.error);
-      await deleteTable(envVars.DATABASE_NAME, envVars.TABLE_NAME).catch(
-        console.error
-      );
-      await deleteDatabase(envVars.DATABASE_NAME);
-      await deleteCrawler(envVars.CRAWLER_NAME).catch(console.error);
-      await deleteJob(envVars.JOB_NAME).catch(console.error);
+      await deleteTable(
+        process.env.DATABASE_NAME,
+        process.env.TABLE_NAME
+      ).catch(console.error);
+      await deleteDatabase(process.env.DATABASE_NAME);
+      await deleteCrawler(process.env.CRAWLER_NAME).catch(console.error);
+      await deleteJob(process.env.JOB_NAME).catch(console.error);
       await deleteStack().catch(console.error);
     } catch (err) {
       console.error(err);
@@ -124,11 +127,11 @@ describe("actions", () => {
 
   const addPythonScriptToBucket = async () => {
     const client = new S3Client({ region: DEFAULT_REGION });
-    const pyScriptPath = `${dirname}../../../../python/example_code/glue/${envVars.PYTHON_SCRIPT_KEY}`;
+    const pyScriptPath = `${dirname}../../../../python/example_code/glue/${process.env.PYTHON_SCRIPT_KEY}`;
     const pyScript = (await readFile(pyScriptPath)).toString("utf-8");
     const command = new PutObjectCommand({
       Bucket: bucketName,
-      Key: envVars.PYTHON_SCRIPT_KEY,
+      Key: process.env.PYTHON_SCRIPT_KEY,
       Body: pyScript,
     });
 
@@ -137,69 +140,69 @@ describe("actions", () => {
 
   const testCreateCrawler = async () => {
     await createCrawler(
-      envVars.CRAWLER_NAME,
+      process.env.CRAWLER_NAME,
       roleName,
-      envVars.DATABASE_NAME,
-      envVars.TABLE_PREFIX,
-      envVars.S3_TARGET_PATH
+      process.env.DATABASE_NAME,
+      process.env.TABLE_PREFIX,
+      process.env.S3_TARGET_PATH
     );
 
-    const crawler = await getCrawler(envVars.CRAWLER_NAME);
+    const crawler = await getCrawler(process.env.CRAWLER_NAME);
     expect(crawler).toBeTruthy();
   };
 
   const testCreateJob = async (bucketName, roleName) => {
     await createJob(
-      envVars.JOB_NAME,
+      process.env.JOB_NAME,
       roleName,
       bucketName,
-      envVars.PYTHON_SCRIPT_KEY
+      process.env.PYTHON_SCRIPT_KEY
     );
 
-    const job = await getJob(envVars.JOB_NAME);
+    const job = await getJob(process.env.JOB_NAME);
     expect(job).toBeTruthy();
   };
 
   const testListJobs = async () => {
     const { JobNames } = await listJobs();
-    expect(JobNames).toContain(envVars.JOB_NAME);
+    expect(JobNames).toContain(process.env.JOB_NAME);
   };
 
   const testStartCrawler = async () => {
-    await startCrawler(envVars.CRAWLER_NAME);
-    await waitForCrawler(getCrawler, envVars.CRAWLER_NAME);
+    await startCrawler(process.env.CRAWLER_NAME);
+    await waitForCrawler(getCrawler, process.env.CRAWLER_NAME);
   };
 
   const testGetDatabases = async () => {
     const { DatabaseList } = await getDatabases();
-    expect(DatabaseList[0].Name).toBe(envVars.DATABASE_NAME);
+    expect(DatabaseList[0].Name).toBe(process.env.DATABASE_NAME);
   };
 
   const testGetDatabase = async () => {
     const {
       Database: { Name },
-    } = await getDatabase(envVars.DATABASE_NAME);
-    expect(Name).toBe(envVars.DATABASE_NAME);
+    } = await getDatabase(process.env.DATABASE_NAME);
+    expect(Name).toBe(process.env.DATABASE_NAME);
   };
 
   const testGetTables = async () => {
-    const { TableList } = await getTables(envVars.DATABASE_NAME);
-    expect(TableList[0].Name).toBe(envVars.TABLE_NAME);
+    const { TableList } = await getTables(process.env.DATABASE_NAME);
+    expect(TableList[0].Name).toBe(process.env.TABLE_NAME);
   };
 
   const testStartJobRun = async (bucketName) => {
     const { JobRunId } = await startJobRun(
-      envVars.JOB_NAME,
-      envVars.DATABASE_NAME,
-      envVars.TABLE_NAME,
+      process.env.JOB_NAME,
+      process.env.DATABASE_NAME,
+      process.env.TABLE_NAME,
       bucketName
     );
-    await waitForJobRun(getJobRun, envVars.JOB_NAME, JobRunId);
+    await waitForJobRun(getJobRun, process.env.JOB_NAME, JobRunId);
   };
 
   const testGetJobRuns = async () => {
-    const { JobRuns } = await getJobRuns(envVars.JOB_NAME);
-    expect(JobRuns[0].JobName).toBe(envVars.JOB_NAME);
+    const { JobRuns } = await getJobRuns(process.env.JOB_NAME);
+    expect(JobRuns[0].JobName).toBe(process.env.JOB_NAME);
   };
 
   it(

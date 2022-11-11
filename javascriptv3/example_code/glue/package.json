@@ -13,6 +13,7 @@
   "dependencies": {
     "@aws-sdk/client-glue": "^3.201.0",
     "chalk": "^5.1.2",
+    "dotenv": "^16.0.3",
     "inquirer": "^9.1.4",
     "open": "^8.4.0",
     "ramda": "^0.28.0"
