@@ -84,16 +84,16 @@ public class S3Scenario {
             "    savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf). " +
             "    toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). ";
 
-      //  if (args.length != 5) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
+        if (args.length != 5) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String bucketName = "bucketscottfoo1002";  //args[0];
-        String key = "book.pdf" ; //args[1];
-        String objectPath = "C:/AWS/book2.pdf";// args[2];
-        String savePath =  "C:/AWS/book25.pdf";// args[3];
-        String toBucket =  "scottbucket1001";// args[4] ;
+        String bucketName = args[0];
+        String key = args[1];
+        String objectPath = args[2];
+        String savePath =  args[3];
+        String toBucket = args[4] ;
 
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
