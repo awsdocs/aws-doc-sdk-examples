@@ -1,13 +1,12 @@
-
 # Uses the github 'stale' action to monitor and identify old issues and pull requests.
-name: 'Shirriff'
+name: "Shirriff"
 permissions:
   issues: write
   pull-requests: write
 on:
   schedule:
-  # Every day at 01:00 UTC
-    - cron: '0 1 * * *'
+    # Every day at 01:00 UTC
+    - cron: "0 1 * * *"
 
 jobs:
   stale:
@@ -15,10 +14,9 @@ jobs:
     steps:
       - uses: actions/stale@v6
         with:
-          debug-only: true
-          exempt-issue-labels: 'type/epic,status/icebox'
-          stale-issue-label: 'status/stale'
-          days-before-stale: 14
+          exempt-issue-labels: "type/epic,status/icebox"
+          stale-issue-label: "status/stale"
+          days-before-stale: 21
           days-before-close: -1
-          stale-issue-message: 'Marked stale by the Shirriff. Notifying @aws-sdk-docs-code-maintainers.'
-          stale-pr-message: 'Marked stale by the Shirriff. Notifying @aws-sdk-docs-code-maintainers.'
+          stale-issue-message: "Marked stale by the Shirriff. Notifying @aws-sdk-docs-code-maintainers."
+          stale-pr-message: "Marked stale by the Shirriff. Notifying @aws-sdk-docs-code-maintainers."
