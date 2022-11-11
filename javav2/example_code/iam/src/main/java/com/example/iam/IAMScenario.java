@@ -98,17 +98,17 @@ public class IAMScenario {
             "    fileLocation - The file location to the JSON required to create the role (see Readme). \n\n" +
             "    bucketName - The name of the Amazon S3 bucket from which objects are read. \n\n" ;
 
-    //    if (args.length != 6) {
-    //        System.out.println(usage);
-    //        System.exit(1);
-     //   }
+        if (args.length != 6) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String userName = "PowerLam509" ; //args[0];
-        String policyName = "S3LamPolicy509" ; // args[1];
-        String roleName = "S3LamRole509" ; // args[2];
-        String roleSessionName = "lamsession509" ; //args[3];
-        String fileLocation = "C:\\AWS\\role.json" ; //args[4];
-        String bucketName = "bucketmay995" ; //args[5];
+        String userName = args[0];
+        String policyName = args[1];
+        String roleName = args[2];
+        String roleSessionName = args[3];
+        String fileLocation = args[4];
+        String bucketName = args[5];
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
