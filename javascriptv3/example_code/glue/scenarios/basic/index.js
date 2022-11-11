@@ -24,7 +24,7 @@ import { startJobRun } from "../../actions/start-job-run.js";
 import { s3ListObjects } from "../../non-glue-actions/s3-list-objects.js";
 
 import { log } from "./log.js";
-import { makeCleanUpCrawlerStep } from "./steps/clean-up-crawler.js";
+import { cleanUpCrawlerStep } from "./steps/clean-up-crawler.js";
 import { makeCleanUpDatabasesStep } from "./steps/clean-up-databases.js";
 import { makeCleanUpJobsStep } from "./steps/clean-up-jobs.js";
 import { makeCleanUpTablesStep } from "./steps/clean-up-tables.js";
@@ -56,7 +56,7 @@ const run = pipe(
   andThen(makeCleanUpJobsStep({ listJobs, deleteJob })),
   andThen(makeCleanUpTablesStep({ getTables, deleteTable })),
   andThen(makeCleanUpDatabasesStep({ getDatabases, deleteDatabase })),
-  andThen(makeCleanUpCrawlerStep({ deleteCrawler })),
+  andThen(cleanUpCrawlerStep),
   andThen(deleteStackReminder)
 );
 
