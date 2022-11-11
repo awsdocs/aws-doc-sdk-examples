@@ -9,7 +9,6 @@ import { config } from "dotenv";
 import { deleteDatabase } from "../../actions/delete-database.js";
 import { createCrawler } from "../../actions/create-crawler.js";
 import { createJob } from "../../actions/create-job.js";
-import { deleteCrawler } from "../../actions/delete-crawler.js";
 import { deleteJob } from "../../actions/delete-job.js";
 import { deleteTable } from "../../actions/delete-table.js";
 import { getCrawler } from "../../actions/get-crawler.js";
