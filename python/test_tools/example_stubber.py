@@ -40,7 +40,7 @@ class ExampleStubber(Stubber):
     def add_client_error(self, method, service_error_code='',
                          service_message='', http_status_code=400,
                          service_error_meta=None, expected_params=None,
-                         response_meta=None):
+                         response_meta=None, modeled_fields=None):
         """When using stubs, add a stubbed error response."""
         if self.use_stubs:
             super().add_client_error(method, service_error_code, service_message,
@@ -53,7 +53,7 @@ class ExampleStubber(Stubber):
             super().assert_no_pending_responses()
 
     def _stub_bifurcator(
-            self, method, expected_params=None, response=None, error_code=None):
+            self, method, expected_params=None, response=None, error_code=None, error_message=''):
         if expected_params is None:
             expected_params = {}
         if response is None:
@@ -63,4 +63,4 @@ class ExampleStubber(Stubber):
                 method, expected_params=expected_params, service_response=response)
         else:
             self.add_client_error(
-                method, expected_params=expected_params, service_error_code=error_code)
+                method, expected_params=expected_params, service_error_code=error_code, service_message=error_message)
