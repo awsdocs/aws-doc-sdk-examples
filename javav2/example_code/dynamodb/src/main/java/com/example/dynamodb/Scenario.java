@@ -49,43 +49,43 @@ import java.util.Map;
 import java.util.Set;
 // snippet-end:[dynamodb.java2.scenario.import]
 
+// snippet-start:[dynamodb.java2.scenario.main]
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *  Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For more information, see the following documentation topic:
+ *  For more information, see the following documentation topic:
  *
- * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
  *  This Java example performs these tasks:
  *
- * 1. Create the Amazon DynamoDB Movie table with partition and sort key.
- * 2. Put data into the Amazon DynamoDB table from a JSON document using the Enhanced client.
- * 3. Add a new item.
- * 4. Get an item by the composite key (the Partition key and Sort key).
- * 5. Update an item.
- * 6. Use a Scan to query items using the Enhanced client.
- * 7. Query all items where the year is 2013 using the Enhanced Client.
- * 8. Delete the table.
+ * 1. Creates the Amazon DynamoDB Movie table with partition and sort key.
+ * 2. Puts data into the Amazon DynamoDB table from a JSON document using the Enhanced client.
+ * 3. Gets data from the Movie table.
+ * 4. Adds a new item.
+ * 4. Gets an item by the composite key (the Partition key and Sort key).
+ * 5. Updates an item.
+ * 6. Uses a Scan to query items using the Enhanced client.
+ * 7. Queries all items where the year is 2013 using the Enhanced Client.
+ * 8. Deletes the table.
  */
 
-// snippet-start:[dynamodb.java2.scenario.main]
 public class Scenario {
-
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws IOException {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <fileName>\n\n" +
             "Where:\n" +
             "    fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+      //  if (args.length != 1) {
+      //      System.out.println(usage);
+      //      System.exit(1);
+      //  }
 
         String tableName = "Movies";
-        String fileName = args[0];
+        String fileName = "C:\\AWS\\moviedata.json"; //args[0];
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
@@ -93,36 +93,56 @@ public class Scenario {
             .credentialsProvider(credentialsProvider)
             .build();
 
-        System.out.println("******* Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
+        System.out.println(DASHES);
+        System.out.println("Welcome to the Amazon DynamoDB example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("1. Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
         createTable(ddb, tableName);
+        System.out.println(DASHES);
 
-        System.out.println("******* Loading data into the Amazon DynamoDB table.");
+        System.out.println(DASHES);
+        System.out.println("2. Loading data into the Amazon DynamoDB table.");
         loadData(ddb, tableName, fileName);
+        System.out.println(DASHES);
 
-        System.out.println("******* Getting data from the Movie table.");
+        System.out.println(DASHES);
+        System.out.println("3. Getting data from the Movie table.");
         getItem(ddb) ;
+        System.out.println(DASHES);
 
-        System.out.println("******* Putting a record into the Amazon DynamoDB table.");
+        System.out.println(DASHES);
+        System.out.println("4. Putting a record into the Amazon DynamoDB table.");
         putRecord(ddb);
+        System.out.println(DASHES);
 
-        System.out.println("******* Updating a record.");
+        System.out.println(DASHES);
+        System.out.println("5. Updating a record.");
         updateTableItem(ddb, tableName);
+        System.out.println(DASHES);
 
-        System.out.println("******* Scanning the Amazon DynamoDB table.");
+        System.out.println(DASHES);
+        System.out.println("6. Scanning the Amazon DynamoDB table.");
         scanMovies(ddb, tableName);
+        System.out.println(DASHES);
 
-        System.out.println("******* Querying the Movies released in 2013.");
+        System.out.println(DASHES);
+        System.out.println("7. Querying the Movies released in 2013.");
         queryTable(ddb);
+        System.out.println(DASHES);
 
-        System.out.println("******* Deleting the Amazon DynamoDB table.");
+        System.out.println(DASHES);
+        System.out.println("8. Deleting the Amazon DynamoDB table.");
         deleteDynamoDBTable(ddb, tableName);
+        System.out.println(DASHES);
+
         ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.scenario.create_table.main]
     // Create a table with a Sort key.
     public static void createTable(DynamoDbClient ddb, String tableName) {
-
         DynamoDbWaiter dbWaiter = ddb.waiter();
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<>();
 
@@ -215,7 +235,6 @@ public class Scenario {
         // snippet-start:[dynamodb.java2.scenario.scan.main]
         // Scan the table.
         public static void scanMovies(DynamoDbClient ddb, String tableName) {
-
             System.out.println("******* Scanning all movies.\n");
             try{
                 DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -240,7 +259,6 @@ public class Scenario {
     // snippet-start:[dynamodb.java2.scenario.populate_table.main]
     // Load data into the table.
     public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
-
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(ddb)
             .build();
@@ -252,7 +270,6 @@ public class Scenario {
         ObjectNode currentNode;
         int t = 0 ;
         while (iter.hasNext()) {
-
             // Only add 200 Movies to the table.
             if (t == 200)
                 break ;
@@ -276,7 +293,6 @@ public class Scenario {
 
     // Update the record to include show only directors.
     public static void updateTableItem(DynamoDbClient ddb, String tableName){
-
         HashMap<String,AttributeValue> itemKey = new HashMap<>();
         itemKey.put("year", AttributeValue.builder().n("1933").build());
         itemKey.put("title", AttributeValue.builder().s("King Kong").build());
@@ -307,7 +323,6 @@ public class Scenario {
     }
 
     public static void deleteDynamoDBTable(DynamoDbClient ddb, String tableName) {
-
         DeleteTableRequest request = DeleteTableRequest.builder()
             .tableName(tableName)
             .build();
@@ -323,7 +338,6 @@ public class Scenario {
     }
 
     public static void putRecord(DynamoDbClient ddb) {
-
         try {
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
