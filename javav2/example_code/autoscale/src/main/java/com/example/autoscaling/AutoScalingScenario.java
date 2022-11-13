@@ -2,7 +2,6 @@
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon EC2 Auto Scaling]
 
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -104,7 +103,6 @@ public class AutoScalingScenario {
         System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
         System.out.println(DASHES);
-
 
         System.out.println(DASHES);
         System.out.println("2. Get Auto Scale group Id value");
