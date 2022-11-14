@@ -128,7 +128,7 @@ If you do not define the correct values in the properties file, your JUnit tests
 	
 ## Additional resources
 * [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
-* [Amazon EC2 Documentation](https://docs.aws.amazon.com/ec2/index.html).
+* [Amazon EC2 documentation](https://docs.aws.amazon.com/ec2/index.html).
 * [Interface Ec2Client](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/Ec2Client.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
