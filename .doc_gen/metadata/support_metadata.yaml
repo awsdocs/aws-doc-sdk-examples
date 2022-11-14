@@ -5,6 +5,15 @@ support_Hello:
   synopsis: get started using &SUP;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.hello.main
     Java:
       versions:
         - sdk_version: 2
@@ -31,6 +40,15 @@ support_AddAttachment:
   synopsis: add an &SUP; attachment to an attachment set.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.add.attach.main
     Java:
       versions:
         - sdk_version: 2
@@ -57,6 +75,15 @@ support_AddCommunication:
   synopsis: add an &SUP; communication with an attachment to a support case.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.add.attach.case.main
     Java:
       versions:
         - sdk_version: 2
@@ -83,6 +110,15 @@ support_CreateCase:
   synopsis: create a new &SUP; case.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.create.case.main
     Java:
       versions:
         - sdk_version: 2
@@ -109,6 +145,15 @@ support_DescribeAttachment:
   synopsis: describe an attachment for an &SUP;  case.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.des.attachment.main
     Java:
       versions:
         - sdk_version: 2
@@ -135,6 +180,15 @@ support_DescribeCases:
   synopsis: describe &SUP; cases.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.get.open.cases.main
     Java:
       versions:
         - sdk_version: 2
@@ -161,6 +215,15 @@ support_DescribeCommunications:
   synopsis: describe &SUP; communications for a case.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.list.comms.main
     Java:
       versions:
         - sdk_version: 2
@@ -187,6 +250,15 @@ support_DescribeServices:
   synopsis: describe the list of &AWS; services.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.display.main
     Java:
       versions:
         - sdk_version: 2
@@ -213,6 +285,15 @@ support_DescribeSeverityLevels:
   synopsis: describe &SUP; severity levels.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.display.sev.main
     Java:
       versions:
         - sdk_version: 2
@@ -239,6 +320,15 @@ support_ResolveCase:
   synopsis: resolve an &SUP; case.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.resolve.main
     Java:
       versions:
         - sdk_version: 2
@@ -272,6 +362,15 @@ support_Scenario_GetStartedSupportCases:
     - Get and display a list of resolved cases for the current day.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/support
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - support.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2

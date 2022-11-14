@@ -50,6 +50,7 @@ import software.amazon.awssdk.services.glue.model.DeleteDatabaseRequest;
 import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
 //snippet-end:[glue.java2.scenario.import]
 
+//snippet-start:[glue.java2.scenario.main]
 /**
  *
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -64,24 +65,23 @@ import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
  *
  * This example performs the following tasks:
  *
- * 1. CreateDatabase
- * 2. CreateCrawler
- * 3. GetCrawler
- * 4. StartCrawler
- * 5. GetDatabase
- * 6. GetTables
- * 7. CreateJob
- * 8. StartJobRun
- * 9. ListJobs
- * 10. GetJobRuns
- * 11. DeleteJob
- * 12. DeleteDatabase
- * 13. DeleteCrawler
+ * 1. Create a database.
+ * 2. Create a crawler.
+ * 3. Get a crawler.
+ * 4. Start a crawler.
+ * 5. Get a database.
+ * 6. Get tables.
+ * 7. Create a job.
+ * 8. Start a job run.
+ * 9. List all jobs.
+ * 10. Get job runs.
+ * 11. Delete a job.
+ * 12. Delete a database.
+ * 13. Delete a crawler.
  */
 
-//snippet-start:[glue.java2.scenario.main]
 public class GlueScenario {
-
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
 
         final String usage = "\n" +
@@ -100,7 +100,7 @@ public class GlueScenario {
        if (args.length != 8) {
             System.out.println(usage);
             System.exit(1);
-        }
+       }
 
         String iam = args[0];
         String s3Path = args[1];
@@ -110,29 +110,86 @@ public class GlueScenario {
         String jobName = args[5];
         String scriptLocation = args[6];
         String locationUri = args[7];
+
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
+        System.out.println(DASHES);
+        System.out.println("Welcome to the AWS Glue scenario.");
+        System.out.println(DASHES);
 
-        System.out.println("About to start the AWS Glue Scenario");
+        System.out.println(DASHES);
+        System.out.println("1. Create a database.");
         createDatabase(glueClient, dbName, locationUri);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("2. Create a crawler.");
         createGlueCrawler(glueClient, iam, s3Path, cron, dbName, crawlerName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("3. Get a crawler.");
         getSpecificCrawler(glueClient, crawlerName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("4. Start a crawler.");
         startSpecificCrawler(glueClient, crawlerName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("5. Get a database.");
         getSpecificDatabase(glueClient, dbName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("6. Get tables.");
         getGlueTables(glueClient, dbName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("7. Create a job.");
         createJob(glueClient, jobName, iam, scriptLocation);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("8. Start a Job run.");
         startJob(glueClient, jobName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("9. List all jobs.");
         getAllJobs(glueClient);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("10. Get job runs.");
         getJobRuns(glueClient, jobName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("11. Delete a job.");
         deleteJob(glueClient, jobName);
         System.out.println("*** Wait 5 MIN for the "+crawlerName +" to stop");
         TimeUnit.MINUTES.sleep(5);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("12. Delete a database.");
         deleteDatabase(glueClient, dbName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("Delete a crawler.");
         deleteSpecificCrawler(glueClient, crawlerName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         System.out.println("Successfully completed the AWS Glue Scenario");
+        System.out.println(DASHES);
     }
 
     public static void createDatabase(GlueClient glueClient, String dbName, String locationUri ) {
