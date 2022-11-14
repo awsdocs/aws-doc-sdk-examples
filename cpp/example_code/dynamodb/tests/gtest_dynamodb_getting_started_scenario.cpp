@@ -24,7 +24,10 @@ namespace AwsDocTest {
                                  "30",
                                  "y"});
 
-        bool result = AwsDoc::DynamoDB::dynamodbGettingStartedScenario(*s_clientConfig);
+        bool result = createTable();
+        ASSERT_TRUE(result);
+
+        result = AwsDoc::DynamoDB::dynamodbGettingStartedScenario(*s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // AwsDocTest

@@ -5,9 +5,11 @@
 
 #include "dynamodb_gtests.h"
 #include <fstream>
+#include "dyanamodb_samples.h"
 
 Aws::SDKOptions AwsDocTest::DynamoDB_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::DynamoDB_GTests::s_clientConfig;
+bool AwsDocTest::DynamoDB_GTests::s_TableCreated = false;
 
 void AwsDocTest::DynamoDB_GTests::SetUpTestSuite() {
     InitAPI(s_options);
@@ -19,13 +21,18 @@ void AwsDocTest::DynamoDB_GTests::SetUpTestSuite() {
 
 void AwsDocTest::DynamoDB_GTests::TearDownTestSuite() {
 
+    if (s_TableCreated)
+    {
+        AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME, *s_clientConfig);
+    }
+
     ShutdownAPI(s_options);
 
 }
 
 void AwsDocTest::DynamoDB_GTests::SetUp() {
-    m_savedOutBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+//    m_savedOutBuffer = std::cout.rdbuf();
+//    std::cout.rdbuf(&m_coutBuffer);
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);
@@ -52,5 +59,17 @@ void AwsDocTest::DynamoDB_GTests::AddCommandLineResponses(
         stringStream << response << "\n";
     }
     m_cinBuffer.str(stringStream.str());
+}
+
+bool AwsDocTest::DynamoDB_GTests::createTable() {
+    if (!s_TableCreated)
+    {
+        if (AwsDoc::DynamoDB::createDynamoDBTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME, *s_clientConfig))
+        {
+            s_TableCreated = true;
+        }
+    }
+
+    return s_TableCreated;
 }
 

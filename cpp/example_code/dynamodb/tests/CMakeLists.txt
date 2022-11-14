@@ -14,6 +14,11 @@ project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
 
+# Build shared libraries by default.
+if(NOT BUILD_SHARED_LIBS)
+    set(BUILD_SHARED_LIBS ON)
+endif()
+
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -30,10 +35,6 @@ if(MSVC)
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
 endif()
 
-# Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
-endif()
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${CURRENT_TARGET_AWS_DEPENDENCIES})
@@ -84,7 +85,6 @@ endif()
 
 enable_testing()
 
-
 foreach(TEST_FILE ${GTEST_SOURCE_FILES})
     string(REPLACE "gtest_" "../" SOURCE_FILE ${TEST_FILE})
      if (EXISTS ${SOURCE_FILE})
@@ -99,6 +99,7 @@ target_sources(
         PUBLIC
         ${GTEST_SOURCE}
         test_main.cpp
+        ../dynamodb_utils.cpp
         ${EXAMPLE_SERVICE_NAME}_gtests.cpp
 )
 
@@ -106,7 +107,6 @@ target_include_directories(
         ${CURRENT_TARGET}
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-        ${ADDITIONAL_INCLUDE_DIR}
         ${AWSSDK_INCLUDE_DIR}/aws
 )
 
@@ -114,7 +114,7 @@ target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
-        ${ADDITIONAL_DEFINES}
+        MOVIE_FILE_PATH="${MOVIE_FILE_PATH}"
 )
 
 target_link_libraries(
@@ -122,7 +122,6 @@ target_link_libraries(
         GTest::gtest
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
-        ${ADDITIONAL_LIBS}
 )
 
 include(GoogleTest)

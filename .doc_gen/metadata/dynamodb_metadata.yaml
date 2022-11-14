@@ -1565,6 +1565,7 @@ dynamodb_Scenario_GettingStartedMovies:
           excerpts:
             - description:
               snippet_tags:
+                - cpp.example_code.dynamodb.Scenario_GettingStarted.main
                 - cpp.example_code.dynamodb.Scenario_GettingStarted
   services:
     dynamodb:
