@@ -402,7 +402,7 @@ s3_DeleteObjects:
                 - S3.dotnetv3.S3_Basics-DeleteBucketContents
             - description: Delete multiple objects in a non-versioned S3 bucket.
               snippet_tags:
-                  - S3.dotnetv3.DeleteMultipleObjectsExample
+                - S3.dotnetv3.DeleteMultipleObjectsExample
             - description: Delete multiple objects in a versioned S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.DeleteMultipleVersionedObjectsExample
