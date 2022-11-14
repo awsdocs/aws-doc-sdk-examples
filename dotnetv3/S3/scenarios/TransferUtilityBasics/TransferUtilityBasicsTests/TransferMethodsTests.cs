@@ -1,65 +1,87 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Amazon;
-using Amazon.S3;
-using Amazon.S3.Transfer;
-using TransferUtilityBasics;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
 
 namespace TransferUtilityBasics.Tests
 {
-    [TestClass()]
     public class TransferMethodsTests
     {
-        IAmazonS3 client;
-        TransferUtility transferUtil;
-        string LocalPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\TransferFolderTest";
-        string bucketName;
+        private readonly IConfiguration _configuration;
 
-        TransferMethodsTests()
+        readonly IAmazonS3 _client;
+        readonly TransferUtility transferUtil;
+        private readonly string _localPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\TransferFolderTest";
+
+        public TransferMethodsTests()
         {
-            client = new AmazonS3Client();
-            transferUtil = new TransferUtility();
-            bucketName = "doc-example-bucket1-test";
+            _client = new AmazonS3Client();
+            transferUtil = new TransferUtility(_client);
+
+            _client = new AmazonS3Client();
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("testsettings.json") // Load test settings from JSON file.
+                .AddJsonFile("testsettings.local.json",
+                    true) // Optionally load local settings.
+                .Build();
         }
 
-        [TestMethod()]
+        [Fact()]
         public async Task DownloadSingleFileAsyncTest()
         {
-            var keyName = "FileToDownload.docx";
-            var success = await TransferMethods.DownloadSingleFileAsync(transferUtil, bucketName, keyName, LocalPath);
-            Assert.IsTrue(success, $"Couldn't download {keyName}.");
+            var keyName = _configuration["FileToDownload"];
+            var success = await TransferMethods.DownloadSingleFileAsync(
+                transferUtil, 
+                _configuration["BucketName"],
+                _configuration["FileToDownload"],
+                _localPath);
+
+            Assert.True(success, $"Couldn't download {keyName}.");
         }
 
-        [TestMethod()]
+        [Fact()]
         public async Task DownloadS3DirectoryAsyncTest()
         {
-            var downloadPath = $"{LocalPath}\\TestDownloadFolder";
-            var s3Path = "DownloadTest";
+            var downloadPath = $"{_localPath}\\TestDownloadFolder";
+            var s3Path = _configuration["S3Path"];
 
-            var success = await TransferMethods.DownloadS3DirectoryAsync(transferUtil, bucketName, downloadPath, s3Path);
-            Assert.IsTrue(success, "Couldn't download files from {s3Path}.");
+            var success = await TransferMethods.DownloadS3DirectoryAsync(
+                transferUtil,
+                _configuration["BucketName"],
+                downloadPath,
+                s3Path);
+
+            Assert.True(success, "Couldn't download files from {s3Path}.");
         }
 
-        [TestMethod()]
+        [Fact()]
         public async Task UploadSingleFileAsyncTest()
         {
-            var fileName = "UploadTest.docx";
+            var fileName = _configuration["FileToUpload"];
+            var bucketName = _configuration["BucketName"];
 
             var success = await TransferMethods.UploadSingleFileAsync(
                 transferUtil,
                 bucketName,
                 fileName,
-                LocalPath);
-            Assert.IsTrue(success, $"Couldn't upload files to {bucketName}");
+                _localPath);
+
+            Assert.True(success, $"Couldn't upload files to {bucketName}");
         }
 
-        [TestMethod()]
+        [Fact()]
         public async Task UploadFullDirectoryAsyncTest()
         {
+            var bucketName = _configuration["BucketName"];
             var keyPrefix = "UploadFolder";
-            var uploadPath = $"{LocalPath}\\UploadFolder";
+            var uploadPath = $"{_localPath}\\UploadFolder";
 
-            var success = await TransferMethods.UploadFullDirectoryAsync(transferUtil, bucketName, keyPrefix, uploadPath);
-            Assert.IsTrue(success, $"Couldn't upload {uploadPath} to {bucketName}");
+            var success = await TransferMethods.UploadFullDirectoryAsync(
+                transferUtil,
+                bucketName,
+                keyPrefix,
+                uploadPath);
+
+            Assert.True(success, $"Couldn't upload {uploadPath} to {bucketName}");
         }
     }
 }

@@ -19,14 +19,7 @@ namespace TransferUtilityBasics
                 FilePath = $"{localPath}\\{keyName}",
             });
 
-            if (File.Exists($"{localPath}\\{keyName}"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (File.Exists($"{localPath}\\{keyName}"));
         }
 
         // snippet-end:[S3.dotnetv3.TransferUtilityBasics.DownloadSingleFileAsync]
@@ -45,14 +38,7 @@ namespace TransferUtilityBasics
                 S3Directory = s3Path,
             });
 
-            if (Directory.Exists(localPath))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (Directory.Exists(localPath));
         }
 
         // snippet-end:[S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync]
