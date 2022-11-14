@@ -28,7 +28,22 @@ Code excerpts that show you how to call individual service functions.
 - [Create an Amazon EC2 instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/CreateInstance.java) (runInstances command)
 - [Create an Amazon EC2 key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/CreateKeyPair.java) (createKeyPair command)
 - [Create an Amazon EC2 security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/CreateSecurityGroup.java) (createSecurityGroup command)
-
+- [Delete an Amazon EC2 key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DeleteKeyPair.java) (deleteKeyPair command)
+- [Delete an Amazon EC2 security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DeleteSecurityGroup.java) (deleteSecurityGroup command)
+- [Describe an Amazon EC2 account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeAccount.java) (describeAccountAttributes command)
+- [Describe elastic IP addresses](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeAddresses.java) (describeAddresses command)
+- [Describe Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeInstances.java) (describeInstances command)
+- [Describe Amazon EC2 instance tags](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeInstanceTags.java) (describeTags command)
+- [Describe Amazon EC2 key pairs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeKeyPairs.java) (describeKeyPairs command)
+- [Describe Amazon EC2 regions and zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeRegionsAndZones.java) (describeRegions command)
+- [Describe Amazon EC2 reserved instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeReservedInstances.java) (describeReservedInstances command)
+- [Describe Amazon EC2 security groups](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeSecurityGroups.java) (describeSecurityGroups command)
+- [Describe Amazon EC2 VPCs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeVPCs.java) (describeVpcs command)
+- [Monitor Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/MonitorInstance.java) (monitorInstances command)
+- [Reboot Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/RebootInstance.java) (rebootInstances command)
+- [Release an elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/ReleaseAddress.java) (releaseAddress command)
+- [Start and stop Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/StartStopInstance.java) (startInstances command)
+- [Terminate Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/TerminateInstance.java) (terminateInstances command)
 
 ### Scenario 
 
@@ -38,11 +53,14 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ## Run the AWS Support Java file
 
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a security group. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
  ## Testing the Amazon EC2 Java files
 
-You can test the Java code examples for Amazon EC2 by running a test file named **AWSEC2ServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon EC2 by running a test file named **EC2Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -61,6 +79,12 @@ Define these values to successfully run the JUnit tests:
 - **groupName** – A group name to use. For example, **TestSecGroup**.
 - **groupDesc** – A description of the group. For example, **Test Group**.
 - **vpcId** – A VPC ID. You can obtain this value from the AWS Management Console.
+
+- **keyNameSc** - A key pair to use in the scenatio test.
+- **fileNameSc** - A file name where the key information is written to and used in the scenatio test. 
+- **groupNameSc** - A group name that is used in the scenatio test. 
+- **groupDescSc** - A group name description that is used in the scenatio test. 
+- **vpcIdSc** – A VPC ID that is used in the scenatio test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -101,3 +125,11 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
 	[ERROR];
+	
+## Additional resources
+* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Amazon EC2 Documentation](https://docs.aws.amazon.com/ec2/index.html).
+* [Interface Ec2Client](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/Ec2Client.html).
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+	
