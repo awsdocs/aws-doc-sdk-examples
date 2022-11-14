@@ -31,7 +31,7 @@ async fn show_apis(client: &Client) -> Result<(), Error> {
         println!("Version:     {}", api.version().unwrap_or_default());
         println!(
             "Created:     {}",
-            api.created_date().unwrap().to_chrono_utc()
+            api.created_date().unwrap().to_chrono_utc().unwrap()
         );
         println!();
     }
