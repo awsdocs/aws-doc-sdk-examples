@@ -63,7 +63,6 @@ import java.util.Set;
  * 2. Puts data into the Amazon DynamoDB table from a JSON document using the Enhanced client.
  * 3. Gets data from the Movie table.
  * 4. Adds a new item.
- * 4. Gets an item by the composite key (the Partition key and Sort key).
  * 5. Updates an item.
  * 6. Uses a Scan to query items using the Enhanced client.
  * 7. Queries all items where the year is 2013 using the Enhanced Client.
