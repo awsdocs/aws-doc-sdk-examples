@@ -100,16 +100,16 @@ public class EC2Scenario {
             "   groupDesc - The description of the security group. \n\n" +
             "   vpcId - A VPC ID. You can obtain this value from the AWS Management Console. \n\n" ;
 
-        if (args.length != 1) {
+        if (args.length != 5) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String keyName = "scottKey14"; //args[0];
-        String fileName = "C:\\AWS\\ec2Key.pem" ; //args[0];
-        String groupName = "TestSecGroup14"; //args[0];
-        String groupDesc = "Test Group"; // args[1];
-        String vpcId = "vpc-573b5f2f";  //args[2];
+        String keyName = args[0];
+        String fileName = args[1];
+        String groupName = args[2];
+        String groupDesc = args[3];
+        String vpcId = args[4];
 
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
