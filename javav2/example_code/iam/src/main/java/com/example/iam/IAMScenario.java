@@ -66,7 +66,7 @@ import java.util.concurrent.TimeUnit;
   3. Creates a role.
   4. Grants the user permissions.
   5. Gets temporary credentials by assuming the role.  Creates an Amazon S3 Service client object with the temporary credentials.
-  7. Deletes the resources.
+  6. Deletes the resources.
  */
 
 public class IAMScenario {
