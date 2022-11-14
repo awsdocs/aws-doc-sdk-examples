@@ -138,6 +138,9 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - S3.dotnet35.CopyObject
+            - description:
+              snippet_tags: Perform a multipart copy.
+                - S3.dotnetv3.MPUapiCopyObjectExample
     C++:
       versions:
         - sdk_version: 1
@@ -302,6 +305,18 @@ s3_DeleteObject:
   synopsis: delete an S3 object.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description: Delete an object in a non-versioned S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.DeleteObjectExample
+            - description: Delete an object in a versioned S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.DeleteObjectVersionExample
     C++:
       versions:
         - sdk_version: 1
@@ -385,6 +400,12 @@ s3_DeleteObjects:
             - description: Delete all objects in an S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-DeleteBucketContents
+            - description: Delete multiple objects in a non-versioned S3 bucket.
+              snippet_tags:
+                  - S3.dotnetv3.DeleteMultipleObjectsExample
+            - description: Delete multiple objects in a versioned S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.DeleteMultipleVersionedObjectsExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -779,6 +800,23 @@ s3_GetBucketLifecycleConfiguration:
                 - python.example_code.s3.GetBucketLifecycleConfiguration
   services:
     s3: {GetBucketLifecycleConfiguration}
+s3_ServiceAccessLogging:
+  title: Enable logging on an &S3; bucket using an &AWS; SDK
+  title_abbrev: Enable logging on a bucket
+  synopsis: enable logging on an S3 bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetLifecycleExample
+  services:
+    s3: {PutBucketLogging}
 s3_PutBucketLifecycleConfiguration:
   title: Add a lifecycle configuration to an &S3; bucket using an &AWS; SDK
   title_abbrev: Add a lifecycle configuration to a bucket
@@ -925,6 +963,12 @@ s3_ListObjects:
             - description: List objects with a paginator.
               snippet_tags:
                 - S3.dotnetv3.ListObjectsPaginatorExample
+            - description: List objects using temporary session credentials.
+              snippet_tags:
+                - S3.dotnetv3.TempCredExplicitSessionStartExample
+            - description: List objects using temporary federated credentials.
+              snippet_tags:
+                - S3.dotnetv3.TempFederatedCredentialsExample
     C++:
       versions:
         - sdk_version: 1
@@ -1023,6 +1067,15 @@ s3_ListObjectVersions:
   synopsis: list object versions in an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.ListObjectVersionsExample
     Rust:
       versions:
         - sdk_version: 1
@@ -1048,6 +1101,9 @@ s3_PutObject:
             - description:
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-UploadFile
+            - description: Upload an object with server side encryption.
+              snippet_tags:
+                - S3.dotnetv3.ServerSideEncryptionExample
     C++:
       versions:
         - sdk_version: 1
@@ -1802,8 +1858,8 @@ s3_UploadPart:
   services:
     s3: {UploadPart}
 s3_UseDualStackEndpoint:
-  title: Enable the use of a dual-stack endpoint when creating an &S3; client using an &AWS; SDK
-  title_abbrev: Enable the use of a dual-stack endpoint
+  title: Enable a dual-stack endpoint when creating an &S3; client using an &AWS; SDK
+  title_abbrev: Enable a dual-stack endpoint
   synopsis: enable a dual-stack endpoint.
   category:
   languages:
@@ -1834,7 +1890,24 @@ s3_PutBucketNotification:
               snippet_tags:
                 - S3.dotnetv3.EnableNotificationsExample
   services:
-    s3: {PutBucketNotification}
+    s3: {PutBucketNotificationConfiguration}
+s3_TransferAcceleration:
+  title: Enable transfer acceleration for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Enable transfer acceleration
+  synopsis: enable transfer acceleration for an S3 bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.TransferAccelerationExample
+  services:
+    s3: {PutBucketAccelerateConfiguration}
 s3_Scenario_UsingLargeFiles:
   title: Upload or download large files to and from &S3; using an &AWS; SDK
   title_abbrev: Upload or download large files
@@ -1868,6 +1941,21 @@ s3_Scenario_UsingLargeFiles:
             - description: Download contents of an S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync
+            - description: Upload a file using a multipart upload with the low level API.
+              snippet_tags:
+                - S3.dotnetv3.UploadFileMPULowLevelAPIExample
+            - description: Upload a directory using the TransferUtility.
+              snippet_tags:
+                - S3.dotnetv3.UploadDirMPUHighLevelAPIExample
+            - description: Upload a file using the TransferUtility.
+              snippet_tags:
+                - S3.dotnetv3.UploadFileMPUHighLevelAPIExample
+            - description: Track the progress of an upload using the TransferUtility.
+              snippet_tags:
+                - S3.dotnetv3.TrackMPUUsingHighLevelAPIExample
+            - description: Upload an object with encryption.
+              snippet_tags:
+                - S3.dotnetv3.SSECLowLevelMPUcopyObjectExample
     Python:
       versions:
         - sdk_version: 3
@@ -2147,3 +2235,54 @@ s3_Scenario_GettingStarted:
 
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
+s3_Scenario_ManageACLs:
+  title: Manage access control lists (ACLs) for &S3; buckets using an &AWS; SDK
+  title_abbrev: Manage access control lists (ACLs) for &S3; buckets
+  synopsis: manage access control lists (ACLs) for &S3; buckets.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.ManageACLsExample
+  services:
+    s3: {GetBucketACL, PutACL, GetACL}
+s3_Scenario_Tagging:
+  title: Get started with tags for &S3; objects using an &AWS; SDK
+  title_abbrev: Get started with tags for &S3; objects
+  synopsis: get started with tags for &S3; objects.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.ObjectTagExample
+  services:
+    s3: {GetObjectTagging, PutObjectTagging}
+s3_Encryption:
+  title: Get started with encryption for &S3; objects using an &AWS; SDK
+  title_abbrev: Get started with encryption for &S3; objects
+  synopsis: get started with encryption for &S3; objects.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.SSEClientEncryptionExample
+  services:
+    s3: {UploadObject, PutObject, GetObject, GetObjectMetadata, CopyObject}
