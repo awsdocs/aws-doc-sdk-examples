@@ -58,6 +58,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+// snippet-start:[ec2.java2.scenario.main]
 /**
  * Before running this Java (v2) code example, set up your development environment, including your credentials.
  *
@@ -658,3 +659,4 @@ public class EC2Scenario {
         }
     }
 }
+// snippet-end:[ec2.java2.scenario.main]
