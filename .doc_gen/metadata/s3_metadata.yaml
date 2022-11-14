@@ -138,8 +138,8 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - S3.dotnet35.CopyObject
-            - description:
-              snippet_tags: Perform a multipart copy.
+            - description: Perform a multipart copy.
+              snippet_tags:
                 - S3.dotnetv3.MPUapiCopyObjectExample
     C++:
       versions:
