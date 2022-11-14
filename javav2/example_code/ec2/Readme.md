@@ -24,9 +24,10 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 Code excerpts that show you how to call individual service functions.
 
-- [Allocate an elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/javav2/example_code/ec2/src/main/java/com/example/ec2/AllocateAddress.java) (allocateAddress command)
-
-- [Create an Amazon EC2 instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/javav2/example_code/ec2/src/main/java/com/example/ec2/CreateInstance.java) (runInstances command)
+- [Allocate an elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/AllocateAddress.java) (allocateAddress command)
+- [Create an Amazon EC2 instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/CreateInstance.java) (runInstances command)
+- [Create an Amazon EC2 key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/CreateKeyPair.java) (createKeyPair command)
+- [Create an Amazon EC2 security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/CreateSecurityGroup.java) (createSecurityGroup command)
 
 
 ### Scenario 
