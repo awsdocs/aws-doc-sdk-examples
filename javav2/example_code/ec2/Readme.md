@@ -1,20 +1,42 @@
-# Amazon EC2 Java code examples
+# Amazon EC2 code examples for the SDK for Java
 
+## Overview
 This README discusses how to run and test the Java code examples for Amazon Elastic Compute Cloud (Amazon EC2).
 
-## Running the Amazon EC2 Java files
+Amazon EC2 provides secure, resizable compute in the cloud, offering the broadest choice of processor, storage, networking, OS, and purchase model.
+
+## ⚠️ Important
+* The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Code examples
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
-**IMPORTANT**
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.   
+### Get started
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a security group. **Be very careful** when running an operation that
-deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+- [Hello service](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DeleteKeyPair.java) (describeServices command)
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+### Single action
+
+Code excerpts that show you how to call individual service functions.
+
+- [Allocate an elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/javav2/example_code/ec2/src/main/java/com/example/ec2/AllocateAddress.java) (allocateAddress command)
+
+- [Create an Amazon EC2 instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/javav2/example_code/ec2/src/main/java/com/example/ec2/CreateInstance.java) (runInstances command)
+
+
+### Scenario 
+
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
+- [Get started with Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/javav2/example_code/ec2/src/main/java/com/example/ec2/EC2Scenario.java) (Multiple commands)
+
+## Run the AWS Support Java file
+
 
 
  ## Testing the Amazon EC2 Java files
