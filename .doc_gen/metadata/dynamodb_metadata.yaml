@@ -118,7 +118,7 @@ dynamodb_BatchGetItem:
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
+                - dynamodb.dotnetv3.LowLevelBatchGetExample
     Python:
       versions:
         - sdk_version: 3
@@ -156,6 +156,14 @@ dynamodb_DescribeTable:
   synopsis: get information about a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.DescribeTableExample
     Java:
       versions:
         - sdk_version: 2
@@ -529,6 +537,14 @@ dynamodb_GetItem:
   synopsis: get an item from a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
     C++:
       versions:
         - sdk_version: 1
@@ -855,6 +871,14 @@ dynamodb_ListTables:
   synopsis: list &DDB; tables.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.ListTableExample
     C++:
       versions:
         - sdk_version: 1

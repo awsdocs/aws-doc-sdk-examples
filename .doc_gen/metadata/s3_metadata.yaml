@@ -802,7 +802,7 @@ s3_GetBucketLifecycleConfiguration:
     s3: {GetBucketLifecycleConfiguration}
 s3_ServiceAccessLogging:
   title: Enable logging on an &S3; bucket using an &AWS; SDK
-  title_abbrev: Enable logging on a bucket
+  title_abbrev: Enable logging
   synopsis: enable logging on an S3 bucket.
   category:
   languages:
@@ -1710,6 +1710,15 @@ s3_GetBucketWebsite:
   synopsis: get the website configuration for an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.WebsiteConfigExample
     C++:
       versions:
         - sdk_version: 1
@@ -2285,4 +2294,4 @@ s3_Encryption:
               snippet_tags:
                 - S3.dotnetv3.SSEClientEncryptionExample
   services:
-    s3: {UploadObject, PutObject, GetObject, GetObjectMetadata, CopyObject}
+    s3: {GetObject, GetObjectMetadata, CopyObject}

@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[lambda.dotnetv3.LowLevelTableExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelTableExample]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -70,6 +70,8 @@ namespace LowLevelTableExample
             return true;
         }
 
+// snippet-start:[dynamodb.dotnetv3.ListTableExample]
+
         public static async Task<bool> ListMyTables(AmazonDynamoDBClient client)
         {
             Console.WriteLine("\n*** Listing tables ***");
@@ -91,7 +93,9 @@ namespace LowLevelTableExample
 
             return true;
         }
+// snippet-end:[dynamodb.dotnetv3.ListTableExample]
 
+// snippet-start:[dynamodb.dotnetv3.DescribeTableExample]
         public static async Task<bool> GetTableInformation(AmazonDynamoDBClient client)
         {
             Console.WriteLine("\n*** Retrieving table information ***");
@@ -112,6 +116,7 @@ namespace LowLevelTableExample
 
             return true;
         }
+// snippet-end:[dynamodb.dotnetv3.DescribeTableExample]
 
         public static async Task<bool> UpdateExampleTable(AmazonDynamoDBClient client)
         {
@@ -217,4 +222,4 @@ namespace LowLevelTableExample
         }
     }
 }
-// snippet-end:[lambda.dotnetv3.LowLevelTableExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelTableExample]
