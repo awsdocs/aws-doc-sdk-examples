@@ -212,9 +212,8 @@ class EC2Test {
     }
 
     @Test
-    @Order(2)
+    @Order(16)
     fun TestEC2Scenario() = runBlocking {
-
         var newInstanceId = ""
         println(DASHES)
         println("1. Create an RSA key pair and save the private key material as a PEM file.")
