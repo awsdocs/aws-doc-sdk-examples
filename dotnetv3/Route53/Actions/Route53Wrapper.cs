@@ -142,7 +142,7 @@ public class Route53Wrapper
     /// </summary>
     /// <param name="contact">Contact details.</param>
     /// <param name="domainName">The domain name to register.</param>
-    /// <param name="autoRenew">True if the domain should auto-renew.</param>
+    /// <param name="autoRenew">True if the domain should automatically renew.</param>
     /// <param name="duration">The duration in years for the domain registration.</param>
     /// <returns>The operation Id.</returns>
     public async Task<string?> RegisterDomain(string domainName, bool autoRenew, int duration, ContactDetail contact)

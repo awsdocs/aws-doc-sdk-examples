@@ -1,7 +1,7 @@
-# Amazon Route 53 code examples for the SDK for .NET
+# Route 53 code examples for the SDK for .NET
 
 ## Overview
-The examples in this section show how to use the AWS SDK for .NET with Amazon Route 53 (Route 53).
+The examples in this section show how to use the AWS SDK for .NET with Amazon Route 53.
 
 Route 53 is a highly available and scalable Domain Name System (DNS) web service.
 

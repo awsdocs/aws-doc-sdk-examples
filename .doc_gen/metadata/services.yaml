@@ -414,7 +414,6 @@ route53-domains:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53domains-2014-05-15
 route53-recovery-cluster:
-  bundle: route-53
   long: '&R53ARClong;'
   short: '&R53ARC;'
   sort: Application Recovery Controller

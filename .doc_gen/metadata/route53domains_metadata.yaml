@@ -103,8 +103,8 @@ route-53_GetOperationDetails:
     route53-domains: {GetOperationDetail}
 route-53_ListPrices:
   title: List &R53DR; domain prices using an &AWS; SDK
-  title_abbrev: List prices
-  synopsis: list prices.
+  title_abbrev: List domain prices
+  synopsis: list domain prices.
   category:
   languages:
     .NET:
