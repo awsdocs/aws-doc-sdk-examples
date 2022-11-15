@@ -79,12 +79,11 @@ Define these values to successfully run the JUnit tests:
 - **groupName** – A group name to use. For example, **TestSecGroup**.
 - **groupDesc** – A description of the group. For example, **Test Group**.
 - **vpcId** – A VPC ID. You can obtain this value from the AWS Management Console.
-
-- **keyNameSc** - A key pair to use in the scenatio test.
-- **fileNameSc** - A file name where the key information is written to and used in the scenatio test. 
-- **groupNameSc** - A group name that is used in the scenatio test. 
-- **groupDescSc** - A group name description that is used in the scenatio test. 
-- **vpcIdSc** – A VPC ID that is used in the scenatio test.
+- **keyNameSc** - A key pair to use in the scenario test.
+- **fileNameSc** - A file name where the key information is written to and used in the scenario test. 
+- **groupNameSc** - A group name that is used in the scenario test. 
+- **groupDescSc** - A group name description that is used in the scenario test. 
+- **vpcIdSc** – A VPC ID that is used in the scenario test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
