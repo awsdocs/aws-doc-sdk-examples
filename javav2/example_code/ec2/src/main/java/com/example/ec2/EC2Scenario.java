@@ -58,7 +58,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 // snippet-start:[ec2.java2.scenario.main]
 /**
@@ -84,7 +83,7 @@ import java.util.concurrent.TimeUnit;
  * 12. Allocates an Elastic IP address and associates it with the instance.
  * 13. Displays SSH connection info for the instance.
  * 14. Disassociates and deletes the Elastic IP address.
- * 15. Terminates the instance.
+ * 15. Terminates the instance and waits for it to terminate.
  * 16. Deletes the security group.
  * 17. Deletes the key pair.
  */
@@ -179,12 +178,12 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("10. Stop the instance and use a waiter to verify.");
+        System.out.println("10. Stop the instance and use a waiter.");
         stopInstance(ec2, newInstanceId);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("11. Start the instance and use a waiter to verify.");
+        System.out.println("11. Start the instance and use a waiter.");
         startInstance(ec2, newInstanceId);
         ipAddress = describeEC2Instances(ec2, newInstanceId);
         System.out.println("You can SSH to the instance using this command:");
@@ -213,7 +212,7 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("15. Terminate the instance.");
+        System.out.println("15. Terminate the instance and use a waiter.");
         terminateEC2(ec2, newInstanceId);
         System.out.println(DASHES);
 
@@ -248,15 +247,27 @@ public class EC2Scenario {
         }
     }
 
-    public static void terminateEC2( Ec2Client ec2, String instanceID) {
+    public static void terminateEC2(Ec2Client ec2, String instanceId) {
         try{
-            TerminateInstancesRequest ti = TerminateInstancesRequest.builder()
-                .instanceIds(instanceID)
+            Ec2Waiter ec2Waiter = Ec2Waiter.builder()
+                .overrideConfiguration(b -> b.maxAttempts(100))
+                .client(ec2)
                 .build();
 
+            TerminateInstancesRequest ti = TerminateInstancesRequest.builder()
+                .instanceIds(instanceId)
+                .build();
+
+            System.out.println("Use an Ec2Waiter to wait for the instance to terminate. This will take a few minutes.");
             ec2.terminateInstances(ti);
-            checkIsTerminated(ec2, instanceID);
-            System.out.println(instanceID +" is terminated!");
+            DescribeInstancesRequest instanceRequest = DescribeInstancesRequest.builder()
+                .instanceIds(instanceId)
+                .build();
+
+            WaiterResponse<DescribeInstancesResponse> waiterResponse = ec2Waiter.waitUntilInstanceTerminated(instanceRequest);
+            waiterResponse.matched().response().ifPresent(System.out::println);
+            System.out.println("Successfully started instance "+instanceId);
+            System.out.println(instanceId +" is terminated!");
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -351,7 +362,7 @@ public class EC2Scenario {
             .instanceIds(instanceId)
             .build();
 
-        System.out.println("Use a Waiter for the instance to run");
+        System.out.println("Use an Ec2Waiter to wait for the instance to run. This will take a few minutes.");
         ec2.startInstances(request);
         DescribeInstancesRequest instanceRequest = DescribeInstancesRequest.builder()
             .instanceIds(instanceId)
@@ -371,7 +382,7 @@ public class EC2Scenario {
             .instanceIds(instanceId)
             .build();
 
-        System.out.println("Use a Waiter for the instance to stop");
+        System.out.println("Use an Ec2Waiter to wait for the instance to stop. This will take a few minutes.");
         ec2.stopInstances(request);
         DescribeInstancesRequest instanceRequest = DescribeInstancesRequest.builder()
             .instanceIds(instanceId)
@@ -611,27 +622,6 @@ public class EC2Scenario {
             System.out.println("Successfully created key pair named "+keyName);
 
         } catch (Ec2Exception | IOException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-
-    public static void checkIsTerminated( Ec2Client ec2, String newInstanceId) {
-        try {
-            boolean isTerminated = false;
-            DescribeInstancesRequest request = DescribeInstancesRequest.builder()
-                .instanceIds(newInstanceId)
-                .build();
-
-            while (!isTerminated) {
-                DescribeInstancesResponse response = ec2.describeInstances(request);
-                String state = response.reservations().get(0).instances().get(0).state().name().name();
-                System.out.println("...Instance "+newInstanceId +" is in state "+state);
-                if (state.compareTo("TERMINATED") ==0)
-                    isTerminated = true;
-                TimeUnit.SECONDS.sleep(30);
-            }
-        } catch (SsmException | InterruptedException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
