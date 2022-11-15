@@ -423,7 +423,7 @@ ec2_ReleaseAddress:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.kotlin.scenario.release_address.main
+                - ec2.kotlin.scenario.release.address.main
     Java:
       versions:
         - sdk_version: 2
