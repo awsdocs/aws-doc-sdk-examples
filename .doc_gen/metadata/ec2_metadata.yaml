@@ -730,6 +730,15 @@ ec2_Scenario_GetStartedInstances:
     - Clean up all of the resources created by this example.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2
