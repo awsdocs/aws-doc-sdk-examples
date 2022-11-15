@@ -30,7 +30,7 @@ namespace TransferUtilityBasics.Tests
         {
             var keyName = _configuration["FileToDownload"];
             var success = await TransferMethods.DownloadSingleFileAsync(
-                transferUtil, 
+                transferUtil,
                 _configuration["BucketName"],
                 _configuration["FileToDownload"],
                 _localPath);
