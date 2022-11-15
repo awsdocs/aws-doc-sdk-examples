@@ -51,7 +51,6 @@ import kotlin.system.exitProcess
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class EC2Test {
-
     private var instanceId = "" // gets set in test 2
     private var ami = ""
     private var instanceName = ""
@@ -70,7 +69,6 @@ class EC2Test {
     @BeforeAll
     @Throws(IOException::class)
     fun setUp() {
-
         try {
             EC2Test::class.java.classLoader.getResourceAsStream("config.properties").use { input ->
                 val prop = Properties()
