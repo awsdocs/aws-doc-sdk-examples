@@ -257,7 +257,7 @@ suspend fun terminateEC2Sc(instanceIdVal: String) {
         println("$instanceIdVal is terminated!")
     }
 }
-
+// snippet-start:[ec2.kotlin.scenario.release_address.main]
 suspend fun releaseEC2AddressSc(allocId: String?) {
     val request = ReleaseAddressRequest {
         allocationId = allocId
@@ -267,7 +267,9 @@ suspend fun releaseEC2AddressSc(allocId: String?) {
         println("Successfully released Elastic IP address $allocId")
     }
 }
+// snippet-end:[ec2.kotlin.scenario.release_address.main]
 
+// snippet-start:[ec2.kotlin.scenario.disassociate_address.main]
 suspend fun disassociateAddressSc(associationIdVal: String?) {
     val addressRequest = DisassociateAddressRequest {
         associationId = associationIdVal
@@ -277,7 +279,9 @@ suspend fun disassociateAddressSc(associationIdVal: String?) {
         println("You successfully disassociated the address!")
     }
 }
+// snippet-end:[ec2.kotlin.scenario.disassociate_address.main]
 
+// snippet-start:[ec2.kotlin.associate_address.main]
 suspend fun associateAddressSc(instanceIdVal: String?, allocationIdVal: String?): String? {
     val associateRequest = AssociateAddressRequest {
         instanceId = instanceIdVal
@@ -289,6 +293,7 @@ suspend fun associateAddressSc(instanceIdVal: String?, allocationIdVal: String?)
         return associateResponse.associationId
     }
 }
+// snippet-end:[ec2.kotlin.associate_address.main]
 
 suspend fun allocateAddressSc(): String? {
     val allocateRequest = AllocateAddressRequest {
@@ -378,6 +383,7 @@ suspend fun runInstanceSc(instanceTypeVal: String, keyNameVal: String, groupName
     }
 }
 
+// snippet-start:[ec2.kotlin.describe_instance_type.main]
 // Get a list of instance types.
 suspend fun getInstanceTypesSc(): String {
     var instanceType = ""
@@ -402,6 +408,7 @@ suspend fun getInstanceTypesSc(): String {
         return instanceType
     }
 }
+// snippet-end:[ec2.kotlin.describe_instance_type.main]
 
 // Display the Description field that corresponds to the instance Id value.
 suspend fun describeImageSc(instanceId: String): String? {
