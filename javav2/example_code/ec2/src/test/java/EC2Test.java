@@ -22,8 +22,8 @@ public class EC2Test {
     private static  Ec2Client ec2;
     private static SsmClient ssmClient;
 
-    // Define the data members required for the tests
-    private static String instanceId = ""; // gets set in test 2
+    // Define the data members required for the tests.
+    private static String instanceId = ""; // gets set in test 2.
     private static String ami="";
     private static String instanceName="";
     private static String keyName="";
@@ -62,7 +62,7 @@ public class EC2Test {
                 return;
             }
 
-            //load a properties file from class path, inside static method
+            // Load a properties file.
             prop.load(input);
             ami = prop.getProperty("ami");
             instanceName = prop.getProperty("instanceName");
@@ -204,7 +204,7 @@ public class EC2Test {
     @Order(16)
     public void  TestEC2Scenario() {
         System.out.println(EC2Scenario.DASHES);
-        System.out.println("1. Create an RSA key pair and save the private key material as a PEM file.");
+        System.out.println("1. Create an RSA key pair and save the private key material as a .pem file.");
         EC2Scenario.createKeyPair(ec2, keyNameSc, fileNameSc);
         System.out.println(EC2Scenario.DASHES);
 
@@ -224,18 +224,18 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
-        System.out.println("5. Get a list of Amazon Linux 2 AMIs and selects one with amzn2 in the name.");
+        System.out.println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.");
         String instanceId = EC2Scenario.getParaValues(ssmClient);
-        System.out.println("The instance ID is "+instanceId);
+        System.out.println("The instance Id is "+instanceId);
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
-        System.out.println("6. Gets more information about an amzn2 image.");
+        System.out.println("6. Get more information about an amzn2 image.");
         String amiValue = EC2Scenario.describeImage(ec2, instanceId);
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
-        System.out.println("7. Gets a list of instance types.");
+        System.out.println("7. Get a list of instance types.");
         String instanceType = EC2Scenario.getInstanceTypes(ec2);
         System.out.println(EC2Scenario.DASHES);
 
@@ -266,11 +266,11 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
-        System.out.println("12. Allocate an Elastic IP and associate it with the instance.");
+        System.out.println("12. Allocate an Elastic IP address and associate it with the instance.");
         String allocationId = EC2Scenario.allocateAddress(ec2);
         System.out.println("The allocation Id value is "+allocationId);
         String associationId = EC2Scenario.associateAddress(ec2, newInstanceId, allocationId);
-        System.out.println("The associate Id value is "+associationId);
+        System.out.println("The association Id value is "+associationId);
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
@@ -281,7 +281,7 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
-        System.out.println("14. Disassociate and release the elastic IP");
+        System.out.println("14. Disassociate and release the Elastic IP address.");
         EC2Scenario.disassociateAddress(ec2, associationId);
         EC2Scenario.releaseEC2Address(ec2, allocationId);
         System.out.println(EC2Scenario.DASHES);
@@ -292,7 +292,7 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
-        System.out.println("16. Delete the Security group.");
+        System.out.println("16. Delete the security group.");
         EC2Scenario.deleteEC2SecGroup(ec2, groupId);
         System.out.println(EC2Scenario.DASHES);
 
