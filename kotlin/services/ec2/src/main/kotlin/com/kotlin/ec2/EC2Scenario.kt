@@ -41,6 +41,7 @@ import aws.sdk.kotlin.services.ssm.model.GetParametersByPathRequest
 import java.io.File
 import kotlin.system.exitProcess
 
+// snippet-start:[ec2.kotlin.scenario.main]
 /**
  Before running this Kotlin code example, set up your development environment,
  including your credentials.
@@ -512,3 +513,4 @@ suspend fun createKeyPairSc(keyNameVal: String, fileNameVal: String) {
         println("Successfully created key pair named $keyNameVal")
     }
 }
+// snippet-end:[ec2.kotlin.scenario.main]
