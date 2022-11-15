@@ -22,7 +22,6 @@ using namespace Aws::TranscribeStreamingService::Model;
 //TODO(User): Update path to location of local .wav test file, if necessary.
 static const Aws::String FILE_NAME{MEDIA_DIR "/transcribe-test-file.wav"};
 static const int BUFFER_SIZE = 1024;
-static const int END_OF_STREAM_SLEEP_SECONDS = 10;
 
 //snippet-start:[transcribe.cpp.stream_transcription_async.code]
 int main() {
@@ -125,7 +124,8 @@ int main() {
                     std::cout << "Successfully sent the empty frame" << std::endl;
                 }
                 stream.flush();
-                // Wait until final transcript is received before closing the stream.
+                // Wait until the final transcript or an error is received.
+                // Closing the stream prematurely will trigger an error.
                 canCloseStream.WaitOne();
                 stream.Close();
          };
@@ -142,7 +142,7 @@ int main() {
                 std::cerr << "Transcribe streaming error " << outcome.GetError().GetMessage() << std::endl;
             }
 
-            canCloseStream.Release();  // Just to be safe.
+            canCloseStream.Release();
             signaling.Release();
         };
 
