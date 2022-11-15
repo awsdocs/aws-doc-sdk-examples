@@ -5,21 +5,35 @@
 
 // This Amazon S3 client uses the default user credentials
 // defined for this computer.
+using Microsoft.Extensions.Configuration;
+
 IAmazonS3 client = new AmazonS3Client();
 var transferUtil = new TransferUtility(client);
+IConfiguration _configuration;
 
-// Change the following values to an Amazon S3 bucket that
-// exists in your AWS account.
-var bucketName = "doc-example-bucket1";
+_configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("settings.json") // Load test settings from JSON file.
+    .AddJsonFile("settings.local.json",
+        true) // Optionally load local settings.
+    .Build();
+
+// Edit the values in settings.json to use a bucket and files that
+// exist on your AWS account and on the local computer where you
+// run this scenario.
+var bucketName = _configuration["BucketName"];
 var localPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\TransferFolder";
 
 DisplayInstructions();
 
 PressEnter();
 
-// Upload a single file to an S3 bucket.
-var fileToUpload = "UploadTest.docx";
+Console.WriteLine();
 
+// Upload a single file to an S3 bucket.
+DisplayTitle("Upload a single file");
+
+var fileToUpload = _configuration["FileToUpload"];
 Console.WriteLine($"Uploading {fileToUpload} to the S3 bucket, {bucketName}.");
 
 var success = await TransferMethods.UploadSingleFileAsync(transferUtil, bucketName, fileToUpload, localPath);
@@ -31,12 +45,13 @@ if (success)
 PressEnter();
 
 // Upload a local directory to an S3 bucket.
-Console.WriteLine("Start by uploading all the files in a local folder to an Amazon S3 bucket.");
-var keyPrefix = "UploadFolder";
+DisplayTitle("Upload all files from a local directory");
+Console.WriteLine("Upload all the files in a local folder to an Amazon S3 bucket.");
+const string keyPrefix = "UploadFolder";
 var uploadPath = $"{localPath}\\UploadFolder";
 
 Console.WriteLine($"Uploading the files in {uploadPath} to {bucketName}");
-Console.WriteLine($"{uploadPath} contains the following files:");
+DisplayTitle($"{uploadPath} files");
 DisplayLocalFiles(uploadPath);
 Console.WriteLine();
 
@@ -54,9 +69,10 @@ if (success)
 PressEnter();
 
 // Download a single file from an S3 bucket.
+DisplayTitle("Download a single file");
 Console.WriteLine("Now we will download a single file from an Amazon S3 bucket.");
 
-var keyName = "FileToDownload.docx";
+var keyName = _configuration["FileToDownload"];
 
 Console.WriteLine($"Downloading {keyName} from {bucketName}.");
 
@@ -69,8 +85,9 @@ if (success)
 PressEnter();
 
 // Download the contents of a directory from an S3 bucket.
-var s3Path = "DownloadFolder";
-var downloadPath = $"{localPath}\\DownloadFolder";
+DisplayTitle("Download the contents of an Amazon S3 bucket");
+var s3Path = _configuration["S3Path"];
+var downloadPath = $"{localPath}\\{s3Path}";
 
 Console.WriteLine($"Downloading the contents of {bucketName}\\{s3Path}");
 Console.WriteLine($"{bucketName}\\{s3Path} contains the following files:");
@@ -81,7 +98,7 @@ success = await TransferMethods.DownloadS3DirectoryAsync(transferUtil, bucketNam
 if (success)
 {
     Console.WriteLine($"Downloaded the files in {bucketName} to {downloadPath}.");
-    Console.WriteLine($"{downloadPath} now contains the fillowing files:");
+    Console.WriteLine($"{downloadPath} now contains the following files:");
     DisplayLocalFiles(downloadPath);
 }
 
@@ -92,6 +109,7 @@ PressEnter();
 static void DisplayTitle(string titleText)
 {
     var sepBar = new string('-', Console.WindowWidth);
+
     Console.WriteLine(sepBar);
     Console.WriteLine(CenterText(titleText));
     Console.WriteLine(sepBar);

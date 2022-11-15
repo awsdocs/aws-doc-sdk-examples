@@ -8,8 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="3.7.12.10" />
-    <PackageReference Include="AWSSDK.S3" Version="3.7.9.27" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.100.16" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.101.16" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
   </ItemGroup>
+
+	<ItemGroup>
+		<Content Include="settings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="settings.*.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<DependentUpon>settings.json</DependentUpon>
+		</Content>
+	</ItemGroup>
 
 </Project>
