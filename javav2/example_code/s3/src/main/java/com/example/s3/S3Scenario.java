@@ -52,15 +52,26 @@ import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 
 // snippet-start:[s3.java2.s3_scenario.main]
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *  Before running this Java V2 code example, set up your development environment, including your credentials.
  *
- * For more information, see the following documentation topic:
+ *  For more information, see the following documentation topic:
  *
- * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ *  This Java code example performs the following tasks:
+ *
+ *  1. Creates an Amazon S3 bucket.
+ *  2. Uploads an object to the bucket.
+ *  3. Downloads the object to another local file.
+ *  4. Uploads an object using multipart upload.
+ *  5. List all objects located in the Amazon S3 bucket.
+ *  6. Copies the object to another Amazon S3 bucket.
+ *  7. Deletes the object from the Amazon S3 bucket.
+ *  8. Deletes the Amazon S3 bucket.
  */
 
 public class S3Scenario {
-
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws IOException {
 
         final String usage = "\n" +
@@ -81,7 +92,7 @@ public class S3Scenario {
         String bucketName = args[0];
         String key = args[1];
         String objectPath = args[2];
-        String savePath = args[3];
+        String savePath =  args[3];
         String toBucket = args[4] ;
 
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
@@ -91,39 +102,60 @@ public class S3Scenario {
             .credentialsProvider(credentialsProvider)
             .build();
 
-        // Create an Amazon S3 bucket.
+        System.out.println(DASHES);
+        System.out.println("Welcome to the Amazon S3 example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("1. Create an Amazon S3 bucket.");
         createBucket(s3, bucketName);
+        System.out.println(DASHES);
 
-        // Update a local file to the Amazon S3 bucket.
+        System.out.println(DASHES);
+        System.out.println("2. Update a local file to the Amazon S3 bucket.");
         uploadLocalFile(s3, bucketName, key, objectPath);
+        System.out.println(DASHES);
 
-        // Download the object to another local file.
+        System.out.println(DASHES);
+        System.out.println("3. Download the object to another local file.");
         getObjectBytes (s3, bucketName, key, savePath);
+        System.out.println(DASHES);
 
-        // Perform a multipart upload.
+        System.out.println(DASHES);
+        System.out.println("4. Perform a multipart upload.");
         String multipartKey = "multiPartKey";
         multipartUpload(s3, toBucket, multipartKey);
+        System.out.println(DASHES);
 
-        // List all objects located in the Amazon S3 bucket.
-        // Show 2 ways
+        System.out.println(DASHES);
+        System.out.println("5. List all objects located in the Amazon S3 bucket.");
         listAllObjects(s3, bucketName);
         anotherListExample(s3, bucketName) ;
+        System.out.println(DASHES);
 
-        // Copy the object to another Amazon S3 bucket
+        System.out.println(DASHES);
+        System.out.println("6. Copy the object to another Amazon S3 bucket.");
         copyBucketObject (s3, bucketName, key, toBucket);
+        System.out.println(DASHES);
 
-        // Delete the object from the Amazon S3 bucket.
+        System.out.println(DASHES);
+        System.out.println("7. Delete the object from the Amazon S3 bucket.");
         deleteObjectFromBucket(s3, bucketName, key);
+        System.out.println(DASHES);
 
-        // Delete the Amazon S3 bucket
+        System.out.println(DASHES);
+        System.out.println("8. Delete the Amazon S3 bucket.");
         deleteBucket(s3, bucketName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         System.out.println("All Amazon S3 operations were successfully performed");
+        System.out.println(DASHES);
         s3.close();
     }
 
     // Create a bucket by using a S3Waiter object
     public static void createBucket( S3Client s3Client, String bucketName) {
-
         try {
             S3Waiter s3Waiter = s3Client.waiter();
             CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
@@ -159,7 +191,6 @@ public class S3Scenario {
      * Upload an object in parts
      */
     private static void multipartUpload(S3Client s3, String bucketName, String key) {
-
         int mB = 1024 * 1024;
         // First create a multipart upload and get the upload id
         CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
@@ -211,7 +242,6 @@ public class S3Scenario {
 
     // Return a byte array
     private static byte[] getObjectFile(String filePath) {
-
         FileInputStream fileInputStream = null;
         byte[] bytesArray = null;
 
@@ -236,7 +266,6 @@ public class S3Scenario {
     }
 
     public static void getObjectBytes (S3Client s3, String bucketName, String keyName, String path ) {
-
         try {
             GetObjectRequest objectRequest = GetObjectRequest
                 .builder()
@@ -248,7 +277,7 @@ public class S3Scenario {
             byte[] data = objectBytes.asByteArray();
 
             // Write the data to a local file.
-            File myFile = new File(path );
+            File myFile = new File(path);
             OutputStream os = new FileOutputStream(myFile);
             os.write(data);
             System.out.println("Successfully obtained bytes from an S3 object");
@@ -264,7 +293,6 @@ public class S3Scenario {
 
 
     public static void uploadLocalFile(S3Client s3, String bucketName, String key, String objectPath) {
-
         PutObjectRequest objectRequest = PutObjectRequest.builder()
             .bucket(bucketName)
             .key(key)
