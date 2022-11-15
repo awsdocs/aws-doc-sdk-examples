@@ -1859,7 +1859,7 @@ dynamodb_LowLevelInterface:
                 - dynamodb.dotnetv3.CreateTablesLoadDataExample
             - description: Perform CRUD operations.
               snippet_tags:
-                - ddynamodb.dotnetv3.LowLevelItemCRUDExample
+                - dynamodb.dotnetv3.LowLevelItemCRUDExample
             - description: Get items in a batch.
               snippet_tags:
                 - dynamodb.dotnetv3.LowLevelBatchGetExample
