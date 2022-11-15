@@ -10,6 +10,7 @@
 package com.example.ec2;
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.AllocateAddressRequest;
@@ -46,6 +47,7 @@ import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
+import software.amazon.awssdk.services.ec2.waiters.Ec2Waiter;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
 import software.amazon.awssdk.services.ssm.model.Parameter;
@@ -75,13 +77,13 @@ import java.util.concurrent.TimeUnit;
  * 5. Gets a list of Amazon Linux 2 AMIs and selects one.
  * 6. Gets more information about the image.
  * 7. Gets a list of instance types that are compatible with the selected AMI’s architecture.
- * 8. Creates an instance with the key pair, security group, AMI, and an instance type
+ * 8. Creates an instance with the key pair, security group, AMI, and an instance type.
  * 9. Displays information about the instance.
  * 10. Stops the instance and waits for it to stop.
  * 11. Starts the instance and waits for it to start.
- * 12. Allocates an Elastic IP and associates it with the instance.
+ * 12. Allocates an Elastic IP address and associates it with the instance.
  * 13. Displays SSH connection info for the instance.
- * 14. Disassociates and deletes the Elastic IP.
+ * 14. Disassociates and deletes the Elastic IP address.
  * 15. Terminates the instance.
  * 16. Deletes the security group.
  * 17. Deletes the key pair.
@@ -99,7 +101,7 @@ public class EC2Scenario {
             "   fileName -  A file name where the key information is written to. \n\n" +
             "   groupName - The name of the security group. \n\n" +
             "   groupDesc - The description of the security group. \n\n" +
-            "   vpcId - A VPC ID. You can obtain this value from the AWS Management Console. \n\n" ;
+            "   vpcId - A VPC ID. You can get this value from the AWS Management Console. \n\n" ;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -128,7 +130,7 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("1. Create an RSA key pair and save the private key material as a PEM file.");
+        System.out.println("1. Create an RSA key pair and save the private key material as a .pem file.");
         createKeyPair(ec2, keyName, fileName);
         System.out.println(DASHES);
 
@@ -150,16 +152,16 @@ public class EC2Scenario {
         System.out.println(DASHES);
         System.out.println("5. Get a list of Amazon Linux 2 AMIs and selects one with amzn2 in the name.");
         String instanceId = getParaValues(ssmClient);
-        System.out.println("The instance ID is "+instanceId);
+        System.out.println("The instance Id is "+instanceId);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("6. Gets more information about an amzn2 image.");
+        System.out.println("6. Get more information about an amzn2 image.");
         String amiValue = describeImage(ec2, instanceId);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("7. Gets a list of instance types.");
+        System.out.println("7. Get a list of instance types.");
         String instanceType = getInstanceTypes(ec2);
         System.out.println(DASHES);
 
@@ -177,12 +179,12 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("10.  Stop the instance.");
+        System.out.println("10. Stop the instance and use a waiter to verify.");
         stopInstance(ec2, newInstanceId);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("11.  Start the instance.");
+        System.out.println("11. Start the instance and use a waiter to verify.");
         startInstance(ec2, newInstanceId);
         ipAddress = describeEC2Instances(ec2, newInstanceId);
         System.out.println("You can SSH to the instance using this command:");
@@ -190,7 +192,7 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("12. Allocate an Elastic IP and associate it with the instance.");
+        System.out.println("12. Allocate an Elastic IP address and associate it with the instance.");
         String allocationId = allocateAddress(ec2);
         System.out.println("The allocation Id value is "+allocationId);
         String associationId = associateAddress(ec2, newInstanceId, allocationId);
@@ -205,7 +207,7 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("14. Disassociate and release the elastic IP");
+        System.out.println("14. Disassociate and release the Elastic IP address.");
         disassociateAddress(ec2, associationId);
         releaseEC2Address(ec2, allocationId);
         System.out.println(DASHES);
@@ -216,17 +218,17 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("16. Delete the Security group.");
+        System.out.println("16. Delete the security group.");
         deleteEC2SecGroup(ec2, groupId);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("17. Delete the keys.");
+        System.out.println("17. Delete the key.");
         deleteKeys(ec2, keyName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("The EC2 Scenario was completed successfully! ");
+        System.out.println("You successfully completed the Amazon EC2 scenario.! ");
         System.out.println(DASHES);
         ec2.close();
     }
@@ -238,7 +240,7 @@ public class EC2Scenario {
                 .build();
 
             ec2.deleteSecurityGroup(request);
-            System.out.println("Successfully deleted Security Group with id " +groupId);
+            System.out.println("Successfully deleted security group with Id " +groupId);
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -284,7 +286,7 @@ public class EC2Scenario {
                 .build();
 
             ec2.releaseAddress(request);
-            System.out.println("Successfully released elastic IP address "+allocId);
+            System.out.println("Successfully released Elastic IP address "+allocId);
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -298,7 +300,7 @@ public class EC2Scenario {
                 .build();
 
             ec2.disassociateAddress(addressRequest);
-            System.out.println("You have successfully disassociate the address! ");
+            System.out.println("You successfully disassociated the address!");
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -340,28 +342,48 @@ public class EC2Scenario {
     }
 
     public static void startInstance(Ec2Client ec2, String instanceId) {
+        Ec2Waiter ec2Waiter = Ec2Waiter.builder()
+            .overrideConfiguration(b -> b.maxAttempts(100))
+            .client(ec2)
+            .build();
+
         StartInstancesRequest request = StartInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();
 
+        System.out.println("Use a Waiter for the instance to run");
         ec2.startInstances(request);
-        checkIsStarted( ec2, instanceId);
+        DescribeInstancesRequest instanceRequest = DescribeInstancesRequest.builder()
+            .instanceIds(instanceId)
+            .build();
+
+        WaiterResponse<DescribeInstancesResponse> waiterResponse = ec2Waiter.waitUntilInstanceRunning(instanceRequest);
+        waiterResponse.matched().response().ifPresent(System.out::println);
         System.out.println("Successfully started instance "+instanceId);
     }
 
     public static void stopInstance(Ec2Client ec2, String instanceId) {
+        Ec2Waiter ec2Waiter = Ec2Waiter.builder()
+            .overrideConfiguration(b -> b.maxAttempts(100))
+            .client(ec2)
+            .build();
         StopInstancesRequest request = StopInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();
 
+        System.out.println("Use a Waiter for the instance to stop");
         ec2.stopInstances(request);
-        checkIsStopped( ec2, instanceId);
-        System.out.println("Successfully stopped instance "+instanceId);
+        DescribeInstancesRequest instanceRequest = DescribeInstancesRequest.builder()
+            .instanceIds(instanceId)
+            .build();
+
+       WaiterResponse<DescribeInstancesResponse> waiterResponse = ec2Waiter.waitUntilInstanceStopped(instanceRequest);
+       waiterResponse.matched().response().ifPresent(System.out::println);
+       System.out.println("Successfully stopped instance "+instanceId);
     }
 
     public static String describeEC2Instances( Ec2Client ec2, String newInstanceId) {
         try {
-
             String pubAddress = "";
             boolean isRunning = false;
             DescribeInstancesRequest request = DescribeInstancesRequest.builder()
@@ -401,7 +423,7 @@ public class EC2Scenario {
 
             RunInstancesResponse response = ec2.runInstances(runRequest);
             String instanceId = response.instances().get(0).instanceId();
-            System.out.println("Successfully started EC2 Instance "+instanceId +" based on AMI "+amiId);
+            System.out.println("Successfully started EC2 instance "+instanceId +" based on AMI "+amiId);
             return instanceId;
 
         } catch (SsmException e) {
@@ -455,7 +477,7 @@ public class EC2Scenario {
             System.out.println("The description of the first image is "+response.images().get(0).description());
             System.out.println("The name of the first image is "+response.images().get(0).name());
 
-            // Return the image id value.
+            // Return the image Id value.
             return response.images().get(0).imageId();
 
         } catch (SsmException e) {
@@ -492,7 +514,7 @@ public class EC2Scenario {
         return "" ;
     }
 
-    // return true if the name as amzn2 in it. An example name is
+    // Return true if the name has amzn2 in it. For example:
     // /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-arm64-gp2
     private static boolean filterName(String name) {
         String[] parts = name.split("/");
@@ -508,7 +530,7 @@ public class EC2Scenario {
 
             DescribeSecurityGroupsResponse response = ec2.describeSecurityGroups(request);
             for(SecurityGroup group : response.securityGroups()) {
-                System.out.println( "Found Security Group with id " +group.groupId() +" and group VPC "+ group.vpcId());
+                System.out.println( "Found Security Group with Id " +group.groupId() +" and group VPC "+ group.vpcId());
             }
 
         } catch (Ec2Exception e) {
@@ -549,7 +571,7 @@ public class EC2Scenario {
                 .build();
 
             ec2.authorizeSecurityGroupIngress(authRequest);
-            System.out.println("Successfully added ingress policy to Security Group "+groupName);
+            System.out.println("Successfully added ingress policy to security group "+groupName);
             return resp.groupId();
 
         } catch (Ec2Exception e) {
@@ -596,63 +618,19 @@ public class EC2Scenario {
 
     public static void checkIsTerminated( Ec2Client ec2, String newInstanceId) {
         try {
-            boolean isStarted = false;
+            boolean isTerminated = false;
             DescribeInstancesRequest request = DescribeInstancesRequest.builder()
                 .instanceIds(newInstanceId)
                 .build();
 
-            while (!isStarted) {
+            while (!isTerminated) {
                 DescribeInstancesResponse response = ec2.describeInstances(request);
                 String state = response.reservations().get(0).instances().get(0).state().name().name();
                 System.out.println("...Instance "+newInstanceId +" is in state "+state);
                 if (state.compareTo("TERMINATED") ==0)
-                    isStarted = true;
+                    isTerminated = true;
                 TimeUnit.SECONDS.sleep(30);
             }
-        } catch (SsmException | InterruptedException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-
-    public static void checkIsStarted( Ec2Client ec2, String newInstanceId) {
-        try {
-            boolean isStarted = false;
-            DescribeInstancesRequest request = DescribeInstancesRequest.builder()
-                .instanceIds(newInstanceId)
-                .build();
-
-            while (!isStarted) {
-                DescribeInstancesResponse response = ec2.describeInstances(request);
-                String state = response.reservations().get(0).instances().get(0).state().name().name();
-                System.out.println("...Instance "+newInstanceId +" is in state "+state);
-                if (state.compareTo("RUNNING") ==0)
-                    isStarted = true;
-                TimeUnit.SECONDS.sleep(30);
-            }
-
-        } catch (SsmException | InterruptedException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-
-    public static void checkIsStopped( Ec2Client ec2, String newInstanceId) {
-        try {
-            boolean isStopped = false;
-            DescribeInstancesRequest request = DescribeInstancesRequest.builder()
-                .instanceIds(newInstanceId)
-                .build();
-
-            while (!isStopped) {
-                DescribeInstancesResponse response = ec2.describeInstances(request);
-                String state = response.reservations().get(0).instances().get(0).state().name().name();
-                System.out.println("...Instance "+newInstanceId +" is in state "+state);
-                if (state.compareTo("STOPPED") ==0)
-                    isStopped = true;
-                TimeUnit.SECONDS.sleep(30);
-            }
-
         } catch (SsmException | InterruptedException e) {
             System.err.println(e.getMessage());
             System.exit(1);
