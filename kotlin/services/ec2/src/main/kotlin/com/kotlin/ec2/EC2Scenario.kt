@@ -72,7 +72,6 @@ import kotlin.system.exitProcess
 
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <keyName> <fileName> <groupName> <groupDesc> <vpcId>
