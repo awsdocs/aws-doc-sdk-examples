@@ -48,14 +48,14 @@ namespace LowLevelQuery
 
             var response = await client.QueryAsync(request);
 
-            Console.WriteLine("\nNo. of reads used (by query in FindRepliesPostedWithinTimePeriod) {0}",
+            Console.WriteLine("\nNo. of reads used (by query in FindRepliesPostedWithinTimePeriod) {0}.",
                       response.ConsumedCapacity.CapacityUnits);
             foreach (Dictionary<string, AttributeValue> item
                  in response.Items)
             {
                 PrintItem(item);
             }
-            Console.WriteLine("To continue, press Enter");
+            Console.WriteLine("To continue, press Enter.");
             Console.ReadLine();
         }
 
@@ -90,14 +90,14 @@ namespace LowLevelQuery
 
             var response = await client.QueryAsync(request);
 
-            Console.WriteLine("No. of reads used (by query in FindRepliesInLast15DaysWithConfig) {0}",
+            Console.WriteLine("No. of reads used (by query in FindRepliesInLast15DaysWithConfig) {0}.",
                       response.ConsumedCapacity.CapacityUnits);
             foreach (Dictionary<string, AttributeValue> item
                  in response.Items)
             {
                 PrintItem(item);
             }
-            Console.WriteLine("To continue, press Enter");
+            Console.WriteLine("To continue, press Enter.");
             Console.ReadLine();
         }
 
@@ -135,7 +135,7 @@ namespace LowLevelQuery
                 lastKeyEvaluated = response.LastEvaluatedKey;
             } while (lastKeyEvaluated != null && lastKeyEvaluated.Count != 0);
 
-            Console.WriteLine("To continue, press Enter");
+            Console.WriteLine("To continue, press Enter.");
 
 
             Console.ReadLine();
@@ -159,13 +159,13 @@ namespace LowLevelQuery
             };
 
             var response = await client.QueryAsync(request);
-            Console.WriteLine("No. of reads used (by query in FindRepliesForAThread) {0}\n",
+            Console.WriteLine("No. of reads used (by query in FindRepliesForAThread) {0}.\n",
                       response.ConsumedCapacity.CapacityUnits);
             foreach (Dictionary<string, AttributeValue> item in response.Items)
             {
                 PrintItem(item);
             }
-            Console.WriteLine("To continue, press Enter");
+            Console.WriteLine("To continue, press Enter.");
             Console.ReadLine();
         }
 

@@ -30,14 +30,14 @@ namespace LowLevelLocalSecondaryIndexExample
 
             var attributeDefinitions = new List<AttributeDefinition>()
             {
-            // Attribute definitions for table primary key
+            // Attribute definitions for table primary key.
             { new AttributeDefinition() {
                   AttributeName = "CustomerId", AttributeType = "S"
               } },
             { new AttributeDefinition() {
                   AttributeName = "OrderId", AttributeType = "N"
               } },
-            // Attribute definitions for index primary key
+            // Attribute definitions for index primary key.
             { new AttributeDefinition() {
                   AttributeName = "OrderCreationDate", AttributeType = "N"
               } },
@@ -47,42 +47,42 @@ namespace LowLevelLocalSecondaryIndexExample
 
             createTableRequest.AttributeDefinitions = attributeDefinitions;
 
-            // Key schema for table
+            // Key schema for table.
             var tableKeySchema = new List<KeySchemaElement>()
             {
             { new KeySchemaElement() {
                   AttributeName = "CustomerId", KeyType = "HASH"
-              } },                                                  //Partition key
+              } }, // Partition key.
             { new KeySchemaElement() {
                   AttributeName = "OrderId", KeyType = "RANGE"
-              } }                                                //Sort key
+              } } // Sort key.
         };
 
             createTableRequest.KeySchema = tableKeySchema;
 
             var localSecondaryIndexes = new List<LocalSecondaryIndex>();
 
-            // OrderCreationDateIndex
+            // OrderCreationDateIndex.
             var orderCreationDateIndex = new LocalSecondaryIndex()
             {
                 IndexName = "OrderCreationDateIndex"
             };
 
-            // Key schema for OrderCreationDateIndex
+            // Key schema for OrderCreationDateIndex.
             var indexKeySchema = new List<KeySchemaElement>()
         {
             { new KeySchemaElement() {
                   AttributeName = "CustomerId", KeyType = "HASH"
-              } },                                                    //Partition key
+              } }, // Partition key.
             { new KeySchemaElement() {
                   AttributeName = "OrderCreationDate", KeyType = "RANGE"
-              } }                                                            //Sort key
+              } } // Sort key.
         };
 
             orderCreationDateIndex.KeySchema = indexKeySchema;
 
             // Projection (with list of projected attributes) for
-            // OrderCreationDateIndex
+            // OrderCreationDateIndex.
             var projection = new Projection()
             {
                 ProjectionType = "INCLUDE"
@@ -99,25 +99,25 @@ namespace LowLevelLocalSecondaryIndexExample
 
             localSecondaryIndexes.Add(orderCreationDateIndex);
 
-            // IsOpenIndex
+            // IsOpenIndex.
             var isOpenIndex
                 = new LocalSecondaryIndex()
                 {
                     IndexName = "IsOpenIndex"
                 };
 
-            // Key schema for IsOpenIndex
+            // Key schema for IsOpenIndex.
             indexKeySchema = new List<KeySchemaElement>()
         {
             { new KeySchemaElement() {
                   AttributeName = "CustomerId", KeyType = "HASH"
-              }},                                                     //Partition key
+              }},  // Partition key.
             { new KeySchemaElement() {
                   AttributeName = "IsOpen", KeyType = "RANGE"
-              }}                                                  //Sort key
+              }} // Sort key.
         };
 
-            // Projection (all attributes) for IsOpenIndex
+            // Projection (all attributes) for IsOpenIndex.
             projection = new Projection()
             {
                 ProjectionType = "ALL"
@@ -128,7 +128,7 @@ namespace LowLevelLocalSecondaryIndexExample
 
             localSecondaryIndexes.Add(isOpenIndex);
 
-            // Add index definitions to CreateTable request
+            // Add index definitions to CreateTable request.
             createTableRequest.LocalSecondaryIndexes = localSecondaryIndexes;
 
             Console.WriteLine("Creating table " + _tableName + "...");
@@ -162,7 +162,7 @@ namespace LowLevelLocalSecondaryIndexExample
             {
                 Console.WriteLine("\nUsing index: '" + indexName
                           + "': Bob's orders that are open.");
-                Console.WriteLine("Only a user-specified list of attributes are returned\n");
+                Console.WriteLine("Only a user-specified list of attributes are returned.\n");
                 queryRequest.IndexName = indexName;
 
                 keyConditionExpression += " and IsOpen = :v_isOpen";
@@ -178,7 +178,7 @@ namespace LowLevelLocalSecondaryIndexExample
             {
                 Console.WriteLine("\nUsing index: '" + indexName
                           + "': Bob's orders that were placed after 01/31/2013.");
-                Console.WriteLine("Only the projected attributes are returned\n");
+                Console.WriteLine("Only the projected attributes are returned.\n");
                 queryRequest.IndexName = indexName;
 
                 keyConditionExpression += " and OrderCreationDate > :v_Date";
@@ -718,7 +718,7 @@ namespace LowLevelLocalSecondaryIndexExample
         private static async void WaitUntilTableReady(AmazonDynamoDBClient client, string tableName)
         {
             string status = null;
-            // Let us wait until table is created. Call DescribeTable.
+            // Wait until table is created. Call DescribeTable.
             do
             {
                 System.Threading.Thread.Sleep(5000); // Wait 5 seconds.
@@ -775,7 +775,7 @@ namespace LowLevelLocalSecondaryIndexExample
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not create table");
+                Console.WriteLine("Could not create table.");
                 return;
             }
 
@@ -783,7 +783,7 @@ namespace LowLevelLocalSecondaryIndexExample
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not load data into table");
+                Console.WriteLine("Could not load data into table.");
                 return;
             }
 
@@ -791,21 +791,21 @@ namespace LowLevelLocalSecondaryIndexExample
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not query table");
+                Console.WriteLine("Could not query table.");
                 return;
             }
             result = Query(client, "IsOpenIndex");
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not query table");
+                Console.WriteLine("Could not query table.");
                 return;
             }
             result = Query(client, "OrderCreationDateIndex");
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not query table");
+                Console.WriteLine("Could not query table.");
                 return;
             }
 
@@ -813,7 +813,7 @@ namespace LowLevelLocalSecondaryIndexExample
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not delete table");
+                Console.WriteLine("Could not delete table.");
                 return;
             }
         }

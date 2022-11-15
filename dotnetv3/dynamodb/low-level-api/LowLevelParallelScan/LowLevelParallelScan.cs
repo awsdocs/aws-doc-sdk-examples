@@ -141,7 +141,7 @@ namespace LowLevelParallelScan
                 new KeySchemaElement
                 {
                     AttributeName = "Id",
-                    KeyType = "HASH" //Partition key
+                    KeyType = "HASH" // Partition key.
                 }
             },
                 ProvisionedThroughput = new ProvisionedThroughput
@@ -235,7 +235,7 @@ namespace LowLevelParallelScan
                 }
                 catch (ResourceNotFoundException)
                 {
-                    Console.WriteLine("Table name: {0} is not found. It is deleted", tableName);
+                    Console.WriteLine("Table name: {0} is not found. It is deleted.", tableName);
                     return;
                 }
             } while (status == "DELETING");
@@ -249,7 +249,7 @@ namespace LowLevelParallelScan
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not create table, bye");
+                Console.WriteLine("Could not create table, bye.");
                 return;
             }
 
@@ -257,8 +257,8 @@ namespace LowLevelParallelScan
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not upload data to table");
-                Console.WriteLine("You'll have to delete the " + _tableName + " table yourself");
+                Console.WriteLine("Could not upload data to table.");
+                Console.WriteLine("You'll have to delete the " + _tableName + " table yourself.");
                 return;
             }
 
@@ -268,8 +268,8 @@ namespace LowLevelParallelScan
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not delete table");
-                Console.WriteLine("You'll have to delete the " + _tableName + " table yourself");
+                Console.WriteLine("Could not delete table.");
+                Console.WriteLine("You'll have to delete the " + _tableName + " table yourself.");
             }
         }
     }

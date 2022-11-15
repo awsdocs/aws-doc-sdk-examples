@@ -72,7 +72,7 @@ namespace LowLevelTableExample
 
         public static async Task<bool> ListMyTables(AmazonDynamoDBClient client)
         {
-            Console.WriteLine("\n*** listing tables ***");
+            Console.WriteLine("\n*** Listing tables ***");
             string lastTableNameEvaluated = null;
             do
             {
@@ -185,7 +185,7 @@ namespace LowLevelTableExample
             if (!result.Result)
             {
                 Console.WriteLine("Could not list tables.");
-                Console.WriteLine("You must delete the " + _tableName + " table yourself");
+                Console.WriteLine("You must delete the " + _tableName + " table yourself.");
                 return;
             }
 
@@ -194,7 +194,7 @@ namespace LowLevelTableExample
             if (!result.Result)
             {
                 Console.WriteLine("Could not get table information.");
-                Console.WriteLine("You must delete the " + _tableName + " table yourself");
+                Console.WriteLine("You must delete the " + _tableName + " table yourself.");
                 return;
             }
 
@@ -212,7 +212,7 @@ namespace LowLevelTableExample
             if (!result.Result)
             {
                 Console.WriteLine("Could not delete example table.");
-                Console.WriteLine("You must delete the " + _tableName + " table yourself");
+                Console.WriteLine("You must delete the " + _tableName + " table yourself.");
             }
         }
     }

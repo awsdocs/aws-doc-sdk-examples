@@ -2134,7 +2134,7 @@ s3_Scenario_GettingStarted:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3
+          github: dotnetv3/S3/S3_Basics
           sdkguide:
           excerpts:
             - description:
@@ -2244,7 +2244,7 @@ s3_Scenario_ManageACLs:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3
+          github: dotnetv3/S3/ManageACLsExample
           sdkguide:
           excerpts:
             - description:
@@ -2261,7 +2261,7 @@ s3_Scenario_Tagging:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3
+          github: dotnetv3/S3/ObjectTagExample
           sdkguide:
           excerpts:
             - description:
@@ -2278,7 +2278,7 @@ s3_Encryption:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3
+          github: dotnetv3/S3/SSEClientEncryptionExample
           sdkguide:
           excerpts:
             - description:

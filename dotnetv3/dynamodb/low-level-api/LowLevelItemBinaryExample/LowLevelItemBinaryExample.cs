@@ -67,7 +67,7 @@ namespace LowLevelItemBinaryExample
             var response = await client.GetItemAsync(request);
 
             // Check the response.
-            var attributeList = response.Item; // attribute list in the response.
+            var attributeList = response.Item; // Attribute list in the response.
             Console.WriteLine("\nPrinting item after retrieving it ............");
 
             PrintItem(attributeList);

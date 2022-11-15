@@ -38,35 +38,35 @@ namespace LowLevelGlobalSecondaryIndexExample
             {
                 new KeySchemaElement {
                     AttributeName= "IssueId",
-                    KeyType = "HASH" //Partition key
+                    KeyType = "HASH" // Partition key.
                 }
             },
             {
                 new KeySchemaElement {
                     AttributeName = "Title",
-                    KeyType = "RANGE" //Sort key
+                    KeyType = "RANGE" // Sort key.
                 }
             }
         };
 
-            // Initial provisioned throughput settings for the indexes
+            // Initial provisioned throughput settings for the indexes.
             var ptIndex = new ProvisionedThroughput
             {
                 ReadCapacityUnits = 1L,
                 WriteCapacityUnits = 1L
             };
 
-            // CreateDateIndex
+            // CreateDateIndex.
             var createDateIndex = new GlobalSecondaryIndex()
             {
                 IndexName = "CreateDateIndex",
                 ProvisionedThroughput = ptIndex,
                 KeySchema = {
                 new KeySchemaElement {
-                    AttributeName = "CreateDate", KeyType = "HASH" //Partition key
+                    AttributeName = "CreateDate", KeyType = "HASH" // Partition key.
                 },
                 new KeySchemaElement {
-                    AttributeName = "IssueId", KeyType = "RANGE" //Sort key
+                    AttributeName = "IssueId", KeyType = "RANGE" // Sort key.
                 }
             },
                 Projection = new Projection
@@ -85,10 +85,10 @@ namespace LowLevelGlobalSecondaryIndexExample
                 ProvisionedThroughput = ptIndex,
                 KeySchema = {
                 new KeySchemaElement {
-                    AttributeName = "Title", KeyType = "HASH" //Partition key
+                    AttributeName = "Title", KeyType = "HASH" // Partition key.
                 },
                 new KeySchemaElement {
-                    AttributeName = "IssueId", KeyType = "RANGE" //Sort key
+                    AttributeName = "IssueId", KeyType = "RANGE" // Sort key.
                 }
             },
                 Projection = new Projection
@@ -105,7 +105,7 @@ namespace LowLevelGlobalSecondaryIndexExample
                 KeySchema = {
                 new KeySchemaElement {
                     AttributeName = "DueDate",
-                    KeyType = "HASH" //Partition key
+                    KeyType = "HASH" // Partition key.
                 }
             },
                 Projection = new Projection
@@ -434,7 +434,7 @@ namespace LowLevelGlobalSecondaryIndexExample
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not create table, bye");
+                Console.WriteLine("Could not create table, bye.");
                 return;
             }
 
@@ -442,7 +442,7 @@ namespace LowLevelGlobalSecondaryIndexExample
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not load data into table, bye");
+                Console.WriteLine("Could not load data into table, bye.");
                 return;
             }
 
@@ -450,24 +450,24 @@ namespace LowLevelGlobalSecondaryIndexExample
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not create date index");
-                Console.WriteLine("You'll have to delete the " + TableName + " table yourself");
+                Console.WriteLine("Could not create date index.");
+                Console.WriteLine("You'll have to delete the " + TableName + " table yourself.");
                 return;
             }
             result = QueryIndex(client, "TitleIndex");
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not create title index");
-                Console.WriteLine("You'll have to delete the " + TableName + " table yourself");
+                Console.WriteLine("Could not create title index.");
+                Console.WriteLine("You'll have to delete the " + TableName + " table yourself.");
                 return;
             }
             result = QueryIndex(client, "DueDateIndex");
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not create due date index");
-                Console.WriteLine("You'll have to delete the " + TableName + " table yourself");
+                Console.WriteLine("Could not create due date index.");
+                Console.WriteLine("You'll have to delete the " + TableName + " table yourself.");
                 return;
             }
 
@@ -475,8 +475,8 @@ namespace LowLevelGlobalSecondaryIndexExample
 
             if (!result.Result)
             {
-                Console.WriteLine("Could not delete table");
-                Console.WriteLine("You'll have to delete the " + TableName + " table yourself");
+                Console.WriteLine("Could not delete table.");
+                Console.WriteLine("You'll have to delete the " + TableName + " table yourself.");
             }
         }
     }

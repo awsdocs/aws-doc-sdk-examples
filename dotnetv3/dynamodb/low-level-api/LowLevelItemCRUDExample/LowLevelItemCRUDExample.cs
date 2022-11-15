@@ -84,8 +84,8 @@ namespace LowLevelItemCRUDExample
             },
                 // Perform the following updates:
                 // 1) Add two new authors to the list
-                // 1) Set a new attribute
-                // 2) Remove the ISBN attribute
+                // 2) Set a new attribute
+                // 3) Remove the ISBN attribute
                 ExpressionAttributeNames = new Dictionary<string, string>()
             {
                 {"#A","Authors"},
@@ -152,7 +152,7 @@ namespace LowLevelItemCRUDExample
             var response = await client.UpdateItemAsync(request);
 
             // Check the response.
-            var attributeList = response.Attributes; // attribute list in the response.
+            var attributeList = response.Attributes; // Attribute list in the response.
             Console.WriteLine("\nPrinting item after updating price value conditionally ............");
             PrintItem(attributeList);
         }
@@ -190,7 +190,7 @@ namespace LowLevelItemCRUDExample
 
             // Check the response.
             var attributeList = response.Attributes; // Attribute list in the response.
-                                                     // Print item.
+            // Print item.
             Console.WriteLine("\nPrinting item that was just deleted ............");
             PrintItem(attributeList);
         }
