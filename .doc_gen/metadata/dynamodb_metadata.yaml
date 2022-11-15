@@ -1863,7 +1863,7 @@ dynamodb_LowLevelInterface:
             - description: Get items in a batch.
               snippet_tags:
                 - dynamodb.dotnetv3.LowLevelBatchGetExample
-            - description: Write items in a batch
+            - description: Write items in a batch.
               snippet_tags:
                 - dynamodb.dotnetv3.LowLevelBatchWriteExample
             - description: Handle binary type attributes.
