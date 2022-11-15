@@ -18,7 +18,7 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 ### Get started
 
-- [Hello service](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeSecurityGroups.java) (describeSecurityGroups command)
+- [Hello Amazon EC2 service](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeSecurityGroups.java) (describeSecurityGroups command)
 
 ### Single action
 
