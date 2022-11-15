@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.util.List;
 // snippet-end:[lambda.javav2.scenario.import]
 
+// snippet-start:[lambda.javav2.scenario.main]
 /*
  *  Lambda function names appear as:
  *
@@ -59,14 +60,13 @@ import java.util.List;
  * 2. Gets a specific AWS Lambda function.
  * 3. Lists all Lambda functions.
  * 4. Invokes a Lambda function.
- * 5. Updates a Lambda function's code.
+ * 5. Updates the Lambda function code and invokes it again.
  * 6. Updates a Lambda function's configuration value.
  * 7. Deletes a Lambda function.
- *
  */
-// snippet-start:[lambda.javav2.scenario.main]
-public class LambdaScenario {
 
+public class LambdaScenario {
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
 
         final String usage = "\n" +
@@ -91,42 +91,61 @@ public class LambdaScenario {
         String handler = args[3];
         String bucketName = args[4];
         String key = args[5];
+
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
             .region(region)
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
+        System.out.println(DASHES);
+        System.out.println("Welcome to the AWS Lambda example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("1. Create an AWS Lambda function.");
         String funArn = createLambdaFunction(awsLambda, functionName, filePath, role, handler);
         System.out.println("The AWS Lambda ARN is "+funArn);
+        System.out.println(DASHES);
 
-        // Get the Lambda function.
-        System.out.println("Getting the " +functionName +" AWS Lambda function.");
+        System.out.println(DASHES);
+        System.out.println("2. Get the "+functionName + " AWS Lambda function.");
         getFunction(awsLambda, functionName);
+        System.out.println(DASHES);
 
-        // List the Lambda functions.
-        System.out.println("Listing all functions.");
-        LambdaScenario.listFunctions(awsLambda);
+        System.out.println(DASHES);
+        System.out.println("3. List all AWS Lambda functions.");
+        listFunctions(awsLambda);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
+        System.out.println("4. Invoke the Lambda function.");
         System.out.println("*** Sleep for 1 min to get Lambda function ready.");
         Thread.sleep(60000);
-
-        System.out.println("*** Invoke the Lambda function.");
         invokeFunction(awsLambda, functionName);
+        System.out.println(DASHES);
 
-        System.out.println("*** Update the Lambda function code.");
-        LambdaScenario.updateFunctionCode(awsLambda, functionName, bucketName, key);
-
+        System.out.println(DASHES);
+        System.out.println("5. Update the Lambda function code and invoke it again.");
+        updateFunctionCode(awsLambda, functionName, bucketName, key);
         System.out.println("*** Sleep for 1 min to get Lambda function ready.");
         Thread.sleep(60000);
-        System.out.println("*** Invoke the Lambda function again with the updated code.");
         invokeFunction(awsLambda, functionName);
+        System.out.println(DASHES);
 
-        System.out.println("Update a Lambda function's configuration value.");
+        System.out.println(DASHES);
+        System.out.println("6. Update a Lambda function's configuration value.");
         updateFunctionConfiguration(awsLambda, functionName, handler);
+        System.out.println(DASHES);
 
-        System.out.println("Delete the AWS Lambda function.");
+        System.out.println(DASHES);
+        System.out.println("7. Delete the AWS Lambda function.");
         LambdaScenario.deleteLambdaFunction(awsLambda, functionName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("The AWS Lambda scenario completed successfully");
+        System.out.println(DASHES);
         awsLambda.close();
     }
 
