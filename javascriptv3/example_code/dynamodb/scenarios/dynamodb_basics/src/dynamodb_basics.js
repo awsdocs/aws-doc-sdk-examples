@@ -1,40 +1,30 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 This scenario demonstrates how to:
     - Create a table that can hold movie data.
     - Write movie data to the table from a sample JSON file.
-    - Put, get, and update a single movie in the table.
-    - Update a movie.
-    - Query for movies that were released in a given year.
+    - Put, get, update, and delete a single movie in the table.
     - Scan for movies that were released in a range of years.
-    - Delete a movie from the table.
+    - Query for movies that were released in a given year.
     - Delete the table.
 
 
 Running the code:
-1. Update the AWS Region in '../libs/ddbClient.js'.
-2. Run the following at the command line:
-
-   node dynamodb_basics.js <table_name> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>
-
-   For example, node dynamodb_basics.js myNewTable myMovieName 2022 'This Is the End' 2013 200 'A coder cracks code...'
+1. Change directories to the same directory as this file
+(javascriptv3/example_code/dynamodb/scenarios/dynamodb_basics/src).
+2. Import this file as a module and then call `main()`. This can be done from
+another file, or with the following command:
+`node -e 'import("./dynamodb_basics.js").then(({ main }) => main())`
+*/
 
 // snippet-start:[javascript.dynamodb_scenarios.dynamodb_basics]
-*/
 import fs from "fs";
-// A practical functional library used to split the data into segments.
-import * as R from "ramda";
-import { ddbClient } from "../libs/ddbClient.js";
-import {
-  CreateTableCommand,
-  DeleteTableCommand,
-} from "@aws-sdk/client-dynamodb";
-import { ddbDocClient } from "../libs/ddbDocClient.js";
+import { splitEvery } from "ramda";
 import {
   PutCommand,
   GetCommand,
@@ -44,278 +34,380 @@ import {
   ScanCommand,
   QueryCommand,
 } from "@aws-sdk/lib-dynamodb";
+import {
+  CreateTableCommand,
+  DeleteTableCommand,
+  waitUntilTableExists,
+  waitUntilTableNotExists,
+} from "@aws-sdk/client-dynamodb";
 
-if (process.argv.length < 6) {
-  console.log(
-    "Usage: node dynamodb_basics.js <tableName> <newMovieName> <newMovieYear> <existingMovieName> <existingMovieYear> <newMovieRank> <newMoviePlot>\n" +
-      "Example: node dynamodb_basics.js newmoviesbrmur newmoviename 2025 200 'MOVIE PLOT DETAILS'"
-  );
-}
+import { ddbClient } from "../libs/ddbClient.js";
+import { ddbDocClient } from "../libs/ddbDocClient.js";
 
-// Helper function to delay running the code while the AWS service calls wait for responses.
-function wait(ms) {
-  var start = Date.now();
-  var end = start;
-  while (end < start + ms) {
-    end = Date.now();
-  }
-}
-// Set the parameters.
-const tableName = process.argv[2];
-const newMovieName = process.argv[3];
-const newMovieYear = parseInt(process.argv[4]); // parseInt() converts the string into a number.
-const existingMovieName = process.argv[5];
-const existingMovieYear = parseInt(process.argv[6]);
-const newMovieRank = parseInt(process.argv[7]);
-const newMoviePlot = process.argv[8];
-
-export const run = async (
-  tableName,
-  newMovieName,
-  newMovieYear,
-  existingMovieName,
-  existingMovieYear,
-  newMovieRank,
-  newMoviePlot
-) => {
-  try {
-    console.log("Creating table ...");
-    // Set the parameters.
-    const params = {
+/**
+ * @param {string} tableName
+ */
+const createTable = async (tableName) => {
+  await ddbClient.send(
+    new CreateTableCommand({
       AttributeDefinitions: [
-        {
-          AttributeName: "title",
-          AttributeType: "S",
-        },
         {
           AttributeName: "year",
           AttributeType: "N",
         },
+        {
+          AttributeName: "title",
+          AttributeType: "S",
+        },
       ],
       KeySchema: [
         {
-          AttributeName: "title",
+          AttributeName: "year",
           KeyType: "HASH",
         },
         {
-          AttributeName: "year",
+          AttributeName: "title",
           KeyType: "RANGE",
         },
       ],
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 5,
-        WriteCapacityUnits: 5,
-      },
+      // Enables "on-demand capacity mode".
+      BillingMode: "PAY_PER_REQUEST",
       TableName: tableName,
-    };
-    const data = await ddbClient.send(new CreateTableCommand(params));
-    console.log("Waiting for table to be created...");
-    wait(10000);
-    console.log(
-      "Table created. Table name is ",
-      data.TableDescription.TableName
-    );
-    try {
-      const params = {
-        TableName: tableName,
-        Item: {
-          title: newMovieName,
-          year: newMovieYear,
-        },
-      };
-      console.log("Adding movie...");
-      await ddbDocClient.send(new PutCommand(params));
-      console.log("Success - single movie added.");
-      try {
-        // Get the movie data parse to convert into a JSON object.
-        const allMovies = JSON.parse(fs.readFileSync("../../../../../../resources/sample_files/movies.json", "utf8"));
-        // Split the table into segments of 25.
-        const dataSegments = R.splitEvery(25, allMovies);
-        // Loop batch write operation 10 times to upload 250 items.
-        console.log("Writing movies in batch to table...");
-        for (let i = 0; i < 10; i++) {
-          const segment = dataSegments[i];
-          for (let j = 0; j < 25; j++) {
-            const params = {
-              RequestItems: {
-                [tableName]: [
-                  {
-                    // Destination Amazon DynamoDB table name.
-                    PutRequest: {
-                      Item: {
-                        year: segment[j].year,
-                        title: segment[j].title,
-                        info: segment[j].info,
-                      },
-                    },
-                  },
-                ],
-              },
-            };
-            ddbDocClient.send(new BatchWriteCommand(params));
-          }
-        }
-        wait(20000);
-        console.log("Success, movies written to table.");
-        try {
-          const params = {
-            TableName: tableName,
-            Key: {
-              title: existingMovieName,
-              year: existingMovieYear
-            },
-            // Define expressions for the new or updated attributes.
-            ProjectionExpression: "#r",
-            ExpressionAttributeNames: { "#r": "rank" },
-            UpdateExpression: "set info.plot = :p, info.#r = :r",
-            ExpressionAttributeValues: {
-              ":p": newMoviePlot,
-              ":r": newMovieRank
-            },
-            ReturnValues: "ALL_NEW",
-          };
-          console.log("Updating a single movie...");
-          await ddbClient.send(new UpdateCommand(params));
-          console.log("Success - movie updated.");
-          try {
-            console.log("Getting movie....");
-            const params = {
-              TableName: tableName,
-              Key: {
-                title: existingMovieName,
-                year: existingMovieYear,
-              },
-            };
-            const data = await ddbDocClient.send(new GetCommand(params));
-            console.log("Success getting item. Item details :", data.Item);
-            try {
-              const params = {
-                TableName: tableName,
+    })
+  );
+  await waitUntilTableExists(
+    { client: ddbClient, maxWaitTime: 15, maxDelay: 2, minDelay: 1 },
+    { TableName: tableName }
+  );
+};
 
-                Key: {
-                  title: newMovieName,
-                  year: newMovieYear,
-                },
-              };
-              await ddbDocClient.send(new DeleteCommand(params));
-              console.log("Success - movie deleted.");
-              try {
-                console.log("Scanning table....");
-                const params = {
-                  TableName: tableName,
-                  ProjectionExpression: "#r, #y, title",
-                  ExpressionAttributeNames: { "#r": "rank", "#y": "year" },
-                  FilterExpression: "title = :t and #y = :y and info.#r = :r",
-                  ExpressionAttributeValues: {
-                    ":r": newMovieRank,
-                    ":y": existingMovieYear,
-                    ":t": existingMovieName,
-                  },
-                };
-                const data = await ddbClient.send(new ScanCommand(params));
-                // Loop through and parse the response.
-                for (let i = 0; i < data.Items.length; i++) {
-                  console.log(
-                    "Scan successful. Items with rank of " +
-                      newMovieRank +
-                      " include:\n" +
-                      data.Items[i].title +
-                      ", released in " +
-                      data.Items[i].year
-                  );
-                }
-                try {
-                  const params = {
-                    ExpressionAttributeNames: { "#r": "rank", "#y": "year" },
-                    ProjectionExpression: "#r, #y, title",
-                    TableName: tableName,
-                    UpdateExpression: "set #r = :r, title = :t, #y = :y",
-                    ExpressionAttributeValues: {
-                      ":t": existingMovieName,
-                      ":y": existingMovieYear,
-                      ":r": newMovieRank,
-                    },
-                    KeyConditionExpression: "title = :t and #y = :y",
-                    FilterExpression: "info.#r = :r",
-                  };
+/**
+ *
+ * @param {string} tableName
+ * @param {Record<string, any> | undefined} attributes
+ */
+const putItem = async (tableName, attributes) => {
+  const command = new PutCommand({
+    TableName: tableName,
+    Item: attributes,
+  });
 
-                  console.log("Querying table...");
-                  const data = await ddbDocClient.send(
-                    new QueryCommand(params)
-                  );
-                  // Loop through and parse the response.
-                  for (let i = 0; i < data.Items.length; i++) {
-                    console.log(
-                      "Query successful. Items with rank of " +
-                        newMovieRank +
-                        " include:\n" +
-                        data.Items[i].title +
-                        ", released in " +
-                        data.Items[i].year
-                    );
-                  }
-                  try {
-                    console.log("Deleting a movie...");
-                    const params = {
-                      TableName: tableName,
-                      Key: {
-                        title: existingMovieName,
-                        year: existingMovieYear,
-                      },
-                    };
-                    await ddbDocClient.send(
-                      new DeleteCommand(params)
-                    );
-                    console.log("Success - item deleted");
-                    try {
-                      console.log("Deleting the table...");
-                      const params = {
-                        TableName: tableName,
-                      };
-                      wait(5000);
-                      await ddbDocClient.send(
-                        new DeleteTableCommand(params)
-                      );
-                      console.log("Success, table deleted.");
-                      return "Run successfully"; // For unit tests.
-                    } catch (err) {
-                      console.log("Error deleting table. ", err);
-                    }
-                  } catch (err) {
-                    console.log("Error deleting movie. ", err);
-                  }
-                } catch (err) {
-                  console.log("Error querying table. ", err);
-                }
-              } catch (err) {
-                console.log("Error scanning table. ", err);
-              }
-            } catch (err) {
-              console.log("Error deleting movie. ", err);
-            }
-          } catch (err) {
-            console.log("Error getting item. ", err);
-          }
-        } catch (err) {
-          console.log("Error adding movies by batch. ", err);
-        }
-      } catch (err) {
-        console.log("Error updating item. ", err);
-      }
-    } catch (err) {
-      console.log("Error adding a single item. ", err);
+  await ddbDocClient.send(command);
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {string} filePath
+ * @returns { { movieCount: number } } the number of movies written to the database
+ */
+const batchWriteMoviesFromFile = async (tableName, filePath) => {
+  const fileContents = fs.readFileSync(filePath);
+  const movies = JSON.parse(fileContents, "utf8");
+
+  // Map movies to RequestItems.
+  const putMovieRequestItems = movies.map(({ year, title, info }) => ({
+    PutRequest: { Item: { year, title, info } },
+  }));
+
+  // Organize RequestItems into batches of 25. 25 is the max number of items in a batch request.
+  const putMovieBatches = splitEvery(25, putMovieRequestItems);
+  const batchCount = putMovieBatches.length;
+
+  // Map batches to promises.
+  const batchRequests = putMovieBatches.map(async (batch, i) => {
+    const command = new BatchWriteCommand({
+      RequestItems: {
+        [tableName]: batch,
+      },
+    });
+
+    await ddbDocClient.send(command).then(() => {
+      console.log(
+        `Wrote batch ${i + 1} of ${batchCount} with ${batch.length} items.`
+      );
+    });
+  });
+
+  // Wait for all batch requests to resolve.
+  await Promise.all(batchRequests);
+
+  return { movieCount: movies.length };
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {{
+ * existingMovieName: string,
+ * existingMovieYear: string,
+ * newMoviePlot: string,
+ * newMovieRank: string}} keyUpdate
+ */
+const updateMovie = async (
+  tableName,
+  { existingMovieName, existingMovieYear, newMoviePlot, newMovieRank }
+) => {
+  await ddbClient.send(
+    new UpdateCommand({
+      TableName: tableName,
+      Key: {
+        title: existingMovieName,
+        year: existingMovieYear,
+      },
+      // Define expressions for the new or updated attributes.
+      ExpressionAttributeNames: { "#r": "rank" },
+      UpdateExpression: "set info.plot = :p, info.#r = :r",
+      ExpressionAttributeValues: {
+        ":p": newMoviePlot,
+        ":r": newMovieRank,
+      },
+      ReturnValues: "ALL_NEW",
+    })
+  );
+};
+
+/**
+ * @param {{ title: string, info: { plot: string, rank: number }, year: number }} movie
+ */
+const logMovie = (movie) => {
+  console.log(` | Title: "${movie.title}".`);
+  console.log(` | Plot: "${movie.info.plot}`);
+  console.log(` | Year: ${movie.year}`);
+  console.log(` | Rank: ${movie.info.rank}`);
+};
+
+/**
+ *
+ * @param {{ title: string, info: { plot: string, rank: number }, year: number }[]} movies
+ */
+const logMovies = (movies) => {
+  console.log("\n");
+  movies.forEach((movie, i) => {
+    if (i > 0) {
+      console.log("-".repeat(80));
     }
-  } catch (err) {
-    console.log("Error creating table. ", err);
+
+    logMovie(movie);
+  });
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {string} title
+ * @param {number} year
+ * @returns
+ */
+const getMovie = async (tableName, title, year) => {
+  const { Item } = await ddbDocClient.send(
+    new GetCommand({
+      TableName: tableName,
+      Key: {
+        title,
+        year,
+      },
+      // By default, reads are eventually consistent. "ConsistentRead: true" represents
+      // a strongly consistent read. This guarantees that the most up-to-date data is returned. It
+      // also can result in higher latency and a potential for server errors.
+      ConsistentRead: true,
+    })
+  );
+
+  return Item;
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {{ title: string, year: number }} key
+ */
+const deleteMovie = async (tableName, key) => {
+  await ddbDocClient.send(
+    new DeleteCommand({
+      TableName: tableName,
+      Key: key,
+    })
+  );
+};
+
+/**
+ * 
+ * @param {string} tableName 
+ * @param {number} startYear 
+ * @param {number} endYear 
+ * @param {Record<string, any>} startKey 
+ * @returns {Promise<{}[]>}
+ */
+const findMoviesBetweenYears = async (
+  tableName,
+  startYear,
+  endYear,
+  startKey = undefined
+) => {
+  const { Items, LastEvaluatedKey } = await ddbClient.send(
+    new ScanCommand({
+      ConsistentRead: true,
+      TableName: tableName,
+      ExpressionAttributeNames: { "#y": "year" },
+      FilterExpression: "#y BETWEEN :y1 AND :y2",
+      ExpressionAttributeValues: { ":y1": startYear, ":y2": endYear },
+      ExclusiveStartKey: startKey,
+    })
+  );
+
+  if (LastEvaluatedKey) {
+    return Items.concat(
+      await findMoviesBetweenYears(
+        tableName,
+        startYear,
+        endYear,
+        LastEvaluatedKey
+      )
+    );
+  } else {
+    return Items;
   }
 };
-run(
+
+/**
+ * 
+ * @param {string} tableName 
+ * @param {number} year 
+ * @returns 
+ */
+const queryMoviesByYear = async (tableName, year) => {
+  const command = new QueryCommand({
+    ConsistentRead: true,
+    ExpressionAttributeNames: { "#y": "year" },
+    TableName: tableName,
+    ExpressionAttributeValues: {
+      ":y": year,
+    },
+    KeyConditionExpression: "#y = :y",
+  });
+
+  const { Items } = await ddbDocClient.send(command);
+
+  return Items;
+};
+
+/**
+ * 
+ * @param {*} tableName 
+ */
+const deleteTable = async (tableName) => {
+  await ddbDocClient.send(new DeleteTableCommand({ TableName: tableName }));
+  await waitUntilTableNotExists(
+    {
+      client: ddbClient,
+      maxWaitTime: 10,
+      maxDelay: 2,
+      minDelay: 1,
+    },
+    { TableName: tableName }
+  );
+};
+
+export const runScenario = async ({
   tableName,
   newMovieName,
   newMovieYear,
   existingMovieName,
   existingMovieYear,
   newMovieRank,
-  newMoviePlot
-);
+  newMoviePlot,
+  moviesPath,
+}) => {
+  console.log(`Creating table named: ${tableName}`);
+  await createTable(tableName);
+  console.log(`\nTable created.`);
+
+  console.log(`\nAdding "${newMovieName}" to ${tableName}.`);
+  await putItem(tableName, { title: newMovieName, year: newMovieYear });
+  console.log("\nSuccess - single movie added.");
+
+  console.log("\nWriting hundreds of movies in batches.");
+  const { movieCount } = await batchWriteMoviesFromFile(tableName, moviesPath);
+  console.log(`\nWrote ${movieCount} movies to database.`);
+
+  console.log(`\nGetting "${existingMovieName}."`);
+  const originalMovie = await getMovie(
+    tableName,
+    existingMovieName,
+    existingMovieYear
+  );
+  logMovie(originalMovie);
+
+  console.log(`\nUpdating "${existingMovieName}" with a new plot and rank.`);
+  await updateMovie(tableName, {
+    existingMovieName,
+    existingMovieYear,
+    newMoviePlot,
+    newMovieRank,
+  });
+  console.log(`\n"${existingMovieName}" updated.`);
+
+  console.log(`\nGetting latest info for "${existingMovieName}"`);
+  const updatedMovie = await getMovie(
+    tableName,
+    existingMovieName,
+    existingMovieYear
+  );
+  logMovie(updatedMovie);
+
+  console.log(`\nDeleting "${newMovieName}."`);
+  await deleteMovie(tableName, { title: newMovieName, year: newMovieYear });
+  console.log(`\n"${newMovieName} deleted.`);
+
+  const [scanY1, scanY2] = [1985, 2003];
+  console.log(
+    `\nScanning ${tableName} for movies that premiered between ${scanY1} and ${scanY2}.`
+  );
+  const scannedMovies = await findMoviesBetweenYears(tableName, scanY1, scanY1);
+  logMovies(scannedMovies);
+
+  const queryY = 2003;
+  console.log(`Querying ${tableName} for movies that premiered in ${queryY}.`);
+  const queriedMovies = await queryMoviesByYear(tableName, queryY);
+  logMovies(queriedMovies);
+
+  console.log(`Deleting ${tableName}.`);
+  await deleteTable(tableName);
+  console.log(`${tableName} deleted.`);
+};
+
+const main = async () => {
+  const args = {
+    tableName: "myNewTable",
+    newMovieName: "myMovieName",
+    newMovieYear: 2022,
+    existingMovieName: "This Is the End",
+    existingMovieYear: 2013,
+    newMovieRank: 200,
+    newMoviePlot: "A coder cracks code...",
+    moviesPath: "../../../../../../resources/sample_files/movies.json",
+  };
+
+  try {
+    await runScenario(args);
+  } catch (err) {
+    // Some extra error handling here to be sure the table is cleaned up if something
+    // goes wrong during the scenario run.
+
+    console.error(err);
+
+    const tableName = args.tableName;
+
+    if (tableName) {
+      console.log(`Attempting to delete ${tableName}`);
+      await ddbClient
+        .send(new DeleteTableCommand({ TableName: tableName }))
+        .then(() => console.log(`\n${tableName} deleted.`))
+        .catch((err) => console.error(`\nFailed to delete ${tableName}.`, err));
+    }
+  }
+};
+
+export { main };
 // snippet-end:[javascript.dynamodb_scenarios.dynamodb_basics]
