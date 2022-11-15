@@ -319,6 +319,7 @@ public class EC2Scenario {
         }
     }
 
+    // snippet-start:[ec2.java2.associate_address.main]
     public static String associateAddress(Ec2Client ec2, String instanceId, String allocationId) {
         try {
             AssociateAddressRequest associateRequest = AssociateAddressRequest.builder()
@@ -335,6 +336,7 @@ public class EC2Scenario {
         }
         return "";
     }
+   // snippet-end:[ec2.java2.associate_address.main]
 
     public static String allocateAddress(Ec2Client ec2) {
         try {
