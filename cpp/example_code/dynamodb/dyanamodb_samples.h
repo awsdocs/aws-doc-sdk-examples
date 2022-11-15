@@ -11,6 +11,9 @@
 
 namespace AwsDoc {
     namespace DynamoDB {
+        /**
+        * Constants for DynamoDB table creation and access.
+        */
         extern const Aws::String MOVIE_TABLE_NAME;
         extern const Aws::String YEAR_KEY;
         extern const Aws::String TITLE_KEY;
@@ -21,34 +24,62 @@ namespace AwsDoc {
         extern const Aws::String ALLOCATION_TAG;
         extern const int ASTERIX_FILL_WIDTH;
 
-        bool partiqlExecuteScenario(const Aws::Client::ClientConfiguration& clientConfiguration);
+        //! Scenario to modify and query a DynamoDB table using single PartiQL statements.
+        /*!
+          \sa partiqlExecuteScenario()
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
+        bool partiqlExecuteScenario(
+                const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool partiqlBatchExecuteScenario(const Aws::Client::ClientConfiguration& clientConfiguration);
+        //! Scenario to modify and query a DynamoDB table using PartiQL batch statements.
+        /*!
+          \sa partiqlBatchExecuteScenario()
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
+        bool partiqlBatchExecuteScenario(
+                const Aws::Client::ClientConfiguration &clientConfiguration);
 
+        //! Scenario to modify and query a DynamoDB table.
+        /*!
+          \sa dynamodbGettingStartedScenario()
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
+        bool dynamodbGettingStartedScenario(
+                const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Create a DynamoDB table.
+        /*!
+          \sa createDynamoDBTable()
+          \param tableName: The DynamoDB table's name.
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+        */
         bool createDynamoDBTable(const Aws::String &tableName,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
-
-        bool dynamodbGettingStartedScenario(const Aws::Client::ClientConfiguration& clientConfiguration);
 
         //! Delete a DynamoDB table.
         /*!
           \sa deleteDynamoTable()
           \param tableName: The DynamoDB table's name.
-          \param clientConfiguration: A DynamoDB client.
+          \param clientConfiguration: Aws client configuration.
           \return bool: Function succeeded.
         */
         bool deleteDynamoTable(const Aws::String &tableName,
-                               const Aws::Client::ClientConfiguration& clientConfiguration);
+                               const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Query a newly created DynamoDB table until it is active.
         /*!
           \sa waitTableActive()
           \param waitTableActive: The DynamoDB table's name.
-          \param clientConfiguration: A DynamoDB client.
+          \param clientConfiguration: Aws client configuration.
           \return bool: Function succeeded.
         */
         bool waitTableActive(const Aws::String &tableName,
-                             const Aws::Client::ClientConfiguration& clientConfiguration);
+                             const Aws::Client::ClientConfiguration &clientConfiguration);
         //! Command line prompt/response utility function.
         /*!
          \\sa askQuestion()
@@ -57,9 +88,9 @@ namespace AwsDoc {
          \return Aws::String: User's response.
          */
         Aws::String askQuestion(const Aws::String &string,
-                                       const std::function<bool(
-                                               Aws::String)> &test = [](
-                                               const Aws::String &) -> bool { return true; });
+                                const std::function<bool(
+                                        Aws::String)> &test = [](
+                                        const Aws::String &) -> bool { return true; });
 
         //! Command line prompt/response utility function for an integer result.
         /*!

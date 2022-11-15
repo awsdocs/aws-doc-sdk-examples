@@ -29,7 +29,7 @@ namespace AwsDocTest {
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
-        void AddCommandLineResponses(const std::vector<std::string>& responses);
+        void AddCommandLineResponses(const std::vector<std::string> &responses);
 
         bool createTable();
 
@@ -39,7 +39,7 @@ namespace AwsDocTest {
         std::stringbuf m_coutBuffer;  // Use just to silence cout.
         std::streambuf *m_savedOutBuffer = nullptr;
 
-        std::stringbuf  m_cinBuffer;
+        std::stringbuf m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
 
         static bool s_TableCreated;

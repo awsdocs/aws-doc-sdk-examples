@@ -10,7 +10,7 @@
 #include "dyanamodb_samples.h"
 
 namespace AwsDocTest {
-#if 0
+
     // NOLINTNEXTLINE (readability-named-parameter)
     TEST_F(DynamoDB_GTests, paritql_single_execute_scenario) {
         AddCommandLineResponses({"Jaws",
@@ -31,7 +31,7 @@ namespace AwsDocTest {
         result = AwsDoc::DynamoDB::partiqlExecuteScenario(*s_clientConfig);
         ASSERT_TRUE(result);
     }
-#endif
+
 
     // NOLINTNEXTLINE (readability-named-parameter)
     TEST_F(DynamoDB_GTests, partiql_batch_execute_scenario) {

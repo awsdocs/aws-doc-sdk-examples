@@ -3,6 +3,14 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+/**
+ *
+ * Purpose
+ *
+ * Utility routines used by multiple applications.
+ *
+ */
+
 #include "dyanamodb_samples.h"
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/CreateTableRequest.h>
@@ -12,7 +20,7 @@
 namespace AwsDoc {
     namespace DynamoDB {
         /**
-         * Constants used for DynamoDB table creation.
+         * Constants for DynamoDB table creation and access.
          */
         const Aws::String MOVIE_TABLE_NAME("doc-example-table-movies");
         const Aws::String YEAR_KEY("year");
@@ -28,6 +36,13 @@ namespace AwsDoc {
 
 
 // snippet-start:[cpp.example_code.dynamodb.scenario.createTable]
+//! Create a DynamoDB table.
+/*!
+  \sa createDynamoDBTable()
+  \param tableName: The DynamoDB table's name.
+  \param clientConfiguration: Aws client configuration.
+  \return bool: Function succeeded.
+*/
 bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
                                            const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
@@ -100,6 +115,13 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
 // snippet-end:[cpp.example_code.dynamodb.scenario.createTable]
 
 // snippet-start:[cpp.example_code.dynamodb.scenario.deleteTable]
+//! Delete a DynamoDB table.
+/*!
+  \sa deleteDynamoTable()
+  \param tableName: The DynamoDB table's name.
+  \param clientConfiguration: Aws client configuration.
+  \return bool: Function succeeded.
+*/
 bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
                                          const Aws::Client::ClientConfiguration& clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
@@ -123,6 +145,13 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
 // snippet-end:[cpp.example_code.dynamodb.scenario.deleteTable]
 
 // snippet-start:[cpp.example_code.dynamodb.scenario.waitTableActive]
+//! Query a newly created DynamoDB table until it is active.
+/*!
+  \sa waitTableActive()
+  \param waitTableActive: The DynamoDB table's name.
+  \param clientConfiguration: Aws client configuration.
+  \return bool: Function succeeded.
+*/
 bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
                                        const Aws::Client::ClientConfiguration& clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
@@ -156,6 +185,13 @@ bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
 }
 // snippet-end:[cpp.example_code.dynamodb.scenario.waitTableActive]
 
+//! Command line prompt/response utility function.
+/*!
+ \\sa askQuestion()
+ \param string: A question prompt.
+ \param test: Test function for response.
+ \return Aws::String: User's response.
+ */
 Aws::String AwsDoc::DynamoDB::askQuestion(const Aws::String &string,
                                           const std::function<bool(
                                                   Aws::String)> &test) {
@@ -174,6 +210,12 @@ Aws::String AwsDoc::DynamoDB::askQuestion(const Aws::String &string,
     return result;
 }
 
+//! Command line prompt/response utility function for an integer result.
+/*!
+ \sa askQuestionForInt()
+ \param string: A question prompt.
+ \return int: User's response.
+ */
 int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
     Aws::String resultString = askQuestion(string,
                                            [](const Aws::String &string1) -> bool {
@@ -197,6 +239,15 @@ int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
     return result;
 }
 
+//! Command line prompt/response utility function for a float result confined to
+//! a range.
+/*!
+ \sa askQuestionForFloatRange()
+ \param string: A question prompt.
+ \param low: Low inclusive.
+ \param high: High inclusive.
+ \return float: User's response.
+ */
 float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, float low,
                                                  float high) {
     Aws::String resultString = askQuestion(string, [low, high](
@@ -209,6 +260,7 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
                 return false;
             }
     });
+
     float result = 0;
     try {
         result = std::stof(resultString);
@@ -221,6 +273,15 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
     return result;
 }
 
+//! Command line prompt/response utility function for an int result confined to
+//! a range.
+/*!
+ \sa askQuestionForIntRange()
+ \param string: A question prompt.
+ \param low: Low inclusive.
+ \param high: High inclusive.
+ \return int: User's response.
+ */
 int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
                                              int high) {
     Aws::String resultString = askQuestion(string, [low, high](
@@ -233,6 +294,7 @@ int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
                 return false;
             }
     });
+
     int result = 0;
     try {
         result = std::stoi(resultString);
@@ -245,6 +307,12 @@ int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
     return result;
 }
 
+//! Utility function to log movie attributes to std::cout.
+/*!
+ \sa printMovieInfo()
+ \param movieMap: Map of DynamoDB attribute values.
+ \return void
+ */
 void AwsDoc::DynamoDB::printMovieInfo(
         const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &movieMap) {
     {

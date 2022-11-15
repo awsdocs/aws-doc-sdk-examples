@@ -9,12 +9,15 @@
  *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
  * Purpose
  *
  * Demonstrates using the AWS SDK for C++ to create an Amazon DynamoDB table and
  *  and perform a series of operations on the table.
  *
- * 1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
+ * 1. Create a table with partition: year and sort: title. (CreateTable)
  * 2. Add a new movie. (PutItem)
  * 3. Update the rating and plot of the movie by using an update expression.
  *    (UpdateItem with UpdateExpression + ExpressionAttributeValues args)
@@ -70,10 +73,10 @@ namespace AwsDoc {
     } //  namespace DynamoDB
 } // namespace AwsDoc
 
-//! Scenario to create, modify, query, and delete a DynamoDB table.
+//! Scenario to modify and query a DynamoDB table.
 /*!
   \sa dynamodbGettingStartedScenario()
-  \param clientConfig: Aws client configuration.
+  \param clientConfiguration: Aws client configuration.
   \return bool: Function succeeded.
  */
 
@@ -85,7 +88,6 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
     std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
 
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
-
 
     // 2. Add a new movie.
     Aws::String title;
@@ -126,7 +128,8 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         Aws::DynamoDB::Model::PutItemOutcome outcome = dynamoClient.PutItem(
                 putItemRequest);
         if (!outcome.IsSuccess()) {
-            std::cerr << "Failed to add an item: " << outcome.GetError().GetMessage() << std::endl;
+            std::cerr << "Failed to add an item: " << outcome.GetError().GetMessage()
+                      << std::endl;
             return false;
         }
     }
@@ -234,7 +237,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
                     request);
             if (!result.IsSuccess()) {
                 std::cerr << "Error " << result.GetError().GetMessage();
-             }
+            }
             else {
                 const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item = result.GetResult().GetItem();
                 if (!item.empty()) {
@@ -292,9 +295,10 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
             }
         }
         else {
-            std::cerr << "Failed to Query items: " << result.GetError().GetMessage() << std::endl;
+            std::cerr << "Failed to Query items: " << result.GetError().GetMessage()
+                      << std::endl;
         }
-        
+
     } while (doAgain == "y");
 
     //  7. Use Scan to return movies released within a range of years.
@@ -391,7 +395,12 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
     return true;
 }
 
-
+//! Routine to convert a JsonView object to an attribute map.
+/*!
+  \sa movieJsonViewToAttributeMap()
+  \param jsonView: Json view object.
+  \return map: Map that can be used in a DynamoDB request.
+ */
 Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>
 AwsDoc::DynamoDB::movieJsonViewToAttributeMap(
         const Aws::Utils::Json::JsonView &jsonView) {
@@ -424,6 +433,13 @@ AwsDoc::DynamoDB::movieJsonViewToAttributeMap(
 }
 // snippet-end:[cpp.example_code.dynamodb.Scenario_GettingStarted]
 
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_dynamodb_getting_started_scenario'
+ *
+ */
 
 #ifndef TESTING_BUILD
 
@@ -436,13 +452,15 @@ int main(int argc, char **argv) {
     // snippet-start:[cpp.example_code.dynamodb.Scenario_GettingStarted.main]
     {
         Aws::Client::ClientConfiguration clientConfig;
-       //  1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
-        if (AwsDoc::DynamoDB::createDynamoDBTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME, clientConfig)) {
+        //  1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
+        if (AwsDoc::DynamoDB::createDynamoDBTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
+                                                  clientConfig)) {
 
             AwsDoc::DynamoDB::dynamodbGettingStartedScenario(clientConfig);
 
             // 9.Delete the table. (DeleteTable)
-            AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME, clientConfig);
+            AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
+                                                clientConfig);
         }
     }
     // snippet-end:[cpp.example_code.dynamodb.Scenario_GettingStarted.main]
@@ -452,10 +470,17 @@ int main(int argc, char **argv) {
 
 #endif // TESTING_BUILD
 
+//! Routine to load movie data from the file
+//! "aws-doc-sdk-examples/resources/sample_files/movies.json".
+/*!
+  \sa getMovieJSON()
+  \return Aws::String: The movie data.
+ */
 Aws::String AwsDoc::DynamoDB::getMovieJSON() {
     const int BUFFER_SIZE = 1024;
     Aws::String result;
-    std::ifstream movieData(MOVIE_FILE_PATH);  // MOVIE_FILE_PATH is defined in CMakeLists.txt.
+    std::ifstream movieData(
+            MOVIE_FILE_PATH);  // MOVIE_FILE_PATH is defined in CMakeLists.txt.
     if (movieData) { // NOLINT (readability-implicit-bool-conversion)
         std::array<char, BUFFER_SIZE> buffer{};
         while (movieData) { // NOLINT (readability-implicit-bool-conversion)
