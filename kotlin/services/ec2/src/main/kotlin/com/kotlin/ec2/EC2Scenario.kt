@@ -62,9 +62,9 @@ import kotlin.system.exitProcess
  9. Displays information about the instance.
  10. Stops the instance and waits for it to stop.
  11. Starts the instance and waits for it to start.
- 12. Allocates an Elastic IP and associates it with the instance.
+ 12. Allocates an Elastic IP address and associates it with the instance.
  13. Displays SSH connection info for the instance.
- 14. Disassociates and deletes the Elastic IP.
+ 14. Disassociates and deletes the Elastic IP address.
  15. Terminates the instance.
  16. Deletes the security group.
  17. Deletes the key pair.
@@ -300,6 +300,7 @@ suspend fun allocateAddressSc(): String? {
     }
 }
 
+// snippet-start:[ec2.kotlin.scenario.start_instance.main]
 suspend fun startInstanceSc(instanceId: String) {
     val request = StartInstancesRequest {
         instanceIds = listOf(instanceId)
@@ -314,7 +315,9 @@ suspend fun startInstanceSc(instanceId: String) {
         println("Successfully started instance $instanceId")
     }
 }
+// snippet-end:[ec2.kotlin.scenario.start_instance.main]
 
+// snippet-start:[ec2.kotlin.scenario.stop_instance.main]
 suspend fun stopInstanceSc(instanceId: String) {
     val request = StopInstancesRequest {
         instanceIds = listOf(instanceId)
@@ -329,6 +332,7 @@ suspend fun stopInstanceSc(instanceId: String) {
         println("Successfully stopped instance $instanceId")
     }
 }
+// snippet-end:[ec2.kotlin.scenario.stop_instance.main]
 
 suspend fun describeEC2InstancesSc(newInstanceId: String?): String {
     var pubAddress = ""
