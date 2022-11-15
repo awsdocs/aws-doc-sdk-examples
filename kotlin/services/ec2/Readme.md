@@ -46,18 +46,18 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 - [Get started with Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/javav2/example_code/ec2/src/main/java/com/example/ec2/EC2Scenario.java) (Multiple commands)
 
-## Run the  Amazon EC2 Java files
+## Run the  Amazon EC2 Kotlin files
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+**Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a security group. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
+To run these examples, set up your development environment. For more information, 
+see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
- ## Test the Amazon EC2 Java files
+ ## Test the Amazon EC2 Kotlin files
 
-You can test the Java code examples for Amazon EC2 by running a test file named **EC2Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Kotlin code examples for Amazon EC2 by running a test file named **EC2Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/kotlin** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is ran, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
@@ -74,12 +74,11 @@ Define these values to successfully run the JUnit tests:
 - **groupName** – A group name to use. For example, **TestSecGroup**.
 - **groupDesc** – A description of the group. For example, **Test Group**.
 - **vpcId** – A VPC ID. You can obtain this value from the AWS Management Console.
-
-- **keyNameSc** - A key pair to use in the scenatio test.
-- **fileNameSc** - A file name where the key information is written to and used in the scenatio test. 
-- **groupNameSc** - A group name that is used in the scenatio test. 
-- **groupDescSc** - A group name description that is used in the scenatio test. 
-- **vpcIdSc** – A VPC ID that is used in the scenatio test.
+- **keyNameSc** - A key pair to use in the scenario test.
+- **fileNameSc** - A file name where the key information is written to and used in the scenario test. 
+- **groupNameSc** - A group name that is used in the scenario test. 
+- **groupDescSc** - A group name description that is used in the scenario test. 
+- **vpcIdSc** – A VPC ID that is used in the scenario test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -122,9 +121,9 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[ERROR];
 	
 ## Additional resources
-* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 * [Amazon EC2 documentation](https://docs.aws.amazon.com/ec2/index.html).
-* [Interface Ec2Client](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/Ec2Client.html).
+* [Ec2Client - Kotlin Reference](https://sdk.amazonaws.com/kotlin/api/latest/support/aws.sdk.kotlin.services.support/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 	
