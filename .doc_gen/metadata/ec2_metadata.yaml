@@ -280,6 +280,15 @@ ec2_AssociateAddress:
   synopsis: associate an Elastic IP address with an &EC2; instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.associate_address.main
     Python:
       versions:
         - sdk_version: 3
