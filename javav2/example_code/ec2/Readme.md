@@ -1,7 +1,7 @@
 # Amazon EC2 code examples for the SDK for Java
 
 ## Overview
-This README discusses how to run and test the Java code examples for Amazon Elastic Compute Cloud (Amazon EC2).
+This README discusses how to run and test the AWS SDK for Java code examples for Amazon Elastic Compute Cloud (Amazon EC2).
 
 Amazon EC2 provides secure, resizable compute in the cloud, offering the broadest choice of processor, storage, networking, OS, and purchase model.
 
