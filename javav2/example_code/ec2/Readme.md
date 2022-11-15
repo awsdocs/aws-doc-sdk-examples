@@ -58,7 +58,7 @@ see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a security group. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
- ## Testing the Amazon EC2 Java files
+ ## Test the Amazon EC2 Java files
 
 You can test the Java code examples for Amazon EC2 by running a test file named **EC2Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
