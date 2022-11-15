@@ -304,6 +304,7 @@ public class EC2Scenario {
         }
     }
 
+    // snippet-start:[ec2.java2.scenario.disassociate_address.main]
     public static void disassociateAddress(Ec2Client ec2, String associationId) {
         try {
             DisassociateAddressRequest addressRequest = DisassociateAddressRequest.builder()
@@ -318,6 +319,7 @@ public class EC2Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.scenario.disassociate_address.main]
 
     // snippet-start:[ec2.java2.associate_address.main]
     public static String associateAddress(Ec2Client ec2, String instanceId, String allocationId) {
@@ -354,6 +356,7 @@ public class EC2Scenario {
         return "";
     }
 
+    // snippet-start:[ec2.java2.scenario.start_instance.main]
     public static void startInstance(Ec2Client ec2, String instanceId) {
         Ec2Waiter ec2Waiter = Ec2Waiter.builder()
             .overrideConfiguration(b -> b.maxAttempts(100))
@@ -374,7 +377,9 @@ public class EC2Scenario {
         waiterResponse.matched().response().ifPresent(System.out::println);
         System.out.println("Successfully started instance "+instanceId);
     }
+    // snippet-end:[ec2.java2.scenario.start_instance.main]
 
+    // snippet-start:[ec2.java2.scenario.stop_instance.main]
     public static void stopInstance(Ec2Client ec2, String instanceId) {
         Ec2Waiter ec2Waiter = Ec2Waiter.builder()
             .overrideConfiguration(b -> b.maxAttempts(100))
@@ -394,7 +399,9 @@ public class EC2Scenario {
        waiterResponse.matched().response().ifPresent(System.out::println);
        System.out.println("Successfully stopped instance "+instanceId);
     }
+    // snippet-end:[ec2.java2.scenario.stop_instance.main]
 
+    // snippet-start:[ec2.java2.scenario.describe_instance.main]
     public static String describeEC2Instances( Ec2Client ec2, String newInstanceId) {
         try {
             String pubAddress = "";
@@ -422,6 +429,7 @@ public class EC2Scenario {
         }
         return "";
     }
+    // snippet-end:[ec2.java2.scenario.describe_instance.main]
 
     public static String runInstance(Ec2Client ec2, String instanceType, String keyName, String groupName, String amiId ) {
         try {
@@ -446,6 +454,7 @@ public class EC2Scenario {
         return "";
     }
 
+    // snippet-start:[ec2.java2.scenario.describe_instance.type.main]
     // Get a list of instance types.
     public static String getInstanceTypes(Ec2Client ec2) {
         String instanceType="";
@@ -478,6 +487,7 @@ public class EC2Scenario {
         }
         return "";
     }
+    // snippet-end:[ec2.java2.scenario.describe_instance.type.main]
 
     // Display the Description field that corresponds to the instance Id value.
     public static String describeImage(Ec2Client ec2, String instanceId) {
@@ -535,6 +545,7 @@ public class EC2Scenario {
         return myValue.contains("amzn2");
     }
 
+    // snippet-start:[ec2.java2.scenario.describe_securitygroup.main]
     public static void describeSecurityGroups(Ec2Client ec2, String groupId) {
         try {
             DescribeSecurityGroupsRequest request = DescribeSecurityGroupsRequest.builder()
@@ -551,6 +562,7 @@ public class EC2Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.scenario.describe_securitygroup.main]
 
     public static String createSecurityGroup( Ec2Client ec2,String groupName, String groupDesc, String vpcId) {
         try {
