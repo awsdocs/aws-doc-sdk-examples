@@ -257,7 +257,7 @@ suspend fun terminateEC2Sc(instanceIdVal: String) {
     }
 }
 // snippet-start:[ec2.kotlin.scenario.release_address.main]
-suspend fun releaseEC2AddressSc(allocId: String?){
+suspend fun releaseEC2AddressSc(allocId: String?) {
     val request = ReleaseAddressRequest {
         allocationId = allocId
     }
