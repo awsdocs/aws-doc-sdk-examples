@@ -343,6 +343,15 @@ ec2_AssociateAddress:
   synopsis: associate an Elastic IP address with an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.associate_address.main
     Java:
       versions:
         - sdk_version: 2
@@ -370,6 +379,15 @@ ec2_DisassociateAddress:
   synopsis: disassociate an Elastic IP address from an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.disassociate_address.main
     Java:
       versions:
         - sdk_version: 2
@@ -397,6 +415,15 @@ ec2_ReleaseAddress:
   synopsis: release an Elastic IP address.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.release_address.main
     Java:
       versions:
         - sdk_version: 2
@@ -442,6 +469,15 @@ ec2_DeleteKeyPair:
   synopsis: delete an &EC2; security key pair.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.delete_key_pair.main
     .NET:
       versions:
         - sdk_version: 3
@@ -478,6 +514,15 @@ ec2_DescribeSecurityGroups:
   synopsis: get data about an &EC2; security group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_security_groups.main
     Java:
       versions:
         - sdk_version: 2
@@ -514,6 +559,15 @@ ec2_DeleteSecurityGroup:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.DeleteSecurityGroupExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.delete_security_group.main
     Java:
       versions:
         - sdk_version: 2
@@ -576,6 +630,15 @@ ec2_TerminateInstances:
   synopsis: terminate an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.terminate_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -603,6 +666,15 @@ ec2_DescribeInstances:
   synopsis: describe &EC2; instances.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_instances.main
     Java:
       versions:
         - sdk_version: 2
@@ -754,6 +826,15 @@ ec2_DescribeInstanceTypes:
   synopsis: get data about &EC2; instance types.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_instance_type.main
     Java:
       versions:
         - sdk_version: 2
