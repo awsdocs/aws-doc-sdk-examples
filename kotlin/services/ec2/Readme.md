@@ -90,7 +90,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AWSEC2ServiceIntegrationTest
+	[INFO] Running EC2Test
 	Test 1 passed
 	Test 2 passed
 	...
