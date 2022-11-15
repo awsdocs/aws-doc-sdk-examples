@@ -3,28 +3,22 @@
 
 namespace IAM_Basics_Scenario.Tests
 {
-    using Xunit;
-    using System.Threading.Tasks;
-    using Amazon.IdentityManagement;
-    using Amazon;
-    using Amazon.IdentityManagement.Model;
-    using IAM_Basics_Scenario;
-    using IAM_Basics_ScenarioTests;
-
     [TestCaseOrderer("OrchestrationService.Project.Orderers.PriorityOrderer", "OrchestrationService.Project")]
     public class IAM_BasicsTests
     {
         // Values needed for user, role, and policies.
         private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
-        private AmazonIdentityManagementServiceClient Client = new AmazonIdentityManagementServiceClient(Region);
-        private const string UserName = "test-example-user";
-        private const string S3PolicyName = "test-s3-list-buckets-policy";
-        private const string RoleName = "test-temporary-role";
-        private const string AssumePolicyName = "test-sts-trust-user";
-        private string AccessKeyId = string.Empty;
-        private string SecretKey = string.Empty;
-        private ManagedPolicy TestPolicy;
-        private string UserArn;
+        private readonly IConfiguration _configuration;
+
+        private readonly AmazonIdentityManagementServiceClient _client;
+        private readonly string _userName;
+        private readonly string _s3PolicyName;
+        private readonly string _roleName;
+        private readonly string _assumePolicyName;
+        private string _accessKeyId = string.Empty;
+        private string _secretKey = string.Empty;
+        private ManagedPolicy _testPolicy;
+        private string _userArn;
 
         string testPolicyDocument = "{" +
             "\"Version\": \"2012-10-17\"," +
@@ -35,29 +29,49 @@ namespace IAM_Basics_Scenario.Tests
             "}]" +
         "}";
 
-        [Fact, TestPriority(1)]
-        public async Task CreateUserAsyncTest()
+        public IAM_BasicsTests()
         {
-            var user = await IAM_Basics.CreateUserAsync(Client, UserName);
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("testsettings.json") // Load test settings from JSON file.
+                .AddJsonFile("testsettings.local.json",
+                    true) // Optionally load local settings.
+                .Build();
 
-            Assert.NotNull(user);
-            Assert.Equal(user.UserName, UserName);
-            UserArn = user.Arn;
+            _userName = _configuration["UserName"];
+            _s3PolicyName = _configuration["S3PolicyName"];
+            _roleName = _configuration["RoleName"];
+            _assumePolicyName = _configuration["AssumePolicyName"];
+
+            _client = new AmazonIdentityManagementServiceClient(Region);
         }
 
-        [Fact, TestPriority(2)]
+        [Fact()]
+        [Order(1)]
+        public async Task CreateUserAsyncTest()
+        {
+            var user = await IAM_Basics.CreateUserAsync(_client, _userName);
+
+            Assert.NotNull(user);
+            Assert.Equal(user.UserName, _userName);
+            _userArn = user.Arn;
+        }
+
+        [Fact()]
+        [Order(2)]
         public async Task CreateAccessKeyAsyncTest()
         {
-            var accessKey = await IAM_Basics.CreateAccessKeyAsync(Client, UserName);
+            var accessKey = await IAM_Basics.CreateAccessKeyAsync(_client, _userName);
 
             Assert.NotNull(accessKey);
 
             // Save the key values for use with other tests.
-            AccessKeyId = accessKey.AccessKeyId;
-            SecretKey = accessKey.SecretAccessKey;
+            _accessKeyId = accessKey.AccessKeyId;
+            _secretKey = accessKey.SecretAccessKey;
         }
 
-        [Fact, TestPriority(3)]
+        [Fact()]
+        [Order(3)]
         public async Task CreateRoleAsyncTest()
         {
             string testAssumeRolePolicy = "{" +
@@ -65,7 +79,7 @@ namespace IAM_Basics_Scenario.Tests
                 "\"Statement\": [{" +
                 "\"Effect\": \"Allow\"," +
                 "\"Principal\": {" +
-                $"	\"AWS\": \"{UserArn}\"" +
+                $"	\"AWS\": \"{_userArn}\"" +
                 "}," +
                     "\"Action\": \"sts:AssumeRole\"" +
                 "}]" +
@@ -74,35 +88,43 @@ namespace IAM_Basics_Scenario.Tests
             // Create the role to allow listing the Amazon Simple Storage Service
             // (Amazon S3) buckets. Role names are not case sensitive and must
             // be unique to the account for which it is created.
-            var role = await IAM_Basics.CreateRoleAsync(Client, RoleName, testAssumeRolePolicy);
+            var role = await IAM_Basics.CreateRoleAsync(_client, _roleName, testAssumeRolePolicy);
             var roleArn = role.Arn;
 
             Assert.NotNull(role);
-            Assert.Equal(role.RoleName, RoleName);
+            Assert.Equal(role.RoleName, _roleName);
         }
 
-        [Fact, TestPriority(4)]
+        [Fact()]
+        [Order(4)]
         public async Task CreatePolicyAsyncTest()
         {
             // Create a policy with permissions to list Amazon S3 buckets
-            var policy = await IAM_Basics.CreatePolicyAsync(Client, S3PolicyName, testPolicyDocument);
+            var policy = await IAM_Basics.CreatePolicyAsync(_client, _s3PolicyName, testPolicyDocument);
 
-            Assert.Equal(policy.PolicyName, S3PolicyName);
-            TestPolicy = policy;
+            Assert.Equal(policy.PolicyName, _s3PolicyName);
+            _testPolicy = policy;
         }
 
-        [Fact, TestPriority(5)]
+        [Fact()]
+        [Order(5)]
         public async Task AttachRoleAsyncTest()
         {
             // Attach the policy to the role we created earlier.
-            await IAM_Basics.AttachRoleAsync(Client, TestPolicy.Arn, RoleName);
+            await IAM_Basics.AttachRoleAsync(_client, _testPolicy.Arn, _roleName);
         }
 
-        [Fact, TestPriority(6)]
-        public void DeleteResourcesTest()
+        [Fact()]
+        [Order(6)]
+        public async Task DeleteResourcesTest()
         {
             // Delete all the resources created for the various tests.
-            var success = IAM_Basics.DeleteResourcesAsync(Client, AccessKeyId, UserName, TestPolicy.Arn, RoleName);
+            var success = await IAM_Basics.DeleteResourcesAsync(
+                _client, _accessKeyId,
+                _userName,
+                _testPolicy.Arn,
+                _roleName);
+            Assert.True(success, "Couldn't delete resources.");
         }
     }
 }

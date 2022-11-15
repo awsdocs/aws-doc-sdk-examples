@@ -338,39 +338,46 @@ namespace IAM_Basics_Scenario
         /// <param name="policyName">The name of the policy to delete.</param>
         /// <param name="policyArn">The Amazon Resource Name ARN of the Policy to delete.</param>
         /// <param name="roleName">The name of the role that will be deleted.</param>
-        public static async Task DeleteResourcesAsync(
+        public static async Task<bool> DeleteResourcesAsync(
             AmazonIdentityManagementServiceClient client,
             string accessKeyId,
             string userName,
             string policyArn,
             string roleName)
         {
-            var detachPolicyResponse = await client.DetachRolePolicyAsync(new DetachRolePolicyRequest
+            try
             {
-                PolicyArn = policyArn,
-                RoleName = roleName,
-            });
+                var detachPolicyResponse = await client.DetachRolePolicyAsync(new DetachRolePolicyRequest
+                {
+                    PolicyArn = policyArn,
+                    RoleName = roleName,
+                });
 
-            var delPolicyResponse = await client.DeletePolicyAsync(new DeletePolicyRequest
-            {
-                PolicyArn = policyArn,
-            });
+                var delPolicyResponse = await client.DeletePolicyAsync(new DeletePolicyRequest
+                {
+                    PolicyArn = policyArn,
+                });
 
-            var delRoleResponse = await client.DeleteRoleAsync(new DeleteRoleRequest
-            {
-                RoleName = roleName,
-            });
+                var delRoleResponse = await client.DeleteRoleAsync(new DeleteRoleRequest
+                {
+                    RoleName = roleName,
+                });
 
-            var delAccessKey = await client.DeleteAccessKeyAsync(new DeleteAccessKeyRequest
-            {
-                AccessKeyId = accessKeyId,
-                UserName = userName,
-            });
+                var delAccessKey = await client.DeleteAccessKeyAsync(new DeleteAccessKeyRequest
+                {
+                    AccessKeyId = accessKeyId,
+                    UserName = userName,
+                });
 
-            var delUserResponse = await client.DeleteUserAsync(new DeleteUserRequest
+                var delUserResponse = await client.DeleteUserAsync(new DeleteUserRequest
+                {
+                    UserName = userName,
+                });
+            }
+            catch (AmazonIdentityManagementServiceException ex)
             {
-                UserName = userName,
-            });
+
+            }
 
         }
 
