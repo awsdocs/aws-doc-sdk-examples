@@ -257,10 +257,11 @@ suspend fun terminateEC2Sc(instanceIdVal: String) {
     }
 }
 // snippet-start:[ec2.kotlin.scenario.release_address.main]
-suspend fun releaseEC2AddressSc(allocId: String?) {
+suspend fun releaseEC2AddressSc(allocId: String?){
     val request = ReleaseAddressRequest {
         allocationId = allocId
     }
+
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.releaseAddress(request)
         println("Successfully released Elastic IP address $allocId")
