@@ -70,7 +70,7 @@ namespace LowLevelTableExample
             return true;
         }
 
-// snippet-start:[dynamodb.dotnetv3.ListTableExample]
+        // snippet-start:[dynamodb.dotnetv3.ListTableExample]
 
         public static async Task<bool> ListMyTables(AmazonDynamoDBClient client)
         {
@@ -93,9 +93,9 @@ namespace LowLevelTableExample
 
             return true;
         }
-// snippet-end:[dynamodb.dotnetv3.ListTableExample]
+        // snippet-end:[dynamodb.dotnetv3.ListTableExample]
 
-// snippet-start:[dynamodb.dotnetv3.DescribeTableExample]
+        // snippet-start:[dynamodb.dotnetv3.DescribeTableExample]
         public static async Task<bool> GetTableInformation(AmazonDynamoDBClient client)
         {
             Console.WriteLine("\n*** Retrieving table information ***");
@@ -116,7 +116,7 @@ namespace LowLevelTableExample
 
             return true;
         }
-// snippet-end:[dynamodb.dotnetv3.DescribeTableExample]
+        // snippet-end:[dynamodb.dotnetv3.DescribeTableExample]
 
         public static async Task<bool> UpdateExampleTable(AmazonDynamoDBClient client)
         {
