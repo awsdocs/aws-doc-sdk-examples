@@ -121,8 +121,8 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[ERROR];
 	
 ## Additional resources
-* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
-* [Amazon EC2 documentation](https://docs.aws.amazon.com/ec2/index.html).
+* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html)
+* [Amazon EC2 documentation](https://docs.aws.amazon.com/ec2/index.html)
 * [Ec2Client - Kotlin Reference](https://sdk.amazonaws.com/kotlin/api/latest/support/aws.sdk.kotlin.services.support/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
