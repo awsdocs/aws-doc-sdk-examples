@@ -1864,13 +1864,13 @@ dynamodb_MidLevelInterface:
   services:
     dynamodb: {}
 dynamodb_LowLevelInterface:
-  title: Use a low-level API for &DDB; using an &AWS; SDK
+  title: Use a low-level interface for &DDB; using an &AWS; SDK
   title_abbrev: Use a low-level API
   synopsis_list:
-    - Perform Create, Read, Update, and Delete (CRUD) and batch operations using a low-level API for &DDB; and an &AWS; SDK.
+    - Perform Create, Read, Update, and Delete (CRUD) and batch operations using a low-level interface for &DDB; and an &AWS; SDK.
   guide_topic:
     title: Low-level API
-    url: amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html
+    url: amazondynamodb/latest/developerguide/Programming.SDKs.Interfaces.LowLevel.html
   category: Scenarios
   languages:
     .NET:
