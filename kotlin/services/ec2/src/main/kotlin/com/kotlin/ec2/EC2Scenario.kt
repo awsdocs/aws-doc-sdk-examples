@@ -256,7 +256,7 @@ suspend fun terminateEC2Sc(instanceIdVal: String) {
         println("$instanceIdVal is terminated!")
     }
 }
-// snippet-start:[ec2.kotlin.scenario.release_address.main]
+// snippet-start:[ec2.kotlin.scenario.release.address.main]
 suspend fun releaseEC2AddressSc(allocId: String?) {
     val request = ReleaseAddressRequest {
         allocationId = allocId
@@ -267,7 +267,7 @@ suspend fun releaseEC2AddressSc(allocId: String?) {
         println("Successfully released Elastic IP address $allocId")
     }
 }
-// snippet-end:[ec2.kotlin.scenario.release_address.main]
+// snippet-end:[ec2.kotlin.scenario.release.address.main]
 
 // snippet-start:[ec2.kotlin.scenario.disassociate_address.main]
 suspend fun disassociateAddressSc(associationIdVal: String?) {
