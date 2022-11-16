@@ -49,7 +49,6 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
 
     bool movieTableAlreadyExisted = false;
 
-    // 1. Create a table.
     {
         Aws::DynamoDB::Model::CreateTableRequest request;
 
@@ -123,7 +122,7 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
   \return bool: Function succeeded.
 */
 bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
-                                         const Aws::Client::ClientConfiguration& clientConfiguration) {
+                                         const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::DeleteTableRequest request;
@@ -137,7 +136,8 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
                   << " was deleted!\n";
     }
     else {
-        std::cerr << "Failed to delete table: " << result.GetError().GetMessage() << std::endl;
+        std::cerr << "Failed to delete table: " << result.GetError().GetMessage()
+                  << std::endl;
     }
 
     return result.IsSuccess();
@@ -153,7 +153,7 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
   \return bool: Function succeeded.
 */
 bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
-                                       const Aws::Client::ClientConfiguration& clientConfiguration) {
+                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
     // Repeatedly call DescribeTable until table is ACTIVE.
     const int MAX_QUERIES = 20;
@@ -220,7 +220,7 @@ int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
     Aws::String resultString = askQuestion(string,
                                            [](const Aws::String &string1) -> bool {
                                                    try {
-                                                       (void)std::stoi(string1);
+                                                       (void) std::stoi(string1);
                                                        return true;
                                                    }
                                                    catch (const std::invalid_argument &) {
