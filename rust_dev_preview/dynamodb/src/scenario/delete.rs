@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_dynamodb::{model::AttributeValue, Client, Error};
+use crate::scenario::error::Error;
+use aws_sdk_dynamodb::{model::AttributeValue, Client};
 
 // Deletes an item from the table.
 // snippet-start:[dynamodb.rust.delete-item]
@@ -24,7 +25,7 @@ pub async fn delete_item(
             println!("Deleted item from table");
             Ok(())
         }
-        Err(e) => Err(Error::Unhandled(Box::new(e))),
+        Err(e) => Err(Error::unhandled(e)),
     }
 }
 // snippet-end:[dynamodb.rust.delete-item]
