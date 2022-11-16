@@ -73,14 +73,13 @@ namespace AwsDoc {
     } //  namespace DynamoDB
 } // namespace AwsDoc
 
+// snippet-start:[cpp.example_code.dynamodb.Scenario_GettingStarted]
 //! Scenario to modify and query a DynamoDB table.
 /*!
   \sa dynamodbGettingStartedScenario()
   \param clientConfiguration: Aws client configuration.
   \return bool: Function succeeded.
  */
-
-// snippet-start:[cpp.example_code.dynamodb.Scenario_GettingStarted]
 bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
