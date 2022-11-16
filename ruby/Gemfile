@@ -19,3 +19,4 @@ gem 'sinatra-contrib'
 gem 'sequel'
 gem 'activerecord'
 gem "puma"
+gem 'mail'
