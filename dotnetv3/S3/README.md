@@ -26,7 +26,6 @@ Code excerpts that show you how to call individual service functions.
 - [Delete an object](non-versioned-examples/DeleteObjectExample/DeleteObject.cs) (`DeleteObjectAsync`)
 - [Delete multiple objects](non-versioned-examples/DeleteMultipleObjectsExample/DeleteMultipleObjects.cs) (`DeleteObjectsAsync`)
 - [Delete the lifecycle configuration of a bucket](LifecycleExample/Lifecycle.cs) (`DeleteLifecycleConfigurationAsync`)
-- [Enable a dual-stack endpoint](DualStackEndpointExample/DualStackEndpoint.cs)
 - [Enable logging](ServerAccessLoggingExample/ServerAccessLogging.cs) (`PutBucketLoggingAsync`)
 - [Enable notifications](EnableNotificationsExample/EnableNotifications.cs) (`PutBucketNotificationAsync`)
 - [Enable transfer acceleration](TransferAccelerationExample/TransferAcceleration.cs) (`PutBucketAccelerateConfigurationAsync`)
@@ -54,6 +53,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 - [Get started with encryption](SSEClientEncryptionExample)
 - [Get started with tags](ObjectTagExample)
 - [Manage access control lists (ACLs)](ManageACLsExample)
+- [Perform a multipart copy](MPUapiCopyObjExample)
 - [Upload or download large files](scenarios/TransferUtilityBasics)
 
 ### Cross-service examples

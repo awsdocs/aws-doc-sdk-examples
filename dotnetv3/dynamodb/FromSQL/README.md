@@ -1,15 +1,13 @@
 # From SQL to NoSQL code examples in C\#
 
-## Moving from a SQL database to a NoSQL database
-
-The code examples in the **FromSQL** directory are part of a series to aid in moving from an SQL database to a NoSQL database,
-as described in the Amazon DynamoDB Developer Guide at
+The code examples in the **FromSQL** directory are part of a series to aid in moving from a SQL database to a NoSQL database,
+as described in the Amazon DynamoDB Developer Guide:
 [From SQL to NoSQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.html)
 
 See
 [Best Practices for Modeling Relational Data in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html)
 in the Amazon DynamoDB Developer Guide for information about moving
-from a relational database to Amazon DynamoDB.
+from a relational database management system (RDBMS) to Amazon DynamoDB.
 
 **IMPORTANT**
 
@@ -43,7 +41,7 @@ select * from Products where Product_Quantity < '100'
 ```
 
 Given the data in **customers.csv**, **orders.csv**, and **products.csv**,
-these queries return (as .csv):
+these queries return:
 
 ```
 Order_ID,Order_Customer,Order_Product,Order_Date,Order_Status

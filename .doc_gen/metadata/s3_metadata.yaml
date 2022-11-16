@@ -138,9 +138,6 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - S3.dotnet35.CopyObject
-            - description: Perform a multipart copy.
-              snippet_tags:
-                - S3.dotnetv3.MPUapiCopyObjectExample
     C++:
       versions:
         - sdk_version: 1
@@ -814,7 +811,7 @@ s3_ServiceAccessLogging:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.GetLifecycleExample
+                - S3.dotnetv3.ServerAccessLoggingExample
   services:
     s3: {PutBucketLogging}
 s3_PutBucketLifecycleConfiguration:
@@ -969,6 +966,9 @@ s3_ListObjects:
             - description: List objects using temporary federated credentials.
               snippet_tags:
                 - S3.dotnetv3.TempFederatedCredentialsExample
+            - description: List objects using a dual stack endpoint.
+              snippet_tags:
+                - S3.dotnetv3.DualStackEndpointExample
     C++:
       versions:
         - sdk_version: 1
@@ -1663,7 +1663,7 @@ s3_PutBucketWebsite:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.WebsiteConfigExample
+                - S3.dotnetv3.PutWebsiteConfigExample
     C++:
       versions:
         - sdk_version: 1
@@ -1718,7 +1718,7 @@ s3_GetBucketWebsite:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.WebsiteConfigExample
+                - S3.dotnetv3.GetWebsiteConfigExample
     C++:
       versions:
         - sdk_version: 1
@@ -1774,7 +1774,7 @@ s3_ListBuckets:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.LisBuckets
+                - S3.dotnetv3.ListBuckets
     C++:
       versions:
         - sdk_version: 1
@@ -1866,23 +1866,6 @@ s3_UploadPart:
                 - rust.example_code.s3.upload_part.CompletedMultipartUpload
   services:
     s3: {UploadPart}
-s3_UseDualStackEndpoint:
-  title: Enable a dual-stack endpoint when creating an &S3; client using an &AWS; SDK
-  title_abbrev: Enable a dual-stack endpoint
-  synopsis: enable a dual-stack endpoint.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/S3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - S3.dotnetv3.DualStackEndpointExample
-  services:
-    s3: {}
 s3_PutBucketNotification:
   title: Enable notifications for an &S3; bucket using an &AWS; SDK
   title_abbrev: Enable notifications
@@ -1950,21 +1933,15 @@ s3_Scenario_UsingLargeFiles:
             - description: Download contents of an S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync
-            - description: Upload a file using a multipart upload with the low level API.
-              snippet_tags:
-                - S3.dotnetv3.UploadFileMPULowLevelAPIExample
-            - description: Upload a directory using the TransferUtility.
-              snippet_tags:
-                - S3.dotnetv3.UploadDirMPUHighLevelAPIExample
-            - description: Upload a file using the TransferUtility.
-              snippet_tags:
-                - S3.dotnetv3.UploadFileMPUHighLevelAPIExample
             - description: Track the progress of an upload using the TransferUtility.
               snippet_tags:
                 - S3.dotnetv3.TrackMPUUsingHighLevelAPIExample
             - description: Upload an object with encryption.
               snippet_tags:
                 - S3.dotnetv3.SSECLowLevelMPUcopyObjectExample
+            - description: Upload a file using a multipart upload with the low level API.
+              snippet_tags:
+               - S3.dotnetv3.UploadFileMPULowLevelAPIExample
     Python:
       versions:
         - sdk_version: 3
@@ -2277,7 +2254,7 @@ s3_Scenario_Tagging:
               snippet_tags:
                 - S3.dotnetv3.ObjectTagExample
   services:
-    s3: {GetObjectTagging, PutObjectTagging}
+    s3: {GetObjectTagging}
 s3_Encryption:
   title: Get started with encryption for &S3; objects using an &AWS; SDK
   title_abbrev: Get started with encryption
@@ -2295,3 +2272,20 @@ s3_Encryption:
                 - S3.dotnetv3.SSEClientEncryptionExample
   services:
     s3: {GetObject, GetObjectMetadata, CopyObject}
+s3_MultipartCopy:
+  title: Perform a multipart copy of an &S3; object using an &AWS; SDK
+  title_abbrev: Perform a multipart copy
+  synopsis: perform a multipart copy of an &S3; object.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/MPUapiCopyObjExample
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.MPUapiCopyObjectExample
+  services:
+    s3: {CopyPart, InitiateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}

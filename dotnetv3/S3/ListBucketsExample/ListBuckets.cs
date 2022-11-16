@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-// snippet-start:[S3.dotnetv3.LisBuckets]
+// snippet-start:[S3.dotnetv3.ListBuckets]
 
 /// <summary>
 /// This example uses the AWS SDK for .NET to list the Amazon Simple Storage
@@ -54,4 +54,4 @@ namespace ListBucketsExample
         }
     }
 }
-// snippet-end:[S3.dotnetv3.LisBuckets]
+// snippet-end:[S3.dotnetv3.ListBuckets]

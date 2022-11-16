@@ -83,9 +83,9 @@ namespace LowLevelItemCRUDExample
                   } }
             },
                 // Perform the following updates:
-                // 1) Add two new authors to the list
-                // 2) Set a new attribute
-                // 3) Remove the ISBN attribute
+                // 1) Add two new authors to the list.
+                // 2) Set a new attribute.
+                // 3) Remove the ISBN attribute.
                 ExpressionAttributeNames = new Dictionary<string, string>()
             {
                 {"#A","Authors"},
@@ -112,7 +112,7 @@ namespace LowLevelItemCRUDExample
 
             // Check the response.
             var attributeList = response.Attributes; // attribute list in the response.
-                                                     // print attributeList.
+            // Print the attributeList.
             Console.WriteLine("\nPrinting item after multiple attribute update ............");
             PrintItem(attributeList);
         }
