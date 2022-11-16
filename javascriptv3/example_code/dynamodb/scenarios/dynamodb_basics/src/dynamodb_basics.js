@@ -17,8 +17,8 @@ This scenario demonstrates how to:
 Running the code:
 1. Change directories to the same directory as this file
 (javascriptv3/example_code/dynamodb/scenarios/dynamodb_basics/src).
-2. Import this file as a module and then call `main()`. This can be done from
-another file, or with the following command:
+2. Import this file as a module and then call `main()`. Do this from 
+another file, or use the following command:
 `node -e 'import("./dynamodb_basics.js").then(({ main }) => main())`
 */
 
@@ -99,7 +99,7 @@ const putItem = async (tableName, attributes) => {
  *
  * @param {string} tableName
  * @param {string} filePath
- * @returns { { movieCount: number } } the number of movies written to the database
+ * @returns { { movieCount: number } } The number of movies written to the database.
  */
 const batchWriteMoviesFromFile = async (tableName, filePath) => {
   const fileContents = fs.readFileSync(filePath);
@@ -209,7 +209,7 @@ const getMovie = async (tableName, title, year) => {
       },
       // By default, reads are eventually consistent. "ConsistentRead: true" represents
       // a strongly consistent read. This guarantees that the most up-to-date data is returned. It
-      // also can result in higher latency and a potential for server errors.
+      // can also result in higher latency and a potential for server errors.
       ConsistentRead: true,
     })
   );
@@ -232,11 +232,11 @@ const deleteMovie = async (tableName, key) => {
 };
 
 /**
- * 
- * @param {string} tableName 
- * @param {number} startYear 
- * @param {number} endYear 
- * @param {Record<string, any>} startKey 
+ *
+ * @param {string} tableName
+ * @param {number} startYear
+ * @param {number} endYear
+ * @param {Record<string, any>} startKey
  * @returns {Promise<{}[]>}
  */
 const findMoviesBetweenYears = async (
@@ -271,10 +271,10 @@ const findMoviesBetweenYears = async (
 };
 
 /**
- * 
- * @param {string} tableName 
- * @param {number} year 
- * @returns 
+ *
+ * @param {string} tableName
+ * @param {number} year
+ * @returns
  */
 const queryMoviesByYear = async (tableName, year) => {
   const command = new QueryCommand({
@@ -293,8 +293,8 @@ const queryMoviesByYear = async (tableName, year) => {
 };
 
 /**
- * 
- * @param {*} tableName 
+ *
+ * @param {*} tableName
  */
 const deleteTable = async (tableName) => {
   await ddbDocClient.send(new DeleteTableCommand({ TableName: tableName }));
