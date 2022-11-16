@@ -17,7 +17,7 @@
  * Demonstrates using the AWS SDK for C++ to create an Amazon DynamoDB table and
  *  to perform a series of operations on the table using PartiQL.
  *
- * 1. Create a table with partition: year and sort: title. (CreateTable)
+ * 1. Create a table with partition: year, and sort: title. (CreateTable)
  * 2. Add a new movie using an "Insert" statement. (ExecuteStatement)
  * 3. Get the data for the movie using a "Select" statement. (ExecuteStatement)
  * 4. Update the data for the movie using an "Update" statement. (ExecuteStatement)
@@ -262,12 +262,17 @@ AwsDoc::DynamoDB::partiqlExecuteScenario(
 // snippet-end:[cpp.example_code.dynamodb.Scenario_PartiQL_Single]
 
 // snippet-start:[cpp.example_code.dynamodb.Scenario_PartiQL_Batch]
+//! Scenario to modify and query a DynamoDB table using PartiQL batch statements.
+/*!
+  \sa partiqlBatchExecuteScenario()
+  \param clientConfiguration: Aws client configuration.
+  \return bool: Function succeeded.
+ */
 bool AwsDoc::DynamoDB::partiqlBatchExecuteScenario(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     std::cout << "Now we will work with batches of movies" << std::endl;
 
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
-
 
     std::vector<Aws::String> titles;
     std::vector<float> ratings;
@@ -314,7 +319,6 @@ bool AwsDoc::DynamoDB::partiqlBatchExecuteScenario(
                     Aws::DynamoDB::Model::AttributeValue().SetS(titles[i]));
             attributes.push_back(Aws::DynamoDB::Model::AttributeValue().SetN(years[i]));
 
-
             // Create attribute for the info map.
             Aws::DynamoDB::Model::AttributeValue infoMapAttribute;
 
@@ -334,7 +338,6 @@ bool AwsDoc::DynamoDB::partiqlBatchExecuteScenario(
         Aws::DynamoDB::Model::BatchExecuteStatementRequest request;
 
         request.SetStatements(statements);
-
 
         Aws::DynamoDB::Model::BatchExecuteStatementOutcome outcome = dynamoClient.BatchExecuteStatement(
                 request);
@@ -513,6 +516,7 @@ bool AwsDoc::DynamoDB::partiqlBatchExecuteScenario(
 
         Aws::DynamoDB::Model::BatchExecuteStatementOutcome outcome = dynamoClient.BatchExecuteStatement(
                 request);
+        
         if (!outcome.IsSuccess()) {
             std::cerr << "Failed to delete the movies: "
                       << outcome.GetError().GetMessage() << std::endl;
@@ -523,29 +527,6 @@ bool AwsDoc::DynamoDB::partiqlBatchExecuteScenario(
     return true;
 }
 // snippet-end:[cpp.example_code.dynamodb.Scenario_PartiQL_Batch]
-
-//! Scenario to create, modify, query, and delete a DynamoDB table.
-/*!
-  \sa dynamodbPartiqlScenario()
-  \param clientConfig: Aws client configuration.
-  \return bool: Function succeeded.
- */
-
-bool AwsDoc::DynamoDB::dynamodbPartiqlScenario(
-        const Aws::Client::ClientConfiguration &clientConfiguration) {
-    std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
-    std::cout << "Welcome to the Amazon DynamoDB PartiQL demo." << std::endl;
-    std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
-
-    bool result = partiqlExecuteScenario(clientConfiguration);
-
-    if (result) {
-        result = partiqlBatchExecuteScenario(clientConfiguration);
-    }
-
-    return result;
-}
-
 
 #ifndef TESTING_BUILD
 
@@ -561,7 +542,17 @@ int main(int argc, char **argv) {
         if (AwsDoc::DynamoDB::createDynamoDBTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
                                                   clientConfig)) {
 
-            AwsDoc::DynamoDB::dynamodbPartiqlScenario(clientConfig);
+            std::cout << std::setfill('*')
+                      << std::setw(AwsDoc::DynamoDB::ASTERIX_FILL_WIDTH) << " "
+                      << std::endl;
+            std::cout << "Welcome to the Amazon DynamoDB PartiQL demo." << std::endl;
+            std::cout << std::setfill('*')
+                      << std::setw(AwsDoc::DynamoDB::ASTERIX_FILL_WIDTH) << " "
+                      << std::endl;
+
+            AwsDoc::DynamoDB::partiqlExecuteScenario(clientConfig);
+
+            AwsDoc::DynamoDB::partiqlBatchExecuteScenario(clientConfig);
 
             // 9.Delete the table. (DeleteTable)
             AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
