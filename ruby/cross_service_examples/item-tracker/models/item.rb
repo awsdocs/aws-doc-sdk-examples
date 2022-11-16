@@ -1,13 +1,21 @@
 #!/usr/bin/ruby
+# frozen_string_literal: true
 
 class WorkItem
-  def initialize(attributes)
-    @work_item_id = attributes['work_item_id']  # The ID of the item.
-    @created_date = attributes['created_date']  # The item's description.
-    @guide = attributes['guide']                # The SDK guide the item is associated with.
-    @status = attributes['status']              # The current status of the item.
-    @username = attributes['username']          # The user assigned to the item.
-    @archive = attributes['archive']            # Whether the item is active or archived.
+
+  def initialize(item)
+    @item = item
+  end
+
+  def convert
+    {
+      work_item_id: @item[:WORK_ITEM_ID], # The ID of the item.
+      description: @item[:DESCRIPTION], # The item's description.
+      guide: @item[:GUIDE], # The SDK guide the item is associated with.
+      status: @item[:STATUS], # The current status of the item.
+      username: @item[:USERNAME], # The user assigned to the item.
+      archive: @item[:ARCHIVE] # Whether the item is active or archived.
+    }
   end
 end
 

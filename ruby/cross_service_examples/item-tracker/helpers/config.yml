@@ -1,4 +1,4 @@
-cluster_arn: 'arn:aws:rds:us-east-1:260778392212:cluster:doc-example-aurora-app-docexampleauroraappclustere-iiojz9de5elx'
+resource_arn: 'arn:aws:rds:us-east-1:260778392212:cluster:doc-example-aurora-app-docexampleauroraappclustere-iiojz9de5elx'
 secret_arn: 'arn:aws:secretsmanager:us-east-1:260778392212:secret:docexampleauroraappsecret8B-qrKpsg5Kt87W-GiwQbX'
 database: 'auroraappdb'
 table_name: 'work_items'

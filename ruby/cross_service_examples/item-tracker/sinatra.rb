@@ -25,12 +25,25 @@ require 'models/item'
 require 'report'
 require 'db_wrapper'
 require 'sinatra'
-require "sinatra/config_file"
 
 # Creates the Sinatra service, which responds to HTTP requests through its routes.
-# @param demo [bool] Is this a test?
-def create_app(demo=false)
-  config = demo ? "spec/config.yml" : "config.yml"
-  config_file config
-  # Sinatra run command
-end
+class MyApp < Sinatra::Base
+
+  def initialize
+    @wrapper = DBWrapper.new(config, client)
+    @client = Aws::RDSDataService::Client.new
+    @config = YAML.load_file('helpers/config.yml')
+  end
+
+  set :port, 8080
+
+  before do
+    response.headers['Access-Control-Allow-Origin'] = 'http://example.com'
+  end
+
+  options "*" do
+    response.headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    200
+  end
