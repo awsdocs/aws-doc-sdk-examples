@@ -1,0 +1,92 @@
+name: 'sd clang-tidy review'
+description: 'Create an annotations review based on warnings from clang-tidy'
+branding:
+  icon: 'book-open'
+  color: 'red'
+inputs:
+  token:
+    description: 'Authentication token'
+    default: ${{ github.token }}
+    required: false
+  build_dir:
+    description: 'Directory containing the compile_commands.json file'
+    default: '.'
+    required: false
+  base_dir:
+    description: 'Absolute path to initial working directory. Useful if generating `compile_commands.json` outside of the Action'
+    default: ${{ github.workspace }}
+    required: false
+  clang_tidy_version:
+    description: 'Version of clang-tidy to use; currently only 12 is supported'
+    default: '12'
+    required: false
+  clang_tidy_checks:
+    description: 'List of checks'
+    default: '-*,performance-*,readability-*,bugprone-*,clang-analyzer-*,cppcoreguidelines-*,mpi-*,misc-*'
+    required: false
+  config_file:
+    description: 'Location of .clang-tidy config file. If specified, takes preference over `clang_tidy_checks`'
+    default: ''
+    required: false
+  include:
+    description: 'Comma-separated list of files or patterns to include'
+    default: "*.[ch],*.[ch]xx,*.[ch]pp,*.[ch]++,*.cc,*.hh"
+    required: false
+  exclude:
+    description: 'Comma-separated list of files or patterns to exclude'
+    required: false
+    default: ''
+  apt_packages:
+    description: 'Comma-separated list of apt packages to install'
+    required: false
+    default: ''
+  cmake_command:
+    description: 'If set, run CMake as part of the action using this command'
+    required: false
+    default: ''
+  max_comments:
+    description: 'Maximum number of comments to post at once'
+    required: false
+    default: '25'
+  lgtm_comment_body:
+    description: 'Message to post on PR if no issues are found. An empty string will post no LGTM comment.'
+    required: false
+    default: 'clang-tidy review says "All clean, LGTM! :+1:"'
+  pr:
+    description: 'Pull request number'
+    default: ${{ github.event.pull_request.number }}
+    required: false
+  repo:
+    description: 'The github repository'
+    default: ${{ github.repository }}
+  head_ref:
+    description: 'The github head reference'
+    default: ${{ github.head_ref }}
+  ref:
+    description: 'The github reference'
+    default: ${{ github.ref }}
+  server_url:
+    description: 'The server url'
+    default: ${{ github.server_url }}
+outputs:
+  total_comments:
+    description: 'Total number of warnings from clang-tidy'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - --clang_tidy_binary=clang-tidy-${{ inputs.clang_tidy_version }}
+    - --token=${{ inputs.token }}
+    - --repo=${{ inputs.repo }}
+    - --pr=${{ inputs.pr }}
+    - --build_dir=${{ inputs.build_dir }}
+    - --base_dir=${{ inputs.base_dir }}
+    - --clang_tidy_checks=${{ inputs.clang_tidy_checks }}
+    - --config_file=${{ inputs.config_file }}
+    - --include='${{ inputs.include }}'
+    - --exclude='${{ inputs.exclude }}'
+    - --apt-packages=${{ inputs.apt_packages }}
+    - --cmake-command='${{ inputs.cmake_command }}'
+    - --lgtm-comment-body='${{ inputs.lgtm_comment_body }}'
+    - --head_ref='${{ inputs.head_ref }}'
+    - --ref='${{ inputs.ref }}'
