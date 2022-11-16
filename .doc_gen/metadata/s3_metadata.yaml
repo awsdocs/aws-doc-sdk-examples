@@ -1941,7 +1941,7 @@ s3_Scenario_UsingLargeFiles:
                 - S3.dotnetv3.SSECLowLevelMPUcopyObjectExample
             - description: Upload a file using a multipart upload with the low level API.
               snippet_tags:
-               - S3.dotnetv3.UploadFileMPULowLevelAPIExample
+                - S3.dotnetv3.UploadFileMPULowLevelAPIExample
     Python:
       versions:
         - sdk_version: 3
