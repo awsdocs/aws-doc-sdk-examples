@@ -2,9 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Purpose
-
-Shows how to use the AWS SDK for Python (Boto3) to create a RESTful web service that
+Shows how to use the AWS SDK for Python (Boto3) to create a REST web service that
 stores work items in an Amazon Aurora Serverless database and uses Amazon Simple
 Email Service (Amazon SES) to let client applications do the following:
 
@@ -13,36 +11,37 @@ Email Service (Amazon SES) to let client applications do the following:
 * Archive a currently active work item.
 * Send a report of work items to an email recipient.
 
-This web service is intended to be used in conjunction with the item tracker React
-client found in the resources/clients/react/item-tracker folder of this repository.
+This web service is intended to be used in conjunction with the Elwing React
+client found in the resources/clients/react/elwing folder of this repository.
 For more information on how to set up resources, run the web service, and run the
 React client, see the accompanying README.
 """
 
-import logging
 import boto3
 from flask import Flask
-from flask_restful import Api
 from flask_cors import CORS
-from storage import Storage
+
 from item_list import ItemList
 from report import Report
-
-logger = logging.getLogger(__name__)
+from storage import Storage
 
 
 def create_app(test_config=None):
     """
-    Creates a Flask-RESTful application that lets clients manage a list of work items.
+    Creates the Flask service, which responds to HTTP requests through its routes.
 
     To use this application, you must first specify the following in the accompanying
     config.py file:
-    * The Amazon Resource Name (ARN) of an Amazon Aurora DB cluster.
-    * The name of a database and table where work items are stored.
-    * The ARN of an AWS Secrets Manager secret that contains credentials for the
+
+    * CLUSTER_ARN The Amazon Resource Name (ARN) of an Amazon Aurora DB cluster.
+    * SECRET_ARN The ARN of an AWS Secrets Manager secret that contains credentials for the
       database.
-    * To send an email report, you must also specify the email address from which
+    * DATABASE The name of a database where work items are stored.
+    * TABLE_NAME The name of the table in the database where work items are stored.
+    * SENDER_EMAIL To send an email report, you must also specify the email address from which
       emails are sent.
+    * SECRET_KEY The secret key Flask uses for sessions. Change this temporary value
+      to a secret value for production.
 
     :param test_config: Configuration to use for testing.
     """
@@ -66,25 +65,28 @@ def create_app(test_config=None):
     # Suppress CORS errors when working with React during development.
     # Important: Remove this when you deploy your application.
     CORS(app)
-    api = Api(app)
 
-    rdsdata_client = boto3.client('rds-data')
-    ses_client = boto3.client('ses')
+    if app.config.get('TESTING'):
+        rdsdata_client = app.config.get('RDSDATA_CLIENT')
+        ses_client = app.config.get('SES_CLIENT')
+    else:
+        rdsdata_client = boto3.client('rds-data')
+        ses_client = boto3.client('ses')
+
     storage = Storage(cluster_arn, secret_arn, database, table_name, rdsdata_client)
 
-    api.add_resource(
-        ItemList, '/items', '/items/', '/items/<string:item_state>', '/items/<int:work_item_id>',
-        resource_class_args=(storage,))
-    api.add_resource(
-        Report, '/report',
-        resource_class_args=(storage, sender_email, ses_client))
+    item_list_view = ItemList.as_view('item_list_api', storage)
+    report_view = Report.as_view('report_api', storage, sender_email, ses_client)
+    app.add_url_rule(
+        '/api/items', defaults={'iditem': None}, view_func=item_list_view, methods=['GET'],
+        strict_slashes=False)
+    app.add_url_rule(
+        '/api/items', view_func=item_list_view, methods=['POST'], strict_slashes=False)
+    app.add_url_rule(
+        '/api/items/<string:iditem>', view_func=item_list_view, methods=['GET', 'PUT'])
+    app.add_url_rule(
+        '/api/items/<string:iditem>:<string:action>', view_func=item_list_view, methods=['PUT'])
+    app.add_url_rule(
+        '/api/items:report', view_func=report_view, methods=['POST'])
 
     return app
-
-
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    try:
-        create_app().run(debug=True)  # Run in debug mode for more descriptive errors during development.
-    except RuntimeError as error:
-        logger.error(error)

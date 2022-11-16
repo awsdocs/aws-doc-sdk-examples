@@ -1,6 +1,6 @@
 boto3>=1.18.50
 botocore>=1.21.50
-flask>=2.0.2
+flask>=2.2.0
 flask-cors>=3.0.10
-flask-restful>=0.3.9
+webargs>=8.2.0
 pytest>=6.0.2
