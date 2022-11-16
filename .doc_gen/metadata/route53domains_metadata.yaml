@@ -197,9 +197,9 @@ route-53_Scenario_GetStartedRoute53Domains:
     - Get domain suggestions.
     - Check domain availability.
     - Check domain transferability.
-    - Optionally request a domain registration.
+    - Optionally, request a domain registration.
     - Get an operation detail.
-    - Optionally get a domain detail.
+    - Optionally, get a domain detail.
   category: Scenarios
   languages:
     .NET:

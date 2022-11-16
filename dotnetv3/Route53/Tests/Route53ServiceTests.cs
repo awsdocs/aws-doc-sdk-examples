@@ -26,7 +26,7 @@ public class Route53ServiceTests
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("testsettings.json") // Load test settings from .json file.
             .AddJsonFile("testsettings.local.json",
-                true) // Optionally load local settings.
+                true) // Optionally, load local settings.
             .Build();
 
 
@@ -117,7 +117,7 @@ public class Route53ServiceTests
     }
 
     /// <summary>
-    /// Check transferability for a domain. Should return an transferability string.
+    /// Check transferability for a domain. Should return a transferability string.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

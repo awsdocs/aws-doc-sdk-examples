@@ -225,7 +225,7 @@ public class Route53Wrapper
     // snippet-start:[Route53.dotnetv3.ListOperations]
 
     /// <summary>
-    /// List operations for the account, submitted since a specified date.
+    /// List operations for the account that are submitted after a specified date.
     /// </summary>
     /// <returns>A collection of operation summary records.</returns>
     public async Task<List<OperationSummary>> ListOperations(DateTime submittedSince)
@@ -251,7 +251,7 @@ public class Route53Wrapper
     /// <summary>
     /// Get details for a domain.
     /// </summary>
-    /// <returns>A string with detail information on the domain.</returns>
+    /// <returns>A string with detail information about the domain.</returns>
     public async Task<string> GetDomainDetail(string domainName)
     {
         try

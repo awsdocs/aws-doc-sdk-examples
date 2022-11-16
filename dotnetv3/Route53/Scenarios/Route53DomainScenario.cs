@@ -28,9 +28,9 @@ public static class Route53DomainScenario
         5. Get domain suggestions.
         6. Check domain availability.
         7. Check domain transferability.
-        8. Optionally request a domain registration.
+        8. Optionally, request a domain registration.
         9. Get an operation detail.
-       10. Optionally get a domain detail.
+       10. Optionally, get a domain detail.
    */
 
     private static Route53Wrapper _route53Wrapper = null!;
@@ -54,7 +54,7 @@ public static class Route53DomainScenario
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("settings.json") // Load settings from .json file.
             .AddJsonFile("settings.local.json",
-                true) // Optionally load local settings.
+                true) // Optionally, load local settings.
             .Build();
 
         var logger = LoggerFactory.Create(builder =>
@@ -252,7 +252,7 @@ public static class Route53DomainScenario
     private static async Task<string?> RequestDomainRegistration()
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"8. Optionally request a domain registration.");
+        Console.WriteLine($"8. Optionally, request a domain registration.");
 
         Console.WriteLine($"\tNote: This example uses domain request settings in settings.json.");
         Console.WriteLine($"\tTo change the domain registration settings, set the values in that file.");
@@ -304,7 +304,7 @@ public static class Route53DomainScenario
     }
 
     /// <summary>
-    /// Optionally get details for a registered domain.
+    /// Optionally, get details for a registered domain.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task<string?> GetDomainDetails()
