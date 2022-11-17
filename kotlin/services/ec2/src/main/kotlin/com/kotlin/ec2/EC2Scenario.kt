@@ -468,7 +468,7 @@ suspend fun describeSecurityGroupsSc(groupId: String) {
     }
 }
 
-suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?, myIpAddress:String?): String? {
+suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?, myIpAddress: String?): String? {
     val request = CreateSecurityGroupRequest {
         groupName = groupNameVal
         description = groupDescVal
