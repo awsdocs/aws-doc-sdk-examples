@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[EC2Scenario.kt demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) Instances associated with an AWS account.]
+// snippet-sourcedescription:[EC2Scenario.kt demonstrates how to get information about all the Amazon Elastic Compute Cloud (Amazon EC2) instances associated with an AWS account.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon EC2]
 
@@ -58,7 +58,7 @@ import kotlin.system.exitProcess
  5. Gets a list of Amazon Linux 2 AMIs and selects one.
  6. Gets more information about the image.
  7. Gets a list of instance types that are compatible with the selected AMI’s architecture.
- 8. Creates an instance with the key pair, security group, AMI, and an instance type
+ 8. Creates an instance with the key pair, security group, AMI, and an instance type.
  9. Displays information about the instance.
  10. Stops the instance and waits for it to stop.
  11. Starts the instance and waits for it to start.
@@ -77,15 +77,16 @@ suspend fun main(args: Array<String>) {
             <keyName> <fileName> <groupName> <groupDesc> <vpcId>
 
         Where:
-            keyName -  A key pair name (for example, TestKeyPair). 
-            fileName -  A file name where the key information is written to. 
+            keyName - A key pair name (for example, TestKeyPair). 
+            fileName - A file name where the key information is written to. 
             groupName - The name of the security group. 
             groupDesc - The description of the security group. 
             vpcId - A VPC ID. You can get this value from the AWS Management Console. 
+            myIpAddress - The ip address of your development machine. 
 
 """
 
-    if (args.size != 5) {
+    if (args.size != 6) {
         println(usage)
         exitProcess(0)
     }
@@ -95,6 +96,7 @@ suspend fun main(args: Array<String>) {
     val groupName = args[2]
     val groupDesc = args[3]
     val vpcId = args[4]
+    val myIpAddress = args[5]
     var newInstanceId: String? = ""
 
     println(DASHES)
@@ -102,7 +104,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("1. Create an RSA key pair and save the private key material as a PEM file.")
+    println("1. Create an RSA key pair and save the private key material as a .pem file.")
     createKeyPairSc(keyName, fileName)
     println(DASHES)
 
@@ -113,7 +115,7 @@ suspend fun main(args: Array<String>) {
 
     println(DASHES)
     println("3. Create a security group.")
-    val groupId = createEC2SecurityGroupSc(groupName, groupDesc, vpcId)
+    val groupId = createEC2SecurityGroupSc(groupName, groupDesc, vpcId, myIpAddress)
     println(DASHES)
 
     println(DASHES)
@@ -122,20 +124,20 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("5. Get a list of Amazon Linux 2 AMIs and selects one with amzn2 in the name.")
+    println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.")
     val instanceId = getParaValuesSc()
     if (instanceId == "") {
-        println("The instance Id value is invalid")
+        println("The instance Id value isn't valid.")
         exitProcess(0)
     }
     println("The instance Id is $instanceId")
     println(DASHES)
 
     println(DASHES)
-    println("6. Gets more information about an amzn2 image and return the AMI value.")
+    println("6. Get more information about an amzn2 image and return the AMI value.")
     val amiValue = instanceId?.let { describeImageSc(it) }
     if (instanceId == "") {
-        println("The instance Id value is invalid")
+        println("The instance Id value is invalid.")
         exitProcess(0)
     }
     println("The AMI value is $amiValue.")
@@ -214,7 +216,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("17. Delete the key.")
+    println("17. Delete the key pair.")
     deleteKeysSc(keyName)
     println(DASHES)
 
@@ -403,7 +405,7 @@ suspend fun getInstanceTypesSc(): String {
         val response = ec2.describeInstanceTypes(typesRequest)
         response.instanceTypes?.forEach { type ->
             println("The memory information of this type is ${type.memoryInfo?.sizeInMib}")
-            println("Network information is ${type.networkInfo}")
+            println("Maximum number of network cards is ${type.networkInfo?.maximumNetworkCards}")
             instanceType = type.instanceType.toString()
         }
         return instanceType
@@ -422,7 +424,7 @@ suspend fun describeImageSc(instanceId: String): String? {
         println("The description of the first image is ${response.images?.get(0)?.description}")
         println("The name of the first image is  ${response.images?.get(0)?.name}")
 
-        // Return the image id value.
+        // Return the image Id value.
         return response.images?.get(0)?.imageId
     }
 }
@@ -438,6 +440,7 @@ suspend fun getParaValuesSc(): String? {
         response.parameters?.forEach { para ->
             println("The name of the para is: ${para.name}")
             println("The type of the para is: ${para.type}")
+            println("")
             if (para.name?.let { filterName(it) } == true) {
                 return para.value
             }
@@ -465,7 +468,7 @@ suspend fun describeSecurityGroupsSc(groupId: String) {
     }
 }
 
-suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?): String? {
+suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?, myIpAddress:String?): String? {
     val request = CreateSecurityGroupRequest {
         groupName = groupNameVal
         description = groupDescVal
@@ -475,7 +478,7 @@ suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val resp = ec2.createSecurityGroup(request)
         val ipRange = IpRange {
-            cidrIp = "0.0.0.0/0"
+            cidrIp = myIpAddress
         }
 
         val ipPerm = IpPermission {
