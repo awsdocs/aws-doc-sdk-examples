@@ -79,6 +79,7 @@ Define these values to successfully run the JUnit tests:
 - **groupNameSc** - A group name that is used in the scenario test. 
 - **groupDescSc** - A group name description that is used in the scenario test. 
 - **vpcIdSc** – A VPC ID that is used in the scenario test.
+- **myIpAddress** – The IP address of your development machine that is used in the scenario test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
