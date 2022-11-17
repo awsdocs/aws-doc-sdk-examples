@@ -38,9 +38,10 @@ Code excerpts that show you how to call individual service functions.
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [Getting started scenario for DynamoDB](./dynamodb_getting_started_scenario.cpp) (CreateTable, PutItem, UpdateItem, BatchWriteItem, GetItem, Query, Scan, DeleteItem, DeleteTable)
-* [PartiQL scenario for DynamoDB](./dynamodb_partiql_scenario.cpp) (CreateTable, ExecuteStatement, BatchExecuteStatement, DeleteTable)
-
+* [Getting started scenario for DynamoDB](./dynamodb_getting_started_scenario.cpp) (CreateTable, PutItem, UpdateItem, BatchWriteItem, GetItem, Query, Scan, DeleteItem, DescribeTable, DeleteTable)
+* [PartiQL single statement scenario for DynamoDB](./dynamodb_partiql_single_scenario.cpp) (CreateTable, ExecuteStatement, DescribeTable, DeleteTable)
+* [PartiQL batch statements scenario for DynamoDB](./dynamodb_partiql_batch_scenario.cpp) (CreateTable, BatchExecuteStatement, DescribeTable, DeleteTable)
+* 
 ## Run the examples
 
 ### Prerequisites
