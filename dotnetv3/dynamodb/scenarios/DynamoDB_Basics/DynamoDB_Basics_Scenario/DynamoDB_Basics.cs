@@ -31,7 +31,7 @@ namespace DynamoDB_Basics_Scenario
     public class DynamoDB_Basics
     {
         // Separator for the console display.
-        private static readonly string SepBar = new('-', 80);
+        private static readonly string SepBar = new ('-', 80);
 
         public static async Task Main()
         {
@@ -113,7 +113,7 @@ namespace DynamoDB_Basics_Scenario
                 Year = 1993,
             };
 
-            Console.WriteLine("Looking for the movie \"Spider-Man: No Way Home\".");
+            Console.WriteLine("Looking for the movie \"Jurassic Park\".");
             var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, tableName);
             if (item.Count > 0)
             {
