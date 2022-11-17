@@ -40,7 +40,7 @@ namespace TransferUtilityBasics
         // snippet-end:[S3.dotnetv3.TransferUtilityBasics.DownloadSingleFileAsync]
 
         // snippet-start:[S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync]
-        
+
         /// <summary>
         /// Downloads the contents of a directory in an S3 bucket to a
         /// directory on the local computer.
