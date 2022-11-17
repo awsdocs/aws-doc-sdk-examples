@@ -235,7 +235,7 @@ def list_vocabularies(vocabulary_filter, transcribe_client):
 # snippet-start:[python.example_code.transcribe.GetVocabulary]
 def get_vocabulary(vocabulary_name, transcribe_client):
     """
-    Gets information about a customer vocabulary.
+    Gets information about a custom vocabulary.
 
     :param vocabulary_name: The name of the vocabulary to retrieve.
     :param transcribe_client: The Boto3 Transcribe client.

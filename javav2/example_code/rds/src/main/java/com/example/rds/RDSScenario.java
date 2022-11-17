@@ -58,13 +58,13 @@ import java.util.List;
  *
  * This Java example performs the following tasks:
  *
- * 1. Returns a list of the available DB engines by invoking the DescribeDbEngineVersions method.
- * 2. Selects an engine family and create a custom DB parameter group by invoking the createDBParameterGroup method.
- * 3. Gets the parameter groups by invoking the DescribeDbParameterGroups methods.
- * 4. Gets parameters in the group by invoking the DescribeDbParameters method.
- * 5. Modifies both the auto_increment_offset parameters by invoking the modifyDbParameterGroup method.
+ * 1. Returns a list of the available DB engines.
+ * 2. Selects an engine family and create a custom DB parameter group.
+ * 3. Gets the parameter groups.
+ * 4. Gets parameters in the group.
+ * 5. Modifies the auto_increment_offset parameter.
  * 6. Gets and displays the updated parameters.
- * 7. Gets a list of allowed engine versions by invoking the describeDbEngineVersions method.
+ * 7. Gets a list of allowed engine versions.
  * 8. Gets a list of micro instance classes available for the selected engine.
  * 9. Creates an RDS database instance that contains a MySql database and uses the parameter group.
  * 10. Waits for the DB instance to be ready and prints out the connection endpoint value.
@@ -76,6 +76,7 @@ import java.util.List;
 public class RDSScenario {
 
     public static long sleepTime = 20;
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
 
         final String usage = "\n" +
@@ -85,7 +86,7 @@ public class RDSScenario {
             "    dbGroupName - The database group name. \n"+
             "    dbParameterGroupFamily - The database parameter group name (for example, mysql8.0).\n"+
             "    dbInstanceIdentifier - The database instance identifier \n"+
-            "    dbName -  The database name. \n"+
+            "    dbName - The database name. \n"+
             "    masterUsername - The master user name. \n"+
             "    masterUserPassword - The password that corresponds to the master user name. \n"+
             "    dbSnapshotIdentifier - The snapshot identifier. \n" ;
@@ -108,50 +109,85 @@ public class RDSScenario {
             .region(region)
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
+        System.out.println(DASHES);
+        System.out.println("Welcome to the Amazon RDS example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         System.out.println("1. Return a list of the available DB engines");
         describeDBEngines(rdsClient);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("2. Create a custom parameter group");
         createDBParameterGroup(rdsClient, dbGroupName, dbParameterGroupFamily);
+        System.out.println(DASHES);
 
-        System.out.println("3. Get the parameter groups");
+        System.out.println(DASHES);
+        System.out.println("3. Get the parameter group");
         describeDbParameterGroups(rdsClient, dbGroupName);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("4. Get the parameters in the group");
         describeDbParameters(rdsClient, dbGroupName, 0);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("5. Modify the auto_increment_offset parameter");
         modifyDBParas(rdsClient, dbGroupName);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("6. Display the updated value");
         describeDbParameters(rdsClient, dbGroupName, -1);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("7. Get a list of allowed engine versions");
         getAllowedEngines(rdsClient, dbParameterGroupFamily);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("8. Get a list of micro instance classes available for the selected engine") ;
         getMicroInstances(rdsClient);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("9. Create an RDS database instance that contains a MySql database and uses the parameter group");
         String dbARN = createDatabaseInstance(rdsClient, dbGroupName, dbInstanceIdentifier, dbName, masterUsername, masterUserPassword);
         System.out.println("The ARN of the new database is "+dbARN);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("10. Wait for DB instance to be ready" );
         waitForInstanceReady(rdsClient, dbInstanceIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("11. Create a snapshot of the DB instance");
         createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("12. Wait for DB snapshot to be ready" );
         waitForSnapshotReady(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("13. Delete the DB instance" );
         deleteDatabaseInstance(rdsClient, dbInstanceIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("14. Delete the parameter group");
         deleteParaGroup(rdsClient, dbGroupName, dbARN);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("The Scenario has successfully completed." );
+        System.out.println(DASHES);
+
         rdsClient.close();
     }
 

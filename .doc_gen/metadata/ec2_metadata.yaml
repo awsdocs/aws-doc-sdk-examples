@@ -4,6 +4,15 @@ ec2_Hello:
   synopsis: get started using &EC2long; (&EC2;).
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.describe_security_groups.main
     Python:
       versions:
         - sdk_version: 3
@@ -173,7 +182,7 @@ ec2_StartInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.start_stop_instance.start
+                - ec2.java2.scenario.start_instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -217,7 +226,7 @@ ec2_StopInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.start_stop_instance.stop
+                - ec2.java2.scenario.stop_instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -271,6 +280,15 @@ ec2_AssociateAddress:
   synopsis: associate an Elastic IP address with an &EC2; instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.associate_address.main
     Python:
       versions:
         - sdk_version: 3
@@ -289,6 +307,15 @@ ec2_DisassociateAddress:
   synopsis: disassociate an Elastic IP address from an &EC2; instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.disassociate_address.main
     Python:
       versions:
         - sdk_version: 3
@@ -388,6 +415,15 @@ ec2_DescribeSecurityGroups:
   synopsis: get data about an &EC2; security group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.describe_securitygroup.main
     Python:
       versions:
         - sdk_version: 3
@@ -504,6 +540,15 @@ ec2_DescribeInstances:
   synopsis: describe &EC2; instances.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.describe_instance.main
     .NET:
       versions:
         - sdk_version: 3
@@ -646,6 +691,15 @@ ec2_DescribeInstanceTypes:
   synopsis: get data about &EC2; instance types.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.describe_instance.type.main
     Python:
       versions:
         - sdk_version: 3
@@ -676,6 +730,15 @@ ec2_Scenario_GetStartedInstances:
     - Clean up all of the resources created by this example.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
