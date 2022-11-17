@@ -23,6 +23,15 @@ textract_AnalyzeDocument:
               snippet_tags:
                 - python.example_code.textract.TextractWrapper
                 - python.example_code.textract.AnalyzeDocument
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: abap/services/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - tex.abapv1.analyze_document
   services:
     textract: {AnalyzeDocument}
 textract_DetectDocumentText:
@@ -52,6 +61,15 @@ textract_DetectDocumentText:
               snippet_tags:
                 - python.example_code.textract.TextractWrapper
                 - python.example_code.textract.DetectDocumentText
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: abap/services/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - tex.abapv1.detect_document_text
   services:
     textract: {DetectDocumentText}
 textract_StartDocumentAnalysis:
@@ -78,6 +96,15 @@ textract_StartDocumentAnalysis:
               snippet_tags:
                 - python.example_code.textract.TextractWrapper
                 - python.example_code.textract.StartDocumentAnalysis
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: abap/services/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - tex.abapv1.start_document_analysis
   services:
     textract: {StartDocumentAnalysis}
 textract_StartDocumentTextDetection:
@@ -96,6 +123,15 @@ textract_StartDocumentTextDetection:
               snippet_tags:
                 - python.example_code.textract.TextractWrapper
                 - python.example_code.textract.StartDocumentTextDetection
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: abap/services/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - tex.abapv1.start_document_text_detection
   services:
     textract: {StartDocumentTextDetection}
 textract_GetDocumentAnalysis:
@@ -114,5 +150,32 @@ textract_GetDocumentAnalysis:
               snippet_tags:
                 - python.example_code.textract.TextractWrapper
                 - python.example_code.textract.GetDocumentAnalysis
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: abap/services/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - tex.abapv1.get_document_analysis
   services:
     textract: {GetDocumentAnalysis}
+textract_Scenario_GettingStarted:
+  title: Get started with &TEXTRACT; document analysis using an &AWS; SDK
+  title_abbrev: Get started with document analysis
+  synopsis_list:
+    - Start asynchronous analysis.
+    - Get document analysis.
+  category: Scenarios
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: abap/services/textract
+          excerpts:
+            - description:
+              snippet_tags:
+                - tex.abapv1.getting_started_with_tex
+  services:
+    textract: {StartDocumentAnalysis, GetDocumentAnalysis}

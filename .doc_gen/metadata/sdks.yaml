@@ -1,4 +1,15 @@
 # zexi 0.4.0
+SAP ABAP:
+  property: sap-abap
+  sdk:
+    1:
+      long: "&ABAPlong;"
+      short: "&ABAP;"
+      caveat: "This documentation is for an SDK in developer preview release. The SDK is subject to change and is not recommended for use in production."
+      api_ref:
+        uid: "SdkForABAP"
+        name: "&guide-abap-api;"
+  guide: "&guide-abap-dev;"
 C++:
   property: cpp
   sdk:
