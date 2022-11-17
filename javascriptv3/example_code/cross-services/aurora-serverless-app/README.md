@@ -25,6 +25,7 @@ See [the steps for creating the resource stack](../../../../resources//cdk/auror
 
 - Populate the `env.json` file with the outputs from the preceding ["create the resources"](#create-the-resources) step.
 - Run `yarn start`.
+- Make calls to the API. Use a tool like Postman or run front-end client linked in the [additional resources](#additional-resources).
 
 ## Delete the resources
 
@@ -36,6 +37,7 @@ See [the steps for destroying the resources with the CDK](../../../../resources/
 
 ## Additional resources
 
+- [Front-end client](../../../../resources/clients/react/elwing/README.md)
 - [Amazon Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
 - [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
 - [RDS Data Client - AWS SDK for JavaScript v3](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds-data/index.html)
