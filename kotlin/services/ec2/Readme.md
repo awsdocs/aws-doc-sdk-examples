@@ -23,18 +23,18 @@ The credential provider used in all code examples is Shared credentials. For mor
 
 Code excerpts that show you how to call individual service functions.
 
-- [Allocate an elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/AllocateAddress.kt) (allocateAddress command)
+- [Allocate an Elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/AllocateAddress.kt) (allocateAddress command)
 - [Create an Amazon EC2 instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/CreateInstance.kt) (runInstances command)
 - [Create an Amazon EC2 key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/CreateKeyPair.kt) (createKeyPair command)
 - [Create an Amazon EC2 security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/CreateSecurityGroup.kt) (createSecurityGroup command)
 - [Delete an Amazon EC2 key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DeleteKeyPair.kt) (deleteKeyPair command)
 - [Delete an Amazon EC2 security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt) (deleteSecurityGroup command)
 - [Describe an Amazon EC2 account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeAccount.kt) (describeAccountAttributes command)
-- [Describe elastic IP addresses](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeAddresses.kt) (describeAddresses command)
+- [Describe Elastic IP addresses](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeAddresses.kt) (describeAddresses command)
 - [Describe Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeInstances.kt) (describeInstances command)
 - [Describe Amazon EC2 instance tags](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeInstanceTags.kt) (describeTags command)
 - [Describe Amazon EC2 key pairs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeKeyPairs.kt) (describeKeyPairs command)
-- [Describe Amazon EC2 regions and zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeRegionsAndZones.kt) (describeRegions command)
+- [Describe Amazon EC2 Regions and zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeRegionsAndZones.kt) (describeRegions command)
 - [Describe Amazon EC2 security groups](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt) (describeSecurityGroups command)
 - [Describe Amazon EC2 VPCs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeVPCs.kt) (describeVpcs command)
 - [Find running EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/FindRunningInstances.kt) (monitorInstances command)
@@ -46,7 +46,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 - [Get started with Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/javav2/example_code/ec2/src/main/java/com/example/ec2/EC2Scenario.java) (Multiple commands)
 
-## Run the  Amazon EC2 Kotlin files
+## Run the Amazon EC2 Kotlin files
 
 **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
@@ -57,11 +57,11 @@ see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-ko
 
 You can test the Kotlin code examples for Amazon EC2 by running a test file named **EC2Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/kotlin** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is ran, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the  tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon EC2 resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real Amazon EC2 resources and might incur charges on your account._
 
  ### Properties file
 Before running the Amazon EC2 JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
@@ -69,7 +69,7 @@ Before running the Amazon EC2 JUnit tests, you must define values in the **confi
 Define these values to successfully run the JUnit tests:
 
 - **ami** – An Amazon Machine Image (AMI) value.
-- **instanceName** – An instance name. You can obtain this value from the AWS Management Console.
+- **instanceName** – An instance name. You can get this value from the AWS Management Console.
 - **keyPair** – A key pair to use. For example, **TestKeyPair**.
 - **groupName** – A group name to use. For example, **TestSecGroup**.
 - **groupDesc** – A description of the group. For example, **Test Group**.
