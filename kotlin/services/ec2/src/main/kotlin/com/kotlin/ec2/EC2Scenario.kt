@@ -478,7 +478,7 @@ suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val resp = ec2.createSecurityGroup(request)
         val ipRange = IpRange {
-            cidrIp = myIpAddress
+            cidrIp = "$myIpAddress/0"
         }
 
         val ipPerm = IpPermission {
