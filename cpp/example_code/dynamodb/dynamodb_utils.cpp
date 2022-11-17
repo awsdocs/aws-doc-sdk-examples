@@ -11,7 +11,7 @@
  *
  */
 
-#include "dyanamodb_samples.h"
+#include "dynamodb_samples.h"
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/CreateTableRequest.h>
 #include <aws/dynamodb/model/DeleteTableRequest.h>
@@ -131,9 +131,9 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
     const Aws::DynamoDB::Model::DeleteTableOutcome &result = dynamoClient.DeleteTable(
             request);
     if (result.IsSuccess()) {
-        std::cout << "Your Table \""
+        std::cout << "Your table \""
                   << result.GetResult().GetTableDescription().GetTableName()
-                  << " was deleted!\n";
+                  << " was deleted.\n";
     }
     else {
         std::cerr << "Failed to delete table: " << result.GetError().GetMessage()
@@ -266,7 +266,7 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
         result = std::stof(resultString);
     }
     catch (const std::invalid_argument &) {
-        std::cerr << "DynamoDB::askQuestionForFloatRange string not an int "
+        std::cerr << "DynamoDB::askQuestionForFloatRange string not an float "
                   << resultString << std::endl;
     }
 

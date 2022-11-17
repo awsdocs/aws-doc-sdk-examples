@@ -3,8 +3,8 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-#ifndef DYNAMODB_EXAMPLES_DYANAMODB_SAMPLES_H
-#define DYNAMODB_EXAMPLES_DYANAMODB_SAMPLES_H
+#ifndef DYNAMODB_EXAMPLES_DYNAMODB_SAMPLES_H
+#define DYNAMODB_EXAMPLES_DYNAMODB_SAMPLES_H
 
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/dynamodb/model/AttributeValue.h>
@@ -135,4 +135,4 @@ namespace AwsDoc {
 
     } // DynamoDB
 } // AwsDoc
-#endif //DYNAMODB_EXAMPLES_DYANAMODB_SAMPLES_H
+#endif //DYNAMODB_EXAMPLES_DYNAMODB_SAMPLES_H

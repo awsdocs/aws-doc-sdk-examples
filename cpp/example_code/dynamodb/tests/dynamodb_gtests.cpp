@@ -5,7 +5,7 @@
 
 #include "dynamodb_gtests.h"
 #include <fstream>
-#include "dyanamodb_samples.h"
+#include "dynamodb_samples.h"
 
 Aws::SDKOptions AwsDocTest::DynamoDB_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::DynamoDB_GTests::s_clientConfig;
@@ -24,6 +24,7 @@ void AwsDocTest::DynamoDB_GTests::TearDownTestSuite() {
     if (s_TableCreated) {
         AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
                                             *s_clientConfig);
+        s_TableCreated = false;
     }
 
     ShutdownAPI(s_options);
@@ -45,7 +46,7 @@ void AwsDocTest::DynamoDB_GTests::TearDown() {
     }
 
     if (m_savedInBuffer != nullptr) {
-        std::cout.rdbuf(m_savedInBuffer);
+        std::cin.rdbuf(m_savedInBuffer);
         m_savedInBuffer = nullptr;
     }
 }

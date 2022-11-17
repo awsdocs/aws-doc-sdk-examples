@@ -32,7 +32,7 @@
  * 9. Delete the table. (DeleteTable)
  */
 
-#include "dyanamodb_samples.h"
+#include "dynamodb_samples.h"
 #include <iostream>
 #include <iomanip>
 #include <aws/core/Aws.h>
@@ -443,8 +443,8 @@ AwsDoc::DynamoDB::movieJsonViewToAttributeMap(
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    (void) argc; // suppress unused warning
-    (void) argv; // suppress unused warning
+    (void) argc; // Suppress unused warning.
+    (void) argv; // Suppress unused warning.
     Aws::SDKOptions options;
     InitAPI(options);
 
@@ -457,7 +457,7 @@ int main(int argc, char **argv) {
 
             AwsDoc::DynamoDB::dynamodbGettingStartedScenario(clientConfig);
 
-            // 9.Delete the table. (DeleteTable)
+            // 9. Delete the table. (DeleteTable)
             AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
                                                 clientConfig);
         }

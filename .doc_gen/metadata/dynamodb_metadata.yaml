@@ -1266,6 +1266,23 @@ dynamodb_ExecuteStatement:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLWrapper.class_decl
                 - python.example_code.dynamodb.ExecuteStatement
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          excerpts:
+            - description: Use an INSERT statement to add an item.
+              snippet_tags:
+                - cpp.example_code.dynamodb.ExecuteStatement.Insert
+            - description: Use a SELECT statement to get an item.
+              snippet_tags:
+                - cpp.example_code.dynamodb.ExecuteStatement.Select
+            - description: Use an UPDATE statement to update an item.
+              snippet_tags:
+                - cpp.example_code.dynamodb.ExecuteStatement.Update
+            - description: Use a DELETE statement to delete an item.
+              snippet_tags:
+                - cpp.example_code.dynamodb.ExecuteStatement.Delete
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_BatchExecuteStatement:
@@ -1352,6 +1369,23 @@ dynamodb_BatchExecuteStatement:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLBatchWrapper.class_decl
                 - python.example_code.dynamodb.BatchExecuteStatement
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          excerpts:
+            - description: Use batches of INSERT statements to add items.
+              snippet_tags:
+                - cpp.example_code.dynamodb.BatchExecuteStatement.Insert
+            - description: Use batches of SELECT statements to get items.
+              snippet_tags:
+                - cpp.example_code.dynamodb.BatchExecuteStatement.Select
+            - description: Use batches of UPDATE statements to update items.
+              snippet_tags:
+                - cpp.example_code.dynamodb.BatchExecuteStatement.Update
+            - description: Use batches of DELETE statements to delete items.
+              snippet_tags:
+                - cpp.example_code.dynamodb.BatchExecuteStatement.Delete
   services:
     dynamodb: {BatchExecuteStatement}
 dynamodb_Usage_DaxDemo:
@@ -1688,6 +1722,7 @@ dynamodb_Scenario_PartiQLSingle:
           excerpts:
             - description:
               snippet_tags:
+                - cpp.example_code.dynamodb.Scenario_PartiQL_Single.main
                 - cpp.example_code.dynamodb.Scenario_PartiQL_Single
                 - cpp.example_code.dynamodb.scenario.createTable
                 - cpp.example_code.dynamodb.scenario.deleteTable
@@ -1803,6 +1838,7 @@ dynamodb_Scenario_PartiQLBatch:
           excerpts:
             - description:
               snippet_tags:
+                - cpp.example_code.dynamodb.Scenario_PartiQL_Batch.main
                 - cpp.example_code.dynamodb.Scenario_PartiQL_Batch
                 - cpp.example_code.dynamodb.scenario.createTable
                 - cpp.example_code.dynamodb.scenario.deleteTable

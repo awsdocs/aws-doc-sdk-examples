@@ -6,18 +6,13 @@ cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME dynamodb)
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES dynamodb)
+set(CURRENT_TARGET_AWS_DEPENDENCIES dynamodb s3)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
-
-# Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
-endif()
 
 include(FetchContent)
 FetchContent_Declare(
@@ -33,6 +28,11 @@ FetchContent_MakeAvailable(googletest)
 if(MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
+endif()
+
+# Build shared libraries by default.
+if(NOT BUILD_SHARED_LIBS)
+    set(BUILD_SHARED_LIBS ON)
 endif()
 
 

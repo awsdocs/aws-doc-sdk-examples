@@ -1,4 +1,4 @@
-# Amazon DynamoDb code examples for the SDK for C++
+# DynamoDb code examples for the SDK for C++
 
 ## Overview
 
@@ -20,13 +20,13 @@ predictable performance with seamless scalability.*
 
 Code excerpts that show you how to call individual service functions.
 
-* [Get items in a batch](./batch_get_item.cpp) (BatchGetItem)
 * [Create a table](./create_table.cpp) (CreateTable)
 * [Create a table with composite key](./create_table_composite_key.cpp) (CreateTable)
 * [Delete an item](./delete_item.cpp) (DeleteItem)
 * [Delete a table](./delete_table.cpp) (DeleteTable)
 * [Describe a table](./describe_table.cpp) (DescribeTable)
 * [Get an item](./get_item.cpp) (GetItem)
+* [Get items in a batch](./batch_get_item.cpp) (BatchGetItem)
 * [List tables](./list_tables.cpp) (ListTables)
 * [Put an item](./put_item.cpp) (PutItem)
 * [Query items](./query_items.cpp) (Query)

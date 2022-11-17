@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include "dynamodb_gtests.h"
-#include "dyanamodb_samples.h"
+#include "dynamodb_samples.h"
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE (readability-named-parameter)
