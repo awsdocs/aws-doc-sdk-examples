@@ -304,7 +304,7 @@ bool AwsDoc::DynamoDB::partiqlBatchExecuteScenario(
             return false;
         }
     }
-// snippet-end`:[cpp.example_code.dynamodb.BatchExecuteStatement.Delete]
+// snippet-end:[cpp.example_code.dynamodb.BatchExecuteStatement.Delete]
 
     return true;
 }
