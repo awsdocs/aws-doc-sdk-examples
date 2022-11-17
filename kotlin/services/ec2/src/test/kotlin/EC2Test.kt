@@ -51,7 +51,7 @@ import kotlin.system.exitProcess
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class EC2Test {
-    private var instanceId = "" // gets set in test 2
+    private var instanceId = "" // Gets set in test 2.
     private var ami = ""
     private var instanceName = ""
     private var keyName = ""
@@ -65,6 +65,7 @@ class EC2Test {
     private var groupNameSc = ""
     private var groupDescSc = ""
     private var vpcIdSc = ""
+    private var myIpAddressSc = ""
 
     @BeforeAll
     @Throws(IOException::class)
@@ -76,11 +77,9 @@ class EC2Test {
                     println("Sorry, unable to find config.properties")
                     return
                 }
-
-                // load a properties file from class path, inside static method
                 prop.load(input)
 
-                // Populate the data members required for all tests
+                // Populate the data members required for all tests.
                 ami = prop.getProperty("ami")
                 instanceName = prop.getProperty("instanceName")
                 keyName = prop.getProperty("keyName")
@@ -93,6 +92,7 @@ class EC2Test {
                 groupDescSc = prop.getProperty("groupDescSc")
                 groupNameSc = prop.getProperty("groupNameSc")
                 vpcIdSc = prop.getProperty("vpcIdSc")
+                myIpAddressSc = prop.getProperty("myIpAddressSc")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
@@ -143,7 +143,7 @@ class EC2Test {
     @Test
     @Order(6)
     fun createSecurityGroupTest() = runBlocking {
-        groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId).toString()
+        groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId ).toString()
         assertTrue(!groupId.isEmpty())
         println("Test 6 passed")
     }
@@ -216,7 +216,7 @@ class EC2Test {
     fun TestEC2Scenario() = runBlocking {
         var newInstanceId = ""
         println(DASHES)
-        println("1. Create an RSA key pair and save the private key material as a PEM file.")
+        println("1. Create an RSA key pair and save the private key material as a .pem file.")
         createKeyPairSc(keyNameSc, fileNameSc)
         println(DASHES)
 
@@ -227,7 +227,7 @@ class EC2Test {
 
         println(DASHES)
         println("3. Create a security group.")
-        val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc)
+        val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc,myIpAddressSc)
         println(DASHES)
 
         println(DASHES)
@@ -236,27 +236,27 @@ class EC2Test {
         println(DASHES)
 
         println(DASHES)
-        println("5. Get a list of Amazon Linux 2 AMIs and selects one with amzn2 in the name.")
+        println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.")
         val instanceId = getParaValuesSc()
         if (instanceId == "") {
-            println("The instance Id value is invalid")
+            println("The instance Id value is invalid.")
             exitProcess(0)
         }
         println("The instance ID is $instanceId")
         println(DASHES)
 
         println(DASHES)
-        println("6. Gets more information about an amzn2 image and return the AMI value.")
+        println("6. Get more information about an amzn2 image and return the AMI value.")
         val amiValue = instanceId?.let { describeImageSc(it) }
         if (instanceId == "") {
-            println("The instance Id value is invalid")
+            println("The instance Id value is invalid.")
             exitProcess(0)
         }
         println("The AMI value is $amiValue.")
         println(DASHES)
 
         println(DASHES)
-        println("7. Gets a list of instance types.")
+        println("7. Get a list of instance types.")
         val instanceType = getInstanceTypesSc()
         println(DASHES)
 
@@ -269,7 +269,7 @@ class EC2Test {
         println(DASHES)
 
         println(DASHES)
-        println("9. Display information about the running instance. ")
+        println("9. Display information about the running instance.")
         var ipAddress = describeEC2InstancesSc(newInstanceId)
         println("You can SSH to the instance using this command:")
         println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
@@ -324,7 +324,7 @@ class EC2Test {
         println(DASHES)
 
         println(DASHES)
-        println("17. Delete the key.")
+        println("17. Delete the key pair.")
         deleteKeysSc(keyNameSc)
         println(DASHES)
     }
