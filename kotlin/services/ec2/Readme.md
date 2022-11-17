@@ -17,7 +17,7 @@ The credential provider used in all code examples is Shared credentials. For mor
 
 ### Get started
 
-- [Hello Amazon EC2 service](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt) (describeSecurityGroups command)
+- [Hello Amazon EC2](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt) (describeSecurityGroups command)
 
 ### Single actions
 
