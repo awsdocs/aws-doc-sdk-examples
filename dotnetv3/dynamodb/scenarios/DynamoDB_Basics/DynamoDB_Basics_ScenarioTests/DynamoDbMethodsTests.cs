@@ -9,7 +9,7 @@ namespace DynamoDB_Basics_Scenario.Tests
     {
         readonly AmazonDynamoDBClient client = new();
         readonly string tableName = "movie_table";
-        readonly string movieFileName = "moviedata.json";
+        readonly string movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
         readonly string testMovieFileName = "testmoviedata.json";
 
         [Fact()]

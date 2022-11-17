@@ -18,14 +18,10 @@
 //
 // The code in this example uses the AWS SDK for .NET version 3.7 and .NET 5.
 // Before you run this example, download 'movies.json' from
-// https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
+// https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files,
 // and put it in the same folder as the example.
 namespace DynamoDB_Basics_Scenario
 {
-    using System;
-    using System.Threading.Tasks;
-    using Amazon.DynamoDBv2;
-
     public class DynamoDB_Basics
     {
         // Separator for the console display.
@@ -36,7 +32,9 @@ namespace DynamoDB_Basics_Scenario
             var client = new AmazonDynamoDBClient();
 
             var tableName = "movie_table";
-            var movieFileName = "moviedata.json";
+
+            // relative path to moviedata.json in the local repository.
+            var movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
 
             DisplayInstructions();
 
