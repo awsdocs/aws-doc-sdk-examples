@@ -267,7 +267,6 @@ bool AwsDoc::DynamoDB::partiqlBatchExecuteScenario(
             return false;
         }
     }
-// snippet-end:[cpp.example_code.dynamodb.BatchExecuteStatement.Update]
 
     std::cout << "Deleting the movie data with a batch \"DELETE\" statement."
               << std::endl;
