@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include "dynamodb_gtests.h"
-#include "dyanamodb_samples.h"
+#include "dynamodb_samples.h"
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE (readability-named-parameter)
@@ -24,7 +24,10 @@ namespace AwsDocTest {
                                  "30",
                                  "y"});
 
-        bool result = AwsDoc::DynamoDB::dynamodbGettingStartedScenario(*s_clientConfig);
+        bool result = createTable();
+        ASSERT_TRUE(result);
+
+        result = AwsDoc::DynamoDB::dynamodbGettingStartedScenario(*s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // AwsDocTest
