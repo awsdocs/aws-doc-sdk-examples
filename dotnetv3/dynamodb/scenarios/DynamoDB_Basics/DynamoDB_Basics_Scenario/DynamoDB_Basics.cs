@@ -3,25 +3,23 @@
 // </copyright>
 
 // snippet-start:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]
-/// <summary>
-/// This example application performs the following basic Amazon DynamoDB
-/// functions:
-///
-///     CreateTableAsync
-///     PutItemAsync
-///     UpdateItemAsync
-///     BatchWriteItemAsync
-///     GetItemAsync
-///     DeleteItemAsync
-///     Query
-///     Scan
-///     DeleteItemAsync
-///
-/// The code in this example uses the AWS SDK for .NET version 3.7 and .NET 5.
-/// Before you run this example, download 'movies.json' from
-/// https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-/// and put it in the same folder as the example.
-/// </summary>
+// This example application performs the following basic Amazon DynamoDB
+// functions:
+//
+//     CreateTableAsync
+//     PutItemAsync
+//     UpdateItemAsync
+//     BatchWriteItemAsync
+//     GetItemAsync
+//     DeleteItemAsync
+//     Query
+//     Scan
+//     DeleteItemAsync
+//
+// The code in this example uses the AWS SDK for .NET version 3.7 and .NET 5.
+// Before you run this example, download 'movies.json' from
+// https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
+// and put it in the same folder as the example.
 namespace DynamoDB_Basics_Scenario
 {
     using System;

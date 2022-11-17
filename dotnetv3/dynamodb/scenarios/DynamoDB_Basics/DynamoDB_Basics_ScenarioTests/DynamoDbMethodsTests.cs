@@ -8,7 +8,7 @@ namespace DynamoDB_Basics_Scenario.Tests
     public class DynamoDbMethodsTests
     {
         readonly AmazonDynamoDBClient client = new ();
-        readonly string tableName = "movie_table";
+        readonly string tableName = "movie_table"; 
         readonly string movieFileName = "moviedata.json";
         readonly string testMovieFileName = "testmoviedata.json";
 
