@@ -371,7 +371,7 @@ namespace IAM_Basics_Scenario
                     UserName = userName,
                 });
             }
-            catch (AmazonIdentityManagementServiceException ex)
+            catch (NoSuchEntityException ex)
             {
                 return false;
             }

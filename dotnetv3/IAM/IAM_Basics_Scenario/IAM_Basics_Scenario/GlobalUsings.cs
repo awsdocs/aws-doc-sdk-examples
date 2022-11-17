@@ -9,4 +9,4 @@ global using Amazon.S3;
 global using Amazon.SecurityToken;
 global using Amazon.SecurityToken.Model;
 
-// snippet-start:[IAM.dotnetv3.IAM_Basics.GlobalUsings]
+// snippet-end:[IAM.dotnetv3.IAM_Basics.GlobalUsings]
