@@ -43,7 +43,7 @@ if(MSVC AND BUILD_SHARED_LIBS)
     list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
 
      AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-
+endif()
 
 # AWSDOC_SOURCE can be defined in the command line to limit the files in a build. For example,
 # you can limit files to one action.
@@ -71,6 +71,10 @@ foreach(file ${AWSDOC_SOURCE})
 
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})
+
+    target_compile_definitions(${EXAMPLE_EXE}
+            PRIVATE
+            CLOUD_FORMATION_TEMPLATE_FILE="${CMAKE_SOURCE_DIR}/setup_scenario_getting_started.yaml")
 
 endforeach()
 

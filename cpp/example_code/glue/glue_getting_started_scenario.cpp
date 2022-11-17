@@ -32,9 +32,21 @@
 
 #include <iostream>
 #include <aws/core/Aws.h>
+#include <aws/cloudformation/CloudFormationClient.h>
+#include <aws/cloudformation/model/CreateStackRequest.h>
+#include <aws/cloudformation/model/DescribeStacksRequest.h>
+#include <vector>
+#include <fstream>
 
 namespace AwsDoc {
     namespace Glue {
+        static const Aws::String STACK_NAME("doc-example-glue-scenario-stack");
+
+        Aws::String askQuestion(const Aws::String &string);
+
+        std::map<Aws::String, Aws::String> createCloudFormationResource(
+                const Aws::Client::ClientConfiguration &clientConfig,
+                const Aws::String &templateFilePath);
     } // Glue
 } // AwsDoc
 
@@ -43,26 +55,33 @@ namespace AwsDoc {
 #ifndef TESTING_BUILD
 
 int main(int argc, const char *argv[]) {
-
-    if (argc != 3) {
-        std::cout << "Usage:\n" <<
-                  "    <uploadFilePath> <saveFilePath>\n\n" <<
-                  "Where:\n" <<
-                  "   uploadFilePath - The path where the file is located (for example, C:/AWS/book2.pdf).\n" <<
-                  "   saveFilePath - The path where the file is saved after it's " <<
-                  "downloaded (for example, C:/AWS/book2.pdf). " << std::endl;
-        return 1;
-    }
-
-    Aws::String objectPath = argv[1];
-    Aws::String savePath = argv[2];
-
     Aws::SDKOptions options;
-    InitAPI(options);
+
+    Aws::InitAPI(options);
 
     {
+        Aws::String roleName;
+        Aws::String bucketName;
         Aws::Client::ClientConfiguration clientConfig;
-        AwsDoc::S3::S3_GettingStartedScenario(objectPath, savePath, clientConfig);
+        if (argc == 1) {
+            Aws::String answer = AwsDoc::Glue::askQuestion(
+                    "Create the resources using");
+
+            if (answer == "y") {
+                std::map<Aws::String, Aws::String> result = AwsDoc::Glue::createCloudFormationResource(
+                        clientConfig,
+                        CLOUD_FORMATION_TEMPLATE_FILE); // defined in CMakeLists.txt
+
+                if (!result.empty())
+                {
+
+                }
+
+
+            }
+
+        }
+
     }
 
     ShutdownAPI(options);
@@ -73,3 +92,60 @@ int main(int argc, const char *argv[]) {
 #endif // TESTING_BUILD
 
 
+Aws::String AwsDoc::Glue::askQuestion(const Aws::String &string) {
+    Aws::String result;
+    do {
+        std::cout << string;
+        std::getline(std::cin, result);
+        if (result.empty()) {
+            std::cout << "Please enter some text." << std::endl;
+        }
+    } while (result.empty());
+
+    return result;
+}
+
+std::map<Aws::String, Aws::String>
+AwsDoc::Glue::createCloudFormationResource(
+        const Aws::Client::ClientConfiguration &clientConfig,
+        const Aws::String &templateFilePath) {
+    std::map<Aws::String, Aws::String> result;
+    Aws::CloudFormation::CloudFormationClient client(clientConfig);
+
+    Aws::CloudFormation::Model::CreateStackRequest request;
+
+    std::ifstream ifstream(templateFilePath);
+    if (!ifstream)
+    {
+        std::cerr << "Could not load file '" << templateFilePath << "'" << std::endl;
+        return result;
+    }
+    std::ostringstream templateStream;
+    templateStream << ifstream.rdbuf();
+    request.SetTemplateBody(templateStream.str());
+    request.SetStackName(STACK_NAME);
+    request.SetCapabilities({Aws::CloudFormation::Model::Capability::CAPABILITY_IAM});
+
+    Aws::CloudFormation::Model::CreateStackOutcome outcome = client.CreateStack(request);
+
+    if (outcome.IsSuccess())
+    {
+        Aws::CloudFormation::Model::DescribeStacksRequest waitRequest;
+        waitRequest.SetStackName(STACK_NAME);
+
+
+        for (int i = 0; i < 20; ++i)
+        {
+            Aws::CloudFormation::Model::DescribeStacksOutcome waitOutcome = client.DescribeStacks(waitRequest);
+            if (waitOutcome.IsSuccess())
+            {
+                // to be continued
+                std::cout << "wait result " << waitOutcome.GetResult().GetStacks();
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+
+    }
+
+    return result;
+}
