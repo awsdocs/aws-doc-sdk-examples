@@ -1,5 +1,4 @@
 {
-  "AssumePolicyName": "test-sts-trust-user",
   "RoleName": "test-temporary-role",
   "S3PolicyName": "test-s3-list-buckets-policy",
   "UserName": "text-example-user"

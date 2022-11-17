@@ -11,20 +11,17 @@ namespace IAM_Basics_Scenario
     using System;
     using System.IO;
     using System.Threading.Tasks;
-    using Amazon;
-    using Amazon.IdentityManagement;
-    using Amazon.IdentityManagement.Model;
-    using Amazon.S3;
-    using Amazon.SecurityToken;
-    using Amazon.SecurityToken.Model;
 
+    /// <summary>
+    /// Performs basic actions using AWS Identity and Access Management (IAM) with
+    /// the AWS SDK for .NET.
+    /// </summary>
     public class IAM_Basics
     {
         // Values needed for user, role, and policies.
         private const string UserName = "example-user";
         private const string S3PolicyName = "s3-list-buckets-policy";
         private const string RoleName = "temporary-role";
-        private const string AssumePolicyName = "sts-trust-user";
 
         private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
 
@@ -95,7 +92,7 @@ namespace IAM_Basics_Scenario
 
             // Wait 15 seconds for the role to be updated.
             Console.WriteLine();
-            WaitABit(15, "Waiting to time for the policy to be attached.");
+            WaitABit(15, "Waiting for the policy to be attached.");
 
             // Use the AWS Security Token Service (AWS STS) to have the user
             // assume the role we created.
@@ -376,8 +373,11 @@ namespace IAM_Basics_Scenario
             }
             catch (AmazonIdentityManagementServiceException ex)
             {
-
+                return false;
             }
+
+            // All the resources have been deleted.
+            return true;
 
         }
 

@@ -1,9 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using Amazon.SecurityToken;
+
 namespace IAM_Basics_Scenario.Tests
 {
-    [TestCaseOrderer("OrchestrationService.Project.Orderers.PriorityOrderer", "OrchestrationService.Project")]
     public class IAM_BasicsTests
     {
         // Values needed for user, role, and policies.
@@ -11,14 +12,15 @@ namespace IAM_Basics_Scenario.Tests
         private readonly IConfiguration _configuration;
 
         private readonly AmazonIdentityManagementServiceClient _client;
+
         private readonly string _userName;
         private readonly string _s3PolicyName;
         private readonly string _roleName;
-        private readonly string _assumePolicyName;
         private string _accessKeyId = string.Empty;
         private string _secretKey = string.Empty;
         private ManagedPolicy _testPolicy;
         private string _userArn;
+        private string _roleArn;
 
         string testPolicyDocument = "{" +
             "\"Version\": \"2012-10-17\"," +
@@ -41,7 +43,6 @@ namespace IAM_Basics_Scenario.Tests
             _userName = _configuration["UserName"];
             _s3PolicyName = _configuration["S3PolicyName"];
             _roleName = _configuration["RoleName"];
-            _assumePolicyName = _configuration["AssumePolicyName"];
 
             _client = new AmazonIdentityManagementServiceClient(Region);
         }
@@ -74,6 +75,11 @@ namespace IAM_Basics_Scenario.Tests
         [Order(3)]
         public async Task CreateRoleAsyncTest()
         {
+            if (string.IsNullOrEmpty(_userArn))
+            {
+                _userArn = _configuration["UserArn"];
+            }
+
             string testAssumeRolePolicy = "{" +
                 "\"Version\": \"2012-10-17\"," +
                 "\"Statement\": [{" +
@@ -88,8 +94,12 @@ namespace IAM_Basics_Scenario.Tests
             // Create the role to allow listing the Amazon Simple Storage Service
             // (Amazon S3) buckets. Role names are not case sensitive and must
             // be unique to the account for which it is created.
-            var role = await IAM_Basics.CreateRoleAsync(_client, _roleName, testAssumeRolePolicy);
-            var roleArn = role.Arn;
+            var role = await IAM_Basics.CreateRoleAsync(
+                _client,
+                _roleName,
+                testAssumeRolePolicy);
+
+            _roleArn = role.Arn;
 
             Assert.NotNull(role);
             Assert.Equal(role.RoleName, _roleName);
@@ -104,23 +114,54 @@ namespace IAM_Basics_Scenario.Tests
 
             Assert.Equal(policy.PolicyName, _s3PolicyName);
             _testPolicy = policy;
+
+            // Wait 15 seconds for the policy to be available.
+            System.Threading.Thread.Sleep(15000);
         }
 
         [Fact()]
         [Order(5)]
         public async Task AttachRoleAsyncTest()
         {
+            var stsClient = new AmazonSecurityTokenServiceClient(
+                _accessKeyId,
+                _secretKey);
+
+            // Wait for credentials to be valid.
+            System.Threading.Thread.Sleep(10000);
+
             // Attach the policy to the role we created earlier.
             await IAM_Basics.AttachRoleAsync(_client, _testPolicy.Arn, _roleName);
+
+            // Waiting 15 seconds for the policy to be attached
+            System.Threading.Thread.Sleep(15000);
         }
 
         [Fact()]
         [Order(6)]
+        public async Task AssumeS3RoleAsyncTest()
+        {
+            var stsClient = new AmazonSecurityTokenServiceClient(
+                _accessKeyId,
+                _secretKey);
+
+            // Wait for credentials to be valid.
+            System.Threading.Thread.Sleep(10000);
+
+            var assumedRoleCredentials = await IAM_Basics.AssumeS3RoleAsync(
+                stsClient,
+                "temporary-session",
+                _roleArn);
+        }
+
+        [Fact()]
+        [Order(7)]
         public async Task DeleteResourcesTest()
         {
             // Delete all the resources created for the various tests.
             var success = await IAM_Basics.DeleteResourcesAsync(
-                _client, _accessKeyId,
+                _client,
+                _accessKeyId,
                 _userName,
                 _testPolicy.Arn,
                 _roleName);
