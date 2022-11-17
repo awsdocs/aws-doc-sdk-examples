@@ -18,7 +18,7 @@ _configuration = new ConfigurationBuilder()
         true) // Optionally load local settings.
     .Build();
 
-// Edit the values in settings.json to use a bucket and files that
+// Edit the values in settings.json to use an S3 bucket and files that
 // exist on your AWS account and on the local computer where you
 // run this scenario.
 var bucketName = _configuration["BucketName"];
@@ -46,7 +46,7 @@ PressEnter();
 
 // Upload a local directory to an S3 bucket.
 DisplayTitle("Upload all files from a local directory");
-Console.WriteLine("Upload all the files in a local folder to an Amazon S3 bucket.");
+Console.WriteLine("Upload all the files in a local folder to an S3 bucket.");
 const string keyPrefix = "UploadFolder";
 var uploadPath = $"{localPath}\\UploadFolder";
 
@@ -70,7 +70,7 @@ PressEnter();
 
 // Download a single file from an S3 bucket.
 DisplayTitle("Download a single file");
-Console.WriteLine("Now we will download a single file from an Amazon S3 bucket.");
+Console.WriteLine("Now we will download a single file from an S3 bucket.");
 
 var keyName = _configuration["FileToDownload"];
 
@@ -85,7 +85,7 @@ if (success)
 PressEnter();
 
 // Download the contents of a directory from an S3 bucket.
-DisplayTitle("Download the contents of an Amazon S3 bucket");
+DisplayTitle("Download the contents of an S3 bucket");
 var s3Path = _configuration["S3Path"];
 var downloadPath = $"{localPath}\\{s3Path}";
 
@@ -123,10 +123,10 @@ static void DisplayInstructions()
     DisplayTitle("Amazon S3 Transfer Utility Basics");
     Console.WriteLine("This program shows how to use the Amazon S3 Transfer Utility.");
     Console.WriteLine("It performs the following actions:");
-    Console.WriteLine("\t1. Upload a single object to an Amazon S3 bucket.");
-    Console.WriteLine("\t2. Upload an entire directory from the local computer to an\n\t  Amazon S3 bucket.");
-    Console.WriteLine("\t3. Download a single object from an Amazon S3 bucket.");
-    Console.WriteLine("\t4. Download the objects in an Amazon S3 bucket to a local directory.");
+    Console.WriteLine("\t1. Upload a single object to an S3 bucket.");
+    Console.WriteLine("\t2. Upload an entire directory from the local computer to an\n\t  S3 bucket.");
+    Console.WriteLine("\t3. Download a single object from an S3 bucket.");
+    Console.WriteLine("\t4. Download the objects in an S3 bucket to a local directory.");
     Console.WriteLine($"\n{sepBar}");
 }
 
@@ -139,7 +139,7 @@ static void PressEnter()
 }
 
 // Returns the string textToCenter, padded on the left with spaces
-// that will cause the text to be centered on the console display.
+// that center the text on the console display.
 static string CenterText(string textToCenter)
 {
     var centeredText = new StringBuilder();
@@ -162,7 +162,7 @@ static void DisplayLocalFiles(string localPath)
     }
 }
 
-// Displays a list of the files in the specified bucket and prefix.
+// Displays a list of the files in the specified S3 bucket and prefix.
 static async Task DisplayBucketFiles(IAmazonS3 client, string bucketName, string s3Path)
 {
     ListObjectsV2Request request = new()

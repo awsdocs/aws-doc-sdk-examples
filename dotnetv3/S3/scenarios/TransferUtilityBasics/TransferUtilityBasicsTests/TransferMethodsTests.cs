@@ -29,10 +29,15 @@ namespace TransferUtilityBasics.Tests
         public async Task DownloadSingleFileAsyncTest()
         {
             var keyName = _configuration["FileToDownload"];
+            if (File.Exists(keyName))
+            {
+                File.Delete(keyName);
+            }
+
             var success = await TransferMethods.DownloadSingleFileAsync(
                 transferUtil,
                 _configuration["BucketName"],
-                _configuration["FileToDownload"],
+                keyName,
                 _localPath);
 
             Assert.True(success, $"Couldn't download {keyName}.");
