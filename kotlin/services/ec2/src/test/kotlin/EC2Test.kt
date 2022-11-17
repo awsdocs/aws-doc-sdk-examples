@@ -143,7 +143,7 @@ class EC2Test {
     @Test
     @Order(6)
     fun createSecurityGroupTest() = runBlocking {
-        groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId ).toString()
+        groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId).toString()
         assertTrue(!groupId.isEmpty())
         println("Test 6 passed")
     }
@@ -227,7 +227,7 @@ class EC2Test {
 
         println(DASHES)
         println("3. Create a security group.")
-        val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc,myIpAddressSc)
+        val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc)
         println(DASHES)
 
         println(DASHES)
