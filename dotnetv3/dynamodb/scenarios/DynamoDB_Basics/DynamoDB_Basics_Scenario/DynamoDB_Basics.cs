@@ -29,7 +29,7 @@ namespace DynamoDB_Basics_Scenario
     public class DynamoDB_Basics
     {
         // Separator for the console display.
-        private static readonly string SepBar = new ('-', 80);
+        private static readonly string SepBar = new string('-', 80);
 
         public static async Task Main()
         {
