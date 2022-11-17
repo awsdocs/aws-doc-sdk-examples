@@ -74,7 +74,7 @@ val DASHES = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <keyName> <fileName> <groupName> <groupDesc> <vpcId>
+            <keyName> <fileName> <groupName> <groupDesc> <vpcId> <myIpAddress>
 
         Where:
             keyName - A key pair name (for example, TestKeyPair). 
@@ -82,7 +82,7 @@ suspend fun main(args: Array<String>) {
             groupName - The name of the security group. 
             groupDesc - The description of the security group. 
             vpcId - A VPC ID. You can get this value from the AWS Management Console. 
-            myIpAddress - The ip address of your development machine. 
+            myIpAddress - The IP address of your development machine. 
 
 """
 
