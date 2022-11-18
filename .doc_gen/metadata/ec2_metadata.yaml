@@ -92,7 +92,7 @@ ec2_DescribeKeyPairs:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.kotlin.scenario_describe_keys.main
+                - ec2.kotlin.describe_key_pairs.main
     Java:
       versions:
         - sdk_version: 2
