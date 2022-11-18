@@ -201,7 +201,7 @@ class EC2Test {
     @Test
     @Order(15)
     fun TestEC2Scenario() = runBlocking {
-        var newInstanceId = ""
+        var newInstanceId: String
         println(DASHES)
         println("1. Create an RSA key pair and save the private key material as a .pem file.")
         createKeyPairSc(keyNameSc, fileNameSc)
@@ -215,7 +215,7 @@ class EC2Test {
         println(DASHES)
         println("3. Create a security group.")
         val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc)
-        groupId?.let {assertTrue(it.isNotEmpty())}
+        groupId?.let { assertTrue(it.isNotEmpty()) }
         println(DASHES)
 
         println(DASHES)
@@ -226,14 +226,14 @@ class EC2Test {
         println(DASHES)
         println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.")
         val instanceId = getParaValuesSc()
-        instanceId?.let {assertTrue(it.isNotEmpty())}
+        instanceId?.let { assertTrue(it.isNotEmpty()) }
         println("The instance ID is $instanceId")
         println(DASHES)
 
         println(DASHES)
         println("6. Get more information about an amzn2 image and return the AMI value.")
         val amiValue = instanceId?.let { describeImageSc(it) }
-        amiValue?.let {assertTrue(it.isNotEmpty()) }
+        amiValue?.let { assertTrue(it.isNotEmpty()) }
         println("The AMI value is $amiValue.")
         println(DASHES)
 
@@ -266,7 +266,7 @@ class EC2Test {
         println("11.  Start the instance.")
         startInstanceSc(newInstanceId)
         ipAddress = describeEC2InstancesSc(newInstanceId)
-        ipAddress?.let { assertTrue(it.isNotEmpty()) }
+        ipAddress.let { assertTrue(it.isNotEmpty()) }
         println("You can SSH to the instance using this command:")
         println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
         println(DASHES)
@@ -283,7 +283,7 @@ class EC2Test {
         println(DASHES)
         println("13. Describe the instance again.")
         ipAddress = describeEC2InstancesSc(newInstanceId)
-        ipAddress?.let { assertTrue(it.isNotEmpty()) }
+        ipAddress.let { assertTrue(it.isNotEmpty()) }
         println("You can SSH to the instance using this command:")
         println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
         println(DASHES)
