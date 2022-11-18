@@ -11,11 +11,12 @@
 # attachment to the email instead of in the body of the email itself.
 
 require 'logger'
-require 'mime'
+require 'erb'
 require 'json'
 require 'csv'
 require 'mail'
 require_relative 'db_wrapper'
+require 'mime'
 
 # Encapsulates a report resource that gets work items from an
 # Amazon Aurora Serverless database and uses Amazon SES to send emails about them.
@@ -28,43 +29,41 @@ class Report
     @db_wrapper = db_wrapper
     @email_sender = email_sender
     @ses_client = ses_client
+    @timestamp = Time.now.strftime('%H:%M on %h %d %Y')
   end
 
   # Formats the report as a ready-to-send email message, including attachment
-  def format_message(_recipient, _text, _html, _attachment, _charset = 'utf-8')
-    logger = Logger.new($stdout)
-    mail = Mail.new do
-      from 'info@yourrubyapp.com'
-      to 'your@bestuserever.com'
-      subject 'Email with HTML and an attachment'
-      text_part do
-        body 'Put your plain text here'
-      end
-      html_part do
-        content_type 'text/html; charset=UTF-8'
-        body '<h1>And here is the place for HTML</h1>'
-      end
-      add_file '/path/to/Attachment.pdf'
-    end
-  end
+  def format_mime_message(email_recipient, _text, _html, attachment, charset='utf-8') #, _text, _html, _attachment, _charset = 'utf-8')
+    @logger.info('Beginning to format message...')
 
-  #   msg = MIME::Multipart::Mixed.new
-  #   msg['Subject'] = 'Work items'
-  #   msg['From'] = @email_sender
-  #   msg['To'] = recipient
-  #   msg_body = MIMEMultipart('alternative')
-  #
-  #   text = MIMEText(text.encode(charset), 'plain', charset)
-  #   html = MIMEText(html.encode(charset), 'html', charset)
-  #   msg_body.attach(text)
-  #   msg_body.attach(html)
-  #
-  #   att = MIMEApplication(attachment.encode(charset))
-  #   att.add_header('Content-Disposition', 'attachment', filename = 'work_items.csv')
-  #   msg.attach(msg_body)
-  #   msg.attach(att)
-  #   msg
-  # end
+    mail = Mail.new
+    mail.sender = @email_sender
+    mail.to = email_recipient
+    mail.subject = "Multipart Test"
+    mail.content_type = "multipart/mixed"
+
+    html_part = Mail::Part.new do
+      content_type  'text/html; charset=UTF-8'
+      body          _html
+    end
+
+    text_part = Mail::Part.new do
+      body          _text
+    end
+
+    mail.part :content_type => "multipart/alternative" do |p|
+      p.html_part = html_part
+      p.text_part = text_part
+    end
+
+    mail.attachments['data.csv'] = {content: Base64.encode64(File.read('data.csv')), transfer_encoding: :base64}
+    mail.attachments['data2.csv'] = File.read('data.csv')
+
+    mail.content_type = mail.content_type.gsub('alternative', 'mixed')
+    mail.charset= 'UTF-8'
+    mail.content_transfer_encoding = 'quoted-printable'
+    @logger.info(mail)
+  end
 
   # Renders work items to CSV format, with the field names as a header row.
   #
@@ -78,62 +77,91 @@ class Report
     end
   end
 
-  # Gets a list of work items from storage, makes a report of them, and
-  # sends an email. The email is sent in both HTML and text format.
-  #
-  # When ten or fewer items are in the report, the items are included in the body
-  # of the email. Otherwise, the items are included as an attachment in CSV format.
-  #
+  # @return html_part
+  def render_template(template_file, work_items)
+    erb = ERB.new(File.read(template_file), trim_mode: "%<>")
+    @work_items = work_items
+    @timestamp = Time.now.strftime('%H:%M on %h %d %Y')
+    erb.result(binding)
+  end
+
+  # Gets a list of work items from the database and sends an email.
+  # Two versions of the email are included:
+  #    1. An HTML version that formats the report as an HTML table by using Flask's
+  #       template rendering feature. Email clients that can render HTML receive this
+  #       version.
+  #    2. A text version that includes the report as a list of Python dicts. Email
+  #       clients that cannot render HTML receive this version.
   # When your Amazon SES account is in the sandbox, both the sender and recipient
   # email addresses must be registered with Amazon SES.
-  #
-  # @param recipient_email: The recipient's email address.
-  # @return: An error message and an HTTP result code.
-  def post(recipient_email)
-    response = None
-    result = 200
-    work_items = @db_wrapper.get_work_items(item_id = nil, archive = false)
-    snap_time = Time.now
+  # JSON request parameters:
+  #   email: The recipient's email address.
+  #   status: The status of work items that are included in the report.
+  # @return [Integer] An HTTP result code.
+  def post_report(recipient_email)
+    @logger.info("Getting work items for report.")
+    work_items = @db_wrapper.get_work_items
+    @logger.debug("Prepared the following items for a report:\n#{work_items}")
+
+    html_report = render_template('../templates/report.html', work_items)
+    @logger.debug("HTML report: \n#{html_report}")
+
+    text_report = ''
+    work_items.each do |work_item|
+      text_report += "\n#{work_item.to_json}"
+    end
+    @logger.debug("Text report: \n#{text_report}")
+
+    @logger.info('Successfully rendered work_items into HTML & text.')
+
+    render_csv(work_items)
+    @logger.info('Successfully saved work items as CSV attachment.')
+
     @logger.info("Sending report of #{work_items.count} items to #{recipient_email}")
-
-    html_report = render_template(
-      'report.html',
-      work_items,
-      item_count = work_items.count.to_s,
-      snap_time = snap_time
-    )
-    @logger.info('HTML successfully rendered.')
-    csv_items = render_csv(work_items)
-
-    text_report = render_template(
-      'report.txt',
-      work_items = csv_items,
-      item_count = work_items.count.to_s,
-      snap_time = snap_time
-    )
-    @logger.info('CSV successfully rendered.')
-
     if work_items.count > 10
-      mime_msg = format_message(recipient_email, text_report, html_report, csv_items)
-      response = @ses_client.send_raw_email(
-        source = @email_sender,
-        destinations = [recipient_email],
-        raw_message = {
-          data: mime_msg.to_s
-        }
-      )
+      csv_file = File.read('data.csv')
+      mime_msg = format_mime_message(recipient_email, text_report, html_report, csv_file)
+      response = @ses_client.send_raw_email({
+                                              source: @email_sender,
+                                              destinations: [recipient_email],
+                                              raw_message: { # required
+                                                             data: mime_msg.to_s, # required
+                                              },
+                                              tags: [
+                                                {
+                                                  name: "MessageTagName", # required
+                                                  value: "MessageTagValue", # required
+                                                }
+                                              ]
+                                            })
+      result = 204
     else
-      @ses_client.send_email(
-        source = @email_sender,
-        destination = { to_addresses: [recipient_email] },
-        message = {
-          subject: { data: 'Work items' },
-          body: {
-            html: { data: html_report },
-            text: { data: text_report }
-          }
-        }
-      )
+      response = @ses_client.send_email({
+                               source: @email_sender,
+                               destination: { # required
+                                              to_addresses: [recipient_email]
+                               },
+                               message: {
+                                          subject: {
+                                                     data: "MessageData"
+                                          },
+                                          body: { # required
+                                                  text: {
+                                                    data: text_report
+                                                  },
+                                                  html: {
+                                                    data: html_report
+                                                  },
+                                          },
+                               },
+                               tags: [
+                                 {
+                                   name: "MessageTagName", # required
+                                   value: "MessageTagValue", # required
+                                 }
+                               ]
+                             })
+      result = 204
     end
   rescue RDSClientError => e
     @logger.exception(

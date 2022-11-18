@@ -56,10 +56,9 @@ describe 'CRUD commands on Aurora' do
   end
 
   it 'make report' do
-    # Generate report
     report = Report.new(wrapper, 'fprior@amazon.com', Aws::SES::Client.new)
-    response = report.post('fprior@amazon.com')
-    puts "RESPONSE: " + response.to_s
+    report.post_report('fprior@amazon.com')
   end
 end
+
 

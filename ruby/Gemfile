@@ -15,8 +15,7 @@ gem "rubocop-rake"
 gem "rubyzip"
 gem "zip"
 gem "sinatra"
-gem 'sinatra-contrib'
 gem 'sequel'
-gem 'activerecord'
-gem "puma"
 gem 'mail'
+gem 'ruby-debug-ide'
+gem 'sendmail'

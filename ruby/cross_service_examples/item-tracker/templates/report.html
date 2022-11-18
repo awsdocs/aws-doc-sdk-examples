@@ -6,10 +6,10 @@
 </head>
 <body>
 <h1>Work items</h1>
-<p>Snapshot of {{item_count}} active work items taken at {{snap_time.strftime('%H:%M on %h %d %Y')}}.</p>
-{% if item_count > 10 %}
+<p>Snapshot of <%= @work_items.count %> active work items taken at <%= @timestamp %>.</p>
+<% if @work_items.count > 10 %>
 <p>See attachment for work items table.</p>
-{% else %}
+<% else %>
 <hr/>
 <table class="table">
     <thead>
@@ -22,17 +22,21 @@
     </tr>
     </thead>
     <tbody>
-    {% for work_item in work_items %}
+    <% for @work_item in @work_items %>
     <tr>
-        <td>{{work_item["description"]}}</td>
-        <td>{{work_item["guide"]}}</td>
-        <td>{{work_item["status"]}}</td>
-        <td>{{work_item["username"]}}</td>
-        <td>{{'Yes' if work_item["archived"] else 'No'}}</td>
+        <td><%= @work_item["description"] %></td>
+        <td><%= @work_item["guide"] %></td>
+        <td><%= @work_item["status"] %></td>
+        <td><%= @work_item["username"] %></td>
+        <% if @work_item["archive"] %>
+        <td>'Yes'</td>
+        <% else %>
+        <td>'No'</td>
+        <% end %>
     </tr>
-    {% endfor %}
+    <% end %>
     </tbody>
 </table>
-{% endif %}
+<% end %>
 </body>
 </html>

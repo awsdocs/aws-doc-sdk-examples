@@ -47,6 +47,10 @@ class DBWrapper
     json = MultiJson.load(results)
     output = []
     json.each do |x|
+      name = x["username"]
+      id = x["work_item_id"]
+      x["name"] = name
+      x["id"] = id
       output.append(x)
     end
     # @logger.info(MultiJson.dump(output))
@@ -99,7 +103,7 @@ class DBWrapper
   # @param item_id [String] The Item ID to fetch. Returns all items if nil. Default: nil.
   # @param include_archived [Boolean] If true, include archived items. Default: false
   # @return [Array] The hashed records from RDS which represent work items.
-  def get_work_items(item_id, include_archived)
+  def get_work_items(item_id=nil, include_archived=false)
     sql = @model.select(:work_item_id, :description, :guide, :status, :username, :archive).from(:work_items)
     sql = sql.where(archive: true?(include_archived))
     sql = sql.where(work_item_id: item_id.to_i) if item_id
@@ -139,6 +143,7 @@ class DBWrapper
     sql = _format_sql(sql)
     @logger.info("Prepared PUT query: #{sql}")
     response = _run_statement(sql)
+    @logger.info("Successfully archived item_id: #{item_id}")
     response.number_of_records_updated == 1
   end
 end
