@@ -101,26 +101,14 @@ class EC2Test {
 
     @Test
     @Order(1)
-    fun whenInitializingAWSService_thenNotNull() {
-        assertTrue(!ami.isEmpty())
-        assertTrue(!instanceName.isEmpty())
-        assertTrue(!keyName.isEmpty())
-        assertTrue(!groupName.isEmpty())
-        assertTrue(!groupDesc.isEmpty())
-        assertTrue(!vpcId.isEmpty())
-        println("Test 1 passed")
-    }
-
-    @Test
-    @Order(2)
     fun createInstanceTest() = runBlocking {
         instanceId = createEC2Instance(instanceName, ami).toString()
-        assertTrue(!instanceId.isEmpty())
+        assertTrue(instanceId.isNotEmpty())
         println("Test 2 passed")
     }
 
     @Test
-    @Order(3)
+    @Order(2)
     fun createKeyPairTest() = runBlocking {
         createEC2KeyPair(keyName)
         println("Test 3 passed")
@@ -144,7 +132,7 @@ class EC2Test {
     @Order(6)
     fun createSecurityGroupTest() = runBlocking {
         groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId).toString()
-        assertTrue(!groupId.isEmpty())
+        assertTrue(groupId.isNotEmpty())
         println("Test 6 passed")
     }
 
@@ -229,7 +217,7 @@ class EC2Test {
         println("3. Create a security group.")
         val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc)
         if (groupId != null) {
-            assertTrue(!groupId.isEmpty())
+            assertTrue(groupId.isNotEmpty())
         }
         println(DASHES)
 
@@ -242,7 +230,7 @@ class EC2Test {
         println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.")
         val instanceId = getParaValuesSc()
         if (instanceId != null) {
-            assertTrue(!instanceId.isEmpty())
+            assertTrue(instanceId.isNotEmpty())
         }
         if (instanceId == "") {
             println("The instance Id value is invalid.")
@@ -255,7 +243,7 @@ class EC2Test {
         println("6. Get more information about an amzn2 image and return the AMI value.")
         val amiValue = instanceId?.let { describeImageSc(it) }
         if (amiValue != null) {
-            assertTrue(!amiValue.isEmpty())
+            assertTrue(amiValue.isNotEmpty())
         }
         println("The AMI value is $amiValue.")
         println(DASHES)
@@ -263,15 +251,13 @@ class EC2Test {
         println(DASHES)
         println("7. Get a list of instance types.")
         val instanceType = getInstanceTypesSc()
-        if (instanceType != null) {
-            assertTrue(!instanceType.isEmpty())
-        }
+        assertTrue(instanceType.isNotEmpty())
         println(DASHES)
 
         println(DASHES)
         println("8. Create an instance.")
         if (amiValue != null) {
-            newInstanceId = runInstanceSc(instanceType.toString(), keyNameSc, groupNameSc, amiValue)
+            newInstanceId = runInstanceSc(instanceType, keyNameSc, groupNameSc, amiValue)
             println("The instance Id is $newInstanceId")
         }
         println(DASHES)
@@ -279,9 +265,7 @@ class EC2Test {
         println(DASHES)
         println("9. Display information about the running instance.")
         var ipAddress = describeEC2InstancesSc(newInstanceId)
-        if (ipAddress != null) {
-            assertTrue(!ipAddress.isEmpty())
-        }
+        assertTrue(ipAddress.isNotEmpty())
         println("You can SSH to the instance using this command:")
         println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
         println(DASHES)
@@ -295,9 +279,7 @@ class EC2Test {
         println("11.  Start the instance.")
         startInstanceSc(newInstanceId)
         ipAddress = describeEC2InstancesSc(newInstanceId)
-        if (ipAddress != null) {
-            assertTrue(!ipAddress.isEmpty())
-        }
+        assertTrue(ipAddress.isNotEmpty())
         println("You can SSH to the instance using this command:")
         println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
         println(DASHES)
@@ -306,7 +288,7 @@ class EC2Test {
         println("12. Allocate an Elastic IP and associate it with the instance.")
         val allocationId = allocateAddressSc()
         if (allocationId != null) {
-            assertTrue(!allocationId.isEmpty())
+            assertTrue(allocationId.isNotEmpty())
         }
         println("The allocation Id value is $allocationId")
         val associationId = associateAddressSc(newInstanceId, allocationId)
@@ -316,9 +298,7 @@ class EC2Test {
         println(DASHES)
         println("13. Describe the instance again.")
         ipAddress = describeEC2InstancesSc(newInstanceId)
-        if (ipAddress != null) {
-            assertTrue(!ipAddress.isEmpty())
-        }
+        assertTrue(ipAddress.isNotEmpty())
         println("You can SSH to the instance using this command:")
         println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
         println(DASHES)
@@ -331,9 +311,7 @@ class EC2Test {
 
         println(DASHES)
         println("15. Terminate the instance and use a waiter.")
-        if (newInstanceId != null) {
-            terminateEC2Sc(newInstanceId)
-        }
+        terminateEC2Sc(newInstanceId)
         println(DASHES)
 
         println(DASHES)
