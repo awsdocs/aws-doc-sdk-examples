@@ -468,7 +468,7 @@ suspend fun describeSecurityGroupsSc(groupId: String) {
     }
 }
 
-// snippet-start:[ec2.kotlin.scenario_inbound_rule.main]
+// snippet-start:[ec2.kotlin.scenario.inbound.rule.main]
 suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?, myIpAddress: String?): String? {
     val request = CreateSecurityGroupRequest {
         groupName = groupNameVal
@@ -505,7 +505,7 @@ suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String
         return resp.groupId
     }
 }
-// snippet-end:[ec2.kotlin.scenario_inbound_rule.main]
+// snippet-end:[ec2.kotlin.scenario.inbound.rule.main]
 
 suspend fun describeEC2KeysSc() {
     Ec2Client { region = "us-west-2" }.use { ec2 ->
