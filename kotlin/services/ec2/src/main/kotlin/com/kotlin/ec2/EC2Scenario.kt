@@ -467,6 +467,7 @@ suspend fun describeSecurityGroupsSc(groupId: String) {
         }
     }
 }
+
 // snippet-start:[ec2.kotlin.scenario_inbound_rule.main]
 suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?, myIpAddress: String?): String? {
     val request = CreateSecurityGroupRequest {
