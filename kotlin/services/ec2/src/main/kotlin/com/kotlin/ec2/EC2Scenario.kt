@@ -507,7 +507,6 @@ suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String
 }
 // snippet-end:[ec2.kotlin.scenario_inbound_rule.main]
 
-// snippet-start:[ec2.kotlin.scenario_describe_keys.main]
 suspend fun describeEC2KeysSc() {
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeKeyPairs(DescribeKeyPairsRequest {})
@@ -516,7 +515,6 @@ suspend fun describeEC2KeysSc() {
         }
     }
 }
-// snippet-end:[ec2.kotlin.scenario_describe_keys.main]
 
 suspend fun createKeyPairSc(keyNameVal: String, fileNameVal: String) {
     val request = CreateKeyPairRequest {
