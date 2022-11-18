@@ -84,6 +84,24 @@ ec2_DescribeKeyPairs:
   synopsis: list &EC2; security key pairs.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario_describe_keys.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.create_security_group.main            
     Python:
       versions:
         - sdk_version: 3
@@ -451,6 +469,24 @@ ec2_AuthorizeSecurityGroupIngress:
   synopsis: set inbound rules for an &EC2; security group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario_inbound_rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java.scenario_inbound_rule.main
     Python:
       versions:
         - sdk_version: 3
