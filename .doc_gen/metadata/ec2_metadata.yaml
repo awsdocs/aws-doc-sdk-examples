@@ -101,7 +101,7 @@ ec2_DescribeKeyPairs:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.create_security_group.main            
+                - ec2.java2.describe_key_pairs.main           
     Python:
       versions:
         - sdk_version: 3
