@@ -15,6 +15,7 @@ require_relative 'models/item'
 require 'sequel'
 require 'multi_json'
 require 'erb'
+require 'pry'
 # from botocore.exceptions import ClientError
 
 # Wraps issues commands directly to the Amazon RDS Data Service, including SQL statements.
@@ -91,7 +92,6 @@ class DBWrapper
 
   # Gets database table name
   def get_table_name
-    sql = @model.from(:work_items).sql
     sql = 'SHOW TABLES'
     sql = _format_sql(sql)
     @logger.info("Prepared GET query: #{sql}")
@@ -101,11 +101,11 @@ class DBWrapper
 
   # Gets work items from the database.
   # @param item_id [String] The Item ID to fetch. Returns all items if nil. Default: nil.
-  # @param include_archived [Boolean] If true, include archived items. Default: false
+  # @param include_archived [Boolean] If true, include archived items. Default: true
   # @return [Array] The hashed records from RDS which represent work items.
-  def get_work_items(item_id=nil, include_archived=false)
+  def get_work_items(item_id=nil, include_archived=nil)
     sql = @model.select(:work_item_id, :description, :guide, :status, :username, :archive).from(:work_items)
-    sql = sql.where(archive: true?(include_archived))
+    sql = sql.where(archive: include_archived) if include_archived
     sql = sql.where(work_item_id: item_id.to_i) if item_id
     sql = _format_sql(sql.sql)
     @logger.info("Prepared GET query: #{sql}")
@@ -122,10 +122,10 @@ class DBWrapper
   # @return: The generated ID of the new work item.
   def add_work_item(data)
     sql = @model.from(:work_items).insert_sql(
-      description: data["description"],
-      guide: data["guide"],
-      status: data["status"],
-      username: data["username"]
+      description: data['description'],
+      guide: data['guide'],
+      status: data['status'],
+      username: data['name']
     )
     sql = _format_sql(sql)
     @logger.info("Prepared POST query: #{sql}")

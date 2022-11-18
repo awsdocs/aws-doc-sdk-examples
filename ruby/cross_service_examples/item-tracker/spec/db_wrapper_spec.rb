@@ -8,6 +8,7 @@ require 'json'
 require 'rspec'
 require 'aws-sdk-rdsdataservice'
 require 'aws-sdk-ses'
+require 'pry'
 
 require_relative('../db_wrapper')
 require_relative('../report')
@@ -24,17 +25,17 @@ describe 'CRUD commands on Aurora' do
 
   it 'adds a new item' do
     item_data = {
-      description: 'This is a first item',
-      guide: 'Foo Guide',
-      status: 'Active',
-      username: 'FooUser'
+      :description=>"This is a first item",
+      :guide=>"Foo Guide",
+      :status=>"Active",
+      :username=>"FooUser"
     }
     id = wrapper.add_work_item(item_data)
     expect(id).to be_an_instance_of(Integer)
   end
 
   it 'gets a specific item' do
-    data = wrapper.get_work_items(1, false)
+    data = wrapper.get_work_items(1)
     expect(data[0]).to be_an_instance_of(Hash)
   end
 
@@ -46,7 +47,7 @@ describe 'CRUD commands on Aurora' do
       username: 'BarUser'
     }
     wrapper.add_work_item(item_data)
-    data = wrapper.get_work_items(nil, false)
+    data = wrapper.get_work_items
     expect(data[0]).to be_an_instance_of(Hash)
   end
 
@@ -55,10 +56,15 @@ describe 'CRUD commands on Aurora' do
     expect(id).to be_an_instance_of(TrueClass)
   end
 
-  it 'make report' do
-    report = Report.new(wrapper, 'fprior@amazon.com', Aws::SES::Client.new)
-    report.post_report('fprior@amazon.com')
+  it 'gets archived items' do
+    data = wrapper.get_work_items(nil, false)
+    expect(data[0]).to be_an_instance_of(Hash)
   end
+
+  # it 'make report' do
+  #   report = Report.new(wrapper, 'fprior@amazon.com', Aws::SES::Client.new)
+  #   report.post_report('fprior@amazon.com')
+  # end
 end
 
 

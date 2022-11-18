@@ -39,7 +39,7 @@ class Report
     mail = Mail.new
     mail.sender = @email_sender
     mail.to = email_recipient
-    mail.subject = "Multipart Test"
+    mail.subject = "Work Items Report"
     mail.content_type = "multipart/mixed"
 
     html_part = Mail::Part.new do
@@ -56,21 +56,22 @@ class Report
       p.text_part = text_part
     end
 
-    mail.attachments['data.csv'] = {content: Base64.encode64(File.read('data.csv')), transfer_encoding: :base64}
-    mail.attachments['data2.csv'] = File.read('data.csv')
+    # mail.attachments['data.csv'] = {content: Base64.encode64(File.read('data.csv')), transfer_encoding: :base64}
+    mail.attachments[attachment] = File.read(attachment)
 
     mail.content_type = mail.content_type.gsub('alternative', 'mixed')
     mail.charset= 'UTF-8'
     mail.content_transfer_encoding = 'quoted-printable'
     @logger.info(mail)
+    mail
   end
 
   # Renders work items to CSV format, with the field names as a header row.
   #
   # @param work_items: The work items to include in the CSV output.
   # @return: Work items rendered to a string in CSV format.
-  def render_csv(work_items)
-    CSV.open('data.csv', 'w', headers: work_items.first.keys) do |csv|
+  def render_csv(work_items, file_name)
+    CSV.open(file_name, 'w', headers: work_items.first.keys) do |csv|
       work_items.each do |h|
         csv << h.values
       end
@@ -103,7 +104,7 @@ class Report
     work_items = @db_wrapper.get_work_items
     @logger.debug("Prepared the following items for a report:\n#{work_items}")
 
-    html_report = render_template('../templates/report.html', work_items)
+    html_report = render_template('templates/report.html', work_items)
     @logger.debug("HTML report: \n#{html_report}")
 
     text_report = ''
@@ -114,52 +115,40 @@ class Report
 
     @logger.info('Successfully rendered work_items into HTML & text.')
 
-    render_csv(work_items)
-    @logger.info('Successfully saved work items as CSV attachment.')
+    csv_file = 'data.csv'
+    render_csv(work_items, csv_file)
+    @logger.info("Successfully saved work items as CSV attachment: #{csv_file}")
 
     @logger.info("Sending report of #{work_items.count} items to #{recipient_email}")
-    if work_items.count > 10
-      csv_file = File.read('data.csv')
+    if work_items.count > 100
       mime_msg = format_mime_message(recipient_email, text_report, html_report, csv_file)
       response = @ses_client.send_raw_email({
                                               source: @email_sender,
                                               destinations: [recipient_email],
-                                              raw_message: { # required
-                                                             data: mime_msg.to_s, # required
-                                              },
-                                              tags: [
-                                                {
-                                                  name: "MessageTagName", # required
-                                                  value: "MessageTagValue", # required
-                                                }
-                                              ]
+                                              raw_message: {
+                                                             data: mime_msg.to_s
+                                              }
                                             })
       result = 204
     else
       response = @ses_client.send_email({
                                source: @email_sender,
-                               destination: { # required
+                               destination: {
                                               to_addresses: [recipient_email]
                                },
                                message: {
                                           subject: {
                                                      data: "MessageData"
                                           },
-                                          body: { # required
+                                          body: {
                                                   text: {
                                                     data: text_report
                                                   },
                                                   html: {
                                                     data: html_report
-                                                  },
-                                          },
-                               },
-                               tags: [
-                                 {
-                                   name: "MessageTagName", # required
-                                   value: "MessageTagValue", # required
-                                 }
-                               ]
+                                                  }
+                                          }
+                               }
                              })
       result = 204
     end
