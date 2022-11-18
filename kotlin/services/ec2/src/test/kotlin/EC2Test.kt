@@ -46,7 +46,6 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import java.io.IOException
 import java.util.Properties
-import kotlin.system.exitProcess
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -216,7 +215,7 @@ class EC2Test {
         println(DASHES)
         println("3. Create a security group.")
         val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc)
-        groupId?.let {assertTrue(it.isNotEmpty()) }
+        groupId?.let {assertTrue(it.isNotEmpty())}
         println(DASHES)
 
         println(DASHES)
@@ -227,7 +226,7 @@ class EC2Test {
         println(DASHES)
         println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.")
         val instanceId = getParaValuesSc()
-        instanceId?.let {assertTrue(it.isNotEmpty()) }
+        instanceId?.let {assertTrue(it.isNotEmpty())}
         println("The instance ID is $instanceId")
         println(DASHES)
 
