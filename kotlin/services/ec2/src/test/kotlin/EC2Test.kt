@@ -115,21 +115,21 @@ class EC2Test {
     }
 
     @Test
-    @Order(4)
+    @Order(3)
     fun describeKeyPairTest() = runBlocking {
         describeEC2Keys()
         println("Test 4 passed")
     }
 
     @Test
-    @Order(5)
+    @Order(4)
     fun deleteKeyPairTest() = runBlocking {
         deleteKeys(keyName)
         println("Test 5 passed")
     }
 
     @Test
-    @Order(6)
+    @Order(5)
     fun createSecurityGroupTest() = runBlocking {
         groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId).toString()
         assertTrue(groupId.isNotEmpty())
@@ -137,70 +137,70 @@ class EC2Test {
     }
 
     @Test
-    @Order(7)
+    @Order(6)
     fun describeSecurityGroupTest() = runBlocking {
         describeEC2SecurityGroups(groupId)
         println("Test 7 passed")
     }
 
     @Test
-    @Order(8)
+    @Order(7)
     fun deleteSecurityGroupTest() = runBlocking {
         deleteEC2SecGroup(groupId)
         println("Test 8 passed")
     }
 
     @Test
-    @Order(9)
+    @Order(8)
     fun describeAccountTest() = runBlocking {
         describeEC2Account()
         println("Test 9 passed")
     }
 
     @Test
-    @Order(10)
+    @Order(9)
     fun describeInstancesTest() = runBlocking {
         describeEC2Instances()
         println("Test 10 passed")
     }
 
     @Test
-    @Order(11)
+    @Order(10)
     fun describeRegionsAndZonesTest() = runBlocking {
         describeEC2RegionsAndZones()
         println("Test 11 passed")
     }
 
     @Test
-    @Order(12)
+    @Order(11)
     fun describeVPCsTest() = runBlocking {
         describeEC2Vpcs(vpcId)
         println("Test 12 passed")
     }
 
     @Test
-    @Order(13)
+    @Order(12)
     fun findRunningInstancesTest() = runBlocking {
         findRunningEC2Instances()
         println("Test 13 passed")
     }
 
     @Test
-    @Order(14)
+    @Order(13)
     fun describeAddressesTest() = runBlocking {
         describeEC2Address()
         println("Test 14 passed")
     }
 
     @Test
-    @Order(15)
+    @Order(14)
     fun terminateInstanceTEst() = runBlocking {
         terminateEC2(instanceId)
         println("Test 15 passed")
     }
 
     @Test
-    @Order(16)
+    @Order(15)
     fun TestEC2Scenario() = runBlocking {
         var newInstanceId = ""
         println(DASHES)
@@ -216,9 +216,7 @@ class EC2Test {
         println(DASHES)
         println("3. Create a security group.")
         val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc)
-        if (groupId != null) {
-            assertTrue(groupId.isNotEmpty())
-        }
+        groupId?.let {assertTrue(it.isNotEmpty()) }
         println(DASHES)
 
         println(DASHES)
@@ -229,22 +227,14 @@ class EC2Test {
         println(DASHES)
         println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.")
         val instanceId = getParaValuesSc()
-        if (instanceId != null) {
-            assertTrue(instanceId.isNotEmpty())
-        }
-        if (instanceId == "") {
-            println("The instance Id value is invalid.")
-            exitProcess(0)
-        }
+        instanceId?.let {assertTrue(it.isNotEmpty()) }
         println("The instance ID is $instanceId")
         println(DASHES)
 
         println(DASHES)
         println("6. Get more information about an amzn2 image and return the AMI value.")
         val amiValue = instanceId?.let { describeImageSc(it) }
-        if (amiValue != null) {
-            assertTrue(amiValue.isNotEmpty())
-        }
+        amiValue?.let {assertTrue(it.isNotEmpty()) }
         println("The AMI value is $amiValue.")
         println(DASHES)
 
@@ -256,10 +246,8 @@ class EC2Test {
 
         println(DASHES)
         println("8. Create an instance.")
-        if (amiValue != null) {
-            newInstanceId = runInstanceSc(instanceType, keyNameSc, groupNameSc, amiValue)
-            println("The instance Id is $newInstanceId")
-        }
+        newInstanceId = runInstanceSc(instanceType, keyNameSc, groupNameSc, amiValue.toString())
+        assertTrue(newInstanceId.isNotEmpty())
         println(DASHES)
 
         println(DASHES)
@@ -279,7 +267,7 @@ class EC2Test {
         println("11.  Start the instance.")
         startInstanceSc(newInstanceId)
         ipAddress = describeEC2InstancesSc(newInstanceId)
-        assertTrue(ipAddress.isNotEmpty())
+        ipAddress?.let { assertTrue(it.isNotEmpty()) }
         println("You can SSH to the instance using this command:")
         println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
         println(DASHES)
@@ -287,18 +275,16 @@ class EC2Test {
         println(DASHES)
         println("12. Allocate an Elastic IP and associate it with the instance.")
         val allocationId = allocateAddressSc()
-        if (allocationId != null) {
-            assertTrue(allocationId.isNotEmpty())
-        }
-        println("The allocation Id value is $allocationId")
+        allocationId?.let { assertTrue(it.isNotEmpty()) }
         val associationId = associateAddressSc(newInstanceId, allocationId)
+        associationId?.let { assertTrue(it.isNotEmpty()) }
         println("The associate Id value is $associationId")
         println(DASHES)
 
         println(DASHES)
         println("13. Describe the instance again.")
         ipAddress = describeEC2InstancesSc(newInstanceId)
-        assertTrue(ipAddress.isNotEmpty())
+        ipAddress?.let { assertTrue(it.isNotEmpty()) }
         println("You can SSH to the instance using this command:")
         println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
         println(DASHES)
