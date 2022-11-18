@@ -66,7 +66,7 @@ sns_GetTopicAttributes:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -154,7 +154,7 @@ sns_ListSubscriptions:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -249,7 +249,7 @@ sns_ListTopics:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -642,7 +642,7 @@ sns_CreateTopic:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -718,7 +718,7 @@ sns_DeleteTopic:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -839,7 +839,7 @@ sns_Publish:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -969,7 +969,7 @@ sns_SetTopicAttributes:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -1064,7 +1064,7 @@ sns_Subscribe:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -1140,7 +1140,7 @@ sns_Unsubscribe:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: 
@@ -1166,7 +1166,7 @@ sns_PublishFifoTopic:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sns
+          github: sap-abap/services/sns
           sdkguide:
           excerpts:
             - description: Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic,

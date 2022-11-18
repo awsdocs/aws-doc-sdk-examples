@@ -47,7 +47,7 @@ sqs_CreateQueue:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sqs
+          github: sap-abap/services/sqs
           sdkguide:
           excerpts:
             - description: Create an &SQS; standard queue.
@@ -127,7 +127,7 @@ sqs_GetQueueUrl:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sqs
+          github: sap-abap/services/sqs
           sdkguide:
           excerpts:
             - description:
@@ -206,7 +206,7 @@ sqs_ListQueues:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sqs
+          github: sap-abap/services/sqs
           sdkguide:
           excerpts:
             - description:
@@ -286,7 +286,7 @@ sqs_DeleteQueue:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sqs
+          github: sap-abap/services/sqs
           sdkguide:
           excerpts:
             - description:
@@ -378,7 +378,7 @@ sqs_SendMessage:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sqs
+          github: sap-abap/services/sqs
           sdkguide:
           excerpts:
             - description:
@@ -495,7 +495,7 @@ sqs_ReceiveMessage:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sqs
+          github: sap-abap/services/sqs
           sdkguide:
           excerpts:
             - description: Receive a message from an &SQS; queue.

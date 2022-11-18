@@ -36,7 +36,7 @@ cloudwatch_ListMetrics:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/cloudwatch
+          github: sap-abap/services/cloudwatch
           excerpts:
             - description:
               snippet_tags:
@@ -205,7 +205,7 @@ cloudwatch_PutMetricAlarm:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/cloudwatch
+          github: sap-abap/services/cloudwatch
           excerpts:
             - description:
               snippet_tags:
@@ -319,7 +319,7 @@ cloudwatch_DescribeAlarms:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/cloudwatch
+          github: sap-abap/services/cloudwatch
           excerpts:
             - description:
               snippet_tags:
@@ -372,7 +372,7 @@ cloudwatch_EnableAlarmActions:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/cloudwatch
+          github: sap-abap/services/cloudwatch
           excerpts:
             - description:
               snippet_tags:
@@ -456,7 +456,7 @@ cloudwatch_DisableAlarmActions:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/cloudwatch
+          github: sap-abap/services/cloudwatch
           excerpts:
             - description:
               snippet_tags:
@@ -571,7 +571,7 @@ cloudwatch_DeleteAlarms:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/cloudwatch
+          github: sap-abap/services/cloudwatch
           excerpts:
             - description:
               snippet_tags:
@@ -675,7 +675,7 @@ cloudwatch_Scenario_GettingStarted:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/cloudwatch
+          github: sap-abap/services/cloudwatch
           excerpts:
             - description:
               snippet_tags:

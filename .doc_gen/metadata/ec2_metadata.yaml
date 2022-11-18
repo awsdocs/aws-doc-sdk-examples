@@ -61,7 +61,7 @@ ec2_CreateKeyPair:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -87,7 +87,7 @@ ec2_DescribeKeyPairs:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -132,7 +132,7 @@ ec2_CreateSecurityGroup:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -167,7 +167,7 @@ ec2_RunInstances:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -236,7 +236,7 @@ ec2_StartInstances:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -288,7 +288,7 @@ ec2_StopInstances:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -323,7 +323,7 @@ ec2_AllocateAddress:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -358,7 +358,7 @@ ec2_AssociateAddress:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -420,7 +420,7 @@ ec2_ReleaseAddress:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -482,7 +482,7 @@ ec2_DeleteKeyPair:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -517,7 +517,7 @@ ec2_DescribeSecurityGroups:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -561,7 +561,7 @@ ec2_DeleteSecurityGroup:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -674,7 +674,7 @@ ec2_DescribeInstances:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -698,7 +698,7 @@ ec2_DescribeRegions:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -738,7 +738,7 @@ ec2_MonitorInstances:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -771,7 +771,7 @@ ec2_RebootInstances:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -849,7 +849,7 @@ ec2_DescribeAddresses:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -865,7 +865,7 @@ ec2_DescribeAvailabilityZones:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/ec2
+          github: sap-abap/services/ec2
           excerpts:
             - description:
               snippet_tags:

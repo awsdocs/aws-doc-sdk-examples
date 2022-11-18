@@ -72,7 +72,7 @@ lambda_CreateFunction:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/lambda
+          github: sap-abap/services/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -152,7 +152,7 @@ lambda_DeleteFunction:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/lambda
+          github: sap-abap/services/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -233,7 +233,7 @@ lambda_Invoke:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/lambda
+          github: sap-abap/services/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -295,7 +295,7 @@ lambda_GetFunction:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/lambda
+          github: sap-abap/services/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -348,7 +348,7 @@ lambda_UpdateFunctionCode:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/lambda
+          github: sap-abap/services/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -409,7 +409,7 @@ lambda_UpdateFunctionConfiguration:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/lambda
+          github: sap-abap/services/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -475,7 +475,7 @@ lambda_ListFunctions:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/lambda
+          github: sap-abap/services/lambda
           excerpts:
             - description:
               snippet_tags:
@@ -609,7 +609,7 @@ lambda_Scenario_GettingStartedFunctions:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/lambda
+          github: sap-abap/services/lambda
           excerpts:
             - description:
               snippet_tags:

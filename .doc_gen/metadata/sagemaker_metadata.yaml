@@ -16,7 +16,7 @@ sagemaker_ListNotebookInstances:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -40,7 +40,7 @@ sagemaker_ListTrainingJobs:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -56,7 +56,7 @@ sagemaker_CreateEndpoint:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -72,7 +72,7 @@ sagemaker_CreateModel:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -88,7 +88,7 @@ sagemaker_CreateTrainingJob:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -104,7 +104,7 @@ sagemaker_CreateTransformJob:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -120,7 +120,7 @@ sagemaker_DeleteEndpoint:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -136,7 +136,7 @@ sagemaker_DeleteModel:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -152,7 +152,7 @@ sagemaker_DescribeTrainingJob:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -168,7 +168,7 @@ sagemaker_ListAlgorithms:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -184,7 +184,7 @@ sagemaker_ListModels:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:
@@ -207,7 +207,7 @@ sagemaker_Scenario_GettingStarted:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/sgm
+          github: sap-abap/services/sgm
           excerpts:
             - description:
               snippet_tags:

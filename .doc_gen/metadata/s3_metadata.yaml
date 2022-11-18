@@ -110,7 +110,7 @@ s3_CreateBucket:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/s3
+          github: sap-abap/services/s3
           excerpts:
             - description:
               snippet_tags:
@@ -231,7 +231,7 @@ s3_CopyObject:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/s3
+          github: sap-abap/services/s3
           excerpts:
             - description:
               snippet_tags:
@@ -379,7 +379,7 @@ s3_DeleteObject:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/s3
+          github: sap-abap/services/s3
           excerpts:
             - description:
               snippet_tags:
@@ -766,7 +766,7 @@ s3_GetObject:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/s3
+          github: sap-abap/services/s3
           excerpts:
             - description:
               snippet_tags:
@@ -995,7 +995,7 @@ s3_ListObjects:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/s3
+          github: sap-abap/services/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1142,7 +1142,7 @@ s3_PutObject:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/s3
+          github: sap-abap/services/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1266,7 +1266,7 @@ s3_DeleteBucket:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/s3
+          github: sap-abap/services/s3
           excerpts:
             - description:
               snippet_tags:
@@ -2024,7 +2024,7 @@ s3_Scenario_GettingStarted:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: abap/services/s3
+          github: sap-abap/services/s3
           excerpts:
             - description:
               snippet_tags:

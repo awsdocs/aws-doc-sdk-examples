@@ -9,6 +9,7 @@ SAP ABAP:
       api_ref:
         uid: "SdkForABAP"
         name: "&guide-abap-api;"
+        link_template: "sdk-for-sap-abap/v1/api/latest/index.html"
   guide: "&guide-abap-dev;"
 C++:
   property: cpp
