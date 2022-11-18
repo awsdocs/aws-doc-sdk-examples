@@ -1,6 +1,6 @@
 //snippet-sourcedescription:[IAMScenario.java demonstrates how to perform various AWS Identity and Access Management (IAM) operations.]
 //snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
+//snippet-service:[AWS IAM]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -51,6 +51,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 // snippet-end:[iam.java2.scenario.import]
 
+// snippet-start:[iam.java2.scenario.main]
 /*
   To run this Java V2 code example, set up your development environment, including your credentials.
 
@@ -62,15 +63,14 @@ import java.util.concurrent.TimeUnit;
 
   1. Creates a user that has no permissions.
   2. Creates a role and policy that grants Amazon S3 permissions.
-  3. Grants the user permissions.
-  4. Gets temporary credentials by assuming the role.
-  5. Creates an Amazon S3 Service client object with the temporary credentials and list objects in an Amazon S3 bucket.
+  3. Creates a role.
+  4. Grants the user permissions.
+  5. Gets temporary credentials by assuming the role.  Creates an Amazon S3 Service client object with the temporary credentials.
   6. Deletes the resources.
  */
 
-// snippet-start:[iam.java2.scenario.main]
 public class IAMScenario {
-
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static final String PolicyDocument =
             "{" +
                     "  \"Version\": \"2012-10-17\"," +
@@ -116,25 +116,52 @@ public class IAMScenario {
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        // Create the IAM user.
+        System.out.println(DASHES);
+        System.out.println("Welcome to the AWS IAM example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println(" 1. Create the IAM user.");
         Boolean createUser = createIAMUser(iam, userName);
+        System.out.println(DASHES);
 
        if (createUser) {
            System.out.println(userName + " was successfully created.");
+
+           System.out.println(DASHES);
+           System.out.println("2. Creates a policy.");
            String polArn = createIAMPolicy(iam, policyName);
            System.out.println("The policy " + polArn + " was successfully created.");
+           System.out.println(DASHES);
+
+           System.out.println(DASHES);
+           System.out.println("3. Creates a role.");
            String roleArn = createIAMRole(iam, roleName, fileLocation);
            System.out.println(roleArn + " was successfully created.");
-           attachIAMRolePolicy(iam, roleName, polArn);
+           System.out.println(DASHES);
 
+           System.out.println(DASHES);
+           System.out.println("4. Grants the user permissions.");
+           attachIAMRolePolicy(iam, roleName, polArn);
+           System.out.println(DASHES);
+
+           System.out.println(DASHES);
            System.out.println("*** Wait for 1 MIN so the resource is available");
            TimeUnit.MINUTES.sleep(1);
+           System.out.println("5. Gets temporary credentials by assuming the role.");
+           System.out.println("Perform an Amazon S3 Service operation using the temporary credentials.");
            assumeGivenRole(roleArn, roleSessionName, bucketName);
+           System.out.println(DASHES);
 
-           System.out.println("*** Getting ready to delete the AWS resources");
+           System.out.println(DASHES);
+           System.out.println("6 Getting ready to delete the AWS resources");
            deleteRole(iam, roleName, polArn);
            deleteIAMUser(iam, userName);
+           System.out.println(DASHES);
+
+           System.out.println(DASHES);
            System.out.println("This IAM Scenario has successfully completed");
+           System.out.println(DASHES);
        } else {
            System.out.println(userName +" was not successfully created.");
        }

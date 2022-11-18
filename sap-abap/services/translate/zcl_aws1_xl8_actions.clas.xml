@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AWS1_XL8_ACTIONS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Translate Code Example Actions</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_XL8_ACTIONS</CLSNAME>
+     <CMPNAME>DESCRIBE_TEXT_TRANSLATION_JOB</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Gets the properties associated with an asynchronous job</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_XL8_ACTIONS</CLSNAME>
+     <CMPNAME>LIST_TEXT_TRANSLATION_JOBS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Gets a list of the batch translation jobs</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_XL8_ACTIONS</CLSNAME>
+     <CMPNAME>START_TEXT_TRANSLATION_JOB</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Starts an asynchronous batch translation job</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_XL8_ACTIONS</CLSNAME>
+     <CMPNAME>STOP_TEXT_TRANSLATION_JOB</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Stops an asynchronous batch translation job that is in progr</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_XL8_ACTIONS</CLSNAME>
+     <CMPNAME>TRANSLATE_TEXT</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Translates input text from the source language to the target</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

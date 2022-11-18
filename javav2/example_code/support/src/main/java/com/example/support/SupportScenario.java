@@ -73,6 +73,7 @@ import java.util.List;
  */
 public class SupportScenario {
 
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) {
         final String usage = "\n" +
             "Usage:\n" +
@@ -91,44 +92,70 @@ public class SupportScenario {
             .region(region)
             .build();
 
+        System.out.println(DASHES);
         System.out.println("***** Welcome to the AWS Support case example scenario.");
-        System.out.println("***** Step 1. Get and display available services.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("1. Get and display available services.");
         List<String> sevCatList = displayServices(supportClient);
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 2. Get and display Support severity levels.");
+        System.out.println(DASHES);
+        System.out.println("2. Get and display Support severity levels.");
         String sevLevel = displaySevLevels(supportClient);
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 3. Create a support case using the selected service, category, and severity level.");
+        System.out.println(DASHES);
+        System.out.println("3. Create a support case using the selected service, category, and severity level.");
         String caseId = createSupportCase(supportClient, sevCatList, sevLevel);
         if (caseId.compareTo("")==0) {
             System.out.println("A support case was not successfully created!");
             System.exit(1);
         } else
             System.out.println("Support case "+caseId +" was successfully created!");
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 4. Get open support cases.");
+        System.out.println(DASHES);
+        System.out.println("4. Get open support cases.");
         getOpenCase(supportClient);
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 5. Create an attachment set with a generated file to add to the case.");
+        System.out.println(DASHES);
+        System.out.println("5. Create an attachment set with a generated file to add to the case.");
         String attachmentSetId = addAttachment(supportClient, fileAttachment);
         System.out.println("The Attachment Set id value is" +attachmentSetId);
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 6. Add communication with the attachment to the support case.");
+        System.out.println(DASHES);
+        System.out.println("6. Add communication with the attachment to the support case.");
         addAttachSupportCase(supportClient, caseId, attachmentSetId);
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 7. List the communications of the support case.");
+        System.out.println(DASHES);
+        System.out.println("7. List the communications of the support case.");
         String attachId = listCommunications(supportClient, caseId);
         System.out.println("The Attachment id value is" +attachId);
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 8. Describe the attachment set included with the communication.");
+        System.out.println(DASHES);
+        System.out.println("8. Describe the attachment set included with the communication.");
         describeAttachment(supportClient, attachId);
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 9. Resolve the support case.");
+        System.out.println(DASHES);
+        System.out.println("9. Resolve the support case.");
         resolveSupportCase(supportClient, caseId);
+        System.out.println(DASHES);
 
-        System.out.println("***** Step 10. Get a list of resolved cases for the current day.");
+        System.out.println(DASHES);
+        System.out.println("10. Get a list of resolved cases for the current day.");
         getResolvedCase(supportClient);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         System.out.println("***** This Scenario has successfully completed");
+        System.out.println(DASHES);
     }
 
     // snippet-start:[support.java2.get.resolve.main]
