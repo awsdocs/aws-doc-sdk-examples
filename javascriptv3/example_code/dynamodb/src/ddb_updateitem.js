@@ -42,8 +42,8 @@ export const params = {
     // Define expressions for the new or updated attributes
     UpdateExpression: "set NEW_ATTRIBUTE_NAME_1 = :t, NEW_ATTRIBUTE_NAME_2 = :s", // For example, "'set Title = :t, Subtitle = :s'"
     ExpressionAttributeValues: {
-        ":t": "NEW_ATTRIBUTE_VALUE_1", // For example ':t' : 'NEW_TITLE'
-        ":s": "NEW_ATTRIBUTE_VALUE_2", // For example ':s' : 'NEW_SUBTITLE'
+        ":t": "NEW_ATTRIBUTE_VALUE_1", // For example ':t' : { S: 'NEW_TITLE' }
+        ":s": "NEW_ATTRIBUTE_VALUE_2", // For example ':s' : { S: 'NEW_SUBTITLE' }
     },
     ReturnValues: "ALL_NEW"
 };
