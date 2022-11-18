@@ -2,7 +2,6 @@
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon EC2 Auto Scaling]
 
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -39,6 +38,7 @@ import software.amazon.awssdk.services.autoscaling.model.DescribeAutoScalingInst
 import java.util.List;
 // snippet-end:[autoscale.java2.create_scaling_scenario.import]
 
+// snippet-start:[autoscale.java2.create_scaling_scenario.main]
 /**
  *  Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
  *
@@ -55,19 +55,20 @@ import java.util.List;
  * 2. Gets a specific Auto Scaling group and returns an instance Id value.
  * 3. Describes Auto Scaling with the Id value.
  * 4. Enables metrics collection.
- * 5. Describes Auto Scaling groups.
+ * 5. Update an Auto Scaling group.
  * 6. Describes Account details.
- * 7. Updates an Auto Scaling group to use an additional instance.
- * 8. Gets the specific Auto Scaling group and gets the number of instances.
- * 9. List the scaling activities that have occurred for the group.
- * 10. Terminates an instance in the Auto Scaling group.
- * 11. Stops the metrics collection.
- * 12. Deletes the Auto Scaling group.
+ * 7. Describe account details"
+ * 8. Updates an Auto Scaling group to use an additional instance.
+ * 9. Gets the specific Auto Scaling group and gets the number of instances.
+ * 10. List the scaling activities that have occurred for the group.
+ * 11. Terminates an instance in the Auto Scaling group.
+ * 12. Stops the metrics collection.
+ * 13. Deletes the Auto Scaling group.
  */
 
-// snippet-start:[autoscale.java2.create_scaling_scenario.main]
-public class AutoScalingScenario {
 
+public class AutoScalingScenario {
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
         final String usage = "\n" +
             "Usage:\n" +
@@ -92,13 +93,19 @@ public class AutoScalingScenario {
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        System.out.println("**** Create an Auto Scaling group named "+groupName);
-        createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId);
+        System.out.println(DASHES);
+        System.out.println("Welcome to the Amazon EC2 Auto Scaling example scenario.");
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
+        System.out.println("1. Create an Auto Scaling group named "+groupName);
+        createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId);
         System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
+        System.out.println(DASHES);
 
-        System.out.println("**** Get Auto Scale group Id value");
+        System.out.println(DASHES);
+        System.out.println("2. Get Auto Scale group Id value");
         String instanceId = getSpecificAutoScalingGroups(autoScalingClient, groupName);
         if (instanceId.compareTo("") ==0) {
             System.out.println("Error - no instance Id value");
@@ -106,42 +113,69 @@ public class AutoScalingScenario {
         } else {
             System.out.println("The instance Id value is "+instanceId);
         }
+        System.out.println(DASHES);
 
-        System.out.println("**** Describe Auto Scaling with the Id value "+instanceId);
+        System.out.println(DASHES);
+        System.out.println("3. Describe Auto Scaling with the Id value "+instanceId);
         describeAutoScalingInstance( autoScalingClient, instanceId);
+        System.out.println(DASHES);
 
-        System.out.println("**** Enable metrics collection "+instanceId);
+        System.out.println(DASHES);
+        System.out.println("4. Enable metrics collection "+instanceId);
         enableMetricsCollection(autoScalingClient, groupName);
+        System.out.println(DASHES);
 
-        System.out.println("**** Update an Auto Scaling group to update max size to 3");
+        System.out.println(DASHES);
+        System.out.println("5. Update an Auto Scaling group to update max size to 3");
         updateAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, serviceLinkedRoleARN);
+        System.out.println(DASHES);
 
-        System.out.println("**** Describe all Auto Scaling groups to show the current state of the groups");
+        System.out.println(DASHES);
+        System.out.println("6. Describe Auto Scaling groups");
         describeAutoScalingGroups(autoScalingClient, groupName);
+        System.out.println(DASHES);
 
-        System.out.println("**** Describe account details");
+        System.out.println(DASHES);
+        System.out.println("7. Describe account details");
         describeAccountLimits(autoScalingClient);
-
         System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
+        System.out.println(DASHES);
 
-        System.out.println("**** Set desired capacity to 2");
+        System.out.println(DASHES);
+        System.out.println("8. Set desired capacity to 2");
         setDesiredCapacity(autoScalingClient, groupName);
+        System.out.println(DASHES);
 
-        System.out.println("**** Get the two instance Id values and state");
+        System.out.println(DASHES);
+        System.out.println("9. Get the two instance Id values and state");
         getSpecificAutoScalingGroups(autoScalingClient, groupName);
+        System.out.println(DASHES);
 
-        System.out.println("**** List the scaling activities that have occurred for the group");
+        System.out.println(DASHES);
+        System.out.println("10. List the scaling activities that have occurred for the group");
         describeScalingActivities(autoScalingClient, groupName);
+        System.out.println(DASHES);
 
-        System.out.println("**** Terminate an instance in the Auto Scaling group");
+        System.out.println(DASHES);
+        System.out.println("11. Terminate an instance in the Auto Scaling group");
         terminateInstanceInAutoScalingGroup(autoScalingClient, instanceId);
+        System.out.println(DASHES);
 
-        System.out.println("**** Stop the metrics collection");
+        System.out.println(DASHES);
+        System.out.println("12. Stop the metrics collection");
         disableMetricsCollection(autoScalingClient, groupName);
+        System.out.println(DASHES);
 
-        System.out.println("**** Delete the Auto Scaling group");
+        System.out.println(DASHES);
+        System.out.println("13. Delete the Auto Scaling group");
         deleteAutoScalingGroup(autoScalingClient, groupName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("The Scenario has successfully completed." );
+        System.out.println(DASHES);
+        
         autoScalingClient.close();
     }
 

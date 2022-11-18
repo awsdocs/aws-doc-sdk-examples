@@ -5,31 +5,34 @@
     <title>Work items</title>
   </head>
   <body>
-    <h1>Work items: {{status}}</h1>
+    <h1>Work items</h1>
+    <p>Snapshot of {{item_count}} active work items taken at {{snap_time.strftime('%H:%M on %h %d %Y')}}.</p>
+    {% if item_count > 10 %}
+    <p>See attachment for work items table.</p>
+    {% else %}
     <hr/>
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">User name</th>
         <th scope="col">Description</th>
-        <th scope="col">Status</th>
         <th scope="col">Guide</th>
-        <th scope="col">Created</th>
+        <th scope="col">Status</th>
+        <th scope="col">User name</th>
+        <th scope="col">Archived</th>
       </tr>
       </thead>
       <tbody>
       {% for work_item in work_items %}
       <tr>
-        <td>{{work_item["id"]}}</td>
-        <td>{{work_item["name"]}}</td>
         <td>{{work_item["description"]}}</td>
-        <td>{{work_item["status"]}}</td>
         <td>{{work_item["guide"]}}</td>
-        <td>{{work_item["created_date"]}}</td>
+        <td>{{work_item["status"]}}</td>
+        <td>{{work_item["username"]}}</td>
+        <td>{{'Yes' if work_item["archived"] else 'No'}}</td>
       </tr>
       {% endfor %}
       </tbody>
     </table>
+    {% endif %}
   </body>
 </html>
