@@ -1914,7 +1914,7 @@ dynamodb_FromSQL:
   title: Moving from a SQL database to a &DDB; using an &AWS; SDK
   title_abbrev: Moving from a SQL database
   synopsis_list:
-    - Work with data for Customers, Orders, and Products in an &DDB; and an &AWS; SDK.
+    - Work with data for customers, orders, and products in &DDB; and an &AWS; SDK.
   guide_topic:
     title: From SQL to NoSQL
     url: amazondynamodb/latest/developerguide/SQLtoNoSQL.html

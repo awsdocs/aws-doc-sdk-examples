@@ -1,28 +1,23 @@
 # From SQL to NoSQL code examples in C\#
 
-The code examples in the **FromSQL** directory are part of a series to aid in moving from a SQL database to a NoSQL database,
-as described in the Amazon DynamoDB Developer Guide:
+The code examples in the **FromSQL** directory are part of a series to aid in moving from a SQL database to a NoSQL database. This process is described in the *Amazon DynamoDB Developer Guide*:
+
 [From SQL to NoSQL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.html)
 
-See
+For information about moving from a relational database management system (RDBMS) to Amazon DynamoDB, see
 [Best Practices for Modeling Relational Data in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html)
-in the Amazon DynamoDB Developer Guide for information about moving
-from a relational database management system (RDBMS) to Amazon DynamoDB.
+in the *Amazon DynamoDB Developer Guide*.
 
 **IMPORTANT**
 
-NoSQL design requires a different mindset than RDBMS design.
-For an RDBMS, you can create a normalized data model without thinking about access patterns.
-You can then extend it later when new questions and query requirements arise.
-By contrast, in Amazon DynamoDB,
-you shouldn't start designing your schema until you know the questions that it needs to answer.
-Understanding the business problems and the application use cases up front is absolutely essential.
+In Amazon DynamoDB, you shouldn't start designing your schema until you know the questions that it needs to answer. With NoSQL design, it's essential to understand the business problems and application use cases up front.
+This differs from RDBMS design, which lets you create a normalized data model without thinking about access patterns because you can extend your data model later when new questions and query requirements arise.
 
-### A simple example
+### A basic example
 
-Let's take a simple order entry system,
-with just three tables: Customers, Orders, and Products.
-- Customer data includes a unique ID, their name, address, email address.
+Consider a basic order entry system,
+with three tables: Customers, Orders, and Products.
+- Customer data includes a unique ID, customer name, address, and email address.
 - Orders data includes a unique ID, customer ID, product ID, order date, and status.
 - Products data includes a unique ID, description, quantity, and cost.
 
@@ -57,7 +52,7 @@ Product_ID,Product_Description,Product_Quantity,Product_Cost
 4,"2'x50' plastic sheeting",45,450
 ```
 
-### Modeling data in Amazon DynamoDB
+### Model data in Amazon DynamoDB
 
 Amazon DynamoDB supports the following data types,
 so you might have to create a new data model:
@@ -84,23 +79,17 @@ Many, if not most, stored procedures can be implemented using
 
 Determine the type of primary key you want:
 
-- Partition key. This is a unique identifier for the item in the table.
+- **Partition key** - This is a unique identifier for the item in the table.
   If you use a partition key, every key must be unique.
-  The table we create in these code examples will contain
-  a partition key that uniquely identifies a record,
-  which can be a customer, an order, or a product.
+- **Partition key and sort key** - In this case, you don't need a unique partition key.
+  However, the combination of partition key and sort key must be unique.
 
-  Therefore, we'll create some global seconday indices
-  to query the table.
+These examples show you how to create these different keys when you create a table,
+and how to use the keys when you access a table.
 
-- Partition key and sort key.
-  In this case, you need not have a unique partition key,
-  however, the combination of partition key and sort key must be unique.
+The table you create in these code examples contains a partition key that uniquely identifies a record, which can be a customer, an order, or a product. Therefore, you also create some global secondary indices to query the table.
 
-We'll show you how to create all of these when you create a table,
-and how to use them when you access a table.
-
-### Modeling Customers, Orders, and Products in Amazon DynamoDB
+### Model Customers, Orders, and Products in Amazon DynamoDB
 
 Your Amazon DynamoDB schema to model these tables might look like this:
 
@@ -122,15 +111,15 @@ Your Amazon DynamoDB schema to model these tables might look like this:
 | Product_Quantity    | Number    | How many are in the warehouse                     |
 | Product_Cost        | Number    | The cost, in cents, of one product                |
 
-### Creating the example databases
+### Create the example databases
 
-We'll use three .csv (comma-separated value) files to define a set of customers,
-orders, and products.
-Then we'll load that data into a relational database and Amazon DynamoDB.
-Finally, we'll run some SQL commands against the relational database,
-and show you the corresponding queries or scan against an Amazon DynamoDB table.
+To create the example databases, use three .csv (comma-separated value) files to define a set of customers,
+orders, and products. You load that data into a relational database and Amazon DynamoDB.
 
-The three sets of data are in:
+Finally, you'll run some SQL commands against the relational database,
+and you can also run corresponding queries or scan against an Amazon DynamoDB table.
+
+The three sets of data are in the following files:
 
 - **customers.csv**, which defines six customers
 - **orders.csv**, which defines 12 orders
@@ -149,11 +138,11 @@ key="Table" value="CustomersOrdersProducts"
 Therefore, all the projects that require a table name use the default table
 **CustomersOrdersProducts** in the default Region **us-west-2**.
 Similar values exist for most variable values in all projects.
-This means there are few command-line arguments for any executable file.
+This means there are few command line arguments for any executable file.
 
 ### General code pattern
 
-It's important that you understand the new async/await programming model in the
+It's important to understand the async/await programming model in the
 [AWS SDK for .NET](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide).
 
 These code examples use the following NuGet packages:
@@ -163,7 +152,7 @@ These code examples use the following NuGet packages:
 
 ### ListTables
 
-### Creating a table
+### Create a table
 
 Use the **CreateTable** project to create a table.
 
@@ -173,8 +162,8 @@ in **app.config**.
 
 You can create this table as an on-demand table,
 which means that read/write capacity is not fixed
-and you are billed by what you use,
-by replacing:
+and you are billed by what you use.
+To do this, replace the following:
 
 ```
 ProvisionedThroughput = new ProvisionedThroughput
@@ -184,24 +173,24 @@ ProvisionedThroughput = new ProvisionedThroughput
 }
 ```
 
-with:
+with the following replacement code:
 
 ```
 BillingMode = BillingMode.PAY_PER_REQUEST
 ```
 
-See
+For more information, see
 [Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)
-in the *Amazon DynamoDB Developer Guide* for details.
+in the *Amazon DynamoDB Developer Guide*.
 
-### Listing the items in a table
+### List the items in a table
 
 Use the **ListItems** project to list the items in a table.
 
 The default table name is defined as **Table**
 in **app.config**.
 
-### Adding an item to the table
+### Add an item to the table
 
 Use the **AddItem** project to add an item to a table.
 
@@ -211,26 +200,25 @@ in **app.config**.
 
 It requires the following options:
 
-- ```-k``` *KEYS*, where *KEYS* is a a comma-separated list of keys
-- ```-v``` *VALUES*, where *VALUES* is a a comma-separated list of values
+- ```-k``` *KEYS*, where *KEYS* is a comma-separated list of keys
+- ```-v``` *VALUES*, where *VALUES* is a comma-separated list of values
 
-There must be the same number of keys as values.
+The number of keys must be the same as the number of values.
 
 - If the item is a customer, the schema should match that in **customers.csv**,
   with one additional key, ID, which defines the partition ID for the item.
 - If the item is an order, the schema should match that in **orders.csv**,
-  with one additional key, ID, which defines the partition ID for the item*.
+  with one additional key, ID, which defines the partition ID for the item.
 - If the item is a product, the schema should match that in **products.csv**,
-  with one additional key, ID, which defines the partition ID for the item*.
+  with one additional key, ID, which defines the partition ID for the item.
 
 It's up to you to determine the appropriate partition key value (ID).
 If you provide the same value as an existing table item,
 the values of that item are overwritten.
 
-### Uploading items to a table
+### Upload items to a table
 
-Use the **AddItems** project to incorporate data from a comma-separated value
-(.csv) files to populate a table.
+Use the **AddItems** project to incorporate data from a .csv file to populate a table.
 
 The default table name is defined as **Table**,
 the default Region is defined as **Region**,
@@ -238,12 +226,12 @@ and the default table names are defined as
 **Customers**, **Orders**, and **Products**
 in **app.config**.
 
-### Managing indexes
+### Manage indexes
 
 Global secondary indices give you the ability to treat a set of
-Amazon DynamoDB table keys as if they were a separate table.
+Amazon DynamoDB table keys as if they are a separate table.
 
-#### Creating an index
+#### Create an index
 
 Use the **CreateIndex** project to create an index.
 
@@ -251,7 +239,7 @@ The default table name is defined as **Table**,
 and the default Region is defined as **Region**
 in **app.config**.
 
-It requires the following command-line options:
+It requires the following command line options:
 
 - ```-i``` *INDEX-NAME*, where *INDEX-NAME* is the name of the index
 - ```-m``` *MAIN-KEY*, where *MAIN-KEY* is the partition key of the index
@@ -260,7 +248,7 @@ It requires the following command-line options:
 - ```-t``` *SECONDARY-KEY-TYPE*, where *SECONDARY-KEY-TYPE* is one of string or number
 
 To create a global secondary index (GSI) for the three queries we made in
-*A simple example*,
+*A basic example*,
 execute the following commands:
 
 ```
@@ -269,14 +257,14 @@ CreateIndex.exe -i ProductOrdered  -m Area -k string -s Order_Product    -t numb
 CreateIndex.exe -i LowProduct      -m Area -k string -s Product_Quantity -t number
 ```
 
-Note that you cannot execute these commands one after another.
-You must wait until one GSI is created before you can attempt to create another GSI.
-We recommend you use the Amazon DynamoDB console to monitor the progress
-of creating a GSI to avoid errors.
+**Note**
 
-### Reading data from a table
+You must wait between running each command for each GSI to be created. You can't create another GSI 
+until the previous GSI is created. To avoid errors, we recommend using the DynamoDB console to monitor GSI creation.
 
-You can read data from an Amazon DynamoDB table using a number of techniques.
+### Read data from a table
+
+You can read data from an Amazon DynamoDB table  by using a number of techniques, including the following:
 
 - By the item's primary key
 - By searching for a particular item or items based on the value of one or more keys
@@ -345,7 +333,7 @@ the starting date/time is defined as **StartTime**,
 and stopping date/time is defined as **EndTime**
 in **app.config**.
 
-### Modifying a table item
+### Modify a table item
 
 Use the **UpdateItem** project to modify the status of an order in the table.
 
@@ -361,7 +349,7 @@ It takes the following options:
 The update sets the **Order_Status** field of the item.
 It does not check whether the *ID* applies to a customer, order, or product.
 
-### Modifying a table item using the DynamoDB DataModel
+### Modify a table item using the DynamoDB DataModel
 
 Use the **UpdateItemDataModel** project to modify the status of an order in the table
 using the DynamoDBContext class.
@@ -378,7 +366,7 @@ It takes the following options:
 The update sets the **Order_Status** field of the item.
 It does not check whether the *ID* applies to a customer, order, or product.
 
-### Deleting an item from a table
+### Delete an item from a table
 
 Use the **DeleteItem** project to delete an item from the table.
 
@@ -394,7 +382,7 @@ It takes the following option:
 If you provide an *AREA* value that does not match that of the item,
 the item is not deleted from the table.
 
-### Deleting items from a table
+### Delete items from a table
 
 Use the **DeleteItems** project to delete an item from the table.
 
@@ -403,10 +391,10 @@ and the default Region is defined as **Region**
 in **app.config**.
 
 - ```-a``` *AREA*, where *AREA* is **Customer**, **Order**, or **Product**.
-- ```-i``` *IDS*, where *IDS* is a list of ID values, separated by spaces; all ID values should be for the associated *AREA*.
+- ```-i``` *IDS*, where *IDS* is a list of ID values, separated by spaces. All ID values should be for the associated *AREA*.
   If the **area** value of any item does not match *AREA*, the item is not deleted from the table.
 
-### Deleting a table
+### Delete a table
 
 Use the **DeleteTable** project to delete a table.
 

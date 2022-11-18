@@ -1101,7 +1101,7 @@ s3_PutObject:
             - description:
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-UploadFile
-            - description: Upload an object with server side encryption.
+            - description: Upload an object with server-side encryption.
               snippet_tags:
                 - S3.dotnetv3.ServerSideEncryptionExample
     C++:
@@ -1993,7 +1993,7 @@ s3_Scenario_PresignedUrl:
           sdkguide:
           excerpts:
             - description:
-                Generate a presigned URL that can perform an S3 action
+                Generate a presigned URL that can perform an &S3; action
                 for a limited time.
               snippet_tags:
                 - S3.dotnetv3.GenPresignedUrlExample
