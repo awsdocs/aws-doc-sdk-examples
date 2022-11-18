@@ -130,7 +130,7 @@ suspend fun main(args: Array<String>) {
         println("The instance Id value isn't valid.")
         exitProcess(0)
     }
-    println("The instance Id is $instanceId")
+    println("The instance Id is $instanceId.")
     println(DASHES)
 
     println(DASHES)
