@@ -1,6 +1,6 @@
 # Yamale Schema for SDK metadata, which is the sdks.yaml file in the metadata folder.
 
-map(include('sdk'), key=enum('C++', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust', 'Swift'))
+map(include('sdk'), key=enum('C++', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust', 'SAP ABAP', 'Swift'))
 ---
 sdk:
   property: include('syntax_enum')
@@ -24,6 +24,6 @@ title_override:
   title: str()
   title_abbrev: str()
 
-syntax_enum: enum('cpp', 'go', 'java', 'javascript', 'kotlin', 'csharp', 'php', 'python', 'ruby', 'rust', 'swift')
+syntax_enum: enum('cpp', 'go', 'java', 'javascript', 'kotlin', 'csharp', 'php', 'python', 'ruby', 'rust', 'sap-abap', 'swift')
 entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$', name='valid entity')
 entity_with_version_regex: regex('^[&]([\dA-Za-z-_])+;', name='valid entity with version')
