@@ -26,7 +26,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.6 #install the python needed
+          python-version: 3.8 #install the python needed
       - name: Run Python script to vet code examples # Runs a single command using the runners shell
         run: |
           python scripts/checkin_tests.py --q
