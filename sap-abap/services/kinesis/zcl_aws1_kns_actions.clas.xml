@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AWS1_KNS_ACTIONS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Kinesis Code Example Actions</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_KNS_ACTIONS</CLSNAME>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Create a Kinesis stream</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_KNS_ACTIONS</CLSNAME>
+     <CMPNAME>DELETE_STREAM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Delete a Kinesis stream</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_KNS_ACTIONS</CLSNAME>
+     <CMPNAME>DESCRIBE_STREAM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Describe a Kinesis stream</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_KNS_ACTIONS</CLSNAME>
+     <CMPNAME>GET_RECORDS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Gets data records from a Kinesis data stream&apos;s shard</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_KNS_ACTIONS</CLSNAME>
+     <CMPNAME>LIST_STREAMS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>List Kinesis streams</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_KNS_ACTIONS</CLSNAME>
+     <CMPNAME>PUT_RECORD</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Writes data record into an Amazon Kinesis data stre</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_KNS_ACTIONS</CLSNAME>
+     <CMPNAME>REGISTER_STREAM_CONSUMER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Registers a consumer with a Kinesis data stream.</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
