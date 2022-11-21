@@ -33,6 +33,14 @@ cloudwatch_ListMetrics:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.ListMetrics
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cloudwatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.list_metrics
     C++:
       versions:
         - sdk_version: 1
@@ -194,6 +202,14 @@ cloudwatch_PutMetricAlarm:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricAlarm
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cloudwatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.put_metric_alarm
     C++:
       versions:
         - sdk_version: 1
@@ -294,6 +310,22 @@ cloudwatch_DescribeAlarmsForMetric:
                 - cw.JavaScript.alarms.describeAlarms
   services:
     cloudwatch: {DescribeAlarmsForMetric}
+cloudwatch_DescribeAlarms:
+  title: Describe &CW; alarms using an &AWS; SDK
+  title_abbrev: Describe alarms
+  synopsis: describe &CWlong; alarms.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cloudwatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.describe_alarms
+  services:
+    cloudwatch: {DescribeAlarms}
 cloudwatch_EnableAlarmActions:
   title: Enable &CW; alarm actions using an &AWS; SDK
   title_abbrev: Enable alarm actions
@@ -337,6 +369,14 @@ cloudwatch_EnableAlarmActions:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cloudwatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.enable_alarm_actions
     C++:
       versions:
         - sdk_version: 1
@@ -413,6 +453,14 @@ cloudwatch_DisableAlarmActions:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cloudwatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.disable_alarm_actions
     C++:
       versions:
         - sdk_version: 1
@@ -520,6 +568,14 @@ cloudwatch_DeleteAlarms:
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - cw.JavaScript.alarms.deleteAlarms
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cloudwatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.delete_alarms
   services:
     cloudwatch: {DeleteAlarms}
 cloudwatch_Usage_MetricsAlarms:
@@ -606,3 +662,23 @@ cloudwatch_ListDashboards:
                 - CloudWatch.dotnetv3.ListDashboardsExample
   services:
     cloudwatch: {ListDashboards}
+cloudwatch_Scenario_GettingStarted:
+  title: Get started with &CW; alarms using an &AWS; SDK
+  title_abbrev: Get started with alarms
+  synopsis_list:
+    - Create an alarm.
+    - Disable alarm actions.
+    - Describe an alarm.
+    - Delete an alarm.
+  category: Scenarios
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cloudwatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.getting_started_with_cwt
+  services:
+    cloudwatch: {PutMetricAlarm, DisableAlarmActions, DescribeAlarms, DeleteAlarms}
