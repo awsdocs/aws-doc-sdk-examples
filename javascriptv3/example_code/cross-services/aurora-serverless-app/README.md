@@ -24,6 +24,7 @@ See [the steps for creating the resource stack](../../../../resources//cdk/auror
 ## Run the code
 
 - Populate the `env.json` file with the outputs from the preceding ["create the resources"](#create-the-resources) step.
+- Run `yarn`.
 - Run `yarn start`.
 
 ## Delete the resources
