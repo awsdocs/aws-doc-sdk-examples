@@ -549,7 +549,7 @@ ec2_AuthorizeSecurityGroupIngress:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.kotlin.scenario_inbound_rule.main
+                - ec2.kotlin.scenario.inbound.rule.main
     Java:
       versions:
         - sdk_version: 2
