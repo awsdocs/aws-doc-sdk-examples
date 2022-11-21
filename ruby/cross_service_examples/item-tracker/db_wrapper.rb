@@ -54,8 +54,9 @@ class DBWrapper
       x["id"] = id
       output.append(x)
     end
-    # @logger.info(MultiJson.dump(output))
-    MultiJson.dump(output)
+    output = MultiJson.dump(output)
+    @logger.debug("Parsed response: #{output}")
+    output
   end
 
   # Runs a SQL statement and associated parameters using the Amazon RDS Data Service.
