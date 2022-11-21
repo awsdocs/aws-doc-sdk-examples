@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(SERVICE_NAME glue)
-set(SERVICE_COMPONENTS glue cloudformation)
+set(SERVICE_COMPONENTS glue cloudformation s3)
 
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
@@ -74,7 +74,10 @@ foreach(file ${AWSDOC_SOURCE})
 
     target_compile_definitions(${EXAMPLE_EXE}
             PRIVATE
-            CLOUD_FORMATION_TEMPLATE_FILE="${CMAKE_SOURCE_DIR}/setup_scenario_getting_started.yaml")
+            CLOUD_FORMATION_TEMPLATE_FILE="${CMAKE_SOURCE_DIR}/setup_scenario_getting_started.yaml"
+            SCENARIO_ETL_FILE="${CMAKE_SOURCE_DIR}/flight_etl_job_script.py"
+            CDK_TOOLKIT_TEMPLATE="${CMAKE_SOURCE_DIR}/bootstrap-template.yaml"
+            )
 
 endforeach()
 
