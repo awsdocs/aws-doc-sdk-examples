@@ -16,6 +16,3 @@ gem "rubyzip"
 gem "zip"
 gem "sinatra"
 gem 'sequel'
-gem 'mail'
-gem 'ruby-debug-ide'
-gem 'sendmail'
