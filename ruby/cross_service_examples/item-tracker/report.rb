@@ -10,13 +10,13 @@
 # When the list of items is longer than a specified threshold, it is included as a CSV
 # attachment to the email instead of in the body of the email itself.
 
-require 'logger'
-require 'erb'
-require 'json'
-require 'csv'
-require 'mail'
-require_relative 'db_wrapper'
-require 'mime'
+require "logger"
+require "erb"
+require "json"
+require "csv"
+require "mail"
+require_relative "db_wrapper"
+require "mime"
 
 # Encapsulates a report resource that gets work items from an
 # Amazon Aurora Serverless database and uses Amazon SES to send emails about them.
@@ -29,12 +29,12 @@ class Report
     @db_wrapper = db_wrapper
     @email_sender = email_sender
     @ses_client = ses_client
-    @timestamp = Time.now.strftime('%H:%M on %h %d %Y')
+    @timestamp = Time.now.strftime("%H:%M on %h %d %Y")
   end
 
   # Formats the report as a ready-to-send email message, including attachment
-  def format_mime_message(email_recipient, _text, _html, attachment, charset='utf-8') #, _text, _html, _attachment, _charset = 'utf-8')
-    @logger.info('Beginning to format message...')
+  def format_mime_message(email_recipient, text, html, attachment)
+    @logger.info("Beginning to format message...")
 
     mail = Mail.new
     mail.sender = @email_sender
@@ -43,15 +43,15 @@ class Report
     mail.content_type = "multipart/mixed"
 
     html_part = Mail::Part.new do
-      content_type  'text/html; charset=UTF-8'
-      body          _html
+      content_type  "text/html; charset=UTF-8"
+      body          html
     end
 
     text_part = Mail::Part.new do
-      body          _text
+      body          text
     end
 
-    mail.part :content_type => "multipart/alternative" do |p|
+    mail.part content_type: "multipart/alternative" do |p|
       p.html_part = html_part
       p.text_part = text_part
     end
@@ -59,9 +59,9 @@ class Report
     # mail.attachments['data.csv'] = {content: Base64.encode64(File.read('data.csv')), transfer_encoding: :base64}
     mail.attachments[attachment] = File.read(attachment)
 
-    mail.content_type = mail.content_type.gsub('alternative', 'mixed')
-    mail.charset= 'UTF-8'
-    mail.content_transfer_encoding = 'quoted-printable'
+    mail.content_type = mail.content_type.gsub("alternative", "mixed")
+    mail.charset= "UTF-8"
+    mail.content_transfer_encoding = "quoted-printable"
     @logger.info(mail)
     mail
   end
@@ -71,7 +71,7 @@ class Report
   # @param work_items: The work items to include in the CSV output.
   # @return: Work items rendered to a string in CSV format.
   def render_csv(work_items, file_name)
-    CSV.open(file_name, 'w', headers: work_items.first.keys) do |csv|
+    CSV.open(file_name, "w", headers: work_items.first.keys) do |csv|
       work_items.each do |h|
         csv << h.values
       end
@@ -82,7 +82,7 @@ class Report
   def render_template(template_file, work_items)
     erb = ERB.new(File.read(template_file), trim_mode: "%<>")
     @work_items = work_items
-    @timestamp = Time.now.strftime('%H:%M on %h %d %Y')
+    @timestamp = Time.now.strftime("%H:%M on %h %d %Y")
     erb.result(binding)
   end
 
@@ -104,23 +104,24 @@ class Report
     work_items = @db_wrapper.get_work_items
     @logger.debug("Prepared the following items for a report:\n#{work_items}")
 
-    html_report = render_template('templates/report.html', work_items)
+    file_name = File.join(File.dirname(__FILE__), "templates", "report.html")
+    html_report = render_template(file_name, work_items)
     @logger.debug("HTML report: \n#{html_report}")
 
-    text_report = ''
+    text_report = ""
     work_items.each do |work_item|
       text_report += "\n#{work_item.to_json}"
     end
     @logger.debug("Text report: \n#{text_report}")
 
-    @logger.info('Successfully rendered work_items into HTML & text.')
+    @logger.info("Successfully rendered work_items into HTML & text.")
 
-    csv_file = 'data.csv'
+    csv_file = "data.csv"
     render_csv(work_items, csv_file)
     @logger.info("Successfully saved work items as CSV attachment: #{csv_file}")
 
     @logger.info("Sending report of #{work_items.count} items to #{recipient_email}")
-    if work_items.count > 100
+    if work_items.count > 5
       mime_msg = format_mime_message(recipient_email, text_report, html_report, csv_file)
       response = @ses_client.send_raw_email({
                                               source: @email_sender,
@@ -138,7 +139,7 @@ class Report
                                },
                                message: {
                                           subject: {
-                                                     data: "MessageData"
+                                                     data: "Work Items Report"
                                           },
                                           body: {
                                                   text: {
@@ -153,19 +154,14 @@ class Report
       result = 204
     end
   rescue RDSClientError => e
-    @logger.exception(
-      "Couldn't get work items from storage. Here's why: %s", e
-    )
-    response = 'A storage error occurred.'
+    @logger.error("Couldn't get work items from storage:\n #{e}")
+    response = "A storage error occurred."
     result = 500
-  rescue ClientError => e
-    @logger.exception(
-      "Couldn't send email. Here's why: %s: %s",
-      e.response['Error']['Code'], e.response['Error']['Message']
-    )
-    response = 'An email error occurred.'
+  rescue StandardError => e
+    @logger.error("Couldn't send email: #{e}")
+    response = e
     result = 500
   ensure
-    return response.to_json, result
+    [response.to_json, result]
   end
 end
