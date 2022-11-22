@@ -28,7 +28,7 @@ describe("disable-alarm-actions", () => {
     await deleteAlarms([alarmName]);
   });
 
-  it("should set an alarm to enabled", async () => {
+  it("should set an alarm to be disabled", async () => {
     process.env.CLOUDWATCH_ALARM_NAME = alarmName;
 
     const mod = await import("../actions/disable-alarm-actions.js");
