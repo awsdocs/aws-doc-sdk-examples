@@ -1,4 +1,4 @@
-# Create a React and Spring REST application that queries Amazon DynamoDB data using the AWS SDK for Kotlin
+# Create a React and Spring REST application that queries DynamoDB data using the SDK for Kotlin
 
 ## Overview
 
@@ -13,10 +13,10 @@
 
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
-+ Amazon DynamoDB.
-+ Amazon Simple Email Service (Amazon SES). 
++ Amazon DynamoDB
++ Amazon Simple Email Service (Amazon SES)
 
-The application you create is a decoupled React application that uses a Spring REST API to return Amazon DynamoDB data. That is, the React application interacts with a Spring API by making RESTful GET and POST requests. The Spring API uses a [DynamoDbClient](https://sdk.amazonaws.com/kotlin/api/latest/dynamodb/aws.sdk.kotlin.services.dynamodb/-dynamo-db-client/index.html) object to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a Spring REST API to return DynamoDB data. That is, the React application interacts with a Spring API by making RESTful GET and POST requests. The Spring API uses a [DynamoDbClient](https://sdk.amazonaws.com/kotlin/api/latest/dynamodb/aws.sdk.kotlin.services.dynamodb/-dynamo-db-client/index.html) object to perform CRUD operations on the DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
 ![AWS Tracking Application](images/overviewDynamoDB.png)
 
@@ -33,11 +33,11 @@ The application you create is a decoupled React application that uses a Spring R
 
 To complete the tutorial, you need the following:
 
-+ An AWS account
-+ A Kotlin IDE (this tutorial uses the IntelliJ IDE)
-+ Java 1.8 JDK
-+ Gradle 6.8 or higher
-+ Set up your development environment. For more information, 
++ An AWS account.
++ A Kotlin IDE (this tutorial uses the IntelliJ IDE).
++ Java 1.8 JDK.
++ Gradle 6.8 or higher.
++ You must also set up your development environment. For more information, 
 see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
 ### Important
@@ -47,33 +47,32 @@ see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-ko
 + Running this code might result in charges to your AWS account. 
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
-### Creating the DynamoDB table and add some items
+### Create the DynamoDB table and add some items
 
 Using the AWS Management Console, create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String. 
 
-After creating the **Work** table with the **id** partition key, select the table in the Console, then under
-the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with Amazon DynamoDB).
+After creating the **Work** table with the **id** partition key, select the table in the console. Under
+the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with DynamoDB).
 
-As you are creating an item for the first time, you will both define the attributes in your table as well 
-as add values. Enter the attributes and values as shown in the table below. Enter 'Open' as the
-value for the **archive** attribute. Select **Create item** to create
-your first item (row).
+Because you're creating an item for the first time, define the attributes in your table and also add values. 
+Enter the attributes and values as shown in the following table. Enter 'Open' as the value for the **archive** attribute. 
+Select **Create item** to create your first item (row).
 
 The **Work** table attributes
 
 | Attribute name | What the attribute value represents                                          |
 |----------------|------------------------------------------------------------------------------|
-| id             | the primary key; enter a random string of text no longer than 20 characters  |
-| date           | date the work item was performed                                             |
-| description    | description of the work being done                                           |
-| guide          | name of the guide the work is for                                            |
-| status         | status of the work, e.g., 'started', 'in review'                             |
- | username       | user name who worked performed the work item                                 |
-| archive        | a numeric value of 0 (Open) or 1 (Closed) to indicate if the item is active or archived |
+| id             | The primary key. Enter a random string of text up to 20 characters.          |
+| date           | Date the work item was performed.                                            |
+| description    | Description of the work being done.                                          |
+| guide          | Name of the guide the work is for.                                           |
+| status         | Status of the work, such as 'started' or 'in review'.                        |
+| username       | User name who performed the work item.                                       |
+| archive        | A numeric value of 0 (Open) or 1 (Closed). Indicates whether the item is active or archived. |
 
-Enter at least two more items (rows). This time, since you have already defined all the attributes
-needed for this example, select the first item you created by activating the item's checkbox, then select
-**Duplicate item** under the **Actions** menu. Select **Create item** when you are finished changing the values.
+Enter at least two more items (rows). Because you've already defined all the attributes
+for this example, you can select the check box for the first item you created. Then, under the **Actions** menu, select
+**Duplicate item**. Select **Create item** when you're done changing the values.
 
 Duplicate one more item so that you have a total of three items.
 
@@ -81,22 +80,22 @@ The following illustration shows an example of the Work table.
 
 ![AWS Tracking Application](images/workTable3.png)
 
-For additional information about how to create an Amazon DynamoDB table using the AWS Management Console 
-and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
-(The table created in that example is different from the one we are using in this example.)
+For more information about how to use the AWS Management Console to create a DynamoDB table  
+and add data, see [Create a table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+(The table in that example is different from the table in this example.)
 
-Now that the table is created and populated with some data, when we start up the Spring Boot app for 
-the REST API, there will data to display.  
+Now that the table is created and populated with some data, there is data to display when starting up the Spring Boot app for 
+the REST API.  
 
 ## Understand the AWS Tracker React application 
 
 A user can perform the following tasks using the React application:
 
-+ View all active items.
-+ View archived items that are complete.
-+ Add a new item. 
-+ Convert an active item into an archived item.
-+ Send a report to an email recipient.
++ View all active items
++ View archived items that are complete
++ Add a new item
++ Convert an active item into an archived item
++ Send a report to an email recipient
 
 The React application displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
 
@@ -106,7 +105,7 @@ Likewise, the following illustration shows the React application displaying arch
 
 ![AWS Tracking Application](images/archiveShow.png)
 
-The React application lets a user convert an active item to an archived item by clicking the following button. 
+With the React application, a user can convert an active item to an archived item by choosing the **Archive item(s)** button. 
 
 ![AWS Tracking Application](images/archiveNew.png)
 
@@ -122,7 +121,7 @@ The application queries active items from the database and sends the data to the
 
 ## Create an IntelliJ project 
 
-Perform these steps. 
+Perform the following steps. 
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Kotlin**.
@@ -133,7 +132,7 @@ Perform these steps.
 
 ## Add the dependencies to your Gradle build file
 
-At this point, you have a new project. Ensure that the **build.gradle.kts** file looks like the following.
+At this point, you have a new project. Make sure that the **build.gradle.kts** file looks like the following.
 
 ```yaml
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -190,10 +189,10 @@ tasks.withType<Test> {
 
 Create a new package in the **main/kotlin** folder named **com.aws.rest**. The following Kotlin classes go into this package.
 
-+ **App** - Used as the base class and Controller for the Spring Boot application. 
-+ **DynamoDBService** - Uses the **DynamoDbClient** object to perform CRUD operations on the database. 
-+ **SendMessage** - Uses the **SesClient** object to send email messages.
-+ **WorkItem** - Represents the application model.
++ **App** - Used as the base class and Controller for the Spring Boot application
++ **DynamoDBService** - Uses the **DynamoDbClient** object to perform CRUD operations on the database 
++ **SendMessage** - Uses the **SesClient** object to send email messages
++ **WorkItem** - Represents the application model
 
 **Note:** The **MessageResource** class is located in the **App** file.
 
@@ -303,7 +302,7 @@ class MessageResource {
 ```    
 
 ### DynamoDBService class
-The following Kotlin code represents the **DynamoDBService** class that uses the **DynamoDbClient** client to perform operations on the Amazon DynamoDB Work table. For example, the **getAllItems** method returns all items in the Work table. Notice the **getOpenItems** method uses a **filterExpression** to query either active or archive items. This represents how you can filter Amazon DynamoDB items when using the AWS SDK for Kotlin.
+The following Kotlin code represents the **DynamoDBService** class that uses the **DynamoDbClient** client to perform operations on the Amazon DynamoDB Work table. For example, the **getAllItems** method returns all items in the Work table. Notice the **getOpenItems** method uses a **filterExpression** to query either active or archive items. This represents how you can filter DynamoDB items when using the AWS SDK for Kotlin.
 
 ```kotlin
 package com.aws.rest
@@ -329,7 +328,7 @@ import javax.xml.transform.stream.StreamResult
 import kotlin.collections.HashMap
 
 /*
-Before running this code example, create an Amazon DynamoDB table named Work with a primary key named id.
+Before running this code example, create a DynamoDB table named Work with a primary key named id.
 */
 @Component
 class DynamoDBService {
@@ -357,7 +356,7 @@ class DynamoDBService {
         }
     }
 
-    // Get items from the Amazon DynamoDB table.
+    // Get items from the DynamoDB table.
     suspend fun getOpenItems(myArc: Boolean): MutableList<WorkItem> {
         val tableNameVal = "Work"
         val myList = mutableListOf<WorkItem>()
@@ -418,7 +417,7 @@ class DynamoDBService {
         }
     }
 
-    // Get items from the Amazon DynamoDB table.
+    // Get items from the DynamoDB table.
     suspend fun getAllItems(): MutableList<WorkItem> {
         val tableNameVal = "Work"
         val myList = mutableListOf<WorkItem>()
@@ -530,11 +529,11 @@ class DynamoDBService {
         }
     }
 
-    // Put an item into an Amazon DynamoDB table.
+    // Put an item into a DynamoDB table.
     suspend fun putItemInTable(itemOb: WorkItem): String {
         val tableNameVal = "Work"
 
-        // Get all the values to store in the Amazon DynamoDB table.
+        // Get all the values to store in the DynamoDB table.
         val myGuid = UUID.randomUUID().toString()
         val user = itemOb.name
         val desc = itemOb.description
@@ -745,13 +744,13 @@ class WorkItem {
 
 Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs. 
 
-- /api/items - A GET request that returns all data items from the **Work** table. 
-- /api/items?archived=true - A GET request that returns either active or archive data items from the **Work** table. 
-- /api/items/{id}:archive - A PUT request that converts the specified data item to an archived item. 
-- /api/items - A POST request that adds a new item to the database. 
-- api/items:report - A POST request that creates a report of active items and emails the report. 
+- /api/items - A GET request that returns all data items from the **Work** table
+- /api/items?archived=true - A GET request that returns either active or archive data items from the **Work** table 
+- /api/items/{id}:archive - A PUT request that converts the specified data item to an archived item
+- /api/items - A POST request that adds a new item to the database
+- api/items:report - A POST request that creates a report of active items and emails the report
 
-**Note**: The React application created in the next section consumes all of these URLs. 
+**Note**: The React application created in the next section consumes all of the preceding URLs. 
 
 Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser. 
 
@@ -763,11 +762,11 @@ The following illustration shows the JSON data returned from the Spring REST API
 
 ## Create the React front end
 
-You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).  
+You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. To access the GitHub location, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).  
 
 ### Update BASE_URL
 
-You must ensure that the **BASE_URL** is correct. In the **config.json** file, ensure this value references your Spring application.
+In the **config.json** file, you must make sure that the **BASE_URL** value references your Spring application.
 
 ```javascript
 {
@@ -777,7 +776,3 @@ You must ensure that the **BASE_URL** is correct. In the **config.json** file, e
   
 ### Next steps
 Congratulations, you have created a decoupled React application that consumes data from a Spring REST API. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.
-
-
-
-
