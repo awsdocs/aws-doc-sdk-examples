@@ -62,7 +62,7 @@ import java.util.Scanner;
  */
 
 public class CognitoMVP {
-
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
 
         final String usage = "\n" +
@@ -72,20 +72,23 @@ public class CognitoMVP {
             "    clientId - The app client Id value that you can get from the AWS CDK script.\n\n" +
             "    poolId - The pool Id that you can get from the AWS CDK script. \n\n" ;
 
-           if (args.length != 2) {
-                   System.out.println(usage);
-                   System.exit(1);
-         }
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String clientId = args[0];
         String poolId = args[1];
-
         CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        // Use the console to get data from the user.
+        System.out.println(DASHES);
+        System.out.println("Welcome to the Amazon Cognito example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         System.out.println("*** Enter your user name");
         Scanner in = new Scanner(System.in);
         String userName = in.nextLine();
@@ -96,41 +99,70 @@ public class CognitoMVP {
         System.out.println("*** Enter your email");
         String email = in.nextLine();
 
-        System.out.println("*** Signing up " + userName);
+        System.out.println("1. Signing up " + userName);
         signUp(identityProviderClient, clientId, userName, password, email);
+        System.out.println(DASHES);
 
-        System.out.println("*** Getting " + userName + " in the user pool");
+        System.out.println(DASHES);
+        System.out.println("2. Getting " + userName + " in the user pool");
         getAdminUser(identityProviderClient, userName, poolId);
 
         System.out.println("*** Conformation code sent to " + userName + ". Would you like to send a new code? (Yes/No)");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         String ans = in.nextLine();
 
         if (ans.compareTo("Yes") == 0) {
             resendConfirmationCode(identityProviderClient, clientId, userName);
-            System.out.println("*** Sending a new confirmation code");
+            System.out.println("3. Sending a new confirmation code");
         }
+        System.out.println(DASHES);
 
-        System.out.println("*** Enter confirmation code that was emailed");
+        System.out.println(DASHES);
+        System.out.println("4. Enter confirmation code that was emailed");
         String code = in.nextLine();
         confirmSignUp(identityProviderClient, clientId, code, userName);
-
-        System.out.println("*** Rechecking the status of " + userName + " in the user pool");
+        System.out.println("Rechecking the status of " + userName + " in the user pool");
         getAdminUser(identityProviderClient, userName, poolId);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
+        System.out.println("5. Invokes the initiateAuth to sign in");
         InitiateAuthResponse authResponse = initiateAuth(identityProviderClient, clientId, userName, password) ;
         String mySession = authResponse.session() ;
-        String newSession = getSecretForAppMFA(identityProviderClient, mySession);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
+        System.out.println("6. Invokes the AssociateSoftwareToken method to generate a TOTP key");
+        String newSession = getSecretForAppMFA(identityProviderClient, mySession);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         System.out.println("*** Enter the 6-digit code displayed in Google Authenticator");
         String myCode = in.nextLine();
+        System.out.println(DASHES);
 
-        // Verify the TOTP and register for MFA.
+        System.out.println(DASHES);
+        System.out.println("7. Verify the TOTP and register for MFA");
         verifyTOTP(identityProviderClient, newSession, myCode);
-        System.out.println("*** Re-enter a 6-digit code displayed in Google Authenticator");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("8. Re-enter a 6-digit code displayed in Google Authenticator");
         String mfaCode = in.nextLine();
         InitiateAuthResponse authResponse1 = initiateAuth(identityProviderClient, clientId, userName, password);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("9.  Invokes the AdminRespondToAuthChallenge");
         String session2 = authResponse1.session();
         adminRespondToAuthChallenge(identityProviderClient, userName, clientId, mfaCode, session2);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("All Amazon Cognito operations were successfully performed");
+        System.out.println(DASHES);
     }
 
     //snippet-start:[cognito.java2.verify.main]

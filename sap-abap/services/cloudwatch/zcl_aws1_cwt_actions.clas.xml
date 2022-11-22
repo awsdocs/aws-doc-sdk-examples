@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AWS1_CWT_ACTIONS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Cloudwatch Code Example Actions</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_CWT_ACTIONS</CLSNAME>
+     <CMPNAME>DELETE_ALARMS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Delete CloudWatch alarm</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_CWT_ACTIONS</CLSNAME>
+     <CMPNAME>DESCRIBE_ALARMS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Describe CloudWatch alarm</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_CWT_ACTIONS</CLSNAME>
+     <CMPNAME>DISABLE_ALARM_ACTIONS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Disable Cloudwatch alarm</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_CWT_ACTIONS</CLSNAME>
+     <CMPNAME>ENABLE_ALARM_ACTIONS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Enable CloudWatch Alarm</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_CWT_ACTIONS</CLSNAME>
+     <CMPNAME>LIST_METRICS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>List CloudWatch metrics</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_CWT_ACTIONS</CLSNAME>
+     <CMPNAME>PUT_METRIC_ALARM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Create a CloudWatch alarm</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

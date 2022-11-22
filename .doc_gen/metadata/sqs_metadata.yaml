@@ -44,6 +44,18 @@ sqs_CreateQueue:
             - description:
               snippet_tags:
                 - python.example_code.sqs.CreateQueue
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description: Create an &SQS; standard queue.
+              snippet_tags:
+                - sqs.abapv1.create_queue
+            - description: Create an &SQS; queue that waits for a message to arrive.
+              snippet_tags:
+                - sqs.abapv1.long_polling_on_create_queue
     JavaScript:
       versions:
         - sdk_version: 3
@@ -112,6 +124,15 @@ sqs_GetQueueUrl:
             - description:
               snippet_tags:
                 - python.example_code.sqs.GetQueueUrl
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.abapv1.get_queue_url
     JavaScript:
       versions:
         - sdk_version: 3
@@ -182,6 +203,15 @@ sqs_ListQueues:
             - description: Retrieve the first &SQS; queue listed in the Region.
               snippet_tags:
                 - sqs.rust.sqs-list-first
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.abapv1.list_queues
     JavaScript:
       versions:
         - sdk_version: 3
@@ -253,6 +283,15 @@ sqs_DeleteQueue:
             - description:
               snippet_tags:
                 - python.example_code.sqs.DeleteQueue
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.abapv1.delete_queue
     JavaScript:
       versions:
         - sdk_version: 3
@@ -336,6 +375,15 @@ sqs_SendMessage:
             - description:
               snippet_tags:
                 - sqs.rust.sqs-send
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.abapv1.send_message
     JavaScript:
       versions:
         - sdk_version: 3
@@ -444,6 +492,18 @@ sqs_ReceiveMessage:
             - description:
               snippet_tags:
                 - sqs.rust.sqs-receive
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description: Receive a message from an &SQS; queue.
+              snippet_tags:
+                - sqs.abapv1.receive_message
+            - description: Receive a message from an &SQS; queue using long-poll support.
+              snippet_tags:
+                - sqs.abapv1.long_polling_on_msg_receipt
     JavaScript:
       versions:
         - sdk_version: 3
