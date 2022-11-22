@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 require "multi_json"
-require "sinatra"
-require "sinatra/config_file"
 require "yaml"
 require "json"
 require "rspec"
 require "aws-sdk-rdsdataservice"
 require "aws-sdk-ses"
-require "pry"
-
 require_relative("../db_wrapper")
 require_relative("../report")
 
