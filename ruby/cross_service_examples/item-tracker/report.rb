@@ -56,7 +56,6 @@ class Report
       p.text_part = text_part
     end
 
-    # mail.attachments['data.csv'] = {content: Base64.encode64(File.read('data.csv')), transfer_encoding: :base64}
     mail.attachments[attachment] = File.read(attachment)
 
     mail.content_type = mail.content_type.gsub("alternative", "mixed")
@@ -91,13 +90,11 @@ class Report
   #    1. An HTML version that formats the report as an HTML table by using Flask's
   #       template rendering feature. Email clients that can render HTML receive this
   #       version.
-  #    2. A text version that includes the report as a list of Python dicts. Email
+  #    2. A text version that includes the report as a list of Ruby hashes. Email
   #       clients that cannot render HTML receive this version.
   # When your Amazon SES account is in the sandbox, both the sender and recipient
   # email addresses must be registered with Amazon SES.
-  # JSON request parameters:
-  #   email: The recipient's email address.
-  #   status: The status of work items that are included in the report.
+  # @param recipient_email [String]
   # @return [Integer] An HTTP result code.
   def post_report(recipient_email)
     @logger.info("Getting work items for report.")
@@ -123,45 +120,41 @@ class Report
     @logger.info("Sending report of #{work_items.count} items to #{recipient_email}")
     if work_items.count > 5
       mime_msg = format_mime_message(recipient_email, text_report, html_report, csv_file)
-      response = @ses_client.send_raw_email({
-                                              source: @email_sender,
-                                              destinations: [recipient_email],
-                                              raw_message: {
-                                                             data: mime_msg.to_s
-                                              }
-                                            })
-      result = 204
+      @ses_client.send_raw_email({
+        source: @email_sender,
+        destinations: [recipient_email],
+        raw_message: {
+                       data: mime_msg.to_s
+        }
+      })
+      204
     else
-      response = @ses_client.send_email({
-                               source: @email_sender,
-                               destination: {
-                                              to_addresses: [recipient_email]
-                               },
-                               message: {
-                                          subject: {
-                                                     data: "Work Items Report"
-                                          },
-                                          body: {
-                                                  text: {
-                                                    data: text_report
-                                                  },
-                                                  html: {
-                                                    data: html_report
-                                                  }
-                                          }
-                               }
-                             })
-      result = 204
+      @ses_client.send_email({
+         source: @email_sender,
+         destination: {
+                        to_addresses: [recipient_email]
+         },
+         message: {
+                    subject: {
+                               data: "Work Items Report"
+                    },
+                    body: {
+                            text: {
+                              data: text_report
+                            },
+                            html: {
+                              data: html_report
+                            }
+                    }
+         }
+       })
+      204
     end
   rescue RDSClientError => e
     @logger.error("Couldn't get work items from storage:\n #{e}")
-    response = "A storage error occurred."
-    result = 500
+    500
   rescue StandardError => e
     @logger.error("Couldn't send email: #{e}")
-    response = e
-    result = 500
-  ensure
-    [response.to_json, result]
+    500
   end
 end
