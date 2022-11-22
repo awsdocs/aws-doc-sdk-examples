@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'multi_json'
-require 'sinatra'
-require 'sinatra/config_file'
 require 'yaml'
 require 'json'
 require 'rspec'
@@ -10,11 +8,27 @@ require 'aws-sdk-rdsdataservice'
 require 'aws-sdk-rds'
 require 'aws-sdk-ses'
 require 'pry'
+require 'faker'
 
+require_relative('../db_wrapper')
 
 client = Aws::RDSDataService::Client.new
 rds_client = Aws::RDS::Client.new
 config = YAML.load(File.read('../helpers/config.yml'))
+wrapper = DBWrapper.new(config, client)
+
+10.times do
+  username = ['ltolstoy', 'jsteinbeck', 'jkerouac', 'wkhalifa'].sample
+  item_data = {
+    :description => ['New feature', 'Quick bugfix', 'User research', 'Tech debt'].sample,
+    :guide => ['cpp', 'python', 'go', 'ruby', 'dotnet', 'js', 'php' ].sample,
+    :status => ['backlog', 'icebox', 'unrefined', 'done', 'in-progress'].sample,
+    :username => username,
+    :name => username,
+    :archived => [0, 1].sample
+  }
+  wrapper.add_work_item(item_data, config['table_name'])
+end
 
 begin
   identifier = config['resource_arn'].split(":cluster:")[1]

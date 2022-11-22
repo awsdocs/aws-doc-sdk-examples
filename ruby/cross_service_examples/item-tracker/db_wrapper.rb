@@ -9,17 +9,23 @@
 # interact with an Amazon Aurora Serverless database.
 
 require 'logger'
-require_relative('report')
-require_relative 'helpers/errors'
-require_relative 'models/item'
 require 'sequel'
 require 'multi_json'
 require 'erb'
-require 'pry'
-# from botocore.exceptions import ClientError
+
+require_relative 'report'
+require_relative 'helpers/errors'
+require_relative 'models/item'
+
+class RDSResourceError < Exception
+end
+
+class RDSClientError < Exception
+end
 
 # Wraps issues commands directly to the Amazon RDS Data Service, including SQL statements.
 class DBWrapper
+
   # @param config [List]
   # @param rds_client [AWS::RDS::Client] An Amazon RDS Data Service client.
   def initialize(config, rds_client)
@@ -32,11 +38,17 @@ class DBWrapper
     @logger = Logger.new($stdout)
   end
 
+  # Helper method to prep SQL for execution
+  # @param sql [String]
+  # @return [String]
   def _format_sql(sql)
     sql = sql.delete '"'
     sql.downcase
   end
 
+  # Helper method to convert Strings to Booleans
+  # @param [String]
+  # @return [Boolean]
   def true?(obj)
     obj.to_s.downcase == "true"
   end
@@ -45,6 +57,7 @@ class DBWrapper
   # @param results [Aws::RDSDataService::Types::ExecuteStatementResponse]
   # @return output [List] A list of items, represented as hashes
   def _parse_work_items(results)
+    # binding.pry
     json = MultiJson.load(results)
     output = []
     json.each do |x|
@@ -75,6 +88,7 @@ class DBWrapper
     @logger.info("Ran statement on #{@db_name}.")
     @rds_client.execute_statement(**run_args)
   rescue Aws::Errors::ServiceError => e
+    binding.pry
     if e.response['Error']['Code'] == 'BadRequestException' &&
        e.response['Error']['Message'].include?('Communications link failure')
       raise RDSResourceError(
@@ -104,9 +118,9 @@ class DBWrapper
   # @param item_id [String] The Item ID to fetch. Returns all items if nil. Default: nil.
   # @param include_archived [Boolean] If true, include archived items. Default: true
   # @return [Array] The hashed records from RDS which represent work items.
-  def get_work_items(item_id=nil, include_archived=nil)
-    sql = @model.select(:work_item_id, :description, :guide, :status, :username, :archive).from(:work_items)
-    sql = sql.where(archive: include_archived) if include_archived
+  def get_work_items(item_id=nil, include_archived=nil, table_name=@table_name)
+    sql = @model.select(:work_item_id, :description, :guide, :status, :username, :archived).from(table_name.to_sym)
+    sql = sql.where(archived: true?(include_archived)) if include_archived
     sql = sql.where(work_item_id: item_id.to_i) if item_id
     sql = _format_sql(sql.sql)
     @logger.info("Prepared GET query: #{sql}")
@@ -119,14 +133,16 @@ class DBWrapper
   end
 
   # Adds a work item to the database.
-  # @param data [Hash] A Ruby object containing data fields
+  # @param data [Hash] Data fields required for work item creation
+  # @param table_name [String] The name of the table. Must use snake_case.
   # @return: The generated ID of the new work item.
-  def add_work_item(data)
-    sql = @model.from(:work_items).insert_sql(
-      description: data['description'],
-      guide: data['guide'],
-      status: data['status'],
-      username: data['name']
+  def add_work_item(data, table_name=@table_name)
+    sql = @model.from(table_name.to_sym).insert_sql(
+      description: data[:description],
+      guide: data[:guide],
+      status: data[:status],
+      username: data[:name],
+      archived: data[:archived]
     )
     sql = _format_sql(sql)
     @logger.info("Prepared POST query: #{sql}")
@@ -139,12 +155,16 @@ class DBWrapper
   # Archives a work item.
   # @param item_id [String] The ID of the work item to archive.
   # @returns [Boolean] If updated_records is 1, return true; else, return false.
-  def archive_work_item(item_id)
-    sql = @model.from(:work_items).where(work_item_id: item_id).update_sql(archive: 1) # 1 is true, 0 is false
+  def archive_work_item(item_id, table_name=@table_name)
+    sql = @model.from(table_name.to_sym).where(work_item_id: item_id).update_sql(archived: 1) # 1 is true, 0 is false
     sql = _format_sql(sql)
     @logger.info("Prepared PUT query: #{sql}")
     response = _run_statement(sql)
-    @logger.info("Successfully archived item_id: #{item_id}")
-    response.number_of_records_updated == 1
+    if response.number_of_records_updated == 1
+      @logger.info("Successfully archived item_id: #{item_id}")
+      true
+    else
+      false
+    end
   end
 end

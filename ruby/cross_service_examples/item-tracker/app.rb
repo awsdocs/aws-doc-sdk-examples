@@ -31,26 +31,24 @@ before do
 end
 
 get '/api/items' do
-  items = wrapper.get_work_items(nil, params[:archived])
+  items = wrapper.get_work_items(nil, params[:archived], config["table_name"])
   items.to_json
 end
 
 post '/api/items' do
   payload = MultiJson.load(request.body.read)
-  id = wrapper.add_work_item(payload)
+  id = wrapper.add_work_item(payload, config["table_name"])
   [204, id]
 end
 
 get '/api/items/:item_id' do
-  item = wrapper.get_work_items(:item_id)
+  item = wrapper.get_work_items(:item_id, nil, config["table_name"])
   item
 end
 
 put %r{/api/items/([\w]+):archive} do |id|
-  is_added = wrapper.archive_work_item(id)
-  if is_added
-    204
-  end
+  body wrapper.archive_work_item(id) ? "true" : "false"
+  halt 200
 end
 
 post %r{/api/items:report} do
