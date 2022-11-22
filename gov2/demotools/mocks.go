@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package testtools
+package demotools
 
 import (
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
+	"fmt"
 	"strconv"
 )
 
@@ -17,30 +17,30 @@ type MockQuestioner struct {
 }
 
 // Next returns the next answer in the slice of answers.
-func (mock *MockQuestioner) Next() string {
+func (mock *MockQuestioner) Next(question string) string {
 	if mock.answerIndex < len(mock.Answers) {
 		answer := mock.Answers[mock.answerIndex]
 		mock.answerIndex++
 		return answer
 	} else {
-		panic("No more answers in the questioner mock!")
+		panic(fmt.Sprintf("No mock answer to question: %v", question))
 	}
 }
 
-func (mock *MockQuestioner) Ask(question string, validators []demotools.IAnswerValidator) string {
-	return mock.Next()
+func (mock *MockQuestioner) Ask(question string, validators ...IAnswerValidator) string {
+	return mock.Next(question)
 }
 
 func (mock *MockQuestioner) AskBool(question string, expected string) bool {
-	return mock.Next() == expected
+	return mock.Next(question) == expected
 }
 
-func (mock *MockQuestioner) AskInt(question string, validators []demotools.IAnswerValidator) int {
-	answerInt, _ := strconv.Atoi(mock.Next())
+func (mock *MockQuestioner) AskInt(question string, validators ...IAnswerValidator) int {
+	answerInt, _ := strconv.Atoi(mock.Next(question))
 	return answerInt
 }
 
-func (mock *MockQuestioner) AskFloat64(question string, validators []demotools.IAnswerValidator) float64 {
-	answerFloat, _ := strconv.ParseFloat(mock.Next(), 64)
+func (mock *MockQuestioner) AskFloat64(question string, validators ...IAnswerValidator) float64 {
+	answerFloat, _ := strconv.ParseFloat(mock.Next(question), 64)
 	return answerFloat
 }

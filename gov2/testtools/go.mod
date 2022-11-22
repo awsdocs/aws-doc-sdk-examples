@@ -6,7 +6,6 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.16.2
 	github.com/aws/aws-sdk-go-v2/config v1.15.3
 	github.com/aws/smithy-go v1.11.2
-	github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools v0.0.0-20220706224858-5c7f475624dc
 )
 
 require (
