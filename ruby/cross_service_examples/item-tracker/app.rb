@@ -6,17 +6,12 @@ require_relative "db_wrapper"
 require_relative "report"
 require "aws-sdk-rdsdataservice"
 require "aws-sdk-ses"
-require "logger"
 
-logger = Logger.new($stdout)
 client = Aws::RDSDataService::Client.new
 ses_client = Aws::SES::Client.new
 config = YAML.load_file("helpers/config.yml")
 wrapper = DBWrapper.new(config, client)
 reporter = Report.new(wrapper, "fprior@amazon.com", ses_client)
-
-# set :port, 8080
-# set :allow_origin, '*'
 
 configure do
   set :port, 8080
