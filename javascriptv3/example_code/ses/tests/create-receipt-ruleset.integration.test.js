@@ -1,8 +1,7 @@
-import { RULE_SET_NAME, run } from "../../ses/src/ses_createreceiptruleset";
-import {
-  deleteReceiptRuleSet,
-  findReceiptRuleSet,
-} from "../../ses/src/libs/sesUtils";
+import { describe, afterAll, it, expect } from "vitest";
+
+import { RULE_SET_NAME, run } from "../src/ses_createreceiptruleset";
+import { deleteReceiptRuleSet, findReceiptRuleSet } from "../src/libs/sesUtils";
 
 describe("ses_createreceiptruleset", () => {
   afterAll(async () => {

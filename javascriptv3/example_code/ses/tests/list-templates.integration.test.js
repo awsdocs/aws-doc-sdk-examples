@@ -1,6 +1,8 @@
+import { describe, beforeAll, afterAll, it, expect } from "vitest";
+
 import { getUniqueName } from "../../libs/utils/util-string.js";
-import { createTemplate, deleteTemplate } from "../../ses/src/libs/sesUtils";
-import { run } from "../../ses/src/ses_listtemplates";
+import { createTemplate, deleteTemplate } from "../src/libs/sesUtils";
+import { run } from "../src/ses_listtemplates";
 
 describe("ses_listemplates", () => {
   const TEMPLATE_NAME = getUniqueName("TemplateName");

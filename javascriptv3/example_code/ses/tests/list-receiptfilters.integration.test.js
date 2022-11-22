@@ -1,9 +1,8 @@
+import { describe, beforeAll, afterAll, it, expect } from "vitest";
+
 import { getUniqueName } from "../../libs/utils/util-string.js";
-import { run } from "../../ses/src/ses_listreceiptfilters";
-import {
-  createReceiptFilter,
-  deleteReceiptFilter,
-} from "../../ses/src/libs/sesUtils";
+import { run } from "../src/ses_listreceiptfilters";
+import { createReceiptFilter, deleteReceiptFilter } from "../src/libs/sesUtils";
 
 describe("ses_listreceiptfilters", () => {
   const RECEIPT_FILTER_NAME = getUniqueName("ReceiptFilterName");

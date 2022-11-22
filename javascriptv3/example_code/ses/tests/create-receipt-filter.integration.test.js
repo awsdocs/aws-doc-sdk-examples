@@ -1,5 +1,7 @@
-import { run, FILTER_NAME } from "../../ses/src/ses_createreceiptfilter";
-import { deleteReceiptFilter } from "../../ses/src/libs/sesUtils";
+import { describe, afterAll, it, expect } from "vitest";
+
+import { run, FILTER_NAME } from "../src/ses_createreceiptfilter";
+import { deleteReceiptFilter } from "../src/libs/sesUtils";
 
 describe("ses_createreceiptfilter", () => {
   afterAll(async () => {

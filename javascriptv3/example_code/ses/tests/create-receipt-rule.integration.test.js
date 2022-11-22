@@ -1,12 +1,14 @@
+import { describe, beforeAll, afterAll, it, expect } from "vitest";
+
 import {
   RULE_SET_NAME,
   S3_BUCKET_NAME,
   run,
-} from "../../ses/src/ses_createreceiptrule";
+} from "../src/ses_createreceiptrule";
 import {
   createReceiptRuleSet,
   deleteReceiptRuleSet,
-} from "../../ses/src/libs/sesUtils";
+} from "../src/libs/sesUtils";
 import {
   createBucket,
   deleteBucket,

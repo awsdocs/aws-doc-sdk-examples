@@ -1,5 +1,7 @@
-import { run, DOMAIN_NAME } from "../../ses/src/ses_verifydomainidentity";
-import { deleteIdentity, findIdentity } from "../../ses/src/libs/sesUtils";
+import { describe, afterAll, it, expect } from "vitest";
+
+import { run, DOMAIN_NAME } from "../src/ses_verifydomainidentity";
+import { deleteIdentity, findIdentity } from "../src/libs/sesUtils";
 
 describe("ses_verifydomainidentity", () => {
   afterAll(async () => {

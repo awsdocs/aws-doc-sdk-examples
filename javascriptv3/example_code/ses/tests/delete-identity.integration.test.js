@@ -1,5 +1,7 @@
-import { findIdentity, createIdentity } from "../../ses/src/libs/sesUtils";
-import { run, IDENTITY_EMAIL } from "../../ses/src/ses_deleteidentity";
+import { describe, beforeAll, it, expect } from "vitest";
+
+import { findIdentity, createIdentity } from "../src/libs/sesUtils";
+import { run, IDENTITY_EMAIL } from "../src/ses_deleteidentity";
 
 describe("ses_deleteidentity", () => {
   beforeAll(async () => {
