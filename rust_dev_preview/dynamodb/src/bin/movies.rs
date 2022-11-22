@@ -5,11 +5,13 @@
 
 use std::net::{Ipv4Addr, SocketAddr};
 
-use aws_sdk_dynamodb::{Client, Error};
+use aws_sdk_dynamodb::{types::DisplayErrorContext, Client};
 use axum::extract::Extension;
+use dynamodb_code_examples::scenario::error::Error;
 use dynamodb_code_examples::scenario::movies::server::{make_app, movies_in_year};
 use dynamodb_code_examples::scenario::movies::shutdown::{remove_table, shutdown_signal};
 use dynamodb_code_examples::scenario::movies::{startup::initialize, TABLE_NAME};
+use std::process;
 
 async fn run(client: Client) {
     let app = make_app()
@@ -51,9 +53,16 @@ async fn verify(client: &Client) -> Result<(), Error> {
 /// 2. Verify the table has data.
 /// 3. Start an HTTP server to return subsets of those rows.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() {
     tracing_subscriber::fmt::init();
 
+    if let Err(err) = run_example().await {
+        eprintln!("Error: {}", DisplayErrorContext(err));
+        process::exit(1);
+    }
+}
+
+async fn run_example() -> Result<(), Error> {
     let config = aws_config::from_env().load().await;
     let client = Client::new(&config);
 
