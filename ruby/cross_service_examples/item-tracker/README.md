@@ -19,9 +19,9 @@ The basic unit of data, the work item, is modeled in [item.rb](models/item.rb). 
 * created_date
 * assignee
 
-The React application is run using `resources/clients/elwing.js` and accessed via web browser on localhost:8080.
+The React application is run using `resources/clients/elwing.js` and accessed via web browser on localhost:3000.
 
-The Sinatra API is run using `app.rb` and is accessed by the React app on port 3000.
+The Sinatra API is run using `app.rb` and is accessed by the React app on port 8080.
 
 Written in Ruby, this API will interact with the Aurora Cluster using the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html).
 

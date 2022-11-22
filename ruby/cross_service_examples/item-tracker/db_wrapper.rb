@@ -14,7 +14,7 @@ end
 class RDSClientError < Exception
 end
 
-# Wraps issues commands directly to the Amazon RDS Data Service, including SQL statements.
+# Issues commands directly to the Amazon RDS Data Service, including SQL statements.
 class DBWrapper
 
   # @param config [List]

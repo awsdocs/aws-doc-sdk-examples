@@ -11,8 +11,8 @@ require_relative("../report")
 
 describe "CRUD commands on Aurora" do
   client = Aws::RDSDataService::Client.new
-  config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./../helpers", "config.yml")))
-  let(:wrapper) { DBWrapper.new(config, client) }
+  let(:config) { YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./../helpers", "config.yml"))) }
+  let(:wrapper) { DBWrapper.new(:config, client) }
 
   it "gets the table name" do
     table = wrapper.get_table_name
@@ -21,10 +21,10 @@ describe "CRUD commands on Aurora" do
 
   it "adds a new item" do
     item_data = {
-      description: "This is a first item",
-      guide: "Foo Guide",
-      status: "Active",
-      username: "FooUser"
+      description: "User research",
+      guide: "dotnet",
+      status: "active",
+      username: "krodgers"
     }
     id = wrapper.add_work_item(item_data)
     expect(id).to be_an_instance_of(Integer)
@@ -37,10 +37,10 @@ describe "CRUD commands on Aurora" do
 
   it "gets multiple items" do
     item_data = {
-      description: "This is a second item",
-      guide: "Bar Guide",
-      status: "Active",
-      username: "BarUser"
+      description: "Tech debt",
+      guide: "python",
+      status: "active",
+      username: "jmayer"
     }
     wrapper.add_work_item(item_data)
     data = wrapper.get_work_items
@@ -58,7 +58,7 @@ describe "CRUD commands on Aurora" do
   end
 
   it "make report" do
-    report = Report.new(wrapper, "fprior@amazon.com", Aws::SES::Client.new)
-    report.post_report("fprior@amazon.com")
+    report = Report.new(wrapper, config["recipient_email"], Aws::SES::Client.new)
+    report.post_report(config["recipient_email"])
   end
 end

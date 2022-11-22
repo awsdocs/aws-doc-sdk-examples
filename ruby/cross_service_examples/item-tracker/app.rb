@@ -11,7 +11,7 @@ client = Aws::RDSDataService::Client.new
 ses_client = Aws::SES::Client.new
 config = YAML.load_file("helpers/config.yml")
 wrapper = DBWrapper.new(config, client)
-reporter = Report.new(wrapper, "fprior@amazon.com", ses_client)
+reporter = Report.new(wrapper, config["recipient_email"], ses_client)
 
 configure do
   set :port, 8080
@@ -47,7 +47,7 @@ put %r{/api/items/([\w]+):archive} do |id|
 end
 
 post %r{/api/items:report} do
-  reporter.post_report("fprior@amazon.com")
+  reporter.post_report(config["recipient_email"])
   204
 end
 

@@ -23,7 +23,7 @@ require "mime"
 class Report
   # @param db_wrapper: An object that manages moving data in and out of the underlying database.
   # @param email_sender: The email address from which the email report is sent.
-  # @param ses_client: A Amazon SES client.
+  # @param ses_client: An Amazon SES client.
   def initialize(db_wrapper, email_sender, ses_client)
     @logger = Logger.new($stdout)
     @db_wrapper = db_wrapper
@@ -87,7 +87,7 @@ class Report
 
   # Gets a list of work items from the database and sends an email.
   # Two versions of the email are included:
-  #    1. An HTML version that formats the report as an HTML table by using Flask's
+  #    1. An HTML version that formats the report as an HTML table by using Ruby's native
   #       template rendering feature. Email clients that can render HTML receive this
   #       version.
   #    2. A text version that includes the report as a list of Ruby hashes. Email

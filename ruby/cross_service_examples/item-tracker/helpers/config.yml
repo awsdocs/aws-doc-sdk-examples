@@ -3,4 +3,5 @@ secret_arn: 'arn:aws:secretsmanager:us-east-1:260778392212:secret:docexampleauro
 database: 'auroraappdb'
 table_name: 'my_world_five'
 sender_email: 'fprior@amazon.com'
+recipient_email: 'fprior@amazon.com'
 secret_key: 'change-for-production!'
