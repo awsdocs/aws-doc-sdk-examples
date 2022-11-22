@@ -19,38 +19,6 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-def copy_masks(masks_folder, destination_folder):
-    """
-    Copies mask images from source to destination.
-    :param masks_folder: The S3 path folder for the mask files.
-    The images can be in multiple folders under the supplied path.
-    :param destination_folder: The destination folder for the
-    masks. Regardless of source path folder structure, the copied files
-    are in a single folder.
-    """
-    logger.info("Copying mask files from %s to %s",
-                masks_folder, destination_folder)
-
-    bucket, key = masks_folder.replace("s3://", "").split("/", 1)
-
-    s3_resource = boto3.resource('s3')
-    masks = s3_resource.Bucket(bucket)
-
-    for source_mask in masks.objects.filter(Prefix=key):
-
-        source_file = bucket + "/" + source_mask.key
-        destination_file = destination_folder + source_mask.key.split("/")[-1]
-
-        # Copy files with JPG or PNG extension.
-        split_file_name = os.path.splitext(source_file)
-
-        if split_file_name[1].upper() in ['.JPG', '.JPEG', '.PNG']:
-            copy_file(s3_resource, source_file, destination_file)
-
-    logger.info("Finished copying mask files from %s to %s",
-                masks_folder, destination_folder)
-
-
 def copy_file(s3_resource, source_file,  destination_file):
     """
     Copies a file from source S3 folder to a destination S3 folder. The destination
@@ -88,7 +56,7 @@ def upload_manifest_file(s3_resource, manifest_file, destination):
     Uploads a manifest file to a destination S3 folder.
     :param s3: An S3 boto resource.
     :param manifest_file: The manifest file that you want to upload.
-    :destination: The S3 location to copy the manifest file to.
+    :destination: The S3 folder location to upload the manifest file to.
     """
 
     destination_bucket, destination_key = destination.replace(
@@ -138,9 +106,10 @@ def process_json_line(s3_resource, entry, dataset_type, destination):
     """
     Creates a JSON line for new manifest, copies image and mask to destination.
     :param s3_resource: A Boto3 S3 resource.
+    :param entry: A JSON line from the manifest file.
     :param dataset_type: The type (train or test) of the dataset that
     you want to create the manifest file for.
-    :param destination: The S3 destination for the manifest file and dataset images.
+    :param destination: The S3 destination folder for the manifest file and dataset images.
     :return: A JSON line with details for the destination location.
     """
     entry_json = json.loads(entry)
@@ -184,7 +153,8 @@ def write_manifest_file(lookoutvision_client, s3_resource, project,  dataset_typ
     :param project: The Lookout for Vision project that you want to use.
     :param dataset_type: The type (train or test) of the dataset that
     you want to create the manifest file for.
-    :param destination: The S3 destination for the manifest file and dataset images.
+    :param destination: The S3 destination folder for the manifest file
+    and dataset images.
     """
 
     try:
@@ -233,7 +203,7 @@ def export_datasets(lookoutvision_client, s3_resource, project, destination):
     Exports the datasets from an Amazon Lookout for Vision project to a specified S3
     destination.
     :param project: The Lookout for Vision project that you want to use.
-    :param destination: The destination S3 path for the exported datasets.
+    :param destination: The destination S3 folder for the exported datasets.
     """
     # Add trailing backslash, if missing.
     destination = destination if destination[-1] == "/"  \
