@@ -34,8 +34,34 @@ ses_SendEmail:
               snippet_tags:
                 - python.example_code.ses.SesMailSender
                 - python.example_code.ses.SendEmail
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.email.sendEmailV3
   services:
     ses: {SendEmail}
+ses_SendBulkTemplatedEmail:
+  title: Send templated email to multiple destinations with &SES; using an &AWS; SDK
+  title_abbrev: Send bulk templated email
+  synopsis: send templated email to multiple destinations with &SES;.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.email.sendBulkTemplatedEmailV3
+  services:
+    ses: {SendBulkTemplatedEmail}
 ses_SendTemplatedEmail:
   title: Send templated email with &SES; using an &AWS; SDK
   title_abbrev: Send templated email
@@ -70,6 +96,15 @@ ses_SendTemplatedEmail:
               snippet_tags:
                 - python.example_code.ses.SesMailSender
                 - python.example_code.ses.SendTemplatedEmail
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.email.sendTemplatedEmailV3
   services:
     ses: {SendTemplatedEmail}
 ses_VerifyDomainIdentity:
@@ -88,6 +123,15 @@ ses_VerifyDomainIdentity:
               snippet_tags:
                 - python.example_code.ses.SesIdentity
                 - python.example_code.ses.VerifyDomainIdentity
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.identities.verifyDomainIdentityV3
   services:
     ses: {VerifyDomainIdentity}
 ses_VerifyEmailIdentity:
@@ -115,6 +159,15 @@ ses_VerifyEmailIdentity:
               snippet_tags:
                 - python.example_code.ses.SesIdentity
                 - python.example_code.ses.VerifyEmailIdentity
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.identities.verifyEmailIdentityV3
   services:
     ses: {VerifyEmailIdentity}
 ses_GetIdentityVerificationAttributes:
@@ -169,6 +222,15 @@ ses_DeleteIdentity:
               snippet_tags:
                 - python.example_code.ses.SesIdentity
                 - python.example_code.ses.DeleteIdentity
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.identities.deleteIdentityV3
   services:
     ses: {DeleteIdentity}
 ses_ListIdentities:
@@ -233,6 +295,15 @@ ses_CreateReceiptFilter:
               snippet_tags:
                 - python.example_code.ses.SesReceiptHandler
                 - python.example_code.ses.CreateReceiptFilter
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.filters.createReceiptFilterV3
   services:
     ses: {CreateReceiptFilter}
 ses_ListReceiptFilters:
@@ -251,6 +322,15 @@ ses_ListReceiptFilters:
               snippet_tags:
                 - python.example_code.ses.SesReceiptHandler
                 - python.example_code.ses.ListReceiptFilters
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.filters.listReceiptFiltersV3
   services:
     ses: {ListReceiptFilters}
 ses_DeleteReceiptFilter:
@@ -269,6 +349,15 @@ ses_DeleteReceiptFilter:
               snippet_tags:
                 - python.example_code.ses.SesReceiptHandler
                 - python.example_code.ses.DeleteReceiptFilter
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.filters.deleteReceiptFilterV3
   services:
     ses: {DeleteReceiptFilter}
 ses_CreateReceiptRuleSet:
@@ -288,6 +377,15 @@ ses_CreateReceiptRuleSet:
               snippet_tags:
                 - python.example_code.ses.SesReceiptHandler
                 - python.example_code.ses.CreateReceiptRuleSet
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.rules.createReceiptRuleSetV3
   services:
     ses: {CreateReceiptRuleSet}
 ses_CreateReceiptRule:
@@ -309,6 +407,15 @@ ses_CreateReceiptRule:
                 - python.example_code.ses.SesReceiptHandler
                 - python.example_code.ses.helper.create_bucket_for_copy
                 - python.example_code.ses.CreateReceiptRule
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.rules.createReceiptRuleV3
   services:
     ses: {CreateReceiptRule}
 ses_DescribeReceiptRuleSet:
@@ -345,6 +452,15 @@ ses_DeleteReceiptRule:
               snippet_tags:
                 - python.example_code.ses.SesReceiptHandler
                 - python.example_code.ses.DeleteReceiptRule
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.rules.deleteReceiptRuleV3
   services:
     ses: {DeleteReceiptRule}
 ses_DeleteReceiptRuleSet:
@@ -363,6 +479,15 @@ ses_DeleteReceiptRuleSet:
               snippet_tags:
                 - python.example_code.ses.SesReceiptHandler
                 - python.example_code.ses.DeleteReceiptRuleSet
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.rules.deleteReceiptRuleSetV3
   services:
     ses: {DeleteReceiptRuleSet}
 ses_CreateTemplate:
@@ -390,6 +515,15 @@ ses_CreateTemplate:
               snippet_tags:
                 - python.example_code.ses.SesTemplate
                 - python.example_code.ses.CreateTemplate
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.templates.createTemplateV3
   services:
     ses: {CreateTemplate}
 ses_DeleteTemplate:
@@ -417,6 +551,15 @@ ses_DeleteTemplate:
               snippet_tags:
                 - python.example_code.ses.SesTemplate
                 - python.example_code.ses.DeleteTemplate
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.templates.deleteTemplateV3
   services:
     ses: {DeleteTemplate}
 ses_GetTemplate:
@@ -435,6 +578,15 @@ ses_GetTemplate:
               snippet_tags:
                 - python.example_code.ses.SesTemplate
                 - python.example_code.ses.GetTemplate
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.templates.getTemplateV3
   services:
     ses: {GetTemplate}
 ses_ListTemplates:
@@ -471,6 +623,15 @@ ses_ListTemplates:
               snippet_tags:
                 - python.example_code.ses.SesTemplate
                 - python.example_code.ses.ListTemplates
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.templates.listTemplatesV3
   services:
     ses: {ListTemplates}
 ses_UpdateTemplate:
@@ -489,6 +650,15 @@ ses_UpdateTemplate:
               snippet_tags:
                 - python.example_code.ses.SesTemplate
                 - python.example_code.ses.UpdateTemplate
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.JavaScript.templates.updateTemplateV3
   services:
     ses: {UpdateTemplate}
 ses_GetSendQuota:
