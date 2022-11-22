@@ -1,15 +1,13 @@
+import { describe, beforeAll, afterAll, it, expect } from "vitest";
+
 import { CreateReceiptRuleCommand, TlsPolicy } from "@aws-sdk/client-ses";
-import { sesClient } from "../../ses/src/libs/sesClient";
+import { sesClient } from "../src/libs/sesClient";
 import {
   createReceiptRuleSet,
   checkRuleExists,
   deleteReceiptRuleSet,
-} from "../../ses/src/libs/sesUtils";
-import {
-  RULE_NAME,
-  RULE_SET_NAME,
-  run,
-} from "../../ses/src/ses_deletereceiptrule";
+} from "../src/libs/sesUtils";
+import { RULE_NAME, RULE_SET_NAME, run } from "../src/ses_deletereceiptrule";
 
 describe("ses_deletereceiptrule", () => {
   beforeAll(async () => {
@@ -24,10 +22,10 @@ describe("ses_deletereceiptrule", () => {
   afterAll(() => {
     try {
       deleteReceiptRuleSet(RULE_SET_NAME);
-    } catch(e) {
+    } catch (e) {
       console.error(e);
     }
-  })
+  });
 
   it("should delete a receipt rule", async () => {
     let rule = await checkRuleExists(RULE_NAME, RULE_SET_NAME);

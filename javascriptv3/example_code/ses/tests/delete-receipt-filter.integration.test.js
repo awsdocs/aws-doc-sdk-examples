@@ -1,13 +1,12 @@
+import { describe, beforeAll, it, expect } from "vitest";
+
+import { run, RECEIPT_FILTER_NAME } from "../src/ses_deletereceiptfilter";
+import { sesClient } from "../src/libs/sesClient.js";
 import {
-  run,
-  RECEIPT_FILTER_NAME,
-} from "../../ses/src/ses_deletereceiptfilter";
-const { sesClient } = require("../../ses/src/libs/sesClient.js");
-const {
   CreateReceiptFilterCommand,
   ListReceiptFiltersCommand,
   ReceiptFilterPolicy,
-} = require("@aws-sdk/client-ses");
+} from "@aws-sdk/client-ses";
 
 describe("ses_deletereceiptfilter", () => {
   beforeAll(async () => {

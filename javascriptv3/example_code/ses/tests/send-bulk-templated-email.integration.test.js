@@ -1,14 +1,12 @@
+import { describe, beforeAll, afterAll, it, expect } from "vitest";
+
 import {
   createIdentity,
   createTemplate,
   deleteIdentity,
   deleteTemplate,
-} from "../../ses/src/libs/sesUtils";
-import {
-  run,
-  TEMPLATE_NAME,
-  USERS,
-} from "../../ses/src/ses_sendbulktemplatedemail";
+} from "../src/libs/sesUtils";
+import { run, TEMPLATE_NAME, USERS } from "../src/ses_sendbulktemplatedemail";
 
 describe("ses_sendbulktemplatedemail", () => {
   beforeAll(async () => {

@@ -1,13 +1,11 @@
+import { describe, beforeAll, afterAll, it, expect } from "vitest";
+
 import {
   createTemplate,
   deleteTemplate,
   getTemplate,
-} from "../../ses/src/libs/sesUtils";
-import {
-  HTML_PART,
-  run,
-  TEMPLATE_NAME,
-} from "../../ses/src/ses_updatetemplate";
+} from "../src/libs/sesUtils";
+import { HTML_PART, run, TEMPLATE_NAME } from "../src/ses_updatetemplate";
 
 describe("ses_updatetemplate", () => {
   beforeAll(async () => {

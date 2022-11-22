@@ -1,5 +1,7 @@
-import { run, TEMPLATE_NAME } from "../../ses/src/ses_deletetemplate.js";
-import { createTemplate, getTemplate } from "../../ses/src/libs/sesUtils";
+import { describe, beforeAll, it, expect } from "vitest";
+
+import { run, TEMPLATE_NAME } from "../src/ses_deletetemplate.js";
+import { createTemplate, getTemplate } from "../src/libs/sesUtils";
 
 describe("ses_deletetemplate", () => {
   beforeAll(async () => {

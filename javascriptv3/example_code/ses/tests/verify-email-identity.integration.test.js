@@ -1,5 +1,7 @@
-import { run, EMAIL_ADDRESS } from "../../ses/src/ses_verifyemailidentity";
-import { deleteIdentity, findIdentity } from "../../ses/src/libs/sesUtils";
+import { describe, afterAll, it, expect } from "vitest";
+
+import { run, EMAIL_ADDRESS } from "../src/ses_verifyemailidentity";
+import { deleteIdentity, findIdentity } from "../src/libs/sesUtils";
 
 describe("ses_verifyemailidentity", () => {
   afterAll(async () => {

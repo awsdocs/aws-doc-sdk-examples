@@ -1,5 +1,7 @@
-const { run, TEMPLATE_NAME } = require("../../ses/src/ses_createtemplate");
-import { deleteTemplate, getTemplate } from "../../ses/src/libs/sesUtils.js";
+import { describe, afterAll, it, expect } from "vitest";
+
+import { run, TEMPLATE_NAME } from "../src/ses_createtemplate";
+import { deleteTemplate, getTemplate } from "../src/libs/sesUtils.js";
 
 describe("ses_createtemplate", () => {
   afterAll(async () => {
