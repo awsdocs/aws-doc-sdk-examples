@@ -74,6 +74,7 @@ class DynamoDBTest {
         }
         println("Test 3 passed")
     }
+    
     @Test
     @Order(4)
     fun addTest() = runBlocking {
