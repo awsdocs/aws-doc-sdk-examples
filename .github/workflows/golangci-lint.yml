@@ -34,4 +34,4 @@ jobs:
           cd ../s3
           golangci-lint run
           cd ../testtools
-          golanci-lint run
+          golangci-lint run
