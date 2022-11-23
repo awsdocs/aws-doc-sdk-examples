@@ -53,10 +53,10 @@ struct ExampleCommand: ParsableCommand {
         let policyName = String.uniqueName()
 
         do {
-            let user: IamClientTypes.User
-            let role: IamClientTypes.Role
-            let policy: IamClientTypes.Policy
-            let accessKey: IamClientTypes.AccessKey
+            let user: IAMClientTypes.User
+            let role: IAMClientTypes.Role
+            let policy: IAMClientTypes.Policy
+            let accessKey: IAMClientTypes.AccessKey
 
             // Create the test user and create an access key for
             // authentication.
