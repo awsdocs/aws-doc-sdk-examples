@@ -15,11 +15,11 @@ require "erb"
 require "json"
 require "csv"
 require "mail"
-require_relative "db_wrapper"
 require "mime"
+require_relative "db_wrapper"
 
 # Encapsulates a report resource that gets work items from an
-# Amazon Aurora Serverless database and uses Amazon SES to send emails about them.
+# Amazon Aurora database and uses Amazon SES to send emails about them.
 class Report
   # @param db_wrapper: An object that manages moving data in and out of the underlying database.
   # @param email_sender: The email address from which the email report is sent.
