@@ -51,6 +51,8 @@ if(NOT DEFINED AWSDOC_SOURCE)
     file(GLOB AWSDOC_SOURCE
         "*.cpp"
     )
+
+    list(FILTER AWSDOC_SOURCE EXCLUDE REGEX "/glue_utilities.cpp$")
 endif()
 
 # Check whether the target system is Windows, including Win64.
@@ -67,7 +69,9 @@ foreach(file ${AWSDOC_SOURCE})
     # Build the code example executables.
     set(EXAMPLE_EXE run_${EXAMPLE})
 
-    add_executable(${EXAMPLE_EXE} ${file})
+    add_executable(${EXAMPLE_EXE}
+            ${file}
+            glue_utilities.cpp)
 
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})

@@ -10,32 +10,33 @@
  *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
+ * See the
+ *
  * Purpose
  *
  * This example performs the following tasks:
  *
- * 1. Create a database.
- * 2. Create a crawler.
- * 3. Get a crawler.
- * 4. Start a crawler.
- * 5. Get a database.
- * 6. Get tables.
- * 7. Create a job.
- * 8. Start a job run.
- * 9. List all jobs.
- * 10. Get job runs.
- * 11. Delete a job.
- * 12. Delete a database.
- * 13. Delete a crawler.
+ * 1. Upload the job script to the S3 bucket.
+ * 2. Create a database.
+ * 3. Create a crawler.
+ * 4. Get a crawler.
+ * 5. Start a crawler.
+ * 6. Get a database.
+ * 7. Get tables.
+ * 8. Create a job.
+ * 9. Start a job run.
+ * 10. List all jobs.
+ * 11. Get job runs.
+ * 12. Delete a job.
+ * 13. Delete a database.
+ * 14. Delete a crawler.
+ * 15. Delete the job script and run data from the S3 bucket.
  *
  */
 
 #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/cloudformation/CloudFormationClient.h>
-#include <aws/cloudformation/model/CreateStackRequest.h>
-#include <aws/cloudformation/model/DeleteStackRequest.h>
-#include <aws/cloudformation/model/DescribeStacksRequest.h>
 #include <aws/glue/GlueClient.h>
 #include <aws/glue/model/CreateDatabaseRequest.h>
 #include <aws/glue/model/CreateCrawlerRequest.h>
@@ -46,17 +47,21 @@
 #include <aws/glue/model/GetCrawlerRequest.h>
 #include <aws/glue/model/GetDatabaseRequest.h>
 #include <aws/glue/model/GetJobRunRequest.h>
+#include <aws/glue/model/GetJobRunsRequest.h>
 #include <aws/glue/model/GetTablesRequest.h>
+#include <aws/glue/model/ListJobsRequest.h>
 #include <aws/glue/model/StartCrawlerRequest.h>
 #include <aws/glue/model/StartJobRunRequest.h>
 #include <aws/iam/IAMClient.h>
-#include <aws/iam/Model/GetRoleRequest.h>
 #include <aws/s3/S3Client.h>
-#include <aws/s3/model/DeleteObjectRequest.h>
+#include <aws/s3/model/DeleteObjectsRequest.h>
+#include <aws/s3/model/DeleteBucketRequest.h>
+#include <aws/s3/model/GetObjectRequest.h>
 #include <aws/s3/model/ListObjectsRequest.h>
 #include <aws/s3/model/PutObjectRequest.h>
 #include <vector>
 #include <fstream>
+#include "glue_samples.h"
 
 
 namespace AwsDoc {
@@ -66,83 +71,35 @@ namespace AwsDoc {
         static const Aws::String CRAWLER_DATABASE_NAME("doc-example-database");
         static const Aws::String CRAWLER_DATABASE_PREFIX("doc-example-");
         static const Aws::String CRAWLER_NAME("doc_example_crawler");
-        static const Aws::String CDK_TOOLKIT_STACK_NAME("CDKToolkit");
         static const Aws::String STACK_NAME("doc-example-glue-scenario-stack");
         static const Aws::String JOB_NAME("doc-example-job");
         static const Aws::String JOB_COMMAND_NAME("glueetl");
         static const Aws::String JOB_PYTHON_VERSION("3");
         static const Aws::String GLUE_VERSION("3.0");
-        static const Aws::String CLOUD_FORMATION_TEMPLATE_FILE(SOURCE_DIR "/setup_scenario_getting_started.yaml");
-        static const Aws::String CDK_TOOLKIT_TEMPLATE(SOURCE_DIR "/bootstrap-template.yaml");
+        static const Aws::String CLOUD_FORMATION_TEMPLATE_FILE(
+                SOURCE_DIR "/setup_scenario_getting_started.yaml");
         static const Aws::String PYTHON_SCRIPT("flight_etl_job_script.py");
-        static const Aws::String PYTHON_SCRIPT_PATH(SOURCE_DIR "/flight_etl_job_script.py");
+        static const Aws::String PYTHON_SCRIPT_PATH(
+                SOURCE_DIR "/flight_etl_job_script.py");
+        static const int LINES_OF_RUN_FILE_TO_DISPLAY = 20;
 
-        //! Command line prompt/response utility function.
-        /*!
-         \\sa askQuestion()
-         \param string: A question prompt.
-         \param test: Test function for response.
-         \return Aws::String: User's response.
-         */
-        static Aws::String askQuestion(const Aws::String &string,
-                                       const std::function<bool(
-                                               Aws::String)> &test = [](
-                                               const Aws::String &) -> bool { return true; });
-
-        //! Command line prompt/response utility function for an int result confined to
-        //! a range.
-        /*!
-         \sa askQuestionForIntRange()
-         \param string: A question prompt.
-         \param low: Low inclusive.
-         \param high: High inclusive.
-         \return int: User's response.
-         */
-        int askQuestionForIntRange(const Aws::String &string, int low,
-                                   int high);
-
-
-        bool
-        createCloudFormationResource(const Aws::String &stackName,
-                                     const Aws::String &templateFilePath,
-                                     std::vector<Aws::CloudFormation::Model::Output> &outputs,
-                                     Aws::String &arnPrefix,
-                                     const Aws::Client::ClientConfiguration &clientConfig);
-
-        bool deleteCloudFormationResource(const Aws::String &stackName,
-                                          const Aws::Client::ClientConfiguration &clientConfig);
-
-        Aws::CloudFormation::Model::Stack
-            getStackDescription(const Aws::String &stackName,
-                            const Aws::Client::ClientConfiguration &clientConfig);
-
-        bool runGettingStartedWithGlueScenario(const Aws::String& bucketName,
-                                               const Aws::String& roleName,
-                                               const Aws::Client::ClientConfiguration &clientConfig);
-
-
-        bool uploadFile(const Aws::String &bucketName, const Aws::String &filePath,
+        static bool uploadFile(const Aws::String &bucketName, const Aws::String &filePath,
                         const Aws::String &fileName,
                         const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool deleteS3Object(const Aws::String &bucketName,
-        const Aws::String &objectName,
-        const Aws::Client::ClientConfiguration &clientConfig);
+        static bool deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
+                                        const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool bootstrapCDK(bool& cdkBootstrapCreated,
+        static bool getObjectFromBucket(const Aws::String &bucketName,
+                                 const Aws::String &objectKey,
+                                 std::ostream &objectStream,
+                                 const Aws::Client::ClientConfiguration &clientConfig);
+
+        static bool deleteAssets(const Aws::String &crawler, const Aws::String &database,
+                          const Aws::String &job, const Aws::String &bucketName,
                           const Aws::Client::ClientConfiguration &clientConfig);
-
-        bool deleteAssets(const Aws::String &crawler, const Aws::String &database,
-                          const Aws::String &job,
-                          const Aws::Glue::GlueClient &client);
-
-        bool getRoleArn(const Aws::String& roleName,
-                        Aws::String &roleArn,
-                        const Aws::Client::ClientConfiguration &clientConfig);
     } // Glue
 } // AwsDoc
-
-
 
 #ifndef TESTING_BUILD
 
@@ -153,97 +110,89 @@ int main(int argc, const char *argv[]) {
     {
         Aws::Client::ClientConfiguration clientConfig;
 
-        bool cdkBootstrapCreated= false;
+        bool cdkBootstrapCreated = false;
         Aws::String roleArn;
         Aws::String bucketName;
-          if (argc == 1) {
+        if (argc == 1) {
             Aws::String answer = AwsDoc::Glue::askQuestion(
                     "Create the resources using Aws Cloud Formation? (y/n) ");
 
             if (answer == "y") {
-                std::cout << "Creating the resources. This may take a while." << std::endl;
+                std::cout << "Creating the resources. This may take a while."
+                          << std::endl;
 
-                if (!AwsDoc::Glue::bootstrapCDK(cdkBootstrapCreated, clientConfig))
-                {
-                    std::cerr << "Error creating CDK bootstrap"  << std::endl;
+                if (!AwsDoc::Glue::bootstrapCDK(cdkBootstrapCreated, clientConfig)) {
+                    std::cerr << "Error creating CDK bootstrap" << std::endl;
                     return 1;
                 }
-                Aws::String arnPrefix;
-                std::vector<Aws::CloudFormation::Model::Output> outputs;
+                 std::vector<Aws::CloudFormation::Model::Output> outputs;
                 bool result = AwsDoc::Glue::createCloudFormationResource(
                         AwsDoc::Glue::STACK_NAME,
-                        AwsDoc::Glue::CLOUD_FORMATION_TEMPLATE_FILE, outputs, arnPrefix,
-                        clientConfig); // defined in CMakeLists.txt
+                        AwsDoc::Glue::CLOUD_FORMATION_TEMPLATE_FILE, outputs,
+                        clientConfig);
 
                 if (result) {
                     for (auto &output: outputs) {
                         if (output.GetOutputKey() == AwsDoc::Glue::BUCKET_NAME_KEY) {
                             bucketName = output.GetOutputValue();
                         }
-                        else if (output.GetOutputKey() == AwsDoc::Glue::ROLE_NAME_KEY)
-                        {
-                            AwsDoc::Glue::getRoleArn(output.GetOutputValue(), roleArn, clientConfig);
+                        else if (output.GetOutputKey() == AwsDoc::Glue::ROLE_NAME_KEY) {
+                            AwsDoc::Glue::getRoleArn(output.GetOutputValue(), roleArn,
+                                                     clientConfig);
                         }
-                     }
+                    }
 
                     std::cout << "Created resources\nBucket name '" <<
-                              bucketName << "'.\nRole arn '" << roleArn << "'." << std::endl;
-
-                    std::cout <<"Uploading the job script '" << AwsDoc::Glue::PYTHON_SCRIPT
-                    << "'." << std::endl;
-
-                    if (!AwsDoc::Glue::uploadFile(bucketName, AwsDoc::Glue::PYTHON_SCRIPT_PATH,
-                                                  AwsDoc::Glue::PYTHON_SCRIPT, clientConfig))
-                    {
-                        std::cerr << "Error uploading the job file." << std::endl;
-                    }
-                 }
-                else{
+                              bucketName << "'.\nRole arn '" << roleArn << "'."
+                              << std::endl;
+                }
+                else {
                     std::cerr << "Error in resource creation." << std::endl;
                     return 1;
                 }
             }
-            else{
-                std::cout << "Resources with the correct role name and bucket name must "
-                << "be created to run this example." << std::endl;
+            else {
+                std::cout
+                        << "Resources with the correct role name and bucket name must "
+                        << "be created to run this example." << std::endl;
                 return 1;
             }
 
         }
-         else if (argc == 3)
-         {
-             roleArn = argv[1];
-             bucketName = argv[2];
-         }
+        else if (argc == 3) {
+            roleArn = argv[1];
+            bucketName = argv[2];
+        }
 
         if (!bucketName.empty() && !roleArn.empty()) {
-             AwsDoc::Glue::runGettingStartedWithGlueScenario(bucketName, roleArn,
-                                                             clientConfig);
-         }
-         else {
-             std::cerr << "Could not run scenario because missing bucket name or role name."  << std::endl;
-         }
+            AwsDoc::Glue::runGettingStartedWithGlueScenario(bucketName, roleArn,
+                                                            clientConfig);
+        }
+        else {
+            std::cerr
+                    << "Could not run scenario because missing bucket name or role name."
+                    << std::endl;
+        }
 
         Aws::String answer = AwsDoc::Glue::askQuestion(
-                "Delete the CloudFormation resources used in this example? (y/n) ");
+                "Delete the role and the bucket created with CloudFormation and used to run this example? (y/n) ");
         if (answer == "y") {
-            AwsDoc::Glue::deleteS3Object(bucketName, AwsDoc::Glue::PYTHON_SCRIPT, clientConfig);
             AwsDoc::Glue::deleteCloudFormationResource(AwsDoc::Glue::STACK_NAME,
                                                        clientConfig);
         }
 
-        if (cdkBootstrapCreated)
-        {
+        if (cdkBootstrapCreated) {
             answer = AwsDoc::Glue::askQuestion(
                     "A cloud formation CDK bootstrap stack was created. "
                     "Retaining this may incur charges. Delete this stack? (y/n) ");
 
             if (answer == "y") {
-                 AwsDoc::Glue::deleteCloudFormationResource(AwsDoc::Glue::CDK_TOOLKIT_STACK_NAME,
-                                                           clientConfig);
+                AwsDoc::Glue::deleteCloudFormationResource(
+                        AwsDoc::Glue::CDK_TOOLKIT_STACK_NAME,
+                        clientConfig);
             }
         }
-   }
+    }
 
     ShutdownAPI(options);
 
@@ -253,236 +202,28 @@ int main(int argc, const char *argv[]) {
 #endif // TESTING_BUILD
 
 
-Aws::String AwsDoc::Glue::askQuestion(const Aws::String &string,
-                                          const std::function<bool(
-                                                  Aws::String)> &test) {
-    Aws::String result;
-    do {
-        std::cout << string;
-        std::getline(std::cin, result);
-        if (result.empty()) {
-            std::cout << "Please enter some text." << std::endl;
-        }
-        if (!test(result)) {
-            result.clear();
-        }
-    } while (result.empty());
-
-    return result;
-}
-
-int AwsDoc::Glue::askQuestionForIntRange(const Aws::String &string, int low,
-                                             int high) {
-    Aws::String resultString = askQuestion(string, [low, high](
-            const Aws::String &string1) -> bool {
-            try {
-                int number = std::stoi(string1);
-                bool result = number >= low && number <= high;
-                if (!result)
-                {
-                    std::cout << "\nThe number is out of range." << std::endl;
-                }
-                return result;
-            }
-            catch (const std::invalid_argument &) {
-                std::cout << "\nNot a valid number." << std::endl;
-                return false;
-            }
-    });
-    int result = 0;
-    try {
-        result = std::stoi(resultString);
-    }
-    catch (const std::invalid_argument &) {
-        std::cerr << "DynamoDB::askQuestionForFloatRange string not an int "
-                  << resultString << std::endl;
-    }
-
-    return result;
-}
-
-
-bool
-AwsDoc::Glue::createCloudFormationResource(const Aws::String &stackName,
-                                           const Aws::String &templateFilePath,
-                                           std::vector<Aws::CloudFormation::Model::Output> &outputs,
-                                           Aws::String &arnPrefix,
-                                           const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::CloudFormation::CloudFormationClient client(clientConfig);
-
-    Aws::CloudFormation::Model::CreateStackRequest request;
-
-    std::ifstream ifstream(templateFilePath);
-    if (!ifstream) {
-        std::cerr << "Could not load file '" << templateFilePath << "'" << std::endl;
-        return false;
-    }
-    std::ostringstream templateStream;
-    templateStream << ifstream.rdbuf();
-    request.SetTemplateBody(templateStream.str());
-    request.SetStackName(stackName);
-    request.SetCapabilities(
-            {Aws::CloudFormation::Model::Capability::CAPABILITY_NAMED_IAM});
-
-    Aws::CloudFormation::Model::CreateStackOutcome outcome = client.CreateStack(
-            request);
-
-    bool result = false;
-    if (outcome.IsSuccess() || outcome.GetError().GetErrorType() ==
-                               Aws::CloudFormation::CloudFormationErrors::ALREADY_EXISTS) {
-        Aws::CloudFormation::Model::DescribeStacksRequest waitRequest;
-        waitRequest.SetStackName(stackName);
-
-        Aws::CloudFormation::Model::StackStatus stackStatus = Aws::CloudFormation::Model::StackStatus::CREATE_IN_PROGRESS;
-        int iterations = 0;
-        do {
-            ++iterations;
-            Aws::CloudFormation::Model::Stack stack = getStackDescription(stackName,
-                                                                          clientConfig);
-            if (!stack.GetStackName().empty()) {
-                if (stack.GetStackStatus() != stackStatus || ((iterations % 10) == 0)) {
-                    std::cout << "Stack " << stackName << " status ";
-                    switch (stack.GetStackStatus()) {
-                        case Aws::CloudFormation::Model::StackStatus::CREATE_IN_PROGRESS:
-                            std::cout << "CREATE_IN_PROGRESS";
-                            break;
-                        case Aws::CloudFormation::Model::StackStatus::CREATE_FAILED:
-                            std::cout << "CREATE_FAILED";
-                            break;
-                        case Aws::CloudFormation::Model::StackStatus::CREATE_COMPLETE:
-                            std::cout << "CREATE_COMPLETE";
-                            break;
-                        default:
-                            std::cout << "stack status reason ." << stack.GetStackStatusReason() << "' status id ";
-                            std::cout << static_cast<int>(stack.GetStackStatus());
-                            break;
-
-                    }
-                    std::cout << " after " << iterations << " seconds." << std::endl;
-                }
-                stackStatus = stack.GetStackStatus();
-                if (Aws::CloudFormation::Model::StackStatus::CREATE_COMPLETE ==
-                    stackStatus) {
-                    outputs = stack.GetOutputs();
-                    arnPrefix = "arn:aws:iam::123502194722:";
-                    result = true;
-                }
-            }
-            else {
-                break;
-            }
-            if (iterations > 900) {
-                stackStatus = Aws::CloudFormation::Model::StackStatus::CREATE_FAILED;
-            }
-        } while ((Aws::CloudFormation::Model::StackStatus::CREATE_IN_PROGRESS ==
-                 stackStatus) || (Aws::CloudFormation::Model::StackStatus::ROLLBACK_IN_PROGRESS ==
-                 stackStatus));
-    }
-    else {
-        std::cerr << "Create stack failed " << outcome.GetError().GetMessage()
-                  << std::endl;
-    }
-
-    return result;
-}
-
-Aws::CloudFormation::Model::Stack
-AwsDoc::Glue::getStackDescription(const Aws::String &stackName,
-                                  const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::CloudFormation::Model::Stack result;
-
-    Aws::CloudFormation::CloudFormationClient client(clientConfig);
-
-    Aws::CloudFormation::Model::DescribeStacksRequest request;
-    request.SetStackName(stackName);
-    Aws::CloudFormation::Model::DescribeStacksOutcome outcome = client.DescribeStacks(
-            request);
-    if (outcome.IsSuccess()) {
-        auto stacks = outcome.GetResult().GetStacks();
-        for (auto &stack: stacks) {
-            if (stack.GetStackName() == stackName) {
-                result = stack;
-                break;
-            }
-        }
-    }
-    else {
-        std::cerr << "DescribeStacks failed " << outcome.GetError().GetMessage()
-                  << std::endl;
-    }
-
-    return result;
-}
-
-bool AwsDoc::Glue::deleteCloudFormationResource(const Aws::String &stackName,
-                                                const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::CloudFormation::CloudFormationClient client(clientConfig);
-    Aws::CloudFormation::Model::DeleteStackRequest request;
-    request.SetStackName(stackName);
-
-    Aws::CloudFormation::Model::DeleteStackOutcome outcome = client.DeleteStack(
-            request);
-
-    if (outcome.IsSuccess()) {
-        Aws::CloudFormation::Model::StackStatus stackStatus = Aws::CloudFormation::Model::StackStatus::DELETE_IN_PROGRESS;
-        int iterations = 0;
-        do {
-            ++iterations;
-            Aws::CloudFormation::Model::Stack stack = getStackDescription(stackName,
-                                                                          clientConfig);
-            if (!stack.GetStackName().empty()) {
-                if (stack.GetStackStatus() != stackStatus || ((iterations % 10) == 0)) {
-                    std::cout << "Stack " << stackName << " status is '";
-                    switch (stack.GetStackStatus()) {
-                        case Aws::CloudFormation::Model::StackStatus::DELETE_IN_PROGRESS:
-                            std::cout << "DELETE_IN_PROGRESS";
-                            break;
-                        case Aws::CloudFormation::Model::StackStatus::DELETE_FAILED:
-                            std::cout << "DELETE_FAILED";
-                            break;
-                        case Aws::CloudFormation::Model::StackStatus::DELETE_COMPLETE:
-                            std::cout << "DELETE_COMPLETE";
-                            break;
-                        default:
-                            std::cout << static_cast<int>(stack.GetStackStatus());
-                            break;
-
-                    }
-                    std::cout << "' after " << iterations << " seconds." << std::endl;
-                }
-                stackStatus = stack.GetStackStatus();
-
-                if (stackStatus == Aws::CloudFormation::Model::StackStatus::DELETE_FAILED)
-                {
-                    std::cerr << "Delete of stack failed. " << stack.GetStackStatusReason() <<
-                    std::endl;
-                }
-
-            }
-            else {
-                break;
-            }
-            if (iterations > 300) {
-                stackStatus = Aws::CloudFormation::Model::StackStatus::DELETE_FAILED;
-            }
-        } while (Aws::CloudFormation::Model::StackStatus::DELETE_IN_PROGRESS ==
-                 stackStatus);
-    }
-    else {
-        std::cerr << "Delete stack failed "
-                  << outcome.GetError().GetMessage() << std::endl;
-    }
-
-    return outcome.IsSuccess();
-}
-
 bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketName,
                                                      const Aws::String &roleName,
                                                      const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::Glue::GlueClient client(clientConfig);
 
-#if 0
-    // 1. Create a database.
+    // 1. Upload the job script to the S3 bucket.
+    {
+        std::cout << "Uploading the job script '"
+                  << AwsDoc::Glue::PYTHON_SCRIPT
+                  << "'." << std::endl;
+
+        if (!AwsDoc::Glue::uploadFile(bucketName,
+                                      AwsDoc::Glue::PYTHON_SCRIPT_PATH,
+                                      AwsDoc::Glue::PYTHON_SCRIPT,
+                                      clientConfig)) {
+            std::cerr << "Error uploading the job file." << std::endl;
+            return false;
+        }
+
+    }
+
+    // 2. Create a database.
     {
         Aws::Glue::Model::DatabaseInput input;
         input.SetName(CRAWLER_DATABASE_NAME);
@@ -501,7 +242,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         }
     }
 
-    // 2. Create a crawler.
+    // 3. Create a crawler.
     {
         Aws::Glue::Model::S3Target s3Target;
         s3Target.SetPath("s3://crawler-public-us-east-1/flight/2016/csv");
@@ -523,12 +264,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         }
         else{
             std::cerr << "Error creating a crawler. " << outcome.GetError().GetMessage() << std::endl;
-            deleteAssets("", CRAWLER_DATABASE_NAME, "", client);
+            deleteAssets("", CRAWLER_DATABASE_NAME, "", bucketName, clientConfig);
             return false;
         }
     }
 
-    // 3. Get a crawler.
+    // 4. Get a crawler.
     {
         Aws::Glue::Model::GetCrawlerRequest request;
         request.SetName(CRAWLER_NAME);
@@ -541,13 +282,14 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         }
         else{
             std::cerr << "Error retrieving crawler.  " << outcome.GetError().GetMessage() << std::endl;
-            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", client);
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
+                         clientConfig);
             return false;
         }
 
     }
 
-    // 4. Start a crawler.
+    // 5. Start a crawler.
     {
         Aws::Glue::Model::StartCrawlerRequest request;
         request.SetName(CRAWLER_NAME);
@@ -590,12 +332,13 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         }
         else{
             std::cerr << "Error starting crawler.  " << outcome.GetError().GetMessage() << std::endl;
-            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", client);
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
+                         clientConfig);
             return false;
         }
      }
 
-    // 5. Get a database.
+    // 6. Get a database.
     {
         Aws::Glue::Model::GetDatabaseRequest request;
         request.SetName(CRAWLER_DATABASE_NAME);
@@ -611,12 +354,13 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         }
         else{
             std::cerr << "Error getting the database.  " << outcome.GetError().GetMessage() << std::endl;
-            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", client);
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
+                         clientConfig);
             return false;
         }
     }
     
-    // 6. Get tables.
+    // 7. Get tables.
     Aws::String tableName;
     {
         Aws::Glue::Model::GetTablesRequest request;
@@ -635,37 +379,34 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             {
                 std::cout << "    " << index + 1 << ":  " << tables[index].GetName() << std::endl;
             }
-#if 0
-            if (tables.size() > 0) {
-                tableName = tables[0].GetName();
+
+            if (!tables.empty()) {
                 int tableIndex = askQuestionForIntRange(
                         "Enter an index to display the database detail ",
                         1, static_cast<int>(tables.size()));
                 std::cout << tables[tableIndex - 1].Jsonize().View().WriteReadable() << std::endl;
             }
-#endif
         }
         else{
             std::cerr << "Error:  " << outcome.GetError().GetMessage() << std::endl;
-            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", client);
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
+                         clientConfig);
             return false;
         }
-
     }
-#endif
 
-    // 7. Create a job
-
+    // 8. Create a job
     {
+        Aws::Glue::Model::CreateJobRequest request;
+        request.SetName(JOB_NAME);
+        request.SetRole(roleName);
+        request.SetGlueVersion(GLUE_VERSION);
 
         Aws::Glue::Model::JobCommand command;
         command.SetName(JOB_COMMAND_NAME);
         command.SetPythonVersion(JOB_PYTHON_VERSION);
-        command.SetScriptLocation(Aws::String("s3://") + bucketName + "/" + PYTHON_SCRIPT);
-        Aws::Glue::Model::CreateJobRequest request;
-        request.SetName(JOB_NAME);
-        request.SetRole(roleName);
-        request.SetGlueVersion("3.0");
+        command.SetScriptLocation(
+                Aws::String("s3://") + bucketName + "/" + PYTHON_SCRIPT);
         request.SetCommand(command);
 
         Aws::Glue::Model::CreateJobOutcome outcome = client.CreateJob(request);
@@ -674,17 +415,19 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             std::cout << "Successfully created the job." << std::endl;
         }
         else {
-            std::cerr << "Error creating the job. " << outcome.GetError().GetMessage() << std::endl;
-            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", client);
+            std::cerr << "Error creating the job. " << outcome.GetError().GetMessage()
+                      << std::endl;
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
+                         clientConfig);
             return false;
         }
-
     }
 
-    // 8. Start a job run.
+    // 9. Start a job run.
     {
         Aws::Glue::Model::StartJobRunRequest request;
         request.SetJobName(JOB_NAME);
+
         Aws::Map<Aws::String, Aws::String> arguments;
         arguments["--input_database"] = CRAWLER_DATABASE_NAME;
         arguments["--input_table"] = "doc-example-csv"; // TODO remove tableName;
@@ -698,22 +441,21 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 
             Aws::String jobRunId = outcome.GetResult().GetJobRunId();
 
-            Aws::Glue::Model::JobRunState jobRunState = Aws::Glue::Model::JobRunState::NOT_SET;
             int iterator = 0;
             bool canContinue = true;
-            while (canContinue)
-            {
+            while (canContinue) {
                 ++iterator;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
-                Aws::Glue::Model::GetJobRunRequest request;
-                request.SetJobName(JOB_NAME);
-                request.SetRunId(jobRunId);
+                Aws::Glue::Model::GetJobRunRequest jobRunRequest;
+                jobRunRequest.SetJobName(JOB_NAME);
+                jobRunRequest.SetRunId(jobRunId);
 
-                Aws::Glue::Model::GetJobRunOutcome outcome = client.GetJobRun(request);
+                Aws::Glue::Model::GetJobRunOutcome jobRunOutcome = client.GetJobRun(
+                        jobRunRequest);
 
-                if (outcome.IsSuccess()) {
-                    const Aws::Glue::Model::JobRun &jobRun = outcome.GetResult().GetJobRun();
-                    jobRunState = jobRun.GetJobRunState();
+                if (jobRunOutcome.IsSuccess()) {
+                    const Aws::Glue::Model::JobRun &jobRun = jobRunOutcome.GetResult().GetJobRun();
+                    Aws::Glue::Model::JobRunState jobRunState = jobRun.GetJobRunState();
                     Aws::String statusString;
                     switch (jobRunState) {
                         case Aws::Glue::Model::JobRunState::SUCCEEDED:
@@ -732,47 +474,55 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                             statusString = "TIMEOUT";
                             canContinue = false;
                             break;
+                        case Aws::Glue::Model::JobRunState::RUNNING:
+                            statusString = "RUNNING";
+                            break;
                         default:
-                            statusString = std::to_string(static_cast<int>(jobRunState));
+                            statusString = std::to_string(
+                                    static_cast<int>(jobRunState));
                             break;
 
                     }
-                    if ((iterator % 10) == 0)
-                    {
-                        std::cout << "Check job run status. "  << iterator <<
-                        " seconds elapsed." << std::endl;
+
+                    if ((iterator % 10) == 0) {
+                        std::cout << "Job run status " << statusString << ". "
+                                  << iterator <<
+                                  " seconds elapsed." << std::endl;
                     }
 
-                    if (!canContinue)
-                    {
+                    if (!canContinue) {
                         std::cout << "Job run state " << statusString << std::endl;
 
-                        if (jobRunState != Aws::Glue::Model::JobRunState::SUCCEEDED)
-                        {
-                            std::cerr << "Error running job. " << jobRun.GetErrorMessage()
-                             << std::endl;
-                            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, client);
+                        if (jobRunState != Aws::Glue::Model::JobRunState::SUCCEEDED) {
+                            std::cerr << "Error running job. "
+                                      << jobRun.GetErrorMessage()
+                                      << std::endl;
+                            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME,
+                                         bucketName,
+                                         clientConfig);
                             return false;
                         }
                     }
                 }
                 else {
-                    std::cerr << "Error starting the job. " << outcome.GetError().GetMessage()
+                    std::cerr << "Error starting the job. "
+                              << jobRunOutcome.GetError().GetMessage()
                               << std::endl;
-                    deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, client);
+                    deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME,
+                                 bucketName, clientConfig);
                     return false;
                 }
-
             }
         }
         else {
             std::cerr << "Error . " << outcome.GetError().GetMessage() << std::endl;
-            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, client);
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
+                         clientConfig);
             return false;
         }
     }
 
-    // 9. List all jobs.
+    // 10. List all jobs.
     {
         Aws::S3::S3Client s3Client;
         Aws::S3::Model::ListObjectsRequest request;
@@ -782,25 +532,115 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         Aws::S3::Model::ListObjectsOutcome outcome = s3Client.ListObjects(request);
 
         if (outcome.IsSuccess()) {
-            const std::vector<Aws::S3::Model::Object>& objects = outcome.GetResult().GetContents();
+            const std::vector<Aws::S3::Model::Object> &objects = outcome.GetResult().GetContents();
             std::cout << "Data from your job is in " << objects.size() <<
-            " files in the S3 bucket, " << bucketName << "." << std::endl;
+                      " files in the S3 bucket, " << bucketName << "." << std::endl;
 
-            int objectIndex = askQuestionForIntRange("Enter the number of a block to download it and see the first 20 "
-                                                     "lines of JSON output in the block: ", 1,
-                                                     static_cast<int>(objects.size()));
+            for (size_t i = 0; i < objects.size(); ++i) {
+                std::cout << "    " << i + 1 << ". " << objects[i].GetKey()
+                          << std::endl;
+            }
 
-            Aws::String objectName = objects[objectIndex - 1].GetKey();
+            int objectIndex = askQuestionForIntRange(
+                    std::string(
+                            "Enter the number of a block to download it and see the first ") +
+                    std::to_string(LINES_OF_RUN_FILE_TO_DISPLAY) +
+                    " lines of JSON output in the block: ", 1,
+                    static_cast<int>(objects.size()));
 
-            
+            Aws::String objectKey = objects[objectIndex - 1].GetKey();
+
+            std::stringstream stringStream;
+            if (getObjectFromBucket(bucketName, objectKey, stringStream,
+                                    clientConfig)) {
+                for (int i = 0; i < LINES_OF_RUN_FILE_TO_DISPLAY && stringStream; ++i) {
+                    std::string line;
+                    std::getline(stringStream, line);
+                    std::cout << "    " << line << std::endl;
+                }
+            }
+            else {
+                deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
+                             clientConfig);
+                return false;
+            }
         }
         else {
             std::cerr << "Error . " << outcome.GetError().GetMessage() << std::endl;
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
+                         clientConfig);
+            return false;
+        }
+    }
+
+    // 11. Get job runs.
+    {
+        Aws::Glue::Model::ListJobsRequest listJobsRequest;
+
+        Aws::Glue::Model::ListJobsOutcome listRunsOutcome = client.ListJobs(
+                listJobsRequest);
+
+        if (listRunsOutcome.IsSuccess()) {
+            const std::vector<Aws::String> &jobNames = listRunsOutcome.GetResult().GetJobNames();
+            std::cout << "Your account has " << jobNames.size() << " jobs."
+                      << std::endl;
+            for (size_t i = 0; i < jobNames.size(); ++i) {
+                std::cout << "   " << i + 1 << ". " << jobNames[i] << std::endl;
+            }
+
+            int jobIndex = askQuestionForIntRange(
+                    Aws::String("Enter a number between 1 and ") +
+                    std::to_string(jobNames.size()) +
+                    " to see the list of runs for a job: ",
+                    1, static_cast<int>(jobNames.size()));
+            {
+                Aws::Glue::Model::GetJobRunsRequest getJobRunsRequest;
+                Aws::String jobName = jobNames[jobIndex - 1];
+                getJobRunsRequest.SetJobName(jobName);
+
+                Aws::Glue::Model::GetJobRunsOutcome jobRunsOutcome = client.GetJobRuns(
+                        getJobRunsRequest);
+
+                if (jobRunsOutcome.IsSuccess()) {
+                    std::vector<Aws::Glue::Model::JobRun> jobRuns = jobRunsOutcome.GetResult().GetJobRuns();
+                    std::cout << "There are " << jobRuns.size() << " runs in the job '"
+                              <<
+                              jobName << "'." << std::endl;
+
+                    for (size_t i = 0; i < jobRuns.size(); ++i) {
+                        std::cout << "   " << i + 1 << ". " << jobRuns[i].GetJobName()
+                                  << std::endl;
+                    }
+
+                    int runIndex = askQuestionForIntRange(
+                            Aws::String("Enter a number between 1 and ") +
+                            std::to_string(jobRuns.size()) +
+                            " to see details for a run: ",
+                            1, static_cast<int>(jobRuns.size()));
+
+                    std::cout << jobRuns[runIndex - 1].Jsonize().View().WriteReadable()
+                              << std::endl;
+                }
+                else {
+                    std::cerr << "Error getting job runs. "
+                              << jobRunsOutcome.GetError().GetMessage()
+                              << std::endl;
+                    deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME,
+                                 bucketName,
+                                 clientConfig);
+                    return false;
+                }
+            }
+        }
+        else {
+            std::cerr << "Error . " << listRunsOutcome.GetError().GetMessage()
+                      << std::endl;
         }
 
     }
 
-    return deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, client);
+    return deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
+                        clientConfig);
 }
 
 bool
@@ -842,64 +682,65 @@ AwsDoc::Glue::uploadFile(const Aws::String &bucketName, const Aws::String &fileP
     return outcome.IsSuccess();
 }
 
-bool AwsDoc::Glue::deleteS3Object(const Aws::String &bucketName,
-                                  const Aws::String &objectName,
-                                  const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::Glue::deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
+                                              const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
-    Aws::S3::Model::DeleteObjectRequest request;
+    Aws::S3::Model::ListObjectsRequest listObjectsRequest;
+    listObjectsRequest.SetBucket(bucketName);
 
-    request.WithKey(objectName)
-            .WithBucket(bucketName);
 
-    Aws::S3::Model::DeleteObjectOutcome outcome =
-            client.DeleteObject(request);
+    Aws::S3::Model::ListObjectsOutcome listObjectsOutcome = client.ListObjects(
+            listObjectsRequest);
 
-    if (!outcome.IsSuccess()) {
-        auto err = outcome.GetError();
-        std::cerr << "Error: DeleteObject: " <<
-                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+    bool result = false;
+    if (listObjectsOutcome.IsSuccess()) {
+        const std::vector<Aws::S3::Model::Object> &objects = listObjectsOutcome.GetResult().GetContents();
+        if (!objects.empty()) {
+            Aws::S3::Model::DeleteObjectsRequest deleteObjectsRequest;
+            deleteObjectsRequest.SetBucket(bucketName);
+
+            std::vector<Aws::S3::Model::ObjectIdentifier> objectIdentifiers;
+            for (const Aws::S3::Model::Object &object: objects) {
+                objectIdentifiers.push_back(
+                        Aws::S3::Model::ObjectIdentifier().WithKey(object.GetKey()));
+            }
+            Aws::S3::Model::Delete objectsDelete;
+            objectsDelete.SetObjects(objectIdentifiers);
+            objectsDelete.SetQuiet(true);
+            deleteObjectsRequest.SetDelete(objectsDelete);
+
+            Aws::S3::Model::DeleteObjectsOutcome deleteObjectsOutcome =
+                    client.DeleteObjects(deleteObjectsRequest);
+
+            if (!deleteObjectsOutcome.IsSuccess()) {
+                std::cerr << "Error deleting objects. " <<
+                          deleteObjectsOutcome.GetError().GetMessage() << std::endl;
+            }
+            else {
+                std::cout << "Successfully deleted the objects." << std::endl;
+                result = true;
+            }
+        }
+        else {
+            std::cout << "No objects to delete in '" << bucketName << "'." << std::endl;
+        }
     }
     else {
-        std::cout << "Successfully deleted the object." << std::endl;
-    }
-
-    return outcome.IsSuccess();
-
-}
-
-bool AwsDoc::Glue::bootstrapCDK(bool &cdkBootstrapCreated,
-                                const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::CloudFormation::Model::Stack stack = getStackDescription(CDK_TOOLKIT_STACK_NAME,
-                                                                  clientConfig);
-
-    cdkBootstrapCreated = false;
-    bool result = true;
-    if (stack.GetStackName().empty())
-    {
-        std::cout << "Creating CDK toolkit stack." << std::endl;
-
-        std::vector<Aws::CloudFormation::Model::Output> outputs;
-        Aws::String roleArn;
-        result = createCloudFormationResource(CDK_TOOLKIT_STACK_NAME,
-                                              CDK_TOOLKIT_TEMPLATE,
-                                              outputs, roleArn, clientConfig);
-        if (result)
-        {
-            cdkBootstrapCreated = true;
-        }
+        std::cerr << "Error listing objects. "
+                  << listObjectsOutcome.GetError().GetMessage() << std::endl;
     }
 
     return result;
 }
 
 bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &database,
-                                const Aws::String &job,
-                                const Aws::Glue::GlueClient &client) {
-
+                                const Aws::String &job, const Aws::String &bucketName,
+                                const Aws::Client::ClientConfiguration &clientConfig) {
+    const Aws::Glue::GlueClient client(clientConfig);
     bool result = true;
-    // 11. Delete a job.
-    if (!job.empty())
-    {
+
+    // 12. Delete a job.
+    if (!job.empty()) {
         Aws::Glue::Model::DeleteJobRequest request;
         request.SetJobName(job);
 
@@ -910,13 +751,14 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
             std::cout << "Successfully deleted the job." << std::endl;
         }
         else {
-            std::cerr << "Error deleting the job. " << outcome.GetError().GetMessage() << std::endl;
+            std::cerr << "Error deleting the job. " << outcome.GetError().GetMessage()
+                      << std::endl;
             result = false;
         }
 
     }
-#if 0
-    // 12. Delete a database.
+
+    // 13. Delete a database.
     if (!database.empty())
     {
         Aws::Glue::Model::DeleteDatabaseRequest request;
@@ -930,11 +772,11 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
         }
         else{
             std::cerr << "Error deleting database. " << outcome.GetError().GetMessage() << std::endl;
-            result = true;
+            result = false;
         }
     }
 
-    // 13. Delete a crawler.
+    // 14. Delete a crawler.
     if (!crawler.empty())
     {
         Aws::Glue::Model::DeleteCrawlerRequest request;
@@ -951,26 +793,32 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
             result = false;
         }
     }
-#endif
+
+    // 15. Delete the job script and run data from the S3 bucket.
+    result &= AwsDoc::Glue::deleteAllObjectsInS3Bucket(bucketName,
+                                                      clientConfig);
     return result;
 }
+bool AwsDoc::Glue::getObjectFromBucket(const Aws::String &bucketName,
+                                       const Aws::String &objectKey,
+                                       std::ostream &objectStream,
+                                       const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::S3::S3Client client(clientConfig);
+    Aws::S3::Model::GetObjectRequest request;
+    request.SetBucket(bucketName);
+    request.SetKey(objectKey);
 
-bool AwsDoc::Glue::getRoleArn(const Aws::String &roleName, Aws::String &roleArn,
-                              const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::IAM::IAMClient client(clientConfig);
-
-    Aws::IAM::Model::GetRoleRequest request;
-    request.SetRoleName(roleName);
-
-    Aws::IAM::Model::GetRoleOutcome outcome = client.GetRole(request);
+    Aws::S3::Model::GetObjectOutcome outcome = client.GetObject(request);
 
 
     if (outcome.IsSuccess()) {
-        std::cout << "Successfully retrieved role." << std::endl;
-        roleArn = outcome.GetResult().GetRole().GetArn();
+        std::cout << "Successfully retrieved '" << objectKey << "'." << std::endl;
+        auto &body = outcome.GetResult().GetBody();
+        objectStream << body.rdbuf();
     }
     else {
-        std::cerr << "Error retrieving role. " << outcome.GetError().GetMessage() << std::endl;
+        std::cerr << "Error retrieving object. " << outcome.GetError().GetMessage()
+                  << std::endl;
     }
 
     return outcome.IsSuccess();
