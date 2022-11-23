@@ -1,0 +1,19 @@
+{
+  "name": "cloudwatch-logs",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.215.0"
+  },
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js",
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-iam": "^3.216.0",
+    "@aws-sdk/client-lambda": "^3.216.0",
+    "vitest": "^0.25.3"
+  }
+}
