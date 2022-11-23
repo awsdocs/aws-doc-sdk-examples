@@ -6,16 +6,18 @@
 package com.aws.rest
 
 import kotlinx.coroutines.runBlocking
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.io.IOException
 
@@ -28,14 +30,17 @@ fun main(args: Array<String>) {
 
 @CrossOrigin(origins = ["*"])
 @RestController
-@RequestMapping("api/")
 class MessageResource {
 
+    @Autowired
+    private lateinit var dbService: DynamoDBService
+
+    @Autowired
+    private lateinit var sendMsg: SendMessage
+
     // Add a new item to the Amazon DynamoDB database.
-    @RequestMapping(value = ["/add"], method = [RequestMethod.POST])
-    @ResponseBody
+    @PostMapping("api/items")
     fun addItems(@RequestBody payLoad: Map<String, Any>): String = runBlocking {
-        val dbService = DynamoDBService()
         val nameVal = "user"
         val guideVal = payLoad.get("guide").toString()
         val descriptionVal = payLoad.get("description").toString()
@@ -52,37 +57,39 @@ class MessageResource {
     }
 
     // Retrieve items.
-    @GetMapping("items/{state}")
-    fun getItems(@PathVariable state: String): MutableList<WorkItem> = runBlocking {
-        val dbService = DynamoDBService()
+    @GetMapping("api/items")
+    fun getItems(@RequestParam(required = false) archived: String?): MutableList<WorkItem> = runBlocking {
         val list: MutableList<WorkItem>
-        if (state.compareTo("archive") == 0) {
-            list = dbService.getOpenItems(false)!!
+        if (archived == "false") {
+            list = dbService.getOpenItems(false)
+        } else if (archived == "true") {
+            list = dbService.getOpenItems(true)
         } else {
-            list = dbService.getOpenItems(true)!!
+            list = dbService.getAllItems()
         }
         return@runBlocking list
     }
 
     // Flip an item from Active to Archive.
-    @PutMapping("mod/{id}")
-    fun modUser(@PathVariable id: String): String = runBlocking {
-        val dbService = DynamoDBService()
+    @PutMapping("api/items/{id}:archive")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun modUser(@PathVariable id: String) = runBlocking {
         dbService.archiveItemEC(id)
-        return@runBlocking id
+        return@runBlocking
     }
 
-    // Send a report through Amazon SES.
-    @PutMapping("report/{email}")
-    fun sendReport(@PathVariable email: String): String = runBlocking {
-        val dbService = DynamoDBService()
-        val sendMsg = SendMessage()
-        val xml = dbService.getOpenReport(true)
+    @PostMapping("api/items:report")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun sendReport(@RequestBody body: Map<String, String>) = runBlocking {
+        val email = body.get("email")
+        val xml = dbService.getOpenReport(false)
         try {
-            sendMsg.send(email, xml)
+            if (email != null) {
+                sendMsg.send(email, xml)
+            }
         } catch (e: IOException) {
             e.stackTrace
         }
-        return@runBlocking "Report was sent"
+        return@runBlocking
     }
 }

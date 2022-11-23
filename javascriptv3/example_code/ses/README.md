@@ -41,7 +41,7 @@ Code excerpts that show you how to call individual service functions.
 
 ## Run the examples
 
-1. `npm i`
+1. `yarn`
 1. Add a call to the `run()` function at the bottom of the example you want to run.
 1. Execute `node <path/to/example.js>`
 
@@ -53,8 +53,8 @@ Code excerpts that show you how to call individual service functions.
 
 ⚠️ Running the tests might result in charges to your AWS account.
 
-1. `cd ../tests/ses`
-1. `npm test`
+1. `yarn`
+1. `yarn integration-test`
 
 ## Additional resources
 
