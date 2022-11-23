@@ -1,69 +1,107 @@
-# AWS SDK for Go V2 code examples for Amazon S3
+# Amazon S3 code examples for the SDK for Go
+## Overview
 
-## Purpose
+Shows how to use the AWS SDK for Go V2 to get started with bucket and
+object actions in Amazon Simple Storage Service (Amazon S3).
 
-These examples demonstrate how to perform several Amazon Simple Storage Service 
-(Amazon S3) operations using version 2 of the AWS SDK for Go.
+*Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any
+amount of data at any time, from anywhere on the web.*
+
+## ⚠️ Important
+
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
-### Scenario examples
-* [`common/`](common/) -- These examples show you how to complete common Amazon S3 operations such as creating a bucket, managing bucket objects, and deleting objects and buckets.
+### Get started
 
-### API Examples
-- [`GetBucketAcl`](GetBucketAcl/) and [`GetObjectAcl`](GetObjectAcl/) -- These two examples show you how to work with access control lists (ACLs) on Amazon S3 objects.
+* [Hello Amazon S3](hello/hello.go)
 
+### Single actions
 
+Code excerpts that show you how to call individual service functions.
 
-## ⚠ Important
+* [Copy an object from one bucket to another](actions/bucket_basics.go)
+  (`CopyObject`)
+* [Create a bucket](actions/bucket_basics.go)
+  (`CreateBucket`)
+* [Delete an empty bucket](actions/bucket_basics.go)
+  (`DeleteBucket`)
+* [Delete multiple objects](actions/bucket_basics.go)
+  (`DeleteObjects`)
+* [Determine the existence of a bucket](actions/bucket_basics.go)
+  (`HeadBucket`)
+* [Get an object from a bucket](actions/bucket_basics.go)
+  (`GetObject`)
+* [List buckets](actions/bucket_basics.go)
+  (`ListBuckets`)
+* [List objects in a bucket](actions/bucket_basics.go)
+  (`ListObjects`)
+* [Upload an object to a bucket](actions/bucket_basics.go)
+  (`PutObject`)
 
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
+### Scenarios
 
+Code examples that show you how to accomplish a specific task by calling
+multiple functions within the same service.
 
-## Running the code
+* [Create a presigned URL](scenarios/scenario_presigning.go)
+* [Get started with buckets and objects](scenarios/scenario_get_started.go)
+* [Upload or download large files](actions/bucket_basics.go)
 
-Go to the directory where you want to run the sample, and do the following:
-
-```
-go mod tidy
-go run .
-```
-
-## Running the tests
-
-From a directory containing `go.mod`, use `go test` to run all unit tests:
-
-```
-go test ./...
-```
-
-This tests all modules in the current folder and any submodules.
+## Run the examples
 
 ### Prerequisites
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the *AWS SDK for Go Developer Guide*.
+Prerequisites for running the examples for this service can be found in the
+[README](../README.md#Prerequisites) in the GoV2 folder.
 
-You must have Go 1.17 or later installed.
+### Instructions
 
-## Additional information
+#### Hello Amazon S3
 
-- [AWS SDK for Go V2 Amazon S3 service reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
-- [Amazon S3 documentation](https://docs.aws.amazon.com/s3)
+Get started using the SDK for Go with Amazon S3 by listing buckets in your account.
+
+```
+go run ./hello
+```
+
+#### Get started with buckets and objects
+
+Interactively shows how to create a bucket and upload and download objects.
+
+```
+go run ./cmd -scenario getstarted
+```
+
+#### Create a presigned URL
+
+Interactively shows how to generate a presigned URL that contains temporary credentials. 
+Shows how to use the net/http package to use the presigned requests to upload, download, 
+and delete an object.
+
+```
+go run ./cmd -scenario presigning
+```
+
+## Tests
+
+⚠️ Running the tests might result in charges to your AWS account.
+
+Instructions for running the tests for this service can be found in the
+[README](../README.md#Tests) in the GoV2 folder.
+
+## Additional resources
+
+* [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+* [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+* [AWS SDK for Go S3 Client](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
+* [AWS SDK for Go S3 manager package](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/feature/s3/manager)
 
 ---
-
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
