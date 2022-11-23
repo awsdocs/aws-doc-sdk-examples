@@ -23,6 +23,7 @@ import (
 type IScenarioTest interface {
 	SetupDataAndStubs() []Stub
 	RunSubTest(stubber *AwsmStubber)
+	Cleanup()
 }
 
 // RunScenarioTests runs the scenario multiple times. The first time, it
@@ -77,4 +78,6 @@ func SubTestRunScenario(scenarioTest IScenarioTest, stubs []Stub, stubErr *StubE
 			t.Logf("Here's the log: \n%v", buf.String())
 		}
 	}
+
+	scenarioTest.Cleanup()
 }
