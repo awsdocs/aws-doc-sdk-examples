@@ -29,18 +29,18 @@ before do
 end
 
 get "/api/items" do
-  items = wrapper.get_work_items(nil, params[:archived], config["table_name"])
+  items = wrapper.get_work_items(nil, params[:archived])
   items.to_json
 end
 
 post "/api/items" do
   payload = MultiJson.load(request.body.read)
-  id = wrapper.add_work_item(payload, config["table_name"])
+  id = wrapper.add_work_item(payload)
   [204, id]
 end
 
 get "/api/items/:item_id" do
-  item = wrapper.get_work_items(:item_id, nil, config["table_name"])
+  item = wrapper.get_work_items(:item_id, nil)
   item
 end
 

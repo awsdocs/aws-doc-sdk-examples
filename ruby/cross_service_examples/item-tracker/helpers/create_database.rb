@@ -65,7 +65,7 @@ begin
   setup = SetupDatabase.new
   if setup.database_exists?
     unless setup.table_exists?
-      create_table
+      setup.create_table
     end
   else
     raise "No DB cluster exists! Please run CDK script found in resources/cdk/aurora_serverless_app."

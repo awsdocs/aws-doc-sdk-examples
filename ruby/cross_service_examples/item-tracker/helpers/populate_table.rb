@@ -21,5 +21,5 @@ wrapper = DBWrapper.new(config, client)
     name: username,
     archived: [0, 1].sample
   }
-  wrapper.add_work_item(item_data, config["table_name"])
+  wrapper.add_work_item(item_data)
 end

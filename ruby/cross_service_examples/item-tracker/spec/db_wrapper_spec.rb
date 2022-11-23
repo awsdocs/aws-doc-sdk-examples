@@ -14,8 +14,8 @@ require_relative("../report")
 
 describe "CRUD commands on Aurora" do
   client = Aws::RDSDataService::Client.new
-  let(:config) { YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./../helpers", "config.yml"))) }
-  let(:wrapper) { DBWrapper.new(:config, client) }
+  config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./../helpers", "config.yml")))
+  let(:wrapper) { DBWrapper.new(config, client) }
 
   it "gets the table name" do
     table = wrapper.get_table_name
@@ -43,7 +43,7 @@ describe "CRUD commands on Aurora" do
       description: "Tech debt",
       guide: "python",
       status: "active",
-      username: "jmayer"
+      username: "jmayer",
     }
     wrapper.add_work_item(item_data)
     data = wrapper.get_work_items

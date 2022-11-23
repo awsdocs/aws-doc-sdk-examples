@@ -7,6 +7,7 @@ require "logger"
 require "sequel"
 require "multi_json"
 require_relative "report"
+require 'pry'
 
 class RDSResourceError < Exception
 end
@@ -107,8 +108,9 @@ class DBWrapper
   # @param item_id [String] The Item ID to fetch. Returns all items if nil. Default: nil.
   # @param include_archived [Boolean] If true, include archived items. Default: true
   # @return [Array] The hashed records from RDS which represent work items.
-  def get_work_items(item_id = nil, include_archived = nil, table_name = @table_name)
-    sql = @model.select(:work_item_id, :description, :guide, :status, :username, :archived).from(table_name.to_sym)
+  def get_work_items(item_id = nil, include_archived = nil)
+    name = @table_name.to_s
+    sql = @model.select(:work_item_id, :description, :guide, :status, :username, :archived).from(name.to_sym)
     sql = sql.where(archived: true?(include_archived)) if include_archived
     sql = sql.where(work_item_id: item_id.to_i) if item_id
     sql = _format_sql(sql.sql)
@@ -123,15 +125,15 @@ class DBWrapper
 
   # Adds a work item to the database.
   # @param data [Hash] Data fields required for work item creation
-  # @param table_name [String] The name of the table. Must use snake_case.
   # @return: The generated ID of the new work item.
-  def add_work_item(data, table_name = @table_name)
-    sql = @model.from(table_name.to_sym).insert_sql(
+  def add_work_item(data)
+    name = @table_name.to_s
+    sql = @model.from(name.to_sym).insert_sql(
       description: data[:description],
       guide: data[:guide],
       status: data[:status],
       username: data[:name],
-      archived: data[:archived]
+      archived: 0
     )
     sql = _format_sql(sql)
     @logger.info("Prepared POST query: #{sql}")
@@ -144,8 +146,8 @@ class DBWrapper
   # Archives a work item.
   # @param item_id [String] The ID of the work item to archive.
   # @returns [Boolean] If updated_records is 1, return true; else, return false.
-  def archive_work_item(item_id, table_name = @table_name)
-    sql = @model.from(table_name.to_sym).where(work_item_id: item_id).update_sql(archived: 1) # 1 is true, 0 is false
+  def archive_work_item(item_id)
+    sql = @model.from(@table_name.to_sym).where(work_item_id: item_id).update_sql(archived: 1) # 1 is true, 0 is false
     sql = _format_sql(sql)
     @logger.info("Prepared PUT query: #{sql}")
     response = _run_statement(sql)
