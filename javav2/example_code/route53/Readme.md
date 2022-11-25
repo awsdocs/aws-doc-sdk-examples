@@ -1,9 +1,9 @@
 # Amazon Route 53 code examples for the SDK for Java
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Java (v2) examples for AWS Support.
+This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon Route 53.
 
-AWS Support is one-on-one, fast-response support from experienced technical support engineers. The service helps customers use AWS's products and features. With pay-by-the-month pricing and unlimited support cases, customers are freed from long-term commitments.
+Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web service. Route 53 connects user requests to internet applications running on AWS or on-premises.
 
 ## ⚠️ Important
 * The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. 
