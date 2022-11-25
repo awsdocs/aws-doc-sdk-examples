@@ -17,41 +17,39 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 ### Get started
 
-- [Hello service](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/HelloSupport.java) (describeServices command)
+- [Hello service](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/HelloRoute53.java) (describeServices command)
 
 ### Single action
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (addCommunicationToCase command)
-- [Add an attachment to a set](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (addAttachmentsToSet command)
-- [Create a case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (createCase command)
-- [Describe an attachment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeAttachment command)
-- [Describe services](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeServices command)
-- [Describe severity levels](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeSeverityLevels command)
-- [Describe cases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCases command)
-- [Describe communications](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCommunications command)
-- [Resolve case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (resolveCase command)
+- [Create a new health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/CreateHealthCheck.java) (createHealthCheck command)
+- [Create a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/CreateHostedZone.java) (createHostedZone command)
+- [Delete a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/DeleteHealthCheck.java) (deleteHealthCheck command)
+- [Delete a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/DeleteHostedZone.java) (deleteHostedZone command)
+- [Get the status of a specific health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/GetHealthCheckStatus.java) (getHealthCheckStatus command)
+- [List health checks](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListHealthChecks.java) (listHealthChecks command)
+- [List hosted zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListHostedZones.java) (listHostedZones command)
+- [List resource record sets](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListResourceRecordSets.java) (listResourceRecordSets command)
+- [Update a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/UpdateHealthCheck.java) (updateHealthCheck command)
 
 ### Scenario 
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Get started with cases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (Multiple commands)
+- [Get started with domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (Multiple commands)
 
-## Run the AWS Support Java file
+## Run the Amazon Route 53 Java files
 
 **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
-In addition, you must have the AWS Business Support Plan to use the AWS Support Java API. For more information, see: https://aws.amazon.com/premiumsupport/plans/.
 
+ ## Test the Amazon Route 53 Java files
 
- ## Test the AWS Support Java file
-
-You can test the Java code example for AWS Support by running a test file named **SupportTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code example for Amazon Route 53 by running a test file named **Route53Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -64,11 +62,14 @@ Before running the JUnit tests, you must define values in the **config.propertie
 
 Define this value to successfully run the JUnit tests:
 
-- **fileAttachment** - The file can be a simple saved .txt file to use as an email attachment.  
+- **domainName** - The fully qualified domain name.
+- **domainSuggestionSc** - The domain suggestion (for example, findmy.accountants).
+- **domainTypeSc** - The domain type (for example, com).
 
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
-* [Developer Guide - AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html).
-* [Interface SupportClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/support/SupportClient.html).
+* [Developer Guide - Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
+* [Interface Route53Client](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/route53/Route53Client.html).
+* [Interface Route53DomainsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/route53domains/Route53DomainsClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
