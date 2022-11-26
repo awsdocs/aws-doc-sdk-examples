@@ -16,7 +16,7 @@ cloudfront_ListDistributions:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.ListDistributions
   services:
-    cloudfront: {ListDistributions}
+    cloudfront: { ListDistributions }
 cloudfront_GetDistributionConfig:
   title: Get &CF; distribution configuration using an &AWS; SDK
   title_abbrev: Get distribution configuration
@@ -34,7 +34,7 @@ cloudfront_GetDistributionConfig:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.UpdateDistribution
   services:
-    cloudfront: {GetDistributionConfig}
+    cloudfront: { GetDistributionConfig }
 cloudfront_CreateFunction:
   title: Create a &CF; function using an &AWS; SDK
   title_abbrev: Create a function
@@ -51,7 +51,7 @@ cloudfront_CreateFunction:
               snippet_tags:
                 - cloudfront.java2.function.main
   services:
-    cloudfront: {CreateFunction}
+    cloudfront: { CreateFunction }
 cloudfront_UpdateDistribution:
   title: Update a &CF; distribution using an &AWS; SDK
   title_abbrev: Update a distribution
@@ -78,4 +78,124 @@ cloudfront_UpdateDistribution:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.UpdateDistribution
   services:
-    cloudfront: {UpdateDistribution}
+    cloudfront: { UpdateDistribution }
+cloudfront_CreateDistribution:
+  title: Create a &CF; distribution using an &AWS; SDK
+  title_abbrev: Create a distribution
+  synopsis: create a &CF; distribution.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: > 
+                The following example uses an Amazon S3 bucket as a content origin. 
+                <para>After creating the distribution, 
+                the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink> 
+                to wait for the distribution is deployed before returning the distribution.</para>
+              snippet_tags:
+                - cloudfront.java2.createdistribution.import
+                - cloudfront.java2.createdistribution.main
+  services:
+    cloudfront: { CreateDistribution }
+cloudfront_CreateKeyGroup:
+  title: Create key group for CloudFront using &AWS; SDK
+  title_abbrev: Create a key group
+  synopsis: create a key group that you can use with signed URLs and signed cookies.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: A key group requires at least one public key that is used to verify signed URLs or cookies.
+              snippet_tags:
+                - cloudfront.java2.createkeygroup.import
+                - cloudfront.java2.createkeygroup.main
+  services:
+    cloudfront: { CreateKeyGroup }
+cloudfront_CreatePublicKey:
+  title: Upload a public key to CloudFront using &AWS; SDK
+  title_abbrev: Upload a public key
+  synopsis: upload a public key.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: The following code example reads in a public key and uploads it to CloudFront.
+              snippet_tags:
+                - cloudfront.java2.createpublickey.import
+                - cloudfront.java2.createpublickey.main
+  services:
+    cloudfront: { CreatePublicKey }
+cloudfront_DeleteDistribution:
+  title: Delete a CloudFront distribution using &AWS; SDK
+  title_abbrev: Delete a distribution
+  synopsis: delete a CloudFront distribution.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: The following code example updates a distribution to <emphasis>disabled</emphasis>, uses a waiter that waits for the change to be deployed, then deletes the distribution.
+              snippet_tags:
+                - cloudfront.java2.deletedistribution.import
+                - cloudfront.java2.deletedistribution.main
+  services:
+    cloudfront: { DeleteDistribution, UpdateDistribution }
+cloudfront_DeleteSigningResources:
+  title: Delete CloudFront signing resources using &AWS; SDK
+  title_abbrev: Delete signing resources
+  synopsis: delete resources using to sign requests and verify signatures
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudfront.java2.deletedistributionresources.import
+                - cloudfront.java2.deletedistributionresources.main
+  services:
+    cloudfront: { DeleteKeyGroup, DeletePublicKey, DeleteOriginAccessControl }
+cloudfront_CloudFrontUtilities:
+  title: Create signed URLs and cookies using &AWS; SDK
+  title_abbrev: Sign URLs and cookies
+  synopsis: create signed URLs and cookies that allow access to restricted resources.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: Use the <code>CannedSignerRequest</code> to sign URLs or cookies with a <emphasis>canned</emphasis> policy.
+              snippet_tags:
+                - cloudfront.java2.createcannedpolicyrequest.import
+                - cloudfront.java2.createcannedpolicyrequest.main
+            - description: Use the <code>CustomSignerRequest</code> to sign URLs or cookies with a <emphasis>custom</emphasis> policy. The <code>activeDate</code> and <code>ipRange</code> are optional methods.
+              snippet_tags:
+                - cloudfront.java2.createcustompolicyrequest.import
+                - cloudfront.java2.createcustompolicyrequest.main
+            - description: The following example demonstrates use of the <code>CloudFrontUtilities</code> class to produce signed cookies and URLs.
+              snippet_tags:
+                - cloudfront.java2.signingutilities.import
+                - cloudfront.java2.signingutilities.main
+  services:
+    cloudfront: { CloudFrontUtilities }
