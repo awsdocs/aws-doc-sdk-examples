@@ -59,17 +59,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
 
-    "Create an S3 bucket
+    "Create an Amazon Simple Storage Service (Amazon S3) bucket.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
     ao_s3->createbucket( iv_bucket = lv_bucket_name ).
 
-    "Define alarm name
+    "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
-    "Create S3 dimensions
+    "Create Amazon S3 dimensions.
     CREATE OBJECT lo_dimensions
       EXPORTING
         iv_name  = 'StorageType'
@@ -98,7 +98,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         iv_period              = cv_period
         ).
 
-    "Describe alarm
+    "Describe alarm.
     lo_alarm_list_result = ao_cwt->describealarms( it_alarmnames = lt_alarmnames ).
 
     lv_found = abap_false.
@@ -114,7 +114,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
       msg = |Alarm not found|
     ).
 
-    "Cleanup
+    "Clean up.
     CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
@@ -150,17 +150,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
 
-    "Create an S3 bucket
+    "Create an S3 bucket.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
     ao_s3->createbucket( iv_bucket = lv_bucket_name ).
 
-    "Define alarm name
+    "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
-    "Create S3 dimensions
+    "Create Amazon S3 dimensions.
     CREATE OBJECT lo_dimensions
       EXPORTING
         iv_name  = 'StorageType'
@@ -189,16 +189,16 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         it_dimensions          = lt_dimensions
         ).
 
-    "Test delete_alarm
+    "Test delete_alarm.
     CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
     ao_cwt_actions->delete_alarms( it_alarm_names = lt_alarmnames ).
 
-    "Describe alarm
+    "Describe alarm.
     lo_alarm_list_result = ao_cwt->describealarms( it_alarmnames = lt_alarmnames ).
 
-    "Validation
+    "Validation.
     lv_found = abap_false.
     LOOP AT lo_alarm_list_result->get_metricalarms( ) INTO DATA(lo_alarms).
       IF lo_alarms->get_alarmname( ) = lv_alarm_name.
@@ -211,7 +211,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
       msg = |Alarm not deleted|
     ).
 
-    "Cleanup
+    "Clean up.
     ao_s3->deletebucket(
       iv_bucket = lv_bucket_name
     ).
@@ -241,17 +241,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
 
-    "Create an S3 bucket
+    "Create an S3 bucket.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
     ao_s3->createbucket( iv_bucket = lv_bucket_name ).
 
-    "Define alarm name
+    "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
-    "Create S3 dimensions
+    "Create Amazon S3 dimensions.
     CREATE OBJECT lo_dimensions
       EXPORTING
         iv_name  = 'StorageType'
@@ -280,7 +280,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         it_dimensions          = lt_dimensions
         ).
 
-    "Test describe_alarms
+    "Test describe_alarms.
     CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
@@ -289,7 +289,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
       IMPORTING oo_result = lo_alarm_list_result
     ).
 
-    "Validation
+    "Validation.
     lv_found = abap_false.
 
     LOOP AT lo_alarm_list_result->get_metricalarms( ) INTO DATA(lo_alarms).
@@ -303,7 +303,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
       msg = |Alarm not found|
     ).
 
-    "Cleanup
+    "Clean up.
     ao_cwt->deletealarms( it_alarmnames = lt_alarmnames
     ).
 
@@ -336,17 +336,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
 
-    "Create an S3 bucket
+    "Create an S3 bucket.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
     ao_s3->createbucket( iv_bucket = lv_bucket_name ).
 
-    "Define alarm name
+    "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
-    "Create S3 dimensions
+    "Create Amazon S3 dimensions.
     CREATE OBJECT lo_dimensions
       EXPORTING
         iv_name  = 'StorageType'
@@ -375,13 +375,13 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         it_dimensions          = lt_dimensions
         ).
 
-    "Testing enable_alarm_actions
+    "Testing enable_alarm_actions.
     CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
     ao_cwt_actions->enable_alarm_actions( it_alarm_names = lt_alarmnames ).
 
-    "Validation
+    "Validation.
     lo_alarm_list_result = ao_cwt->describealarms(
       EXPORTING it_alarmnames = lt_alarmnames
     ).
@@ -399,7 +399,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
       msg = |Alarm actions not enabled|
     ).
 
-    "Cleanup
+    "Clean up.
     CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
@@ -435,17 +435,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
 
-    "Create an S3 bucket
+    "Create an S3 bucket.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
     ao_s3->createbucket( iv_bucket = lv_bucket_name ).
 
-    "Define alarm name
+    "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
-    "Create S3 dimensions
+    "Create Amazon S3 dimensions.
     CREATE OBJECT lo_dimensions
       EXPORTING
         iv_name  = 'StorageType'
@@ -474,13 +474,13 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         it_dimensions          = lt_dimensions
         ).
 
-    "Testing disable_alarm_actions
+    "Testing disable_alarm_actions.
     CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
     ao_cwt_actions->disable_alarm_actions( it_alarm_names = lt_alarmnames ).
 
-    "Validation
+    "Validation.
     lo_alarm_list_result = ao_cwt->describealarms(
       EXPORTING it_alarmnames = lt_alarmnames
     ).
@@ -498,7 +498,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
       msg = |Alarm actions not disabled|
     ).
 
-    "Cleanup
+    "Clean up.
     CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
@@ -538,17 +538,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
 
-    "Create an S3 bucket
+    "Create an S3 bucket.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
     ao_s3->createbucket( iv_bucket = lv_bucket_name ).
 
-    "Define alarm name
+    "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
-    "Create S3 dimensions
+    "Create Amazon S3 dimensions.
     CREATE OBJECT lo_dimensions
       EXPORTING
         iv_name  = 'StorageType'
@@ -577,11 +577,11 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         it_dimensions          = lt_dimensions
         ).
 
-    "Testing list_metics
+    "Testing list_metrics.
     ao_cwt_actions->list_metrics( EXPORTING iv_namespace = 'AWS/S3' IMPORTING oo_result = lo_list_metrics_result ).
     lt_metrics = lo_list_metrics_result->get_metrics( ).
 
-    "Validation
+    "Validation.
     lv_found = abap_false.
 
     LOOP AT lt_metrics INTO lo_metrics.
@@ -595,7 +595,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
       msg = |No metric found|
     ).
 
-    "Cleanup
+    "Clean up.
     CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
