@@ -1,11 +1,10 @@
-// snippet-sourcedescription:[Route53Scenario.java demonstrates how to perform multiple operations using the AWS SDK for Java (v2).]
+// snippet-sourcedescription:[HelloRoute53.java demonstrates how to get started using the Route53DomainsClient.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 
 package com.example.route;
 
@@ -33,7 +32,6 @@ import java.util.List;
  */
 public class HelloRoute53 {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-
     public static void main(String[] args) {
         final String usage = "\n" +
             "Usage:\n" +
