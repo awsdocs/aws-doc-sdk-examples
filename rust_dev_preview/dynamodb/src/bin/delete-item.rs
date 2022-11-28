@@ -3,8 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_dynamodb::{Client, Error};
-use dynamodb_code_examples::{make_config, scenario::delete::delete_item, Opt as BaseOpt};
+use aws_sdk_dynamodb::{types::DisplayErrorContext, Client};
+use dynamodb_code_examples::{
+    make_config, scenario::delete::delete_item, scenario::error::Error, Opt as BaseOpt,
+};
+use std::process;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -37,18 +40,27 @@ struct Opt {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() {
     tracing_subscriber::fmt::init();
 
-    let Opt {
+    if let Err(err) = run_example(Opt::from_args()).await {
+        eprintln!("Error: {}", DisplayErrorContext(err));
+        process::exit(1);
+    }
+}
+
+async fn run_example(
+    Opt {
         key,
         table,
         value,
         base,
-    } = Opt::from_args();
-
+    }: Opt,
+) -> Result<(), Error> {
     let shared_config = make_config(base).await?;
     let client = Client::new(&shared_config);
 
-    delete_item(&client, &table, &key, &value).await
+    delete_item(&client, &table, &key, &value).await?;
+
+    Ok(())
 }
