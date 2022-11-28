@@ -5,6 +5,8 @@
 
 import com.example.ec2.*;
 import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,6 +39,7 @@ public class EC2Test {
     private static String groupDescSc="";
     private static String groupNameSc="";
     private static String vpcIdSc="";
+    private static String myIpAddressSc="";
 
 
     @BeforeAll
@@ -75,6 +78,7 @@ public class EC2Test {
             groupDescSc= prop.getProperty("groupDescSc");
             groupNameSc= prop.getProperty("groupNameSc");
             vpcIdSc= prop.getProperty("vpcIdSc");
+            myIpAddressSc= prop.getProperty("myIpAddressSc");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -123,48 +127,43 @@ public class EC2Test {
     @Test
     @Order(6)
     public void CreateSecurityGroup() {
-        groupId = CreateSecurityGroup.createEC2SecurityGroup(ec2,groupName,groupDesc,vpcId);
+       groupId = CreateSecurityGroup.createEC2SecurityGroup(ec2,groupName,groupDesc,vpcId);
        System.out.println("\n Test 6 passed");
    }
 
     @Test
     @Order(7)
     public void DescribeSecurityGroup() {
-
-       DescribeSecurityGroups.describeEC2SecurityGroups(ec2,groupId);
-       System.out.println("\n Test 7 passed");
+        DescribeSecurityGroups.describeEC2SecurityGroups(ec2,groupId);
+        System.out.println("\n Test 7 passed");
     }
 
 
     @Test
     @Order(8)
     public void DeleteSecurityGroup(){
-
-      DeleteSecurityGroup.deleteEC2SecGroup(ec2, groupId);
-      System.out.println("\n Test 8 passed");
+        DeleteSecurityGroup.deleteEC2SecGroup(ec2, groupId);
+        System.out.println("\n Test 8 passed");
     }
 
 
     @Test
     @Order(9)
     public void DescribeAccount() {
-
-     DescribeAccount.describeEC2Account(ec2);
-     System.out.println("\n Test 9 passed");
+        DescribeAccount.describeEC2Account(ec2);
+        System.out.println("\n Test 9 passed");
     }
 
     @Test
     @Order(10)
     public void DescribeInstances() {
-
-       DescribeInstances.describeEC2Instances(ec2);
-       System.out.println("\n Test 10 passed");
+        DescribeInstances.describeEC2Instances(ec2);
+        System.out.println("\n Test 10 passed");
     }
 
     @Test
     @Order(11)
     public void DescribeRegionsAndZones () {
-
       DescribeRegionsAndZones.describeEC2RegionsAndZones(ec2);
       System.out.println("\n Test 11 passed");
     }
@@ -172,7 +171,6 @@ public class EC2Test {
     @Test
     @Order(12)
     public void DescribeVPCs () {
-
       DescribeVPCs.describeEC2Vpcs(ec2,vpcId);
       System.out.println("\n Test 12 passed");
     }
@@ -187,15 +185,13 @@ public class EC2Test {
     @Test
     @Order(14)
     public void DescribeAddressed() {
-
        DescribeAddresses.describeEC2Address(ec2);
-        System.out.println("\n Test 14 passed");
+       System.out.println("\n Test 14 passed");
     }
 
     @Test
     @Order(15)
    public void  TerminateInstance() {
-
        TerminateInstance.terminateEC2(ec2, instanceId);
        System.out.println("\n Test 15 passed");
     }
@@ -215,7 +211,8 @@ public class EC2Test {
 
         System.out.println(EC2Scenario.DASHES);
         System.out.println("3. Create a security group.");
-        String groupId = EC2Scenario.createSecurityGroup(ec2, groupNameSc, groupDescSc, vpcIdSc);
+        String groupId = EC2Scenario.createSecurityGroup(ec2, groupNameSc, groupDescSc, vpcIdSc,myIpAddressSc);
+        assertFalse(groupId.isEmpty());
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
@@ -226,17 +223,20 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
         System.out.println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.");
         String instanceId = EC2Scenario.getParaValues(ssmClient);
+        assertFalse(instanceId.isEmpty());
         System.out.println("The instance Id is "+instanceId);
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
         System.out.println("6. Get more information about an amzn2 image.");
         String amiValue = EC2Scenario.describeImage(ec2, instanceId);
+        assertFalse(amiValue.isEmpty());
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
         System.out.println("7. Get a list of instance types.");
         String instanceType = EC2Scenario.getInstanceTypes(ec2);
+        assertFalse(instanceType.isEmpty());
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
@@ -248,6 +248,7 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
         System.out.println("9. Display information about the running instance. ");
         String ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
+        assertFalse(ipAddress.isEmpty());
         System.out.println("You can SSH to the instance using this command:");
         System.out.println("ssh -i "+fileNameSc +"ec2-user@"+ipAddress);
         System.out.println(EC2Scenario.DASHES);
@@ -261,6 +262,7 @@ public class EC2Test {
         System.out.println("11.  Start the instance.");
         EC2Scenario.startInstance(ec2, newInstanceId);
         ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
+        assertFalse(ipAddress.isEmpty());
         System.out.println("You can SSH to the instance using this command:");
         System.out.println("ssh -i "+fileNameSc +"ec2-user@"+ipAddress);
         System.out.println(EC2Scenario.DASHES);
@@ -268,6 +270,7 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
         System.out.println("12. Allocate an Elastic IP address and associate it with the instance.");
         String allocationId = EC2Scenario.allocateAddress(ec2);
+        assertFalse(allocationId.isEmpty());
         System.out.println("The allocation Id value is "+allocationId);
         String associationId = EC2Scenario.associateAddress(ec2, newInstanceId, allocationId);
         System.out.println("The association Id value is "+associationId);
@@ -276,6 +279,7 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
         System.out.println("13. Describe the instance again.");
         ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
+        assertFalse(ipAddress.isEmpty());
         System.out.println("You can SSH to the instance using this command:");
         System.out.println("ssh -i "+fileNameSc +"ec2-user@"+ipAddress);
         System.out.println(EC2Scenario.DASHES);
@@ -301,7 +305,5 @@ public class EC2Test {
         EC2Scenario.deleteKeys(ec2, keyNameSc);
         System.out.println(EC2Scenario.DASHES);
         System.out.println("\n Test 16 passed");
-
-
     }
 }

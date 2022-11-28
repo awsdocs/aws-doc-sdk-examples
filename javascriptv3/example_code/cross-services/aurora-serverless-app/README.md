@@ -24,6 +24,7 @@ See [the steps for creating the resource stack](../../../../resources//cdk/auror
 ## Run the code
 
 - Populate the `env.json` file with the outputs from the preceding ["create the resources"](#create-the-resources) step.
+- Run `yarn`.
 - Run `yarn start`.
 - Make calls to the API. Use a tool like Postman or run the front-end client linked in the [additional resources](#additional-resources).
 

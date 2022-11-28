@@ -20,7 +20,8 @@ user guide.
 // snippet-start:[rust.example_code.s3.basics.imports]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{Client, Error, Region};
+use aws_sdk_s3::{Client, Region};
+use s3_service::error::Error;
 use uuid::Uuid;
 
 // snippet-end:[rust.example_code.s3.basics.imports]
