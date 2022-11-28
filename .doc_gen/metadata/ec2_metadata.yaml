@@ -4,6 +4,15 @@ ec2_Hello:
   synopsis: get started using &EC2long; (&EC2;).
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_security_groups.main
     Java:
       versions:
         - sdk_version: 2
@@ -39,6 +48,15 @@ ec2_CreateKeyPair:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.CreateKeyPairExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.create_key_pair.main
     Java:
       versions:
         - sdk_version: 2
@@ -74,6 +92,24 @@ ec2_DescribeKeyPairs:
   synopsis: list &EC2; security key pairs.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_key_pairs.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.describe_key_pairs.main           
     Python:
       versions:
         - sdk_version: 3
@@ -110,6 +146,15 @@ ec2_CreateSecurityGroup:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.CreateSecurityGroupExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.create_security_group.main
     Java:
       versions:
         - sdk_version: 2
@@ -145,6 +190,15 @@ ec2_RunInstances:
   synopsis: create and run an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.create_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -206,6 +260,15 @@ ec2_StartInstances:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.StartInstancesExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.start_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -258,6 +321,15 @@ ec2_StopInstances:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.StopInstancesExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.stop_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -301,6 +373,15 @@ ec2_AllocateAddress:
   synopsis: allocate an Elastic IP address for &EC2;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.allocate_address.main
     Java:
       versions:
         - sdk_version: 2
@@ -336,6 +417,15 @@ ec2_AssociateAddress:
   synopsis: associate an Elastic IP address with an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.associate_address.main
     Java:
       versions:
         - sdk_version: 2
@@ -371,6 +461,15 @@ ec2_DisassociateAddress:
   synopsis: disassociate an Elastic IP address from an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.disassociate_address.main
     Java:
       versions:
         - sdk_version: 2
@@ -398,6 +497,15 @@ ec2_ReleaseAddress:
   synopsis: release an Elastic IP address.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.release.address.main
     Java:
       versions:
         - sdk_version: 2
@@ -433,6 +541,24 @@ ec2_AuthorizeSecurityGroupIngress:
   synopsis: set inbound rules for an &EC2; security group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.inbound.rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java.scenario_inbound_rule.main
     Python:
       versions:
         - sdk_version: 3
@@ -451,6 +577,15 @@ ec2_DeleteKeyPair:
   synopsis: delete an &EC2; security key pair.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.delete_key_pair.main
     .NET:
       versions:
         - sdk_version: 3
@@ -495,6 +630,15 @@ ec2_DescribeSecurityGroups:
   synopsis: get data about an &EC2; security group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_security_groups.main
     Java:
       versions:
         - sdk_version: 2
@@ -539,6 +683,15 @@ ec2_DeleteSecurityGroup:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.DeleteSecurityGroupExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.delete_security_group.main
     Java:
       versions:
         - sdk_version: 2
@@ -609,6 +762,15 @@ ec2_TerminateInstances:
   synopsis: terminate an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.terminate_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -636,6 +798,15 @@ ec2_DescribeInstances:
   synopsis: describe &EC2; instances.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_instances.main
     Java:
       versions:
         - sdk_version: 2
@@ -819,6 +990,15 @@ ec2_DescribeInstanceTypes:
   synopsis: get data about &EC2; instance types.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_instance_type.main
     Java:
       versions:
         - sdk_version: 2
@@ -890,6 +1070,15 @@ ec2_Scenario_GetStartedInstances:
     - Clean up all of the resources created by this example.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2

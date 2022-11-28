@@ -4,8 +4,11 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_cognitosync::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_cognitosync::types::DisplayErrorContext;
+use aws_sdk_cognitosync::{Client, Region, PKG_VERSION};
 use aws_smithy_types_convert::date_time::DateTimeExt;
+use cognitosync_code_examples::Error;
+use std::process;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -46,7 +49,7 @@ async fn show_pools(client: &Client) -> Result<(), Error> {
             );
             println!(
                 "  Last modified:       {}",
-                pool.last_modified_date().unwrap().to_chrono_utc()
+                pool.last_modified_date().unwrap().to_chrono_utc()?
             );
             println!();
         }
@@ -67,11 +70,16 @@ async fn show_pools(client: &Client) -> Result<(), Error> {
 /// * `[-g]` - Whether to display buckets in all regions.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() {
     tracing_subscriber::fmt::init();
 
-    let Opt { region, verbose } = Opt::from_args();
+    if let Err(err) = run_example(Opt::from_args()).await {
+        eprintln!("Error: {}", DisplayErrorContext(err));
+        process::exit(1);
+    }
+}
 
+async fn run_example(Opt { region, verbose }: Opt) -> Result<(), Error> {
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
@@ -90,5 +98,7 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_pools(&client).await
+    show_pools(&client).await?;
+
+    Ok(())
 }

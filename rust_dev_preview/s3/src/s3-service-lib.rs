@@ -10,9 +10,12 @@ use aws_sdk_s3::model::{
 };
 use aws_sdk_s3::output::{GetObjectOutput, ListObjectsV2Output};
 use aws_sdk_s3::types::ByteStream;
-use aws_sdk_s3::{Client, Error};
+use aws_sdk_s3::Client;
+use error::Error;
 use std::path::Path;
 use std::str;
+
+pub mod error;
 
 // snippet-start:[rust.example_code.s3.basics.delete_bucket]
 pub async fn delete_bucket(client: &Client, bucket_name: &str) -> Result<(), Error> {
@@ -43,9 +46,9 @@ pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<(), Er
     let objects: ListObjectsV2Output = client.list_objects_v2().bucket(bucket_name).send().await?;
     match objects.key_count {
         0 => Ok(()),
-        _ => Err(Error::Unhandled(Box::from(
+        _ => Err(Error::unhandled(
             "There were still objects left in the bucket.",
-        ))),
+        )),
     }
 }
 // snippet-end:[rust.example_code.s3.basics.delete_objects]

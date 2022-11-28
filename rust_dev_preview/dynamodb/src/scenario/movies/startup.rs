@@ -1,34 +1,16 @@
-use std::{collections::HashMap, time::Duration};
-
+use super::Movie;
+use crate::scenario::error::Error;
 use aws_sdk_dynamodb::{
     client::fluent_builders::CreateTable,
     model::{
         AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
         TableStatus, WriteRequest,
     },
-    Client, Error,
+    Client,
 };
 use futures::future::join_all;
+use std::{collections::HashMap, time::Duration};
 use tracing::{debug, info, trace};
-
-use super::Movie;
-
-#[derive(Debug)]
-pub struct TableNotReadyError {
-    name: String,
-}
-
-impl std::fmt::Display for TableNotReadyError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "Table was not ready after several attempts: {}",
-            self.name
-        )
-    }
-}
-
-impl std::error::Error for TableNotReadyError {}
 
 const CAPACITY: i64 = 10;
 
@@ -59,7 +41,7 @@ pub async fn table_exists(client: &Client, table: &str) -> Result<bool, Error> {
 
     match table_list {
         Ok(list) => Ok(list.table_names().as_ref().unwrap().contains(&table.into())),
-        Err(e) => Err(Error::Unhandled(Box::new(e))),
+        Err(e) => Err(e.into()),
     }
 }
 // snippet-end:[dynamodb.rust.movies-does_table_exist]
@@ -133,9 +115,7 @@ pub async fn await_table(client: &Client, table_name: &str) -> Result<(), Error>
         tokio::time::sleep(Duration::from_secs(TABLE_WAIT_TIMEOUT)).await;
     }
 
-    Err(Error::Unhandled(Box::new(TableNotReadyError {
-        name: table_name.to_string(),
-    })))
+    Err(Error::table_not_ready(table_name))
 }
 
 // Must be less than 26.
