@@ -72,22 +72,25 @@ import java.util.List;
 
 public class Route53Scenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-
     public static void main(String[] args) {
         final String usage = "\n" +
             "Usage:\n" +
-            "    <hostedZoneId> \n\n" +
+            "    <domainType> <phoneNumber> <email> <domainSuggestion>\n\n" +
             "Where:\n" +
             "    domainType - The domain type (for example, com). \n" +
+            "    phoneNumber - The phone number to use (for example, +91.9966564xxx)  "+
+            "    email - The email address to use.  "+
             "    domainSuggestion - The domain suggestion (for example, findmy.accountants). \n" ;
 
-        if (args.length != 2) {
+        if (args.length != 4) {
             System.out.println(usage);
             System.exit(1);
         }
 
         String domainType = args[0];
-        String domainSuggestion = args[1];
+        String phoneNumber = args[1];
+        String email = args[2] ;
+        String domainSuggestion = args[3] ;
         Region region = Region.US_EAST_1;
         Route53DomainsClient route53DomainsClient = Route53DomainsClient.builder()
             .region(region)
@@ -135,7 +138,7 @@ public class Route53Scenario {
 
         System.out.println(DASHES);
         System.out.println("8. Request a domain registration.");
-        String opId = requestDomainRegistration(route53DomainsClient, domainSuggestion);
+        String opId = requestDomainRegistration(route53DomainsClient, domainSuggestion, phoneNumber, email);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -153,6 +156,7 @@ public class Route53Scenario {
 
     }
 
+    //snippet-start:[route.java2.domaindetails.main]
     public static void getDomainDetails(Route53DomainsClient route53DomainsClient, String domainSuggestion){
         try {
             GetDomainDetailRequest detailRequest = GetDomainDetailRequest.builder()
@@ -168,9 +172,10 @@ public class Route53Scenario {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
     }
+    //snippet-end:[route.java2.domaindetails.main]
 
+    //snippet-start:[route.java2.domainoperations.main]
     public static void getOperationalDetail(Route53DomainsClient route53DomainsClient, String operationId) {
         try {
             GetOperationDetailRequest detailRequest = GetOperationDetailRequest.builder()
@@ -184,21 +189,25 @@ public class Route53Scenario {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
     }
+    //snippet-end:[route.java2.domainoperations.main]
 
+    //snippet-start:[route.java2.domainreg.main]
+    public static String requestDomainRegistration(Route53DomainsClient route53DomainsClient,
+                                                   String domainSuggestion,
+                                                   String phoneNumber,
+                                                   String email) {
 
-    public static String requestDomainRegistration(Route53DomainsClient route53DomainsClient, String domainSuggestion) {
         try {
             ContactDetail contactDetail = ContactDetail.builder()
                 .contactType(ContactType.COMPANY)
                 .state("LA")
                 .countryCode(CountryCode.IN)
-                .email("scmacdon@amazon.com")
+                .email(email)
                 .firstName("Scott")
                 .lastName("Macdonald")
                 .city("Delhi")
-                .phoneNumber("+91.9966564800")
+                .phoneNumber(phoneNumber)
                 .organizationName("My Org")
                 .addressLine1("Carp")
                 .zipCode("123 123")
@@ -223,7 +232,9 @@ public class Route53Scenario {
         }
         return "";
     }
+    //snippet-end:[route.java2.domainreg.main]
 
+    //snippet-start:[route.java2.checkdomaintransfer.main]
     public static void checkDomainTransferability(Route53DomainsClient route53DomainsClient, String domainSuggestion){
         try {
             CheckDomainTransferabilityRequest transferabilityRequest = CheckDomainTransferabilityRequest.builder()
@@ -238,9 +249,10 @@ public class Route53Scenario {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
     }
+    //snippet-end:[route.java2.checkdomaintransfer.main]
 
+    //snippet-start:[route.java2.checkdomainavailability.main]
     public static void checkDomainAvailability(Route53DomainsClient route53DomainsClient, String domainSuggestion) {
         try {
             CheckDomainAvailabilityRequest availabilityRequest = CheckDomainAvailabilityRequest.builder()
@@ -254,9 +266,10 @@ public class Route53Scenario {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
     }
+    //snippet-end:[route.java2.checkdomainavailability.main]
 
+    //snippet-start:[route.java2.domainsuggestions.main]
     public static void listDomainSuggestions(Route53DomainsClient route53DomainsClient, String domainSuggestion) {
         try {
             GetDomainSuggestionsRequest suggestionsRequest = GetDomainSuggestionsRequest.builder()
@@ -278,7 +291,9 @@ public class Route53Scenario {
             System.exit(1);
         }
     }
+    //snippet-end:[route.java2.domainsuggestions.main]
 
+    //snippet-start:[route.java2.domainprices.main]
     public static void listPrices(Route53DomainsClient route53DomainsClient, String domainType) {
         try {
             ListPricesRequest pricesRequest = ListPricesRequest.builder()
@@ -304,8 +319,9 @@ public class Route53Scenario {
             System.exit(1);
         }
     }
+    //snippet-end:[route.java2.domainprices.main]
 
-
+    //snippet-start:[route.java2.domainbillingrecords.main]
     public static void listBillingRecords(Route53DomainsClient route53DomainsClient) {
         try {
             Date currentDate = new Date();
@@ -337,9 +353,10 @@ public class Route53Scenario {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
     }
+    //snippet-end:[route.java2.domainbillingrecords.main]
 
+    //snippet-start:[route.java2.domainlistops.main]
     public static void listOperations(Route53DomainsClient route53DomainsClient) {
         try {
             Date currentDate = new Date();
@@ -370,7 +387,9 @@ public class Route53Scenario {
             System.exit(1);
         }
     }
+    //end-end:[route.java2.domainlistops.main]
 
+    //snippet-start:[route.java2.domainlist.main]
     public static void listDomains(Route53DomainsClient route53DomainsClient) {
         try {
             ListDomainsRequest domainsRequest = ListDomainsRequest.builder()
@@ -392,5 +411,6 @@ public class Route53Scenario {
             System.exit(1);
         }
     }
+    //snippet-end:[route.java2.domainlist.main]
 }
 //snippet-end:[route.java2.scenario.main]
