@@ -11,8 +11,6 @@
 
 namespace AwsDoc {
     namespace Glue {
-        extern const Aws::String CDK_TOOLKIT_STACK_NAME;
-
         //! Scenario which demonstrates using AWS Glue to add a crawler and run a job.
         /*!
          \\sa runGettingStartedWithGlueScenario()
@@ -24,6 +22,10 @@ namespace AwsDoc {
         bool runGettingStartedWithGlueScenario(const Aws::String &bucketName,
                                                const Aws::String &roleName,
                                                const Aws::Client::ClientConfiguration &clientConfig);
+
+
+        bool getRoleArn(const Aws::String &roleName, Aws::String &roleArn,
+                                      const Aws::Client::ClientConfiguration &clientConfig);
 
         //! Command line prompt/response utility function.
         /*!
@@ -50,35 +52,6 @@ namespace AwsDoc {
                                    int high);
 
 
-        //! Routine to create the AWS CloudFormation resources.
-        /*!
-         \\sa runGettingStartedWithGlueScenario()
-         \param stackName: Name for the CloudFormation stack.
-         \param templateFilePath: File path for CloudFormation stack template file.
-         \param outputs: Vector to receive the outputs.
-         \param clientConfig Aws client configuration.
-         \return bool: Successful completion.
-         */
-        bool
-        createCloudFormationResource(const Aws::String &stackName,
-                                     const Aws::String &templateFilePath,
-                                     std::vector<Aws::CloudFormation::Model::Output> &outputs,
-                                     const Aws::Client::ClientConfiguration &clientConfig);
-
-        bool deleteCloudFormationResource(const Aws::String &stackName,
-                                          const Aws::Client::ClientConfiguration &clientConfig);
-
-
-        Aws::CloudFormation::Model::Stack
-        getStackDescription(const Aws::String &stackName,
-                            const Aws::Client::ClientConfiguration &clientConfig);
-
-        bool bootstrapCDK(bool &cdkBootstrapCreated,
-                          const Aws::Client::ClientConfiguration &clientConfig);
-
-        bool getRoleArn(const Aws::String &roleName,
-                        Aws::String &roleArn,
-                        const Aws::Client::ClientConfiguration &clientConfig);
     } // Glue
 } // AwsDoc
 
