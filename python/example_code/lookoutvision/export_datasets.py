@@ -11,7 +11,6 @@ from an Amazon Lookout for Vision project to a new S3 location.
 import argparse
 import json
 import logging
-import os
 
 import boto3
 from botocore.exceptions import ClientError
@@ -21,8 +20,8 @@ logger = logging.getLogger(__name__)
 
 def copy_file(s3_resource, source_file,  destination_file):
     """
-    Copies a file from source S3 folder to a destination S3 folder. The destination
-    can be in different bucket.
+    Copies a file from a source S3 folder to a destination S3 folder.
+    The destination can be in different bucket.
     :param s3: An S3 boto resource.
     :param source_file: The S3 path to the source file.
     :param destination_file: The destination S3 path for the copy operation.
@@ -85,26 +84,32 @@ def upload_manifest_file(s3_resource, manifest_file, destination):
 
 def get_dataset_types(lookoutvision_client, project):
     """
-    Determines the types of the datasets (train or test) in a
-    Lookout for Vision project.
+    Determines the types of the datasets (train or test) in an
+    Amazon Lookout for Vision project.
     :param lookoutvision_client: A Lookout for Vision boto3 client.
     :param project: The Lookout for Vision project that you want to check.
     :return: The dataset types in the project.
     """
 
-    response = lookoutvision_client.describe_project(ProjectName=project)
+    try:
+        response = lookoutvision_client.describe_project(ProjectName=project)
 
-    datasets = []
+        datasets = []
 
-    for dataset in response['ProjectDescription']['Datasets']:
-        if dataset['Status'] in ("CREATE_COMPLETE", "UPDATE_COMPLETE"):
-            datasets.append(dataset['DatasetType'])
-    return datasets
+        for dataset in response['ProjectDescription']['Datasets']:
+            if dataset['Status'] in ("CREATE_COMPLETE", "UPDATE_COMPLETE"):
+                datasets.append(dataset['DatasetType'])
+        return datasets
+
+    except lookoutvision_client.exceptions.ResourceNotFoundException:
+        logger.exception("Project %s not found.", project)
+        raise
 
 
 def process_json_line(s3_resource, entry, dataset_type, destination):
     """
-    Creates a JSON line for new manifest, copies image and mask to destination.
+    Creates a JSON line for a new manifest file, copies image and mask to
+    destination.
     :param s3_resource: A Boto3 S3 resource.
     :param entry: A JSON line from the manifest file.
     :param dataset_type: The type (train or test) of the dataset that
@@ -133,10 +138,10 @@ def process_json_line(s3_resource, entry, dataset_type, destination):
 
         source_anomaly_ref = entry_json['anomaly-mask-ref']
         mask_bucket, mask_key = source_anomaly_ref.replace(
-        "s3://", "").split("/", 1)
+            "s3://", "").split("/", 1)
 
         destination_mask_location = destination + dataset_type + "/masks/" + \
-             mask_key
+            mask_key
         entry_json['anomaly-mask-ref'] = destination_mask_location
 
         copy_file(s3_resource, source_anomaly_ref,
@@ -251,10 +256,15 @@ def main():
 
     args = parser.parse_args()
 
-    lookoutvision_client = boto3.client("lookoutvision")
-    s3_resource = boto3.resource('s3')
-    export_datasets(lookoutvision_client, s3_resource,
-                    args.project, args.destination)
+    try:
+
+        lookoutvision_client = boto3.client("lookoutvision")
+        s3_resource = boto3.resource('s3')
+        export_datasets(lookoutvision_client, s3_resource,
+                        args.project, args.destination)
+    except ClientError as err:
+        logger.exception(err)
+        print(f"Failed: {format(err)}")
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Unit tests for datasets.py.
+Unit tests for export_datasets.py.
 """
 
 import boto3
@@ -214,9 +214,6 @@ def test_write_manifest_file(make_stubber, stub_runner, error_code, stop_on_meth
     s3_path = 's3://dest-bucket/stubber_test/'
     dataset_type = 'train'
     json_lines_file = 'test/test_manifests/updates.manifest'
-
-    dataset = {'DatasetType': 'train', 'Status': 'CREATE_COMPLETE',
-               'StatusMessage': 'The model is hosted.'}
 
     s3_resource = boto3.resource('s3')
     s3_stubber = make_stubber(s3_resource.meta.client)
