@@ -387,7 +387,7 @@ public class Route53Scenario {
             System.exit(1);
         }
     }
-    //end-end:[route.java2.domainlistops.main]
+    //snippet-end:[route.java2.domainlistops.main]
 
     //snippet-start:[route.java2.domainlist.main]
     public static void listDomains(Route53DomainsClient route53DomainsClient) {
