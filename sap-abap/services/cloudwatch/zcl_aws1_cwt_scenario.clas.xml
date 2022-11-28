@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AWS1_CWT_SCENARIO</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>Cloudwatch Code Example Scenario</DESCRIPT>
+    <DESCRIPT>CloudWatch Code Example Scenario</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
