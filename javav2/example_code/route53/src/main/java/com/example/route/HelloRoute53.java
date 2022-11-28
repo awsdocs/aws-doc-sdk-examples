@@ -15,8 +15,8 @@ import software.amazon.awssdk.services.route53.model.Route53Exception;
 import software.amazon.awssdk.services.route53domains.model.DomainPrice;
 import software.amazon.awssdk.services.route53domains.model.ListPricesRequest;
 import software.amazon.awssdk.services.route53domains.model.ListPricesResponse;
-
 import java.util.List;
+
 //snippet-start:[route.java2.hello.main]
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
