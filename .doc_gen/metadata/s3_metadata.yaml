@@ -960,15 +960,6 @@ s3_ListObjects:
             - description: List objects with a paginator.
               snippet_tags:
                 - S3.dotnetv3.ListObjectsPaginatorExample
-            - description: List objects using temporary session credentials.
-              snippet_tags:
-                - S3.dotnetv3.TempCredExplicitSessionStartExample
-            - description: List objects using temporary federated credentials.
-              snippet_tags:
-                - S3.dotnetv3.TempFederatedCredentialsExample
-            - description: List objects using a dual stack endpoint.
-              snippet_tags:
-                - S3.dotnetv3.DualStackEndpointExample
     C++:
       versions:
         - sdk_version: 1
@@ -1939,9 +1930,6 @@ s3_Scenario_UsingLargeFiles:
             - description: Upload an object with encryption.
               snippet_tags:
                 - S3.dotnetv3.SSECLowLevelMPUcopyObjectExample
-            - description: Upload a file using a multipart upload with the low level API.
-              snippet_tags:
-                - S3.dotnetv3.UploadFileMPULowLevelAPIExample
     Python:
       versions:
         - sdk_version: 3
@@ -2237,7 +2225,7 @@ s3_Scenario_ManageACLs:
               snippet_tags:
                 - S3.dotnetv3.ManageACLsExample
   services:
-    s3: {GetBucketACL, PutACL, GetACL}
+    s3: {GetBucketAcl, PutBucketAcl, GetObjectAcl, PutObjectAcl}
 s3_Scenario_Tagging:
   title: Get started with tags for &S3; objects using an &AWS; SDK
   title_abbrev: Get started with tags
@@ -2288,4 +2276,4 @@ s3_MultipartCopy:
               snippet_tags:
                 - S3.dotnetv3.MPUapiCopyObjectExample
   services:
-    s3: {CopyPart, InitiateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}
+    s3: {UploadCopyPart, InitiateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}

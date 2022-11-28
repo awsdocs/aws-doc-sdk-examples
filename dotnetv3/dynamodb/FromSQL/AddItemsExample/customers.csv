@@ -1,7 +1,0 @@
-Area,Customer_ID,Customer_Name,Customer_Address,Customer_Email
-Customer,1,Customer One,Address One,example_one@example.com
-Customer,2,Customer Two,Address Two,example_two@example.com
-Customer,3,Customer Three,Address Three,example_three@example.com
-Customer,4,Customer Four,Address Four,example_four@example.com
-Customer,5,Customer Five,Address Five,example_five@example.com
-Customer,6,Customer Six,Address Six,example_six@example.com

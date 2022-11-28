@@ -38,8 +38,6 @@ Code excerpts that show you how to call individual service functions.
 - [List object versions in a bucket](versioned-examples/ListObjectVersionsExample/ListObjectVersions.cs) (`ListObjectVersionsAsync`)
 - [List objects in a bucket](S3_Basics/S3_Basics.cs) (`ListObjectsV2Async`)
 - [List objects in a bucket using a paginator](ListObjectsPaginatorExample/ListObjectsPaginator.cs) (`ListObjectsV2Async`)
-- [List objects using temporary credentials](TempCredExplicitSessionStartExample/TempCredExplicitSessionStart.cs)
-- [List objects using temporary federated credentials](TempFederatedCredentialsExample/TempFederatedCredentials.cs)
 - [Restore an archived copy of an object](RestoreArchivedObjectExample/RestoreArchivedObject.cs) (`RestoreObjectAsync`)
 - [Set a new ACL for a bucket](BucketACLExample/BucketACL.cs) (`PutBucketACLAsync`)
 - [Set the website configuration of a bucket](WebsiteConfigExample/WebsiteConfig.cs) (`PutBucketWebsiteAsync`)

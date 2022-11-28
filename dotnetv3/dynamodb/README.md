@@ -2,7 +2,6 @@
 
 ## Overview
 The code examples in this section show how to use the AWS SDK for .NET with Amazon DynamoDB.
-to request, import, and manage certificates.
 
 Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. DynamoDB offers built-in security, continuous backups, automated multi-Region replication, in-memory caching, and data import and export tools.
 
@@ -35,12 +34,10 @@ Code excerpts that show you how to call individual service functions.
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 * [Get started using tables, items, and queries](scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/DynamoDB_Basics.cs)
-* [Moving from a SQL database](FromSQL)
 * [Query a table by using batches of PartiQL statements](scenarios/PartiQL_Batch_Scenario/PartiQL_Batch_Scenario/PartiQLBatchMethods.cs)
 * [Query a table using PartiQL](scenarios/PartiQL_Basics_Scenario/PartiQL_Basics_Scenario/PartiQLMethods.cs)
 * [Use a document model](mid-level-api)
 * [Use a high-level object persistence model](high-level-api)
-* [Use a low-level API](low-level-api)
 
 ## Run the examples
 
