@@ -68,7 +68,7 @@ CLASS ZCL_AWS1_KNS_ACTIONS IMPLEMENTATION.
             iv_streamname = iv_stream_name
             iv_shardcount = iv_shard_count
         ).
-        MESSAGE 'Stream created' TYPE 'I'.
+        MESSAGE 'Stream created.' TYPE 'I'.
       CATCH /aws1/cx_knsinvalidargumentex.
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
       CATCH /aws1/cx_knslimitexceededex .
@@ -93,7 +93,7 @@ CLASS ZCL_AWS1_KNS_ACTIONS IMPLEMENTATION.
         lo_kns->deletestream(
             iv_streamname = iv_stream_name
         ).
-        MESSAGE 'Stream deleted' TYPE 'I'.
+        MESSAGE 'Stream deleted.' TYPE 'I'.
       CATCH /aws1/cx_knslimitexceededex .
         MESSAGE 'The request processing has failed because of a limit exceed exception.' TYPE 'E'.
       CATCH /aws1/cx_knsresourceinuseex .
@@ -117,11 +117,11 @@ CLASS ZCL_AWS1_KNS_ACTIONS IMPLEMENTATION.
             iv_streamname = iv_stream_name
         ).
         DATA(lt_stream_description) = oo_result->get_streamdescription( ).
-        MESSAGE 'Streams retrieved' TYPE 'I'.
+        MESSAGE 'Streams retrieved.' TYPE 'I'.
       CATCH /aws1/cx_knslimitexceededex .
         MESSAGE 'The request processing has failed because of a limit exceed exception.' TYPE 'E'.
       CATCH /aws1/cx_knsresourcenotfoundex .
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[kns.abapv1.describe_stream]
 
@@ -139,31 +139,31 @@ CLASS ZCL_AWS1_KNS_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[kns.abapv1.get_records]
     TRY.
-        oo_result = lo_kns->getrecords(             " oo_result is returned for testing purpose "
+        oo_result = lo_kns->getrecords(             " oo_result is returned for testing purposes. "
             iv_sharditerator = iv_shard_iterator
         ).
         DATA(lt_records) = oo_result->get_records( ).
-        MESSAGE 'Record retrieved' TYPE 'I'.
+        MESSAGE 'Record retrieved.' TYPE 'I'.
       CATCH /aws1/cx_knsexpirediteratorex .
         MESSAGE 'Iterator expired.' TYPE 'E'.
       CATCH /aws1/cx_knsinvalidargumentex .
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
       CATCH /aws1/cx_knskmsaccessdeniedex .
-        MESSAGE 'You do not have permission to perform this KMS action.' TYPE 'E'.
+        MESSAGE 'You do not have permission to perform this AWS KMS action.' TYPE 'E'.
       CATCH /aws1/cx_knskmsdisabledex .
-        MESSAGE 'KMS key used is disabled' TYPE 'E'.
+        MESSAGE 'KMS key used is disabled.' TYPE 'E'.
       CATCH /aws1/cx_knskmsinvalidstateex .
-        MESSAGE 'KMS key used is in an invalid state ' TYPE 'E'.
+        MESSAGE 'KMS key used is in an invalid state. ' TYPE 'E'.
       CATCH /aws1/cx_knskmsnotfoundex .
-        MESSAGE 'KMS key used is not found' TYPE 'E'.
+        MESSAGE 'KMS key used is not found.' TYPE 'E'.
       CATCH /aws1/cx_knskmsoptinrequired .
-        MESSAGE 'KMS key option is required' TYPE 'E'.
+        MESSAGE 'KMS key option is required.' TYPE 'E'.
       CATCH /aws1/cx_knskmsthrottlingex .
         MESSAGE 'The rate of requests to AWS KMS is exceeding the request quotas.' TYPE 'E'.
       CATCH /aws1/cx_knsprovthruputexcdex .
         MESSAGE 'The request rate for the stream is too high, or the requested data is too large for the available throughput.' TYPE 'E'.
       CATCH /aws1/cx_knsresourcenotfoundex .
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[kns.abapv1.get_records]
 
@@ -179,12 +179,12 @@ CLASS ZCL_AWS1_KNS_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[kns.abapv1.list_streams]
     TRY.
-        oo_result = lo_kns->liststreams(        " oo_result is returned for testing purpose "
-            "set Limit to specify that a maximum of streams should be returned"
+        oo_result = lo_kns->liststreams(        " oo_result is returned for testing purposes. "
+            "Set Limit to specify that a maximum of streams should be returned."
             iv_limit = iv_limit
         ).
         DATA(lt_streams) = oo_result->get_streamnames( ).
-        MESSAGE 'Streams listed' TYPE 'I'.
+        MESSAGE 'Streams listed.' TYPE 'I'.
       CATCH /aws1/cx_knslimitexceededex .
         MESSAGE 'The request processing has failed because of a limit exceed exception.' TYPE 'E'.
     ENDTRY.
@@ -202,30 +202,30 @@ CLASS ZCL_AWS1_KNS_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[kns.abapv1.put_record]
     TRY.
-        oo_result = lo_kns->putrecord(            " oo_result is returned for testing purpose "
+        oo_result = lo_kns->putrecord(            " oo_result is returned for testing purposes. "
             iv_streamname = iv_stream_name
             iv_data       = iv_data
             iv_partitionkey = iv_partition_key
         ).
-        MESSAGE 'Record created' TYPE 'I'.
+        MESSAGE 'Record created.' TYPE 'I'.
       CATCH /aws1/cx_knsinvalidargumentex .
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
       CATCH /aws1/cx_knskmsaccessdeniedex .
-        MESSAGE 'You do not have permission to perform this KMS action.' TYPE 'E'.
+        MESSAGE 'You do not have permission to perform this AWS KMS action.' TYPE 'E'.
       CATCH /aws1/cx_knskmsdisabledex .
-        MESSAGE 'KMS key used is disabled' TYPE 'E'.
+        MESSAGE 'KMS key used is disabled.' TYPE 'E'.
       CATCH /aws1/cx_knskmsinvalidstateex .
-        MESSAGE 'KMS key used is in an invalid state ' TYPE 'E'.
+        MESSAGE 'KMS key used is in an invalid state. ' TYPE 'E'.
       CATCH /aws1/cx_knskmsnotfoundex .
-        MESSAGE 'KMS key used is not found' TYPE 'E'.
+        MESSAGE 'KMS key used is not found.' TYPE 'E'.
       CATCH /aws1/cx_knskmsoptinrequired .
-        MESSAGE 'KMS key option is required' TYPE 'E'.
+        MESSAGE 'KMS key option is required.' TYPE 'E'.
       CATCH /aws1/cx_knskmsthrottlingex .
         MESSAGE 'The rate of requests to AWS KMS is exceeding the request quotas.' TYPE 'E'.
       CATCH /aws1/cx_knsprovthruputexcdex .
         MESSAGE 'The request rate for the stream is too high, or the requested data is too large for the available throughput.' TYPE 'E'.
       CATCH /aws1/cx_knsresourcenotfoundex .
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[kns.abapv1.put_record]
   ENDMETHOD.
@@ -240,19 +240,19 @@ CLASS ZCL_AWS1_KNS_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[kns.abapv1.register_stream_consumer]
     TRY.
-        oo_result = lo_kns->registerstreamconsumer(       " oo_result is returned for testing purpose "
+        oo_result = lo_kns->registerstreamconsumer(       " oo_result is returned for testing purposes. "
             iv_streamarn = iv_stream_arn
             iv_consumername = iv_consumer_name
         ).
-        MESSAGE 'Stream consumer registered' TYPE 'I'.
+        MESSAGE 'Stream consumer registered.' TYPE 'I'.
       CATCH /aws1/cx_knsinvalidargumentex .
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
       CATCH /aws1/cx_sgmresourcelimitexcd.
-        MESSAGE 'You have reached the limit on the number of resources' TYPE 'E'.
+        MESSAGE 'You have reached the limit on the number of resources.' TYPE 'E'.
       CATCH /aws1/cx_sgmresourceinuse.
         MESSAGE 'Resource being accessed is in use.' TYPE 'E'.
       CATCH /aws1/cx_sgmresourcenotfound.
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[kns.abapv1.register_stream_consumer]
   ENDMETHOD.
