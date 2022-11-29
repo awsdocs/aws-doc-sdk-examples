@@ -202,7 +202,7 @@ def verify_no_deny_list_words(file_contents, file_location):
 
 def verify_sample_files(root_path):
     """Verify sample files meet the requirements and have not moved."""
-    sample_files_folder = os.path.join(root_path, "resources\sample_files")
+    sample_files_folder = os.path.join(root_path, "resources/sample_files")
     media_folder = ".sample_media"
     error_count = 0
     file_list = []
