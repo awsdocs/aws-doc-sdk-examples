@@ -51,21 +51,23 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * This example uses a standard for loop to iterate through the contents of the response. If you wish to use
- * other methods of pagnation
+ * This example uses pagination methods where applicable. For example, to list domains, the
+ * listDomainsPaginator method is used. For more information about pagination,
+ * see the following documentation topic:
  *
- *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/pagination.html
+ * 
  * This Java code examples performs the following operations:
  *
- * 1. List current domains. *
- * 2. List operations in the past year. *
+ * 1. List current domains.
+ * 2. List operations in the past year.
  * 3. View billing for the account in the past year.
  * 4. View prices for domain types.
- * 5. Get domain suggestions. *
- * 6. Check domain availability. *
- * 7. Check domain transferability. *
+ * 5. Get domain suggestions.
+ * 6. Check domain availability.
+ * 7. Check domain transferability.
  * 8. Request a domain registration.
- * 9. Get operation details *
+ * 9. Get operation details
  * 10. Optionally, get domain details.
  */
 
