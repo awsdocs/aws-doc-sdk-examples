@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(SERVICE_NAME glue)
-set(SERVICE_COMPONENTS glue s3)
+set(SERVICE_COMPONENTS glue s3 iam)
 
 # Set this project's name.
 project("${SERVICE_NAME}-examples")

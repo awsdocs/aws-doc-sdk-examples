@@ -17,6 +17,11 @@ namespace AwsDocTest {
         ASSERT_NE(env_var, nullptr) << preconditionError();
         Aws::String bucketName(env_var);
 
+        AddCommandLineResponses({"1",
+                                 "2",
+                                 "1",
+                                 "1"});
+
         auto result = AwsDoc::Glue::runGettingStartedWithGlueScenario(bucketName, roleName, *s_clientConfig);
         ASSERT_TRUE(result);
     }

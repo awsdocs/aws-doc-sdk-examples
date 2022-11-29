@@ -293,8 +293,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         if (outcome.IsSuccess()) {
             const Aws::Glue::Model::Database &database = outcome.GetResult().GetDatabase();
 
-            std::cout << "Successfully retrieve database with description '" <<
-                      database.GetDescription() << "'." << std::endl;
+            std::cout << "Successfully retrieve the database\n" <<
+                      database.Jsonize().View().WriteReadable() << "'." << std::endl;
         }
         else {
             std::cerr << "Error getting the database.  "

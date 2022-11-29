@@ -25,6 +25,8 @@ namespace AwsDocTest {
 
         static void TearDownTestSuite();
 
+        void AddCommandLineResponses(const std::vector<std::string> &responses);
+
         static Aws::String preconditionError();
 
         // s_clientConfig must be a pointer because the client config must be initialized
@@ -36,6 +38,9 @@ namespace AwsDocTest {
 
         std::stringbuf m_coutBuffer;  // Use just to silence cout.
         std::streambuf *m_savedBuffer = nullptr;
+
+        std::stringbuf m_cinBuffer;
+        std::streambuf *m_savedInBuffer = nullptr;
     };
 } // AwsDocTest
 
