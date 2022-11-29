@@ -273,7 +273,7 @@ route-53_ViewBilling:
           excerpts:
             - description:
               snippet_tags:
-                - route.java2.domainreg.main
+                - route.java2.domainbillingrecords.main
     .NET:
       versions:
         - sdk_version: 3
