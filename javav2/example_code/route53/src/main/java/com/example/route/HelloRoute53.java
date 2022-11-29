@@ -35,9 +35,9 @@ public class HelloRoute53 {
     public static void main(String[] args) {
         final String usage = "\n" +
             "Usage:\n" +
-            "    <hostedZoneId> \n\n" +
+            "    <domainType> \n\n" +
             "Where:\n" +
-            "    hostedZoneId - The id value of an existing hosted zone. \n";
+            "    domainType - The domain type (for example, com). \n";
 
         if (args.length != 1) {
             System.out.println(usage);
