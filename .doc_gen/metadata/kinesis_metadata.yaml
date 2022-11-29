@@ -41,6 +41,14 @@ kinesis_CreateStream:
             - description:
               snippet_tags:
                 - kinesis.rust.create-stream
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.create_stream
   services:
     kinesis: {CreateStream}
 kinesis_DeregisterConsumer:
@@ -84,6 +92,14 @@ kinesis_DescribeStream:
             - description:
               snippet_tags:
                 - kinesis.rust.describe-stream
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.describe_stream
   services:
     kinesis: {DescribeStream}
 kinesis_ListConsumers:
@@ -126,6 +142,14 @@ kinesis_ListStreams:
             - description:
               snippet_tags:
                 - kinesis.rust.list-streams
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.list_streams
   services:
     kinesis: {ListStreams}
 kinesis_ListTags:
@@ -187,6 +211,14 @@ kinesis_DeleteStream:
             - description:
               snippet_tags:
                 - kinesis.rust.delete-stream
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.delete_stream
   services:
     kinesis: {DeleteStream}
 kinesis_PutRecord:
@@ -222,6 +254,14 @@ kinesis_PutRecord:
             - description:
               snippet_tags:
                 - kinesis.rust.put-record
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.put_record
   services:
     kinesis: {PutRecord}
 kinesis_GetRecords:
@@ -249,6 +289,14 @@ kinesis_GetRecords:
               snippet_tags:
                 - python.example_code.kinesis.KinesisStream.class
                 - python.example_code.kinesis.GetRecords
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.get_records
   services:
     kinesis: {GetRecords, GetShardIterator}
 kinesis_RegisterConsumer:
@@ -266,6 +314,14 @@ kinesis_RegisterConsumer:
             - description:
               snippet_tags:
                 - Kinesis.dotnetv3.RegisterConsumerExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.register_stream_consumer
   services:
     kinesis: {RegisterStreamConsumer}
 kinesis_TagStream:
@@ -285,3 +341,24 @@ kinesis_TagStream:
                 - Kinesis.dotnetv3.TagStreamExample
   services:
     kinesis: {AddTagsToStream}
+kinesis_Scenario_GettingStarted:
+  title: Get started with basic &AK; data stream operations using an &AWS; SDK
+  title_abbrev: Get started with data streams
+  synopsis_list:
+    - Create a stream.
+    - Put record in a stream.
+    - Create a shard iterator.
+    - Read the record.
+    - Delete stream.
+  category: Scenarios
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.getting_started_with_kns
+  services:
+    kinesis: {CreateStream, PutRecord, GetShardIterator, GetRecords, DeleteStream}

@@ -11,6 +11,7 @@ import aws.sdk.kotlin.services.dynamodb.model.AttributeValueUpdate
 import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
 import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
 import aws.sdk.kotlin.services.dynamodb.model.UpdateItemRequest
+import org.springframework.stereotype.Component
 import org.w3c.dom.Document
 import java.io.StringWriter
 import java.text.SimpleDateFormat
@@ -27,6 +28,7 @@ import kotlin.collections.HashMap
 /*
 Before running this code example, create an Amazon DynamoDB table named Work with a primary key named id.
 */
+@Component
 class DynamoDBService {
 
     // Archive an item.
@@ -37,7 +39,7 @@ class DynamoDBService {
 
         val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
         updatedValues["archive"] = AttributeValueUpdate {
-            value = AttributeValue.S("Closed")
+            value = AttributeValue.N("1")
             action = AttributeAction.Put
         }
 
@@ -57,13 +59,12 @@ class DynamoDBService {
         val tableNameVal = "Work"
         val myList = mutableListOf<WorkItem>()
         val myMap = HashMap<String, String>()
-        myMap.put("#archive2", "archive")
+        myMap["#archive2"] = "archive"
         val myExMap = mutableMapOf<String, AttributeValue>()
-
         if (myArc) {
-            myExMap.put(":val", AttributeValue.S("Open"))
+            myExMap[":val"] = AttributeValue.N("1")
         } else {
-            myExMap.put(":val", AttributeValue.S("Closed"))
+            myExMap[":val"] = AttributeValue.N("0")
         }
 
         val scanRequest = ScanRequest {
@@ -71,6 +72,54 @@ class DynamoDBService {
             expressionAttributeValues = myExMap
             tableName = tableNameVal
             filterExpression = "#archive2 = :val"
+        }
+
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
+            val response = dynamoDBClient.scan(scanRequest)
+            for (item in response.items!!) {
+                val keys = item.keys
+                val myItem = WorkItem()
+                for (key in keys) {
+                    when (key) {
+                        "date" -> {
+                            myItem.date = splitMyString(item[key].toString())
+                        }
+
+                        "status" -> {
+                            myItem.status = splitMyString(item[key].toString())
+                        }
+
+                        "username" -> {
+                            myItem.name = "user"
+                        }
+
+                        "archive" -> {
+                            myItem.arc = splitMyString(item[key].toString())
+                        }
+
+                        "description" -> {
+                            myItem.description = splitMyString(item[key].toString())
+                        }
+                        "id" -> {
+                            myItem.id = splitMyString(item[key].toString())
+                        }
+                        else -> {
+                            myItem.guide = splitMyString(item[key].toString())
+                            myList.add(myItem)
+                        }
+                    }
+                }
+            }
+            return myList
+        }
+    }
+
+    // Get items from the Amazon DynamoDB table.
+    suspend fun getAllItems(): MutableList<WorkItem> {
+        val tableNameVal = "Work"
+        val myList = mutableListOf<WorkItem>()
+        val scanRequest = ScanRequest {
+            tableName = tableNameVal
         }
 
         DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
@@ -121,11 +170,10 @@ class DynamoDBService {
         val myMap = HashMap<String, String>()
         myMap.put("#archive2", "archive")
         val myExMap = mutableMapOf<String, AttributeValue>()
-
         if (myArc) {
-            myExMap.put(":val", AttributeValue.S("Open"))
+            myExMap.put(":val", AttributeValue.N("1"))
         } else {
-            myExMap.put(":val", AttributeValue.S("Closed"))
+            myExMap.put(":val", AttributeValue.N("0"))
         }
 
         val scanRequest = ScanRequest {
@@ -195,7 +243,7 @@ class DynamoDBService {
         val itemValues = mutableMapOf<String, AttributeValue>()
         itemValues["id"] = AttributeValue.S(myGuid)
         itemValues["username"] = AttributeValue.S(user.toString())
-        itemValues["archive"] = AttributeValue.S("Open")
+        itemValues["archive"] = AttributeValue.N("0")
         itemValues["date"] = AttributeValue.S(formatedDate)
         itemValues["description"] = AttributeValue.S(desc.toString())
         itemValues["guide"] = AttributeValue.S(guide.toString())

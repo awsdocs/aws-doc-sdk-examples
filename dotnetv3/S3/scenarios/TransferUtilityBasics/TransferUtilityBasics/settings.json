@@ -1,0 +1,6 @@
+{
+  "BucketName": "doc-example-bucket",
+  "FileToDownload": "Download.txt",
+  "FileToUpload": "Upload.txt",
+  "S3Path": "DownloadPath"
+}

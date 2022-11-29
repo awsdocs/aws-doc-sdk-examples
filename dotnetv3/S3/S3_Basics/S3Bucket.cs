@@ -3,11 +3,6 @@
 
 namespace S3_BasicsScenario
 {
-    using System;
-    using System.Threading.Tasks;
-    using Amazon.S3;
-    using Amazon.S3.Model;
-
     /// <summary>
     /// This class contains all of the methods for working with Amazon Simple
     /// Storage Service (Amazon S3) buckets.
@@ -120,7 +115,7 @@ namespace S3_BasicsScenario
             try
             {
                 // Save object to local file
-                await response.WriteResponseStreamToFileAsync($"{filePath}\\{objectName}", true, System.Threading.CancellationToken.None);
+                await response.WriteResponseStreamToFileAsync($"{filePath}\\{objectName}", true, CancellationToken.None);
                 return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
             }
             catch (AmazonS3Exception ex)
@@ -197,7 +192,7 @@ namespace S3_BasicsScenario
                 Console.WriteLine($"Listing the contents of {bucketName}:");
                 Console.WriteLine("--------------------------------------");
 
-                var response = new ListObjectsV2Response();
+                ListObjectsV2Response response;
 
                 do
                 {
@@ -243,10 +238,11 @@ namespace S3_BasicsScenario
 
             try
             {
-                var response = await client.ListObjectsV2Async(request);
+                ListObjectsV2Response response;
 
                 do
                 {
+                    response = await client.ListObjectsV2Async(request);
                     response.S3Objects
                         .ForEach(async obj => await client.DeleteObjectAsync(bucketName, obj.Key));
 
