@@ -36,12 +36,12 @@ CLASS ZCL_AWS1_KNS_SCENARIO IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_kns) = /aws1/cl_kns_factory=>create( lo_session ).
 
-    "This example scenario contains the following actions."
-    " 1. Create a stream "
-    " 2. Put record in a stream "
-    " 3. Create a shard iterator "
-    " 4. Read the record "
-    " 5. Delete stream "
+    "This example scenario contains the following actions:"
+    " 1. Create a stream. "
+    " 2. Put a record in a stream. "
+    " 3. Create a shard iterator. "
+    " 4. Read the record. "
+    " 5. Delete the stream. "
 
     "snippet-start:[kns.abapv1.getting_started_with_kns]
 
@@ -50,22 +50,22 @@ CLASS ZCL_AWS1_KNS_SCENARIO IMPLEMENTATION.
     DATA lo_sharditerator TYPE REF TO /aws1/cl_knsgetsharditerator01.
     DATA lo_record_result TYPE REF TO /aws1/cl_knsputrecordoutput.
 
-    "Create stream"
+    "Create stream."
     TRY.
         lo_kns->createstream(
             iv_streamname = iv_stream_name
             iv_shardcount = iv_shard_count
         ).
-        MESSAGE 'Stream created' TYPE 'I'.
+        MESSAGE 'Stream created.' TYPE 'I'.
       CATCH /aws1/cx_knsinvalidargumentex.
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
       CATCH /aws1/cx_knslimitexceededex .
-        MESSAGE 'The request processing has failed because of a limit exceed exception.' TYPE 'E'.
+        MESSAGE 'The request processing has failed because of a limit exceeded exception.' TYPE 'E'.
       CATCH /aws1/cx_knsresourceinuseex .
         MESSAGE 'The request processing has failed because the resource is in use.' TYPE 'E'.
     ENDTRY.
 
-    "Wait for steam to becomes active"
+    "Wait for stream to becomes active."
     lo_stream_describe_result = lo_kns->describestream( iv_streamname = iv_stream_name ).
     lo_stream_description = lo_stream_describe_result->get_streamdescription( ).
     WHILE lo_stream_description->get_streamstatus( ) <> 'ACTIVE'.
@@ -77,86 +77,86 @@ CLASS ZCL_AWS1_KNS_SCENARIO IMPLEMENTATION.
       lo_stream_description =  lo_stream_describe_result->get_streamdescription( ).
     ENDWHILE.
 
-    "Create record"
+    "Create record."
     TRY.
         lo_record_result = lo_kns->putrecord(
             iv_streamname = iv_stream_name
             iv_data       = iv_data
             iv_partitionkey = iv_partition_key
         ).
-        MESSAGE 'Record created' TYPE 'I'.
+        MESSAGE 'Record created.' TYPE 'I'.
       CATCH /aws1/cx_knsinvalidargumentex .
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
       CATCH /aws1/cx_knskmsaccessdeniedex .
-        MESSAGE 'You do not have permission to perform this KMS action.' TYPE 'E'.
+        MESSAGE 'You do not have permission to perform this AWS KMS action.' TYPE 'E'.
       CATCH /aws1/cx_knskmsdisabledex .
-        MESSAGE 'KMS key used is disabled' TYPE 'E'.
+        MESSAGE 'KMS key used is disabled.' TYPE 'E'.
       CATCH /aws1/cx_knskmsinvalidstateex .
-        MESSAGE 'KMS key used is in an invalid state ' TYPE 'E'.
+        MESSAGE 'KMS key used is in an invalid state. ' TYPE 'E'.
       CATCH /aws1/cx_knskmsnotfoundex .
-        MESSAGE 'KMS key used is not found' TYPE 'E'.
+        MESSAGE 'KMS key used is not found.' TYPE 'E'.
       CATCH /aws1/cx_knskmsoptinrequired .
-        MESSAGE 'KMS key option is required' TYPE 'E'.
+        MESSAGE 'KMS key option is required.' TYPE 'E'.
       CATCH /aws1/cx_knskmsthrottlingex .
         MESSAGE 'The rate of requests to AWS KMS is exceeding the request quotas.' TYPE 'E'.
       CATCH /aws1/cx_knsprovthruputexcdex .
         MESSAGE 'The request rate for the stream is too high, or the requested data is too large for the available throughput.' TYPE 'E'.
       CATCH /aws1/cx_knsresourcenotfoundex .
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
 
-    "Create a shard iterator in order to read the record"
+    "Create a shard iterator in order to read the record."
     TRY.
         lo_sharditerator = lo_kns->getsharditerator(
           iv_shardid = lo_record_result->get_shardid( )
           iv_sharditeratortype = iv_sharditeratortype
           iv_streamname = iv_stream_name
       ).
-        MESSAGE 'Shard iterator created' TYPE 'I'.
+        MESSAGE 'Shard iterator created.' TYPE 'I'.
       CATCH /aws1/cx_knsinvalidargumentex.
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
       CATCH /aws1/cx_knsprovthruputexcdex .
         MESSAGE 'The request rate for the stream is too high, or the requested data is too large for the available throughput.' TYPE 'E'.
       CATCH /aws1/cx_sgmresourcenotfound.
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
 
-    "Read the record"
+    "Read the record."
     TRY.
-        oo_result = lo_kns->getrecords(                    " oo_result is returned for testing purpose "
+        oo_result = lo_kns->getrecords(                    " oo_result is returned for testing purposes. "
             iv_sharditerator   = lo_sharditerator->get_sharditerator( )
         ).
-        MESSAGE 'Shard iterator created' TYPE 'I'.
+        MESSAGE 'Shard iterator created.' TYPE 'I'.
       CATCH /aws1/cx_knsexpirediteratorex .
         MESSAGE 'Iterator expired.' TYPE 'E'.
       CATCH /aws1/cx_knsinvalidargumentex .
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
       CATCH /aws1/cx_knskmsaccessdeniedex .
-        MESSAGE 'You do not have permission to perform this KMS action.' TYPE 'E'.
+        MESSAGE 'You do not have permission to perform this AWS KMS action.' TYPE 'E'.
       CATCH /aws1/cx_knskmsdisabledex .
-        MESSAGE 'KMS key used is disabled' TYPE 'E'.
+        MESSAGE 'KMS key used is disabled.' TYPE 'E'.
       CATCH /aws1/cx_knskmsinvalidstateex .
-        MESSAGE 'KMS key used is in an invalid state ' TYPE 'E'.
+        MESSAGE 'KMS key used is in an invalid state. ' TYPE 'E'.
       CATCH /aws1/cx_knskmsnotfoundex .
-        MESSAGE 'KMS key used is not found' TYPE 'E'.
+        MESSAGE 'KMS key used is not found.' TYPE 'E'.
       CATCH /aws1/cx_knskmsoptinrequired .
-        MESSAGE 'KMS key option is required' TYPE 'E'.
+        MESSAGE 'KMS key option is required.' TYPE 'E'.
       CATCH /aws1/cx_knskmsthrottlingex .
         MESSAGE 'The rate of requests to AWS KMS is exceeding the request quotas.' TYPE 'E'.
       CATCH /aws1/cx_knsprovthruputexcdex .
         MESSAGE 'The request rate for the stream is too high, or the requested data is too large for the available throughput.' TYPE 'E'.
       CATCH /aws1/cx_knsresourcenotfoundex .
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
 
-    "Delete Stream"
+    "Delete stream."
     TRY.
         lo_kns->deletestream(
             iv_streamname = iv_stream_name
         ).
-        MESSAGE 'Stream deleted' TYPE 'I'.
+        MESSAGE 'Stream deleted.' TYPE 'I'.
       CATCH /aws1/cx_knslimitexceededex .
-        MESSAGE 'The request processing has failed because of a limit exceed exception.' TYPE 'E'.
+        MESSAGE 'The request processing has failed because of a limit exceeded exception.' TYPE 'E'.
       CATCH /aws1/cx_knsresourceinuseex .
         MESSAGE 'The request processing has failed because the resource is in use.' TYPE 'E'.
     ENDTRY.

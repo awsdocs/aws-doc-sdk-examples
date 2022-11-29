@@ -53,17 +53,17 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
 
-    "Create an S3 bucket
+    "Create an Amazon Simple Storage Service (Amazon S3) bucket.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
     ao_s3->createbucket( iv_bucket = lv_bucket_name ).
 
-    "Define alarm name
+    "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
-    "Create S3 dimensions
+    "Create Amazon S3 dimensions.
     CREATE OBJECT lo_dimensions
       EXPORTING
         iv_name  = 'StorageType'
@@ -94,7 +94,7 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
         oo_result              = lo_result
         ).
 
-    "Validation
+    "Validation.
     lv_found = abap_false.
 
     LOOP AT lo_result->get_metricalarms( ) INTO DATA(lo_alarms).
