@@ -668,7 +668,7 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
                       << std::endl;
             result = false;
         }
-// snippet-start:[cpp.example_code.glue.delete_database]
+// snippet-end:[cpp.example_code.glue.delete_database]
     }
 
     // 15. Delete a crawler.
