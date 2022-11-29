@@ -6,5 +6,6 @@
 pub mod add;
 pub mod create;
 pub mod delete;
+pub mod error;
 pub mod list;
 pub mod movies;

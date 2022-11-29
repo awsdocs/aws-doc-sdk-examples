@@ -4,8 +4,11 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_iotsitewise::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_iotsitewise::types::DisplayErrorContext;
+use aws_sdk_iotsitewise::{Client, Region, PKG_VERSION};
 use aws_smithy_types_convert::date_time::DateTimeExt;
+use sitewise_code_examples::Error;
+use std::process;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -36,11 +39,11 @@ async fn list_asset_models(client: &Client) -> Result<(), Error> {
         );
         println!(
             "  Creation Date:   {}",
-            asset.creation_date().unwrap().to_chrono_utc()
+            asset.creation_date().unwrap().to_chrono_utc()?
         );
         println!(
             "  Last Update Date:   {}",
-            asset.last_update_date().unwrap().to_chrono_utc()
+            asset.last_update_date().unwrap().to_chrono_utc()?
         );
         println!(
             "  Current Status:   {}",
@@ -66,10 +69,16 @@ async fn list_asset_models(client: &Client) -> Result<(), Error> {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() {
     tracing_subscriber::fmt::init();
-    let Opt { region, verbose } = Opt::from_args();
 
+    if let Err(err) = run_example(Opt::from_args()).await {
+        eprintln!("Error: {}", DisplayErrorContext(err));
+        process::exit(1);
+    }
+}
+
+async fn run_example(Opt { region, verbose }: Opt) -> Result<(), Error> {
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));

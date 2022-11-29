@@ -3,15 +3,6 @@
 
 namespace S3_BasicsScenario.Tests
 {
-    using Xunit;
-    using System;
-    using System.Threading.Tasks;
-    using Amazon.S3;
-    using Moq;
-    using Amazon.S3.Model;
-    using System.Threading;
-    using System.Collections.Generic;
-
     public class S3BucketTests
     {
         private string newBucket = "";
