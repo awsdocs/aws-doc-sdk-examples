@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME "glue")
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES  glue)
+set(CURRENT_TARGET_AWS_DEPENDENCIES glue s3 iam)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
@@ -104,19 +104,21 @@ target_sources(
         ${GTEST_SOURCE}
         test_main.cpp
         ${EXAMPLE_SERVICE_NAME}_gtests.cpp
+        ../glue_utilities.cpp
 )
 
 target_include_directories(
         ${CURRENT_TARGET}
         PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
-        $<INSTALL_INTERFACE:../include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+        $<INSTALL_INTERFACE:..>
 )
 
 target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
+        SOURCE_DIR="${CMAKE_SOURCE_DIR}/.."
 )
 
 target_link_libraries(

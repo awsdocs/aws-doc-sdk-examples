@@ -8,6 +8,7 @@
 #define S3_EXAMPLES_S3_GTESTS_H
 
 #include <aws/core/Aws.h>
+#include <aws/core/client/ClientConfiguration.h>
 #include <memory>
 #include <gtest/gtest.h>
 

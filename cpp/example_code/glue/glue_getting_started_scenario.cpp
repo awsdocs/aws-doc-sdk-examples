@@ -549,7 +549,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             std::cerr << "Error listing jobs. " << listRunsOutcome.GetError().GetMessage()
                       << std::endl;
         }
-// snippet-end:[cpp.example_code.glue.start_list_jobs]
+// snippet-end:[cpp.example_code.glue.list_jobs]
     }
 
     // 11. Get the job runs for a job.

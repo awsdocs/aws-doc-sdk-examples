@@ -7,6 +7,7 @@
 #define GLUE_EXAMPLES_GLUE_SAMPLES_H
 
 #include <aws/core/Aws.h>
+#include <aws/core/client/ClientConfiguration.h>
 #include <aws/cloudformation/model/Output.h>
 #include <functional>
 
