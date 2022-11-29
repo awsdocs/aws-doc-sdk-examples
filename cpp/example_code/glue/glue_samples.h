@@ -5,12 +5,14 @@
 
 #ifndef GLUE_EXAMPLES_GLUE_SAMPLES_H
 #define GLUE_EXAMPLES_GLUE_SAMPLES_H
+
 #include <aws/core/Aws.h>
 #include <aws/cloudformation/model/Output.h>
 #include <functional>
 
 namespace AwsDoc {
     namespace Glue {
+
         //! Scenario which demonstrates using AWS Glue to add a crawler and run a job.
         /*!
          \\sa runGettingStartedWithGlueScenario()
@@ -24,8 +26,16 @@ namespace AwsDoc {
                                                const Aws::Client::ClientConfiguration &clientConfig);
 
 
+        //! Scenario which retrieve the Amazon Resource Name (ARN) for an IAM role.
+        /*!
+         \\sa getRoleArn()
+         \param roleName: An IAM role name.
+         \param roleName: A string to receive the role ARN.
+         \param clientConfig Aws client configuration.
+         \return bool: Successful completion.
+         */
         bool getRoleArn(const Aws::String &roleName, Aws::String &roleArn,
-                                      const Aws::Client::ClientConfiguration &clientConfig);
+                        const Aws::Client::ClientConfiguration &clientConfig);
 
         //! Command line prompt/response utility function.
         /*!
@@ -35,9 +45,9 @@ namespace AwsDoc {
          \return Aws::String: User's response.
          */
         Aws::String askQuestion(const Aws::String &string,
-                                       const std::function<bool(
-                                               Aws::String)> &test = [](
-                                               const Aws::String &) -> bool { return true; });
+                                const std::function<bool(
+                                        Aws::String)> &test = [](
+                                        const Aws::String &) -> bool { return true; });
 
         //! Command line prompt/response utility function for an int result confined to
         //! a range.
@@ -50,8 +60,6 @@ namespace AwsDoc {
          */
         int askQuestionForIntRange(const Aws::String &string, int low,
                                    int high);
-
-
     } // Glue
 } // AwsDoc
 

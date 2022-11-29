@@ -10,7 +10,10 @@
  *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
- * See the
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ * To create the resources required by this example, see the "Prerequisites" section in the README.
  *
  * Purpose
  *
@@ -24,12 +27,14 @@
  * 6. Get tables.
  * 7. Create a job.
  * 8. Start a job run.
- * 9. List all jobs.
- * 10. Get job a run.
- * 11. Delete a job.
- * 12. Delete a database.
- * 13. Delete a crawler.
- * 14. Delete the job script and run data from the S3 bucket.
+ * 9. List the output data stored in the S3 bucket.
+ * 10. List all the jobs.
+ * 11  Get the job runs for a job.
+ * 12. Get a single job run.
+ * 13. Delete a job.
+ * 14. Delete a database.
+ * 15. Delete a crawler.
+ * 16. Delete the job script and run data from the S3 bucket.
  *
  */
 
@@ -75,24 +80,63 @@ namespace AwsDoc {
         static const Aws::String PYTHON_SCRIPT("flight_etl_job_script.py");
         static const Aws::String PYTHON_SCRIPT_PATH(
                 SOURCE_DIR "/flight_etl_job_script.py");
+        static const Aws::String OUTPUT_FILE_PREFIX("run-");
         static const int LINES_OF_RUN_FILE_TO_DISPLAY = 20;
 
-        static bool
-        uploadFile(const Aws::String &bucketName, const Aws::String &filePath,
-                   const Aws::String &fileName,
-                   const Aws::Client::ClientConfiguration &clientConfig);
+        //! Routine which uploads a file to an Amazon Simple Storage Service (Amazon S3) bucket.
+        /*!
+         \\sa uploadFile()
+         \param bucketName: An Amazon S3 bucket created in the setup.
+         \param filePath: The path of the file to upload.
+         \param fileName The name for the uploaded file.
+         \param clientConfig Aws client configuration.
+         \return bool: Successful completion.
+         */
+        static bool uploadFile(const Aws::String &bucketName,
+                               const Aws::String &filePath,
+                               const Aws::String &fileName,
+                               const Aws::Client::ClientConfiguration &clientConfig);
 
+        //! Routine which deletes all objects in an Amazon S3 bucket.
+        /*!
+         \\sa deleteAllObjectsInS3Bucket()
+         \param bucketName: The Amazon S3 bucket name.
+         \param clientConfig Aws client configuration.
+         \return bool: Successful completion.
+         */
         static bool deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
                                                const Aws::Client::ClientConfiguration &clientConfig);
 
+        //! Routine which retrieves an object from an Amazon S3 bucket.
+        /*!
+         \\sa getObjectFromBucket()
+         \param bucketName: The Amazon S3 bucket name.
+         \param objectKey: The object's name.
+         \param objectStream: A stream to receive the retrieved data.
+         \param clientConfig Aws client configuration.
+         \return bool: Successful completion.
+         */
         static bool getObjectFromBucket(const Aws::String &bucketName,
                                         const Aws::String &objectKey,
                                         std::ostream &objectStream,
                                         const Aws::Client::ClientConfiguration &clientConfig);
 
+
+        //! Cleanup routine to delete created assets.
+        /*!
+         \\sa deleteAssets()
+         \param crawler: Name of an AWS Glue crawler.
+         \param database: The name of an AWS Glue database.
+         \param job: The name of an AWS Glue job.
+         \param bucketName: The name of an Amazon S3 bucket.
+         \param clientConfig Aws client configuration.
+         \return bool: Successful completion.
+         */
         static bool
-        deleteAssets(const Aws::String &crawler, const Aws::String &database,
-                     const Aws::String &job, const Aws::String &bucketName,
+        deleteAssets(const Aws::String &crawler,
+                     const Aws::String &database,
+                     const Aws::String &job,
+                     const Aws::String &bucketName,
                      const Aws::Client::ClientConfiguration &clientConfig);
     } // Glue
 } // AwsDoc
@@ -116,7 +160,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 
     Aws::String roleArn;
     if (!getRoleArn(roleName, roleArn, clientConfig)) {
-        return 1;
+        std::cerr << "Error getting role ARN for role." << std::endl;
+        return false;
     }
 
     // 1. Upload the job script to the S3 bucket.
@@ -132,9 +177,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             std::cerr << "Error uploading the job file." << std::endl;
             return false;
         }
-
     }
-    
+
     // 2. Create a crawler.
     {
 // snippet-start:[cpp.example_code.glue.create_crawler]
@@ -176,7 +220,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             std::cout << "Successfully retrieved crawler." << std::endl;
         }
         else {
-            std::cerr << "Error retrieving crawler.  "
+            std::cerr << "Error retrieving a crawler.  "
                       << outcome.GetError().GetMessage() << std::endl;
             deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
                          clientConfig);
@@ -229,7 +273,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
         }
         else {
-            std::cerr << "Error starting crawler.  " << outcome.GetError().GetMessage()
+            std::cerr << "Error starting a crawler.  " << outcome.GetError().GetMessage()
                       << std::endl;
             deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
                          clientConfig);
@@ -291,7 +335,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
         }
         else {
-            std::cerr << "Error:  " << outcome.GetError().GetMessage() << std::endl;
+            std::cerr << "Error getting the tables. " << outcome.GetError().GetMessage() << std::endl;
             deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
                          clientConfig);
             return false;
@@ -412,7 +456,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                     }
                 }
                 else {
-                    std::cerr << "Error starting the job. "
+                    std::cerr << "Error retrieving job run state. "
                               << jobRunOutcome.GetError().GetMessage()
                               << std::endl;
                     deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME,
@@ -422,7 +466,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
         }
         else {
-            std::cerr << "Error . " << outcome.GetError().GetMessage() << std::endl;
+            std::cerr << "Error starting a job. " << outcome.GetError().GetMessage() << std::endl;
             deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
                          clientConfig);
             return false;
@@ -430,14 +474,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 // snippet-end:[cpp.example_code.glue.start_job_run]
     }
 
-    /*
-     * List the output data stored in the S3 bucket.
-     */
+    // 9. List the output data stored in the S3 bucket.
     {
         Aws::S3::S3Client s3Client;
         Aws::S3::Model::ListObjectsRequest request;
         request.SetBucket(bucketName);
-        request.SetPrefix("run-");
+        request.SetPrefix(OUTPUT_FILE_PREFIX);
 
         Aws::S3::Model::ListObjectsOutcome outcome = s3Client.ListObjects(request);
 
@@ -476,11 +518,11 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
         }
         else {
-            std::cerr << "Error . " << outcome.GetError().GetMessage() << std::endl;
+            std::cerr << "Error listing objects. " << outcome.GetError().GetMessage() << std::endl;
         }
     }
 
-    // 9. List all jobs.
+    // 10. List all the jobs.
     Aws::String jobName;
     {
 // snippet-start:[cpp.example_code.glue.list_jobs]
@@ -504,13 +546,13 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             jobName = jobNames[jobIndex - 1];
         }
         else {
-            std::cerr << "Error . " << listRunsOutcome.GetError().GetMessage()
+            std::cerr << "Error listing jobs. " << listRunsOutcome.GetError().GetMessage()
                       << std::endl;
         }
 // snippet-end:[cpp.example_code.glue.start_list_jobs]
     }
 
-    // 10. Get job runs.
+    // 11. Get the job runs for a job.
     Aws::String jobRunID;
     if (!jobName.empty()) {
 // snippet-start:[cpp.example_code.glue.get_job_runs]
@@ -546,7 +588,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 // snippet-end:[cpp.example_code.glue.get_job_runs]
     }
 
-    // 10. Get a job run.
+    // 12. Get a single job run.
     if (!jobRunID.empty()) {
 // snippet-start:[cpp.example_code.glue.get_job_run]
         Aws::Glue::Model::GetJobRunRequest jobRunRequest;
@@ -563,7 +605,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                     << std::endl;
         }
         else {
-            std::cerr << "Error . " << jobRunOutcome.GetError().GetMessage()
+            std::cerr << "Error get a job run. " << jobRunOutcome.GetError().GetMessage()
                       << std::endl;
         }
 // snippet-end:[cpp.example_code.glue.get_job_run]
@@ -573,14 +615,23 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                         clientConfig);
 }
 
-
+//! Cleanup routine to delete created assets.
+/*!
+ \\sa deleteAssets()
+ \param crawler: Name of an AWS Glue crawler.
+ \param database: The name of an AWS Glue database.
+ \param job: The name of an AWS Glue job.
+ \param bucketName: The name of an Amazon S3 bucket.
+ \param clientConfig Aws client configuration.
+ \return bool: Successful completion.
+ */
 bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &database,
                                 const Aws::String &job, const Aws::String &bucketName,
                                 const Aws::Client::ClientConfiguration &clientConfig) {
     const Aws::Glue::GlueClient client(clientConfig);
     bool result = true;
 
-    // 11. Delete a job.
+    // 13. Delete a job.
     if (!job.empty()) {
 // snippet-start:[cpp.example_code.glue.delete_job]
         Aws::Glue::Model::DeleteJobRequest request;
@@ -600,7 +651,7 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
 // snippet-end:[cpp.example_code.glue.delete_job]
     }
 
-    // 12. Delete a database.
+    // 14. Delete a database.
     if (!database.empty()) {
 // snippet-start:[cpp.example_code.glue.delete_database]
         Aws::Glue::Model::DeleteDatabaseRequest request;
@@ -620,7 +671,7 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
 // snippet-start:[cpp.example_code.glue.delete_database]
     }
 
-    // 13. Delete a crawler.
+    // 15. Delete a crawler.
     if (!crawler.empty()) {
 // snippet-start:[cpp.example_code.glue.delete_crawler]
         Aws::Glue::Model::DeleteCrawlerRequest request;
@@ -639,14 +690,24 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
 // snippet-end:[cpp.example_code.glue.delete_crawler]
     }
 
-    // 14. Delete the job script and run data from the S3 bucket.
+    // 16. Delete the job script and run data from the S3 bucket.
     result &= AwsDoc::Glue::deleteAllObjectsInS3Bucket(bucketName,
                                                        clientConfig);
     return result;
 }
 
+//! Routine which uploads a file to an Amazon S3 bucket.
+/*!
+ \\sa uploadFile()
+ \param bucketName: An Amazon S3 bucket created in the setup.
+ \param filePath: The path of the file to upload.
+ \param fileName The name for the uploaded file.
+ \param clientConfig Aws client configuration.
+ \return bool: Successful completion.
+ */
 bool
-AwsDoc::Glue::uploadFile(const Aws::String &bucketName, const Aws::String &filePath,
+AwsDoc::Glue::uploadFile(const Aws::String &bucketName,
+                         const Aws::String &filePath,
                          const Aws::String &fileName,
                          const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
@@ -682,6 +743,13 @@ AwsDoc::Glue::uploadFile(const Aws::String &bucketName, const Aws::String &fileP
     return outcome.IsSuccess();
 }
 
+//! Routine which deletes all objects in an Amazon S3 bucket.
+/*!
+ \\sa deleteAllObjectsInS3Bucket()
+ \param bucketName: The Amazon S3 bucket name.
+ \param clientConfig Aws client configuration.
+ \return bool: Successful completion.
+ */
 bool AwsDoc::Glue::deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
                                               const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
@@ -733,6 +801,15 @@ bool AwsDoc::Glue::deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
     return result;
 }
 
+//! Routine which retrieves an object from an Amazon S3 bucket.
+/*!
+ \\sa getObjectFromBucket()
+ \param bucketName: The Amazon S3 bucket name.
+ \param objectKey: The object's name.
+ \param objectStream: A stream to receive the retrieved data.
+ \param clientConfig Aws client configuration.
+ \return bool: Successful completion.
+ */
 bool AwsDoc::Glue::getObjectFromBucket(const Aws::String &bucketName,
                                        const Aws::String &objectKey,
                                        std::ostream &objectStream,
@@ -764,13 +841,13 @@ bool AwsDoc::Glue::getObjectFromBucket(const Aws::String &bucketName,
  *
  *  main function
  *
- * Prerequisites: Existing IAM policy.
- *
- * Usage: 'run_glue_getting_started_scenario.cpp <role_name> <bucket_name'
+ * Prerequisites: An IAM role and an Amazon S3 bucket.
  *
  * To create the resources required by this example, see the "Prerequisites" section in the README.
  *
- */
+ * Usage: 'run_glue_getting_started_scenario.cpp <role_name> <bucket_name'
+ *
+  */
 
 #ifndef TESTING_BUILD
 

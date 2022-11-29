@@ -3,18 +3,21 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 #include <aws/cloudformation/CloudFormationClient.h>
-#include <aws/cloudformation/model/CreateStackRequest.h>
-#include <aws/cloudformation/model/DeleteStackRequest.h>
-#include <aws/cloudformation/model/DescribeStacksRequest.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/Model/GetRoleRequest.h>
 #include <fstream>
 #include "glue_samples.h"
 
-
-
+//! Command line prompt/response utility function for an int result confined to
+//! a range.
+/*!
+ \sa askQuestionForIntRange()
+ \param string: A question prompt.
+ \param low: Low inclusive.
+ \param high: High inclusive.
+ \return int: User's response.
+ */
 int AwsDoc::Glue::askQuestionForIntRange(const Aws::String &string, int low,
                                          int high) {
     Aws::String resultString = askQuestion(string, [low, high](
@@ -44,7 +47,13 @@ int AwsDoc::Glue::askQuestionForIntRange(const Aws::String &string, int low,
     return result;
 }
 
-
+//! Command line prompt/response utility function.
+/*!
+ \\sa askQuestion()
+ \param string: A question prompt.
+ \param test: Test function for response.
+ \return Aws::String: User's response.
+ */
 Aws::String AwsDoc::Glue::askQuestion(const Aws::String &string,
                                       const std::function<bool(
                                               Aws::String)> &test) {
@@ -63,6 +72,14 @@ Aws::String AwsDoc::Glue::askQuestion(const Aws::String &string,
     return result;
 }
 
+//! Scenario which retrieve the Amazon Resource Name (ARN) for an IAM role.
+/*!
+ \\sa getRoleArn()
+ \param roleName: An IAM role name.
+ \param roleName: A string to receive the role ARN.
+ \param clientConfig Aws client configuration.
+ \return bool: Successful completion.
+ */
 bool AwsDoc::Glue::getRoleArn(const Aws::String &roleName, Aws::String &roleArn,
                               const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::IAM::IAMClient client(clientConfig);

@@ -4,8 +4,7 @@
 
 Shows how to use the AWS SDK for C++ to manage AWS Glue resources.
 
-*AWS Glue is a serverless data-preparation service for extract, transform, and load
-(ETL) operations.*
+*AWS Glue is a serverless data integration service that makes it easier to discover, prepare, move, and integrate data from multiple sources for analytics, machine learning (ML), and application development.*
 
 ## ⚠️ Important
 
@@ -56,6 +55,7 @@ _AWSGlueServiceRole-DocExample_ is an AWS Identity and Access Management
 (IAM) role name. 
 
 These two strings are the inputs required by the scenario.
+
 ## Tests
 
 ⚠️ Running the tests might result in charges to your AWS account.
@@ -69,9 +69,8 @@ These two strings are the inputs required by the scenario.
 
 ## Additional resources
 
-* [*Service developer guide*](*link to developer guide*)
-* [*Service API reference guide*](*link to developer guide*)
+* [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html)
+* [AWS Glue API Reference](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)
 * [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html)
-
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
