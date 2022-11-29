@@ -17,7 +17,7 @@ wrapper = DBWrapper.new(config, client)
     description: ["New feature", "Quick bugfix", "User research", "Tech debt"].sample,
     guide: ["cpp", "python", "go", "ruby", "dotnet", "js", "php"].sample,
     status: ["backlog", "icebox", "unrefined", "done", "in-progress"].sample,
-    username:,
+    username: username,
     name: username,
     archived: [0, 1].sample
   }

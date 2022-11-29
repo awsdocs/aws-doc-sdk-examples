@@ -45,13 +45,18 @@ class DBWrapper
     obj.to_s.downcase == "true"
   end
 
+  def handle_error(msg)
+    @logger.error(msg)
+    raise msg
+  end
+
   # Converts larger ExecuteStatementResponse into simplified Ruby object
   # @param results [Aws::RDSDataService::Types::ExecuteStatementResponse]
   # @return output [List] A list of items, represented as hashes
   def _parse_work_items(results)
-    json = MultiJson.load(results)
+    binding.pry
     output = []
-    json.each do |x|
+    results.each do |x|
       name = x["username"]
       id = x["work_item_id"]
       x["name"] = name
@@ -63,12 +68,55 @@ class DBWrapper
     output
   end
 
+  # Validate response body from the API
+  # @param response [Aws::RDSDataService::Types::ExecuteStatementResponse] The response body
+  # @param method [String] The API Method used. Must be: post, put, get.
+  # @return [RuntimeError, Boolean] If valid response, true; otherwise, RuntimeError.
+  def validate_response(response, method)
+    case method
+    when 'get'
+      if response[:formatted_records].nil?
+        raise 'Expected formatted records returned from GET action.'
+      end
+    when 'post'
+      if response[:number_of_records_updated] < 1
+        raise 'Expected at least 1 updated record from POST action.'
+      end
+    end
+    @logger.info("SQL call successful. Response body validated.")
+  end
+
+  # Transforms inconsistent return bodies into something API-friendly
+  # @param response [Aws::RDSDataService::Types::ExecuteStatementResponse] The response body
+  # @param method [String] The API Method used. Must be: post, put, get.
+  # @return [Array] Containing zero or more hashes of response data
+  def format_response(response, method)
+    case method
+    when 'get'
+      JSON.parse(response[:formatted_records])
+      # response example:
+      # [{"work_item_id"=>1,
+      #   "description"=>"user research",
+      #   "guide"=>"ruby",
+      #   "status"=>"in-progress",
+      #   "username"=>"wkhalifa",
+      #   "archived"=>1}]
+    when 'post'
+      [response[:generated_fields][0].to_h]
+      # response example:
+      # [{:long_value=>21}]
+    when 'put'
+      []
+    else
+      raise 'Configuration method. Must provide: get, post, or put.'
+    end
+  end
+
   # Runs a SQL statement and associated parameters using the Amazon RDS Data Service.
   # @param sql [String] The SQL statement to run against the database.
-  # @return [Aws::RDSDataService::Types::ExecuteStatementResponse,
-  #   RDSResourceError, RDSClientError, StandardError] Output of the request to
-  #   run a SQL statement against the database, or error class.
-  def _run_statement(sql)
+  # @return [Array] Containing zero or more hashes of response data
+  # @return [ErrorClass] Aws::Errors::ServiceError, StandardError
+  def _run_statement(sql, method)
     run_args = {
       'database': @db_name,
       'resource_arn': @cluster,
@@ -76,32 +124,14 @@ class DBWrapper
       'sql': sql,
       'format_records_as': "JSON"
     }
-    @logger.info("Ran statement on #{@db_name}.")
-    @rds_client.execute_statement(**run_args)
-  rescue Aws::Errors::ServiceError => e
-    if e.response["Error"]["Code"] == "BadRequestException" &&
-       e.response["Error"]["Message"].include?("Communications link failure")
-      raise RDSResourceError(
-        "The Aurora Data Service is not ready, probably because it entered "\
-        "pause mode after a period of inactivity. Wait a minute for "\
-        "your cluster to resume and try your request again."
-      )
-    else
-      @logger.error("Run statement on #{@db_name} failed within AWS")
-      raise RDSClientError(e)
-    end
-  rescue StandardError => e
-    @logger.error("There was an error outside of AWS:#{e}")
-    raise
-  end
+    response = @rds_client.execute_statement(**run_args)
+    validate_response(response, method)
+    format_response(response, method)
 
-  # Gets database table name
-  def get_table_name
-    sql = "SHOW TABLES"
-    sql = _format_sql(sql)
-    @logger.info("Prepared GET query: #{sql}")
-    response = _run_statement(sql)
-    response.formatted_records.delete_prefix('"').delete_suffix('"')
+  rescue Aws::RDS::Errors::ServiceError => e
+    handle_error("SQL execution on #{@db_name} failed within RDS:\n#{e}")
+  rescue StandardError => e
+    handle_error("SQL execution on #{@db_name} failed outside of AWS:\n#{e}")
   end
 
   # Gets work items from the database.
@@ -115,12 +145,14 @@ class DBWrapper
     sql = sql.where(work_item_id: item_id.to_i) if item_id
     sql = _format_sql(sql.sql)
     @logger.info("Prepared GET query: #{sql}")
-    results = _run_statement(sql)
-    body = results.formatted_records.delete_prefix('"').delete_suffix('"')
-    response = _parse_work_items(body)
+    results = _run_statement(sql, 'get')
+    binding.pry
+    response = _parse_work_items(results)
+    binding.pry
     json = MultiJson.load(response)
     @logger.info("Received GET response: #{json}")
     json
+    # MultiJson.dump(results)
   end
 
   # Adds a work item to the database.
@@ -129,16 +161,16 @@ class DBWrapper
   def add_work_item(data)
     name = @table_name.to_s
     sql = @model.from(name.to_sym).insert_sql(
-      description: data[:description],
-      guide: data[:guide],
-      status: data[:status],
-      username: data[:name],
+      description: data["description"],
+      guide: data["guide"],
+      status: data["status"],
+      username: data["name"],
       archived: 0
     )
     sql = _format_sql(sql)
     @logger.info("Prepared POST query: #{sql}")
-    response = _run_statement(sql)
-    id = response["generated_fields"][0]["long_value"]
+    response = _run_statement(sql, 'post')
+    id = response[:long_value]
     @logger.info("Successfully created work_item_id: #{id}")
     id
   end
@@ -150,12 +182,6 @@ class DBWrapper
     sql = @model.from(@table_name.to_sym).where(work_item_id: item_id).update_sql(archived: 1) # 1 is true, 0 is false
     sql = _format_sql(sql)
     @logger.info("Prepared PUT query: #{sql}")
-    response = _run_statement(sql)
-    if response.number_of_records_updated == 1
-      @logger.info("Successfully archived item_id: #{item_id}")
-      true
-    else
-      false
-    end
+    _run_statement(sql, 'put')
   end
 end

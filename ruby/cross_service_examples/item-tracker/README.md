@@ -1,28 +1,100 @@
-# Item Tracker Cross-Sercice Example
+# Item Tracker, a Cross-Service Example using the AWS SDK for Ruby
 
-This example code comprises a "real-world" reference implementation of Amazon Relational Database Service (RDS) Aurora.
+This example code comprises a "real-world" reference application showcasing a [serverless Amazon Aurora database](https://aws.amazon.com/rds/aurora/) using the [AWS SDK for Ruby](https://aws.amazon.com/sdk-for-ruby/).
 
-This example is an application for managing fictitious work items.
-This application includes a front-end interface, a back-end API, and MySQL database implemented with Amazon RDS Aurora.
+This code is written to be browsed in an exploratory manner. 
+For a more hands-on experience, you can "run" the application by invoking this example code using the [instructions below]((#invoke-this-example-code)).
 
-To run this example, you will use a local environment to simultaneously run a front-end React app and Sinatra API written in Ruby.
+***
+# Table of contents
+1. [About this example code](#about-this-example-code)
+2. [Invoke this example code](#invoke-this-example-code)
+3. [Test this example code](#test-this-example-code)
+***
+# ⚠️ Caution
+Running this code might result in charges to your AWS account.
+This code is not tested in every AWS Region. For more information, see AWS Regional Services.
+***
 
-In tandem, you will create a single Aurora cluster running an RDS instance containing a table of data.
-This data will undergo CRUD transformations that originate from the front-end interface and relay through the API.
+# About this example code
+The code comprises an application designed to manage fictitious work items using 3 key components.
 
-This table is called `work_items` and has a schema which includes basic information like `item_id`, `creation_date`, and `assignee`.
+## 1. Front-end
+The front-end code is written in JavaScript and implemented using the React framework.
+For more information, see the [React Elwing Client README](../../../resources/clients/react/elwing/README.md).
 
-# About the application
+## 2. Back-end
+The centerpiece of this example is an API written exclusively in Ruby. It features the following gems:
+* [AWS SDK for Ruby](https://aws.amazon.com/sdk-for-ruby/) (for communicating with Amazon Aurora)
+* [Sinatra](https://sinatrarb.com/intro.html) (for a lightweight API implementation)
+* [Sequel](https://sequel.jeremyevans.net/) (for Ruby-native modeling of SQL queries)
 
-The basic unit of data, the work item, is modeled in [item.rb](models/item.rb). This data includes attributes such as:
-* work_item_id
-* created_date
-* assignee
+This Ruby API consists of the following API routes:
 
-The React application is run using `resources/clients/elwing.js` and accessed via web browser on localhost:3000.
+|method              | route                |action        | client             |function                |
+|--------------------|----------------------|--------------|--------------------|------------------------|
+|GET                 | /api/items           |List items    | RDSDataService     |execute_statement(*SQL*)|
+|POST                | /api/items           |Add item      | RDSDataService     |execute_statement(*SQL*)|
+|PUT                 | /api/items:archive   |Archive item  | RDSDataService     |execute_statement(*SQL*)|
+|GET                 | /api/items/{item_id} |Get item      | RDSDataService     |execute_statement(*SQL*)|
+|POST                | /api/items:report    |Create report | RDSDataService     |execute_statement(*SQL*)|
 
-The Sinatra API is run using `app.rb` and is accessed by the React app on port 8080.
+## 3. Database
+This example relies on an MySQL 5.7 database implemented using Amazon Aurora, a serverless relational database management system (RDBMS). 
+The Aurora cluster is deployed using the AWS Cloud Development Kit (AWS CDK). 
+For more information, see the [Aurora Serverless App CDK script README.md](../../../resources/cdk/aurora_serverless_app/README.md).
 
-Written in Ruby, this API will interact with the Aurora Cluster using the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html).
+***
 
-This SDK code can be found in `db_wrapper.rb` and primarily demonstrates the [exucute_command](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RDSDataService/Client.html#execute_statement-instance_method) method call. 
+# Invoke this example code
+
+## Pre-requisites (~15 min)
+To explore this example, you must first:
+1. Create account & configure credentials using [instructions in the top-level README.md]((../../../README.md#invoke-example-code)).
+2. Install Ruby and resolve dependencies using [instructions in the Ruby README.md](../../../ruby/README.md).
+3. Create AWS infrastructure using [instructions in the Aurora Serverless App README.md](../../../resources/cdk/aurora_serverless_app/README.md). 
+    * NOTE: Store the following output values in the `helpers/config.yml` file: `CLUSTER_ARN`, `SECRET_ARN`, and `DATABASE`. Please store these in the `helpers/config.yml` file.
+4. Populate your database with a table and data using the following commands:
+     ```bash
+     cd ruby/cross_service_examples/item-tracker/helpers
+     ruby create_table.rb # checks for database and creates a new table
+     ruby populate_data.rb # creates a table with 10 records
+     ```
+5. Register your email address with Amazon Simple Email Service (SES) using the [instructions on the AWS SES docs](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html)
+   * NOTE: Use this email for the `sender_email` and `recipient_email` fields in your `helpers/config.yml` file.
+
+## Start the application (~1 min)
+To view this example in its entirety, you must:
+1. Start the front-end React using the following commands:
+    ```bash
+     cd resources/clients/elwing # located within Resources sub-directory
+     npm install # first time only
+     npm start # launches a browser session on localhost:3000 
+    ```
+2. Open a second tab in your terminal and run the following command:
+    ```bash
+    cd ruby/cross_service_examples/item-tracker
+    ruby app.rb # starts REST API listening on port 8080
+    ```
+Now, visit http://localhost:3000/item_tracker to view your working application.
+
+***
+
+# Test this example code
+You may test this application manually via the front-end and automatically via the RSpec tests.
+
+### Manual validation (via front-end React app)
+Once started, you may manually validate the following behaviors on the front-end:
+* Filter items by All, Archived, and "Active" (not archived).
+* Archive an item by clicking the "Archive" button.
+* Add an item by submitting the form revealed by clicking the "Add Item" button.
+* Send a report of items by entering a verified email address and clicking "Submit".
+
+As you interact with the React app, logs will appear in the command line tab where you started the REST API. 
+### Automated validation (via RSpec tests)
+Validate the internal logic within this example by running the following commands:
+```bash
+cd spec
+rspec db_wrapper_spec.rb
+```
+

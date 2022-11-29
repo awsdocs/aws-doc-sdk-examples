@@ -17,11 +17,6 @@ describe "CRUD commands on Aurora" do
   config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./../helpers", "config.yml")))
   let(:wrapper) { DBWrapper.new(config, client) }
 
-  it "gets the table name" do
-    table = wrapper.get_table_name
-    expect(table).to be_an_instance_of(String)
-  end
-
   it "adds a new item" do
     item_data = {
       description: "User research",
