@@ -13,7 +13,6 @@ import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.model.Route53Exception;
 import software.amazon.awssdk.services.route53domains.Route53DomainsClient;
-import software.amazon.awssdk.services.route53domains.model.BillingRecord;
 import software.amazon.awssdk.services.route53domains.model.CheckDomainAvailabilityRequest;
 import software.amazon.awssdk.services.route53domains.model.CheckDomainAvailabilityResponse;
 import software.amazon.awssdk.services.route53domains.model.CheckDomainTransferabilityRequest;
@@ -21,26 +20,22 @@ import software.amazon.awssdk.services.route53domains.model.CheckDomainTransfera
 import software.amazon.awssdk.services.route53domains.model.ContactDetail;
 import software.amazon.awssdk.services.route53domains.model.ContactType;
 import software.amazon.awssdk.services.route53domains.model.CountryCode;
-import software.amazon.awssdk.services.route53domains.model.DomainPrice;
 import software.amazon.awssdk.services.route53domains.model.DomainSuggestion;
-import software.amazon.awssdk.services.route53domains.model.DomainSummary;
 import software.amazon.awssdk.services.route53domains.model.GetDomainDetailRequest;
 import software.amazon.awssdk.services.route53domains.model.GetDomainDetailResponse;
 import software.amazon.awssdk.services.route53domains.model.GetDomainSuggestionsRequest;
 import software.amazon.awssdk.services.route53domains.model.GetDomainSuggestionsResponse;
 import software.amazon.awssdk.services.route53domains.model.GetOperationDetailRequest;
 import software.amazon.awssdk.services.route53domains.model.GetOperationDetailResponse;
-import software.amazon.awssdk.services.route53domains.model.ListDomainsRequest;
-import software.amazon.awssdk.services.route53domains.model.ListDomainsResponse;
 import software.amazon.awssdk.services.route53domains.model.ListOperationsRequest;
-import software.amazon.awssdk.services.route53domains.model.ListOperationsResponse;
 import software.amazon.awssdk.services.route53domains.model.ListPricesRequest;
-import software.amazon.awssdk.services.route53domains.model.ListPricesResponse;
-import software.amazon.awssdk.services.route53domains.model.OperationSummary;
 import software.amazon.awssdk.services.route53domains.model.RegisterDomainRequest;
 import software.amazon.awssdk.services.route53domains.model.RegisterDomainResponse;
 import software.amazon.awssdk.services.route53domains.model.ViewBillingRequest;
-import software.amazon.awssdk.services.route53domains.model.ViewBillingResponse;
+import software.amazon.awssdk.services.route53domains.paginators.ListDomainsIterable;
+import software.amazon.awssdk.services.route53domains.paginators.ListOperationsIterable;
+import software.amazon.awssdk.services.route53domains.paginators.ListPricesIterable;
+import software.amazon.awssdk.services.route53domains.paginators.ViewBillingIterable;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -56,18 +51,22 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
+ * This example uses a standard for loop to iterate through the contents of the response. If you wish to use
+ * other methods of pagnation
+ *
+ *
  * This Java code examples performs the following operations:
  *
- * 1. List current domains.
- * 2. List operations in the past year.
+ * 1. List current domains. *
+ * 2. List operations in the past year. *
  * 3. View billing for the account in the past year.
  * 4. View prices for domain types.
- * 5. Get domain suggestions.
- * 6. Check domain availability.
- * 7. Check domain transferability.
+ * 5. Get domain suggestions. *
+ * 6. Check domain availability. *
+ * 7. Check domain transferability. *
  * 8. Request a domain registration.
- * 9. Get an operation detail
- * 10. Optionally, get a domain detail.
+ * 9. Get operation details *
+ * 10. Optionally, get domain details.
  */
 
 public class Route53Scenario {
@@ -75,14 +74,16 @@ public class Route53Scenario {
     public static void main(String[] args) {
         final String usage = "\n" +
             "Usage:\n" +
-            "    <domainType> <phoneNumber> <email> <domainSuggestion>\n\n" +
+            "    <domainType> <phoneNumber> <email> <domainSuggestion> <firstName> <lastName>\n\n" +
             "Where:\n" +
             "    domainType - The domain type (for example, com). \n" +
             "    phoneNumber - The phone number to use (for example, +91.9966564xxx)  "+
             "    email - The email address to use.  "+
-            "    domainSuggestion - The domain suggestion (for example, findmy.accountants). \n" ;
+            "    domainSuggestion - The domain suggestion (for example, findmy.accountants). \n" +
+            "    firstName - The first name to use to register a domain. \n" +
+            "    lastName -  The last name to use to register a domain. \n" ;
 
-        if (args.length != 4) {
+        if (args.length != 6) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -91,6 +92,8 @@ public class Route53Scenario {
         String phoneNumber = args[1];
         String email = args[2] ;
         String domainSuggestion = args[3] ;
+        String firstName = args[4] ;
+        String lastName = args[5] ;
         Region region = Region.US_EAST_1;
         Route53DomainsClient route53DomainsClient = Route53DomainsClient.builder()
             .region(region)
@@ -138,11 +141,11 @@ public class Route53Scenario {
 
         System.out.println(DASHES);
         System.out.println("8. Request a domain registration.");
-        String opId = requestDomainRegistration(route53DomainsClient, domainSuggestion, phoneNumber, email);
+        String opId = requestDomainRegistration(route53DomainsClient, domainSuggestion, phoneNumber, email, firstName, lastName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("9. Get an operation detail.");
+        System.out.println("9. Get operation details.");
         getOperationalDetail(route53DomainsClient, opId);
         System.out.println(DASHES);
 
@@ -153,7 +156,6 @@ public class Route53Scenario {
         System.out.println("Domain xxxxxxx not found in xxxxxxx account.");
         getDomainDetails(route53DomainsClient, domainSuggestion);
         System.out.println(DASHES);
-
     }
 
     //snippet-start:[route.java2.domaindetails.main]
@@ -196,7 +198,9 @@ public class Route53Scenario {
     public static String requestDomainRegistration(Route53DomainsClient route53DomainsClient,
                                                    String domainSuggestion,
                                                    String phoneNumber,
-                                                   String email) {
+                                                   String email,
+                                                   String firstName,
+                                                   String lastName) {
 
         try {
             ContactDetail contactDetail = ContactDetail.builder()
@@ -204,12 +208,12 @@ public class Route53Scenario {
                 .state("LA")
                 .countryCode(CountryCode.IN)
                 .email(email)
-                .firstName("Scott")
-                .lastName("Macdonald")
+                .firstName(firstName)
+                .lastName(lastName)
                 .city("Delhi")
                 .phoneNumber(phoneNumber)
                 .organizationName("My Org")
-                .addressLine1("Carp")
+                .addressLine1("My Address")
                 .zipCode("123 123")
                 .build();
 
@@ -243,7 +247,6 @@ public class Route53Scenario {
 
             CheckDomainTransferabilityResponse response = route53DomainsClient.checkDomainTransferability(transferabilityRequest);
             System.out.println("Transferability: "+response.transferability().transferable().toString());
-
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
@@ -297,22 +300,15 @@ public class Route53Scenario {
     public static void listPrices(Route53DomainsClient route53DomainsClient, String domainType) {
         try {
             ListPricesRequest pricesRequest = ListPricesRequest.builder()
-                .maxItems(10)
                 .tld(domainType)
                 .build();
 
-            ListPricesResponse response = route53DomainsClient.listPrices(pricesRequest);
-            List<DomainPrice> prices = response.prices();
-            for (DomainPrice pr: prices) {
-                System.out.println("Name: "+pr.name());
-                System.out.println("Registration: "+pr.registrationPrice().price() + " " +pr.registrationPrice().currency());
-                System.out.println("Renewal: "+pr.renewalPrice().price() + " " +pr.renewalPrice().currency());
-                System.out.println("Transfer: "+pr.transferPrice().price() + " " +pr.transferPrice().currency());
-                System.out.println("Transfer: "+pr.transferPrice().price() + " " +pr.transferPrice().currency());
-                System.out.println("Change Ownership: "+pr.changeOwnershipPrice().price() + " " +pr.changeOwnershipPrice().currency());
-                System.out.println("Restoration: "+pr.restorationPrice().price() + " " +pr.restorationPrice().currency());
-                System.out.println(" ");
-            }
+            ListPricesIterable listRes = route53DomainsClient.listPricesPaginator(pricesRequest);
+            listRes.stream()
+                .flatMap(r -> r.prices().stream())
+                .forEach(content -> System.out.println(" Name: " + content.name() +
+                    " Registration: " + content.registrationPrice().price() + " " + content.registrationPrice().currency() +
+                    " Renewal: "+ content.renewalPrice().price() + " " + content.renewalPrice().currency() ));
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
@@ -326,28 +322,22 @@ public class Route53Scenario {
         try {
             Date currentDate = new Date();
             LocalDateTime localDateTime = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            ZoneOffset zoneOffset = ZoneOffset.of("+05:30");
+            ZoneOffset zoneOffset = ZoneOffset.of("+01:00");
             LocalDateTime localDateTime2 = localDateTime.minusYears(1);
             Instant myStartTime = localDateTime2.toInstant(zoneOffset);
             Instant myEndTime = localDateTime.toInstant(zoneOffset);
 
             ViewBillingRequest viewBillingRequest = ViewBillingRequest.builder()
-                .maxItems(10)
                 .start(myStartTime)
                 .end(myEndTime)
                 .build();
 
-            ViewBillingResponse response = route53DomainsClient.viewBilling(viewBillingRequest);
-            List<BillingRecord> records = response.billingRecords();
-            if (records.isEmpty()) {
-                System.out.println("\tNo billing records found for the past year.");
-            } else {
-                for (BillingRecord record : records) {
-                    System.out.println("Bill Date: "+record.billDate());
-                    System.out.println("Operation: "+ record.operationAsString());
-                    System.out.println("Price: "+record.price());
-                }
-            }
+            ViewBillingIterable listRes = route53DomainsClient.viewBillingPaginator(viewBillingRequest);
+            listRes.stream()
+                .flatMap(r -> r.billingRecords().stream())
+                .forEach(content -> System.out.println(" Bill Date:: " + content.billDate() +
+                    " Operation: " + content.operationAsString() +
+                    " Price: "+content.price()));
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
@@ -361,26 +351,21 @@ public class Route53Scenario {
         try {
             Date currentDate = new Date();
             LocalDateTime localDateTime = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            ZoneOffset zoneOffset = ZoneOffset.of("+05:30");
+            ZoneOffset zoneOffset = ZoneOffset.of("+01:00");
             localDateTime = localDateTime.minusYears(1);
             Instant myTime = localDateTime.toInstant(zoneOffset);
 
             ListOperationsRequest operationsRequest = ListOperationsRequest.builder()
                 .submittedSince(myTime)
-                .maxItems(10)
                 .build();
 
-            ListOperationsResponse response = route53DomainsClient.listOperations(operationsRequest);
-            List<OperationSummary> operations = response.operations();
-            if (operations.isEmpty()) {
-                System.out.println("\tNo operations found for the past year.");
-            } else {
-                for (OperationSummary op : operations) {
-                    System.out.println("Operation Id: "+op.operationId());
-                    System.out.println("\tStatus: "+ op.statusAsString());
-                    System.out.println("\tDate: "+op.submittedDate());
-                }
-            }
+            ListOperationsIterable listRes = route53DomainsClient.listOperationsPaginator(operationsRequest);
+            listRes.stream()
+                .flatMap(r -> r.operations().stream())
+                .forEach(content -> System.out.println(" Operation Id: " + content.operationId() +
+                    " Status: " + content.statusAsString() +
+                    " Date: "+content.submittedDate()));
+
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
@@ -392,19 +377,10 @@ public class Route53Scenario {
     //snippet-start:[route.java2.domainlist.main]
     public static void listDomains(Route53DomainsClient route53DomainsClient) {
         try {
-            ListDomainsRequest domainsRequest = ListDomainsRequest.builder()
-                .maxItems(10)
-                .build();
-
-            ListDomainsResponse response = route53DomainsClient.listDomains(domainsRequest);
-            List<DomainSummary> domains = response.domains();
-            if (domains.isEmpty()) {
-                System.out.println("No domains found in this account.");
-            } else {
-                for (DomainSummary summary : domains) {
-                    System.out.println("The domain name is "+summary.domainName()) ;
-                }
-            }
+            ListDomainsIterable listRes = route53DomainsClient.listDomainsPaginator();
+            listRes.stream()
+                .flatMap(r -> r.domains().stream())
+                .forEach(content -> System.out.println("The domain name is " + content.domainName()));
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
