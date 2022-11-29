@@ -71,7 +71,6 @@ public class HelloRoute53 {
                 System.out.println("Registration: "+pr.registrationPrice().price() + " " +pr.registrationPrice().currency());
                 System.out.println("Renewal: "+pr.renewalPrice().price() + " " +pr.renewalPrice().currency());
                 System.out.println("Transfer: "+pr.transferPrice().price() + " " +pr.transferPrice().currency());
-                System.out.println("Transfer: "+pr.transferPrice().price() + " " +pr.transferPrice().currency());
                 System.out.println("Change Ownership: "+pr.changeOwnershipPrice().price() + " " +pr.changeOwnershipPrice().currency());
                 System.out.println("Restoration: "+pr.restorationPrice().price() + " " +pr.restorationPrice().currency());
                 System.out.println(" ");
