@@ -204,22 +204,24 @@ def verify_sample_files(root_path):
     """Verify sample files meet the requirements and have not moved."""
     sample_files_folder = os.path.join(root_path, "resources/sample_files")
     media_folder = ".sample_media"
+    ONE_MB_AS_BYTES = 1000000
+    MAX_FILE_SIZE_MB = 10
     error_count = 0
     file_list = []
     for path, dirs, files in os.walk(sample_files_folder, topdown=True):
-        for file in files:
-            file_list.append(file)
-            file_path = os.path.join(path, file)
-            ext = os.path.splitext(file)[1].lstrip('.')
-            if file not in EXPECTED_SAMPLE_FILES:
-                logger.error(f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in checkin_tests.py.", file, sample_files_folder)
+        for file_name in files:
+            file_list.append(file_name)
+            file_path = os.path.join(path, file_name)
+            ext = os.path.splitext(file_name)[1].lstrip('.')
+            if file_name not in EXPECTED_SAMPLE_FILES:
+                logger.error(f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in checkin_tests.py.", file_name, sample_files_folder)
                 error_count += 1
             if ext.lower() in MEDIA_FILE_TYPES:
                 if media_folder not in file_path:
-                    logger.error(f"File '%s' in %s must be in the %s directory.", file, sample_files_folder, media_folder)
+                    logger.error(f"File '%s' in %s must be in the %s directory.", file_name, sample_files_folder, media_folder)
                     error_count += 1
-            if (os.path.getsize(file_path)/1000000) > 10:
-                logger.error(f"File '%s' in %s is larger than the allowed size for a sample file.", file, sample_files_folder)
+            if (os.path.getsize(file_path)/ONE_MB_AS_BYTES) > MAX_FILE_SIZE_MB:
+                logger.error(f"File '%s' in %s is larger than the allowed size for a sample file.", file_name, sample_files_folder)
                 error_count += 1
 
     for sample_file in EXPECTED_SAMPLE_FILES:
