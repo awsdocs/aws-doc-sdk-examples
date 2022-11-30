@@ -44,6 +44,8 @@ public class Route53Test {
     private static String emailSc = "" ;
     private static String firstNameSc = "" ;
     private static String lastNameSc = "" ;
+    private static String citySc = "" ;
+
 
     @BeforeAll
     public static void setUp() {
@@ -76,6 +78,7 @@ public class Route53Test {
             emailSc = prop.getProperty("emailSc");
             firstNameSc = prop.getProperty("firstNameSc");
             lastNameSc = prop.getProperty("lastNameSc");
+            citySc = prop.getProperty("citySc");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -193,7 +196,7 @@ public class Route53Test {
 
         System.out.println(DASHES);
         System.out.println("8. Request a domain registration.");
-        String opId = Route53Scenario.requestDomainRegistration(route53DomainsClient, domainSuggestionSc, phoneNumerSc, emailSc, firstNameSc, lastNameSc);
+        String opId = Route53Scenario.requestDomainRegistration(route53DomainsClient, domainSuggestionSc, phoneNumerSc, emailSc, firstNameSc, lastNameSc, citySc);
         assertFalse(opId.isEmpty());
         System.out.println(DASHES);
 
