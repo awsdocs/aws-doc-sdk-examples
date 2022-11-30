@@ -34,8 +34,6 @@ def create_app(test_config=None):
     """
     Creates the Flask service, which responds to HTTP requests through its routes.
 
-    The app is configured by settings in a config.py file. Config options are:
-
     To use this application, you must first specify the following in the accompanying
     config.py file:
 

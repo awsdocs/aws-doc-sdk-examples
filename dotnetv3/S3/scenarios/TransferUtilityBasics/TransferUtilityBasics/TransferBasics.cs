@@ -5,21 +5,35 @@
 
 // This Amazon S3 client uses the default user credentials
 // defined for this computer.
+using Microsoft.Extensions.Configuration;
+
 IAmazonS3 client = new AmazonS3Client();
 var transferUtil = new TransferUtility(client);
+IConfiguration _configuration;
 
-// Change the following values to an Amazon S3 bucket that
-// exists in your AWS account.
-var bucketName = "doc-example-bucket1";
+_configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("settings.json") // Load test settings from JSON file.
+    .AddJsonFile("settings.local.json",
+        true) // Optionally load local settings.
+    .Build();
+
+// Edit the values in settings.json to use an S3 bucket and files that
+// exist on your AWS account and on the local computer where you
+// run this scenario.
+var bucketName = _configuration["BucketName"];
 var localPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\TransferFolder";
 
 DisplayInstructions();
 
 PressEnter();
 
-// Upload a single file to an S3 bucket.
-var fileToUpload = "UploadTest.docx";
+Console.WriteLine();
 
+// Upload a single file to an S3 bucket.
+DisplayTitle("Upload a single file");
+
+var fileToUpload = _configuration["FileToUpload"];
 Console.WriteLine($"Uploading {fileToUpload} to the S3 bucket, {bucketName}.");
 
 var success = await TransferMethods.UploadSingleFileAsync(transferUtil, bucketName, fileToUpload, localPath);
@@ -31,13 +45,17 @@ if (success)
 PressEnter();
 
 // Upload a local directory to an S3 bucket.
-var keyPrefix = "UploadFolder";
+DisplayTitle("Upload all files from a local directory");
+Console.WriteLine("Upload all the files in a local folder to an S3 bucket.");
+const string keyPrefix = "UploadFolder";
 var uploadPath = $"{localPath}\\UploadFolder";
 
 Console.WriteLine($"Uploading the files in {uploadPath} to {bucketName}");
-Console.WriteLine($"{uploadPath} contains the following files:");
+DisplayTitle($"{uploadPath} files");
 DisplayLocalFiles(uploadPath);
 Console.WriteLine();
+
+PressEnter();
 
 success = await TransferMethods.UploadFullDirectoryAsync(transferUtil, bucketName, keyPrefix, uploadPath);
 if (success)
@@ -50,9 +68,11 @@ if (success)
 
 PressEnter();
 
-
 // Download a single file from an S3 bucket.
-var keyName = "FileToDownload.docx";
+DisplayTitle("Download a single file");
+Console.WriteLine("Now we will download a single file from an S3 bucket.");
+
+var keyName = _configuration["FileToDownload"];
 
 Console.WriteLine($"Downloading {keyName} from {bucketName}.");
 
@@ -65,8 +85,9 @@ if (success)
 PressEnter();
 
 // Download the contents of a directory from an S3 bucket.
-var s3Path = "DownloadFolder";
-var downloadPath = $"{localPath}\\DownloadFolder";
+DisplayTitle("Download the contents of an S3 bucket");
+var s3Path = _configuration["S3Path"];
+var downloadPath = $"{localPath}\\{s3Path}";
 
 Console.WriteLine($"Downloading the contents of {bucketName}\\{s3Path}");
 Console.WriteLine($"{bucketName}\\{s3Path} contains the following files:");
@@ -77,30 +98,39 @@ success = await TransferMethods.DownloadS3DirectoryAsync(transferUtil, bucketNam
 if (success)
 {
     Console.WriteLine($"Downloaded the files in {bucketName} to {downloadPath}.");
-    Console.WriteLine($"{downloadPath} now contains the fillowing files:");
+    Console.WriteLine($"{downloadPath} now contains the following files:");
     DisplayLocalFiles(downloadPath);
 }
 
 Console.WriteLine("\nThe TransferUtility Basics application has completed.");
 PressEnter();
 
+// Displays the title for a section of the scenario.
+static void DisplayTitle(string titleText)
+{
+    var sepBar = new string('-', Console.WindowWidth);
+
+    Console.WriteLine(sepBar);
+    Console.WriteLine(CenterText(titleText));
+    Console.WriteLine(sepBar);
+}
+
+// Displays a description of the actions to be performed by the scenario.
 static void DisplayInstructions()
 {
-    var sepBar = new string('-', 80);
+    var sepBar = new string('-', Console.WindowWidth);
 
-    Console.Clear();
-    Console.WriteLine(sepBar);
-    Console.WriteLine(CenterText("Amazon S3 Transfer Utility Basics"));
-    Console.WriteLine(sepBar);
+    DisplayTitle("Amazon S3 Transfer Utility Basics");
     Console.WriteLine("This program shows how to use the Amazon S3 Transfer Utility.");
     Console.WriteLine("It performs the following actions:");
     Console.WriteLine("\t1. Upload a single object to an S3 bucket.");
-    Console.WriteLine("\t2. Upload all an entire directory from the local computer to an\n\t  S3 bucket.");
+    Console.WriteLine("\t2. Upload an entire directory from the local computer to an\n\t  S3 bucket.");
     Console.WriteLine("\t3. Download a single object from an S3 bucket.");
     Console.WriteLine("\t4. Download the objects in an S3 bucket to a local directory.");
     Console.WriteLine($"\n{sepBar}");
 }
 
+// Pauses the scenario.
 static void PressEnter()
 {
     Console.WriteLine("Press <Enter> to continue.");
@@ -108,18 +138,22 @@ static void PressEnter()
     Console.WriteLine("\n");
 }
 
+// Returns the string textToCenter, padded on the left with spaces
+// that center the text on the console display.
 static string CenterText(string textToCenter)
 {
     var centeredText = new StringBuilder();
-    centeredText.Append(new string(' ', (int)(80 - textToCenter.Length) / 2));
+    var screenWidth = Console.WindowWidth;
+    centeredText.Append(new string(' ', (int)(screenWidth - textToCenter.Length) / 2));
     centeredText.Append(textToCenter);
     return centeredText.ToString();
 }
 
+// Displays a list of file names included in the specified path.
 static void DisplayLocalFiles(string localPath)
 {
     var fileList = Directory.GetFiles(localPath);
-    if (fileList is not null)
+    if (fileList.Length > 0)
     {
         foreach (var fileName in fileList)
         {
@@ -128,6 +162,7 @@ static void DisplayLocalFiles(string localPath)
     }
 }
 
+// Displays a list of the files in the specified S3 bucket and prefix.
 static async Task DisplayBucketFiles(IAmazonS3 client, string bucketName, string s3Path)
 {
     ListObjectsV2Request request = new()

@@ -19,10 +19,10 @@ const createListIdentitiesCommand = () =>
   new ListIdentitiesCommand({ IdentityType: "EmailAddress", MaxItems: 10 });
 
 const run = async () => {
-  const listIdentitiesCommmand = createListIdentitiesCommand();
+  const listIdentitiesCommand = createListIdentitiesCommand();
 
   try {
-    return await sesClient.send(listIdentitiesCommmand);
+    return await sesClient.send(listIdentitiesCommand);
   } catch (err) {
     console.log("Failed to list identities.", err);
     return err;

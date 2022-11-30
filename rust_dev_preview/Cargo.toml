@@ -17,6 +17,7 @@ members = [
     "config",
     "cross_service/detect_faces",
     "cross_service/detect_labels",
+    "cross_service/rest_ses",
     "cross_service/telephone",
     "custom-root-certificates",
     "dynamodb",

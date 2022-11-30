@@ -13,10 +13,13 @@ use std::path::Path;
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::model::{CompletedMultipartUpload, CompletedPart};
 use aws_sdk_s3::output::{CreateMultipartUploadOutput, GetObjectOutput};
-use aws_sdk_s3::{Client as S3Client, Error, Region};
+use aws_sdk_s3::types::DisplayErrorContext;
+use aws_sdk_s3::{Client as S3Client, Region};
 use aws_smithy_http::byte_stream::{ByteStream, Length};
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
+use s3_service::error::Error;
+use std::process;
 use uuid::Uuid;
 
 //In bytes, minimum chunk size of 5MB. Increase CHUNK_SIZE to send larger chunks.
@@ -24,7 +27,14 @@ const CHUNK_SIZE: u64 = 1024 * 1024 * 5;
 const MAX_CHUNKS: u64 = 10000;
 
 #[tokio::main]
-pub async fn main() -> Result<(), Error> {
+pub async fn main() {
+    if let Err(err) = run_example().await {
+        eprintln!("Error: {}", DisplayErrorContext(err));
+        process::exit(1);
+    }
+}
+
+async fn run_example() -> Result<(), Error> {
     let shared_config = aws_config::load_from_env().await;
     let client = S3Client::new(&shared_config);
 

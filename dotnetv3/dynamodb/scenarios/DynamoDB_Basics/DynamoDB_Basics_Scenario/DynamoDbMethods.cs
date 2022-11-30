@@ -3,16 +3,6 @@
 
 namespace DynamoDB_Basics_Scenario
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Amazon.DynamoDBv2;
-    using Amazon.DynamoDBv2.DataModel;
-    using Amazon.DynamoDBv2.DocumentModel;
-    using Amazon.DynamoDBv2.Model;
-    using Newtonsoft.Json;
-
     public class DynamoDbMethods
     {
         // snippet-start:[DynamoDB.dotnetv3.dynamodb-basics.CreateTable]

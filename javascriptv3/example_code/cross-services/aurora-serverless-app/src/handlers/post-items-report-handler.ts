@@ -86,7 +86,7 @@ const postItemsReportHandler: Handler = {
       });
       await sesClient.send(command);
 
-      res.send({});
+      res.status(204).send();
     },
 };
 

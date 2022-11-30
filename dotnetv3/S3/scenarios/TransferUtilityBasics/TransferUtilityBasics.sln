@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferUtilityBasics", "TransferUtilityBasics\TransferUtilityBasics.csproj", "{C8AC1563-7AE9-4BFB-9287-EFCE9B199A28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferUtilityBasics", "TransferUtilityBasics\TransferUtilityBasics.csproj", "{C8AC1563-7AE9-4BFB-9287-EFCE9B199A28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferUtilityBasicsTests", "TransferUtilityBasicsTests\TransferUtilityBasicsTests.csproj", "{D13D8EAB-5F80-4AEA-BC16-4A5605F3F0D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferUtilityBasicsTests", "TransferUtilityBasicsTests\TransferUtilityBasicsTests.csproj", "{09A35C18-8545-4F25-AECA-E315F7057676}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C8AC1563-7AE9-4BFB-9287-EFCE9B199A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8AC1563-7AE9-4BFB-9287-EFCE9B199A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8AC1563-7AE9-4BFB-9287-EFCE9B199A28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D13D8EAB-5F80-4AEA-BC16-4A5605F3F0D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D13D8EAB-5F80-4AEA-BC16-4A5605F3F0D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D13D8EAB-5F80-4AEA-BC16-4A5605F3F0D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D13D8EAB-5F80-4AEA-BC16-4A5605F3F0D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09A35C18-8545-4F25-AECA-E315F7057676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09A35C18-8545-4F25-AECA-E315F7057676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09A35C18-8545-4F25-AECA-E315F7057676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09A35C18-8545-4F25-AECA-E315F7057676}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

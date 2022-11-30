@@ -44,6 +44,14 @@ export function Readme() {
               Kotlin
             </Link>
           </li>
+          <li>
+            <Link
+                external
+                href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/cross-service/serverless-aurora"
+            >
+              C++
+            </Link>
+          </li>
         </ul>
       </Box>
     </SpaceBetween>

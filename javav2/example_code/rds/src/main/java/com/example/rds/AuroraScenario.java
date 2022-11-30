@@ -80,6 +80,7 @@ import java.util.List;
 
 public class AuroraScenario {
     public static long sleepTime = 20;
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
 
         final String usage = "\n" +
@@ -115,60 +116,100 @@ public class AuroraScenario {
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
+        System.out.println(DASHES);
+        System.out.println("Welcome to the Amazon Aurora example scenario.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         System.out.println("1. Return a list of the available DB engines");
         describeDBEngines(rdsClient);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("2. Create a custom parameter group");
         createDBClusterParameterGroup(rdsClient, dbClusterGroupName, dbParameterGroupFamily);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("3. Get the parameter group");
         describeDbClusterParameterGroups(rdsClient, dbClusterGroupName);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("4. Get the parameters in the group");
         describeDbClusterParameters(rdsClient, dbClusterGroupName, 0);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("5. Modify the auto_increment_offset parameter");
         modifyDBClusterParas(rdsClient, dbClusterGroupName);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("6. Display the updated parameter value");
         describeDbClusterParameters(rdsClient, dbClusterGroupName, -1);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("7. Get a list of allowed engine versions");
         getAllowedEngines(rdsClient, dbParameterGroupFamily);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("8. Create an Aurora DB cluster database");
         String arnClusterVal = createDBCluster(rdsClient, dbClusterGroupName, dbName, dbInstanceClusterIdentifier, username, userPassword) ;
         System.out.println("The ARN of the cluster is "+arnClusterVal);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("9. Wait for DB instance to be ready" );
         waitForInstanceReady(rdsClient, dbInstanceClusterIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("10. Get a list of instance classes available for the selected engine");
         String instanceClass = getListInstanceClasses(rdsClient);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("11. Create a database instance in the cluster.");
         String clusterDBARN = createDBInstanceCluster(rdsClient, dbInstanceIdentifier, dbInstanceClusterIdentifier, instanceClass);
         System.out.println("The ARN of the database is "+clusterDBARN);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("12. Wait for DB instance to be ready" );
         waitDBInstanceReady(rdsClient, dbInstanceIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("13. Create a snapshot");
         createDBClusterSnapshot(rdsClient, dbInstanceClusterIdentifier, dbSnapshotIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("14. Wait for DB snapshot to be ready" );
         waitForSnapshotReady(rdsClient, dbSnapshotIdentifier, dbInstanceClusterIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("14. Delete the DB instance" );
         deleteDatabaseInstance(rdsClient, dbInstanceIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("15. Delete the DB cluster");
         deleteCluster(rdsClient, dbInstanceClusterIdentifier);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("16. Delete the DB cluster group");
         deleteDBClusterGroup(rdsClient, dbClusterGroupName, clusterDBARN);
+        System.out.println(DASHES);
 
+        System.out.println(DASHES);
         System.out.println("The Scenario has successfully completed." );
+        System.out.println(DASHES);
         rdsClient.close();
     }
 

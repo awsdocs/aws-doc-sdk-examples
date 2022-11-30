@@ -107,6 +107,14 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.create_bucket
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.create_bucket
     Swift:
       versions:
         - sdk_version: 1
@@ -220,6 +228,14 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.copy_object
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.copy_object
     Swift:
       versions:
         - sdk_version: 1
@@ -360,6 +376,14 @@ s3_DeleteObject:
             - description: Delete an object.
               snippet_tags:
                 - s3.JavaScript.buckets.deleteobjectV3
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.delete_object
     Swift:
       versions:
         - sdk_version: 1
@@ -615,9 +639,9 @@ s3_GetBucketPolicy:
   services:
     s3: {GetBucketPolicy}
 s3_HeadObject:
-  title: Determine the content type of an object in an &S3; bucket using an &AWS; SDK
-  title_abbrev: Determine the content type of an object
-  synopsis: determine the content type of an object in an S3 bucket.
+  title: Determine the existence and content type of an object in an &S3; bucket using an &AWS; SDK
+  title_abbrev: Determine the existence and content type of an object
+  synopsis: determine the existence and content type of an object in an S3 bucket.
   category:
   languages:
     Java:
@@ -739,6 +763,14 @@ s3_GetObject:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.get_object
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.get_object
     Swift:
       versions:
         - sdk_version: 1
@@ -815,7 +847,7 @@ s3_DeleteBucketLifecycle:
   services:
     s3: {DeleteBucketLifecycle}
 s3_CompleteMultipartUpload:
-  title: Complete the multipart upload action using an &AWS; SDK
+  title: Complete a multipart upload action using an &AWS; SDK
   title_abbrev: Complete a multipart upload
   synopsis: complete a multipart upload action.
   category:
@@ -960,6 +992,14 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.ListObjects
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.list_objects
     Swift:
       versions:
         - sdk_version: 1
@@ -1099,6 +1139,14 @@ s3_PutObject:
             - description: Upload a file using Object.put and add server-side encryption.
               snippet_tags:
                 - s3.ruby.s3_encrypt_file_upload.rb
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_object
     Swift:
       versions:
         - sdk_version: 1
@@ -1215,6 +1263,14 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.delete_bucket
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.delete_bucket
     Swift:
       versions:
         - sdk_version: 1
@@ -1965,6 +2021,14 @@ s3_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - cpp.example_code.s3.Scenario_GettingStarted
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.getting_started_with_s3
     Swift:
       versions:
         - sdk_version: 1

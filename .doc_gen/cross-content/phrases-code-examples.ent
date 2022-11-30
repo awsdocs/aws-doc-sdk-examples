@@ -1,3 +1,10 @@
+<!-- ABAP SDK -->
+<!ENTITY ABAPlong '&AWS; SDK for SAP ABAP'>
+<!ENTITY ABAP 'SDK for SAP ABAP'>
+<!ENTITY guide-abap-dev '&ABAPlong; developer guide'>
+<!ENTITY guide-abap-api '&ABAPlong; API reference'>
+
+
 <!-- SDK for Swift -->
 <!ENTITY Swiftlong '&AWS; SDK for Swift'>
 <!ENTITY Swift 'SDK for Swift'>

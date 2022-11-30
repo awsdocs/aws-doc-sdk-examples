@@ -4,8 +4,11 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_cognitoidentity::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_cognitoidentity::types::DisplayErrorContext;
+use aws_sdk_cognitoidentity::{Client, Region, PKG_VERSION};
 use aws_smithy_types_convert::date_time::DateTimeExt;
+use cognitoidentity_code_examples::Error;
+use std::process;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -36,9 +39,9 @@ async fn list_identities(client: &Client, pool_id: &str) -> Result<(), Error> {
     if let Some(ids) = response.identities() {
         println!("Identitities:");
         for id in ids {
-            let creation_timestamp = (*id.creation_date().unwrap()).to_chrono_utc();
+            let creation_timestamp = (*id.creation_date().unwrap()).to_chrono_utc()?;
             let idid = id.identity_id().unwrap_or_default();
-            let mod_timestamp = (*id.last_modified_date().unwrap()).to_chrono_utc();
+            let mod_timestamp = (*id.last_modified_date().unwrap()).to_chrono_utc()?;
             println!("  Creation date:      {}", creation_timestamp);
             println!("  ID:                 {}", idid);
             println!("  Last modified date: {}", mod_timestamp);
@@ -69,15 +72,22 @@ async fn list_identities(client: &Client, pool_id: &str) -> Result<(), Error> {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() {
     tracing_subscriber::fmt::init();
 
-    let Opt {
+    if let Err(err) = run_example(Opt::from_args()).await {
+        eprintln!("Error: {}", DisplayErrorContext(err));
+        process::exit(1);
+    }
+}
+
+async fn run_example(
+    Opt {
         identity_pool_id,
         region,
         verbose,
-    } = Opt::from_args();
-
+    }: Opt,
+) -> Result<(), Error> {
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
@@ -96,5 +106,7 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    list_identities(&client, &identity_pool_id).await
+    list_identities(&client, &identity_pool_id).await?;
+
+    Ok(())
 }
