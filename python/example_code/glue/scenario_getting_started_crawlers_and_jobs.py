@@ -80,7 +80,7 @@ class GlueCrawlerJobScenario:
         :param job_script: The relative path to the job script.
         """
         try:
-  #          self.glue_bucket.upload_file(Filename=job_script, Key=job_script)
+            self.glue_bucket.upload_file(Filename=job_script, Key=job_script)
             print(f"Uploaded job script '{job_script}' to the example bucket.")
         except S3UploadFailedError as err:
             logger.error("Couldn't upload job script. Here's why: %s", err)
