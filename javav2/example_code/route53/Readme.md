@@ -78,6 +78,11 @@ Define this value to successfully run the JUnit tests:
 - **domainName** - The fully qualified domain name.
 - **domainSuggestionSc** - The domain suggestion (for example, findmy.accountants).
 - **domainTypeSc** - The domain type (for example, com).
+- **phoneNumerSc** - The phone number to use (for example, +91.9966564xxx).
+- **emailSc** - The email address to use.
+- **firstNameSc** - The first name to use.
+- **lastNameSc** - The first name to use.
+- **citySc** - The city to use.
 
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
