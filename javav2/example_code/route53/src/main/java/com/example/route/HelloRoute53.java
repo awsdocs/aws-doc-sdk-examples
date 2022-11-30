@@ -25,9 +25,9 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * This Java code examples performs the following operation:
+ * This Java code example performs the following operation:
  *
- * 1. Invokes ListPrices for at least one domain type, such as the “com” type and displays the prices for Registration and Renewal.
+ * 1. Invokes ListPrices for at least one domain type, such as the “com” type, and displays prices for registration and renewal.
  *
  */
 public class HelloRoute53 {

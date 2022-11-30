@@ -56,8 +56,8 @@ import java.util.List;
  * see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/pagination.html
- * 
- * This Java code examples performs the following operations:
+ *
+ * This Java code example performs the following operations:
  *
  * 1. List current domains.
  * 2. List operations in the past year.
@@ -67,7 +67,7 @@ import java.util.List;
  * 6. Check domain availability.
  * 7. Check domain transferability.
  * 8. Request a domain registration.
- * 9. Get operation details
+ * 9. Get operation details.
  * 10. Optionally, get domain details.
  */
 
@@ -153,8 +153,8 @@ public class Route53Scenario {
 
         System.out.println(DASHES);
         System.out.println("10. Get domain details.");
-        System.out.println("Note: you must have a registered domain to get details.");
-        System.out.println("Otherwise an exception is thrown that states " );
+        System.out.println("Note: You must have a registered domain to get details.");
+        System.out.println("Otherwise, an exception is thrown that states " );
         System.out.println("Domain xxxxxxx not found in xxxxxxx account.");
         getDomainDetails(route53DomainsClient, domainSuggestion);
         System.out.println(DASHES);
@@ -207,12 +207,12 @@ public class Route53Scenario {
         try {
             ContactDetail contactDetail = ContactDetail.builder()
                 .contactType(ContactType.COMPANY)
-                .state("LA")
-                .countryCode(CountryCode.IN)
+                .state("Any State")
+                .countryCode(CountryCode.US)
                 .email(email)
                 .firstName(firstName)
                 .lastName(lastName)
-                .city("Delhi")
+                .city("Any City")
                 .phoneNumber(phoneNumber)
                 .organizationName("My Org")
                 .addressLine1("My Address")
