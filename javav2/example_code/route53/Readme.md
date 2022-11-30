@@ -1,13 +1,13 @@
-# Amazon Route 53 code examples for the SDK for Java
+# Route 53 code examples for the SDK for Java
 
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon Route 53.
 
-Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web service. Route 53 connects user requests to internet applications running on AWS or on-premises.
+Route 53 is a highly available and scalable Domain Name System (DNS) web service. Route 53 connects user requests to internet applications running on AWS or on-premises.
 
 ## ⚠️ Important
-* The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. 
-* Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
+* Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
+* Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
@@ -30,14 +30,14 @@ Code excerpts that show you how to call individual service functions.
 - [Delete a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/DeleteHealthCheck.java) (deleteHealthCheck command)
 - [Delete a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/DeleteHostedZone.java) (deleteHostedZone command)
 - [Get domain details](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (getDomainDetail command)
-- [Get operation details](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (getOperationDetail command)
 - [Get the status of a specific health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/GetHealthCheckStatus.java) (getHealthCheckStatus command)
+- [Get operation details](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (getOperationDetail command)
 - [List current domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (listOperationsPaginator command)
 - [List operations in the past year](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (listDomainsPaginator command)
 - [List health checks](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListHealthChecks.java) (listHealthChecks command)
 - [List hosted zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListHostedZones.java) (listHostedZones command)
 - [List resource record sets](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListResourceRecordSets.java) (listResourceRecordSets command)
-- [Request a domain registration.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (registerDomain command)
+- [Request a domain registration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (registerDomain command)
 - [Update a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/UpdateHealthCheck.java) (updateHealthCheck command)
 - [View billing for the account in the past year](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (viewBillingPaginator command)
 - [View prices for domain types](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (listPricesPaginator command)
@@ -51,13 +51,16 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ## Run the Amazon Route 53 Java files
 
-**Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
+### Prerequisites
 
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
+**Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
  ## Test the Amazon Route 53 Java files
+ 
+ ⚠️ Running the tests might result in charges to your AWS account.
 
 You can test the Java code example for Amazon Route 53 by running a test file named **Route53Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
