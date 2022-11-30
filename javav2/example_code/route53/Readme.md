@@ -17,7 +17,7 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 ### Get started
 
-- [Hello Route 53 domain registration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/HelloRoute53.java) (listPrices command)
+- [Hello Route 53 domain registration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Hello.java) (listPrices command)
 
 ### Single action
 
