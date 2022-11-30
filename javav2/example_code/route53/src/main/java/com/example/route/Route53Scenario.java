@@ -76,16 +76,17 @@ public class Route53Scenario {
     public static void main(String[] args) {
         final String usage = "\n" +
             "Usage:\n" +
-            "    <domainType> <phoneNumber> <email> <domainSuggestion> <firstName> <lastName>\n\n" +
+            "    <domainType> <phoneNumber> <email> <domainSuggestion> <firstName> <lastName> <city>\n\n" +
             "Where:\n" +
             "    domainType - The domain type (for example, com). \n" +
             "    phoneNumber - The phone number to use (for example, +91.9966564xxx)  "+
             "    email - The email address to use.  "+
             "    domainSuggestion - The domain suggestion (for example, findmy.accountants). \n" +
             "    firstName - The first name to use to register a domain. \n" +
-            "    lastName -  The last name to use to register a domain. \n" ;
+            "    lastName -  The last name to use to register a domain. \n" +
+            "    city - the city to use to register a domain. ";
 
-        if (args.length != 6) {
+        if (args.length != 7) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -96,6 +97,7 @@ public class Route53Scenario {
         String domainSuggestion = args[3] ;
         String firstName = args[4] ;
         String lastName = args[5] ;
+        String city = args[6] ;
         Region region = Region.US_EAST_1;
         Route53DomainsClient route53DomainsClient = Route53DomainsClient.builder()
             .region(region)
@@ -143,7 +145,7 @@ public class Route53Scenario {
 
         System.out.println(DASHES);
         System.out.println("8. Request a domain registration.");
-        String opId = requestDomainRegistration(route53DomainsClient, domainSuggestion, phoneNumber, email, firstName, lastName);
+        String opId = requestDomainRegistration(route53DomainsClient, domainSuggestion, phoneNumber, email, firstName, lastName, city);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -202,17 +204,18 @@ public class Route53Scenario {
                                                    String phoneNumber,
                                                    String email,
                                                    String firstName,
-                                                   String lastName) {
+                                                   String lastName,
+                                                   String city) {
 
         try {
             ContactDetail contactDetail = ContactDetail.builder()
                 .contactType(ContactType.COMPANY)
-                .state("Any State")
-                .countryCode(CountryCode.US)
+                .state("LA")
+                .countryCode(CountryCode.IN)
                 .email(email)
                 .firstName(firstName)
                 .lastName(lastName)
-                .city("Any City")
+                .city(city)
                 .phoneNumber(phoneNumber)
                 .organizationName("My Org")
                 .addressLine1("My Address")
