@@ -6,7 +6,6 @@
 // snippet-start:[dynamodb.rust.list-tables-local]
 use aws_sdk_dynamodb::{Client, Endpoint, Error};
 use dynamodb_code_examples::{make_config, scenario::list::list_tables, Opt};
-use http::Uri;
 use structopt::StructOpt;
 
 /// Lists your tables in DynamoDB local.
@@ -16,7 +15,7 @@ async fn main() -> Result<(), Error> {
     let dynamodb_local_config = aws_sdk_dynamodb::config::Builder::from(&config)
         .endpoint_resolver(
             // 8000 is the default dynamodb port
-            Endpoint::immutable(Uri::from_static("http://localhost:8000")),
+            Endpoint::immutable("http://localhost:8000").expect("Invalid endpoint"),
         )
         .build();
 

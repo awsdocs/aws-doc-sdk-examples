@@ -65,9 +65,9 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
         lo_cwt->deletealarms(
           it_alarmnames = it_alarm_names
         ).
-        MESSAGE 'Alarms deleted' TYPE 'I'.
+        MESSAGE 'Alarms deleted.' TYPE 'I'.
       CATCH /aws1/cx_cwtresourcenotfound .
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[cwt.abapv1.delete_alarms]
 
@@ -83,10 +83,10 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[cwt.abapv1.describe_alarms]
     TRY.
-        oo_result = lo_cwt->describealarms(                 " oo_result is returned for testing purpose "
+        oo_result = lo_cwt->describealarms(                 " oo_result is returned for testing purposes. "
           it_alarmnames = it_alarm_names
         ).
-        MESSAGE 'Alarms retrieved' TYPE 'I'.
+        MESSAGE 'Alarms retrieved.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
@@ -110,7 +110,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
         lo_cwt->disablealarmactions(
           it_alarmnames = it_alarm_names
         ).
-        MESSAGE 'Alarm actions disabled' TYPE 'I'.
+        MESSAGE 'Alarm actions disabled.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
@@ -134,7 +134,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
         lo_cwt->enablealarmactions(
           it_alarmnames = it_alarm_names
         ).
-        MESSAGE 'Alarm actions enabled' TYPE 'I'.
+        MESSAGE 'Alarm actions enabled.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
@@ -152,13 +152,13 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
 
     "snippet-start:[cwt.abapv1.list_metrics]
-    "The following list-metrics example displays the metrics for Amazon Cloudwatch."
+    "The following list-metrics example displays the metrics for Amazon CloudWatch."
     TRY.
-        oo_result = lo_cwt->listmetrics(            " oo_result is returned for testing purpose "
+        oo_result = lo_cwt->listmetrics(            " oo_result is returned for testing purposes. "
           iv_namespace = iv_namespace
         ).
         DATA(lt_metrics) = oo_result->get_metrics( ).
-        MESSAGE 'Metrics retrieved' TYPE 'I'.
+        MESSAGE 'Metrics retrieved.' TYPE 'I'.
       CATCH /aws1/cx_cwtinvparamvalueex .
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
     ENDTRY.
@@ -190,7 +190,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
           iv_period                    = iv_period
           it_dimensions                = it_dimensions
         ).
-        MESSAGE 'Alarm created' TYPE 'I'.
+        MESSAGE 'Alarm created.' TYPE 'I'.
       CATCH /aws1/cx_cwtlimitexceededfault.
         MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
     ENDTRY.
