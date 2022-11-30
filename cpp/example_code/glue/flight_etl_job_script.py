@@ -10,7 +10,6 @@ bucket so that AWS Glue can access it.
 
 # pylint: disable=undefined-variable
 
-# snippet-start:[python.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script]
 import sys
 from awsglue.transforms import *
 from awsglue.utils import getResolvedOptions
@@ -77,4 +76,3 @@ RevisedFlightData_node3 = glueContext.write_dynamic_frame.from_options(
 )
 
 job.commit()
-# snippet-end:[python.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script]

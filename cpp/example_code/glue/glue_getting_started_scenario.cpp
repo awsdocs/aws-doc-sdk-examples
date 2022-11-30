@@ -217,7 +217,10 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         Aws::Glue::Model::GetCrawlerOutcome outcome = client.GetCrawler(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "Successfully retrieved crawler." << std::endl;
+            Aws::Glue::Model::CrawlerState crawlerState = outcome.GetResult().GetCrawler().GetState();
+            std::cout << "Retrieved crawler with state " <<
+                      Aws::Glue::Model::CrawlerStateMapper::GetNameForCrawlerState(crawlerState)
+                      << "." << std::endl;
         }
         else {
             std::cerr << "Error retrieving a crawler.  "
@@ -239,7 +242,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 
 
         if (outcome.IsSuccess()) {
-            std::cout << "Starting crawler. This may take awhile." << std::endl;
+            std::cout << "Starting crawler. This may take awhile to run." << std::endl;
 
             Aws::Glue::Model::CrawlerState crawlerState = Aws::Glue::Model::CrawlerState::NOT_SET;
             int iterations = 0;
@@ -247,7 +250,9 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 ++iterations;
                 if ((iterations % 10) == 0) {
-                    std::cout << "Checking crawler status. " << iterations
+                    std::cout << "Crawler status " <<
+                              Aws::Glue::Model::CrawlerStateMapper::GetNameForCrawlerState(crawlerState)
+                              << ". After " << iterations
                               << " seconds elapsed."
                               << std::endl;
                 }
@@ -268,16 +273,20 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
 
             if (Aws::Glue::Model::CrawlerState::READY == crawlerState) {
-                std::cout << "Crawler running after " << iterations << " seconds."
+                std::cout << "Crawler finished running after " << iterations << " seconds."
                           << std::endl;
             }
         }
         else {
-            std::cerr << "Error starting a crawler.  " << outcome.GetError().GetMessage()
+            std::cerr << "Error starting a crawler.  "
+                      << outcome.GetError().GetMessage()
                       << std::endl;
-            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
-                         clientConfig);
-            return false;
+            if (Aws::Glue::GlueErrors::CRAWLER_RUNNING !=
+                outcome.GetError().GetErrorType()) {
+                deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
+                             clientConfig);
+                return false;
+            }
         }
 // snippet-end:[cpp.example_code.glue.start_crawler]
     }
@@ -410,34 +419,20 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                     Aws::String statusString;
                     switch (jobRunState) {
                         case Aws::Glue::Model::JobRunState::SUCCEEDED:
-                            statusString = "SUCCEEDED";
-                            canContinue = false;
-                            break;
                         case Aws::Glue::Model::JobRunState::STOPPED:
-                            statusString = "STOPPED";
-                            canContinue = false;
-                            break;
                         case Aws::Glue::Model::JobRunState::FAILED:
-                            statusString = "FAILED";
-                            canContinue = false;
-                            break;
                         case Aws::Glue::Model::JobRunState::TIMEOUT:
-                            statusString = "TIMEOUT";
                             canContinue = false;
-                            break;
-                        case Aws::Glue::Model::JobRunState::RUNNING:
-                            statusString = "RUNNING";
                             break;
                         default:
-                            statusString = std::to_string(
-                                    static_cast<int>(jobRunState));
-                            break;
+                             break;
 
                     }
 
                     if ((iterator % 10) == 0) {
-                        std::cout << "Job run status " << statusString << ". "
-                                  << iterator <<
+                        std::cout << "Job run status " <<
+                                  Aws::Glue::Model::JobRunStateMapper::GetNameForJobRunState(jobRunState) <<
+                                  ". "<< iterator <<
                                   " seconds elapsed." << std::endl;
                     }
 
