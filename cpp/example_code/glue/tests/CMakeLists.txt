@@ -118,7 +118,7 @@ target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
-        SOURCE_DIR="${CMAKE_SOURCE_DIR}/.."
+        SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/.."
 )
 
 target_link_libraries(

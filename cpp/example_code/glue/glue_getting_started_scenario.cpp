@@ -241,8 +241,18 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         Aws::Glue::Model::StartCrawlerOutcome outcome = client.StartCrawler(request);
 
 
-        if (outcome.IsSuccess()) {
-            std::cout << "Starting crawler. This may take awhile to run." << std::endl;
+        if (outcome.IsSuccess() || (Aws::Glue::GlueErrors::CRAWLER_RUNNING ==
+            outcome.GetError().GetErrorType())) {
+            if (!outcome.IsSuccess())
+            {
+                std::cout << "Crawler was already started." << std::endl;
+            }
+            else
+            {
+                std::cout << "Successfully started crawler." << std::endl;
+            }
+            
+            std::cout << "This may take a while to run." << std::endl;
 
             Aws::Glue::Model::CrawlerState crawlerState = Aws::Glue::Model::CrawlerState::NOT_SET;
             int iterations = 0;
@@ -279,14 +289,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         }
         else {
             std::cerr << "Error starting a crawler.  "
-                      << outcome.GetError().GetMessage()
-                      << std::endl;
-            if (Aws::Glue::GlueErrors::CRAWLER_RUNNING !=
-                outcome.GetError().GetErrorType()) {
-                deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
-                             clientConfig);
-                return false;
-            }
+                << outcome.GetError().GetMessage()
+                << std::endl;
+           
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
+                clientConfig);
+            return false;
         }
 // snippet-end:[cpp.example_code.glue.start_crawler]
     }
