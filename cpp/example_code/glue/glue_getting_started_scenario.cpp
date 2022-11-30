@@ -219,7 +219,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         if (outcome.IsSuccess()) {
             Aws::Glue::Model::CrawlerState crawlerState = outcome.GetResult().GetCrawler().GetState();
             std::cout << "Retrieved crawler with state " <<
-                      Aws::Glue::Model::CrawlerStateMapper::GetNameForCrawlerState(crawlerState)
+                      Aws::Glue::Model::CrawlerStateMapper::GetNameForCrawlerState(
+                              crawlerState)
                       << "." << std::endl;
         }
         else {
@@ -242,16 +243,14 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 
 
         if (outcome.IsSuccess() || (Aws::Glue::GlueErrors::CRAWLER_RUNNING ==
-            outcome.GetError().GetErrorType())) {
-            if (!outcome.IsSuccess())
-            {
+                                    outcome.GetError().GetErrorType())) {
+            if (!outcome.IsSuccess()) {
                 std::cout << "Crawler was already started." << std::endl;
             }
-            else
-            {
+            else {
                 std::cout << "Successfully started crawler." << std::endl;
             }
-            
+
             std::cout << "This may take a while to run." << std::endl;
 
             Aws::Glue::Model::CrawlerState crawlerState = Aws::Glue::Model::CrawlerState::NOT_SET;
@@ -259,9 +258,10 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             while (Aws::Glue::Model::CrawlerState::READY != crawlerState) {
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 ++iterations;
-                if ((iterations % 10) == 0) {
+                if ((iterations % 10) == 0) { // Log status every 10 seconds.
                     std::cout << "Crawler status " <<
-                              Aws::Glue::Model::CrawlerStateMapper::GetNameForCrawlerState(crawlerState)
+                              Aws::Glue::Model::CrawlerStateMapper::GetNameForCrawlerState(
+                                      crawlerState)
                               << ". After " << iterations
                               << " seconds elapsed."
                               << std::endl;
@@ -283,17 +283,18 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
 
             if (Aws::Glue::Model::CrawlerState::READY == crawlerState) {
-                std::cout << "Crawler finished running after " << iterations << " seconds."
+                std::cout << "Crawler finished running after " << iterations
+                          << " seconds."
                           << std::endl;
             }
         }
         else {
             std::cerr << "Error starting a crawler.  "
-                << outcome.GetError().GetMessage()
-                << std::endl;
-           
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+
             deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
-                clientConfig);
+                         clientConfig);
             return false;
         }
 // snippet-end:[cpp.example_code.glue.start_crawler]
@@ -352,7 +353,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
         }
         else {
-            std::cerr << "Error getting the tables. " << outcome.GetError().GetMessage() << std::endl;
+            std::cerr << "Error getting the tables. " << outcome.GetError().GetMessage()
+                      << std::endl;
             deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
                          clientConfig);
             return false;
@@ -410,8 +412,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             Aws::String jobRunId = outcome.GetResult().GetJobRunId();
 
             int iterator = 0;
-            bool canContinue = true;
-            while (canContinue) {
+            bool done = false;
+            while (!done) {
                 ++iterator;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 Aws::Glue::Model::GetJobRunRequest jobRunRequest;
@@ -424,38 +426,30 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                 if (jobRunOutcome.IsSuccess()) {
                     const Aws::Glue::Model::JobRun &jobRun = jobRunOutcome.GetResult().GetJobRun();
                     Aws::Glue::Model::JobRunState jobRunState = jobRun.GetJobRunState();
-                    Aws::String statusString;
-                    switch (jobRunState) {
-                        case Aws::Glue::Model::JobRunState::SUCCEEDED:
-                        case Aws::Glue::Model::JobRunState::STOPPED:
-                        case Aws::Glue::Model::JobRunState::FAILED:
-                        case Aws::Glue::Model::JobRunState::TIMEOUT:
-                            canContinue = false;
-                            break;
-                        default:
-                             break;
 
+                    if ((jobRunState == Aws::Glue::Model::JobRunState::STOPPED) ||
+                        (jobRunState == Aws::Glue::Model::JobRunState::FAILED) ||
+                        (jobRunState == Aws::Glue::Model::JobRunState::TIMEOUT)) {
+                        std::cerr << "Error running job. "
+                                  << jobRun.GetErrorMessage()
+                                  << std::endl;
+                        deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME,
+                                     bucketName,
+                                     clientConfig);
+                        return false;
                     }
-
-                    if ((iterator % 10) == 0) {
-                        std::cout << "Job run status " <<
-                                  Aws::Glue::Model::JobRunStateMapper::GetNameForJobRunState(jobRunState) <<
-                                  ". "<< iterator <<
+                    else if (jobRunState ==
+                             Aws::Glue::Model::JobRunState::SUCCEEDED) {
+                        std::cout << "Job run succeeded after  " << iterator <<
                                   " seconds elapsed." << std::endl;
+                        done = true;
                     }
-
-                    if (!canContinue) {
-                        std::cout << "Job run state " << statusString << std::endl;
-
-                        if (jobRunState != Aws::Glue::Model::JobRunState::SUCCEEDED) {
-                            std::cerr << "Error running job. "
-                                      << jobRun.GetErrorMessage()
-                                      << std::endl;
-                            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME,
-                                         bucketName,
-                                         clientConfig);
-                            return false;
-                        }
+                    else if ((iterator % 10) == 0) { // Log status every 10 seconds.
+                        std::cout << "Job run status " <<
+                                  Aws::Glue::Model::JobRunStateMapper::GetNameForJobRunState(
+                                          jobRunState) <<
+                                  ". " << iterator <<
+                                  " seconds elapsed." << std::endl;
                     }
                 }
                 else {
@@ -469,7 +463,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
         }
         else {
-            std::cerr << "Error starting a job. " << outcome.GetError().GetMessage() << std::endl;
+            std::cerr << "Error starting a job. " << outcome.GetError().GetMessage()
+                      << std::endl;
             deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
                          clientConfig);
             return false;
@@ -521,7 +516,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             }
         }
         else {
-            std::cerr << "Error listing objects. " << outcome.GetError().GetMessage() << std::endl;
+            std::cerr << "Error listing objects. " << outcome.GetError().GetMessage()
+                      << std::endl;
         }
     }
 
@@ -549,7 +545,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             jobName = jobNames[jobIndex - 1];
         }
         else {
-            std::cerr << "Error listing jobs. " << listRunsOutcome.GetError().GetMessage()
+            std::cerr << "Error listing jobs. "
+                      << listRunsOutcome.GetError().GetMessage()
                       << std::endl;
         }
 // snippet-end:[cpp.example_code.glue.list_jobs]
@@ -608,7 +605,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                     << std::endl;
         }
         else {
-            std::cerr << "Error get a job run. " << jobRunOutcome.GetError().GetMessage()
+            std::cerr << "Error get a job run. "
+                      << jobRunOutcome.GetError().GetMessage()
                       << std::endl;
         }
 // snippet-end:[cpp.example_code.glue.get_job_run]
