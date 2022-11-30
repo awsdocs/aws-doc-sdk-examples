@@ -2,20 +2,32 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
-import com.example.route.*;
+import com.example.route.CreateHealthCheck;
+import com.example.route.CreateHostedZone;
+import com.example.route.DeleteHealthCheck;
+import com.example.route.DeleteHostedZone;
+import com.example.route.GetHealthCheckStatus;
+import com.example.route.ListHealthChecks;
+import com.example.route.ListHostedZones;
+import com.example.route.Route53Scenario;
+import com.example.route.UpdateHealthCheck;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.route53.Route53Client;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53domains.Route53DomainsClient;
-
-import java.io.*;
-import java.net.URISyntaxException;
-import java.util.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -26,14 +38,15 @@ public class Route53Test {
     private static String hostedZoneId = "";
     private static Route53Client route53Client;
     private static Route53DomainsClient route53DomainsClient;
-
     private static String domainSuggestionSc = "" ;
     private static String domainTypeSc = "" ;
-
+    private static String phoneNumerSc = "" ;
+    private static String emailSc = "" ;
+    private static String firstNameSc = "" ;
+    private static String lastNameSc = "" ;
 
     @BeforeAll
-    public static void setUp() throws IOException, URISyntaxException {
-
+    public static void setUp() {
         Region region = Region.AWS_GLOBAL;
         route53Client = Route53Client.builder()
                 .region(region)
@@ -46,9 +59,7 @@ public class Route53Test {
             .build();
 
         try (InputStream input = Route53Test.class.getClassLoader().getResourceAsStream("config.properties")) {
-
             Properties prop = new Properties();
-
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
@@ -61,6 +72,10 @@ public class Route53Test {
             domainName = prop.getProperty("domainName");
             domainSuggestionSc = prop.getProperty("domainSuggestionSc");
             domainTypeSc = prop.getProperty("domainTypeSc");
+            phoneNumerSc = prop.getProperty("phoneNumerSc");
+            emailSc = prop.getProperty("emailSc");
+            firstNameSc = prop.getProperty("firstNameSc");
+            lastNameSc = prop.getProperty("lastNameSc");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -78,7 +93,7 @@ public class Route53Test {
     @Order(2)
     public void CreateHealthCheck() {
         healthCheckId= CreateHealthCheck.createCheck(route53Client, domainName);
-        assertTrue(!healthCheckId.isEmpty());
+        assertFalse(healthCheckId.isEmpty());
         System.out.println("Test 2 passed");
     }
 
@@ -86,15 +101,13 @@ public class Route53Test {
     @Order(3)
     public void CreateHostedZone() {
         hostedZoneId= CreateHostedZone.createZone(route53Client, domainName);
-        assertTrue(!hostedZoneId.isEmpty());
+        assertFalse(hostedZoneId.isEmpty());
         System.out.println("Test 3 passed");
     }
-
 
     @Test
     @Order(4)
     public void GetHealthCheckStatus() {
-
     try{
         TimeUnit.SECONDS.sleep(20); // wait for the new health check
         GetHealthCheckStatus.getHealthStatus(route53Client, healthCheckId);
@@ -180,7 +193,7 @@ public class Route53Test {
 
         System.out.println(DASHES);
         System.out.println("8. Request a domain registration.");
-        String opId = Route53Scenario.requestDomainRegistration(route53DomainsClient, domainSuggestionSc);
+        String opId = Route53Scenario.requestDomainRegistration(route53DomainsClient, domainSuggestionSc, phoneNumerSc, emailSc, firstNameSc, lastNameSc);
         assertFalse(opId.isEmpty());
         System.out.println(DASHES);
 
