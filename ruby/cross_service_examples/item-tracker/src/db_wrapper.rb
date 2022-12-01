@@ -7,7 +7,6 @@ require "logger"
 require "sequel"
 require "multi_json"
 require_relative "report"
-require "pry"
 
 class RDSResourceError < Exception
 end
@@ -149,7 +148,6 @@ class DBWrapper
     json = MultiJson.load(response)
     @logger.info("Received GET response: #{json}")
     json
-    # MultiJson.dump(results)
   end
 
   # Adds a work item to the database.
