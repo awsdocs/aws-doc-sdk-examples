@@ -19,6 +19,7 @@ Shows how to use the AWS SDK for C++ to manage AWS Glue resources.
 
 Code excerpts that show you how to call individual service functions.
 
+* [Create a crawler](glue_getting_started_scenario.cpp) (CreateCrawler)
 * [Create a job definition](glue_getting_started_scenario.cpp) (CreateJob)
 * [Delete a crawler](glue_getting_started_scenario.cpp) (DeleteCrawler)
 * [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp) (DeleteDatabase)
