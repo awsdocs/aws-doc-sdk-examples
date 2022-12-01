@@ -7,7 +7,7 @@ require "logger"
 require "sequel"
 require "multi_json"
 require_relative "report"
-require 'pry'
+require "pry"
 
 class RDSResourceError < Exception
 end
@@ -54,7 +54,6 @@ class DBWrapper
   # @param results [Aws::RDSDataService::Types::ExecuteStatementResponse]
   # @return output [List] A list of items, represented as hashes
   def _parse_work_items(results)
-    binding.pry
     output = []
     results.each do |x|
       name = x["username"]
@@ -74,13 +73,13 @@ class DBWrapper
   # @return [RuntimeError, Boolean] If valid response, true; otherwise, RuntimeError.
   def validate_response(response, method)
     case method
-    when 'get'
+    when "get"
       if response[:formatted_records].nil?
-        raise 'Expected formatted records returned from GET action.'
+        raise "Expected formatted records returned from GET action."
       end
-    when 'post'
+    when "post"
       if response[:number_of_records_updated] < 1
-        raise 'Expected at least 1 updated record from POST action.'
+        raise "Expected at least 1 updated record from POST action."
       end
     end
     @logger.info("SQL call successful. Response body validated.")
@@ -92,7 +91,7 @@ class DBWrapper
   # @return [Array] Containing zero or more hashes of response data
   def format_response(response, method)
     case method
-    when 'get'
+    when "get"
       JSON.parse(response[:formatted_records])
       # response example:
       # [{"work_item_id"=>1,
@@ -101,14 +100,14 @@ class DBWrapper
       #   "status"=>"in-progress",
       #   "username"=>"wkhalifa",
       #   "archived"=>1}]
-    when 'post'
+    when "post"
       [response[:generated_fields][0].to_h]
       # response example:
       # [{:long_value=>21}]
-    when 'put'
+    when "put"
       []
     else
-      raise 'Configuration method. Must provide: get, post, or put.'
+      raise "Configuration method. Must provide: get, post, or put."
     end
   end
 
@@ -145,10 +144,8 @@ class DBWrapper
     sql = sql.where(work_item_id: item_id.to_i) if item_id
     sql = _format_sql(sql.sql)
     @logger.info("Prepared GET query: #{sql}")
-    results = _run_statement(sql, 'get')
-    binding.pry
+    results = _run_statement(sql, "get")
     response = _parse_work_items(results)
-    binding.pry
     json = MultiJson.load(response)
     @logger.info("Received GET response: #{json}")
     json
@@ -169,7 +166,7 @@ class DBWrapper
     )
     sql = _format_sql(sql)
     @logger.info("Prepared POST query: #{sql}")
-    response = _run_statement(sql, 'post')
+    response = _run_statement(sql, "post")
     id = response[:long_value]
     @logger.info("Successfully created work_item_id: #{id}")
     id
@@ -182,6 +179,6 @@ class DBWrapper
     sql = @model.from(@table_name.to_sym).where(work_item_id: item_id).update_sql(archived: 1) # 1 is true, 0 is false
     sql = _format_sql(sql)
     @logger.info("Prepared PUT query: #{sql}")
-    _run_statement(sql, 'put')
+    _run_statement(sql, "put")
   end
 end

@@ -48,7 +48,7 @@ For more information, see the [Aurora Serverless App CDK script README.md](../..
 
 # Invoke this example code
 
-## Pre-requisites (~15 min)
+## Pre-requisites
 To explore this example, you must first:
 1. Create account & configure credentials using [instructions in the top-level README.md]((../../../README.md#invoke-example-code)).
 2. Install Ruby and resolve dependencies using [instructions in the Ruby README.md](../../../ruby/README.md).
@@ -63,7 +63,7 @@ To explore this example, you must first:
 5. Register your email address with Amazon Simple Email Service (SES) using the [instructions on the AWS SES docs](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html)
    * NOTE: Use this email for the `sender_email` and `recipient_email` fields in your `helpers/config.yml` file.
 
-## Start the application (~1 min)
+## Start the application
 To view this example in its entirety, you must:
 1. Start the front-end React using the following commands:
     ```bash

@@ -31,17 +31,18 @@ end
 get "/api/items" do
   items = wrapper.get_work_items(nil, params[:archived])
   items.to_json
+  halt 204
 end
 
 post "/api/items" do
   payload = MultiJson.load(request.body.read)
-  id = wrapper.add_work_item(payload)
-  [204, id]
+  wrapper.add_work_item(payload)
+  halt 204
 end
 
 get "/api/items/:item_id" do
-  item = wrapper.get_work_items(:item_id, nil)
-  item
+  wrapper.get_work_items(:item_id, nil)
+  halt 204
 end
 
 put %r{/api/items/([\w]+):archive} do |id|
@@ -51,11 +52,11 @@ end
 
 post %r{/api/items:report} do
   reporter.post_report(config["recipient_email"])
-  204
+  halt 204
 end
 
 options "*" do
   response.headers["Access-Control-Allow-Methods"] = "HEAD,GET,PUT,POST,DELETE,OPTIONS"
   response.headers["Access-Control-Allow-Headers"] = "Content-Type"
-  204
+  halt 204
 end

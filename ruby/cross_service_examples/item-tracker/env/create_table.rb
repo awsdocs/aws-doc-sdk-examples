@@ -20,7 +20,8 @@ class SetupDatabase
     @rds_client = Aws::RDS::Client.new
   end
 
-  # helper method
+  # Checks if database exists
+  # @return [Boolean] false if DBClusterNotFoundFault; else true.
   def database_exists?
     identifier = @config["resource_arn"].split(":cluster:")[1]
     @rds_client.describe_db_clusters({db_cluster_identifier: identifier })
@@ -29,6 +30,7 @@ class SetupDatabase
     false
   end
 
+  # Checks if table exists in database
   # @return [Boolean] true if table exists, false if not.
   def table_exists?
     resp = @data_client.execute_statement({
@@ -38,14 +40,14 @@ class SetupDatabase
                                       database: @config["database"],
                                     })
 
-    has_table = false
     resp[0].each { |table|
       if table[0].string_value == @config["table_name"]
-        has_table = true
+        return true
       end
     }
-    has_table
+    false
   end
+
 
   def create_table
     sql = "CREATE TABLE #{@config['table_name']} (work_item_id INT AUTO_INCREMENT PRIMARY KEY, description VARCHAR(400), guide VARCHAR(45), status VARCHAR(400), username VARCHAR(45), archived TINYINT(4));"
@@ -60,7 +62,6 @@ class SetupDatabase
 end
 
 # check for database cluster & create table if none exists
-
 begin
   setup = SetupDatabase.new
   if setup.database_exists?

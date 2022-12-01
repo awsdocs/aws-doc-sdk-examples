@@ -9,8 +9,8 @@ require "json"
 require "rspec"
 require "aws-sdk-rdsdataservice"
 require "aws-sdk-ses"
-require_relative("../db_wrapper")
-require_relative("../report")
+require_relative("../src/db_wrapper")
+require_relative("../src/report")
 
 describe "CRUD commands on Aurora" do
   client = Aws::RDSDataService::Client.new
