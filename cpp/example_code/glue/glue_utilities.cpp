@@ -40,7 +40,7 @@ int AwsDoc::Glue::askQuestionForIntRange(const Aws::String &string, int low,
         result = std::stoi(resultString);
     }
     catch (const std::invalid_argument &) {
-        std::cerr << "DynamoDB::askQuestionForFloatRange string not an int "
+        std::cerr << "askQuestionForFloatRange string not an int "
                   << resultString << std::endl;
     }
 
@@ -72,12 +72,12 @@ Aws::String AwsDoc::Glue::askQuestion(const Aws::String &string,
     return result;
 }
 
-//! Scenario which retrieve the Amazon Resource Name (ARN) for an IAM role.
+//! Routine that retrieves the Amazon Resource Name (ARN) for an AWS Identity and Access Management (IAM) role.
 /*!
  \\sa getRoleArn()
  \param roleName: An IAM role name.
  \param roleName: A string to receive the role ARN.
- \param clientConfig Aws client configuration.
+ \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
  */
 bool AwsDoc::Glue::getRoleArn(const Aws::String &roleName, Aws::String &roleArn,

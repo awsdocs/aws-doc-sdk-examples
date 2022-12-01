@@ -133,6 +133,16 @@ glue_CreateCrawler:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.CreateCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.create_crawler
   services:
     glue: {CreateCrawler}
 glue_StartCrawler:
@@ -501,7 +511,7 @@ glue_ListJobs:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.get_crawler
+                - cpp.example_code.glue.list_jobs
   services:
     glue: {ListJobs}
 glue_GetJobRuns:

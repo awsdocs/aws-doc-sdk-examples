@@ -36,7 +36,7 @@ namespace AwsDocTest {
     private:
         static Aws::SDKOptions s_options;
 
-        std::stringbuf m_coutBuffer;  // Use just to silence cout.
+        std::stringbuf m_coutBuffer;  // Used to silence cout.
         std::streambuf *m_savedBuffer = nullptr;
 
         std::stringbuf m_cinBuffer;

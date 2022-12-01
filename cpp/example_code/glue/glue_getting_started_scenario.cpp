@@ -56,7 +56,6 @@
 #include <aws/glue/model/ListJobsRequest.h>
 #include <aws/glue/model/StartCrawlerRequest.h>
 #include <aws/glue/model/StartJobRunRequest.h>
-#include <aws/iam/IAMClient.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteObjectsRequest.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
@@ -86,10 +85,10 @@ namespace AwsDoc {
         //! Routine which uploads a file to an Amazon Simple Storage Service (Amazon S3) bucket.
         /*!
          \\sa uploadFile()
-         \param bucketName: An Amazon S3 bucket created in the setup.
+         \param bucketName: An S3 bucket created in the setup.
          \param filePath: The path of the file to upload.
          \param fileName The name for the uploaded file.
-         \param clientConfig Aws client configuration.
+         \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
         static bool uploadFile(const Aws::String &bucketName,
@@ -97,23 +96,23 @@ namespace AwsDoc {
                                const Aws::String &fileName,
                                const Aws::Client::ClientConfiguration &clientConfig);
 
-        //! Routine which deletes all objects in an Amazon S3 bucket.
+        //! Routine which deletes all objects in an S3 bucket.
         /*!
          \\sa deleteAllObjectsInS3Bucket()
-         \param bucketName: The Amazon S3 bucket name.
-         \param clientConfig Aws client configuration.
+         \param bucketName: The S3 bucket name.
+         \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
         static bool deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
                                                const Aws::Client::ClientConfiguration &clientConfig);
 
-        //! Routine which retrieves an object from an Amazon S3 bucket.
+        //! Routine which retrieves an object from an S3 bucket.
         /*!
          \\sa getObjectFromBucket()
-         \param bucketName: The Amazon S3 bucket name.
+         \param bucketName: The S3 bucket name.
          \param objectKey: The object's name.
          \param objectStream: A stream to receive the retrieved data.
-         \param clientConfig Aws client configuration.
+         \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
         static bool getObjectFromBucket(const Aws::String &bucketName,
@@ -128,8 +127,8 @@ namespace AwsDoc {
          \param crawler: Name of an AWS Glue crawler.
          \param database: The name of an AWS Glue database.
          \param job: The name of an AWS Glue job.
-         \param bucketName: The name of an Amazon S3 bucket.
-         \param clientConfig Aws client configuration.
+         \param bucketName: The name of an S3 bucket.
+         \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
         static bool
@@ -145,9 +144,9 @@ namespace AwsDoc {
 //! Scenario which demonstrates using AWS Glue to add a crawler and run a job.
 /*!
  \\sa runGettingStartedWithGlueScenario()
- \param bucketName: An Amazon Simple Storage Service (Amazon S3) bucket created in the setup.
+ \param bucketName: An S3 bucket created in the setup.
  \param roleName: An AWS Identity and Access Management (IAM) role created in the setup.
- \param clientConfig Aws client configuration.
+ \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
  */
 
@@ -362,7 +361,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 // snippet-end:[cpp.example_code.glue.get_tables]
     }
 
-    // 7. Create a job
+    // 7. Create a job.
     {
 // snippet-start:[cpp.example_code.glue.create_job]
         Aws::Glue::Model::CreateJobRequest request;
@@ -400,7 +399,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 
         Aws::Map<Aws::String, Aws::String> arguments;
         arguments["--input_database"] = CRAWLER_DATABASE_NAME;
-        arguments["--input_table"] = "doc-example-csv"; // TODO remove tableName;
+        arguments["--input_table"] = tableName;
         arguments["--output_bucket_url"] = Aws::String("s3://") + bucketName + "/";
         request.SetArguments(arguments);
 
@@ -622,8 +621,8 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
  \param crawler: Name of an AWS Glue crawler.
  \param database: The name of an AWS Glue database.
  \param job: The name of an AWS Glue job.
- \param bucketName: The name of an Amazon S3 bucket.
- \param clientConfig Aws client configuration.
+ \param bucketName: The name of an S3 bucket.
+ \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
  */
 bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &database,
@@ -697,13 +696,13 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
     return result;
 }
 
-//! Routine which uploads a file to an Amazon S3 bucket.
+//! Routine which uploads a file to an S3 bucket.
 /*!
  \\sa uploadFile()
- \param bucketName: An Amazon S3 bucket created in the setup.
+ \param bucketName: An S3 bucket created in the setup.
  \param filePath: The path of the file to upload.
  \param fileName The name for the uploaded file.
- \param clientConfig Aws client configuration.
+ \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
  */
 bool
@@ -744,11 +743,11 @@ AwsDoc::Glue::uploadFile(const Aws::String &bucketName,
     return outcome.IsSuccess();
 }
 
-//! Routine which deletes all objects in an Amazon S3 bucket.
+//! Routine which deletes all objects in an S3 bucket.
 /*!
  \\sa deleteAllObjectsInS3Bucket()
- \param bucketName: The Amazon S3 bucket name.
- \param clientConfig Aws client configuration.
+ \param bucketName: The S3 bucket name.
+ \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
  */
 bool AwsDoc::Glue::deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
@@ -802,13 +801,13 @@ bool AwsDoc::Glue::deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
     return result;
 }
 
-//! Routine which retrieves an object from an Amazon S3 bucket.
+//! Routine which retrieves an object from an S3 bucket.
 /*!
  \\sa getObjectFromBucket()
- \param bucketName: The Amazon S3 bucket name.
+ \param bucketName: The S3 bucket name.
  \param objectKey: The object's name.
  \param objectStream: A stream to receive the retrieved data.
- \param clientConfig Aws client configuration.
+ \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
  */
 bool AwsDoc::Glue::getObjectFromBucket(const Aws::String &bucketName,
@@ -842,7 +841,7 @@ bool AwsDoc::Glue::getObjectFromBucket(const Aws::String &bucketName,
  *
  *  main function
  *
- * Prerequisites: An IAM role and an Amazon S3 bucket.
+ * Prerequisites: An IAM role and an S3 bucket.
  *
  * To create the resources required by this example, see the "Prerequisites" section in the README.
  *

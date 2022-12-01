@@ -19,7 +19,7 @@ namespace AwsDoc {
          \\sa runGettingStartedWithGlueScenario()
          \param bucketName: An Amazon Simple Storage Service (Amazon S3) bucket created in the setup.
          \param roleName: An AWS Identity and Access Management (IAM) role created in the setup.
-         \param clientConfig Aws client configuration.
+         \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
         bool runGettingStartedWithGlueScenario(const Aws::String &bucketName,
@@ -27,12 +27,12 @@ namespace AwsDoc {
                                                const Aws::Client::ClientConfiguration &clientConfig);
 
 
-        //! Scenario which retrieve the Amazon Resource Name (ARN) for an IAM role.
+        //! Routine that retrieves the Amazon Resource Name (ARN) for an IAM role.
         /*!
          \\sa getRoleArn()
          \param roleName: An IAM role name.
          \param roleName: A string to receive the role ARN.
-         \param clientConfig Aws client configuration.
+         \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
         bool getRoleArn(const Aws::String &roleName, Aws::String &roleArn,
