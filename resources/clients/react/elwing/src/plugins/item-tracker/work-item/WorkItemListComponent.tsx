@@ -14,7 +14,12 @@ import {
   Table,
 } from "@cloudscape-design/components";
 import { OptionDefinition } from "@cloudscape-design/components/internal/components/option/interfaces";
-import { useItemTrackerAction, useItemTrackerState, WorkItemsFilter } from "../ItemTrackerStore";
+import {
+  useItemTrackerAction,
+  useItemTrackerState,
+  WorkItemsFilter,
+} from "../ItemTrackerStore";
+import { AddWorkItem } from "./AddWorkItemComponent";
 
 export const FILTER_OPTIONS: OptionDefinition[] = [
   { value: "active", label: "Active" },
@@ -25,14 +30,24 @@ export const FILTER_OPTIONS: OptionDefinition[] = [
 export const WorkItemControls = () => {
   const [email, setEmail] = useState("");
   const [filter, setFilter] = useState(FILTER_OPTIONS[0]);
-  const { setFilter: handleFilterChange, setError } = useItemTrackerAction();
+  const {
+    setFilter: handleFilterChange,
+    setError,
+    loadItems,
+    setSelectedItems,
+  } = useItemTrackerAction();
+  const { selectedItems } = useItemTrackerState();
 
   const sendReport = useCallback(
     async (email: string) => {
       try {
-        service.mailItem(email);
+        setError("");
+        await service.mailItem(email);
       } catch (e) {
-        setError((e as Error).message);
+        console.error(e);
+        setError(
+          "There was an error sending the report. Check the console for more information."
+        );
       }
     },
     [setError]
@@ -41,6 +56,17 @@ export const WorkItemControls = () => {
   useEffect(() => {
     handleFilterChange(filter.value as WorkItemsFilter);
   }, [filter, handleFilterChange]);
+
+  const archiveItems = async (itemIds: WorkItem["id"][]) => {
+    try {
+      setSelectedItems([]);
+      const archiveRequests = itemIds.map((id) => service.archiveItem(id));
+      await Promise.all(archiveRequests);
+      await loadItems();
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  };
 
   return (
     <SpaceBetween size="s">
@@ -51,6 +77,14 @@ export const WorkItemControls = () => {
           options={FILTER_OPTIONS}
         />
       </FormField>
+
+      <AddWorkItem />
+      <Button
+        disabled={selectedItems.length === 0}
+        onClick={() => archiveItems(selectedItems)}
+      >
+        Archive item(s)
+      </Button>
       <FormField
         label="Email Report"
         description="Register the recipient's email with Amazon SES."
@@ -70,7 +104,7 @@ export const WorkItemControls = () => {
 
 export const WorkItems = () => {
   const [selected, setSelected] = useState<WorkItem[]>([]);
-  const { loadItems, setError } = useItemTrackerAction();
+  const { loadItems, setSelectedItems } = useItemTrackerAction();
   const items = useItemTrackerState(({ items }) => items);
   const filter = useItemTrackerState(({ filter }) => filter);
 
@@ -78,20 +112,17 @@ export const WorkItems = () => {
     loadItems();
   }, [loadItems, filter]);
 
-  const archiveItem = async (itemId: string) => {
-    try {
-      await service.archiveItem(itemId);
-      await loadItems();
-    } catch (e) {
-      setError((e as Error).message);
-    }
-  };
+  useEffect(() => {
+    setSelectedItems(selected.map(({ id }) => id));
+  }, [selected, setSelectedItems]);
 
   return (
     <Table
       variant="embedded"
       selectedItems={selected}
+      selectionType="multi"
       sortingDisabled
+      wrapLines
       onSelectionChange={({ detail }) =>
         setSelected(detail.selectedItems as WorkItem[])
       }
@@ -119,20 +150,6 @@ export const WorkItems = () => {
           header: "Status",
           cell: (e) => e.status,
           sortingField: "status",
-        },
-        {
-          id: "archive",
-          header: "",
-          cell: (e) =>
-            e.archived ? (
-              <Button variant="normal" disabled={true}>
-                Archived
-              </Button>
-            ) : (
-              <Button variant="normal" onClick={() => archiveItem(e.id)}>
-                Archive
-              </Button>
-            ),
         },
       ]}
       empty={<Alert>No work items found.</Alert>}

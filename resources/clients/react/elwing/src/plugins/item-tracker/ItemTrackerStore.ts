@@ -8,6 +8,7 @@ export type WorkItemsFilter = "archived" | "active" | "";
 
 interface ItemTrackerState {
   items: WorkItem[];
+  selectedItems: WorkItem["id"][];
   filter: WorkItemsFilter;
   error: string;
   loading: boolean;
@@ -18,6 +19,7 @@ interface ItemTrackerActions {
   setError: (error: string) => void;
   clearError: () => void;
   setLoading: (loading: boolean) => void;
+  setSelectedItems: (items: WorkItem["id"][]) => void;
   loadItems: () => Promise<void>;
 }
 
@@ -37,7 +39,7 @@ export const useItemTrackerState = create<
       try {
         const filter = get().filter;
         const items = await workItemService.list(
-          filter ? { archived: filter === "archived" ? 'true' : 'false' } : {}
+          filter ? { archived: filter === "archived" ? "true" : "false" } : {}
         );
         set({ items });
       } catch (e) {
@@ -46,6 +48,7 @@ export const useItemTrackerState = create<
         actions.setLoading(false);
       }
     },
+    setSelectedItems: (selectedItems) => set({ selectedItems }),
   };
 
   return {
@@ -53,6 +56,7 @@ export const useItemTrackerState = create<
     error: "",
     loading: false,
     items: [],
+    selectedItems: [],
     actions,
   };
 });

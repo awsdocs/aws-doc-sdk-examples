@@ -1,20 +1,17 @@
 {
-  "name": "aws-sdk-v3-iam-examples",
+  "name": "ses",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
-  "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
+  "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache 2.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js",
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.32.0",
-    "@aws-sdk/node-http-handler": "^3.32.0",
-    "@aws-sdk/types": "^3.32.0",
-    "jest": "^26.6.3",
-    "node-fetch": "^2.6"
+    "@aws-sdk/client-ses": "^3.215.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.23",
-    "typescript": "^4.0.2"
-  },
-  "type": "module"
+    "vitest": "^0.25.2"
+  }
 }

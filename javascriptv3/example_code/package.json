@@ -4,7 +4,7 @@
   "description": "This package is solely for linting purposes.",
   "main": "index.js",
   "author": "corepyle@amazon.com",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",

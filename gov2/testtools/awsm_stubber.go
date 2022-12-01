@@ -7,12 +7,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
+	"reflect"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	sdkmiddleware "github.com/aws/aws-sdk-go-v2/aws/middleware"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/smithy-go/middleware"
-	"log"
-	"reflect"
 )
 
 // StubError contains an error that is raised by a stub. ContinueAfter specifies
@@ -36,20 +37,71 @@ type Stub struct {
 	Input interface{}
 	Output interface{}
 	SkipErrorTest bool
+	IgnoreFields []string
 	Error *StubError
+}
+
+func isIgnorable(name string, ignorables [] string) bool {
+	for _, ig := range ignorables {
+		if name == ig {
+			return true
+		}
+	}
+	return false
+}
+
+func getComparableFields(x interface{}, ignorables []string) []string {
+	t := reflect.TypeOf(x)
+	if t.Kind() == reflect.Ptr {
+		t = t.Elem()
+	}
+	var fields []string
+	for i := 0; i < t.NumField(); i++ {
+		name := t.Field(i).Name
+		if t.Field(i).IsExported() && !isIgnorable(name, ignorables) {
+			fields = append(fields, name)
+		}
+	}
+	return fields
+}
+
+func getComparableValues(x interface{}, fields []string) []interface{} {
+	var valDeref reflect.Value
+	val := reflect.ValueOf(x)
+	if val.Kind() == reflect.Ptr {
+		valDeref = val.Elem()
+	} else {
+		valDeref = val
+	}
+	var vals []interface{}
+	for _, field := range fields {
+		vals = append(vals, valDeref.FieldByName(field).Interface())
+	}
+	return vals
 }
 
 // Compare compares the actual input to a service action against the expected input
 // specified in the stub. If they are not equal according to reflect.DeepEqual, an
 // error is returned.
 func (stub Stub) Compare(actual interface{}) error {
+	comparableFields := getComparableFields(stub.Input, stub.IgnoreFields)
+	actualValues := getComparableValues(actual, comparableFields)
+	stubValues := getComparableValues(stub.Input, comparableFields)
+
 	var err error
-	if !reflect.DeepEqual(actual, stub.Input) {
-		actType := reflect.TypeOf(actual)
-		act, _ := json.MarshalIndent(actual, "", "  ")
-		expType := reflect.TypeOf(stub.Input)
-		exp, _ := json.MarshalIndent(stub.Input, "", "  ")
-		err = fmt.Errorf("\n**** Mismatched inputs ****\nGot:\n%s\n%s\nExpected:\n%s\n%s", actType, act, expType, exp)
+	for i := 0; i < len(actualValues); i++ {
+		actualValue := actualValues[i]
+		stubValue := stubValues[i]
+		if !reflect.DeepEqual(actualValue, stubValue) {
+			parentType := reflect.TypeOf(actual)
+			actType := reflect.TypeOf(actualValue)
+			act, _ := json.MarshalIndent(actualValue, "", "  ")
+			expType := reflect.TypeOf(stubValue)
+			exp, _ := json.MarshalIndent(stubValue, "", "  ")
+			err = fmt.Errorf("\n**** Mismatched inputs for%v.%v****\nGot:\n%s\n%s\nExpected:\n%s\n%s",
+				parentType, comparableFields[i], actType, act, expType, exp)
+			break
+		}
 	}
 	return err
 }
