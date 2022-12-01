@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package main
 
 import (
@@ -11,6 +13,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/rekognition/types"
 )
 
+// main will call the Rekognition DetectCustomLabels API with the arguments
+// specified from command line flags
+// It will print the custom labels detected
 func main() {
 
 	bucketName := flag.String("b", "", "The name of the bucket to get the object")
