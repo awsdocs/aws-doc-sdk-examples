@@ -32,11 +32,13 @@ func main() {
 	svc := rekognition.NewFromConfig(cfg)
 	var s3Obj = types.S3Object{
 		Bucket: bucketName,
-		Name:   image}
+		Name:   image,
+	}
 
 	resp, err := svc.DetectCustomLabels(context.TODO(), &rekognition.DetectCustomLabelsInput{
 		Image: &types.Image{
-			S3Object: &s3Obj},
+			S3Object: &s3Obj,
+		},
 		ProjectVersionArn: modelArn,
 		MinConfidence:     aws.Float32(minConfidence),
 	})
