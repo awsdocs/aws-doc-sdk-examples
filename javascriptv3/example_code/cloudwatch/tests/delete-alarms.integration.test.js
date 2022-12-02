@@ -33,7 +33,7 @@ describe("delete-alarms", () => {
     await deleteAlarms([alarmName]);
   });
 
-  it("should delete an alarm", async () => {
+  it("should set an alarm to enabled", async () => {
     process.env.CLOUDWATCH_ALARM_NAME = alarmName;
 
     const mod = await import("../actions/delete-alarms.js");
