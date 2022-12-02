@@ -99,6 +99,8 @@ namespace ManageACLsExample
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
+        // snippet-start:[S3.dotnetv3.GetACL]
+
         /// <summary>
         /// Retrieves the ACL associated with the Amazon S3 bucket name in the
         /// bucketName parameter.
@@ -118,6 +120,10 @@ namespace ManageACLsExample
 
             return response.AccessControlList;
         }
+
+        // snippet-end:[S3.dotnetv3.GetACL]
+
+        // snippet-start:[S3.dotnetv3.PutACL]
 
         /// <summary>
         /// Adds a new ACL to an existing object in the Amazon S3 bucket.
@@ -184,6 +190,8 @@ namespace ManageACLsExample
                 AccessControlList = newAcl,
             });
         }
+
+        // snippet-end:[S3.dotnetv3.PutACL]
     }
 
     // snippet-end:[S3.dotnetv3.ManageACLsExample]
