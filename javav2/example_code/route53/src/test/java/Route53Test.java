@@ -25,8 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -87,78 +85,71 @@ public class Route53Test {
 
     @Test
     @Order(1)
-    public void whenInitializingAWSService_thenNotNull() {
-        assertNotNull(route53Client);
+    public void createHealthCheck() {
+        healthCheckId= CreateHealthCheck.createCheck(route53Client, domainName);
+        assertFalse(healthCheckId.isEmpty());
         System.out.println("Test 1 passed");
     }
 
     @Test
     @Order(2)
-    public void CreateHealthCheck() {
-        healthCheckId= CreateHealthCheck.createCheck(route53Client, domainName);
-        assertFalse(healthCheckId.isEmpty());
+    public void createHostedZone() {
+        hostedZoneId= CreateHostedZone.createZone(route53Client, domainName);
+        assertFalse(hostedZoneId.isEmpty());
         System.out.println("Test 2 passed");
     }
 
     @Test
     @Order(3)
-    public void CreateHostedZone() {
-        hostedZoneId= CreateHostedZone.createZone(route53Client, domainName);
-        assertFalse(hostedZoneId.isEmpty());
-        System.out.println("Test 3 passed");
-    }
-
-    @Test
-    @Order(4)
-    public void GetHealthCheckStatus() {
+    public void getHealthCheckStatus() {
     try{
         TimeUnit.SECONDS.sleep(20); // wait for the new health check
         GetHealthCheckStatus.getHealthStatus(route53Client, healthCheckId);
 
       } catch (InterruptedException e) {
         e.printStackTrace();
-       }
+      }
+      System.out.println("Test 3 passed");
+    }
+
+    @Test
+    @Order(4)
+    public void listHealthChecks() {
+        ListHealthChecks.listAllHealthChecks(route53Client);
         System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
-    public void ListHealthChecks() {
-        ListHealthChecks.listAllHealthChecks(route53Client);
+    public void updateHealthCheck() {
+        UpdateHealthCheck.updateSpecificHealthCheck(route53Client, healthCheckId );
         System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(6)
-    public void UpdateHealthCheck() {
-        UpdateHealthCheck.updateSpecificHealthCheck(route53Client, healthCheckId );
-        System.out.println("Test 6 passed");
-   }
+    public void listHostedZones() {
+       ListHostedZones.listZones(route53Client);
+       System.out.println("Test 6 passed");
+    }
 
     @Test
     @Order(7)
-   public void ListHostedZones() {
-       ListHostedZones.listZones(route53Client);
+    public void deleteHealthCheck() {
+        DeleteHealthCheck.delHealthCheck(route53Client, healthCheckId);
         System.out.println("Test 7 passed");
-   }
+    }
 
     @Test
     @Order(8)
-    public void DeleteHealthCheck() {
-        DeleteHealthCheck.delHealthCheck(route53Client, healthCheckId);
+    public void deleteHostedZone() {
+        DeleteHostedZone.delHostedZone(route53Client, hostedZoneId);
         System.out.println("Test 8 passed");
     }
 
     @Test
     @Order(9)
-    public void DeleteHostedZone() {
-        DeleteHostedZone.delHostedZone(route53Client, hostedZoneId);
-        System.out.println("Test 9 passed");
-    }
-
-    @Test
-    @Order(10)
-    public void ScenarioTest() {
+    public void scenarioTest() {
         System.out.println(DASHES);
         System.out.println("1. List current domains.");
         Route53Scenario.listDomains(route53DomainsClient);
@@ -204,6 +195,6 @@ public class Route53Test {
         System.out.println("9. Get an operation detail.");
         Route53Scenario.getOperationalDetail(route53DomainsClient, opId);
         System.out.println(DASHES);
-        System.out.println("Test 10 Passed");
+        System.out.println("Test 9 Passed");
     }
 }
