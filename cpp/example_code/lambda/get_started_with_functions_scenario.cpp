@@ -71,6 +71,9 @@ namespace AwsDoc {
 
         static int askQuestionForInt(const Aws::String &string);
 
+        int askQuestionForIntRange(const Aws::String &string, int low,
+                                                   int high);
+
         static bool invokeLambdaFunction(const Aws::Utils::Json::JsonValue &jsonPayload,
                                          Aws::Lambda::Model::LogType logType,
                 Aws::Lambda::Model::InvokeResult& invokeResult,
@@ -157,7 +160,6 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         }
     }
 
-
     std::cout << "The Lambda function will now be updated with new code. Press return to continue, ";
     std::cin.get();
     {
@@ -181,7 +183,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         }
     }
 
-    // TODO: explain setting environment variables
+    std::cout << "This function uses an environment variable to control logging level." << std::endl;
+    std::cout << "UpdateFunctionConfiguration will be used to set it LOG_LEVEL to DEBUG." << std::endl;
     seconds = 0;
     do
     {
@@ -221,10 +224,21 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         std::cout << "Updated function active after " << seconds << " seconds." << std::endl;
     }
 
+    std::cout << "\n\nThe new code applies an arithmetic operator to two variables, x an y."  << std::endl;
+    std::vector<Aws::String> operators = {"plus", "minus", "times", "divided-by"};
+    for (size_t i = 0; i < operators.size(); ++i)
+    {
+        std::cout << "   " << i + 1 << " " << operators[i] << std::endl;
+    }
+
+    int operatorIndex = askQuestionForIntRange("Select an operator index 1 - 4 ", 1, 4);
+    int x = askQuestionForInt("Enter an integer for the x value ");
+    int y = askQuestionForInt("Enter an integer for the y value ");
+
     Aws::Utils::Json::JsonValue calculateJsonPayload;
-    calculateJsonPayload.WithString("action", "plus");
-    calculateJsonPayload.WithInteger("x", 4);  // TODO: ask for nnumber
-    calculateJsonPayload.WithInteger("y", 5);  // TODO: ask for nnumber
+    calculateJsonPayload.WithString("action", operators[operatorIndex- 1]);
+    calculateJsonPayload.WithInteger("x", x);
+    calculateJsonPayload.WithInteger("y", y);
     Aws::Lambda::Model::InvokeResult calculatedResult;
     if (invokeLambdaFunction(calculateJsonPayload, Aws::Lambda::Model::LogType::Tail,
                              calculatedResult, client))
@@ -234,8 +248,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         auto iter = values.find("result");
         if (iter != values.end() && iter->second.IsIntegerType())
         {
-            // TODO: change the operation
-            std::cout << "The result of the increment is " << iter->second.AsInteger() << std::endl;
+            std::cout << "The result of " << x << " " << operators[operatorIndex- 1] << " "
+            << y << " is " << iter->second.AsInteger() << std::endl;
         }
         else{
             std::cout << "There was an error in execution. Here is the log." << std::endl;
@@ -487,6 +501,41 @@ int AwsDoc::Lambda::askQuestionForInt(const Aws::String &string) {
     }
     return result;
 }
+
+//! Command line prompt/response utility function for an int result confined to
+//! a range.
+/*!
+ \sa askQuestionForIntRange()
+ \param string: A question prompt.
+ \param low: Low inclusive.
+ \param high: High inclusive.
+ \return int: User's response.
+ */
+int AwsDoc::Lambda::askQuestionForIntRange(const Aws::String &string, int low,
+                                             int high) {
+    Aws::String resultString = askQuestion(string, [low, high](
+            const Aws::String &string1) -> bool {
+            try {
+                int number = std::stoi(string1);
+                return number >= low && number <= high;
+            }
+            catch (const std::invalid_argument &) {
+                return false;
+            }
+    });
+
+    int result = 0;
+    try {
+        result = std::stoi(resultString);
+    }
+    catch (const std::invalid_argument &) {
+        std::cerr << "askQuestionForFloatRange string not an int "
+                  << resultString << std::endl;
+    }
+
+    return result;
+}
+
 
 bool AwsDoc::Lambda::invokeLambdaFunction(const Aws::Utils::Json::JsonValue &jsonPayload,
                                           Aws::Lambda::Model::LogType logType,
