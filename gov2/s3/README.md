@@ -1,7 +1,8 @@
 # Amazon S3 code examples for the SDK for Go
+
 ## Overview
 
-Shows how to use the AWS SDK for Go V2 to get started with bucket and
+Shows how to use the AWS SDK for Go (v2) to get started with bucket and
 object actions in Amazon Simple Storage Service (Amazon S3).
 
 *Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any

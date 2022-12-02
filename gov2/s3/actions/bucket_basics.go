@@ -24,7 +24,7 @@ import (
 
 // BucketBasics encapsulates the Amazon Simple Storage Service (Amazon S3) actions
 // used in the examples.
-// It contains S3Client, an S3 service client that is used to perform bucket
+// It contains S3Client, an Amazon S3 service client that is used to perform bucket
 // and object actions.
 type BucketBasics struct {
 	S3Client *s3.Client
