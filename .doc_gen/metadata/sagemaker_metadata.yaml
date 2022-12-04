@@ -13,6 +13,14 @@ sagemaker_ListNotebookInstances:
             - description:
               snippet_tags:
                 - sagemaker.rust.sagemaker-helloworld
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.list_notebook_instances
   services:
     sagemaker: {ListNotebookInstances}
 sagemaker_ListTrainingJobs:
@@ -29,5 +37,180 @@ sagemaker_ListTrainingJobs:
             - description:
               snippet_tags:
                 - sagemaker.rust.list-training-jobs
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.list_training_jobs
   services:
     sagemaker: {ListTrainingJobs}
+sagemaker_CreateEndpoint:
+  title: Create a &SM; endpoint using an &AWS; SDK
+  title_abbrev: Create an endpoint
+  synopsis: create a &SM; endpoint.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.create_endpoint
+  services:
+    sagemaker: {CreateEndpoint, CreateEndpointConfig}
+sagemaker_CreateModel:
+  title: Create a model in &SM; using an &AWS; SDK
+  title_abbrev: Create a model
+  synopsis: create a model in &SM;.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.create_model
+  services:
+    sagemaker: {CreateModel}
+sagemaker_CreateTrainingJob:
+  title: Create and start a &SM; training job using an &AWS; SDK
+  title_abbrev: Start a training job
+  synopsis: start a &SM; training job.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.create_training_job
+  services:
+    sagemaker: {CreateTrainingJob}
+sagemaker_CreateTransformJob:
+  title: Create and start a &SM; transform job using an &AWS; SDK
+  title_abbrev: Start a transform job
+  synopsis: start a &SM; transform job.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.create_transform_job
+  services:
+    sagemaker: {CreateTransformJob}
+sagemaker_DeleteEndpoint:
+  title: Delete a &SM; endpoint using an &AWS; SDK
+  title_abbrev: Delete an endpoint
+  synopsis: delete a &SM; endpoint.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.delete_endpoint
+  services:
+    sagemaker: {DeleteEndpoint, DeleteEndpointConfig}
+sagemaker_DeleteModel:
+  title: Delete a model in &SM; using an &AWS; SDK
+  title_abbrev: Delete a model
+  synopsis: delete a model in &SM;.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.delete_model
+  services:
+    sagemaker: {DeleteModel}
+sagemaker_DescribeTrainingJob:
+  title: Describe a &SM; training job using an &AWS; SDK
+  title_abbrev: Describe a training job
+  synopsis: describe a &SM; training job.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.describe_training_job
+  services:
+    sagemaker: {DescribeTrainingJob}
+sagemaker_ListAlgorithms:
+  title: List the machine learning algorithms using an &AWS; SDK
+  title_abbrev: List the machine learning algorithms
+  synopsis: list &SM; machine learning algorithms.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.list_algorithms
+  services:
+    sagemaker: {ListAlgorithms}
+sagemaker_ListModels:
+  title: List models in &SM; using an &AWS; SDK
+  title_abbrev: List models
+  synopsis: list models in &SM;.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.list_models
+  services:
+    sagemaker: {ListModels}
+sagemaker_Scenario_GettingStarted:
+  title: Get started with &SM; models and endpoints using an &AWS; SDK
+  title_abbrev: Get started with models and endpoints
+  synopsis_list:
+    - Start a training job.
+    - Create a &SM; model.
+    - Create an endpoint configuration.
+    - Create an endpoint.
+    - Delete an endpoint.
+    - Delete an endpoint configuration.
+    - Delete a model.
+  category: Scenarios
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sgm.abapv1.getting_started_with_sgm
+  services:
+    sagemaker: {CreateTrainingJob, DescribeTrainingJob, CreateModel, CreateEndpointConfig, CreateEndpoint, DescribeEndpoint, DeleteEndpoint, DeleteEndpointConfig, DeleteModel}

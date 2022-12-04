@@ -1,8 +1,0 @@
-Work item report
-
-{{message}}
-
-ID,Name,Created,Description,Status
-{% for item in items %}
-{{item.item_id}},{{item.name}},{{item.formatted_date}},{{item.description}},{{item.status}}
-{% endfor %}

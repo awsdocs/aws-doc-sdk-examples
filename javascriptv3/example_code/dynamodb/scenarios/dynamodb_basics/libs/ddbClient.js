@@ -13,8 +13,7 @@ Inputs (replace in code):
 // snippet-start:[dynamodb.JavaScript.scenario.basics.createclientv3]
 // Create the DynamoDB service client module using ES6 syntax.
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-// Set the AWS Region.
-export const REGION = "REGION"; // For example, "us-east-1".
+import { DEFAULT_REGION } from "../../../../libs/utils/util-aws-sdk.js";
 // Create an Amazon DynamoDB service client object.
-export const ddbClient = new DynamoDBClient({ region: REGION });
+export const ddbClient = new DynamoDBClient({ region: DEFAULT_REGION });
 // snippet-end:[dynamodb.JavaScript.scenario.basics.createclientv3]

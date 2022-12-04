@@ -22,7 +22,6 @@ using namespace Aws::TranscribeStreamingService::Model;
 //TODO(User): Update path to location of local .wav test file, if necessary.
 static const Aws::String FILE_NAME{MEDIA_DIR "/transcribe-test-file.wav"};
 static const int BUFFER_SIZE = 1024;
-static const int END_OF_STREAM_SLEEP_SECONDS = 10;
 
 //snippet-start:[transcribe.cpp.stream_transcription_async.code]
 int main() {
@@ -33,7 +32,7 @@ int main() {
         //TODO(User): Set to the region of your AWS account.
         const Aws::String region = Aws::Region::US_WEST_2;
 
-        Aws::Utils::Threading::Semaphore received(0 /*initialCount*/, 1 /*maxCount*/);
+        Aws::Utils::Threading::Semaphore canCloseStream(0 /*initialCount*/, 1 /*maxCount*/);
 
         //Load a profile that has been granted AmazonTranscribeFullAccess AWS managed permission policy.
         Aws::Client::ClientConfiguration config;
@@ -56,19 +55,23 @@ int main() {
                 });
         //SetTranscriptEventCallback called for every 'chunk' of file transcripted.
         // Partial results are returned in real time.
-        handler.SetTranscriptEventCallback([&received](const TranscriptEvent &ev) {
+        handler.SetTranscriptEventCallback([&canCloseStream](const TranscriptEvent &ev) {
+                bool isFinal = false;
                 for (auto &&r: ev.GetTranscript().GetResults()) {
                     if (r.GetIsPartial()) {
                         std::cout << "[partial] ";
                     }
                     else {
                         std::cout << "[Final] ";
+                        isFinal = true;
                     }
                     for (auto &&alt: r.GetAlternatives()) {
                         std::cout << alt.GetTranscript() << std::endl;
                     }
                 }
-                received.Release();
+                if (isFinal) {
+                    canCloseStream.Release();
+                }
         });
 
         StartStreamTranscriptionRequest request;
@@ -78,7 +81,7 @@ int main() {
                 MediaEncoding::pcm); // wav and aiff files are PCM formats.
         request.SetEventStreamHandler(handler);
 
-        auto OnStreamReady = [](AudioStream &stream) {
+        auto OnStreamReady = [&canCloseStream](AudioStream &stream) {
                 Aws::FStream file(FILE_NAME, std::ios_base::in | std::ios_base::binary);
                 if (!file.is_open()) {
                     std::cerr << "Failed to open " << FILE_NAME << '\n';
@@ -121,19 +124,26 @@ int main() {
                     std::cout << "Successfully sent the empty frame" << std::endl;
                 }
                 stream.flush();
-                // Workaround to prevent an error at the end of the stream for this contrived example.
-                std::this_thread::sleep_for(std::chrono::seconds(
-                        END_OF_STREAM_SLEEP_SECONDS));
+                // Wait until the final transcript or an error is received.
+                // Closing the stream prematurely will trigger an error.
+                canCloseStream.WaitOne();
                 stream.Close();
-        };
+         };
 
         Aws::Utils::Threading::Semaphore signaling(0 /*initialCount*/, 1 /*maxCount*/);
-        auto OnResponseCallback = [&signaling](
+        auto OnResponseCallback = [&signaling, &canCloseStream](
                 const TranscribeStreamingServiceClient * /*unused*/,
                 const Model::StartStreamTranscriptionRequest & /*unused*/,
-                const Model::StartStreamTranscriptionOutcome & /*unused*/,
+                const Model::StartStreamTranscriptionOutcome & outcome,
                 const std::shared_ptr<const Aws::Client::AsyncCallerContext> & /*unused*/) {
-                signaling.Release();
+
+            if (!outcome.IsSuccess())
+            {
+                std::cerr << "Transcribe streaming error " << outcome.GetError().GetMessage() << std::endl;
+            }
+
+            canCloseStream.Release();
+            signaling.Release();
         };
 
         std::cout << "Starting..." << std::endl;

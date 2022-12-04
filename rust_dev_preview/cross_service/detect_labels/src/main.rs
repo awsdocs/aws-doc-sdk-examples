@@ -90,7 +90,7 @@ fn get_exif_data(filename: &str) -> Edata {
         created,
     };
 
-    let file = std::fs::File::open(&filename).unwrap();
+    let file = std::fs::File::open(filename).unwrap();
     let mut bufreader = std::io::BufReader::new(&file);
     let exifreader = exif::Reader::new();
 
@@ -101,9 +101,9 @@ fn get_exif_data(filename: &str) -> Edata {
             for f in exif.fields() {
                 // Get EXIF values for image width, height, and when image was created.
                 match &*f.tag.to_string() {
-                    "ImageWidth" => edata.height.push_str(&*f.display_value().to_string()),
-                    "ImageLength" => edata.width.push_str(&*f.display_value().to_string()),
-                    "DateTimeOriginal" => edata.created.push_str(&*f.display_value().to_string()),
+                    "ImageWidth" => edata.height.push_str(&f.display_value().to_string()),
+                    "ImageLength" => edata.width.push_str(&f.display_value().to_string()),
+                    "DateTimeOriginal" => edata.created.push_str(&f.display_value().to_string()),
                     _ => {}
                 }
             }

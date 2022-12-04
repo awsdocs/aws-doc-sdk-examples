@@ -118,7 +118,7 @@ dynamodb_BatchGetItem:
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
+                - dynamodb.dotnetv3.LowLevelBatchGetExample
     Python:
       versions:
         - sdk_version: 3
@@ -156,6 +156,14 @@ dynamodb_DescribeTable:
   synopsis: get information about a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.DescribeTableExample
     Java:
       versions:
         - sdk_version: 2
@@ -529,6 +537,14 @@ dynamodb_GetItem:
   synopsis: get an item from a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
     C++:
       versions:
         - sdk_version: 1
@@ -855,6 +871,14 @@ dynamodb_ListTables:
   synopsis: list &DDB; tables.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.ListTableExample
     C++:
       versions:
         - sdk_version: 1
@@ -1266,6 +1290,23 @@ dynamodb_ExecuteStatement:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLWrapper.class_decl
                 - python.example_code.dynamodb.ExecuteStatement
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          excerpts:
+            - description: Use an INSERT statement to add an item.
+              snippet_tags:
+                - cpp.example_code.dynamodb.ExecuteStatement.Insert
+            - description: Use a SELECT statement to get an item.
+              snippet_tags:
+                - cpp.example_code.dynamodb.ExecuteStatement.Select
+            - description: Use an UPDATE statement to update an item.
+              snippet_tags:
+                - cpp.example_code.dynamodb.ExecuteStatement.Update
+            - description: Use a DELETE statement to delete an item.
+              snippet_tags:
+                - cpp.example_code.dynamodb.ExecuteStatement.Delete
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_BatchExecuteStatement:
@@ -1352,6 +1393,23 @@ dynamodb_BatchExecuteStatement:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLBatchWrapper.class_decl
                 - python.example_code.dynamodb.BatchExecuteStatement
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          excerpts:
+            - description: Use batches of INSERT statements to add items.
+              snippet_tags:
+                - cpp.example_code.dynamodb.BatchExecuteStatement.Insert
+            - description: Use batches of SELECT statements to get items.
+              snippet_tags:
+                - cpp.example_code.dynamodb.BatchExecuteStatement.Select
+            - description: Use batches of UPDATE statements to update items.
+              snippet_tags:
+                - cpp.example_code.dynamodb.BatchExecuteStatement.Update
+            - description: Use batches of DELETE statements to delete items.
+              snippet_tags:
+                - cpp.example_code.dynamodb.BatchExecuteStatement.Delete
   services:
     dynamodb: {BatchExecuteStatement}
 dynamodb_Usage_DaxDemo:
@@ -1565,7 +1623,11 @@ dynamodb_Scenario_GettingStartedMovies:
           excerpts:
             - description:
               snippet_tags:
+                - cpp.example_code.dynamodb.Scenario_GettingStarted.main
                 - cpp.example_code.dynamodb.Scenario_GettingStarted
+                - cpp.example_code.dynamodb.scenario.createTable
+                - cpp.example_code.dynamodb.scenario.deleteTable
+                - cpp.example_code.dynamodb.scenario.waitTableActive
   services:
     dynamodb:
       {
@@ -1676,6 +1738,19 @@ dynamodb_Scenario_PartiQLSingle:
             - description: Run a scenario that creates a table and runs PartiQL queries.
               snippet_tags:
                 - python.example_code.dynamodb.Scenario_PartiQLSingle
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.dynamodb.Scenario_PartiQL_Single.main
+                - cpp.example_code.dynamodb.Scenario_PartiQL_Single
+                - cpp.example_code.dynamodb.scenario.createTable
+                - cpp.example_code.dynamodb.scenario.deleteTable
+                - cpp.example_code.dynamodb.scenario.waitTableActive
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_Scenario_PartiQLBatch:
@@ -1779,5 +1854,74 @@ dynamodb_Scenario_PartiQLBatch:
                 in batches.
               snippet_tags:
                 - python.example_code.dynamodb.Scenario_PartiQLBatch
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.dynamodb.Scenario_PartiQL_Batch.main
+                - cpp.example_code.dynamodb.Scenario_PartiQL_Batch
+                - cpp.example_code.dynamodb.scenario.createTable
+                - cpp.example_code.dynamodb.scenario.deleteTable
+                - cpp.example_code.dynamodb.scenario.waitTableActive
   services:
     dynamodb: {BatchExecuteStatement}
+dynamodb_HighLevelInterface:
+  title: Use a high-level object persistence model for &DDB; using an &AWS; SDK
+  title_abbrev: Use a high-level object persistence model
+  synopsis: perform Create, Read, Update, and Delete (CRUD) and batch operations using an object persistence model for &DDB; and an &AWS; SDK.
+  guide_topic:
+    title: Object persistence model
+    url: amazondynamodb/latest/developerguide/DotNetSDKHighLevel.html
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/high-level-api
+          excerpts:
+            - description: Perform CRUD operations using a high-level object persistence model.
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelItemCRUDExample
+            - description: Perform batch write operations using a high-level object persistence model.
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelBatchWriteItemExample
+            - description: Map arbitrary data to a table using a high-level object persistence model.
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelMappingArbitraryDataExample
+            - description: Query and scan a table using a high-level object persistence model.
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelQueryAndScanExample
+  services:
+    dynamodb: {}
+dynamodb_MidLevelInterface:
+  title: Use a document model for &DDB; using an &AWS; SDK
+  title_abbrev: Use a document model
+  synopsis: perform Create, Read, Update, and Delete (CRUD) and batch operations using a document model for &DDB; and an &AWS; SDK.
+  guide_topic:
+    title: Document model
+    url: amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/mid-level-api
+          excerpts:
+            - description: Perform CRUD operations using a document model.
+              snippet_tags:
+                - dynamodb.dotnetv3.MidlevelItemCRUDExample
+            - description: Perform batch write operations using a document model.
+              snippet_tags:
+                - dynamodb.dotnetv3.MidLevelBatchWriteItemExample
+            - description: Scan a table using a document model.
+              snippet_tags:
+                - dynamodb.dotnetv3.MidLevelScanOnlyExample
+            - description: Query and scan a table using a document model.
+              snippet_tags:
+                - dynamodb.dotnetv3.MidLevelQueryAndScanExample
+  services:
+    dynamodb: {}

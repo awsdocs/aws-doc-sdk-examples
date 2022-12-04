@@ -4,7 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{Client, Error, Region};
+use aws_sdk_s3::{Client, Region};
+use s3_service::error::Error;
 use uuid::Uuid;
 
 #[ignore]
@@ -43,7 +44,7 @@ async fn setup() -> (Region, Client, String, String, String, String) {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let bucket_name = format!("{}{}", "doc-example-bucket-", Uuid::new_v4().to_string());
+    let bucket_name = format!("{}{}", "doc-example-bucket-", Uuid::new_v4());
     let file_name = "../s3/testfile.txt".to_string();
     let key = "test file key name".to_string();
     let target_key = "target_key".to_string();

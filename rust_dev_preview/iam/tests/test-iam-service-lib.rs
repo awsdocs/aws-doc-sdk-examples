@@ -50,7 +50,7 @@ async fn test_create_service_linked_role() {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
-    let uuid = Uuid::new_v4().to_string().replace("-", "");
+    let uuid = Uuid::new_v4().to_string().replace('-', "");
     let role = iam_service::create_service_linked_role(
         &client,
         "autoscaling.amazonaws.com".parse().unwrap(),

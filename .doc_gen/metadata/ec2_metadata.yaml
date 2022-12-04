@@ -4,6 +4,24 @@ ec2_Hello:
   synopsis: get started using &EC2long; (&EC2;).
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_security_groups.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.describe_security_groups.main
     Python:
       versions:
         - sdk_version: 3
@@ -30,6 +48,15 @@ ec2_CreateKeyPair:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.CreateKeyPairExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.create_key_pair.main
     Java:
       versions:
         - sdk_version: 2
@@ -49,6 +76,14 @@ ec2_CreateKeyPair:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.CreateKeyPair
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.create_key_pair
   services:
     ec2: {CreateKeyPair}
 ec2_DescribeKeyPairs:
@@ -57,6 +92,24 @@ ec2_DescribeKeyPairs:
   synopsis: list &EC2; security key pairs.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_key_pairs.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.describe_key_pairs.main           
     Python:
       versions:
         - sdk_version: 3
@@ -67,6 +120,14 @@ ec2_DescribeKeyPairs:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DescribeKeyPairs
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_key_pairs
   services:
     ec2: {DescribeKeyPairs}
 
@@ -85,6 +146,15 @@ ec2_CreateSecurityGroup:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.CreateSecurityGroupExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.create_security_group.main
     Java:
       versions:
         - sdk_version: 2
@@ -104,6 +174,14 @@ ec2_CreateSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.CreateSecurityGroup
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.create_security_group
   services:
     ec2: {CreateSecurityGroup}
 ec2_RunInstances:
@@ -112,6 +190,15 @@ ec2_RunInstances:
   synopsis: create and run an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.create_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -131,6 +218,14 @@ ec2_RunInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.RunInstances
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.create_instance
   services:
     ec2: {RunInstances}
 ec2_CreateVpc:
@@ -165,6 +260,15 @@ ec2_StartInstances:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.StartInstancesExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.start_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -173,7 +277,7 @@ ec2_StartInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.start_stop_instance.start
+                - ec2.java2.scenario.start_instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -192,6 +296,14 @@ ec2_StartInstances:
             - description:
               snippet_tags:
                 - ec2.rust.start-instance
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.start_instance
   services:
     ec2: {StartInstances}
 ec2_StopInstances:
@@ -209,6 +321,15 @@ ec2_StopInstances:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.StopInstancesExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.stop_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -217,7 +338,7 @@ ec2_StopInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.start_stop_instance.stop
+                - ec2.java2.scenario.stop_instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -236,6 +357,14 @@ ec2_StopInstances:
             - description:
               snippet_tags:
                 - ec2.rust.stop-instance
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.stop_instance
   services:
     ec2: {StopInstances}
 ec2_AllocateAddress:
@@ -244,6 +373,15 @@ ec2_AllocateAddress:
   synopsis: allocate an Elastic IP address for &EC2;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.allocate_address.main
     Java:
       versions:
         - sdk_version: 2
@@ -263,6 +401,14 @@ ec2_AllocateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AllocateAddress
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.allocate_address
   services:
     ec2: {AllocateAddress}
 ec2_AssociateAddress:
@@ -271,6 +417,24 @@ ec2_AssociateAddress:
   synopsis: associate an Elastic IP address with an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.associate_address.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.associate_address.main
     Python:
       versions:
         - sdk_version: 3
@@ -281,6 +445,14 @@ ec2_AssociateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AssociateAddress
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.associate_address
   services:
     ec2: {AssociateAddress}
 ec2_DisassociateAddress:
@@ -289,6 +461,24 @@ ec2_DisassociateAddress:
   synopsis: disassociate an Elastic IP address from an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.disassociate_address.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.disassociate_address.main
     Python:
       versions:
         - sdk_version: 3
@@ -307,6 +497,15 @@ ec2_ReleaseAddress:
   synopsis: release an Elastic IP address.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.release.address.main
     Java:
       versions:
         - sdk_version: 2
@@ -326,6 +525,14 @@ ec2_ReleaseAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.ReleaseAddress
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.release_address
   services:
     ec2: {ReleaseAddress}
 ec2_AuthorizeSecurityGroupIngress:
@@ -334,6 +541,24 @@ ec2_AuthorizeSecurityGroupIngress:
   synopsis: set inbound rules for an &EC2; security group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.inbound.rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java.scenario_inbound_rule.main
     Python:
       versions:
         - sdk_version: 3
@@ -352,6 +577,15 @@ ec2_DeleteKeyPair:
   synopsis: delete an &EC2; security key pair.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.delete_key_pair.main
     .NET:
       versions:
         - sdk_version: 3
@@ -380,6 +614,14 @@ ec2_DeleteKeyPair:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DeleteKeyPair
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.delete_key_pair
   services:
     ec2: {DeleteKeyPair}
 ec2_DescribeSecurityGroups:
@@ -388,6 +630,24 @@ ec2_DescribeSecurityGroups:
   synopsis: get data about an &EC2; security group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_security_groups.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.describe_securitygroup.main
     Python:
       versions:
         - sdk_version: 3
@@ -398,6 +658,14 @@ ec2_DescribeSecurityGroups:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DescribeSecurityGroups
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_security_groups
   services:
     ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
@@ -415,6 +683,15 @@ ec2_DeleteSecurityGroup:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.DeleteSecurityGroupExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.delete_security_group.main
     Java:
       versions:
         - sdk_version: 2
@@ -434,6 +711,14 @@ ec2_DeleteSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DeleteSecurityGroup
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.delete_security_group
   services:
     ec2: {DeleteSecurityGroup}
 ec2_DeleteSnapshot:
@@ -477,6 +762,15 @@ ec2_TerminateInstances:
   synopsis: terminate an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.terminate_instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -504,6 +798,24 @@ ec2_DescribeInstances:
   synopsis: describe &EC2; instances.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_instances.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.describe_instance.main
     .NET:
       versions:
         - sdk_version: 3
@@ -530,6 +842,14 @@ ec2_DescribeInstances:
             - description:
               snippet_tags:
                 - ec2.rust.describe-instances
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_instances
   services:
     ec2: {DescribeInstances}
 ec2_DescribeRegions:
@@ -546,6 +866,14 @@ ec2_DescribeRegions:
             - description:
               snippet_tags:
                 - ec2.rust.ec2-helloworld
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_regions
   services:
     ec2: {DescribeRegions}
 ec2_DescribeInstanceStatus:
@@ -578,6 +906,14 @@ ec2_MonitorInstances:
             - description:
               snippet_tags:
                 - ec2.rust.monitor-instance
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.monitor_instance
   services:
     ec2: {MonitorInstances}
 ec2_RebootInstances:
@@ -603,6 +939,14 @@ ec2_RebootInstances:
             - description:
               snippet_tags:
                 - ec2.rust.reboot-instance
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.reboot_instance  
   services:
     ec2: {RebootInstances}
 ec2_DeleteVPC:
@@ -646,6 +990,24 @@ ec2_DescribeInstanceTypes:
   synopsis: get data about &EC2; instance types.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.describe_instance_type.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.describe_instance.type.main
     Python:
       versions:
         - sdk_version: 3
@@ -658,6 +1020,38 @@ ec2_DescribeInstanceTypes:
                 - python.example_code.ec2.DescribeInstanceTypes
   services:
     ec2: {DescribeInstanceTypes}
+ec2_DescribeAddresses:
+  title: Get details about Elastic IP addresses using an &AWS; SDK
+  title_abbrev: Get details about Elastic IP addresses
+  synopsis: get details about Elastic IP addresses.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_addresses
+  services:
+    ec2: {DescribeAddresses}
+ec2_DescribeAvailabilityZones:
+  title: Describe the Availability Zones for your account using an &AWS; SDK
+  title_abbrev: Describe Availability Zones
+  synopsis: describe &EC2; Availability Zones.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_availability_zones
+  services:
+    ec2: {DescribeAvailabilityZones}
 ec2_Scenario_GetStartedInstances:
   title: Get started with &EC2; instances using an &AWS; SDK
   title_abbrev: Get started with instances
@@ -676,6 +1070,24 @@ ec2_Scenario_GetStartedInstances:
     - Clean up all of the resources created by this example.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3

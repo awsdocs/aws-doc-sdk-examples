@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use crate::scenario::error::Error;
 use aws_sdk_dynamodb::model::{
     AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
 };
-use aws_sdk_dynamodb::{Client, Error};
+use aws_sdk_dynamodb::Client;
 
 // Create a table.
 // snippet-start:[dynamodb.rust.create-table]
@@ -46,7 +47,7 @@ pub async fn create_table(client: &Client, table: &str, key: &str) -> Result<(),
         Err(e) => {
             eprintln!("Got an error creating table:");
             eprintln!("{}", e);
-            Err(Error::Unhandled(Box::new(e)))
+            Err(Error::unhandled(e))
         }
     }
 }

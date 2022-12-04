@@ -5,317 +5,251 @@
 Unit tests for the dynamodb_item_tracker example.
 """
 
-from contextlib import contextmanager
-from datetime import datetime
-
+import json
 import boto3
 from botocore.stub import ANY
-from flask import appcontext_pushed, g
 import pytest
 
 from app import create_app
+import storage
 from storage import Storage
-from report import Report
 
 
-_TABLE_NAME = 'test-table'
+class MockManager:
+    def __init__(self, resource, stubber, ses_client, ses_stubber, stub_runner):
+        self.resource = resource
+        self.stubber = stubber
+        self.ses_client = ses_client
+        self.ses_stubber = ses_stubber
+        self.stub_runner = stub_runner
+        self.table = resource.Table('test-table')
+        self.storage = Storage(self.table)
+        self.web_items = [{
+            'id': f'id-{index}',
+            'description': f'desc-{index}',
+            'guide': f'guide-{index}',
+            'status': f'status-{index}',
+            'name': f'user-{index}',
+            'archived': index % 2 == 0
+        } for index in range(1, 5)]
+        self.data_items = [{
+            'iditem': f'id-{index}',
+            'description': f'desc-{index}',
+            'guide': f'guide-{index}',
+            'status': f'status-{index}',
+            'username': f'user-{index}',
+            'archived': index % 2 == 0
+        } for index in range(1, 5)]
+        self.sender = 'sender@example.com'
+        self.recipient = 'recipient@example.com'
+        self.app = create_app({
+            'TESTING': True, 'TABLE_NAME': self.table.name, 'SENDER_EMAIL': self.sender,
+            'DYNAMODB_RESOURCE': resource, 'SES_CLIENT': ses_client})
 
 
-@contextmanager
-def storage_set(app, storage):
-    # pylint: disable=assigning-non-slot
-    def handler(sender, **kwargs):
-        g.storage = storage
-    with appcontext_pushed.connected_to(handler, app):
-        yield
-
-
-@contextmanager
-def report_set(app, report):
-    # pylint: disable=assigning-non-slot
-    def handler(sender, **kwargs):
-        g.report = report
-    with appcontext_pushed.connected_to(handler, app):
-        yield
-
-
-def test_no_table(make_stubber):
-    ddb_resource = boto3.resource('dynamodb')
-    ddb_stubber = make_stubber(ddb_resource.meta.client)
-    table = ddb_resource.Table(_TABLE_NAME)
-    storage = Storage(table, ddb_resource)
-    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
-
-    ddb_stubber.stub_scan(_TABLE_NAME, [], error_code='TestException')
-
-    with storage_set(app, storage):
-        with app.test_client() as client:
-            rv = client.get('/')
-            assert b"Couldn't get items from table" in rv.data
-
-
-@pytest.mark.parametrize('item_count, status_filter, error_code', [
-    (5, None, None),
-    (3, 'All', None),
-    (1, 'Open', None),
-    (0, None, None),
-    (3, None, 'TestException')
-])
-def test_items(make_stubber, item_count, status_filter, error_code):
-    ddb_resource = boto3.resource('dynamodb')
-    ddb_stubber = make_stubber(ddb_resource.meta.client)
-    table = ddb_resource.Table(_TABLE_NAME)
-    storage = Storage(table, ddb_resource)
-    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
-
-    items = [{
-        'item_id': f'id-{ind}',
-        'name': f'Name {ind}',
-        'description': f'Description {ind}!',
-        'created_date': str(datetime.now()),
-        'status': f'Open'
-    } for ind in range(5)]
-
-    fex = ANY if status_filter is not None and status_filter != 'All' else None
-
-    ddb_stubber.stub_scan(
-        _TABLE_NAME, items, filter_expression=fex, error_code=error_code)
-
-    with storage_set(app, storage):
-        with app.test_client() as client:
-            rte = '/' if status_filter is None else f'/?status_filter={status_filter}'
-            rv = client.get(rte)
-            if error_code is None:
-                for item in items:
-                    assert item['name'].encode() in rv.data
-                    assert item['description'].encode() in rv.data
-                    assert datetime.fromisoformat(
-                        item['created_date']).strftime('%b %d %Y').encode() in rv.data
-                    assert item['status'].encode() in rv.data
-                    assert b'<div class="alert' not in rv.data
-                if not items:
-                    assert b'No items found in table' in rv.data
-            else:
-                for item in items:
-                    assert item['name'].encode() not in rv.data
-                    assert b"Couldn't get items from table" in rv.data
-                    assert b"TestException" in rv.data
-
-
-@pytest.mark.parametrize('item_id, error_code', [
-    (None, None),
-    ('id-1', None),
-    ('id-1', 'TestException')
-])
-def test_item_get(make_stubber, item_id, error_code):
-    ddb_resource = boto3.resource('dynamodb')
-    ddb_stubber = make_stubber(ddb_resource.meta.client)
-    table = ddb_resource.Table(_TABLE_NAME)
-    storage = Storage(table, ddb_resource)
-    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
-
-    item = {
-        'item_id': item_id,
-        'name': f'Name test',
-        'description': f'Description test!',
-        'created_date': str(datetime.now()),
-        'status': f'Open'}
-
-    if item_id is not None:
-        ddb_stubber.stub_get_item(_TABLE_NAME, {'item_id': item_id}, item, error_code=error_code)
-
-    with storage_set(app, storage):
-        with app.test_client() as client:
-            rte = '/item/' if item_id is None else f'/item/{item_id}'
-            rv = client.get(rte)
-            if error_code is None:
-                if item_id is not None:
-                    assert item['item_id'].encode() in rv.data
-                    assert item['name'].encode() in rv.data
-                    assert item['description'].encode() in rv.data
-                    assert datetime.fromisoformat(
-                        item['created_date']).strftime('%b %d %Y').encode() in rv.data
-                    assert item['status'].encode() in rv.data
-                    assert b'Update</button>' in rv.data
-                else:
-                    assert item['name'].encode() not in rv.data
-                    assert item['description'].encode() not in rv.data
-                    assert datetime.fromisoformat(
-                        item['created_date']).strftime('%b %d %Y').encode() not in rv.data
-                    assert b'Add</button>' in rv.data
-                assert b'<div class="alert' not in rv.data
-            else:
-                assert item['name'].encode() not in rv.data
-                assert b"Couldn't get item"
-                assert b"TestException" in rv.data
-
-
-@pytest.mark.parametrize('item_id, error_code', [
-    (None, None),
-    ('id-1', None),
-    ('id-1', 'TestException')
-])
-def test_item_post(make_stubber, item_id, error_code):
-    ddb_resource = boto3.resource('dynamodb')
-    ddb_stubber = make_stubber(ddb_resource.meta.client)
-    table = ddb_resource.Table(_TABLE_NAME)
-    storage = Storage(table, ddb_resource)
-    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
-
-    attribs = {
-        'name': f'Name test',
-        'description': f'Description test!',
-        'status': f'Open'}
-
-    if item_id is None:
-        item = {'item_id': ANY, 'created_date': ANY}
-        item.update(attribs)
-        ddb_stubber.stub_put_item(_TABLE_NAME, item, error_code=error_code)
-    else:
-        ddb_stubber.stub_update_item_attr_update(
-            _TABLE_NAME, {'item_id': item_id}, attribs, error_code=error_code)
-    if error_code is None:
-        item = {'item_id': 'id-1', 'created_date': str(datetime.now())}
-        item.update(attribs)
-        ddb_stubber.stub_scan(_TABLE_NAME, [item])
-
-    with storage_set(app, storage):
-        with app.test_client() as client:
-            rte = '/item/' if item_id is None else f'/item/{item_id}'
-            rv = client.post(rte, data=attribs, follow_redirects=True)
-            if error_code is None:
-                assert _TABLE_NAME.encode() in rv.data
-                assert b'<table' in rv.data
-                assert attribs['name'].encode() in rv.data
-                assert attribs['description'].encode() in rv.data
-                assert attribs['status'].encode() in rv.data
-                assert b'<div class="alert' not in rv.data
-            else:
-                if item_id is not None:
-                    assert item_id.encode() in rv.data
-                assert attribs['name'].encode() in rv.data
-                assert b"Couldn't add or update item"
-                assert b"TestException" in rv.data
-                assert b'<div class="alert' in rv.data
-
-
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
-def test_item_delete(make_stubber, error_code):
-    ddb_resource = boto3.resource('dynamodb')
-    ddb_stubber = make_stubber(ddb_resource.meta.client)
-    table = ddb_resource.Table(_TABLE_NAME)
-    storage = Storage(table, ddb_resource)
-    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
-    item_id = 'test_id'
-    out_item = {
-        'item_id': 'another-id',
-        'name': f'Name test',
-        'description': f'Description test!',
-        'created_date': str(datetime.now()),
-        'status': f'Open'}
-
-    ddb_stubber.stub_delete_item(_TABLE_NAME, {'item_id': item_id}, error_code=error_code)
-    ddb_stubber.stub_scan(_TABLE_NAME, [out_item])
-
-    with storage_set(app, storage):
-        with app.test_client() as client:
-            rte = f'/items/delete/{item_id}'
-            rv = client.get(rte, follow_redirects=True)
-            if error_code is None:
-                assert out_item['name'].encode() in rv.data
-                assert out_item['description'].encode() in rv.data
-                assert out_item['status'].encode() in rv.data
-                assert b'<div class="alert' not in rv.data
-            else:
-                assert b"Couldn't delete item"
-                assert b"TestException" in rv.data
-                assert b'<div class="alert' in rv.data
-
-
-@pytest.mark.parametrize('item_count, error_code', [
-    (5, None),
-    (0, None),
-    (5, 'TestException')])
-def test_report_get(make_stubber, item_count, error_code):
-    ddb_resource = boto3.resource('dynamodb')
-    ddb_stubber = make_stubber(ddb_resource.meta.client)
+@pytest.fixture
+def mock_mgr(make_stubber, stub_runner):
+    resource = boto3.resource('dynamodb')
+    stubber = make_stubber(resource.meta.client)
     ses_client = boto3.client('ses')
     ses_stubber = make_stubber(ses_client)
-    table = ddb_resource.Table(_TABLE_NAME)
-    storage = Storage(table, ddb_resource)
-    report = Report(ses_client)
-    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
-    status_filter = 'Open'
-    items = [{
-        'item_id': f'id-{ind}',
-        'name': f'Name {ind}',
-        'description': f'Description {ind}!',
-        'created_date': str(datetime.now()),
-        'status': f'Open'
-    } for ind in range(5)]
+    return MockManager(resource, stubber, ses_client, ses_stubber, stub_runner)
 
-    ddb_stubber.stub_scan(
-        _TABLE_NAME, items, filter_expression=ANY, error_code=error_code)
 
-    with storage_set(app, storage):
-        with app.test_client() as client:
-            rv = client.get(f'/report/{status_filter}')
-            if error_code is None:
-                for item in items:
-                    assert item['name'].encode() in rv.data
-                    assert item['description'].encode() in rv.data
-                    assert datetime.fromisoformat(
-                        item['created_date']).strftime('%b %d %Y').encode() in rv.data
-                    assert item['status'].encode() in rv.data
-                    assert b'<div class="alert' not in rv.data
-                if not items:
-                    assert b'No items found in table' in rv.data
-            else:
-                assert b"Couldn't get items from table"
-                assert b"TestException" in rv.data
-                assert b'<div class="alert' in rv.data
+@pytest.mark.parametrize('archived, filter_ex', [
+    ('false', ANY),
+    ('true', ANY),
+    (None, None),
+])
+def test_get_items(mock_mgr, archived, filter_ex):
+    with mock_mgr.stub_runner(None, None) as runner:
+        runner.add(mock_mgr.stubber.stub_scan, mock_mgr.table.name, mock_mgr.data_items, filter_expression=filter_ex)
 
-@pytest.mark.parametrize('item_count, error_code', [
-    (5, None),
-    (0, None),
-    (5, 'TestException')])
-def test_report_post(make_stubber, item_count, error_code):
-    ddb_resource = boto3.resource('dynamodb')
-    ddb_stubber = make_stubber(ddb_resource.meta.client)
-    ses_client = boto3.client('ses')
-    ses_stubber = make_stubber(ses_client)
-    table = ddb_resource.Table(_TABLE_NAME)
-    storage = Storage(table, ddb_resource)
-    report = Report(ses_client)
-    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
-    status_filter = 'Open'
-    items = [{
-        'item_id': f'id-{ind}',
-        'name': f'Name {ind}',
-        'description': f'Description {ind}!',
-        'created_date': str(datetime.now()),
-        'status': f'Open'
-    } for ind in range(5)]
-    post_data = {
-        'message': 'Test message',
-        'sender': 'test-sender',
-        'recipient': 'test-recipient'
-    }
+    with mock_mgr.app.test_client() as client:
+        rte = '/api/items' if archived is None else f'/api/items?archived={archived}'
+        rv = client.get(rte)
+        assert rv.status_code == 200
+        assert mock_mgr.web_items == rv.json
 
-    ddb_stubber.stub_scan(_TABLE_NAME, items, filter_expression=ANY)
-    ses_stubber.stub_send_email(
-        post_data['sender'], {'ToAddresses': [post_data['recipient']]},
-        f"Report for items with status '{status_filter}'",
-        ANY, ANY, 'test-id', error_code=error_code)
-    ddb_stubber.stub_scan(_TABLE_NAME, items)
 
-    with storage_set(app, storage):
-        with report_set(app, report):
-            with app.test_client() as client:
-                rv = client.post(
-                    f'/report/{status_filter}', data=post_data, follow_redirects=True)
-                if error_code is None:
-                    assert b"Report sent" in rv.data
-                else:
-                    assert b"Report not sent" in rv.data
-                    assert b"TestException" in rv.data
+def test_get_items_error(mock_mgr):
+    with mock_mgr.stub_runner('TestException', 'stub_scan') as runner:
+        runner.add(mock_mgr.stubber.stub_scan, mock_mgr.table.name, mock_mgr.data_items)
+
+    with mock_mgr.app.test_client() as client:
+        rv = client.get('/api/items')
+        assert rv.status_code == 500
+        assert "A storage error occurred" in rv.json
+
+
+def test_get_item(mock_mgr):
+    with mock_mgr.stub_runner(None, None) as runner:
+        runner.add(
+            mock_mgr.stubber.stub_get_item, mock_mgr.table.name,
+            {'iditem': mock_mgr.data_items[0]['iditem']},
+            mock_mgr.data_items[0])
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items/{mock_mgr.web_items[0]["id"]}'
+        rv = client.get(rte)
+        assert rv.status_code == 200
+        assert [mock_mgr.web_items[0]] == rv.json
+
+
+def test_get_item_error(mock_mgr):
+    with mock_mgr.stub_runner('TestException', 0) as runner:
+        runner.add(
+            mock_mgr.stubber.stub_get_item, mock_mgr.table.name,
+            {'iditem': mock_mgr.data_items[0]['iditem']},
+            mock_mgr.data_items[0])
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items/{mock_mgr.web_items[0]["id"]}'
+        rv = client.get(rte)
+        assert rv.status_code == 500
+
+
+def test_post_item(mock_mgr, monkeypatch):
+    with mock_mgr.stub_runner(None, None) as runner:
+        runner.add(
+            mock_mgr.stubber.stub_put_item, mock_mgr.table.name, mock_mgr.data_items[1])
+
+    post_item = mock_mgr.web_items[1].copy()
+    del post_item['id']
+
+    monkeypatch.setattr(storage, 'uuid4', lambda: mock_mgr.data_items[1]['iditem'])
+
+    with mock_mgr.app.test_client() as client:
+        rte = '/api/items'
+        rv = client.post(rte, json=post_item)
+        assert rv.status_code == 200
+        assert mock_mgr.web_items[1]['id'] == rv.json
+
+
+def test_post_item_error(mock_mgr, monkeypatch):
+    with mock_mgr.stub_runner('TestException', 0) as runner:
+        runner.add(
+            mock_mgr.stubber.stub_put_item, mock_mgr.table.name, mock_mgr.data_items[1])
+
+    post_item = mock_mgr.web_items[1].copy()
+    del post_item['id']
+
+    monkeypatch.setattr(storage, 'uuid4', lambda: mock_mgr.data_items[1]['iditem'])
+
+    with mock_mgr.app.test_client() as client:
+        rte = '/api/items'
+        rv = client.post(rte, json=post_item)
+        assert rv.status_code == 500
+
+
+def test_put_item(mock_mgr, monkeypatch):
+    data_item = mock_mgr.data_items[0].copy()
+    del data_item['iditem']
+
+    with mock_mgr.stub_runner(None, None) as runner:
+        runner.add(
+            mock_mgr.stubber.stub_update_item_attr_update,
+            mock_mgr.table.name, {'iditem': mock_mgr.data_items[0]['iditem']},
+            data_item)
+
+    monkeypatch.setattr(storage, 'uuid4', lambda: mock_mgr.data_items[0]['iditem'])
+
+    put_item = mock_mgr.web_items[0].copy()
+    del put_item['id']
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items/{mock_mgr.web_items[0]["id"]}'
+        rv = client.put(rte, json=put_item)
+        assert rv.status_code == 200
+        assert mock_mgr.data_items[0]['iditem'] == rv.json
+
+
+def test_put_item_error(mock_mgr, monkeypatch):
+    data_item = mock_mgr.data_items[0].copy()
+    del data_item['iditem']
+
+    with mock_mgr.stub_runner('TestException', 0) as runner:
+        runner.add(
+            mock_mgr.stubber.stub_update_item_attr_update,
+            mock_mgr.table.name, {'iditem': mock_mgr.data_items[0]['iditem']},
+            data_item)
+
+    monkeypatch.setattr(storage, 'uuid4', lambda: mock_mgr.data_items[0]['iditem'])
+
+    put_item = mock_mgr.web_items[0].copy()
+    del put_item['id']
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items/{mock_mgr.web_items[0]["id"]}'
+        rv = client.put(rte, json=put_item)
+        assert rv.status_code == 500
+
+
+def test_archive_item(mock_mgr, monkeypatch):
+    with mock_mgr.stub_runner(None, None) as runner:
+        runner.add(
+            mock_mgr.stubber.stub_update_item_attr_update,
+            mock_mgr.table.name, {'iditem': mock_mgr.data_items[0]['iditem']},
+            {'archived': True})
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items/{mock_mgr.web_items[0]["id"]}:archive'
+        rv = client.put(rte)
+        assert rv.status_code == 200
+
+
+def test_archive_item_error(mock_mgr, monkeypatch):
+    with mock_mgr.stub_runner('TestException', 0) as runner:
+        runner.add(
+            mock_mgr.stubber.stub_update_item_attr_update,
+            mock_mgr.table.name, {'iditem': mock_mgr.data_items[0]['iditem']},
+            {'archived': True})
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items/{mock_mgr.web_items[0]["id"]}:archive'
+        rv = client.put(rte)
+        assert rv.status_code == 500
+
+
+def test_report_small(mock_mgr, monkeypatch):
+    with mock_mgr.stub_runner(None, None) as runner:
+        runner.add(mock_mgr.stubber.stub_scan, mock_mgr.table.name, mock_mgr.data_items, filter_expression=ANY)
+        runner.add(
+            mock_mgr.ses_stubber.stub_send_email, mock_mgr.sender, {'ToAddresses': [mock_mgr.recipient]},
+            f"Work items", ANY, ANY, 'test-msg-id')
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items:report'
+        rv = client.post(rte, json={'email': mock_mgr.recipient})
+        assert rv.status_code == 200
+
+
+def test_report_large(mock_mgr, monkeypatch):
+    work_items = mock_mgr.data_items * 3
+    with mock_mgr.stub_runner(None, None) as runner:
+        runner.add(mock_mgr.stubber.stub_scan, mock_mgr.table.name, work_items, filter_expression=ANY)
+        runner.add(
+            mock_mgr.ses_stubber.stub_send_raw_email, mock_mgr.sender, [mock_mgr.recipient],
+            'test-msg-id')
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items:report'
+        rv = client.post(rte, json={'email': mock_mgr.recipient})
+        assert rv.status_code == 200
+
+
+@pytest.mark.parametrize('err, stop_on', [
+    ('TESTERROR-stub_scan', 0),
+    ('TESTERROR-stub_send_email', 1)
+])
+def test_report_error(mock_mgr, monkeypatch, err, stop_on):
+    with mock_mgr.stub_runner(err, stop_on) as runner:
+        runner.add(mock_mgr.stubber.stub_scan, mock_mgr.table.name, mock_mgr.data_items, filter_expression=ANY)
+        runner.add(
+            mock_mgr.ses_stubber.stub_send_email, mock_mgr.sender, {'ToAddresses': [mock_mgr.recipient]},
+            f"Work items", ANY, ANY, 'test-msg-id')
+
+    with mock_mgr.app.test_client() as client:
+        rte = f'/api/items:report'
+        rv = client.post(rte, json={'email': mock_mgr.recipient})
+        assert rv.status_code == 500
