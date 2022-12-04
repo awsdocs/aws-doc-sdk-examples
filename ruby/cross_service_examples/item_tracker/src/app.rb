@@ -5,15 +5,15 @@
 
 require "sinatra"
 require "sinatra/cors"
-require_relative "db_wrapper"
+require_relative "aurora"
 require_relative "report"
 require "aws-sdk-rdsdataservice"
 require "aws-sdk-ses"
 
 client = Aws::RDSDataService::Client.new
 ses_client = Aws::SES::Client.new
-config = YAML.load_file("helpers/config.yml")
-wrapper = DBWrapper.new(config, client)
+config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "../", "env", "config.yml")))
+wrapper = AuroraActions.new(config, client)
 reporter = Report.new(wrapper, config["recipient_email"], ses_client)
 
 configure do
@@ -47,7 +47,7 @@ end
 
 put %r{/api/items/([\w]+):archive} do |id|
   body wrapper.archive_work_item(id) ? "true" : "false"
-  halt 200
+  halt 204
 end
 
 post %r{/api/items:report} do

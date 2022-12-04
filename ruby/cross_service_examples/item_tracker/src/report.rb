@@ -16,7 +16,7 @@ require "json"
 require "csv"
 require "mail"
 require "mime"
-require_relative "db_wrapper"
+require_relative "aurora"
 
 # Encapsulates a report resource that gets work items from an
 # Amazon Aurora database and uses Amazon SES to send emails about them.
@@ -150,9 +150,6 @@ class Report
        })
       204
     end
-  rescue RDSClientError => e
-    @logger.error("Couldn't get work items from storage:\n #{e}")
-    500
   rescue StandardError => e
     @logger.error("Couldn't send email: #{e}")
     500

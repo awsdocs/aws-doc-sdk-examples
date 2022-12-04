@@ -10,12 +10,13 @@ require "rspec"
 require "aws-sdk-rdsdataservice"
 require "aws-sdk-rds"
 require "aws-sdk-ses"
-require "pry"
 
 class SetupDatabase
 
   def initialize
-    @config = YAML.load(File.read("config.yml"))
+    # @config = YAML.load(File.read("config.yml"))
+    @config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), '../', "config.yml")))
+
     @data_client = Aws::RDSDataService::Client.new
     @rds_client = Aws::RDS::Client.new
   end
@@ -48,13 +49,14 @@ class SetupDatabase
     false
   end
 
-
+  # NOTE: This code contains raw string substitution and is therefore vulnerable to SQL injection
+  # TODO: Refactor to use Rails ActiveRecord
   def create_table
     sql = "CREATE TABLE #{@config['table_name']} (work_item_id INT AUTO_INCREMENT PRIMARY KEY, description VARCHAR(400), guide VARCHAR(45), status VARCHAR(400), username VARCHAR(45), archived TINYINT(4));"
     @data_client.execute_statement({
                                resource_arn: @config["resource_arn"],
                                secret_arn: @config["secret_arn"],
-                               sql:,
+                               sql: sql,
                                database: @config["database"],
                              })
   end

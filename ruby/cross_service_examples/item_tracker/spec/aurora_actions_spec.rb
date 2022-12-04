@@ -3,21 +3,20 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require "multi_json"
 require "yaml"
-require "json"
 require "rspec"
 require "aws-sdk-rdsdataservice"
 require "aws-sdk-ses"
-require_relative("../src/db_wrapper")
-require_relative("../src/report")
+require_relative "../src/aurora"
+require_relative "../src/report"
 
-describe "CRUD commands on Aurora" do
-  client = Aws::RDSDataService::Client.new
-  config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./../helpers", "config.yml")))
-  let(:wrapper) { DBWrapper.new(config, client) }
+describe "CRUD commands on Aurora > " do
+  rds_client = Aws::RDSDataService::Client.new
+  ses_client = Aws::SES::Client.new
+  config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./../env", "config.yml")))
+  let(:wrapper) { AuroraActions.new(config, rds_client) }
 
-  it "adds a new item" do
+  it "Adds a new item" do
     item_data = {
       description: "User research",
       guide: "dotnet",
@@ -28,12 +27,12 @@ describe "CRUD commands on Aurora" do
     expect(id).to be_an_instance_of(Integer)
   end
 
-  it "gets a specific item" do
+  it "Gets a specific item" do
     data = wrapper.get_work_items(1)
     expect(data[0]).to be_an_instance_of(Hash)
   end
 
-  it "gets multiple items" do
+  it "Gets multiple items" do
     item_data = {
       description: "Tech debt",
       guide: "python",
@@ -45,18 +44,19 @@ describe "CRUD commands on Aurora" do
     expect(data[0]).to be_an_instance_of(Hash)
   end
 
-  it "archives a specific item" do
+  it "Archives a specific item" do
     id = wrapper.archive_work_item(5)
-    expect(id).to be_an_instance_of(TrueClass)
+    expect(id).to be_an_instance_of(Array)
+    expect(id.empty?)
   end
 
-  it "gets archived items" do
+  it "Gets archived items" do
     data = wrapper.get_work_items(nil, false)
     expect(data[0]).to be_an_instance_of(Hash)
   end
 
-  it "make report" do
-    report = Report.new(wrapper, config["recipient_email"], Aws::SES::Client.new)
+  it "Make report" do
+    report = Report.new(wrapper, config["recipient_email"], ses_client)
     report.post_report(config["recipient_email"])
   end
 end
