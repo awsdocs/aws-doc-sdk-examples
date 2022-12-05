@@ -97,7 +97,7 @@ func (wrapper RoleWrapper) GetRole(roleName string) (*types.Role, error) {
 
 // snippet-start:[gov2.iam.CreateServiceLinkedRole]
 
-// CreateServiceLinkedRole a service-linked role that is owned by the specified service.
+// CreateServiceLinkedRole creates a service-linked role that is owned by the specified service.
 func (wrapper RoleWrapper) CreateServiceLinkedRole(serviceName string, description string) (*types.Role, error) {
 	var role *types.Role
 	result, err := wrapper.IamClient.CreateServiceLinkedRole(context.TODO(), &iam.CreateServiceLinkedRoleInput{

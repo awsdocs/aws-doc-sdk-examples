@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// Defines stubs used for unit testing the Amazon S3 actions.
+// Defines stubs used for unit testing the Amazon Simple Storage Service (Amazon S3) actions.
 
 package stubs
 

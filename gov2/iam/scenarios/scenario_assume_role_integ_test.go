@@ -28,7 +28,7 @@ type IntegHelper struct {
 }
 
 // Pause increases all pause durations by 5 seconds. This is needed during integration
-// testing to ensure AWS has enough time to create all resources.
+// testing to make sure that AWS has enough time to create all resources.
 func (helper IntegHelper) Pause(secs int) {
 	time.Sleep(time.Duration(secs + 5) * time.Second)
 }

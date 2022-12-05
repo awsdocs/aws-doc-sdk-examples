@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// Defines stubs used for unit testing the AWS STS actions.
+// Defines stubs used for unit testing the AWS Security Token Service (AWS STS) actions.
 
 package stubs
 

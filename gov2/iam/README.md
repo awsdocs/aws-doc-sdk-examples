@@ -112,7 +112,8 @@ This interactive scenario runs at a command prompt and shows you how to use IAM
 to do the following:
 
 1. Create a user who has no permissions.
-2. Create a role that grants permission to list S3 buckets for the account.
+2. Create a role that grants permission to list Amazon Simple Storage Service (Amazon S3)
+   buckets for the account.
 3. Add a policy to let the user assume the role.
 4. Try and fail to list buckets without permissions.
 5. Assume the role and list S3 buckets using temporary credentials.

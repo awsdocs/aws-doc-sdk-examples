@@ -176,7 +176,7 @@ func (wrapper UserWrapper) DeleteUser(userName string) error {
 // snippet-start:[gov2.iam.CreateAccessKey]
 
 // CreateAccessKeyPair creates an access key for a user. The returned access key contains
-// the pair of ID and secret credentials needed to use the key.
+// the ID and secret credentials needed to use the key.
 func (wrapper UserWrapper) CreateAccessKeyPair(userName string) (*types.AccessKey, error) {
 	var key *types.AccessKey
 	result, err := wrapper.IamClient.CreateAccessKey(context.TODO(), &iam.CreateAccessKeyInput{
