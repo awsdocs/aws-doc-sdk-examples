@@ -11,6 +11,12 @@ namespace AwsDoc {
         extern Aws::String INCREMENT_RESUlT_PREFIX;
         extern Aws::String ARITHMETIC_RESUlT_PREFIX;
 
+        //! Get started with functions scenario.
+        /*!
+         \\sa getStartedWithFunctionsScenario()
+         \param clientConfig: AWS client configuration.
+         \return bool: Successful completion.
+         */
         bool getStartedWithFunctionsScenario(
                 const Aws::Client::ClientConfiguration &clientConfig);
     } // Lambda

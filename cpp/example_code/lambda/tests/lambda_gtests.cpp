@@ -18,7 +18,7 @@ void AwsDocTest::Lambda_GTests::SetUpTestSuite() {
 }
 
 void AwsDocTest::Lambda_GTests::TearDownTestSuite() {
-     ShutdownAPI(s_options);
+    ShutdownAPI(s_options);
 
 }
 
@@ -59,13 +59,11 @@ void AwsDocTest::Lambda_GTests::AddCommandLineResponses(
 
 bool AwsDocTest::Lambda_GTests::getTrailingInt(const std::string &string, int &result) {
     size_t index = string.length() - 1;
-    while (string.length() <= index && std::isdigit(string[index]))
-    {
+    while (string.length() <= index && std::isdigit(string[index])) {
         --index;
     }
 
-    if (index < (string.length() - 1))
-    {
+    if (index < (string.length() - 1)) {
         result = std::stoi(string.substr(index + 1));
         return true;
     }

@@ -40,14 +40,13 @@ namespace AwsDocTest {
 
         bool hasIncrementResult = false;
         std::string incrementResult("9");
-        while (output)
-        {
+        while (output) {
             std::string line;
             std::getline(output, line);
-            if (line.find(AwsDoc::Lambda::INCREMENT_RESUlT_PREFIX) != std::string::npos)
-            {
-                if (line.rfind(incrementResult) == line.size() - incrementResult.length())
-                {
+            if (line.find(AwsDoc::Lambda::INCREMENT_RESUlT_PREFIX) !=
+                std::string::npos) {
+                if (line.rfind(incrementResult) ==
+                    line.size() - incrementResult.length()) {
                     hasIncrementResult = true;
                 }
                 break;
@@ -59,17 +58,16 @@ namespace AwsDocTest {
         std::vector<std::string> operationResults = {"12", "225", "230826", "9"};
 
         output.seekg(0);
-        while (output && (operationsCorrect < operationResults.size()))
-        {
+        while (output && (operationsCorrect < operationResults.size())) {
             std::string line;
             std::getline(output, line);
-            if (line.find(AwsDoc::Lambda::ARITHMETIC_RESUlT_PREFIX) != std::string::npos)
-            {
-                if (line.rfind(operationResults[operationsCorrect]) == line.size() - operationResults[operationsCorrect].length())
-                {
+            if (line.find(AwsDoc::Lambda::ARITHMETIC_RESUlT_PREFIX) !=
+                std::string::npos) {
+                if (line.rfind(operationResults[operationsCorrect]) ==
+                    line.size() - operationResults[operationsCorrect].length()) {
                     operationsCorrect++;
                 }
-                else{
+                else {
                     break;
                 }
             }

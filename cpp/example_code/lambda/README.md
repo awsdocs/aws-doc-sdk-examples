@@ -18,15 +18,28 @@ AWS Lambda functions.
 
 Code excerpts that show you how to call individual service functions.
 
-* [*Abbreviated title of code example (to match SOS), using imperative form of verb*](*relative link to code example*)(*API command*)
+* [Create a function](get_started_with_functions_scenario.cpp)(CreateFunction)
+* [Delete a function](get_started_with_functions_scenario.cpp)(DeleteFunction)
+* [Get a function](get_started_with_functions_scenario.cpp)(GetFunction)
+* [Invoke a function](get_started_with_functions_scenario.cpp)(Invoke)
+* [List functions](get_started_with_functions_scenario.cpp)(ListFunctions)
+* [Update function code](get_started_with_functions_scenario.cpp)
+  (UpdateFunctionCode)
+* [Update function configuration](get_started_with_functions_scenario.cpp)
+  (UpdateFunctionConfiguration)
 * 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
-* [*Title of code example*](*relative link to code example*)
+* 
+* [Get started with functions](get_started_with_functions_scenario.cpp) 
+  (CreateFunction, GetFunction, ListFunctions, Invoke, UpdateFunctionCode, 
+  UpdateFunctionConfiguration, DeleteFunction)
+
 ## Run the examples
 
 ### Prerequisites
+
 Before using the code examples, first complete the installation and setup steps
 of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
@@ -46,8 +59,8 @@ Next, for information on code example structures and how to build and run the ex
 ```   
 
 ## Additional resources
-* [*Service developer guide*](*link to developer guide*)
-* [*Service API reference guide*](*link to developer guide*)
+* [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+* [AWS Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
 * [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html)
 
 

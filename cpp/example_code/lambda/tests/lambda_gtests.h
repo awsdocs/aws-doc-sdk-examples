@@ -28,7 +28,7 @@ namespace AwsDocTest {
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);
 
-        bool getTrailingInt(const std::string& string, int& result);
+        bool getTrailingInt(const std::string &string, int &result);
 
         // s_clientConfig must be a pointer because the client config must be initialized
         // after InitAPI.
