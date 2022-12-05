@@ -46,6 +46,7 @@
 #include <aws/lambda/model/UpdateFunctionConfigurationRequest.h>
 #include <aws/core/utils/HashingUtils.h>
 #include <fstream>
+#include "lambda_samples.h"
 
 namespace AwsDoc {
     namespace Lambda {
@@ -56,9 +57,8 @@ namespace AwsDoc {
         static Aws::String INCREMENT_LAMBDA_CODE(SOURCE_DIR "/doc_example_lambda_increment.zip");
         static Aws::String CALCULATOR_LAMBDA_CODE(SOURCE_DIR "/doc_example_lambda_calculator.zip");
         static Aws::String ROLE_POLICY_ARN("arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole");
-
-        bool getStartedWithFunctionsScenario(
-                const Aws::Client::ClientConfiguration &clientConfig);
+        Aws::String INCREMENT_RESUlT_PREFIX( "The result of the increment is ");
+        Aws::String ARITHMETIC_RESUlT_PREFIX("The result of the operation ");
 
         static bool getIamRoleArn(Aws::String &roleARN,
                            const Aws::Client::ClientConfiguration &clientConfig);
@@ -67,19 +67,18 @@ namespace AwsDoc {
 
         static Aws::String askQuestion(const Aws::String &string,
                                                 const std::function<bool(
-                                                        Aws::String)> &test);
+                                                        Aws::String)> &test = [](
+                                                        const Aws::String &) -> bool { return true; });
 
         static int askQuestionForInt(const Aws::String &string);
 
-        int askQuestionForIntRange(const Aws::String &string, int low,
+        static int askQuestionForIntRange(const Aws::String &string, int low,
                                                    int high);
 
         static bool invokeLambdaFunction(const Aws::Utils::Json::JsonValue &jsonPayload,
                                          Aws::Lambda::Model::LogType logType,
                 Aws::Lambda::Model::InvokeResult& invokeResult,
                 const Aws::Lambda::LambdaClient& client);
-
-
     } // Lambda
 } // AwsDoc
 
@@ -115,14 +114,14 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         Aws::Lambda::Model::CreateFunctionOutcome outcome = client.CreateFunction(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "CreateFunction was successful. " << seconds << " seconds elapsed." << std::endl;
+            std::cout << "The lambda function was successfully created. " << seconds << " seconds elapsed." << std::endl;
             break;
         }
         else if (outcome.GetError().GetErrorType() == Aws::Lambda::LambdaErrors::INVALID_PARAMETER_VALUE &&
                 outcome.GetError().GetMessage().find("role") >= 0)
         {
             if ((seconds % 5) == 0) { // Log status every 10 seconds.
-                std::cout << "Waiting for role to become available as CreateFunction parameter. " << seconds
+                std::cout << "Waiting for the IAM role to become available as a CreateFunction parameter. " << seconds
                           << " seconds elapsed." << std::endl;
             }
         }
@@ -137,31 +136,37 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
     } while (60 > seconds);
 
     std::cout << "The current Lambda function increments 1 by an input." << std::endl;
-    int increment = askQuestionForInt("Enter an increment integer ");
 
-    Aws::Lambda::Model::InvokeResult invokeResult;
-    Aws::Utils::Json::JsonValue jsonPayload;
-    jsonPayload.WithString("action", "increment");
-    jsonPayload.WithInteger("number", increment);
-    if (invokeLambdaFunction(jsonPayload, Aws::Lambda::Model::LogType::Tail,
-                             invokeResult, client))
     {
-        Aws::Map<Aws::String, Aws::Utils::Json::JsonView> values =
-                Aws::Utils::Json::JsonView(invokeResult.GetPayload()).GetAllObjects();
-        auto iter = values.find("result");
-        if (iter != values.end() && iter->second.IsIntegerType())
-        {
-            std::cout << "The result of the increment is " << iter->second.AsInteger() << std::endl;
-        }
-        else{
-            std::cout << "There was an error in execution. Here is the log." << std::endl;
-            Aws::Utils::ByteBuffer  buffer = Aws::Utils::HashingUtils::Base64Decode(invokeResult.GetLogResult());
-            std::cout << "With log " << buffer.GetUnderlyingData() << std::endl;
+        int increment = askQuestionForInt("Enter an increment integer ");
+
+        Aws::Lambda::Model::InvokeResult invokeResult;
+        Aws::Utils::Json::JsonValue jsonPayload;
+        jsonPayload.WithString("action", "increment");
+        jsonPayload.WithInteger("number", increment);
+        if (invokeLambdaFunction(jsonPayload, Aws::Lambda::Model::LogType::Tail,
+                                 invokeResult, client)) {
+            Aws::Map<Aws::String, Aws::Utils::Json::JsonView> values =
+                    Aws::Utils::Json::JsonView(
+                            invokeResult.GetPayload()).GetAllObjects();
+            auto iter = values.find("result");
+            if (iter != values.end() && iter->second.IsIntegerType()) {
+                std::cout << INCREMENT_RESUlT_PREFIX
+                          << iter->second.AsInteger() << std::endl;
+            }
+            else {
+                std::cout << "There was an error in execution. Here is the log."
+                          << std::endl;
+                Aws::Utils::ByteBuffer buffer = Aws::Utils::HashingUtils::Base64Decode(
+                        invokeResult.GetLogResult());
+                std::cout << "With log " << buffer.GetUnderlyingData() << std::endl;
+            }
         }
     }
 
     std::cout << "The Lambda function will now be updated with new code. Press return to continue, ";
-    std::cin.get();
+         Aws::String answer;
+         std::getline(std::cin, answer);
     {
         Aws::Lambda::Model::UpdateFunctionCodeRequest request;
         request.SetFunctionName(LAMBDA_NAME);
@@ -175,7 +180,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         Aws::Lambda::Model::UpdateFunctionCodeOutcome outcome = client.UpdateFunctionCode(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "Lambda::UpdateFunctionCode was successful." << std::endl;
+            std::cout << "The lambda code was successfully updated." << std::endl;
         }
         else {
             std::cerr << "Error with Lambda::UpdateFunctionCode. " << outcome.GetError().GetMessage()
@@ -183,8 +188,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         }
     }
 
-    std::cout << "This function uses an environment variable to control logging level." << std::endl;
-    std::cout << "UpdateFunctionConfiguration will be used to set it LOG_LEVEL to DEBUG." << std::endl;
+    std::cout << "This function uses an environment variable to control the logging level." << std::endl;
+    std::cout << "UpdateFunctionConfiguration will be used to set the LOG_LEVEL to DEBUG." << std::endl;
     seconds = 0;
     do
     {
@@ -199,8 +204,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         Aws::Lambda::Model::UpdateFunctionConfigurationOutcome outcome = client.UpdateFunctionConfiguration(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "Lambda::UpdateFunctionConfiguration was successful." << std::endl;
-            std::cout << "With new handler " << outcome.GetResult().GetHandler() << std::endl;
+            std::cout << "The lambda configuration was successfully updated." << std::endl;
             break;
         }
         else if (outcome.GetError().GetErrorType() != Aws::Lambda::LambdaErrors::RESOURCE_IN_USE)
@@ -224,40 +228,56 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         std::cout << "Updated function active after " << seconds << " seconds." << std::endl;
     }
 
-    std::cout << "\n\nThe new code applies an arithmetic operator to two variables, x an y."  << std::endl;
+    std::cout << "\nThe new code applies an arithmetic operator to two variables, x an y."  << std::endl;
     std::vector<Aws::String> operators = {"plus", "minus", "times", "divided-by"};
     for (size_t i = 0; i < operators.size(); ++i)
     {
         std::cout << "   " << i + 1 << " " << operators[i] << std::endl;
     }
 
-    int operatorIndex = askQuestionForIntRange("Select an operator index 1 - 4 ", 1, 4);
-    int x = askQuestionForInt("Enter an integer for the x value ");
-    int y = askQuestionForInt("Enter an integer for the y value ");
-
-    Aws::Utils::Json::JsonValue calculateJsonPayload;
-    calculateJsonPayload.WithString("action", operators[operatorIndex- 1]);
-    calculateJsonPayload.WithInteger("x", x);
-    calculateJsonPayload.WithInteger("y", y);
-    Aws::Lambda::Model::InvokeResult calculatedResult;
-    if (invokeLambdaFunction(calculateJsonPayload, Aws::Lambda::Model::LogType::Tail,
-                             calculatedResult, client))
+    do
     {
-        Aws::Map<Aws::String, Aws::Utils::Json::JsonView> values =
-                Aws::Utils::Json::JsonView(calculatedResult.GetPayload()).GetAllObjects();
-        auto iter = values.find("result");
-        if (iter != values.end() && iter->second.IsIntegerType())
-        {
-            std::cout << "The result of " << x << " " << operators[operatorIndex- 1] << " "
-            << y << " is " << iter->second.AsInteger() << std::endl;
-        }
-        else{
-            std::cout << "There was an error in execution. Here is the log." << std::endl;
-            Aws::Utils::ByteBuffer  buffer = Aws::Utils::HashingUtils::Base64Decode(calculatedResult.GetLogResult());
-            std::cout << "With log " << buffer.GetUnderlyingData() << std::endl;
-        }
-    }
+        int operatorIndex = askQuestionForIntRange("Select an operator index 1 - 4 ", 1,
+                                                   4);
+        int x = askQuestionForInt("Enter an integer for the x value ");
+        int y = askQuestionForInt("Enter an integer for the y value ");
 
+        Aws::Utils::Json::JsonValue calculateJsonPayload;
+        calculateJsonPayload.WithString("action", operators[operatorIndex - 1]);
+        calculateJsonPayload.WithInteger("x", x);
+        calculateJsonPayload.WithInteger("y", y);
+        Aws::Lambda::Model::InvokeResult calculatedResult;
+        if (invokeLambdaFunction(calculateJsonPayload,
+                                 Aws::Lambda::Model::LogType::Tail,
+                                 calculatedResult, client)) {
+            Aws::Map<Aws::String, Aws::Utils::Json::JsonView> values =
+                    Aws::Utils::Json::JsonView(
+                            calculatedResult.GetPayload()).GetAllObjects();
+            auto iter = values.find("result");
+            if (iter != values.end() && iter->second.IsIntegerType()) {
+                std::cout << ARITHMETIC_RESUlT_PREFIX << x << " "
+                          << operators[operatorIndex - 1] << " "
+                          << y << " is " << iter->second.AsInteger() << std::endl;
+            }
+            else if (iter != values.end() && iter->second.IsFloatingPointType()) {
+                std::cout << ARITHMETIC_RESUlT_PREFIX << x << " "
+                          << operators[operatorIndex - 1] << " "
+                          << y << " is " << iter->second.AsDouble() << std::endl;
+            }
+            else {
+                std::cout << "There was an error in execution. Here is the log."
+                          << std::endl;
+                Aws::Utils::ByteBuffer buffer = Aws::Utils::HashingUtils::Base64Decode(
+                        calculatedResult.GetLogResult());
+                std::cout << "With log " << buffer.GetUnderlyingData() << std::endl;
+            }
+        }
+
+        answer = askQuestion("Would you like to try another operation? (y/n) ");
+    } while (answer == "y");
+
+    std::cout << "A list of the lambda functions will be retrieved. Press return to continue, ";
+    std::getline(std::cin, answer);
     Aws::String marker;
     do
     {
@@ -270,8 +290,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         Aws::Lambda::Model::ListFunctionsOutcome outcome = client.ListFunctions(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "Lambda::ListFunctions was successful." << std::endl;
             const Aws::Lambda::Model::ListFunctionsResult& result = outcome.GetResult();
+            std::cout << result.GetFunctions().size() << " lambda functions were retrieved." << std::endl;
             for (const Aws::Lambda::Model::FunctionConfiguration& functionConfiguration : result.GetFunctions())
             {
                 std::cout << "   " << functionConfiguration.GetDescription() << std::endl;
@@ -287,6 +307,9 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         }
     } while (!marker.empty());
 
+    std::cout << "The resources will be deleted. Press return to continue, ";
+    std::getline(std::cin, answer);
+
     {
         Aws::Lambda::Model::DeleteFunctionRequest request;
         request.SetFunctionName(LAMBDA_NAME);
@@ -294,7 +317,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         Aws::Lambda::Model::DeleteFunctionOutcome outcome = client.DeleteFunction(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "Lambda::DeleteFunction was successful." << std::endl;
+            std::cout << "The lambda function was successfully deleted." << std::endl;
         }
         else {
             std::cerr << "Error with Lambda::DeleteFunction. " << outcome.GetError().GetMessage()
@@ -466,7 +489,7 @@ Aws::String AwsDoc::Lambda::askQuestion(const Aws::String &string,
             std::cout << "Please enter some text." << std::endl;
         }
         if (!test(result)) {
-            continue;
+            result.clear();
         }
     } while (result.empty());
 

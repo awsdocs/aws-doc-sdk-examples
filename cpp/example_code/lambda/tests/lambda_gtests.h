@@ -13,7 +13,7 @@
 
 namespace AwsDocTest {
 
-    class S3_GTests : public testing::Test {
+    class Lambda_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -26,15 +26,22 @@ namespace AwsDocTest {
 
         static Aws::String preconditionError();
 
+        void AddCommandLineResponses(const std::vector<std::string> &responses);
+
+        bool getTrailingInt(const std::string& string, int& result);
+
         // s_clientConfig must be a pointer because the client config must be initialized
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
+        std::stringbuf m_coutBuffer;  // Used to silence cout.
+        std::streambuf *m_savedBuffer = nullptr;
+
     private:
         static Aws::SDKOptions s_options;
 
-        std::stringbuf m_coutBuffer;  // Used to silence cout.
-        std::streambuf *m_savedBuffer = nullptr;
+        std::stringbuf m_cinBuffer;
+        std::streambuf *m_savedInBuffer = nullptr;
     };
 } // AwsDocTest
 

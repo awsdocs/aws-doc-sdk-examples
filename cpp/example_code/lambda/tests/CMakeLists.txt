@@ -4,9 +4,9 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.14)
 
-set(EXAMPLE_SERVICE_NAME "ServiceTemplate")
+set(EXAMPLE_SERVICE_NAME "lambda")
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES  )
+set(CURRENT_TARGET_AWS_DEPENDENCIES   lambda iam)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
@@ -117,6 +117,7 @@ target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
+        SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/.."
 )
 
 target_link_libraries(
