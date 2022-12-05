@@ -13,11 +13,7 @@ This code is not tested in every AWS Region. For more information, see AWS Regio
 # About this example code
 The code comprises an application designed to manage fictitious work items using 3 key components.
 
-## 1. Frontend
-The frontend code is written in JavaScript and implemented using the React framework.
-For more information, see the [React Elwing Client README](../../../resources/clients/react/elwing/README.md).
-
-## 2. Backend
+## 1. Backend
 The centerpiece of this example is an API written exclusively in Ruby. It features the following gems:
 * [AWS SDK for Ruby](https://aws.amazon.com/sdk-for-ruby/) (for communicating with Amazon Aurora)
 * [Sinatra](https://sinatrarb.com/intro.html) (for a lightweight API implementation)
@@ -32,6 +28,10 @@ This Ruby API consists of the following API routes:
 |PUT                 | /api/items:archive   |Archive item  | RDSDataService     |execute_statement(*SQL*)|
 |GET                 | /api/items/{item_id} |Get item      | RDSDataService     |execute_statement(*SQL*)|
 |POST                | /api/items:report    |Create report | RDSDataService     |execute_statement(*SQL*)|
+
+## 2. Frontend
+The frontend code is written in JavaScript and implemented using the React framework.
+For more information, see the [React Elwing Client README](../../../resources/clients/react/elwing/README.md).
 
 ## 3. Database
 This example relies on a MySQL 5.7 database implemented using Amazon Aurora, a serverless relational database management system (RDBMS).
@@ -82,6 +82,7 @@ Once the app is started, manually validate the following behaviors on the fronte
 * Send a report of items by entering a verified email address and clicking Submit.
 
 As you interact with the React app, logs will appear in the command line tab where you started the REST API.
+
 ### Automated validation (via RSpec tests)
 Validate the internal logic within this example by running the following commands:
 ```bash
@@ -91,23 +92,9 @@ rspec db_wrapper_spec.rb
 
 ## Delete the resources
 
-*This section should walk the user step-by-step through deleting the resources using the CDK. Or, if they created the resources manually, provide a reminder to delete them.* **<-- Delete this sentence from template**
-
-To avoid charges, delete all the resources that you created for this tutorial.
-
-If you created your resources through the AWS Management Console, or modified them by running the app, you must use the console to delete them.
-
-If you created your resources using AWS CloudFormation, you can delete them by deleting the stack. For more information, see [Deleting a stack on the AWS CloudFormation console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html).
-
-**Note**: By running the app, you modified the table and the bucket, so you must delete these resources manually through the console before you can delete the stack.
-
-## Next steps
-Congratulations! You have [*description of what example achieves*].
-
-[*Describe other potential use cases for the skills they learned.*] **<-- Delete this sentence from template**
+To avoid charges, delete all the resources that you created for this tutorial. Follow the instructions in the Destroying resources section of the README for the Aurora Serverless sample application.
 
 ## Additional resources
-* [*Cross-service examples*](*link to cross-service level README for the language*)
-* [*Relevant service developer guide(s)*](*link to developer guide(s)*)
-* [*Relevant service API reference guide(s)*](*link to developer guide(s)*)
-* [*Relevant SDK API reference guide*](*link to API reference guide(s)*)
+* [Service Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
+* [Service API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
+* [SDK API reference guide](https://aws.amazon.com/developer/language/ruby/)
