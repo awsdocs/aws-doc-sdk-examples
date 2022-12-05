@@ -3,14 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3]
+// snippet-start:[javascript.v3.cloudwatchlogs.actions.DescribeSubscriptionFilters]
 import { DescribeSubscriptionFiltersCommand } from "@aws-sdk/client-cloudwatch-logs";
 import { client } from "../libs/client.js";
 
 const run = async () => {
   const command = new DescribeSubscriptionFiltersCommand({
-    logGroupName: "GROUP_NAME", //GROUP_NAME
-    limit: 5,
+    /**
+     * A name for the new log group.
+     */
+    logGroupName: process.env.CLOUDWATCH_LOGS_LOG_GROUP,
+    limit: 1,
   });
 
   try {
@@ -21,4 +24,4 @@ const run = async () => {
 };
 
 export default run();
-// snippet-end:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3]
+// snippet-end:[javascript.v3.cloudwatchlogs.actions.DescribeSubscriptionFilters]

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[cwLogs.JavaScript.cwl.putSubscriptionFilterV3]
+// snippet-start:[javascript.v3.cloudwatchlogs.actions.PutSubscriptionFilter]
 import { PutSubscriptionFilterCommand } from "@aws-sdk/client-cloudwatch-logs";
 import { client } from "../libs/client.js";
 
@@ -12,7 +12,7 @@ const run = async () => {
     /**
      * An ARN of a same-account Kinesis stream, Kinesis Firehose
      * delivery stream, or Lambda function.
-     * 
+     *
      * Additional information:
      * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html
      */
@@ -23,7 +23,7 @@ const run = async () => {
     filterName: process.env.CLOUDWATCH_LOGS_FILTER_NAME,
     /**
      * A filter pattern for subscribing to a filtered stream of log events.
-     * 
+     *
      * More information:
      * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html
      */
@@ -43,4 +43,4 @@ const run = async () => {
 };
 
 export default run();
-// snippet-end:[cwLogs.JavaScript.cwl.putSubscriptionFilterV3]
+// snippet-end:[javascript.v3.cloudwatchlogs.actions.PutSubscriptionFilter]

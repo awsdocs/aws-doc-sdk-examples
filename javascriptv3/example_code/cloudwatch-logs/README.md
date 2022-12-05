@@ -20,9 +20,12 @@ You can use Amazon CloudWatch Logs to monitor, store, and access your log files 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete a subscription filter](src/deleteSubscriptionFilter.js)
-- [Describe existing subscription filters](src/describeSubscriptionFilters.js)
-- [Create a subscription filter](src/putSubscriptionFilter.js)
+- [Create a log group](actions/create-log-group.js)
+- [Create a subscription filter](actions/put-subscription-filter.js)
+- [Delete a log group](actions/delete-log-group.js)
+- [Delete a subscription filter](actions/delete-subscription-filter.js)
+- [Describe log groups](actions/describe-log-groups.js)
+- [Describe existing subscription filters](actions/describe-subscription-filters.js)
 
 ## Run the examples
 

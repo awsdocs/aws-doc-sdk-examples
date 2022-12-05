@@ -5,6 +5,6 @@
 
 // snippet-start:[cloudwatch.JavaScript.logs.createclientv3]
 import { CloudWatchLogsClient } from "@aws-sdk/client-cloudwatch-logs";
-const REGION = "REGION"; //e.g. "us-east-1"
+const REGION = "us-east-1"; //e.g. "us-east-1"
 export const client = new CloudWatchLogsClient({ region: REGION });
 // snippet-end:[cloudwatch.JavaScript.logs.createclientv3]

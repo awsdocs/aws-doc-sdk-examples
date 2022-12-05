@@ -11,6 +11,7 @@ import {
   Runtime,
   LambdaClient,
   DeleteFunctionCommand,
+  AddPermissionCommand,
 } from "@aws-sdk/client-lambda";
 import { DEFAULT_REGION } from "./constants.js";
 
@@ -20,11 +21,11 @@ const client = new LambdaClient({ region: DEFAULT_REGION });
  *
  * @param {string} roleArn
  */
-export const createFunction = (roleArn) => {
+export const createFunction = async (name, roleArn) => {
   const lambdaFunctionBuffer = readFileSync(`./tests/data/lambda-function.zip`);
   const command = new CreateFunctionCommand({
     Code: { ZipFile: lambdaFunctionBuffer },
-    FunctionName: `cloudwatch-log-subscriber`,
+    FunctionName: name,
     Role: roleArn,
     Architectures: [Architecture.arm64],
     Handler: "index.handler",
@@ -32,10 +33,35 @@ export const createFunction = (roleArn) => {
     Runtime: Runtime.nodejs16x,
   });
 
-  return client.send(command);
+  return await client.send(command);
 };
 
-export const deleteFunction = (functionName) => {
+export const deleteFunction = async (functionName) => {
   const command = new DeleteFunctionCommand({ FunctionName: functionName });
+
+  try {
+    return await client.send(command);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const addPermissionLogsInvokeFunction = async (
+  functionName,
+  logGroupName
+) => {
+  const describeLogGroupsMod = await import(
+    "../actions/describe-log-groups.js"
+  );
+  const { logGroups } = await describeLogGroupsMod.default;
+  const logGroup = logGroups.find((lg) => lg.logGroupName === logGroupName);
+  const command = new AddPermissionCommand({
+    FunctionName: functionName,
+    StatementId: `${functionName}${Date.now()}`,
+    Action: "lambda:InvokeFunction",
+    Principal: "logs.amazonaws.com",
+    SourceArn: logGroup.arn,
+  });
+
   return client.send(command);
 };
