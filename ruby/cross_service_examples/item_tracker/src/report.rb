@@ -101,7 +101,7 @@ class Report
     work_items = @db_wrapper.get_work_items
     @logger.debug("Prepared the following items for a report:\n#{work_items}")
 
-    file_name = File.join(File.dirname(__FILE__), "templates", "report.erb")
+    file_name = File.join(File.dirname(__FILE__), "templates", "report.html.erb")
     html_report = render_template(file_name, work_items)
     @logger.debug("HTML report: \n#{html_report}")
 
