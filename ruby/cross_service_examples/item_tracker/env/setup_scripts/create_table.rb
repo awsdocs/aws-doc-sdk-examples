@@ -14,9 +14,7 @@ require "aws-sdk-ses"
 class SetupDatabase
 
   def initialize
-    # @config = YAML.load(File.read("config.yml"))
     @config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), '../', "config.yml")))
-
     @data_client = Aws::RDSDataService::Client.new
     @rds_client = Aws::RDS::Client.new
   end
@@ -24,9 +22,11 @@ class SetupDatabase
   # Checks if database exists
   # @return [Boolean] false if DBClusterNotFoundFault; else true.
   def database_exists?
-    identifier = @config["resource_arn"].split(":cluster:")[1]
-    @rds_client.describe_db_clusters({db_cluster_identifier: identifier })
-    true
+    identifier = Aws::ARNParser.parse(@config["resource_arn"])
+    @rds_client.wait_until(:db_cluster_available, db_cluster_identifier: identifier.resource) do |w|
+      w.max_attempts = 5
+      w.delay = 5
+    end
   rescue Aws::RDS::Errors::DBClusterNotFoundFault => e
     false
   end
