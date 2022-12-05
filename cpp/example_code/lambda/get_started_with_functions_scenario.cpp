@@ -312,7 +312,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                       << outcome.GetError().GetMessage()
                       << std::endl;
         }
-        // snippet-start:[cpp.example_code.lambda.update_function_configuration2]
+        // snippet-end:[cpp.example_code.lambda.update_function_configuration2]
 
     } while (0 < seconds);
 
@@ -562,7 +562,7 @@ int main(int argc, const char *argv[]) {
     InitAPI(options);
 
     {
-        // snippet-end:[cpp.example_code.lambda.lambda_configuration]
+        // snippet-start:[cpp.example_code.lambda.lambda_configuration]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
