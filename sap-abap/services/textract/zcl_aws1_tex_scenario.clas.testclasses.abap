@@ -36,11 +36,11 @@ CLASS ltc_zcl_aws1_tex_scenario IMPLEMENTATION.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
     DATA lo_block TYPE REF TO  /aws1/cl_texblock.
 
-    "Using an image from the Public Amazon Berkeley Objects Dataset
+    "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
     CONSTANTS cv_key_name TYPE /aws1/s3_bucketname VALUE 'images/small/e0/e0feb1eb.jpg'.
 
-    "Analyze document
+    "Analyze document.
     ao_tex_scenario->getting_started_with_tex(
       EXPORTING
         iv_s3object          = cv_key_name
@@ -49,7 +49,7 @@ CLASS ltc_zcl_aws1_tex_scenario IMPLEMENTATION.
         oo_result           = lo_output
       ).
 
-    "Validation check
+    "Validation check.
     lv_found = abap_false.
     lt_blocks = lo_output->get_blocks( ).
     LOOP AT lt_blocks INTO lo_block.
