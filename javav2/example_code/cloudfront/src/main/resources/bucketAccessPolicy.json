@@ -9,10 +9,10 @@
         "Service": "cloudfront.amazonaws.com"
       },
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::{bucketName}}/*",
+      "Resource": "",
       "Condition": {
         "StringEquals": {
-          "AWS:SourceArn": "arn:aws:cloudfront::228601887821:distribution/{distributionId}}"
+          "AWS:SourceArn": ""
         }
       }
     }

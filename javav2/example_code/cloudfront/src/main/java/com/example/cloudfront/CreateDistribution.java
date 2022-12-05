@@ -9,11 +9,17 @@
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.createdistribution.import]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.internal.waiters.ResponseOrException;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
-import software.amazon.awssdk.services.cloudfront.model.*;
+import software.amazon.awssdk.services.cloudfront.model.CreateDistributionResponse;
+import software.amazon.awssdk.services.cloudfront.model.Distribution;
+import software.amazon.awssdk.services.cloudfront.model.GetDistributionResponse;
+import software.amazon.awssdk.services.cloudfront.model.ItemSelection;
+import software.amazon.awssdk.services.cloudfront.model.Method;
+import software.amazon.awssdk.services.cloudfront.model.ViewerProtocolPolicy;
 import software.amazon.awssdk.services.cloudfront.waiters.CloudFrontWaiter;
 import software.amazon.awssdk.services.s3.S3Client;
 

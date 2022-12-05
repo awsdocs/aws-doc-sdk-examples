@@ -95,7 +95,7 @@ cloudfront_CreateDistribution:
                 The following example uses an Amazon S3 bucket as a content origin. 
                 <para>After creating the distribution, 
                 the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink> 
-                to wait for the distribution is deployed before returning the distribution.</para>
+                to wait until the distribution is deployed before returning the distribution.</para>
               snippet_tags:
                 - cloudfront.java2.createdistribution.import
                 - cloudfront.java2.createdistribution.main
@@ -158,7 +158,7 @@ cloudfront_DeleteDistribution:
 cloudfront_DeleteSigningResources:
   title: Delete CloudFront signing resources using &AWS; SDK
   title_abbrev: Delete signing resources
-  synopsis: delete resources using to sign requests and verify signatures
+  synopsis: delete resources that are used to gain access to restricted content in an S3 bucket.
   category:
   languages:
     Java:
@@ -174,10 +174,10 @@ cloudfront_DeleteSigningResources:
   services:
     cloudfront: { DeleteKeyGroup, DeletePublicKey, DeleteOriginAccessControl }
 cloudfront_CloudFrontUtilities:
-  title: Create signed URLs and cookies using &AWS; SDK
+  title: Create signed URLs and cookies using an &AWS; SDK
   title_abbrev: Sign URLs and cookies
   synopsis: create signed URLs and cookies that allow access to restricted resources.
-  category:
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -185,15 +185,21 @@ cloudfront_CloudFrontUtilities:
           github: javav2/example_code/cloudfront
           sdkguide:
           excerpts:
-            - description: Use the <code>CannedSignerRequest</code> to sign URLs or cookies with a <emphasis>canned</emphasis> policy.
+            - description: >
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CannedSignerRequest.html">CannedSignerRequest</ulink> 
+                        class to sign URLs or cookies with a <emphasis>canned</emphasis> policy.
               snippet_tags:
                 - cloudfront.java2.createcannedpolicyrequest.import
                 - cloudfront.java2.createcannedpolicyrequest.main
-            - description: Use the <code>CustomSignerRequest</code> to sign URLs or cookies with a <emphasis>custom</emphasis> policy. The <code>activeDate</code> and <code>ipRange</code> are optional methods.
+            - description: >
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CustomSignerRequest.html">CustomSignerRequest</ulink> 
+                class to sign URLs or cookies with a <emphasis>custom</emphasis> policy. The <code>activeDate</code> and <code>ipRange</code> are optional methods.
               snippet_tags:
                 - cloudfront.java2.createcustompolicyrequest.import
                 - cloudfront.java2.createcustompolicyrequest.main
-            - description: The following example demonstrates use of the <code>CloudFrontUtilities</code> class to produce signed cookies and URLs.
+            - description: >
+                The following example demonstrates the use of the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/CloudFrontUtilities.html">CloudFrontUtilities</ulink> 
+                class to produce signed cookies and URLs.
               snippet_tags:
                 - cloudfront.java2.signingutilities.import
                 - cloudfront.java2.signingutilities.main
