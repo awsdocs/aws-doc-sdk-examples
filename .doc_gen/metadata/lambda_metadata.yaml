@@ -273,7 +273,7 @@ lambda_Invoke:
                 - cpp.example_code.lambda.lambda_client
                 - cpp.example_code.lambda.invoke_function1
                 - cpp.example_code.lambda.invoke_function2
-   services:
+  services:
     lambda: {Invoke}
 lambda_GetFunction:
   title: Get a &LAM; function using an &AWS; SDK
