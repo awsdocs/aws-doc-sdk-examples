@@ -1,5 +1,5 @@
 {
-  "author": "Brian Murray <brmur@amazon.com>",
+  "author": "Brian Murray <brmur@amazon.com> and Corey Pyle <corepyle@amazon.com>",
   "license": "Apache 2.0",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.210.0",

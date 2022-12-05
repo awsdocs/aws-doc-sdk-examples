@@ -1,7 +1,7 @@
 import { DeleteCommand } from "@aws-sdk/lib-dynamodb";
 import { describe, it, afterAll } from "vitest";
 import { ddbDocClient } from "../libs/ddbDocClient.js";
-import { runScenario } from "../src/dynamodb_basics.js";
+import { main } from "../src/dynamodb_basics.js";
 
 describe("dynamodb_basics#run", () => {
   afterAll(async () => {
@@ -14,7 +14,7 @@ describe("dynamodb_basics#run", () => {
   });
   
   it("should successfully run", async () => {
-    await runScenario(
+    await main(
       "myNewTable",
       "myMovieName",
       2022,
