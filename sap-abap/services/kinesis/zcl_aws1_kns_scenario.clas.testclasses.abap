@@ -51,7 +51,7 @@ CLASS ltc_zcl_aws1_kns_scenario IMPLEMENTATION.
     CONSTANTS cv_partition_key TYPE /aws1/knspartitionkey VALUE '123'.
     CONSTANTS cv_sharditeratortype TYPE /aws1/knssharditeratortype VALUE 'TRIM_HORIZON'.
 
-    "Define name
+    "Define name.
     DATA(lv_uuid_16) = cl_system_uuid=>create_uuid_x16_static( ).
     lv_stream_name = 'code-example-kns-stream-' && lv_uuid_16.
     TRANSLATE lv_stream_name TO LOWER CASE.
@@ -69,7 +69,7 @@ CLASS ltc_zcl_aws1_kns_scenario IMPLEMENTATION.
 
     lt_record_list = lo_get_record_output->get_records( ).
 
-    "Validation
+    "Validation.
     LOOP AT lt_record_list INTO DATA(lo_record).
       lv_record_data = lo_record->get_data( ).
     ENDLOOP.
