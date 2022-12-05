@@ -14,7 +14,7 @@ require "aws-sdk-ses"
 class SetupDatabase
 
   def initialize
-    @config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), '../', "config.yml")))
+    @config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "../", "config.yml")))
     @data_client = Aws::RDSDataService::Client.new
     @rds_client = Aws::RDS::Client.new
   end

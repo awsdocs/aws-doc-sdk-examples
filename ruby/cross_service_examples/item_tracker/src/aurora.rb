@@ -6,7 +6,6 @@
 require "logger"
 require "sequel"
 require "multi_json"
-require 'pry'
 require_relative "report"
 
 # Issues commands directly to the Amazon RDS Data Service, including SQL statements.
