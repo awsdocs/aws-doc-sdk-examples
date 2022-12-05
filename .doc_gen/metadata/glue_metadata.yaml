@@ -59,6 +59,16 @@ glue_GetCrawler:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.GetCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_crawler
   services:
     glue: {GetCrawler}
 glue_CreateCrawler:
@@ -123,6 +133,16 @@ glue_CreateCrawler:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.CreateCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.create_crawler
   services:
     glue: {CreateCrawler}
 glue_StartCrawler:
@@ -187,6 +207,16 @@ glue_StartCrawler:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.StartCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.start_crawler
   services:
     glue: {StartCrawler}
 glue_GetDatabase:
@@ -250,6 +280,16 @@ glue_GetDatabase:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.GetDatabase
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_database
   services:
     glue: {GetDatabase}
 glue_GetTables:
@@ -304,6 +344,16 @@ glue_GetTables:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.GetTables
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_tables
   services:
     glue: {GetTables}
 glue_CreateJob:
@@ -350,6 +400,16 @@ glue_CreateJob:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.CreateJob
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.create_job
   services:
     glue: {CreateJob}
 glue_StartJobRun:
@@ -397,6 +457,16 @@ glue_StartJobRun:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.StartJobRun
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.start_job_run
   services:
     glue: {StartJobRun}
 glue_ListJobs:
@@ -432,6 +502,16 @@ glue_ListJobs:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.ListJobs
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.list_jobs
   services:
     glue: {ListJobs}
 glue_GetJobRuns:
@@ -477,6 +557,16 @@ glue_GetJobRuns:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.GetJobRuns
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_job_runs
   services:
     glue: {GetJobRuns}
 glue_GetJobRun:
@@ -514,6 +604,16 @@ glue_GetJobRun:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.GetJobRun
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_job_run
   services:
     glue: {GetJobRun}
 glue_DeleteJob:
@@ -558,6 +658,16 @@ glue_DeleteJob:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.DeleteJob
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.delete_job
   services:
     glue: {DeleteJob}
 glue_DeleteTable:
@@ -637,6 +747,16 @@ glue_DeleteDatabase:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.DeleteDatabase
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.delete_database
   services:
     glue: {DeleteDatabase}
 glue_DeleteCrawler:
@@ -681,6 +801,16 @@ glue_DeleteCrawler:
             - description:
               snippet_tags:
                 - javascript.v3.glue.actions.DeleteCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.delete_crawler
   services:
     glue: {DeleteCrawler}
 glue_GetDatabases:
@@ -833,6 +963,15 @@ glue_Scenario_GetStartedCrawlersJobs:
                 - javascript.v3.glue.scenarios.basic.CleanUpTablesStep
                 - javascript.v3.glue.scenarios.basic.CleanUpDatabasesStep
                 - javascript.v3.glue.scenarios.basic.CleanUpCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.glue_getting_started_scenario
+
   services:
     glue: {GetCrawler, CreateCrawler, StartCrawler, GetDatabase, GetDatabases, GetTables, CreateJob,
            StartJobRun, ListJobs, GetJob, GetJobRuns, GetJobRun, DeleteJob, DeleteTable,

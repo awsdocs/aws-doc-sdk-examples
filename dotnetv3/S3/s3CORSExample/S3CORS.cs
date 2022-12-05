@@ -102,8 +102,10 @@ namespace S3CORSExample
             }
         }
 
+        // snippet-start:[S3.dotnetv3.PutCORS]
+
         /// <summary>
-        /// 
+        /// Add CORS configuration to the Amazon S3 bucket.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client object used
         /// to apply the CORS configuration to an Amazon S3 bucket.</param>
@@ -118,6 +120,10 @@ namespace S3CORSExample
 
             _ = await client.PutCORSConfigurationAsync(request);
         }
+
+        // snippet-end:[S3.dotnetv3.PutCORS]
+
+        // snippet-start:[S3.dotnetv3.GetCORS]
 
         /// <summary>
         /// Retrieve the CORS configuration applied to the Amazon S3 bucket.
@@ -137,6 +143,10 @@ namespace S3CORSExample
             return configuration;
         }
 
+        // snippet-end:[S3.dotnetv3.GetCORS]
+
+        // snippet-start:[S3.dotnetv3.DeleteCORS]
+
         /// <summary>
         /// Deletes a CORS configuration from an Amazon S3 bucket.
         /// </summary>
@@ -150,6 +160,8 @@ namespace S3CORSExample
             };
             await client.DeleteCORSConfigurationAsync(request);
         }
+
+        // snippet-end:[S3.dotnetv3.DeleteCORS]
 
         /// <summary>
         /// Displays the list of CORS rules on the console.

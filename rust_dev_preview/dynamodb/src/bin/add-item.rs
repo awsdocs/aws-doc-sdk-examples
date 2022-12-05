@@ -3,31 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_dynamodb::{Client, Error};
+use aws_sdk_dynamodb::{types::DisplayErrorContext, Client};
 use dynamodb_code_examples::{
     make_config,
     scenario::add::{add_item, Item},
+    scenario::error::Error,
     Opt as BaseOpt,
 };
-use std::fmt;
+use std::process;
 use structopt::StructOpt;
 
-#[derive(Debug)]
+#[derive(thiserror::Error, Debug)]
+#[error(
+    "{p_type} is not a valid permission type.\n\
+        You must specify a permission type value of 'admin' or 'standard_user':\n\
+        -p PERMISSION-TYPE\n"
+)]
 struct PermissionError {
     p_type: String,
-}
-
-impl std::error::Error for PermissionError {}
-impl fmt::Display for PermissionError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "{} is not a valid permission type.\n\
-        You must specify a permission type value of 'admin' or 'standard_user':\n\
-        -p PERMISSION-TYPE\n",
-            self.p_type
-        )
-    }
 }
 
 #[derive(Debug, StructOpt)]
@@ -75,8 +68,15 @@ struct Opt {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
-    let Opt {
+async fn main() {
+    if let Err(err) = run_example(Opt::from_args()).await {
+        eprintln!("Error: {}", DisplayErrorContext(err));
+        process::exit(1);
+    }
+}
+
+async fn run_example(
+    Opt {
         table,
         username,
         p_type,
@@ -84,10 +84,10 @@ async fn main() -> Result<(), Error> {
         first,
         last,
         base,
-    } = Opt::from_args();
-
+    }: Opt,
+) -> Result<(), Error> {
     if !["standard_user", "admin"].contains(&p_type.as_str()) {
-        return Err(Error::Unhandled(Box::new(PermissionError { p_type })));
+        return Err(Error::unhandled(PermissionError { p_type }));
     }
 
     let shared_config = make_config(base).await?;
@@ -104,5 +104,7 @@ async fn main() -> Result<(), Error> {
         },
         &table,
     )
-    .await
+    .await?;
+
+    Ok(())
 }

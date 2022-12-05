@@ -37,8 +37,8 @@ namespace GenPresignedUrlExample
         }
 
         /// <summary>
-        /// Gemerate a presigned URL that can be used to access the file named
-        /// in the ojbectKey parameter for the amount of time specified in the
+        /// Generate a presigned URL that can be used to access the file named
+        /// in the objectKey parameter for the amount of time specified in the
         /// duration parameter.
         /// </summary>
         /// <param name="client">An initialized S3 client object used to call

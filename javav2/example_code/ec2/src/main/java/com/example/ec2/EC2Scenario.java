@@ -100,9 +100,10 @@ public class EC2Scenario {
             "   fileName -  A file name where the key information is written to. \n\n" +
             "   groupName - The name of the security group. \n\n" +
             "   groupDesc - The description of the security group. \n\n" +
-            "   vpcId - A VPC ID. You can get this value from the AWS Management Console. \n\n" ;
+            "   vpcId - A VPC Id value. You can get this value from the AWS Management Console. \n\n" +
+            "   myIpAddress - The IP address of your development machine. \n\n" ;
 
-        if (args.length != 5) {
+        if (args.length != 6) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -112,6 +113,7 @@ public class EC2Scenario {
         String groupName = args[2];
         String groupDesc = args[3];
         String vpcId = args[4];
+        String myIpAddress = args[5];
 
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
@@ -140,7 +142,7 @@ public class EC2Scenario {
 
         System.out.println(DASHES);
         System.out.println("3. Create a security group.");
-        String groupId = createSecurityGroup(ec2, groupName, groupDesc, vpcId);
+        String groupId = createSecurityGroup(ec2, groupName, groupDesc, vpcId, myIpAddress);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -227,7 +229,7 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("You successfully completed the Amazon EC2 scenario.! ");
+        System.out.println("You successfully completed the Amazon EC2 scenario.");
         System.out.println(DASHES);
         ec2.close();
     }
@@ -564,7 +566,8 @@ public class EC2Scenario {
     }
     // snippet-end:[ec2.java2.scenario.describe_securitygroup.main]
 
-    public static String createSecurityGroup( Ec2Client ec2,String groupName, String groupDesc, String vpcId) {
+    // snippet-start:[ec2.java.scenario_inbound_rule.main]
+    public static String createSecurityGroup(Ec2Client ec2,String groupName, String groupDesc, String vpcId, String myIpAddress) {
         try {
             CreateSecurityGroupRequest createRequest = CreateSecurityGroupRequest.builder()
                 .groupName(groupName)
@@ -574,7 +577,8 @@ public class EC2Scenario {
 
             CreateSecurityGroupResponse resp= ec2.createSecurityGroup(createRequest);
             IpRange ipRange = IpRange.builder()
-                .cidrIp("0.0.0.0/0").build();
+                .cidrIp(myIpAddress+"/0")
+                .build();
 
             IpPermission ipPerm = IpPermission.builder()
                 .ipProtocol("tcp")
@@ -605,7 +609,9 @@ public class EC2Scenario {
         }
         return "";
     }
+    // snippet-end:[ec2.java.scenario_inbound_rule.main]
 
+    // snippet-start:[ec2.java.scenario_describe_keys.main]
     public static void describeKeys( Ec2Client ec2){
         try {
             DescribeKeyPairsResponse response = ec2.describeKeyPairs();
@@ -621,6 +627,7 @@ public class EC2Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java.scenario_describe_keys.main]
 
     public static void createKeyPair(Ec2Client ec2, String keyName, String fileName) {
         try {

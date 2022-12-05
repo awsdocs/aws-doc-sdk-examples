@@ -3,42 +3,38 @@
 // </copyright>
 
 // snippet-start:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]
-/// <summary>
-/// This example application performs the following basic Amazon DynamoDB
-/// functions:
-///
-///     CreateTableAsync
-///     PutItemAsync
-///     UpdateItemAsync
-///     BatchWriteItemAsync
-///     GetItemAsync
-///     DeleteItemAsync
-///     Query
-///     Scan
-///     DeleteItemAsync
-///
-/// The code in this example uses the AWS SDK for .NET version 3.7 and .NET 5.
-/// Before you run this example, download 'movies.json' from
-/// https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-/// and put it in the same folder as the example.
-/// </summary>
+// This example application performs the following basic Amazon DynamoDB
+// functions:
+//
+//     CreateTableAsync
+//     PutItemAsync
+//     UpdateItemAsync
+//     BatchWriteItemAsync
+//     GetItemAsync
+//     DeleteItemAsync
+//     Query
+//     Scan
+//     DeleteItemAsync
+//
+// The code in this example uses the AWS SDK for .NET version 3.7 and .NET 5.
+// Before you run this example, download 'movies.json' from
+// https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files,
+// and put it in the same folder as the example.
 namespace DynamoDB_Basics_Scenario
 {
-    using System;
-    using System.Threading.Tasks;
-    using Amazon.DynamoDBv2;
-
     public class DynamoDB_Basics
     {
         // Separator for the console display.
-        private static readonly string SepBar = new('-', 80);
+        private static readonly string SepBar = new string('-', 80);
 
         public static async Task Main()
         {
             var client = new AmazonDynamoDBClient();
 
             var tableName = "movie_table";
-            var movieFileName = "moviedata.json";
+
+            // relative path to moviedata.json in the local repository.
+            var movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
 
             DisplayInstructions();
 
@@ -113,7 +109,7 @@ namespace DynamoDB_Basics_Scenario
                 Year = 1993,
             };
 
-            Console.WriteLine("Looking for the movie \"Spider-Man: No Way Home\".");
+            Console.WriteLine("Looking for the movie \"Jurassic Park\".");
             var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, tableName);
             if (item.Count > 0)
             {

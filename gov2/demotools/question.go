@@ -77,10 +77,10 @@ func (inRange InFloatRange) IsValid(answer string) bool {
 // IQuestioner is an interface that asks questions at a command prompt and validates
 // the answers.
 type IQuestioner interface {
-	Ask(question string, validators []IAnswerValidator) string
+	Ask(question string, validators ...IAnswerValidator) string
 	AskBool(question string, expected string) bool
-	AskInt(question string, validators []IAnswerValidator) int
-	AskFloat64(question string, validators []IAnswerValidator) float64
+	AskInt(question string, validators ...IAnswerValidator) int
+	AskFloat64(question string, validators ...IAnswerValidator) float64
 }
 
 // Questioner implements IQuestioner and stores input in a reader.
@@ -97,7 +97,9 @@ func NewQuestioner() *Questioner {
 // Ask asks the specified question at a command prompt and validates the answer with
 // the specified set of validators. If the answer fails validation, the question is
 // asked again. The answer is trimmed of whitespace, but is otherwise not altered.
-func (questioner Questioner) Ask(question string, validators []IAnswerValidator) string {
+// When no validators are specified, the questioner waits for any answer and then
+// continues.
+func (questioner Questioner) Ask(question string, validators ...IAnswerValidator) string {
 	var answer string
 	var err error
 	isValid := false
@@ -108,6 +110,7 @@ func (questioner Questioner) Ask(question string, validators []IAnswerValidator)
 			panic(err)
 		} else {
 			answer = strings.TrimSpace(answer)
+			isValid = true
 			for _, validator := range validators {
 				isValid = validator.IsValid(answer)
 				if !isValid {
@@ -122,14 +125,14 @@ func (questioner Questioner) Ask(question string, validators []IAnswerValidator)
 // AskBool asks a question with an expected answer. If the expected answer is given,
 // it returns true; otherwise, it returns false.
 func (questioner Questioner) AskBool(question string, expected string) bool {
-	answer := questioner.Ask(question, []IAnswerValidator{NotEmpty{}})
+	answer := questioner.Ask(question, NotEmpty{})
 	return strings.ToLower(answer) == expected
 }
 
 // AskInt asks a question and converts the answer to an int. If the answer cannot be
 // converted, the function panics.
-func (questioner Questioner) AskInt(question string, validators []IAnswerValidator) int {
-	answer := questioner.Ask(question, validators)
+func (questioner Questioner) AskInt(question string, validators ...IAnswerValidator) int {
+	answer := questioner.Ask(question, validators...)
 	answerInt, err := strconv.Atoi(answer)
 	if err != nil {
 		panic(err)
@@ -139,8 +142,8 @@ func (questioner Questioner) AskInt(question string, validators []IAnswerValidat
 
 // AskFloat64 asks a question and converts the answer to a float64. If the answer cannot
 // be converted, the function panics.
-func (questioner Questioner) AskFloat64(question string, validators []IAnswerValidator) float64 {
-	answer := questioner.Ask(question, validators)
+func (questioner Questioner) AskFloat64(question string, validators ...IAnswerValidator) float64 {
+	answer := questioner.Ask(question, validators...)
 	answerFloat, err := strconv.ParseFloat(answer, 64)
 	if err != nil {
 		panic(err)
