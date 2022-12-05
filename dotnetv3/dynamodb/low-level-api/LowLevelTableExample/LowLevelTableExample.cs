@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[lambda.dotnetv3.LowLevelTableExample]
+// snippet-start:[dynamodb.dotnetv3.LowLevelTableExample]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -70,9 +70,11 @@ namespace LowLevelTableExample
             return true;
         }
 
+        // snippet-start:[dynamodb.dotnetv3.ListTableExample]
+
         public static async Task<bool> ListMyTables(AmazonDynamoDBClient client)
         {
-            Console.WriteLine("\n*** listing tables ***");
+            Console.WriteLine("\n*** Listing tables ***");
             string lastTableNameEvaluated = null;
             do
             {
@@ -91,7 +93,9 @@ namespace LowLevelTableExample
 
             return true;
         }
+        // snippet-end:[dynamodb.dotnetv3.ListTableExample]
 
+        // snippet-start:[dynamodb.dotnetv3.DescribeTableExample]
         public static async Task<bool> GetTableInformation(AmazonDynamoDBClient client)
         {
             Console.WriteLine("\n*** Retrieving table information ***");
@@ -112,6 +116,7 @@ namespace LowLevelTableExample
 
             return true;
         }
+        // snippet-end:[dynamodb.dotnetv3.DescribeTableExample]
 
         public static async Task<bool> UpdateExampleTable(AmazonDynamoDBClient client)
         {
@@ -185,7 +190,7 @@ namespace LowLevelTableExample
             if (!result.Result)
             {
                 Console.WriteLine("Could not list tables.");
-                Console.WriteLine("You must delete the " + _tableName + " table yourself");
+                Console.WriteLine("You must delete the " + _tableName + " table yourself.");
                 return;
             }
 
@@ -194,7 +199,7 @@ namespace LowLevelTableExample
             if (!result.Result)
             {
                 Console.WriteLine("Could not get table information.");
-                Console.WriteLine("You must delete the " + _tableName + " table yourself");
+                Console.WriteLine("You must delete the " + _tableName + " table yourself.");
                 return;
             }
 
@@ -212,9 +217,9 @@ namespace LowLevelTableExample
             if (!result.Result)
             {
                 Console.WriteLine("Could not delete example table.");
-                Console.WriteLine("You must delete the " + _tableName + " table yourself");
+                Console.WriteLine("You must delete the " + _tableName + " table yourself.");
             }
         }
     }
 }
-// snippet-end:[lambda.dotnetv3.LowLevelTableExample]
+// snippet-end:[dynamodb.dotnetv3.LowLevelTableExample]

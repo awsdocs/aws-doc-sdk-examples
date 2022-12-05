@@ -5,6 +5,15 @@ route-53_Hello:
   synopsis: get started using &R53DRlong;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.hello.main
     .NET:
       versions:
         - sdk_version: 3
@@ -22,6 +31,15 @@ route-53_CheckDomainAvailability:
   synopsis: check the availability of a domain.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.checkdomainavailability.main
     .NET:
       versions:
         - sdk_version: 3
@@ -39,6 +57,15 @@ route-53_CheckDomainTransferability:
   synopsis: check the transferability of a domain.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.checkdomaintransfer.main
     .NET:
       versions:
         - sdk_version: 3
@@ -56,6 +83,15 @@ route-53_GetDomainDetails:
   synopsis: get the details for a domain.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domaindetails.main
     .NET:
       versions:
         - sdk_version: 3
@@ -73,6 +109,15 @@ route-53_GetDomainSuggestions:
   synopsis: get domain name suggestions.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainsuggestions.main
     .NET:
       versions:
         - sdk_version: 3
@@ -90,6 +135,15 @@ route-53_GetOperationDetails:
   synopsis: get details on an operation.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainoperations.main
     .NET:
       versions:
         - sdk_version: 3
@@ -107,6 +161,15 @@ route-53_ListPrices:
   synopsis: list domain prices.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainprices.main
     .NET:
       versions:
         - sdk_version: 3
@@ -124,6 +187,15 @@ route-53_ListDomains:
   synopsis: list the registered domains.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainlist.main
     .NET:
       versions:
         - sdk_version: 3
@@ -141,6 +213,15 @@ route-53_ListOperations:
   synopsis: list operations.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainlistops.main
     .NET:
       versions:
         - sdk_version: 3
@@ -158,6 +239,15 @@ route-53_RegisterDomain:
   synopsis: register a domain.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainreg.main
     .NET:
       versions:
         - sdk_version: 3
@@ -175,6 +265,15 @@ route-53_ViewBilling:
   synopsis: view billing records.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainbillingrecords.main
     .NET:
       versions:
         - sdk_version: 3
@@ -202,6 +301,15 @@ route-53_Scenario_GetStartedRoute53Domains:
     - Optionally, get a domain detail.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.scenario.main
     .NET:
       versions:
         - sdk_version: 3
