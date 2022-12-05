@@ -145,7 +145,7 @@ s3_CopyObject:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.S3_Basics-CopyObject
+                - S3.dotnet35.CopyObject
     C++:
       versions:
         - sdk_version: 1
@@ -318,6 +318,18 @@ s3_DeleteObject:
   synopsis: delete an S3 object.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description: Delete an object in a non-versioned S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.DeleteObjectExample
+            - description: Delete an object in a versioned S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.DeleteObjectVersionExample
     C++:
       versions:
         - sdk_version: 1
@@ -409,6 +421,12 @@ s3_DeleteObjects:
             - description: Delete all objects in an S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-DeleteBucketContents
+            - description: Delete multiple objects in a non-versioned S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.DeleteMultipleObjectsExample
+            - description: Delete multiple objects in a versioned S3 bucket.
+              snippet_tags:
+                - S3.dotnetv3.DeleteMultipleVersionedObjectsExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -790,6 +808,15 @@ s3_GetBucketLifecycleConfiguration:
   synopsis: get the lifecycle configuration of an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetLifecycleExample
     Python:
       versions:
         - sdk_version: 3
@@ -802,12 +829,38 @@ s3_GetBucketLifecycleConfiguration:
                 - python.example_code.s3.GetBucketLifecycleConfiguration
   services:
     s3: {GetBucketLifecycleConfiguration}
+s3_ServiceAccessLogging:
+  title: Enable logging on an &S3; bucket using an &AWS; SDK
+  title_abbrev: Enable logging
+  synopsis: enable logging on an S3 bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.ServerAccessLoggingExample
+  services:
+    s3: {PutBucketLogging}
 s3_PutBucketLifecycleConfiguration:
   title: Add a lifecycle configuration to an &S3; bucket using an &AWS; SDK
   title_abbrev: Add a lifecycle configuration to a bucket
   synopsis: add a lifecycle configuration to an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.PutLifecycleExample
     Java:
       versions:
         - sdk_version: 2
@@ -834,6 +887,15 @@ s3_DeleteBucketLifecycle:
   synopsis: delete the lifecycle configuration of an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.DeleteLifecycleExample
     Python:
       versions:
         - sdk_version: 3
@@ -846,6 +908,23 @@ s3_DeleteBucketLifecycle:
                 - python.example_code.s3.DeleteBucketLifecycleConfiguration
   services:
     s3: {DeleteBucketLifecycle}
+s3_CancelMultipartUpload:
+  title: Cancel multipart uploads using an &AWS; SDK
+  title_abbrev: Cancel multipart uploads
+  synopsis: cancel multipart uploads.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.AbortMPUExample
+  services:
+    s3: {AbortMultipartUploads}
 s3_CompleteMultipartUpload:
   title: Complete a multipart upload action using an &AWS; SDK
   title_abbrev: Complete a multipart upload
@@ -910,6 +989,9 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-ListBucketContents
+            - description: List objects with a paginator.
+              snippet_tags:
+                - S3.dotnetv3.ListObjectsPaginatorExample
     C++:
       versions:
         - sdk_version: 1
@@ -1016,6 +1098,15 @@ s3_ListObjectVersions:
   synopsis: list object versions in an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.ListObjectVersionsExample
     Rust:
       versions:
         - sdk_version: 1
@@ -1041,6 +1132,9 @@ s3_PutObject:
             - description:
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-UploadFile
+            - description: Upload an object with server-side encryption.
+              snippet_tags:
+                - S3.dotnetv3.ServerSideEncryptionExample
     C++:
       versions:
         - sdk_version: 1
@@ -1166,6 +1260,15 @@ s3_RestoreObject:
   synopsis: restore an archived copy of an object back into an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.RestoreArchivedObjectExample
     Java:
       versions:
         - sdk_version: 2
@@ -1287,6 +1390,15 @@ s3_GetBucketCors:
   synopsis: get cross-origin resource sharing (CORS) rules for an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetCORS
     Python:
       versions:
         - sdk_version: 3
@@ -1327,6 +1439,15 @@ s3_PutBucketCors:
   synopsis: add cross-origin resource sharing (CORS) rules to an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.PutCORS
     Java:
       versions:
         - sdk_version: 2
@@ -1375,6 +1496,15 @@ s3_DeleteBucketCors:
   synopsis: delete CORS rules from an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.DeleteCORS
     Python:
       versions:
         - sdk_version: 3
@@ -1403,6 +1533,15 @@ s3_GetBucketAcl:
   synopsis: get the access control list (ACL) of an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetBucketACLExample
     Java:
       versions:
         - sdk_version: 2
@@ -1449,6 +1588,15 @@ s3_PutBucketAcl:
   synopsis: set a new access control list (ACL) for an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.PutBucketACLExample
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1554,6 +1702,15 @@ s3_PutBucketWebsite:
   synopsis: set the website configuration for an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.PutWebsiteConfigExample
     C++:
       versions:
         - sdk_version: 1
@@ -1600,6 +1757,15 @@ s3_GetBucketWebsite:
   synopsis: get the website configuration for an S3 bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetWebsiteConfigExample
     C++:
       versions:
         - sdk_version: 1
@@ -1647,6 +1813,15 @@ s3_ListBuckets:
   synopsis: list S3 buckets.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.ListBuckets
     C++:
       versions:
         - sdk_version: 1
@@ -1738,6 +1913,40 @@ s3_UploadPart:
                 - rust.example_code.s3.upload_part.CompletedMultipartUpload
   services:
     s3: {UploadPart}
+s3_PutBucketNotification:
+  title: Enable notifications for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Enable notifications
+  synopsis: enable notifications for an S3 bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.EnableNotificationsExample
+  services:
+    s3: {PutBucketNotificationConfiguration}
+s3_TransferAcceleration:
+  title: Enable transfer acceleration for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Enable transfer acceleration
+  synopsis: enable transfer acceleration for an S3 bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.TransferAccelerationExample
+  services:
+    s3: {PutBucketAccelerateConfiguration}
 s3_Scenario_UsingLargeFiles:
   title: Upload or download large files to and from &S3; using an &AWS; SDK
   title_abbrev: Upload or download large files
@@ -1771,6 +1980,12 @@ s3_Scenario_UsingLargeFiles:
             - description: Download contents of an S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.TransferUtilityBasics.DownloadS3DirectoryAsync
+            - description: Track the progress of an upload using the TransferUtility.
+              snippet_tags:
+                - S3.dotnetv3.TrackMPUUsingHighLevelAPIExample
+            - description: Upload an object with encryption.
+              snippet_tags:
+                - S3.dotnetv3.SSECLowLevelMPUcopyObjectExample
     Python:
       versions:
         - sdk_version: 3
@@ -1815,6 +2030,21 @@ s3_Scenario_PresignedUrl:
   synopsis: create a presigned URL for S3 and upload an object.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/
+          sdkguide:
+          excerpts:
+            - description:
+                Generate a presigned URL that can perform an &S3; action
+                for a limited time.
+              snippet_tags:
+                - S3.dotnetv3.GenPresignedUrlExample
+            - description:
+                Generate a presigned URL and perform an upload using that URL.
+              snippet_tags:
+                - S3.dotnetv3.UploadUsingPresignedURLExample
     Java:
       versions:
         - sdk_version: 2
@@ -1934,7 +2164,7 @@ s3_Scenario_GettingStarted:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3
+          github: dotnetv3/S3/S3_Basics
           sdkguide:
           excerpts:
             - description:
@@ -2043,3 +2273,71 @@ s3_Scenario_GettingStarted:
 
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
+s3_Scenario_ManageACLs:
+  title: Manage access control lists (ACLs) for &S3; buckets using an &AWS; SDK
+  title_abbrev: Manage access control lists (ACLs)
+  synopsis: manage access control lists (ACLs) for &S3; buckets.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/ManageACLsExample
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.ManageACLsExample
+  services:
+    s3: {GetBucketAcl, PutBucketAcl, GetObjectAcl, PutObjectAcl}
+s3_Scenario_Tagging:
+  title: Get started with tags for &S3; objects using an &AWS; SDK
+  title_abbrev: Get started with tags
+  synopsis: get started with tags for &S3; objects.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/ObjectTagExample
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.ObjectTagExample
+  services:
+    s3: {GetObjectTagging}
+s3_Encryption:
+  title: Get started with encryption for &S3; objects using an &AWS; SDK
+  title_abbrev: Get started with encryption
+  synopsis: get started with encryption for &S3; objects.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/SSEClientEncryptionExample
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.SSEClientEncryptionExample
+  services:
+    s3: {GetObject, GetObjectMetadata, CopyObject}
+s3_MultipartCopy:
+  title: Perform a multipart copy of an &S3; object using an &AWS; SDK
+  title_abbrev: Perform a multipart copy
+  synopsis: perform a multipart copy of an &S3; object.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/MPUapiCopyObjExample
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.MPUapiCopyObjectExample
+  services:
+    s3: {UploadCopyPart, InitiateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}

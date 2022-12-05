@@ -40,8 +40,7 @@ namespace MPUapiCopyObjectExample
         /// to perform the copy.</param>
         public static async Task MPUCopyObjectAsync(AmazonS3Client client)
         {
-            // Create a list to store the upload part responses.
-            var uploadResponses = new List<UploadPartResponse>();
+            // Create a list to store the copy part responses.
             var copyResponses = new List<CopyPartResponse>();
 
             // Setup information required to initiate the multipart upload.
