@@ -265,19 +265,19 @@ const deleteTable = async (tableName) => {
 };
 
 export const runScenario = async ({
- tableName,
- newMovieName1,
- newMovieYear1,
- newMovieName2,
- newMovieYear2,
- existingMovieName1,
- existingMovieYear1,
- existingMovieName2,
- existingMovieYear2,
- newProducer1,
- newProducer2,
- moviesPath
-}) => {
+                                      tableName,
+                                      newMovieName1,
+                                      newMovieYear1,
+                                      newMovieName2,
+                                      newMovieYear2,
+                                      existingMovieName1,
+                                      existingMovieYear1,
+                                      existingMovieName2,
+                                      existingMovieYear2,
+                                      newProducer1,
+                                      newProducer2,
+                                      moviesPath
+                                  }) => {
     await createTable(tableName);
     console.log(`Creating table named: ${tableName}`);
     console.log(`\nTable created.`);
@@ -330,7 +330,7 @@ export const runScenario = async ({
     console.log(`${tableName} deleted.`);
 };
 
-const main1 = async () => {
+const main = async () => {
     const args = {
         tableName: "myNewTable",
         newMovieName1: "myMovieName1",
@@ -366,5 +366,5 @@ const main1 = async () => {
     }
 };
 
-export {main1};
+export {main};
 // snippet-end:[javascript.dynamodb_scenarios.partiQL_batch_basics]

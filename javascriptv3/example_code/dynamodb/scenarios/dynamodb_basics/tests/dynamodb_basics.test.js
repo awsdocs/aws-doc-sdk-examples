@@ -1,7 +1,7 @@
 import { DeleteCommand } from "@aws-sdk/lib-dynamodb";
 import { describe, it, afterAll } from "vitest";
 import { ddbDocClient } from "../libs/ddbDocClient.js";
-import { main } from "../src/dynamodb_basics.js";
+import { runScenario } from "../src/dynamodb_basics.js";
 
 describe("dynamodb_basics#run", () => {
   afterAll(async () => {
@@ -14,14 +14,17 @@ describe("dynamodb_basics#run", () => {
   });
   
   it("should successfully run", async () => {
-    await main(
-      "myNewTable",
-      "myMovieName",
-      2022,
-      "This Is the End",
-      2013,
-      200,
-      "A coder cracks code..."
+    await runScenario(
+        {
+          tableName: "myNewTable",
+          newMovieName: "myMovieName",
+          newMovieYear: 2022,
+          existingMovieName: "This Is the End",
+          existingMovieYear: 2013,
+          newMovieRank: 200,
+          newMoviePlot: "A coder cracks code...",
+          moviesPath: "../../../../../../resources/sample_files/movies.json",
+        }
     );
   });
 });
