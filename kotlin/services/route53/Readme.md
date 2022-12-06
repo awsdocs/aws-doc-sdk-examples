@@ -21,9 +21,12 @@ Route 53 is a highly available and scalable Domain Name System (DNS) web service
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check domain availability](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHealthCheck.kt) (checkDomainAvailability command)
-- [Check domain transferability](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (checkDomainTransferability command)
-- [Create a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/CreateHealthCheck.java) (createHealthCheck command)
+- [Create a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHealthCheck.kt) (createHealthCheck command)
+
+
+
+
+
 - [Create a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/CreateHostedZone.java) (createHostedZone command)
 - [Delete a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/DeleteHealthCheck.java) (deleteHealthCheck command)
 - [Delete a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/DeleteHostedZone.java) (deleteHostedZone command)
