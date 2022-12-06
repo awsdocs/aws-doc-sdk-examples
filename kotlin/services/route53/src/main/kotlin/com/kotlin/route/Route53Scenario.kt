@@ -26,7 +26,7 @@ import java.time.ZoneOffset
 import java.util.Date
 import kotlin.system.exitProcess
 
-// snippet-start:[route.kotlin.domainlist.main]
+// snippet-start:[route.kotlin.scenario.main]
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -314,3 +314,4 @@ suspend fun listDomains() {
     }
 }
 // snippet-end:[route.kotlin.domainlist.main]
+// snippet-end:[route.kotlin.scenario.main]
