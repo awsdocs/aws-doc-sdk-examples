@@ -22,35 +22,21 @@ Route 53 is a highly available and scalable Domain Name System (DNS) web service
 Code excerpts that show you how to call individual service functions.
 
 - [Create a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHealthCheck.kt) (createHealthCheck command)
-
-
-
-
-
-- [Create a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/CreateHostedZone.java) (createHostedZone command)
-- [Delete a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/DeleteHealthCheck.java) (deleteHealthCheck command)
-- [Delete a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/DeleteHostedZone.java) (deleteHostedZone command)
-- [Get domain details](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (getDomainDetail command)
-- [Get the status of a specific health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/GetHealthCheckStatus.java) (getHealthCheckStatus command)
-- [Get operation details](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (getOperationDetail command)
-- [List current domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (listOperationsPaginator command)
-- [List operations in the past year](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (listDomainsPaginator command)
-- [List health checks](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListHealthChecks.java) (listHealthChecks command)
-- [List hosted zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListHostedZones.java) (listHostedZones command)
-- [List resource record sets](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/ListResourceRecordSets.java) (listResourceRecordSets command)
-- [Request a domain registration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (registerDomain command)
-- [Update a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/UpdateHealthCheck.java) (updateHealthCheck command)
-- [View billing for the account in the past year](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (viewBillingPaginator command)
-- [View prices for domain types](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (listPricesPaginator command)
-
+- [Create a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHostedZone.kt) (createHostedZone command)
+- [Delete a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/DeleteHealthCheck.kt) (deleteHealthCheck command)
+- [Delete a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/DeleteHostedZone.kt) (deleteHostedZone command)
+- [Get the status of a specific health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/GetHealthCheckStatus.kt) (getHealthCheckStatus command)
+- [List health checks](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/ListHealthChecks.kt) (listHealthChecks command)
+- [List hosted zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/ListHostedZones.kt) (listHostedZones command)
+- [Update a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/UpdateHealthCheck.kt) (updateHealthCheck command)
 
 ### Scenario 
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Get started with domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (multiple commands)
+- [Get started with domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (multiple commands)
 
-## Run the Amazon Route 53 Java files
+## Run the Amazon Route 53 Kotlin files
 
 ### Prerequisites
 
