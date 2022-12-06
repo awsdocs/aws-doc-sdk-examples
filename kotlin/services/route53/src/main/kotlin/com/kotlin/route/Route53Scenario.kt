@@ -61,7 +61,7 @@ suspend fun main(args: Array<String>) {
            domainSuggestion - The domain suggestion (for example, findmy.accountants). 
            firstName - The first name to use to register a domain. 
            lastName -  The last name to use to register a domain. 
-           city - the city to use to register a domain. 
+           city - The city to use to register a domain. 
     """
 
     if (args.size != 7) {
