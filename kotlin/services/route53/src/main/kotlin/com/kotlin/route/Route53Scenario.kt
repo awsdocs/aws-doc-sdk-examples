@@ -307,8 +307,10 @@ suspend fun listDomains() {
         val response = route53DomainsClient.listDomains()
         if (response.domains?.isEmpty() == true) {
             println("There are no domains")
-        } else response.domains?.forEach { content ->
-            println("The domain name is ${content.domainName}")
+        } else {
+            response.domains?.forEach { content ->
+                println("The domain name is ${content.domainName}")
+            }
         }
     }
 }
