@@ -11,7 +11,7 @@ import aws.sdk.kotlin.services.route53domains.Route53DomainsClient
 import aws.sdk.kotlin.services.route53domains.model.ListPricesRequest
 import kotlin.system.exitProcess
 
-//snippet-start:[route.kotlin.hello.main]
+// snippet-start:[route.kotlin.hello.main]
 /**
  Before running this Kotlin code example, set up your development environment,
  including your credentials.
@@ -53,4 +53,4 @@ suspend fun listPrices(domainType: String) {
         }
     }
 }
-//snippet-end:[route.kotlin.hello.main]
+// snippet-end:[route.kotlin.hello.main]
