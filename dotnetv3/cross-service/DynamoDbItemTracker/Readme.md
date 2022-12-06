@@ -1,12 +1,11 @@
-# Track work items in an Aurora Serverless database with the SDK for .NET (v3)
+# Track work items in a DynamoDB table with the SDK for .NET (v3)
 
 ## Overview
 
 This example shows you how to use the AWS SDK for .NET (v3) to create a REST service that lets you do the following:
 
-- Read, write, and update work items that are stored in an Amazon Aurora Serverless database.
+- Read, write, and update work items that are stored in an Amazon DynamoDB table.
 - Use Amazon Simple Email Service (Amazon SES) to send email reports of work items.
-- Create an AWS Secrets Manager secret that contains database credentials and use it to authenticate calls to the database.
 
 ## ⚠️ Important
 
@@ -27,31 +26,9 @@ see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/s
 ## Create the resources
 
 Follow the instructions in the
-[README for the Aurora Serverless application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/cdk/aurora_serverless_app/README.md).
+[README for the DynamoDB application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/cdk/dynamodb-item-tracker/README.md).
 to use the AWS Cloud Development Kit (AWS CDK) or AWS Command Line Interface
-(AWS CLI) to create and manage the resources.
-
-### Create the database table
-
-After you have created the Aurora DB cluster and database, create a table to contain work items. You can do this by using either the AWS Command Line Interface (AWS CLI) or the AWS Management Console.
-
-#### AWS CLI
-
-Use the AWS CLI to create the work_items table by running the following command at a command prompt. Before you run, replace the following values with the output from the AWS CloudFormation setup script:
-
-- **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as `arn:aws:rds:us-west-2:123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-15xfvaEXAMPLE`.
-- **SECRET_ARN** — Replace with the ARN of the secret that contains your database credentials, such as `arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`.
-- **DATABASE** — Replace with the name of the database, such as `auroraappdb`.
-
-Tip: The caret ^ is the line continuation character for a Windows command prompt. If you run this command on another platform, replace the caret with the line continuation character for that platform.
-
-```
-aws rds-data execute-statement ^
-    --resource-arn "CLUSTER_ARN" ^
-    --database "DATABASE" ^
-    --secret-arn "SECRET_ARN" ^
-    --sql "CREATE TABLE items (id VARCHAR(45), description VARCHAR(400), guide VARCHAR(45), status VARCHAR(400), name VARCHAR(45), archived BOOLEAN);"
-```
+(AWS CLI) to create and manage the table resource used in this example.
 
 ### Verified email address
 
@@ -77,15 +54,15 @@ application (SPA) that interacts with the C# RESTful API by making `GET`, `PUT`,
 
 ### RESTful API
 
-The API uses the [AmazonRDSDataServiceClient](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/RDSDataService/TRDSDataServiceClient.html)
-object to perform CRUD operations on an Aurora Serverless database. The API
+The API uses the [DynamoDBContext](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/TDynamoDBContext.html)
+object to perform CRUD operations on a DynamoDB table. The API
 returns JSON data in an HTTP response, as shown in the following illustration.
 
 ![AWS Tracker JSON response](images/item_tracker_response.png)
 
 #### Configure the application
-Before you run the .NET application, set the configuration values for your Aurora Serverless
-database, and your verified sender email address in the `appsettings.json` file. Alternatively, add an `appsettings.development.json` file
+Before you run the .NET application, set the configuration values for your DynamoDB table, 
+and your verified sender email address in the `appsettings.json` file. Alternatively, add an `appsettings.development.json` file
 with your local settings.
 
 #### Run the application
@@ -99,14 +76,14 @@ dotnet run
 
 Alternatively, you can run the example from within your IDE.
 
-### Aurora Item Tracker user interface
+### DynamoDB Item Tracker user interface
 The .NET application is intended to be used with the [Item Tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).
 Follow the instructions in the [README](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing/README.md) to set up and run this client.
 The client expects the API to be available at `http://localhost:8080/api`, which can be configured in `launchSettings.json`.
 
 When the web application is running, you will see something like the following.
 
-![Aurora Item Tracker UI](images/elapp1.png)
+![Item Tracker UI](images/elapp1.png)
 
 #### Use the React web application
 
@@ -142,21 +119,20 @@ Active items are selected from the database and used to dynamically create a .cs
 ## Delete the resources
 
 To avoid charges, delete all the resources that you created for this tutorial.
-Follow the instructions in the [Destroying resources](../../../resources/cdk/aurora_serverless_app#destroy-the-resources)
-section of the README for the Aurora Serverless sample application.
+Follow the instructions in the [Destroying resources](../../../resources/cdk/dynamodb-item-tracker/README.md#destroy-resources)
+section of the README for the DynamoDB sample application.
 
 ## Next steps
 
-Congratulations! You have used the AWS SDK for .NET (v3) to create a REST service that manages data in an Amazon Aurora Serverless database, explored the database through the React frontend web application, and sent reports using Amazon SES.
+Congratulations! You have used the AWS SDK for .NET (v3) to create a REST service that manages data in an Amazon DynamoDB table, explored the database through the React frontend web application, and sent reports using Amazon SES.
 
 ## Additional resources
 
-- [Amazon Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
-- [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
+- [Amazon DynamoDB Developer Guide](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
 - [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
-- [RDS Data Service API Reference](https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/Welcome.html)
+- [DynamoDB API Reference](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)
 - [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
-- [Amazon RDS Data Service .NET API Reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/RDSDataService/NRDSDataService.html)
+- [Amazon DynamoDB .NET API Reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/TDynamoDBClient.html)
 - [Amazon SES .NET API Reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SimpleEmail/NSimpleEmail.html)
 
 For more AWS multiservice examples, see

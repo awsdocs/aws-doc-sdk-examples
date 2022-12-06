@@ -1,9 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.RDSDataService;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using Amazon.SimpleEmailV2;
-using AuroraItemTracker;
+using DynamoDbItemTracker;
 
 // Top level statements to set up the API.
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,8 @@ builder.Host.ConfigureLogging(logging =>
 });
 
 // Add services to the container.
-builder.Services.AddAWSService<IAmazonRDSDataService>();
+builder.Services.AddAWSService<IAmazonDynamoDB>();
+builder.Services.AddTransient<IDynamoDBContext, DynamoDBContext>();
 builder.Services.AddAWSService<IAmazonSimpleEmailServiceV2>();
 builder.Services.AddScoped<WorkItemService>();
 builder.Services.AddScoped<ReportService>();
@@ -76,7 +78,7 @@ app.MapPut("/items/{itemId}:archive", async (WorkItemService workItemService, st
 {
     var result = await workItemService.ArchiveItem(itemId);
 
-    return result;
+    return Results.Ok(result);
 });
 
 // POST to send a CSV report to a specific email address.
