@@ -55,38 +55,6 @@ final class UniqueNameStringTests: XCTestCase {
         XCTAssertNotNil(UUID(uuidString: lcUUID.uppercased()))
     }
 
-    func testUniqueNameWithMaxDigits() {
-        let ts = String.uniqueName(maxDigits: 8)
-
-        XCTAssertEqual(ts.count, 8, "Length of returned name doesn't equal expected value.")
-    }
-
-    func testUniqueNameWithHugeMaxDigits() {
-        let ts = String.uniqueName(maxDigits: 256)
-
-        XCTAssertEqual(ts.count, 36, "Expected entire 36-character UUID but did not get it.")
-    }
-
-    func testUniqueNameWithMaxDigitsAndPrefix() {
-        let prefix = "Prefix"
-        let ts = String.uniqueName(withPrefix: prefix, maxDigits: 8)
-        XCTAssertNotNil(ts)
-
-        let expectedLength = 1 + prefix.count + 8
-        XCTAssertEqual(ts.count, expectedLength, "Length of returned name doesn't equal expected value.")
-    }
-
-    func testUniqueNameWithMaxDigitsAndExtension() {
-        let ext = "pdf"
-        let ts = String.uniqueName(maxDigits: 10, withExtension: ext)
-        XCTAssertNotNil(ts)
-
-        XCTAssertTrue(ts.hasSuffix(".\(ext)"), "Returned name is missing the extension.")
-
-        let expectedLength = 10 + 1 + ext.count
-        XCTAssertEqual(ts.count, expectedLength, "Length of returned string doens't equal expected value.")
-    }
-
     /// Confirm that the `isValid` property works by
     /// checking that, when false, the returned value has
     /// the following properties:
