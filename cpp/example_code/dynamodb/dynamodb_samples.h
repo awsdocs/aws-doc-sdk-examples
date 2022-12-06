@@ -89,7 +89,8 @@ namespace AwsDoc {
          */
         Aws::String askQuestion(const Aws::String &string,
                                 const std::function<bool(
-                                        Aws::String)> &test≥);
+                                        Aws::String)> &test = [](
+                                        const Aws::String &) -> bool { return true; });
 
         //! Command line prompt/response utility function for an integer result.
         /*!
