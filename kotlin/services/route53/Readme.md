@@ -32,8 +32,6 @@ Code excerpts that show you how to call individual service functions.
 
 ### Scenario 
 
-### Scenario 
-
 - [Get started with domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (various commands)
 
 ## Run the Amazon Route 53 Kotlin files
