@@ -26,6 +26,7 @@ import java.time.ZoneOffset
 import java.util.Date
 import kotlin.system.exitProcess
 
+// snippet-start:[route.kotlin.domainlist.main]
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
