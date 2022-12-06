@@ -34,7 +34,7 @@ Code excerpts that show you how to call individual service functions.
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Get started with domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (multiple commands)
+- [Get started with domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (various commands)
 
 ## Run the Amazon Route 53 Kotlin files
 
