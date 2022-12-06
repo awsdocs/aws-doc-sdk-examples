@@ -281,7 +281,7 @@ final class BasicsTests: XCTestCase {
             defer {
                 Task {
                     do {
-                        //try await BasicsTests.serviceHandler!.resetCredentials()
+                        try await BasicsTests.serviceHandler!.resetCredentials()
                     } catch {
                         throw error
                     }
