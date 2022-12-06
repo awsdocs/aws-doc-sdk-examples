@@ -47,7 +47,7 @@ public class WorkItemServiceTests
     {
         var mockContext = new Mock<IDynamoDBContext>();
         var mockScan = new Mock<AsyncSearch<WorkItem>>();
-        var response = new List<WorkItem> {new WorkItem(), new WorkItem()};
+        var response = new List<WorkItem> { new WorkItem(), new WorkItem() };
 
         // Only return the mock collection if there is no filter.
 
@@ -56,7 +56,7 @@ public class WorkItemServiceTests
 
         mockContext.Setup(mc =>
             mc.FromScanAsync<WorkItem>(
-                It.Is<ScanOperationConfig>(r => r.Filter.ToConditions().Count == 0), 
+                It.Is<ScanOperationConfig>(r => r.Filter.ToConditions().Count == 0),
                 It.IsAny<DynamoDBOperationConfig>())).Returns(mockScan.Object);
 
         var service = new WorkItemService(mockContext.Object, _configuration);
@@ -187,7 +187,7 @@ public class WorkItemServiceTests
         var service = new WorkItemService(mockContext.Object, _configuration);
         var result = await service.CreateItem(new WorkItem());
 
-        mockContext.Verify(mc => mc.SaveAsync<WorkItem>(It.Is<WorkItem>(wi=> !string.IsNullOrEmpty(wi.iditem)), CancellationToken.None), Times.Once);
+        mockContext.Verify(mc => mc.SaveAsync<WorkItem>(It.Is<WorkItem>(wi => !string.IsNullOrEmpty(wi.iditem)), CancellationToken.None), Times.Once);
         mockContext.Verify(mc => mc.LoadAsync<WorkItem>(It.IsAny<string>(), CancellationToken.None), Times.Once);
 
         Assert.NotNull(result);
