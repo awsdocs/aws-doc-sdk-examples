@@ -218,13 +218,15 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         jsonPayload.WithInteger("number", increment);
         if (invokeLambdaFunction(jsonPayload, Aws::Lambda::Model::LogType::Tail,
                                  invokeResult, client)) {
+            Aws::Utils::Json::JsonValue jsonValue(invokeResult.GetPayload());
             Aws::Map<Aws::String, Aws::Utils::Json::JsonView> values =
-                    Aws::Utils::Json::JsonView(
-                            invokeResult.GetPayload()).GetAllObjects();
+                jsonValue.View().GetAllObjects();
             auto iter = values.find("result");
             if (iter != values.end() && iter->second.IsIntegerType()) {
-                std::cout << INCREMENT_RESUlT_PREFIX
-                          << iter->second.AsInteger() << std::endl;
+                {
+                    std::cout << INCREMENT_RESUlT_PREFIX
+                        << iter->second.AsInteger() << std::endl;
+                }
             }
             else {
                 std::cout << "There was an error in execution. Here is the log."
@@ -347,9 +349,9 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         if (invokeLambdaFunction(calculateJsonPayload,
                                  Aws::Lambda::Model::LogType::Tail,
                                  calculatedResult, client)) {
+            Aws::Utils::Json::JsonValue jsonValue(calculatedResult.GetPayload());
             Aws::Map<Aws::String, Aws::Utils::Json::JsonView> values =
-                    Aws::Utils::Json::JsonView(
-                            calculatedResult.GetPayload()).GetAllObjects();
+                jsonValue.View().GetAllObjects();
             auto iter = values.find("result");
             if (iter != values.end() && iter->second.IsIntegerType()) {
                 std::cout << ARITHMETIC_RESUlT_PREFIX << x << " "
