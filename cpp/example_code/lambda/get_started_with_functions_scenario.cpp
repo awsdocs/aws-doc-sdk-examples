@@ -10,11 +10,14 @@
  *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
  * Purpose
  *
  * Demonstrates using the AWS SDK for C++ to create and invoke an AWS Lambda function.
  *
- * 1.  Create an Identity and Access Management (IAM) role for Lambda function.
+ * 1.  Create an Identity and Access Management (IAM) role for a Lambda function.
  * 2.  Create a Lambda function.
  * 3.  Invoke the Lambda function.
  * 4.  Update the Lambda function code.
@@ -92,7 +95,6 @@ namespace AwsDoc {
         //! Routine which deletes the IAM role.
         /*!
          \\sa deleteIamRole()
-         \param roleARN: String to receive the IAM role ARN.
          \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
@@ -129,7 +131,6 @@ namespace AwsDoc {
          */
         static int askQuestionForIntRange(const Aws::String &string, int low,
                                           int high);
-
     } // Lambda
 } // AwsDoc
 
@@ -557,8 +558,8 @@ AwsDoc::Lambda::invokeLambdaFunction(const Aws::Utils::Json::JsonValue &jsonPayl
 
 int main(int argc, const char *argv[]) {
 
-    (void) argc;  // Suppress unused warnings
-    (void) argv;  // Suppress unused warnings
+    (void) argc;  // Suppress unused warnings.
+    (void) argv;  // Suppress unused warnings.
 
     Aws::SDKOptions options;
     InitAPI(options);
