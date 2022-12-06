@@ -220,12 +220,12 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                                  invokeResult, client)) {
             Aws::Utils::Json::JsonValue jsonValue(invokeResult.GetPayload());
             Aws::Map<Aws::String, Aws::Utils::Json::JsonView> values =
-                jsonValue.View().GetAllObjects();
+                    jsonValue.View().GetAllObjects();
             auto iter = values.find("result");
             if (iter != values.end() && iter->second.IsIntegerType()) {
                 {
                     std::cout << INCREMENT_RESUlT_PREFIX
-                        << iter->second.AsInteger() << std::endl;
+                              << iter->second.AsInteger() << std::endl;
                 }
             }
             else {
@@ -351,7 +351,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                                  calculatedResult, client)) {
             Aws::Utils::Json::JsonValue jsonValue(calculatedResult.GetPayload());
             Aws::Map<Aws::String, Aws::Utils::Json::JsonView> values =
-                jsonValue.View().GetAllObjects();
+                    jsonValue.View().GetAllObjects();
             auto iter = values.find("result");
             if (iter != values.end() && iter->second.IsIntegerType()) {
                 std::cout << ARITHMETIC_RESUlT_PREFIX << x << " "
