@@ -53,14 +53,11 @@ pub async fn connect_via_tls_13() -> Result<(), Error> {
     let provider_config = ProviderConfig::default().with_tcp_connector(rustls_connector.clone());
     let shared_conf = aws_config::from_env()
         .configure(provider_config)
+        .http_connector(hyper_ext::Adapter::builder().build(rustls_connector))
         .load()
         .await;
 
-    let kms_config = aws_sdk_kms::Config::from(&shared_conf);
-    let kms_client = aws_sdk_kms::Client::from_conf_conn(
-        kms_config,
-        hyper_ext::Adapter::builder().build(rustls_connector),
-    );
+    let kms_client = aws_sdk_kms::Client::new(&shared_conf);
     let response = kms_client.list_keys().send().await?;
 
     println!("{:?}", response);
