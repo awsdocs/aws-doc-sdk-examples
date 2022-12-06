@@ -13,17 +13,15 @@ Route 53 is a highly available and scalable Domain Name System (DNS) web service
 
 ## Code examples
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-
 ### Get started
 
-- [Hello Route 53 domain registration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Hello.java) (listPrices command)
+- [Hello Route 53 domain registration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/HelloRoute53.kt) (listPrices command)
 
 ### Single action
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check domain availability](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (checkDomainAvailability command)
+- [Check domain availability](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHealthCheck.kt) (checkDomainAvailability command)
 - [Check domain transferability](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (checkDomainTransferability command)
 - [Create a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/CreateHealthCheck.java) (createHealthCheck command)
 - [Create a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/CreateHostedZone.java) (createHostedZone command)
