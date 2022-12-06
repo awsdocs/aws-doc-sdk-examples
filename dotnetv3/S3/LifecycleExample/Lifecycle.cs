@@ -143,6 +143,8 @@ namespace LifecycleExample
             }
         }
 
+        // snippet-start:[S3.dotnetv3.PutLifecycleExample]
+
         /// <summary>
         /// Adds lifecycle configuration information to the S3 bucket named in
         /// the bucketName parameter.
@@ -163,6 +165,10 @@ namespace LifecycleExample
             var response = await client.PutLifecycleConfigurationAsync(request);
         }
 
+        // snippet-end:[S3.dotnetv3.PutLifecycleExample]
+
+        // snippet-start:[S3.dotnetv3.GetLifecycleExample]
+
         /// <summary>
         /// Returns a configuration object for the supplied bucket name.
         /// </summary>
@@ -182,6 +188,10 @@ namespace LifecycleExample
             return configuration;
         }
 
+        // snippet-end:[S3.dotnetv3.GetLifecycleExample]
+
+        // snippet-start:[S3.dotnetv3.DeleteLifecycleExample]
+
         /// <summary>
         /// This method removes the Lifecycle configuration from the named
         /// S3 bucket.
@@ -198,6 +208,8 @@ namespace LifecycleExample
             };
             await client.DeleteLifecycleConfigurationAsync(request);
         }
+
+        // snippet-end:[S3.dotnetv3.DeleteLifecycleExample]
     }
 
     // snippet-end:[S3.dotnetv3.LifecycleExample]

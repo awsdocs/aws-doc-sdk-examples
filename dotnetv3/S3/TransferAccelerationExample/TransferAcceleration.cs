@@ -19,14 +19,14 @@ namespace TransferAccelerationExample
     class TransferAcceleration
     {
         /// <summary>
-        /// The main method initalizes the client object and sets the
+        /// The main method initializes the client object and sets the
         /// Amazon Simple Storage Service (Amazon S3) bucket name before
         /// calling EnableAccelerationAsync.
         /// </summary>
         public static async Task Main()
         {
             var s3Client = new AmazonS3Client();
-            const string bucketName = "igsmith-temp-bucket"; // "doc-example-bucket";
+            const string bucketName = "doc-example-bucket";
 
             await EnableAccelerationAsync(s3Client, bucketName);
         }
