@@ -21,6 +21,17 @@ Route 53 is a highly available and scalable Domain Name System (DNS) web service
 
 Code excerpts that show you how to call individual service functions.
 
+- [Create a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHealthCheck.kt) (createHealthCheck command)
+- [Create a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHostedZone.kt) (createHostedZone command)
+- [Delete a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/DeleteHealthCheck.kt) (deleteHealthCheck command)
+- [Delete a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/DeleteHostedZone.kt) (deleteHostedZone command)
+- [Get the status of a specific health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/GetHealthCheckStatus.kt) (getHealthCheckStatus command)
+- [List health checks](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/ListHealthChecks.kt) (listHealthChecks command)
+- [List hosted zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/ListHostedZones.kt) (listHostedZones command)
+- [Update a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/UpdateHealthCheck.kt) (updateHealthCheck command)
+
+### Scenario 
+
 ### Scenario 
 
 - [Get started with domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (various commands)
@@ -65,6 +76,5 @@ Define this value to successfully run the JUnit tests:
 ## Additional resources
 * [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/home.html).
 * [Developer Guide - Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
-* [Interface Route53DomainsClient](https://sdk.amazonaws.com/kotlin/api/latest/route53domains/aws.sdk.kotlin.services.route53domains/-route53-domains-client/index.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
