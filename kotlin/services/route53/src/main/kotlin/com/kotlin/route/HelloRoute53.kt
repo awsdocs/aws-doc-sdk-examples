@@ -9,6 +9,7 @@ package com.kotlin.route
 
 import aws.sdk.kotlin.services.route53domains.Route53DomainsClient
 import aws.sdk.kotlin.services.route53domains.model.ListPricesRequest
+import kotlin.system.exitProcess
 
 /**
  Before running this Kotlin code example, set up your development environment,
@@ -18,7 +19,6 @@ import aws.sdk.kotlin.services.route53domains.model.ListPricesRequest
  https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
            <domainType> 
@@ -27,11 +27,11 @@ suspend fun main(args: Array<String>) {
            domainType - The domain type (for example, com). 
     """
 
-    // if (args.size != 1) {
-    //    println(usage)
-    //    exitProcess(0)
-    // }
-    val domainType = "com" // args[0]
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
+    val domainType = args[0]
     println("Invokes ListPrices for at least one domain type.")
     listPrices(domainType)
 }
