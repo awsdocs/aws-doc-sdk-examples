@@ -16,7 +16,7 @@ The code comprises an application designed to manage fictitious work items using
 
 ## 1. Backend
 The centerpiece of this example is an API written exclusively in Ruby. It features the following gems:
-* [AWS SDK for Ruby](https://aws.amazon.com/sdk-for-ruby/) (for communicating with Amazon Aurora)
+* [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html) (for communicating with Amazon Aurora)
 * [Sinatra](https://sinatrarb.com/intro.html) (for a lightweight API implementation)
 * [Sequel](https://sequel.jeremyevans.net/) (for Ruby-native modeling of SQL queries)
 
