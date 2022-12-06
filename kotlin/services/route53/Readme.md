@@ -38,18 +38,20 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ## Run the Amazon Route 53 Kotlin files
 
-### Prerequisites
+**IMPORTANT**
 
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+The Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-**Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a hosted zone. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
- ## Test the Amazon Route 53 Java files
+To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
+see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
+
+ ## Test the Amazon Route 53 Kotlin files
  
  ⚠️ Running the tests might result in charges to your AWS account.
 
-You can test the Java code example for Amazon Route 53 by running a test file named **Route53Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Kotlin code example for Amazon Route 53 by running a test file named **Route53Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/kotlin** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -72,10 +74,9 @@ Define this value to successfully run the JUnit tests:
 - **citySc** - The city to use.
 
 ## Additional resources
-* [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
+* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/home.html).
 * [Developer Guide - Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
-* [Interface Route53Client](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/route53/Route53Client.html).
-* [Interface Route53DomainsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/route53domains/Route53DomainsClient.html).
+* [Interface Route53DomainsClient](https://sdk.amazonaws.com/kotlin/api/latest/route53domains/aws.sdk.kotlin.services.route53domains/-route53-domains-client/index.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
