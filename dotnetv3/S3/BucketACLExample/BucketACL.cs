@@ -35,6 +35,8 @@ namespace BucketACLExample
             }
         }
 
+        // snippet-start:[S3.dotnetv3.PutBucketACLExample]
+
         /// <summary>
         /// Creates an Amazon S3 bucket with an ACL to control access to the
         /// bucket and the objects stored in it.
@@ -69,6 +71,10 @@ namespace BucketACLExample
             return false;
         }
 
+        // snippet-end:[S3.dotnetv3.PutBucketACLExample]
+
+        // snippet-start:[S3.dotnetv3.GetBucketACLExample]
+
         /// <summary>
         /// Get the access control list (ACL) for the new bucket.
         /// </summary>
@@ -87,6 +93,8 @@ namespace BucketACLExample
 
             return getACLResponse.AccessControlList;
         }
+
+        // snippet-end:[S3.dotnetv3.GetBucketACLExample]
 
         /// <summary>
         /// Display the contents of the ACL applied to the newly created bucket.

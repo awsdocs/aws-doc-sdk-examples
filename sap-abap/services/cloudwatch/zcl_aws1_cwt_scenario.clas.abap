@@ -44,11 +44,11 @@ CLASS ZCL_AWS1_CWT_SCENARIO IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
 
-    "This example scenario contains the following actions."
-    " 1. Create a Cloudwatch alarm for the S3 bucket "
-    " 2. Disable the Cloudwatch alarm actions "
-    " 3. Describe the Cloudwatch alarm "
-    " 4. Delete alarm "
+    "This example scenario contains the following actions:"
+    " 1. Create an Amazon CloudWatch alarm for the Amazon Simple Storage Service (Amazon S3) bucket "
+    " 2. Disable the CloudWatch alarm actions "
+    " 3. Describe the CloudWatch alarm "
+    " 4. Delete the alarm "
 
     "snippet-start:[cwt.abapv1.getting_started_with_cwt]
 
@@ -76,11 +76,11 @@ CLASS ZCL_AWS1_CWT_SCENARIO IMPLEMENTATION.
         MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
     ENDTRY.
 
-    "Create an ABAP internal table for the alarm created"
+    "Create an ABAP internal table for the created alarm."
     CREATE OBJECT lo_alarmname EXPORTING iv_value = iv_alarm_name.
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
-    "Disable alarm actions"
+    "Disable alarm actions."
     TRY.
         lo_cwt->disablealarmactions(
           it_alarmnames                = lt_alarmnames
@@ -91,7 +91,7 @@ CLASS ZCL_AWS1_CWT_SCENARIO IMPLEMENTATION.
         MESSAGE lv_disablealarm_error TYPE 'E'.
     ENDTRY.
 
-    "Describe alarm using the same ABAP internal table"
+    "Describe alarm using the same ABAP internal table."
     TRY.
         oo_result = lo_cwt->describealarms(                       " oo_result is returned for testing purpose "
           it_alarmnames                = lt_alarmnames
@@ -102,7 +102,7 @@ CLASS ZCL_AWS1_CWT_SCENARIO IMPLEMENTATION.
         MESSAGE lv_describealarms_error TYPE 'E'.
     ENDTRY.
 
-    "Delete alarm"
+    "Delete alarm."
     TRY.
         lo_cwt->deletealarms(
           it_alarmnames = lt_alarmnames

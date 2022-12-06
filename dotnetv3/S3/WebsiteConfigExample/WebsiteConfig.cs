@@ -55,6 +55,7 @@ namespace WebsiteConfigExample
         {
             try
             {
+                // snippet-start:[S3.dotnetv3.PutWebsiteConfigExample]
                 // Put the website configuration.
                 PutBucketWebsiteRequest putRequest = new PutBucketWebsiteRequest()
                 {
@@ -66,7 +67,9 @@ namespace WebsiteConfigExample
                     },
                 };
                 PutBucketWebsiteResponse response = await client.PutBucketWebsiteAsync(putRequest);
+                // snippet-end:[S3.dotnetv3.PutWebsiteConfigExample]
 
+                // snippet-start:[S3.dotnetv3.GetWebsiteConfigExample]
                 // Get the website configuration.
                 GetBucketWebsiteRequest getRequest = new GetBucketWebsiteRequest()
                 {
@@ -75,6 +78,7 @@ namespace WebsiteConfigExample
                 GetBucketWebsiteResponse getResponse = await client.GetBucketWebsiteAsync(getRequest);
                 Console.WriteLine($"Index document: {getResponse.WebsiteConfiguration.IndexDocumentSuffix}");
                 Console.WriteLine($"Error document: {getResponse.WebsiteConfiguration.ErrorDocument}");
+                // snippet-end:[S3.dotnetv3.GetWebsiteConfigExample]
             }
             catch (AmazonS3Exception ex)
             {
