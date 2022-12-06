@@ -26,18 +26,21 @@ public enum ServiceHandlerError: Error {
     case noSuchRole
     case noSuchPolicy
     case bucketError
+    case idMismatch
+    case arnMismatch
 }
 // snippet-end:[iam.swift.basics.enum.service-error]
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
-    public let iamClient: IAMClient
-    public let stsClient: STSClient
+    public let region: String
 
-    // The AWS S3 client will be changed over the course of this example. It
-    // will initially be created with the permissions of the default account,
-    // then will be replaced with a new S3Client with the assumed role's
-    // credentials.
+    // The AWS service clients will change over the course of this example.
+    // They are initially created with the permissions of the default account,
+    // but get replaced to take on the assumed role's credentials.
+
+    public var iamClient: IAMClient
+    public var stsClient: STSClient
     public var s3Client: S3Client
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
@@ -48,37 +51,41 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.basics.handler.init]
-    public init(credentials: STSClientTypes.Credentials? = nil) async {
+    public init(region: String = "us-east-2", logLevel: String? = nil) async {
         do {
-            iamClient = try IAMClient(region: "AWS_GLOBAL")
+            self.region = region
 
-            if credentials != nil {
-                guard let localCreds = credentials else {
-                    throw ServiceHandlerError.authError
+            // If specified, set the logging level.
+
+            if logLevel != nil {
+                var level: SDKLogLevel
+
+                switch(logLevel) {
+                    case "critical":
+                        level = .critical
+                    case "debug":
+                        level = .debug
+                    case "error":
+                        level = .error
+                    case "info":
+                        level = .info
+                    case "notice":
+                        level = .notice
+                    case "trace":
+                        level = .trace
+                    case "warning":
+                        level = .warning
+                    default:
+                        level = .notice
                 }
-
-                guard let accessKey = localCreds.accessKeyId,
-                    let secret = localCreds.secretAccessKey,
-                    let sessionToken = localCreds.sessionToken else {
-                            throw ServiceHandlerError.authError
-                }
-
-                let credentialsProvider = try AWSCredentialsProvider.fromStatic(
-                    AWSCredentialsProviderStaticConfig(
-                        accessKey: accessKey,
-                        secret: secret,
-                        sessionToken: sessionToken
-                    )
-                )
-
-                let config = try await S3Client.S3ClientConfiguration(
-                    credentialsProvider: credentialsProvider
-                )
-                s3Client = S3Client(config: config)
-            } else {
-                s3Client = try S3Client(region: "us-east-2")
+                SDKLoggingSystem.initialize(logLevel: level)
             }
-            stsClient = try STSClient(region: "us-east-2")
+
+            // Create the default service clients.
+            
+            iamClient = try IAMClient(region: "AWS_GLOBAL")
+            s3Client = try S3Client(region: self.region)
+            stsClient = try STSClient(region: self.region)
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon clients"))
             exit(1)
@@ -87,6 +94,58 @@ public class ServiceHandler {
     // snippet-end:[iam.swift.basics.handler.init]
 
     // *** AWS Identity and Access Management (IAM) ***
+
+    public func setCredentials(accessKeyId: String, secretAccessKey: String,
+                sessionToken: String? = nil) async throws {
+        do {
+            // Use the given access key ID, secret access key, and session token
+            // to generate a static credentials provider suitable for use when
+            // initializing an AWS S3 client.
+
+            let credentialsProvider = try AWSCredentialsProvider.fromStatic(
+                AWSCredentialsProviderStaticConfig(
+                    accessKey: accessKeyId,
+                    secret: secretAccessKey,
+                    sessionToken: sessionToken
+                )
+            )
+
+            // Create an AWS S3 configuration specifying the credentials provider
+            // we just created, then use it to create a new `S3Client` that will
+            // use the corresponding permissions.
+
+            let s3Config = try S3Client.S3ClientConfiguration(
+                credentialsProvider: credentialsProvider,
+                region: self.region
+            )
+            s3Client = S3Client(config: s3Config)
+
+            // Create an AWS IAM configuration specifying the credentials
+            // provider. Then create a new `IAMClient` using those permissions.
+
+            let iamConfig = try IAMClient.IAMClientConfiguration(
+                credentialsProvider: credentialsProvider,
+                region: "AWS_GLOBAL"
+            )
+            iamClient = IAMClient(config: iamConfig)
+
+            // Create a new STS client with the specified access credentials.
+
+            let stsConfig = try STSClient.STSClientConfiguration(
+                credentialsProvider: credentialsProvider,
+                region: self.region
+            )
+            stsClient = STSClient(config: stsConfig)
+        } catch {
+            throw error
+        }
+    }
+
+    public func resetCredentials() async throws {
+        iamClient = try IAMClient(region: "AWS_GLOBAL")
+        s3Client = try S3Client(region: self.region)
+        stsClient = try STSClient(region: self.region)
+    }
 
     /// Create a new AWS Identity and Access Management (IAM) user.
     ///
@@ -201,7 +260,7 @@ public class ServiceHandler {
     }
     // snippet-end:[iam.swift.basics.handler.attachrolepolicy]
 
-    public func detachRolePolicy(role: IAMClientTypes.Role, policy: IAMClientTypes.Policy) async throws {
+    public func detachRolePolicy(policy: IAMClientTypes.Policy, role: IAMClientTypes.Role) async throws {
         let input = DetachRolePolicyInput(
             policyArn: policy.arn,
             roleName: role.roleName
@@ -265,33 +324,30 @@ public class ServiceHandler {
         }
     }
 
-    // *** Amazon Simple Storage Service (S3) ***
-
-    public func setCredentials(credentials: STSClientTypes.Credentials) async {
+    /// Get information about the specified user
+    ///
+    /// - Parameter name: A `String` giving the name of the user to get. If
+    ///   this parameter is `nil`, the default user's information is returned.
+    ///
+    /// - Returns: An `IAMClientTypes.User` record describing the user.
+    // snippet-start:[iam.swift.basics.handler.getuser]
+    public func getUser(name: String? = nil) async throws -> IAMClientTypes.User {
+        let input = GetUserInput(
+            userName: name
+        )
         do {
-            guard let accessKey = credentials.accessKeyId,
-                let secret = credentials.secretAccessKey,
-                let sessionToken = credentials.sessionToken else {
-                        throw ServiceHandlerError.authError
+            let output = try await iamClient.getUser(input: input)
+            guard let user = output.user else {
+                throw ServiceHandlerError.noSuchUser
             }
-
-            let credentialsProvider = try AWSCredentialsProvider.fromStatic(
-                AWSCredentialsProviderStaticConfig(
-                    accessKey: accessKey,
-                    secret: secret,
-                    sessionToken: sessionToken
-                )
-            )
-
-            let config = try await S3Client.S3ClientConfiguration(
-                credentialsProvider: credentialsProvider
-            )
-            s3Client = S3Client(config: config)
+            return user
         } catch {
-            print("ERROR: ", dump(error, name: "Creating S3 client"))
-            exit(1)
+            throw error
         }
     }
+    // snippet-end:[iam.swift.basics.handler.getuser]
+
+    // *** Amazon Simple Storage Service (S3) ***
 
     public func listBuckets() async throws -> [S3ClientTypes.Bucket] {
         let input = ListBucketsInput()
@@ -310,7 +366,8 @@ public class ServiceHandler {
 
     // *** AWS Security Token Service (STS) ***
 
-    public func assumeRole(role: IAMClientTypes.Role, sessionName: String) async throws -> STSClientTypes.Credentials {
+    public func assumeRole(role: IAMClientTypes.Role, sessionName: String)
+                    async throws -> STSClientTypes.Credentials {
         let input = AssumeRoleInput(
             roleArn: role.arn,
             roleSessionName: sessionName
@@ -322,27 +379,6 @@ public class ServiceHandler {
                 throw ServiceHandlerError.authError
             }
 
-            // Get a new S3Client object with the assumed role's credentials.
-
-            guard let accessKey = credentials.accessKeyId,
-                  let secret = credentials.secretAccessKey,
-                  let sessionToken = credentials.sessionToken else {
-                        throw ServiceHandlerError.authError
-            }
-
-            let credentialsProvider = try AWSCredentialsProvider.fromStatic(
-                AWSCredentialsProviderStaticConfig(
-                    accessKey: accessKey,
-                    secret: secret,
-                    sessionToken: sessionToken
-                )
-            )
-
-            let config = try await S3Client.S3ClientConfiguration(
-                credentialsProvider: credentialsProvider
-            )
-
-            s3Client = S3Client(config: config)
             return credentials
         } catch {
             throw error

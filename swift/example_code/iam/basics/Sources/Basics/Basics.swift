@@ -14,6 +14,9 @@
 //    This should succeed.
 // 7. Delete all resources created by this example.
 //
+// The example shows how IAM and the AWS Security Token Service work together
+// to authorize use of AWS services.
+//
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
 
@@ -29,17 +32,34 @@ import ClientRuntime
 import AWSClientRuntime
 // snippet-end:[iam.swift.basics.main.imports]
 
-/// The command line arguments and options available for this
-/// example command.
+/// The command line arguments and options available for this example command.
 // snippet-start:[iam.swift.basics.command]
 struct ExampleCommand: ParsableCommand {
     @Option(help: "The AWS Region to run AWS API calls in.")
-    var awsRegion: String = "us-east-2"
+    var awsRegion = "us-east-2"
+
+    @Option(
+        help: ArgumentHelp("The level of logging for the Swift SDK to perform."),
+        completion: .list([
+            "critical",
+            "debug",
+            "error",
+            "info",
+            "notice",
+            "trace",
+            "warning"
+        ])
+    )
+    var logLevel: String = "error"
 
     static var configuration = CommandConfiguration(
         commandName: "basics",
         abstract: "Demonstrates a series of IAM actions using the AWS SDK for Swift.",
         discussion: """
+        This example uses a variety of AWS Identity and Access Management (IAM)
+        and ATS Security Token Service functions to demonstrate how to create a
+        user and set up a permission profile using policies and a role, then uses
+        that role to access another service.
         """
     )
 
@@ -47,21 +67,31 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.basics.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
+        let serviceHandler = await ServiceHandler(region: awsRegion, logLevel: logLevel)
         let userName = String.uniqueName()
         let roleName = String.uniqueName()
-        let policyName = String.uniqueName()
+        let rolePolicyName = String.uniqueName()
+
+        // In this example, every AWS SDK for Swift function call that creates
+        // or changes data on the server is paired with a `defer` block that
+        // undoes that action. This may not be the best approach for your
+        // real-world use, so consider how to handle errors properly for your
+        // use case.
+        //
+        // The `defer` blocks work well for this example because we simply
+        // want to avoid leaving bits of sample data on the server if when the
+        // example exits, whether it exits normally or fails for any reason.
 
         do {
             let user: IAMClientTypes.User
             let role: IAMClientTypes.Role
-            let policy: IAMClientTypes.Policy
+            let rolePolicy: IAMClientTypes.Policy
             let accessKey: IAMClientTypes.AccessKey
 
             // Create the test user and create an access key for
             // authentication.
             
-            print("Creating new user named \(userName)...")
+            print("Creating a new example user...")
             user = try await serviceHandler.createUser(name: userName)
             defer {
                 Task {
@@ -73,12 +103,9 @@ struct ExampleCommand: ParsableCommand {
                 }
             }
 
-            // Pause a few seconds to let user percolate
+            // Create an access key for the new user.
 
-            print("*** Pausing a few seconds to be sure the user is ready ***")
-            Thread.sleep(forTimeInterval: 10)
-
-            print("Creating access key for user...")
+            print("Creating an access key for the example user...")
             accessKey = try await serviceHandler.createAccessKey(userName: userName)
             defer {
                 Task {
@@ -90,56 +117,163 @@ struct ExampleCommand: ParsableCommand {
                 }
             }
 
-            print("Starting the test without access privileges...")
+            // Pause a few seconds to give IAM time to let the new user
+            // propagate.
+
+            await waitFor(seconds: 10, message: "Pausing a few seconds to let the new user propagate")
+
+            // Create a new role and give the user permission to assume it.
+
+            guard let userARN = user.arn else {
+                print("*** Invalid user ARN.")
+                return
+            }
+
+            print("Creating a new role to give the user permission to assume roles...")
+            role = try await serviceHandler.createRole(
+                name: roleName,
+                policyDocument: """
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [{
+                        "Effect": "Allow",
+                        "Principal": {"AWS": "\(userARN)"},
+                        "Action": "sts:AssumeRole"
+                    }]
+                }
+                """
+            )
+            defer {
+                Task {
+                    do {
+                        _ = try await serviceHandler.deleteRole(role: role)
+                    } catch {
+                        print("*** Error: Unable to delete the role \(roleName)")
+                    }
+                }
+            }
+
+            // Create a new policy that allows the AWS S3 ListAllMyBuckets
+            // action.
+
+            print("Creating a role policy that gives the user permission to list S3 buckets...")
+            rolePolicy = try await serviceHandler.createPolicy(
+                name: rolePolicyName,
+                policyDocument: """
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "s3:ListAllMyBuckets",
+                            "Resource": "arn:aws:s3:::*"
+                        }
+                    ]
+                }
+                """
+            )
+            defer {
+                Task {
+                    do {
+                        _ = try await serviceHandler.deletePolicy(policy: rolePolicy)
+                    } catch {
+                        print("*** Error: Unable to delete the role policy \(rolePolicyName)")
+                    }
+                }
+            }
+
+            // Attach the policy to the role so that assuming the role grants
+            // the needed permissions.
+
+            print("Attaching the role policy to the role...")
+            _ = try await serviceHandler.attachRolePolicy(policy: rolePolicy, role: role)
+            defer {
+                Task {
+                    do {
+                        _ = try await serviceHandler.detachRolePolicy(policy: rolePolicy, role: role)
+                    } catch {
+                        print("*** Error: Unable to delete the user \(userName)")
+                    }
+                }
+            }
+
+            // Give the changes time to propagate.
+
+            await waitFor(seconds: 10, message: "Pausing a few seconds to allow user and role changes to propagate")
+
+            // Try to list the buckets without first getting permission to do
+            // so.
 
             guard   let accessKeyId = accessKey.accessKeyId,
                     let secretAccessKey = accessKey.secretAccessKey else {
                         throw ServiceHandlerError.authError
             }
-            try await tryListBucketsWithoutPermission(accessKeyId: accessKeyId,
-                    secretAccessKey: secretAccessKey)
-            
-            print("Back from test 1")
 
+            print("Attempting to list buckets without first assuming the role that\ngrants permission to do so...")
+            do {
+                try await listBucketsWithCredentials(
+                    accessKeyId: accessKeyId,
+                    secretAccessKey: secretAccessKey
+                )
+                print("*** Oh no! ListBuckets call succeeded without authentication!")
+                throw ServiceHandlerError.authError
+            } catch {
+                print("--- As expected, the ListBuckets call failed because the user\ndoesn't yet have permission.\n")
+            }
+
+            // Assume the role to get permission to list the buckets.
+
+            print("Assuming the role to get credentials with ListBuckets permissions...")
+            let credentials = try await serviceHandler.assumeRole(
+                role: role,
+                sessionName: "listing-buckets"
+            )
+
+            guard   let roleAccessKey = credentials.accessKeyId,
+                    let roleSecretAccessKey = credentials.secretAccessKey,
+                    let roleSessionToken = credentials.sessionToken else {
+                        throw ServiceHandlerError.authError
+            }
+
+            // List the buckets. This time, it should succeed.
+
+            print("Attempting to list the S3 buckets using the role credentials...")
+            try await listBucketsWithCredentials(
+                accessKeyId: roleAccessKey,
+                secretAccessKey: roleSecretAccessKey,
+                sessionToken: roleSessionToken
+            )
+
+            print("--- Successfully got the bucket list. Example complete!")
         } catch {
             print("*** ERROR ***")
             throw error
         }
+
+        func listBucketsWithCredentials(accessKeyId: String, 
+                    secretAccessKey: String, sessionToken: String? = nil) async throws {
+            do {
+                try await serviceHandler.setCredentials(accessKeyId: accessKeyId,
+                        secretAccessKey: secretAccessKey, sessionToken: sessionToken)
+
+                // Get a list of the buckets.
+
+                _ = try await serviceHandler.listBuckets()
+            } catch {
+                throw error
+            }
+
+        }
     }
     // snippet-end:[iam.swift.basics.command.runasync]
 
-    func tryListBucketsWithoutPermission(accessKeyId: String, 
-                secretAccessKey: String, sessionToken: String? = nil) async throws {
-
-        // Use the given access key ID, secret access key, and session token
-        // to generate a static credentials provider suitable for use when
-        // initializing an AWS S3 client.
-        let credentialsProvider = try AWSCredentialsProvider.fromStatic(
-            AWSCredentialsProviderStaticConfig(
-                accessKey: accessKeyId,
-                secret: secretAccessKey,
-                sessionToken: sessionToken
-            )
-        )
-
-        // Create an AWS S3 configuration specifying the credentials provider
-        // we just created, then use it to create a new `S3Client` that will
-        // use the corresponding permissions.
-        let s3Config = try await S3Client.S3ClientConfiguration(
-            credentialsProvider: credentialsProvider,
-            region: awsRegion
-        )
-        let s3Client = try S3Client(config: s3Config)
-
-        // Now try to list the available buckets. This should fail.
-
-        do {
-            _ = try await s3Client.listBuckets(input: ListBucketsInput())
-            print("*** ListBuckets call succeeded without authentication!")
-        } catch {
-            print("*** Unauthorized ListBuckets attempt failed as expected. Error:")
-            print(error)
+    /// Display a message and wait for a few seconds to pass.
+    func waitFor(seconds: Double, message: String? = nil) async {
+        if message != nil {
+            print("\n*** \(message!) ***") 
         }
+        Thread.sleep(forTimeInterval: seconds)
+        print("\n")
     }
 }
 // snippet-end:[iam.swift.basics.command]
