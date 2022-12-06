@@ -1,4 +1,4 @@
-# Deploy a sample application using the AWS SDK for Ruby, Amazon Aurora, and Amazon Simple Email Service (SES)
+# Track work items in a sample application using Aurora Serverless and Amazon SES built with the SDK for Ruby
 
 ## Overview
 This example code comprises a "real-world" reference application showcasing a [serverless Amazon Aurora database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html) using the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html).
@@ -7,10 +7,9 @@ This code is written to be browsed in an exploratory manner.
 For a more hands-on experience, you can run the application by invoking this example code using the [instructions below]((#invoke-this-example-code)).
 
 # ⚠️ Important
-Running this code might result in charges to your AWS account.
-Running the tests might result in charges to your AWS account.
-We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+* Running this code (including tests) might result in charges to your AWS account.
+* We strongly recommend that you grant your code [least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every [AWS Region](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 # About this example code
 The code comprises an application designed to manage fictitious work items using 3 key components.
@@ -97,6 +96,7 @@ rspec db_wrapper_spec.rb
 To avoid charges, delete all the resources that you created for this tutorial. Follow the instructions in the Destroying resources section of the README for the Aurora Serverless sample application.
 
 ## Additional resources
-* [Service Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
-* [Service API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
-* [SDK API reference guide](https://aws.amazon.com/developer/language/ruby/)
+* [Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+* [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
+* [SDK for Ruby Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
+* [SDK for Ruby API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
