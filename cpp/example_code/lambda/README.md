@@ -1,7 +1,7 @@
 # AWS Lambda code examples for the SDK for C++
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to create, deploy, and invoke
+Shows how to use the AWS SDK for C++ to create, deploy, and invoke
 AWS Lambda functions.
 
 *AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. You can trigger Lambda from over 200 AWS services and software as a service (SaaS) applications, and only pay for what you use.*
