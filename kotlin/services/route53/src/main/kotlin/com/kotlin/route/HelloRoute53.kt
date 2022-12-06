@@ -10,11 +10,10 @@ package com.kotlin.route
 import aws.sdk.kotlin.services.route53domains.Route53DomainsClient
 import aws.sdk.kotlin.services.route53domains.model.ListPricesRequest
 import aws.sdk.kotlin.services.route53domains.paginators.listPricesPaginated
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.flow.transform
 import kotlin.system.exitProcess
 
-//snippet-start:[route.kotlin.hello.main]
+// snippet-start:[route.kotlin.hello.main]
 /**
  Before running this Kotlin code example, set up your development environment,
  including your credentials.
@@ -35,7 +34,7 @@ suspend fun main(args: Array<String>) {
         println(usage)
         exitProcess(0)
     }
-    
+
     val domainType = args[0]
     println("Invokes ListPrices using a Paginated method.")
     listPricesPaginated(domainType)
@@ -55,7 +54,7 @@ suspend fun listPricesPaginated(domainType: String) {
                 println("Renewal: ${pr.renewalPrice?.price} ${pr.renewalPrice?.currency}")
                 println("Transfer: ${pr.transferPrice?.price} ${pr.transferPrice?.currency}")
                 println("Restoration: ${pr.restorationPrice?.price} ${pr.restorationPrice?.currency}")
-        }
+            }
     }
 }
-//snippet-end:[route.kotlin.hello.main]
+// snippet-end:[route.kotlin.hello.main]

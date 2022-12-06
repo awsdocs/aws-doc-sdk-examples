@@ -257,7 +257,7 @@ suspend fun listAllPrices(domainType: String?) {
                 println("Restoration: ${pr.restorationPrice?.price} ${pr.restorationPrice?.currency}")
             }
     }
- }
+}
 // snippet-end:[route.kotlin.domainprices.main]
 
 // snippet-start:[route.kotlin.domainbillingrecords.main]
@@ -314,13 +314,13 @@ suspend fun listOperations() {
 
 // snippet-start:[route.kotlin.domainlist.main]
 suspend fun listDomains() {
-   Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        route53DomainsClient.listDomainsPaginated(ListDomainsRequest{})
+    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+        route53DomainsClient.listDomainsPaginated(ListDomainsRequest {})
             .transform { it.domains?.forEach { obj -> emit(obj) } }
             .collect { content ->
                 println("The domain name is ${content.domainName}")
             }
-   }
+    }
 }
 // snippet-end:[route.kotlin.domainlist.main]
 // snippet-end:[route.kotlin.scenario.main]
