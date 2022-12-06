@@ -31,11 +31,12 @@ suspend fun main(args: Array<String>) {
            domainType - The domain type (for example, com). 
     """
 
-   // if (args.size != 1) {
-   //     println(usage)
-   //     exitProcess(0)
-   // }
-    val domainType = "com" //args[0]
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
+    
+    val domainType = args[0]
     println("Invokes ListPrices using a Paginated method.")
     listPricesPaginated(domainType)
 }
