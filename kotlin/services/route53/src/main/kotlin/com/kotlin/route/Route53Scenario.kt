@@ -16,11 +16,17 @@ import aws.sdk.kotlin.services.route53domains.model.CountryCode
 import aws.sdk.kotlin.services.route53domains.model.GetDomainDetailRequest
 import aws.sdk.kotlin.services.route53domains.model.GetDomainSuggestionsRequest
 import aws.sdk.kotlin.services.route53domains.model.GetOperationDetailRequest
+import aws.sdk.kotlin.services.route53domains.model.ListDomainsRequest
 import aws.sdk.kotlin.services.route53domains.model.ListOperationsRequest
 import aws.sdk.kotlin.services.route53domains.model.ListPricesRequest
 import aws.sdk.kotlin.services.route53domains.model.RegisterDomainRequest
 import aws.sdk.kotlin.services.route53domains.model.ViewBillingRequest
+import aws.sdk.kotlin.services.route53domains.paginators.listDomainsPaginated
+import aws.sdk.kotlin.services.route53domains.paginators.listOperationsPaginated
+import aws.sdk.kotlin.services.route53domains.paginators.listPricesPaginated
+import aws.sdk.kotlin.services.route53domains.paginators.viewBillingPaginated
 import aws.smithy.kotlin.runtime.time.Instant
+import kotlinx.coroutines.flow.transform
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.Date
@@ -240,15 +246,18 @@ suspend fun listAllPrices(domainType: String?) {
     val pricesRequest = ListPricesRequest {
         tld = domainType
     }
+
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        val response = route53DomainsClient.listPrices(pricesRequest)
-        response.prices?.forEach { price ->
-            println("Name: ${price.name}")
-            println("Registration price: ${price.registrationPrice}")
-            println("Renewal: ${price.renewalPrice}")
-        }
+        route53DomainsClient.listPricesPaginated(pricesRequest)
+            .transform { it.prices?.forEach { obj -> emit(obj) } }
+            .collect { pr ->
+                println("Registration: ${pr.registrationPrice} ${pr.registrationPrice?.currency}")
+                println("Renewal: ${pr.renewalPrice?.price} ${pr.renewalPrice?.currency}")
+                println("Transfer: ${pr.transferPrice?.price} ${pr.transferPrice?.currency}")
+                println("Restoration: ${pr.restorationPrice?.price} ${pr.restorationPrice?.currency}")
+            }
     }
-}
+ }
 // snippet-end:[route.kotlin.domainprices.main]
 
 // snippet-start:[route.kotlin.domainbillingrecords.main]
@@ -266,13 +275,15 @@ suspend fun listBillingRecords() {
         start = timeStart
         end = timeEnd
     }
+
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        val response = route53DomainsClient.viewBilling(viewBillingRequest)
-        response.billingRecords?.forEach { billing ->
-            println("Bill Date: ${billing.billDate}")
-            println("Operation: ${billing.operation}")
-            println("Price: ${billing.price}")
-        }
+        route53DomainsClient.viewBillingPaginated(viewBillingRequest)
+            .transform { it.billingRecords?.forEach { obj -> emit(obj) } }
+            .collect { billing ->
+                println("Bill Date: ${billing.billDate}")
+                println("Operation: ${billing.operation}")
+                println("Price: ${billing.price}")
+            }
     }
 }
 // snippet-end:[route.kotlin.domainbillingrecords.main]
@@ -290,28 +301,26 @@ suspend fun listOperations() {
     }
 
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        val response = route53DomainsClient.listOperations(operationsRequest)
-        response.operations?.forEach { content ->
-            println("Operation Id: ${content.operationId}")
-            println("Status: ${content.status}")
-            println("Date: ${content.submittedDate}")
-        }
+        route53DomainsClient.listOperationsPaginated(operationsRequest)
+            .transform { it.operations?.forEach { obj -> emit(obj) } }
+            .collect { content ->
+                println("Operation Id: ${content.operationId}")
+                println("Status: ${content.status}")
+                println("Date: ${content.submittedDate}")
+            }
     }
 }
 // snippet-end:[route.kotlin.domainlistops.main]
 
 // snippet-start:[route.kotlin.domainlist.main]
 suspend fun listDomains() {
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        val response = route53DomainsClient.listDomains()
-        if (response.domains?.isEmpty() == true) {
-            println("There are no domains")
-        } else {
-            response.domains?.forEach { content ->
+   Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+        route53DomainsClient.listDomainsPaginated(ListDomainsRequest{})
+            .transform { it.domains?.forEach { obj -> emit(obj) } }
+            .collect { content ->
                 println("The domain name is ${content.domainName}")
             }
-        }
-    }
+   }
 }
 // snippet-end:[route.kotlin.domainlist.main]
 // snippet-end:[route.kotlin.scenario.main]
