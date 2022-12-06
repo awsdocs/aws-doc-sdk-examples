@@ -721,6 +721,15 @@ lambda_Scenario_GettingStartedFunctions:
               snippet_tags:
                 - javascript.v3.iam.actions.DeleteRole
                 - javascript.v3.lambda.actions.DeleteFunction
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.get_started_with_functions
   services:
     lambda:
       {
