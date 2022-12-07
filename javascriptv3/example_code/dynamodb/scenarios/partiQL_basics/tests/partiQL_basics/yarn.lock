@@ -472,10 +472,10 @@
   dependencies:
     "tslib" "^2.3.1"
 
-"@aws-sdk/middleware-stack@3.222.0":
-  "integrity" "sha512-ASKbstAKbOBUZhFhst6/NCr11x94BDBiQn2zDs2Lvjo89n2efMeb4wEr17VCMZVeKI6ojtPFa1ZVLsH8AOn4Yw=="
-  "resolved" "https://registry.npmjs.org/@aws-sdk/middleware-stack/-/middleware-stack-3.222.0.tgz"
-  "version" "3.222.0"
+"@aws-sdk/middleware-stack@3.215.0":
+  "integrity" "sha512-rdSVL7LxRgjlvoluqwODD4ypBy2k/YVl6FrDplyCMSi8m2WHZG99FzdmR9bpnWK+0DGzYZSMRYx6ynJ9N9PsSw=="
+  "resolved" "https://registry.npmjs.org/@aws-sdk/middleware-stack/-/middleware-stack-3.215.0.tgz"
+  "version" "3.215.0"
   dependencies:
     "tslib" "^2.3.1"
 
@@ -568,12 +568,12 @@
     "tslib" "^2.3.1"
 
 "@aws-sdk/smithy-client@^3.0.0":
-  "integrity" "sha512-4dnU7TvwKxVuOWduvFGClYe0EgNov5Ke1ef7O1bdKaj5MmlH6wBDgGJM4NKREBFapC2dUXkoPtwsihtYBci1Bw=="
-  "resolved" "https://registry.npmjs.org/@aws-sdk/smithy-client/-/smithy-client-3.222.0.tgz"
-  "version" "3.222.0"
+  "integrity" "sha512-PiZfCdZkPohzMPrRmJ46TPOf2Tr/dhKYdwQArRnOOIsJABUGXjlzCUE8vysDN35XZYRx5f9hd+/U7kayhniq2w=="
+  "resolved" "https://registry.npmjs.org/@aws-sdk/smithy-client/-/smithy-client-3.215.0.tgz"
+  "version" "3.215.0"
   dependencies:
-    "@aws-sdk/middleware-stack" "3.222.0"
-    "@aws-sdk/types" "3.222.0"
+    "@aws-sdk/middleware-stack" "3.215.0"
+    "@aws-sdk/types" "3.215.0"
     "tslib" "^2.3.1"
 
 "@aws-sdk/smithy-client@3.209.0":
@@ -596,10 +596,10 @@
     "@aws-sdk/types" "3.208.0"
     "tslib" "^2.3.1"
 
-"@aws-sdk/types@^3.0.0", "@aws-sdk/types@^3.1.0", "@aws-sdk/types@^3.110.0", "@aws-sdk/types@3.222.0":
-  "integrity" "sha512-yXRYptInkfEFaOvWFxlRXsRh9jWOmQc1sZeKqjfx2UCtzNJ7ebedN0VfCz4SaDotcw9Q4JWuN66qhRMJjDx7/w=="
-  "resolved" "https://registry.npmjs.org/@aws-sdk/types/-/types-3.222.0.tgz"
-  "version" "3.222.0"
+"@aws-sdk/types@^3.0.0", "@aws-sdk/types@^3.1.0", "@aws-sdk/types@^3.110.0", "@aws-sdk/types@3.215.0":
+  "integrity" "sha512-eRbCVjwzTYd9C5e2mceScJ6D2kYDDEC3PLkYfJa+1wH9iiF2JlbiYozAokyeYBHQ+AjmD93MK58RBoM8iZfH0Q=="
+  "resolved" "https://registry.npmjs.org/@aws-sdk/types/-/types-3.215.0.tgz"
+  "version" "3.215.0"
 
 "@aws-sdk/types@3.208.0":
   "integrity" "sha512-5AuOPtY1Hdf4xoEo+voRijl3OnFm8IB+oITXl+SN2iASJv+XPnRNw/QVbIxfGeWgWhmK31F+XdjTYsjT2rx8Qw=="
