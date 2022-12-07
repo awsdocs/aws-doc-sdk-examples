@@ -8,11 +8,11 @@ require "sequel"
 require "multi_json"
 require_relative "report"
 
-# Issues commands directly to the Amazon RDS Data Service, including SQL statements.
+# Issues commands directly to the Amazon Relational Database Service (Amazon RDS), including SQL statements.
 class AuroraActions
 
   # @param config [List]
-  # @param rds_client [AWS::RDS::Client] An Amazon RDS Data Service client.
+  # @param rds_client [AWS::RDS::Client] An Amazon RDS client.
   def initialize(config, rds_client)
     @cluster = config["resource_arn"]
     @secret = config["secret_arn"]
@@ -26,7 +26,7 @@ class AuroraActions
   # Gets work items from the database.
   # @param item_id [String] The Item ID to fetch. Returns all items if nil. Default: nil.
   # @param include_archived [Boolean] If true, include archived items. Default: true
-  # @return [Array] The hashed records from RDS which represent work items.
+  # @return [Array] The hashed records from Amazon RDS which represent work items.
   def get_work_items(item_id = nil, include_archived = nil)
     name = @table_name.to_s
     sql = @model.select(:work_item_id, :description, :guide, :status, :username, :archived).from(name.to_sym)

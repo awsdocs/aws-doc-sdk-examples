@@ -14,6 +14,9 @@ For a more hands-on experience, you can run the application by invoking this exa
 # About this example code
 The code comprises an application designed to manage fictitious work items using three key components.
 
+![](architecture_diagram.png)
+
+
 ## 1. Backend
 The centerpiece of this example is an API written exclusively in Ruby. It features the following gems:
 * [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html) (for communicating with Amazon Aurora)
