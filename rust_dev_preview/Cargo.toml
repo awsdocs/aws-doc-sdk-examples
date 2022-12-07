@@ -15,7 +15,7 @@ members = [
     "cognitoidentity",
     "cognitoidentityprovider",
     "cognitosync",
-    "concurrency-sqs",
+    "concurrency",
     "config",
     "cross_service/detect_faces",
     "cross_service/detect_labels",
