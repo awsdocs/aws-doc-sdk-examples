@@ -67,10 +67,10 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     DATA lo_featuretypes TYPE REF TO /aws1/cl_texfeaturetypes_w.
     DATA lt_featuretypes TYPE /aws1/cl_texfeaturetypes_w=>tt_featuretypes.
 
-    "Create ABAP objects for feature type"
-    "add TABLES to return information about the tables"
-    "add FORMS to return detected form data."
-    "To perform both types of analysis, add TABLES and FORMS to FeatureTypes"
+    "Create ABAP objects for feature type."
+    "Add TABLES to return information about the tables."
+    "Add FORMS to return detected form data."
+    "To perform both types of analysis, add TABLES and FORMS to FeatureTypes."
 
     CREATE OBJECT lo_featuretypes EXPORTING iv_value = 'FORMS'.
     INSERT lo_featuretypes INTO TABLE lt_featuretypes.
@@ -78,7 +78,7 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     CREATE OBJECT lo_featuretypes EXPORTING iv_value = 'TABLES'.
     INSERT lo_featuretypes INTO TABLE lt_featuretypes.
 
-    "Create an ABAP object for the S3 obejct."
+    "Create an ABAP object for the Amazon Simple Storage Service (Amazon S3) object."
     CREATE OBJECT lo_s3object
       EXPORTING
         iv_bucket = iv_s3bucket
@@ -87,34 +87,34 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     "Create an ABAP object for the document."
     CREATE OBJECT lo_document EXPORTING io_s3object = lo_s3object.
 
-    "Analyze document stored in S3"
+    "Analyze document stored in Amazon S3."
     TRY.
-        oo_result = lo_tex->analyzedocument(      "oo_result is returned for testing purpose"
+        oo_result = lo_tex->analyzedocument(      "oo_result is returned for testing purposes."
       EXPORTING
         io_document        = lo_document
         it_featuretypes    = lt_featuretypes
       ).
-        MESSAGE 'Analyze document completed' TYPE 'I'.
+        MESSAGE 'Analyze document completed.' TYPE 'I'.
       CATCH /aws1/cx_texaccessdeniedex .
         MESSAGE 'You do not have permission to perform this action.' TYPE 'E'.
       CATCH /aws1/cx_texbaddocumentex .
         MESSAGE 'Amazon Textract is not able to read the document.' TYPE 'E'.
       CATCH /aws1/cx_texdocumenttoolargeex .
-        MESSAGE 'The document is too large' TYPE 'E'.
+        MESSAGE 'The document is too large.' TYPE 'E'.
       CATCH /aws1/cx_texhlquotaexceededex .
-        MESSAGE 'Human loop quota has been exceeded' TYPE 'E'.
+        MESSAGE 'Human loop quota exceeded.' TYPE 'E'.
       CATCH /aws1/cx_texinternalservererr .
-        MESSAGE 'Internal server error' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidparameterex .
-        MESSAGE 'Request has invalid parameters' TYPE 'E'.
+        MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'S3 object is invalid' TYPE 'E'.
+        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
-        MESSAGE 'Provisioned throughput exceeded limit' TYPE 'E'.
+        MESSAGE 'Provisioned throughput exceeded limit.' TYPE 'E'.
       CATCH /aws1/cx_texthrottlingex .
-        MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
+        MESSAGE 'The request processing exceeded the limit.' TYPE 'E'.
       CATCH /aws1/cx_texunsupporteddocex .
-        MESSAGE 'The document is not supported' TYPE 'E'.
+        MESSAGE 'The document is not supported.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[tex.abapv1.analyze_document]
   ENDMETHOD.
@@ -136,7 +136,7 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     DATA lo_document TYPE REF TO /aws1/cl_texdocument.
     DATA lo_s3object TYPE REF TO /aws1/cl_texs3object.
 
-    "Create an ABAP object for the S3 obejct."
+    "Create an ABAP object for the Amazon S3 object."
     CREATE OBJECT lo_s3object
       EXPORTING
         iv_bucket = iv_s3bucket
@@ -145,28 +145,28 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     "Create an ABAP object for the document."
     CREATE OBJECT lo_document EXPORTING io_s3object = lo_s3object.
 
-    "Analyze document stored in S3"
+    "Analyze document stored in Amazon S3."
     TRY.
-        oo_result = lo_tex->detectdocumenttext( io_document = lo_document ).         "oo_result is returned for testing purpose"
-        MESSAGE 'Detect document text completed' TYPE 'I'.
+        oo_result = lo_tex->detectdocumenttext( io_document = lo_document ).         "oo_result is returned for testing purposes."
+        MESSAGE 'Detect document text completed.' TYPE 'I'.
       CATCH /aws1/cx_texaccessdeniedex .
         MESSAGE 'You do not have permission to perform this action.' TYPE 'E'.
       CATCH /aws1/cx_texbaddocumentex .
         MESSAGE 'Amazon Textract is not able to read the document.' TYPE 'E'.
       CATCH /aws1/cx_texdocumenttoolargeex .
-        MESSAGE 'The document is too large' TYPE 'E'.
+        MESSAGE 'The document is too large.' TYPE 'E'.
       CATCH /aws1/cx_texinternalservererr .
-        MESSAGE 'Internal server error' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidparameterex .
-        MESSAGE 'Request has invalid parameters' TYPE 'E'.
+        MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'S3 object is invalid' TYPE 'E'.
+        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
-        MESSAGE 'Provisioned throughput exceeded limit' TYPE 'E'.
+        MESSAGE 'Provisioned throughput exceeded limit.' TYPE 'E'.
       CATCH /aws1/cx_texthrottlingex .
-        MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
+        MESSAGE 'The request processing exceeded the limit' TYPE 'E'.
       CATCH /aws1/cx_texunsupporteddocex .
-        MESSAGE 'The document is not supported' TYPE 'E'.
+        MESSAGE 'The document is not supported.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[tex.abapv1.detect_document_text]
   ENDMETHOD.
@@ -184,24 +184,24 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     "Gets the results for an Amazon Textract"
     "asynchronous operation that analyzes text in a document."
     TRY.
-        oo_result = lo_tex->getdocumentanalysis( iv_jobid = iv_jobid ).    "oo_result is returned for testing purpose"
-        MESSAGE 'Document analysis retrieved' TYPE 'I'.
+        oo_result = lo_tex->getdocumentanalysis( iv_jobid = iv_jobid ).    "oo_result is returned for testing purposes."
+        MESSAGE 'Document analysis retrieved.' TYPE 'I'.
       CATCH /aws1/cx_texaccessdeniedex .
         MESSAGE 'You do not have permission to perform this action.' TYPE 'E'.
       CATCH /aws1/cx_texinternalservererr .
-        MESSAGE 'Internal server error' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidjobidex .
-        MESSAGE 'Job ID is invalid' TYPE 'E'.
+        MESSAGE 'Job ID isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidkmskeyex .
-        MESSAGE 'KMS key is invalid' TYPE 'E'.
+        MESSAGE 'AWS KMS key isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidparameterex .
-        MESSAGE 'Request has invalid parameters' TYPE 'E'.
+        MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'S3 object is invalid' TYPE 'E'.
+        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
-        MESSAGE 'Provisioned throughput exceeded limit' TYPE 'E'.
+        MESSAGE 'Provisioned throughput exceeded limit.' TYPE 'E'.
       CATCH /aws1/cx_texthrottlingex .
-        MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
+        MESSAGE 'The request processing exceeded the limit.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[tex.abapv1.get_document_analysis]
 
@@ -225,10 +225,10 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     DATA lo_featuretypes TYPE REF TO /aws1/cl_texfeaturetypes_w.
     DATA lt_featuretypes TYPE /aws1/cl_texfeaturetypes_w=>tt_featuretypes.
 
-    "Create ABAP objects for feature type"
-    "add TABLES to return information about the tables"
-    "add FORMS to return detected form data."
-    "To perform both types of analysis, add TABLES and FORMS to FeatureTypes"
+    "Create ABAP objects for feature type."
+    "Add TABLES to return information about the tables."
+    "Add FORMS to return detected form data."
+    "To perform both types of analysis, add TABLES and FORMS to FeatureTypes."
 
     CREATE OBJECT lo_featuretypes EXPORTING iv_value = 'FORMS'.
     INSERT lo_featuretypes INTO TABLE lt_featuretypes.
@@ -236,7 +236,7 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     CREATE OBJECT lo_featuretypes EXPORTING iv_value = 'TABLES'.
     INSERT lo_featuretypes INTO TABLE lt_featuretypes.
 
-    "Create an ABAP object for the S3 obejct."
+    "Create an ABAP object for the Amazon S3 object."
     CREATE OBJECT lo_s3object
       EXPORTING
         iv_bucket = iv_s3bucket
@@ -247,36 +247,36 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
 
     "Start async document analysis."
     TRY.
-        oo_result = lo_tex->startdocumentanalysis(      "oo_result is returned for testing purpose"
+        oo_result = lo_tex->startdocumentanalysis(      "oo_result is returned for testing purposes."
       EXPORTING
         io_documentlocation     = lo_documentlocation
         it_featuretypes         = lt_featuretypes
       ).
-        MESSAGE 'Document analysis started' TYPE 'I'.
+        MESSAGE 'Document analysis started.' TYPE 'I'.
       CATCH /aws1/cx_texaccessdeniedex .
         MESSAGE 'You do not have permission to perform this action.' TYPE 'E'.
       CATCH /aws1/cx_texbaddocumentex .
         MESSAGE 'Amazon Textract is not able to read the document.' TYPE 'E'.
       CATCH /aws1/cx_texdocumenttoolargeex .
-        MESSAGE 'The document is too large' TYPE 'E'.
+        MESSAGE 'The document is too large.' TYPE 'E'.
       CATCH /aws1/cx_texidempotentprmmis00 .
-        MESSAGE 'Idempotent parameter mismatch exception' TYPE 'E'.
+        MESSAGE 'Idempotent parameter mismatch exception.' TYPE 'E'.
       CATCH /aws1/cx_texinternalservererr .
-        MESSAGE 'Internal server error' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidkmskeyex .
-        MESSAGE 'KMS key is invalid' TYPE 'E'.
+        MESSAGE 'AWS KMS key isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidparameterex .
-        MESSAGE 'Request has invalid parameters' TYPE 'E'.
+        MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'S3 object is invalid' TYPE 'E'.
+        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texlimitexceededex .
         MESSAGE 'An Amazon Textract service limit was exceeded.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
-        MESSAGE 'Provisioned throughput exceeded limit' TYPE 'E'.
+        MESSAGE 'Provisioned throughput exceeded limit.' TYPE 'E'.
       CATCH /aws1/cx_texthrottlingex .
-        MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
+        MESSAGE 'The request processing exceeded the limit.' TYPE 'E'.
       CATCH /aws1/cx_texunsupporteddocex .
-        MESSAGE 'The document is not supported' TYPE 'E'.
+        MESSAGE 'The document is not supported.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[tex.abapv1.start_document_analysis]
   ENDMETHOD.
@@ -297,7 +297,7 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     DATA lo_documentlocation TYPE REF TO /aws1/cl_texdocumentlocation.
     DATA lo_s3object TYPE REF TO /aws1/cl_texs3object.
 
-    "Create an ABAP object for the S3 obejct."
+    "Create an ABAP object for the Amazon S3 object."
     CREATE OBJECT lo_s3object
       EXPORTING
         iv_bucket = iv_s3bucket
@@ -310,32 +310,32 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
 
     "Start document analysis."
     TRY.
-        oo_result = lo_tex->startdocumenttextdetection( io_documentlocation = lo_documentlocation ).                 "oo_result is returned for testing purpose"
-        MESSAGE 'Document analysis started' TYPE 'I'.
+        oo_result = lo_tex->startdocumenttextdetection( io_documentlocation = lo_documentlocation ).                 "oo_result is returned for testing purposes."
+        MESSAGE 'Document analysis started.' TYPE 'I'.
       CATCH /aws1/cx_texaccessdeniedex .
         MESSAGE 'You do not have permission to perform this action.' TYPE 'E'.
       CATCH /aws1/cx_texbaddocumentex .
         MESSAGE 'Amazon Textract is not able to read the document.' TYPE 'E'.
       CATCH /aws1/cx_texdocumenttoolargeex .
-        MESSAGE 'The document is too large' TYPE 'E'.
+        MESSAGE 'The document is too large.' TYPE 'E'.
       CATCH /aws1/cx_texidempotentprmmis00 .
-        MESSAGE 'Idempotent parameter mismatch exception' TYPE 'E'.
+        MESSAGE 'Idempotent parameter mismatch exception.' TYPE 'E'.
       CATCH /aws1/cx_texinternalservererr .
-        MESSAGE 'Internal server error' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidkmskeyex .
-        MESSAGE 'KMS key is invalid' TYPE 'E'.
+        MESSAGE 'AWS KMS key isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidparameterex .
-        MESSAGE 'Request has invalid parameters' TYPE 'E'.
+        MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'S3 object is invalid' TYPE 'E'.
+        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
       CATCH /aws1/cx_texlimitexceededex .
         MESSAGE 'An Amazon Textract service limit was exceeded.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
-        MESSAGE 'Provisioned throughput exceeded limit' TYPE 'E'.
+        MESSAGE 'Provisioned throughput exceeded limit.' TYPE 'E'.
       CATCH /aws1/cx_texthrottlingex .
-        MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
+        MESSAGE 'The request processing exceeded the limit.' TYPE 'E'.
       CATCH /aws1/cx_texunsupporteddocex .
-        MESSAGE 'The document is not supported' TYPE 'E'.
+        MESSAGE 'The document is not supported.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[tex.abapv1.start_document_text_detection]
   ENDMETHOD.
