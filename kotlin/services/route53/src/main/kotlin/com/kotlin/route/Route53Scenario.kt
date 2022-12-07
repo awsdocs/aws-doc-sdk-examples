@@ -61,9 +61,9 @@ suspend fun main(args: Array<String>) {
             <domainType> <phoneNumber> <email> <domainSuggestion> <firstName> <lastName> <city>
         Where:
            domainType - The domain type (for example, com). 
-           phoneNumber - The phone number to use (for example, +91.9966564xxx)      
+           phoneNumber - The phone number to use (for example, +1.2065550100)      
            email - The email address to use.      
-           domainSuggestion - The domain suggestion (for example, findmy.accountants). 
+           domainSuggestion - The domain suggestion (for example, findmy.example). 
            firstName - The first name to use to register a domain. 
            lastName -  The last name to use to register a domain. 
            city - The city to use to register a domain. 
@@ -133,7 +133,7 @@ suspend fun main(args: Array<String>) {
 
     println(DASHES)
     println("10. Get domain details.")
-    println("Note: you must have a registered domain to get details.")
+    println("Note: You must have a registered domain to get details.")
     println("Otherwise an exception is thrown that states ")
     println("Domain xxxxxxx not found in xxxxxxx account.")
     getDomainDetails(domainSuggestion)
