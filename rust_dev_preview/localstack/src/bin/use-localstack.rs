@@ -5,7 +5,6 @@
 
 // snippet-start:[localstack.rust.use-localstack]
 use aws_smithy_http::endpoint::Endpoint;
-use http::Uri;
 use std::error::Error;
 
 #[tokio::main]
@@ -56,7 +55,7 @@ fn use_localstack() -> bool {
 }
 
 fn localstack_endpoint() -> Endpoint {
-    Endpoint::immutable(Uri::from_static("http://localhost:4566/"))
+    Endpoint::immutable("http://localhost:4566/").expect("valid endpoint")
 }
 
 fn sqs_client(conf: &aws_types::SdkConfig) -> aws_sdk_sqs::Client {
