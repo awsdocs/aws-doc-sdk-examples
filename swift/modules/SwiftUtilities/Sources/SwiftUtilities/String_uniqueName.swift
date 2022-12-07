@@ -10,7 +10,7 @@ import Foundation
 public extension String {
     /// Returns a unique file name for use in testing. The file name is a
     /// UUID. You can optionally add a period and an extension to it. If
-    /// `inValid` is true, the returned name isn't valid for use with Amazon
+    /// `isValid` is false, the returned name isn't valid for use with Amazon
     /// Simple Storage Service (Amazon S3).
     ///
     /// - Parameters:
@@ -21,8 +21,8 @@ public extension String {
     ///     used.
     ///   - ext: String - The file extension to add. If empty, no extension is
     ///     added.
-    ///   - isValid: Bool - If true, the returned filename is invalid for
-    ///     Amazon S3 use.
+    ///   - isValid: Bool - If true, the returned filename is valid for Amazon
+    ///     S3 use.
     /// - Returns: A string containing a unique filename for Amazon S3
     ///   testing.
     static func uniqueName(withPrefix prefix: String = "",
