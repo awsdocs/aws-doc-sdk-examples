@@ -21,13 +21,19 @@ Route 53 is a highly available and scalable Domain Name System (DNS) web service
 
 Code excerpts that show you how to call individual service functions.
 
+- [Check domain availability](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (checkDomainAvailability command)
+- [Check domain transferability](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (checkDomainTransferability command)
 - [Create a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHealthCheck.kt) (createHealthCheck command)
 - [Create a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/CreateHostedZone.kt) (createHostedZone command)
 - [Delete a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/DeleteHealthCheck.kt) (deleteHealthCheck command)
 - [Delete a hosted zone](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/DeleteHostedZone.kt) (deleteHostedZone command)
+- [Get domain details](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (getDomainDetail command)
 - [Get the status of a specific health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/GetHealthCheckStatus.kt) (getHealthCheckStatus command)
+- [Get operation details](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (getOperationDetail command)
+- [List current domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (listOperationsPaginator command)
 - [List health checks](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/ListHealthChecks.kt) (listHealthChecks command)
 - [List hosted zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/ListHostedZones.kt) (listHostedZones command)
+- [Request a domain registration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (registerDomain command)
 - [Update a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/UpdateHealthCheck.kt) (updateHealthCheck command)
 
 ### Scenario 
