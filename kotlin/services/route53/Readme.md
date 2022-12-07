@@ -52,7 +52,7 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 
 ### Prerequisites
 
-To run these examples, you can set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
+To run these examples, set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
 see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
  ## Test the examples
