@@ -64,11 +64,11 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
           iv_key = iv_dest_object
           iv_copysource = |{ iv_src_bucket }/{ iv_src_object }|
         ).
-        MESSAGE 'Object copied to another bucket' TYPE 'I'.
+        MESSAGE 'Object copied to another bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
-        MESSAGE 'Bucket does not exist' TYPE 'E'.
+        MESSAGE 'Bucket does not exist.' TYPE 'E'.
       CATCH /aws1/cx_s3_nosuchkey.
-        MESSAGE 'Object key does not exist' TYPE 'E'.
+        MESSAGE 'Object key does not exist.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[s3.abapv1.copy_object]
   ENDMETHOD.
@@ -86,11 +86,11 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
         lo_s3->createbucket(
             iv_bucket = iv_bucket_name
         ).
-        MESSAGE 'S3 bucket created' TYPE 'I'.
+        MESSAGE 'S3 bucket created.' TYPE 'I'.
       CATCH /aws1/cx_s3_bucketalrdyexists.
-        MESSAGE 'Bucket name already exists' TYPE 'E'.
+        MESSAGE 'Bucket name already exists.' TYPE 'E'.
       CATCH /aws1/cx_s3_bktalrdyownedbyyou.
-        MESSAGE 'Bucket already exist and is owned by you' TYPE 'E'.
+        MESSAGE 'Bucket already exists and is owned by you.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[s3.abapv1.create_bucket]
   ENDMETHOD.
@@ -109,9 +109,9 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
         lo_s3->deletebucket(
             iv_bucket = iv_bucket_name
         ).
-        MESSAGE 'Deleted S3 bucket' TYPE 'I'.
+        MESSAGE 'Deleted S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
-        MESSAGE 'Bucket does not exist' TYPE 'E'.
+        MESSAGE 'Bucket does not exist.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[s3.abapv1.delete_bucket]
 
@@ -130,9 +130,9 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
             iv_bucket = iv_bucket_name
             iv_key = iv_object_key
         ).
-        MESSAGE 'Object deleted from S3 bucket' TYPE 'I'.
+        MESSAGE 'Object deleted from S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
-        MESSAGE 'Bucket does not exist' TYPE 'E'.
+        MESSAGE 'Bucket does not exist.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[s3.abapv1.delete_object]
   ENDMETHOD.
@@ -146,16 +146,16 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[s3.abapv1.get_object]
     TRY.
-        oo_result = lo_s3->getobject(           " oo_result is returned for testing purpose "
+        oo_result = lo_s3->getobject(           " oo_result is returned for testing purposes. "
                   iv_bucket = iv_bucket_name
                   iv_key = iv_object_key
                ).
         DATA(lv_object_data) = oo_result->get_body( ).
-        MESSAGE 'Object retrieved from S3 bucket' TYPE 'I'.
+        MESSAGE 'Object retrieved from S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
-        MESSAGE 'Bucket does not exist' TYPE 'E'.
+        MESSAGE 'Bucket does not exist.' TYPE 'E'.
       CATCH /aws1/cx_s3_nosuchkey.
-        MESSAGE 'Object key does not exist' TYPE 'E'.
+        MESSAGE 'Object key does not exist.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[s3.abapv1.get_object]
 
@@ -170,12 +170,12 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[s3.abapv1.list_objects]
     TRY.
-        oo_result = lo_s3->listobjects(         " oo_result is returned for testing purpose "
+        oo_result = lo_s3->listobjects(         " oo_result is returned for testing purposes. "
           iv_bucket = iv_bucket_name
         ).
-        MESSAGE 'Retrieved list of object(s) in S3 bucket' TYPE 'I'.
+        MESSAGE 'Retrieved list of objects in S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
-        MESSAGE 'Bucket does not exist' TYPE 'E'.
+        MESSAGE 'Bucket does not exist.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[s3.abapv1.list_objects]
   ENDMETHOD.
@@ -190,22 +190,22 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[s3.abapv1.put_object]
 
-    "Get contents of file from application server"
+    "Get contents of file from application server."
     DATA lv_body TYPE xstring.
     OPEN DATASET iv_file_name FOR INPUT IN BINARY MODE.
     READ DATASET iv_file_name INTO lv_body.
     CLOSE DATASET iv_file_name.
 
-    "Upload/Put an object to S3 bucket"
+    "Upload/put an object to an S3 bucket."
     TRY.
         lo_s3->putobject(
             iv_bucket = iv_bucket_name
             iv_key = iv_file_name
             iv_body = lv_body
         ).
-        MESSAGE 'Object uploaded to S3 bucket' TYPE 'I'.
+        MESSAGE 'Object uploaded to S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
-        MESSAGE 'Bucket does not exist' TYPE 'E'.
+        MESSAGE 'Bucket does not exist.' TYPE 'E'.
     ENDTRY.
 
     "snippet-end:[s3.abapv1.put_object]
