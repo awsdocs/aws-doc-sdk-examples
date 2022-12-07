@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>SGM Code Example Actions</DESCRIPT>
+    <DESCRIPT>SageMaker Code Example Actions</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
@@ -17,67 +17,67 @@
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_ENDPOINT</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create an endpoint in SageMaker</DESCRIPT>
+     <DESCRIPT>Create an endpoint in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_MODEL</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create a model in SageMaker</DESCRIPT>
+     <DESCRIPT>Create a model in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_TRAINING_JOB</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create a training job in SageMaker</DESCRIPT>
+     <DESCRIPT>Create a training job in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_TRANSFORM_JOB</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create a tranform job in SageMaker</DESCRIPT>
+     <DESCRIPT>Create a tranform job in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>DELETE_ENDPOINT</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create a model in SageMaker</DESCRIPT>
+     <DESCRIPT>Create a model in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>DELETE_MODEL</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>List training jobs in SageMaker</DESCRIPT>
+     <DESCRIPT>List training jobs in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>DESCRIBE_TRAINING_JOB</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Describe training job in SageMaker</DESCRIPT>
+     <DESCRIPT>Describe training job in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>LIST_ALGORITHMS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>List algorithms in SageMaker</DESCRIPT>
+     <DESCRIPT>List algorithms in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>LIST_MODELS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>List training jobs in SageMaker</DESCRIPT>
+     <DESCRIPT>List training jobs in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>LIST_NOTEBOOK_INSTANCES</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>List notebook instances in SageMaker</DESCRIPT>
+     <DESCRIPT>List notebook instances in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SGM_ACTIONS</CLSNAME>
      <CMPNAME>LIST_TRAINING_JOBS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>List training jobs in SageMaker</DESCRIPT>
+     <DESCRIPT>List training jobs in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>

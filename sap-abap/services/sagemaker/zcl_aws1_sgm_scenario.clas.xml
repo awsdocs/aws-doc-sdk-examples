@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AWS1_SGM_SCENARIO</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>SGM Code Example Scenarios</DESCRIPT>
+    <DESCRIPT>SageMaker Code Example Scenarios</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
@@ -17,7 +17,7 @@
      <CLSNAME>ZCL_AWS1_SGM_SCENARIO</CLSNAME>
      <CMPNAME>GETTING_STARTED_WITH_SGM</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create a training job in SageMaker</DESCRIPT>
+     <DESCRIPT>Create a training job in SageMaker.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
