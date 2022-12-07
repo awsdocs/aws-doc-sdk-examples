@@ -1,0 +1,26 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug Glue MVP",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=scenario",
+          "--manifest-path=${workspaceFolder}/rust_dev_preview/glue/Cargo.toml"
+        ]
+      },
+      "args": [
+        "--iam-role=arn:aws:iam::659765859849:role/AWSGlueServiceRole-DocExample",
+        "--id=12345"
+      ],
+      "env": { "RUST_LOG": "scenario" },
+      "cwd": "${workspaceFolder}/rust_dev_preview/glue"
+    }
+  ]
+}

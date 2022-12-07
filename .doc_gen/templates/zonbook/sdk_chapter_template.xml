@@ -90,7 +90,7 @@
                             </abstract>
                         </info>
                         <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
-                        <xi:include href="{{$include_docs}}{{.ExampleId}}_tablist.xml"></xi:include>
+                        <xi:include href="{{$include_docs}}{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
                     </section>
                     {{- end}}
                 </collapsible>
