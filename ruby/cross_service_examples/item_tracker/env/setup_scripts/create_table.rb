@@ -8,7 +8,7 @@ require "aws-sdk-rdsdataservice"
 require "aws-sdk-rds"
 require "aws-sdk-ses"
 
-# A simple class for checking for databases and tables in an Amazon Aurora cluster
+# A simple class for checking for databases and tables in an Amazon Aurora DB cluster.
 class SetupDatabase
 
   def initialize
@@ -17,7 +17,7 @@ class SetupDatabase
     @rds_client = Aws::RDS::Client.new
   end
 
-  # Checks if database exists
+  # Checks if database exists.
   # @return [Boolean] false if DBClusterNotFoundFault; else true.
   def database_exists?
     identifier = Aws::ARNParser.parse(@config["resource_arn"])
@@ -29,7 +29,7 @@ class SetupDatabase
     false
   end
 
-  # Checks if table exists in database
+  # Checks if table exists in database.
   # @return [Boolean] true if table exists, false if not.
   def table_exists?
     resp = @data_client.execute_statement(
@@ -49,7 +49,7 @@ class SetupDatabase
     false
   end
 
-  # NOTE: This code contains raw string substitution and is therefore vulnerable to SQL injection
+  # NOTE: This code contains raw string substitution and is therefore vulnerable to SQL injection.
   # TODO: Refactor to use Rails ActiveRecord
   def create_table
     @data_client.execute_statement(
@@ -64,7 +64,7 @@ class SetupDatabase
 
 end
 
-# check for database cluster & create table if none exists
+# Checks for a database cluster & creates a table if none exists.
 begin
   setup = SetupDatabase.new
   if setup.database_exists?

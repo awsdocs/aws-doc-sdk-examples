@@ -72,7 +72,7 @@ class AuroraActions
 
   private
 
-  # Helper method to prep SQL for execution
+  # Helper method to prep SQL for execution.
   # @param sql [String]
   # @return [String]
   def _format_sql(sql)
@@ -80,38 +80,36 @@ class AuroraActions
     sql.downcase
   end
 
-  # Helper method to convert Strings to Booleans
+  # Helper method to convert Strings to Booleans.
   # @param [String]
   # @return [Boolean]
   def true?(obj)
     obj.to_s.downcase == "true"
   end
 
-  # Helper method to centralize error formatting
-  # @param msg [String] A custom error message
+  # Helper method to centralize error formatting.
+  # @param msg [String] A custom error message.
   def handle_error(msg)
     @logger.error(msg)
     raise msg
   end
 
-  # Converts larger ExecuteStatementResponse into simplified Ruby object
+  # Converts larger ExecuteStatementResponse into simplified Ruby object.
   # @param results [Aws::RDSDataService::Types::ExecuteStatementResponse]
   # @return output [Array] A list of items, represented as hashes
   def parse_work_items(results)
     output = []
     results.each do |x|
-      # name = x["username"]
-      # id = x["work_item_id"]
-      x["name"] = x["username"] # note: duplicative name/username field added due to front-end bug
-      x["id"] = x["work_item_id"] # note: duplicative id/work_item_id field added due to front-end bug
+      x["name"] = x["username"] # Note: Duplicative name/username field added due to front-end bug.
+      x["id"] = x["work_item_id"] # Note: Duplicative id/work_item_id field added due to front-end bug.
       output.append(x)
     end
     output
   end
 
-  # Validate response body from the API
-  # @param response [Aws::RDSDataService::Types::ExecuteStatementResponse] The response body
-  # @param method [String] The API Method used. Must be: post, put, get.
+  # Validate response body from the API.
+  # @param response [Aws::RDSDataService::Types::ExecuteStatementResponse] The response body.
+  # @param method [String] The REST method used. Must be: post, put, get.
   # @return [RuntimeError, Boolean] If valid response, true; otherwise, RuntimeError.
   def validate_response(response, method)
     case method
@@ -127,10 +125,10 @@ class AuroraActions
     @logger.info("SQL call successful. Response body validated.")
   end
 
-  # Transforms inconsistent return bodies into something API-friendly
-  # @param response [Aws::RDSDataService::Types::ExecuteStatementResponse] The response body
+  # Transforms inconsistent return bodies into something API-friendly.
+  # @param response [Aws::RDSDataService::Types::ExecuteStatementResponse] The response body.
   # @param method [String] The API Method used. Must be: post, put, get.
-  # @return [Array] Containing zero or more hashes of response data
+  # @return [Array] Containing zero or more hashes of response data.
   def format_response(response, method)
     case method
     when "get"
@@ -153,10 +151,10 @@ class AuroraActions
     end
   end
 
-  # Runs a SQL statement and associated parameters using the Amazon RDS Data Service.
+  # Runs a SQL statement and associated parameters using Amazon RDS.
   # @param sql [String] The SQL statement to run against the database.
   # @return [Array] Containing zero or more hashes of response data
-  # @return [ErrorClass] Aws::Errors::ServiceError, StandardError
+  # @return [ErrorClass] Aws::Errors::ServiceError, StandardError.
   def run_statement(sql, method)
     run_args = {
       'database': @db_name,

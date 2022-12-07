@@ -7,7 +7,7 @@ require "yaml"
 require "aws-sdk-rdsdataservice"
 require_relative "../../src/aurora"
 
-# A simple class for creating items in the database
+# A simple class for creating items in the database.
 class PopulateTable
   def initialize
     client = Aws::RDSDataService::Client.new
@@ -31,7 +31,7 @@ class PopulateTable
   end
 end
 
-# check for database cluster & create table if none exists
+# Checks for Aurora DB cluster & creates table if none exists.
 begin
   setup = PopulateTable.new
   setup.add_records
