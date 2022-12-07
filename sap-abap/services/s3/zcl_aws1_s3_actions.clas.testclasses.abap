@@ -103,7 +103,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
     /aws1/cl_rt_assert_abap=>assert_subrc( iv_exp = 0 iv_msg = |Could not create { iv_file }| ).
   ENDMETHOD.
   METHOD get_file_data.
-    "Get file content
+    "Get file content.
     OPEN DATASET iv_file FOR INPUT IN BINARY MODE.
     READ DATASET iv_file INTO ov_file_data.
     CLOSE DATASET iv_file.
