@@ -38,20 +38,24 @@ Code excerpts that show you how to call individual service functions.
 
 ### Scenario 
 
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
 - [Get started with domains](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (various commands)
 
-## Run the Amazon Route 53 Kotlin files
+## Run the examples
 
 **IMPORTANT**
 
-The Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+The Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you might incur AWS service charges by running them. For details about the charges you can expect for a given service and operation, see the [AWS Pricing page](https://aws.amazon.com/pricing/).
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a hosted zone. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
+### Prerequisites
+
+To run these examples, you can set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
 see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
- ## Test the Amazon Route 53 Kotlin files
+ ## Test the examples
  
  ⚠️ Running the tests might result in charges to your AWS account.
 
@@ -64,14 +68,15 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
 **WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account._
 
  ### Properties file
+
 Before running the JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. If you do not define all values, the JUnit tests fail.
 
-Define this value to successfully run the JUnit tests:
+Define the following values to successfully run the JUnit tests:
 
 - **domainName** - The fully qualified domain name.
-- **domainSuggestionSc** - The domain suggestion (for example, findmy.accountants).
+- **domainSuggestionSc** - The domain suggestion (for example, findmy.example).
 - **domainTypeSc** - The domain type (for example, com).
-- **phoneNumerSc** - The phone number to use (for example, +91.9966564xxx).
+- **phoneNumerSc** - The phone number to use (for example, +1.2065550100).
 - **emailSc** - The email address to use.
 - **firstNameSc** - The first name to use.
 - **lastNameSc** - The first name to use.
