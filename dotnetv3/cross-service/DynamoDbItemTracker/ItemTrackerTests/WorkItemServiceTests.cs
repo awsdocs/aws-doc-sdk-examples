@@ -34,7 +34,7 @@ public class WorkItemServiceTests
                 true) // Optionally load local settings.
             .Build();
 
-        _workItemService = new WorkItemService(new DynamoDBContext(new AmazonDynamoDBClient()), _configuration);
+        _workItemService = new WorkItemService(new DynamoDBContext(new AmazonDynamoDBClient()));
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class WorkItemServiceTests
                 It.Is<ScanOperationConfig>(r => r.Filter.ToConditions().Count == 0),
                 It.IsAny<DynamoDBOperationConfig>())).Returns(mockScan.Object);
 
-        var service = new WorkItemService(mockContext.Object, _configuration);
+        var service = new WorkItemService(mockContext.Object);
         var workItems = await service.GetItems(null);
         Assert.Equal(2, workItems.Count);
     }
@@ -86,7 +86,7 @@ public class WorkItemServiceTests
                 It.Is<ScanOperationConfig>(r => r.Filter.ToConditions().ContainsKey("archived")),
                 It.IsAny<DynamoDBOperationConfig>())).Returns(mockScan.Object);
 
-        var service = new WorkItemService(mockContext.Object, _configuration);
+        var service = new WorkItemService(mockContext.Object);
         await service.GetItems(true);
         var workItems = await service.GetItems(true);
         Assert.Equal(2, workItems.Count);
@@ -115,7 +115,7 @@ public class WorkItemServiceTests
                 It.Is<ScanOperationConfig>(r => r.Filter.ToConditions().Count == 0),
                 It.IsAny<DynamoDBOperationConfig>())).Returns(mockScan.Object);
 
-        var service = new WorkItemService(mockContext.Object, _configuration);
+        var service = new WorkItemService(mockContext.Object);
         var items = await service.GetAllItems();
         Assert.NotEmpty(items);
     }
@@ -143,7 +143,7 @@ public class WorkItemServiceTests
                 It.Is<ScanOperationConfig>(r => r.Filter.ToConditions().ContainsKey("archived")),
                 It.IsAny<DynamoDBOperationConfig>())).Returns(mockScan.Object);
 
-        var service = new WorkItemService(mockContext.Object, _configuration);
+        var service = new WorkItemService(mockContext.Object);
         var items = await service.GetItemsByArchiveState(false);
         Assert.Equal(2, items.Count);
     }
@@ -164,7 +164,7 @@ public class WorkItemServiceTests
             mc.LoadAsync<WorkItem>(
                 It.Is<string>(id => id == testId), CancellationToken.None)).ReturnsAsync(testWorkItem);
 
-        var service = new WorkItemService(mockContext.Object, _configuration);
+        var service = new WorkItemService(mockContext.Object);
         var item = await service.GetItem(testId);
         Assert.Equal(testId, item.iditem);
     }
@@ -184,7 +184,7 @@ public class WorkItemServiceTests
             mc.LoadAsync<WorkItem>(
                 It.Is<string>(id => !String.IsNullOrEmpty(id)), CancellationToken.None)).ReturnsAsync(testWorkItem);
 
-        var service = new WorkItemService(mockContext.Object, _configuration);
+        var service = new WorkItemService(mockContext.Object);
         var result = await service.CreateItem(new WorkItem());
 
         mockContext.Verify(mc => mc.SaveAsync<WorkItem>(It.Is<WorkItem>(wi => !string.IsNullOrEmpty(wi.iditem)), CancellationToken.None), Times.Once);
@@ -209,7 +209,7 @@ public class WorkItemServiceTests
             mc.LoadAsync<WorkItem>(
                 It.Is<string>(id => !String.IsNullOrEmpty(id)), CancellationToken.None)).ReturnsAsync(testWorkItem);
 
-        var service = new WorkItemService(mockContext.Object, _configuration);
+        var service = new WorkItemService(mockContext.Object);
         var result = await service.ArchiveItem(testId);
 
         mockContext.Verify(mc => mc.SaveAsync<WorkItem>(It.Is<WorkItem>(w => w.Id == testId), CancellationToken.None), Times.Once);

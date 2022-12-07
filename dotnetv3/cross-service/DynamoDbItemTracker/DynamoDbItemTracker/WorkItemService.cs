@@ -12,19 +12,14 @@ namespace DynamoDbItemTracker;
 public class WorkItemService
 {
     private readonly IDynamoDBContext _amazonDynamoDbContext;
-    private readonly IConfiguration _configuration;
-    private readonly string _tableName;
 
     /// <summary>
     /// Constructor that uses the injected Amazon DynamoDb context.
     /// </summary>
     /// <param name="amazonDynamoDbContext">Amazon DynamoDb context.</param>
-    /// <param name="configuration">App configuration.</param>
-    public WorkItemService(IDynamoDBContext amazonDynamoDbContext, IConfiguration configuration)
+    public WorkItemService(IDynamoDBContext amazonDynamoDbContext)
     {
         _amazonDynamoDbContext = amazonDynamoDbContext;
-        _configuration = configuration;
-        _tableName = configuration["WorkItemTable"];
     }
 
     /// <summary>
