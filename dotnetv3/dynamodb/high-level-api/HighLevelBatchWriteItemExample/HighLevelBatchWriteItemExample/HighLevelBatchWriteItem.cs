@@ -13,7 +13,7 @@ namespace HighLevelBatchWriteItemExample
 
     /// <summary>
     /// Performs high-level batch write operations to an Amazon DynamoDB table.
-    /// This example was written using the AWS SDK for .NET verion 3.7 and .NET
+    /// This example was written using the AWS SDK for .NET version 3.7 and .NET
     /// Core 5.0.
     /// </summary>
     public class HighLevelBatchWriteItem

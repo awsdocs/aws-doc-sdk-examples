@@ -71,7 +71,7 @@ CLASS ltc_zcl_aws1_lmd_actions IMPLEMENTATION.
     DATA(lv_function_arn) =  ao_lmd->getfunctionconfiguration( iv_functionname = cv_function_name )->get_functionarn( ).
     cl_abap_unit_assert=>assert_not_initial(
               act = lv_function_arn
-              msg = |Failed to create lambda function { cv_function_name }|
+              msg = |Failed to create Lambda function { cv_function_name }|
             ).
     ao_lmd->deletefunction( iv_functionname = cv_function_name ).
   ENDMETHOD.
@@ -110,13 +110,13 @@ CLASS ltc_zcl_aws1_lmd_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_not_initial(
     act = lo_result
-    msg = |Failed to retrieve information about lambda function { cv_function_name }|
+    msg = |Failed to retrieve information about Lambda function { cv_function_name }|
     ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = cv_function_name
       act = lo_result->get_configuration( )->get_functionname( )
-      msg = |Lambda function name did not match expected vslue { cv_function_name }|
+      msg = |Lambda function name did not match expected value { cv_function_name }|
     ).
 
     cl_abap_unit_assert=>assert_equals(
@@ -128,18 +128,18 @@ CLASS ltc_zcl_aws1_lmd_actions IMPLEMENTATION.
     cl_abap_unit_assert=>assert_equals(
       exp = av_lrole
       act = lo_result->get_configuration( )->get_role( )
-      msg = |Function's execution role did not match expected vslue { av_lrole }|
+      msg = |Function's execution role did not match expected value { av_lrole }|
     ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = `python3.9`
       act = lo_result->get_configuration( )->get_runtime( )
-      msg = |Function's runtime did not match expected vslue |
+      msg = |Function's runtime did not match expected value |
     ).
 
     cl_abap_unit_assert=>assert_not_initial(
     act = lo_result->get_code( )->get_location( )
-    msg = |Failed to retrieve value of lambda location/URL|
+    msg = |Failed to retrieve value of Lambda location/URL|
     ).
 
     ao_lmd->deletefunction( iv_functionname = cv_function_name ).
@@ -238,7 +238,7 @@ CLASS ltc_zcl_aws1_lmd_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_not_initial(
     act = lo_update_result
-    msg = |Failed to update lambda function code|
+    msg = |Failed to update Lambda function code|
     ).
 
     DATA(lv_json) = /aws1/cl_rt_util=>string_to_xstring(
@@ -308,37 +308,37 @@ CLASS ltc_zcl_aws1_lmd_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_not_initial(
       act = lo_result
-      msg = |Failed to retrieve update lambda function configuratgiona|
+      msg = |Failed to update Lambda function configuration|
       ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = `lambda_function.lambda_handler`
       act = lo_result->get_handler( )
-      msg = |Handler did not match expected vslue|
+      msg = |Handler did not match expected value|
     ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = av_lrole
       act = lo_result->get_role( )
-      msg = |function's execution role did not match expected vslue { av_lrole }|
+      msg = |Function's execution role did not match expected value { av_lrole }|
     ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = `python3.8`
       act = lo_result->get_runtime( )
-      msg = |function's runtime did not match expected vslue |
+      msg = |Function's runtime did not match expected value |
     ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = 'Updated Lambda Function'
       act = lo_result->get_description( )
-      msg = |Function's description did not match expected vslue |
+      msg = |Function's description did not match expected value |
     ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = 150
       act = lo_result->get_memorysize( )
-      msg = |Function memory did not match expected vslue|
+      msg = |Function memory did not match expected value|
     ).
 
     ao_lmd->deletefunction( iv_functionname = cv_function_name ).

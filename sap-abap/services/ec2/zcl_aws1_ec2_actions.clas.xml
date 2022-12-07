@@ -23,7 +23,7 @@
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>ASSOCIATE_ADDRESS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Associate an Elastic IP address to EC2 instance</DESCRIPT>
+     <DESCRIPT>Associate an Elastic IP address to an EC2 instance</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
@@ -35,25 +35,25 @@
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_KEY_PAIR</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create a EC2 security key pair</DESCRIPT>
+     <DESCRIPT>Create an Amazon EC2 security key pair</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_SECURITY_GROUP</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create an EC2 security group</DESCRIPT>
+     <DESCRIPT>Create an Amazon EC2 security group</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>DELETE_KEY_PAIR</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Delete an EC2 security key pair</DESCRIPT>
+     <DESCRIPT>Delete an Amazon EC2 security key pair</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>DELETE_SECURITY_GROUP</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Delete an EC2 security group</DESCRIPT>
+     <DESCRIPT>Delete an Amazon EC2 security group</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
@@ -65,7 +65,7 @@
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>DESCRIBE_AVAILABILITY_ZONES</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Retrieve information about availability zones</DESCRIPT>
+     <DESCRIPT>Retrieve information about Availability Zones</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
@@ -77,19 +77,19 @@
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>DESCRIBE_KEY_PAIRS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Retrieve information about EC2 security key pairs</DESCRIPT>
+     <DESCRIPT>Retrieve information about Amazon EC2 security key pairs</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>DESCRIBE_REGIONS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Retrieve information about regions</DESCRIPT>
+     <DESCRIPT>Retrieve information about Regions</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>
      <CMPNAME>DESCRIBE_SECURITY_GROUPS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Retrieve information about an EC2 security group</DESCRIPT>
+     <DESCRIPT>Retrieve information about an Amazon EC2 security group</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_EC2_ACTIONS</CLSNAME>

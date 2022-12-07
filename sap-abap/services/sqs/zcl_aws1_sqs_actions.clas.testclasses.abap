@@ -175,7 +175,7 @@ CLASS ltc_zcl_aws1_sqs_actions IMPLEMENTATION.
     DATA lv_found TYPE abap_bool VALUE abap_false.
     DATA lo_result TYPE REF TO /aws1/cl_sqslistqueuesresult.
     WHILE lv_found = abap_false AND sy-index <= 6.
-      WAIT UP TO 10 SECONDS.                                  " just to make sure queue is ready for use after creation
+      WAIT UP TO 10 SECONDS.                                  " Making sure that the queue is ready for use after creation.
       lo_result = ao_sqs_actions->list_queues( ).
       LOOP AT lo_result->get_queueurls( ) INTO DATA(lo_url).
         IF lo_url->get_value( ) = lo_create_result->get_queueurl( ).
@@ -198,7 +198,7 @@ CLASS ltc_zcl_aws1_sqs_actions IMPLEMENTATION.
     DATA lv_found TYPE abap_bool VALUE abap_true.
     DATA lo_list_result TYPE REF TO /aws1/cl_sqslistqueuesresult.
     WHILE lv_found = abap_true AND sy-index <= 6.
-      WAIT UP TO 10 SECONDS.                                    " Queue deletion can take up to 60 seconss
+      WAIT UP TO 10 SECONDS.                                    " Queue deletion can take up to 60 seconds.
       lv_found = abap_false.
       lo_list_result = ao_sqs->listqueues( ).
       LOOP AT lo_list_result->get_queueurls( ) INTO DATA(lo_url).
@@ -217,7 +217,7 @@ CLASS ltc_zcl_aws1_sqs_actions IMPLEMENTATION.
     DATA lv_found TYPE abap_bool VALUE abap_false.
     DATA lo_result TYPE REF TO /aws1/cl_sqslistqueuesresult.
     WHILE lv_found = abap_false AND sy-index <= 6.
-      WAIT UP TO 10 SECONDS.                                  " just to make sure queue is ready for use after creation
+      WAIT UP TO 10 SECONDS.                                  " Making sure that the queue is ready for use after creation.
       lo_result = ao_sqs->listqueues( ).
       LOOP AT lo_result->get_queueurls( ) INTO DATA(lo_url).
         IF lo_url->get_value( ) = iv_queue_url.

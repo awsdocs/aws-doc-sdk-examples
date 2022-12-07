@@ -29,11 +29,10 @@ static TRACING: Lazy<Environment> = Lazy::new(|| {
 /// Spawn the app against a MockServer resolved backend.
 pub async fn spawn_app_mocked() -> (String, MockServer) {
     let mock_server = MockServer::builder().start().await;
-    let uri = mock_server
-        .uri()
-        .parse()
-        .expect("MockServer gave an invalid address, file a bug");
-    let config_loader = aws_config::from_env().endpoint_resolver(Endpoint::immutable(uri));
+    let config_loader = aws_config::from_env().endpoint_resolver(
+        Endpoint::immutable(mock_server.uri())
+            .expect("MockServer gave an invalid address, file a bug"),
+    );
     let (app, _) = prep_app(config_loader).await;
     (app, mock_server)
 }
