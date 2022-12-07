@@ -362,7 +362,7 @@ rds_DescribeDBParameters:
                 - python.example_code.rds.DescribeDBParameters
     Ruby:
       versions:
-        - sdk_versions: 3
+        - sdk_version: 3
           github: ruby/example_code/rds
           sdkguide:
           excerpts:
