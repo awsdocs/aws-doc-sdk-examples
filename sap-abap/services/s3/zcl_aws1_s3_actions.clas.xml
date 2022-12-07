@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>S3 Code Example Actions</DESCRIPT>
+    <DESCRIPT>Amazon S3 Code Example Actions</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
@@ -17,43 +17,43 @@
      <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
      <CMPNAME>COPY_OBJECT</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Copy an object from one bucket to another</DESCRIPT>
+     <DESCRIPT>Copy an object from one bucket to another.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_BUCKET</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create S3 Bucket</DESCRIPT>
+     <DESCRIPT>Create an S3 bucket.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
      <CMPNAME>DELETE_BUCKET</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Delete the bucket</DESCRIPT>
+     <DESCRIPT>Delete the bucket.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
      <CMPNAME>DELETE_OBJECT</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Delete an object from a bucket</DESCRIPT>
+     <DESCRIPT>Delete an object from a bucket.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
      <CMPNAME>GET_OBJECT</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Get an object from a bucket</DESCRIPT>
+     <DESCRIPT>Get an object from a bucket.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
      <CMPNAME>LIST_OBJECTS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>List objects in the bucket</DESCRIPT>
+     <DESCRIPT>List objects in the bucket.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
      <CMPNAME>PUT_OBJECT</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Upload an object to a S3 bucket</DESCRIPT>
+     <DESCRIPT>Upload an object to a S3 bucket.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
