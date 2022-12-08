@@ -17,7 +17,7 @@
  *
  * Demonstrates using the AWS SDK for C++ to create and invoke an AWS Lambda function.
  *
- * 1.  Create an Identity and Access Management (IAM) role for a Lambda function.
+ * 1.  Create an AWS Identity and Access Management (IAM) role for a Lambda function.
  * 2.  Create a Lambda function.
  * 3.  Invoke the Lambda function.
  * 4.  Update the Lambda function code.
@@ -148,7 +148,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
     Aws::Lambda::LambdaClient client(clientConfig);
     // snippet-end:[cpp.example_code.lambda.lambda_client]
 
-    // 1. Create an Identity and Access Management (IAM) role for Lambda function.
+    // 1. Create an AWS Identity and Access Management (IAM) role for Lambda function.
     Aws::String roleArn;
     if (!getIamRoleArn(roleArn, clientConfig)) {
         return false;

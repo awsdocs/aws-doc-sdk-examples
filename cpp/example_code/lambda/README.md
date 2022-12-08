@@ -1,4 +1,4 @@
-# AWS Lambda code examples for the SDK for C++
+# Lambda code examples for the SDK for C++
 ## Overview
 
 Shows how to use the AWS SDK for C++ to create, deploy, and invoke
@@ -41,7 +41,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 ### Prerequisites
 
 Before using the code examples, first complete the installation and setup steps
-of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
+for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
 This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
 sample Hello World-style application.
