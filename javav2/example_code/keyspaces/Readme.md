@@ -53,16 +53,16 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
- ## Test the Amazon Keyspaces Java files
+ ## Test the examples
  
  ⚠️ Running the tests might result in charges to your AWS account.
 
 You can test the Java code example for Amazon Keyspaces by running a test file named **KeyspaceTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-Define these values in the test to successfully run the JUnit tests:
+To successfully run the JUnit tests, define the following values in the test:
 
-- **fileName** - The name of the JSON file that contains movie data (you can get this file in the Github repo at resources/sample_file).
-- **keyspaceName** - The name of the keyspace to create..
+- **fileName** - The name of the JSON file that contains movie data. (Get this file from the GitHub repo at resources/sample_file.)
+- **keyspaceName** - The name of the keyspace to create.
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
