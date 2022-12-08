@@ -41,7 +41,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 - [Get started with keyspaces and tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/keyspaces/src/main/java/com/example/keyspace/ScenarioKeyspaces.java) (multiple commands)
 
-## Run the Amazon Keyspaces Java files
+## Run the examples
 
 ### Prerequisites
 
