@@ -67,10 +67,10 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sqs.abapv1.create_queue]
     TRY.
-        oo_result = lo_sqs->createqueue( iv_queuename = iv_queue_name ).        " oo_result is returned for testing purpose "
-        MESSAGE 'SQS queue created' TYPE 'I'.
+        oo_result = lo_sqs->createqueue( iv_queuename = iv_queue_name ).        " oo_result is returned for testing purposes. "
+        MESSAGE 'SQS queue created.' TYPE 'I'.
       CATCH /aws1/cx_sqsqueuedeldrecently.
-        MESSAGE 'After deleting a queue, you should wait 60 seconds before creating another queue with the same name.' TYPE 'E'.
+        MESSAGE 'After deleting a queue, wait 60 seconds before creating another queue with the same name.' TYPE 'E'.
       CATCH /aws1/cx_sqsqueuenameexists.
         MESSAGE 'A queue with this name already exists.' TYPE 'E'.
     ENDTRY.
@@ -101,10 +101,10 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sqs.abapv1.get_queue_url]
     TRY.
-        oo_result = lo_sqs->getqueueurl( iv_queuename = iv_queue_name ).        " oo_result is returned for testing purpose "
-        MESSAGE 'Queue URL retrieved' TYPE 'I'.
+        oo_result = lo_sqs->getqueueurl( iv_queuename = iv_queue_name ).        " oo_result is returned for testing purposes. "
+        MESSAGE 'Queue URL retrieved.' TYPE 'I'.
       CATCH /aws1/cx_sqsqueuedoesnotexist.
-        MESSAGE 'The requested queue does not exist' TYPE 'E'.
+        MESSAGE 'The requested queue does not exist.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sqs.abapv1.get_queue_url]
   ENDMETHOD.
@@ -118,8 +118,8 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sqs.abapv1.list_queues]
     TRY.
-        oo_result = lo_sqs->listqueues( ).        " oo_result is returned for testing purpose "
-        MESSAGE 'Retrieved list of queue(s)' TYPE 'I'.
+        oo_result = lo_sqs->listqueues( ).        " oo_result is returned for testing purposes. "
+        MESSAGE 'Retrieved list of queues.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[sqs.abapv1.list_queues]
   ENDMETHOD.
@@ -135,16 +135,16 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
     TRY.
         DATA lt_attributes TYPE /aws1/cl_sqsqueueattrmap_w=>tt_queueattributemap.
         DATA ls_attribute TYPE /aws1/cl_sqsqueueattrmap_w=>ts_queueattributemap_maprow.
-        ls_attribute-key = 'ReceiveMessageWaitTimeSeconds'.               " time in seconds for long polling i.e. time for which the call waits for a message to arrive in queue before returning "
+        ls_attribute-key = 'ReceiveMessageWaitTimeSeconds'.               " Time in seconds for long polling, such as how long the call waits for a message to arrive in the queue before returning. "
         ls_attribute-value = NEW /aws1/cl_sqsqueueattrmap_w( iv_value = iv_wait_time ).
         INSERT ls_attribute INTO TABLE lt_attributes.
-        oo_result = lo_sqs->createqueue(                  " oo_result is returned for testing purpose "
+        oo_result = lo_sqs->createqueue(                  " oo_result is returned for testing purposes. "
                 iv_queuename = iv_queue_name
                 it_attributes = lt_attributes
             ).
-        MESSAGE 'SQS queue created' TYPE 'I'.
+        MESSAGE 'SQS queue created.' TYPE 'I'.
       CATCH /aws1/cx_sqsqueuedeldrecently.
-        MESSAGE 'After deleting a queue, you should wait 60 seconds before creating another queue with the same name.' TYPE 'E'.
+        MESSAGE 'After deleting a queue, wait 60 seconds before creating another queue with the same name.' TYPE 'E'.
       CATCH /aws1/cx_sqsqueuenameexists.
         MESSAGE 'A queue with this name already exists.' TYPE 'E'.
     ENDTRY.
@@ -160,14 +160,14 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sqs.abapv1.long_polling_on_msg_receipt]
     TRY.
-        oo_result = lo_sqs->receivemessage(           " oo_result is returned for testing purpose "
+        oo_result = lo_sqs->receivemessage(           " oo_result is returned for testing purposes. "
                 iv_queueurl = iv_queue_url
-                iv_waittimeseconds = iv_wait_time     " time in seconds for long polling i.e. time for which the call waits for a message to arrive in queue before returning "
+                iv_waittimeseconds = iv_wait_time     " Time in seconds for long polling, such as how long the call waits for a message to arrive in the queue before returning. "
             ).
         DATA(lt_messages) = oo_result->get_messages( ).
-        MESSAGE 'Message received from SQS queue' TYPE 'I'.
+        MESSAGE 'Message received from SQS queue.' TYPE 'I'.
       CATCH /aws1/cx_sqsoverlimit.
-        MESSAGE 'Maximum number of in flight messages reached' TYPE 'E'.
+        MESSAGE 'Maximum number of in-flight messages reached.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sqs.abapv1.long_polling_on_msg_receipt]
   ENDMETHOD.
@@ -181,11 +181,11 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sqs.abapv1.receive_message]
     TRY.
-        oo_result = lo_sqs->receivemessage( iv_queueurl = iv_queue_url ).    " oo_result is returned for testing purpose "
+        oo_result = lo_sqs->receivemessage( iv_queueurl = iv_queue_url ).    " oo_result is returned for testing purposes. "
         DATA(lt_messages) = oo_result->get_messages( ).
-        MESSAGE 'Message received from SQS queue' TYPE 'I'.
+        MESSAGE 'Message received from SQS queue.' TYPE 'I'.
       CATCH /aws1/cx_sqsoverlimit.
-        MESSAGE 'Maximum number of in flight messages reached' TYPE 'E'.
+        MESSAGE 'Maximum number of in-flight messages reached.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sqs.abapv1.receive_message]
   ENDMETHOD.
@@ -199,15 +199,15 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sqs.abapv1.send_message]
     TRY.
-        oo_result = lo_sqs->sendmessage(              " oo_result is returned for testing purpose "
+        oo_result = lo_sqs->sendmessage(              " oo_result is returned for testing purposes. "
            iv_queueurl = iv_queue_url
            iv_messagebody = iv_message
         ).
-        MESSAGE 'Message sent to SQS queue' TYPE 'I'.
+        MESSAGE 'Message sent to SQS queue.' TYPE 'I'.
       CATCH /aws1/cx_sqsinvalidmsgconts.
-        MESSAGE 'Message contains invalid characters' TYPE 'E'.
+        MESSAGE 'Message contains non-valid characters.' TYPE 'E'.
       CATCH /aws1/cx_sqsunsupportedop.
-        MESSAGE 'Operation not supported' TYPE 'E'.
+        MESSAGE 'Operation not supported.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sqs.abapv1.send_message]
   ENDMETHOD.

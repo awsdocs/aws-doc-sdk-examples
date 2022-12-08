@@ -41,11 +41,11 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
     DATA lo_block TYPE REF TO  /aws1/cl_texblock.
 
-    "Using an image from the Public Amazon Berkeley Objects Dataset
+    "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
     CONSTANTS cv_key_name TYPE /aws1/s3_bucketname VALUE 'images/small/e0/e0feb1eb.jpg'.
 
-    "Analyze document
+    "Analyze document.
     ao_tex_actions->analyze_document(
       EXPORTING
         iv_s3object          = cv_key_name
@@ -54,7 +54,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
         oo_result           = lo_output
       ).
 
-    "Validation check
+    "Validation check.
     lv_found = abap_false.
     lt_blocks = lo_output->get_blocks( ).
 
@@ -79,11 +79,11 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
     DATA lo_block TYPE REF TO  /aws1/cl_texblock.
 
-    "Using an image from the Public Amazon Berkeley Objects Dataset
+    "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
     CONSTANTS cv_key_name TYPE /aws1/s3_bucketname VALUE 'images/small/e0/e0feb1eb.jpg'.
 
-    "Testing
+    "Testing.
     ao_tex_actions->detect_document_text(
       EXPORTING
         iv_s3object          = cv_key_name
@@ -92,7 +92,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
         oo_result           = lo_output
       ).
 
-    "Validation check
+    "Validation check.
     lv_found = abap_false.
     lt_blocks = lo_output->get_blocks( ).
 
@@ -119,11 +119,11 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
     DATA lo_block TYPE REF TO  /aws1/cl_texblock.
 
-    "Using an image from the Public Amazon Berkeley Objects Dataset
+    "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
     CONSTANTS cv_key_name TYPE /aws1/s3_bucketname VALUE 'images/small/e0/e0feb1eb.jpg'.
 
-    "Testing
+    "Testing.
     ao_tex_actions->start_document_analysis(
       EXPORTING
         iv_s3object          = cv_key_name
@@ -132,19 +132,19 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
         oo_result           = lo_output
       ).
 
-    "Wait for job to complete
+    "Wait for job to complete.
     lv_jobid = lo_output->get_jobid( ).
 
     lo_document_analysis_output = ao_tex->getdocumentanalysis( iv_jobid = lv_jobid ).
     WHILE lo_document_analysis_output->get_jobstatus( ) <> 'SUCCEEDED'.
       IF sy-index = 10.
-        EXIT.               "maximum 300 seconds
+        EXIT.               "Maximum 300 seconds.
       ENDIF.
       WAIT UP TO 30 SECONDS.
       lo_document_analysis_output = ao_tex->getdocumentanalysis( iv_jobid = lv_jobid ).
     ENDWHILE.
 
-    "Validation check
+    "Validation check.
     lv_found = abap_false.
     lt_blocks = lo_document_analysis_output->get_blocks( ).
     LOOP AT lt_blocks INTO lo_block.
@@ -170,11 +170,11 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
     DATA lo_block TYPE REF TO  /aws1/cl_texblock.
 
-    "Using an image from the Public Amazon Berkeley Objects Dataset
+    "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
     CONSTANTS cv_key_name TYPE /aws1/s3_bucketname VALUE 'images/small/e0/e0feb1eb.jpg'.
 
-    "Testing
+    "Testing.
     ao_tex_actions->start_document_text_detection(
       EXPORTING
         iv_s3object          = cv_key_name
@@ -185,17 +185,17 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     lv_jobid = lo_output->get_jobid( ).
 
-    "Wait for job to complete
+    "Wait for job to complete.
     lo_text_detection_output = ao_tex->getdocumenttextdetection( iv_jobid = lv_jobid ).
     WHILE lo_text_detection_output->get_jobstatus( ) <> 'SUCCEEDED'.
       IF sy-index = 10.
-        EXIT.               "maximum 300 seconds
+        EXIT.               "Maximum 300 seconds.
       ENDIF.
       WAIT UP TO 30 SECONDS.
       lo_text_detection_output = ao_tex->getdocumenttextdetection( iv_jobid = lv_jobid ).
     ENDWHILE.
 
-    "Validation check
+    "Validation check.
     lv_found = abap_false.
     lt_blocks = lo_text_detection_output->get_blocks( ).
     LOOP AT lt_blocks INTO lo_block.
@@ -225,7 +225,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     DATA lo_featuretypes TYPE REF TO /aws1/cl_texfeaturetypes_w.
     DATA lt_featuretypes TYPE /aws1/cl_texfeaturetypes_w=>tt_featuretypes.
 
-    "Using an image from the Public Amazon Berkeley Objects Dataset
+    "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
     CONSTANTS cv_key_name TYPE /aws1/s3_bucketname VALUE 'images/small/e0/e0feb1eb.jpg'.
 
@@ -239,7 +239,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
         iv_value = 'TABLES'.
     INSERT lo_featuretypes INTO TABLE lt_featuretypes.
 
-    "Create a ABAP object for the S3 obejct.
+    "Create a ABAP object for the Amazon Simple Storage Service (Amazon S3) object.
     CREATE OBJECT lo_s3object
       EXPORTING
         iv_bucket = cv_bucket_name
@@ -250,27 +250,27 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
       EXPORTING
         io_s3object = lo_s3object.
 
-    "Start document analysis
+    "Start document analysis.
     lo_output = ao_tex->startdocumentanalysis(
       EXPORTING
         io_documentlocation     = lo_documentlocation
         it_featuretypes         = lt_featuretypes
       ).
 
-    "Get job ID
+    "Get job ID.
     lv_jobid = lo_output->get_jobid( ).
 
-    "Testing
+    "Testing.
     ao_tex_actions->get_document_analysis( EXPORTING iv_jobid = lv_jobid IMPORTING oo_result = lo_document_analysis_output ).
     WHILE lo_document_analysis_output->get_jobstatus( ) <> 'SUCCEEDED'.
       IF sy-index = 10.
-        EXIT.               "maximum 300 seconds
+        EXIT.               "Maximum 300 seconds.
       ENDIF.
       WAIT UP TO 30 SECONDS.
       ao_tex_actions->get_document_analysis( EXPORTING iv_jobid = lv_jobid IMPORTING oo_result = lo_document_analysis_output ).
     ENDWHILE.
 
-    "Validation check
+    "Validation check.
     lv_found = abap_false.
     lt_blocks = lo_document_analysis_output->get_blocks( ).
     LOOP AT lt_blocks INTO lo_block.
