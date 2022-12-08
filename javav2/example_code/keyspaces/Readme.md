@@ -1,9 +1,9 @@
-# Route 53 code examples for the SDK for Java
+# Amazon Keyspaces code examples for the SDK for Java
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon Route 53.
+This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon Keyspaces.
 
-Route 53 is a highly available and scalable Domain Name System (DNS) web service. Route 53 connects user requests to internet applications running on AWS or on-premises.
+Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed Apache Cassandra–compatible database service. 
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
