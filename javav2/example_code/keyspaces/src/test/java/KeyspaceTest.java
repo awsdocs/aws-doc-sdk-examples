@@ -100,13 +100,13 @@ public class KeyspaceTest {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("10. Update the table schema to add a watched boolean column.");
+        System.out.println("10. Update the table schema to add a watched Boolean column.");
         ScenarioKeyspaces.updateTable(keyClient, keyspaceName, tableName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("11. Update an item as watched.");
-        Thread.sleep(10000); // wait 10 secs for the update.
+        Thread.sleep(10000); // Wait 10 secs for the update.
         ScenarioKeyspaces.updateRecord(session, keyspaceName, titleUpdate, yearUpdate);
         System.out.println(DASHES);
 
@@ -117,12 +117,12 @@ public class KeyspaceTest {
 
         System.out.println(DASHES);
         System.out.println("13. Restore the table back to the previous state using the timestamp.");
-        System.out.println("Note that the restore operation can take up to 20 minutes");
+        System.out.println("Note that the restore operation can take up to 20 minutes.");
         ScenarioKeyspaces.restoreTable(keyClient, keyspaceName, utc);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("14. Check for completion of the restore action");
+        System.out.println("14. Check for completion of the restore action.");
         Thread.sleep(5000);
         ScenarioKeyspaces.checkRestoredTable(keyClient, keyspaceName, "MovieRestore");
         System.out.println(DASHES);
@@ -145,3 +145,11 @@ public class KeyspaceTest {
         System.out.println(DASHES);
     }
 }
+
+
+
+
+
+
+
+
