@@ -91,11 +91,11 @@ cloudfront_CreateDistribution:
           github: javav2/example_code/cloudfront
           sdkguide:
           excerpts:
-            - description: >
+            - description: >-
                 The following example uses an Amazon S3 bucket as a content origin. 
                 <para>After creating the distribution, 
                 the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink> 
-                to wait until the distribution is deployed before returning the distribution.</para>
+                to wait until the distribution is deployed before returning the distribution</para>.
               snippet_tags:
                 - cloudfront.java2.createdistribution.import
                 - cloudfront.java2.createdistribution.main
@@ -185,21 +185,22 @@ cloudfront_CloudFrontUtilities:
           github: javav2/example_code/cloudfront
           sdkguide:
           excerpts:
-            - description: >
+            - description: >-
                 Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CannedSignerRequest.html">CannedSignerRequest</ulink> 
                         class to sign URLs or cookies with a <emphasis>canned</emphasis> policy.
               snippet_tags:
                 - cloudfront.java2.createcannedpolicyrequest.import
                 - cloudfront.java2.createcannedpolicyrequest.main
-            - description: >
+            - description: >-
                 Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CustomSignerRequest.html">CustomSignerRequest</ulink> 
                 class to sign URLs or cookies with a <emphasis>custom</emphasis> policy. The <code>activeDate</code> and <code>ipRange</code> are optional methods.
               snippet_tags:
                 - cloudfront.java2.createcustompolicyrequest.import
                 - cloudfront.java2.createcustompolicyrequest.main
-            - description: >
+            - description: >-
                 The following example demonstrates the use of the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/CloudFrontUtilities.html">CloudFrontUtilities</ulink> 
-                class to produce signed cookies and URLs.
+                class to produce signed cookies and URLs. <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudfront/src/main/java/com/example/cloudfront/SigningUtilities.java">View</ulink>
+                this code example on GitHub.
               snippet_tags:
                 - cloudfront.java2.signingutilities.import
                 - cloudfront.java2.signingutilities.main
