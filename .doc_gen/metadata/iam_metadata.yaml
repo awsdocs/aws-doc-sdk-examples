@@ -1,4 +1,19 @@
-# zexi 0.4.0
+iam_Hello:
+  title: Hello &IAM;
+  title_abbrev: Hello &IAM;
+  synopsis: get started using &IAMlong; (&IAM;).
+  category: Hello
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.Hello
+  services:
+    iam: {ListPolicies}
 iam_CreateAccountAlias:
   title: Create an alias for an &IAM; account using an &AWS; SDK
   title_abbrev: Create an alias for an account
@@ -32,13 +47,6 @@ iam_CreateAccountAlias:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateAccountAlias
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description:
-              snippet_tags: ['iam.go-v2.CreateAccountAlias']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -163,14 +171,6 @@ iam_ListAccountAliases:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListAccountAliases
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - iam.go-v2.ListAccountAliases
     JavaScript:
       versions:
         - sdk_version: 3
@@ -301,8 +301,10 @@ iam_GetAccountPasswordPolicy:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.GetAccountPasswordPolicy']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.AccountWrapper.struct
+                - gov2.iam.GetAccountPasswordPolicy
     PHP:
       versions:
         - sdk_version: 3
@@ -372,8 +374,10 @@ iam_ListSAMLProviders:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.ListSAMLProviders']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.AccountWrapper.struct
+                - gov2.iam.ListSAMLProviders
     PHP:
       versions:
         - sdk_version: 3
@@ -490,9 +494,10 @@ iam_CreateAccessKey:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - description: ''
+            - description:
               snippet_tags:
-                - iam.go-v2.CreateAccessKey
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.CreateAccessKey
     JavaScript:
       versions:
         - sdk_version: 3
@@ -585,9 +590,10 @@ iam_DeleteAccessKey:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - description: ''
+            - description:
               snippet_tags:
-                - iam.go-v2.DeleteAccessKey
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.DeleteAccessKey
     JavaScript:
       versions:
         - sdk_version: 3
@@ -665,14 +671,6 @@ iam_GetAccessKeyLastUsed:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetAccessKeyLastUsed
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - iam.go-v2.AccessKeyLastUsed
     JavaScript:
       versions:
         - sdk_version: 3
@@ -740,9 +738,10 @@ iam_ListAccessKeys:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - description: ''
+            - description:
               snippet_tags:
-                - iam.go-v2.ListAccessKeys
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.ListAccessKeys
     JavaScript:
       versions:
         - sdk_version: 3
@@ -804,13 +803,6 @@ iam_UpdateAccessKey:
             - description:
               snippet_tags:
                 - python.example_code.iam.UpdateAccessKey
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description:
-              snippet_tags: ['iam.go-v2.UpdateAccessKey']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -945,8 +937,10 @@ iam_CreatePolicy:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.CreatePolicy']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.PolicyWrapper.struct
+                - gov2.iam.CreatePolicy
     Ruby:
       versions:
         - sdk_version: 3
@@ -980,6 +974,15 @@ iam_DeletePolicy:
   synopsis: delete an &IAM; policy.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.PolicyWrapper.struct
+                - gov2.iam.DeletePolicy
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1094,8 +1097,10 @@ iam_ListPolicies:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.ListPolicies']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.PolicyWrapper.struct
+                - gov2.iam.ListPolicies
     PHP:
       versions:
         - sdk_version: 3
@@ -1212,8 +1217,10 @@ iam_GetPolicy:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.GetPolicy']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.PolicyWrapper.struct
+                - gov2.iam.GetPolicy
     Ruby:
       versions:
         - sdk_version: 3
@@ -1383,8 +1390,10 @@ iam_AttachRolePolicy:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.AttachRolePolicy']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.AttachRolePolicy
     C++:
       versions:
         - sdk_version: 1
@@ -1427,8 +1436,10 @@ iam_ListAttachedRolePolicies:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.ListAttachedRolePolicies']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.ListAttachedRolePolicies
     PHP:
       versions:
         - sdk_version: 3
@@ -1488,6 +1499,15 @@ iam_DetachRolePolicy:
             - description:
               snippet_tags:
                 - IAM.dotnetv3.DeleteResourcesAsync
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.DetachRolePolicy
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1679,8 +1699,10 @@ iam_CreateRole:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.CreateRole']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.CreateRole
     C++:
       versions:
         - sdk_version: 1
@@ -1719,8 +1741,10 @@ iam_ListRoles:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.ListRoles']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.ListRoles
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1800,8 +1824,10 @@ iam_GetRole:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.GetRole']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.GetRole
     PHP:
       versions:
         - sdk_version: 3
@@ -1852,6 +1878,15 @@ iam_DeleteRole:
   synopsis: delete an &IAM; role.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.DeleteRole
     Python:
       versions:
         - sdk_version: 3
@@ -1939,8 +1974,10 @@ iam_ListRolePolicies:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.ListRolePolicies']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.ListRolePolicies
     PHP:
       versions:
         - sdk_version: 3
@@ -2086,9 +2123,10 @@ iam_CreateUser:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - description: ''
+            - description:
               snippet_tags:
-                - iam.go-v2.CreateUser
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.CreateUser
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2182,9 +2220,10 @@ iam_DeleteUser:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - description: ''
+            - description:
               snippet_tags:
-                - iam.go-v2.DeleteUser
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.DeleteUser
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2215,6 +2254,23 @@ iam_DeleteUser:
                 - iam.cpp.delete_user02.code
   services:
     iam: {DeleteUser}
+iam_GetUser:
+  title: Get an &IAM; user using an &AWS; SDK
+  title_abbrev: Get a user
+  synopsis: get an &IAM; user.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.GetUser
+  services:
+    iam: {GetUser}
 iam_ListUsers:
   title: List &IAM; users using an &AWS; SDK
   title_abbrev: List users
@@ -2295,9 +2351,10 @@ iam_ListUsers:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - description: ''
+            - description:
               snippet_tags:
-                - iam.go-v2.ListUsers
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.ListUsers
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2360,13 +2417,6 @@ iam_UpdateUser:
             - description:
               snippet_tags:
                 - python.example_code.iam.UpdateUser
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description:
-              snippet_tags: ['iam.go-v2.UpdateUser']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2419,14 +2469,6 @@ iam_AttachUserPolicy:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.attach_user_policy
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - iam.go-v2.AttachUserPolicy
   services:
     iam: {AttachUserPolicy}
 iam_DetachUserPolicy:
@@ -2452,14 +2494,6 @@ iam_DetachUserPolicy:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.detach_user_policy
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description:
-              snippet_tags: ['iam.go-v2.DetachUserPolicy']
-
   services:
     iam: {DetachUserPolicy}
 iam_PutUserPolicy:
@@ -2468,6 +2502,15 @@ iam_PutUserPolicy:
   synopsis: create an inline &IAM; policy for a user.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.PutUserPolicy
     Ruby:
       versions:
         - sdk_version: 3
@@ -2479,12 +2522,38 @@ iam_PutUserPolicy:
                 - ruby.example_code.iam.PutUserPolicy
   services:
     iam: {PutUserPolicy}
+iam_ListUserPolicies:
+  title: List inline &IAM; policies for a user using an &AWS; SDK
+  title_abbrev: List inline policies for a user
+  synopsis: list inline &IAM; policies for a user.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.ListUserPolicies
+  services:
+    iam: {ListUserPolicies}
 iam_DeleteUserPolicy:
   title: Delete an inline &IAM; policy from a user using an &AWS; SDK
   title_abbrev: Delete an inline policy from a user
   synopsis: delete an inline &IAM; policy from a user.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.UserWrapper.struct
+                - gov2.iam.DeleteUserPolicy
     Ruby:
       versions:
         - sdk_version: 3
@@ -2718,8 +2787,10 @@ iam_ListGroups:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.ListGroups']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.GroupWrapper.struct
+                - gov2.iam.ListGroups
     PHP:
       versions:
         - sdk_version: 3
@@ -2787,8 +2858,10 @@ iam_CreateServiceLinkedRole:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - snippet_tags: ['iam.go-v2.CreateServiceLinkedRole']
-              description: ''
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.CreateServiceLinkedRole
     PHP:
       versions:
         - sdk_version: 3
@@ -2839,6 +2912,15 @@ iam_DeleteServiceLinkedRole:
   synopsis: delete an &IAM; service-linked role.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.iam.RoleWrapper.struct
+                - gov2.iam.DeleteServiceLinkedRole
     Ruby:
       versions:
         - sdk_version: 3
@@ -2937,9 +3019,21 @@ iam_Scenario_CreateUserAssumeRole:
         - sdk_version: 2
           github: gov2/iam
           excerpts:
-            - description:
+            - description: Run an interactive scenario at a command prompt.
               snippet_tags:
-                - iam.go-v2.iam_basics
+                - gov2.iam.Scenario_AssumeRole
+            - description: Define a struct that wraps account actions.
+              snippet_tags:
+                - gov2.iam.AccountWrapper.complete
+            - description: Define a struct that wraps policy actions.
+              snippet_tags:
+                - gov2.iam.PolicyWrapper.complete
+            - description: Define a struct that wraps role actions.
+              snippet_tags:
+                - gov2.iam.RoleWrapper.complete
+            - description: Define a struct that wraps user actions.
+              snippet_tags:
+                - gov2.iam.UserWrapper.complete
     Ruby:
       versions:
         - sdk_version: 3
