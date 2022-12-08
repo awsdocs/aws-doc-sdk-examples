@@ -27,13 +27,10 @@ async fn main() {
     let provider_config = ProviderConfig::default().with_tcp_connector(rustls_connector.clone());
     let shared_conf = aws_config::from_env()
         .configure(provider_config)
+        .http_connector(hyper_ext::Adapter::builder().build(rustls_connector))
         .load()
         .await;
-    let s3_config = aws_sdk_s3::Config::from(&shared_conf);
     // however, for generated clients, they are constructred from a Hyper adapter directly:
-    let s3_client = aws_sdk_s3::Client::from_conf_conn(
-        s3_config,
-        hyper_ext::Adapter::builder().build(rustls_connector),
-    );
+    let s3_client = aws_sdk_s3::Client::new(&shared_conf);
     let _ = s3_client.list_buckets().send().await;
 }

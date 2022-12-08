@@ -102,15 +102,13 @@ async fn main() -> Result<(), Error> {
     }
 
     // snippet-start:[apigatewaymanagement.rust.post_to_connection_client]
-    let uri = format!(
+    let endpoint = Endpoint::immutable(format!(
         "https://{api_id}.execute-api.{region}.amazonaws.com/{stage}",
         api_id = api_id,
         region = region,
         stage = stage
-    )
-    .parse()
-    .expect("could not construct valid URI for endpoint");
-    let endpoint = Endpoint::immutable(uri);
+    ))
+    .expect("valid endpoint");
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let api_management_config = config::Builder::from(&shared_config)

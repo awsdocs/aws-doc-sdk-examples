@@ -16,22 +16,24 @@ namespace AwsDocTest {
         Aws::String bucketName = "doc-example-bucket-" +
                                  Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
-        bool result = FindTheBucket(*s_clientConfig, bucketName);
+        Aws::S3::S3Client s3Client(*s_clientConfig);
+
+        bool result = FindTheBucket(s3Client, bucketName);
         ASSERT_TRUE(result);
 
-        result = CreateTheBucket(*s_clientConfig, bucketName,s_clientConfig->region);
+        result = CreateTheBucket(s3Client, bucketName,s_clientConfig->region);
         ASSERT_TRUE(result);
 
-        result = FindTheBucket(*s_clientConfig, bucketName);
+        result = FindTheBucket(s3Client, bucketName);
         EXPECT_TRUE(result);
 
-        result = DeleteTheBucket(*s_clientConfig, bucketName);
+        result = DeleteTheBucket(s3Client, bucketName);
         if (result) {
             bucketName.clear();
         }
         EXPECT_TRUE(result);
 
-        result = FindTheBucket(*s_clientConfig, bucketName);
+        result = FindTheBucket(s3Client, bucketName);
         EXPECT_TRUE(result);
 
         if (!bucketName.empty()) {

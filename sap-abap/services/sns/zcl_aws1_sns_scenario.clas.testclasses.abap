@@ -47,7 +47,7 @@ CLASS ltc_zcl_aws1_sns_scenario IMPLEMENTATION.
   ENDMETHOD.
   METHOD fifo_topic_scenario.
 
-    "Create and Configure FIFO queue
+    "Create and configure FIFO queue.
     create_and_configure_queue( ).
 
     DATA lv_subscription_arn TYPE /aws1/snssubscriptionarn.
@@ -62,18 +62,18 @@ CLASS ltc_zcl_aws1_sns_scenario IMPLEMENTATION.
             ov_message_id = lv_message_id
         ).
 
-    " Verify message delivery i.e. message was received by the queue
+    " Verify message delivery (message received by queue).
     verify_message_delivery( iv_message_id = lv_message_id ).
 
-    " Delete Subscription
+    " Delete subscription.
     ao_sns->unsubscribe( iv_subscriptionarn = lv_subscription_arn ).
     assert_subscription_deleted( ).
 
-    "Delete FIFO queue
+    "Delete FIFO queue.
     delete_queue( ).
     assert_queue_deleted( ).
 
-    "Delete SNS yopic
+    "Delete Amazon Simple Notification Service (Amazon SNS) topic.
     ao_sns->deletetopic( iv_topicarn = av_topic_arn ).
     assert_topic_deleted( ).
 
@@ -134,7 +134,7 @@ CLASS ltc_zcl_aws1_sns_scenario IMPLEMENTATION.
 
   ENDMETHOD.
   METHOD verify_message_delivery.
-    WAIT UP TO 20 SECONDS. "Just to make sure message is received by SQS queue
+    WAIT UP TO 20 SECONDS. "Making sure that the message is received by the Amazon Simple Queue Service (Amazon SQS) queue.
     DATA(lo_result) = ao_sqs->receivemessage( iv_queueurl = av_queue_url ).
 
     DATA lv_found TYPE abap_bool VALUE abap_false.
@@ -151,7 +151,7 @@ CLASS ltc_zcl_aws1_sns_scenario IMPLEMENTATION.
   ENDMETHOD.
   METHOD delete_queue.
     ao_sqs->deletequeue( iv_queueurl = av_queue_url ).
-    WAIT UP TO 60 SECONDS. "Queue deletion operation takes upto 60 secs.
+    WAIT UP TO 60 SECONDS. "Queue deletion operation takes up to 60 seconds.
   ENDMETHOD.
   METHOD assert_subscription_deleted.
     DATA lv_found TYPE abap_bool VALUE abap_false.

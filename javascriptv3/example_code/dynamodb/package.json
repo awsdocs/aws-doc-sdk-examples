@@ -1,15 +1,15 @@
 {
   "name": "dynamodb-examples",
   "version": "1.0.0",
-  "author": "Brian Murray <brmur@amazon.com>",
+  "author": "Brian Murray <brmur@amazon.com> and Corey Pyle <corepyle@amazon.com",
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "test": "echo 'No test script found.'"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.208.0",
-    "@aws-sdk/lib-dynamodb": "^3.208.0",
+    "@aws-sdk/client-dynamodb": "^3.210.0",
+    "@aws-sdk/lib-dynamodb": "^3.210.0",
     "ramda": "^0.28.0"
   }
 }
