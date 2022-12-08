@@ -5,257 +5,366 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-Scenario demonstrating how to do the following in an Amazon DymamoDB table using PartiQL:
-- Get items (Select)
-- Update items (Update)
-- Delete items (Delete)
-- Put items (Insert)
+Scenario demonstrating how to do the following batch jobs an Amazon DymamoDB table using PartiQL:
+- Get an item (Select)
+- Update an item (Update)
+- Delete an item (Delete)
+- Put an item (Insert)
 
 Running the code:
-node partiQL_batch_basics.js <tableName> <movieYear1> <movieTitle1> <movieYear2> <movieTitle2> <producer1> <producer2> \n" +
-      "Example: node partiQL_basics.js Movies_batch 2006 'The Departed' 2013 '2 Guns' 'New View Films' 'Old Thyme Films'
+1. Change directories to the same directory as this file
+(javascriptv3/example_code/dynamodb/scenarios/partiQL_batch_basics/src).
+2. Import this file as a module and then call `main()`. Do this from
+another file, or use the following command:
+`node -e 'import("./pariQL_basics.js").then(({ main }) => main())`
 
 // snippet-start:[javascript.dynamodb_scenarios.partiQL_batch_basics]
 */
 import fs from "fs";
-// A practical functional library used to split the data into segments.
-import * as R from "ramda";
-import { ddbClient } from "../libs/ddbClient.js";
-import { ddbDocClient } from "../libs/ddbDocClient.js";
-import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
+import {splitEvery} from "ramda";
 import {
-  CreateTableCommand,
-  BatchExecuteStatementCommand,
+    BatchExecuteStatementCommand,
+    BatchWriteCommand
+} from "@aws-sdk/lib-dynamodb";
+import {
+    CreateTableCommand,
+    DeleteTableCommand,
+    waitUntilTableExists,
+    waitUntilTableNotExists,
 } from "@aws-sdk/client-dynamodb";
-if (process.argv.length < 6) {
-  console.log(
-    "Usage: node partiQL_basics.js <tableName> <movieTitle1> <movieYear1> <movieTitle1> <movieYear1> <producer1> <producer2> \n" +
-      "Example: node partiQL_basics.js Movies_batch 2006 'The Departed' 2013 '2 Guns' 'New View Films' 'Old Thyme Films'"
-  );
-}
 
-const tableName = process.argv[2];
-const movieYear1 = parseInt(process.argv[3]);
-const movieTitle1 = process.argv[4];
-const movieYear2 = parseInt(process.argv[5]);
-const movieTitle2 = process.argv[6];
-const producer1 = process.argv[7];
-const producer2 = process.argv[8];
+import {ddbClient} from "../libs/ddbClient.js";
+import {ddbDocClient} from "../libs/ddbDocClient.js";
 
-// Helper function to delay running the code while the AWS service calls wait for responses.
-function wait(ms) {
-  var start = Date.now();
-  var end = start;
-  while (end < start + ms) {
-    end = Date.now();
-  }
-}
-// Set the parameters.
-
-export const run = async (
-  tableName,
-  movieYear1,
-  movieTitle1,
-  movieYear2,
-  movieTitle2,
-  producer1,
-  producer2
-) => {
-  try {
-    console.log("Creating table ...");
-    // Set the parameters.
-    const params = {
-      AttributeDefinitions: [
-        {
-          AttributeName: "title",
-          AttributeType: "S",
-        },
-        {
-          AttributeName: "year",
-          AttributeType: "N",
-        },
-      ],
-      KeySchema: [
-        {
-          AttributeName: "title",
-          KeyType: "HASH",
-        },
-        {
-          AttributeName: "year",
-          KeyType: "RANGE",
-        },
-      ],
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 5,
-        WriteCapacityUnits: 5,
-      },
-      TableName: tableName,
-    };
-    const data = await ddbClient.send(new CreateTableCommand(params));
-    console.log("Waiting for table to be created...");
-    wait(10000);
-    console.log(
-      "Table created. Table name is ",
-      data.TableDescription.TableName
-    );
-    try {
-      // Before you run this example, download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-      // and put it in the same folder as the example.
-      // Get the movie data parse to convert into a JSON object.
-      const allMovies = JSON.parse(fs.readFileSync("moviedata.json", "utf8"));
-      // Split the table into segments of 25.
-      const dataSegments = R.splitEvery(25, allMovies);
-      // Loop batch write operation 10 times to upload 250 items.
-      console.log("Writing movies in batch to table...");
-      for (let i = 0; i < 10; i++) {
-        const segment = dataSegments[i];
-        for (let j = 0; j < 25; j++) {
-          const params = {
-            RequestItems: {
-              [tableName]: [
+/**
+ * @param {string} tableName
+ */
+const createTable = async (tableName) => {
+    await ddbClient.send(
+        new CreateTableCommand({
+            TableName: tableName,
+            AttributeDefinitions: [
                 {
-                  // Destination Amazon DynamoDB table name.
-                  PutRequest: {
-                    Item: {
-                      year: segment[j].year,
-                      title: segment[j].title,
-                      info: segment[j].info,
-                    },
-                  },
+                    AttributeName: "year",
+                    AttributeType: "N",
                 },
-              ],
-            },
-          };
-          ddbDocClient.send(new BatchWriteCommand(params));
-        }
-      }
-      wait(10000);
-      console.log("Success, movies written to table.");
-      try {
-        console.log("Getting movie....");
-        const params = {
-          Statements: [
-            {
-              Statement:
-                "SELECT * FROM " + tableName + " where title=? and year=?",
-              Parameters: [{ S: movieTitle1 }, { N: movieYear1 }],
-            },
-            {
-              Statement:
-                "SELECT * FROM " + tableName + " where title=? and year=?",
-              Parameters: [{ S: movieTitle2 }, { N: movieYear2 }],
-            },
-          ],
-        };
-        const data = await ddbDocClient.send(
-          new BatchExecuteStatementCommand(params)
-        );
-        console.log("Success. The query return the following data.", data);
-        for (let i = 0; i < data.Responses.length; i++) {
-          console.log(data.Responses[i].Item.year);
-          console.log(data.Responses[i].Item.title);
-        }
-        try {
-          const params = {
-            Statements: [
-              {
-                Statement:
-                  "DELETE FROM " + tableName + " where title=? and year=?",
-                Parameters: [{ S: movieTitle1 }, { N: movieYear1 }],
-              },
-              {
-                Statement:
-                  "DELETE FROM " + tableName + " where title=? and year=?",
-                Parameters: [{ S: movieTitle2 }, { N: movieYear2 }],
-              },
+                {
+                    AttributeName: "title",
+                    AttributeType: "S",
+                }
             ],
-          };
-          await ddbDocClient.send(
-            new BatchExecuteStatementCommand(params)
-          );
-          console.log("Success. Items deleted by batch.");
-          try {
-            const params = {
-              Statements: [
+            KeySchema: [
                 {
-                  Statement:
-                    "INSERT INTO " +
-                    tableName +
-                    " value  {'title':?, 'year':?}",
-                  Parameters: [{ S: movieTitle1 }, { N: movieYear1 }],
+                    AttributeName: "year",
+                    KeyType: "HASH",
                 },
                 {
-                  Statement:
-                    "INSERT INTO " +
-                    tableName +
-                    " value  {'title':?, 'year':?}",
-                  Parameters: [{ S: movieTitle2 }, { N: movieYear2 }],
+                    AttributeName: "title",
+                    KeyType: "RANGE",
                 },
-              ],
-            };
-            await ddbDocClient.send(
-              new BatchExecuteStatementCommand(params)
-            );
-            console.log("Success. Items added by batch.");
-            try {
-              const params = {
-                Statements: [
-                  {
-                    Statement:
-                      "UPDATE " +
-                      tableName +
-                      " SET Producer=? where title=? and year=?",
-                    Parameters: [
-                      { S: producer1 },
-                      { S: movieTitle1 },
-                      { N: movieYear1 },
-                    ],
-                  },
-                  {
-                    Statement:
-                      "UPDATE " +
-                      tableName +
-                      " SET Producer=? where title=? and year=?",
-                    Parameters: [
-                      { S: producer2 },
-                      { S: movieTitle2 },
-                      { N: movieYear2 },
-                    ],
-                  },
-                ],
-              };
-              console.log("Updating movies...");
-              await ddbDocClient.send(
-                new BatchExecuteStatementCommand(params)
-              );
-              console.log("Success. Items updated by batch.");
-              return "Run successfully"; // For unit tests.
-            } catch (err) {
-              console.log("Error updating items by batch. ", err);
-            }
-          } catch (err) {
-            console.log("Error adding items to table by batch. ", err);
-          }
-        } catch (err) {
-          console.log("Error deleting movies by batch. ", err);
-        }
-      } catch (err) {
-        console.log("Error getting movies by batch. ", err);
-      }
-    } catch (err) {
-      console.log("Error adding movies by batch. ", err);
-    }
-  } catch (err) {
-    console.log("Error creating table. ", err);
-  }
+            ],
+            // Enables "on-demand capacity mode".
+            BillingMode: "PAY_PER_REQUEST"
+        })
+    );
+    await waitUntilTableExists(
+        {client: ddbClient, maxWaitTime: 15, maxDelay: 2, minDelay: 1},
+        {TableName: tableName}
+    );
 };
-run(
-  tableName,
-  movieYear1,
-  movieTitle1,
-  movieYear2,
-  movieTitle2,
-  producer1,
-  producer2
-);
+
+/**
+ *
+ * @param {string} tableName
+ * @param {string} filePath
+ * @returns { { movieCount: number } } The number of movies written to the database.
+ */
+const batchWriteMoviesFromFile = async (tableName, filePath) => {
+    const fileContents = fs.readFileSync(filePath);
+    const movies = JSON.parse(fileContents, "utf8");
+
+    // Map movies to RequestItems.
+    const putMovieRequestItems = movies.map(({year, title, info}) => ({
+        PutRequest: {Item: {year, title, info}},
+    }));
+
+    // Organize RequestItems into batches of 25. 25 is the max number of items in a batch request.
+    const putMovieBatches = splitEvery(25, putMovieRequestItems);
+    const batchCount = putMovieBatches.length;
+
+    // Map batches to promises.
+    const batchRequests = putMovieBatches.map(async (batch, i) => {
+        const command = new BatchWriteCommand({
+            RequestItems: {
+                [tableName]: batch,
+            },
+        });
+
+        await ddbDocClient.send(command).then(() => {
+            console.log(
+                `Wrote batch ${i + 1} of ${batchCount} with ${batch.length} items.`
+            );
+        });
+    });
+
+    // Wait for all batch requests to resolve.
+    await Promise.all(batchRequests);
+
+    return {movieCount: movies.length};
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {{
+ * existingMovieName1: string,
+ * existingMovieYear1: number }} keyUpdate1
+ * @param {{
+ * existingMovieName2: string,
+ * existingMovieYear2: number }} keyUpdate2
+ */
+
+const batchGetMovies = async (tableName, keyUpdate1, keyUpdate2) => {
+    const Items = await ddbDocClient.send(
+        new BatchExecuteStatementCommand({
+                Statements: [
+                    {
+                        Statement:
+                            "SELECT * FROM " + tableName + " where title=? and year=?",
+                        Parameters: [keyUpdate1.existingMovieName1, keyUpdate1.existingMovieYear1]
+                    },
+                    {
+                        Statement:
+                            "SELECT * FROM " + tableName + " where title=? and year=?",
+                        Parameters: [keyUpdate2.existingMovieName2, keyUpdate2.existingMovieYear2]
+                    }
+                ]
+            }
+        )
+    )
+    return Items
+};
+/**
+ *
+ * @param {string} tableName
+ * @param {{
+ * existingMovieName1: string,
+ * existingMovieYear1: number,
+ * newProducer1: string }} keyUpdate1
+ * @param {{
+ * existingMovieName2: string,
+ * existingMovieYear2: number,
+ * newProducer2: string }} keyUpdate2
+ */
+const batchUpdateMovies = async (
+    tableName,
+    keyUpdate1, keyUpdate2
+) => {
+    await ddbDocClient.send(
+        new BatchExecuteStatementCommand({
+            Statements: [
+                {
+                    Statement:
+                        "UPDATE " +
+                        tableName +
+                        " SET Producer=? where title=? and year=?",
+                    Parameters: [keyUpdate1.newProducer1, keyUpdate1.existingMovieName1, keyUpdate1.existingMovieYear1
+                    ],
+                },
+                {
+                    Statement:
+                        "UPDATE " +
+                        tableName +
+                        " SET Producer=? where title=? and year=?",
+                    Parameters: [
+                        keyUpdate2.newProducer2, keyUpdate2.existingMovieName2, keyUpdate2.existingMovieYear2
+                    ],
+                }
+            ],
+        })
+    );
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {{ existingMovieName1: string, existingMovieYear1: number }} key1,
+ * @param {{ existingMovieName2: string, existingMovieYear2: number}} key2
+ */
+const batchDeleteMovies = async (tableName, key1, key2) => {
+    await ddbDocClient.send(
+        new BatchExecuteStatementCommand({
+            Statements: [
+                {
+                    Statement:
+                        "DELETE FROM " + tableName + " where title=? and year=?",
+                    Parameters: [key1.existingMovieName1, key1.existingMovieYear1],
+                },
+                {
+                    Statement:
+                        "DELETE FROM " + tableName + " where title=? and year=?",
+                    Parameters: [key2.existingMovieName2, key2.existingMovieYear2],
+                },
+            ],
+        }))
+};
+
+/**
+ *
+ * @param {string} tableName
+ * @param {{ newMovieName1: string, newMovieYear1: number }} key1,
+ * @param {{ newMovieName2: string, newMovieYear2: number }} key2
+ */
+
+const batchPutItems = async (tableName, key1, key2) => {
+    const command = new BatchExecuteStatementCommand({
+        Statements: [
+            {
+                Statement:
+                    "INSERT INTO " + tableName + " value  {'title':?, 'year':?}",
+                Parameters: [key1.newMovieName1, key1.newMovieYear1],
+            },
+            {
+                Statement:
+                    "INSERT INTO " + tableName + " value  {'title':?, 'year':?}",
+                Parameters: [key2.newMovieName2, key2.newMovieYear2],
+            }
+        ]
+    })
+
+    await ddbDocClient.send(command);
+};
+
+/**
+ *
+ * @param {{ title: string, info: { plot: string, rank: number }, year: number }[]} movies
+ */
+const logMovies = (Items) => {
+    console.log("Success. The query return the following data.");
+    for (let i = 0; i < Items.Responses.length; i++) {
+        console.log(Items.Responses[i].Item);
+    }
+};
+
+
+/**
+ *
+ * @param {*} tableName
+ */
+const deleteTable = async (tableName) => {
+    await ddbDocClient.send(new DeleteTableCommand({TableName: tableName}));
+    await waitUntilTableNotExists(
+        {
+            client: ddbClient,
+            maxWaitTime: 10,
+            maxDelay: 2,
+            minDelay: 1,
+        },
+        {TableName: tableName}
+    );
+};
+
+export const runScenario = async ({
+                                      tableName,
+                                      newMovieName1,
+                                      newMovieYear1,
+                                      newMovieName2,
+                                      newMovieYear2,
+                                      existingMovieName1,
+                                      existingMovieYear1,
+                                      existingMovieName2,
+                                      existingMovieYear2,
+                                      newProducer1,
+                                      newProducer2,
+                                      moviesPath
+                                  }) => {
+    await createTable(tableName);
+    console.log(`Creating table named: ${tableName}`);
+    console.log(`\nTable created.`);
+    console.log("\nWriting hundreds of movies in batches.");
+    const {movieCount} = await batchWriteMoviesFromFile(tableName, moviesPath);
+    console.log(`\nWrote ${movieCount} movies to database.`);
+    console.log(`\nGetting "${existingMovieName1}" and "${existingMovieName2}"`);
+    const originalMovies = await batchGetMovies(
+        tableName,
+        {
+            existingMovieName1,
+            existingMovieYear1
+        },
+        {
+            existingMovieName2,
+            existingMovieYear2
+        }
+    );
+    logMovies(originalMovies);
+    console.log(`\nUpdating "${existingMovieName1} and ${existingMovieName2} with new producers.`);
+    await batchUpdateMovies(tableName,
+        {
+            existingMovieName1,
+            existingMovieYear1,
+            newProducer1
+        },
+        {
+            existingMovieName2,
+            existingMovieYear2,
+            newProducer2
+        }
+    );
+    //console.log(`\n"${existingMovieName1}" and ${existingMovieName2}" updated.`);
+    console.log(`\nDeleting "${existingMovieName1}."`);
+    await batchDeleteMovies(tableName, {
+            existingMovieName1,
+            existingMovieYear1
+        },
+        {
+            existingMovieName2,
+            existingMovieYear2
+        }
+    );
+    console.log(`\n"${existingMovieName1} and ${existingMovieName2} deleted.`);
+    console.log(`\nAdding "${newMovieName1}" and "${newMovieName2}" to ${tableName}.`);
+    await batchPutItems(tableName, {newMovieName1, newMovieYear1}, {newMovieName2, newMovieYear2});
+    console.log("\nSuccess - single movie added.");
+    console.log(`Deleting ${tableName}.`);
+    await deleteTable(tableName);
+    console.log(`${tableName} deleted.`);
+};
+
+const main = async () => {
+    const args = {
+        tableName: "myNewTable",
+        newMovieName1: "myMovieName1",
+        newMovieYear1: 2022,
+        newMovieName2: "myMovieName2",
+        newMovieYear2: 2023,
+        existingMovieName1: "This Is the End",
+        existingMovieYear1: 2013,
+        existingMovieName2: "Deep Impact",
+        existingMovieYear2: 1998,
+        newProducer1: "Amazon Movies",
+        newProducer2: "Amazon Movies2",
+        moviesPath: "../../../../../../resources/sample_files/movies.json",
+    };
+
+    try {
+        await runScenario(args);
+    } catch (err) {
+        // Some extra error handling here to be sure the table is cleaned up if something
+        // goes wrong during the scenario run.
+
+        console.error(err);
+
+        const tableName = args.tableName;
+
+        if (tableName) {
+            console.log(`Attempting to delete ${tableName}`);
+            await ddbClient
+                .send(new DeleteTableCommand({TableName: tableName}))
+                .then(() => console.log(`\n${tableName} deleted.`))
+                .catch((err) => console.error(`\nFailed to delete ${tableName}.`, err));
+        }
+    }
+};
+
+export {main};
 // snippet-end:[javascript.dynamodb_scenarios.partiQL_batch_basics]
