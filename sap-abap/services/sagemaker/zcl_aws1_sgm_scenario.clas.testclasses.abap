@@ -36,7 +36,7 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
 
   METHOD getting_started_scenario.
 
-    "This test case run a training job for sales prediction using the builti-in algorithm XGBoost
+    "This test case runs a training job for sales prediction using the built-in algorithm XGBoost.
 
     DATA lv_found TYPE abap_bool VALUE abap_false.
     DATA lv_timestamp TYPE timestamp.
@@ -52,10 +52,10 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
     DATA lv_model_key TYPE /aws1/s3_objectkey.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
-    "Define job name
+    "Define job name.
     CONSTANTS cv_training_job_name TYPE /aws1/sgmtrainingjobname VALUE 'code-example-trn-job-'.
 
-    "Define hyperparameters
+    "Define hyperparameters.
     CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
     CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
     CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
@@ -64,19 +64,19 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
     CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE	 '0.1'.
     CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
-    "Define training data
+    "Define training data.
     CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
     CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
     CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
     CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
 
-    "Define validation data
+    "Define validation data.
     CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
     CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
     CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
     CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
 
-    "Define training parameters
+    "Define training parameters.
     "SGM public training image ref to https://docs.aws.amazon.com/sagemaker/latest/dg/ecr-us-east-1.html#xgboost-us-east-1.title
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
     CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
@@ -85,22 +85,22 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
     CONSTANTS cv_max_runtime_in_seconds TYPE /aws1/sgmmaxruntimeinseconds VALUE '1800'.
 
-    "Define model parameters
+    "Define model parameters.
     CONSTANTS cv_model_name TYPE /aws1/sgmmodelname VALUE 'code-example-sgm-model-'.
 
-    "Define endpoint parameters
+    "Define endpoint parameters.
     CONSTANTS cv_endpoint_name TYPE /aws1/sgmendpointname VALUE 'code-example-endpoint-'.
     CONSTANTS cv_endpoint_config_name TYPE /aws1/sgmendpointconfigname VALUE 'code-example-endpoint-cfg-'.
     CONSTANTS cv_endpoint_variant_name TYPE /aws1/sgmvariantname VALUE  'code-example-endpoint-variant-'.
     CONSTANTS cv_ep_instance_type TYPE  /aws1/sgminstancetype VALUE 'ml.m4.xlarge'.
     CONSTANTS cv_ep_initial_instance_count  TYPE  /aws1/sgminitialtaskcount VALUE  '1'.
 
-    "Create training data in S3
+    "Create training data in Amazon Simple Storage Service (Amazon S3).
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-sgm-'.
     CONSTANTS cv_train_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/train/train.libsvm'.
     CONSTANTS cv_val_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/validation/validation.libsvm'.
 
-    "Define role arn
+    "Define role Amazon Resource Name (ARN).
     DATA(lt_roles) = ao_session->get_configuration( )->get_logical_iam_roles( ).
     READ TABLE lt_roles WITH KEY profile_id = cv_pfl INTO DATA(lo_role).
     av_lrole = lo_role-iam_role_arn.
@@ -297,7 +297,7 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
        ).
     lv_found = abap_false.
 
-    "The model should be deleted
+    "The model should be deleted.
     LOOP AT lo_model_list_result->get_models( ) INTO DATA(lo_models).
       IF lo_models->get_modelname( ) = lv_model_name.
         lv_found = abap_true.

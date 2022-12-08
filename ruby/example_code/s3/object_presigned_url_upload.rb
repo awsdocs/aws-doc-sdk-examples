@@ -16,7 +16,7 @@ require "net/http"
 # @return [URI, nil] The parsed URI if successful; otherwise nil.
 def get_presigned_url(bucket, object_key)
   url = bucket.object(object_key).presigned_url(:put)
-  puts "Created presigned URL: #{url}."
+  puts "Created presigned URL: #{url}"
   URI(url)
 rescue Aws::Errors::ServiceError => e
   puts "Couldn't create presigned URL for #{bucket.name}:#{object_key}. Here's why: #{e.message}"
