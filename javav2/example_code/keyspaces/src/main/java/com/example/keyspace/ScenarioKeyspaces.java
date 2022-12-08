@@ -71,7 +71,7 @@ import java.util.List;
  *
  * This file is a secure file format used to hold certificate information for
  * Java applications. This is required to make a connection to Amazon Keyspaces.
- * For more information, see this documentation topic:
+ * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/keyspaces/latest/devguide/using_java_driver.html
  *
@@ -87,11 +87,11 @@ import java.util.List;
  * 8. Get all records from the Movie table.
  * 9. Get a specific Movie.
  * 10. Get a UTC timestamp for the current time.
- * 11. Update the table schema to add a ‘watched’ boolean column.
+ * 11. Update the table schema to add a ‘watched’ Boolean column.
  * 12. Update an item as watched.
  * 13. Query for items with watched = True.
  * 14. Restore the table back to the previous state using the timestamp.
- * 15. Check for completion of the restore action
+ * 15. Check for completion of the restore action.
  * 16. Delete the table.
  * 17. Confirm that both tables are deleted.
  * 18. Delete the keyspace.
@@ -102,7 +102,7 @@ public class ScenarioKeyspaces {
 
     /*
     Usage:
-      fileName - The name of the JSON file that contains movie data (you can get this file in the Github repo at resources/sample_file).
+      fileName - The name of the JSON file that contains movie data. (Get this file from the GitHub repo at resources/sample_file.)
       keyspaceName - The name of the keyspace to create.
    */
     public static void main(String[]args) throws InterruptedException, IOException {
@@ -182,13 +182,13 @@ public class ScenarioKeyspaces {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("11. Update the table schema to add a watched boolean column.");
+        System.out.println("11. Update the table schema to add a watched Boolean column.");
         updateTable(keyClient, keyspaceName, tableName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("12. Update an item as watched.");
-        Thread.sleep(10000); // wait 10 secs for the update.
+        Thread.sleep(10000); // Wait 10 secs for the update.
         updateRecord(session, keyspaceName, titleUpdate, yearUpdate);
         System.out.println(DASHES);
 
@@ -199,12 +199,12 @@ public class ScenarioKeyspaces {
 
         System.out.println(DASHES);
         System.out.println("14. Restore the table back to the previous state using the timestamp.");
-        System.out.println("Note that the restore operation can take up to 20 minutes");
+        System.out.println("Note that the restore operation can take up to 20 minutes.");
         restoreTable(keyClient, keyspaceName, utc);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("15. Check for completion of the restore action");
+        System.out.println("15. Check for completion of the restore action.");
         Thread.sleep(5000);
         checkRestoredTable(keyClient, keyspaceName, "MovieRestore");
         System.out.println(DASHES);
@@ -227,7 +227,7 @@ public class ScenarioKeyspaces {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("The Scenario has completed successfully.");
+        System.out.println("The scenario has completed successfully.");
         System.out.println(DASHES);
     }
 
@@ -426,7 +426,7 @@ public class ScenarioKeyspaces {
             String title = currentNode.path("title").asText();
             String plot = currentNode.path("info").path("plot").toString();
 
-            // Insert the data into the AWS Keyspace table.
+            // Insert the data into the Amazon Keyspaces table.
             BatchStatementBuilder builder = BatchStatement.builder(DefaultBatchType.UNLOGGED);
             builder.setConsistencyLevel(ConsistencyLevel.LOCAL_QUORUM);
             PreparedStatement preparedStatement = session.prepare(sqlStatement);

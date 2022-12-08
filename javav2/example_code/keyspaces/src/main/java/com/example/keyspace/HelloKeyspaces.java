@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[HelloKeyspaces.java demonstrates how to display all current Keyspace names and ARNs.]
+// snippet-sourcedescription:[HelloKeyspaces.java demonstrates how to display all current keyspace names and Amazon Resource Names (ARNs).]
 ///snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon Keyspaces]
 
