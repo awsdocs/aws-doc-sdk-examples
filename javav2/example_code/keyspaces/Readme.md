@@ -48,7 +48,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
- This Java example requires a secure file format used to hold certificate information for Java applications. This is required to make a connection to Amazon Keyspaces.
+ These examples requires a **cassandra_truststore.jks** file to make a connection to Amazon Keyspaces.
  For more information, see [Using a Cassandra Java client driver to access Amazon Keyspaces programmatically](https://docs.aws.amazon.com/keyspaces/latest/devguide/using_java_driver.html). 
 
 **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
