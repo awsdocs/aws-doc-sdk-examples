@@ -578,8 +578,7 @@ public class ScenarioKeyspaces {
             ListKeyspacesIterable listRes = keyClient.listKeyspacesPaginator(keyspacesRequest);
             listRes.stream()
                 .flatMap(r -> r.keyspaces().stream())
-                .forEach(content -> System.out.println(" Name: " + content.keyspaceName() +
-                    " ARN: " + content.keyspaceName()));
+                .forEach(content -> System.out.println(" Name: " + content.keyspaceName()));
 
         } catch (KeyspacesException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
