@@ -16,7 +16,7 @@ cloudfront_ListDistributions:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.ListDistributions
   services:
-    cloudfront: { ListDistributions }
+    cloudfront: {ListDistributions}
 cloudfront_GetDistributionConfig:
   title: Get &CF; distribution configuration using an &AWS; SDK
   title_abbrev: Get distribution configuration
@@ -34,7 +34,7 @@ cloudfront_GetDistributionConfig:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.UpdateDistribution
   services:
-    cloudfront: { GetDistributionConfig }
+    cloudfront: {GetDistributionConfig}
 cloudfront_CreateFunction:
   title: Create a &CF; function using an &AWS; SDK
   title_abbrev: Create a function
@@ -51,7 +51,7 @@ cloudfront_CreateFunction:
               snippet_tags:
                 - cloudfront.java2.function.main
   services:
-    cloudfront: { CreateFunction }
+    cloudfront: {CreateFunction}
 cloudfront_UpdateDistribution:
   title: Update a &CF; distribution using an &AWS; SDK
   title_abbrev: Update a distribution
@@ -78,7 +78,7 @@ cloudfront_UpdateDistribution:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.UpdateDistribution
   services:
-    cloudfront: { UpdateDistribution }
+    cloudfront: {UpdateDistribution}
 cloudfront_CreateDistribution:
   title: Create a &CF; distribution using an &AWS; SDK
   title_abbrev: Create a distribution
@@ -91,7 +91,7 @@ cloudfront_CreateDistribution:
           github: javav2/example_code/cloudfront
           sdkguide:
           excerpts:
-            - description: > 
+            - description: >
                 The following example uses an Amazon S3 bucket as a content origin. 
                 <para>After creating the distribution, 
                 the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink> 
@@ -100,7 +100,7 @@ cloudfront_CreateDistribution:
                 - cloudfront.java2.createdistribution.import
                 - cloudfront.java2.createdistribution.main
   services:
-    cloudfront: { CreateDistribution }
+    cloudfront: {CreateDistribution}
 cloudfront_CreateKeyGroup:
   title: Create key group for CloudFront using &AWS; SDK
   title_abbrev: Create a key group
@@ -118,7 +118,7 @@ cloudfront_CreateKeyGroup:
                 - cloudfront.java2.createkeygroup.import
                 - cloudfront.java2.createkeygroup.main
   services:
-    cloudfront: { CreateKeyGroup }
+    cloudfront: {CreateKeyGroup}
 cloudfront_CreatePublicKey:
   title: Upload a public key to CloudFront using &AWS; SDK
   title_abbrev: Upload a public key
@@ -136,7 +136,7 @@ cloudfront_CreatePublicKey:
                 - cloudfront.java2.createpublickey.import
                 - cloudfront.java2.createpublickey.main
   services:
-    cloudfront: { CreatePublicKey }
+    cloudfront: {CreatePublicKey}
 cloudfront_DeleteDistribution:
   title: Delete a CloudFront distribution using &AWS; SDK
   title_abbrev: Delete a distribution
@@ -154,7 +154,7 @@ cloudfront_DeleteDistribution:
                 - cloudfront.java2.deletedistribution.import
                 - cloudfront.java2.deletedistribution.main
   services:
-    cloudfront: { DeleteDistribution, UpdateDistribution }
+    cloudfront: {DeleteDistribution, UpdateDistribution}
 cloudfront_DeleteSigningResources:
   title: Delete CloudFront signing resources using &AWS; SDK
   title_abbrev: Delete signing resources
@@ -172,7 +172,7 @@ cloudfront_DeleteSigningResources:
                 - cloudfront.java2.deletedistributionresources.import
                 - cloudfront.java2.deletedistributionresources.main
   services:
-    cloudfront: { DeleteKeyGroup, DeletePublicKey, DeleteOriginAccessControl }
+    cloudfront: {DeleteKeyGroup, DeletePublicKey, DeleteOriginAccessControl}
 cloudfront_CloudFrontUtilities:
   title: Create signed URLs and cookies using an &AWS; SDK
   title_abbrev: Sign URLs and cookies
@@ -204,4 +204,4 @@ cloudfront_CloudFrontUtilities:
                 - cloudfront.java2.signingutilities.import
                 - cloudfront.java2.signingutilities.main
   services:
-    cloudfront: { CloudFrontUtilities }
+    cloudfront: {CloudFrontUtilities}
