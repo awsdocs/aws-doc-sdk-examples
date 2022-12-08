@@ -5,6 +5,15 @@ route-53_Hello:
   synopsis: get started using &R53DRlong;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.hello.main
     Java:
       versions:
         - sdk_version: 2
@@ -31,6 +40,15 @@ route-53_CheckDomainAvailability:
   synopsis: check the availability of a domain.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.checkdomainavailability.main
     Java:
       versions:
         - sdk_version: 2
@@ -57,6 +75,15 @@ route-53_CheckDomainTransferability:
   synopsis: check the transferability of a domain.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.checkdomaintransfer.main
     Java:
       versions:
         - sdk_version: 2
@@ -83,6 +110,15 @@ route-53_GetDomainDetails:
   synopsis: get the details for a domain.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domaindetails.main
     Java:
       versions:
         - sdk_version: 2
@@ -109,6 +145,15 @@ route-53_GetDomainSuggestions:
   synopsis: get domain name suggestions.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainsuggestions.main
     Java:
       versions:
         - sdk_version: 2
@@ -135,6 +180,15 @@ route-53_GetOperationDetails:
   synopsis: get details on an operation.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainoperations.main
     Java:
       versions:
         - sdk_version: 2
@@ -161,6 +215,15 @@ route-53_ListPrices:
   synopsis: list domain prices.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainprices.main
     Java:
       versions:
         - sdk_version: 2
@@ -187,6 +250,15 @@ route-53_ListDomains:
   synopsis: list the registered domains.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainlist.main
     Java:
       versions:
         - sdk_version: 2
@@ -213,6 +285,15 @@ route-53_ListOperations:
   synopsis: list operations.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainlistops.main
     Java:
       versions:
         - sdk_version: 2
@@ -239,6 +320,15 @@ route-53_RegisterDomain:
   synopsis: register a domain.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainreg.main
     Java:
       versions:
         - sdk_version: 2
@@ -265,6 +355,15 @@ route-53_ViewBilling:
   synopsis: view billing records.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainbillingrecords.main
     Java:
       versions:
         - sdk_version: 2
@@ -301,6 +400,15 @@ route-53_Scenario_GetStartedRoute53Domains:
     - Optionally, get a domain detail.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2

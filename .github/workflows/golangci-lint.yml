@@ -31,6 +31,8 @@ jobs:
           golangci-lint run
           cd ../dynamodb
           golangci-lint run
+          cd ../iam
+          golangci-lint run
           cd ../s3
           golangci-lint run
           cd ../testtools
