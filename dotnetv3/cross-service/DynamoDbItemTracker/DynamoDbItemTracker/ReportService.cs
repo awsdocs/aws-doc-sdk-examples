@@ -30,7 +30,7 @@ public class ReportService
 
     /// <summary>
     /// Send the report to an email address.
-    /// Both the sender and recipient must be validated email addresses if this account uses the SES Sandbox.
+    /// Both the sender and recipient must be validated email addresses if this account uses the Amazon SES Sandbox.
     /// </summary>
     /// <param name="workItems">The collection of work items for the report.</param>
     /// <param name="emailAddress">The recipient's email address.</param>

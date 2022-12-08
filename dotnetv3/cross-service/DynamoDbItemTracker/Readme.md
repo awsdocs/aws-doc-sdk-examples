@@ -36,11 +36,11 @@ To email reports from the app, you must register at least one email address with
 
 1. In a browser, navigate to the Amazon SES console.
 1. If necessary, select your AWS Region.
-1. Select Verified identities.
-1. Select Create identity.
-1. Select Email address.
+1. Choose **Verified identities**.
+1. Choose **Create identity**.
+1. Select **Email address**.
 1. Enter an email address that you own.
-1. Select Create identity.
+1. Choose **Create identity**.
 1. You will receive an email from Amazon Web Services that contains instructions on how to verify the email with Amazon SES. Follow the instructions in the email to complete verification.
 
 Tip: For this example, you can use the same email account for both the sender and the recipient.

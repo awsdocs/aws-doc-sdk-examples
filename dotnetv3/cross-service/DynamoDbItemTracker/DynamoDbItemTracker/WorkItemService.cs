@@ -7,16 +7,16 @@ using Amazon.DynamoDBv2.DocumentModel;
 namespace DynamoDbItemTracker;
 
 /// <summary>
-/// Class for working with WorkItems using the Amazon DynamoDb context.
+/// Class for working with WorkItems using the Amazon DynamoDB context.
 /// </summary>
 public class WorkItemService
 {
     private readonly IDynamoDBContext _amazonDynamoDbContext;
 
     /// <summary>
-    /// Constructor that uses the injected Amazon DynamoDb context.
+    /// Constructor that uses the injected Amazon DynamoDB context.
     /// </summary>
-    /// <param name="amazonDynamoDbContext">Amazon DynamoDb context.</param>
+    /// <param name="amazonDynamoDbContext">Amazon DynamoDB context.</param>
     public WorkItemService(IDynamoDBContext amazonDynamoDbContext)
     {
         _amazonDynamoDbContext = amazonDynamoDbContext;

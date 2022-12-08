@@ -170,7 +170,7 @@ public class WorkItemServiceTests
     }
 
     /// <summary>
-    /// Validate creating an item executes the save and load methods and sets an Id.
+    /// Validate that creating an item executes the save and load methods and sets an Id.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
